@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>bootstrap-table demo</title>
+    <meta name="author" content="zhixin" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/fork.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h3>Table Properties:</h3>
+      <table id="table"></table>
+      <h3>Column Properties:</h3>
+      <table id="column"></table>
+      <h3>Methods:</h3>
+      <table id="method"></table>
+    </div>
+    <a href="https://github.com/wenzhixin/bootstrap-table" class="fork_me"></a>
+    
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="bootstrap-table.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $('#table').bootstrapTable({
+          columns: [
+            {field: 'name', title: 'Name', align: 'center', width: 60},
+            {field: 'type', title: 'Type', align: 'center', width: 60},
+            {field: 'description', title: 'Description', width: 400},
+            {field: 'default', title: 'Default', align: 'right', width: 180}
+          ],
+          data: [
+            {name: 'class', type: 'String', description: 'The table class', default: 'table table-striped table-bordered'},
+            {name: 'columns', type: 'Array', description: 'The table columns config object, see column properties for more details.', default: '[]'},
+            {name: 'data', type: 'Array', description: 'The data to be loaded.', default: '[]'}
+          ]
+        });
+        $('#column').bootstrapTable({
+          columns: [
+            {field: 'name', title: 'Name', align: 'center', width: 60},
+            {field: 'type', title: 'Type', align: 'center', width: 60},
+            {field: 'description', title: 'Description', width: 400},
+            {field: 'default', title: 'Default', align: 'right', width: 180}
+          ],
+          data: [
+            {name: 'field', type: 'String', description: 'The column field name.', default: 'undefined'},
+            {name: 'title', type: 'String', description: 'The column title text.', default: 'undefined'},
+            {name: 'align', type: 'String', description: 'Indicate how to align the column data. "left", "right", "center" can be used.', default: 'undefined'},
+            {name: 'width', type: 'Number', description: 'The width of column. If not defined, the width will auto expand to fit its contents.', default: 'undefined'},
+            {name: 'formatter', type: 'Function', description: 'The cell formatter function, take three parameters: <br />value: the field value. <br />rowData: the row record data.', default: 'undefined'}
+          ]
+        });
+        $('#method').bootstrapTable({
+          columns: [
+            {field: 'name', title: 'Name', align: 'center', width: 100},
+            {field: 'parameter', title: 'Parameter', align: 'center', width: 100},
+            {field: 'description', title: 'Description', width: 400}
+          ],
+          data: [
+            {name: 'load', parameter: 'data', description: 'Load the data to table.'},
+            {name: 'append', parameter: 'data', description: 'Append the data to table.'}
+          ]
+        });
+      });
+    </script>
+    <script type="text/javascript" src="/js/analytics.js"></script>
+  </body>
+</html>
