@@ -18,7 +18,7 @@
 		constructor: Table,
 		
 		init: function() {
-			this.$el.addClass(this.options.class);
+			this.$el.addClass(this.options.className);
 			this.$header = $('<thead></thead>');
 			this.$el.append(this.$header);
 			this.$body = $('<tbody></tbody>');
@@ -119,7 +119,7 @@
 	};
 	
 	$.fn.bootstrapTable.defaults = {
-		class: 'table table-bordered table-hover',
+		className: 'table table-bordered table-hover',
 		columns: [],
 		data: [],
 		onClickRow: function() {return false;}

@@ -33,9 +33,9 @@
             {field: 'default', title: 'Default', align: 'right', width: 180}
           ],
           data: [
-            {name: 'class', type: 'String', description: 'The table class', default: 'table table-bordered table-hover'},
-            {name: 'columns', type: 'Array', description: 'The table columns config object, see column properties for more details.', default: '[]'},
-            {name: 'data', type: 'Array', description: 'The data to be loaded.', default: '[]'}
+            {name: 'className', type: 'String', description: 'The table class name', 'default': 'table table-bordered table-hover'},
+            {name: 'columns', type: 'Array', description: 'The table columns config object, see column properties for more details.', 'default': '[]'},
+            {name: 'data', type: 'Array', description: 'The data to be loaded.', 'default': '[]'}
           ]
         });
         $('#column').bootstrapTable({
@@ -46,11 +46,11 @@
             {field: 'default', title: 'Default', align: 'right', width: 180}
           ],
           data: [
-            {name: 'field', type: 'String', description: 'The column field name.', default: 'undefined'},
-            {name: 'title', type: 'String', description: 'The column title text.', default: 'undefined'},
-            {name: 'align', type: 'String', description: 'Indicate how to align the column data. "left", "right", "center" can be used.', default: 'undefined'},
-            {name: 'width', type: 'Number', description: 'The width of column. If not defined, the width will auto expand to fit its contents.', default: 'undefined'},
-            {name: 'formatter', type: 'Function', description: 'The cell formatter function, take two parameters: <br />value: the field value. <br />row: the row record data.', default: 'undefined'}
+            {name: 'field', type: 'String', description: 'The column field name.', 'default': 'undefined'},
+            {name: 'title', type: 'String', description: 'The column title text.', 'default': 'undefined'},
+            {name: 'align', type: 'String', description: 'Indicate how to align the column data. "left", "right", "center" can be used.', 'default': 'undefined'},
+            {name: 'width', type: 'Number', description: 'The width of column. If not defined, the width will auto expand to fit its contents.', 'default': 'undefined'},
+            {name: 'formatter', type: 'Function', description: 'The cell formatter function, take two parameters: <br />value: the field value. <br />row: the row record data.', 'default': 'undefined'}
           ]
         });
         $('#event').bootstrapTable({
