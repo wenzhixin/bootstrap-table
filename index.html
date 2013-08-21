@@ -14,6 +14,8 @@
       <table id="table"></table>
       <h3>Column Properties:</h3>
       <table id="column"></table>
+      <h3>Events:</h3>
+      <table id="event"></table>
       <h3>Methods:</h3>
       <table id="method"></table>
     </div>
@@ -31,7 +33,7 @@
             {field: 'default', title: 'Default', align: 'right', width: 180}
           ],
           data: [
-            {name: 'class', type: 'String', description: 'The table class', default: 'table table-striped table-bordered'},
+            {name: 'class', type: 'String', description: 'The table class', default: 'table table-bordered table-hover'},
             {name: 'columns', type: 'Array', description: 'The table columns config object, see column properties for more details.', default: '[]'},
             {name: 'data', type: 'Array', description: 'The data to be loaded.', default: '[]'}
           ]
@@ -48,7 +50,17 @@
             {name: 'title', type: 'String', description: 'The column title text.', default: 'undefined'},
             {name: 'align', type: 'String', description: 'Indicate how to align the column data. "left", "right", "center" can be used.', default: 'undefined'},
             {name: 'width', type: 'Number', description: 'The width of column. If not defined, the width will auto expand to fit its contents.', default: 'undefined'},
-            {name: 'formatter', type: 'Function', description: 'The cell formatter function, take two parameters: <br />value: the field value. <br />rowData: the row record data.', default: 'undefined'}
+            {name: 'formatter', type: 'Function', description: 'The cell formatter function, take two parameters: <br />value: the field value. <br />row: the row record data.', default: 'undefined'}
+          ]
+        });
+        $('#event').bootstrapTable({
+          columns: [
+            {field: 'name', title: 'Name', align: 'center', width: 100},
+            {field: 'parameter', title: 'Parameter', align: 'center', width: 100},
+            {field: 'description', title: 'Description', width: 400}
+          ],
+          data: [
+            {name: 'onClickRow', parameter: 'row', description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row'}
           ]
         });
         $('#method').bootstrapTable({

@@ -23,6 +23,7 @@
 			this.$el.append(this.$header);
 			this.$body = $('<tbody></tbody>');
 			this.$el.append(this.$body);
+			this.data = [];
 			
 			this.initHeader();
 			this.initBody();
@@ -67,6 +68,15 @@
 				html.push('</tr>');
 			});
 			this.$body[append ? 'append' : 'html'](html.join(''));
+			
+			if (append) {
+				this.data = this.data.concat(data);
+			} else {
+				this.data = data || this.options.data;
+			}
+			this.$body.find('tr').click(function() {
+				that.options.onClickRow(that.data[$(this).index()]);
+			});
 		},
 		
 		load: function(data) {
@@ -109,8 +119,9 @@
 	};
 	
 	$.fn.bootstrapTable.defaults = {
-		class: 'table table-striped table-bordered',
+		class: 'table table-bordered table-hover',
 		columns: [],
-		data: []
+		data: [],
+		onClickRow: function() {return false;}
 	};
 })(jQuery);
