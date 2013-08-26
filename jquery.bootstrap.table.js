@@ -152,6 +152,28 @@
 		append: function(data) {
 			this.initData(data, true);
 			this.initBody();
+		},
+		
+		mergeCells: function(options) {
+			var row = options.index,
+				col = $.inArray(options.field, this.header.fields),
+				rowspan = options.rowspan || 1,
+				colspan = options.colspan || 1,
+				i, j,
+				$tr = this.$body.find('tr'),
+				$td = $tr.eq(row).find('td').eq(col);
+				
+			if (row < 0 || col < 0 || row >= this.data.length) {
+				return;
+			}
+			
+			for (i = row; i < row + rowspan; i++) {
+				for (j = col; j < col + colspan; j++) {
+					$tr.eq(i).find('td').eq(j).hide();
+				}
+			}
+				
+			$td.attr('rowspan', rowspan).attr('colspan', colspan).show();
 		}
 	};
 
@@ -160,7 +182,7 @@
 			args = arguments,
 			
 			value, 
-			allowedMethods = ['load', 'append'];
+			allowedMethods = ['load', 'append', 'mergeCells'];
 
 		this.each(function() {
 			var $this = $(this), 

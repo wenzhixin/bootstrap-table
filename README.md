@@ -4,11 +4,15 @@ Simple table for bootstrap. [Examples and documentation](http://wenzhixin.net.cn
 
 ### How to use:
 
-	$('#table').bootstrapTable({
+	$('#table').bootstrapTable({,
+		sortName: 'code',
+		sortOrder: 'desc',
 		columns: [
-			{field: 'code', title: 'Code', align: 'left', width: 200},
+			{field: 'code', title: 'Code', align: 'left', width: 200, sortable: true, sorter: function(a, b) {
+				return a < b;
+			}},
 			{field: 'name', title: 'Name', align: 'center', width: 100},
-			{field: 'price', title: 'Price', align: 'right', width: 200, formatter: function(value, row) {
+			{field: 'price', title: 'Price', align: 'right', valign: 'middle', width: 200, formatter: function(value, row) {
 				return 'the price is: ' + value;
 			}}
 		],
@@ -30,4 +34,11 @@ Simple table for bootstrap. [Examples and documentation](http://wenzhixin.net.cn
 		{code: '222', name: 'hello 222', price: '$222'},
 		{code: '321', name: 'hello 321', price: '$321'}
 	]);
+	
+	$('#table').bootstrapTable('mergeCells', {
+		index: 1,
+		field: 'code',
+		rowspan: 2,
+		colspan: 2
+	});
 	
