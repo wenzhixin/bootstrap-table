@@ -44,6 +44,8 @@
 				var style = column.align ? 'text-align: ' + column.align + '; ': '',
 					order = that.options.sortOrder || column.order || 'asc';
 				
+				style += column.valign ? 'vertical-align: ' + column.valign + '; ' : '';
+				
 				that.header.fields.push(column.field);
 				that.header.styles.push(style);
 				that.header.formatters.push(column.formatter);

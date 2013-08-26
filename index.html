@@ -44,15 +44,16 @@
           sortName: 'name',
           sortOrder: 'asc',
           columns: [
-            {field: 'name', title: 'Name', align: 'center', width: 60, sortable: true},
-            {field: 'type', title: 'Type', align: 'center', width: 60},
+            {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 60, sortable: true},
+            {field: 'type', title: 'Type', align: 'center', valign: 'middle', width: 60},
             {field: 'description', title: 'Description', width: 400},
-            {field: 'default', title: 'Default', align: 'right', width: 180}
+            {field: 'default', title: 'Default', align: 'right', valign: 'middle', width: 180}
           ],
           data: [
             {name: 'field', type: 'String', description: 'The column field name.', 'default': 'undefined'},
             {name: 'title', type: 'String', description: 'The column title text.', 'default': 'undefined'},
             {name: 'align', type: 'String', description: 'Indicate how to align the column data. "left", "right", "center" can be used.', 'default': 'undefined'},
+            {name: 'valign', type: 'String', description: 'Indicate how to align the cell data. "top", "middle", "bottom" can be used.', 'default': 'undefined'},
             {name: 'width', type: 'Number', description: 'The width of column. If not defined, the width will auto expand to fit its contents.', 'default': 'undefined'},
             {name: 'sortable', type: 'Boolean', description: 'True to allow the column can be sorted.', 'default': 'false'},
             {name: 'order', type: 'String', description: 'The default sort order, can only be "asc" or "desc".', 'default': 'asc'},
@@ -62,8 +63,8 @@
         });
         $('#event').bootstrapTable({
           columns: [
-            {field: 'name', title: 'Name', align: 'center', width: 100, sortable: true},
-            {field: 'parameter', title: 'Parameter', align: 'center', width: 100, sortable: true},
+            {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 100, sortable: true},
+            {field: 'parameter', title: 'Parameter', align: 'center', valign: 'middle', width: 100, sortable: true},
             {field: 'description', title: 'Description', width: 400, sortable: true}
           ],
           data: [
