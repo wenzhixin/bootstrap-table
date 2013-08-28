@@ -2,37 +2,77 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>bootstrap-table demo</title>
+    <title>Bootstrap Table</title>
     <meta name="author" content="zhixin" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/bootstrap.css" />
-    <link rel="stylesheet" href="/css/fork.css" />
+    <link rel="stylesheet" href="//wenzhixin.net.cn/css/bootstrap.css" />
+    <link rel="stylesheet" href="//wenzhixin.net.cn/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="//wenzhixin.net.cn/css/docs.css" />
+    <link rel="stylesheet" href="//wenzhixin.net.cn/css/fork.css" />
     <link rel="stylesheet" href="bootstrap-table.css" />
+    <!--[if lt IE 9]>
+      <script src="//wenzhixin.net.cn/js/html5shiv.js"></script>
+      <script src="//wenzhixin.net.cn/js/respond.min.js"></script>
+    <![endif]-->
     <style>
       body {
-        margin-bottom: 50px;
+        padding-bottom: 60px;
       }
       #example {
         height: 200px;
       }
     </style>
   </head>
-  <body>
-    <div class="container">
-      <h3>Table Properties:</h3>
-      <table id="table"></table>
-      <h3>Column Properties:</h3>
-      <table id="column"></table>
-      <h3>Events:</h3>
-      <table id="event"></table>
-      <h3>Methods:</h3>
-      <table id="method"></table>
-      <h3>Examples:</h3>
-      <table id="example"></table>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">
+            Bootstrap Table
+          </a>
+        </div>
+      </div>
     </div>
+    <div class="container">
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix" data-spy="affix">
+              <li><a href="#properties"><i class="icon-chevron-right"></i> Table Properties</a></li>
+              <li><a href="#columns"><i class="icon-chevron-right"></i> Column Properties</a></li>
+              <li><a href="#events"><i class="icon-chevron-right"></i> Events</a></li>
+              <li><a href="#methods"><i class="icon-chevron-right"></i> Methods</a></li>
+              <li><a href="#examples"><i class="icon-chevron-right"></i> Examples</a></li>
+            </ul>
+        </div>
+        <div class="span9">
+          <section id="properties">
+            <h3>Table Properties:</h3>
+            <table id="table"></table>
+          </section>
+          <section id="columns">
+            <h3>Column Properties:</h3>
+            <table id="column"></table>
+          </section>
+          <section id="events">
+            <h3>Events:</h3>
+            <table id="event"></table>
+          </section>
+          <section id="methods">
+            <h3>Methods:</h3>
+            <table id="method"></table>
+          </section>
+          <section id="examples">
+            <h3>Examples:</h3>
+            <table id="example"></table>
+          </section>
+        </div>
+      </div>
+    </div>
+    
     <a href="https://github.com/wenzhixin/bootstrap-table" class="fork_me"></a>
     
-    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="//wenzhixin.net.cn/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="//wenzhixin.net.cn/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="jquery.bootstrap.table.js"></script>
     <script type="text/javascript">
       $(function() {
@@ -131,6 +171,6 @@
         });
       });
     </script>
-    <script type="text/javascript" src="/js/analytics.js"></script>
+    <script type="text/javascript" src="//wenzhixin.net.cn/js/analytics.js"></script>
   </body>
 </html>
