@@ -15,7 +15,7 @@
 }
 
 .fixed-table-header {
-	height: 37px;
+	height: 38px;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -67,4 +67,11 @@
 
 .fixed-table-body tbody td:first-child {
 	border-left: none;
+}
+
+/* support bootstrap 3 */
+.table thead>tr>th {
+	padding: 0;
+	margin: 0;
+	border: none;
 }
