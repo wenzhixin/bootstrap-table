@@ -7,6 +7,15 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0" />
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <link rel="stylesheet" href="/css/fork.css" />
+    <link rel="stylesheet" href="bootstrap-table.css" />
+    <style>
+      body {
+        margin-bottom: 50px;
+      }
+      #example {
+        height: 200px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -18,6 +27,8 @@
       <table id="event"></table>
       <h3>Methods:</h3>
       <table id="method"></table>
+      <h3>Examples:</h3>
+      <table id="example"></table>
     </div>
     <a href="https://github.com/wenzhixin/bootstrap-table" class="fork_me"></a>
     
@@ -35,7 +46,6 @@
           data: [
             {name: 'sortName', type: 'String', description: 'Defines which column can be sorted.', 'default': 'undefined'},
             {name: 'sortOrder', type: 'String', description: 'Defines the column sort order, can only be "asc" or "desc".', 'default': 'asc'},
-            {name: 'className', type: 'String', description: 'The table class name', 'default': 'table table-bordered table-hover'},
             {name: 'columns', type: 'Array', description: 'The table columns config object, see column properties for more details.', 'default': '[]'},
             {name: 'data', type: 'Array', description: 'The data to be loaded.', 'default': '[]'}
           ]
@@ -101,6 +111,23 @@
           index: 2, 
           field: 'parameter',
           rowspan: 5
+        });
+        
+        var data = [];
+        for (var i = 100; i < 1000; i++) {
+          data.push({code: '' + i, name: 'hello ' + i, price: '$' + i});
+        }
+        $('#example').bootstrapTable({
+          sortName: 'code',
+          sortOrder: 'asc',
+          columns: [
+            {field: 'code', title: 'Code', align: 'left', width: 200, sortable: true},
+            {field: 'name', title: 'Name', align: 'center', width: 100},
+            {field: 'price', title: 'Price', align: 'right', valign: 'middle', width: 200, formatter: function(value, row) {
+              return 'the price is: ' + value;
+            }}
+          ],
+          data: data
         });
       });
     </script>

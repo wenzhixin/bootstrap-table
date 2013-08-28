@@ -4,7 +4,9 @@ Simple table for bootstrap. [Examples and documentation](http://wenzhixin.net.cn
 
 ### How to use:
 
-	$('#table').bootstrapTable({,
+	<table id="table"></table>
+
+	$('#table').bootstrapTable({
 		sortName: 'code',
 		sortOrder: 'desc',
 		columns: [

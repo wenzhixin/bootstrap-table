@@ -1,0 +1,70 @@
+.table {
+	margin-bottom: 0;
+	border-bottom: 1px solid #dddddd;
+	border-collapse: separate;
+	*border-collapse: collapse;
+}
+
+.fixed-table-container {
+	position: relative;
+	padding-top: 38px;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+.fixed-table-header {
+	height: 37px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	border-bottom: 1px solid #dddddd;
+	border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+}
+
+.fixed-table-body {
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 100%;
+}
+
+.fixed-table-body table {
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.fixed-table-body thead th {
+	height: 0;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+.fixed-table-body thead th .th-inner {
+	position: absolute;
+	top: 0;
+	padding: 8px;
+	line-height: 22px;
+	vertical-align: top;
+	border-left: 1px solid #dddddd;
+}
+
+.fixed-table-body thead th:first-child .th-inner {
+	border-left: none;
+	border-top-left-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius-topleft: 4px;
+}
+
+.fixed-table-body tbody td {
+	border-left: 1px solid #dddddd;
+}
+
+.fixed-table-body tbody td:first-child {
+	border-left: none;
+}

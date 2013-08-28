@@ -9,20 +9,35 @@
 			
 	'use strict';
 
-	function Table($el, options) {
+	function Table($el) {
 		this.$el = $el;
-		this.options = options;
 	}
 
 	Table.prototype = {
 		constructor: Table,
 		
-		init: function() {
-			this.$el.addClass(this.options.className);
+		init: function(options, first) {
+			if (first) {
+				this.$div = $([
+					'<div class="fixed-table-container">',
+						'<div class="fixed-table-header"></div>',
+						'<div class="fixed-table-body"></div>',
+					'</div>'].join(''));
+				this.$div.insertAfter(this.$el);
+				this.$div.find('.fixed-table-body').append(this.$el);
+				if (this.$el.height()) {
+					this.$div.css('height', this.$el.height() + 'px');
+				}
+				this.$el.addClass('table table-hover');
+			}
+			
+			this.options = options;
+			this.$el.html('');
 			this.$header = $('<thead></thead>');
 			this.$el.append(this.$header);
 			this.$body = $('<tbody></tbody>');
 			this.$el.append(this.$body);
+			
 			this.data = [];
 			
 			this.initHeader();
@@ -58,10 +73,12 @@
 					(column.sortable ? ' data-sortable="' + column.field + '"' : '') + 
 					(order ? ' data-order="' + order + '"' : '') + 
 					' style="' + style + '">');
+				html.push('<div class="th-inner">');
 				html.push(column.title);
 				if (that.options.sortName === column.field && column.sortable) {
 					html.push(that.getCaretHtml());
 				}
+				html.push('</div>');
 				html.push('</th>');
 			});
 			html.push('</tr>');
@@ -131,14 +148,14 @@
 			this.options.sortOrder = $this.attr('data-order') === 'asc' ? 'desc' : 'asc';
 			this.options.onSort(this.options.sortName, this.options.sortOrder);
 			$this.attr('data-order', this.options.sortOrder);
-			$this.append(this.getCaretHtml());
+			$this.find('.th-inner').append(this.getCaretHtml());
 			this.initSort();
 			this.initBody();
 		},
 		
 		getCaretHtml: function() {
 			return ['<span class="order' + (this.options.sortOrder === 'desc' ? '' : ' dropup') + '">',
-					'<span class="caret" style="margin: 8px;"></span>',
+					'<span class="caret" style="margin: 10px 5px;"></span>',
 				'</span>'].join('');
 		},
 		
@@ -189,18 +206,19 @@
 				data = $this.data('bootstrapTable'), 
 				options = $.extend({}, $.fn.bootstrapTable.defaults, typeof option === 'object' && option);
 
-			if (!data) {
-				data = new Table($this, options);
-				$this.data('bootstrapTable', data);
-			}
-
 			if (typeof option === 'string') {
 				if ($.inArray(option, allowedMethods) < 0) {
 					throw "Unknown method: " + option;
 				}
 				value = data[option](args[1]);
 			} else {
-				data.init();
+				if (!data) {
+					data = new Table($this);
+					data.init(options, true);
+					$this.data('bootstrapTable', data);
+				} else {
+					data.init(options, false);
+				}
 			}
 		});
 		
@@ -208,7 +226,6 @@
 	};
 	
 	$.fn.bootstrapTable.defaults = {
-		className: 'table table-bordered table-hover',
 		columns: [],
 		data: [],
 		onClickRow: function(value, row) {return false;},
