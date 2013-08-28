@@ -18,9 +18,6 @@
       body {
         padding-bottom: 60px;
       }
-      #example {
-        height: 200px;
-      }
     </style>
   </head>
   <body data-spy="scroll" data-target=".bs-docs-sidebar">
@@ -84,6 +81,7 @@
             {field: 'default', title: 'Default', align: 'right', width: 180}
           ],
           data: [
+            {name: 'height', type: 'Number', description: 'The height of table.', 'default': 'undefined'},
             {name: 'sortName', type: 'String', description: 'Defines which column can be sorted.', 'default': 'undefined'},
             {name: 'sortOrder', type: 'String', description: 'Defines the column sort order, can only be "asc" or "desc".', 'default': 'asc'},
             {name: 'columns', type: 'Array', description: 'The table columns config object, see column properties for more details.', 'default': '[]'},
@@ -158,6 +156,7 @@
           data.push({code: '' + i, name: 'hello ' + i, price: '$' + i});
         }
         $('#example').bootstrapTable({
+          height: 200,
           sortName: 'code',
           sortOrder: 'asc',
           columns: [

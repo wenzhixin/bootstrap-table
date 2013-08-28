@@ -17,6 +17,8 @@
 		constructor: Table,
 		
 		init: function(options, first) {
+			this.options = options;
+
 			if (first) {
 				this.$div = $([
 					'<div class="fixed-table-container">',
@@ -25,13 +27,11 @@
 					'</div>'].join(''));
 				this.$div.insertAfter(this.$el);
 				this.$div.find('.fixed-table-body').append(this.$el);
-				if (this.$el.height()) {
-					this.$div.css('height', this.$el.height() + 'px');
+				if (this.options.height) {
+					this.$div.css('height', this.options.height + 'px');
 				}
 				this.$el.addClass('table table-hover');
 			}
-			
-			this.options = options;
 			this.$el.html('');
 			this.$header = $('<thead></thead>');
 			this.$el.append(this.$header);
@@ -66,7 +66,7 @@
 				that.header.formatters.push(column.formatter);
 				that.header.sorters.push(column.sorter);
 				
-				style += column.width ? 'width: ' + column.width + 'px; ': '';
+				style = column.width ? 'width: ' + column.width + 'px; ': '';
 				style += column.sortable ? 'cursor: pointer;' : '';
 				
 				html.push('<th' + 
@@ -140,6 +140,7 @@
 			this.$body.find('tr').click(function() {
 				that.options.onClickRow(that.data[$(this).index()]);
 			});
+			this.resetView();
 		},
 		
 		onSort: function($this) {
@@ -157,6 +158,14 @@
 			return ['<span class="order' + (this.options.sortOrder === 'desc' ? '' : ' dropup') + '">',
 					'<span class="caret" style="margin: 10px 5px;"></span>',
 				'</span>'].join('');
+		},
+		
+		resetView: function() {
+			var that = this;
+			this.$header.find('.th-inner').each(function(i) {
+				$(this).attr('style', that.header.styles[i])
+					.css('width', ($(this).parent().width() - 16) + 'px'); // padding: 8px
+			});
 		},
 		
 		/** public function **/
