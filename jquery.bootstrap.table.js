@@ -132,7 +132,7 @@
 					if (typeof that.header.formatters[j] === 'function') {
 						value = that.header.formatters[j](value, item);
 					}
-					html.push('<td style="' + that.header.styles[j] + '">' + value + '</td>');
+					html.push('<td style="' + that.header.styles[j] + '">' + (value || that.options.undefinedText) + '</td>');
 				});
 				html.push('</tr>');
 			});
@@ -235,6 +235,7 @@
 	};
 	
 	$.fn.bootstrapTable.defaults = {
+		undefinedText: '-',
 		columns: [],
 		data: [],
 		onClickRow: function(value, row) {return false;},
