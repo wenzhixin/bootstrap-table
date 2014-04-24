@@ -69,6 +69,11 @@
 	border-left: none;
 }
 
+.fixed-table-body .checkbox {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* support bootstrap 3 */
 .table thead>tr>th {
 	padding: 0;
