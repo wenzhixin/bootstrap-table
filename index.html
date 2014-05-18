@@ -28,9 +28,6 @@
                 <li class="active">
                     <a href="index.html">Documentation</a>
                 </li>
-                <li>
-                    <a href="examples.html">Examples</a>
-                </li>
             </ul>
         </nav>
     </div>
@@ -38,7 +35,7 @@
 <div class="bs-header" id="content">
     <div class="container">
         <h1>Bootstrap Table</h1>
-        <p>The table displays data in a tabular format and offers rich support to select, sort. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.</p>
+        <p>The table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.</p>
     </div>
 </div>
 <div class="container">
@@ -50,34 +47,196 @@
                     <li><a href="#columns">Column Properties</a></li>
                     <li><a href="#events">Events</a></li>
                     <li><a href="#methods">Methods</a></li>
+                    <li>
+                        <a href="#examples">Examples</a>
+                        <ul class="nav">
+                            <li><a href="#basic">Basic Table</a></li>
+                            <li><a href="#sort">Sort Table</a></li>
+                            <li><a href="#radio">Radio Table</a></li>
+                            <li><a href="#checkbox">Checkbox Table</a></li>
+                            <li><a href="#pagination">Pagination Table</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#acknowledgements">Acknowledgements</a></li>
                 </ul>
             </div>
         </div>
         <div class="col-md-9" role="main">
-            <section>
+            <div>
                 <div class="page-header">
                     <h1 id="properties">Table Properties:</h1>
                 </div>
                 <table id="table"></table>
-            </section>
-            <section>
+            </div>
+            <div>
                 <div class="page-header">
                     <h1 id="columns">Column Properties:</h1>
                 </div>
                 <table id="column"></table>
-            </section>
-            <section>
+            </div>
+            <div>
                 <div class="page-header">
                     <h1 id="events">Events:</h1>
                 </div>
                 <table id="event"></table>
-            </section>
-            <section>
+            </div>
+            <div>
                 <div class="page-header">
                     <h1 id="methods">Methods:</h1>
                 </div>
                 <table id="method"></table>
-            </section>
+            </div>
+            <div>
+                <div class="page-header">
+                    <h1 id="examples">Examples:</h1>
+                </div>
+
+                <h2 id="basic">Basic Table</h2>
+                <div class="bs-example">
+                    <table class="bootstrap-table" data-url="docs/data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="left">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table class="bootstrap-table" data-url="docs/data1.json" data-height="246"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+
+                <h2 id="sort">Sort Table</h2>
+                <div class="bs-example">
+                    <table class="bootstrap-table" data-url="docs/data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
+                            <th data-field="name" data-align="center" data-sortable="true">Item Name</th>
+                            <th data-field="price" data-sortable="true" data-sortable="true">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table class="bootstrap-table" data-url="docs/data1.json" data-height="246"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="id" data-align="right" data-sortable="true"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center" data-sortable="true"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-sortable="true" data-sortable="true"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+
+                <h2 id="radio">Radio Table</h2>
+                <div class="bs-example">
+                    <table class="bootstrap-table" data-url="docs/data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-radio="true"></th>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="left">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table class="bootstrap-table" data-url="docs/data1.json" data-height="246"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="state" data-radio="true"&gt;&lt;/th&gt;
+            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+
+                <h2 id="checkbox">Checkbox Table</h2>
+                <div class="bs-example">
+                    <table class="bootstrap-table" data-url="docs/data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table class="bootstrap-table" data-url="docs/data1.json" data-height="246"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="state" data-checkbox="true"&gt;&lt;/th&gt;
+            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+
+                <h2 id="pagination">Pagination Table</h2>
+                <div class="bs-example">
+                    <table class="bootstrap-table" data-url="docs/data2.json" data-height="246" data-pagination="true">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table class="bootstrap-table" data-url="docs/data1.json" data-height="246" data-pagination="true"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="state" data-checkbox="true"&gt;&lt;/th&gt;
+            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+            </div>
+            <div>
+                <div class="page-header">
+                    <h1 id="acknowledgements">Acknowledgements:</h1>
+                </div>
+                <p>© 2012-2014, Bootstrap Table is licensed under the The MIT License. Coded by wenzhixin. </p>
+                <p>My website (<a href="http://wenzhixin.net.cn">wenzhixin.net.cn</a>)</p>
+                <p>My repos (<a href="http://repos.wenzhixin.net.cn">repos.wenzhixin.net.cn</a>)</p>
+                <p>Github (<a href="https://github.com/wenzhixin">@wenzhixin</a>)</p>
+                <p>Email (wenzhixin2010@gmail.com)</p>
+            </div>
         </div>
     </div>
 </div>

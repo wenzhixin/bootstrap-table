@@ -60,7 +60,12 @@
         pageSize: 10,
         pageList: [10, 20, 30, 40, 50],
 
-        onSort: function(name, order) {return false;}
+        onClickRow: function(item) {return false;},
+        onSort: function(name, order) {return false;},
+        onCheck: function(row) {return false;},
+        onUncheck: function(row) {return false;},
+        onCheckAll: function(rows) {return false;},
+        onUncheckAll: function(rows) {return false;}
     };
 
     BootstrapTable.prototype.init = function() {
@@ -352,7 +357,7 @@
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
             var item = this.data[i];
 
-            html.push('<tr>');
+            html.push('<tr' + ' data-index="' + i + '">');
 
             $.each(that.header.fields, function(j, field) {
                 var text = '',
@@ -384,6 +389,10 @@
         }
 
         this.$body.html(html.join(''));
+
+        this.$body.find('tr').off('click').on('click', function() {
+            that.options.onClickRow(that.data[$(this).data('index')]);
+        });
 
         this.$selectItem = this.$body.find('[name="btSelectItem"]');
         this.$selectItem.off('click').on('click', function() {

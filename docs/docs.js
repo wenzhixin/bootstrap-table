@@ -192,14 +192,53 @@ $(function () {
             {field: 'description', title: 'Description', width: 400, sortable: true}
         ],
         data: [
-            {name: 'onClickRow', parameter: 'row', description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row'},
-            {name: 'onSort', parameter: 'name, order', description: 'Fires when user sort a column, the parameters contains: <br />name: the sort column field name<br />order: the sort column order'}
+            {
+                name: 'onClickRow',
+                parameter: 'row',
+                description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row.'},
+            {
+                name: 'onSort',
+                parameter: 'name, order',
+                description: 'Fires when user sort a column, the parameters contains: <br />name: the sort column field name<br />order: the sort column order.'
+            },
+            {
+                name: 'onCheck',
+                parameter: 'row',
+                description: 'Fires when user check a row, the parameters contains: <br />row: the record corresponding to the clicked row.'
+            },
+            {
+                name: 'onUncheck',
+                parameter: 'row',
+                description: 'Fires when user uncheck a row, the parameters contains: <br />row: the record corresponding to the clicked row.'
+            },
+            {
+                name: 'onCheckAll',
+                parameter: 'rows',
+                description: 'Fires when user check all rows.'
+            },
+            {
+                name: 'onUncheckAll',
+                parameter: 'rows',
+                description: 'Fires when user uncheck all rows.'
+            }
         ],
         onClickRow: function (row) {
             console.log(row);
         },
         onSort: function (name, order) {
             console.log(name, order);
+        },
+        onCheck: function(row) {
+            console.log(row);
+        },
+        onUncheck: function(row) {
+            console.log(row);
+        },
+        onCheckAll: function(rows) {
+            console.log(rows);
+        },
+        onUncheckAll: function(rows) {
+            console.log(rows);
         }
     });
     $('#method').bootstrapTable({
