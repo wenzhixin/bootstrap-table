@@ -8,8 +8,12 @@ The table displays data in a tabular format and offers rich support to select, s
 
 ### 1.0.1
 
-Add ```pagination``` support.
+* Add ```pagination``` support.
 
 ### 1.0.0
 
-Initial release
+* Initial release
+
+## LICENSE
+
+[The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE)
