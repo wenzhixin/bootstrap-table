@@ -1,6 +1,6 @@
 # bootstrap table
 
-The table displays data in a tabular format and offers rich support to select, sort. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
+The table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
 
 [Examples and documentation](http://wenzhixin.net.cn/p/bootstrap-table/)
 
