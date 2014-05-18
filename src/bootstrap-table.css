@@ -74,6 +74,15 @@
     margin-right: auto;
 }
 
+.fixed-table-pagination .pagination-info {
+    line-height: 34px;
+}
+
+.fixed-table-pagination li.disabled a {
+    pointer-events: none;
+    cursor: default;
+}
+
 /* support bootstrap 3 */
 .table thead>tr>th {
 	padding: 0;

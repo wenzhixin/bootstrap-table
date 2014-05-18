@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-    <table class="bootstrap-table" data-url="data.json">
+    <table class="bootstrap-table" data-url="data.json" data-height="500">
         <thead>
             <tr>
                 <th data-field="state" data-checkbox="true"></th>
@@ -28,7 +28,7 @@
 <script type="text/javascript">
     $(function() {
         $('button').click(function() {
-            alert($('.bootstrap-table').bootstrapTable('getSelections'));
+            console.log($('.bootstrap-table').bootstrapTable('getSelections'));
         });
     });
 </script>

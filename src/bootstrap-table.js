@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.0.0
+ * version: 1.0.1
  */
 
 !function ($) {
@@ -42,13 +42,21 @@
     };
 
     BootstrapTable.DEFAULTS = {
-        classes: 'table table-hover table-striped',
+        classes: 'table table-hover',
+        striped: true,
         undefinedText: '-',
+        height: undefined,
         columns: [],
         data: [],
         method: 'get',
         url: '',
-        onClickRow: function(value, row) {return false;},
+        queryParams: {},
+        pagination: true,
+        sidePagination: 'client', // client or server
+        totalRows: 0, // server side need to set
+        pageNumber: 1,
+        pageSize: 20,
+        pageList: [10, 20, 30, 40, 50],
         onSort: function(name, order) {return false;}
     };
 
@@ -56,6 +64,7 @@
         this.initContainer();
         this.initHeader();
         this.initData();
+        this.initPagination();
         this.initBody();
         this.initServer();
     };
@@ -63,15 +72,21 @@
     BootstrapTable.prototype.initContainer = function() {
         this.$container = $([
             '<div class="fixed-table-container">',
-            '<div class="fixed-table-header"></div>',
-            '<div class="fixed-table-body"></div>',
+                '<div class="fixed-table-header"></div>',
+                '<div class="fixed-table-body"></div>',
+                '<div class="fixed-table-pagination"></div>',
             '</div>'].join(''));
         this.$container.insertAfter(this.$el);
         this.$container.find('.fixed-table-body').append(this.$el);
+        this.$container.after('<div class="clearfix"></div>');
+
         if (this.options.height) {
             this.$container.css('height', this.options.height + 'px');
         }
         this.$el.addClass(this.options.classes);
+        if (this.options.striped) {
+            this.$el.addClass('table-striped');
+        }
     };
 
     BootstrapTable.prototype.initHeader = function() {
@@ -198,6 +213,125 @@
         this.initBody();
     };
 
+    BootstrapTable.prototype.initPagination = function() {
+        if (!this.options.pagination) {
+            return;
+        }
+
+        this.$pagination = this.$container.find('.fixed-table-pagination');
+
+        if (this.options.sidePagination === 'client') {
+            this.options.totalRows = this.data.length;
+        }
+        this.totalPages = 0;
+        if (this.options.totalRows) {
+            this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
+        }
+        this.updatePagination();
+    };
+
+    BootstrapTable.prototype.updatePagination = function() {
+        var html = [],
+            i, from, to,
+            $first, $pre,
+            $next, $last,
+            $number;
+
+        this.pageFrom = (this.options.pageNumber - 1) * this.options.pageSize + 1;
+        this.pageTo = this.options.pageNumber * this.options.pageSize;
+        if (this.pageTo > this.options.totalRows) {
+            this.pageTo = this.options.totalRows;
+        }
+        html.push(
+            '<div class="pull-left pagination">',
+                '<div class="pagination-info">',
+                    sprintf('Showing %s to %s of %s rows', this.pageFrom, this.pageTo, this.options.totalRows),
+                '</div>',
+            '</div>',
+            '<div class="pull-right">',
+                '<ul class="pagination">',
+                    '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
+                    '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
+
+        if (this.totalPages < 5) {
+            from = 1;
+            to = this.totalPages;
+        } else {
+            from = this.options.pageNumber - 2;
+            to = from + 4;
+            if (from < 1) {
+                from = 1;
+                to = 5;
+            }
+            if (to > this.totalPages) {
+                to = this.totalPages;
+                from = to - 4;
+            }
+        }
+        for (i = from; i <= to; i++) {
+            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                '<a href="javascript:void(0)">', i ,'</a>',
+                '</li>');
+        }
+
+        html.push(
+                    '<li class="page-next"><a href="javascript:void(0)">&gt;</a></li>',
+                    '<li class="page-last"><a href="javascript:void(0)">&gt;&gt;</a></li>',
+                '</ul>',
+            '</div>')
+        this.$pagination.html(html.join(''));
+
+        $first = this.$pagination.find('.page-first');
+        $pre = this.$pagination.find('.page-pre');
+        $next = this.$pagination.find('.page-next');
+        $last = this.$pagination.find('.page-last');
+        $number = this.$pagination.find('.page-number');
+
+        if (this.options.pageNumber <= 1) {
+            $first.addClass('disabled');
+            $pre.addClass('disabled');
+        }
+        if (this.options.pageNumber >= this.totalPages) {
+            $next.addClass('disabled');
+            $last.addClass('disabled');
+        }
+        $first.off('click').on('click', $.proxy(this.onPageFirst, this));
+        $pre.off('click').on('click', $.proxy(this.onPagePre, this));
+        $next.off('click').on('click', $.proxy(this.onPageNext, this));
+        $last.off('click').on('click', $.proxy(this.onPageLast, this));
+        $number.off('click').on('click', $.proxy(this.onPageNumber, this));
+    };
+
+    BootstrapTable.prototype.onPageFirst = function() {
+        this.options.pageNumber = 1;
+        this.updatePagination();
+        this.initBody();
+    };
+
+    BootstrapTable.prototype.onPagePre = function() {
+        this.options.pageNumber--;
+        this.updatePagination();
+        this.initBody();
+    };
+
+    BootstrapTable.prototype.onPageNext = function() {
+        this.options.pageNumber++;
+        this.updatePagination();
+        this.initBody();
+    };
+
+    BootstrapTable.prototype.onPageLast = function() {
+        this.options.pageNumber = this.totalPages;
+        this.updatePagination();
+        this.initBody();
+    };
+
+    BootstrapTable.prototype.onPageNumber = function(event) {
+        this.options.pageNumber = +$(event.currentTarget).text();
+        this.updatePagination();
+        this.initBody();
+    };
+
     BootstrapTable.prototype.initBody = function() {
         var that = this,
             html = [];
@@ -207,7 +341,14 @@
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
         }
 
-        $.each(this.data, function(i, item) {
+        if (!this.options.pagination) {
+            this.pageFrom = 1;
+            this.pageTo = this.data.length;
+        }
+
+        for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
+            var item = this.data[i];
+
             html.push('<tr>');
 
             $.each(that.header.fields, function(j, field) {
@@ -220,7 +361,7 @@
                 }
 
                 text = ['<td' + sprintf(' style="%s"', that.header.styles[j]) + '>',
-                    value || that.options.undefinedText,
+                    typeof value === 'undefined' ? that.options.undefinedText : value,
                     '</td>'].join('');
 
                 if (that.options.columns[j].checkbox || that.options.columns[j].radio) {
@@ -228,7 +369,7 @@
                     type = that.options.columns[j].radio ? 'radio' : type;
 
                     text = ['<td>',
-                        '<input name="btSelectItem" class="checkbox"' +
+                        '<input name="btSelectItem" class="checkbox" data-index="' + i + '"' +
                             sprintf(' type="%s"', type) +
                             sprintf(' checked="%s"', value ? 'checked' : undefined) + ' />',
                         '</td>'].join('');
@@ -237,18 +378,15 @@
             });
 
             html.push('</tr>');
-        });
+        }
 
         this.$body.html(html.join(''));
 
-        this.$body.find('tr').off('click').on('click', function() {
-            that.options.onClickRow(that.data[$(this).index()]);
-        });
         this.$selectItem = this.$body.find('[name="btSelectItem"]');
         this.$selectItem.off('click').on('click', function() {
             var checkAll = that.data.length === that.$selectItem.filter(':checked').length;
             that.$selectAll.prop('checked', checkAll);
-            that.updateRows();
+            that.data[$(this).data('index')][that.header.stateField] = $(this).prop('checked');
         });
         this.resetView();
     };
@@ -262,6 +400,7 @@
         $.ajax({
             method: this.options.method,
             url: this.options.url,
+            data: this.options.queryParams,
             contentType: 'application/json',
             dataType: 'json',
             success: function(data) {
@@ -285,11 +424,11 @@
         });
     };
 
-    BootstrapTable.prototype.updateRows = function() {
+    BootstrapTable.prototype.updateRows = function(checked) {
         var that = this;
 
         $.each(this.data, function(i, row) {
-            row[that.header.stateField] = that.$selectItem.eq(i).prop('checked');
+            row[that.header.stateField] = checked;
         });
     };
 
@@ -298,6 +437,7 @@
 
     BootstrapTable.prototype.load = function(data) {
         this.initData(data);
+        this.initPagination();
         this.initBody();
     };
 
@@ -339,13 +479,13 @@
     BootstrapTable.prototype.checkAll = function() {
         this.$selectAll.prop('checked', true);
         this.$selectItem.prop('checked', true);
-        this.updateRows();
+        this.updateRows(true);
     };
 
     BootstrapTable.prototype.uncheckAll = function() {
         this.$selectAll.prop('checked', false);
         this.$selectItem.prop('checked', false);
-        this.updateRows();
+        this.updateRows(false);
     };
 
 
