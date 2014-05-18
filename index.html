@@ -1,176 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8">
     <title>Bootstrap Table</title>
-    <meta name="author" content="zhixin" />
-    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
-    <link rel="stylesheet" href="//wenzhixin.net.cn/assets/bootstrap2/css/bootstrap.css" />
-    <link rel="stylesheet" href="//wenzhixin.net.cn/assets/bootstrap2/css/bootstrap-responsive.css" />
-    <link rel="stylesheet" href="//wenzhixin.net.cn/assets/bootstrap2/css/docs.css" />
-    <link rel="stylesheet" href="//wenzhixin.net.cn/css/fork.css" />
-    <link rel="stylesheet" href="src/bootstrap-table.css" />
+    <meta name="author" content="zhixin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/bootstrap-table.css">
+    <link rel="stylesheet" href="docs/docs.css">
+    <link rel="stylesheet" href="//wenzhixin.net.cn/css/fork.css">
     <!--[if lt IE 9]>
-      <script src="//wenzhixin.net.cn/js/html5shiv.js"></script>
-      <script src="//wenzhixin.net.cn/js/respond.min.js"></script>
+    <script src="//wenzhixin.net.cn/js/html5shiv.js"></script>
+    <script src="//wenzhixin.net.cn/js/respond.min.js"></script>
     <![endif]-->
-    <style>
-      body {
-        padding-bottom: 60px;
-      }
-    </style>
-  </head>
-  <body data-spy="scroll" data-target=".bs-docs-sidebar">
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="#">
-            Bootstrap Table
-          </a>
-        </div>
-      </div>
-    </div>
+</head>
+<body>
+<a class="sr-only" href="#content">Skip to main content</a>
+<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
     <div class="container">
-      <div class="row">
-        <div class="span3 bs-docs-sidebar">
-          <ul class="nav nav-list bs-docs-sidenav affix" data-spy="affix">
-              <li><a href="#properties"><i class="icon-chevron-right"></i> Table Properties</a></li>
-              <li><a href="#columns"><i class="icon-chevron-right"></i> Column Properties</a></li>
-              <li><a href="#events"><i class="icon-chevron-right"></i> Events</a></li>
-              <li><a href="#methods"><i class="icon-chevron-right"></i> Methods</a></li>
-              <li><a href="#examples"><i class="icon-chevron-right"></i> Examples</a></li>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                Bootstrap Table
+            </a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="index.html">Documentation</a>
+                </li>
+                <li>
+                    <a href="examples.html">Examples</a>
+                </li>
             </ul>
-        </div>
-        <div class="span9">
-          <section id="properties">
-            <h3>Table Properties:</h3>
-            <table id="table"></table>
-          </section>
-          <section id="columns">
-            <h3>Column Properties:</h3>
-            <table id="column"></table>
-          </section>
-          <section id="events">
-            <h3>Events:</h3>
-            <table id="event"></table>
-          </section>
-          <section id="methods">
-            <h3>Methods:</h3>
-            <table id="method"></table>
-          </section>
-          <section id="examples">
-            <h3>Examples:</h3>
-            <table id="example"></table>
-          </section>
-        </div>
-      </div>
+        </nav>
     </div>
-    
-    <a href="https://github.com/wenzhixin/bootstrap-table" class="fork_me"></a>
-    
-    <script type="text/javascript" src="//wenzhixin.net.cn/js/jquery.min.js"></script>
-    <script type="text/javascript" src="//wenzhixin.net.cn/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="src/jquery.bootstrap.table.js"></script>
-    <script type="text/javascript">
-      $(function() {
-        $('#table').bootstrapTable({
-          columns: [
-            {field: 'name', title: 'Name', align: 'center', width: 60, sortable: true},
-            {field: 'type', title: 'Type', align: 'center', width: 60},
-            {field: 'description', title: 'Description', width: 400},
-            {field: 'default', title: 'Default', align: 'right', width: 180}
-          ],
-          data: [
-            {name: 'height', type: 'Number', description: 'The height of table.', 'default': 'undefined'},
-            {name: 'sortName', type: 'String', description: 'Defines which column can be sorted.', 'default': 'undefined'},
-            {name: 'undefinedText', type: 'String', description: 'Defines the default undefined text.', 'default': undefined},
-            {name: 'sortOrder', type: 'String', description: 'Defines the column sort order, can only be "asc" or "desc".', 'default': 'asc'},
-            {name: 'columns', type: 'Array', description: 'The table columns config object, see column properties for more details.', 'default': '[]'},
-            {name: 'data', type: 'Array', description: 'The data to be loaded.', 'default': '[]'}
-          ]
-        });
-        $('#column').bootstrapTable({
-          sortName: 'name',
-          sortOrder: 'asc',
-          columns: [
-            {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 60, sortable: true},
-            {field: 'type', title: 'Type', align: 'center', valign: 'middle', width: 60},
-            {field: 'description', title: 'Description', width: 400},
-            {field: 'default', title: 'Default', align: 'right', valign: 'middle', width: 180}
-          ],
-          data: [
-            {name: 'field', type: 'String', description: 'The column field name.', 'default': 'undefined'},
-            {name: 'title', type: 'String', description: 'The column title text.', 'default': 'undefined'},
-            {name: 'align', type: 'String', description: 'Indicate how to align the column data. "left", "right", "center" can be used.', 'default': 'undefined'},
-            {name: 'valign', type: 'String', description: 'Indicate how to align the cell data. "top", "middle", "bottom" can be used.', 'default': 'undefined'},
-            {name: 'width', type: 'Number', description: 'The width of column. If not defined, the width will auto expand to fit its contents.', 'default': 'undefined'},
-            {name: 'sortable', type: 'Boolean', description: 'True to allow the column can be sorted.', 'default': 'false'},
-            {name: 'order', type: 'String', description: 'The default sort order, can only be "asc" or "desc".', 'default': 'asc'},
-            {name: 'formatter', type: 'Function', description: 'The cell formatter function, take two parameters: <br />value: the field value. <br />row: the row record data.', 'default': 'undefined'},
-            {name: 'sorter', type: 'Function', description: 'The custom field sort function that used to do local sorting, take two parameters: <br />a: the first field value.<br /> b: the second field value.', 'default': 'undefined'}
-          ]
-        });
-        $('#event').bootstrapTable({
-          columns: [
-            {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 100, sortable: true},
-            {field: 'parameter', title: 'Parameter', align: 'center', valign: 'middle', width: 100, sortable: true},
-            {field: 'description', title: 'Description', width: 400, sortable: true}
-          ],
-          data: [
-            {name: 'onClickRow', parameter: 'row', description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row'},
-            {name: 'onSort', parameter: 'name, order', description: 'Fires when user sort a column, the parameters contains: <br />name: the sort column field name<br />order: the sort column order'}
-          ],
-          onClickRow: function(row) {
-            console.log(row);
-          },
-          onSort: function(name, order) {
-            console.log(name, order);
-          }
-        });
-        $('#method').bootstrapTable({
-          columns: [
-            {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 100},
-            {field: 'parameter', title: 'Parameter', align: 'center', valign: 'middle', width: 100},
-            {field: 'description', title: 'Description', width: 400}
-          ]
-        }).bootstrapTable('load', [
-          {name: 'load', parameter: 'data', description: 'Load the data to table.'}
-        ]).bootstrapTable('append', [
-          {name: 'append', parameter: 'data', description: 'Append the data to table.'},
-          {name: 'mergeCells', parameter: 'options', description: 'Merge some cells to one cell, the options contains following properties:'},
-          {name: 'mergeCells', parameter: 'options', description: 'index: the row index.'},
-          {name: 'mergeCells', parameter: 'options', description: 'field: the field name.'},
-          {name: 'mergeCells', parameter: 'options', description: 'rowspan: the rowspan count to be merged.'},
-          {name: 'mergeCells', parameter: 'options', description: 'colspan: the colspan count to be merged.'}
-        ]).bootstrapTable('mergeCells', {
-          index: 2, 
-          field: 'name',
-          rowspan: 5
-        }).bootstrapTable('mergeCells', {
-          index: 2, 
-          field: 'parameter',
-          rowspan: 5
-        });
-        
-        var data = [];
-        for (var i = 100; i < 1000; i++) {
-          data.push({code: '' + i, name: 'hello ' + i, price: '$' + i});
-        }
-        $('#example').bootstrapTable({
-          height: 200,
-          sortName: 'code',
-          sortOrder: 'asc',
-          columns: [
-            {field: 'code', title: 'Code', align: 'left', width: 200, sortable: true},
-            {field: 'name', title: 'Name', align: 'center', width: 100},
-            {field: 'price', title: 'Price', align: 'right', valign: 'middle', width: 200, formatter: function(value, row) {
-              return 'the price is: ' + value;
-            }}
-          ],
-          data: data
-        });
-      });
-    </script>
-    <script src="//wenzhixin.net.cn/js/analytics.js"></script>
-  </body>
+</header>
+<div class="bs-header" id="content">
+    <div class="container">
+        <h1>Bootstrap Table</h1>
+        <p>The table displays data in a tabular format and offers rich support to select, sort. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="bs-sidebar" role="complementary">
+                <ul class="nav bs-sidenav">
+                    <li><a href="#properties">Table Properties</a></li>
+                    <li><a href="#columns">Column Properties</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#methods">Methods</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9" role="main">
+            <section>
+                <div class="page-header">
+                    <h1 id="properties">Table Properties:</h1>
+                </div>
+                <table id="table"></table>
+            </section>
+            <section>
+                <div class="page-header">
+                    <h1 id="columns">Column Properties:</h1>
+                </div>
+                <table id="column"></table>
+            </section>
+            <section>
+                <div class="page-header">
+                    <h1 id="events">Events:</h1>
+                </div>
+                <table id="event"></table>
+            </section>
+            <section>
+                <div class="page-header">
+                    <h1 id="methods">Methods:</h1>
+                </div>
+                <table id="method"></table>
+            </section>
+        </div>
+    </div>
+</div>
+
+<a href="https://github.com/wenzhixin/bootstrap-table" class="fork_me"></a>
+
+<div class="footer">
+    <p>
+        Copyright © 2012-2014 wenzhixin.net.cn
+    </p>
+</div>
+
+<script src="assets/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="src/bootstrap-table.js"></script>
+<script src="docs/docs.js"></script>
+<script src="//wenzhixin.net.cn/js/analytics.js"></script>
+</body>
 </html>

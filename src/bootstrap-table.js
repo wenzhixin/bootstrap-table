@@ -43,20 +43,23 @@
 
     BootstrapTable.DEFAULTS = {
         classes: 'table table-hover',
-        striped: true,
-        undefinedText: '-',
         height: undefined,
+        undefinedText: '-',
+        sortName: undefined,
+        sortOrder: 'asc',
+        striped: false,
         columns: [],
         data: [],
         method: 'get',
-        url: '',
+        url: undefined,
         queryParams: {},
-        pagination: true,
+        pagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
         pageNumber: 1,
-        pageSize: 20,
+        pageSize: 10,
         pageList: [10, 20, 30, 40, 50],
+
         onSort: function(name, order) {return false;}
     };
 
