@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Examples &middot; Bootstrap Table</title>
+    <meta name="author" content="zhixin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../src/bootstrap-table.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="stylesheet" href="//wenzhixin.net.cn/css/fork.css">
+    <!--[if lt IE 9]>
+    <script src="//wenzhixin.net.cn/js/html5shiv.js"></script>
+    <script src="//wenzhixin.net.cn/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<a class="sr-only" href="#content">Skip to main content</a>
+<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                Bootstrap Table
+            </a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="getting-started.html">Getting started</a>
+                </li>
+                <li>
+                    <a href="documentation.html">Documentation</a>
+                </li>
+                <li class="active">
+                    <a href="examples.html">Examples</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="bs-header" id="content">
+    <div class="container">
+        <h1>Examples</h1>
+        <p>The examples of bootstrap table.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="bs-sidebar" role="complementary">
+                <ul class="nav bs-sidenav">
+                    <li><a href="#basic">Basic Table</a></li>
+                    <li><a href="#sort">Sort Table</a></li>
+                    <li><a href="#radio">Radio Table</a></li>
+                    <li><a href="#checkbox">Checkbox Table</a></li>
+                    <li><a href="#pagination">Pagination Table</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9" role="main">
+            <div>
+                <div class="page-header">
+                    <h1 id="basic">Basic Table</h1>
+                </div>
+                <div class="bs-example">
+                    <table data-toggle="table" data-url="data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="left">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table data-toggle="table" data-url="data1.json" data-height="246"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="sort">Sort Table</h1>
+                </div>
+                <div class="bs-example">
+                    <table data-toggle="table" data-url="data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
+                            <th data-field="name" data-align="center" data-sortable="true">Item Name</th>
+                            <th data-field="price" data-sortable="true" data-sortable="true">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table data-toggle="table" data-url="data1.json" data-height="246"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="id" data-align="right" data-sortable="true"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center" data-sortable="true"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-sortable="true" data-sortable="true"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="radio">Radio Table</h1>
+                </div>
+                <div class="bs-example">
+                    <table data-toggle="table" data-url="data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-radio="true"></th>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="left">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table data-toggle="table" data-url="data1.json" data-height="246"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="state" data-radio="true"&gt;&lt;/th&gt;
+            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+            </div>
+            <div>
+                <div class="page-header">
+                    <h1 id="checkbox">Checkbox Table</h1>
+                </div>
+                <div class="bs-example">
+                    <table data-toggle="table" data-url="data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table data-toggle="table" data-url="data1.json" data-height="246"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="state" data-checkbox="true"&gt;&lt;/th&gt;
+            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="pagination">Pagination Table</h1>
+                </div>
+                <div class="bs-example">
+                    <table data-toggle="table" data-url="data2.json" data-height="246" data-pagination="true">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight">
+<pre><code class="language-html">
+&lt;table data-toggle="table" data-url="data2.json" data-height="246" data-pagination="true"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th data-field="state" data-checkbox="true"&gt;&lt;/th&gt;
+            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
+            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
+            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;
+</code></pre>
+                </div>
+            </div>
+
+            <hr>
+            <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/docs/docs.js">More examples</a>
+        </div>
+    </div>
+</div>
+
+<a href="https://github.com/wenzhixin/bootstrap-table" class="fork_me"></a>
+
+<footer class="bs-footer" role="contentinfo">
+    <div class="container">
+        <p>Copyright © 2012-2014, Bootstrap Table is licensed under the The MIT License. Coded by wenzhixin. </p>
+        <ul class="footer-links">
+            <li>Currently: v1.0.1</li>
+            <li class="muted">·</li>
+            <li><a href="http://wenzhixin.net.cn">My website</a></li>
+            <li class="muted">·</li>
+            <li><a href="http://repos.wenzhixin.net.cn">My repos</a></li>
+            <li class="muted">·</li>
+            <li><a href="https://github.com/wenzhixin">Github (@wenzhixin)</a></li>
+            <li class="muted">·</li>
+            <li><a href="https://github.com/wenzhixin/bootstrap-table/issues?state=open">Issues</a></li>
+            <li class="muted">·</li>
+            <li><a href="mailto:wenzhixin2010@gmail.com">Email</a></li>
+        </ul>
+    </div>
+</footer>
+
+<script src="../assets/jquery.min.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../src/bootstrap-table.js"></script>
+<script src="docs.js"></script>
+<script src="//wenzhixin.net.cn/js/analytics.js"></script>
+</body>
+</html>

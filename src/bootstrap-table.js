@@ -410,7 +410,7 @@
             return;
         }
         $.ajax({
-            method: this.options.method,
+            type: this.options.method,
             url: this.options.url,
             data: this.options.queryParams,
             contentType: 'application/json',
@@ -538,7 +538,7 @@
     // =======================
 
     $(function() {
-        $('.bootstrap-table').bootstrapTable();
+        $('[data-toggle="table"]').bootstrapTable();
     });
 
 }(jQuery);

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Getting started &middot; Bootstrap Table</title>
+    <meta name="author" content="zhixin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../src/bootstrap-table.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="stylesheet" href="//wenzhixin.net.cn/css/fork.css">
+    <!--[if lt IE 9]>
+    <script src="//wenzhixin.net.cn/js/html5shiv.js"></script>
+    <script src="//wenzhixin.net.cn/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<a class="sr-only" href="#content">Skip to main content</a>
+
+<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                Bootstrap Table
+            </a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="getting-started.html">Getting started</a>
+                </li>
+                <li>
+                    <a href="documentation.html">Documentation</a>
+                </li>
+                <li>
+                    <a href="examples.html">Examples</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="bs-header" id="content">
+    <div class="container">
+        <h1>Getting started</h1>
+        <p>An overview of Bootstrap Table, how to download and use, basic templates, and more.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="bs-sidebar" role="complementary">
+                <ul class="nav bs-sidenav">
+                    <li><a href="#download">Download</a></li>
+                    <li>
+                        <a href="#usage">Usage</a>
+                        <ul class="nav">
+                            <li><a href="#via-data">Via data attributes</a></li>
+                            <li><a href="#via-javascript">Via JavaScript</a></li>
+                            <li><a href="#options">Options</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9" role="main">
+            <div>
+                <div class="page-header">
+                    <h1 id="download">Download</h1>
+                </div>
+                <p>
+                    <a href="https://github.com/wenzhixin/bootstrap-table/archive/master.zip">Download source</a>
+                </p>
+                <p>
+                    <a href="https://github.com/wenzhixin/bootstrap-table">Clone or fork via GitHub</a>
+                </p>
+            </div>
+            <div>
+                <div class="page-header">
+                    <h1 id="usage">Usage</h1>
+                </div>
+                <p>Include Bootstrap library (if your project doesn’t use it already) and bootstrap-table.css in the head tag your html document.</p>
+<pre><code>&lt;link rel="stylesheet" href="bootstrap.css"&gt;
+&lt;link rel="stylesheet" href="bootstrap-table.css"&gt;</code></pre>
+                <p>Include jQuery library (if your project doesn’t use it already) and bootstrap-table.js in the head tag or at the very bottom of your document, just before the closing body tag (usually recommended for better performance).</p>
+<pre><code>&lt;script src="jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="bootstrap-table.js"&gt;&lt;/script&gt;</code></pre>
+
+                <hr>
+                <p>The bootstrap table plugin displays data in a tabular format, via data attributes or JavaScript.</p>
+
+                <h2 id="via-data">Via data attributes</h2>
+                <p>Activate bootstrap table without writing JavaScript. Set data-toggle="table" on a normal table.</p>
+<pre><code>&lt;table data-toggle="table" data-url="data.json"&gt;
+    &lt;thead&gt;
+        ...
+    &lt;/thead&gt;
+&lt;/table&gt;</code></pre>
+
+                <h2 id="via-javascript">Via JavaScript</h2>
+                <p>Call a bootstrap table with id table with JavaScript.</p>
+<pre><code>$('#table').bootstrapTable({
+    url: 'data.json'
+});</code></pre>
+
+                <h2 id="options">Options</h2>
+                <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-url="data.json"</code>. More options see the <a href="documentation.html">Documentation</a> or the <a href="examples.html">Examples</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="https://github.com/wenzhixin/bootstrap-table" class="fork_me"></a>
+
+<footer class="bs-footer" role="contentinfo">
+    <div class="container">
+        <p>Copyright © 2012-2014, Bootstrap Table is licensed under the The MIT License. Coded by wenzhixin. </p>
+        <ul class="footer-links">
+            <li>Currently: v1.0.1</li>
+            <li class="muted">·</li>
+            <li><a href="http://wenzhixin.net.cn">My website</a></li>
+            <li class="muted">·</li>
+            <li><a href="http://repos.wenzhixin.net.cn">My repos</a></li>
+            <li class="muted">·</li>
+            <li><a href="https://github.com/wenzhixin">Github (@wenzhixin)</a></li>
+            <li class="muted">·</li>
+            <li><a href="https://github.com/wenzhixin/bootstrap-table/issues?state=open">Issues</a></li>
+            <li class="muted">·</li>
+            <li><a href="mailto:wenzhixin2010@gmail.com">Email</a></li>
+        </ul>
+    </div>
+</footer>
+
+<script src="../assets/jquery.min.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../src/bootstrap-table.js"></script>
+<script src="docs.js"></script>
+<script src="//wenzhixin.net.cn/js/analytics.js"></script>
+</body>
+</html>
