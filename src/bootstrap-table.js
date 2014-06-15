@@ -37,6 +37,7 @@
     var BootstrapTable = function(el, options) {
         this.options = options;
         this.$el = $(el);
+        this.$el_ = this.$el.clone();
 
         this.init();
     };
@@ -231,20 +232,25 @@
         if (this.options.sidePagination === 'client') {
             this.options.totalRows = this.data.length;
         }
-        this.totalPages = 0;
-        if (this.options.totalRows) {
-            this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
-        }
         this.updatePagination();
     };
 
     BootstrapTable.prototype.updatePagination = function() {
-        var html = [],
+        var that = this,
+            html = [],
             i, from, to,
+            $pageList,
             $first, $pre,
             $next, $last,
             $number;
 
+        this.totalPages = 0;
+        if (this.options.totalRows) {
+            this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
+        }
+        if (this.totalPages > 0 && this.options.pageNumber > this.totalPages) {
+            this.options.pageNumber = this.totalPages;
+        }
         this.pageFrom = (this.options.pageNumber - 1) * this.options.pageSize + 1;
         this.pageTo = this.options.pageNumber * this.options.pageSize;
         if (this.pageTo > this.options.totalRows) {
@@ -286,9 +292,26 @@
                     '<li class="page-next"><a href="javascript:void(0)">&gt;</a></li>',
                     '<li class="page-last"><a href="javascript:void(0)">&gt;&gt;</a></li>',
                 '</ul>',
-            '</div>')
+            '</div>');
+
+        html.push(
+            '<div class="pagination btn-group dropup page-list">',
+                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+                    this.options.pageSize,
+                    ' <span class="caret"></span>',
+                '</button>',
+                '<ul class="dropdown-menu" role="menu">');
+        $.each(this.options.pageList, function(i, page) {
+            var active = page === that.options.pageSize ? ' class="active"' : '';
+            html.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+        });
+        html.push(
+                '</ul>',
+            '</div>');
+
         this.$pagination.html(html.join(''));
 
+        $pageList = this.$pagination.find('.page-list a');
         $first = this.$pagination.find('.page-first');
         $pre = this.$pagination.find('.page-pre');
         $next = this.$pagination.find('.page-next');
@@ -303,11 +326,18 @@
             $next.addClass('disabled');
             $last.addClass('disabled');
         }
+        $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
         $first.off('click').on('click', $.proxy(this.onPageFirst, this));
         $pre.off('click').on('click', $.proxy(this.onPagePre, this));
         $next.off('click').on('click', $.proxy(this.onPageNext, this));
         $last.off('click').on('click', $.proxy(this.onPageLast, this));
         $number.off('click').on('click', $.proxy(this.onPageNumber, this));
+    };
+
+    BootstrapTable.prototype.onPageListChange = function(event) {
+        this.options.pageSize = +$(event.currentTarget).text();
+        this.updatePagination();
+        this.initBody();
     };
 
     BootstrapTable.prototype.onPageFirst = function() {
@@ -500,6 +530,11 @@
         this.updateRows(false);
     };
 
+    BootstrapTable.prototype.destroy = function() {
+        this.$container.replaceWith(this.$el_);
+        return this.$el_;
+    };
+
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
@@ -508,7 +543,8 @@
         var allowedMethods = [
                 'getSelections',
                 'load', 'append', 'mergeCells',
-                'checkAll', 'uncheckAll'
+                'checkAll', 'uncheckAll',
+                'destroy'
             ],
             value;
 

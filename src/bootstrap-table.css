@@ -78,6 +78,11 @@
     line-height: 34px;
 }
 
+.fixed-table-pagination .page-list {
+    float: right;
+    margin-right: 10px;
+}
+
 .fixed-table-pagination li.disabled a {
     pointer-events: none;
     cursor: default;
