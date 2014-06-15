@@ -13,6 +13,13 @@
     <script src="//wenzhixin.net.cn/js/html5shiv.js"></script>
     <script src="//wenzhixin.net.cn/js/respond.min.js"></script>
     <![endif]-->
+
+    <script src="../assets/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../docs/examples.js"></script>
+    <script src="../src/bootstrap-table.js"></script>
+    <script src="docs.js"></script>
+    <script src="//wenzhixin.net.cn/js/analytics.js"></script>
 </head>
 <body>
 <a class="sr-only" href="#content">Skip to main content</a>
@@ -50,6 +57,7 @@
             <div class="bs-sidebar" role="complementary">
                 <ul class="nav bs-sidenav">
                     <li><a href="#basic">Basic Table</a></li>
+                    <li><a href="#classes">Table Style</a></li>
                     <li><a href="#sort">Sort Table</a></li>
                     <li><a href="#radio">Radio Table</a></li>
                     <li><a href="#checkbox">Checkbox Table</a></li>
@@ -65,27 +73,53 @@
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246">
                         <thead>
-                        <tr>
-                            <th data-field="id" data-align="right">Item ID</th>
-                            <th data-field="name" data-align="center">Item Name</th>
-                            <th data-field="price" data-align="left">Item Price</th>
-                        </tr>
+                            <tr>
+                                <th data-field="id">Item ID</th>
+                                <th data-field="name">Item Name</th>
+                                <th data-field="price">Item Price</th>
+                            </tr>
                         </thead>
                     </table>
                 </div>
-                <div class="highlight">
-<pre><code class="language-html">
-&lt;table data-toggle="table" data-url="data1.json" data-height="246"&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
-            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
-            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-&lt;/table&gt;
-</code></pre>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="classes">Table Style</h1>
                 </div>
+                <div class="bs-example">
+                    <div>
+                        <label><input id="hover" type="checkbox" checked>hover</label>
+                        <label><input id="striped" type="checkbox">striped</label>
+                    </div>
+                    <table id="table-style" data-toggle="table" data-url="data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="id">Item ID</th>
+                            <th data-field="name">Item Name</th>
+                            <th data-field="price">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        $(function() {
+                            $('#hover, #striped').click(function() {
+                                var classes = 'table';
+
+                                if ($('#hover').prop('checked')) {
+                                    classes = 'table table-hover';
+                                }
+                                $('#table-style').bootstrapTable('destroy')
+                                    .bootstrapTable({
+                                        classes: classes,
+                                        striped: $('#striped').prop('checked')
+                                    });
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
 
             <div>
@@ -93,29 +127,17 @@
                     <h1 id="sort">Sort Table</h1>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="246">
+                    <table data-toggle="table" data-url="data1.json" data-height="246" data-sort-name="name" data-sort-order="desc">
                         <thead>
-                        <tr>
-                            <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
-                            <th data-field="name" data-align="center" data-sortable="true">Item Name</th>
-                            <th data-field="price" data-sortable="true" data-sortable="true">Item Price</th>
-                        </tr>
+                            <tr>
+                                <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
+                                <th data-field="name" data-align="center" data-sortable="true">Item Name</th>
+                                <th data-field="price" data-sortable="true" data-sortable="true">Item Price</th>
+                            </tr>
                         </thead>
                     </table>
                 </div>
-                <div class="highlight">
-<pre><code class="language-html">
-&lt;table data-toggle="table" data-url="data1.json" data-height="246"&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th data-field="id" data-align="right" data-sortable="true"&gt;Item ID&lt;/th&gt;
-            &lt;th data-field="name" data-align="center" data-sortable="true"&gt;Item Name&lt;/th&gt;
-            &lt;th data-field="price" data-sortable="true" data-sortable="true"&gt;Item Price&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-&lt;/table&gt;
-</code></pre>
-                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
 
             <div>
@@ -125,29 +147,16 @@
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246">
                         <thead>
-                        <tr>
-                            <th data-field="state" data-radio="true"></th>
-                            <th data-field="id" data-align="right">Item ID</th>
-                            <th data-field="name" data-align="center">Item Name</th>
-                            <th data-field="price" data-align="left">Item Price</th>
-                        </tr>
+                            <tr>
+                                <th data-field="state" data-radio="true"></th>
+                                <th data-field="id" data-align="right">Item ID</th>
+                                <th data-field="name" data-align="center">Item Name</th>
+                                <th data-field="price" data-align="left">Item Price</th>
+                            </tr>
                         </thead>
                     </table>
                 </div>
-                <div class="highlight">
-<pre><code class="language-html">
-&lt;table data-toggle="table" data-url="data1.json" data-height="246"&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th data-field="state" data-radio="true"&gt;&lt;/th&gt;
-            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
-            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
-            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-&lt;/table&gt;
-</code></pre>
-                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
             <div>
                 <div class="page-header">
@@ -156,29 +165,16 @@
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246">
                         <thead>
-                        <tr>
-                            <th data-field="state" data-checkbox="true"></th>
-                            <th data-field="id" data-align="right">Item ID</th>
-                            <th data-field="name" data-align="center">Item Name</th>
-                            <th data-field="price" data-align="">Item Price</th>
-                        </tr>
+                            <tr>
+                                <th data-field="state" data-checkbox="true"></th>
+                                <th data-field="id" data-align="right">Item ID</th>
+                                <th data-field="name" data-align="center">Item Name</th>
+                                <th data-field="price" data-align="">Item Price</th>
+                            </tr>
                         </thead>
                     </table>
                 </div>
-                <div class="highlight">
-<pre><code class="language-html">
-&lt;table data-toggle="table" data-url="data1.json" data-height="246"&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th data-field="state" data-checkbox="true"&gt;&lt;/th&gt;
-            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
-            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
-            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-&lt;/table&gt;
-</code></pre>
-                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
 
             <div>
@@ -188,29 +184,16 @@
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data2.json" data-height="246" data-pagination="true">
                         <thead>
-                        <tr>
-                            <th data-field="state" data-checkbox="true"></th>
-                            <th data-field="id" data-align="right">Item ID</th>
-                            <th data-field="name" data-align="center">Item Name</th>
-                            <th data-field="price" data-align="">Item Price</th>
-                        </tr>
+                            <tr>
+                                <th data-field="state" data-checkbox="true"></th>
+                                <th data-field="id" data-align="right">Item ID</th>
+                                <th data-field="name" data-align="center">Item Name</th>
+                                <th data-field="price" data-align="">Item Price</th>
+                            </tr>
                         </thead>
                     </table>
                 </div>
-                <div class="highlight">
-<pre><code class="language-html">
-&lt;table data-toggle="table" data-url="data2.json" data-height="246" data-pagination="true"&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th data-field="state" data-checkbox="true"&gt;&lt;/th&gt;
-            &lt;th data-field="id" data-align="right"&gt;Item ID&lt;/th&gt;
-            &lt;th data-field="name" data-align="center"&gt;Item Name&lt;/th&gt;
-            &lt;th data-field="price" data-align="left"&gt;Item Price&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-&lt;/table&gt;
-</code></pre>
-                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
 
             <hr>
@@ -239,11 +222,5 @@
         </ul>
     </div>
 </footer>
-
-<script src="../assets/jquery.min.js"></script>
-<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="../src/bootstrap-table.js"></script>
-<script src="docs.js"></script>
-<script src="//wenzhixin.net.cn/js/analytics.js"></script>
 </body>
 </html>
