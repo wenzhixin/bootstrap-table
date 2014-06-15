@@ -1,0 +1,28 @@
+{
+    "name": "bootstrap-table",
+    "version": "1.0.1",
+    "title": "Bootstrap Table",
+    "description": "Bootstrap table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on.",
+    "author": {
+        "name": "zhixin wen",
+        "email": "wenzhixin2010@gmail.com",
+        "url": "http://wenzhixin.net.cn/"
+    },
+    "licenses": [
+        {
+            "type": "MIT License",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    ],
+    "dependencies": {
+        "jquery": ">=1.7"
+    },
+    "keywords": ["bootstrap.table"],
+    "homepage": "https://github.com/wenzhixin/bootstrap-table",
+    "demo": "http://wenzhixin.net.cn/p/bootstrap-table",
+    "bugs": {
+        "url": "https://github.com/wenzhixin/bootstrap-table/issues"
+    },
+    "docs": "https://github.com/wenzhixin/bootstrap-table",
+    "download": "https://github.com/wenzhixin/bootstrap-table/archive/master.zip"
+}
