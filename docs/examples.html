@@ -56,19 +56,20 @@
         <div class="col-md-3">
             <div class="bs-sidebar" role="complementary">
                 <ul class="nav bs-sidenav">
-                    <li><a href="#basic">Basic Table</a></li>
-                    <li><a href="#classes">Table Style</a></li>
-                    <li><a href="#sort">Sort Table</a></li>
-                    <li><a href="#radio">Radio Table</a></li>
-                    <li><a href="#checkbox">Checkbox Table</a></li>
-                    <li><a href="#pagination">Pagination Table</a></li>
+                    <li><a href="#basic-table">Basic Table</a></li>
+                    <li><a href="#transform-table">Transform Table</a></li>
+                    <li><a href="#classes-table">Table Style</a></li>
+                    <li><a href="#sort-table">Sort Table</a></li>
+                    <li><a href="#radio-table">Radio Table</a></li>
+                    <li><a href="#checkbox-table">Checkbox Table</a></li>
+                    <li><a href="#pagination-table">Pagination Table</a></li>
                 </ul>
             </div>
         </div>
         <div class="col-md-9" role="main">
             <div>
                 <div class="page-header">
-                    <h1 id="basic">Basic Table</h1>
+                    <h1 id="basic-table">Basic Table</h1>
                 </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246">
@@ -86,7 +87,39 @@
 
             <div>
                 <div class="page-header">
-                    <h1 id="classes">Table Style</h1>
+                    <h1 id="transform-table">Transform Table</h1>
+                </div>
+                <div class="bs-example">
+                    <div class="btn-group btn-default">
+                        <button class="btn btn-success" id="transform">Transform</button>
+                        <button class="btn btn-danger" id="destroy">Destroy</button>
+                    </div>
+                    <table id="table-transform" data-url="data1.json" data-height="246">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Item ID</th>
+                                <th data-field="name">Item Name</th>
+                                <th data-field="price">Item Price</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        $(function() {
+                            $('#transform').click(function() {
+                                $('#table-transform').bootstrapTable();
+                            });
+                            $('#destroy').click(function() {
+                                $('#table-transform').bootstrapTable('destroy');
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="classes-table">Table Style</h1>
                 </div>
                 <div class="bs-example">
                     <div>
@@ -124,7 +157,7 @@
 
             <div>
                 <div class="page-header">
-                    <h1 id="sort">Sort Table</h1>
+                    <h1 id="sort-table">Sort Table</h1>
                 </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246" data-sort-name="name" data-sort-order="desc">
@@ -142,7 +175,7 @@
 
             <div>
                 <div class="page-header">
-                    <h1 id="radio">Radio Table</h1>
+                    <h1 id="radio-table">Radio Table</h1>
                 </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246">
@@ -160,7 +193,7 @@
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="checkbox">Checkbox Table</h1>
+                    <h1 id="checkbox-table">Checkbox Table</h1>
                 </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246">
@@ -179,7 +212,7 @@
 
             <div>
                 <div class="page-header">
-                    <h1 id="pagination">Pagination Table</h1>
+                    <h1 id="pagination-table">Pagination Table</h1>
                 </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data2.json" data-height="246" data-pagination="true">

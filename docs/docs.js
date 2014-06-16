@@ -258,7 +258,8 @@ $(function () {
             {name: 'mergeCells', parameter: 'options', description: 'rowspan: the rowspan count to be merged.'},
             {name: 'mergeCells', parameter: 'options', description: 'colspan: the colspan count to be merged.'},
             {name: 'checkAll', parameter: 'none', description: 'Check all current page rows.'},
-            {name: 'uncheckAll', parameter: 'none', description: 'Uncheck all current page rows.'}
+            {name: 'uncheckAll', parameter: 'none', description: 'Uncheck all current page rows.'},
+            {name: 'destroy', parameter: 'none', description: 'Destroy the bootstrap table.'}
         ]).bootstrapTable('mergeCells', {
             index: 3,
             field: 'name',
