@@ -60,6 +60,7 @@
                     <li><a href="#transform-table">Transform Table</a></li>
                     <li><a href="#classes-table">Table Style</a></li>
                     <li><a href="#sort-table">Sort Table</a></li>
+                    <li><a href="#custom-sort-table">Custom Sort Table</a></li>
                     <li><a href="#radio-table">Radio Table</a></li>
                     <li><a href="#checkbox-table">Checkbox Table</a></li>
                     <li><a href="#pagination-table">Pagination Table</a></li>
@@ -175,6 +176,33 @@
 
             <div>
                 <div class="page-header">
+                    <h1 id="custom-sort-table">Custom Sort Table</h1>
+                </div>
+                <div class="bs-example">
+                    <table id="table-custom-sort" data-toggle="table" data-url="data1.json" data-height="246" data-sort-name="price" data-sort-order="desc">
+                        <thead>
+                        <tr>
+                            <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
+                            <th data-field="name" data-align="center" data-sortable="true">Item Name</th>
+                            <th data-field="price" data-sortable="true" data-sortable="true" data-sorter="priceSorter">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        function priceSorter(a, b) {
+                            a = +a.substring(1); // remove $
+                            b = +b.substring(1);
+                            if (a > b) return 1;
+                            if (a < b) return -1;
+                            return 0;
+                        }
+                    </script>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
+            <div>
+                <div class="page-header">
                     <h1 id="radio-table">Radio Table</h1>
                 </div>
                 <div class="bs-example">
@@ -230,7 +258,7 @@
             </div>
 
             <hr>
-            <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/docs/docs.js">More examples</a>
+            <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/docs/docs.js">More examples use JavaScript</a>
         </div>
     </div>
 </div>

@@ -196,6 +196,9 @@
                 if (typeof sorter === 'function') {
                     return order * sorter(a[name], b[name]);
                 }
+                if (typeof sorter === 'string') {
+                    return order * eval(sorter + '(a[name], b[name])'); // eval ?
+                }
                 if (a[name] === b[name]) {
                     return 0;
                 }
