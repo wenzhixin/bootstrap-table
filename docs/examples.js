@@ -7,6 +7,7 @@ $(function() {
 
         $.each(sources, function(i, text) {
             if (!$.trim(text)) {
+                i > 0  && codes.push('');
                 return;
             }
             if (!spaces) {
