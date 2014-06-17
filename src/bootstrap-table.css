@@ -74,13 +74,24 @@
     margin-right: auto;
 }
 
+.fixed-table-pagination .pagination {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .fixed-table-pagination .pagination-info {
     line-height: 34px;
 }
 
-.fixed-table-pagination .page-list {
-    float: right;
+.fixed-table-toolbar .page-list {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 34px;
     margin-right: 10px;
+}
+
+.fixed-table-toolbar .page-list span {
+    margin-left: 5px;
 }
 
 .fixed-table-pagination li.disabled a {

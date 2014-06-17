@@ -73,6 +73,7 @@
         this.initContainer();
         this.initHeader();
         this.initData();
+        this.initToolbar();
         this.initPagination();
         this.initBody();
         this.initServer();
@@ -80,17 +81,21 @@
 
     BootstrapTable.prototype.initContainer = function() {
         this.$container = $([
-            '<div class="fixed-table-container">',
-                '<div class="fixed-table-header"></div>',
-                '<div class="fixed-table-body"></div>',
-                '<div class="fixed-table-pagination"></div>',
+            '<div>',
+                '<div class="fixed-table-toolbar"></div>',
+                '<div class="fixed-table-container">',
+                    '<div class="fixed-table-header"></div>',
+                    '<div class="fixed-table-body"></div>',
+                    '<div class="fixed-table-pagination"></div>',
+                '</div>',
             '</div>'].join(''));
+
         this.$container.insertAfter(this.$el);
         this.$container.find('.fixed-table-body').append(this.$el);
         this.$container.after('<div class="clearfix"></div>');
 
         if (this.options.height) {
-            this.$container.css('height', this.options.height + 'px');
+            this.$container.find('.fixed-table-container').css('height', this.options.height + 'px');
         }
         this.$el.addClass(this.options.classes);
         if (this.options.striped) {
@@ -225,6 +230,39 @@
         this.initBody();
     };
 
+    BootstrapTable.prototype.initToolbar = function() {
+        var that = this,
+            html = [],
+            $pageList;
+
+        this.$toolbar = this.$container.find('.fixed-table-toolbar');
+
+        if (this.options.pagination) {
+            html = [];
+            html.push(
+                '<div class="btn-group page-list">',
+                    '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+                        '<span class="page-size">',
+                        this.options.pageSize,
+                        '</span>',
+                        ' <span class="caret"></span>',
+                    '</button>',
+                    '<ul class="dropdown-menu" role="menu">');
+            $.each(this.options.pageList, function(i, page) {
+                var active = page === that.options.pageSize ? ' class="active"' : '';
+                html.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+            });
+            html.push(
+                    '</ul>',
+                    '<span>records per page</span>',
+                '</div>');
+
+            this.$toolbar.append(html.join(''));
+            $pageList = this.$toolbar.find('.page-list a');
+            $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
+        }
+    };
+
     BootstrapTable.prototype.initPagination = function() {
         if (!this.options.pagination) {
             return;
@@ -242,7 +280,6 @@
         var that = this,
             html = [],
             i, from, to,
-            $pageList,
             $first, $pre,
             $next, $last,
             $number;
@@ -297,24 +334,8 @@
                 '</ul>',
             '</div>');
 
-        html.push(
-            '<div class="pagination btn-group dropup page-list">',
-                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
-                    this.options.pageSize,
-                    ' <span class="caret"></span>',
-                '</button>',
-                '<ul class="dropdown-menu" role="menu">');
-        $.each(this.options.pageList, function(i, page) {
-            var active = page === that.options.pageSize ? ' class="active"' : '';
-            html.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
-        });
-        html.push(
-                '</ul>',
-            '</div>');
-
         this.$pagination.html(html.join(''));
 
-        $pageList = this.$pagination.find('.page-list a');
         $first = this.$pagination.find('.page-first');
         $pre = this.$pagination.find('.page-pre');
         $next = this.$pagination.find('.page-next');
@@ -329,7 +350,6 @@
             $next.addClass('disabled');
             $last.addClass('disabled');
         }
-        $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
         $first.off('click').on('click', $.proxy(this.onPageFirst, this));
         $pre.off('click').on('click', $.proxy(this.onPagePre, this));
         $next.off('click').on('click', $.proxy(this.onPageNext, this));
@@ -338,7 +358,11 @@
     };
 
     BootstrapTable.prototype.onPageListChange = function(event) {
-        this.options.pageSize = +$(event.currentTarget).text();
+        var $this = $(event.currentTarget);
+
+        $this.parent().addClass('active').siblings().removeClass('active');
+        this.options.pageSize = +$this.text();
+        this.$toolbar.find('.page-size').text(this.options.pageSize);
         this.updatePagination();
         this.initBody();
     };
@@ -534,6 +558,7 @@
     };
 
     BootstrapTable.prototype.destroy = function() {
+        this.$container.next().remove();
         this.$container.replaceWith(this.$el_);
         return this.$el_;
     };
