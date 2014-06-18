@@ -107,7 +107,13 @@ $(function () {
                 name: 'pageList',
                 type: 'Array',
                 description: 'When set pagination property, initialize the page size selecting list.',
-                'default': '[10, 20, 30, 40, 50]'
+                'default': '[10, 25, 50, 100]'
+            },
+            {
+                name: 'search',
+                type: 'Boolean',
+                description: 'Enable the search input.',
+                'default': 'false'
             }
         ]
     });

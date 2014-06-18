@@ -59,7 +59,7 @@
         totalRows: 0, // server side need to set
         pageNumber: 1,
         pageSize: 10,
-        pageList: [10, 20, 30, 40, 50],
+        pageList: [10, 25, 50, 100],
         search: false,
 
         onClickRow: function(item) {return false;},
