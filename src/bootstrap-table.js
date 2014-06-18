@@ -60,6 +60,7 @@
         pageNumber: 1,
         pageSize: 10,
         pageList: [10, 20, 30, 40, 50],
+        search: false,
 
         onClickRow: function(item) {return false;},
         onSort: function(name, order) {return false;},
@@ -233,7 +234,8 @@
     BootstrapTable.prototype.initToolbar = function() {
         var that = this,
             html = [],
-            $pageList;
+            $pageList,
+            $search;
 
         this.$toolbar = this.$container.find('.fixed-table-toolbar');
 
@@ -261,29 +263,53 @@
             $pageList = this.$toolbar.find('.page-list a');
             $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
         }
+
+        if (this.options.search) {
+            html = [];
+            html.push(
+                '<div class="pull-right search">',
+                    '<input class="form-control" type="text" placeholder="Search">',
+                '</div>');
+
+            this.$toolbar.append(html.join(''));
+            $search = this.$toolbar.find('.search input');
+            $search.off('keyup').on('keyup', $.proxy(this.onSearch, this));
+        }
+    };
+
+    BootstrapTable.prototype.onSearch = function(event) {
+        var that = this;
+
+        this.searchText = $(event.currentTarget).val();
+        this.searchData = $.grep(this.data, function(item) {
+            for (var key in item) {
+                if (typeof item[key] === 'string' && item[key].indexOf(that.searchText) !== -1) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        this.initPagination();
+        this.initBody();
     };
 
     BootstrapTable.prototype.initPagination = function() {
         if (!this.options.pagination) {
             return;
         }
-
-        this.$pagination = this.$container.find('.fixed-table-pagination');
-
-        if (this.options.sidePagination === 'client') {
-            this.options.totalRows = this.data.length;
-        }
-        this.updatePagination();
-    };
-
-    BootstrapTable.prototype.updatePagination = function() {
         var that = this,
             html = [],
             i, from, to,
             $first, $pre,
             $next, $last,
-            $number;
+            $number,
+            data = this.searchText ? this.searchData : this.data;
 
+        this.$pagination = this.$container.find('.fixed-table-pagination');
+
+        if (this.options.sidePagination === 'client') {
+            this.options.totalRows = data.length;
+        }
         this.totalPages = 0;
         if (this.options.totalRows) {
             this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
@@ -363,43 +389,44 @@
         $this.parent().addClass('active').siblings().removeClass('active');
         this.options.pageSize = +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
-        this.updatePagination();
+        this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPageFirst = function() {
         this.options.pageNumber = 1;
-        this.updatePagination();
+        this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPagePre = function() {
         this.options.pageNumber--;
-        this.updatePagination();
+        this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPageNext = function() {
         this.options.pageNumber++;
-        this.updatePagination();
+        this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPageLast = function() {
         this.options.pageNumber = this.totalPages;
-        this.updatePagination();
+        this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPageNumber = function(event) {
         this.options.pageNumber = +$(event.currentTarget).text();
-        this.updatePagination();
+        this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.initBody = function() {
         var that = this,
-            html = [];
+            html = [],
+            data = this.searchText ? this.searchData : this.data;;
 
         this.$body = this.$el.find('tbody');
         if (!this.$body.length) {
@@ -408,11 +435,11 @@
 
         if (!this.options.pagination) {
             this.pageFrom = 1;
-            this.pageTo = this.data.length;
+            this.pageTo = data.length;
         }
 
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
-            var item = this.data[i];
+            var item = data[i];
 
             html.push('<tr' + ' data-index="' + i + '">');
 
@@ -443,6 +470,13 @@
             });
 
             html.push('</tr>');
+        }
+
+        // show no records
+        if (!html.length) {
+            html.push('<tr class="no-records-found">',
+                sprintf('<td colspan="%s">No matching records found</td>', this.header.fields.length),
+                '</tr>');
         }
 
         this.$body.html(html.join(''));
