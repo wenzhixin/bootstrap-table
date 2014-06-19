@@ -289,6 +289,7 @@
             }
             return false;
         });
+        this.resetRows();
         this.initPagination();
         this.initBody();
     };
@@ -389,36 +390,42 @@
         $this.parent().addClass('active').siblings().removeClass('active');
         this.options.pageSize = +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
+        this.resetRows();
         this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPageFirst = function() {
         this.options.pageNumber = 1;
+        this.resetRows();
         this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPagePre = function() {
         this.options.pageNumber--;
+        this.resetRows();
         this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPageNext = function() {
         this.options.pageNumber++;
+        this.resetRows();
         this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPageLast = function() {
         this.options.pageNumber = this.totalPages;
+        this.resetRows();
         this.initPagination();
         this.initBody();
     };
 
     BootstrapTable.prototype.onPageNumber = function(event) {
         this.options.pageNumber = +$(event.currentTarget).text();
+        this.resetRows();
         this.initPagination();
         this.initBody();
     };
@@ -487,7 +494,7 @@
 
         this.$selectItem = this.$body.find('[name="btSelectItem"]');
         this.$selectItem.off('click').on('click', function() {
-            var checkAll = that.data.length === that.$selectItem.filter(':checked').length;
+            var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length;
             that.$selectAll.prop('checked', checkAll);
             that.data[$(this).data('index')][that.header.stateField] = $(this).prop('checked');
         });
@@ -530,8 +537,18 @@
     BootstrapTable.prototype.updateRows = function(checked) {
         var that = this;
 
+        this.$selectItem.each(function() {
+            that.data[$(this).data('index')][that.header.stateField] = checked;
+        });
+    };
+
+    BootstrapTable.prototype.resetRows = function() {
+        var that = this;
+
         $.each(this.data, function(i, row) {
-            row[that.header.stateField] = checked;
+            that.$selectAll.prop('checked', false);
+            that.$selectItem.prop('checked', false);
+            row[that.header.stateField] = false;
         });
     };
 
