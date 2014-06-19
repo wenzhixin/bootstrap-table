@@ -189,6 +189,7 @@
 
         if (this.options.hideHeader) {
             this.$header.hide();
+            this.$container.find('.fixed-table-header').css('border-bottom', 'none');
             this.$container.find('.fixed-table-container').css('padding-top', 0);
         }
 
