@@ -120,6 +120,12 @@ $(function () {
                 type: 'String',
                 description: 'The name of radio or checkbox input.',
                 'default': 'btSelectItem'
+            },
+            {
+                name: 'hideHeader',
+                type: 'Boolean',
+                description: 'True to hide the table header.',
+                'default': 'false'
             }
         ]
     });

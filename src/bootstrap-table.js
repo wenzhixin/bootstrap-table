@@ -62,6 +62,7 @@
         pageList: [10, 25, 50, 100],
         search: false,
         selectItemName: 'btSelectItem',
+        hideHeader: false,
 
         formatRecordsPerPage: function(pageNumber) {
             return sprintf('%s records per page', pageNumber);
@@ -185,6 +186,12 @@
                 $(this).click($.proxy(that.onSort, that));
             }
         });
+
+        if (this.options.hideHeader) {
+            this.$header.hide();
+            this.$container.find('.fixed-table-container').css('padding-top', 0);
+        }
+
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
         this.$selectAll.off('click').on('click', function() {
             var checked = $(this).prop('checked');
