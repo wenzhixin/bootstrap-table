@@ -548,15 +548,6 @@
             '</span>'].join('');
     };
 
-    BootstrapTable.prototype.resetView = function() {
-        var header = this.header;
-
-        this.$header.find('.th-inner').each(function(i) {
-            $(this).attr('style', header.styles[i])
-                .css('width', ($(this).parent().width()) + 'px'); // padding: 8px
-        });
-    };
-
     BootstrapTable.prototype.updateRows = function(checked) {
         var that = this;
 
@@ -577,6 +568,15 @@
 
     // PUBLIC FUNCTION DEFINITION
     // =======================
+
+    BootstrapTable.prototype.resetView = function() {
+        var header = this.header;
+
+        this.$header.find('.th-inner').each(function(i) {
+            $(this).attr('style', header.styles[i])
+                .css('width', ($(this).parent().width()) + 'px'); // padding: 8px
+        });
+    };
 
     BootstrapTable.prototype.load = function(data) {
         this.initData(data);
@@ -646,7 +646,7 @@
                 'getSelections',
                 'load', 'append', 'mergeCells',
                 'checkAll', 'uncheckAll',
-                'destroy'
+                'resetView', 'destroy'
             ],
             value;
 
