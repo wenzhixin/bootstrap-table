@@ -114,6 +114,10 @@
     box-sizing: border-box;
 }
 
+.table th, .table td {
+    vertical-align: middle;
+}
+
 /* support bootstrap 3 */
 .table thead>tr>th {
     padding: 0;
