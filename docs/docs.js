@@ -114,6 +114,12 @@ $(function () {
                 type: 'Boolean',
                 description: 'Enable the search input.',
                 'default': 'false'
+            },
+            {
+                name: 'selectItemName',
+                type: 'String',
+                description: 'The name of radio or checkbox input.',
+                'default': 'btSelectItem'
             }
         ]
     });

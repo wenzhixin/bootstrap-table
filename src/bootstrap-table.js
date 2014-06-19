@@ -61,6 +61,7 @@
         pageSize: 10,
         pageList: [10, 25, 50, 100],
         search: false,
+        selectItemName: 'btSelectItem',
 
         onClickRow: function(item) {return false;},
         onSort: function(name, order) {return false;},
@@ -468,7 +469,9 @@
                     type = that.options.columns[j].radio ? 'radio' : type;
 
                     text = ['<td>',
-                        '<input name="btSelectItem" class="checkbox" data-index="' + i + '"' +
+                            '<input class="checkbox"' +
+                            sprintf(' data-index="%s"', i) +
+                            sprintf(' name="%s"', that.options.selectItemName) +
                             sprintf(' type="%s"', type) +
                             sprintf(' checked="%s"', value ? 'checked' : undefined) + ' />',
                         '</td>'].join('');
