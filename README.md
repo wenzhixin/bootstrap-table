@@ -6,6 +6,15 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 ## Changelog
 
+### 1.0.2
+
+* Add i18n support.
+* Add ```selectItemName``` option.
+* Update the ```pageList``` default.
+* Add ```search``` option.
+* Add ```destroy``` method.
+* Add page list support.
+
 ### 1.0.1
 
 * Add ```pagination``` support.
