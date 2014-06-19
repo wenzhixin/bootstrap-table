@@ -478,6 +478,8 @@
 
                 if (typeof that.header.formatters[j] === 'function') {
                     value = that.header.formatters[j](value, item);
+                } else if (typeof that.header.formatters[j] === 'string') {
+                    value = eval(that.header.formatters[j] + '(value, item)'); // eval ?
                 }
 
                 text = ['<td' + sprintf(' style="%s"', that.header.styles[j]) + '>',
@@ -646,7 +648,7 @@
                 'getSelections',
                 'load', 'append', 'mergeCells',
                 'checkAll', 'uncheckAll',
-                'resetView', 'destroy'
+                'destroy', 'resetView'
             ],
             value;
 
