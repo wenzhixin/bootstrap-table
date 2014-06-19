@@ -8,6 +8,7 @@
 .fixed-table-container {
 	position: relative;
 	padding-top: 38px;
+    clear: both;
 	border: 1px solid #dddddd;
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -87,6 +88,11 @@
     line-height: 34px;
 }
 
+.fixed-table-toolbar .page-list {
+    position: relative;
+    float: left;
+}
+
 .fixed-table-toolbar .page-list,
 .fixed-table-toolbar .search {
     margin-top: 10px;
@@ -94,8 +100,8 @@
     line-height: 34px;
 }
 
-.fixed-table-toolbar .page-list span {
-    margin-left: 5px;
+.fixed-table-toolbar .page-list button {
+    margin: 0 5px;
 }
 
 .fixed-table-pagination li.disabled a {

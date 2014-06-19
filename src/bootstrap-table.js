@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.0.1
+ * version: 1.0.2
  */
 
 !function ($) {
@@ -62,6 +62,16 @@
         pageList: [10, 25, 50, 100],
         search: false,
         selectItemName: 'btSelectItem',
+
+        formatRecordsPerPage: function(pageNumber) {
+            return sprintf('%s records per page', pageNumber);
+        },
+        formatShowingRows: function(pageFrom, pageTo, totalRows) {
+            return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
+        },
+        formatSearch: function() {
+            return 'Search';
+        },
 
         onClickRow: function(item) {return false;},
         onSort: function(name, order) {return false;},
@@ -242,23 +252,25 @@
 
         if (this.options.pagination) {
             html = [];
-            html.push(
-                '<div class="btn-group page-list">',
-                    '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
-                        '<span class="page-size">',
-                        this.options.pageSize,
-                        '</span>',
-                        ' <span class="caret"></span>',
-                    '</button>',
-                    '<ul class="dropdown-menu" role="menu">');
+            html.push('<div class="page-list">');
+
+            var pageNumber = [
+                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+                    '<span class="page-size">',
+                    this.options.pageSize,
+                    '</span>',
+                    ' <span class="caret"></span>',
+                '</button>',
+                '<ul class="dropdown-menu" role="menu">'];
+
             $.each(this.options.pageList, function(i, page) {
                 var active = page === that.options.pageSize ? ' class="active"' : '';
-                html.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+                pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
             });
-            html.push(
-                    '</ul>',
-                    '<span>records per page</span>',
-                '</div>');
+            pageNumber.push('</ul>');
+
+            html.push(this.options.formatRecordsPerPage(pageNumber.join('')));
+            html.push('</div>');
 
             this.$toolbar.append(html.join(''));
             $pageList = this.$toolbar.find('.page-list a');
@@ -269,7 +281,8 @@
             html = [];
             html.push(
                 '<div class="pull-right search">',
-                    '<input class="form-control" type="text" placeholder="Search">',
+                    sprintf('<input class="form-control" type="text" placeholder="%s">',
+                        this.options.formatSearch()),
                 '</div>');
 
             this.$toolbar.append(html.join(''));
@@ -327,7 +340,7 @@
         html.push(
             '<div class="pull-left pagination">',
                 '<div class="pagination-info">',
-                    sprintf('Showing %s to %s of %s rows', this.pageFrom, this.pageTo, this.options.totalRows),
+                    this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
                 '</div>',
             '</div>',
             '<div class="pull-right">',
@@ -651,6 +664,7 @@
     };
 
     $.fn.bootstrapTable.Constructor = BootstrapTable;
+    $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS;
 
     // BOOTSTRAP TABLE INIT
     // =======================
