@@ -66,7 +66,7 @@
                     <li><a href="#radio-table">Radio Table</a></li>
                     <li><a href="#checkbox-table">Checkbox Table</a></li>
                     <li><a href="#pagination-table">Pagination Table</a></li>
-                    <li><a href="#load-data-table">Load Data Table</a></li>
+                    <li><a href="#table-methods">Table Methods</a></li>
                 </ul>
             </div>
         </div>
@@ -283,20 +283,33 @@
 
             <div>
                 <div class="page-header">
-                    <h1 id="load-data-table">Load Data Table</h1>
+                    <h1 id="table-methods">Table methods</h1>
                 </div>
                 <div class="bs-example">
                     <div class="btn-group btn-default">
+                        <button class="btn btn-default" id="get-selections">
+                            Get Selections
+                        </button>
                         <button class="btn btn-default" id="load-data" data-method="load">
-                            <i class="glyphicon glyphicon-refresh"></i> Load Data
+                            Load Data
                         </button>
                         <button class="btn btn-default" id="append-data" data-method="append">
-                            <i class="glyphicon glyphicon-plusglyphicon glyphicon-plus"></i> Append Data
+                            Append Data
+                        </button>
+                        <button class="btn btn-default" id="merge-cells">
+                            Merge Cells
+                        </button>
+                        <button class="btn btn-default" id="check-all" data-method="checkAll">
+                            Check All
+                        </button>
+                        <button class="btn btn-default" id="uncheck-all" data-method="uncheckAll">
+                            Uncheck All
                         </button>
                     </div>
-                    <table id="table-large-data" data-height="246">
+                    <table id="table-methods-table" data-height="246">
                         <thead>
                         <tr>
+                            <th data-field="state" data-checkbox="true"></th>
                             <th data-field="id">Item ID</th>
                             <th data-field="name">Item Name</th>
                             <th data-field="price">Item Price</th>
@@ -320,12 +333,23 @@
                                     return rows;
                                 },
                                 // init table use data
-                                $table = $('#table-large-data').bootstrapTable({
+                                $table = $('#table-methods-table').bootstrapTable({
                                     data: getRows()
                                 });
 
-                            $('#load-data, #append-data').click(function() {
+                            $('#get-selections').click(function() {
+                                alert('Selected values: ' + JSON.stringify($table.bootstrapTable('getSelections')));
+                            });
+                            $('#load-data, #append-data, #check-all, #uncheck-all').click(function() {
                                 $table.bootstrapTable($(this).data('method'), getRows());
+                            });
+                            $('#merge-cells').click(function() {
+                                $table.bootstrapTable('mergeCells', {
+                                    index: 1,
+                                    field: 'name',
+                                    colspan: 2,
+                                    rowspan: 3
+                                })
                             });
                         });
                     </script>
