@@ -62,6 +62,7 @@
                     <li><a href="#classes-table">Table Style</a></li>
                     <li><a href="#sort-table">Sort Table</a></li>
                     <li><a href="#custom-sort-table">Custom Sort Table</a></li>
+                    <li><a href="#format-table">Format Table</a></li>
                     <li><a href="#hide-header-table">Hide Header Table</a></li>
                     <li><a href="#radio-table">Radio Table</a></li>
                     <li><a href="#checkbox-table">Checkbox Table</a></li>
@@ -202,6 +203,40 @@
                             if (a > b) return 1;
                             if (a < b) return -1;
                             return 0;
+                        }
+                    </script>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="format-table">Format Table</h1>
+                </div>
+                <div class="bs-example">
+                    <table id="table-format" data-toggle="table" data-url="data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="id">Item ID</th>
+                            <th data-field="name" data-formatter="nameFormatter">Item Name</th>
+                            <th data-field="price" data-formatter="priceFormatter">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        function nameFormatter(value, row) {
+                            var icon = row.id % 2 === 0 ? 'glyphicon-star' : 'glyphicon-star-empty'
+
+                            return '<i class="glyphicon ' + icon + '"></i> ' + value;
+                        }
+
+                        function priceFormatter(value) {
+                            // 16777215 == ffffff in decimal
+                            var color = '#'+Math.floor(Math.random() * 6777215).toString(16);
+                            return '<div  style="color: ' + color + '">' +
+                                    '<i class="glyphicon glyphicon-usd"></i>' +
+                                    value.substring(1) +
+                                    '</div>';
                         }
                     </script>
                 </div>
