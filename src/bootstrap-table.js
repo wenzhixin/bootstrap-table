@@ -579,6 +579,9 @@
             $(this).attr('style', header.styles[i])
                 .css('width', ($(this).parent().width()) + 'px'); // padding: 8px
         });
+
+        this.$selectAll.prop('checked',
+            this.$selectItem.length === this.$selectItem.filter(':checked').length);
     };
 
     BootstrapTable.prototype.load = function(data) {
