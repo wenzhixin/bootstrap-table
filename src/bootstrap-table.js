@@ -580,7 +580,7 @@
                 .css('width', ($(this).parent().width()) + 'px'); // padding: 8px
         });
 
-        this.$selectAll.prop('checked',
+        this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
     };
 
