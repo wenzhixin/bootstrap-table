@@ -66,6 +66,7 @@
                     <li><a href="#radio-table">Radio Table</a></li>
                     <li><a href="#checkbox-table">Checkbox Table</a></li>
                     <li><a href="#pagination-table">Pagination Table</a></li>
+                    <li><a href="#table-events">Table Events</a></li>
                     <li><a href="#table-methods">Table Methods</a></li>
                 </ul>
             </div>
@@ -321,6 +322,54 @@
                             </tr>
                         </thead>
                     </table>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="table-events">Table Events</h1>
+                </div>
+                <div class="bs-example">
+                    <div class="alert alert-success" id="events-result">
+                        Here is the result of event.
+                    </div>
+                    <table id="events-table" data-url="data1.json" data-height="246">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="id" data-sortable="true">Item ID</th>
+                            <th data-field="name" data-sortable="true">Item Name</th>
+                            <th data-field="price" data-sortable="true">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        $(function() {
+                            var $result = $('#events-result');
+
+                            $('#events-table').bootstrapTable({
+                                onClickRow: function(row) {
+                                    $result.text('Event: onClickRow, data: ' + JSON.stringify(row));
+                                },
+                                onSort: function(name, order) {
+                                    $result.text('Event: onSort, data: ' + name + ', ' + order);
+                                },
+                                onCheck: function(row) {
+                                    $result.text('Event: onCheck, data: ' + JSON.stringify(row));
+                                },
+                                onUncheck: function(row) {
+                                    $result.text('Event: onUncheck, data: ' + JSON.stringify(row));
+                                },
+                                onCheckAll: function(rows) {
+                                    $result.text('Event: onCheckAll, data: ' + JSON.stringify(rows));
+                                },
+                                onUncheckAll: function(rows) {
+                                    $result.text('Event: onUncheckAll, data: ' + JSON.stringify(rows));
+                                }
+                            });
+                        });
+                    </script>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
