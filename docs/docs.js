@@ -231,12 +231,12 @@ $(function () {
             },
             {
                 name: 'onCheckAll',
-                parameter: 'rows',
+                parameter: 'none',
                 description: 'Fires when user check all rows.'
             },
             {
                 name: 'onUncheckAll',
-                parameter: 'rows',
+                parameter: 'none',
                 description: 'Fires when user uncheck all rows.'
             }
         ],
