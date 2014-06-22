@@ -17,4 +17,9 @@ $(function() {
         });
         $(this).next().find('code').html(codes.join('\n'));
     });
+    $('#i18n').change(function() {
+        $.getScript('../src/locale/bootstrap-table-' + $(this).val() + '.js', function() {
+            $('#table-pagination').bootstrapTable('destroy').bootstrapTable();
+        });
+    });
 });

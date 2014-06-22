@@ -18,7 +18,6 @@
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../docs/examples.js"></script>
     <script src="../src/bootstrap-table.js"></script>
-    <!--<script src="../src/locale/bootstrap-table-zh-CN.js"></script>-->
     <script src="docs.js"></script>
     <script src="//wenzhixin.net.cn/js/analytics.js"></script>
 </head>
@@ -301,8 +300,18 @@
                 <div class="page-header">
                     <h1 id="pagination-table">Pagination Table</h1>
                 </div>
+                <div class="form-inline">
+                    <label>
+                        I18n:
+                        <select class="form-control" id="i18n">
+                            <option value="en">en</option>
+                            <option value="zh-CN">zh-CN</option>
+                        </select>
+                        <a href="https://github.com/wenzhixin/bootstrap-table/tree/master/src/locale">Translate your language?</a>
+                    </label>
+                </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data2.json" data-height="246" data-pagination="true" data-search="true">
+                    <table id="table-pagination" data-toggle="table" data-url="data2.json" data-height="246" data-pagination="true" data-search="true">
                         <thead>
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
