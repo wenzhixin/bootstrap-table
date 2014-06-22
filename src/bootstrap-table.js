@@ -73,6 +73,9 @@
         formatSearch: function() {
             return 'Search';
         },
+        formatNoMatches: function() {
+            return 'No matching records found';
+        },
 
         onClickRow: function(item) {return false;},
         onSort: function(name, order) {return false;},
@@ -508,7 +511,7 @@
         // show no records
         if (!html.length) {
             html.push('<tr class="no-records-found">',
-                sprintf('<td colspan="%s">No matching records found</td>', this.header.fields.length),
+                sprintf('<td colspan="%s">%s</td>', this.header.fields.length, this.options.formatNoMatches()),
                 '</tr>');
         }
 

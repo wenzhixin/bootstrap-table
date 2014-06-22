@@ -14,6 +14,9 @@
         },
         formatSearch: function() {
             return '搜索';
+        },
+        formatNoMatches: function() {
+            return '没有找到匹配的记录';
         }
     });
 })(jQuery);
