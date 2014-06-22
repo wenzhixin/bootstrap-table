@@ -78,8 +78,8 @@
         onSort: function(name, order) {return false;},
         onCheck: function(row) {return false;},
         onUncheck: function(row) {return false;},
-        onCheckAll: function(rows) {return false;},
-        onUncheckAll: function(rows) {return false;}
+        onCheckAll: function() {return false;},
+        onUncheckAll: function() {return false;}
     };
 
     BootstrapTable.prototype.init = function() {
@@ -519,10 +519,15 @@
         });
 
         this.$selectItem = this.$body.find('[name="btSelectItem"]');
-        this.$selectItem.off('click').on('click', function() {
-            var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length;
+        this.$selectItem.off('click').on('click', function(event) {
+            event.stopImmediatePropagation();
+            var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length,
+                checked = $(this).prop('checked'),
+                row = that.data[$(this).data('index')];
+
             that.$selectAll.prop('checked', checkAll);
-            that.data[$(this).data('index')][that.header.stateField] = $(this).prop('checked');
+            row[that.header.stateField] = checked;
+            that.options[checked ? 'onCheck' : 'onUncheck'](row);
         });
         this.resetView();
     };
@@ -629,12 +634,14 @@
         this.$selectAll.prop('checked', true);
         this.$selectItem.prop('checked', true);
         this.updateRows(true);
+        this.options.onCheckAll();
     };
 
     BootstrapTable.prototype.uncheckAll = function() {
         this.$selectAll.prop('checked', false);
         this.$selectItem.prop('checked', false);
         this.updateRows(false);
+        this.options.onUncheckAll();
     };
 
     BootstrapTable.prototype.destroy = function() {
