@@ -126,6 +126,12 @@ $(function () {
                 type: 'Boolean',
                 description: 'False to hide the table header.',
                 'default': 'true'
+            },
+            {
+                name: 'showColumns',
+                type: 'Boolean',
+                description: 'True to show the columns drop down list.',
+                'default': 'false'
             }
         ]
     });
@@ -188,6 +194,12 @@ $(function () {
                 type: 'String',
                 description: 'The default sort order, can only be "asc" or "desc".',
                 'default': 'asc'
+            },
+            {
+                name: 'visible',
+                type: 'Boolean',
+                description: 'True to visible the columns item.',
+                'default': 'true'
             },
             {
                 name: 'formatter',
