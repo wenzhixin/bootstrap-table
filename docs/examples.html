@@ -63,6 +63,7 @@
                     <li><a href="#custom-sort-table">Custom Sort Table</a></li>
                     <li><a href="#format-table">Format Table</a></li>
                     <li><a href="#hide-header-table">Hide Header Table</a></li>
+                    <li><a href="#show-columns-table">Show Columns Table</a></li>
                     <li><a href="#radio-table">Radio Table</a></li>
                     <li><a href="#checkbox-table">Checkbox Table</a></li>
                     <li><a href="#pagination-table">Pagination Table</a></li>
@@ -253,6 +254,29 @@
                         <tr>
                             <th data-field="name">Item Name</th>
                             <th data-field="price">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="show-columns-table">Show Columns Table</h1>
+                </div>
+                <div class="bs-example">
+                    <table data-toggle="table" data-url="data3.json" data-height="246" data-show-columns="true">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-radio="true"></th>
+                            <th data-field="id">ID</th>
+                            <th data-field="name">Name</th>
+                            <th data-field="price">Price</th>
+                            <th data-field="column1">Columns1</th>
+                            <th data-field="column2" data-visible="false">Columns2</th>
+                            <th data-field="column3">Columns3</th>
+                            <th data-field="column4" data-visible="false">Columns4</th>
                         </tr>
                         </thead>
                     </table>
