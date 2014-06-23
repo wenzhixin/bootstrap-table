@@ -122,10 +122,10 @@ $(function () {
                 'default': 'btSelectItem'
             },
             {
-                name: 'hideHeader',
+                name: 'showHeader',
                 type: 'Boolean',
-                description: 'True to hide the table header.',
-                'default': 'false'
+                description: 'False to hide the table header.',
+                'default': 'true'
             }
         ]
     });
