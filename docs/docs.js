@@ -253,22 +253,22 @@ $(function () {
             }
         ],
         onClickRow: function (row) {
-            console.log(row);
+            console.log('onClickRow', row);
         },
         onSort: function (name, order) {
-            console.log(name, order);
+            console.log('onSort', name, order);
         },
         onCheck: function(row) {
-            console.log(row);
+            console.log('onCheck', row);
         },
         onUncheck: function(row) {
-            console.log(row);
+            console.log('onUncheck', row);
         },
-        onCheckAll: function(rows) {
-            console.log(rows);
+        onCheckAll: function() {
+            console.log('onCheckAll');
         },
-        onUncheckAll: function(rows) {
-            console.log(rows);
+        onUncheckAll: function() {
+            console.log('onUncheckAll');
         }
     });
     $('#method').bootstrapTable({
