@@ -62,7 +62,8 @@
         pageList: [10, 25, 50, 100],
         search: false,
         selectItemName: 'btSelectItem',
-        hideHeader: false,
+        showHeader: true,
+        showColumns: false,
 
         formatRecordsPerPage: function(pageNumber) {
             return sprintf('%s records per page', pageNumber);
@@ -151,6 +152,11 @@
                 style = sprintf('text-align: %s; ', column.align) + sprintf('vertical-align: %s; ', column.valign),
                 order = that.options.sortOrder || column.order || 'asc';
 
+            column.visible = typeof column.visible === 'undefined' ? true : column.visible;
+            if (!column.visible) {
+                return;
+            }
+
             that.header.fields.push(column.field);
             that.header.styles.push(style);
             that.header.formatters.push(column.formatter);
@@ -190,7 +196,7 @@
             }
         });
 
-        if (this.options.hideHeader) {
+        if (!this.options.showHeader) {
             this.$header.hide();
             this.$container.find('.fixed-table-header').css('border-bottom', 'none');
             this.$container.find('.fixed-table-container').css('padding-top', 0);
@@ -257,6 +263,7 @@
         var that = this,
             html = [],
             $pageList,
+            $keepOpen,
             $search;
 
         this.$toolbar = this.$container.find('.fixed-table-toolbar');
@@ -286,6 +293,41 @@
             this.$toolbar.append(html.join(''));
             $pageList = this.$toolbar.find('.page-list a');
             $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
+        }
+
+        if (this.options.showColumns) {
+            html = [];
+            html.push('<div class="columns pull-right keep-open">',
+                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+                '<i class="glyphicon glyphicon-th"></i>',
+                ' <span class="caret"></span>',
+                '</button>',
+                '<ul class="dropdown-menu" role="menu">');
+
+            $.each(this.options.columns, function(i, column) {
+                if (column.radio || column.checkbox) {
+                    return;
+                }
+                var checked = column.visible ? ' checked="checked"' : '';
+
+                html.push(sprintf('<li>' +
+                    '<label><input type="checkbox" value="%s"%s> %s</label>' +
+                    '</li>', i, checked, column.title));
+            });
+            html.push('</ul>',
+                '</div>');
+
+            this.$toolbar.append(html.join(''));
+
+            $keepOpen = this.$toolbar.find('.keep-open label');
+            $keepOpen.off('click').on('click', function(event) {
+                event.stopPropagation();
+                var $this = $(this).find('input');
+
+                that.options.columns[$this.val()].visible = $this.prop('checked');
+                that.initHeader();
+                that.initBody();
+            });
         }
 
         if (this.options.search) {
@@ -458,7 +500,7 @@
     BootstrapTable.prototype.initBody = function() {
         var that = this,
             html = [],
-            data = this.searchText ? this.searchData : this.data;;
+            data = this.searchText ? this.searchData : this.data;
 
         this.$body = this.$el.find('tbody');
         if (!this.$body.length) {

@@ -89,12 +89,25 @@
 }
 
 .fixed-table-toolbar .page-list {
-    position: relative;
     float: left;
 }
 
+.fixed-table-toolbar .columns {
+    margin-left: 5px;
+}
+
+.fixed-table-toolbar .columns label {
+    display: block;
+    padding: 0 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+}
+
 .fixed-table-toolbar .page-list,
-.fixed-table-toolbar .search {
+.fixed-table-toolbar .search,
+.fixed-table-toolbar .columns {
+    position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
     line-height: 34px;
