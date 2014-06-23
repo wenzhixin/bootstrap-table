@@ -11,6 +11,8 @@ The table displays data in a tabular format and offers rich support to radio, ch
 * Scrollable Table with fixed headers
 * Fully configurable
 * Via data attributes
+* Show/Hide columns
+* Show/Hide header
 * Get data in JSON format using AJAX
 * Simple column sorting with a click
 * Format column
