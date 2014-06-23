@@ -4,6 +4,20 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 [Examples and documentation](http://wenzhixin.net.cn/p/bootstrap-table/)
 
+## Features
+
+* Created for Bootstrap 3 (Bootstrap 2 supported)
+* Responsive web design
+* Scrollable Table with fixed headers
+* Fully configurable
+* Via data attributes
+* Get data in JSON format using AJAX
+* Simple column sorting with a click
+* Format column
+* Single or multiple row selection
+* Powerful pagination
+* Localization
+
 ## Changelog
 
 ### 1.0.2
