@@ -123,6 +123,7 @@
     BootstrapTable.prototype.initHeader = function() {
         var that = this,
             columns = [],
+            visibleColumns = [],
             html = [];
 
         this.$header = this.$el.find('thead');
@@ -157,6 +158,7 @@
                 return;
             }
 
+            visibleColumns.push(column);
             that.header.fields.push(column.field);
             that.header.styles.push(style);
             that.header.formatters.push(column.formatter);
@@ -189,10 +191,10 @@
 
         this.$header.find('tr').html(html.join(''));
         this.$header.find('th').each(function(i) {
-            $(this).data(columns[i]);
+            $(this).data(visibleColumns[i]);
 
-            if (columns[i].sortable) {
-                $(this).click($.proxy(that.onSort, that));
+            if (visibleColumns[i].sortable) {
+                $(this).off('click').on('click', $.proxy(that.onSort, that));
             }
         });
 
