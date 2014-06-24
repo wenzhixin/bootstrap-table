@@ -1,8 +1,7 @@
 .table {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
     border-bottom: 1px solid #dddddd;
     border-collapse: separate;
-    *border-collapse: collapse;
 }
 
 .fixed-table-container {
