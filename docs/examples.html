@@ -69,6 +69,7 @@
                     <li><a href="#pagination-table">Pagination Table</a></li>
                     <li><a href="#table-events">Table Events</a></li>
                     <li><a href="#table-methods">Table Methods</a></li>
+                    <li><a href="#via-javascript-table">Via JavaScript</a></li>
                 </ul>
             </div>
         </div>
@@ -474,8 +475,58 @@
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
 
+            <div>
+                <div class="page-header">
+                    <h1 id="via-javascript-table">Via JavaScript</h1>
+                </div>
+                <div class="bs-example">
+                    <table id="table-javascript"></table>
+                    <script>
+                        $(function() {
+                            $('#table-javascript').bootstrapTable({
+                                method: 'get',
+                                url: 'data2.json',
+                                height: 300,
+                                striped: true,
+                                pagination: true,
+                                pageSize: 50,
+                                pageList: [10, 25, 50, 100, 200],
+                                search: true,
+                                showColumns: true,
+                                columns: [{
+                                    field: 'state',
+                                    checkbox: true
+                                }, {
+                                    field: 'id',
+                                    title: 'Item ID',
+                                    align: 'right',
+                                    valign: 'bottom',
+                                    sortable: true
+                                }, {
+                                    field: 'name',
+                                    title: 'Item Name',
+                                    align: 'center',
+                                    valign: 'middle',
+                                    sortable: true,
+                                    formatter: nameFormatter
+                                }, {
+                                    field: 'price',
+                                    title: 'Item Price',
+                                    align: 'left',
+                                    valign: 'top',
+                                    sortable: true,
+                                    formatter: priceFormatter,
+                                    sorter: priceSorter
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
             <hr>
-            <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/docs/docs.js">More examples use JavaScript</a>
+            <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/docs/docs.js">More examples via JavaScript</a>
         </div>
     </div>
 </div>
