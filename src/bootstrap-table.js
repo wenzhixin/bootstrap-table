@@ -31,13 +31,6 @@
         return '';
     };
 
-    // get the element real height
-    var realHeight = function($el) {
-        var height = $el.wrap('<div style="border: 1px solid transparent;"></div>').parent().outerHeight(true);
-        $el.unwrap();
-        return height - 2;
-    };
-
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -369,7 +362,7 @@
 
     BootstrapTable.prototype.initPagination = function() {
         this.$pagination = this.$container.find('.fixed-table-pagination');
-        
+
         if (!this.options.pagination) {
             return;
         }
