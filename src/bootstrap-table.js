@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.0.2
+ * version: 1.0.3
  */
 
 !function ($) {

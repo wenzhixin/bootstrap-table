@@ -12,7 +12,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 * Fully configurable
 * Via data attributes
 * Show/Hide columns
-* Show/Hide header
+* Show/Hide headers
 * Get data in JSON format using AJAX
 * Simple column sorting with a click
 * Format column
@@ -21,6 +21,15 @@ The table displays data in a tabular format and offers rich support to radio, ch
 * Localization
 
 ## Changelog
+
+### 1.0.3
+
+* Update fixed headers.
+* Add zh-TW locale file.
+* Add ```showColumns``` option and ```visible``` column option.
+* Update ```hideHeader``` option to ```showHeader```.
+* Add ```formatNoMatches``` locale function.
+* Add table events.
 
 ### 1.0.2
 
