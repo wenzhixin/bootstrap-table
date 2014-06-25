@@ -31,6 +31,13 @@
         return '';
     };
 
+    // get the element real height
+    var realHeight = function($el) {
+        var height = $el.wrap('<div style="border: 1px solid transparent;"></div>').parent().outerHeight(true);
+        $el.unwrap();
+        return height - 2;
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -98,7 +105,7 @@
 
     BootstrapTable.prototype.initContainer = function() {
         this.$container = $([
-            '<div>',
+            '<div class="bootstrap-table">',
                 '<div class="fixed-table-toolbar"></div>',
                 '<div class="fixed-table-container">',
                     '<div class="fixed-table-header"></div>',
@@ -111,9 +118,6 @@
         this.$container.find('.fixed-table-body').append(this.$el);
         this.$container.after('<div class="clearfix"></div>');
 
-        if (this.options.height) {
-            this.$container.find('.fixed-table-container').css('height', this.options.height + 'px');
-        }
         this.$el.addClass(this.options.classes);
         if (this.options.striped) {
             this.$el.addClass('table-striped');
@@ -364,6 +368,8 @@
     };
 
     BootstrapTable.prototype.initPagination = function() {
+        this.$pagination = this.$container.find('.fixed-table-pagination');
+        
         if (!this.options.pagination) {
             return;
         }
@@ -374,8 +380,6 @@
             $next, $last,
             $number,
             data = this.searchText ? this.searchData : this.data;
-
-        this.$pagination = this.$container.find('.fixed-table-pagination');
 
         if (this.options.sidePagination === 'client') {
             this.options.totalRows = data.length;
@@ -635,6 +639,14 @@
 
         this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
+
+        if (this.options.height) {
+            var toolbarHeight = +this.$toolbar.children().outerHeight(true),
+                paginationHeight = +this.$pagination.children().outerHeight(true),
+                height = this.options.height - toolbarHeight - paginationHeight;
+
+            this.$container.find('.fixed-table-container').css('height', height + 'px');
+        }
     };
 
     BootstrapTable.prototype.load = function(data) {
