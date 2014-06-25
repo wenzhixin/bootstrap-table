@@ -301,7 +301,7 @@
             html = [];
             html.push('<div class="columns pull-right keep-open">',
                 '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
-                '<i class="glyphicon glyphicon-th"></i>',
+                '<i class="glyphicon glyphicon-th icon-th"></i>',
                 ' <span class="caret"></span>',
                 '</button>',
                 '<ul class="dropdown-menu" role="menu">');
@@ -629,6 +629,7 @@
 
         this.$header.find('.th-inner').each(function(i) {
             $(this).attr('style', header.styles[i])
+                .css('position', 'absolute')
                 .css('width', ($(this).parent().width()) + 'px'); // padding: 8px
         });
 
