@@ -132,6 +132,12 @@ $(function () {
                 type: 'Boolean',
                 description: 'True to show the columns drop down list.',
                 'default': 'false'
+            },
+            {
+                name: 'idField',
+                type: 'String',
+                description: 'Indicate which field is an identity field.',
+                'default': 'undefined'
             }
         ]
     });

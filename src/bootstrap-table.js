@@ -64,6 +64,7 @@
         selectItemName: 'btSelectItem',
         showHeader: true,
         showColumns: false,
+        idField: undefined,
 
         formatRecordsPerPage: function(pageNumber) {
             return sprintf('%s records per page', pageNumber);
@@ -540,6 +541,7 @@
                             sprintf(' data-index="%s"', i) +
                             sprintf(' name="%s"', that.options.selectItemName) +
                             sprintf(' type="%s"', type) +
+                            sprintf(' value="%s"', item[that.options.idField]) +
                             sprintf(' checked="%s"', value ? 'checked' : undefined) + ' />',
                         '</td>'].join('');
                 }
