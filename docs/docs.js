@@ -307,6 +307,31 @@ $(function () {
             rowspan: 5
         });
 
+    $('#localization').bootstrapTable({
+        columns: [
+            {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 100},
+            {field: 'parameter', title: 'Parameter', align: 'center', valign: 'middle', width: 100},
+            {field: 'default', title: 'Default', align: 'center', valign: 'middle', width: 200}
+        ],
+        data: [{
+            name: 'formatRecordsPerPage',
+            parameter: 'pageNumber',
+            'default': '%s records per page'
+        }, {
+            name: 'formatShowingRows',
+            parameter: 'pageFrom, pageTo, totalRows',
+            'default': 'Showing %s to %s of %s rows'
+        }, {
+            name: 'formatSearch',
+            parameter: '-',
+            'default': 'Search'
+        }, {
+            name: 'formatNoMatches',
+            parameter: '-',
+            'default': 'No matching records found'
+        }]
+    });
+
     var $window = $(window);
     var $body = $(document.body);
 
