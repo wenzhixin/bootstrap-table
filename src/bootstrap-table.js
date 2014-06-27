@@ -66,6 +66,9 @@
         showColumns: false,
         idField: undefined,
 
+        formatLoadingMessage: function() {
+            return 'Loading, please wait…';
+        },
         formatRecordsPerPage: function(pageNumber) {
             return sprintf('%s records per page', pageNumber);
         },
@@ -103,7 +106,11 @@
                 '<div class="fixed-table-toolbar"></div>',
                 '<div class="fixed-table-container">',
                     '<div class="fixed-table-header"></div>',
-                    '<div class="fixed-table-body"></div>',
+                    '<div class="fixed-table-body">',
+                        '<div class="fixed-table-loading">',
+                            this.options.formatLoadingMessage(),
+                        '</div>',
+                    '</div>',
                     '<div class="fixed-table-pagination"></div>',
                 '</div>',
             '</div>'].join(''));
@@ -111,6 +118,7 @@
         this.$container.insertAfter(this.$el);
         this.$container.find('.fixed-table-body').append(this.$el);
         this.$container.after('<div class="clearfix"></div>');
+        this.$loading = this.$container.find('.fixed-table-loading');
 
         this.$el.addClass(this.options.classes);
         if (this.options.striped) {
@@ -584,6 +592,7 @@
         if (!this.options.url) {
             return;
         }
+        this.$loading.show();
         $.ajax({
             type: this.options.method,
             url: this.options.url,
@@ -592,6 +601,9 @@
             dataType: 'json',
             success: function(data) {
                 that.load(data);
+            },
+            complete: function() {
+                that.$loading.hide();
             }
         });
     };
@@ -626,12 +638,6 @@
     BootstrapTable.prototype.resetView = function() {
         var header = this.header;
 
-        this.$header.find('.th-inner').each(function(i) {
-            $(this).attr('style', header.styles[i])
-                .css('position', 'absolute')
-                .css('width', ($(this).parent().width()) + 'px'); // padding: 8px
-        });
-
         this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
@@ -642,6 +648,14 @@
 
             this.$container.find('.fixed-table-container').css('height', height + 'px');
         }
+
+        this.$header.find('.th-inner').each(function(i) {
+            var width = $(this).parent().width();
+            $(this).parent().width(width);
+            $(this).attr('style', header.styles[i])
+                .css('position', 'absolute')
+                .css('width', width + 'px'); // padding: 8px
+        });
     };
 
     BootstrapTable.prototype.load = function(data) {

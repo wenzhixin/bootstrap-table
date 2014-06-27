@@ -124,6 +124,18 @@
     cursor: default;
 }
 
+.fixed-table-loading {
+    display: none;
+    position: absolute;
+    top: 38px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    background-color: #fff;
+    text-align: center;
+}
+
 /* support bootstrap 2 */
 .fixed-table-body thead th .th-inner {
     box-sizing: border-box;

@@ -6,6 +6,9 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
+        formatLoadingMessage: function() {
+            return '正在努力地加載數據中，請稍候……';
+        },
         formatRecordsPerPage: function(pageNumber) {
             return '每頁顯示 ' + pageNumber + ' 條記錄';
         },

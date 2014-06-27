@@ -6,6 +6,9 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
+        formatLoadingMessage: function() {
+            return 'Loading, please wait…';
+        },
         formatRecordsPerPage: function(pageNumber) {
             return pageNumber + ' records per page';
         },
