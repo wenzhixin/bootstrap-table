@@ -314,6 +314,10 @@ $(function () {
             {field: 'default', title: 'Default', align: 'center', valign: 'middle', width: 200}
         ],
         data: [{
+            name: 'formatLoadingMessage',
+            parameter: '-',
+            'default': 'Loading, please wait…'
+        }, {
             name: 'formatRecordsPerPage',
             parameter: 'pageNumber',
             'default': '%s records per page'
