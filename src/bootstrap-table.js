@@ -555,31 +555,32 @@
                     value = eval(that.header.formatters[j] + '(value, item)'); // eval ?
                 }
 
-                value = typeof value === 'undefined' ? that.options.undefinedText : value;
-
-                text = that.options.cardView ?
-                    ['<div class="card-view">',
-                    sprintf('<div class="title" %s>%s</div>', style,
-                        getPropertyFromOther(that.options.columns, 'field', 'title', field)),
-                    sprintf('<div class="value">%s</div>', value),
-                    '</div>'].join('') :
-                    [sprintf('<td %s>', style),
-                    value,
-                    '</td>'].join('');
-
                 if (that.options.columns[j].checkbox || that.options.columns[j].radio) {
                     type = that.options.columns[j].checkbox ? 'checkbox' : type;
                     type = that.options.columns[j].radio ? 'radio' : type;
 
                     text = ['<td>',
-                            '<input class="checkbox"' +
+                        '<input class="checkbox"' +
                             sprintf(' data-index="%s"', i) +
                             sprintf(' name="%s"', that.options.selectItemName) +
                             sprintf(' type="%s"', type) +
                             sprintf(' value="%s"', item[that.options.idField]) +
                             sprintf(' checked="%s"', value ? 'checked' : undefined) + ' />',
                         '</td>'].join('');
+                } else {
+                    value = typeof value === 'undefined' ? that.options.undefinedText : value;
+
+                    text = that.options.cardView ?
+                        ['<div class="card-view">',
+                            sprintf('<div class="title" %s>%s</div>', style,
+                                getPropertyFromOther(that.options.columns, 'field', 'title', field)),
+                            sprintf('<div class="value">%s</div>', value),
+                            '</div>'].join('') :
+                        [sprintf('<td %s>', style),
+                            value,
+                            '</td>'].join('');
                 }
+
                 html.push(text);
             });
 
