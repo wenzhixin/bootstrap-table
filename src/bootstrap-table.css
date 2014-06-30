@@ -136,6 +136,10 @@
     text-align: center;
 }
 
+.fixed-table-body .card-view .title {
+    font-weight: bold;
+}
+
 /* support bootstrap 2 */
 .fixed-table-body thead th .th-inner {
     box-sizing: border-box;

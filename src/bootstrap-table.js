@@ -31,6 +31,18 @@
         return '';
     };
 
+    var getPropertyFromOther = function(list, from, to, value) {
+        var result = '';
+        $.each(list, function(i, item) {
+            if (item[from] === value) {
+                result = item[to];
+                return false;
+            }
+            return true;
+        });
+        return result;
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -65,6 +77,7 @@
         showHeader: true,
         showColumns: false,
         idField: undefined,
+        cardView: false,
 
         formatLoadingMessage: function() {
             return 'Loading, please wait…';
@@ -204,10 +217,11 @@
             }
         });
 
-        if (!this.options.showHeader) {
+        if (!this.options.showHeader || this.options.cardView) {
             this.$header.hide();
             this.$container.find('.fixed-table-header').css('border-bottom', 'none');
             this.$container.find('.fixed-table-container').css('padding-top', 0);
+            this.$loading.css('top', 0);
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
@@ -525,10 +539,15 @@
 
             html.push('<tr' + ' data-index="' + i + '">');
 
-            $.each(that.header.fields, function(j, field) {
+            if (this.options.cardView) {
+                html.push(sprintf('<td colspan="%s">', this.header.fields.length));
+            }
+
+            $.each(this.header.fields, function(j, field) {
                 var text = '',
                     value = item[field],
-                    type = '';
+                    type = '',
+                    style = sprintf('style="%s"', that.header.styles[j]);
 
                 if (typeof that.header.formatters[j] === 'function') {
                     value = that.header.formatters[j](value, item);
@@ -536,8 +555,16 @@
                     value = eval(that.header.formatters[j] + '(value, item)'); // eval ?
                 }
 
-                text = ['<td' + sprintf(' style="%s"', that.header.styles[j]) + '>',
-                    typeof value === 'undefined' ? that.options.undefinedText : value,
+                value = typeof value === 'undefined' ? that.options.undefinedText : value;
+
+                text = that.options.cardView ?
+                    ['<div class="card-view">',
+                    sprintf('<div class="title" %s>%s</div>', style,
+                        getPropertyFromOther(that.options.columns, 'field', 'title', field)),
+                    sprintf('<div class="value">%s</div>', value),
+                    '</div>'].join('') :
+                    [sprintf('<td %s>', style),
+                    value,
                     '</td>'].join('');
 
                 if (that.options.columns[j].checkbox || that.options.columns[j].radio) {
@@ -555,6 +582,10 @@
                 }
                 html.push(text);
             });
+
+            if (this.options.cardView) {
+                html.push('</td>');
+            }
 
             html.push('</tr>');
         }
