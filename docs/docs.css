@@ -1194,3 +1194,9 @@ h1[id] {
     margin-top: 15px;
     margin-bottom: 5px;
 }
+
+.navbar-text {
+    float: left;
+    margin-right: 0;
+    margin-left: 0;
+}
