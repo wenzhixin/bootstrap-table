@@ -138,6 +138,12 @@ $(function () {
                 type: 'String',
                 description: 'Indicate which field is an identity field.',
                 'default': 'undefined'
+            },
+            {
+                name: 'cardView',
+                type: 'Boolean',
+                description: 'True to show card view table, for example mobile view.',
+                'default': 'false'
             }
         ]
     });
