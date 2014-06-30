@@ -687,7 +687,6 @@
 
         this.$header.find('.th-inner').each(function(i) {
             var width = $(this).parent().width();
-            $(this).parent().width(width);
             $(this).attr('style', header.styles[i])
                 .css('position', 'absolute')
                 .css('width', width + 'px'); // padding: 8px
