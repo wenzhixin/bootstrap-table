@@ -144,6 +144,12 @@ $(function () {
                 type: 'Boolean',
                 description: 'True to show card view table, for example mobile view.',
                 'default': 'false'
+            },
+            {
+                name: 'clickToSelect',
+                type: 'Boolean',
+                description: 'True to select checkbox or radiobox when click rows.',
+                'default': 'false'
             }
         ]
     });
