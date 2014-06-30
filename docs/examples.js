@@ -5,17 +5,21 @@ $(function() {
             codes = [],
             spaces = 0;
 
-        $.each(sources, function(i, text) {
-            if (!$.trim(text)) {
-                i > 0  && codes.push('');
-                return;
-            }
-            if (!spaces) {
-                spaces = text.match(/(^\s+)/)[1].length;
-            }
-            codes.push(text.substring(spaces));
-        });
-        $(this).next().find('code').html(codes.join('\n'));
+        try {
+            $.each(sources, function(i, text) {
+                if (!$.trim(text)) {
+                    i > 0  && codes.push('');
+                    return;
+                }
+                if (!spaces) {
+                    spaces = text.match(/(^\s+)/)[1].length;
+                }
+                codes.push(text.substring(spaces));
+            });
+            $(this).next().find('code').html(codes.join('\n'));
+        } catch (e) {
+            $(this).next().remove();
+        }
     });
     $('#i18n').change(function() {
         $.getScript('../src/locale/bootstrap-table-' + $(this).val() + '.js', function() {
