@@ -78,6 +78,7 @@
         showColumns: false,
         idField: undefined,
         cardView: false,
+        clickToSelect: false,
 
         formatLoadingMessage: function() {
             return 'Loading, please wait…';
@@ -602,9 +603,12 @@
 
         this.$body.find('tr').off('click').on('click', function() {
             that.options.onClickRow(that.data[$(this).data('index')]);
+            if (that.options.clickToSelect) {
+                $(this).find(sprintf('[name="%s"]', that.options.selectItemName)).trigger('click');
+            }
         });
 
-        this.$selectItem = this.$body.find('[name="btSelectItem"]');
+        this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
         this.$selectItem.off('click').on('click', function(event) {
             event.stopImmediatePropagation();
             var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length,
