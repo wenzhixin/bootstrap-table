@@ -101,7 +101,9 @@
         onCheck: function(row) {return false;},
         onUncheck: function(row) {return false;},
         onCheckAll: function() {return false;},
-        onUncheckAll: function() {return false;}
+        onUncheckAll: function() {return false;},
+        onLoadSuccess: function(data) {return false;},
+        onLoadError: function(status) {return false;}
     };
 
     BootstrapTable.prototype.init = function() {
@@ -637,6 +639,10 @@
             dataType: 'json',
             success: function(data) {
                 that.load(data);
+                that.onLoadSuccess(data);
+            },
+            error: function(res) {
+                that.onLoadError(res.status);
             },
             complete: function() {
                 that.$loading.hide();
