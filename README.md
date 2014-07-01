@@ -23,6 +23,15 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 ## Changelog
 
+### 1.0.4
+
+* Add ```showLoading``` and ```hideLoading``` methods.
+* Add ```onLoadSuccess``` and ```onLoadError``` events.
+* Add ```clickToSelect``` option.
+* Add ```cardView``` option.
+* Add loading with ```formatLoadingMessage``` function.
+* Add ```idField``` option.
+
 ### 1.0.3
 
 * Update fixed headers.
