@@ -18,6 +18,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 * Format column
 * Single or multiple row selection
 * Powerful pagination
+* Card view
 * Localization
 
 ## Changelog
