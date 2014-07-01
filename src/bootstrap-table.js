@@ -760,6 +760,14 @@
         return this.$el_;
     };
 
+    BootstrapTable.prototype.showLoading = function() {
+        this.$loading.show();
+    };
+
+    BootstrapTable.prototype.hideLoading = function() {
+        this.$loading.hide();
+    };
+
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
@@ -769,7 +777,8 @@
                 'getSelections',
                 'load', 'append', 'mergeCells',
                 'checkAll', 'uncheckAll',
-                'destroy', 'resetView'
+                'destroy', 'resetView',
+                'showLoading', 'hideLoading'
             ],
             value;
 
