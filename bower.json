@@ -1,0 +1,20 @@
+{
+  "name": "bootstrap-table",
+  "version": "1.0.3",
+  "homepage": "https://github.com/wenzhixin/bootstrap-table",
+  "authors": [
+    "zhixin <wenzhixin2010@gmail.com>"
+  ],
+  "description": "The table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.",
+  "main": "src",
+  "keywords": [
+    "bootstrap",
+    "table",
+    "bootstrap table"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "docs",
+    "assets"
+  ]
+}
