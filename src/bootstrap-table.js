@@ -640,10 +640,10 @@
             dataType: 'json',
             success: function(data) {
                 that.load(data);
-                that.onLoadSuccess(data);
+                that.options.onLoadSuccess(data);
             },
             error: function(res) {
-                that.onLoadError(res.status);
+                that.options.onLoadError(res.status);
             },
             complete: function() {
                 that.$loading.hide();
