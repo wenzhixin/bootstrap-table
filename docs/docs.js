@@ -268,7 +268,17 @@ $(function () {
                 name: 'onUncheckAll',
                 parameter: 'none',
                 description: 'Fires when user uncheck all rows.'
-            }
+            },
+            {
+                name: 'onLoadSuccess',
+                parameter: 'data',
+                description: 'Fires when remote data is loaded successfully.'
+            },
+            {
+                name: 'onLoadError',
+                parameter: 'status',
+                description: 'Fires when some errors occur to load remote data.'
+            },
         ],
         onClickRow: function (row) {
             console.log('onClickRow', row);
