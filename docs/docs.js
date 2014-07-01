@@ -310,6 +310,8 @@ $(function () {
             {name: 'load', parameter: 'data', description: 'Load the data to table.'}
         ]).bootstrapTable('append', [
             {name: 'append', parameter: 'data', description: 'Append the data to table.'},
+            {name: 'showLoading', parameter: 'none', description: 'Show loading status.'},
+            {name: 'hideLoading', parameter: 'none', description: 'Hide loading status.'},
             {name: 'mergeCells', parameter: 'options', description: 'Merge some cells to one cell, the options contains following properties:'},
             {name: 'mergeCells', parameter: 'options', description: 'index: the row index.'},
             {name: 'mergeCells', parameter: 'options', description: 'field: the field name.'},

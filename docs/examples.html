@@ -458,6 +458,12 @@
                         <button class="btn btn-default" id="uncheck-all" data-method="uncheckAll">
                             Uncheck All
                         </button>
+                        <button class="btn btn-default" id="show-loading" data-method="showLoading">
+                            Show Loading
+                        </button>
+                        <button class="btn btn-default" id="hide-loading" data-method="hideLoading">
+                            Hide Loading
+                        </button>
                     </div>
                     <table id="table-methods-table" data-height="246">
                         <thead>
@@ -493,7 +499,8 @@
                             $('#get-selections').click(function() {
                                 alert('Selected values: ' + JSON.stringify($table.bootstrapTable('getSelections')));
                             });
-                            $('#load-data, #append-data, #check-all, #uncheck-all').click(function() {
+                            $('#load-data, #append-data, #check-all, #uncheck-all, ' +
+                                    '#show-loading, #hide-loading').click(function() {
                                 $table.bootstrapTable($(this).data('method'), getRows());
                             });
                             $('#merge-cells').click(function() {
