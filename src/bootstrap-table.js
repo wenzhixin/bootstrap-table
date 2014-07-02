@@ -576,9 +576,9 @@
 
                     text = that.options.cardView ?
                         ['<div class="card-view">',
-                            sprintf('<div class="title" %s>%s</div>', style,
+                            sprintf('<span class="title" %s>%s</span>', style,
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)),
-                            sprintf('<div class="value">%s</div>', value),
+                            sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
                         [sprintf('<td %s>', style),
                             value,

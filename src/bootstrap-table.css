@@ -138,6 +138,8 @@
 
 .fixed-table-body .card-view .title {
     font-weight: bold;
+    display: inline-block;
+    min-width: 30%;
 }
 
 /* support bootstrap 2 */
