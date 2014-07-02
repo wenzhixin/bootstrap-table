@@ -48,7 +48,7 @@
 .fixed-table-body thead th .th-inner {
     /*position: absolute;*/
     top: 0;
-    padding: 8px;
+    padding: 8px 0;
     line-height: 22px;
     vertical-align: top;
     border-left: 1px solid #dddddd;
