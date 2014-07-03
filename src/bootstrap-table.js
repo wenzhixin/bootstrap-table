@@ -679,7 +679,8 @@
     // =======================
 
     BootstrapTable.prototype.resetView = function() {
-        var header = this.header;
+        var that = this,
+            header = this.header;
 
         this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
@@ -694,9 +695,11 @@
 
         this.$header.find('.th-inner').each(function(i) {
             var width = $(this).parent().width();
+
             $(this).attr('style', header.styles[i])
                 .css('position', 'absolute')
                 .css('width', width + 'px'); // padding: 8px
+            that.$body.find('tr:eq(0) td').eq(i).css('width', width + 'px'); // fix th width display error
         });
     };
 
