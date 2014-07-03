@@ -554,9 +554,9 @@
                     style = sprintf('style="%s"', that.header.styles[j]);
 
                 if (typeof that.header.formatters[j] === 'function') {
-                    value = that.header.formatters[j](value, item);
+                    value = that.header.formatters[j](value, item, i);
                 } else if (typeof that.header.formatters[j] === 'string') {
-                    value = eval(that.header.formatters[j] + '(value, item)'); // eval ?
+                    value = eval(that.header.formatters[j] + '(value, item, i)'); // eval ?
                 }
 
                 if (that.options.columns[j].checkbox || that.options.columns[j].radio) {

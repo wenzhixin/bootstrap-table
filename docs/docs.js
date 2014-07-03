@@ -222,7 +222,7 @@ $(function () {
             {
                 name: 'formatter',
                 type: 'Function',
-                description: 'The cell formatter function, take two parameters: <br />value: the field value. <br />row: the row record data.',
+                description: 'The cell formatter function, take two parameters: <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
                 'default': 'undefined'
             },
             {
