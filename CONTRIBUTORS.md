@@ -1,6 +1,6 @@
 ## Contributors
 
-Multiple select is due to the excellent work of the following contributors:
+bootstrap-table is due to the excellent work of the following contributors:
 
 <table>
 <tr>
