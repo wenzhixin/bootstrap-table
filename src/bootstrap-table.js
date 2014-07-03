@@ -769,6 +769,10 @@
         this.$loading.hide();
     };
 
+    BootstrapTable.prototype.refresh = function() {
+        this.initServer();
+    };
+
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
@@ -779,7 +783,8 @@
                 'load', 'append', 'mergeCells',
                 'checkAll', 'uncheckAll',
                 'destroy', 'resetView',
-                'showLoading', 'hideLoading'
+                'showLoading', 'hideLoading',
+                'refresh'
             ],
             value;
 
