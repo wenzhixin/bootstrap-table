@@ -439,7 +439,7 @@
                     <h1 id="table-methods">Table methods</h1>
                 </div>
                 <div class="bs-example">
-                    <div class="btn-group btn-default">
+                    <div class="btn-group">
                         <button class="btn btn-default" id="get-selections">
                             Get Selections
                         </button>
@@ -464,8 +464,11 @@
                         <button class="btn btn-default" id="hide-loading" data-method="hideLoading">
                             Hide Loading
                         </button>
+                        <button class="btn btn-default" id="refresh" data-method="refresh">
+                            Refresh
+                        </button>
                     </div>
-                    <table id="table-methods-table" data-height="246">
+                    <table id="table-methods-table" data-height="246" data-url="data1.json">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -492,15 +495,13 @@
                                     return rows;
                                 },
                                 // init table use data
-                                $table = $('#table-methods-table').bootstrapTable({
-                                    data: getRows()
-                                });
+                                $table = $('#table-methods-table').bootstrapTable();
 
                             $('#get-selections').click(function() {
                                 alert('Selected values: ' + JSON.stringify($table.bootstrapTable('getSelections')));
                             });
                             $('#load-data, #append-data, #check-all, #uncheck-all, ' +
-                                    '#show-loading, #hide-loading').click(function() {
+                                    '#show-loading, #hide-loading, #refresh').click(function() {
                                 $table.bootstrapTable($(this).data('method'), getRows());
                             });
                             $('#merge-cells').click(function() {

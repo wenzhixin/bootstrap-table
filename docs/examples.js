@@ -1,4 +1,6 @@
 $(function() {
+    'use strict';
+
     $('.bs-example').each(function() {
         var source = $('<div></div>').text($(this).html()).html(),
             sources = source.split('\n'),

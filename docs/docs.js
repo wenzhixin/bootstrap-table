@@ -1,4 +1,6 @@
 $(function () {
+    'use strict';
+
     $('#table').bootstrapTable({
         columns: [
             {field: 'name', title: 'Name', align: 'center', width: 60, sortable: true},
@@ -278,7 +280,7 @@ $(function () {
                 name: 'onLoadError',
                 parameter: 'status',
                 description: 'Fires when some errors occur to load remote data.'
-            },
+            }
         ],
         onClickRow: function (row) {
             console.log('onClickRow', row);
@@ -310,13 +312,14 @@ $(function () {
             {name: 'load', parameter: 'data', description: 'Load the data to table.'}
         ]).bootstrapTable('append', [
             {name: 'append', parameter: 'data', description: 'Append the data to table.'},
-            {name: 'showLoading', parameter: 'none', description: 'Show loading status.'},
-            {name: 'hideLoading', parameter: 'none', description: 'Hide loading status.'},
             {name: 'mergeCells', parameter: 'options', description: 'Merge some cells to one cell, the options contains following properties:'},
             {name: 'mergeCells', parameter: 'options', description: 'index: the row index.'},
             {name: 'mergeCells', parameter: 'options', description: 'field: the field name.'},
             {name: 'mergeCells', parameter: 'options', description: 'rowspan: the rowspan count to be merged.'},
             {name: 'mergeCells', parameter: 'options', description: 'colspan: the colspan count to be merged.'},
+            {name: 'refresh', parameter: 'none', description: 'Refresh the remote server data.'},
+            {name: 'showLoading', parameter: 'none', description: 'Show loading status.'},
+            {name: 'hideLoading', parameter: 'none', description: 'Hide loading status.'},
             {name: 'checkAll', parameter: 'none', description: 'Check all current page rows.'},
             {name: 'uncheckAll', parameter: 'none', description: 'Uncheck all current page rows.'},
             {name: 'resetView', parameter: 'none', description: 'Reset the bootstrap table view, like display error when init the table with display: none.'},
