@@ -21,6 +21,10 @@ The table displays data in a tabular format and offers rich support to radio, ch
 * Card view
 * Localization
 
+## Contributors
+
+[CONTRIBUTORS](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTORS.md)
+
 ## Changelog
 
 ### 1.0.4
