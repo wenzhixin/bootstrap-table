@@ -107,6 +107,21 @@
         onLoadError: function(status) {return false;}
     };
 
+    BootstrapTable.COLUMN_DEFAULTS = {
+        radio: false,
+        checkbox: false,
+        field: undefined,
+        title: undefined,
+        align: undefined, // left, right, center
+        valign: undefined, // top, middle, bottom
+        width: undefined,
+        sortable: true,
+        order: 'asc', // asc, desc
+        visible: true,
+        formatter: undefined,
+        sorter: undefined
+    };
+
     BootstrapTable.prototype.init = function() {
         this.initContainer();
         this.initHeader();
@@ -172,11 +187,13 @@
             sorters: []
         };
         $.each(this.options.columns, function(i, column) {
-            var text = '',
-                style = sprintf('text-align: %s; ', column.align) + sprintf('vertical-align: %s; ', column.valign),
-                order = that.options.sortOrder || column.order || 'asc';
+            column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
 
-            column.visible = typeof column.visible === 'undefined' ? true : column.visible;
+            var text = '',
+                style = sprintf('text-align: %s; ', column.align)
+                    + sprintf('vertical-align: %s; ', column.valign),
+                order = that.options.sortOrder || column.order;
+
             if (!column.visible) {
                 return;
             }
@@ -813,6 +830,7 @@
 
     $.fn.bootstrapTable.Constructor = BootstrapTable;
     $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS;
+    $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS;
 
     // BOOTSTRAP TABLE INIT
     // =======================
