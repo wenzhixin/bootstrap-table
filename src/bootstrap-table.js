@@ -115,7 +115,7 @@
         align: undefined, // left, right, center
         valign: undefined, // top, middle, bottom
         width: undefined,
-        sortable: true,
+        sortable: false,
         order: 'asc', // asc, desc
         visible: true,
         formatter: undefined,
@@ -190,8 +190,8 @@
             column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
 
             var text = '',
-                style = sprintf('text-align: %s; ', column.align)
-                    + sprintf('vertical-align: %s; ', column.valign),
+                style = sprintf('text-align: %s; ', column.align) +
+                        sprintf('vertical-align: %s; ', column.valign),
                 order = that.options.sortOrder || column.order;
 
             if (!column.visible) {
