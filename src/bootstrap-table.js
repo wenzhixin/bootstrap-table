@@ -537,6 +537,9 @@
     };
 
     BootstrapTable.prototype.onPageNumber = function(event) {
+        if (this.options.pageNumber === +$(event.currentTarget).text()) {
+            return;
+        }
         this.options.pageNumber = +$(event.currentTarget).text();
         this.updatePagination();
     };
