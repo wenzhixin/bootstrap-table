@@ -71,9 +71,9 @@ $(function () {
             },
             {
                 name: 'queryParams',
-                type: 'Object',
-                description: 'When request remote data, sending additional parameters also.',
-                'default': '{}'
+                type: 'Function',
+                description: 'When request remote data, sending additional parameters by format the queryParams.',
+                'default': 'function(pageSize, pageNumber) {return {};}'
             },
             {
                 name: 'pagination',
