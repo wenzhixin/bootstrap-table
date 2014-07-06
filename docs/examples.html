@@ -80,7 +80,8 @@
                     <li><a href="#card-view">Card View Table</a></li>
                     <li><a href="#radio-table">Radio Table</a></li>
                     <li><a href="#checkbox-table">Checkbox Table</a></li>
-                    <li><a href="#pagination-table">Pagination Table</a></li>
+                    <li><a href="#client-side-pagination-table">Client Side Pagination Table</a></li>
+                    <li><a href="#server-side-pagination-table">Server Side Pagination Table</a></li>
                     <li><a href="#table-events">Table Events</a></li>
                     <li><a href="#table-methods">Table Methods</a></li>
                     <li><a href="#via-javascript-table">Via JavaScript</a></li>
@@ -358,7 +359,7 @@
 
             <div>
                 <div class="page-header">
-                    <h1 id="pagination-table">Pagination Table</h1>
+                    <h1 id="client-side-pagination-table">Client Side Pagination Table</h1>
                 </div>
                 <div class="form-inline">
                     <label>
@@ -382,6 +383,51 @@
                             </tr>
                         </thead>
                     </table>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="server-side-pagination-table">Server Side Pagination Table</h1>
+                </div>
+                <div class="bs-example">
+                    <table id="table-pagination"
+                           data-toggle="table"
+                           data-url="/examples/bootstrap_table/data"
+                           data-height="400"
+                           data-side-pagination="server"
+                           data-pagination="true"
+                           data-search="true"
+                           data-query-params="queryParams">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        // url: /examples/bootstrap_table/data?offset=0&limit=10
+                        function queryParams(pageSize, pageNumber) {
+                            return {
+                                limit: pageSize,
+                                offset: pageSize * (pageNumber - 1)
+                            };
+                        }
+
+                        // url: /examples/bootstrap_table/data?page=1&number=10
+                        /*
+                        function queryParams(pageSize, pageNumber) {
+                            return {
+                                page: pageNumber,
+                                number: pageSize
+                            };
+                        }
+                        */
+                    </script>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>

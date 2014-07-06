@@ -66,7 +66,7 @@
         data: [],
         method: 'get',
         url: undefined,
-        queryParams: {},
+        queryParams: function(pageSize, pageNumber) {return {};},
         pagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
@@ -418,9 +418,10 @@
             $number,
             data = this.searchText ? this.searchData : this.data;
 
-        if (this.options.sidePagination === 'client') {
+        if (this.options.sidePagination !== 'server') {
             this.options.totalRows = data.length;
         }
+
         this.totalPages = 0;
         if (this.options.totalRows) {
             this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
@@ -428,11 +429,13 @@
         if (this.totalPages > 0 && this.options.pageNumber > this.totalPages) {
             this.options.pageNumber = this.totalPages;
         }
+
         this.pageFrom = (this.options.pageNumber - 1) * this.options.pageSize + 1;
         this.pageTo = this.options.pageNumber * this.options.pageSize;
         if (this.pageTo > this.options.totalRows) {
             this.pageTo = this.options.totalRows;
         }
+
         html.push(
             '<div class="pull-left pagination">',
                 '<div class="pagination-info">',
@@ -494,50 +497,48 @@
         $number.off('click').on('click', $.proxy(this.onPageNumber, this));
     };
 
+    BootstrapTable.prototype.updatePagination = function() {
+        this.resetRows();
+        this.initPagination();
+        if (this.options.sidePagination === 'server') {
+            this.initServer();
+        } else {
+            this.initBody();
+        }
+    };
+
     BootstrapTable.prototype.onPageListChange = function(event) {
         var $this = $(event.currentTarget);
 
         $this.parent().addClass('active').siblings().removeClass('active');
         this.options.pageSize = +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
-        this.resetRows();
-        this.initPagination();
-        this.initBody();
+        this.updatePagination();
     };
 
     BootstrapTable.prototype.onPageFirst = function() {
         this.options.pageNumber = 1;
-        this.resetRows();
-        this.initPagination();
-        this.initBody();
+        this.updatePagination();
     };
 
     BootstrapTable.prototype.onPagePre = function() {
         this.options.pageNumber--;
-        this.resetRows();
-        this.initPagination();
-        this.initBody();
+        this.updatePagination();
     };
 
     BootstrapTable.prototype.onPageNext = function() {
         this.options.pageNumber++;
-        this.resetRows();
-        this.initPagination();
-        this.initBody();
+        this.updatePagination();
     };
 
     BootstrapTable.prototype.onPageLast = function() {
         this.options.pageNumber = this.totalPages;
-        this.resetRows();
-        this.initPagination();
-        this.initBody();
+        this.updatePagination();
     };
 
     BootstrapTable.prototype.onPageNumber = function(event) {
         this.options.pageNumber = +$(event.currentTarget).text();
-        this.resetRows();
-        this.initPagination();
-        this.initBody();
+        this.updatePagination();
     };
 
     BootstrapTable.prototype.initBody = function() {
@@ -550,7 +551,7 @@
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
         }
 
-        if (!this.options.pagination) {
+        if (!this.options.pagination || this.options.sidePagination === 'server') {
             this.pageFrom = 1;
             this.pageTo = data.length;
         }
@@ -643,19 +644,33 @@
     };
 
     BootstrapTable.prototype.initServer = function() {
-        var that = this;
+        var that = this,
+            data = {};
 
         if (!this.options.url) {
             return;
         }
         this.$loading.show();
+
+        if (typeof this.options.queryParams === 'function') {
+            data = this.options.queryParams(this.options.pageSize, this.options.pageNumber);
+        } else if (typeof this.options.queryParams === 'string') {
+            data = eval(this.options.queryParams + '(this.options.pageSize, this.options.pageNumber)');
+        }
+
         $.ajax({
             type: this.options.method,
             url: this.options.url,
-            data: this.options.queryParams,
+            data: data,
             contentType: 'application/json',
             dataType: 'json',
-            success: function(data) {
+            success: function(res) {
+                var data = res;
+
+                if (that.options.sidePagination === 'server') {
+                    that.options.totalRows = res.total;
+                    data = res.rows;
+                }
                 that.load(data);
                 that.options.onLoadSuccess(data);
             },
