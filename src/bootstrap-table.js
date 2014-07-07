@@ -172,14 +172,16 @@
             this.$header.append('<tr></tr>');
         }
         this.$header.find('th').each(function() {
-            var column = $.extend({},
-                BootstrapTable.COLUMN_DEFAULTS, {
+            var column = $.extend({}, {
                     title: $(this).text()
                 }, $(this).data());
 
             columns.push(column);
         });
         this.options.columns = $.extend(columns, this.options.columns);
+        $.each(this.options.columns, function(i, column) {
+            that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
+        });
 
         this.header = {
             fields: [],
