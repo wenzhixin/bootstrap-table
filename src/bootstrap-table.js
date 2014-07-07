@@ -172,9 +172,10 @@
             this.$header.append('<tr></tr>');
         }
         this.$header.find('th').each(function() {
-            var column = $.extend({}, {
-                title: $(this).text()
-            }, $(this).data());
+            var column = $.extend({},
+                BootstrapTable.COLUMN_DEFAULTS, {
+                    title: $(this).text()
+                }, $(this).data());
 
             columns.push(column);
         });
@@ -187,8 +188,6 @@
             sorters: []
         };
         $.each(this.options.columns, function(i, column) {
-            column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
-
             var text = '',
                 style = sprintf('text-align: %s; ', column.align) +
                         sprintf('vertical-align: %s; ', column.valign),
