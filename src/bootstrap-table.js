@@ -66,7 +66,7 @@
         data: [],
         method: 'get',
         url: undefined,
-        queryParams: function(pageSize, pageNumber) {return {};},
+        queryParams: function(pageSize, pageNumber, searchText) {return {};},
         pagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
@@ -392,17 +392,18 @@
         var that = this;
 
         this.searchText = $(event.currentTarget).val();
-        this.searchData = $.grep(this.data, function(item) {
-            for (var key in item) {
-                if (typeof item[key] === 'string' && item[key].indexOf(that.searchText) !== -1) {
-                    return true;
+
+        if (this.options.sidePagination !== 'server') {
+            this.searchData = $.grep(this.data, function(item) {
+                for (var key in item) {
+                    if (typeof item[key] === 'string' && item[key].indexOf(that.searchText) !== -1) {
+                        return true;
+                    }
                 }
-            }
-            return false;
-        });
-        this.resetRows();
-        this.initPagination();
-        this.initBody();
+                return false;
+            });
+        }
+        this.updatePagination();
     };
 
     BootstrapTable.prototype.initPagination = function() {
@@ -555,6 +556,10 @@
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
         }
 
+        if (this.options.sidePagination === 'server') {
+            data = this.data;
+        }
+
         if (!this.options.pagination || this.options.sidePagination === 'server') {
             this.pageFrom = 1;
             this.pageTo = data.length;
@@ -643,6 +648,7 @@
             that.$selectAll.prop('checked', checkAll);
             row[that.header.stateField] = checked;
             that.options[checked ? 'onCheck' : 'onUncheck'](row);
+//            $(this).parents('tr')[checked ? 'addClass' : 'removeClass']('selected');
         });
         this.resetView();
     };
@@ -657,9 +663,11 @@
         this.$loading.show();
 
         if (typeof this.options.queryParams === 'function') {
-            data = this.options.queryParams(this.options.pageSize, this.options.pageNumber);
+            data = this.options.queryParams(this.options.pageSize,
+                this.options.pageNumber, this.searchText);
         } else if (typeof this.options.queryParams === 'string') {
-            data = eval(this.options.queryParams + '(this.options.pageSize, this.options.pageNumber)');
+            data = eval(this.options.queryParams +
+                '(this.options.pageSize, this.options.pageNumber, this.searchText)');
         }
 
         $.ajax({
