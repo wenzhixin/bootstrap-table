@@ -410,20 +410,22 @@
                         </thead>
                     </table>
                     <script>
-                        // url: /examples/bootstrap_table/data?offset=0&limit=10
-                        function queryParams(pageSize, pageNumber) {
+                        // url: /examples/bootstrap_table/data?offset=0&limit=10&search=test
+                        function queryParams(pageSize, pageNumber, searchText) {
                             return {
                                 limit: pageSize,
-                                offset: pageSize * (pageNumber - 1)
+                                offset: pageSize * (pageNumber - 1),
+                                search: searchText
                             };
                         }
 
-                        // url: /examples/bootstrap_table/data?page=1&number=10
+                        // url: /examples/bootstrap_table/data?page=1&number=10&search=test
                         /*
-                        function queryParams(pageSize, pageNumber) {
+                        function queryParams(pageSize, pageNumber, searchText) {
                             return {
                                 page: pageNumber,
-                                number: pageSize
+                                number: pageSize,
+                                search: searchText
                             };
                         }
                         */
