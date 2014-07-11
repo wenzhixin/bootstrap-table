@@ -66,6 +66,7 @@
         data: [],
         method: 'get',
         url: undefined,
+        contentType: 'application/json',
         queryParams: function(pageSize, pageNumber, searchText) {return {};},
         pagination: false,
         sidePagination: 'client', // client or server
@@ -104,7 +105,8 @@
         onCheckAll: function() {return false;},
         onUncheckAll: function() {return false;},
         onLoadSuccess: function(data) {return false;},
-        onLoadError: function(status) {return false;}
+        onLoadError: function(status) {return false;},
+        onBeforeLoad: function(res) {return res;}
     };
 
     BootstrapTable.COLUMN_DEFAULTS = {
@@ -674,10 +676,12 @@
             type: this.options.method,
             url: this.options.url,
             data: data,
-            contentType: 'application/json',
+            contentType: this.options.contentType,
             dataType: 'json',
             success: function(res) {
                 var data = res;
+
+                res = that.options.onBeforeLoad(res);
 
                 if (that.options.sidePagination === 'server') {
                     that.options.totalRows = res.total;
