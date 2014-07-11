@@ -80,6 +80,12 @@ $(function () {
                     'default': 'undefined'
                 },
                 {
+                    name: 'contentType',
+                    type: 'String',
+                    description: 'The contentType of request remote data.',
+                    'default': 'application/json'
+                },
+                {
                     name: 'queryParams',
                     type: 'Function',
                     description: 'When request remote data, sending additional parameters by format the queryParams.',
@@ -292,6 +298,11 @@ $(function () {
                     name: 'onLoadError',
                     parameter: 'status',
                     description: 'Fires when some errors occur to load remote data.'
+                },
+                {
+                    name: 'onBeforeLoad',
+                    parameter: 'res',
+                    description: 'Fires before a request is made to load data.'
                 }
             ],
             onClickRow: function (row) {
