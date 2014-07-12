@@ -27,6 +27,17 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 ## Changelog
 
+### 1.0.5
+
+* Update the pagination list position.
+* Update ```queryParams``` option.
+* Add ```contentType``` and ```onBeforeLoad``` options.
+* Add server side pagination(```pageSize, pageNumber, searchText, sortName, sortOrder```).
+* Add ```COLUMN_DEFAULTS```.
+* Add ```refresh``` method.
+* Add ```index``` argument in ```formatter``` function.
+* Update card view display.
+
 ### 1.0.4
 
 * Add ```showLoading``` and ```hideLoading``` methods.
