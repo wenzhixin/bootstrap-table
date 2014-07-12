@@ -415,7 +415,9 @@
                             return {
                                 limit: params.pageSize,
                                 offset: params.pageSize * (params.pageNumber - 1),
-                                search: params.searchText
+                                search: params.searchText,
+                                name: params.sortName,
+                                order: params.sortOrder
                             };
                         }
 

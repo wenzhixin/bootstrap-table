@@ -301,6 +301,10 @@
         $this.data('order', this.options.sortOrder);
         $this.find('.th-inner').append(this.getCaretHtml());
 
+        if (this.options.sidePagination === 'server') {
+            this.initServer();
+            return;
+        }
         this.initSort();
         this.initBody();
     };
@@ -668,14 +672,18 @@
             data = this.options.queryParams({
                 pageSize: this.options.pageSize,
                 pageNumber: this.options.pageNumber,
-                searchText: this.searchText
+                searchText: this.searchText,
+                sortName: this.options.sortName,
+                sortOrder: this.options.sortOrder
             });
         } else if (typeof this.options.queryParams === 'string') {
             data = eval([this.options.queryParams,
                 '({',
                     'pageSize: this.options.pageSize,',
                     'pageNumber: this.options.pageNumber,',
-                    'searchText: this.searchText',
+                    'searchText: this.searchText,',
+                    'sortName: this.options.sortName,',
+                    'sortOrder: this.options.sortOrder',
                 '})'].join(''));
         }
 
