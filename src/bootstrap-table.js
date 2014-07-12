@@ -312,38 +312,10 @@
     BootstrapTable.prototype.initToolbar = function() {
         var that = this,
             html = [],
-            $pageList,
             $keepOpen,
             $search;
 
         this.$toolbar = this.$container.find('.fixed-table-toolbar');
-
-        if (this.options.pagination) {
-            html = [];
-            html.push('<div class="page-list">');
-
-            var pageNumber = [
-                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
-                    '<span class="page-size">',
-                    this.options.pageSize,
-                    '</span>',
-                    ' <span class="caret"></span>',
-                '</button>',
-                '<ul class="dropdown-menu" role="menu">'];
-
-            $.each(this.options.pageList, function(i, page) {
-                var active = page === that.options.pageSize ? ' class="active"' : '';
-                pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
-            });
-            pageNumber.push('</ul>');
-
-            html.push(this.options.formatRecordsPerPage(pageNumber.join('')));
-            html.push('</div>');
-
-            this.$toolbar.append(html.join(''));
-            $pageList = this.$toolbar.find('.page-list a');
-            $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
-        }
 
         if (this.options.showColumns) {
             html = [];
@@ -421,6 +393,7 @@
         var that = this,
             html = [],
             i, from, to,
+            $pageList,
             $first, $pre,
             $next, $last,
             $number,
@@ -446,10 +419,32 @@
 
         html.push(
             '<div class="pull-left pagination">',
-                '<div class="pagination-info">',
+                '<span class="pagination-info">',
                     this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
-                '</div>',
-            '</div>',
+                '</span>');
+
+        html.push('<span class="page-list">');
+
+        var pageNumber = [
+            '<span class="btn-group dropup">',
+            '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+            '<span class="page-size">',
+            this.options.pageSize,
+            '</span>',
+            ' <span class="caret"></span>',
+            '</button>',
+            '<ul class="dropdown-menu" role="menu">'];
+
+        $.each(this.options.pageList, function(i, page) {
+            var active = page === that.options.pageSize ? ' class="active"' : '';
+            pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+        });
+        pageNumber.push('</ul></span>');
+
+        html.push(this.options.formatRecordsPerPage(pageNumber.join('')));
+        html.push('</span>');
+
+        html.push('</div>',
             '<div class="pull-right">',
                 '<ul class="pagination">',
                     '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
@@ -484,6 +479,7 @@
 
         this.$pagination.html(html.join(''));
 
+        $pageList = this.$pagination.find('.page-list a');
         $first = this.$pagination.find('.page-first');
         $pre = this.$pagination.find('.page-pre');
         $next = this.$pagination.find('.page-next');
@@ -498,6 +494,7 @@
             $next.addClass('disabled');
             $last.addClass('disabled');
         }
+        $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
         $first.off('click').on('click', $.proxy(this.onPageFirst, this));
         $pre.off('click').on('click', $.proxy(this.onPagePre, this));
         $next.off('click').on('click', $.proxy(this.onPageNext, this));

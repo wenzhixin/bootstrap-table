@@ -92,10 +92,7 @@
 
 .fixed-table-pagination .pagination-info {
     line-height: 34px;
-}
-
-.fixed-table-toolbar .page-list {
-    float: left;
+    margin-right: 5px;
 }
 
 .fixed-table-toolbar .columns {
