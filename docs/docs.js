@@ -88,8 +88,8 @@ $(function () {
                 {
                     name: 'queryParams',
                     type: 'Function',
-                    description: 'When request remote data, sending additional parameters by format the queryParams.',
-                    'default': 'function(pageSize, pageNumber, searchText) {return {};}'
+                    description: 'When request remote data, sending additional parameters by format the queryParams, the parameters object contains: pageSize, pageNumber, searchText.',
+                    'default': 'function(params) {return {};}'
                 },
                 {
                     name: 'pagination',

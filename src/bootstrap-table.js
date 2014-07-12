@@ -67,7 +67,7 @@
         method: 'get',
         url: undefined,
         contentType: 'application/json',
-        queryParams: function(pageSize, pageNumber, searchText) {return {};},
+        queryParams: function(params) {return {};}, // pageSize, pageNumber, searchText
         pagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
@@ -665,11 +665,18 @@
         this.$loading.show();
 
         if (typeof this.options.queryParams === 'function') {
-            data = this.options.queryParams(this.options.pageSize,
-                this.options.pageNumber, this.searchText);
+            data = this.options.queryParams({
+                pageSize: this.options.pageSize,
+                pageNumber: this.options.pageNumber,
+                searchText: this.searchText
+            });
         } else if (typeof this.options.queryParams === 'string') {
-            data = eval(this.options.queryParams +
-                '(this.options.pageSize, this.options.pageNumber, this.searchText)');
+            data = eval([this.options.queryParams,
+                '({',
+                    'pageSize: this.options.pageSize,',
+                    'pageNumber: this.options.pageNumber,',
+                    'searchText: this.searchText',
+                '})'].join(''));
         }
 
         $.ajax({

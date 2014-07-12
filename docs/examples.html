@@ -411,21 +411,21 @@
                     </table>
                     <script>
                         // url: /examples/bootstrap_table/data?offset=0&limit=10&search=test
-                        function queryParams(pageSize, pageNumber, searchText) {
+                        function queryParams(params) {
                             return {
-                                limit: pageSize,
-                                offset: pageSize * (pageNumber - 1),
-                                search: searchText
+                                limit: params.pageSize,
+                                offset: params.pageSize * (params.pageNumber - 1),
+                                search: params.searchText
                             };
                         }
 
                         // url: /examples/bootstrap_table/data?page=1&number=10&search=test
                         /*
-                        function queryParams(pageSize, pageNumber, searchText) {
+                        function queryParams(params) {
                             return {
-                                page: pageNumber,
-                                number: pageSize,
-                                search: searchText
+                                page: params.pageNumber,
+                                number: params.pageSize,
+                                search: params.searchText
                             };
                         }
                         */
