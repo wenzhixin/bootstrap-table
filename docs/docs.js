@@ -16,7 +16,7 @@ $(function () {
                 {field: 'name', title: 'Name', align: 'center', width: 60, sortable: true},
                 {field: 'type', title: 'Type', align: 'center', width: 60},
                 {field: 'description', title: 'Description', width: 400},
-                {field: 'default', title: 'Default', align: 'right', width: 180}
+                {field: 'default', title: 'Default', align: '', width: 180}
             ],
             data: [
                 {
@@ -88,8 +88,8 @@ $(function () {
                 {
                     name: 'queryParams',
                     type: 'Function',
-                    description: 'When request remote data, sending additional parameters by format the queryParams, the parameters object contains: pageSize, pageNumber, searchText.',
-                    'default': 'function(params) {return {};}'
+                    description: 'When request remote data, sending additional parameters by format the queryParams, the parameters object contains: <br>pageSize, pageNumber, searchText, sortName, sortOrder.',
+                    'default': 'function(params) {<br>return {};<br>}'
                 },
                 {
                     name: 'pagination',
