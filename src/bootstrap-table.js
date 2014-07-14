@@ -82,6 +82,7 @@
         idField: undefined,
         cardView: false,
         clickToSelect: false,
+        toolbar: undefined,
 
         rowStyle: function(row, index) {return {};},
 
@@ -319,6 +320,12 @@
             $search;
 
         this.$toolbar = this.$container.find('.fixed-table-toolbar');
+
+        if (typeof this.options.toolbar === 'string') {
+            $('<div class="bars pull-left"></div>')
+                .appendTo(this.$toolbar)
+                .append($(this.options.toolbar));
+        }
 
         if (this.options.showColumns) {
             html = [];
@@ -844,8 +851,11 @@
     };
 
     BootstrapTable.prototype.destroy = function() {
+        var $toolbar = $(this.options.toolbar).clone(true, true);
+
         this.$container.next().remove();
         this.$container.replaceWith(this.$el_);
+        $toolbar.insertBefore(this.$el_);
         return this.$el_;
     };
 

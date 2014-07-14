@@ -116,7 +116,7 @@
                     <h1 id="transform-table">Transform Table</h1>
                 </div>
                 <div class="bs-example">
-                    <div class="btn-group btn-default">
+                    <div id="transform-buttons" class="btn-group btn-default">
                         <button class="btn btn-default" id="transform">
                             <i class="glyphicon glyphicon-transfer"></i> Transform
                         </button>
@@ -124,7 +124,7 @@
                             <i class="glyphicon glyphicon-trash"></i> Destroy
                         </button>
                     </div>
-                    <table id="table-transform" data-url="data1.json" data-height="246">
+                    <table id="table-transform" data-url="data1.json" data-height="246" data-toolbar="#transform-buttons">
                         <thead>
                             <tr>
                                 <th data-field="id">Item ID</th>
