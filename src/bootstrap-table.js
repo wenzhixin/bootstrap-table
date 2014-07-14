@@ -590,7 +590,6 @@
 
             html.push('<tr',
                 sprintf(' class="%s"', style.classes),
-                sprintf(' style="%s"', csses.join('; ')),
                 sprintf(' data-index="%s"', i),
                 '>'
             );
@@ -603,7 +602,7 @@
                 var text = '',
                     value = item[field],
                     type = '',
-                    style = sprintf('style="%s"', that.header.styles[j]);
+                    style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
                 if (typeof that.header.formatters[j] === 'function') {
                     value = that.header.formatters[j](value, item, i);
