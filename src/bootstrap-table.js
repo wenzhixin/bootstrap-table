@@ -391,6 +391,7 @@
                 return false;
             });
         }
+        this.options.pageNumber = 1;
         this.updatePagination();
     };
 
