@@ -56,6 +56,7 @@
     };
 
     BootstrapTable.DEFAULTS = {
+        bootstrapVersion: 3,
         classes: 'table table-hover',
         height: undefined,
         undefinedText: '-',
@@ -418,7 +419,7 @@
         }
 
         html.push(
-            '<div class="pull-left pagination">',
+            '<div class="pull-left pagination-detail">',
                 '<span class="pagination-info">',
                     this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
                 '</span>');
@@ -759,7 +760,11 @@
             $(this).attr('style', header.styles[i])
                 .css('position', 'absolute')
                 .css('width', width + 'px'); // padding: 8px
-            that.$body.find('tr:eq(0) td').eq(i).css('width', width + 'px'); // fix th width display error
+
+            // fix th width display error
+            if (that.options.bootstrapVersion === 3) {
+                that.$body.find('tr:eq(0) td').eq(i).css('width', width + 'px');
+            }
         });
     };
 
