@@ -582,7 +582,7 @@
                 style = eval(this.options.rowStyle + '(item, i)');
             }
 
-            if (style.css) {
+            if (style && style.css) {
                 for (var key in style.css) {
                     csses.push(key + ': ' + style.css[key]);
                 }

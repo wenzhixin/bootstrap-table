@@ -156,7 +156,7 @@
                         <label><input id="hover" type="checkbox" checked> hover</label>
                         <label><input id="striped" type="checkbox"> striped</label>
                     </div>
-                    <table id="table-style" data-toggle="table" data-url="data1.json" data-height="246">
+                    <table id="table-style" data-toggle="table" data-url="data1.json" data-height="246" data-row-style="rowStyle">
                         <thead>
                         <tr>
                             <th data-field="id">Item ID</th>
@@ -180,6 +180,19 @@
                                     });
                             });
                         });
+
+                        function rowStyle(row, index) {
+                            if (index === 2) {
+                                return {
+                                    classes: 'red',
+                                    css: {
+                                        background: 'red',
+                                        color: 'white'
+                                    }
+                                };
+                            }
+                            return {};
+                        }
                     </script>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
