@@ -72,16 +72,32 @@
                     <li><a href="#basic-table">Basic Table</a></li>
                     <li><a href="#transform-table">Transform Table</a></li>
                     <li><a href="#classes-table">Table Style</a></li>
-                    <li><a href="#sort-table">Sort Table</a></li>
-                    <li><a href="#custom-sort-table">Custom Sort Table</a></li>
+                    <li>
+                        <a href="#sort-table">Sort Table</a>
+                        <ul class="nav">
+                            <li><a href="#basic-sort-table">Basic</a></li>
+                            <li><a href="#custom-sort-table">Custom</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#format-table">Format Table</a></li>
                     <li><a href="#hide-header-table">Hide Header Table</a></li>
                     <li><a href="#show-columns-table">Show Columns Table</a></li>
                     <li><a href="#card-view">Card View Table</a></li>
-                    <li><a href="#radio-table">Radio Table</a></li>
-                    <li><a href="#checkbox-table">Checkbox Table</a></li>
-                    <li><a href="#client-side-pagination-table">Client Side Pagination Table</a></li>
-                    <li><a href="#server-side-pagination-table">Server Side Pagination Table</a></li>
+                    <li>
+                        <a href="#table-select">Table select</a>
+                        <ul class="nav">
+                            <li><a href="#radio-table">Radio</a></li>
+                            <li><a href="#checkbox-table">Checkbox</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#pagination-table">Pagination Table</a>
+                        <ul class="nav">
+                            <li><a href="#client-side-pagination-table">Client Side</a></li>
+                            <li><a href="#server-side-pagination-table">Server Side</a></li>
+                        </ul>
+                    </li>
+                    <li></li>
                     <li><a href="#table-events">Table Events</a></li>
                     <li><a href="#table-methods">Table Methods</a></li>
                     <li><a href="#via-javascript-table">Via JavaScript</a></li>
@@ -202,6 +218,9 @@
                 <div class="page-header">
                     <h1 id="sort-table">Sort Table</h1>
                 </div>
+                <div class="page-header">
+                    <h2 id="basic-sort-table">Basic</h2>
+                </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246" data-sort-name="name" data-sort-order="desc">
                         <thead>
@@ -214,11 +233,9 @@
                     </table>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
-            </div>
-
-            <div>
+            
                 <div class="page-header">
-                    <h1 id="custom-sort-table">Custom Sort Table</h1>
+                    <h2 id="custom-sort-table">Custom</h2>
                 </div>
                 <div class="bs-example">
                     <table id="table-custom-sort" data-toggle="table" data-url="data1.json" data-height="246" data-sort-name="price" data-sort-order="desc">
@@ -335,7 +352,11 @@
 
             <div>
                 <div class="page-header">
-                    <h1 id="radio-table">Radio Table</h1>
+                    <h1 id="table-select">Table Select</h1>
+                </div>
+
+                <div class="page-header">
+                    <h2 id="radio-table">Radio</h2>
                 </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246" data-click-to-select="true">
@@ -350,10 +371,9 @@
                     </table>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
-            </div>
-            <div>
+
                 <div class="page-header">
-                    <h1 id="checkbox-table">Checkbox Table</h1>
+                    <h2 id="checkbox-table">Checkbox</h2>
                 </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="246" data-click-to-select="true">
@@ -372,7 +392,12 @@
 
             <div>
                 <div class="page-header">
-                    <h1 id="client-side-pagination-table">Client Side Pagination Table</h1>
+                    <h1 id="pagination-table">Pagination Table</h1>
+                </div>
+
+
+                <div class="page-header">
+                    <h2 id="client-side-pagination-table">Client Side</h2>
                 </div>
                 <div class="form-inline">
                     <label>
@@ -398,11 +423,9 @@
                     </table>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
-            </div>
 
-            <div>
                 <div class="page-header">
-                    <h1 id="server-side-pagination-table">Server Side Pagination Table</h1>
+                    <h2 id="server-side-pagination-table">Server Side</h2>
                 </div>
                 <div class="bs-example">
                     <table id="table-pagination"
