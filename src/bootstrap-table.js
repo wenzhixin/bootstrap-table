@@ -662,6 +662,8 @@
 
         this.$body.html(html.join(''));
 
+        this.$container.find('.fixed-table-body').scrollTop(0);
+
         this.$body.find('tr').off('click').on('click', function() {
             that.options.onClickRow(that.data[$(this).data('index')]);
             if (that.options.clickToSelect) {
