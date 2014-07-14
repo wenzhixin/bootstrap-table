@@ -174,6 +174,12 @@ $(function () {
                     type: 'Boolean',
                     description: 'True to select checkbox or radiobox when click rows.',
                     'default': 'false'
+                },
+                {
+                    name: 'rowStyle',
+                    type: 'Function',
+                    description: 'The row formatter function, take two parameters: <br>row: the row record data.<br>index: the row index.<br>Support classes or css, code example:<br>{<br>classes: "red", <br>css: {background: "red", color: "white"}<br>}',
+                    'default': '{}'
                 }
             ]
         });

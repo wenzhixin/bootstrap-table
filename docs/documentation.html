@@ -112,7 +112,8 @@
                 </div>
                 <div>
 <pre><code>&lt;script&gt;
-    $.fn.bootstrapTable.defaults = {
+    $.extend($.fn.bootstrapTable.defaults, {
+        bootstrapVersion: 3,
         classes: 'table table-hover',
         height: undefined,
         undefinedText: '-',
@@ -123,7 +124,8 @@
         data: [],
         method: 'get',
         url: undefined,
-        queryParams: function(pageSize, pageNumber, searchText) {return {};},
+        contentType: 'application/json',
+        queryParams: function(params) {return {};}, // pageSize, pageNumber, searchText
         pagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
@@ -138,20 +140,22 @@
         cardView: false,
         clickToSelect: false,
 
+        rowStyle: function(row, index) {return {};},
+
         formatLoadingMessage: function() {
-            return 'Loading, please wait…';
+        return 'Loading, please wait…';
         },
         formatRecordsPerPage: function(pageNumber) {
-            return sprintf('%s records per page', pageNumber);
+        return sprintf('%s records per page', pageNumber);
         },
         formatShowingRows: function(pageFrom, pageTo, totalRows) {
-            return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
+        return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
         },
         formatSearch: function() {
-            return 'Search';
+        return 'Search';
         },
         formatNoMatches: function() {
-            return 'No matching records found';
+        return 'No matching records found';
         },
 
         onClickRow: function(item) {return false;},
@@ -161,10 +165,11 @@
         onCheckAll: function() {return false;},
         onUncheckAll: function() {return false;},
         onLoadSuccess: function(data) {return false;},
-        onLoadError: function(status) {return false;}
-    };
+        onLoadError: function(status) {return false;},
+        onBeforeLoad: function(res) {return res;}
+    });
 
-    $.fn.bootstrapTable.columnDefaults = {
+    $.extend($.fn.bootstrapTable.columnDefaults, {
         radio: false,
         checkbox: false,
         field: undefined,
@@ -177,7 +182,7 @@
         visible: true,
         formatter: undefined,
         sorter: undefined
-    };
+    });
 &lt;/script&gt;
 </code></pre>
                 </div>

@@ -83,6 +83,8 @@
         cardView: false,
         clickToSelect: false,
 
+        rowStyle: function(row, index) {return {};},
+
         formatLoadingMessage: function() {
             return 'Loading, please wait…';
         },
@@ -570,9 +572,28 @@
         }
 
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
-            var item = data[i];
+            var item = data[i],
+                style = {},
+                csses = [];
 
-            html.push('<tr' + ' data-index="' + i + '">');
+            if (typeof this.options.rowStyle === 'function') {
+                style = this.options.rowStyle(item, i);
+            } else if (typeof this.options.rowStyle === 'string') {
+                style = eval(this.options.rowStyle + '(item, i)');
+            }
+
+            if (style.css) {
+                for (var key in style.css) {
+                    csses.push(key + ': ' + style.css[key]);
+                }
+            }
+
+            html.push('<tr',
+                sprintf(' class="%s"', style.classes),
+                sprintf(' style="%s"', csses.join('; ')),
+                sprintf(' data-index="%s"', i),
+                '>'
+            );
 
             if (this.options.cardView) {
                 html.push(sprintf('<td colspan="%s">', this.header.fields.length));
