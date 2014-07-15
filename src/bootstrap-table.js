@@ -316,6 +316,7 @@
     BootstrapTable.prototype.initToolbar = function() {
         var that = this,
             html = [],
+            timeoutId = 0,
             $keepOpen,
             $search;
 
@@ -372,14 +373,21 @@
 
             this.$toolbar.append(html.join(''));
             $search = this.$toolbar.find('.search input');
-            $search.off('keyup').on('keyup', $.proxy(this.onSearch, this));
+            $search.off('keyup').on('keyup', function(event) {
+                clearTimeout(timeoutId); // doesn't matter if it's 0
+                timeoutId = setTimeout($.proxy(that.onSearch, that), 500, event); // 500ms
+            });
         }
     };
 
     BootstrapTable.prototype.onSearch = function(event) {
-        var that = this;
+        var that = this,
+            text = $(event.currentTarget).val();
 
-        this.searchText = $(event.currentTarget).val();
+        if (text === this.searchText) {
+            return;
+        }
+        this.searchText = text;
 
         if (this.options.sidePagination !== 'server') {
             this.searchData = $.grep(this.data, function(item) {
