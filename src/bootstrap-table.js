@@ -319,7 +319,7 @@
             $keepOpen,
             $search;
 
-        this.$toolbar = this.$container.find('.fixed-table-toolbar');
+        this.$toolbar = this.$container.find('.fixed-table-toolbar').html('');
 
         if (typeof this.options.toolbar === 'string') {
             $('<div class="bars pull-left"></div>')
