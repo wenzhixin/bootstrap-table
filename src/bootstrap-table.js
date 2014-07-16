@@ -103,7 +103,8 @@
             return 'No matching records found';
         },
 
-        onClickRow: function(item) {return false;},
+        onClickRow: function(item, $element) {return false;},
+        onDblClickRow: function(item, $element) {return false;},
         onSort: function(name, order) {return false;},
         onCheck: function(row) {return false;},
         onUncheck: function(row) {return false;},
@@ -675,10 +676,13 @@
         this.$container.find('.fixed-table-body').scrollTop(0);
 
         this.$body.find('tr').off('click').on('click', function() {
-            that.options.onClickRow(that.data[$(this).data('index')]);
+            that.options.onClickRow(that.data[$(this).data('index')], $(this));
             if (that.options.clickToSelect) {
                 $(this).find(sprintf('[name="%s"]', that.options.selectItemName)).trigger('click');
             }
+        });
+        this.$body.find('tr').off('dblclick').on('dblclick', function() {
+            that.options.onDblClickRow(that.data[$(this).data('index')], $(this));
         });
 
         this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
