@@ -139,6 +139,7 @@
         idField: undefined,
         cardView: false,
         clickToSelect: false,
+        singleSelect: false,
         toolbar: undefined,
 
         rowStyle: function(row, index) {return {};},
@@ -159,7 +160,8 @@
             return 'No matching records found';
         },
 
-        onClickRow: function(item) {return false;},
+        onClickRow: function(item, $element) {return false;},
+        onDblClickRow: function(item, $element) {return false;},
         onSort: function(name, order) {return false;},
         onCheck: function(row) {return false;},
         onUncheck: function(row) {return false;},

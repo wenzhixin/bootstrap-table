@@ -286,8 +286,14 @@ $(function () {
             data: [
                 {
                     name: 'onClickRow',
-                    parameter: 'row',
-                    description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row.'},
+                    parameter: 'row, $element',
+                    description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row, <br>$element: the tr element.'
+                },
+                {
+                    name: 'onDblClickRow',
+                    parameter: 'row, $element',
+                    description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row, <br>$element: the tr element.'
+                },
                 {
                     name: 'onSort',
                     parameter: 'name, order',
