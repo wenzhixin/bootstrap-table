@@ -16,9 +16,9 @@ bootstrap-table is due to the excellent work of the following contributors:
 <td><a href="https://github.com/wenzhixin">wenzhixin</a></td>
 <td>Guangzhou, China</td>
 <td><a href="http://wenzhixin.net.cn">http://wenzhixin.net.cn</a></td>
-<td>103</td>
+<td>143</td>
 <tr>
 
 </table>
 
-Update date: 2014-07-03, created with https://github.com/wenzhixin/github-contributors
+Update date: 2014-07-16, created with https://github.com/wenzhixin/github-contributors
