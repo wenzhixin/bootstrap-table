@@ -82,6 +82,7 @@
         idField: undefined,
         cardView: false,
         clickToSelect: false,
+        singleSelect: false,
         toolbar: undefined,
 
         rowStyle: function(row, index) {return {};},
@@ -222,7 +223,7 @@
                 text += that.getCaretHtml();
             }
 
-            if (column.checkbox) {
+            if (column.checkbox && !that.options.singleSelect) {
                 text = '<input name="btSelectAll" type="checkbox" class="checkbox" />';
                 that.header.stateField = column.field;
             }
@@ -690,6 +691,14 @@
             that.$selectAll.prop('checked', checkAll);
             row[that.header.stateField] = checked;
             that.options[checked ? 'onCheck' : 'onUncheck'](row);
+
+            if (that.options.singleSelect) {
+                that.$selectItem.filter(':checked').not(this).each(function() {
+                    $(this).prop('checked', false);
+                    that.data[$(this).data('index')][that.header.stateField] = false;
+                });
+            }
+
 //            $(this).parents('tr')[checked ? 'addClass' : 'removeClass']('selected');
         });
         this.resetView();
