@@ -176,6 +176,12 @@ $(function () {
                     'default': 'false'
                 },
                 {
+                    name: 'singleSelect',
+                    type: 'Boolean',
+                    description: 'True to allow checkbox selecting only one row.',
+                    'default': 'false'
+                },
+                {
                     name: 'toolbar',
                     type: 'String',
                     description: 'A jQuery selector that indicate the toolbar, for example: <br>#toolbar, .toolbar.',
