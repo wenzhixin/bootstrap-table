@@ -1199,3 +1199,24 @@ h1[id], h2[id] {
     margin-right: 0;
     margin-left: 0;
 }
+
+.goto-top:hover {
+    background-color: #5bc0de;
+    color: #666;
+}
+.goto-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 2px;
+    right: 2px;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    z-index: 1001;
+    border-radius: 48px;
+    font-size: 20px;
+    opacity: 0.8;
+    color: #fff;
+    background: #428bca;
+}
