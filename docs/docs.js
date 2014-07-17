@@ -279,58 +279,75 @@ $(function () {
         $('#event').bootstrapTable({
             cardView: cardView,
             columns: [
-                {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 100, sortable: true},
+                {field: 'name', title: 'Option Event', align: 'center', valign: 'middle', width: 100, sortable: true},
+                {field: 'event', title: 'jQuery Event', align: 'center', valign: 'middle', width: 100, sortable: true},
                 {field: 'parameter', title: 'Parameter', align: 'center', valign: 'middle', width: 100, sortable: true},
                 {field: 'description', title: 'Description', width: 400, sortable: true}
             ],
             data: [
                 {
+                    name: 'onAll',
+                    event: 'all.bs.table',
+                    parameter: 'name, args',
+                    description: 'Fires when all events trigger, the parameters contains: <br />name: the event name, <br>args: the event data.'
+                },
+                {
                     name: 'onClickRow',
+                    event: 'click-row.bs.table',
                     parameter: 'row, $element',
                     description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row, <br>$element: the tr element.'
                 },
                 {
                     name: 'onDblClickRow',
+                    event: 'dbl-click-row.bs.table',
                     parameter: 'row, $element',
                     description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row, <br>$element: the tr element.'
                 },
                 {
                     name: 'onSort',
+                    event: 'sort.bs.table',
                     parameter: 'name, order',
                     description: 'Fires when user sort a column, the parameters contains: <br />name: the sort column field name<br />order: the sort column order.'
                 },
                 {
                     name: 'onCheck',
+                    event: 'check.bs.table',
                     parameter: 'row',
                     description: 'Fires when user check a row, the parameters contains: <br />row: the record corresponding to the clicked row.'
                 },
                 {
                     name: 'onUncheck',
+                    event: 'uncheck.bs.table',
                     parameter: 'row',
                     description: 'Fires when user uncheck a row, the parameters contains: <br />row: the record corresponding to the clicked row.'
                 },
                 {
                     name: 'onCheckAll',
+                    event: 'check-all.bs.table',
                     parameter: 'none',
                     description: 'Fires when user check all rows.'
                 },
                 {
                     name: 'onUncheckAll',
+                    event: 'uncheck-all.bs.table',
                     parameter: 'none',
                     description: 'Fires when user uncheck all rows.'
                 },
                 {
                     name: 'onLoadSuccess',
+                    event: 'load-success.bs.table',
                     parameter: 'data',
                     description: 'Fires when remote data is loaded successfully.'
                 },
                 {
                     name: 'onLoadError',
+                    event: 'load-error.bs.table',
                     parameter: 'status',
                     description: 'Fires when some errors occur to load remote data.'
                 },
                 {
                     name: 'onBeforeLoad',
+                    event: 'before-load.bs.table',
                     parameter: 'res',
                     description: 'Fires before a request is made to load data.'
                 }
