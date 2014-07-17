@@ -103,6 +103,7 @@
             return 'No matching records found';
         },
 
+        onAll: function(name, args) {return false;},
         onClickRow: function(item, $element) {return false;},
         onDblClickRow: function(item, $element) {return false;},
         onSort: function(name, order) {return false;},
@@ -128,6 +129,20 @@
         visible: true,
         formatter: undefined,
         sorter: undefined
+    };
+
+    BootstrapTable.EVENTS = {
+        'all.bs.table': 'onAll',
+        'click-row.bs.table': 'onClickRow',
+        'dbl-click-row.bs.table': 'onDblClickRow',
+        'sort.bs.table': 'onSort',
+        'check.bs.table': 'onCheck',
+        'uncheck.bs.table': 'onUncheck',
+        'check-all.bs.table': 'onCheckAll',
+        'uncheck-all.bs.table': 'onUncheckAll',
+        'load-success.bs.table': 'onLoadSuccess',
+        'load-error.bs.table': 'onLoadError',
+        'before-load.bs.table': 'onBeforeLoad'
     };
 
     BootstrapTable.prototype.init = function() {
@@ -302,7 +317,7 @@
         this.$header.find('span.order').remove();
         this.options.sortName = $this.data('field');
         this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc';
-        this.options.onSort(this.options.sortName, this.options.sortOrder);
+        this.trigger('sort', this.options.sortName, this.options.sortOrder);
 
         $this.data('order', this.options.sortOrder);
         $this.find('.th-inner').append(this.getCaretHtml());
@@ -676,13 +691,13 @@
         this.$container.find('.fixed-table-body').scrollTop(0);
 
         this.$body.find('tr').off('click').on('click', function() {
-            that.options.onClickRow(that.data[$(this).data('index')], $(this));
+            that.trigger('click-row', that.data[$(this).data('index')], $(this));
             if (that.options.clickToSelect) {
                 $(this).find(sprintf('[name="%s"]', that.options.selectItemName)).trigger('click');
             }
         });
         this.$body.find('tr').off('dblclick').on('dblclick', function() {
-            that.options.onDblClickRow(that.data[$(this).data('index')], $(this));
+            that.trigger('dbl-click-row', that.data[$(this).data('index')], $(this));
         });
 
         this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
@@ -694,7 +709,7 @@
 
             that.$selectAll.prop('checked', checkAll);
             row[that.header.stateField] = checked;
-            that.options[checked ? 'onCheck' : 'onUncheck'](row);
+            that.trigger(checked ? 'check' : 'uncheck', row);
 
             if (that.options.singleSelect) {
                 that.$selectItem.filter(':checked').not(this).each(function() {
@@ -745,17 +760,17 @@
             success: function(res) {
                 var data = res;
 
-                res = that.options.onBeforeLoad(res);
+                res = that.trigger('before-load', res);
 
                 if (that.options.sidePagination === 'server') {
                     that.options.totalRows = res.total;
                     data = res.rows;
                 }
                 that.load(data);
-                that.options.onLoadSuccess(data);
+                that.trigger('load-success', data);
             },
             error: function(res) {
-                that.options.onLoadError(res.status);
+                that.trigger('load-error', res.status);
             },
             complete: function() {
                 that.$loading.hide();
@@ -785,6 +800,17 @@
             that.$selectItem.prop('checked', false);
             row[that.header.stateField] = false;
         });
+    };
+
+    BootstrapTable.prototype.trigger = function(name) {
+        var args = Array.prototype.slice.call(arguments, 1);
+
+        name += '.bs.table';
+        this.options[BootstrapTable.EVENTS[name]].apply(this.options, args);
+        this.$el.trigger($.Event(name), args);
+
+        this.options.onAll(name, args);
+        this.$el.trigger($.Event('all.bs.table'), [name, args]);
     };
 
     // PUBLIC FUNCTION DEFINITION
@@ -864,14 +890,14 @@
         this.$selectAll.prop('checked', true);
         this.$selectItem.prop('checked', true);
         this.updateRows(true);
-        this.options.onCheckAll();
+        this.trigger('check-all');
     };
 
     BootstrapTable.prototype.uncheckAll = function() {
         this.$selectAll.prop('checked', false);
         this.$selectItem.prop('checked', false);
         this.updateRows(false);
-        this.options.onUncheckAll();
+        this.trigger('uncheck-all');
     };
 
     BootstrapTable.prototype.destroy = function() {
