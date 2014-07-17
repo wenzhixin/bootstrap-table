@@ -4,6 +4,11 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 [Examples and documentation](http://wenzhixin.net.cn/p/bootstrap-table/)
 
+
+## LICENSE
+
+**NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If you like this plugin, you can **Star** this repo, your support is my biggest motive force, thanks.
+
 ## Features
 
 * Created for Bootstrap 3 (Bootstrap 2 supported)
@@ -27,52 +32,4 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 ## Changelog
 
-### 1.0.5
-
-* Update the pagination list position.
-* Update ```queryParams``` option.
-* Add ```contentType``` and ```onBeforeLoad``` options.
-* Add server side pagination(```pageSize, pageNumber, searchText, sortName, sortOrder```).
-* Add ```COLUMN_DEFAULTS```.
-* Add ```refresh``` method.
-* Add ```index``` argument in ```formatter``` function.
-* Update card view display.
-
-### 1.0.4
-
-* Add ```showLoading``` and ```hideLoading``` methods.
-* Add ```onLoadSuccess``` and ```onLoadError``` events.
-* Add ```clickToSelect``` option.
-* Add ```cardView``` option.
-* Add loading with ```formatLoadingMessage``` function.
-* Add ```idField``` option.
-
-### 1.0.3
-
-* Update fixed headers.
-* Add zh-TW locale file.
-* Add ```showColumns``` option and ```visible``` column option.
-* Update ```hideHeader``` option to ```showHeader```.
-* Add ```formatNoMatches``` locale function.
-* Add table events.
-
-### 1.0.2
-
-* Add i18n support.
-* Add ```selectItemName``` option.
-* Update the ```pageList``` default.
-* Add ```search``` option.
-* Add ```destroy``` method.
-* Add page list support.
-
-### 1.0.1
-
-* Add ```pagination``` support.
-
-### 1.0.0
-
-* Initial release
-
-## LICENSE
-
-[The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE)
+[CHANGELOG](https://github.com/wenzhixin/bootstrap-table/blob/master/CHANGELOG.md)
