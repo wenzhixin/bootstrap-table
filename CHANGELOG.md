@@ -1,5 +1,16 @@
 ## Changelog
 
+### 1.0.6
+
+* Add jQuery events.
+* Add ```onDblClickRow``` event and ```onAll``` event.
+* Add ```singleSelect``` option.
+* Search improvent: add a timeout and trigger the search event when the text has changed to improve the search.
+* Scroll to top after data loaded.
+* Add ```toolbar``` option.
+* Add ```rowStyle``` option.
+* Add ```bootstrapVersion``` option.
+
 ### 1.0.5
 
 * Update the pagination list position.
