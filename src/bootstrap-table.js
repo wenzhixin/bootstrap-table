@@ -757,13 +757,13 @@
             contentType: this.options.contentType,
             dataType: 'json',
             success: function(res) {
-                var data = res;
-
                 if (typeof that.options.responseHandler === 'function') {
                     res = that.options.responseHandler(res);
                 } else if (typeof that.options.responseHandler === 'string') {
                     res = eval(that.options.responseHandler + '(res)');
                 }
+
+                var data = res;
 
                 if (that.options.sidePagination === 'server') {
                     that.options.totalRows = res.total;
