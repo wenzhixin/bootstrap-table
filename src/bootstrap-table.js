@@ -68,7 +68,8 @@
         method: 'get',
         url: undefined,
         contentType: 'application/json',
-        queryParams: function(params) {return {};}, // pageSize, pageNumber, searchText
+        queryParams: function(params) {return {};},
+        responseHandler: function(res) {return res;},
         pagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
@@ -112,8 +113,7 @@
         onCheckAll: function() {return false;},
         onUncheckAll: function() {return false;},
         onLoadSuccess: function(data) {return false;},
-        onLoadError: function(status) {return false;},
-        onBeforeLoad: function(res) {return res;}
+        onLoadError: function(status) {return false;}
     };
 
     BootstrapTable.COLUMN_DEFAULTS = {
@@ -141,8 +141,7 @@
         'check-all.bs.table': 'onCheckAll',
         'uncheck-all.bs.table': 'onUncheckAll',
         'load-success.bs.table': 'onLoadSuccess',
-        'load-error.bs.table': 'onLoadError',
-        'before-load.bs.table': 'onBeforeLoad'
+        'load-error.bs.table': 'onLoadError'
     };
 
     BootstrapTable.prototype.init = function() {
@@ -760,7 +759,7 @@
             success: function(res) {
                 var data = res;
 
-                res = that.trigger('before-load', res);
+                res = that.options.responseHandler(res);
 
                 if (that.options.sidePagination === 'server') {
                     that.options.totalRows = res.total;
