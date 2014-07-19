@@ -336,7 +336,7 @@
                 <h1 id="card-view">Card View Table</h1>
             </div>
             <div class="bs-example">
-                <table data-toggle="table" data-url="data4.json" data-height="246" data-card-view="true">
+                <table data-toggle="table" data-url="data4.json" data-height="246" data-card-view="true" data-response-handler="responseHandler">
                     <thead>
                     <tr>
                         <th data-field="name">Name</th>
@@ -346,6 +346,22 @@
                     </tr>
                     </thead>
                 </table>
+                <script>
+                    // client
+                    function responseHandler(res) {
+                        return res.repos;
+                    }
+
+                    // server
+                    /*
+                    function responseHandler(res) {
+                        return {
+                            rows: res.repos;
+                            total: res.repos.length
+                        }
+                    }
+                     */
+                </script>
             </div>
             <div class="highlight"><pre><code class="language-html"></code></pre></div>
 

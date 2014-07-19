@@ -759,7 +759,11 @@
             success: function(res) {
                 var data = res;
 
-                res = that.options.responseHandler(res);
+                if (typeof that.options.responseHandler === 'function') {
+                    res = that.options.responseHandler(res);
+                } else if (typeof that.options.responseHandler === 'string') {
+                    res = eval(that.options.responseHandler + '(res)');
+                }
 
                 if (that.options.sidePagination === 'server') {
                     that.options.totalRows = res.total;
