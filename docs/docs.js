@@ -98,6 +98,12 @@ $(function () {
                     'default': 'function(params) {<br>return {};<br>}'
                 },
                 {
+                    name: 'responseHandler',
+                    type: 'Function',
+                    description: 'Before load remote data, handler the response data format, the parameters object contains: <br>res: the response data.',
+                    'default': 'function(res) {<br>return res;<br>}'
+                },
+                {
                     name: 'pagination',
                     type: 'Boolean',
                     description: 'True to show a pagination toolbar on datagrid bottom.',
@@ -344,12 +350,6 @@ $(function () {
                     event: 'load-error.bs.table',
                     parameter: 'status',
                     description: 'Fires when some errors occur to load remote data.'
-                },
-                {
-                    name: 'onBeforeLoad',
-                    event: 'before-load.bs.table',
-                    parameter: 'res',
-                    description: 'Fires before a request is made to load data.'
                 }
             ],
             onClickRow: function (row) {
