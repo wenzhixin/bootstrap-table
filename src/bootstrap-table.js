@@ -230,7 +230,10 @@
             style = sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
             style += column.sortable ? 'cursor: pointer; ' : '';
 
-            html.push('<th' + sprintf(' style="%s"', style) + '>');
+            html.push('<th',
+                column.checkbox || column.radio ? ' class="bs-checkbox"' : '',
+                sprintf(' style="%s"', style),
+                '>');
             html.push('<div class="th-inner">');
 
             text = column.title;
@@ -239,7 +242,7 @@
             }
 
             if (column.checkbox && !that.options.singleSelect) {
-                text = '<input name="btSelectAll" type="checkbox" class="checkbox" />';
+                text = '<input name="btSelectAll" type="checkbox" />';
                 that.header.stateField = column.field;
             }
             if (column.radio) {
@@ -646,8 +649,8 @@
                     type = that.options.columns[j].checkbox ? 'checkbox' : type;
                     type = that.options.columns[j].radio ? 'radio' : type;
 
-                    text = ['<td>',
-                        '<input class="checkbox"' +
+                    text = ['<td class="bs-checkbox">',
+                        '<input' +
                             sprintf(' data-index="%s"', i) +
                             sprintf(' name="%s"', that.options.selectItemName) +
                             sprintf(' type="%s"', type) +

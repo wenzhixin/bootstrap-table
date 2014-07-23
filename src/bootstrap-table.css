@@ -76,9 +76,13 @@
     background-color: #d9edf7;
 }
 
-.fixed-table-body .checkbox {
-    margin-left: auto;
-    margin-right: auto;
+.fixed-table-body .bs-checkbox {
+    text-align: center;
+}
+
+.fixed-table-body input[type="radio"],
+.fixed-table-body input[type="checkbox"] {
+    margin: 0 auto !important;
 }
 
 .fixed-table-body .no-records-found {
@@ -168,6 +172,7 @@
 
 .table th, .table td {
     vertical-align: middle;
+    box-sizing: border-box;
 }
 
 .fixed-table-toolbar .dropdown-menu {
