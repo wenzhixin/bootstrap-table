@@ -700,7 +700,9 @@
         this.$body.find('tr').off('click').on('click', function() {
             that.trigger('click-row', that.data[$(this).data('index')], $(this));
             if (that.options.clickToSelect) {
-                $(this).find(sprintf('[name="%s"]', that.options.selectItemName)).trigger('click');
+                var $el = $(this).find(sprintf('[name="%s"]', that.options.selectItemName));
+                $el.prop('checked', ! $el.prop('checked'));
+                $el.trigger('click');
             }
         });
         this.$body.find('tr').off('dblclick').on('dblclick', function() {
@@ -712,8 +714,7 @@
             event.stopImmediatePropagation();
             var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length,
                 checked = $(this).prop('checked'),
-                index = $(this).data('index'),
-                row = that.data[index];
+                row = that.data[$(this).data('index')];
 
             that.$selectAll.prop('checked', checkAll);
             row[that.header.stateField] = checked;
@@ -724,8 +725,8 @@
                     $(this).prop('checked', false);
                 });
                 $.each(that.data, function(i, value){
-                    if (index !== i)
-                    that.data[i][that.header.stateField] = false;
+                    if (value !== row)
+                        that.data[i][that.header.stateField] = false;
                 });
             }
 
