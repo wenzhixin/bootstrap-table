@@ -700,9 +700,7 @@
         this.$body.find('tr').off('click').on('click', function() {
             that.trigger('click-row', that.data[$(this).data('index')], $(this));
             if (that.options.clickToSelect) {
-                var $el = $(this).find(sprintf('[name="%s"]', that.options.selectItemName));
-                $el.prop('checked', ! $el.prop('checked'));
-                $el.trigger('click');
+                $(this).find(sprintf('[name="%s"]', that.options.selectItemName)).trigger('click');
             }
         });
         this.$body.find('tr').off('dblclick').on('dblclick', function() {
@@ -713,7 +711,7 @@
         this.$selectItem.off('click').on('click', function(event) {
             event.stopImmediatePropagation();
             var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length,
-                checked = $(this).prop('checked'),
+                checked = $(this).prop('checked') || $(this).is(':radio'),
                 row = that.data[$(this).data('index')];
 
             that.$selectAll.prop('checked', checkAll);
@@ -724,10 +722,11 @@
                 that.$selectItem.filter(':checked').not(this).each(function() {
                     $(this).prop('checked', false);
                 });
-                $.each(that.data, function(i, value){
-                    if (value !== row)
-                        that.data[i][that.header.stateField] = false;
-                });
+                for (var key in that.data) {
+                    if (that.data[key] !== row) {
+                        that.data[key][that.header.stateField] = false;
+                    }
+                }
             }
 
 //            $(this).parents('tr')[checked ? 'addClass' : 'removeClass']('selected');
