@@ -202,9 +202,6 @@
         });
         this.options.columns = $.extend(true, columns, this.options.columns);
         $.each(this.options.columns, function(i, column) {
-            if (i === 0 && column.radio) {
-                that.options.singleSelect = true;
-            }
             that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
         });
 
@@ -253,6 +250,7 @@
             if (column.radio) {
                 text = '';
                 that.header.stateField = column.field;
+                that.options.singleSelect = true;
             }
 
             html.push(text);
@@ -715,7 +713,7 @@
         this.$selectItem.off('click').on('click', function(event) {
             event.stopImmediatePropagation();
             var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length,
-                checked = $(this).prop('checked'),
+                checked = $(this).prop('checked') || $(this).is(':radio'),
                 row = that.data[$(this).data('index')];
 
             that.$selectAll.prop('checked', checkAll);
