@@ -244,8 +244,10 @@
                 text += that.getCaretHtml();
             }
 
-            if (column.checkbox && !that.options.singleSelect) {
-                text = '<input name="btSelectAll" type="checkbox" />';
+            if (column.checkbox) {
+                if (!that.options.singleSelect) {
+                    text = '<input name="btSelectAll" type="checkbox" />';
+                }
                 that.header.stateField = column.field;
             }
             if (column.radio) {
@@ -718,6 +720,7 @@
 
             that.$selectAll.prop('checked', checkAll);
             row[that.header.stateField] = checked;
+            console.log(that.header.stateField, row);
             that.trigger(checked ? 'check' : 'uncheck', row);
 
             if (that.options.singleSelect) {
