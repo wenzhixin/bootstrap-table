@@ -202,6 +202,9 @@
         });
         this.options.columns = $.extend(true, columns, this.options.columns);
         $.each(this.options.columns, function(i, column) {
+            if (i === 0 && column.radio) {
+                that.options.singleSelect = true;
+            }
             that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
         });
 
@@ -718,10 +721,10 @@
             that.trigger(checked ? 'check' : 'uncheck', row);
 
             if (that.options.singleSelect) {
-                that.$selectItem.filter(':checked').not(this).each(function() {
-                    $(this).prop('checked', false);
+                that.$selectItem.not(this).each(function() {
                     that.data[$(this).data('index')][that.header.stateField] = false;
                 });
+                that.$selectItem.filter(':checked').not(this).prop('checked', false);
             }
 
 //            $(this).parents('tr')[checked ? 'addClass' : 'removeClass']('selected');
