@@ -248,6 +248,7 @@
             if (column.radio) {
                 text = '';
                 that.header.stateField = column.field;
+                that.options.singleSelect = true;
             }
 
             html.push(text);
@@ -711,7 +712,8 @@
             event.stopImmediatePropagation();
             var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length,
                 checked = $(this).prop('checked'),
-                row = that.data[$(this).data('index')];
+                index = $(this).data('index'),
+                row = that.data[index];
 
             that.$selectAll.prop('checked', checkAll);
             row[that.header.stateField] = checked;
@@ -720,7 +722,10 @@
             if (that.options.singleSelect) {
                 that.$selectItem.filter(':checked').not(this).each(function() {
                     $(this).prop('checked', false);
-                    that.data[$(this).data('index')][that.header.stateField] = false;
+                });
+                $.each(that.data, function(i, value){
+                    if (index !== i)
+                    that.data[i][that.header.stateField] = false;
                 });
             }
 
