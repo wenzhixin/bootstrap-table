@@ -718,7 +718,6 @@
 
             that.$selectAll.prop('checked', checkAll);
             row[that.header.stateField] = checked;
-            console.log(that.header.stateField, row);
             that.trigger(checked ? 'check' : 'uncheck', row);
 
             if (that.options.singleSelect) {
