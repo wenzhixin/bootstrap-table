@@ -80,6 +80,10 @@
     text-align: center;
 }
 
+.fixed-table-body .bs-checkbox .th-inner {
+    padding: 8px 0;
+}
+
 .fixed-table-body input[type="radio"],
 .fixed-table-body input[type="checkbox"] {
     margin: 0 auto !important;
