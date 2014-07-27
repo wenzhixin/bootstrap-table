@@ -164,6 +164,12 @@ $(function () {
                     'default': 'false'
                 },
                 {
+                    name: 'minimunCountColumns',
+                    type: 'Number',
+                    description: 'The minimun count columns to hide of the columns drop down list.',
+                    'default': '1'
+                },
+                {
                     name: 'idField',
                     type: 'String',
                     description: 'Indicate which field is an identity field.',
