@@ -80,6 +80,7 @@
         selectItemName: 'btSelectItem',
         showHeader: true,
         showColumns: false,
+        minimunCountColumns: 1,
         idField: undefined,
         cardView: false,
         clickToSelect: false,
@@ -378,14 +379,18 @@
 
             this.$toolbar.append(html.join(''));
 
-            $keepOpen = this.$toolbar.find('.keep-open label');
+            $keepOpen = this.$toolbar.find('.keep-open li');
             $keepOpen.off('click').on('click', function(event) {
                 event.stopPropagation();
-                var $this = $(this).find('input');
+                var $this = $(this).find('input'),
+                    $items = $keepOpen.find('input').prop('disabled', false);
 
                 that.options.columns[$this.val()].visible = $this.prop('checked');
                 that.initHeader();
                 that.initBody();
+                if ($items.filter(':checked').length <= that.options.minimunCountColumns) {
+                    $items.filter(':checked').prop('disabled', true);
+                }
             });
         }
 
