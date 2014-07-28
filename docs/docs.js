@@ -393,7 +393,7 @@ $(function () {
                 {name: 'hideLoading', parameter: 'none', description: 'Hide loading status.'},
                 {name: 'checkAll', parameter: 'none', description: 'Check all current page rows.'},
                 {name: 'uncheckAll', parameter: 'none', description: 'Uncheck all current page rows.'},
-                {name: 'resetView', parameter: 'none', description: 'Reset the bootstrap table view, like display error when init the table with display: none.'},
+                {name: 'resetView', parameter: 'params', description: 'Reset the bootstrap table view, for example reset the table height.'},
                 {name: 'destroy', parameter: 'none', description: 'Destroy the bootstrap table.'}
             ]).bootstrapTable('mergeCells', {
                 index: 3,

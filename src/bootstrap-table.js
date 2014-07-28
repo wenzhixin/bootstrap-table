@@ -831,9 +831,13 @@
     // PUBLIC FUNCTION DEFINITION
     // =======================
 
-    BootstrapTable.prototype.resetView = function () {
+    BootstrapTable.prototype.resetView = function (params) {
         var that = this,
             header = this.header;
+
+        if (params && params.height) {
+            this.options.height = params.height;
+        }
 
         this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
