@@ -5,6 +5,7 @@
 * Fix old firefox browser display error.
 * Add minimunCountColumns option.
 * Update the table body header implementation and resetView method.
+* Remove bootstrapVersion option.
 
 ### 1.0.6
 

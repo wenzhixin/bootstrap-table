@@ -20,12 +20,6 @@ $(function () {
             ],
             data: [
                 {
-                    name: 'bootstrapVersion',
-                    type: 'Number',
-                    description: 'Bootstrap version.',
-                    'default': '3'
-                },
-                {
                     name: 'classes',
                     type: 'String',
                     description: 'The class name of table.',

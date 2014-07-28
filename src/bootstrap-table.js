@@ -56,7 +56,6 @@
     };
 
     BootstrapTable.DEFAULTS = {
-        bootstrapVersion: 3,
         classes: 'table table-hover',
         height: undefined,
         undefinedText: '-',
