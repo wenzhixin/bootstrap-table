@@ -1,10 +1,10 @@
 ## Changelog
 
-### 1.0.7
+### 1.1.0
 
 * Fix old firefox browser display error.
 * Add minimunCountColumns option.
-
+* Update the table body header implementation and resetView method.
 
 ### 1.0.6
 
