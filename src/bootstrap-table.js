@@ -201,7 +201,7 @@
 
             columns.push(column);
         });
-        this.options.columns = $.extend(true, columns, this.options.columns);
+        this.options.columns = $.extend({}, columns, this.options.columns);
         $.each(this.options.columns, function(i, column) {
             that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
         });
@@ -381,7 +381,8 @@
 
             $keepOpen = this.$toolbar.find('.keep-open li');
             $keepOpen.off('click').on('click', function(event) {
-                event.stopPropagation();
+                event.stopImmediatePropagation();
+
                 var $this = $(this).find('input'),
                     $items = $keepOpen.find('input').prop('disabled', false);
 

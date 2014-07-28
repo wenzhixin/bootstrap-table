@@ -1,5 +1,11 @@
 ## Changelog
 
+### 1.0.7
+
+* Fix old firefox browser display error.
+* Add minimunCountColumns option.
+
+
 ### 1.0.6
 
 * Add jQuery events.
