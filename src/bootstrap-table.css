@@ -1,12 +1,12 @@
 .table {
     margin-bottom: 0 !important;
     border-bottom: 1px solid #dddddd;
-    border-collapse: separate !important;
+    border-collapse: collapse !important;
+    border-radius: 1px;
 }
 
 .fixed-table-container {
     position: relative;
-    padding-top: 38px;
     clear: both;
     border: 1px solid #dddddd;
     border-radius: 4px;
@@ -15,11 +15,8 @@
 }
 
 .fixed-table-header {
-    height: 38px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
+    height: 37px;
+    overflow: hidden;
     border-bottom: 1px solid #dddddd;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
@@ -32,64 +29,65 @@
     height: 100%;
 }
 
-.fixed-table-body table {
+.fixed-table-container table {
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
-.fixed-table-body thead th {
+.fixed-table-container thead th {
     height: 0;
     padding: 0;
     margin: 0;
-    border: none;
-}
-
-.fixed-table-body thead th .th-inner {
-    /*position: absolute;*/
-    top: 0;
-    padding: 8px;
-    line-height: 22px;
-    vertical-align: top;
     border-left: 1px solid #dddddd;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
-.fixed-table-body thead th:first-child .th-inner {
+.fixed-table-container thead th:first-child {
     border-left: none;
     border-top-left-radius: 4px;
     -webkit-border-top-left-radius: 4px;
     -moz-border-radius-topleft: 4px;
 }
 
-.fixed-table-body tbody td {
+.fixed-table-container thead th .th-inner {
+    padding: 8px;
+    line-height: 24px;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fixed-table-container tbody td {
     border-left: 1px solid #dddddd;
 }
 
-.fixed-table-body tbody td:first-child {
+.fixed-table-container tbody tr:first-child td {
+    border-top: none;
+}
+
+.fixed-table-container tbody td:first-child {
     border-left: none;
 }
 
-.fixed-table-body tbody .selected td {
+.fixed-table-container tbody .selected td {
     background-color: #d9edf7;
 }
 
-.fixed-table-body .bs-checkbox {
+.fixed-table-container .bs-checkbox {
     text-align: center;
 }
 
-.fixed-table-body .bs-checkbox .th-inner {
+.fixed-table-container .bs-checkbox .th-inner {
     padding: 8px 0;
 }
 
-.fixed-table-body input[type="radio"],
-.fixed-table-body input[type="checkbox"] {
+.fixed-table-container input[type="radio"],
+.fixed-table-container input[type="checkbox"] {
     margin: 0 auto !important;
 }
 
-.fixed-table-body .no-records-found {
+.fixed-table-container .no-records-found {
     text-align: center;
 }
 
@@ -187,5 +185,4 @@
 .table thead>tr>th {
     padding: 0;
     margin: 0;
-    border: none;
 }
