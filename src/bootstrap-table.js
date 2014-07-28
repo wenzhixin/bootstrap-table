@@ -379,11 +379,12 @@
 
             this.$toolbar.append(html.join(''));
 
-            $keepOpen = this.$toolbar.find('.keep-open li');
-            $keepOpen.off('click').on('click', function(event) {
+            $keepOpen = this.$toolbar.find('.keep-open');
+            $keepOpen.find('li').off('click').on('click', function(event) {
                 event.stopImmediatePropagation();
-
-                var $this = $(this).find('input'),
+            });
+            $keepOpen.find('input').off('click').on('click', function() {
+                var $this = $(this),
                     $items = $keepOpen.find('input').prop('disabled', false);
 
                 that.options.columns[$this.val()].visible = $this.prop('checked');
