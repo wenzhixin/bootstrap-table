@@ -148,7 +148,7 @@ $(function () {
                 },
                 {
                     name: 'pageList',
-                    attribute: '-',
+                    attribute: 'data-page-list',
                     type: 'Array',
                     description: 'When set pagination property, initialize the page size selecting list.',
                     'default': '[10, 25, 50, 100]'

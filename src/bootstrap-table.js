@@ -480,9 +480,14 @@
             '</span>',
             ' <span class="caret"></span>',
             '</button>',
-            '<ul class="dropdown-menu" role="menu">'];
+            '<ul class="dropdown-menu" role="menu">'],
+            pageList = this.options.pageList;
 
-        $.each(this.options.pageList, function (i, page) {
+        if (typeof this.options.pageList === 'string') {
+            pageList = eval(this.options.pageList);
+        }
+
+        $.each(pageList, function (i, page) {
             var active = page === that.options.pageSize ? ' class="active"' : '';
             pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
         });
