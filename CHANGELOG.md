@@ -6,6 +6,7 @@
 * Add minimunCountColumns option.
 * Update the table body header implementation and resetView method.
 * Remove bootstrapVersion option.
+* Fix search data error.
 
 ### 1.0.6
 
