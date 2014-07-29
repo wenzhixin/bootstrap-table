@@ -411,7 +411,7 @@
 
     BootstrapTable.prototype.onSearch = function (event) {
         var that = this,
-            text = $(event.currentTarget).val();
+            text = $.trim($(event.currentTarget).val());
 
         if (text === this.searchText) {
             return;
@@ -421,8 +421,9 @@
         if (this.options.sidePagination !== 'server') {
             this.data = $.grep(this.options.data, function (item) {
                 for (var key in item) {
-                    if (typeof item[key] === 'string' && item[key].indexOf(that.searchText) !== -1) {
-                        return true;
+                    if (typeof item[key] === 'string' &&
+                        item[key].toLowerCase().indexOf(that.searchText.toLowerCase()) !== -1) {
+                            return true;
                     }
                 }
                 return false;
