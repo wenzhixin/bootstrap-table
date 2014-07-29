@@ -855,6 +855,10 @@
             this.$container.find('.fixed-table-container').css('height', height + 'px');
         }
 
+        if (this.options.cardView) {
+            return;
+        }
+
         if (this.options.showHeader) {
             this.$header_ = this.$header.clone(true);
             this.$body_ = this.$body.clone(true);
@@ -866,7 +870,7 @@
                 .append(this.$header_, this.$body_);
         }
 
-        if (this.options.height && this.options.showHeader && !this.options.cardView) {
+        if (this.options.height && this.options.showHeader) {
             this.$container.find('.fixed-table-container').css('padding-bottom', '38px')
         }
     };
