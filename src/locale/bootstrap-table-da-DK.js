@@ -1,6 +1,6 @@
 /**
  * Bootstrap Table dabush translation
- * Author: Your Name Jan Borup Coyle, jancoyle@github.com
+ * Author: Your Name Jan Borup Coyle, github@coyle.dk
  */
 (function ($) {
     'use strict';
