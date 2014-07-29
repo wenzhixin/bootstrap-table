@@ -286,6 +286,7 @@
         } else {
             this.data = data || this.options.data;
         }
+        this.options.data = this.data;
 
         this.initSort();
     };
@@ -418,7 +419,7 @@
         this.searchText = text;
 
         if (this.options.sidePagination !== 'server') {
-            this.searchData = $.grep(this.data, function (item) {
+            this.data = $.grep(this.options.data, function (item) {
                 for (var key in item) {
                     if (typeof item[key] === 'string' && item[key].indexOf(that.searchText) !== -1) {
                         return true;
@@ -444,7 +445,7 @@
             $first, $pre,
             $next, $last,
             $number,
-            data = this.searchText ? this.searchData : this.data;
+            data = this.searchText ? this.data : this.options.data;
 
         if (this.options.sidePagination !== 'server') {
             this.options.totalRows = data.length;
@@ -604,7 +605,7 @@
     BootstrapTable.prototype.initBody = function () {
         var that = this,
             html = [],
-            data = this.searchText ? this.searchData : this.data;
+            data = this.searchText ? this.data : this.options.data;
 
         this.$body = this.$el.find('tbody');
         if (!this.$body.length) {
