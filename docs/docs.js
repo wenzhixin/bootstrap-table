@@ -318,6 +318,13 @@ $(function () {
                     'default': 'true'
                 },
                 {
+                    name: 'switchable',
+                    attribute: 'data-switchable',
+                    type: 'Boolean',
+                    description: 'False to disable the switchable of columns item.',
+                    'default': 'true'
+                },
+                {
                     name: 'formatter',
                     attribute: 'data-formatter',
                     type: 'Function',
