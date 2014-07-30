@@ -238,7 +238,7 @@ $(function () {
                 {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 60, sortable: true},
                 {field: 'attribute', title: 'Attribute', align: 'center', valign: 'middle'},
                 {field: 'type', title: 'Type', align: 'center', valign: 'middle', width: 60},
-                {field: 'description', title: 'Description', width: 400},
+                {field: 'description', title: 'Description', valign: 'middle', width: 400},
                 {field: 'default', title: 'Default', align: 'right', valign: 'middle', width: 180}
             ],
             data: [
@@ -268,6 +268,13 @@ $(function () {
                     attribute: 'data-title',
                     type: 'String',
                     description: 'The column title text.',
+                    'default': 'undefined'
+                },
+                {
+                    name: 'class',
+                    attribute: 'class / data-class',
+                    type: 'String',
+                    description: 'The column class name.',
                     'default': 'undefined'
                 },
                 {
