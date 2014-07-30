@@ -128,6 +128,7 @@
         sortable: false,
         order: 'asc', // asc, desc
         visible: true,
+        switchable: true,
         formatter: undefined,
         sorter: undefined
     };
@@ -344,6 +345,7 @@
             html = [],
             timeoutId = 0,
             $keepOpen,
+            $switchable,
             $search;
 
         this.$toolbar = this.$container.find('.fixed-table-toolbar').html('');
@@ -367,11 +369,12 @@
                 if (column.radio || column.checkbox) {
                     return;
                 }
-                var checked = column.visible ? ' checked="checked"' : '';
+                var checked = column.visible ? ' checked="checked"' : '',
+                    disabled = column.switchable ? '' : ' disabled="disabled"';
 
                 html.push(sprintf('<li>' +
-                    '<label><input type="checkbox" value="%s"%s> %s</label>' +
-                    '</li>', i, checked, column.title));
+                    '<label><input type="checkbox" value="%s"%s%s> %s</label>' +
+                    '</li>', i, checked, disabled, column.title));
             });
             html.push('</ul>',
                 '</div>');
@@ -382,10 +385,12 @@
             $keepOpen.find('li').off('click').on('click', function (event) {
                 event.stopImmediatePropagation();
             });
-            $keepOpen.find('input').off('click').on('click', function () {
+            $switchable = $keepOpen.find('input:enabled');
+            $switchable.off('click').on('click', function () {
                 var $this = $(this),
-                    $items = $keepOpen.find('input').prop('disabled', false);
+                    $items = $keepOpen.find('input');
 
+                $switchable.prop('disabled', false);
                 that.options.columns[$this.val()].visible = $this.prop('checked');
                 that.initHeader();
                 that.initBody();
