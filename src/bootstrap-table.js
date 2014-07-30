@@ -121,6 +121,7 @@
         checkbox: false,
         field: undefined,
         title: undefined,
+        class: undefined,
         align: undefined, // left, right, center
         valign: undefined, // top, middle, bottom
         width: undefined,
@@ -195,7 +196,8 @@
         }
         this.$header.find('th').each(function() {
             var column = $.extend({}, {
-                    title: $(this).text()
+                    title: $(this).text(),
+                    class: $(this).attr('class')
                 }, $(this).data());
 
             columns.push(column);
@@ -231,7 +233,8 @@
             style += column.sortable ? 'cursor: pointer; ' : '';
 
             html.push('<th',
-                column.checkbox || column.radio ? ' class="bs-checkbox"' : '',
+                column.checkbox || column.radio ? ' class="bs-checkbox"' :
+                sprintf(' class="%s"', column.class),
                 sprintf(' style="%s"', style),
                 '>');
             html.push('<div class="th-inner">');
