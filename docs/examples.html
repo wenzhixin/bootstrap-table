@@ -183,8 +183,9 @@
                     <div>
                         <label><input id="hover" type="checkbox" checked> hover</label>
                         <label><input id="striped" type="checkbox"> striped</label>
+                        <label><input id="condensed" type="checkbox"> condensed</label>
                     </div>
-                    <table id="table-style" data-toggle="table" data-url="data1.json" data-height="246" data-row-style="rowStyle">
+                    <table id="table-style" data-toggle="table" data-url="data1.json" data-height="400" data-row-style="rowStyle">
                         <thead>
                         <tr>
                             <th data-field="id" class="col-md-2">Item ID</th>
@@ -195,11 +196,14 @@
                     </table>
                     <script>
                         $(function() {
-                            $('#hover, #striped').click(function() {
+                            $('#hover, #striped, #condensed').click(function() {
                                 var classes = 'table';
 
                                 if ($('#hover').prop('checked')) {
-                                    classes = 'table table-hover';
+                                    classes += ' table-hover';
+                                }
+                                if ($('#condensed').prop('checked')) {
+                                    classes += ' table-condensed';
                                 }
                                 $('#table-style').bootstrapTable('destroy')
                                     .bootstrapTable({
@@ -210,13 +214,11 @@
                         });
 
                         function rowStyle(row, index) {
-                            if (index === 2) {
+                            var classes = ['active', 'success', 'info', 'warning', 'danger'];
+
+                            if (index % 2 === 0 && index / 2 < classes.length) {
                                 return {
-                                    classes: 'red',
-                                    css: {
-                                        background: 'red',
-                                        color: 'white'
-                                    }
+                                    classes: classes[index / 2]
                                 };
                             }
                             return {};
