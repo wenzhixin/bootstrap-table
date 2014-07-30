@@ -1,5 +1,13 @@
 ## Changelog
 
+### 1.1.1
+
+* Remove ```bootstrapVerion``` option.
+* Add ```data-page-list``` attribute.
+* Fix search data error.
+* Non case sensitive search in client side.
+* Added support for Danish translation.
+
 ### 1.1.0
 
 * Fix old firefox browser display error.
