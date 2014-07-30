@@ -345,7 +345,6 @@
             html = [],
             timeoutId = 0,
             $keepOpen,
-            $switchable,
             $search;
 
         this.$toolbar = this.$container.find('.fixed-table-toolbar').html('');
@@ -369,12 +368,13 @@
                 if (column.radio || column.checkbox) {
                     return;
                 }
-                var checked = column.visible ? ' checked="checked"' : '',
-                    disabled = column.switchable ? '' : ' disabled="disabled"';
+                var checked = column.visible ? ' checked="checked"' : '';
 
-                html.push(sprintf('<li>' +
-                    '<label><input type="checkbox" value="%s"%s%s> %s</label>' +
-                    '</li>', i, checked, disabled, column.title));
+                if (column.switchable) {
+                    html.push(sprintf('<li>' +
+                        '<label><input type="checkbox" value="%s"%s> %s</label>' +
+                        '</li>', i, checked, column.title));
+                }
             });
             html.push('</ul>',
                 '</div>');
@@ -385,12 +385,10 @@
             $keepOpen.find('li').off('click').on('click', function (event) {
                 event.stopImmediatePropagation();
             });
-            $switchable = $keepOpen.find('input:enabled');
-            $switchable.off('click').on('click', function () {
+            $keepOpen.find('input').off('click').on('click', function () {
                 var $this = $(this),
-                    $items = $keepOpen.find('input');
+                    $items = $keepOpen.find('input').prop('disabled', false);
 
-                $switchable.prop('disabled', false);
                 that.options.columns[$this.val()].visible = $this.prop('checked');
                 that.initHeader();
                 that.initBody();
