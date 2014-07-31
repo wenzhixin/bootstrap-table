@@ -28,4 +28,8 @@ $(function() {
             $('#table-pagination').bootstrapTable('destroy').bootstrapTable();
         });
     });
+
+    $(window).resize(function () {
+        $('table[data-toggle="table"]').bootstrapTable('resetView');
+    });
 });
