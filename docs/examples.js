@@ -30,6 +30,6 @@ $(function() {
     });
 
     $(window).resize(function () {
-        $('table[data-toggle="table"]').bootstrapTable('resetView');
+        $('table[data-toggle="table"]').add($('table[id]')).bootstrapTable('resetView');
     });
 });
