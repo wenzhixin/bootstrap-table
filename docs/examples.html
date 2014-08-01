@@ -389,7 +389,7 @@
                     <h2 id="radio-table">Radio</h2>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="246" data-click-to-select="true">
+                    <table data-toggle="table" data-url="data1.json" data-height="246" data-click-to-select="true" data-select-item-name="radioName">
                         <thead>
                             <tr>
                                 <th data-field="state" data-radio="true"></th>
@@ -628,7 +628,7 @@
                             Refresh
                         </button>
                     </div>
-                    <table id="table-methods-table" data-height="246" data-url="data1.json">
+                    <table id="table-methods-table" data-height="246">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -644,7 +644,7 @@
                                 getRows = function() {
                                     var rows = [];
 
-                                    for (var i = 0; i < 5; i++) {
+                                    for (var i = 0; i < 10; i++) {
                                         rows.push({
                                             id: id,
                                             name: 'test' + id,
@@ -655,7 +655,9 @@
                                     return rows;
                                 },
                                 // init table use data
-                                $table = $('#table-methods-table').bootstrapTable();
+                                $table = $('#table-methods-table').bootstrapTable({
+                                    data: getRows()
+                                });
 
                             $('#get-selections').click(function() {
                                 alert('Selected values: ' + JSON.stringify($table.bootstrapTable('getSelections')));
