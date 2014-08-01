@@ -1220,3 +1220,6 @@ h1[id], h2[id] {
     color: #fff;
     background: #428bca;
 }
+h1 .icon {
+    font-size: 14px;
+}
