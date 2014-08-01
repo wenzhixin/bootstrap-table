@@ -21,6 +21,13 @@ $(function () {
             ],
             data: [
                 {
+                    name: '-',
+                    attribute: 'data-toggle',
+                    type: 'String',
+                    description: 'Activate bootstrap table without writing JavaScript.',
+                    'default': 'table'
+                },
+                {
                     name: 'classes',
                     attribute: 'data-classes',
                     type: 'String',
