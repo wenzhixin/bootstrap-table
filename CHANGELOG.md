@@ -1,5 +1,12 @@
 ## Changelog
 
+### 1.1.2
+
+* Add switchable column option.
+* Add ```data-toggle``` attribute.
+* Add support for number search.
+* Use html function instead of text in header th.
+
 ### 1.1.1
 
 * Remove ```bootstrapVerion``` option.
