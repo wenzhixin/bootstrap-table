@@ -197,7 +197,7 @@
         }
         this.$header.find('th').each(function() {
             var column = $.extend({}, {
-                    title: $(this).text(),
+                    title: $(this).html(),
                     class: $(this).attr('class')
                 }, $(this).data());
 
