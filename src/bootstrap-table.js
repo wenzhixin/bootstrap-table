@@ -17,7 +17,7 @@
             flag = true,
             i = 1;
 
-        str = str.replace(/%s/g, function() {
+        str = str.replace(/%s/g, function () {
             var arg = args[i++];
 
             if (typeof arg === 'undefined') {
@@ -32,9 +32,9 @@
         return '';
     };
 
-    var getPropertyFromOther = function(list, from, to, value) {
+    var getPropertyFromOther = function (list, from, to, value) {
         var result = '';
-        $.each(list, function(i, item) {
+        $.each(list, function (i, item) {
             if (item[from] === value) {
                 result = item[to];
                 return false;
@@ -47,7 +47,7 @@
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
-    var BootstrapTable = function(el, options) {
+    var BootstrapTable = function (el, options) {
         this.options = options;
         this.$el = $(el);
         this.$el_ = this.$el.clone();
@@ -67,8 +67,8 @@
         method: 'get',
         url: undefined,
         contentType: 'application/json',
-        queryParams: function(params) {return {};},
-        responseHandler: function(res) {return res;},
+        queryParams: function (params) {return {};},
+        responseHandler: function (res) {return res;},
         pagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
@@ -86,34 +86,34 @@
         singleSelect: false,
         toolbar: undefined,
 
-        rowStyle: function(row, index) {return {};},
+        rowStyle: function (row, index) {return {};},
 
-        formatLoadingMessage: function() {
+        formatLoadingMessage: function () {
             return 'Loading, please wait…';
         },
-        formatRecordsPerPage: function(pageNumber) {
+        formatRecordsPerPage: function (pageNumber) {
             return sprintf('%s records per page', pageNumber);
         },
-        formatShowingRows: function(pageFrom, pageTo, totalRows) {
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
         },
-        formatSearch: function() {
+        formatSearch: function () {
             return 'Search';
         },
-        formatNoMatches: function() {
+        formatNoMatches: function () {
             return 'No matching records found';
         },
 
-        onAll: function(name, args) {return false;},
-        onClickRow: function(item, $element) {return false;},
-        onDblClickRow: function(item, $element) {return false;},
-        onSort: function(name, order) {return false;},
-        onCheck: function(row) {return false;},
-        onUncheck: function(row) {return false;},
-        onCheckAll: function() {return false;},
-        onUncheckAll: function() {return false;},
-        onLoadSuccess: function(data) {return false;},
-        onLoadError: function(status) {return false;}
+        onAll: function (name, args) {return false;},
+        onClickRow: function (item, $element) {return false;},
+        onDblClickRow: function (item, $element) {return false;},
+        onSort: function (name, order) {return false;},
+        onCheck: function (row) {return false;},
+        onUncheck: function (row) {return false;},
+        onCheckAll: function () {return false;},
+        onUncheckAll: function () {return false;},
+        onLoadSuccess: function (data) {return false;},
+        onLoadError: function (status) {return false;}
     };
 
     BootstrapTable.COLUMN_DEFAULTS = {
@@ -130,6 +130,7 @@
         visible: true,
         switchable: true,
         formatter: undefined,
+        events: undefined,
         sorter: undefined
     };
 
@@ -146,7 +147,7 @@
         'load-error.bs.table': 'onLoadError'
     };
 
-    BootstrapTable.prototype.init = function() {
+    BootstrapTable.prototype.init = function () {
         this.initContainer();
         this.initHeader();
         this.initData();
@@ -156,7 +157,7 @@
         this.initServer();
     };
 
-    BootstrapTable.prototype.initContainer = function() {
+    BootstrapTable.prototype.initContainer = function () {
         this.$container = $([
             '<div class="bootstrap-table">',
                 '<div class="fixed-table-toolbar"></div>',
@@ -182,7 +183,7 @@
         }
     };
 
-    BootstrapTable.prototype.initHeader = function() {
+    BootstrapTable.prototype.initHeader = function () {
         var that = this,
             columns = [],
             visibleColumns = [],
@@ -195,7 +196,7 @@
         if (!this.$header.find('tr').length) {
             this.$header.append('<tr></tr>');
         }
-        this.$header.find('th').each(function() {
+        this.$header.find('th').each(function () {
             var column = $.extend({}, {
                     title: $(this).html(),
                     class: $(this).attr('class')
@@ -204,7 +205,7 @@
             columns.push(column);
         });
         this.options.columns = $.extend({}, columns, this.options.columns);
-        $.each(this.options.columns, function(i, column) {
+        $.each(this.options.columns, function (i, column) {
             that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
         });
 
@@ -212,9 +213,10 @@
             fields: [],
             styles: [],
             formatters: [],
+            events: [],
             sorters: []
         };
-        $.each(this.options.columns, function(i, column) {
+        $.each(this.options.columns, function (i, column) {
             var text = '',
                 style = sprintf('text-align: %s; ', column.align) +
                         sprintf('vertical-align: %s; ', column.valign),
@@ -228,6 +230,7 @@
             that.header.fields.push(column.field);
             that.header.styles.push(style);
             that.header.formatters.push(column.formatter);
+            that.header.events.push(column.events);
             that.header.sorters.push(column.sorter);
 
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
@@ -747,6 +750,31 @@
 
 //            $(this).parents('tr')[checked ? 'addClass' : 'removeClass']('selected');
         });
+
+        $.each(this.header.events, function (i, events) {
+            if (!events) {
+                return;
+            }
+            for (var key in events) {
+                that.$body.find('tr').each(function () {
+                    var $tr = $(this),
+                        $td = $tr.find('td').eq(i),
+                        index = key.indexOf(' '),
+                        name = key.substring(0, index),
+                        el = key.substring(index + 1),
+                        func = events[key];
+
+                    $td.find(el).off(name).on(name, function () {
+                        var index = $tr.data('index'),
+                            row = that.data[index],
+                            value = row[that.header.fields[i]];
+
+                        func(value, row, index);
+                    });
+                });
+            }
+        });
+
         this.resetView();
     };
 

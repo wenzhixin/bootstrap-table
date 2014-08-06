@@ -1223,3 +1223,6 @@ h1[id], h2[id] {
 h1 .icon {
     font-size: 14px;
 }
+.ml10 {
+    margin-left: 10px;
+}
