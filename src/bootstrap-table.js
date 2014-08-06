@@ -769,12 +769,12 @@
                         el = key.substring(index + 1),
                         func = events[key];
 
-                    $td.find(el).off(name).on(name, function () {
+                    $td.find(el).off(name).on(name, function (e) {
                         var index = $tr.data('index'),
                             row = that.data[index],
                             value = row[that.header.fields[i]];
 
-                        func(value, row, index);
+                        func(e, value, row, index);
                     });
                 });
             }
