@@ -68,6 +68,7 @@
         url: undefined,
         contentType: 'application/json',
         queryParams: function (params) {return {};},
+        queryParamsType: undefined,
         responseHandler: function (res) {return res;},
         pagination: false,
         sidePagination: 'client', // client or server
@@ -784,30 +785,33 @@
 
     BootstrapTable.prototype.initServer = function () {
         var that = this,
-            data = {};
+            data = {},
+            params = {
+                pageSize: this.options.pageSize,
+                pageNumber: this.options.pageNumber,
+                searchText: this.searchText,
+                sortName: this.options.sortName,
+                sortOrder: this.options.sortOrder
+            };
 
         if (!this.options.url) {
             return;
         }
         this.$loading.show();
 
+        if (this.options.queryParamsType === 'limit') {
+            params = {
+                limit: params.pageSize,
+                offset: params.pageSize * (params.pageNumber - 1),
+                search: params.searchText,
+                sort: params.sortName,
+                order: params.sortOrder
+            };
+        }
         if (typeof this.options.queryParams === 'function') {
-            data = this.options.queryParams({
-                pageSize: this.options.pageSize,
-                pageNumber: this.options.pageNumber,
-                searchText: this.searchText,
-                sortName: this.options.sortName,
-                sortOrder: this.options.sortOrder
-            });
+            data = this.options.queryParams(params);
         } else if (typeof this.options.queryParams === 'string') {
-            data = eval([this.options.queryParams,
-                '({',
-                    'pageSize: this.options.pageSize,',
-                    'pageNumber: this.options.pageNumber,',
-                    'searchText: this.searchText,',
-                    'sortName: this.options.sortName,',
-                    'sortOrder: this.options.sortOrder',
-                '})'].join(''));
+            data = eval(this.options.queryParams + '(params)');
         }
 
         $.ajax({

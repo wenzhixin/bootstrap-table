@@ -134,6 +134,14 @@ $(function () {
                     example: 'server-side-pagination-table'
                 },
                 {
+                    name: 'queryParamsType',
+                    attribute: 'data-query-params-type',
+                    type: 'String',
+                    description: 'Set "limit" to send query params width restful type.',
+                    'default': 'undefined',
+                    example: '-'
+                },
+                {
                     name: 'responseHandler',
                     attribute: 'data-response-handler',
                     type: 'Function',
