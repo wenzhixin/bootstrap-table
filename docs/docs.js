@@ -406,9 +406,17 @@ $(function () {
                     name: 'formatter',
                     attribute: 'data-formatter',
                     type: 'Function',
-                    description: 'The cell formatter function, take two parameters: <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
+                    description: 'The cell formatter function, take three parameters: <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
                     'default': 'undefined',
                     example: 'format-table'
+                },
+                {
+                    name: 'events',
+                    attribute: '-',
+                    type: 'Object',
+                    description: 'The cell events listener when you use formatter function, take three parameters: <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
+                    'default': 'undefined',
+                    example: 'via-javascript-table'
                 },
                 {
                     name: 'sorter',
