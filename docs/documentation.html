@@ -67,7 +67,6 @@
                     <li><a href="#events">Events</a></li>
                     <li><a href="#methods">Methods</a></li>
                     <li><a href="#localizations">Localizations</a></li>
-                    <li><a href="#the-defaults">The Defaults</a></li>
                 </ul>
             </div>
         </div>
@@ -120,93 +119,6 @@
                     </h1>
                 </div>
                 <table id="localization"></table>
-            </div>
-            <div>
-                <div class="page-header">
-                    <h1 id="the-defaults">The Defaults:</h1>
-                </div>
-                <div>
-<pre><code>&lt;script&gt;
-    $.extend($.fn.bootstrapTable.defaults, {
-        classes: 'table table-hover',
-        height: undefined,
-        undefinedText: '-',
-        sortName: undefined,
-        sortOrder: 'asc',
-        striped: false,
-        columns: [],
-        data: [],
-        method: 'get',
-        url: undefined,
-        contentType: 'application/json',
-        queryParams: function(params) {return {};},
-        responseHandler: function(res) {return res;},
-        pagination: false,
-        sidePagination: 'client', // client or server
-        totalRows: 0, // server side need to set
-        pageNumber: 1,
-        pageSize: 10,
-        pageList: [10, 25, 50, 100],
-        search: false,
-        selectItemName: 'btSelectItem',
-        showHeader: true,
-        showColumns: false,
-        minimunCountColumns: 1,
-        idField: undefined,
-        cardView: false,
-        clickToSelect: false,
-        singleSelect: false,
-        toolbar: undefined,
-
-        rowStyle: function(row, index) {return {};},
-
-        formatLoadingMessage: function() {
-            return 'Loading, please wait…';
-        },
-        formatRecordsPerPage: function(pageNumber) {
-            return sprintf('%s records per page', pageNumber);
-        },
-        formatShowingRows: function(pageFrom, pageTo, totalRows) {
-            return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
-        },
-        formatSearch: function() {
-            return 'Search';
-        },
-        formatNoMatches: function() {
-            return 'No matching records found';
-        },
-
-        onAll: function(name, args) {return false;},
-        onClickRow: function(item, $element) {return false;},
-        onDblClickRow: function(item, $element) {return false;},
-        onSort: function(name, order) {return false;},
-        onCheck: function(row) {return false;},
-        onUncheck: function(row) {return false;},
-        onCheckAll: function() {return false;},
-        onUncheckAll: function() {return false;},
-        onLoadSuccess: function(data) {return false;},
-        onLoadError: function(status) {return false;}
-    });
-
-    $.extend($.fn.bootstrapTable.columnDefaults, {
-        radio: false,
-        checkbox: false,
-        field: undefined,
-        title: undefined,
-        class: undefined,
-        align: undefined, // left, right, center
-        valign: undefined, // top, middle, bottom
-        width: undefined,
-        sortable: false,
-        order: 'asc', // asc, desc
-        visible: true,
-        switchable: true,
-        formatter: undefined,
-        sorter: undefined
-    });
-&lt;/script&gt;
-</code></pre>
-                </div>
             </div>
         </div>
     </div>
