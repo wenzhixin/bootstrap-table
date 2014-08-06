@@ -270,6 +270,14 @@ $(function () {
                     example: 'transform-table'
                 },
                 {
+                    name: 'checkboxHeader',
+                    attribute: 'data-checkbox-header',
+                    type: 'Boolean',
+                    description: 'False to hide check-all checkbox in header row.',
+                    'default': 'true',
+                    example: '-'
+                },
+                {
                     name: 'rowStyle',
                     attribute: 'data-row-style',
                     type: 'Function',

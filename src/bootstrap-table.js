@@ -85,7 +85,7 @@
         clickToSelect: false,
         singleSelect: false,
         toolbar: undefined,
-        checkBoxHeader: false,  //True will display check-all checkbox in header row vs. text
+        checkboxHeader: true,
 
         rowStyle: function (row, index) {return {};},
 
@@ -250,7 +250,7 @@
             }
 
             if (column.checkbox) {
-                if (!that.options.singleSelect && that.options.checkBoxHeader) {
+                if (!that.options.singleSelect && that.options.checkboxHeader) {
                     text = '<input name="btSelectAll" type="checkbox" />';
                 }
                 that.header.stateField = column.field;
