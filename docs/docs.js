@@ -412,7 +412,7 @@ $(function () {
                 },
                 {
                     name: 'events',
-                    attribute: '-',
+                    attribute: 'data-events',
                     type: 'Object',
                     description: 'The cell events listener when you use formatter function, take three parameters: <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
                     'default': 'undefined',

@@ -756,6 +756,9 @@
             if (!events) {
                 return;
             }
+            if (typeof events === 'string') {
+                events = eval(events);
+            }
             for (var key in events) {
                 that.$body.find('tr').each(function () {
                     var $tr = $(this),
