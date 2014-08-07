@@ -424,7 +424,7 @@ $(function () {
                     type: 'Object',
                     description: 'The cell events listener when you use formatter function, take three parameters: <br />event: the jQuery event. <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
                     'default': 'undefined',
-                    example: 'via-javascript-table'
+                    example: 'column-events-table'
                 },
                 {
                     name: 'sorter',
