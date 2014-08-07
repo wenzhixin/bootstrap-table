@@ -100,7 +100,13 @@
                         </ul>
                     </li>
                     <li></li>
-                    <li><a href="#table-events">Table Events</a></li>
+                    <li>
+                        <a href="#table-events">Table Events</a>
+                        <ul class="nav">
+                            <li><a href="#basic-events-table">Basic Events</a></li>
+                            <li><a href="#column-events-table">Column Events</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#table-methods">Table Methods</a></li>
                     <li><a href="#via-javascript-table">Via JavaScript</a></li>
                 </ul>
@@ -126,7 +132,7 @@
                     <h1 id="basic-table">Basic Table</h1>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="246">
+                    <table data-toggle="table" data-url="data1.json" data-height="299">
                         <thead>
                             <tr>
                                 <th data-field="id">Item ID</th>
@@ -152,7 +158,7 @@
                             <i class="glyphicon glyphicon-trash"></i> Destroy
                         </button>
                     </div>
-                    <table id="table-transform" data-url="data1.json" data-height="246" data-toolbar="#transform-buttons">
+                    <table id="table-transform" data-url="data1.json" data-height="299" data-toolbar="#transform-buttons">
                         <thead>
                             <tr>
                                 <th data-field="id">Item ID</th>
@@ -242,7 +248,7 @@
                     <h2 id="basic-sort-table">Basic</h2>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="246" data-sort-name="name" data-sort-order="desc">
+                    <table data-toggle="table" data-url="data1.json" data-height="299" data-sort-name="name" data-sort-order="desc">
                         <thead>
                             <tr>
                                 <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
@@ -258,7 +264,7 @@
                     <h2 id="custom-sort-table">Custom</h2>
                 </div>
                 <div class="bs-example">
-                    <table id="table-custom-sort" data-toggle="table" data-url="data1.json" data-height="246" data-sort-name="price" data-sort-order="desc">
+                    <table id="table-custom-sort" data-toggle="table" data-url="data1.json" data-height="299" data-sort-name="price" data-sort-order="desc">
                         <thead>
                         <tr>
                             <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
@@ -285,7 +291,7 @@
                     <h1 id="format-table">Format Table</h1>
                 </div>
                 <div class="bs-example">
-                    <table id="table-format" data-toggle="table" data-url="data1.json" data-height="246">
+                    <table id="table-format" data-toggle="table" data-url="data1.json" data-height="299">
                         <thead>
                         <tr>
                             <th data-field="id">Item ID</th>
@@ -319,7 +325,7 @@
                     <h1 id="hide-header-table">Hide Header Table</h1>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="246" data-show-header="false">
+                    <table data-toggle="table" data-url="data1.json" data-height="299" data-show-header="false">
                         <thead>
                         <tr>
                             <th data-field="name">Item Name</th>
@@ -336,7 +342,7 @@
                     <h1 id="show-columns-table">Show Columns Table</h1>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data3.json" data-height="246" data-show-columns="true" data-id-field="id">
+                    <table data-toggle="table" data-url="data3.json" data-height="299" data-show-columns="true" data-id-field="id">
                         <thead>
                         <tr>
                             <th data-field="state" data-radio="true"></th>
@@ -357,7 +363,7 @@
                 <h1 id="card-view">Card View Table</h1>
             </div>
             <div class="bs-example">
-                <table data-toggle="table" data-url="data4.json" data-height="246" data-card-view="true" data-response-handler="responseHandler">
+                <table data-toggle="table" data-url="data4.json" data-height="299" data-card-view="true" data-response-handler="responseHandler">
                     <thead>
                     <tr>
                         <th data-field="name">Name</th>
@@ -395,7 +401,7 @@
                     <h2 id="radio-table">Radio</h2>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="246" data-click-to-select="true" data-select-item-name="radioName">
+                    <table data-toggle="table" data-url="data1.json" data-height="299" data-click-to-select="true" data-select-item-name="radioName">
                         <thead>
                             <tr>
                                 <th data-field="state" data-radio="true"></th>
@@ -412,7 +418,7 @@
                     <h2 id="checkbox-table">Checkbox</h2>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="246" data-click-to-select="true">
+                    <table data-toggle="table" data-url="data1.json" data-height="299" data-click-to-select="true">
                         <thead>
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
@@ -429,7 +435,7 @@
                     <h2 id="single-checkbox-table">Single Checkbox</h2>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="246" data-click-to-select="true" data-single-select="true">
+                    <table data-toggle="table" data-url="data1.json" data-height="299" data-click-to-select="true" data-single-select="true">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -532,11 +538,16 @@
                 <div class="page-header">
                     <h1 id="table-events">Table Events</h1>
                 </div>
+
+
+                <div class="page-header">
+                    <h2 id="basic-events-table">Basic Events</h2>
+                </div>
                 <div class="bs-example">
                     <div class="alert alert-success" id="events-result">
                         Here is the result of event.
                     </div>
-                    <table id="events-table" data-url="data1.json" data-height="246" data-search="true">
+                    <table id="events-table" data-url="data1.json" data-height="299" data-search="true">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -598,6 +609,54 @@
                     </script>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
+
+                <div class="page-header">
+                    <h2 id="column-events-table">Column Events</h2>
+                </div>
+                <div class="bs-example">
+                    <table data-toggle="table" data-url="data1.json" data-height="299" data-search="true">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="id" data-sortable="true">Item ID</th>
+                            <th data-field="name" data-sortable="true">Item Name</th>
+                            <th data-field="price" data-sortable="true">Item Price</th>
+                            <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">Item Operate</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        function operateFormatter(value, row, index) {
+                            return [
+                                '<a class="like" href="javascript:void(0)" title="Like">',
+                                    '<i class="glyphicon glyphicon-heart"></i>',
+                                '</a>',
+                                '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
+                                    '<i class="glyphicon glyphicon-edit"></i>',
+                                '</a>',
+                                '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+                                    '<i class="glyphicon glyphicon-remove"></i>',
+                                '</a>'
+                            ].join('');
+                        }
+
+                        window.operateEvents = {
+                            'click .like': function (e, value, row, index) {
+                                alert('You click like icon, row: ' + JSON.stringify(row));
+                                console.log(value, row, index);
+                            },
+                            'click .edit': function (e, value, row, index) {
+                                alert('You click edit icon, row: ' + JSON.stringify(row));
+                                console.log(value, row, index);
+                            },
+                            'click .remove': function (e, value, row, index) {
+                                alert('You click remove icon, row: ' + JSON.stringify(row));
+                                console.log(value, row, index);
+                            }
+                        };
+                    </script>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
 
             <div>
@@ -634,7 +693,7 @@
                             Refresh
                         </button>
                     </div>
-                    <table id="table-methods-table" data-height="246">
+                    <table id="table-methods-table" data-height="299">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -735,37 +794,10 @@
                                     align: 'center',
                                     valign: 'middle',
                                     formatter: operateFormatter,
-                                    events: {
-                                        'click .like': function (e, value, row, index) {
-                                            alert('You click like icon, row: ' + JSON.stringify(row));
-                                            console.log(value, row, index);
-                                        },
-                                        'click .edit': function (e, value, row, index) {
-                                            alert('You click edit icon, row: ' + JSON.stringify(row));
-                                            console.log(value, row, index);
-                                        },
-                                        'click .remove': function (e, value, row, index) {
-                                            alert('You click remove icon, row: ' + JSON.stringify(row));
-                                            console.log(value, row, index);
-                                        }
-                                    }
+                                    events: operateEvents
                                 }]
                             });
                         });
-
-                        function operateFormatter(value, row, index) {
-                            return [
-                                '<a class="like" href="javascript:void(0)" title="Like">',
-                                    '<i class="glyphicon glyphicon-heart"></i>',
-                                '</a>',
-                                '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
-                                    '<i class="glyphicon glyphicon-edit"></i>',
-                                '</a>',
-                                '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
-                                    '<i class="glyphicon glyphicon-remove"></i>',
-                                '</a>'
-                            ].join('');
-                        }
                     </script>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
