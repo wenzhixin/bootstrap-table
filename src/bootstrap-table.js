@@ -123,7 +123,7 @@
         checkbox: false,
         field: undefined,
         title: undefined,
-        class: undefined,
+        'class': undefined,
         align: undefined, // left, right, center
         valign: undefined, // top, middle, bottom
         width: undefined,
@@ -201,7 +201,7 @@
         this.$header.find('th').each(function () {
             var column = $.extend({}, {
                     title: $(this).html(),
-                    class: $(this).attr('class')
+                    'class': $(this).attr('class')
                 }, $(this).data());
 
             columns.push(column);
@@ -240,7 +240,7 @@
 
             html.push('<th',
                 column.checkbox || column.radio ? ' class="bs-checkbox"' :
-                sprintf(' class="%s"', column.class),
+                sprintf(' class="%s"', column['class']),
                 sprintf(' style="%s"', style),
                 '>');
             html.push('<div class="th-inner">');
@@ -264,6 +264,7 @@
 
             html.push(text);
             html.push('</div>');
+            html.push('<div class="fht-cell"></div>');
             html.push('</th>');
         });
 
@@ -880,6 +881,26 @@
         this.$el.trigger($.Event('all.bs.table'), [name, args]);
     };
 
+    BootstrapTable.prototype.resetHeader = function () {
+        var that = this;
+
+        this.$header_ = this.$header.clone(true);
+        this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
+        this.$el.css('margin-top', -this.$header.height());
+        this.$container.find('.fixed-table-header')
+            .css({
+                'height': '37px',
+                'border-bottom': '1px solid #dddddd'
+            })
+            .find('table').css('width', this.$el.css('width'))
+            .html('').attr('class', this.$el.attr('class'))
+            .append(this.$header_);
+
+        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function(i) {
+            that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
+        });
+    };
+
     // PUBLIC FUNCTION DEFINITION
     // =======================
 
@@ -906,19 +927,12 @@
             return;
         }
 
-        if (this.options.showHeader) {
-            this.$header_ = this.$header.clone(true);
-            this.$body_ = this.$body.clone(true);
-            this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
-            this.$el.css('margin-top', -(this.$header.height() + 1));
-            this.$container.find('.fixed-table-header table')
-                .css('width', this.$el.css('width'))
-                .html('').attr('class', this.$el.attr('class'))
-                .append(this.$header_, this.$body_);
+        if (this.options.showHeader && this.options.height) {
+            this.resetHeader();
         }
 
         if (this.options.height && this.options.showHeader) {
-            this.$container.find('.fixed-table-container').css('padding-bottom', '38px')
+            this.$container.find('.fixed-table-container').css('padding-bottom', '38px');
         }
     };
 
