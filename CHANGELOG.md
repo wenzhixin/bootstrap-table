@@ -1,5 +1,12 @@
 ## Changelog
 
+### 1.1.3
+
+* Add ```events``` column option.
+* Add ```checkboxHeader``` option.
+* Add ```queryParamsType``` option.
+* Fix ie class bug, and fix duplicated data error.
+
 ### 1.1.2
 
 * Add switchable column option.
