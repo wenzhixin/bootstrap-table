@@ -992,12 +992,11 @@
     };
 
     BootstrapTable.prototype.destroy = function () {
-        var $toolbar = $(this.options.toolbar).clone(true, true);
-
+        this.$el.insertBefore(this.$container);
+        $(this.options.toolbar).insertBefore(this.$el);
         this.$container.next().remove();
-        this.$container.replaceWith(this.$el_);
-        $toolbar.insertBefore(this.$el_);
-        return this.$el_;
+        this.$container.remove();
+        this.$el.html(this.$el_.html());
     };
 
     BootstrapTable.prototype.showLoading = function () {
@@ -1041,10 +1040,14 @@
                     throw "Unknown method: " + option;
                 }
                 value = data[option](_relatedTarget);
+
+                if (option === 'destroy') {
+                    $this.removeData('bootstrap.table');
+                }
             }
         });
 
-        return value ? value : this;
+        return typeof value === 'undefined' ? this : value;
     };
 
     $.fn.bootstrapTable.Constructor = BootstrapTable;
