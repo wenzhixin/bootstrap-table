@@ -6,7 +6,15 @@
     "zhixin <wenzhixin2010@gmail.com>"
   ],
   "description": "The table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.",
-  "main": "src",
+  "main": [
+	  "src/bootstrap-table.css",
+	  "src/bootstrap-table.js",
+	  "src/locale/bootstrap-table-en.js",
+	  "src/locale/bootstrap-table-da-DK.js",
+	  "src/locale/bootstrap-table-pt-BR.js",
+	  "src/locale/bootstrap-table-zh-CN.js",
+	  "src/locale/bootstrap-table-zh-TW.js"
+  ],
   "keywords": [
     "bootstrap",
     "table",
