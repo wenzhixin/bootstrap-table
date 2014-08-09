@@ -151,6 +151,7 @@
 
     BootstrapTable.prototype.init = function () {
         this.initContainer();
+        this.initTable();
         this.initHeader();
         this.initData();
         this.initToolbar();
@@ -185,11 +186,10 @@
         }
     };
 
-    BootstrapTable.prototype.initHeader = function () {
+    BootstrapTable.prototype.initTable = function () {
         var that = this,
             columns = [],
-            visibleColumns = [],
-            html = [];
+            data = [];
 
         this.$header = this.$el.find('thead');
         if (!this.$header.length) {
@@ -200,9 +200,9 @@
         }
         this.$header.find('th').each(function () {
             var column = $.extend({}, {
-                    title: $(this).html(),
-                    'class': $(this).attr('class')
-                }, $(this).data());
+                title: $(this).html(),
+                'class': $(this).attr('class')
+            }, $(this).data());
 
             columns.push(column);
         });
@@ -210,6 +210,21 @@
         $.each(this.options.columns, function (i, column) {
             that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
         });
+
+        this.$el.find('tbody tr').each(function () {
+            var row = {};
+            $(this).find('td').each(function (i) {
+                row[that.options.columns[i].field] = $(this).html();
+            });
+            data.push(row);
+        });
+        this.options.data = data;
+    };
+
+    BootstrapTable.prototype.initHeader = function () {
+        var that = this,
+            visibleColumns = [],
+            html = [];
 
         this.header = {
             fields: [],
@@ -996,7 +1011,8 @@
         $(this.options.toolbar).insertBefore(this.$el);
         this.$container.next().remove();
         this.$container.remove();
-        this.$el.html(this.$el_.html());
+        this.$el.html(this.$el_.html())
+            .attr('class', this.$el_.attr('class') || ''); // reset the class
     };
 
     BootstrapTable.prototype.showLoading = function () {

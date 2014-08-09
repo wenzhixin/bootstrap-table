@@ -158,22 +158,50 @@
                             <i class="glyphicon glyphicon-trash"></i> Destroy
                         </button>
                     </div>
-                    <table id="table-transform" data-url="data1.json" data-height="299" data-toolbar="#transform-buttons">
+                    <table id="table-transform" data-toolbar="#transform-buttons">
                         <thead>
-                            <tr>
-                                <th data-field="id">Item ID</th>
-                                <th data-field="name">Item Name</th>
-                                <th data-field="price">Item Price</th>
-                            </tr>
+                        <tr>
+                            <th data-field="id">Item ID</th>
+                            <th data-field="name">Item Name</th>
+                            <th data-field="price">Item Price</th>
+                        </tr>
                         </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>test1</td>
+                            <td>$1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>test2</td>
+                            <td>$2</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>test3</td>
+                            <td>$3</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>test4</td>
+                            <td>$4</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>test5</td>
+                            <td>$5</td>
+                        </tr>
+                        </tbody>
                     </table>
                     <script>
                         $(function() {
+                            var $table = $('#table-transform');
                             $('#transform').click(function() {
-                                $('#table-transform').bootstrapTable();
+                                $table.bootstrapTable();
                             });
                             $('#destroy').click(function() {
-                                $('#table-transform').bootstrapTable('destroy');
+                                $table.bootstrapTable('destroy');
                             });
                         });
                     </script>
