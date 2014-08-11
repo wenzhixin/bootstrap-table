@@ -211,6 +211,11 @@
             that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
         });
 
+        // if options.data is setting, do not process tbody data
+        if (this.options.data.length) {
+            return;
+        }
+
         this.$el.find('tbody tr').each(function () {
             var row = {};
             $(this).find('td').each(function (i) {
