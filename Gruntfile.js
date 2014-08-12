@@ -28,7 +28,8 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: 'src/locale',
                     src: '**/*.js',
-                    dest: 'dist/locale'
+                    dest: 'dist/locale',
+                    ext: '.min.js' // replace .js to .min.js
                 }]
             }
         },
