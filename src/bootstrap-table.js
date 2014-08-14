@@ -51,6 +51,7 @@
         this.options = options;
         this.$el = $(el);
         this.$el_ = this.$el.clone();
+        this.timeoutId_ = 0;
 
         this.init();
     };
@@ -903,6 +904,13 @@
 
     BootstrapTable.prototype.resetHeader = function () {
         var that = this;
+
+        // fix #61: the hidden table reset header bug.
+        if (this.$el.is(':hidden')) {
+            clearTimeout(this.timeoutId_); // doesn't matter if it's 0
+            this.timeoutId_ = setTimeout($.proxy(this.resetHeader, this), 100); // 100ms
+            return;
+        }
 
         this.$header_ = this.$header.clone(true);
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
