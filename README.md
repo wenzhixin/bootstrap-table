@@ -7,7 +7,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 ## LICENSE
 
-**NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If you like this plugin, you can **Star** this repo, your support is my biggest motive force, thanks.
+**NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
 
 ## Features
 
@@ -26,10 +26,10 @@ The table displays data in a tabular format and offers rich support to radio, ch
 * Card view
 * Localization
 
-## Contributors
+## Acknowledgements
 
-[CONTRIBUTORS](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTORS.md)
+Thanks to everyone who have given feedback and submitted pull requests. A list of all the contributors can be found [here](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTORS.md).
 
-## Changelog
+## Release History
 
-[CHANGELOG](https://github.com/wenzhixin/bootstrap-table/blob/master/CHANGELOG.md)
+Look at the [Change Log](https://github.com/wenzhixin/bootstrap-table/blob/master/CHANGELOG.md)
