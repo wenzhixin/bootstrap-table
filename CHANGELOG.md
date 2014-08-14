@@ -1,5 +1,11 @@
 ## Changelog
 
+### 1.1.4
+
+* Fix ```destroy``` method bug.
+* Initialize table data from HTML.
+* Fix the hidden table reset header bug.
+
 ### 1.1.3
 
 * Add ```events``` column option.

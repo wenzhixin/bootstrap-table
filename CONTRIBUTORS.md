@@ -16,7 +16,7 @@ bootstrap-table is due to the excellent work of the following contributors:
 <td><a href="https://github.com/wenzhixin">wenzhixin</a></td>
 <td>Guangzhou, China</td>
 <td><a href="http://wenzhixin.net.cn">http://wenzhixin.net.cn</a></td>
-<td>203</td>
+<td>215</td>
 <tr>
 <tr>
 <td><img src="https://avatars.githubusercontent.com/u/6866443?v=2" width="32" height="32"> janborup</td>
@@ -29,6 +29,13 @@ bootstrap-table is due to the excellent work of the following contributors:
 <td><img src="https://avatars.githubusercontent.com/u/1701102?v=2" width="32" height="32"> egcerqueira</td>
 <td><a href="https://github.com/egcerqueira">egcerqueira</a></td>
 <td></td>
+<td></td>
+<td>1</td>
+<tr>
+<tr>
+<td><img src="https://avatars.githubusercontent.com/u/385731?v=2" width="32" height="32"> wodka</td>
+<td><a href="https://github.com/wodka">wodka</a></td>
+<td>Vienna</td>
 <td></td>
 <td>1</td>
 <tr>
@@ -49,4 +56,4 @@ bootstrap-table is due to the excellent work of the following contributors:
 
 </table>
 
-Update date: 2014-08-07, created with https://github.com/wenzhixin/github-contributors
+Update date: 2014-08-14, created with https://github.com/wenzhixin/github-contributors

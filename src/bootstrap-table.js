@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.1.3
+ * version: 1.1.4
  * https://github.com/wenzhixin/bootstrap-table/
  */
 

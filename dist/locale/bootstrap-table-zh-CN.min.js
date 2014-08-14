@@ -1,5 +1,5 @@
 /*
-* bootstrap-table - v1.1.3 - 2014-08-12
+* bootstrap-table - v1.1.4 - 2014-08-14
 * https://github.com/wenzhixin/bootstrap-table
 * Copyright (c) 2014 zhixin wen
 * Licensed MIT License
