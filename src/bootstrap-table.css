@@ -29,8 +29,6 @@
 
 .fixed-table-container table {
     width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 
 .fixed-table-container thead th {

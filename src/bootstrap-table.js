@@ -960,7 +960,7 @@
         }
 
         if (this.options.height && this.options.showHeader) {
-            this.$container.find('.fixed-table-container').css('padding-bottom', '38px');
+            this.$container.find('.fixed-table-container').css('padding-bottom', '37px');
         }
     };
 
