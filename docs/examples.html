@@ -65,6 +65,7 @@
         <p>The examples of bootstrap table.</p>
     </div>
 </div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-3 span3">
@@ -129,7 +130,12 @@
                     </ul>
                 </div>
                 <div class="page-header">
-                    <h1 id="basic-table">Basic Table</h1>
+                    <h1 id="basic-table">
+                        Basic Table
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            Launch modal
+                        </button>
+                    </h1>
                 </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data1.json" data-height="299">
@@ -143,6 +149,33 @@
                     </table>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Basic Table</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table data-toggle="table" data-url="data1.json" data-height="299">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="id">Item ID</th>
+                                        <th data-field="name">Item Name</th>
+                                        <th data-field="price">Item Price</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div>
