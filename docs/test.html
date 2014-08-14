@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Test &middot; Bootstrap Table</title>
+    <meta name="author" content="zhixin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="assets/bootstrap2.3/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="assets/bootstrap2.3/css/bootstrap-responsive.min.css">-->
+    <link rel="stylesheet" href="../src/bootstrap-table.css">
+</head>
+<body>
+<div class="container">
+    <div>
+        <label>Cells: </label><input id="cells" type="text" placeholder="Cells" value="5">
+        <label>Rows: </label><input id="rows" type="text" placeholder="Rows" value="100">
+        <button id="build" class="btn btn-default">Build</button>
+    </div>
+    <table id="table"></table>
+</div>
+<script src="assets/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<!--<script src="assets/bootstrap2.3/js/bootstrap.min.js"></script>-->
+<script src="../src/bootstrap-table.js"></script>
+<script>
+    $(function () {
+        $('#build').click(build).trigger('click');
+    });
+
+    function build() {
+        var cells = $('#cells').val(),
+            rows = $('#rows').val(),
+            i, j, row,
+            columns = [],
+            data = [];
+
+        for (i = 0; i < cells; i++) {
+            columns.push({
+                field: 'field' + i,
+                title: 'Cell' + i
+            });
+        }
+        for (i = 0; i < rows; i++) {
+            row = {};
+            for (j = 0; j < cells; j++) {
+                row['field' + j] = 'Row-' + i + '-' + j;
+            }
+            data.push(row);
+        }
+        $('#table').bootstrapTable('destroy').bootstrapTable({
+            height: 400,
+            columns: columns,
+            data: data
+        });
+    }
+</script>
+</body>
+</html>
