@@ -240,12 +240,7 @@
         this.$el.find('tbody tr').each(function () {
             var row = {};
             $(this).find('td').each(function (i) {
-                var value = $(this).html();
-                var classes = $(this).attr('class') || '';
-                row[that.options.columns[i].field] = {
-                    'value': value,
-                    'class': classes
-                };
+                row[that.options.columns[i].field] = $(this).html();
             });
             data.push(row);
         });
@@ -360,15 +355,6 @@
                 }
                 if (typeof sorter === 'string') {
                     return order * eval(sorter + '(a[name], b[name])'); // eval ?
-                }
-
-                if (typeof a === 'object' && typeof b === 'object') {
-                    if (a[name].value === b[name].value) {
-                        return 0;
-                    }
-                    if (a[name].value < b[name].value) {
-                        return order * -1;
-                    }
                 }
 
                 if (a[name] === b[name]) {
@@ -746,12 +732,6 @@
                         '</td>'].join('');
                 } else {
                     value = typeof value === 'undefined' ? that.options.undefinedText : value;
-                    var classes = '';
-
-                    if (typeof value == 'object') {
-                        classes = value['class'];
-                        value = value.value;
-                    }
 
                     text = that.options.cardView ?
                         ['<div class="card-view">',
@@ -759,7 +739,7 @@
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)),
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
-                        [sprintf('<td %s class="%s">', style, classes),
+                        [sprintf('<td %s>', style),
                             value,
                             '</td>'].join('');
                 }
