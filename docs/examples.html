@@ -83,7 +83,13 @@
                     </li>
                     <li><a href="#format-table">Format Table</a></li>
                     <li><a href="#hide-header-table">Hide Header Table</a></li>
-                    <li><a href="#show-columns-table">Show Columns Table</a></li>
+                    <li>
+                        <a href="#show-columns-table">Show Columns Table</a>
+                        <ul class="nav">
+                            <li><a href="#basic-show-columns-table">Basic</a></li>
+                            <li><a href="#large-columns-table">Large Columns</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#card-view">Card View Table</a></li>
                     <li>
                         <a href="#table-select">Table select</a>
@@ -402,6 +408,9 @@
                 <div class="page-header">
                     <h1 id="show-columns-table">Show Columns Table</h1>
                 </div>
+                <div class="page-header">
+                    <h2 id="basic-show-columns-table">Basic</h2>
+                </div>
                 <div class="bs-example">
                     <table data-toggle="table" data-url="data3.json" data-height="299" data-show-columns="true" data-id-field="id">
                         <thead>
@@ -416,6 +425,31 @@
                         </tr>
                         </thead>
                     </table>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+
+                <div class="page-header">
+                    <h2 id="large-columns-table">Large Columns</h2>
+                </div>
+                <div class="bs-example">
+                    <table id="table-large-columns" data-height="400" data-show-columns="true">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-radio="true"></th>
+                            <th data-field="name" data-switchable="false">Name</th>
+                            <th data-field="price">Price</th>
+                            <th data-field="column1">Columns1</th>
+                            <th data-field="column2" data-visible="false">Columns2</th>
+                            <th data-field="column3" data-switchable="false">Columns3</th>
+                            <th data-field="column4" data-visible="false">Columns4</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        $(function () {
+                            buildTable($('#table-large-columns'), 50, 50);
+                        });
+                    </script>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
