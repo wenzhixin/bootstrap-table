@@ -44,6 +44,26 @@
         return result;
     };
 
+    var getScrollbarWidth = function () {
+        var inner = $('<p/>').addClass('fixed-table-scroll-inner'),
+            outer = $('<div/>').addClass('fixed-table-scroll-outer'),
+            w1, w2;
+
+        outer.append(inner);
+        $('body').append(outer);
+
+        w1 = inner[0].offsetWidth;
+        outer.css('overflow', 'scroll');
+        w2 = inner[0].offsetWidth;
+
+        if (w1 == w2) {
+            w2 = outer[0].clientWidth;
+        }
+
+        outer.remove();
+        return w1 - w2;
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -924,7 +944,10 @@
     };
 
     BootstrapTable.prototype.resetHeader = function () {
-        var that = this;
+        var that = this,
+            $fixedHeader = this.$container.find('.fixed-table-header'),
+            $fixedBody = this.$container.find('.fixed-table-body'),
+            scrollWidth = this.$el.width() > $fixedBody.width() ? getScrollbarWidth() : 0;
 
         // fix #61: the hidden table reset header bug.
         if (this.$el.is(':hidden')) {
@@ -936,10 +959,11 @@
         this.$header_ = this.$header.clone(true);
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
         this.$el.css('margin-top', -this.$header.height());
-        this.$container.find('.fixed-table-header')
-            .css({
+
+        $fixedHeader.css({
                 'height': '37px',
-                'border-bottom': '1px solid #dddddd'
+                'border-bottom': '1px solid #dddddd',
+                'margin-right': scrollWidth
             })
             .find('table').css('width', this.$el.css('width'))
             .html('').attr('class', this.$el.attr('class'))
@@ -947,6 +971,11 @@
 
         this.$body.find('tr:first-child:not(.no-records-found) > *').each(function(i) {
             that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
+        });
+
+        // horizontal scroll event
+        $fixedBody.off('scroll').on('scroll', function () {
+            $fixedHeader.scrollLeft($(this).scrollLeft());
         });
     };
 
