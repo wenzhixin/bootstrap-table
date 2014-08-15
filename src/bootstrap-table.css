@@ -175,6 +175,8 @@
 
 .fixed-table-toolbar .dropdown-menu {
     text-align: left;
+    max-height: 300px;
+    overflow: auto;
 }
 
 /* support bootstrap 3 */
