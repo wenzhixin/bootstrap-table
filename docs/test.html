@@ -26,6 +26,11 @@
 <script>
     $(function () {
         $('#build').click(build).trigger('click');
+        $('#cells, #rows').keyup(function (e) {
+            if (e.keyCode === 13) {
+                build();
+            }
+        });
     });
 
     function build() {
