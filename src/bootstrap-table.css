@@ -22,7 +22,7 @@
 }
 
 .fixed-table-body {
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y: auto;
     height: 100%;
 }
@@ -181,4 +181,19 @@
 .table thead>tr>th {
     padding: 0;
     margin: 0;
+}
+
+/* calculate scrollbar width */
+p.fixed-table-scroll-inner {
+    width: 100%;
+    height: 200px;
+}
+
+div.fixed-table-scroll-outer {
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
 }
