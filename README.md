@@ -2,7 +2,8 @@
 
 The table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
 
-[Examples and documentation](http://wenzhixin.net.cn/p/bootstrap-table/)
+* [Documentation](http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html)
+* [Examples](http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html)
 
 
 ## LICENSE
