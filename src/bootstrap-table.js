@@ -940,22 +940,25 @@
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
         this.$el.css('margin-top', -this.$header.height());
 
-        $fixedHeader.css({
+        // fix bug: get $el.css('width') error sometime (height = 500)
+        setTimeout(function () {
+            $fixedHeader.css({
                 'height': '37px',
                 'border-bottom': '1px solid #dddddd',
                 'margin-right': scrollWidth
             })
-            .find('table').css('width', this.$el.css('width'))
-            .html('').attr('class', this.$el.attr('class'))
-            .append(this.$header_);
+                .find('table').css('width', that.$el.css('width'))
+                .html('').attr('class', that.$el.attr('class'))
+                .append(that.$header_);
 
-        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function(i) {
-            that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
-        });
+            that.$body.find('tr:first-child:not(.no-records-found) > *').each(function(i) {
+                that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
+            });
 
-        // horizontal scroll event
-        $fixedBody.off('scroll').on('scroll', function () {
-            $fixedHeader.scrollLeft($(this).scrollLeft());
+            // horizontal scroll event
+            $fixedBody.off('scroll').on('scroll', function () {
+                $fixedHeader.scrollLeft($(this).scrollLeft());
+            });
         });
     };
 
