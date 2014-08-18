@@ -17,7 +17,22 @@
         <label>Rows: </label><input id="rows" type="text" placeholder="Rows" value="100">
         <button id="build" class="btn btn-default">Build</button>
     </div>
-    <table id="table"></table>
+    <table id="table"
+           data-toggle="table"
+           data-url="data1.json"
+           data-show-columns="true"
+           data-search="true"
+           data-show-refresh="true"
+           data-show-toggle="true"
+           data-pagination="true"
+           data-height="500">
+        <thead>
+        <tr>
+            <th data-field="name">Item Name</th>
+            <th data-field="price">Item Price</th>
+        </tr>
+        </thead>
+    </table>
 </div>
 <script src="assets/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -25,7 +40,7 @@
 <script src="../src/bootstrap-table.js"></script>
 <script>
     $(function () {
-        $('#build').click(build).trigger('click');
+        $('#build').click(build);//.trigger('click');
         $('#cells, #rows').keyup(function (e) {
             if (e.keyCode === 13) {
                 build();
@@ -54,7 +69,6 @@
             data.push(row);
         }
         $('#table').bootstrapTable('destroy').bootstrapTable({
-            height: 400,
             columns: columns,
             data: data
         });

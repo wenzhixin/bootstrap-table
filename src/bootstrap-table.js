@@ -101,6 +101,8 @@
         selectItemName: 'btSelectItem',
         showHeader: true,
         showColumns: false,
+        showRefresh: false,
+        showToggle: false,
         minimunCountColumns: 1,
         idField: undefined,
         cardView: false,
@@ -322,6 +324,10 @@
             this.$header.hide();
             this.$container.find('.fixed-table-header').hide();
             this.$loading.css('top', 0);
+        } else {
+            this.$header.show();
+            this.$container.find('.fixed-table-header').show();
+            this.$loading.css('top', '38px');
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
@@ -403,9 +409,24 @@
                 .append($(this.options.toolbar));
         }
 
+        // showColumns, showToggle, showRefresh
+        html = ['<div class="columns btn-group pull-right">'];
+
+        if (this.options.showRefresh) {
+            html.push('<button class="btn btn-default" type="button" name="refresh">',
+                '<i class="glyphicon glyphicon-refresh"></i>',
+                '</button>');
+        }
+
+        if (this.options.showToggle) {
+            html.push('<button class="btn btn-default" type="button" name="toggle">',
+                '<i class="glyphicon glyphicon-transfer"></i>',
+                '</button>');
+        }
+
         if (this.options.showColumns) {
-            html = [];
-            html.push('<div class="columns pull-right keep-open">',
+            html.push(sprintf('<div class="keep-open %s">',
+                this.options.showRefresh || this.options.showToggle ? 'btn-group' : ''),
                 '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
                 '<i class="glyphicon glyphicon-th icon-th"></i>',
                 ' <span class="caret"></span>',
@@ -426,9 +447,29 @@
             });
             html.push('</ul>',
                 '</div>');
+        }
 
+        html.push('</div>');
+
+        if (html.length > 2) {
             this.$toolbar.append(html.join(''));
+        }
 
+        if (this.options.showRefresh) {
+            this.$toolbar.find('button[name="refresh"]')
+                .off('click').on('click', $.proxy(this.refresh, this));
+        }
+
+        if (this.options.showToggle) {
+            this.$toolbar.find('button[name="toggle"]')
+                .off('click').on('click', function () {
+                    that.options.cardView = !that.options.cardView;
+                    that.initHeader();
+                    that.initBody();
+                });
+        }
+
+        if (this.options.showColumns) {
             $keepOpen = this.$toolbar.find('.keep-open');
             $keepOpen.find('li').off('click').on('click', function (event) {
                 event.stopImmediatePropagation();
@@ -985,6 +1026,9 @@
         }
 
         if (this.options.cardView) {
+            // remove the element css
+            that.$el.css('margin-top', '0');
+            that.$container.find('.fixed-table-container').css('padding-bottom', '0');
             return;
         }
 
