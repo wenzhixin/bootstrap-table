@@ -1,5 +1,12 @@
 ## Changelog
 
+### 1.1.5
+
+* Fix the bottom border bug on Chrome.
+* Add horizontal scroll for support.
+* Fix scroll header width error.
+* Add ```showRefresh``` and ```showToggle``` options.
+
 ### 1.1.4
 
 * Fix ```destroy``` method bug.
