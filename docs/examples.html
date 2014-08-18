@@ -92,11 +92,18 @@
                     </li>
                     <li><a href="#card-view">Card View Table</a></li>
                     <li>
-                        <a href="#table-select">Table select</a>
+                        <a href="#table-select">Table Select</a>
                         <ul class="nav">
                             <li><a href="#radio-table">Radio</a></li>
                             <li><a href="#checkbox-table">Checkbox</a></li>
                             <li><a href="#single-checkbox-table">Single Checkbox</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#toolbar-table">Table Toolbar</a>
+                        <ul class="nav">
+                            <li><a href="#basic-toolbar-table">Basic</a></li>
+                            <li><a href="#custom-toolbar-table">Custom</a></li>
                         </ul>
                     </li>
                     <li>
@@ -546,9 +553,66 @@
 
             <div>
                 <div class="page-header">
-                    <h1 id="pagination-table">Pagination Table</h1>
+                    <h1 id="toolbar-table">Table Toolbar</h1>
                 </div>
 
+                <div class="page-header">
+                    <h2 id="basic-toolbar-table">Basic</h2>
+                </div>
+                <div class="bs-example">
+                    <table data-toggle="table" data-url="data1.json" data-height="299" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true">
+                        <thead>
+                        <tr>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="left">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+
+                <div class="page-header">
+                    <h2 id="custom-toolbar-table">Custom</h2>
+                </div>
+                <div class="bs-example">
+                    <div id="custem-toolbar">
+                        <div class="form-inline" role="form">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">@</div>
+                                    <input class="form-control" type="email" placeholder="Enter email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Remember me
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-default">Sign in</button>
+                        </div>
+                    </div>
+                    <table data-toggle="table" data-url="data1.json" data-height="299" data-click-to-select="true" data-toolbar="#custem-toolbar" data-show-refresh="true" data-show-toggle="true" data-show-columns="true">
+                        <thead>
+                        <tr>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="pagination-table">Pagination Table</h1>
+                </div>
 
                 <div class="page-header">
                     <h2 id="client-side-pagination-table">Client Side</h2>
