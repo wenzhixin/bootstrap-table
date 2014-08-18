@@ -414,13 +414,13 @@
 
         if (this.options.showRefresh) {
             html.push('<button class="btn btn-default" type="button" name="refresh">',
-                '<i class="glyphicon glyphicon-refresh"></i>',
+                '<i class="glyphicon glyphicon-refresh icon-refresh"></i>',
                 '</button>');
         }
 
         if (this.options.showToggle) {
             html.push('<button class="btn btn-default" type="button" name="toggle">',
-                '<i class="glyphicon glyphicon-transfer"></i>',
+                '<i class="glyphicon glyphicon glyphicon-list-alt icon-list-alt"></i>',
                 '</button>');
         }
 

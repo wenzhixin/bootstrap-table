@@ -179,6 +179,16 @@
     overflow: auto;
 }
 
+.btn-group, .btn-group {
+    display: inline-block;
+    margin-left: -1px;
+}
+
+.btn-group>.btn-group:last-child>.btn:first-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
 /* support bootstrap 3 */
 .table thead>tr>th {
     padding: 0;
