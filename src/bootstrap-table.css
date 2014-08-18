@@ -185,6 +185,11 @@
     margin: 0;
 }
 
+.pull-right .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
 /* calculate scrollbar width */
 p.fixed-table-scroll-inner {
     width: 100%;
