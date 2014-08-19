@@ -230,6 +230,22 @@ $(function () {
                     example: 'show-columns-table'
                 },
                 {
+                    name: 'showRefresh',
+                    attribute: 'data-show-refresh',
+                    type: 'Boolean',
+                    description: 'True to show the refresh button.',
+                    'default': 'false',
+                    example: 'basic-toolbar-table'
+                },
+                {
+                    name: 'showToggle',
+                    attribute: 'data-show-toggle',
+                    type: 'Boolean',
+                    description: 'True to show the toggle button to toggle table / card view.',
+                    'default': 'false',
+                    example: 'basic-toolbar-table'
+                },
+                {
                     name: 'minimunCountColumns',
                     attribute: 'data-minimun-count-columns',
                     type: 'Number',
@@ -275,7 +291,7 @@ $(function () {
                     type: 'String',
                     description: 'A jQuery selector that indicate the toolbar, for example: <br>#toolbar, .toolbar.',
                     'default': 'undefined',
-                    example: 'transform-table'
+                    example: 'custom-toolbar-table'
                 },
                 {
                     name: 'checkboxHeader',
