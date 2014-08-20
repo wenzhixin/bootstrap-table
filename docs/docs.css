@@ -1207,7 +1207,7 @@ h1[id], h2[id] {
 .goto-top {
     cursor: pointer;
     position: fixed;
-    bottom: 2px;
+    bottom: 26px;
     right: 2px;
     width: 48px;
     height: 48px;
