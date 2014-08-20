@@ -12,6 +12,7 @@ $(function() {
         initScrollspy();
         showGotoTop();
         showBaiduShare();
+        $('#bulletin').bulletin();
     }
 
     function initScrollspy() {
