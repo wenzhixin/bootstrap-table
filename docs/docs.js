@@ -13,11 +13,16 @@ $(function () {
         $('#table').bootstrapTable({
             cardView: cardView,
             columns: [
-                {field: 'name', title: 'Name', align: 'center', valign: 'middle', sortable: true},
-                {field: 'attribute', title: 'Attribute', align: 'center', valign: 'middle'},
-                {field: 'type', title: 'Type', align: 'center', valign: 'middle'},
-                {field: 'description', title: 'Description', valign: 'middle'},
-                {field: 'default', title: 'Default', valign: 'middle'},
+                {field: 'name', title: 'Name', sortable: true},
+                {field: 'name', title: '名称', sortable: true, visible: false},
+                {field: 'attribute', title: 'Attribute'},
+                {field: 'attribute', title: '属性', visible: false},
+                {field: 'type', title: 'Type'},
+                {field: 'type', title: '类型', visible: false},
+                {field: 'description', title: 'Description', align: 'left'},
+                {field: 'description_zh', title: '描述', align: 'left', visible: false},
+                {field: 'default', title: 'Default', align: 'left'},
+                {field: 'default', title: '默认', align: 'left', visible: false},
                 {field: 'example', title: '', valign: 'middle', formatter: function (value) {
                     if (!value) {
                         return '-';
@@ -34,6 +39,7 @@ $(function () {
                     attribute: 'data-toggle',
                     type: 'String',
                     description: 'Activate bootstrap table without writing JavaScript.',
+                    description_zh: '不通过JavaScript的方式启动Bootstrap Table。',
                     'default': 'table',
                     example: 'basic-table'
                 },
@@ -42,6 +48,7 @@ $(function () {
                     attribute: 'data-classes',
                     type: 'String',
                     description: 'The class name of table.',
+                    description_zh: '表格的类名。',
                     'default': 'table table-hover',
                     example: 'classes-table'
                 },
@@ -50,6 +57,7 @@ $(function () {
                     attribute: 'data-height',
                     type: 'Number',
                     description: 'The height of table.',
+                    description_zh: '表格的高度。',
                     'default': 'undefined',
                     example: 'basic-table'
                 },
@@ -58,6 +66,7 @@ $(function () {
                     attribute: 'data-undefined-text',
                     type: 'String',
                     description: 'Defines the default undefined text.',
+                    description_zh: '定义默认的undefined显示文字。',
                     'default': '-',
                     example: ''
                 },
@@ -66,6 +75,7 @@ $(function () {
                     attribute: 'data-striped',
                     type: 'Boolean',
                     description: 'True to stripe the rows.',
+                    description_zh: '使表格带有条纹。',
                     'default': 'false',
                     example: 'classes-table'
                 },
@@ -74,6 +84,7 @@ $(function () {
                     attribute: 'data-sort-name',
                     type: 'String',
                     description: 'Defines which column can be sorted.',
+                    description_zh: '定义哪一列可被排序。',
                     'default': 'undefined',
                     example: 'sort-table'
                 },
@@ -82,6 +93,7 @@ $(function () {
                     attribute: 'data-sort-order',
                     type: 'String',
                     description: 'Defines the column sort order, can only be "asc" or "desc".',
+                    description_zh: '定义列排序的顺序，只能为“asc”和“desc”',
                     'default': 'asc',
                     example: 'sort-table'
                 },
@@ -90,6 +102,7 @@ $(function () {
                     attribute: '-',
                     type: 'Array',
                     description: 'The table columns config object, see column properties for more details.',
+                    description_zh: '表格列的配置，详细见列属性。',
                     'default': '[]',
                     example: 'via-javascript-table'
                 },
@@ -98,6 +111,7 @@ $(function () {
                     attribute: '-',
                     type: 'Array',
                     description: 'The data to be loaded.',
+                    description_zh: '需要加载的数据。',
                     'default': '[]',
                     example: 'table-methods'
                 },
@@ -106,6 +120,7 @@ $(function () {
                     attribute: 'data-method',
                     type: 'String',
                     description: 'The method type to request remote data.',
+                    description_zh: '远程数据请求的方法。',
                     'default': 'get',
                     example: 'basic-table'
                 },
@@ -114,6 +129,7 @@ $(function () {
                     attribute: 'data-url',
                     type: 'String',
                     description: 'A URL to request data from remote site.',
+                    description_zh: '远程数据请求的URL地址。',
                     'default': 'undefined',
                     example: 'basic-table'
                 },
@@ -122,6 +138,7 @@ $(function () {
                     attribute: 'data-content-type',
                     type: 'String',
                     description: 'The contentType of request remote data.',
+                    description_zh: '远程数据请求的“contentType”类型。',
                     'default': 'application/json',
                     example: ''
                 },
@@ -130,6 +147,7 @@ $(function () {
                     attribute: 'data-query-params',
                     type: 'Function',
                     description: 'When request remote data, sending additional parameters by format the queryParams, the parameters object contains: <br>pageSize, pageNumber, searchText, sortName, sortOrder.',
+                    description_zh: '远程数据请求时，可以通过queryParams来格式化所需要的数据信息，参数（对象）包含了：<br>pageSize, pageNumber, searchText, sortName, sortOrder。',
                     'default': 'function(params) {<br>return {};<br>}',
                     example: 'server-side-pagination-table'
                 },
@@ -137,7 +155,8 @@ $(function () {
                     name: 'queryParamsType',
                     attribute: 'data-query-params-type',
                     type: 'String',
-                    description: 'Set "limit" to send query params width restful type.',
+                    description: 'Set "limit" to send query params width RESTFul type.',
+                    description_zh: '设置为“limit”可以发送标准的RESTFul类型的参数请求。',
                     'default': 'undefined',
                     example: '-'
                 },
@@ -146,6 +165,7 @@ $(function () {
                     attribute: 'data-response-handler',
                     type: 'Function',
                     description: 'Before load remote data, handler the response data format, the parameters object contains: <br>res: the response data.',
+                    description_zh: '在加载数据前，可以对返回的数据进行处理，参数包含：<br>res: 返回的数据。',
                     'default': 'function(res) {<br>return res;<br>}',
                     example: 'card-view'
                 },
@@ -153,7 +173,8 @@ $(function () {
                     name: 'pagination',
                     attribute: 'data-pagination',
                     type: 'Boolean',
-                    description: 'True to show a pagination toolbar on datagrid bottom.',
+                    description: 'True to show a pagination toolbar on table bottom.',
+                    description_zh: '设置True在表格底部显示分页工具栏。',
                     'default': 'false',
                     example: 'pagination-table'
                 },
@@ -162,6 +183,7 @@ $(function () {
                     attribute: 'data-side-pagination',
                     type: 'String',
                     description: 'Defines the side pagination of table, can only be "client" or "server".',
+                    description_zh: '定义表格分页的位置，只能是“client”（客户端）和“server”（服务器端）。',
                     'default': 'client',
                     example: 'pagination-table'
                 },
@@ -170,6 +192,7 @@ $(function () {
                     attribute: 'data-total-rows',
                     type: 'Number',
                     description: 'Defines the total rows of table, you need to set this option when the sidePagination option is set to "server".',
+                    description_zh: '定义表格记录的总条数，在server端分页的时候需要设置该参数。',
                     'default': 0,
                     example: ''
                 },
@@ -178,6 +201,7 @@ $(function () {
                     attribute: 'data-page-number',
                     type: 'Number',
                     description: 'When set pagination property, initialize the page number.',
+                    description_zh: '分页的时候设置当前的页码。',
                     'default': 1,
                     example: 'via-javascript-table'
                 },
@@ -186,6 +210,7 @@ $(function () {
                     attribute: 'data-page-size',
                     type: 'Number',
                     description: 'When set pagination property, initialize the page size.',
+                    description_zh: '分页的时候设置每页的条数。',
                     'default': 10,
                     example: 'via-javascript-table'
                 },
@@ -194,6 +219,7 @@ $(function () {
                     attribute: 'data-page-list',
                     type: 'Array',
                     description: 'When set pagination property, initialize the page size selecting list.',
+                    description_zh: '分页的时候设置分页数的列表。',
                     'default': '[10, 25, 50, 100]',
                     example: 'via-javascript-table'
                 },
@@ -202,6 +228,7 @@ $(function () {
                     attribute: 'data-search',
                     type: 'Boolean',
                     description: 'Enable the search input.',
+                    description_zh: '启用搜索输入框。',
                     'default': 'false',
                     example: 'pagination-table'
                 },
@@ -210,6 +237,7 @@ $(function () {
                     attribute: 'data-select-item-name',
                     type: 'String',
                     description: 'The name of radio or checkbox input.',
+                    description_zh: '单选框或者复选框的name，用于多个表格使用radio的情况。',
                     'default': 'btSelectItem',
                     example: 'radio-table'
                 },
@@ -218,6 +246,7 @@ $(function () {
                     attribute: 'data-show-header',
                     type: 'Boolean',
                     description: 'False to hide the table header.',
+                    description_zh: '设置为False可隐藏表头。',
                     'default': 'true',
                     example: 'hide-header-table'
                 },
@@ -226,6 +255,7 @@ $(function () {
                     attribute: 'data-show-columns',
                     type: 'Boolean',
                     description: 'True to show the columns drop down list.',
+                    description_zh: '设置为True可显示表格显示/隐藏列表。',
                     'default': 'false',
                     example: 'show-columns-table'
                 },
@@ -234,6 +264,7 @@ $(function () {
                     attribute: 'data-show-refresh',
                     type: 'Boolean',
                     description: 'True to show the refresh button.',
+                description_zh: '设置为True可显示刷新按钮。',
                     'default': 'false',
                     example: 'basic-toolbar-table'
                 },
@@ -242,6 +273,7 @@ $(function () {
                     attribute: 'data-show-toggle',
                     type: 'Boolean',
                     description: 'True to show the toggle button to toggle table / card view.',
+                    description_zh: '设置为True可显示切换普通表格和名片（card）布局。',
                     'default': 'false',
                     example: 'basic-toolbar-table'
                 },
@@ -250,6 +282,7 @@ $(function () {
                     attribute: 'data-minimun-count-columns',
                     type: 'Number',
                     description: 'The minimun count columns to hide of the columns drop down list.',
+                    description_zh: '表格显示/隐藏列表时可设置最小隐藏的列数。',
                     'default': '1',
                     example: 'via-javascript-table'
                 },
@@ -258,6 +291,7 @@ $(function () {
                     attribute: 'data-id-field',
                     type: 'String',
                     description: 'Indicate which field is an identity field.',
+                    description_zh: '标识哪个字段为id主键。',
                     'default': 'undefined',
                     example: ''
                 },
@@ -266,6 +300,7 @@ $(function () {
                     attribute: 'data-card-view',
                     type: 'Boolean',
                     description: 'True to show card view table, for example mobile view.',
+                    description_zh: '设置为True时显示名片（card）布局，例如用手机浏览的时候。',
                     'default': 'false',
                     example: 'card-view'
                 },
@@ -274,6 +309,7 @@ $(function () {
                     attribute: 'data-click-to-select',
                     type: 'Boolean',
                     description: 'True to select checkbox or radiobox when click rows.',
+                    description_zh: '设置为True时点击行即可选中单选/复选框。',
                     'default': 'false',
                     example: 'table-select'
                 },
@@ -282,6 +318,7 @@ $(function () {
                     attribute: 'data-single-select',
                     type: 'Boolean',
                     description: 'True to allow checkbox selecting only one row.',
+                    description_zh: '设置为True时复选框只能选择一条记录。',
                     'default': 'false',
                     example: 'single-checkbox-table'
                 },
@@ -290,6 +327,7 @@ $(function () {
                     attribute: 'data-toolbar',
                     type: 'String',
                     description: 'A jQuery selector that indicate the toolbar, for example: <br>#toolbar, .toolbar.',
+                    description_zh: '设置jQuery元素为工具栏，例如：<br>#toolbar, .toolbar。',
                     'default': 'undefined',
                     example: 'custom-toolbar-table'
                 },
@@ -298,6 +336,7 @@ $(function () {
                     attribute: 'data-checkbox-header',
                     type: 'Boolean',
                     description: 'False to hide check-all checkbox in header row.',
+                    description_zh: '设置为False时隐藏表头中的全选复选框。',
                     'default': 'true',
                     example: '-'
                 },
@@ -305,7 +344,8 @@ $(function () {
                     name: 'rowStyle',
                     attribute: 'data-row-style',
                     type: 'Function',
-                    description: 'The row formatter function, take two parameters: <br>row: the row record data.<br>index: the row index.<br>Support classes or css.',
+                    description: 'The row style formatter function, take two parameters: <br>row: the row record data.<br>index: the row index.<br>Support classes or css.',
+                    description_zh: '行样式格式化方法，有两个参数：<br>row: 行记录的数据。<br>index: 行数据的 index。<br>支持 classes 或者 css.',
                     'default': '{}',
                     example: 'classes-table'
                 }
@@ -314,12 +354,12 @@ $(function () {
         $('#column').bootstrapTable({
             cardView: cardView,
             columns: [
-                {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 60, sortable: true},
-                {field: 'attribute', title: 'Attribute', align: 'center', valign: 'middle'},
-                {field: 'type', title: 'Type', align: 'center', valign: 'middle', width: 60},
-                {field: 'description', title: 'Description', valign: 'middle', width: 400},
-                {field: 'default', title: 'Default', align: 'right', valign: 'middle', width: 180},
-                {field: 'example', title: '', valign: 'middle', formatter: function (value) {
+                {field: 'name', title: 'Name', width: 60, sortable: true},
+                {field: 'attribute', title: 'Attribute'},
+                {field: 'type', title: 'Type', width: 60},
+                {field: 'description', title: 'Description', align: 'left', width: 400},
+                {field: 'default', title: 'Default', align: 'left', width: 180},
+                {field: 'example', title: '', formatter: function (value) {
                     if (!value) {
                         return '-';
                     }
@@ -455,10 +495,10 @@ $(function () {
         $('#event').bootstrapTable({
             cardView: cardView,
             columns: [
-                {field: 'name', title: 'Option Event', align: 'center', valign: 'middle', width: 100, sortable: true},
-                {field: 'event', title: 'jQuery Event', align: 'center', valign: 'middle', width: 100, sortable: true},
-                {field: 'parameter', title: 'Parameter', align: 'center', valign: 'middle', width: 100, sortable: true},
-                {field: 'description', title: 'Description', width: 400, sortable: true}
+                {field: 'name', title: 'Option Event', width: 100, sortable: true},
+                {field: 'event', title: 'jQuery Event', width: 100, sortable: true},
+                {field: 'parameter', title: 'Parameter', width: 100, sortable: true},
+                {field: 'description', title: 'Description', align: 'left', width: 400, sortable: true}
             ],
             data: [
                 {
@@ -544,9 +584,9 @@ $(function () {
         $('#method').bootstrapTable({
             cardView: cardView,
             columns: [
-                {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 100},
-                {field: 'parameter', title: 'Parameter', align: 'center', valign: 'middle', width: 100},
-                {field: 'description', title: 'Description', width: 400}
+                {field: 'name', title: 'Name', width: 100},
+                {field: 'parameter', title: 'Parameter', width: 100},
+                {field: 'description', title: 'Description', align: 'left', width: 400}
             ]
         }).bootstrapTable('load', [
                 {name: 'getSelections', parameter: 'none', description: 'Return all selected rows, when no record selected, am empty array will return.'},
@@ -578,9 +618,9 @@ $(function () {
         $('#localization').bootstrapTable({
             cardView: cardView,
             columns: [
-                {field: 'name', title: 'Name', align: 'center', valign: 'middle', width: 100},
-                {field: 'parameter', title: 'Parameter', align: 'center', valign: 'middle', width: 100},
-                {field: 'default', title: 'Default', align: 'center', valign: 'middle', width: 200}
+                {field: 'name', title: 'Name', width: 100},
+                {field: 'parameter', title: 'Parameter', width: 100},
+                {field: 'default', title: 'Default', width: 200}
             ],
             data: [{
                 name: 'formatLoadingMessage',
