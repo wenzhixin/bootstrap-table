@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation &middot; Bootstrap Table</title>
+    <title data-zh="文档 &middot; Bootstrap Table">Documentation &middot; Bootstrap Table</title>
     <meta name="author" content="zhixin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -34,13 +34,13 @@
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="getting-started.html">Getting started</a>
+                    <a href="getting-started.html" data-zh="开始使用">Getting started</a>
                 </li>
                 <li class="active">
-                    <a href="documentation.html">Documentation</a>
+                    <a href="documentation.html" data-zh="文档">Documentation</a>
                 </li>
                 <li>
-                    <a href="examples.html">Examples</a>
+                    <a href="examples.html" data-zh="例子">Examples</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -54,8 +54,8 @@
 </header>
 <div class="bs-header" id="content">
     <div class="container">
-        <h1>Documentation</h1>
-        <p>The documentation contains Table Properties, Column Properties, Events, Methods, and much more.</p>
+        <h1 data-zh="文档">Documentation</h1>
+        <p data-zh="文档包含了表格属性、列属性、事件、方法等等。">The documentation contains Table Properties, Column Properties, Events, Methods, and much more.</p>
     </div>
 </div>
 <div class="container">
@@ -63,11 +63,7 @@
         <div class="col-md-3">
             <div class="bs-sidebar" role="complementary">
                 <ul class="nav bs-sidenav">
-                    <li><a href="#properties">Table Properties</a></li>
-                    <li><a href="#columns">Column Properties</a></li>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#methods">Methods</a></li>
-                    <li><a href="#localizations">Localizations</a></li>
+                    <li>Loading...</li>
                 </ul>
             </div>
         </div>
@@ -78,20 +74,20 @@
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="properties">Table Properties:</h1>
+                    <h1 id="properties" data-zh="表格属性">Table Properties</h1>
                 </div>
                 <table id="table"></table>
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="columns">Column Properties:</h1>
+                    <h1 id="columns" data-zh="列属性">Column Properties</h1>
                 </div>
                 <table id="column"></table>
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="events">
-                        Events:
+                    <h1 id="events" data-zh="事件">
+                        Events
                         <a class="icon" href="examples.html#basic-events-table" title="Example">
                             <i class="glyphicon glyphicon-eye-open"></i>
                         </a>
@@ -101,8 +97,8 @@
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="methods">
-                        Methods:
+                    <h1 id="methods" data-zh="方法">
+                        Methods
                         <a class="icon" href="examples.html#table-methods" title="Example">
                             <i class="glyphicon glyphicon-eye-open"></i>
                         </a>
@@ -112,8 +108,8 @@
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="localizations">
-                        Localizations:
+                    <h1 id="localizations" data-zh="国际化">
+                        Localizations
                         <a class="icon" href="https://github.com/wenzhixin/bootstrap-table/tree/master/src/locale" title="Pull Request">
                             <i class="glyphicon glyphicon-cutlery"></i>
                         </a>
@@ -163,6 +159,7 @@
 <script src="assets/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/bulletin/jquery.bulletin.js"></script>
+<script src="bootstrap-table-config.js"></script>
 <script src="../src/bootstrap-table.js"></script>
 <script src="docs.js"></script>
 <script src="common.js"></script>

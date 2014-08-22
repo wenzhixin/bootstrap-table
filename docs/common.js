@@ -9,6 +9,9 @@ $(function() {
             document.documentElement.scrollTop = 0;
             return false;
         });
+        $('[data-zh]').each(function () {
+            $(this).html($(this).data('zh'));
+        });
         initScrollspy();
         showGotoTop();
         showBaiduShare();
@@ -16,14 +19,30 @@ $(function() {
     }
 
     function initScrollspy() {
-        var $window = $(window);
-        var $body = $(document.body);
+        var $window = $(window),
+            $body = $(document.body),
+            html = [];
 
-        var navHeight = $('.navbar').outerHeight(true) + 10;
+        $('.page-header').find('h1, h2').each(function (i) {
+            var $this = $(this),
+                parent = $this.is('h1'),
+                link = '<a href="#' + $this.attr('id') + '">' + $.trim($this.text()) + '</a>';
+
+            if (parent) {
+                if (i > 0) {
+                    html.push('</ul></li>');
+                }
+                html.push('<li>', link, '<ul class="nav">');
+            } else {
+                html.push('<li>', link, '</li>');
+            }
+        });
+        html.push('</ul></li>');
+        $('.bs-sidenav').html(html.join(''));
 
         $body.scrollspy({
             target: '.bs-sidebar',
-            offset: navHeight
+            offset: $('.navbar').outerHeight(true) + 10
         });
         $body.scrollspy('refresh');
 
