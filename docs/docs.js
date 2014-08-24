@@ -355,10 +355,15 @@ $(function () {
             cardView: cardView,
             columns: [
                 {field: 'name', title: 'Name', width: 60, sortable: true},
+                {field: 'name', title: '名称', width: 60, sortable: true, visible: false},
                 {field: 'attribute', title: 'Attribute'},
+                {field: 'attribute', title: '属性', visible: false},
                 {field: 'type', title: 'Type', width: 60},
+                {field: 'type', title: '类型', width: 60, visible: false},
                 {field: 'description', title: 'Description', align: 'left', width: 400},
+                {field: 'description_zh', title: '描述', align: 'left', width: 400, visible: false},
                 {field: 'default', title: 'Default', align: 'left', width: 180},
+                {field: 'default', title: '默认', align: 'left', width: 180, visible: false},
                 {field: 'example', title: '', formatter: function (value) {
                     if (!value) {
                         return '-';
@@ -375,6 +380,7 @@ $(function () {
                     attribute: 'data-radio',
                     type: 'Boolean',
                     description: 'True to show a radio. The radio column has fixed width.',
+                    description_zh: '设置为True显示单选框，单选框列有固定的宽度。',
                     'default': 'false',
                     example: 'radio-table'
                 },
@@ -383,6 +389,7 @@ $(function () {
                     attribute: 'data-checkbox',
                     type: 'Boolean',
                     description: 'True to show a checkbox. The checkbox column has fixed width.',
+                    description_zh: '设置为True显示复选框，复选框列有固定的宽度。',
                     'default': 'false',
                     example: 'checkbox-table'
                 },
@@ -391,6 +398,7 @@ $(function () {
                     attribute: 'data-field',
                     type: 'String',
                     description: 'The column field name.',
+                    description_zh: '列标识名称。',
                     'default': 'undefined',
                     example: 'via-javascript-table'
                 },
@@ -399,6 +407,7 @@ $(function () {
                     attribute: 'data-title',
                     type: 'String',
                     description: 'The column title text.',
+                    description_zh: '表头标题。',
                     'default': 'undefined',
                     example: 'via-javascript-table'
                 },
@@ -407,6 +416,7 @@ $(function () {
                     attribute: 'class / data-class',
                     type: 'String',
                     description: 'The column class name.',
+                    description_zh: '列的类名称。',
                     'default': 'undefined',
                     example: 'classes-table'
                 },
@@ -415,6 +425,7 @@ $(function () {
                     attribute: 'data-align',
                     type: 'String',
                     description: 'Indicate how to align the column data. "left", "right", "center" can be used.',
+                    description_zh: '定义列的水平对齐方式，只能为："left", "right" 和 "center"。',
                     'default': 'undefined',
                     example: 'via-javascript-table'
                 },
@@ -423,6 +434,7 @@ $(function () {
                     attribute: 'data-valign',
                     type: 'String',
                     description: 'Indicate how to align the cell data. "top", "middle", "bottom" can be used.',
+                    description_zh: '定义列的垂直对齐方式，只能为："top", "middle" 和 "bottom"。',
                     'default': 'undefined',
                     example: 'via-javascript-table'
                 },
@@ -431,6 +443,7 @@ $(function () {
                     attribute: 'data-width',
                     type: 'Number',
                     description: 'The width of column. If not defined, the width will auto expand to fit its contents.',
+                    description_zh: '列的宽度，假如没有定义，将根据内容自适应宽度。',
                     'default': 'undefined',
                     example: ''
                 },
@@ -439,6 +452,7 @@ $(function () {
                     attribute: 'data-sortable',
                     type: 'Boolean',
                     description: 'True to allow the column can be sorted.',
+                    description_zh: '设置为True允许对该列进行排序。',
                     'default': 'false',
                     example: 'sort-table'
                 },
@@ -447,6 +461,7 @@ $(function () {
                     attribute: 'data-order',
                     type: 'String',
                     description: 'The default sort order, can only be "asc" or "desc".',
+                    description_zh: '定义列排序的顺序，只能为“asc”和“desc”。',
                     'default': 'asc',
                     example: 'sort-table'
                 },
@@ -454,7 +469,8 @@ $(function () {
                     name: 'visible',
                     attribute: 'data-visible',
                     type: 'Boolean',
-                    description: 'True to visible the columns item.',
+                    description: 'False to hide the columns item.',
+                    description_zh: '设置为False隐藏该列。',
                     'default': 'true',
                     example: 'show-columns-table'
                 },
@@ -463,6 +479,7 @@ $(function () {
                     attribute: 'data-switchable',
                     type: 'Boolean',
                     description: 'False to disable the switchable of columns item.',
+                    description_zh: '设置为False禁用切换列的显示/隐藏。',
                     'default': 'true',
                     example: 'show-columns-table'
                 },
@@ -471,6 +488,7 @@ $(function () {
                     attribute: 'data-formatter',
                     type: 'Function',
                     description: 'The cell formatter function, take three parameters: <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
+                    description_zh: '列的格式化方法，包含3个参数：<br />value: 该单元格的数据。<br />row: 该行的数据。<br />index: 该行的index。',
                     'default': 'undefined',
                     example: 'format-table'
                 },
@@ -479,6 +497,7 @@ $(function () {
                     attribute: 'data-events',
                     type: 'Object',
                     description: 'The cell events listener when you use formatter function, take three parameters: <br />event: the jQuery event. <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
+                    description_zh: '当你使用格式化方式时，可以对该列的元素进行事件监听。包含三个参数：<br />event: jQuery 事件。<br />value: 该单元格的数据。<br />row: 该行的数据。<br />index: 该行的index。',
                     'default': 'undefined',
                     example: 'column-events-table'
                 },
@@ -487,6 +506,7 @@ $(function () {
                     attribute: 'data-sorter',
                     type: 'Function',
                     description: 'The custom field sort function that used to do local sorting, take two parameters: <br />a: the first field value.<br /> b: the second field value.',
+                    description_zh: '可对列进行自定义排序，包含两个参数：<br />a: 第一个值。<br /> b: 第二个值。',
                     'default': 'undefined',
                     example: 'custom-sort-table'
                 }
