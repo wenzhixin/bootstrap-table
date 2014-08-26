@@ -327,7 +327,7 @@
         } else {
             this.$header.show();
             this.$container.find('.fixed-table-header').show();
-            this.$loading.css('top', '38px');
+            this.$loading.css('top', '42px');
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
@@ -979,7 +979,6 @@
 
         this.$header_ = this.$header.clone(true);
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
-        this.$el.css('margin-top', -this.$header.height());
 
         // fix bug: get $el.css('width') error sometime (height = 500)
         setTimeout(function () {
@@ -987,10 +986,11 @@
                 'height': '37px',
                 'border-bottom': '1px solid #dddddd',
                 'margin-right': scrollWidth
-            })
-                .find('table').css('width', that.$el.css('width'))
+            }).find('table').css('width', that.$el.css('width'))
                 .html('').attr('class', that.$el.attr('class'))
                 .append(that.$header_);
+
+            that.$el.css('margin-top', -that.$header.height());
 
             that.$body.find('tr:first-child:not(.no-records-found) > *').each(function(i) {
                 that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
