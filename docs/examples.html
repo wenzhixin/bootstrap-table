@@ -98,7 +98,7 @@
                         Basic Table
                     </h1>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-zh="使用弹出框">
-                        Launch modal
+                        Launch Modal
                     </button>
                 </div>
                 <div class="bs-example">
@@ -209,6 +209,9 @@
             <div>
                 <div class="page-header">
                     <h1 id="classes-table" data-zh="表格样式">Table Style</h1>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
                     <div>
@@ -216,7 +219,7 @@
                         <label><input id="striped" type="checkbox"> striped</label>
                         <label><input id="condensed" type="checkbox"> condensed</label>
                     </div>
-                    <table id="table-style" data-toggle="table" data-url="data1.json" data-height="400" data-row-style="rowStyle">
+                    <table id="table-style" data-url="data1.json" data-height="400" data-row-style="rowStyle">
                         <thead>
                         <tr>
                             <th data-field="id" class="col-md-2">Item ID</th>
@@ -271,9 +274,12 @@
                 </div>
                 <div class="page-header">
                     <h2 id="basic-sort-table" data-zh="基本排序">Basic</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="299" data-sort-name="name" data-sort-order="desc">
+                    <table data-url="data1.json" data-height="299" data-sort-name="name" data-sort-order="desc">
                         <thead>
                             <tr>
                                 <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
@@ -287,9 +293,12 @@
             
                 <div class="page-header">
                     <h2 id="custom-sort-table" data-zh="自定义排序">Custom</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table id="table-custom-sort" data-toggle="table" data-url="data1.json" data-height="299" data-sort-name="price" data-sort-order="desc">
+                    <table id="table-custom-sort" data-url="data1.json" data-height="299" data-sort-name="price" data-sort-order="desc">
                         <thead>
                         <tr>
                             <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
@@ -314,9 +323,12 @@
             <div>
                 <div class="page-header">
                     <h1 id="format-table" data-zh="格式化表格">Format Table</h1>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table id="table-format" data-toggle="table" data-url="data1.json" data-height="299">
+                    <table id="table-format" data-url="data1.json" data-height="299">
                         <thead>
                         <tr>
                             <th data-field="id">Item ID</th>
@@ -348,9 +360,12 @@
             <div>
                 <div class="page-header">
                     <h1 id="hide-header-table" data-zh="隐藏表头">Hide Header Table</h1>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="299" data-show-header="false">
+                    <table data-url="data1.json" data-height="299" data-show-header="false">
                         <thead>
                         <tr>
                             <th data-field="name">Item Name</th>
@@ -368,9 +383,12 @@
                 </div>
                 <div class="page-header">
                     <h2 id="basic-show-columns-table" data-zh="基本显示">Basic</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data3.json" data-height="299" data-show-columns="true" data-id-field="id">
+                    <table data-url="data3.json" data-height="299" data-show-columns="true" data-id-field="id">
                         <thead>
                         <tr>
                             <th data-field="state" data-radio="true"></th>
@@ -388,24 +406,18 @@
 
                 <div class="page-header">
                     <h2 id="large-columns-table" data-zh="超多列显示">Large Columns</h2>
+                    <button class="btn btn-primary" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table id="table-large-columns" data-height="400" data-show-columns="true">
-                        <thead>
-                        <tr>
-                            <th data-field="state" data-radio="true"></th>
-                            <th data-field="name" data-switchable="false">Name</th>
-                            <th data-field="price">Price</th>
-                            <th data-field="column1">Columns1</th>
-                            <th data-field="column2" data-visible="false">Columns2</th>
-                            <th data-field="column3" data-switchable="false">Columns3</th>
-                            <th data-field="column4" data-visible="false">Columns4</th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <table id="table-large-columns" data-height="400" data-show-columns="true"></table>
                     <script>
                         $(function () {
-                            buildTable($('#table-large-columns'), 50, 50);
+                            $('#large-columns-table').next().click(function () {
+                                $(this).hide();
+                                buildTable($('#table-large-columns'), 50, 50);
+                            });
                         });
                     </script>
                 </div>
@@ -414,9 +426,12 @@
 
             <div class="page-header">
                 <h1 id="card-view" data-zh="名片（card）表格">Card View Table</h1>
+                <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                    Start Example
+                </button>
             </div>
             <div class="bs-example">
-                <table data-toggle="table" data-url="data4.json" data-height="299" data-card-view="true" data-response-handler="responseHandler">
+                <table data-url="data4.json" data-height="299" data-card-view="true" data-response-handler="responseHandler">
                     <thead>
                     <tr>
                         <th data-field="name">Name</th>
@@ -452,9 +467,12 @@
 
                 <div class="page-header">
                     <h2 id="radio-table" data-zh="单选框">Radio</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="299" data-click-to-select="true" data-select-item-name="radioName">
+                    <table data-url="data1.json" data-height="299" data-click-to-select="true" data-select-item-name="radioName">
                         <thead>
                             <tr>
                                 <th data-field="state" data-radio="true"></th>
@@ -469,9 +487,12 @@
 
                 <div class="page-header">
                     <h2 id="checkbox-table" data-zh="复选框">Checkbox</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="299" data-click-to-select="true">
+                    <table data-url="data1.json" data-height="299" data-click-to-select="true">
                         <thead>
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
@@ -486,9 +507,12 @@
 
                 <div class="page-header">
                     <h2 id="single-checkbox-table" data-zh="只能单选的复选框">Single Checkbox</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="299" data-click-to-select="true" data-single-select="true">
+                    <table data-url="data1.json" data-height="299" data-click-to-select="true" data-single-select="true">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -509,9 +533,12 @@
 
                 <div class="page-header">
                     <h2 id="basic-toolbar-table" data-zh="基本工具栏">Basic</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="299" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true">
+                    <table data-url="data1.json" data-height="299" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true">
                         <thead>
                         <tr>
                             <th data-field="id" data-align="right">Item ID</th>
@@ -525,6 +552,9 @@
 
                 <div class="page-header">
                     <h2 id="custom-toolbar-table" data-zh="自定义工具栏">Custom</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
                     <div id="custem-toolbar">
@@ -547,7 +577,7 @@
                             <button type="submit" class="btn btn-default">Sign in</button>
                         </div>
                     </div>
-                    <table data-toggle="table" data-url="data1.json" data-height="299" data-click-to-select="true" data-toolbar="#custem-toolbar" data-show-refresh="true" data-show-toggle="true" data-show-columns="true">
+                    <table data-url="data1.json" data-height="299" data-click-to-select="true" data-toolbar="#custem-toolbar" data-show-refresh="true" data-show-toggle="true" data-show-columns="true">
                         <thead>
                         <tr>
                             <th data-field="id" data-align="right">Item ID</th>
@@ -567,6 +597,9 @@
 
                 <div class="page-header">
                     <h2 id="client-side-pagination-table" data-zh="客户的分页">Client Side</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="form-inline">
                     <label>
@@ -582,7 +615,7 @@
                     </label>
                 </div>
                 <div class="bs-example">
-                    <table id="table-pagination" data-toggle="table" data-url="data2.json" data-height="400" data-pagination="true" data-search="true">
+                    <table id="table-pagination" data-url="data2.json" data-height="400" data-pagination="true" data-search="true">
                         <thead>
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
@@ -597,10 +630,12 @@
 
                 <div class="page-header">
                     <h2 id="server-side-pagination-table" data-zh="服务器端分页">Server Side</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
                     <table id="table-pagination"
-                           data-toggle="table"
                            data-url="/examples/bootstrap_table/data"
                            data-height="400"
                            data-side-pagination="server"
@@ -649,9 +684,11 @@
                     <h1 id="table-events" data-zh="表格事件">Table Events</h1>
                 </div>
 
-
                 <div class="page-header">
                     <h2 id="basic-events-table" data-zh="基本事件">Basic Events</h2>
+                    <button class="btn btn-primary" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
                     <div class="alert alert-success" id="events-result">
@@ -669,51 +706,54 @@
                     </table>
                     <script>
                         $(function() {
-                            var $result = $('#events-result');
+                            $('#basic-events-table').next().click(function () {
 
-                            $('#events-table').bootstrapTable({
-                                /*
-                                onAll: function(name, args) {
-                                    console.log('Event: onAll, data: ', args);
-                                }
-                                onClickRow: function(row) {
-                                    $result.text('Event: onClickRow, data: ' + JSON.stringify(row));
-                                },
-                                onDblClickRow: function(row) {
-                                    $result.text('Event: onDblClickRow, data: ' + JSON.stringify(row));
-                                },
-                                onSort: function(name, order) {
-                                    $result.text('Event: onSort, data: ' + name + ', ' + order);
-                                },
-                                onCheck: function(row) {
-                                    $result.text('Event: onCheck, data: ' + JSON.stringify(row));
-                                },
-                                onUncheck: function(row) {
-                                    $result.text('Event: onUncheck, data: ' + JSON.stringify(row));
-                                },
-                                onCheckAll: function() {
-                                    $result.text('Event: onCheckAll');
-                                },
-                                onUncheckAll: function() {
-                                    $result.text('Event: onUncheckAll');
-                                }
-                                */
-                            }).on('all.bs.table', function(e, name, args) {
-                                console.log('Event:', name, ', data:', args);
-                            }).on('click-row.bs.table', function(e, row, $element) {
-                                $result.text('Event: click-row.bs.table, data: ' + JSON.stringify(row));
-                            }).on('dbl-click-row.bs.table', function(e, row, $element) {
-                                $result.text('Event: dbl-click-row.bs.table, data: ' + JSON.stringify(row));
-                            }).on('sort.bs.table', function(e, name, order) {
-                                $result.text('Event: sort.bs.table, data: ' + name + ', ' + order);
-                            }).on('check.bs.table', function(e, row) {
-                                $result.text('Event: check.bs.table, data: ' + JSON.stringify(row));
-                            }).on('uncheck.bs.table', function(e, row) {
-                                $result.text('Event: uncheck.bs.table, data: ' + JSON.stringify(row));
-                            }).on('check-all.bs.table', function(e) {
-                                $result.text('Event: check-all.bs.table');
-                            }).on('uncheck-all.bs.table', function(e) {
-                                $result.text('Event: uncheck-all.bs.table');
+                                var $result = $('#events-result');
+
+                                $('#events-table').bootstrapTable({
+                                    /*
+                                    onAll: function(name, args) {
+                                        console.log('Event: onAll, data: ', args);
+                                    }
+                                    onClickRow: function(row) {
+                                        $result.text('Event: onClickRow, data: ' + JSON.stringify(row));
+                                    },
+                                    onDblClickRow: function(row) {
+                                        $result.text('Event: onDblClickRow, data: ' + JSON.stringify(row));
+                                    },
+                                    onSort: function(name, order) {
+                                        $result.text('Event: onSort, data: ' + name + ', ' + order);
+                                    },
+                                    onCheck: function(row) {
+                                        $result.text('Event: onCheck, data: ' + JSON.stringify(row));
+                                    },
+                                    onUncheck: function(row) {
+                                        $result.text('Event: onUncheck, data: ' + JSON.stringify(row));
+                                    },
+                                    onCheckAll: function() {
+                                        $result.text('Event: onCheckAll');
+                                    },
+                                    onUncheckAll: function() {
+                                        $result.text('Event: onUncheckAll');
+                                    }
+                                    */
+                                }).on('all.bs.table', function(e, name, args) {
+                                    console.log('Event:', name, ', data:', args);
+                                }).on('click-row.bs.table', function(e, row, $element) {
+                                    $result.text('Event: click-row.bs.table, data: ' + JSON.stringify(row));
+                                }).on('dbl-click-row.bs.table', function(e, row, $element) {
+                                    $result.text('Event: dbl-click-row.bs.table, data: ' + JSON.stringify(row));
+                                }).on('sort.bs.table', function(e, name, order) {
+                                    $result.text('Event: sort.bs.table, data: ' + name + ', ' + order);
+                                }).on('check.bs.table', function(e, row) {
+                                    $result.text('Event: check.bs.table, data: ' + JSON.stringify(row));
+                                }).on('uncheck.bs.table', function(e, row) {
+                                    $result.text('Event: uncheck.bs.table, data: ' + JSON.stringify(row));
+                                }).on('check-all.bs.table', function(e) {
+                                    $result.text('Event: check-all.bs.table');
+                                }).on('uncheck-all.bs.table', function(e) {
+                                    $result.text('Event: uncheck-all.bs.table');
+                                });
                             });
                         });
                     </script>
@@ -722,9 +762,12 @@
 
                 <div class="page-header">
                     <h2 id="column-events-table" data-zh="列事件">Column Events</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-height="299" data-search="true">
+                    <table data-url="data1.json" data-height="299" data-search="true">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -772,6 +815,9 @@
             <div>
                 <div class="page-header">
                     <h1 id="table-methods" data-zh="表格方法">Table methods</h1>
+                    <button class="btn btn-primary" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
                     <div class="btn-group">
@@ -815,39 +861,43 @@
                     </table>
                     <script>
                         $(function() {
-                            var id = 0,
-                                getRows = function() {
-                                    var rows = [];
+                            $('#table-methods').next().click(function () {
+                                $(this).hide();
 
-                                    for (var i = 0; i < 10; i++) {
-                                        rows.push({
-                                            id: id,
-                                            name: 'test' + id,
-                                            price: '$' + id
-                                        });
-                                        id++;
-                                    }
-                                    return rows;
-                                },
-                                // init table use data
-                                $table = $('#table-methods-table').bootstrapTable({
-                                    data: getRows()
+                                var id = 0,
+                                    getRows = function() {
+                                        var rows = [];
+
+                                        for (var i = 0; i < 10; i++) {
+                                            rows.push({
+                                                id: id,
+                                                name: 'test' + id,
+                                                price: '$' + id
+                                            });
+                                            id++;
+                                        }
+                                        return rows;
+                                    },
+                                    // init table use data
+                                    $table = $('#table-methods-table').bootstrapTable({
+                                        data: getRows()
+                                    });
+
+                                $('#get-selections').click(function() {
+                                    alert('Selected values: ' + JSON.stringify($table.bootstrapTable('getSelections')));
                                 });
-
-                            $('#get-selections').click(function() {
-                                alert('Selected values: ' + JSON.stringify($table.bootstrapTable('getSelections')));
-                            });
-                            $('#load-data, #append-data, #check-all, #uncheck-all, ' +
-                                    '#show-loading, #hide-loading, #refresh').click(function() {
-                                $table.bootstrapTable($(this).data('method'), getRows());
-                            });
-                            $('#merge-cells').click(function() {
-                                $table.bootstrapTable('mergeCells', {
-                                    index: 1,
-                                    field: 'name',
-                                    colspan: 2,
-                                    rowspan: 3
-                                })
+                                $('#load-data, #append-data, #check-all, #uncheck-all, ' +
+                                        '#show-loading, #hide-loading, #refresh').click(function() {
+                                    $table.bootstrapTable($(this).data('method'), getRows());
+                                });
+                                $('#merge-cells').click(function() {
+                                    $table.bootstrapTable('mergeCells', {
+                                        index: 1,
+                                        field: 'name',
+                                        colspan: 2,
+                                        rowspan: 3
+                                    })
+                                });
                             });
                         });
                     </script>
@@ -858,55 +908,62 @@
             <div>
                 <div class="page-header">
                     <h1 id="via-javascript-table" data-zh="通过JavaScript启用">Via JavaScript</h1>
+                    <button class="btn btn-primary" data-zh="开始使用例子">
+                        Start Example
+                    </button>
                 </div>
                 <div class="bs-example">
                     <table id="table-javascript"></table>
                     <script>
                         $(function() {
-                            $('#table-javascript').bootstrapTable({
-                                method: 'get',
-                                url: 'data2.json',
-                                height: 400,
-                                striped: true,
-                                pagination: true,
-                                pageSize: 50,
-                                pageList: [10, 25, 50, 100, 200],
-                                search: true,
-                                showColumns: true,
-                                showRefresh: true,
-                                minimumCountColumns: 2,
-                                columns: [{
-                                    field: 'state',
-                                    checkbox: true
-                                }, {
-                                    field: 'id',
-                                    title: 'Item ID',
-                                    align: 'right',
-                                    valign: 'bottom',
-                                    sortable: true
-                                }, {
-                                    field: 'name',
-                                    title: 'Item Name',
-                                    align: 'center',
-                                    valign: 'middle',
-                                    sortable: true,
-                                    formatter: nameFormatter
-                                }, {
-                                    field: 'price',
-                                    title: 'Item Price',
-                                    align: 'left',
-                                    valign: 'top',
-                                    sortable: true,
-                                    formatter: priceFormatter,
-                                    sorter: priceSorter
-                                }, {
-                                    field: 'operate',
-                                    title: 'Item Operate',
-                                    align: 'center',
-                                    valign: 'middle',
-                                    formatter: operateFormatter,
-                                    events: operateEvents
-                                }]
+                            $('#via-javascript-table').next().click(function () {
+                                $(this).hide();
+                                
+                                $('#table-javascript').bootstrapTable({
+                                    method: 'get',
+                                    url: 'data2.json',
+                                    height: 400,
+                                    striped: true,
+                                    pagination: true,
+                                    pageSize: 50,
+                                    pageList: [10, 25, 50, 100, 200],
+                                    search: true,
+                                    showColumns: true,
+                                    showRefresh: true,
+                                    minimumCountColumns: 2,
+                                    columns: [{
+                                        field: 'state',
+                                        checkbox: true
+                                    }, {
+                                        field: 'id',
+                                        title: 'Item ID',
+                                        align: 'right',
+                                        valign: 'bottom',
+                                        sortable: true
+                                    }, {
+                                        field: 'name',
+                                        title: 'Item Name',
+                                        align: 'center',
+                                        valign: 'middle',
+                                        sortable: true,
+                                        formatter: nameFormatter
+                                    }, {
+                                        field: 'price',
+                                        title: 'Item Price',
+                                        align: 'left',
+                                        valign: 'top',
+                                        sortable: true,
+                                        formatter: priceFormatter,
+                                        sorter: priceSorter
+                                    }, {
+                                        field: 'operate',
+                                        title: 'Item Operate',
+                                        align: 'center',
+                                        valign: 'middle',
+                                        formatter: operateFormatter,
+                                        events: operateEvents
+                                    }]
+                                });
                             });
                         });
                     </script>

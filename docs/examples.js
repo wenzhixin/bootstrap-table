@@ -1,14 +1,14 @@
 $(function() {
     'use strict';
 
-    $('.bs-example').each(function() {
+    $('.bs-example').each(function () {
         var source = $('<div></div>').text($(this).html()).html(),
             sources = source.split('\n'),
             codes = [],
             spaces = 0;
 
         try {
-            $.each(sources, function(i, text) {
+            $.each(sources, function (i, text) {
                 if (!$.trim(text)) {
                     i > 0  && codes.push('');
                     return;
@@ -23,10 +23,15 @@ $(function() {
             $(this).next().remove();
         }
     });
-    $('#i18n').change(function() {
+    $('#i18n').change(function () {
         $.getScript('../src/locale/bootstrap-table-' + $(this).val() + '.js', function() {
             $('#table-pagination').bootstrapTable('destroy').bootstrapTable();
         });
+    });
+    $('.start-example').click(function () {
+        var $parent = $(this).hide().parent();
+        $parent.next('.bs-example').add($parent.next().next('.bs-example'))
+            .find('table').bootstrapTable('destroy').bootstrapTable();
     });
 
     $(window).resize(function () {
