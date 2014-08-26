@@ -1135,21 +1135,27 @@
         this.each(function () {
             var $this = $(this),
                 data = $this.data('bootstrap.table'),
-                options = $.extend({}, BootstrapTable.DEFAULTS, $this.data(), typeof option === 'object' && option);
-
-            if (!data) {
-                $this.data('bootstrap.table', (data = new BootstrapTable(this, options)));
-            }
+                options = $.extend({}, BootstrapTable.DEFAULTS, $this.data(),
+                    typeof option === 'object' && option);
 
             if (typeof option === 'string') {
                 if ($.inArray(option, allowedMethods) < 0) {
                     throw "Unknown method: " + option;
                 }
+
+                if (!data) {
+                    return;
+                }
+
                 value = data[option](_relatedTarget);
 
                 if (option === 'destroy') {
                     $this.removeData('bootstrap.table');
                 }
+            }
+
+            if (!data) {
+                $this.data('bootstrap.table', (data = new BootstrapTable(this, options)));
             }
         });
 
