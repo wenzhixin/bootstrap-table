@@ -103,7 +103,7 @@
         showColumns: false,
         showRefresh: false,
         showToggle: false,
-        minimunCountColumns: 1,
+        minimumCountColumns: 1,
         idField: undefined,
         cardView: false,
         clickToSelect: false,
@@ -481,7 +481,7 @@
                 that.options.columns[$this.val()].visible = $this.prop('checked');
                 that.initHeader();
                 that.initBody();
-                if ($items.filter(':checked').length <= that.options.minimunCountColumns) {
+                if ($items.filter(':checked').length <= that.options.minimumCountColumns) {
                     $items.filter(':checked').prop('disabled', true);
                 }
             });
