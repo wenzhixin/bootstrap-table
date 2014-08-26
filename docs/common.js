@@ -1,6 +1,16 @@
 $(function() {
     'use strict';
 
+    window.getLocale = function () {
+        if (!localStorage) {
+            return 'en';
+        }
+        if (location.search === '?locale=zh') {
+            localStorage.locale = 'zh';
+        }
+        return localStorage.locale;
+    };
+
     function main() {
         $(window).scroll(showGotoTop);
         $(window).resize(showGotoTop);
@@ -9,9 +19,11 @@ $(function() {
             document.documentElement.scrollTop = 0;
             return false;
         });
-        $('[data-zh]').each(function () {
-            $(this).html($(this).data('zh'));
-        });
+        if (getLocale() === 'zh') {
+            $('[data-zh]').each(function () {
+                $(this).html($(this).data('zh'));
+            });
+        }
         initScrollspy();
         showGotoTop();
         showBaiduShare();
