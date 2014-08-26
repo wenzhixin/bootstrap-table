@@ -189,6 +189,11 @@
     border-bottom-left-radius: 0;
 }
 
+.table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
 /* support bootstrap 3 */
 .table thead>tr>th {
     padding: 0;
