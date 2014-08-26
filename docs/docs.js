@@ -313,10 +313,10 @@ $(function () {
                     example: 'basic-toolbar-table'
                 },
                 {
-                    name: 'minimunCountColumns',
-                    attribute: 'data-minimun-count-columns',
+                    name: 'minimumCountColumns',
+                    attribute: 'data-minimum-count-columns',
                     type: 'Number',
-                    description: 'The minimun count columns to hide of the columns drop down list.',
+                    description: 'The minimum count columns to hide of the columns drop down list.',
                     description_zh: '表格显示/隐藏列表时可设置最小隐藏的列数。',
                     'default': '1',
                     example: 'via-javascript-table'
