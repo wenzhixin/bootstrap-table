@@ -10,29 +10,64 @@ $(function () {
 
         $('#table, #column, #event, #method, #localization').bootstrapTable('destroy');
 
+        var tableColumns = [
+            {field: 'name', title: 'Name', sortable: true},
+            {field: 'name', title: '名称', sortable: true, visible: false},
+            {field: 'attribute', title: 'Attribute'},
+            {field: 'attribute', title: '属性', visible: false},
+            {field: 'type', title: 'Type'},
+            {field: 'type', title: '类型', visible: false},
+            {field: 'description', title: 'Description', align: 'left'},
+            {field: 'description_zh', title: '描述', align: 'left', visible: false},
+            {field: 'default', title: 'Default', align: 'left'},
+            {field: 'default', title: '默认', align: 'left', visible: false},
+            {field: 'example', title: '', valign: 'middle', formatter: function (value) {
+                if (!value) {
+                    return '-';
+                }
+                return [
+                    '<a title="Example" href="examples.html#' + value + '">',
+                    '<i class="glyphicon glyphicon-eye-open"></i>',
+                    '</a>'].join('');
+            }}
+        ];
+
+        var columnColumns = [
+            {field: 'name', title: 'Name', width: 60, sortable: true},
+            {field: 'name', title: '名称', width: 60, sortable: true, visible: false},
+            {field: 'attribute', title: 'Attribute'},
+            {field: 'attribute', title: '属性', visible: false},
+            {field: 'type', title: 'Type', width: 60},
+            {field: 'type', title: '类型', width: 60, visible: false},
+            {field: 'description', title: 'Description', align: 'left', width: 400},
+            {field: 'description_zh', title: '描述', align: 'left', width: 400, visible: false},
+            {field: 'default', title: 'Default', align: 'left', width: 180},
+            {field: 'default', title: '默认', align: 'left', width: 180, visible: false},
+            {field: 'example', title: '', formatter: function (value) {
+                if (!value) {
+                    return '-';
+                }
+                return [
+                    '<a title="Example" href="examples.html#' + value + '">',
+                    '<i class="glyphicon glyphicon-eye-open"></i>',
+                    '</a>'].join('');
+            }}
+        ];
+
+        if (getLocale() === 'zh') {
+            $.each([tableColumns, columnColumns], function (i, columns) {
+                $.each(columns, function (j, row) {
+                    if (row.field === 'example') {
+                        return;
+                    }
+                    row.visible = typeof row.visible !== 'undefined';
+                });
+            });
+        }
+
         $('#table').bootstrapTable({
             cardView: cardView,
-            columns: [
-                {field: 'name', title: 'Name', sortable: true},
-                {field: 'name', title: '名称', sortable: true, visible: false},
-                {field: 'attribute', title: 'Attribute'},
-                {field: 'attribute', title: '属性', visible: false},
-                {field: 'type', title: 'Type'},
-                {field: 'type', title: '类型', visible: false},
-                {field: 'description', title: 'Description', align: 'left'},
-                {field: 'description_zh', title: '描述', align: 'left', visible: false},
-                {field: 'default', title: 'Default', align: 'left'},
-                {field: 'default', title: '默认', align: 'left', visible: false},
-                {field: 'example', title: '', valign: 'middle', formatter: function (value) {
-                    if (!value) {
-                        return '-';
-                    }
-                    return [
-                        '<a title="Example" href="examples.html#' + value + '">',
-                        '<i class="glyphicon glyphicon-eye-open"></i>',
-                        '</a>'].join('');
-                }}
-            ],
+            columns: tableColumns,
             data: [
                 {
                     name: '-',
@@ -353,27 +388,7 @@ $(function () {
         });
         $('#column').bootstrapTable({
             cardView: cardView,
-            columns: [
-                {field: 'name', title: 'Name', width: 60, sortable: true},
-                {field: 'name', title: '名称', width: 60, sortable: true, visible: false},
-                {field: 'attribute', title: 'Attribute'},
-                {field: 'attribute', title: '属性', visible: false},
-                {field: 'type', title: 'Type', width: 60},
-                {field: 'type', title: '类型', width: 60, visible: false},
-                {field: 'description', title: 'Description', align: 'left', width: 400},
-                {field: 'description_zh', title: '描述', align: 'left', width: 400, visible: false},
-                {field: 'default', title: 'Default', align: 'left', width: 180},
-                {field: 'default', title: '默认', align: 'left', width: 180, visible: false},
-                {field: 'example', title: '', formatter: function (value) {
-                    if (!value) {
-                        return '-';
-                    }
-                    return [
-                        '<a title="Example" href="examples.html#' + value + '">',
-                        '<i class="glyphicon glyphicon-eye-open"></i>',
-                        '</a>'].join('');
-                }}
-            ],
+            columns: columnColumns,
             data: [
                 {
                     name: 'radio',
