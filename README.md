@@ -10,6 +10,13 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 **NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
 
+## Bugs & Enhancements (next version)
+
+- [ ] Fix [#56](https://github.com/wenzhixin/bootstrap-table/issues/56): Pagination issue in bootstrap 2.3.
+- [ ] Fix [#76](https://github.com/wenzhixin/bootstrap-table/issues/76): After refreshing table data, search no longer works.
+- [ ] Fix [#77](https://github.com/wenzhixin/bootstrap-table/issues/76): After searching and then clearing the search field, table is no longer sortable.
+- [ ] Add `sortable` option, `false` to disable sortable of all columns.
+
 ## Features
 
 * Created for Bootstrap 3 (Bootstrap 2 supported)
