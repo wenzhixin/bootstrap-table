@@ -521,16 +521,16 @@
         if (this.options.sidePagination !== 'server') {
             var s = that.searchText.toLowerCase();
 
-            this.data = $.grep(this.options.data, function (item) {
+            this.data = s ? $.grep(this.options.data, function (item) {
                 for (var key in item) {
                     if ((typeof item[key] === 'string' ||
                         typeof item[key] === 'number') &&
                         (item[key] + '').toLowerCase().indexOf(s) !== -1) {
-                            return true;
+                        return true;
                     }
                 }
                 return false;
-            });
+            }) : this.options.data;
         }
         this.options.pageNumber = 1;
         this.updatePagination();
