@@ -1,4 +1,11 @@
-## Changelog
+## ChangeLog
+
+### 1.2.0
+
+* Fix bootstrap 2 table border bug.
+* Fix loading and not found record display bug.
+* Update ```minimunCountColumns``` option to ```minimumCountColumns```.
+* Fix sort order bug.
 
 ### 1.1.5
 
