@@ -14,7 +14,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 - [ ] Fix [#56](https://github.com/wenzhixin/bootstrap-table/issues/56): Pagination issue in bootstrap 2.3.
 - [ ] Fix [#76](https://github.com/wenzhixin/bootstrap-table/issues/76): After refreshing table data, search no longer works.
-- [ ] Fix [#77](https://github.com/wenzhixin/bootstrap-table/issues/76): After searching and then clearing the search field, table is no longer sortable.
+- [x] Fix [#77](https://github.com/wenzhixin/bootstrap-table/issues/76): After searching and then clearing the search field, table is no longer sortable.
 - [ ] Add `sortable` option, `false` to disable sortable of all columns.
 
 ## Features
