@@ -110,6 +110,7 @@
         singleSelect: false,
         toolbar: undefined,
         checkboxHeader: true,
+        sortable: true,
 
         rowStyle: function (row, index) {return {};},
 
@@ -279,7 +280,7 @@
             that.header.sorters.push(column.sorter);
 
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
-            style += column.sortable ? 'cursor: pointer; ' : '';
+            style += that.options.sortable && column.sortable ? 'cursor: pointer; ' : '';
 
             html.push('<th',
                 column.checkbox || column.radio ? ' class="bs-checkbox"' :
@@ -289,7 +290,7 @@
             html.push('<div class="th-inner">');
 
             text = column.title;
-            if (that.options.sortName === column.field && column.sortable) {
+            if (that.options.sortName === column.field && that.options.sortable && column.sortable) {
                 text += that.getCaretHtml();
             }
 
@@ -315,7 +316,7 @@
         this.$header.find('th').each(function (i) {
             $(this).data(visibleColumns[i]);
 
-            if (visibleColumns[i].sortable) {
+            if (that.options.sortable && visibleColumns[i].sortable) {
                 $(this).off('click').on('click', $.proxy(that.onSort, that));
             }
         });
