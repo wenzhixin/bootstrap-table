@@ -193,7 +193,7 @@ $(function () {
                     description: 'Set "limit" to send query params width RESTFul type.',
                     description_zh: '设置为“limit”可以发送标准的RESTFul类型的参数请求。',
                     'default': 'undefined',
-                    example: '-'
+                    example: ''
                 },
                 {
                     name: 'responseHandler',
@@ -373,7 +373,7 @@ $(function () {
                     description: 'False to hide check-all checkbox in header row.',
                     description_zh: '设置为False时隐藏表头中的全选复选框。',
                     'default': 'true',
-                    example: '-'
+                    example: ''
                 },
                 {
                     name: 'sortable',
@@ -382,7 +382,7 @@ $(function () {
                     description: 'False to disable sortable of all columns.',
                     description_zh: '设置为False时禁用所有列的排序。',
                     'default': 'true',
-                    example: '-'
+                    example: ''
                 },
                 {
                     name: 'rowStyle',
