@@ -376,6 +376,15 @@ $(function () {
                     example: '-'
                 },
                 {
+                    name: 'sortable',
+                    attribute: 'data-sortable',
+                    type: 'Boolean',
+                    description: 'False to disable sortable of all columns.',
+                    description_zh: '设置为False时禁用所有列的排序。',
+                    'default': 'true',
+                    example: '-'
+                },
+                {
                     name: 'rowStyle',
                     attribute: 'data-row-style',
                     type: 'Function',
