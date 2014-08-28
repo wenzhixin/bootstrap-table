@@ -1226,3 +1226,16 @@ h1 .icon {
 .ml10 {
     margin-left: 10px;
 }
+.flag {
+    width: 16px;
+    height: 11px;
+    background: url("flags.png") no-repeat;
+    margin-top: -0.18em;
+    display: inline-block;
+}
+.flag.flag-en {
+    background-position: -144px -154px;
+}
+.flag.flag-zh {
+    background-position: -208px -22px;
+}

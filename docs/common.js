@@ -19,15 +19,36 @@ $(function() {
             document.documentElement.scrollTop = 0;
             return false;
         });
-        if (getLocale() === 'zh') {
-            $('[data-zh]').each(function () {
-                $(this).html($(this).data('zh'));
-            });
-        }
+        initLocale();
         initScrollspy();
         showGotoTop();
         showBaiduShare();
         $('#bulletin').bulletin();
+    }
+
+    function initLocale() {
+        var $locale = $('#locale');
+
+        if (!localStorage) {
+            $locale.hide();
+            return;
+        }
+        if (getLocale() === 'zh') {
+            $locale.find('.language').text('简体中文').end()
+                .find('[data-locale="en"]').removeClass('active').end()
+                .find('[data-locale="zh"]').addClass('active').end()
+                .find('.dropdown-toggle img').removeClass('flag-en').end()
+                .find('.dropdown-toggle img').addClass('flag-zh').end();
+
+            $('[data-zh]').each(function () {
+                $(this).html($(this).data('zh'));
+            });
+        }
+
+        $('[data-locale]').click(function () {
+            localStorage.locale = $(this).data('locale');
+            location.reload(true);
+        });
     }
 
     function initScrollspy() {
