@@ -511,16 +511,21 @@
     };
 
     BootstrapTable.prototype.onSearch = function (event) {
-        var that = this,
-            text = $.trim($(event.currentTarget).val());
+        var text = $.trim($(event.currentTarget).val());
 
         if (text === this.searchText) {
             return;
         }
         this.searchText = text;
 
-        if (this.options.sidePagination !== 'server') {
-            var s = that.searchText.toLowerCase();
+        this.options.pageNumber = 1;
+        this.initSearch();
+        this.updatePagination();
+    };
+
+    BootstrapTable.prototype.initSearch = function () {
+        if (this.searchText && this.options.sidePagination !== 'server') {
+            var s = this.searchText.toLowerCase();
 
             this.data = s ? $.grep(this.options.data, function (item) {
                 for (var key in item) {
@@ -533,8 +538,6 @@
                 return false;
             }) : this.options.data;
         }
-        this.options.pageNumber = 1;
-        this.updatePagination();
     };
 
     BootstrapTable.prototype.initPagination = function () {
@@ -1049,6 +1052,7 @@
 
     BootstrapTable.prototype.load = function (data) {
         this.initData(data);
+        this.initSearch();
         this.initPagination();
         this.initBody();
     };
