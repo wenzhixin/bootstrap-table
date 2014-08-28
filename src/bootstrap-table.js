@@ -602,7 +602,7 @@
         html.push('</span>');
 
         html.push('</div>',
-            '<div class="pull-right">',
+            '<div class="pull-right pagination">',
                 '<ul class="pagination">',
                     '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
                     '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
