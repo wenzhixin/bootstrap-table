@@ -15,6 +15,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 - [ ] Fix #68: Add `showColumn`/`hideColumn` methods.
 - [ ] Fix #69: Add bootstrap-table-es_AR.
 - [ ] Fix #85: Select row and add row class.
+- [ ] Add `halign` column option.
 
 ## Features
 
