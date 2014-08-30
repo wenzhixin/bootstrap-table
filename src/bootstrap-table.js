@@ -145,6 +145,7 @@
     BootstrapTable.COLUMN_DEFAULTS = {
         radio: false,
         checkbox: false,
+        checkboxEnabled: true,
         field: undefined,
         title: undefined,
         'class': undefined,
@@ -783,7 +784,9 @@
                             sprintf(' name="%s"', that.options.selectItemName) +
                             sprintf(' type="%s"', type) +
                             sprintf(' value="%s"', item[that.options.idField]) +
-                            sprintf(' checked="%s"', value ? 'checked' : undefined) + ' />',
+                            sprintf(' checked="%s"', value ? 'checked' : undefined) +
+                            sprintf(' %s', that.options.columns[j].checkboxEnabled ? undefined : 'disabled') +
+                            ' />',
                         '</td>'].join('');
                 } else {
                     value = typeof value === 'undefined' ? that.options.undefinedText : value;
