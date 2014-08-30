@@ -111,6 +111,7 @@
                         <li><a href="/examples/bootstrap_table/data?offset=0&limit=10">/examples/bootstrap_table/data?offset=0&limit=10&search=test</a></li>
                     </ul>
                 </div>
+
                 <div class="page-header">
                     <h1 id="basic-table" data-zh="基本表格">
                         Basic Table
@@ -282,6 +283,28 @@
                             return {};
                         }
                     </script>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+
+            <div>
+                <div class="page-header">
+                    <h1 id="aligning-columns" data-zh="列对齐">Aligning Columns</h1>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
+                </div>
+                <p data-zh="使用 align 和 halign 来设置列和表头的对齐方式。">Use <code>align</code> and <code>halign</code> options to set the alignment of the columns and their header.</p>
+                <div class="bs-example">
+                    <table data-url="data1.json" data-height="299">
+                        <thead>
+                        <tr>
+                            <th data-field="id" data-halign="right" data-align="center">Item ID</th>
+                            <th data-field="name" data-halign="center" data-align="left">Item Name</th>
+                            <th data-field="price" data-halign="left" data-align="right">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
@@ -654,8 +677,7 @@
                     </button>
                 </div>
                 <div class="bs-example">
-                    <table id="table-pagination"
-                           data-url="/examples/bootstrap_table/data"
+                    <table data-url="/examples/bootstrap_table/data"
                            data-height="400"
                            data-side-pagination="server"
                            data-pagination="true"
