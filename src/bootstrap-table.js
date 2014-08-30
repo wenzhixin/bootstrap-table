@@ -149,6 +149,7 @@
         title: undefined,
         'class': undefined,
         align: undefined, // left, right, center
+        halign: undefined, // left, right, center
         valign: undefined, // top, middle, bottom
         width: undefined,
         sortable: false,
@@ -279,6 +280,10 @@
             that.header.events.push(column.events);
             that.header.sorters.push(column.sorter);
 
+            if (column.halign) {
+                style = sprintf('text-align: %s; ', column.halign) +
+                    sprintf('vertical-align: %s; ', column.valign);
+            }
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
             style += that.options.sortable && column.sortable ? 'cursor: pointer; ' : '';
 
