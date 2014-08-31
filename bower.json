@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-table",
-  "version": "1.1.4",
+  "version": "1.2.1",
   "homepage": "https://github.com/wenzhixin/bootstrap-table",
   "authors": [
     "zhixin <wenzhixin2010@gmail.com>"
@@ -13,7 +13,9 @@
 	  "src/locale/bootstrap-table-da-DK.js",
 	  "src/locale/bootstrap-table-pt-BR.js",
 	  "src/locale/bootstrap-table-zh-CN.js",
-	  "src/locale/bootstrap-table-zh-TW.js"
+	  "src/locale/bootstrap-table-zh-TW.js",
+	  "src/locale/bootstrap-table-es_AR.js",
+	  "src/locale/bootstrap-table-fr_BE.js"
   ],
   "keywords": [
     "bootstrap",
