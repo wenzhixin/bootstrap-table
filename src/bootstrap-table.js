@@ -530,8 +530,8 @@
     };
 
     BootstrapTable.prototype.initSearch = function () {
-        if (this.searchText && this.options.sidePagination !== 'server') {
-            var s = this.searchText.toLowerCase();
+        if (this.options.sidePagination !== 'server') {
+            var s = this.searchText && this.searchText.toLowerCase();
 
             this.data = s ? $.grep(this.options.data, function (item) {
                 for (var key in item) {
