@@ -213,12 +213,12 @@
                         </tbody>
                     </table>
                     <script>
-                        $(function() {
+                        $(function () {
                             var $table = $('#table-transform');
-                            $('#transform').click(function() {
+                            $('#transform').click(function () {
                                 $table.bootstrapTable();
                             });
-                            $('#destroy').click(function() {
+                            $('#destroy').click(function () {
                                 $table.bootstrapTable('destroy');
                             });
                         });
@@ -256,8 +256,8 @@
                         </thead>
                     </table>
                     <script>
-                        $(function() {
-                            $('#hover, #striped, #condensed').click(function() {
+                        $(function () {
+                            $('#hover, #striped, #condensed').click(function () {
                                 var classes = 'table';
 
                                 if ($('#hover').prop('checked')) {
@@ -749,53 +749,53 @@
                         </thead>
                     </table>
                     <script>
-                        $(function() {
+                        $(function () {
                             $('#basic-events-table').next().click(function () {
 
                                 var $result = $('#events-result');
 
                                 $('#events-table').bootstrapTable({
                                     /*
-                                    onAll: function(name, args) {
+                                    onAll: function (name, args) {
                                         console.log('Event: onAll, data: ', args);
                                     }
-                                    onClickRow: function(row) {
+                                    onClickRow: function (row) {
                                         $result.text('Event: onClickRow, data: ' + JSON.stringify(row));
                                     },
-                                    onDblClickRow: function(row) {
+                                    onDblClickRow: function (row) {
                                         $result.text('Event: onDblClickRow, data: ' + JSON.stringify(row));
                                     },
-                                    onSort: function(name, order) {
+                                    onSort: function (name, order) {
                                         $result.text('Event: onSort, data: ' + name + ', ' + order);
                                     },
-                                    onCheck: function(row) {
+                                    onCheck: function (row) {
                                         $result.text('Event: onCheck, data: ' + JSON.stringify(row));
                                     },
-                                    onUncheck: function(row) {
+                                    onUncheck: function (row) {
                                         $result.text('Event: onUncheck, data: ' + JSON.stringify(row));
                                     },
-                                    onCheckAll: function() {
+                                    onCheckAll: function () {
                                         $result.text('Event: onCheckAll');
                                     },
-                                    onUncheckAll: function() {
+                                    onUncheckAll: function () {
                                         $result.text('Event: onUncheckAll');
                                     }
                                     */
-                                }).on('all.bs.table', function(e, name, args) {
+                                }).on('all.bs.table', function (e, name, args) {
                                     console.log('Event:', name, ', data:', args);
-                                }).on('click-row.bs.table', function(e, row, $element) {
+                                }).on('click-row.bs.table', function (e, row, $element) {
                                     $result.text('Event: click-row.bs.table, data: ' + JSON.stringify(row));
-                                }).on('dbl-click-row.bs.table', function(e, row, $element) {
+                                }).on('dbl-click-row.bs.table', function (e, row, $element) {
                                     $result.text('Event: dbl-click-row.bs.table, data: ' + JSON.stringify(row));
-                                }).on('sort.bs.table', function(e, name, order) {
+                                }).on('sort.bs.table', function (e, name, order) {
                                     $result.text('Event: sort.bs.table, data: ' + name + ', ' + order);
-                                }).on('check.bs.table', function(e, row) {
+                                }).on('check.bs.table', function (e, row) {
                                     $result.text('Event: check.bs.table, data: ' + JSON.stringify(row));
-                                }).on('uncheck.bs.table', function(e, row) {
+                                }).on('uncheck.bs.table', function (e, row) {
                                     $result.text('Event: uncheck.bs.table, data: ' + JSON.stringify(row));
-                                }).on('check-all.bs.table', function(e) {
+                                }).on('check-all.bs.table', function (e) {
                                     $result.text('Event: check-all.bs.table');
-                                }).on('uncheck-all.bs.table', function(e) {
+                                }).on('uncheck-all.bs.table', function (e) {
                                     $result.text('Event: uncheck-all.bs.table');
                                 });
                             });
@@ -892,6 +892,12 @@
                         <button class="btn btn-default" id="refresh" data-method="refresh">
                             Refresh
                         </button>
+                        <button class="btn btn-default" id="show-column" data-method="showColumn">
+                            Show Column
+                        </button>
+                        <button class="btn btn-default" id="hide-column" data-method="hideColumn">
+                            Hide Column
+                        </button>
                     </div>
                     <table id="table-methods-table" data-height="299">
                         <thead>
@@ -904,12 +910,12 @@
                         </thead>
                     </table>
                     <script>
-                        $(function() {
+                        $(function () {
                             $('#table-methods').next().click(function () {
                                 $(this).hide();
 
                                 var id = 0,
-                                    getRows = function() {
+                                    getRows = function () {
                                         var rows = [];
 
                                         for (var i = 0; i < 10; i++) {
@@ -927,20 +933,23 @@
                                         data: getRows()
                                     });
 
-                                $('#get-selections').click(function() {
+                                $('#get-selections').click(function () {
                                     alert('Selected values: ' + JSON.stringify($table.bootstrapTable('getSelections')));
                                 });
                                 $('#load-data, #append-data, #check-all, #uncheck-all, ' +
-                                        '#show-loading, #hide-loading, #refresh').click(function() {
+                                        '#show-loading, #hide-loading, #refresh').click(function () {
                                     $table.bootstrapTable($(this).data('method'), getRows());
                                 });
-                                $('#merge-cells').click(function() {
+                                $('#merge-cells').click(function () {
                                     $table.bootstrapTable('mergeCells', {
                                         index: 1,
                                         field: 'name',
                                         colspan: 2,
                                         rowspan: 3
                                     })
+                                });
+                                $('#show-column, #hide-column').click(function () {
+                                    $table.bootstrapTable($(this).data('method'), 'id');
                                 });
                             });
                         });
@@ -959,7 +968,7 @@
                 <div class="bs-example">
                     <table id="table-javascript"></table>
                     <script>
-                        $(function() {
+                        $(function () {
                             $('#via-javascript-table').next().click(function () {
                                 $(this).hide();
 

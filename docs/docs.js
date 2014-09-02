@@ -648,7 +648,9 @@ $(function () {
                 {name: 'checkAll', parameter: 'none', description: 'Check all current page rows.'},
                 {name: 'uncheckAll', parameter: 'none', description: 'Uncheck all current page rows.'},
                 {name: 'resetView', parameter: 'params', description: 'Reset the bootstrap table view, for example reset the table height.'},
-                {name: 'destroy', parameter: 'none', description: 'Destroy the bootstrap table.'}
+                {name: 'destroy', parameter: 'none', description: 'Destroy the bootstrap table.'},
+                {name: 'showColumn', parameter: 'field', description: 'Show the specified column.'},
+                {name: 'hideColumn', parameter: 'field', description: 'Hide the specified column.'}
             ]).bootstrapTable('mergeCells', {
                 index: 3,
                 field: 'name',

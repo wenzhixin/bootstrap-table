@@ -12,7 +12,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 ## Bugs & Enhancements (next version)
 
-- [ ] Fix #68: Add `showColumn`/`hideColumn` methods.
+- [x] Fix #68: Add `showColumn`/`hideColumn` methods.
 - [x] Fix #69: Add `bootstrap-table-es_AR.js` locale.
 - [ ] Fix #85: Select row and add row class.
 - [x] Add `halign` column option.
