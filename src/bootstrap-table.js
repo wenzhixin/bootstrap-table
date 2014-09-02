@@ -44,7 +44,20 @@
         return result;
     };
 
-    var getScrollbarWidth = function () {
+    var getFiledIndex = function (columns, field) {
+        var index = -1;
+
+        $.each(columns, function (i, column) {
+            if (column.field === field) {
+                index = i;
+                return false;
+            }
+            return true;
+        });
+        return index;
+    };
+
+    var getScrollBarWidth = function () {
         var inner = $('<p/>').addClass('fixed-table-scroll-inner'),
             outer = $('<div/>').addClass('fixed-table-scroll-outer'),
             w1, w2;
@@ -487,15 +500,9 @@
                 event.stopImmediatePropagation();
             });
             $keepOpen.find('input').off('click').on('click', function () {
-                var $this = $(this),
-                    $items = $keepOpen.find('input').prop('disabled', false);
+                var $this = $(this);
 
-                that.options.columns[$this.val()].visible = $this.prop('checked');
-                that.initHeader();
-                that.initBody();
-                if ($items.filter(':checked').length <= that.options.minimumCountColumns) {
-                    $items.filter(':checked').prop('disabled', true);
-                }
+                that.toggleColumn($this.val(), $this.prop('checked'), false);
             });
         }
 
@@ -985,7 +992,7 @@
         var that = this,
             $fixedHeader = this.$container.find('.fixed-table-header'),
             $fixedBody = this.$container.find('.fixed-table-body'),
-            scrollWidth = this.$el.width() > $fixedBody.width() ? getScrollbarWidth() : 0;
+            scrollWidth = this.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
 
         // fix #61: the hidden table reset header bug.
         if (this.$el.is(':hidden')) {
@@ -1018,6 +1025,27 @@
                 $fixedHeader.scrollLeft($(this).scrollLeft());
             });
         });
+    };
+
+    BootstrapTable.prototype.toggleColumn = function (index, checked, needUpdate) {
+        if (index === -1) {
+            return;
+        }
+        this.options.columns[index].visible = checked;
+        this.initHeader();
+        this.initBody();
+
+        if (this.options.showColumns) {
+            var $items = this.$toolbar.find('.keep-open input').prop('disabled', false);
+
+            if (needUpdate) {
+                $items.filter(sprintf('[value="%s"]', index)).prop('checked', checked);
+            }
+
+            if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
+                $items.filter(':checked').prop('disabled', true);
+            }
+        }
     };
 
     // PUBLIC FUNCTION DEFINITION
@@ -1135,6 +1163,14 @@
         this.initServer();
     };
 
+    BootstrapTable.prototype.showColumn = function (field) {
+        this.toggleColumn(getFiledIndex(this.options.columns, field), true, true);
+    };
+
+    BootstrapTable.prototype.hideColumn = function (field) {
+        this.toggleColumn(getFiledIndex(this.options.columns, field), false, true);
+    };
+
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
@@ -1146,7 +1182,8 @@
                 'checkAll', 'uncheckAll',
                 'destroy', 'resetView',
                 'showLoading', 'hideLoading',
-                'refresh'
+                'refresh',
+                'showColumn', 'hideColumn'
             ],
             value;
 
