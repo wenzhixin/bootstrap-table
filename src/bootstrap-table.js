@@ -843,8 +843,14 @@
         this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
         this.$selectItem.off('click').on('click', function (event) {
             event.stopImmediatePropagation();
+
+            // radio trigger click event bug!
+            if ($(this).is(':radio')) {
+                $(this).prop('checked', true);
+            }
+
             var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length,
-                checked = $(this).prop('checked') || $(this).is(':radio'),
+                checked = $(this).prop('checked'),
                 row = that.data[$(this).data('index')];
 
             that.$selectAll.add(that.$selectAll_).prop('checked', checkAll);
@@ -858,7 +864,7 @@
                 that.$selectItem.filter(':checked').not(this).prop('checked', false);
             }
 
-//            $(this).parents('tr')[checked ? 'addClass' : 'removeClass']('selected');
+            that.updateSelected();
         });
 
         $.each(this.header.events, function (i, events) {
@@ -957,6 +963,12 @@
         return ['<span class="order' + (this.options.sortOrder === 'desc' ? '' : ' dropup') + '">',
                 '<span class="caret" style="margin: 10px 5px;"></span>',
             '</span>'].join('');
+    };
+
+    BootstrapTable.prototype.updateSelected = function () {
+        this.$selectItem.each(function () {
+            $(this).parents('tr')[$(this).prop('checked') ? 'addClass' : 'removeClass']('selected');
+        });
     };
 
     BootstrapTable.prototype.updateRows = function (checked) {
@@ -1132,6 +1144,7 @@
         this.$selectAll.add(this.$selectAll_).prop('checked', true);
         this.$selectItem.prop('checked', true);
         this.updateRows(true);
+        this.updateSelected();
         this.trigger('check-all');
     };
 
@@ -1139,6 +1152,7 @@
         this.$selectAll.add(this.$selectAll_).prop('checked', false);
         this.$selectItem.prop('checked', false);
         this.updateRows(false);
+        this.updateSelected();
         this.trigger('uncheck-all');
     };
 

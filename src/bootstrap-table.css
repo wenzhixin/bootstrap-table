@@ -66,8 +66,9 @@
     border-left: none;
 }
 
+/* the same color with .active */
 .fixed-table-container tbody .selected td {
-    background-color: #d9edf7;
+    background-color: #f5f5f5;
 }
 
 .fixed-table-container .bs-checkbox {
