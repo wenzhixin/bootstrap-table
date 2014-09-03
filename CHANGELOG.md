@@ -1,10 +1,18 @@
 ## ChangeLog
 
+### 1.2.2
+
+* Fix #68: Add `showColumn`/`hideColumn` methods.
+* Fix #69: Add `bootstrap-table-es_AR.js` locale.
+* Fix #88: Add `bootstrap-table-fr_BE.js` locale.
+* Fix #85: Select row and add row class.
+* Add `halign` column option.
+
 ### 1.2.1
 
-* Fix [#56](https://github.com/wenzhixin/bootstrap-table/issues/56): Pagination issue in bootstrap 2.3.
-* Fix [#76](https://github.com/wenzhixin/bootstrap-table/issues/76): After refreshing table data, search no longer works.
-* Fix [#77](https://github.com/wenzhixin/bootstrap-table/issues/77): After searching and then clearing the search field, table is no longer sortable.
+* Fix #56: Pagination issue in bootstrap 2.3.
+* Fix #76: After refreshing table data, search no longer works.
+* Fix #77: After searching and then clearing the search field, table is no longer sortable.
 * Add `sortable` option, `false` to disable sortable of all columns.
 * Support localization for docs.
 
