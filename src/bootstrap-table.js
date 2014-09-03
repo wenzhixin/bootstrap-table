@@ -894,6 +894,7 @@
             }
         });
 
+        this.updateSelected();
         this.resetView();
     };
 
