@@ -537,12 +537,15 @@
     };
 
     BootstrapTable.prototype.initSearch = function () {
+        var that = this;
+
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
 
             this.data = s ? $.grep(this.options.data, function (item) {
                 for (var key in item) {
-                    if ((typeof item[key] === 'string' ||
+                    if (that.header.fields.indexOf(key) !== -1 &&
+                        (typeof item[key] === 'string' ||
                         typeof item[key] === 'number') &&
                         (item[key] + '').toLowerCase().indexOf(s) !== -1) {
                         return true;
