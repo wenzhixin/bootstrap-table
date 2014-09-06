@@ -541,7 +541,7 @@ $(function () {
                     description: 'True to select checkbox or radiobox when the column is clicked.',
                     description_zh: '设置为True时点击行即可选中单选/复选框。',
                     'default': 'true',
-                    example: 'table-select'
+                    example: 'via-javascript-table'
                 }
             ]
         });
