@@ -1049,6 +1049,8 @@
         }
         this.options.columns[index].visible = checked;
         this.initHeader();
+        this.initSearch();
+        this.initPagination();
         this.initBody();
 
         if (this.options.showColumns) {
