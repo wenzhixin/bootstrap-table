@@ -12,7 +12,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 ## Bugs & Enhancements (next version)
 
-- [ ] Fix #86: invisible column are still searchable.
+- [x] Fix #86: invisible column are still searchable.
 - [ ] Fix #82: Add `removeRow` and `getData` methods.
 - [ ] Fix #23: Add css and classes parameters to column cell.
 - [ ] Fix #64: Add support for change remote url.
