@@ -172,7 +172,8 @@
         switchable: true,
         formatter: undefined,
         events: undefined,
-        sorter: undefined
+        sorter: undefined,
+		clickToSelect: true
     };
 
     BootstrapTable.EVENTS = {
@@ -275,7 +276,8 @@
             styles: [],
             formatters: [],
             events: [],
-            sorters: []
+            sorters: [],
+			clickToSelects: []
         };
         $.each(this.options.columns, function (i, column) {
             var text = '',
@@ -293,6 +295,7 @@
             that.header.formatters.push(column.formatter);
             that.header.events.push(column.events);
             that.header.sorters.push(column.sorter);
+            that.header.clickToSelects.push(column.clickToSelect);
 
             if (column.halign) {
                 style = sprintf('text-align: %s; ', column.halign) +
@@ -830,10 +833,13 @@
 
         this.$container.find('.fixed-table-body').scrollTop(0);
 
-        this.$body.find('tr').off('click').on('click', function () {
-            that.trigger('click-row', that.data[$(this).data('index')], $(this));
+		// click to select by column
+        this.$body.find('> tr > td').off('click').on('click', function () {
+			// if click to select - then trigger the checkbox/radio click
             if (that.options.clickToSelect) {
-                $(this).find(sprintf('[name="%s"]', that.options.selectItemName)).trigger('click');
+				if (that.header.clickToSelects[$(this).parent().children().index($(this))]){
+	                $(this).parent().find(sprintf('[name="%s"]', that.options.selectItemName)).trigger('click');
+				}
             }
         });
         this.$body.find('tr').off('dblclick').on('dblclick', function () {
