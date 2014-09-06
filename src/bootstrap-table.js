@@ -173,7 +173,7 @@
         formatter: undefined,
         events: undefined,
         sorter: undefined,
-		clickToSelect: true
+        clickToSelect: true
     };
 
     BootstrapTable.EVENTS = {
@@ -277,7 +277,7 @@
             formatters: [],
             events: [],
             sorters: [],
-			clickToSelects: []
+            clickToSelects: []
         };
         $.each(this.options.columns, function (i, column) {
             var text = '',
@@ -836,13 +836,13 @@
 
         this.$container.find('.fixed-table-body').scrollTop(0);
 
-		// click to select by column
+        // click to select by column
         this.$body.find('> tr > td').off('click').on('click', function () {
-			// if click to select - then trigger the checkbox/radio click
+            // if click to select - then trigger the checkbox/radio click
             if (that.options.clickToSelect) {
-				if (that.header.clickToSelects[$(this).parent().children().index($(this))]){
-	                $(this).parent().find(sprintf('[name="%s"]', that.options.selectItemName)).trigger('click');
-				}
+                if (that.header.clickToSelects[$(this).parent().children().index($(this))]){
+                    $(this).parent().find(sprintf('[name="%s"]', that.options.selectItemName)).trigger('click');
+                }
             }
         });
         this.$body.find('tr').off('dblclick').on('dblclick', function () {
