@@ -533,6 +533,15 @@ $(function () {
                     description_zh: '可对列进行自定义排序，包含两个参数：<br />a: 第一个值。<br /> b: 第二个值。',
                     'default': 'undefined',
                     example: 'custom-sort-table'
+                },
+                {
+                    name: 'clickToSelect',
+                    attribute: 'data-click-to-select',
+                    type: 'Boolean',
+                    description: 'True to select checkbox or radiobox when the column is clicked.',
+                    description_zh: '设置为True时点击行即可选中单选/复选框。',
+                    'default': 'true',
+                    example: 'table-select'
                 }
             ]
         });
