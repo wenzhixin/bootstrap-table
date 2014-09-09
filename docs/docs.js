@@ -173,7 +173,7 @@ $(function () {
                     attribute: 'data-cache',
                     type: 'Boolean',
                     description: 'False to disable caching of AJAX requests.',
-                    description_zh: '',
+                    description_zh: '设置False禁用AJAX请求的缓存。',
                     'default': 'true',
                     example: 'basic-table'
                 },
