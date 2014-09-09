@@ -7,19 +7,19 @@
 
     $.extend($.fn.bootstrapTable.defaults, {
         formatLoadingMessage: function() {
-            return '正在努力地加載數據中，請稍候……';
+            return '正在努力地載入資料，請稍候……';
         },
         formatRecordsPerPage: function(pageNumber) {
-            return '每頁顯示 ' + pageNumber + ' 條記錄';
+            return '每頁顯示 ' + pageNumber + ' 項記錄';
         },
         formatShowingRows: function(pageFrom, pageTo, totalRows) {
-            return '顯示第 ' + pageFrom + ' 到第 ' + pageTo + ' 條記錄，總共 ' + totalRows + ' 條記錄';
+            return '顯示第 ' + pageFrom + ' 到第 ' + pageTo + ' 項記錄，總共 ' + totalRows + ' 項記錄';
         },
         formatSearch: function() {
-            return '搜索';
+            return '搜尋';
         },
         formatNoMatches: function() {
-            return '沒有找到匹配的記錄';
+            return '沒有找符合的結果';
         }
     });
 })(jQuery);
