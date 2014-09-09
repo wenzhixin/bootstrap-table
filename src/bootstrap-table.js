@@ -100,6 +100,7 @@
         data: [],
         method: 'get',
         url: undefined,
+        cache: true,
         contentType: 'application/json',
         queryParams: function (params) {return {};},
         queryParamsType: undefined,
@@ -946,6 +947,7 @@
             type: this.options.method,
             url: this.options.url,
             data: data,
+            cache: this.options.cache,
             contentType: this.options.contentType,
             dataType: 'json',
             success: function (res) {
