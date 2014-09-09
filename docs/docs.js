@@ -169,6 +169,15 @@ $(function () {
                     example: 'basic-table'
                 },
                 {
+                    name: 'cache',
+                    attribute: 'data-cache',
+                    type: 'Boolean',
+                    description: 'False to disable caching of AJAX requests.',
+                    description_zh: '',
+                    'default': 'true',
+                    example: 'basic-table'
+                },
+                {
                     name: 'contentType',
                     attribute: 'data-content-type',
                     type: 'String',
