@@ -248,7 +248,8 @@
         });
         this.options.columns = $.extend({}, columns, this.options.columns);
         $.each(this.options.columns, function (i, column) {
-            that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
+            that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS,
+                {field: i}, column); // when field is undefined, use index instead
         });
 
         // if options.data is setting, do not process tbody data
