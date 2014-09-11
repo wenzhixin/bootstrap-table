@@ -869,6 +869,9 @@
                         <button class="btn btn-default" id="get-selections">
                             Get Selections
                         </button>
+                        <button class="btn btn-default" id="get-data" data-method="getData">
+                            Get Data
+                        </button>
                         <button class="btn btn-default" id="load-data" data-method="load">
                             Load Data
                         </button>
@@ -936,6 +939,9 @@
 
                                 $('#get-selections').click(function () {
                                     alert('Selected values: ' + JSON.stringify($table.bootstrapTable('getSelections')));
+                                });
+                                $('#get-data').click(function () {
+                                    alert('current data: ' + JSON.stringify($table.bootstrapTable('getData')));
                                 });
                                 $('#load-data, #append-data, #check-all, #uncheck-all, ' +
                                         '#show-loading, #hide-loading, #refresh').click(function () {

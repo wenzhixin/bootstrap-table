@@ -652,6 +652,7 @@ $(function () {
             ]
         }).bootstrapTable('load', [
                 {name: 'getSelections', parameter: 'none', description: 'Return all selected rows, when no record selected, am empty array will return.'},
+                {name: 'getData', parameter: 'none', description: 'Get the data of table.'},
                 {name: 'load', parameter: 'data', description: 'Load the data to table.'}
             ]).bootstrapTable('append', [
                 {name: 'append', parameter: 'data', description: 'Append the data to table.'},
@@ -670,11 +671,11 @@ $(function () {
                 {name: 'showColumn', parameter: 'field', description: 'Show the specified column.'},
                 {name: 'hideColumn', parameter: 'field', description: 'Hide the specified column.'}
             ]).bootstrapTable('mergeCells', {
-                index: 3,
+                index: 4,
                 field: 'name',
                 rowspan: 5
             }).bootstrapTable('mergeCells', {
-                index: 3,
+                index: 4,
                 field: 'parameter',
                 rowspan: 5
             });
