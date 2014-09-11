@@ -734,7 +734,7 @@
     BootstrapTable.prototype.initBody = function () {
         var that = this,
             html = [],
-            data = this.searchText ? this.data : this.options.data;
+            data = this.getData();
 
         this.$body = this.$el.find('tbody');
         if (!this.$body.length) {
@@ -1116,6 +1116,10 @@
         }
     };
 
+    BootstrapTable.prototype.getData = function () {
+        return this.searchText ? this.data : this.options.data;
+    };
+
     BootstrapTable.prototype.load = function (data) {
         this.initData(data);
         this.initSearch();
@@ -1215,7 +1219,8 @@
                 'destroy', 'resetView',
                 'showLoading', 'hideLoading',
                 'refresh',
-                'showColumn', 'hideColumn'
+                'showColumn', 'hideColumn',
+                'getData', 'removeRow'
             ],
             value;
 
