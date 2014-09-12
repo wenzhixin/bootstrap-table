@@ -34,6 +34,34 @@ The table displays data in a tabular format and offers rich support to radio, ch
 * Card view
 * Localization
 
+## How to get it
+
+### Manual download
+
+Use [Releases page](https://github.com/wenzhixin/bootstrap-table/releases) or [the source](https://github.com/wenzhixin/bootstrap-table/archive/master.zip).
+
+### Bower
+
+```
+bower install bootstrap-table
+```
+
+### CDN
+
+```
+http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.2/bootstrap-table.min.css
+http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.2/bootstrap-table.min.js
+```
+
+## Reporting issues
+
+Please provide jsFiddle when creating issues!
+It's really saves much time. Use this as template:
+
+[jsFiddle Bootstrap Table](http://jsfiddle.net/8svjf80g/)
+
+Your feedback is very appreciated!
+
 ## Acknowledgements
 
 Thanks to everyone who have given feedback and submitted pull requests. A list of all the contributors can be found [here](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTORS.md).
@@ -41,3 +69,13 @@ Thanks to everyone who have given feedback and submitted pull requests. A list o
 ## Release History
 
 Look at the [Change Log](https://github.com/wenzhixin/bootstrap-table/blob/master/CHANGELOG.md)
+
+## Local build
+
+To build bootstrap-table locally please run:
+
+```
+grunt build
+```
+
+Result will appear in `dist` directory.
