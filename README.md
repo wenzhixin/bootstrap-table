@@ -56,9 +56,10 @@ http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.2/bootstrap-table.min.
 ## Reporting issues
 
 Please provide jsFiddle when creating issues!
+
 It's really saves much time. Use this as template:
 
-[jsFiddle Bootstrap Table](http://jsfiddle.net/8svjf80g/)
+[jsFiddle Bootstrap Table](http://jsfiddle.net/8svjf80g/1/)
 
 Your feedback is very appreciated!
 
