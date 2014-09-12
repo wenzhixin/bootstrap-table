@@ -731,7 +731,7 @@
         this.updatePagination();
     };
 
-    BootstrapTable.prototype.initBody = function () {
+    BootstrapTable.prototype.initBody = function (fixedScroll) {
         var that = this,
             html = [],
             data = this.getData();
@@ -836,7 +836,9 @@
 
         this.$body.html(html.join(''));
 
-        this.$container.find('.fixed-table-body').scrollTop(0);
+        if (!fixedScroll) {
+            this.$container.find('.fixed-table-body').scrollTop(0);
+        }
 
         // click to select by column
         this.$body.find('> tr > td').off('click').on('click', function () {
@@ -1129,7 +1131,37 @@
 
     BootstrapTable.prototype.append = function (data) {
         this.initData(data, true);
-        this.initBody();
+        this.initSearch();
+        this.initPagination();
+        this.initBody(true);
+    };
+
+    BootstrapTable.prototype.remove = function (params) {
+        var len = this.options.data.length,
+            i, row;
+
+        if (!params.hasOwnProperty('key') || !params.hasOwnProperty('values')) {
+            return;
+        }
+
+        for (i = len - 1; i >= 0; i--) {
+            row = this.options.data[i];
+
+            if (!row.hasOwnProperty(params.key)) {
+                return;
+            }
+            if (params.values.indexOf(row[params.key]) !== -1) {
+                this.options.data.splice(i, 1);
+            }
+        }
+
+        if (len === this.options.data.length) {
+            return;
+        }
+
+        this.initSearch();
+        this.initPagination();
+        this.initBody(true);
     };
 
     BootstrapTable.prototype.mergeCells = function (options) {
@@ -1213,14 +1245,15 @@
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
         var allowedMethods = [
-                'getSelections',
-                'load', 'append', 'mergeCells',
+                'getSelections', 'getData',
+                'load', 'append', 'remove',
+                'mergeCells',
                 'checkAll', 'uncheckAll',
-                'destroy', 'resetView',
-                'showLoading', 'hideLoading',
                 'refresh',
-                'showColumn', 'hideColumn',
-                'getData', 'removeRow'
+                'resetView',
+                'destroy',
+                'showLoading', 'hideLoading',
+                'showColumn', 'hideColumn'
             ],
             value;
 
