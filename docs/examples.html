@@ -74,7 +74,7 @@
                 <!-- GitHub buttons: see http://ghbtns.com -->
                 <li><iframe class="navbar-text" src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe></li>
                 <li><iframe class="navbar-text" src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe></li>
-                <li><iframe class="navbar-text" src="http://ghbtns.com/github-btn.html?user=wenzhixin&type=follow&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="165" height="20"></iframe></li>
+                <li><iframe class="navbar-text" src="http://ghbtns.com/github-btn.html?user=wenzhixin&type=follow&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="175" height="20"></iframe></li>
             </ul>
         </nav>
     </div>
@@ -812,7 +812,7 @@
                     </button>
                 </div>
                 <div class="bs-example">
-                    <table data-url="data1.json" data-height="299" data-search="true">
+                    <table id="events-id2" data-url="data1.json" data-height="299" data-search="true">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -877,6 +877,9 @@
                         </button>
                         <button class="btn btn-default" id="append-data" data-method="append">
                             Append Data
+                        </button>
+                        <button class="btn btn-default" id="remove-data" data-method="remove">
+                            Remove Data
                         </button>
                         <button class="btn btn-default" id="merge-cells">
                             Merge Cells
@@ -946,6 +949,17 @@
                                 $('#load-data, #append-data, #check-all, #uncheck-all, ' +
                                         '#show-loading, #hide-loading, #refresh').click(function () {
                                     $table.bootstrapTable($(this).data('method'), getRows());
+                                });
+                                $('#remove-data').click(function () {
+                                    var selects = $table.bootstrapTable('getSelections');
+                                        ids = $.map(selects, function (row) {
+                                            return row.id;
+                                        });
+
+                                    $table.bootstrapTable('remove', {
+                                        key: 'id',
+                                        values: ids
+                                    });
                                 });
                                 $('#merge-cells').click(function () {
                                     $table.bootstrapTable('mergeCells', {
