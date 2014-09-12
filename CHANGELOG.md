@@ -1,5 +1,18 @@
 ## ChangeLog
 
+### 1.2.3
+
+* [bug] Fix the selected row class reset after toggle column bug.
+* [bug] Fix #86: invisible column are still searchable.
+* [bug] Fix search result error when toggle column display.
+* [enh] Add `clickToSelect` to columns.
+* [bug] Fix click-row event bug.
+* [enh] When field is undefined, use index instead.
+* [enh] Add `cache` option for AJAX calls.
+* [enh] Improve zh-TW translation.
+* [enh] #82: Add `getData` method.
+* [enh] #82: Add `remove` method.
+
 ### 1.2.2
 
 * Fix #68: Add `showColumn`/`hideColumn` methods.
