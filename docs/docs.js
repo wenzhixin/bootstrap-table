@@ -652,10 +652,11 @@ $(function () {
             ]
         }).bootstrapTable('load', [
                 {name: 'getSelections', parameter: 'none', description: 'Return all selected rows, when no record selected, am empty array will return.'},
-                {name: 'getData', parameter: 'none', description: 'Get the data of table.'},
-                {name: 'load', parameter: 'data', description: 'Load the data to table.'}
+                {name: 'getData', parameter: 'none', description: 'Get the loaded data of table.'},
+                {name: 'load', parameter: 'data', description: 'Load the data to table, the old rows will be removed.'}
             ]).bootstrapTable('append', [
                 {name: 'append', parameter: 'data', description: 'Append the data to table.'},
+                {name: 'remove', parameter: 'params', description: 'Remove data from table, the params contains two properties: <br>field: the field name of remove rows. <br>values: the values of remove rows.'},
                 {name: 'mergeCells', parameter: 'options', description: 'Merge some cells to one cell, the options contains following properties:'},
                 {name: 'mergeCells', parameter: 'options', description: 'index: the row index.'},
                 {name: 'mergeCells', parameter: 'options', description: 'field: the field name.'},
@@ -671,11 +672,11 @@ $(function () {
                 {name: 'showColumn', parameter: 'field', description: 'Show the specified column.'},
                 {name: 'hideColumn', parameter: 'field', description: 'Hide the specified column.'}
             ]).bootstrapTable('mergeCells', {
-                index: 4,
+                index: 5,
                 field: 'name',
                 rowspan: 5
             }).bootstrapTable('mergeCells', {
-                index: 4,
+                index: 5,
                 field: 'parameter',
                 rowspan: 5
             });

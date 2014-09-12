@@ -1140,17 +1140,17 @@
         var len = this.options.data.length,
             i, row;
 
-        if (!params.hasOwnProperty('key') || !params.hasOwnProperty('values')) {
+        if (!params.hasOwnProperty('field') || !params.hasOwnProperty('values')) {
             return;
         }
 
         for (i = len - 1; i >= 0; i--) {
             row = this.options.data[i];
 
-            if (!row.hasOwnProperty(params.key)) {
+            if (!row.hasOwnProperty(params.field)) {
                 return;
             }
-            if (params.values.indexOf(row[params.key]) !== -1) {
+            if (params.values.indexOf(row[params.field]) !== -1) {
                 this.options.data.splice(i, 1);
             }
         }
