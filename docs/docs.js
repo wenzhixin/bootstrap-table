@@ -460,7 +460,16 @@ $(function () {
                     description: 'Indicate how to align the column data. "left", "right", "center" can be used.',
                     description_zh: '定义列的水平对齐方式，只能为："left", "right" 和 "center"。',
                     'default': 'undefined',
-                    example: 'via-javascript-table'
+                    example: 'aligning-columns'
+                },
+                {
+                    name: 'halign',
+                    attribute: 'data-halign',
+                    type: 'String',
+                    description: 'Indicate how to align the table header. "left", "right", "center" can be used.',
+                    description_zh: '定义表头的水平对齐方式，只能为："left", "right" 和 "center"。',
+                    'default': 'undefined',
+                    example: 'aligning-columns'
                 },
                 {
                     name: 'valign',
