@@ -352,7 +352,7 @@
         } else {
             this.$header.show();
             this.$container.find('.fixed-table-header').show();
-            this.$loading.css('top', '42px');
+            this.$loading.css('top', '37px');
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
