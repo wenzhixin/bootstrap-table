@@ -1183,7 +1183,8 @@
             }
         }
 
-        $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
+        $td.attr('rowspan', rowspan).attr('colspan', colspan)
+            .show(10, $.proxy(this.resetView, this));
     };
 
     BootstrapTable.prototype.getSelections = function () {
