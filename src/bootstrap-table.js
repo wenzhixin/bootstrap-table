@@ -125,6 +125,7 @@
         toolbar: undefined,
         checkboxHeader: true,
         sortable: true,
+        maintainSelected: true,
 
         rowStyle: function (row, index) {return {};},
 
@@ -545,19 +546,24 @@
         var that = this;
 
         if (this.options.sidePagination !== 'server') {
-            var s = this.searchText && this.searchText.toLowerCase();
+            if (this.searchText) {
+                var s = this.searchText && this.searchText.toLowerCase();
 
-            this.data = s ? $.grep(this.options.data, function (item) {
-                for (var key in item) {
-                    if (that.header.fields.indexOf(key) !== -1 &&
-                        (typeof item[key] === 'string' ||
-                        typeof item[key] === 'number') &&
-                        (item[key] + '').toLowerCase().indexOf(s) !== -1) {
-                        return true;
+                this.data = s ? $.grep(this.options.data, function (item) {
+                    for (var key in item) {
+                        if (that.header.fields.indexOf(key) !== -1 &&
+                            (typeof item[key] === 'string' ||
+                            typeof item[key] === 'number') &&
+                            (item[key] + '').toLowerCase().indexOf(s) !== -1) {
+                            return true;
+                        }
                     }
-                }
-                return false;
-            }) : this.options.data;
+                    return false;
+                }) : this.options.data;
+            } else {
+                // restore data
+                this.data = this.options.data;
+            }
         }
     };
 
@@ -685,7 +691,10 @@
     };
 
     BootstrapTable.prototype.updatePagination = function () {
-        this.resetRows();
+        if (!this.options.maintainSelected) {
+            this.resetRows();
+        }
+
         this.initPagination();
         if (this.options.sidePagination === 'server') {
             this.initServer();
@@ -734,7 +743,8 @@
     BootstrapTable.prototype.initBody = function (fixedScroll) {
         var that = this,
             html = [],
-            data = this.getData();
+            //data = this.getData();
+            data = this.searchText ? this.data : this.options.data;
 
         this.$body = this.$el.find('tbody');
         if (!this.$body.length) {
@@ -999,12 +1009,13 @@
 
     BootstrapTable.prototype.resetRows = function () {
         var that = this;
-
-        $.each(this.data, function (i, row) {
-            that.$selectAll.prop('checked', false);
-            that.$selectItem.prop('checked', false);
-            row[that.header.stateField] = false;
-        });
+        if (!that.options.maintainSelected) {
+            $.each(this.data, function (i, row) {
+                that.$selectAll.prop('checked', false);
+                that.$selectItem.prop('checked', false);
+                row[that.header.stateField] = false;
+            });
+        }
     };
 
     BootstrapTable.prototype.trigger = function (name) {
