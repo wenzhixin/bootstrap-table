@@ -49,8 +49,8 @@ bower install bootstrap-table
 ### CDN
 
 ```
-http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.2/bootstrap-table.min.css
-http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.2/bootstrap-table.min.js
+http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.3/bootstrap-table.min.css
+http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.3/bootstrap-table.min.js
 ```
 
 ## Reporting issues
