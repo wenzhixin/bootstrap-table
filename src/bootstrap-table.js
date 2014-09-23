@@ -794,6 +794,11 @@
                 }
 
                 if (that.options.columns[j].checkbox || that.options.columns[j].radio) {
+                    //if card view mode bypass
+                    if (that.options.cardView) {
+                        return true;
+                    }
+
                     type = that.options.columns[j].checkbox ? 'checkbox' : type;
                     type = that.options.columns[j].radio ? 'radio' : type;
 
