@@ -9,13 +9,16 @@
   "main": [
 	  "src/bootstrap-table.css",
 	  "src/bootstrap-table.js",
+      "src/locale/bootstrap-table-da-DK.js",
 	  "src/locale/bootstrap-table-en.js",
-	  "src/locale/bootstrap-table-da-DK.js",
+      "src/locale/bootstrap-table-es_AR.js",
+      "src/locale/bootstrap-table-fr_BE.js",
 	  "src/locale/bootstrap-table-pt-BR.js",
+      "src/locale/bootstrap-table-ru_RU.js",
+      "src/locale/bootstrap-table-tr_TR.js",
+      "src/locale/bootstrap-table-vi_VN.js",
 	  "src/locale/bootstrap-table-zh-CN.js",
-	  "src/locale/bootstrap-table-zh-TW.js",
-	  "src/locale/bootstrap-table-es_AR.js",
-	  "src/locale/bootstrap-table-fr_BE.js"
+	  "src/locale/bootstrap-table-zh-TW.js"
   ],
   "keywords": [
     "bootstrap",

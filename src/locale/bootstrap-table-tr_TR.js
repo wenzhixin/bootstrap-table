@@ -13,10 +13,10 @@
             return pageNumber + ' kayıt sayfa başına';
         },
         formatShowingRows: function(pageFrom, pageTo, totalRows) {
-            return totalRows + ' kayıttan ' + pageFrom + ' ile ' + pageTo ' arası gösteriliyor'
+            return totalRows + ' kayıttan ' + pageFrom + ' ile ' + pageTo + ' arası gösteriliyor';
         },
         formatSearch: function() {
-            return 'Ara'
+            return 'Ara';
         },
         formatNoMatches: function() {
             return 'Eşleşen kayıt bulunamadı';
