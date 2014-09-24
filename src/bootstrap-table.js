@@ -923,7 +923,7 @@
         this.resetView();
     };
 
-    BootstrapTable.prototype.initServer = function () {
+    BootstrapTable.prototype.initServer = function (silent) {
         var that = this,
             data = {},
             params = {
@@ -937,7 +937,9 @@
         if (!this.options.url) {
             return;
         }
-        this.$loading.show();
+        if (!silent) {
+            this.$loading.show();
+        }
 
         if (this.options.queryParamsType === 'limit') {
             params = {
@@ -981,7 +983,9 @@
                 that.trigger('load-error', res.status);
             },
             complete: function () {
-                that.$loading.hide();
+                if (!silent) {
+                    that.$loading.hide();
+                }
             }
         });
     };
@@ -1245,8 +1249,8 @@
         this.$loading.hide();
     };
 
-    BootstrapTable.prototype.refresh = function () {
-        this.initServer();
+    BootstrapTable.prototype.refresh = function (params) {
+        this.initServer(params && params.silent);
     };
 
     BootstrapTable.prototype.showColumn = function (field) {
