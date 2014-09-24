@@ -1173,6 +1173,14 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.updateRow = function (params) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
+            return;
+        }
+        $.extend(this.data[params.index], params.row);
+        this.initBody();
+    };
+
     BootstrapTable.prototype.mergeCells = function (options) {
         var row = options.index,
             col = $.inArray(options.field, this.header.fields),
@@ -1257,6 +1265,7 @@
         var allowedMethods = [
                 'getSelections', 'getData',
                 'load', 'append', 'remove',
+                'updateRow',
                 'mergeCells',
                 'checkAll', 'uncheckAll',
                 'refresh',
