@@ -885,6 +885,9 @@
                         <button class="btn btn-default" id="remove-data" data-method="remove">
                             Remove Data
                         </button>
+                        <button class="btn btn-default" id="update-row" data-method="updateRow">
+                            Update Row
+                        </button>
                         <button class="btn btn-default" id="merge-cells">
                             Merge Cells
                         </button>
@@ -963,6 +966,15 @@
                                     $table.bootstrapTable('remove', {
                                         field: 'id',
                                         values: ids
+                                    });
+                                });
+                                $('#update-row').click(function () {
+                                    $table.bootstrapTable('updateRow', {
+                                        index: 1,
+                                        row: {
+                                            name: 'test111111',
+                                            price: '$111111'
+                                        }
                                     });
                                 });
                                 $('#merge-cells').click(function () {

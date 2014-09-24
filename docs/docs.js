@@ -666,6 +666,7 @@ $(function () {
             ]).bootstrapTable('append', [
                 {name: 'append', parameter: 'data', description: 'Append the data to table.'},
                 {name: 'remove', parameter: 'params', description: 'Remove data from table, the params contains two properties: <br>field: the field name of remove rows. <br>values: the values of remove rows.'},
+                {name: 'updateRow', parameter: 'params', description: 'Update the specified row, the param contains following properties: <br>index: the row index to be updated. <br>row: the new row data.'},
                 {name: 'mergeCells', parameter: 'options', description: 'Merge some cells to one cell, the options contains following properties:'},
                 {name: 'mergeCells', parameter: 'options', description: 'index: the row index.'},
                 {name: 'mergeCells', parameter: 'options', description: 'field: the field name.'},
@@ -681,11 +682,11 @@ $(function () {
                 {name: 'showColumn', parameter: 'field', description: 'Show the specified column.'},
                 {name: 'hideColumn', parameter: 'field', description: 'Hide the specified column.'}
             ]).bootstrapTable('mergeCells', {
-                index: 5,
+                index: 6,
                 field: 'name',
                 rowspan: 5
             }).bootstrapTable('mergeCells', {
-                index: 5,
+                index: 6,
                 field: 'parameter',
                 rowspan: 5
             });
