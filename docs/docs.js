@@ -672,7 +672,7 @@ $(function () {
                 {name: 'mergeCells', parameter: 'options', description: 'field: the field name.'},
                 {name: 'mergeCells', parameter: 'options', description: 'rowspan: the rowspan count to be merged.'},
                 {name: 'mergeCells', parameter: 'options', description: 'colspan: the colspan count to be merged.'},
-                {name: 'refresh', parameter: 'none', description: 'Refresh the remote server data.'},
+                {name: 'refresh', parameter: 'params', description: 'Refresh the remote server data, you can set <code>{silent: true}</code> to refresh the data silently.'},
                 {name: 'showLoading', parameter: 'none', description: 'Show loading status.'},
                 {name: 'hideLoading', parameter: 'none', description: 'Hide loading status.'},
                 {name: 'checkAll', parameter: 'none', description: 'Check all current page rows.'},
