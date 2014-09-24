@@ -17,6 +17,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 - [ ] Fix #23: Add css and classes parameters to column cell.
 - [ ] Fix #64: Add support for change remote url.
 - [x] Fix #113: Using radio type and cardView error.
+- [x] Fix #117: Add `updateRow` method.
 
 ## Features
 
