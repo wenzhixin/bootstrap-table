@@ -175,7 +175,8 @@
         formatter: undefined,
         events: undefined,
         sorter: undefined,
-        clickToSelect: true
+        clickToSelect: true,
+        chkBoxStyled: false //false keeps current behavior
     };
 
     BootstrapTable.EVENTS = {
@@ -307,11 +308,19 @@
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
             style += that.options.sortable && column.sortable ? 'cursor: pointer; ' : '';
 
-            html.push('<th',
-                column.checkbox || column.radio ? ' class="bs-checkbox"' :
-                sprintf(' class="%s"', column['class']),
-                sprintf(' style="%s"', style),
-                '>');
+            if(that.options.columns[i].chkBoxStyled){
+                html.push('<th',
+                    column.checkbox || column.radio ? ' class="bs-checkbox '+column['class']+'"' : '',
+                    sprintf(' style="%s"', style),
+                    '>');
+            }else{
+                html.push('<th',
+                    column.checkbox || column.radio ? ' class="bs-checkbox"':
+                    sprintf(' class="%s"', column['class']),
+                    sprintf(' style="%s"', style),
+                    '>');
+            }
+
             html.push('<div class="th-inner">');
 
             text = column.title;
