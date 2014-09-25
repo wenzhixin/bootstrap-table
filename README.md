@@ -6,6 +6,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 * [Documentation](http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html)
 * [Examples](http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html)
+* [JSFiddle Examples](https://github.com/wenzhixin/bootstrap-table/blob/master/docs/jsfiddle-examples.md)
 
 
 ## LICENSE
