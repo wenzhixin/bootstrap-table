@@ -20,6 +20,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 - [x] Fix #112: update the `refresh` method.
 - [x] Fix #113: Using radio type and cardView error.
 - [x] Fix #117: Add `updateRow` method.
+- [x] Fix #96, #103: apply `class` option to td elements.
 
 ## Features
 
