@@ -277,6 +277,7 @@
         this.header = {
             fields: [],
             styles: [],
+            classes: [],
             formatters: [],
             events: [],
             sorters: [],
@@ -286,6 +287,7 @@
             var text = '',
                 style = sprintf('text-align: %s; ', column.align) +
                         sprintf('vertical-align: %s; ', column.valign),
+                class_ = sprintf(' class="%s"', column['class']),
                 order = that.options.sortOrder || column.order;
 
             if (!column.visible) {
@@ -295,6 +297,7 @@
             visibleColumns.push(column);
             that.header.fields.push(column.field);
             that.header.styles.push(style);
+            that.header.classes.push(class_);
             that.header.formatters.push(column.formatter);
             that.header.events.push(column.events);
             that.header.sorters.push(column.sorter);
@@ -309,7 +312,7 @@
 
             html.push('<th',
                 column.checkbox || column.radio ? ' class="bs-checkbox"' :
-                sprintf(' class="%s"', column['class']),
+                class_,
                 sprintf(' style="%s"', style),
                 '>');
             html.push('<div class="th-inner">');
@@ -821,7 +824,7 @@
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)),
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
-                        [sprintf('<td %s>', style),
+                        [sprintf('<td%s %s>', that.header.classes[j], style),
                             value,
                             '</td>'].join('');
                 }
