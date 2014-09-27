@@ -308,14 +308,14 @@
                     sprintf('vertical-align: %s; ', column.valign);
             }
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
-            style += that.options.sortable && column.sortable ? 'cursor: pointer; ' : '';
 
             html.push('<th',
                 column.checkbox || column.radio ? ' class="bs-checkbox"' :
                 class_,
                 sprintf(' style="%s"', style),
                 '>');
-            html.push('<div class="th-inner">');
+            html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
+                'sortable' : ''));
 
             text = column.title;
             if (that.options.sortName === column.field && that.options.sortable && column.sortable) {

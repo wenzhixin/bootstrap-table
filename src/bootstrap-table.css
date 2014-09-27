@@ -54,6 +54,10 @@
     white-space: nowrap;
 }
 
+.fixed-table-container thead th .sortable {
+    cursor: pointer;
+}
+
 .fixed-table-container tbody td {
     border-left: 1px solid #dddddd;
 }
