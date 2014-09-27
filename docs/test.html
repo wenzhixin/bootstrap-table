@@ -19,13 +19,15 @@
     </div>
     <table id="table"
            data-toggle="table"
-           data-url="data1.json"
+           data-url="/examples/bootstrap_table/data"
            data-show-columns="true"
            data-search="true"
            data-show-refresh="true"
            data-show-toggle="true"
            data-pagination="true"
-           data-height="500">
+           data-height="500"
+           data-side-pagination="server"
+           data-query-params="queryParams">
         <thead>
         <tr>
             <th data-field="name">Item Name</th>
@@ -72,6 +74,17 @@
             columns: columns,
             data: data
         });
+    }
+
+    // url: /examples/bootstrap_table/data?offset=0&limit=10&search=test
+    function queryParams(params) {
+        return {
+            limit: params.pageSize,
+            offset: params.pageSize * (params.pageNumber - 1),
+            search: params.searchText,
+            name: params.sortName,
+            order: params.sortOrder
+        };
     }
 </script>
 </body>
