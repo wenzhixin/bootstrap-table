@@ -1253,6 +1253,9 @@
     };
 
     BootstrapTable.prototype.refresh = function (params) {
+        if (params && params.url) {
+            this.options.url = params.url;
+        }
         this.initServer(params && params.silent);
     };
 
