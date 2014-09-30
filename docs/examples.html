@@ -954,8 +954,13 @@
                                     alert('current data: ' + JSON.stringify($table.bootstrapTable('getData')));
                                 });
                                 $('#load-data, #append-data, #check-all, #uncheck-all, ' +
-                                        '#show-loading, #hide-loading, #refresh').click(function () {
+                                        '#show-loading, #hide-loading').click(function () {
                                     $table.bootstrapTable($(this).data('method'), getRows());
+                                });
+                                $('#refresh').click(function () {
+                                    $table.bootstrapTable('refresh', {
+                                        url: 'data1.json'
+                                    });
                                 });
                                 $('#remove-data').click(function () {
                                     var selects = $table.bootstrapTable('getSelections');
