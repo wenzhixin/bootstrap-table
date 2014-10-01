@@ -102,8 +102,8 @@
         url: undefined,
         cache: true,
         contentType: 'application/json',
-        queryParams: function (params) {return {};},
-        queryParamsType: undefined,
+        queryParams: function (params) {return params;},
+        queryParamsType: 'limit', // undefined
         responseHandler: function (res) {return res;},
         pagination: false,
         sidePagination: 'client', // client or server
