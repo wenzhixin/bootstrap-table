@@ -192,7 +192,7 @@ $(function () {
                     type: 'Function',
                     description: 'When request remote data, sending additional parameters by format the queryParams, the parameters object contains: <br>pageSize, pageNumber, searchText, sortName, sortOrder.',
                     description_zh: '远程数据请求时，可以通过queryParams来格式化所需要的数据信息，参数（对象）包含了：<br>pageSize, pageNumber, searchText, sortName, sortOrder。',
-                    'default': 'function(params) {<br>return {};<br>}',
+                    'default': 'function(params) {<br>return params;<br>}',
                     example: 'server-side-pagination-table'
                 },
                 {
@@ -201,7 +201,7 @@ $(function () {
                     type: 'String',
                     description: 'Set "limit" to send query params width RESTFul type.',
                     description_zh: '设置为“limit”可以发送标准的RESTFul类型的参数请求。',
-                    'default': 'undefined',
+                    'default': 'limit',
                     example: ''
                 },
                 {
