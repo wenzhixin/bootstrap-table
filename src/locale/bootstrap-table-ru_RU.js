@@ -13,7 +13,7 @@
             return pageNumber + ' записей на странице';
         },
         formatShowingRows: function(pageFrom, pageTo, totalRows) {
-            return 'Показаны страницы с ' + pageFrom + ' по ' + pageTo + ' из ' + totalRows;
+            return 'Показаны записи с ' + pageFrom + ' по ' + pageTo + ' из ' + totalRows;
         },
         formatSearch: function() {
             return 'Поиск'
