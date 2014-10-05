@@ -411,7 +411,7 @@
                 var value = calculateFunctionValue(that.header.sorters[index], [a[name], b[name]]);
 
                 if (value !== undefined) {
-                    return value;
+                    return order * value;
                 }
 
                 if (a[name] === b[name]) {
