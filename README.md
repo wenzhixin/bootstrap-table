@@ -15,15 +15,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 ## Bugs & Enhancements (next version)
 
-- [x] Fix #23: Add css and classes parameters to column cell.
-- [x] Fix #64: Add support for change remote url.
-- [x] Fix #112: update the `refresh` method.
-- [x] Fix #113: Using radio type and cardView error.
-- [x] Fix #117: Add `updateRow` method.
-- [x] Fix #96, #103: apply `class` option to td elements.
-- [x] Fix #97: add `sortable` class to header cells instead of `cursor: pointer`.
-- [x] Fix #124: change 'queryParams' and 'queryParamsType' default option.
-- [x] Remove the `eval` method.
+
 
 ## Features
 

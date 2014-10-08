@@ -1,5 +1,18 @@
 ## ChangeLog
 
+### 1.2.4
+
+* [enh] Fix #23: Add css and classes parameters to column cell.
+* [enh] Fix #64: Add support for change remote url.
+* [enh] Fix #112: update the `refresh` method.
+* [bug] Fix #113: Using radio type and cardView error.
+* [enh] Fix #117: Add `updateRow` method.
+* [enh] Fix #96, #103: apply `class` option to td elements.
+* [enh] Fix #97: add `sortable` class to header cells instead of `cursor: pointer`.
+* [enh] Fix #124: change `queryParams` and `queryParamsType` default option.
+* [enh] Remove the `eval` method.
+* [enh] Add `bootstrap-table-it-IT.js` locale.
+
 ### 1.2.3
 
 * [bug] Fix the selected row class reset after toggle column bug.
