@@ -44,7 +44,7 @@
         return result;
     };
 
-    var getFiledIndex = function (columns, field) {
+    var getFieldIndex = function (columns, field) {
         var index = -1;
 
         $.each(columns, function (i, column) {
@@ -1283,11 +1283,11 @@
     };
 
     BootstrapTable.prototype.showColumn = function (field) {
-        this.toggleColumn(getFiledIndex(this.options.columns, field), true, true);
+        this.toggleColumn(getFieldIndex(this.options.columns, field), true, true);
     };
 
     BootstrapTable.prototype.hideColumn = function (field) {
-        this.toggleColumn(getFiledIndex(this.options.columns, field), false, true);
+        this.toggleColumn(getFieldIndex(this.options.columns, field), false, true);
     };
 
 
