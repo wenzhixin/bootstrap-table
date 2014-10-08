@@ -16,13 +16,13 @@ bootstrap-table is due to the excellent work of the following contributors:
 <td><a href="https://github.com/wenzhixin">wenzhixin</a></td>
 <td>Guangzhou, China</td>
 <td><a href="http://wenzhixin.net.cn">http://wenzhixin.net.cn</a></td>
-<td>349</td>
+<td>385</td>
 <tr>
 <tr>
-<td><img src="https://avatars.githubusercontent.com/u/8710090?v=2" width="32" height="32"> Joseph Reiter</td>
-<td><a href="https://github.com/thx2001r">thx2001r</a></td>
-<td>United States</td>
-<td></td>
+<td><img src="https://avatars.githubusercontent.com/u/5487021?v=2" width="32" height="32"> Julien Bisconti</td>
+<td><a href="https://github.com/veggiemonk">veggiemonk</a></td>
+<td>Belgium</td>
+<td><a href="https://twitter.com/veggiemonk">https://twitter.com/veggiemonk</a></td>
 <td>3</td>
 <tr>
 <tr>
@@ -33,23 +33,23 @@ bootstrap-table is due to the excellent work of the following contributors:
 <td>3</td>
 <tr>
 <tr>
-<td><img src="https://avatars.githubusercontent.com/u/5487021?v=2" width="32" height="32"> Julien Bisconti</td>
-<td><a href="https://github.com/veggiemonk">veggiemonk</a></td>
-<td>Belgium</td>
-<td><a href="https://twitter.com/veggiemonk">https://twitter.com/veggiemonk</a></td>
+<td><img src="https://avatars.githubusercontent.com/u/8710090?v=2" width="32" height="32"> Joseph Reiter</td>
+<td><a href="https://github.com/thx2001r">thx2001r</a></td>
+<td>United States</td>
+<td></td>
 <td>3</td>
+<tr>
+<tr>
+<td><img src="https://avatars.githubusercontent.com/u/8870312?v=2" width="32" height="32"> <a href="mailto:duc.pham@enclave.vn">Duc N. PHAM</a></td>
+<td><a href="https://github.com/ducnpham">ducnpham</a></td>
+<td></td>
+<td></td>
+<td>2</td>
 <tr>
 <tr>
 <td><img src="https://avatars.githubusercontent.com/u/385731?v=2" width="32" height="32"> <a href="mailto:michael.schramm@gmail.com">Michael Schramm</a></td>
 <td><a href="https://github.com/wodka">wodka</a></td>
 <td>Vienna</td>
-<td></td>
-<td>2</td>
-<tr>
-<tr>
-<td><img src="https://avatars.githubusercontent.com/u/59292?v=2" width="32" height="32"> nikolas</td>
-<td><a href="https://github.com/nikolas">nikolas</a></td>
-<td></td>
 <td></td>
 <td>2</td>
 <tr>
@@ -61,10 +61,24 @@ bootstrap-table is due to the excellent work of the following contributors:
 <td>2</td>
 <tr>
 <tr>
-<td><img src="https://avatars.githubusercontent.com/u/3691490?v=2" width="32" height="32"> Peter Dave Hello</td>
-<td><a href="https://github.com/PeterDaveHello">PeterDaveHello</a></td>
-<td>Taiwan ROC</td>
-<td><a href="https://www.peterdavehello.org/">https://www.peterdavehello.org/</a></td>
+<td><img src="https://avatars.githubusercontent.com/u/59292?v=2" width="32" height="32"> nikolas</td>
+<td><a href="https://github.com/nikolas">nikolas</a></td>
+<td></td>
+<td></td>
+<td>2</td>
+<tr>
+<tr>
+<td><img src="https://avatars.githubusercontent.com/u/5970450?v=2" width="32" height="32"> <a href="mailto:davide.renzi@gmail.com">Davide Renzi</a></td>
+<td><a href="https://github.com/didaxRedux">didaxRedux</a></td>
+<td>Rome, IT</td>
+<td><a href="http://www.pantomedia.it">http://www.pantomedia.it</a></td>
+<td>2</td>
+<tr>
+<tr>
+<td><img src="https://avatars.githubusercontent.com/u/1369261?v=2" width="32" height="32"> Tomislav Simić</td>
+<td><a href="https://github.com/petougao">petougao</a></td>
+<td>Serbia, Europe</td>
+<td><a href="http://dadizajn.net">http://dadizajn.net</a></td>
 <td>1</td>
 <tr>
 <tr>
@@ -75,10 +89,31 @@ bootstrap-table is due to the excellent work of the following contributors:
 <td>1</td>
 <tr>
 <tr>
-<td><img src="https://avatars.githubusercontent.com/u/1369261?v=2" width="32" height="32"> Tomislav Simić</td>
-<td><a href="https://github.com/petougao">petougao</a></td>
-<td>Serbia, Europe</td>
-<td><a href="http://dadizajn.net">http://dadizajn.net</a></td>
+<td><img src="https://avatars.githubusercontent.com/u/188236?v=2" width="32" height="32"> gnhaku</td>
+<td><a href="https://github.com/gnhaku">gnhaku</a></td>
+<td>Moscow, Russia</td>
+<td><a href="http://gnhaku.me">http://gnhaku.me</a></td>
+<td>1</td>
+<tr>
+<tr>
+<td><img src="https://avatars.githubusercontent.com/u/3691490?v=2" width="32" height="32"> Peter Dave Hello</td>
+<td><a href="https://github.com/PeterDaveHello">PeterDaveHello</a></td>
+<td>Taiwan ROC</td>
+<td><a href="https://www.peterdavehello.org/">https://www.peterdavehello.org/</a></td>
+<td>1</td>
+<tr>
+<tr>
+<td><img src="https://avatars.githubusercontent.com/u/5148536?v=2" width="32" height="32"> Emin Şen</td>
+<td><a href="https://github.com/emnsen">emnsen</a></td>
+<td></td>
+<td></td>
+<td>1</td>
+<tr>
+<tr>
+<td><img src="https://avatars.githubusercontent.com/u/5313150?v=2" width="32" height="32"> Dunaevsky Maxim</td>
+<td><a href="https://github.com/dunmaksim">dunmaksim</a></td>
+<td>Russia, Lipetsk</td>
+<td></td>
 <td>1</td>
 <tr>
 <tr>
@@ -91,4 +126,4 @@ bootstrap-table is due to the excellent work of the following contributors:
 
 </table>
 
-Update date: 2014-09-12, created with https://github.com/wenzhixin/github-contributors
+Update date: 2014-10-08, created with https://github.com/wenzhixin/github-contributors

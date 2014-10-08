@@ -526,33 +526,6 @@ $(function () {
                     example: 'show-columns-table'
                 },
                 {
-                    name: 'formatter',
-                    attribute: 'data-formatter',
-                    type: 'Function',
-                    description: 'The cell formatter function, take three parameters: <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
-                    description_zh: '列的格式化方法，包含3个参数：<br />value: 该单元格的数据。<br />row: 该行的数据。<br />index: 该行的index。',
-                    'default': 'undefined',
-                    example: 'format-table'
-                },
-                {
-                    name: 'events',
-                    attribute: 'data-events',
-                    type: 'Object',
-                    description: 'The cell events listener when you use formatter function, take three parameters: <br />event: the jQuery event. <br />value: the field value. <br />row: the row record data.<br />index: the row index.',
-                    description_zh: '当你使用格式化方式时，可以对该列的元素进行事件监听。包含三个参数：<br />event: jQuery 事件。<br />value: 该单元格的数据。<br />row: 该行的数据。<br />index: 该行的index。',
-                    'default': 'undefined',
-                    example: 'column-events-table'
-                },
-                {
-                    name: 'sorter',
-                    attribute: 'data-sorter',
-                    type: 'Function',
-                    description: 'The custom field sort function that used to do local sorting, take two parameters: <br />a: the first field value.<br /> b: the second field value.',
-                    description_zh: '可对列进行自定义排序，包含两个参数：<br />a: 第一个值。<br /> b: 第二个值。',
-                    'default': 'undefined',
-                    example: 'custom-sort-table'
-                },
-                {
                     name: 'clickToSelect',
                     attribute: 'data-click-to-select',
                     type: 'Boolean',
@@ -560,6 +533,42 @@ $(function () {
                     description_zh: '设置为True时点击行即可选中单选/复选框。',
                     'default': 'true',
                     example: 'via-javascript-table'
+                },
+                {
+                    name: 'formatter',
+                    attribute: 'data-formatter',
+                    type: 'Function',
+                    description: 'The cell formatter function, take three parameters: <br>value: the field value. <br>row: the row record data.<br>index: the row index.',
+                    description_zh: '列的格式化方法，包含3个参数：<br>value: 该单元格的数据。<br>row: 该行的数据。<br>index: 该行的index。',
+                    'default': 'undefined',
+                    example: 'format-table'
+                },
+                {
+                    name: 'events',
+                    attribute: 'data-events',
+                    type: 'Object',
+                    description: 'The cell events listener when you use formatter function, take three parameters: <br>event: the jQuery event. <br>value: the field value. <br>row: the row record data.<br>index: the row index.',
+                    description_zh: '当你使用格式化方式时，可以对该列的元素进行事件监听。包含三个参数：<br>event: jQuery 事件。<br>value: 该单元格的数据。<br>row: 该行的数据。<br>index: 该行的index。',
+                    'default': 'undefined',
+                    example: 'column-events-table'
+                },
+                {
+                    name: 'sorter',
+                    attribute: 'data-sorter',
+                    type: 'Function',
+                    description: 'The custom field sort function that used to do local sorting, take two parameters: <br>a: the first field value.<br> b: the second field value.',
+                    description_zh: '可对列进行自定义排序，包含两个参数：<br>a: 第一个值。<br> b: 第二个值。',
+                    'default': 'undefined',
+                    example: 'custom-sort-table'
+                },
+                {
+                    name: 'cellStyle',
+                    attribute: 'data-cell-style',
+                    type: 'Function',
+                    description: 'The cell style formatter function, take three parameters: <br>value: the field value.<br>row: the row record data.<br>index: the row index.<br>Support classes or css.',
+                    description_zh: '列样式格式化方法，有三个参数：<br>row: 行记录的数据。<br>value: 该单元格的数据。<br>index: 行数据的 index。<br>支持 classes 或者 css.',
+                    'default': 'undefined',
+                    example: ''
                 }
             ]
         });
@@ -576,37 +585,37 @@ $(function () {
                     name: 'onAll',
                     event: 'all.bs.table',
                     parameter: 'name, args',
-                    description: 'Fires when all events trigger, the parameters contains: <br />name: the event name, <br>args: the event data.'
+                    description: 'Fires when all events trigger, the parameters contains: <br>name: the event name, <br>args: the event data.'
                 },
                 {
                     name: 'onClickRow',
                     event: 'click-row.bs.table',
                     parameter: 'row, $element',
-                    description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row, <br>$element: the tr element.'
+                    description: 'Fires when user click a row, the parameters contains: <br>row: the record corresponding to the clicked row, <br>$element: the tr element.'
                 },
                 {
                     name: 'onDblClickRow',
                     event: 'dbl-click-row.bs.table',
                     parameter: 'row, $element',
-                    description: 'Fires when user click a row, the parameters contains: <br />row: the record corresponding to the clicked row, <br>$element: the tr element.'
+                    description: 'Fires when user click a row, the parameters contains: <br>row: the record corresponding to the clicked row, <br>$element: the tr element.'
                 },
                 {
                     name: 'onSort',
                     event: 'sort.bs.table',
                     parameter: 'name, order',
-                    description: 'Fires when user sort a column, the parameters contains: <br />name: the sort column field name<br />order: the sort column order.'
+                    description: 'Fires when user sort a column, the parameters contains: <br>name: the sort column field name<br>order: the sort column order.'
                 },
                 {
                     name: 'onCheck',
                     event: 'check.bs.table',
                     parameter: 'row',
-                    description: 'Fires when user check a row, the parameters contains: <br />row: the record corresponding to the clicked row.'
+                    description: 'Fires when user check a row, the parameters contains: <br>row: the record corresponding to the clicked row.'
                 },
                 {
                     name: 'onUncheck',
                     event: 'uncheck.bs.table',
                     parameter: 'row',
-                    description: 'Fires when user uncheck a row, the parameters contains: <br />row: the record corresponding to the clicked row.'
+                    description: 'Fires when user uncheck a row, the parameters contains: <br>row: the record corresponding to the clicked row.'
                 },
                 {
                     name: 'onCheckAll',
