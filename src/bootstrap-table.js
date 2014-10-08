@@ -809,10 +809,23 @@
                 var text = '',
                     value = item[field],
                     type = '',
+                    cellStyle = {},
                     class_ = that.header.classes[j];
                     style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
                 value = calculateFunctionValue(that.header.formatters[j], [value, item, i], value);
+
+                cellStyle = calculateFunctionValue(that.header.cellStyles[j], [value, item, i], cellStyle);
+                if (cellStyle.classes) {
+                    class_ = sprintf(' class="%s"', cellStyle.classes);
+                }
+                if (cellStyle.css) {
+                    csses = [];
+                    for (var key in cellStyle.css) {
+                        csses.push(key + ': ' + cellStyle.css[key]);
+                    }
+                    style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
+                }
 
                 if (that.options.columns[j].checkbox || that.options.columns[j].radio) {
                     //if card view mode bypass
