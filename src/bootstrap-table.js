@@ -984,7 +984,7 @@
                 order: params.sortOrder
             };
         }
-        data = calculateFunctionValue(this.options.queryParamsType, [params], data);
+        data = calculateFunctionValue(this.options.queryParams, [params], data);
 
         $.ajax({
             type: this.options.method,

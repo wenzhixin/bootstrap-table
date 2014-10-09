@@ -689,8 +689,7 @@
                            data-side-pagination="server"
                            data-pagination="true"
                            data-page-list="[5, 10, 20, 50, 100, 200]"
-                           data-search="true"
-                           data-query-params="queryParams">
+                           data-search="true">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -700,29 +699,6 @@
                         </tr>
                         </thead>
                     </table>
-                    <script>
-                        // url: /examples/bootstrap_table/data?offset=0&limit=10&search=test
-                        function queryParams(params) {
-                            return {
-                                limit: params.pageSize,
-                                offset: params.pageSize * (params.pageNumber - 1),
-                                search: params.searchText,
-                                name: params.sortName,
-                                order: params.sortOrder
-                            };
-                        }
-
-                        // url: /examples/bootstrap_table/data?page=1&number=10&search=test
-                        /*
-                        function queryParams(params) {
-                            return {
-                                page: params.pageNumber,
-                                number: params.pageSize,
-                                search: params.searchText
-                            };
-                        }
-                        */
-                    </script>
                 </div>
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
             </div>
