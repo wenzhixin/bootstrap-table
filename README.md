@@ -16,6 +16,9 @@ The table displays data in a tabular format and offers rich support to radio, ch
 ## Bugs & Enhancements (next version)
 
 - [x] Take `showHeader` option effect to the card view.
+- [x] Rename and update locale files.
+- [ ] Fix #102: Wrong `options.columns` initialization.
+- [ ] Fix #121: Add extensions for bootstrap table.
 
 ## Features
 
