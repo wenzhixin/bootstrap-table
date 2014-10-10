@@ -15,7 +15,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 
 ## Bugs & Enhancements (next version)
 
-- [x] Take 'showHeader' option effect to the card view.
+- [x] Take `showHeader` option effect to the card view.
 
 ## Features
 
