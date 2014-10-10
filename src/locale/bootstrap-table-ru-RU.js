@@ -6,19 +6,19 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
-        formatLoadingMessage: function() {
+        formatLoadingMessage: function () {
             return 'Пожалуйста подождите, идет загрузка…';
         },
-        formatRecordsPerPage: function(pageNumber) {
+        formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' записей на странице';
         },
-        formatShowingRows: function(pageFrom, pageTo, totalRows) {
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return 'Показаны записи с ' + pageFrom + ' по ' + pageTo + ' из ' + totalRows;
         },
-        formatSearch: function() {
-            return 'Поиск'
+        formatSearch: function () {
+            return 'Поиск';
         },
-        formatNoMatches: function() {
+        formatNoMatches: function () {
             return 'Записи не найдены';
         }
     });

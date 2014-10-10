@@ -6,19 +6,19 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
-        formatLoadingMessage: function() {
+        formatLoadingMessage: function () {
             return 'Loading, please wait…';
         },
-        formatRecordsPerPage: function(pageNumber) {
+        formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' records per page';
         },
-        formatShowingRows: function(pageFrom, pageTo, totalRows) {
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return 'Showing ' + pageFrom + ' to ' + pageTo + ' of ' + totalRows + ' rows';
         },
-        formatSearch: function() {
-            return 'Search'
+        formatSearch: function () {
+            return 'Search';
         },
-        formatNoMatches: function() {
+        formatNoMatches: function () {
             return 'No matching records found';
         }
     });

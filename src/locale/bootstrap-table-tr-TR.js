@@ -6,19 +6,19 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
-        formatLoadingMessage: function() {
+        formatLoadingMessage: function () {
             return 'Yükleniyor, lütfen bekleyin…';
         },
-        formatRecordsPerPage: function(pageNumber) {
+        formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' kayıt sayfa başına';
         },
-        formatShowingRows: function(pageFrom, pageTo, totalRows) {
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return totalRows + ' kayıttan ' + pageFrom + ' ile ' + pageTo + ' arası gösteriliyor';
         },
-        formatSearch: function() {
+        formatSearch: function () {
             return 'Ara';
         },
-        formatNoMatches: function() {
+        formatNoMatches: function () {
             return 'Eşleşen kayıt bulunamadı';
         }
     });
