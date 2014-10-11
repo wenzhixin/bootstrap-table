@@ -385,6 +385,15 @@ $(function () {
                     example: ''
                 },
                 {
+                    name: 'maintainSelected',
+                    attribute: 'data-maintain-selected',
+                    type: 'Boolean',
+                    description: 'True to maintain selected rows on change page and search.',
+                    description_zh: '设置为True当换页或者搜索时保持选中的行。',
+                    'default': 'false',
+                    example: ''
+                },
+                {
                     name: 'sortable',
                     attribute: 'data-sortable',
                     type: 'Boolean',
