@@ -77,7 +77,7 @@
         return w1 - w2;
     };
 
-    var calculateFunctionValue = function (func, args, defaultValue) {
+    var calculateFunctionValue = function (self, func, args, defaultValue) {
         if (typeof func === 'string') {
             // support obj.func1.func2
             var fs = func.split('.');
@@ -92,7 +92,7 @@
             }
         }
         if (typeof func === 'function') {
-            return func.apply(null, args);
+            return func.apply(self, args);
         }
         return defaultValue;
     };
@@ -408,7 +408,7 @@
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
-                var value = calculateFunctionValue(that.header.sorters[index], [a[name], b[name]]);
+                var value = calculateFunctionValue(that.header, that.header.sorters[index], [a[name], b[name]]);
 
                 if (value !== undefined) {
                     return order * value;
@@ -787,7 +787,7 @@
                 style = {},
                 csses = [];
 
-            style = calculateFunctionValue(this.options.rowStyle, [item, i], style);
+            style = calculateFunctionValue(this.options, this.options.rowStyle, [item, i], style);
 
             if (style && style.css) {
                 for (var key in style.css) {
@@ -813,9 +813,11 @@
                     class_ = that.header.classes[j];
                     style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
-                value = calculateFunctionValue(that.header.formatters[j], [value, item, i], value);
+                value = calculateFunctionValue(that.header,
+                    that.header.formatters[j], [value, item, i], value);
 
-                cellStyle = calculateFunctionValue(that.header.cellStyles[j], [value, item, i], cellStyle);
+                cellStyle = calculateFunctionValue(that.header,
+                    that.header.cellStyles[j], [value, item, i], cellStyle);
                 if (cellStyle.classes) {
                     class_ = sprintf(' class="%s"', cellStyle.classes);
                 }
@@ -984,7 +986,7 @@
                 order: params.sortOrder
             };
         }
-        data = calculateFunctionValue(this.options.queryParams, [params], data);
+        data = calculateFunctionValue(this.options, this.options.queryParams, [params], data);
 
         $.ajax({
             type: this.options.method,
@@ -994,7 +996,7 @@
             contentType: this.options.contentType,
             dataType: 'json',
             success: function (res) {
-                res = calculateFunctionValue(that.options.responseHandler, [res], res);
+                res = calculateFunctionValue(that.options, that.options.responseHandler, [res], res);
 
                 var data = res;
 
