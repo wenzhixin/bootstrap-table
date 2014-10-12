@@ -19,6 +19,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 - [x] Rename and update locale files.
 - [ ] Fix #102: Wrong `options.columns` initialization.
 - [ ] Fix #121: Add extensions for bootstrap table.
+- [x] Fix #138: IE8 search data and remove method error.
 
 ## Features
 
