@@ -549,7 +549,9 @@
             $search = this.$toolbar.find('.search input');
             $search.off('keyup').on('keyup', function (event) {
                 clearTimeout(timeoutId); // doesn't matter if it's 0
-                timeoutId = setTimeout($.proxy(that.onSearch, that), 500, event); // 500ms
+                timeoutId = setTimeout(function () {
+                    that.onSearch(event);
+                }, 500); // 500ms
             });
         }
     };
@@ -575,7 +577,7 @@
 
             this.data = s ? $.grep(this.options.data, function (item) {
                 for (var key in item) {
-                    if (that.header.fields.indexOf(key) !== -1 &&
+                    if ($.inArray(key, that.header.fields) !== -1 &&
                         (typeof item[key] === 'string' ||
                         typeof item[key] === 'number') &&
                         (item[key] + '').toLowerCase().indexOf(s) !== -1) {
@@ -1191,7 +1193,7 @@
             if (!row.hasOwnProperty(params.field)) {
                 return;
             }
-            if (params.values.indexOf(row[params.field]) !== -1) {
+            if ($.inArray(row[params.field], params.values) !== -1) {
                 this.options.data.splice(i, 1);
             }
         }
