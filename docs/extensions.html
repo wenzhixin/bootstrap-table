@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title data-zh="扩展 &middot; Bootstrap Table">Extension &middot; Bootstrap Table</title>
+    <meta name="author" content="zhixin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bulletin/bulletin.css">
+    <link rel="stylesheet" href="../src/bootstrap-table.css">
+    <link rel="stylesheet" href="docs.css">
+    <!--<link rel="stylesheet" href="//wenzhixin.net.cn/css/fork.css">-->
+    <!--[if lt IE 9]>
+    <script src="//wenzhixin.net.cn/js/html5shiv.js"></script>
+    <script src="//wenzhixin.net.cn/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/bulletin/jquery.bulletin.js"></script>
+    <!--<script src="assets/bootstrap2.3/js/bootstrap.min.js"></script>-->
+    <script src="../docs/examples.js"></script>
+</head>
+<body>
+<a class="sr-only" href="#content">Skip to main content</a>
+
+<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+    <div class="container">
+        <button class="navbar-toggle" type="button" data-toggle="collapse"
+                data-target=".bs-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                Bootstrap Table
+            </a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="getting-started.html" data-zh="开始使用">Usage</a>
+                </li>
+                <li>
+                    <a href="documentation.html" data-zh="文档">Docs</a>
+                </li>
+                <li>
+                    <a href="examples.html" data-zh="例子">Demos</a>
+                </li>
+                <li class="active">
+                    <a href="extensions.html" data-zh="扩展">Extensions</a>
+                </li>
+                <li>
+                    <a href="faq.html" data-zh="常见问题">FAQ</a>
+                </li>
+                <!-- Localization -->
+                <li id="locale" class="">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="blank.gif" class="flag flag-en">
+                        <span class="language">English</span> <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="active" data-locale="en">
+                            <a href="javascript:void(0)">
+                                <img src="blank.gif" class="flag flag-en" alt="United States"> English
+                            </a>
+                        <li data-locale="zh">
+                            <a href="javascript:void(0)">
+                                <img src="blank.gif" class="flag flag-zh" alt="China"> 简体中文
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <!-- GitHub buttons: see http://ghbtns.com -->
+                <li><iframe class="navbar-text" src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe></li>
+                <li><iframe class="navbar-text" src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe></li>
+                <li><iframe class="navbar-text" src="http://ghbtns.com/github-btn.html?user=wenzhixin&type=follow&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="175" height="20"></iframe></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="bs-header" id="content">
+    <div class="container">
+        <h1 data-zh="扩展">Extensions</h1>
+        <p data-zh="bootstrap-table 的扩展">Extensions for bootstrap table.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="bs-sidebar" role="complementary">
+                <ul class="nav bs-sidenav">
+                    <li>Loading...</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="page-header alert alert-info">
+                <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+                <b data-zh="注意：">NOTE:</b> <span data-zh="Bootstrap Table 是基于 <a href='https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE'>The MIT License</a> 的开源项目，你可以任意的使用和修改这个插件。假如您觉得这个开源项目对你有帮助，麻烦给这个项目加颗星（<a href='http://github.com/wenzhixin/bootstrap-table'><b>Star</b></a>），您的支持是我最大的动力，谢谢。">Bootstrap Table is licensed under the <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE">The MIT License</a>. Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can <a href="http://github.com/wenzhixin/bootstrap-table"><b>Star</b></a> this repo, your support is my biggest motive force, thanks.</span>
+            </div>
+            <div>
+                <div class="page-header">
+                    <h1 id="export">Table Export</h1>
+                </div>
+                <p>
+                    Use Plugin: <a href="https://github.com/kayalshri/tableExport.jquery.plugin" target="_blank">tableExport.jquery.plugin</a>
+                </p>
+
+                <div class="page-header">
+                    <h2>Usage</h2>
+                </div>
+
+                <div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/export/bootstrap-table-export.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+                <div class="page-header">
+                    <h2>Options</h2>
+                </div>
+
+                <table data-toggle="table" data-show-toggle="true" class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>showExport</td>
+                        <td>data-show-export</td>
+                        <td>Boolean</td>
+                        <td>set <code>true</code> to show export button.</td>
+                        <td><code>true</code></td>
+                    </tr>
+                    <tr>
+                        <td>exportTypes</td>
+                        <td>data-export-types</td>
+                        <td>Array</td>
+                        <td>export types, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'.</td>
+                        <td><code>['json', 'xml', 'csv', 'txt', 'sql', 'excel']</code></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="page-header">
+                    <h2 id="export-demos" data-zh="示例">Examples</h2>
+                </div>
+
+                <div class="bs-example">
+                    <table data-toggle="table"
+                           data-url="data2.json"
+                           data-show-columns="true"
+                           data-search="true"
+                           data-show-refresh="true"
+                           data-show-toggle="true"
+                           data-show-export="true"
+                           data-pagination="true"
+                           data-height="500">
+                        <thead>
+                        <tr>
+                            <th data-field="id">ID</th>
+                            <th data-field="name">Item Name</th>
+                            <th data-field="price">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<a href="https://github.com/wenzhixin/bootstrap-table" class="fork_me"></a>-->
+
+<footer class="bs-footer" role="contentinfo">
+    <div class="container">
+        <p>Copyright © 2012-2014, Bootstrap Table is licensed under the The MIT License. Coded by wenzhixin. </p>
+        <ul class="footer-links">
+            <li>Currently: v1.2.4</li>
+            <li class="muted">·</li>
+            <li><a href="http://wenzhixin.net.cn">My website</a></li>
+            <li class="muted">·</li>
+            <li><a href="http://repos.wenzhixin.net.cn">My repos</a></li>
+            <li class="muted">·</li>
+            <li><a href="https://github.com/wenzhixin">Github (@wenzhixin)</a></li>
+            <li class="muted">·</li>
+            <li><a href="https://github.com/wenzhixin/bootstrap-table/issues?state=open">Issues</a></li>
+            <li class="muted">·</li>
+            <li><a href="mailto:wenzhixin2010@gmail.com">Email</a></li>
+        </ul>
+    </div>
+</footer>
+
+<div class="goto-top">
+    <i class="glyphicon glyphicon-plane"></i>
+</div>
+
+<div id="bulletin" class="bulletin">
+    <ul>
+        <li><a href="http://repos.wenzhixin.net.cn/">My Repositories - Show my repositories list.</a></li>
+        <li><a href="http://wenzhixin.net.cn/p/multiple-select/">Multiple Select - Multiple select is a jQuery plugin to select multiple elements with checkboxes.</a></li>
+        <li><a href="https://github.com/wenzhixin/bootstrap-show-password">Bootstrap Show Password - Show/hide password plugin for bootstrap.</a></li>
+        <li><a href="http://wenzhixin.net.cn/p/bulletin/">Bulletin - A jQuery plugin to show bulletin for website.</a></li>
+    </ul>
+    <div class="close"><a href="javascript:void(0)">×</a></div>
+</div>
+
+<!-- plugins -->
+<script src="assets/table-export/tableExport.js"></script>
+<script src="assets/table-export/jquery.base64.js"></script>
+<!-- table -->
+<script src="../src/bootstrap-table.js"></script>
+<!-- extensions -->
+<script src="../src/extensions/export/bootstrap-table-export.js"></script>
+<!-- others -->
+<script src="common.js"></script>
+<script src="//wenzhixin.net.cn/js/analytics.js"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53c78e93678a7b4d"></script>
+</body>
+</html>
