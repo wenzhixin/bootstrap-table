@@ -10,12 +10,19 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/kayalshri/tableExport
 
 ## Options
 
-* showExport: set `true` to show export button, default: `true`.
+### showExport
 
-* exportTypes: export types, default: `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
-support types: `'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'`
+* type: Boolean
+* description: set `true` to show export button.
+* default: `true`
 
-## Examples
+### exportTypes
+
+* type: Array
+* description: export types, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'.
+* default: `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
+
+## [Examples](http://wenzhixin.net.cn/p/bootstrap-table/docs/extensions.html#export)
 
 ```html
 <script src="assets/table-export/tableExport.js"></script>
