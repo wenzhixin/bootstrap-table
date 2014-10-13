@@ -642,8 +642,10 @@
             pageList = this.options.pageList;
 
         if (typeof this.options.pageList === 'string') {
+            var list = this.options.pageList.slice(1, -1).replace(/ /g, '').split(',');
+
             pageList = [];
-            $.each(this.options.pageList.slice(1, -1), function (i, value) {
+            $.each(list, function (i, value) {
                 pageList.push(+value);
             });
         }
