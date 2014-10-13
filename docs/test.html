@@ -19,14 +19,13 @@
     </div>
     <table id="table"
            data-toggle="table"
-           data-url="/examples/bootstrap_table/data"
+           data-url="data1.json"
            data-show-columns="true"
            data-search="true"
            data-show-refresh="true"
            data-show-toggle="true"
            data-pagination="true"
            data-height="500"
-           data-side-pagination="server"
            data-query-params="queryParams">
         <thead>
         <tr>
@@ -39,7 +38,10 @@
 <script src="assets/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <!--<script src="assets/bootstrap2.3/js/bootstrap.min.js"></script>-->
+<script src="assets/table-export/tableExport.js"></script>
+<script src="assets/table-export/jquery.base64.js"></script>
 <script src="../src/bootstrap-table.js"></script>
+<script src="../src/extensions/export/bootstrap-table-export.js"></script>
 <script>
     $(function () {
         $('#build').click(build);//.trigger('click');
