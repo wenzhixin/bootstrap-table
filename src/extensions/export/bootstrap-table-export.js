@@ -48,8 +48,18 @@
                         '</ul>',
                     '</div>'].join('')).appendTo($btnGroup);
 
-                var $menu = $export.find('.dropdown-menu');
-                $.each(this.options.exportTypes, function (i, type) {
+                var $menu = $export.find('.dropdown-menu'),
+                    exportTypes = this.options.exportTypes;
+
+                if (typeof this.options.exportTypes === 'string') {
+                    var types = this.options.exportTypes.slice(1, -1).replace(/ /g, '').split(',');
+
+                    exportTypes = [];
+                    $.each(types, function (i, value) {
+                        exportTypes.push(value.slice(1, -1));
+                    });
+                }
+                $.each(exportTypes, function (i, type) {
                     if (TYPE_NAME.hasOwnProperty(type)) {
                         $menu.append(['<li data-type="' + type + '">',
                                 '<a href="javascript:void(0)">',
