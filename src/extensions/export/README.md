@@ -12,7 +12,8 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/kayalshri/tableExport
 
 * showExport: set `true` to show export button, default: `true`.
 
-* exportTypes: export types, default: `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
+* exportTypes: export types, default: `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
+support types: `'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'`
 
 ## Examples
 
