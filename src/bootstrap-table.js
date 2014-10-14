@@ -333,8 +333,9 @@
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
 
             html.push('<th',
-                column.checkbox || column.radio ? ' class="bs-checkbox"' :
-                class_,
+                column.checkbox || column.radio ?
+                    sprintf(' class="bs-checkbox %s"', column['class'] || '') :
+                    class_,
                 sprintf(' style="%s"', style),
                 '>');
             html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
