@@ -25,10 +25,10 @@
            data-show-refresh="true"
            data-show-toggle="true"
            data-pagination="true"
-           data-height="500"
-           data-query-params="queryParams">
+           data-height="500">
         <thead>
         <tr>
+            <th data-field="id" data-formatter="idFormatter">ID</th>
             <th data-field="name">Item Name</th>
             <th data-field="price">Item Price</th>
         </tr>
@@ -78,15 +78,8 @@
         });
     }
 
-    // url: /examples/bootstrap_table/data?offset=0&limit=10&search=test
-    function queryParams(params) {
-        return {
-            limit: params.pageSize,
-            offset: params.pageSize * (params.pageNumber - 1),
-            search: params.searchText,
-            name: params.sortName,
-            order: params.sortOrder
-        };
+    function idFormatter(value) {
+        return value + 100;
     }
 </script>
 </body>

@@ -24,6 +24,8 @@ The table displays data in a tabular format and offers rich support to radio, ch
 - [x] Fix bug: sorter does not work in some case.
 - [x] Add `bootstrap-table-nl-NL.js`.
 - [x] Support search without data-field set.
+- [x] Fix #81: Allow the `class` to be applied to the radio or checkbox row.
+- [x] Fix #135, #142: Search use formated data.
 
 ## Features
 
