@@ -577,13 +577,20 @@
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
 
-            this.data = s ? $.grep(this.options.data, function (item) {
+            this.data = s ? $.grep(this.options.data, function (item, i) {
                 key = $.isNumeric(key) ? parseInt(key, 10) : key;
                 for (var key in item) {
+                    var value = item[key];
+
+                    // Fix #142: search use formated data
+                    value = calculateFunctionValue(that.header,
+                        that.header.formatters[getFieldIndex(that.options.columns, key)],
+                        [value, item, i], value);
+
                     if ($.inArray(key, that.header.fields) !== -1 &&
-                        (typeof item[key] === 'string' ||
-                        typeof item[key] === 'number') &&
-                        (item[key] + '').toLowerCase().indexOf(s) !== -1) {
+                        (typeof value === 'string' ||
+                        typeof value === 'number') &&
+                        (value + '').toLowerCase().indexOf(s) !== -1) {
                         return true;
                     }
                 }
