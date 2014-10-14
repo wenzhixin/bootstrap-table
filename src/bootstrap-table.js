@@ -366,9 +366,10 @@
         this.$header.find('tr').html(html.join(''));
         this.$header.find('th').each(function (i) {
             $(this).data(visibleColumns[i]);
-
-            if (that.options.sortable && visibleColumns[i].sortable) {
-                $(this).off('click').on('click', $.proxy(that.onSort, that));
+        });
+        this.$container.off('click', 'th').on('click', 'th', function (event) {
+            if (that.options.sortable && $(this).data().sortable) {
+                that.onSort(event);
             }
         });
 
@@ -1076,7 +1077,7 @@
             return;
         }
 
-        this.$header_ = this.$header.clone(true);
+        this.$header_ = this.$header.clone(true, true);
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
 
         // fix bug: get $el.css('width') error sometime (height = 500)
@@ -1089,11 +1090,16 @@
                 .html('').attr('class', that.$el.attr('class'))
                 .append(that.$header_);
 
-            that.$el.css('margin-top', -that.$header.height());
+            // fix bug: $.data() is not working as expected after $.append()
+            that.$header.find('th').each(function (i) {
+                that.$header_.find('th').eq(i).data($(this).data());
+            });
 
             that.$body.find('tr:first-child:not(.no-records-found) > *').each(function(i) {
                 that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
             });
+
+            that.$el.css('margin-top', -that.$header.height());
 
             // horizontal scroll event
             $fixedBody.off('scroll').on('scroll', function () {
