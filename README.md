@@ -26,6 +26,7 @@ The table displays data in a tabular format and offers rich support to radio, ch
 - [x] Support search without data-field set.
 - [x] Fix #81: Allow the `class` to be applied to the radio or checkbox row.
 - [x] Fix #135, #142: Search use formated data.
+- [ ] Verify search text before send queryParams.
 
 ## Features
 
