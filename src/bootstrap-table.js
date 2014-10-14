@@ -577,7 +577,8 @@
             var s = this.searchText && this.searchText.toLowerCase();
 
             this.data = s ? $.grep(this.options.data, function (item) {
-                for (var key in item) {
+            key = $.isNumeric(key) ? parseInt(key): key ;
+            for (var key in item) {
                     if ($.inArray(key, that.header.fields) !== -1 &&
                         (typeof item[key] === 'string' ||
                         typeof item[key] === 'number') &&
