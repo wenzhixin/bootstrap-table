@@ -937,6 +937,9 @@
                                 $('#get-data').click(function () {
                                     alert('current data: ' + JSON.stringify($table.bootstrapTable('getData')));
                                 });
+                                // This demonstrates utilizing the data-method attribute to use one jQuery handler to execute multiple methods 
+                                // ($this).data('method') retrieves the value of the data-method attribute of the object that was clicked
+                                // which is then passed to the bootstrapTable function. Only the load and append methods require a parameter                                 
                                 $('#load-data, #append-data, #check-all, #uncheck-all, ' +
                                         '#show-loading, #hide-loading').click(function () {
                                     $table.bootstrapTable($(this).data('method'), getRows());
