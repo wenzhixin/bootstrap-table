@@ -952,8 +952,9 @@
             if (!events) {
                 return;
             }
+            // fix bug, if events is defined with namespace
             if (typeof events === 'string') {
-                events = window[events];
+                events = window[events] || eval(events);;
             }
             for (var key in events) {
                 that.$body.find('tr').each(function () {
