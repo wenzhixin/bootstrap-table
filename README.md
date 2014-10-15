@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table)
 
-The table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
+Bootstrap table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
 
 * [Documentation](http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html)
 * [Examples](http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html)
