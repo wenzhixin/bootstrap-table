@@ -190,8 +190,8 @@ $(function () {
                     name: 'queryParams',
                     attribute: 'data-query-params',
                     type: 'Function',
-                    description: 'When request remote data, sending additional parameters by format the queryParams, the parameters object contains: <br>pageSize, pageNumber, searchText, sortName, sortOrder.',
-                    description_zh: '远程数据请求时，可以通过queryParams来格式化所需要的数据信息，参数（对象）包含了：<br>pageSize, pageNumber, searchText, sortName, sortOrder。',
+                    description: 'When request remote data, sending additional parameters by format the queryParams, the parameters object contains: <br>pageSize, pageNumber, searchText, sortName, sortOrder. Return false to stop request',
+                    description_zh: '远程数据请求时，可以通过queryParams来格式化所需要的数据信息，参数（对象）包含了：<br>pageSize, pageNumber, searchText, sortName, sortOrder。返回 false 可以禁用请求。',
                     'default': 'function(params) {<br>return params;<br>}',
                     example: 'server-side-pagination-table'
                 },

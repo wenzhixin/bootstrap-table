@@ -987,9 +987,6 @@
         if (!this.options.url) {
             return;
         }
-        if (!silent) {
-            this.$loading.show();
-        }
 
         if (this.options.queryParamsType === 'limit') {
             params = {
@@ -1001,6 +998,15 @@
             };
         }
         data = calculateFunctionValue(this.options, this.options.queryParams, [params], data);
+
+        // false to stop request
+        if (data === false) {
+            return;
+        }
+
+        if (!silent) {
+            this.$loading.show();
+        }
 
         $.ajax({
             type: this.options.method,
