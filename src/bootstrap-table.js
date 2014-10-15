@@ -584,7 +584,7 @@
 
                     // Fix #142: search use formated data
                     value = calculateFunctionValue(that.header,
-                        that.header.formatters[getFieldIndex(that.options.columns, key)],
+                        that.header.formatters[$.inArray(key, that.header.fields)],
                         [value, item, i], value);
 
                     if ($.inArray(key, that.header.fields) !== -1 &&
