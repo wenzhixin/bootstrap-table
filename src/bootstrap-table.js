@@ -174,7 +174,8 @@
         onCheckAll: function () {return false;},
         onUncheckAll: function () {return false;},
         onLoadSuccess: function (data) {return false;},
-        onLoadError: function (status) {return false;}
+        onLoadError: function (status) {return false;},
+        onColumnSwitch: function (field, checked) {return false;}
     };
 
     BootstrapTable.COLUMN_DEFAULTS = {
@@ -209,7 +210,8 @@
         'check-all.bs.table': 'onCheckAll',
         'uncheck-all.bs.table': 'onUncheckAll',
         'load-success.bs.table': 'onLoadSuccess',
-        'load-error.bs.table': 'onLoadError'
+        'load-error.bs.table': 'onLoadError',
+        'column-switch.bs.table': 'onColumnSwitch'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -502,8 +504,8 @@
 
                 if (column.switchable) {
                     html.push(sprintf('<li>' +
-                        '<label><input type="checkbox" value="%s"%s> %s</label>' +
-                        '</li>', i, checked, column.title));
+                        '<label><input type="checkbox" data-field="%s" value="%s"%s> %s</label>' +
+                        '</li>', column.field, i, checked, column.title));
                 }
             });
             html.push('</ul>',
@@ -539,6 +541,7 @@
                 var $this = $(this);
 
                 that.toggleColumn($this.val(), $this.prop('checked'), false);
+                that.trigger('column-switch', $(this).data('field'), $this.prop('checked'));
             });
         }
 
