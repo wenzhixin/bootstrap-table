@@ -726,7 +726,11 @@
                     <div class="alert alert-success" id="events-result">
                         Here is the result of event.
                     </div>
-                    <table id="events-table" data-url="data1.json" data-height="299" data-search="true">
+                    <table id="events-table"
+                           data-url="data1.json"
+                           data-height="299"
+                           data-search="true"
+                           data-show-columns="true">
                         <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
@@ -768,6 +772,9 @@
                                     },
                                     onUncheckAll: function () {
                                         $result.text('Event: onUncheckAll');
+                                    },
+                                    onColumnSwitch: function (field, checked) {
+                                        $result.text('Event: onSort, data: ' + field + ', ' + checked);
                                     }
                                     */
                                 }).on('all.bs.table', function (e, name, args) {
@@ -786,6 +793,9 @@
                                     $result.text('Event: check-all.bs.table');
                                 }).on('uncheck-all.bs.table', function (e) {
                                     $result.text('Event: uncheck-all.bs.table');
+                                }).on('column-switch.bs.table', function (e, field, checked) {
+                                    $result.text('Event: column-switch.bs.table, data: ' +
+                                        field + ', ' + checked);
                                 });
                             });
                         });
