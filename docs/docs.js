@@ -649,6 +649,12 @@ $(function () {
                     event: 'load-error.bs.table',
                     parameter: 'status',
                     description: 'Fires when some errors occur to load remote data.'
+                },
+                {
+                    name: 'onColumnSwitch',
+                    event: 'column-switch.bs.table',
+                    parameter: 'field, checked',
+                    description: 'Fires when switch the column visible.'
                 }
             ],
             onClickRow: function (row) {
