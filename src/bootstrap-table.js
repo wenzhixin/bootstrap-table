@@ -399,6 +399,9 @@
         }
         this.options.data = this.data;
 
+        if (this.options.sidePagination === 'server') {
+            return;
+        }
         this.initSort();
     };
 
