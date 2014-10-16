@@ -21,7 +21,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 - [x] Fix #102: Wrong `options.columns` initialization.
 - [x] Fix #121: Add extensions for bootstrap table.
 - [x] Fix #138: IE8 search data and remove method error.
-- [x] Fix bug: sorter does not work in some case.
+- [x] Fix bug: sorter and check all do not work in some case.
 - [x] Add `bootstrap-table-nl-NL.js` and `bootstrap-table-el-GR.js`.
 - [x] Support search without data-field set, trim search input.
 - [x] Fix #81: Allow the `class` to be applied to the radio or checkbox row.

@@ -390,10 +390,11 @@
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
-        this.$selectAll.off('click').on('click', function () {
-            var checked = $(this).prop('checked');
-            that[checked ? 'checkAll' : 'uncheckAll']();
-        });
+        this.$container.off('click', '[name="btSelectAll"]')
+            .on('click', '[name="btSelectAll"]', function () {
+                var checked = $(this).prop('checked');
+                that[checked ? 'checkAll' : 'uncheckAll']();
+            });
     };
 
     BootstrapTable.prototype.initData = function (data, append) {
@@ -1284,7 +1285,7 @@
 
     BootstrapTable.prototype.checkAll = function () {
         this.$selectAll.add(this.$selectAll_).prop('checked', true);
-        this.$selectItem.prop('checked', true);
+        this.$selectItem.filter(':enabled').prop('checked', true);
         this.updateRows(true);
         this.updateSelected();
         this.trigger('check-all');
@@ -1292,7 +1293,7 @@
 
     BootstrapTable.prototype.uncheckAll = function () {
         this.$selectAll.add(this.$selectAll_).prop('checked', false);
-        this.$selectItem.prop('checked', false);
+        this.$selectItem.filter(':enabled').prop('checked', false);
         this.updateRows(false);
         this.updateSelected();
         this.trigger('uncheck-all');
