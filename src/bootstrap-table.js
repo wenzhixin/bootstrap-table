@@ -871,8 +871,10 @@
                             sprintf(' name="%s"', that.options.selectItemName) +
                             sprintf(' type="%s"', type) +
                             sprintf(' value="%s"', item[that.options.idField]) +
-                            sprintf(' checked="%s"', value ? 'checked' : undefined) +
-                            sprintf(' %s', that.options.columns[j].checkboxEnabled ? undefined : 'disabled') +
+                            sprintf(' checked="%s"', +value === 1 ||
+                                (value && value.checked) ? 'checked' : undefined) +
+                            sprintf(' disabled="%s"', !that.options.columns[j].checkboxEnabled ||
+                                (value && value.disabled) ? 'disabled' : undefined) +
                             ' />',
                         '</td>'].join('');
                 } else {
@@ -937,7 +939,8 @@
                 $(this).prop('checked', true);
             }
 
-            var checkAll = that.$selectItem.length === that.$selectItem.filter(':checked').length,
+            var checkAll = that.$selectItem.filter(':enabled').length ===
+                    that.$selectItem.filter(':enabled').filter(':checked').length,
                 checked = $(this).prop('checked'),
                 row = that.data[$(this).data('index')];
 

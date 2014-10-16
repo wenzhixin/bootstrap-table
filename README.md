@@ -28,6 +28,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 - [x] Fix #135, #142: Search use formatted data.
 - [x] Verify search text before send queryParams.
 - [x] Fix #148: column events support namespace.
+- [x] Support to disable radio or checkbox column by formatter.
 
 ## Features
 
