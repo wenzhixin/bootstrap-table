@@ -1239,3 +1239,9 @@ h1 .icon {
 .flag.flag-zh {
     background-position: -208px -22px;
 }
+
+.edit-pull-request {
+    font-size: 32px;
+    margin-left: 10px;
+    color: #2a6496;
+}
