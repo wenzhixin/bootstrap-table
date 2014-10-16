@@ -77,22 +77,25 @@
         return w1 - w2;
     };
 
-    var calculateFunctionValue = function (self, func, args, defaultValue) {
-        if (typeof func === 'string') {
+    var calculateObjectValue = function (self, name, args, defaultValue) {
+        if (typeof name === 'string') {
             // support obj.func1.func2
-            var fs = func.split('.');
+            var names = name.split('.');
 
-            if (fs.length > 1) {
-                func = window;
-                $.each(fs, function (i, f) {
-                    func = func[f];
+            if (names.length > 1) {
+                name = window;
+                $.each(names, function (i, f) {
+                    name = name[f];
                 });
             } else {
-                func = window[func];
+                name = window[name];
             }
         }
-        if (typeof func === 'function') {
-            return func.apply(self, args);
+        if (typeof name === 'object') {
+            return name;
+        }
+        if (typeof name === 'function') {
+            return name.apply(self, args);
         }
         return defaultValue;
     };
@@ -415,7 +418,7 @@
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
-                var value = calculateFunctionValue(that.header, that.header.sorters[index], [a[name], b[name]]);
+                var value = calculateObjectValue(that.header, that.header.sorters[index], [a[name], b[name]]);
 
                 if (value !== undefined) {
                     return order * value;
@@ -589,7 +592,7 @@
                     var value = item[key];
 
                     // Fix #142: search use formated data
-                    value = calculateFunctionValue(that.header,
+                    value = calculateObjectValue(that.header,
                         that.header.formatters[$.inArray(key, that.header.fields)],
                         [value, item, i], value);
 
@@ -807,7 +810,7 @@
                 style = {},
                 csses = [];
 
-            style = calculateFunctionValue(this.options, this.options.rowStyle, [item, i], style);
+            style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
             if (style && style.css) {
                 for (var key in style.css) {
@@ -833,10 +836,10 @@
                     class_ = that.header.classes[j];
                     style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
-                value = calculateFunctionValue(that.header,
+                value = calculateObjectValue(that.header,
                     that.header.formatters[j], [value, item, i], value);
 
-                cellStyle = calculateFunctionValue(that.header,
+                cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
                 if (cellStyle.classes) {
                     class_ = sprintf(' class="%s"', cellStyle.classes);
@@ -954,7 +957,7 @@
             }
             // fix bug, if events is defined with namespace
             if (typeof events === 'string') {
-                events = window[events] || eval(events);;
+                events = calculateObjectValue(null, events);
             }
             for (var key in events) {
                 that.$body.find('tr').each(function () {
@@ -1004,7 +1007,7 @@
                 order: params.sortOrder
             };
         }
-        data = calculateFunctionValue(this.options, this.options.queryParams, [params], data);
+        data = calculateObjectValue(this.options, this.options.queryParams, [params], data);
 
         // false to stop request
         if (data === false) {
@@ -1023,7 +1026,7 @@
             contentType: this.options.contentType,
             dataType: 'json',
             success: function (res) {
-                res = calculateFunctionValue(that.options, that.options.responseHandler, [res], res);
+                res = calculateObjectValue(that.options, that.options.responseHandler, [res], res);
 
                 var data = res;
 
