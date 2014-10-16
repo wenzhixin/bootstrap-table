@@ -10,6 +10,7 @@
       "src/bootstrap-table.css",
       "src/bootstrap-table.js",
       "src/locale/bootstrap-table-da-DK.js",
+      "src/locale/bootstrap-table-el-GR.js",
       "src/locale/bootstrap-table-en-US.js",
       "src/locale/bootstrap-table-es-AR.js",
       "src/locale/bootstrap-table-fr-BE.js",
