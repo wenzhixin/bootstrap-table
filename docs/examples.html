@@ -560,6 +560,43 @@
                 <div class="highlight"><pre><code class="language-html"></code></pre></div>
 
                 <div class="page-header">
+                    <h2 id="disabled-checkbox-table" data-zh="禁用的复选框">Disabled Checkbox</h2>
+                    <button class="btn btn-primary start-example" data-zh="开始使用例子">
+                        Start Example
+                    </button>
+                </div>
+                <div class="bs-example">
+                    <table data-url="data1.json" data-height="299" data-click-to-select="true">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"
+                                data-formatter="stateFormatter"></th>
+                            <th data-field="id" data-align="right">Item ID</th>
+                            <th data-field="name" data-align="center">Item Name</th>
+                            <th data-field="price" data-align="">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        function stateFormatter(value, row, index) {
+                            if (index === 2) {
+                                return {
+                                    disabled: true
+                                };
+                            }
+                            if (index === 5) {
+                                return {
+                                    disabled: true,
+                                    checked: true
+                                }
+                            }
+                            return value;
+                        }
+                    </script>
+                </div>
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+
+                <div class="page-header">
                     <h2 id="single-checkbox-table" data-zh="只能单选的复选框">Single Checkbox</h2>
                     <button class="btn btn-primary start-example" data-zh="开始使用例子">
                         Start Example
