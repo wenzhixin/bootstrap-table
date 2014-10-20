@@ -1349,12 +1349,16 @@
         this.updatePagination();
     };
 
+    BootstrapTable.prototype.getServerUrl = function () {
+        return (this.options.sidePagination !== 'server') ? this.options.url : false;
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
         var allowedMethods = [
-                'getSelections', 'getData', 'getColumns',
+                'getSelections', 'getData', 'getColumns', 'getServerUrl',
                 'load', 'append', 'remove',
                 'updateRow',
                 'mergeCells',
