@@ -23,6 +23,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 - [ ] Fix #149: Hide empty data on Card view.
 - [ ] Fix #131: Add pagination events.
 - [ ] Fix #144: onCheck and onUncheck functionalities are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
+- [x] Apply `width` column option to row style.
 
 ## Features
 
