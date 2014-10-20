@@ -1350,7 +1350,7 @@
     };
 
     BootstrapTable.prototype.getServerUrl = function () {
-        return (this.options.sidePagination !== 'server') ? this.options.url : false;
+        return this.options.url ? this.options.url : false;
     };
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
