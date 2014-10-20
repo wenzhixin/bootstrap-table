@@ -1202,6 +1202,10 @@
         return this.searchText ? this.data : this.options.data;
     };
 
+    BootstrapTable.prototype.getColumns = function () {
+        return this.options.columns;
+    };
+
     BootstrapTable.prototype.load = function (data) {
         this.initData(data);
         this.initSearch();
@@ -1337,7 +1341,7 @@
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
         var allowedMethods = [
-                'getSelections', 'getData',
+                'getSelections', 'getData', 'getColumns',
                 'load', 'append', 'remove',
                 'updateRow',
                 'mergeCells',
