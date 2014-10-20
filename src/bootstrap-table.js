@@ -108,6 +108,7 @@
         this.$el = $(el);
         this.$el_ = this.$el.clone();
         this.timeoutId_ = 0;
+        this.searchCallback = false;
 
         this.init();
     };
@@ -606,6 +607,10 @@
                 }
                 return false;
             }) : this.options.data;
+            if (typeof this.searchCallback === 'function') {
+                this.data = $.grep(this.options.data, this.searchCallback);
+                console.log(this.data);
+            }
         }
     };
 
@@ -1199,7 +1204,7 @@
     };
 
     BootstrapTable.prototype.getData = function () {
-        return this.searchText ? this.data : this.options.data;
+        return (this.searchText || this.searchCallback) ? this.data : this.options.data;
     };
 
     BootstrapTable.prototype.getColumns = function () {
@@ -1335,6 +1340,15 @@
         this.toggleColumn(getFieldIndex(this.options.columns, field), false, true);
     };
 
+    BootstrapTable.prototype.registerSearchCallback = function (callback) {
+        this.searchCallback = callback;
+    };
+
+    BootstrapTable.prototype.updateSearch = function () {
+        this.options.pageNumber = 1;
+        this.initSearch();
+        this.updatePagination();
+    };
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
@@ -1350,7 +1364,8 @@
                 'resetView',
                 'destroy',
                 'showLoading', 'hideLoading',
-                'showColumn', 'hideColumn'
+                'showColumn', 'hideColumn',
+                'registerSearchCallback', 'updateSearch'
             ],
             value;
 
