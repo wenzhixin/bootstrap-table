@@ -609,7 +609,6 @@
             }) : this.options.data;
             if (typeof this.searchCallback === 'function') {
                 this.data = $.grep(this.options.data, this.searchCallback);
-                console.log(this.data);
             }
         }
     };
