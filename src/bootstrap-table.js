@@ -312,14 +312,17 @@
         };
         $.each(this.options.columns, function (i, column) {
             var text = '',
-                style = sprintf('text-align: %s; ', column.align) +
-                        sprintf('vertical-align: %s; ', column.valign),
+                style = '',
                 class_ = sprintf(' class="%s"', column['class']),
                 order = that.options.sortOrder || column.order;
 
             if (!column.visible) {
                 return;
             }
+
+            style = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
+            style += sprintf('vertical-align: %s; ', column.valign);
+            style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
@@ -330,12 +333,6 @@
             that.header.sorters.push(column.sorter);
             that.header.cellStyles.push(column.cellStyle);
             that.header.clickToSelects.push(column.clickToSelect);
-
-            if (column.halign) {
-                style = sprintf('text-align: %s; ', column.halign) +
-                    sprintf('vertical-align: %s; ', column.valign);
-            }
-            style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
 
             html.push('<th',
                 column.checkbox || column.radio ?
