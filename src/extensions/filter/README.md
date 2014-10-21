@@ -13,7 +13,7 @@ Use Plugin: [bootstrap table filters](https://github.com/lukaskral/bootstrap-tab
 ### showFilter
 
 * type: Boolean
-* set true to show filter menu.
+* description: set true to show filter menu.
 * default: `false`
 
 ## [Examples](http://wenzhixin.net.cn/p/bootstrap-table/docs/extensions.html#filter)
