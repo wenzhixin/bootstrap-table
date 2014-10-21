@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="assets/bulletin/bulletin.css">
     <link rel="stylesheet" href="../src/bootstrap-table.css">
     <link rel="stylesheet" href="docs.css">
+    <!-- plugins -->
+    <link rel="stylesheet" href="assets/table-filter/bootstrap-table-filter.css">
     <!--<link rel="stylesheet" href="//wenzhixin.net.cn/css/fork.css">-->
     <!--[if lt IE 9]>
     <script src="//wenzhixin.net.cn/js/html5shiv.js"></script>
@@ -118,14 +120,14 @@
                 </p>
 
                 <div class="page-header">
-                    <h2>Usage</h2>
+                    <h2 id="export-usage">Usage</h2>
                 </div>
 
                 <div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/export/bootstrap-table-export.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre></div>
 
                 <div class="page-header">
-                    <h2>Options</h2>
+                    <h2 id="export-options">Options</h2>
                 </div>
 
                 <table data-toggle="table" data-show-toggle="true" class="table">
@@ -144,7 +146,7 @@
                         <td>data-show-export</td>
                         <td>Boolean</td>
                         <td>set <code>true</code> to show export button.</td>
-                        <td><code>true</code></td>
+                        <td><code>false</code></td>
                     </tr>
                     <tr>
                         <td>exportTypes</td>
@@ -169,12 +171,79 @@
                            data-show-toggle="true"
                            data-show-export="true"
                            data-pagination="true"
-                           data-height="500">
+                           data-height="299">
                         <thead>
                         <tr>
                             <th data-field="id">ID</th>
                             <th data-field="name">Item Name</th>
                             <th data-field="price">Item Price</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="highlight"><pre><code class="language-html"></code></pre></div>
+
+                <div class="page-header">
+                    <h1 id="filter">Table Filter</h1>
+                </div>
+
+                <p>
+                    Use Plugin: <a href="https://github.com/lukaskral/bootstrap-table-filter" target="_blank">bootstrap table filters</a>
+                </p>
+
+                <div class="page-header">
+                    <h2 id="filter-usage">Usage</h2>
+                </div>
+
+                <div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/filter/bootstrap-table-filter.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+                <div class="page-header">
+                    <h2 id="filter-options">Options</h2>
+                </div>
+
+                <table data-toggle="table" data-show-toggle="true" class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>showFilter</td>
+                        <td>data-show-filter</td>
+                        <td>Boolean</td>
+                        <td>set <code>true</code> to show filter menu.</td>
+                        <td><code>false</code></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="page-header">
+                    <h2 id="filter-demos" data-zh="示例">Examples</h2>
+                </div>
+
+                <div class="bs-example">
+                    <div id="filter-bar"> </div>
+
+                    <table id="tbl"
+                           data-toggle="table"
+                           data-height="299"
+                           data-url="data1.json"
+                           data-toolbar="#filter-bar"
+                           data-show-toggle="true"
+                           data-show-columns="true"
+                           data-show-filter="true">
+                        <thead>
+                        <tr>
+                            <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
+                            <th data-field="name" data-align="center" data-sortable="true">Item Name</th>
+                            <th data-field="price" data-align="" data-sortable="true">Item Price</th>
                         </tr>
                         </thead>
                     </table>
@@ -224,10 +293,13 @@
 <!-- plugins -->
 <script src="assets/table-export/tableExport.js"></script>
 <script src="assets/table-export/jquery.base64.js"></script>
+<script src="assets/table-filter/bootstrap-table-filter.js"></script>
+<script src="assets/table-filter/ext/bs-table.js"></script>
 <!-- table -->
 <script src="../src/bootstrap-table.js"></script>
 <!-- extensions -->
 <script src="../src/extensions/export/bootstrap-table-export.js"></script>
+<script src="../src/extensions/filter/bootstrap-table-filter.js"></script>
 <!-- others -->
 <script src="common.js"></script>
 <script src="//wenzhixin.net.cn/js/analytics.js"></script>
