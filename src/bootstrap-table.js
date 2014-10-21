@@ -1335,20 +1335,21 @@
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
+    var allowedMethods = [
+        'getSelections', 'getData',
+        'load', 'append', 'remove',
+        'updateRow',
+        'mergeCells',
+        'checkAll', 'uncheckAll',
+        'refresh',
+        'resetView',
+        'destroy',
+        'showLoading', 'hideLoading',
+        'showColumn', 'hideColumn'
+    ];
+
     $.fn.bootstrapTable = function (option, _relatedTarget) {
-        var allowedMethods = [
-                'getSelections', 'getData',
-                'load', 'append', 'remove',
-                'updateRow',
-                'mergeCells',
-                'checkAll', 'uncheckAll',
-                'refresh',
-                'resetView',
-                'destroy',
-                'showLoading', 'hideLoading',
-                'showColumn', 'hideColumn'
-            ],
-            value;
+        var value;
 
         this.each(function () {
             var $this = $(this),
@@ -1383,6 +1384,7 @@
     $.fn.bootstrapTable.Constructor = BootstrapTable;
     $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS;
     $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS;
+    $.fn.bootstrapTable.methods = allowedMethods;
 
     // BOOTSTRAP TABLE INIT
     // =======================
