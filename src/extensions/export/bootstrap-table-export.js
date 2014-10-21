@@ -20,7 +20,7 @@
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
-        showExport: true,
+        showExport: false,
         // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
         exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel']
     });
