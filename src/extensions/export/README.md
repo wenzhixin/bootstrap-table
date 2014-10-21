@@ -14,7 +14,7 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/kayalshri/tableExport
 
 * type: Boolean
 * description: set `true` to show export button.
-* default: `true`
+* default: `false`
 
 ### exportTypes
 
@@ -25,10 +25,9 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/kayalshri/tableExport
 ## [Examples](http://wenzhixin.net.cn/p/bootstrap-table/docs/extensions.html#export)
 
 ```html
-<script src="assets/table-export/tableExport.js"></script>
-<script src="assets/table-export/jquery.base64.js"></script>
-<script src="../src/bootstrap-table.js"></script>
-<script src="../src/extensions/export/bootstrap-table-export.js"></script>
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../src/bootstrap-table.css">
+
 <table data-toggle="table"
        data-url="data1.json"
        data-show-columns="true"
@@ -36,7 +35,8 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/kayalshri/tableExport
        data-show-refresh="true"
        data-show-toggle="true"
        data-pagination="true"
-       data-height="500">
+       data-height="299"
+       data-show-export="true">
     <thead>
     <tr>
         <th data-field="id">ID</th>
@@ -45,4 +45,11 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/kayalshri/tableExport
     </tr>
     </thead>
 </table>
+
+<script src="assets/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/table-export/tableExport.js"></script>
+<script src="assets/table-export/jquery.base64.js"></script>
+<script src="../src/bootstrap-table.js"></script>
+<script src="../src/extensions/export/bootstrap-table-export.js"></script>
 ```
