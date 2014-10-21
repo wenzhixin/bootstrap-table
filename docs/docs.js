@@ -231,15 +231,15 @@ $(function () {
                     'default': 'client',
                     example: 'pagination-table'
                 },
-                {
-                    name: 'totalRows',
-                    attribute: 'data-total-rows',
-                    type: 'Number',
-                    description: 'Defines the total rows of table, you need to set this option when the sidePagination option is set to "server".',
-                    description_zh: '定义表格记录的总条数，在server端分页的时候需要设置该参数。',
-                    'default': 0,
-                    example: ''
-                },
+//                {
+//                    name: 'totalRows',
+//                    attribute: 'data-total-rows',
+//                    type: 'Number',
+//                    description: 'Defines the total rows of table, you need to set this option when the sidePagination option is set to "server".',
+//                    description_zh: '定义表格记录的总条数，在server端分页的时候需要设置该参数。',
+//                    'default': 0,
+//                    example: ''
+//                },
                 {
                     name: 'pageNumber',
                     attribute: 'data-page-number',
