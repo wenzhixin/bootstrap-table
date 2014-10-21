@@ -122,6 +122,12 @@
                         <li><a href="/examples/bootstrap_table/data?offset=0&limit=10">/examples/bootstrap_table/data?offset=0&limit=10&search=test</a></li>
                     </ul>
                 </div>
+                <hr>
+                <div>
+                    <h2>AJAX:</h2>
+                    <p>Use <code>url</code>, <code>method</code>, <code>cache</code>, <code>contentType</code>, <code>queryParams</code>, <code>queryParamsType</code>, <code>responseHandler</code> options to set the AJAX request and response params.</p>
+                </div>
+                <hr>
 
                 <div class="page-header">
                     <h1 id="basic-table" data-zh="基本表格">
@@ -131,9 +137,12 @@
                         Launch Modal
                     </button>
                 </div>
-                <p data-zh="不通过JavaScript的方式启动Bootstrap Table。">Activate bootstrap table without writing JavaScript.</p>
+                <p data-zh='不通过JavaScript的方式启动Bootstrap Table（使用<code>data-toggle="table"</code>）。'>Use <code>data-toggle="table"</code> to activate bootstrap table without writing JavaScript.</p>
                 <div class="bs-example">
-                    <table data-toggle="table" data-url="data1.json" data-cache="false" data-height="299">
+                    <table data-toggle="table"
+                           data-url="data1.json"
+                           data-cache="false"
+                           data-height="299">
                         <thead>
                             <tr>
                                 <th data-field="id">Item ID</th>
@@ -245,6 +254,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="用<code>height</code>, <code>classes</code>, <code>striped</code>, <code>rowStyle</code> 属性和<code>class</code>, <code>width</code>, <code>cellStyle</code> 列属性设置 bootstrap table 的样式。">Use <code>height</code>, <code>classes</code>, <code>striped</code>, <code>rowStyle</code> options and <code>class</code>, <code>width</code>, <code>cellStyle</code> column options to set the styles of bootstrap table.</p>
                 <div class="bs-example">
                     <div>
                         <label><input id="hover" type="checkbox" checked> hover</label>
@@ -307,7 +317,7 @@
                         Start Example
                     </button>
                 </div>
-                <p data-zh="使用 align 和 halign 来设置列和表头的对齐方式。">Use <code>align</code> and <code>halign</code> options to set the alignment of the columns and their header.</p>
+                <p data-zh="使用 <code>align</code>, <code>halign</code> 和 <code>valign</code> 来设置列和表头的对齐方式。">Use <code>align</code>, <code>halign</code> and <code>valign</code> options to set the alignment of the columns and their header.</p>
                 <div class="bs-example">
                     <table data-url="data1.json" data-height="299">
                         <thead>
@@ -332,6 +342,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>sortName</code>, <code>sortOrder</code>, <code>sortable</code> 属性和 <code>sortable</code>, <code>order</code> 列属性去设置表格的基本排序。">Use <code>sortName</code>, <code>sortOrder</code>, <code>sortable</code> options, and <code>sortable</code>, <code>order</code> column options to set the basic sort of bootstrap table.</p>
                 <div class="bs-example">
                     <table data-url="data1.json" data-height="299" data-sort-name="name" data-sort-order="desc">
                         <thead>
@@ -351,13 +362,14 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>sorter</code>列属性来定义表格的自定义排序。">Use <code>sorter</code> column option to define the custom sort of bootstrap table.</p>
                 <div class="bs-example">
                     <table id="table-custom-sort" data-url="data1.json" data-height="299" data-sort-name="price" data-sort-order="desc">
                         <thead>
                         <tr>
                             <th data-field="id" data-align="right" data-sortable="true">Item ID</th>
                             <th data-field="name" data-align="center" data-sortable="true">Item Name</th>
-                            <th data-field="price" data-sortable="true" data-sortable="true" data-sorter="priceSorter">Item Price</th>
+                            <th data-field="price" data-sortable="true" data-sorter="priceSorter">Item Price</th>
                         </tr>
                         </thead>
                     </table>
@@ -381,6 +393,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>formatter</code>列属性来格式化表格列显示。">Use <code>formatter</code> column option to format the display of bootstrap table column.</p>
                 <div class="bs-example">
                     <table id="table-format" data-url="data1.json" data-height="299">
                         <thead>
@@ -418,6 +431,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>showHeader: false</code> 去隐藏表头。">Use <code>showHeader: false</code> to hide the header of bootstrap table.</p>
                 <div class="bs-example">
                     <table data-url="data1.json" data-height="299" data-show-header="false">
                         <thead>
@@ -441,6 +455,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>showColumns</code>, <code>minimumCountColumns</code> 属性和 <code>visible</code>, <code>switchable</code> 列属性去显示列菜单用于切换。">Use <code>showColumns</code>, <code>minimumCountColumns</code> options, and <code>visible</code>, <code>switchable</code> column options to show the columns menu list use to switch.</p>
                 <div class="bs-example">
                     <table data-url="data3.json" data-height="299" data-show-columns="true" data-id-field="id">
                         <thead>
@@ -464,6 +479,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="Bootstrap table 支持超多列，会自动显示水平滚动条。">Bootstrap table support large columns, it will auto to show the horizontal scroll bar.</p>
                 <div class="bs-example">
                     <table id="table-large-columns" data-height="400" data-show-columns="true"></table>
                     <script>
@@ -484,6 +500,7 @@
                     Start Example
                 </button>
             </div>
+            <p data-zh="使用<code>cardView: true</code>属性去显示名片（card）表格。">Use <code>cardView: true</code> option to show Card View.</p>
             <div class="bs-example">
                 <table data-url="data4.json" data-height="299" data-card-view="true" data-response-handler="responseHandler">
                     <thead>
@@ -525,6 +542,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>clickToSelect</code>, <code>selectItemName</code> 属性和 <code>radio</code> 列属性来显示单选框表格。">Use <code>clickToSelect</code>, <code>selectItemName</code> options and <code>radio</code> column option to show a radio select table.</p>
                 <div class="bs-example">
                     <table data-url="data1.json" data-height="299" data-click-to-select="true" data-select-item-name="radioName">
                         <thead>
@@ -545,6 +563,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>clickToSelect</code> 属性和 <code>radio</code> 列属性来显示复选框表格。">Use <code>clickToSelect</code> option and <code>checkbox</code> column option to show a checkbox select table.</p>
                 <div class="bs-example">
                     <table data-url="data1.json" data-height="299" data-click-to-select="true">
                         <thead>
@@ -565,6 +584,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>checkboxHeader</code>, <code>checkboxEnable</code> 属性和 <code>radio</code> 列属性来禁用表格选择器。">Use <code>checkboxHeader</code>, <code>checkboxEnable</code> options and <code>formatter</code> column option to disabled select input.</p>
                 <div class="bs-example">
                     <table data-url="data1.json" data-height="299" data-click-to-select="true">
                         <thead>
@@ -602,6 +622,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>singleSelect</code> 属性来允许表格只能选择一列。">Use <code>singleSelect</code> option to allow checkbox selecting only one row..</p>
                 <div class="bs-example">
                     <table data-url="data1.json" data-height="299" data-click-to-select="true" data-single-select="true">
                         <thead>
@@ -628,6 +649,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>search</code>, <code>showColumns</code>, <code>showRefresh</code>, <code>showToggle</code> 属性来显示基本的工具栏。">Use <code>search</code>, <code>showColumns</code>, <code>showRefresh</code>, <code>showToggle</code> options to show the basic toolbars.</p>
                 <div class="bs-example">
                     <table data-url="data1.json" data-height="299" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
                         <thead>
@@ -648,8 +670,9 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>toolbar</code> 属性来自定义工具子。">Use <code>toolbar</code> option to define the custom toolbars.</p>
                 <div class="bs-example">
-                    <div id="custem-toolbar">
+                    <div id="custom-toolbar">
                         <div class="form-inline" role="form">
                             <div class="form-group">
                                 <div class="input-group">
@@ -669,7 +692,7 @@
                             <button type="submit" class="btn btn-default">Sign in</button>
                         </div>
                     </div>
-                    <table data-url="data1.json" data-height="299" data-click-to-select="true" data-toolbar="#custem-toolbar" data-show-refresh="true" data-show-toggle="true" data-show-columns="true">
+                    <table data-url="data1.json" data-height="299" data-click-to-select="true" data-toolbar="#custom-toolbar" data-show-refresh="true" data-show-toggle="true" data-show-columns="true">
                         <thead>
                         <tr>
                             <th data-field="id" data-align="right">Item ID</th>
@@ -686,6 +709,7 @@
                 <div class="page-header">
                     <h1 id="pagination-table" data-zh="分页">Pagination Table</h1>
                 </div>
+                <p>Use <code>pagination</code>, <code>sidePagination</code>, <code>pageNumber</code>, <code>pageSize</code>, <code>pageList</code> options to set the pagination options.</p>
 
                 <div class="page-header">
                     <h2 id="client-side-pagination-table" data-zh="客户的分页">Client Side</h2>
@@ -734,6 +758,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>sidePagination: 'server'</code> 属性来定义分页是在服务器端。">Use <code>sidePagination: 'server'</code> option to define the server side pagination of table.</p>
                 <div class="bs-example">
                     <table data-url="/examples/bootstrap_table/data"
                            data-height="400"
@@ -852,6 +877,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="使用 <code>formatter</code>, <code>events</code> 列属性来自定义列事件。">Use <code>formatter</code>, <code>events</code> column option to define the custom events.</p>
                 <div class="bs-example">
                     <table id="events-id2" data-url="data1.json" data-height="299" data-search="true">
                         <thead>
@@ -905,6 +931,7 @@
                         Start Example
                     </button>
                 </div>
+                <p data-zh="方法的使用语法为: <code>$('#table').bootstrapTable('method', parameter);</code>。">The calling method syntax: <code>$('#table').bootstrapTable('method', parameter);</code>.</p>
                 <div class="bs-example">
                     <div class="btn-group">
                         <button class="btn btn-default" id="get-selections">
@@ -1113,7 +1140,7 @@
             </div>
 
             <hr>
-            <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/docs/docs.js">More examples via JavaScript</a>
+            <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/docs/jsfiddle-examples.md">JSFiddle Examples</a>
         </div>
     </div>
 </div>
