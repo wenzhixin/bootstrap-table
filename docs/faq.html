@@ -107,6 +107,17 @@
         
         <hr>
         
+        <h2>How to better merge cells?</h2>
+        <div><p>For merged cells, when you do refresh, next page or switch columns to show, the merge cells will be unmerged. We can listen the events(on load success, on column switch) to solve this problem, code example:</p>
+<pre><code class="lang-js">$table.on(<span class="hljs-string">'load-success.bs.table column-switch.bs.table'</span>, <span class="hljs-keyword">function</span> () {
+    // pagination events will come soon
+    $table.bootstrapTable(<span class="hljs-string">'mergeCells'</span>, {<span class="hljs-keyword">...</span>});
+});
+</code></pre>
+</div>
+        
+        <hr>
+        
         <h2>How can I support development of bootstrap-table?</h2>
         <p>All your ideas and feedback are very appreciated! Please feel free to open issues on <a href="github.com/wenzhixin/bootstrap-table/issues">github</a> or send me <a href="mailto:wenzhixin2010@gmail.com">email</a>.</p>
         <p>I'm also grateful for your donations:</p>
