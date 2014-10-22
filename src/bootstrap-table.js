@@ -167,6 +167,15 @@
         formatNoMatches: function () {
             return 'No matching records found';
         },
+        formatRefresh: function () {
+            return 'Refresh';
+        },
+        formatToggle: function () {
+            return 'Toggle';
+        },
+        formatColumns: function () {
+            return 'Columns';
+        },
 
         onAll: function (name, args) {return false;},
         onClickRow: function (item, $element) {return false;},
@@ -478,20 +487,23 @@
         html = ['<div class="columns btn-group pull-right">'];
 
         if (this.options.showRefresh) {
-            html.push('<button class="btn btn-default" type="button" name="refresh">',
+            html.push(sprintf('<button class="btn btn-default" type="button" name="refresh" title="%s">',
+                this.options.formatRefresh()),
                 '<i class="glyphicon glyphicon-refresh icon-refresh"></i>',
                 '</button>');
         }
 
         if (this.options.showToggle) {
-            html.push('<button class="btn btn-default" type="button" name="toggle">',
+            html.push(sprintf('<button class="btn btn-default" type="button" name="toggle" title="%s">',
+                this.options.formatToggle()),
                 '<i class="glyphicon glyphicon glyphicon-list-alt icon-list-alt"></i>',
                 '</button>');
         }
 
         if (this.options.showColumns) {
-            html.push(sprintf('<div class="keep-open %s">',
-                this.options.showRefresh || this.options.showToggle ? 'btn-group' : ''),
+            html.push(sprintf('<div class="keep-open %s" title="%s">',
+                this.options.showRefresh || this.options.showToggle ? 'btn-group' : '',
+                this.options.formatColumns()),
                 '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
                 '<i class="glyphicon glyphicon-th icon-th"></i>',
                 ' <span class="caret"></span>',

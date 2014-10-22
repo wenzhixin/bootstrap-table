@@ -742,6 +742,18 @@ $(function () {
                 name: 'formatNoMatches',
                 parameter: '-',
                 'default': 'No matching records found'
+            }, {
+                name: 'formatRefresh',
+                parameter: '-',
+                'default': 'Refresh'
+            }, {
+                name: 'formatToggle',
+                parameter: '-',
+                'default': 'Toggle'
+            }, {
+                name: 'formatColumns',
+                parameter: '-',
+                'default': 'Columns'
             }]
         });
 

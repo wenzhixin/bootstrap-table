@@ -20,6 +20,15 @@
         },
         formatNoMatches: function () {
             return '没有找到匹配的记录';
+        },
+        formatRefresh: function () {
+            return '刷新';
+        },
+        formatToggle: function () {
+            return '切换';
+        },
+        formatColumns: function () {
+            return '列';
         }
     });
 })(jQuery);

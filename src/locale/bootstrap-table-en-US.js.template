@@ -20,6 +20,15 @@
         },
         formatNoMatches: function () {
             return 'No matching records found';
+        },
+        formatRefresh: function () {
+            return 'Refresh';
+        },
+        formatToggle: function () {
+            return 'Toggle';
+        },
+        formatColumns: function () {
+            return 'Columns';
         }
     });
 })(jQuery);
