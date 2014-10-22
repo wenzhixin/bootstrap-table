@@ -463,7 +463,8 @@
             html = [],
             timeoutId = 0,
             $keepOpen,
-            $search;
+            $search,
+            switchableCount = 0;
 
         this.$toolbar = this.$container.find('.fixed-table-toolbar').html('');
 
@@ -507,6 +508,7 @@
                     html.push(sprintf('<li>' +
                         '<label><input type="checkbox" data-field="%s" value="%s"%s> %s</label>' +
                         '</li>', column.field, i, checked, column.title));
+                    switchableCount++;
                 }
             });
             html.push('</ul>',
@@ -535,6 +537,11 @@
 
         if (this.options.showColumns) {
             $keepOpen = this.$toolbar.find('.keep-open');
+
+            if (switchableCount <= this.options.minimumCountColumns) {
+                $keepOpen.find('input').prop('disabled', true);
+            }
+
             $keepOpen.find('li').off('click').on('click', function (event) {
                 event.stopImmediatePropagation();
             });
