@@ -91,7 +91,23 @@
 </div>
 <div class="container">
     <div class="row">
-        <h3>How can I support development of bootstrap-table?</h3>
+        <h2>When resize the window, the table header does not adjust automatically, how to solve it?</h2>
+        <div class="comment-body markdown-body markdown-format js-comment-body">
+            <p>When you set the <code>height</code> of bootstrap table, the <code>fixed header</code> feature is automatically enabled, that is what cause the problem, you need to listen the <code>resize</code> event of window and use the <code>resetView</code> method to solve this problem, code example:</p>
+
+<pre><code>$(function () {
+    $('#tableId').bootstrapTable(); // init via javascript
+
+    $(window).resize(function () {
+        $('#tableId').bootstrapTable('resetView');
+    });
+});
+</code></pre>
+        </div>
+        
+        <hr>
+        
+        <h2>How can I support development of bootstrap-table?</h2>
         <p>All your ideas and feedback are very appreciated! Please feel free to open issues on <a href="github.com/wenzhixin/bootstrap-table/issues">github</a> or send me <a href="mailto:wenzhixin2010@gmail.com">email</a>.</p>
         <p>I'm also grateful for your donations:</p>
         <script data-gratipay-username="wenzhixin" data-gratipay-widget="button" src="//gttp.co/v1.js"></script>
