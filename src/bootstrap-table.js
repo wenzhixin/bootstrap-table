@@ -425,16 +425,26 @@
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
-                var value = calculateObjectValue(that.header, that.header.sorters[index], [a[name], b[name]]);
+                var aa = a[name],
+                    bb = b[name],
+                    value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
                     return order * value;
                 }
 
-                if (a[name] === b[name]) {
+                // Fix #161: undefined or null string sort bug.
+                if (aa === null) {
+                    aa = '';
+                }
+                if (bb === null) {
+                    bb = '';
+                }
+
+                if (aa === bb) {
                     return 0;
                 }
-                if (a[name] < b[name]) {
+                if (aa < bb) {
                     return order * -1;
                 }
                 return order;
