@@ -2,16 +2,18 @@ $(function() {
     'use strict';
 
 	var defaultTranslation = 'en',
-		translations = ['en','zh','es'];
+		translations = {'en': {title: 'English', code: 'en'},'zh': {title: '简体中文', code: 'zh'},'es': {title: 'Español', code: 'es'}};
 	
 	window.getLocale = function () {
         if (!localStorage) {
             return defaultTranslation;
         }
-        if (location.search === '?locale=zh') {
-            localStorage.locale = 'zh';
+		
+		if (location.search !== '') {
+            localStorage.locale = translations[location.search.replace('?locale=', '')].code;
         }
-        return localStorage.locale;
+		
+        return localStorage.locale === undefined ? defaultTranslation : localStorage.locale;
     };
 	
 	function main() {
@@ -29,26 +31,16 @@ $(function() {
     }
 
     function initLocale() {
-        var $locale = $('#locale');
+        var $locale = $('#locale'),
+			translation = {};
 			
         if (!localStorage) {
             $locale.hide();
             return;
         }
 		
-		switch (getLocale()) {
-			case 'zh':
-				setGlobalLanguage($locale, '简体中文', 'zh');
-			break;
-			
-			case 'es':
-				setGlobalLanguage($locale, 'Español', 'es');
-			break;
-			
-			default:
-				setGlobalLanguage($locale, 'English', 'en');
-			break;
-		};
+		translation = translations[getLocale()];
+		setGlobalLanguage($locale, translation.title, translation.code);
 
         $('[data-locale]').click(function () {
             localStorage.locale = $(this).data('locale');
@@ -57,10 +49,14 @@ $(function() {
     }
 	
 	function setGlobalLanguage($locale, text, languageCode) {
-		for(i = 0; i < translations.length; i++) { 
-			if(translations[i] !== languageCode) {
-				$locale.find('[data-locale="'+ translations[i] + '"]').removeClass('active').end()
-				.find('.dropdown-toggle img').removeClass('flag-'+ translations[i] +'').end();
+		var translationsArray = $.map(translations, function(value, index) {
+			return [value];
+		});
+		
+		for(var i = 0; i < translationsArray.length; i++) { 
+			if(translationsArray[i].code !== languageCode) {
+				$locale.find('[data-locale="'+ translationsArray[i].code + '"]').removeClass('active').end()
+				.find('.dropdown-toggle img').removeClass('flag-'+ translationsArray[i].code +'').end();
 			}
 		}
 		
