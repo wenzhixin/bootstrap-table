@@ -1240,6 +1240,10 @@ h1 .icon {
     background-position: -208px -22px;
 }
 
+.flag.flag-es {
+	background-position: -16px -44px;
+}
+
 .edit-pull-request {
     font-size: 32px;
     margin-left: 10px;
