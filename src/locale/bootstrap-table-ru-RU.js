@@ -1,25 +1,33 @@
 /**
  * Bootstrap Table Russian translation
- * Author: gnhaku <hello@gnhaku.me>
+ * Author: Dunaevsky Maxim <dunmaksim@yandex.ru>
  */
 (function ($) {
     'use strict';
-
     $.extend($.fn.bootstrapTable.defaults, {
         formatLoadingMessage: function () {
-            return 'Пожалуйста подождите, идет загрузка…';
+            return 'Пожалуйста, подождите, идёт загрузка...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' записей на странице';
+            return pageNumber + ' записей на страницу';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Показаны записи с ' + pageFrom + ' по ' + pageTo + ' из ' + totalRows;
+            return 'Записи с ' + pageFrom + ' по ' + pageTo + ' из ' + totalRows;
         },
         formatSearch: function () {
             return 'Поиск';
         },
         formatNoMatches: function () {
-            return 'Записи не найдены';
+            return 'Ничего не найдено';
+        },
+        formatRefresh: function () {
+            return 'Обновить';
+        },
+        formatToggle: function () {
+            return 'Переключить';
+        },
+        formatColumns: function () {
+            return 'Колонки';
         }
     });
 })(jQuery);
