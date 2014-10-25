@@ -1,25 +1,29 @@
-$(function() {
+$(function () {
     'use strict';
 
-	var defaultTranslation = 'en',
-		translations = {'en': {title: 'English', code: 'en'},'zh': {title: '简体中文', code: 'zh'},'es': {title: 'Español', code: 'es'}};
-	
-	window.getLocale = function () {
+    var defaultTranslation = 'en',
+        translations = {
+            'en': {title: 'English', code: 'en'},
+            'zh': {title: '简体中文', code: 'zh'},
+            'es': {title: 'Español', code: 'es'}
+        };
+
+    window.getLocale = function () {
         if (!localStorage) {
             return defaultTranslation;
         }
-		
-		if (location.search !== '') {
+
+        if (location.search !== '') {
             localStorage.locale = translations[location.search.replace('?locale=', '')].code;
         }
-		
+
         return localStorage.locale === undefined ? defaultTranslation : localStorage.locale;
     };
-	
-	function main() {
+
+    function main() {
         $(window).scroll(showGotoTop);
         $(window).resize(showGotoTop);
-        $('.goto-top').click(function() {
+        $('.goto-top').click(function () {
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
             return false;
@@ -32,42 +36,42 @@ $(function() {
 
     function initLocale() {
         var $locale = $('#locale'),
-			translation = {};
-			
+            translation = {};
+
         if (!localStorage) {
             $locale.hide();
             return;
         }
-		
-		translation = translations[getLocale()];
-		setGlobalLanguage($locale, translation.title, translation.code);
+
+        translation = translations[getLocale()];
+        setGlobalLanguage($locale, translation.title, translation.code);
 
         $('[data-locale]').click(function () {
             localStorage.locale = $(this).data('locale');
             location.reload(true);
         });
     }
-	
-	function setGlobalLanguage($locale, text, languageCode) {
-		var translationsArray = $.map(translations, function(value, index) {
-			return [value];
-		});
-		
-		for(var i = 0; i < translationsArray.length; i++) { 
-			if(translationsArray[i].code !== languageCode) {
-				$locale.find('[data-locale="'+ translationsArray[i].code + '"]').removeClass('active').end()
-				.find('.dropdown-toggle img').removeClass('flag-'+ translationsArray[i].code +'').end();
-			}
-		}
-		
-		$locale.find('.language').text(text).end()
-			.find('[data-locale="'+languageCode + '"]').addClass('active').end()
-			.find('.dropdown-toggle img').addClass('flag-'+ languageCode +'').end();
-			
-		$('[data-'+ languageCode + ']').each(function () {
-			$(this).html($(this).data(languageCode));
-		});	
-	}
+
+    function setGlobalLanguage($locale, text, languageCode) {
+        var translationsArray = $.map(translations, function (value, index) {
+            return [value];
+        });
+
+        for (var i = 0; i < translationsArray.length; i++) {
+            if (translationsArray[i].code !== languageCode) {
+                $locale.find('[data-locale="' + translationsArray[i].code + '"]').removeClass('active').end()
+                    .find('.dropdown-toggle img').removeClass('flag-' + translationsArray[i].code + '').end();
+            }
+        }
+
+        $locale.find('.language').text(text).end()
+            .find('[data-locale="' + languageCode + '"]').addClass('active').end()
+            .find('.dropdown-toggle img').addClass('flag-' + languageCode + '').end();
+
+        $('[data-' + languageCode + ']').each(function () {
+            $(this).html($(this).data(languageCode));
+        });
+    }
 
     function initScrollspy() {
         var $window = $(window),
