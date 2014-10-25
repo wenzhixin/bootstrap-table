@@ -20,6 +20,15 @@
         },
         formatNoMatches: function () {
             return 'Nessun record trovato';
+        },
+        formatRefresh: function () {
+            return 'Rinfrescare';
+        },
+        formatToggle: function () {
+            return 'Alternare';
+        },
+        formatColumns: function () {
+            return 'Colonne';
         }
     });
 })(jQuery);
