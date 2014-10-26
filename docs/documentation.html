@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title data-zh="文档 &middot; Bootstrap Table">Documentation &middot; Bootstrap Table</title>
+    <title data-zh="文档 &middot; Bootstrap Table" data-es="Documentación de &middot; Bootstrap Table">Documentation &middot; Bootstrap Table</title>
     <meta name="author" content="zhixin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -34,19 +34,19 @@
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="getting-started.html" data-zh="开始使用">Usage</a>
+                    <a href="getting-started.html" data-zh="开始使用" data-es="Uso">Usage</a>
                 </li>
                 <li class="active">
-                    <a href="documentation.html" data-zh="文档">Docs</a>
+                    <a href="documentation.html" data-zh="文档" data-es="Documentación">Docs</a>
                 </li>
                 <li>
-                    <a href="examples.html" data-zh="例子">Demos</a>
+                    <a href="examples.html" data-zh="例子" data-es="Demos">Demos</a>
                 </li>
                 <li>
-                    <a href="extensions.html" data-zh="扩展">Extensions</a>
+                    <a href="extensions.html" data-zh="扩展" data-es="Extensiones">Extensions</a>
                 </li>
                 <li>
-                    <a href="faq.html" data-zh="常见问题">FAQ</a>
+                    <a href="faq.html" data-zh="常见问题" data-es="FAQ">FAQ</a>
                 </li>
                 <!-- Localization -->
                 <li id="locale" class="">
@@ -64,6 +64,11 @@
                                 <img src="blank.gif" class="flag flag-zh" alt="China"> 简体中文
                             </a>
                         </li>
+						<li data-locale="es">
+                            <a href="javascript:void(0)">
+                                <img src="blank.gif" class="flag flag-es" alt="Español"> Español
+                            </a>
+                        </li> 
                     </ul>
                 </li>
             </ul>
@@ -79,12 +84,12 @@
 <div class="bs-header" id="content">
     <div class="container">
         <h1>
-            <span  data-zh="文档">Documentation</span>
+            <span  data-zh="文档" data-es="Documentación">Documentation</span>
             <a class="edit-pull-request" href="https://github.com/wenzhixin/bootstrap-table/edit/master/docs/docs.js" title="Edit the docs">
                 <i class="glyphicon glyphicon-edit"></i>
             </a>
         </h1>
-        <p data-zh="文档包含了表格属性、列属性、事件、方法等等。">The documentation contains Table Properties, Column Properties, Events, Methods, and much more.</p>
+        <p data-zh="文档包含了表格属性、列属性、事件、方法等等。" data-es="La documentación contiene propiedades de las Tablas, Colunmas, Eventos, Métodos, y mucho más">The documentation contains Table Properties, Column Properties, Events, Methods, and much more.</p>
     </div>
 </div>
 <div class="container">
@@ -99,25 +104,25 @@
         <div class="col-md-9" role="main">
             <div class="page-header alert alert-info">
                 <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-                <b data-zh="注意：">NOTE:</b> <span data-zh="Bootstrap Table 是基于 <a href='https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE'>The MIT License</a> 的开源项目，你可以任意的使用和修改这个插件。假如您觉得这个开源项目对你有帮助，麻烦给这个项目加颗星（<a href='http://github.com/wenzhixin/bootstrap-table'><b>Star</b></a>），您的支持是我最大的动力，谢谢。">Bootstrap Table is licensed under the <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE">The MIT License</a>. Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can <a href="http://github.com/wenzhixin/bootstrap-table"><b>Star</b></a> this repo, your support is my biggest motive force, thanks.</span>
+                <b data-zh="注意：" data-es="NOTA:">NOTE:</b> <span data-zh="Bootstrap Table 是基于 <a href='https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE'>The MIT License</a> 的开源项目，你可以任意的使用和修改这个插件。假如您觉得这个开源项目对你有帮助，麻烦给这个项目加颗星（<a href='http://github.com/wenzhixin/bootstrap-table'><b>Star</b></a>），您的支持是我最大的动力，谢谢。" data-es="Bootstrap Table está bajo la licencia de <a href='https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE'>The MIT License</a>. Es completamente gratis, además usted puede usarlo y modificarlo como desee. Si este plugin es útil para usted, puede <a href='http://github.com/wenzhixin/bootstrap-table'><b>Star</b></a> este repositorio, su apoyo es mi mayor motivación, gracias.">Bootstrap Table is licensed under the <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE">The MIT License</a>. Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can <a href="http://github.com/wenzhixin/bootstrap-table"><b>Star</b></a> this repo, your support is my biggest motive force, thanks.</span>
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="properties" data-zh="表格属性">Table Properties</h1>
+                    <h1 id="properties" data-zh="表格属性" data-es="Propiedades de la Tabla">Table Properties</h1>
                 </div>
-                <p data-zh="表格属性定义在<code>jQuery.fn.bootstrapTable.defaults</code>中。">The table properties is defined in <code>jQuery.fn.bootstrapTable.defaults</code>.</p>
+                <p data-zh="表格属性定义在<code>jQuery.fn.bootstrapTable.defaults</code>中。" data-es="Las propiedades de la tabla se definen en <code>jQuery.fn.bootstrapTable.defaults</code>.">The table properties is defined in <code>jQuery.fn.bootstrapTable.defaults</code>.</p>
                 <table id="table"></table>
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="columns" data-zh="列属性">Column Properties</h1>
+                    <h1 id="columns" data-zh="列属性" data-es="Propiedades de la columna">Column Properties</h1>
                 </div>
-                <p data-zh="列属性定义在<code>jQuery.fn.bootstrapTable.columnDefaults</code>中。">The column properties is defined in <code>jQuery.fn.bootstrapTable.columnDefaults</code>.</p>
+                <p data-zh="列属性定义在<code>jQuery.fn.bootstrapTable.columnDefaults</code>中。" data-es="Las propiedades de la columna son definidas en <code>jQuery.fn.bootstrapTable.columnDefaults</code>.">The column properties is defined in <code>jQuery.fn.bootstrapTable.columnDefaults</code>.</p>
                 <table id="column"></table>
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="events" data-zh="事件">
+                    <h1 id="events" data-zh="事件" data-es="Eventos">
                         Events
                         <a class="icon" href="examples.html#basic-events-table" title="Example">
                             <i class="glyphicon glyphicon-eye-open"></i>
@@ -128,19 +133,19 @@
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="methods" data-zh="方法">
+                    <h1 id="methods" data-zh="方法" data-es="Métodos">
                         Methods
                         <a class="icon" href="examples.html#table-methods" title="Example">
                             <i class="glyphicon glyphicon-eye-open"></i>
                         </a>
                     </h1>
                 </div>
-                <p data-zh="调用方法的语法为：。<code>$('#table').bootstrapTable('method', parameter);</code>">The calling method syntax: <code>$('#table').bootstrapTable('method', parameter);</code>.</p> 
+                <p data-zh="调用方法的语法为：。<code>$('#table').bootstrapTable('method', parameter);</code>" data-es="Sintáxis de llamada a los métodos: ：<code>$('#table').bootstrapTable('method', parameter);</code>">The calling method syntax: <code>$('#table').bootstrapTable('method', parameter);</code>.</p> 
                 <table id="method"></table>
             </div>
             <div>
                 <div class="page-header">
-                    <h1 id="localizations" data-zh="国际化">
+                    <h1 id="localizations" data-zh="国际化" data-es="Multilenguage">
                         Localizations
                         <a class="icon" href="https://github.com/wenzhixin/bootstrap-table/tree/master/src/locale" title="Pull Request">
                             <i class="glyphicon glyphicon-cutlery"></i>
