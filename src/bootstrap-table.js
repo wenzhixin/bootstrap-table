@@ -730,7 +730,7 @@
             }
         }
         for (i = from; i <= to; i++) {
-            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active disabled' : '') + '">',
                 '<a href="javascript:void(0)">', i ,'</a>',
                 '</li>');
         }
@@ -766,7 +766,12 @@
         $number.off('click').on('click', $.proxy(this.onPageNumber, this));
     };
 
-    BootstrapTable.prototype.updatePagination = function () {
+    BootstrapTable.prototype.updatePagination = function (event) {
+        // Fix #171: IE disabled button can be clicked bug.
+        if (event && $(event.currentTarget).hasClass('disabled')) {
+            return;
+        }
+
         if (!this.options.maintainSelected) {
             this.resetRows();
         }
@@ -785,27 +790,27 @@
         $this.parent().addClass('active').siblings().removeClass('active');
         this.options.pageSize = +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
-    BootstrapTable.prototype.onPageFirst = function () {
+    BootstrapTable.prototype.onPageFirst = function (event) {
         this.options.pageNumber = 1;
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
-    BootstrapTable.prototype.onPagePre = function () {
+    BootstrapTable.prototype.onPagePre = function (event) {
         this.options.pageNumber--;
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
-    BootstrapTable.prototype.onPageNext = function () {
+    BootstrapTable.prototype.onPageNext = function (event) {
         this.options.pageNumber++;
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
-    BootstrapTable.prototype.onPageLast = function () {
+    BootstrapTable.prototype.onPageLast = function (event) {
         this.options.pageNumber = this.totalPages;
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
     BootstrapTable.prototype.onPageNumber = function (event) {
@@ -813,7 +818,7 @@
             return;
         }
         this.options.pageNumber = +$(event.currentTarget).text();
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
     BootstrapTable.prototype.initBody = function (fixedScroll) {

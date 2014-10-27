@@ -28,6 +28,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 - [x] Add cs-CZ and es-CR locales.
 - [x] Fix minimumCountColumns option init error.
 - [x] Fix #161: undefined or null string sort bug.
+- [x] Fix #171: IE disabled button can be clicked bug.
 
 ## Features
 
