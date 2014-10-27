@@ -1,5 +1,5 @@
 /**
- * Bootstrap Table dabush translation
+ * Bootstrap Table danish translation
  * Author: Your Name Jan Borup Coyle, github@coyle.dk
  */
 (function ($) {
@@ -20,6 +20,15 @@
         },
         formatNoMatches: function () {
             return 'Ingen poster fundet';
+        },
+        formatRefresh: function () {
+            return 'Opdater';
+        },
+        formatToggle: function () {
+            return 'Skift';
+        },
+        formatColumns: function () {
+            return 'Kolonner';
         }
     });
 })(jQuery);
