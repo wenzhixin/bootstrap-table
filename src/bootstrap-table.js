@@ -897,7 +897,7 @@
                             sprintf(' name="%s"', that.options.selectItemName) +
                             sprintf(' type="%s"', type) +
                             sprintf(' value="%s"', item[that.options.idField]) +
-                            sprintf(' checked="%s"', +value === 1 ||
+                            sprintf(' checked="%s"', value === true ||
                                 (value && value.checked) ? 'checked' : undefined) +
                             sprintf(' disabled="%s"', !that.options.columns[j].checkboxEnabled ||
                                 (value && value.disabled) ? 'disabled' : undefined) +
