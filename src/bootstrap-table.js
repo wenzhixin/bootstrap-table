@@ -140,6 +140,7 @@
         showColumns: false,
         showRefresh: false,
         showToggle: false,
+        smartDisplay: false,
         minimumCountColumns: 1,
         idField: undefined,
         cardView: false,
@@ -710,8 +711,10 @@
         }
 
         $.each(pageList, function (i, page) {
-            var active = page === that.options.pageSize ? ' class="active"' : '';
-            pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+            if (that.options.smartDisplay === false || that.options.totalRows >= page || page == pageList[0]) {
+                var active = page === that.options.pageSize ? ' class="active"' : '';
+                pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+            }
         });
         pageNumber.push('</ul></span>');
 
@@ -767,6 +770,14 @@
         if (this.options.pageNumber >= this.totalPages) {
             $next.addClass('disabled');
             $last.addClass('disabled');
+        }
+        if (this.options.smartDisplay) {
+            if (this.totalPages <= 1) {
+                this.$pagination.find('div.pagination').hide();
+            }
+            if (this.options.totalRows <= this.options.pageList[1]) {
+                this.$pagination.find('div.pagination-detail').hide();
+            }
         }
         $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
         $first.off('click').on('click', $.proxy(this.onPageFirst, this));
