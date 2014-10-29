@@ -627,8 +627,8 @@
             var s = this.searchText && this.searchText.toLowerCase();
 
             this.data = s ? $.grep(this.options.data, function (item, i) {
-                key = $.isNumeric(key) ? parseInt(key, 10) : key;
                 for (var key in item) {
+                    key = $.isNumeric(key) ? parseInt(key, 10) : key;
                     var value = item[key];
 
                     // Fix #142: search use formated data
