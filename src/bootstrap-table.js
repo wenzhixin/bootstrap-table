@@ -296,8 +296,18 @@
 
         this.$el.find('tbody tr').each(function () {
             var row = {};
+
+            // save tr's id and class
+            row._id = $(this).attr('id');
+            row._class = $(this).attr('class');
+
             $(this).find('td').each(function (i) {
-                row[that.options.columns[i].field] = $(this).html();
+                var field = that.options.columns[i].field;
+
+                row[field] = $(this).html();
+                // save td's id and class
+                row['_' + field + '_id'] = $(this).attr('id');
+                row['_' + field + '_class'] = $(this).attr('class');
             });
             data.push(row);
         });
@@ -854,7 +864,8 @@
             }
 
             html.push('<tr',
-                sprintf(' class="%s"', style.classes),
+                sprintf(' id="%s"', item._id),
+                sprintf(' class="%s"', style.classes || item._class),
                 sprintf(' data-index="%s"', i),
                 '>'
             );
@@ -868,11 +879,20 @@
                     value = item[field],
                     type = '',
                     cellStyle = {},
+                    id_ = '',
                     class_ = that.header.classes[j];
                     style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
                 value = calculateObjectValue(that.header,
                     that.header.formatters[j], [value, item, i], value);
+
+                // handle td's id and class
+                if (item['_' + field + '_id']) {
+                    id_ = sprintf(' id="%s"', item['_' + field + '_id']);
+                }
+                if (item['_' + field + '_class']) {
+                    class_ = sprintf(' class="%s"', item['_' + field + '_class']);
+                }
 
                 cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
@@ -917,7 +937,7 @@
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
-                        [sprintf('<td%s %s>', class_, style),
+                        [sprintf('<td%s %s %s>', id_, class_, style),
                             value,
                             '</td>'].join('');
                 }
