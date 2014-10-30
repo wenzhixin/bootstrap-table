@@ -23,13 +23,14 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 - [x] Fix #119, #123: Save all `id` and `class` of `tr` and `td` for html table.
 - [ ] Fix #149: Hide empty data on Card view.
 - [ ] Fix #131: Add pagination events.
-- [ ] Fix #144: onCheck and onUncheck functionalities are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
+- [ ] Fix #144: `onCheck` and `onUncheck` method are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
 - [x] Apply `width` column option to row style.
 - [x] Add bootstrap-table-filter extension.
 - [x] Add cs-CZ and es-CR locales.
-- [x] Fix minimumCountColumns option init error.
-- [x] Fix #161: undefined or null string sort bug.
+- [x] Fix `minimumCountColumns` option init error.
+- [x] Fix #161: `undefined` or `null` string sort bug.
 - [x] Fix #171: IE disabled button can be clicked bug.
+- [x] Fix #185: Reset the page to the first page when changing the url with `refresh` method.
 
 ## Features
 
