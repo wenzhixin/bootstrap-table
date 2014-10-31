@@ -140,7 +140,7 @@
         showColumns: false,
         showRefresh: false,
         showToggle: false,
-        smartDisplay: false,
+        smartDisplay: true,
         minimumCountColumns: 1,
         idField: undefined,
         cardView: false,
@@ -711,7 +711,7 @@
         }
 
         $.each(pageList, function (i, page) {
-            if (that.options.smartDisplay === false || that.options.totalRows >= page || page == pageList[0]) {
+            if (!that.options.smartDisplay || that.options.totalRows >= page || i === 0) {
                 var active = page === that.options.pageSize ? ' class="active"' : '';
                 pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
             }
@@ -775,8 +775,8 @@
             if (this.totalPages <= 1) {
                 this.$pagination.find('div.pagination').hide();
             }
-            if (this.options.totalRows <= this.options.pageList[1]) {
-                this.$pagination.find('div.pagination-detail').hide();
+            if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[1]) {
+                this.$pagination.find('span.page-list').hide();
             }
         }
         $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
