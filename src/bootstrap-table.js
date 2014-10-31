@@ -135,6 +135,7 @@
         pageSize: 10,
         pageList: [10, 25, 50, 100],
         search: false,
+        searchAlign: 'right',
         selectItemName: 'btSelectItem',
         showHeader: true,
         showColumns: false,
@@ -147,6 +148,7 @@
         clickToSelect: false,
         singleSelect: false,
         toolbar: undefined,
+        toolbarAlign: 'right',
         checkboxHeader: true,
         sortable: true,
         maintainSelected: false,
@@ -505,7 +507,7 @@
         }
 
         // showColumns, showToggle, showRefresh
-        html = ['<div class="columns btn-group pull-right">'];
+        html = ['<div class="columns columns-' + this.options.toolbarAlign + ' btn-group pull-' + this.options.toolbarAlign + '">'];
 
         if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="refresh" title="%s">',
@@ -589,7 +591,7 @@
         if (this.options.search) {
             html = [];
             html.push(
-                '<div class="pull-right search">',
+                '<div class="pull-' + this.options.searchAlign + ' search">',
                     sprintf('<input class="form-control" type="text" placeholder="%s">',
                         this.options.formatSearch()),
                 '</div>');
