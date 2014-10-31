@@ -1314,7 +1314,7 @@
             return;
         }
         $.extend(this.data[params.index], params.row);
-        this.initBody();
+        this.initBody(true);
     };
 
     BootstrapTable.prototype.mergeCells = function (options) {
