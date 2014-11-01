@@ -447,10 +447,10 @@
                 }
 
                 // Fix #161: undefined or null string sort bug.
-                if (aa === null) {
+                if (aa === undefined || aa === null) {
                     aa = '';
                 }
-                if (bb === null) {
+                if (aa === undefined || bb === null) {
                     bb = '';
                 }
 
