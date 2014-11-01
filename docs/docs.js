@@ -286,6 +286,15 @@ $(function () {
                     example: 'radio-table'
                 },
                 {
+                    name: 'smartDisplay',
+                    attribute: 'data-smart-display',
+                    type: 'Boolean',
+                    description: 'True to display pagination or card view smartly.',
+                    description_zh: '设置为True智能显示分页或者Card View。',
+                    'default': 'true',
+                    example: '-'
+                },
+                {
                     name: 'showHeader',
                     attribute: 'data-show-header',
                     type: 'Boolean',
