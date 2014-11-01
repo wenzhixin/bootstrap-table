@@ -942,7 +942,8 @@
                             ' />',
                         '</td>'].join('');
                 } else {
-                    value = typeof value === 'undefined' ? that.options.undefinedText : value;
+                    value = typeof value === 'undefined' || value === null ?
+                        that.options.undefinedText : value;
 
                     text = that.options.cardView ?
                         ['<div class="card-view">',
@@ -953,6 +954,11 @@
                         [sprintf('<td%s %s %s>', id_, class_, style),
                             value,
                             '</td>'].join('');
+
+                    // Hide empty data on Card view when smartDisplay is set to true.
+                    if (that.options.cardView && that.options.smartDisplay && value === '') {
+                        text = '';
+                    }
                 }
 
                 html.push(text);
