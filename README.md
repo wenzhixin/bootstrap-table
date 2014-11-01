@@ -33,6 +33,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 - [x] Fix #185: Reset the page to the first page when changing the url with `refresh` method.
 - [x] Fix #202: updateRow method keep the scroll position.
 - [x] Add `smartDisplay` option.
+- [x] Add `searchAlign` and `toolbarAlign` options.
 
 ## Features
 

@@ -268,15 +268,6 @@ $(function () {
                     example: 'via-javascript-table'
                 },
                 {
-                    name: 'search',
-                    attribute: 'data-search',
-                    type: 'Boolean',
-                    description: 'Enable the search input.',
-                    description_zh: '启用搜索输入框。',
-                    'default': 'false',
-                    example: 'pagination-table'
-                },
-                {
                     name: 'selectItemName',
                     attribute: 'data-select-item-name',
                     type: 'String',
@@ -292,7 +283,16 @@ $(function () {
                     description: 'True to display pagination or card view smartly.',
                     description_zh: '设置为True智能显示分页或者Card View。',
                     'default': 'true',
-                    example: '-'
+                    example: ''
+                },
+                {
+                    name: 'search',
+                    attribute: 'data-search',
+                    type: 'Boolean',
+                    description: 'Enable the search input.',
+                    description_zh: '启用搜索输入框。',
+                    'default': 'false',
+                    example: 'pagination-table'
                 },
                 {
                     name: 'showHeader',
@@ -356,6 +356,24 @@ $(function () {
                     description_zh: '设置为True时显示名片（card）布局，例如用手机浏览的时候。',
                     'default': 'false',
                     example: 'card-view'
+                },
+                {
+                    name: 'searchAlign',
+                    attribute: 'data-search-align',
+                    type: 'String',
+                    description: 'Indicate how to align the search input. "left", "right" can be used.',
+                    description_zh: '定义搜索栏的对齐方式，只能为："left", "right"。',
+                    'default': 'right',
+                    example: ''
+                },
+                {
+                    name: 'toolbarAlign',
+                    attribute: 'data-toolbar-align',
+                    type: 'String',
+                    description: 'Indicate how to align the toolbar buttons. "left", "right" can be used.',
+                    description_zh: '定义工具栏按钮的对齐方式，只能为："left", "right"。',
+                    'default': 'right',
+                    example: ''
                 },
                 {
                     name: 'clickToSelect',
