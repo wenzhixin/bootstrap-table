@@ -862,6 +862,9 @@
                                     },
                                     onPageChange: function (number, size) {
                                         $result.text('Event: onPageChange, data: ' + number + ', ' + size);
+                                    },
+                                    onSearch: function (text) {
+                                        $result.text('Event: onSearch, data: ' + text);
                                     }
                                     */
                                 }).on('all.bs.table', function (e, name, args) {
@@ -889,6 +892,8 @@
                                         field + ', ' + checked);
                                 }).on('page-change.bs.table', function (e, size, number) {
                                     $result.text('Event: page-change.bs.table, data: ' + number + ', ' + size);
+                                }).on('search.bs.table', function (e, text) {
+                                    $result.text('Event: search.bs.table, data: ' + text);
                                 });
                             });
                         });

@@ -688,6 +688,12 @@ $(function () {
                     event: 'page-change.bs.table',
                     parameter: 'number, size',
                     description: 'Fires when change the page number or page size.'
+                },
+                {
+                    name: 'onSearch',
+                    event: 'search.bs.table',
+                    parameter: 'text',
+                    description: 'Fires when search the table.'
                 }
             ]
         });
