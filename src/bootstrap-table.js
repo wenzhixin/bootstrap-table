@@ -125,6 +125,7 @@
         url: undefined,
         cache: true,
         contentType: 'application/json',
+        dataType: 'json',
         queryParams: function (params) {return params;},
         queryParamsType: 'limit', // undefined
         responseHandler: function (res) {return res;},
@@ -1108,7 +1109,7 @@
             data: data,
             cache: this.options.cache,
             contentType: this.options.contentType,
-            dataType: 'json',
+            dataType: this.options.dataType,
             success: function (res) {
                 res = calculateObjectValue(that.options, that.options.responseHandler, [res], res);
 
