@@ -113,9 +113,8 @@
         <hr>
         
         <h2>How to better merge cells?</h2>
-        <div><p>For merged cells, when you do refresh, next page or switch columns to show, the merge cells will be unmerged. We can listen the events(on load success, on column switch) to solve this problem, code example:</p>
-<pre><code class="lang-js">$table.on(<span class="hljs-string">'load-success.bs.table column-switch.bs.table'</span>, <span class="hljs-keyword">function</span> () {
-    // pagination events will come soon
+        <div><p>For merged cells, when you do refresh, next page or switch columns to show, the merge cells will be unmerged. We can listen the events(on load success, on column switch, on page change and on search) to solve this problem, code example:</p>
+<pre><code class="lang-js">$table.on(<span class="hljs-string">'load-success.bs.table column-switch.bs.table page-change.bs.table search.bs.table'</span>, <span class="hljs-keyword">function</span> () {
     $table.bootstrapTable(<span class="hljs-string">'mergeCells'</span>, {<span class="hljs-keyword">...</span>});
 });
 </code></pre>
