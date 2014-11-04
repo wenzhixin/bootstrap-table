@@ -191,7 +191,8 @@
         onLoadSuccess: function (data) {return false;},
         onLoadError: function (status) {return false;},
         onColumnSwitch: function (field, checked) {return false;},
-        onPageChange: function (number, size) {return false;}
+        onPageChange: function (number, size) {return false;},
+        onSearch: function (text) {return false;}
     };
 
     BootstrapTable.COLUMN_DEFAULTS = {
@@ -228,7 +229,8 @@
         'load-success.bs.table': 'onLoadSuccess',
         'load-error.bs.table': 'onLoadError',
         'column-switch.bs.table': 'onColumnSwitch',
-        'page-change.bs.table': 'onPageChange'
+        'page-change.bs.table': 'onPageChange',
+        'search.bs.table': 'onSearch'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -623,6 +625,7 @@
         this.options.pageNumber = 1;
         this.initSearch();
         this.updatePagination();
+        this.trigger('search', text);
     };
 
     BootstrapTable.prototype.initSearch = function () {
