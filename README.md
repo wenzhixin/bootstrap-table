@@ -27,7 +27,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 - [ ] Fix #144: `onCheck` and `onUncheck` method are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
 - [x] Apply `width` column option to row style.
 - [x] Add bootstrap-table-filter extension.
-- [x] Add cs-CZ, es-CR, es-NI and pl-PL locales.
+- [x] Add cs-CZ, es-CR, es-NI, pl-PL, ur-PK and ko-KR locales.
 - [x] Fix `minimumCountColumns` option init error.
 - [x] Fix #161: `undefined` or `null` string sort bug.
 - [x] Fix #171: IE disabled button can be clicked bug.
@@ -35,6 +35,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 - [x] Fix #202: updateRow method keep the scroll position.
 - [x] Add `smartDisplay` option.
 - [x] Add `searchAlign` and `toolbarAlign` options.
+- [x] Fix #193: Add `dataType` option.
 
 ## Features
 

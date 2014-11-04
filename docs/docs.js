@@ -187,6 +187,15 @@ $(function () {
                     example: ''
                 },
                 {
+                    name: 'dataType',
+                    attribute: 'data-data-type',
+                    type: 'String',
+                    description: 'The type of data that you are expecting back from the server.',
+                    description_zh: '远程数据请求返回的数据类型。',
+                    'default': 'json',
+                    example: ''
+                },
+                {
                     name: 'queryParams',
                     attribute: 'data-query-params',
                     type: 'Function',
