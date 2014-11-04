@@ -801,9 +801,10 @@
                         Here is the result of event.
                     </div>
                     <table id="events-table"
-                           data-url="data1.json"
+                           data-url="data2.json"
                            data-height="299"
                            data-search="true"
+                           data-pagination="true"
                            data-show-columns="true">
                         <thead>
                         <tr>
@@ -847,8 +848,17 @@
                                     onUncheckAll: function () {
                                         $result.text('Event: onUncheckAll');
                                     },
+                                    onLoadSuccess: function (data) {
+                                        $result.text('Event: onLoadSuccess, data: ' + data);
+                                    },
+                                    onLoadError: function (status) {
+                                        $result.text('Event: onLoadError, data: ' + status);
+                                    },
                                     onColumnSwitch: function (field, checked) {
                                         $result.text('Event: onSort, data: ' + field + ', ' + checked);
+                                    },
+                                    onPageChange: function (number, size) {
+                                        $result.text('Event: onPageChange, data: ' + number + ', ' + size);
                                     }
                                     */
                                 }).on('all.bs.table', function (e, name, args) {
@@ -867,9 +877,15 @@
                                     $result.text('Event: check-all.bs.table');
                                 }).on('uncheck-all.bs.table', function (e) {
                                     $result.text('Event: uncheck-all.bs.table');
+                                }).on('load-success.bs.table', function (e, data) {
+                                    $result.text('Event: load-success.bs.table');
+                                }).on('load-error.bs.table', function (e, status) {
+                                    $result.text('Event: load-error.bs.table, data: ' + status);
                                 }).on('column-switch.bs.table', function (e, field, checked) {
                                     $result.text('Event: column-switch.bs.table, data: ' +
                                         field + ', ' + checked);
+                                }).on('page-change.bs.table', function (e, size, number) {
+                                    $result.text('Event: page-change.bs.table, data: ' + number + ', ' + size);
                                 });
                             });
                         });

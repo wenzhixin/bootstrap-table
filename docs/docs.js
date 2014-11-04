@@ -682,26 +682,14 @@ $(function () {
                     event: 'column-switch.bs.table',
                     parameter: 'field, checked',
                     description: 'Fires when switch the column visible.'
+                },
+                {
+                    name: 'onPageChange',
+                    event: 'page-change.bs.table',
+                    parameter: 'number, size',
+                    description: 'Fires when change the page number or page size.'
                 }
-            ],
-            onClickRow: function (row) {
-                console.log('onClickRow', row);
-            },
-            onSort: function (name, order) {
-                console.log('onSort', name, order);
-            },
-            onCheck: function(row) {
-                console.log('onCheck', row);
-            },
-            onUncheck: function(row) {
-                console.log('onUncheck', row);
-            },
-            onCheckAll: function() {
-                console.log('onCheckAll');
-            },
-            onUncheckAll: function() {
-                console.log('onUncheckAll');
-            }
+            ]
         });
         $('#method').bootstrapTable({
             cardView: cardView,
