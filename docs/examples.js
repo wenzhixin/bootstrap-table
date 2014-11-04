@@ -33,6 +33,9 @@ $(function() {
         $parent.next('.bs-example').add($parent.next().next('.bs-example'))
             .find('table').bootstrapTable('destroy').bootstrapTable();
     });
+    $('[data-target="#myModal"]').click(function () {
+        $('#modal-table').bootstrapTable();
+    });
 
     $(window).resize(function () {
         $('table[data-toggle="table"]').add($('table[id]')).bootstrapTable('resetView');
