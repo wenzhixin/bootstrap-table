@@ -8,7 +8,7 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
-        editable: false
+        editable: true
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
