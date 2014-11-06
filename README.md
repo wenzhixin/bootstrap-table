@@ -36,6 +36,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 - [x] Add `smartDisplay` option.
 - [x] Add `searchAlign` and `toolbarAlign` options.
 - [x] Fix #193: Add `dataType` option.
+- [x] Add flatJSON and editable extensions.
 
 ## Features
 
