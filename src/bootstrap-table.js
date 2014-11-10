@@ -670,7 +670,7 @@
             $first, $pre,
             $next, $last,
             $number,
-            data = this.searchText ? this.data : this.options.data;
+            data = this.getData();
 
         if (this.options.sidePagination !== 'server') {
             this.options.totalRows = data.length;
