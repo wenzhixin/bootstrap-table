@@ -1,4 +1,4 @@
-# Translations
+# Translations []({{ site.repo }}/blob/master/_docs/_includes/getting-started/translations.md)
 
 ---
 

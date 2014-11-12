@@ -1,4 +1,4 @@
-# Events
+# Events []({{ site.repo }}/blob/master/_docs/_includes/documentation/events.md)
 
 ---
 

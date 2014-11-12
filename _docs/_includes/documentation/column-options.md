@@ -1,4 +1,4 @@
-# Column options
+# Column options []({{ site.repo }}/blob/master/_docs/_includes/documentation/column-options.md)
 
 ---
 

@@ -1,4 +1,4 @@
-# Methods
+# Methods []({{ site.repo }}/blob/master/_docs/_includes/documentation/methods.md)
 
 ---
 

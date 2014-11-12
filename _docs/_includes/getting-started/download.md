@@ -1,4 +1,4 @@
-# Download
+# Download []({{ site.repo }}/blob/master/_docs/_includes/getting-started/download.md)
 
 ---
 

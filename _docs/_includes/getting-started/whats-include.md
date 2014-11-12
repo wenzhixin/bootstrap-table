@@ -1,4 +1,4 @@
-# What's included
+# What's included []({{ site.repo }}/blob/master/_docs/_includes/getting-started/whats-include.md)
 
 ---
 

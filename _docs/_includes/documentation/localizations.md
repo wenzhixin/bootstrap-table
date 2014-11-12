@@ -1,4 +1,4 @@
-# Localizations
+# Localizations []({{ site.repo }}/blob/master/_docs/_includes/documentation/localizations.md)
 
 ---
 

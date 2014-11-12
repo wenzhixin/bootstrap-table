@@ -4,3 +4,9 @@
 .bs-docs-nav + p {
     margin-bottom: 0;
 }
+.edit-page-link {
+    float: right;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 39px;
+}
