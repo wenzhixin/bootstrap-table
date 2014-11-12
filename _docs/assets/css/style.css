@@ -1,0 +1,6 @@
+.bs-docs-featurette .row {
+    text-align: left;
+}
+.bs-docs-nav + p {
+    margin-bottom: 0;
+}

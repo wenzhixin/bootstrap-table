@@ -1,0 +1,35 @@
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="../" class="navbar-brand">Bootstrap Table</a>
+    </div>
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li{% if page.slug == "getting-started" %} class="active"{% endif %}>
+          <a href="../getting-started/">Getting started</a>
+        </li>
+        <li{% if page.slug == "examples" %} class="active"{% endif %}>
+          <a href="../examples/">Examples</a>
+        </li>
+        <li{% if page.slug == "documentation" %} class="active"{% endif %}>
+          <a href="../documentation/">Documentation</a>
+        </li>
+        <li{% if page.slug == "extensions" %} class="active"{% endif %}>
+          <a href="../extensions/">Extensions</a>
+        </li>
+        <li{% if page.slug == "faq" %} class="active"{% endif %}>
+          <a href="../faq/">FAQ</a>
+        </li>
+        <li>
+          <a href="{{ site.repo }}">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
