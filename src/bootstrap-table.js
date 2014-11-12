@@ -156,6 +156,8 @@
 
         rowStyle: function (row, index) {return {};},
 
+        rowAttributes: function (row, index) {return {};},
+
         formatLoadingMessage: function () {
             return 'Loading, please wait…';
         },
@@ -874,7 +876,9 @@
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
             var item = data[i],
                 style = {},
-                csses = [];
+                csses = [],
+                attributes = {},
+                htmlAttributes = [];
 
             style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
@@ -884,7 +888,16 @@
                 }
             }
 
+            attributes = calculateObjectValue(this.options, this.options.rowAttributes, [item, i], attributes);
+
+            if (attributes) {
+                for (var key in attributes) {
+                    htmlAttributes.push(key + '="' + attributes[key] + '"')
+                }
+            }
+
             html.push('<tr',
+                sprintf(' %s', htmlAttributes),
                 sprintf(' id="%s"', item._id),
                 sprintf(' class="%s"', style.classes || item._class),
                 sprintf(' data-index="%s"', i),
