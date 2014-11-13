@@ -446,6 +446,15 @@ $(function () {
                     description_zh: '行样式格式化方法，有两个参数：<br>row: 行记录的数据。<br>index: 行数据的 index。<br>支持 classes 或者 css.',
                     'default': '{}',
                     example: 'classes-table'
+                },
+                {
+                    name: 'rowAttributes',
+                    attribute: 'data-row-attributes',
+                    type: 'Function',
+                    description: 'The row attribute formatter function, take two parameters: <br>row: the row record data.<br>index: the row index.<br>Support all custom attributes',
+                    description_zh: '该行的属性格式化功能，需要两个参数：<br>行：行记录数据。<br>指数：该行的索引。<br>支持所有的自定义属性。',
+                    'default': '{}',
+                    example: ''
                 }
             ]
         });
