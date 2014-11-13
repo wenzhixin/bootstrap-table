@@ -888,16 +888,17 @@
                 }
             }
 
-            attributes = calculateObjectValue(this.options, this.options.rowAttributes, [item, i], attributes);
+            attributes = calculateObjectValue(this.options,
+                this.options.rowAttributes, [item, i], attributes);
 
             if (attributes) {
                 for (var key in attributes) {
-                    htmlAttributes.push(key + '="' + attributes[key] + '"')
+                    htmlAttributes.push(sprintf('%s="%s"', key, attributes[key]));
                 }
             }
 
             html.push('<tr',
-                sprintf(' %s', htmlAttributes),
+                sprintf(' %s', htmlAttributes.join(' ')),
                 sprintf(' id="%s"', item._id),
                 sprintf(' class="%s"', style.classes || item._class),
                 sprintf(' data-index="%s"', i),

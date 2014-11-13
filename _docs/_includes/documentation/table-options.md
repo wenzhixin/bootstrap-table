@@ -324,5 +324,17 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         Support classes or css.
         </td>
     </tr>
+    <tr>
+        <td>rowAttributes</td>
+        <td>data-row-attributes</td>
+        <td>Function</td>
+        <td>{}</td>
+        <td>
+        The row attribute formatter function, take two parameters: <br>
+        row: the row record data.<br>
+        index: the row index.<br>
+        Support all custom attributes.
+        </td>
+    </tr>
     </tbody>
 </table>
