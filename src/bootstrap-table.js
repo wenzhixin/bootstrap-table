@@ -111,7 +111,7 @@
         }else {
             return text;
         }
-    }
+    };
 
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
