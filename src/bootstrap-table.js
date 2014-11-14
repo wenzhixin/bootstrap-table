@@ -108,9 +108,8 @@
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
-        }else {
-            return text;
         }
+        return text;
     };
 
     // BOOTSTRAP TABLE CLASS DEFINITION
