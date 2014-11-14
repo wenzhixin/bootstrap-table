@@ -100,6 +100,19 @@
         return defaultValue;
     };
 
+    var escapeHTML = function (text) {
+        if (typeof text == 'string') {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }else {
+            return text;
+        }
+    }
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -893,7 +906,7 @@
 
             if (attributes) {
                 for (var key in attributes) {
-                    htmlAttributes.push(sprintf('%s="%s"', key, attributes[key]));
+                    htmlAttributes.push(sprintf('%s="%s"', key, escapeHTML(attributes[key])));
                 }
             }
 
