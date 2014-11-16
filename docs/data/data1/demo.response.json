@@ -1,107 +1,32 @@
 [
     {
-        "id": 0,
-        "name": "Item 0",
-        "price": "$0"
+        "name": "bootstrap-table",
+        "stargazers_count": "526",
+        "forks_count": "122",
+        "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3)"
     },
     {
-        "id": 1,
-        "name": "Item 1",
-        "price": "$1"
+        "name": "multiple-select",
+        "stargazers_count": "288",
+        "forks_count": "150",
+        "description": "A jQuery plugin to select multiple elements with checkboxes :)"
     },
     {
-        "id": 2,
-        "name": "Item 2",
-        "price": "$2"
+        "name": "bootstrap-show-password",
+        "stargazers_count": "32",
+        "forks_count": "11",
+        "description": "Show/hide password plugin for twitter bootstrap."
     },
     {
-        "id": 3,
-        "name": "Item 3",
-        "price": "$3"
+        "name": "blog",
+        "stargazers_count": "13",
+        "forks_count": "4",
+        "description": "my blog"
     },
     {
-        "id": 4,
-        "name": "Item 4",
-        "price": "$4"
-    },
-    {
-        "id": 5,
-        "name": "Item 5",
-        "price": "$5"
-    },
-    {
-        "id": 6,
-        "name": "Item 6",
-        "price": "$6"
-    },
-    {
-        "id": 7,
-        "name": "Item 7",
-        "price": "$7"
-    },
-    {
-        "id": 8,
-        "name": "Item 8",
-        "price": "$8"
-    },
-    {
-        "id": 9,
-        "name": "Item 9",
-        "price": "$9"
-    },
-    {
-        "id": 10,
-        "name": "Item 10",
-        "price": "$10"
-    },
-    {
-        "id": 11,
-        "name": "Item 11",
-        "price": "$11"
-    },
-    {
-        "id": 12,
-        "name": "Item 12",
-        "price": "$12"
-    },
-    {
-        "id": 13,
-        "name": "Item 13",
-        "price": "$13"
-    },
-    {
-        "id": 14,
-        "name": "Item 14",
-        "price": "$14"
-    },
-    {
-        "id": 15,
-        "name": "Item 15",
-        "price": "$15"
-    },
-    {
-        "id": 16,
-        "name": "Item 16",
-        "price": "$16"
-    },
-    {
-        "id": 17,
-        "name": "Item 17",
-        "price": "$17"
-    },
-    {
-        "id": 18,
-        "name": "Item 18",
-        "price": "$18"
-    },
-    {
-        "id": 19,
-        "name": "Item 19",
-        "price": "$19"
-    },
-    {
-        "id": 20,
-        "name": "Item 20",
-        "price": "$20"
+        "name": "scutech-redmine",
+        "stargazers_count": "6",
+        "forks_count": "3",
+        "description": "Redmine notification tools for chrome extension."
     }
 ]
