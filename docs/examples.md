@@ -11,5 +11,6 @@ lead: "The examples of bootstrap table."
 
 {% markdown examples/style.md %}
 
+{% markdown examples/align.md %}
 
 {% markdown examples/sort.md %}
