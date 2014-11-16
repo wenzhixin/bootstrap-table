@@ -353,6 +353,8 @@
         };
         $.each(this.options.columns, function (i, column) {
             var text = '',
+                halign = '', // header align style
+                align = '', // body align style
                 style = '',
                 class_ = sprintf(' class="%s"', column['class']),
                 order = that.options.sortOrder || column.order;
@@ -361,13 +363,14 @@
                 return;
             }
 
-            style = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
-            style += sprintf('vertical-align: %s; ', column.valign);
+            halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
+            align = sprintf('text-align: %s; ', column.align);
+            style = sprintf('vertical-align: %s; ', column.valign);
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
-            that.header.styles.push(style);
+            that.header.styles.push(align + style);
             that.header.classes.push(class_);
             that.header.formatters.push(column.formatter);
             that.header.events.push(column.events);
@@ -379,7 +382,7 @@
                 column.checkbox || column.radio ?
                     sprintf(' class="bs-checkbox %s"', column['class'] || '') :
                     class_,
-                sprintf(' style="%s"', style),
+                sprintf(' style="%s"', halign + style),
                 '>');
             html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
                 'sortable' : ''));
