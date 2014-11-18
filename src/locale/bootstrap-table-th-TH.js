@@ -22,7 +22,7 @@
         },
         formatSearch: function () 
         {
-            return 'ค้าหา';
+            return 'ค้นหา';
         },
         formatNoMatches: function () 
         {
@@ -30,15 +30,15 @@
         },
         formatRefresh: function () 
         {
-            return 'Refresh';
+            return 'รีเฟรส';
         },
         formatToggle: function () 
         {
-            return 'Toggle';
+            return 'สลับมุมมอง';
         },
         formatColumns: function () 
         {
-            return 'Columns';
+            return 'คอลัมน์';
         }
     });
 })(jQuery);
