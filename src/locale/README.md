@@ -174,7 +174,6 @@ syr-SY
 ta-IN
 te-IN
 tg-Cyrl-TJ
-th-TH
 tk-TM
 tn-ZA
 tt-RU
