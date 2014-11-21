@@ -22,3 +22,13 @@ lead: "The examples of bootstrap table."
 {% markdown examples/columns.md %}
 
 {% markdown examples/card-view.md %}
+
+{% markdown examples/select.md %}
+
+{% markdown examples/toolbar.md %}
+
+{% markdown examples/pagination.md %}
+
+{% markdown examples/events.md %}
+
+{% markdown examples/methods.md %}
