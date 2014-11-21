@@ -36,7 +36,6 @@ co-FR
 cy-GB
 de-AT
 de-CH
-de-DE
 de-LI
 de-LU
 dsb-DE
