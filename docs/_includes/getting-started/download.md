@@ -22,13 +22,13 @@ The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bo
 
 ```html
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.3.0/bootstrap-table.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/{{ site.current_version }}/bootstrap-table.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.3.0/bootstrap-table.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/{{ site.current_version }}/bootstrap-table.min.js"></script>
 
 <!-- Latest compiled and minified Locales -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.3.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/{{ site.current_version }}/locale/bootstrap-table-zh-CN.min.js"></script>
 ```
 
 ## Bower

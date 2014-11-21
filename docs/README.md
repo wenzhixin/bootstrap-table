@@ -1,6 +1,6 @@
 # Documentation
 
-Bootstrap table's documentation, included in this repo in the root directory, is built with [Jekyll](http://jekyllrb.com/) and publicly hosted on http://wenzhixin.net.cn/p/bootstrap-table. The docs may also be run locally.
+Bootstrap table's documentation, included in this repo in the root directory, is built with [Jekyll](http://jekyllrb.com/) and publicly hosted on http://bootstrap-table.wenzhixin.net.cn. The docs may also be run locally.
 
 ## Running documentation locally
 
