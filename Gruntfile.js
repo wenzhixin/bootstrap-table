@@ -13,7 +13,7 @@ module.exports = function(grunt) {
                 '* Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n' +
                 '*/\n',
         // Task configuration.
-        clean: ['dist'],
+        clean: ['dist', 'docs/dist'],
         uglify: {
             options: {
                 banner: '<%= banner %>'
@@ -31,6 +31,15 @@ module.exports = function(grunt) {
                     dest: 'dist/locale',
                     ext: '.min.js' // replace .js to .min.js
                 }]
+            },
+            extensions_target: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/extensions',
+                    src: '**/*.js',
+                    dest: 'dist/extensions',
+                    ext: '.min.js' // replace .js to .min.js
+                }]
             }
         },
         cssmin: {
@@ -42,12 +51,21 @@ module.exports = function(grunt) {
                     'dist/<%= pkg.name %>.min.css': ['src/<%=pkg.name %>.css']
                 }
             }
+        },
+        copy: {
+            files: {
+                cwd: 'dist',            // set working folder / root to copy
+                src: '**/*',            // copy all files and subfolders
+                dest: 'docs/dist',      // destination folder
+                expand: true            // required when using cwd
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['clean', 'uglify', 'cssmin']);
+    grunt.registerTask('default', ['clean', 'uglify', 'cssmin', 'copy']);
 };
