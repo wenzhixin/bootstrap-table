@@ -1,17 +1,14 @@
-# bootstrap table
+# [Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn)
 
 [![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table)
 
-Bootstrap table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
+An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.
 
-* [Documentation](http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html)
-* [Examples](http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html)
-* [JSFiddle Examples](https://github.com/wenzhixin/bootstrap-table/blob/master/docs/jsfiddle-examples.md)
-* [Extensions](http://wenzhixin.net.cn/p/bootstrap-table/docs/extensions.html)
+To get started, check out http://bootstrap-table.wenzhixin.net.cn!
 
 ## Latest release
 
-1.3.0 (2014-10-16)
+1.4.0 (2014-11-21)
 
 ## LICENSE
 
@@ -19,15 +16,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 
 ## Bugs & Enhancements (next version)
 
-- [ ] Fix #119, #123: Save tr classes for html table.
-- [ ] Fix #149: Hide empty data on Card view.
-- [ ] Fix #131: Add pagination events.
-- [ ] Fix #144: onCheck and onUncheck functionalities are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
-- [x] Apply `width` column option to row style.
-- [x] Add bootstrap-table-filter extension.
-- [x] Add cs-CZ and es-CR locales.
-- [x] Fix minimumCountColumns option init error.
-- [x] Fix #161: undefined or null string sort bug.
+- [ ] Fix #144: `onCheck` and `onUncheck` method are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
 
 ## Features
 
@@ -68,7 +57,7 @@ Please provide jsFiddle when creating issues!
 
 It's really saves much time. Use this as template:
 
-[jsFiddle Bootstrap Table](http://jsfiddle.net/8svjf80g/1/)
+[jsFiddle Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn/examples/#basic)
 
 Your feedback is very appreciated!
 

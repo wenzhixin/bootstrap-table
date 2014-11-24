@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.3.0
+ * version: 1.4.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -100,6 +100,18 @@
         return defaultValue;
     };
 
+    var escapeHTML = function (text) {
+        if (typeof text == 'string') {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+        return text;
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -125,6 +137,7 @@
         url: undefined,
         cache: true,
         contentType: 'application/json',
+        dataType: 'json',
         queryParams: function (params) {return params;},
         queryParamsType: 'limit', // undefined
         responseHandler: function (res) {return res;},
@@ -135,22 +148,27 @@
         pageSize: 10,
         pageList: [10, 25, 50, 100],
         search: false,
+        searchAlign: 'right',
         selectItemName: 'btSelectItem',
         showHeader: true,
         showColumns: false,
         showRefresh: false,
         showToggle: false,
+        smartDisplay: true,
         minimumCountColumns: 1,
         idField: undefined,
         cardView: false,
         clickToSelect: false,
         singleSelect: false,
         toolbar: undefined,
+        toolbarAlign: 'right',
         checkboxHeader: true,
         sortable: true,
         maintainSelected: false,
 
         rowStyle: function (row, index) {return {};},
+
+        rowAttributes: function (row, index) {return {};},
 
         formatLoadingMessage: function () {
             return 'Loading, please wait…';
@@ -187,7 +205,9 @@
         onUncheckAll: function () {return false;},
         onLoadSuccess: function (data) {return false;},
         onLoadError: function (status) {return false;},
-        onColumnSwitch: function (field, checked) {return false;}
+        onColumnSwitch: function (field, checked) {return false;},
+        onPageChange: function (number, size) {return false;},
+        onSearch: function (text) {return false;}
     };
 
     BootstrapTable.COLUMN_DEFAULTS = {
@@ -223,7 +243,9 @@
         'uncheck-all.bs.table': 'onUncheckAll',
         'load-success.bs.table': 'onLoadSuccess',
         'load-error.bs.table': 'onLoadError',
-        'column-switch.bs.table': 'onColumnSwitch'
+        'column-switch.bs.table': 'onColumnSwitch',
+        'page-change.bs.table': 'onPageChange',
+        'search.bs.table': 'onSearch'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -296,8 +318,18 @@
 
         this.$el.find('tbody tr').each(function () {
             var row = {};
+
+            // save tr's id and class
+            row._id = $(this).attr('id');
+            row._class = $(this).attr('class');
+
             $(this).find('td').each(function (i) {
-                row[that.options.columns[i].field] = $(this).html();
+                var field = that.options.columns[i].field;
+
+                row[field] = $(this).html();
+                // save td's id and class
+                row['_' + field + '_id'] = $(this).attr('id');
+                row['_' + field + '_class'] = $(this).attr('class');
             });
             data.push(row);
         });
@@ -321,6 +353,8 @@
         };
         $.each(this.options.columns, function (i, column) {
             var text = '',
+                halign = '', // header align style
+                align = '', // body align style
                 style = '',
                 class_ = sprintf(' class="%s"', column['class']),
                 order = that.options.sortOrder || column.order;
@@ -329,13 +363,14 @@
                 return;
             }
 
-            style = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
-            style += sprintf('vertical-align: %s; ', column.valign);
+            halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
+            align = sprintf('text-align: %s; ', column.align);
+            style = sprintf('vertical-align: %s; ', column.valign);
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
-            that.header.styles.push(style);
+            that.header.styles.push(align + style);
             that.header.classes.push(class_);
             that.header.formatters.push(column.formatter);
             that.header.events.push(column.events);
@@ -347,7 +382,7 @@
                 column.checkbox || column.radio ?
                     sprintf(' class="bs-checkbox %s"', column['class'] || '') :
                     class_,
-                sprintf(' style="%s"', style),
+                sprintf(' style="%s"', halign + style),
                 '>');
             html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
                 'sortable' : ''));
@@ -434,10 +469,10 @@
                 }
 
                 // Fix #161: undefined or null string sort bug.
-                if (aa === null) {
+                if (aa === undefined || aa === null) {
                     aa = '';
                 }
-                if (bb === null) {
+                if (aa === undefined || bb === null) {
                     bb = '';
                 }
 
@@ -494,7 +529,7 @@
         }
 
         // showColumns, showToggle, showRefresh
-        html = ['<div class="columns btn-group pull-right">'];
+        html = ['<div class="columns columns-' + this.options.toolbarAlign + ' btn-group pull-' + this.options.toolbarAlign + '">'];
 
         if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="refresh" title="%s">',
@@ -578,7 +613,7 @@
         if (this.options.search) {
             html = [];
             html.push(
-                '<div class="pull-right search">',
+                '<div class="pull-' + this.options.searchAlign + ' search">',
                     sprintf('<input class="form-control" type="text" placeholder="%s">',
                         this.options.formatSearch()),
                 '</div>');
@@ -608,6 +643,7 @@
         this.options.pageNumber = 1;
         this.initSearch();
         this.updatePagination();
+        this.trigger('search', text);
     };
 
     BootstrapTable.prototype.initSearch = function () {
@@ -617,8 +653,8 @@
             var s = this.searchText && this.searchText.toLowerCase();
 
             this.data = s ? $.grep(this.options.data, function (item, i) {
-                key = $.isNumeric(key) ? parseInt(key, 10) : key;
                 for (var key in item) {
+                    key = $.isNumeric(key) ? parseInt(key, 10) : key;
                     var value = item[key];
 
                     // Fix #142: search use formated data
@@ -651,7 +687,7 @@
             $first, $pre,
             $next, $last,
             $number,
-            data = this.searchText ? this.data : this.options.data;
+            data = this.getData();
 
         if (this.options.sidePagination !== 'server') {
             this.options.totalRows = data.length;
@@ -700,8 +736,10 @@
         }
 
         $.each(pageList, function (i, page) {
-            var active = page === that.options.pageSize ? ' class="active"' : '';
-            pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+            if (!that.options.smartDisplay || that.options.totalRows >= page || i === 0) {
+                var active = page === that.options.pageSize ? ' class="active"' : '';
+                pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+            }
         });
         pageNumber.push('</ul></span>');
 
@@ -730,7 +768,7 @@
             }
         }
         for (i = from; i <= to; i++) {
-            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active disabled' : '') + '">',
                 '<a href="javascript:void(0)">', i ,'</a>',
                 '</li>');
         }
@@ -758,6 +796,14 @@
             $next.addClass('disabled');
             $last.addClass('disabled');
         }
+        if (this.options.smartDisplay) {
+            if (this.totalPages <= 1) {
+                this.$pagination.find('div.pagination').hide();
+            }
+            if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[1]) {
+                this.$pagination.find('span.page-list').hide();
+            }
+        }
         $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
         $first.off('click').on('click', $.proxy(this.onPageFirst, this));
         $pre.off('click').on('click', $.proxy(this.onPagePre, this));
@@ -766,7 +812,12 @@
         $number.off('click').on('click', $.proxy(this.onPageNumber, this));
     };
 
-    BootstrapTable.prototype.updatePagination = function () {
+    BootstrapTable.prototype.updatePagination = function (event) {
+        // Fix #171: IE disabled button can be clicked bug.
+        if (event && $(event.currentTarget).hasClass('disabled')) {
+            return;
+        }
+
         if (!this.options.maintainSelected) {
             this.resetRows();
         }
@@ -777,6 +828,8 @@
         } else {
             this.initBody();
         }
+
+        this.trigger('page-change', this.options.pageSize, this.options.pageNumber);
     };
 
     BootstrapTable.prototype.onPageListChange = function (event) {
@@ -785,27 +838,27 @@
         $this.parent().addClass('active').siblings().removeClass('active');
         this.options.pageSize = +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
-    BootstrapTable.prototype.onPageFirst = function () {
+    BootstrapTable.prototype.onPageFirst = function (event) {
         this.options.pageNumber = 1;
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
-    BootstrapTable.prototype.onPagePre = function () {
+    BootstrapTable.prototype.onPagePre = function (event) {
         this.options.pageNumber--;
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
-    BootstrapTable.prototype.onPageNext = function () {
+    BootstrapTable.prototype.onPageNext = function (event) {
         this.options.pageNumber++;
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
-    BootstrapTable.prototype.onPageLast = function () {
+    BootstrapTable.prototype.onPageLast = function (event) {
         this.options.pageNumber = this.totalPages;
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
     BootstrapTable.prototype.onPageNumber = function (event) {
@@ -813,7 +866,7 @@
             return;
         }
         this.options.pageNumber = +$(event.currentTarget).text();
-        this.updatePagination();
+        this.updatePagination(event);
     };
 
     BootstrapTable.prototype.initBody = function (fixedScroll) {
@@ -838,7 +891,9 @@
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
             var item = data[i],
                 style = {},
-                csses = [];
+                csses = [],
+                attributes = {},
+                htmlAttributes = [];
 
             style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
@@ -848,8 +903,19 @@
                 }
             }
 
+            attributes = calculateObjectValue(this.options,
+                this.options.rowAttributes, [item, i], attributes);
+
+            if (attributes) {
+                for (var key in attributes) {
+                    htmlAttributes.push(sprintf('%s="%s"', key, escapeHTML(attributes[key])));
+                }
+            }
+
             html.push('<tr',
-                sprintf(' class="%s"', style.classes),
+                sprintf(' %s', htmlAttributes.join(' ')),
+                sprintf(' id="%s"', item._id),
+                sprintf(' class="%s"', style.classes || item._class),
                 sprintf(' data-index="%s"', i),
                 '>'
             );
@@ -863,11 +929,21 @@
                     value = item[field],
                     type = '',
                     cellStyle = {},
+                    id_ = '',
                     class_ = that.header.classes[j];
-                    style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
+
+                style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
                 value = calculateObjectValue(that.header,
                     that.header.formatters[j], [value, item, i], value);
+
+                // handle td's id and class
+                if (item['_' + field + '_id']) {
+                    id_ = sprintf(' id="%s"', item['_' + field + '_id']);
+                }
+                if (item['_' + field + '_class']) {
+                    class_ = sprintf(' class="%s"', item['_' + field + '_class']);
+                }
 
                 cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
@@ -897,14 +973,15 @@
                             sprintf(' name="%s"', that.options.selectItemName) +
                             sprintf(' type="%s"', type) +
                             sprintf(' value="%s"', item[that.options.idField]) +
-                            sprintf(' checked="%s"', +value === 1 ||
+                            sprintf(' checked="%s"', value === true ||
                                 (value && value.checked) ? 'checked' : undefined) +
                             sprintf(' disabled="%s"', !that.options.columns[j].checkboxEnabled ||
                                 (value && value.disabled) ? 'disabled' : undefined) +
                             ' />',
                         '</td>'].join('');
                 } else {
-                    value = typeof value === 'undefined' ? that.options.undefinedText : value;
+                    value = typeof value === 'undefined' || value === null ?
+                        that.options.undefinedText : value;
 
                     text = that.options.cardView ?
                         ['<div class="card-view">',
@@ -912,9 +989,14 @@
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
-                        [sprintf('<td%s %s>', class_, style),
+                        [sprintf('<td%s %s %s>', id_, class_, style),
                             value,
                             '</td>'].join('');
+
+                    // Hide empty data on Card view when smartDisplay is set to true.
+                    if (that.options.cardView && that.options.smartDisplay && value === '') {
+                        text = '';
+                    }
                 }
 
                 html.push(text);
@@ -1057,7 +1139,7 @@
             data: data,
             cache: this.options.cache,
             contentType: this.options.contentType,
-            dataType: 'json',
+            dataType: this.options.dataType,
             success: function (res) {
                 res = calculateObjectValue(that.options, that.options.responseHandler, [res], res);
 
@@ -1278,7 +1360,7 @@
             return;
         }
         $.extend(this.data[params.index], params.row);
-        this.initBody();
+        this.initBody(true);
     };
 
     BootstrapTable.prototype.mergeCells = function (options) {
@@ -1300,8 +1382,7 @@
             }
         }
 
-        $td.attr('rowspan', rowspan).attr('colspan', colspan)
-            .show(10, $.proxy(this.resetView, this));
+        $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
     };
 
     BootstrapTable.prototype.getSelections = function () {
@@ -1348,6 +1429,7 @@
     BootstrapTable.prototype.refresh = function (params) {
         if (params && params.url) {
             this.options.url = params.url;
+            this.options.pageNumber = 1;
         }
         this.initServer(params && params.silent);
     };

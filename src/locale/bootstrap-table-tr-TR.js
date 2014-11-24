@@ -1,6 +1,7 @@
 /**
  * Bootstrap Table Turkish translation
  * Author: Emin Şen
+ * Author: Sercan Cakir <srcnckr@gmail.com>
  */
 (function ($) {
     'use strict';
@@ -10,16 +11,25 @@
             return 'Yükleniyor, lütfen bekleyin…';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' kayıt sayfa başına';
+            return 'Sayfa başına ' + pageNumber + ' kayıt.';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return totalRows + ' kayıttan ' + pageFrom + ' ile ' + pageTo + ' arası gösteriliyor';
+            return totalRows + ' kayıttan ' + pageFrom + '-' + pageTo + ' arası gösteriliyor.';
         },
         formatSearch: function () {
             return 'Ara';
         },
         formatNoMatches: function () {
-            return 'Eşleşen kayıt bulunamadı';
+            return 'Eşleşen kayıt bulunamadı.';
+        },
+        formatRefresh: function () {
+            return 'Yenile';
+        },
+        formatToggle: function () {
+            return 'Değiştir';
+        },
+        formatColumns: function () {
+            return 'Sütunlar';
         }
     });
 })(jQuery);

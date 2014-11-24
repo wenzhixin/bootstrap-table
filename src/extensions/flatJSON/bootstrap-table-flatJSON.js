@@ -1,4 +1,4 @@
-/ /**
+/**
  * bootstrap-table-flatJSON.js
  * @version: v1.0.0
  * @author: Dennis Hernández
@@ -31,7 +31,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
- 
+
 (function ($) {
     'use strict';
 
@@ -43,51 +43,53 @@
         _initData = BootstrapTable.prototype.initData;
 
     BootstrapTable.prototype.initData = function () {
-	
+
         _initData.apply(this, Array.prototype.slice.apply(arguments));
-		var that = this;
-		
-		//If the flat is true
-		if(that.options.flat) {
-			that.options.data = sd.flatHelper(that.options.data);
-		}
+        var that = this;
+
+        //If the flat is true
+        if (that.options.flat) {
+            that.options.data = sd.flatHelper(that.options.data);
+        }
     };
-	
-	//Main functions
-	var sd = {
-			flat: function(element) {
-				var result = {};
-				function recurse (cur, prop) {
-					if (Object(cur) !== cur) {
-						result[prop] = cur;
-					} else if (Array.isArray(cur)) {
-						for(var i = 0, l = cur.length; i < l; i++) {
-							recurse(cur[i], prop ? prop+"."+i : ""+i);
-							if (l == 0) {
-								result[prop] = [];
-							}
-						}
-					} else {
-						var isEmpty = true;
-						for (var p in cur) {
-							isEmpty = false;
-							recurse(cur[p], prop ? prop+"."+p : p);
-						}
-						if (isEmpty) {
-							result[prop] = {};
-						}
-					}
-				}
-				recurse(element, "");
-				return result;
-			},
-			
-			flatHelper: function (data) {
-				var flatArray = [];
-				$.each(data, function(i, element) {
-					flatArray.push(sd.flat(element));
-				});
-				return flatArray;
-			}
-		};
+
+    //Main functions
+    var sd = {
+        flat: function (element) {
+            var result = {};
+
+            function recurse(cur, prop) {
+                if (Object(cur) !== cur) {
+                    result[prop] = cur;
+                } else if (Array.isArray(cur)) {
+                    for (var i = 0, l = cur.length; i < l; i++) {
+                        recurse(cur[i], prop ? prop + "." + i : "" + i);
+                        if (l == 0) {
+                            result[prop] = [];
+                        }
+                    }
+                } else {
+                    var isEmpty = true;
+                    for (var p in cur) {
+                        isEmpty = false;
+                        recurse(cur[p], prop ? prop + "." + p : p);
+                    }
+                    if (isEmpty) {
+                        result[prop] = {};
+                    }
+                }
+            }
+
+            recurse(element, "");
+            return result;
+        },
+
+        flatHelper: function (data) {
+            var flatArray = [];
+            $.each(data, function (i, element) {
+                flatArray.push(sd.flat(element));
+            });
+            return flatArray;
+        }
+    };
 })(jQuery);
