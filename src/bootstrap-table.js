@@ -803,6 +803,9 @@
             if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[1]) {
                 this.$pagination.find('span.page-list').hide();
             }
+            
+            // when data is empty, hide the pagination
+            this.$pagination[this.getData().length ? 'show' : 'hide']();
         }
         $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
         $first.off('click').on('click', $.proxy(this.onPageFirst, this));
