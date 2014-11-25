@@ -1,24 +1,24 @@
-# Download []({{ site.repo }}/blob/master/docs/_includes/getting-started/download.md)
+# Téléchargement []({{ site.repo }}/blob/master/docs/_includes/getting-started/download.md)
 
 ---
 
 <p class="lead">
-Bootstrap table (currently v{{ site.current_version }}) has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.
+Bootstrap table (version courante v{{ site.current_version }}) possède plusieurs façons simples de démarrer, chacune pour une situation différente et requérant un niveau différent. Parcourez la suite pour déterminer celle qui convient le mieux à votre besoin.
 </p>
 
-## Source code
+## Code source
 
-Source css, JavaScript, locales, and extensions, along with our docs.
+Sources css, JavaScript, traductions, et extensions, le tout avec notre documentation.
 
-<a href="{{ site.master_zip }}" class="btn btn-lg btn-outline" role="button">Download source</a>
+<a href="{{ site.master_zip }}" class="btn btn-lg btn-outline" role="button">Téléchargez le source</a>
 
-## Clone or fork via GitHub
+## Clonez ou créez une branche via GitHub
 
 <a href="{{ site.repo }}" class="btn btn-lg btn-outline" role="button">Via GitHub</a>
 
 ## CDN
 
-The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bootcss](http://open.bootcss.com/bootstrap-table/) graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these CDN links.
+Les personnes de [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) ou [bootcss](http://open.bootcss.com/bootstrap-table/) proposent gracieusement un CDN pour les fichiers CSS et JavaScript de Bootstrap table. Utilisez juste les liens CDN suivants:.
 
 ```html
 <!-- Latest compiled and minified CSS -->
@@ -33,7 +33,7 @@ The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bo
 
 ## Bower
 
-Install and manage Bootstrap table's CSS, JavaScript, locales, and extensions using [Bower](http://bower.io/).
+Installez et gérez les fichiers CSS, JavaScript, de traductions et d'extensions de Bootstrap table en utilisant [Bower](http://bower.io/).
 
 ```bash
 $ bower install bootstrap-table
