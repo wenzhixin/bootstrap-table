@@ -1,19 +1,20 @@
 /**
  * Bootstrap Table French (France) translation
  * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
+ * Modification: Tidalf (https://github.com/TidalfFR)
  */
 (function ($) {
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
         formatLoadingMessage: function () {
-            return 'Chargement en cours, s´il vous plaît patienter ...';
+            return 'Chargement en cours, patientez, s´il vous plaît ...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' dossiers par page';
+            return pageNumber + ' lignes par page';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Affichage de ' + pageFrom + ' à ' + pageTo + ' dossiers ' + totalRows + ' dossiers au total';
+            return 'Affichage des lignes ' + pageFrom + ' à ' + pageTo + ' sur ' + totalRows + ' lignes au total';
         },
         formatSearch: function () {
             return 'Rechercher';
