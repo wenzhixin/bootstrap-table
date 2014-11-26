@@ -54,7 +54,13 @@
                 return;
             }
 
-            that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable);
+            that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
+                .off('save').on('save', function (e, params) {
+                    var data = that.getData(),
+                        row = data[$(this).parents('tr[data-index]').data('index')];
+
+                    row[column.field] = params.submitValue;
+                });
         });
     };
 
