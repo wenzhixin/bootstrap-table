@@ -651,8 +651,19 @@
 
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
+            var f = $.isEmptyObject(this.filterColumns) ? null: this.filterColumns;
 
-            this.data = s ? $.grep(this.options.data, function (item, i) {
+            // Check filter
+            this.data = f ? $.grep(this.options.data, function (item, i) {
+                for (var key in f) {
+                    if (item[key] !== f[key]) {
+                        return false;
+                    }
+                }
+                return true;
+            }) : this.options.data;
+
+            this.data = s ? $.grep(this.data, function (item, i) {
                 for (var key in item) {
                     key = $.isNumeric(key) ? parseInt(key, 10) : key;
                     var value = item[key];
@@ -670,7 +681,7 @@
                     }
                 }
                 return false;
-            }) : this.options.data;
+            }) : this.data;
         }
     };
 
@@ -803,7 +814,7 @@
             if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[1]) {
                 this.$pagination.find('span.page-list').hide();
             }
-            
+
             // when data is empty, hide the pagination
             this.$pagination[this.getData().length ? 'show' : 'hide']();
         }
@@ -1313,7 +1324,7 @@
     };
 
     BootstrapTable.prototype.getData = function () {
-        return this.searchText ? this.data : this.options.data;
+        return (this.searchText || !$.isEmptyObject(this.filterColumns)) ? this.data : this.options.data;
     };
 
     BootstrapTable.prototype.load = function (data) {
@@ -1445,6 +1456,12 @@
         this.toggleColumn(getFieldIndex(this.options.columns, field), false, true);
     };
 
+    BootstrapTable.prototype.filterBy = function (columns) {
+        this.filterColumns = $.isEmptyObject(columns) ? {}: columns;
+        this.options.pageNumber = 1;
+        this.initSearch();
+        this.updatePagination();
+    };
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
@@ -1459,7 +1476,8 @@
         'resetView',
         'destroy',
         'showLoading', 'hideLoading',
-        'showColumn', 'hideColumn'
+        'showColumn', 'hideColumn',
+        'filterBy'
     ];
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
