@@ -1044,7 +1044,7 @@
             if (that.options.clickToSelect) {
                 if (that.header.clickToSelects[$tr.children().index($(this))]) {
                     $tr.find(sprintf('[name="%s"]',
-                        that.options.selectItemName)).trigger('click');
+                        that.options.selectItemName))[0].click(); // #144: .trigger('click') bug
                 }
             }
         });
@@ -1055,11 +1055,6 @@
         this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
         this.$selectItem.off('click').on('click', function (event) {
             event.stopImmediatePropagation();
-
-            // radio trigger click event bug!
-            if ($(this).is(':radio')) {
-                $(this).prop('checked', true);
-            }
 
             var checkAll = that.$selectItem.filter(':enabled').length ===
                     that.$selectItem.filter(':enabled').filter(':checked').length,
