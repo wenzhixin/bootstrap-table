@@ -1,4 +1,4 @@
-.table {
+.bootstrap-table .table {
     margin-bottom: 0 !important;
     border-bottom: 1px solid #dddddd;
     border-collapse: collapse !important;
@@ -207,13 +207,13 @@
     border-bottom-right-radius: 4px;
 }
 
-.table>thead>tr>th {
+.bootstrap-table .table>thead>tr>th {
     vertical-align: bottom;
     border-bottom: 2px solid #ddd;
 }
 
 /* support bootstrap 3 */
-.table thead>tr>th {
+.bootstrap-table .table thead>tr>th {
     padding: 0;
     margin: 0;
 }
