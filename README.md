@@ -1,6 +1,9 @@
 # [Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn)
 
-[![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table)
+[![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table) 
+[![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.png)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
+[![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
+[![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/wenzhixin/bootstrap-table/.counters/views-24h.png)](https://github.com/wenzhixin/bootstrap-table)
 
 An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.
 
