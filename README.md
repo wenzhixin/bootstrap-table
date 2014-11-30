@@ -4,14 +4,11 @@
 [![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.png)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
 [![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
 [![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/wenzhixin/bootstrap-table/.counters/views-24h.png)](https://github.com/wenzhixin/bootstrap-table)
+[![Gratipay](https://img.shields.io/gratipay/wenzhixin.svg)](https://gratipay.com/wenzhixin/)
 
 An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.
 
 To get started, check out http://bootstrap-table.wenzhixin.net.cn!
-
-## Latest release
-
-1.4.0 (2014-11-21)
 
 ## LICENSE
 
