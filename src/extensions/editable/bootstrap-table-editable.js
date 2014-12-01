@@ -8,7 +8,12 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
-        editable: true
+        editable: true,
+        onEditableInit: function () {return false;}
+    });
+
+    $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+        'editable-init.bs.table': 'onEditableInit'
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
@@ -62,6 +67,7 @@
                     row[column.field] = params.submitValue;
                 });
         });
+        this.trigger('editable-init');
     };
 
 }(jQuery);

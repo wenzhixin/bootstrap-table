@@ -23,3 +23,11 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 * type: Object
 * description: Configuration of x-editable. Full list of options: http://vitalets.github.io/x-editable/docs.html#editable
 * default: `undefined`
+
+## Events
+
+### onEditableInit(editable-init.bs.table)
+
+Fired when all columns was initialized by `$().editable()` method.
+
+
