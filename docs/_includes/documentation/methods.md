@@ -111,5 +111,10 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>field</td>
         <td>Hide the specified column.</td>
     </tr>
+    <tr>
+        <td>scrollTo</td>
+        <td>value</td>
+        <td>Scroll to the number value position, set 'bottom' means scroll to the bottom.</td>
+    </tr>
     </tbody>
 </table>

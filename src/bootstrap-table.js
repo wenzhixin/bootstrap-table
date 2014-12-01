@@ -1033,7 +1033,7 @@
         this.$body.html(html.join(''));
 
         if (!fixedScroll) {
-            this.$container.find('.fixed-table-body').scrollTop(0);
+            this.scrollTo(0);
         }
 
         // click to select by column
@@ -1458,6 +1458,16 @@
         this.updatePagination();
     };
 
+    BootstrapTable.prototype.scrollTo = function (value) {
+        var $tbody = this.$container.find('.fixed-table-body');
+        if (typeof value === 'string') {
+            value = value === 'bottom' ? $tbody[0].scrollHeight : 0;
+        }
+        if (typeof value === 'number') {
+            $tbody.scrollTop(value);
+        }
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -1472,7 +1482,8 @@
         'destroy',
         'showLoading', 'hideLoading',
         'showColumn', 'hideColumn',
-        'filterBy'
+        'filterBy',
+        'scrollTo'
     ];
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
