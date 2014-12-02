@@ -468,6 +468,14 @@
                     return order * value;
                 }
 
+                // Convert numerical values form string to float.
+                if ($.isNumeric(aa)) {
+                    aa = parseFloat(aa);
+                }
+                if ($.isNumeric(bb)) {
+                    bb = parseFloat(bb);
+                }
+
                 // Fix #161: undefined or null string sort bug.
                 if (aa === undefined || aa === null) {
                     aa = '';
