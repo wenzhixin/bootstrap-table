@@ -116,5 +116,10 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>value</td>
         <td>Scroll to the number value position, set 'bottom' means scroll to the bottom.</td>
     </tr>
+    <tr>
+        <td>filterBy</td>
+        <td>params</td>
+        <td>(Can use only in client-side)Filter data in table, eg. you can filter <code>{age: 10}</code> to show the data only age is equal to 10.</td>
+    </tr>
     </tbody>
 </table>
