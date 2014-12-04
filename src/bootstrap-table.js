@@ -3,7 +3,7 @@
  * version: 1.4.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
- 
+
 !function ($) {
 
     'use strict';
