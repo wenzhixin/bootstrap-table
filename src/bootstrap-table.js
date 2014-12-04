@@ -1476,6 +1476,16 @@
         }
     };
 
+    BootstrapTable.prototype.prevPage = function () {
+        this.options.pageNumber > 1 ? this.options.pageNumber-- : null;
+        this.updatePagination();
+    };
+
+    BootstrapTable.prototype.nextPage = function () {
+        this.options.pageNumber < this.options.pageSize ? this.options.pageNumber++ : null;
+        this.updatePagination();
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -1491,7 +1501,8 @@
         'showLoading', 'hideLoading',
         'showColumn', 'hideColumn',
         'filterBy',
-        'scrollTo'
+        'scrollTo',
+        'prevPage', 'nextPage'
     ];
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
