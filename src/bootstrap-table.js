@@ -3,7 +3,7 @@
  * version: 1.4.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
-
+ 
 !function ($) {
 
     'use strict';
@@ -231,7 +231,8 @@
         formatter: undefined,
         events: undefined,
         sorter: undefined,
-        cellStyle: undefined
+        cellStyle: undefined,
+        searchable: true
     };
 
     BootstrapTable.EVENTS = {
@@ -353,7 +354,8 @@
             events: [],
             sorters: [],
             cellStyles: [],
-            clickToSelects: []
+            clickToSelects: [],
+            searchables: []
         };
         $.each(this.options.columns, function (i, column) {
             var text = '',
@@ -361,7 +363,8 @@
                 align = '', // body align style
                 style = '',
                 class_ = sprintf(' class="%s"', column['class']),
-                order = that.options.sortOrder || column.order;
+                order = that.options.sortOrder || column.order,
+                searchable = true;
 
             if (!column.visible) {
                 return;
@@ -381,8 +384,9 @@
             that.header.sorters.push(column.sorter);
             that.header.cellStyles.push(column.cellStyle);
             that.header.clickToSelects.push(column.clickToSelect);
-
-            html.push('<th',
+			that.header.searchables.push(column.searchable);
+            
+			html.push('<th',
                 column.checkbox || column.radio ?
                     sprintf(' class="bs-checkbox %s"', column['class'] || '') :
                     class_,
@@ -685,7 +689,8 @@
                         that.header.formatters[$.inArray(key, that.header.fields)],
                         [value, item, i], value);
 
-                    if ($.inArray(key, that.header.fields) !== -1 &&
+                    var index = $.inArray(key, that.header.fields);
+                    if (index !== -1 && that.header.searchables[index] &&
                         (typeof value === 'string' ||
                         typeof value === 'number') &&
                         (value + '').toLowerCase().indexOf(s) !== -1) {
