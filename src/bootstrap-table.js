@@ -245,7 +245,9 @@
         'load-error.bs.table': 'onLoadError',
         'column-switch.bs.table': 'onColumnSwitch',
         'page-change.bs.table': 'onPageChange',
-        'search.bs.table': 'onSearch'
+        'search.bs.table': 'onSearch',
+        'pre-body.bs.table': 'onPreBody',
+        'post-body.bs.table': 'onPostBody'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -896,6 +898,8 @@
             html = [],
             data = this.getData();
 
+        this.trigger('pre-body', data);
+
         this.$body = this.$el.find('tbody');
         if (!this.$body.length) {
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
@@ -1113,6 +1117,8 @@
 
         this.updateSelected();
         this.resetView();
+
+        this.trigger('post-body');
     };
 
     BootstrapTable.prototype.initServer = function (silent) {
