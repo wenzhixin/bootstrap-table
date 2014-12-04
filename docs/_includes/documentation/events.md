@@ -118,5 +118,17 @@
         <td>text</td>
         <td>Fires when search the table.</td>
     </tr>
+     <tr>
+        <td>onPreBody</td>
+        <td>pre-body.bs.table</td>
+        <td>data</td>
+        <td>Fires before the table body is rendered</td>
+    </tr>
+     <tr>
+        <td>onPostBody</td>
+        <td>post-body.bs.table</td>
+        <td></td>
+        <td>Fires after the table body is rendered and available in the DOM</td>
+    </tr>
     </tbody>
 </table>
