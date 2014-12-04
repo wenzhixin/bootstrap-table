@@ -207,7 +207,9 @@
         onLoadError: function (status) {return false;},
         onColumnSwitch: function (field, checked) {return false;},
         onPageChange: function (number, size) {return false;},
-        onSearch: function (text) {return false;}
+        onSearch: function (text) {return false;},
+        onPreBody: function (data) {return false;},
+        onPostBody: function () {return false;}
     };
 
     BootstrapTable.COLUMN_DEFAULTS = {
