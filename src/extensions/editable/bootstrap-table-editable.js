@@ -8,7 +8,12 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
-        editable: true
+        editable: true,
+        onEditableInit: function () {return false;}
+    });
+
+    $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+        'editable-init.bs.table': 'onEditableInit'
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
@@ -54,8 +59,15 @@
                 return;
             }
 
-            that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable);
+            that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
+                .off('save').on('save', function (e, params) {
+                    var data = that.getData(),
+                        row = data[$(this).parents('tr[data-index]').data('index')];
+
+                    row[column.field] = params.submitValue;
+                });
         });
+        this.trigger('editable-init');
     };
 
 }(jQuery);

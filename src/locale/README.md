@@ -94,7 +94,6 @@ hi-IN
 hr-BA
 hr-HR
 hsb-DE
-hu-HU
 hy-AM
 id-ID
 ig-NG

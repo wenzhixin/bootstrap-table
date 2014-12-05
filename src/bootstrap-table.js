@@ -207,7 +207,9 @@
         onLoadError: function (status) {return false;},
         onColumnSwitch: function (field, checked) {return false;},
         onPageChange: function (number, size) {return false;},
-        onSearch: function (text) {return false;}
+        onSearch: function (text) {return false;},
+        onPreBody: function (data) {return false;},
+        onPostBody: function () {return false;}
     };
 
     BootstrapTable.COLUMN_DEFAULTS = {
@@ -245,7 +247,9 @@
         'load-error.bs.table': 'onLoadError',
         'column-switch.bs.table': 'onColumnSwitch',
         'page-change.bs.table': 'onPageChange',
-        'search.bs.table': 'onSearch'
+        'search.bs.table': 'onSearch',
+        'pre-body.bs.table': 'onPreBody',
+        'post-body.bs.table': 'onPostBody'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -468,6 +472,14 @@
                     return order * value;
                 }
 
+                // Convert numerical values form string to float.
+                if ($.isNumeric(aa)) {
+                    aa = parseFloat(aa);
+                }
+                if ($.isNumeric(bb)) {
+                    bb = parseFloat(bb);
+                }
+
                 // Fix #161: undefined or null string sort bug.
                 if (aa === undefined || aa === null) {
                     aa = '';
@@ -651,8 +663,19 @@
 
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
+            var f = $.isEmptyObject(this.filterColumns) ? null: this.filterColumns;
 
-            this.data = s ? $.grep(this.options.data, function (item, i) {
+            // Check filter
+            this.data = f ? $.grep(this.options.data, function (item, i) {
+                for (var key in f) {
+                    if (item[key] !== f[key]) {
+                        return false;
+                    }
+                }
+                return true;
+            }) : this.options.data;
+
+            this.data = s ? $.grep(this.data, function (item, i) {
                 for (var key in item) {
                     key = $.isNumeric(key) ? parseInt(key, 10) : key;
                     var value = item[key];
@@ -670,7 +693,7 @@
                     }
                 }
                 return false;
-            }) : this.options.data;
+            }) : this.data;
         }
     };
 
@@ -803,6 +826,9 @@
             if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[1]) {
                 this.$pagination.find('span.page-list').hide();
             }
+
+            // when data is empty, hide the pagination
+            this.$pagination[this.getData().length ? 'show' : 'hide']();
         }
         $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
         $first.off('click').on('click', $.proxy(this.onPageFirst, this));
@@ -874,6 +900,8 @@
             html = [],
             data = this.getData();
 
+        this.trigger('pre-body', data);
+
         this.$body = this.$el.find('tbody');
         if (!this.$body.length) {
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
@@ -914,8 +942,8 @@
 
             html.push('<tr',
                 sprintf(' %s', htmlAttributes.join(' ')),
-                sprintf(' id="%s"', item._id),
-                sprintf(' class="%s"', style.classes || item._class),
+                sprintf(' id="%s"', $.isArray(item) ? undefined : item._id),
+                sprintf(' class="%s"', style.classes || $.isArray(item) ? undefined : item._class),
                 sprintf(' data-index="%s"', i),
                 '>'
             );
@@ -1019,7 +1047,7 @@
         this.$body.html(html.join(''));
 
         if (!fixedScroll) {
-            this.$container.find('.fixed-table-body').scrollTop(0);
+            this.scrollTo(0);
         }
 
         // click to select by column
@@ -1030,7 +1058,7 @@
             if (that.options.clickToSelect) {
                 if (that.header.clickToSelects[$tr.children().index($(this))]) {
                     $tr.find(sprintf('[name="%s"]',
-                        that.options.selectItemName)).trigger('click');
+                        that.options.selectItemName))[0].click(); // #144: .trigger('click') bug
                 }
             }
         });
@@ -1041,11 +1069,6 @@
         this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
         this.$selectItem.off('click').on('click', function (event) {
             event.stopImmediatePropagation();
-
-            // radio trigger click event bug!
-            if ($(this).is(':radio')) {
-                $(this).prop('checked', true);
-            }
 
             var checkAll = that.$selectItem.filter(':enabled').length ===
                     that.$selectItem.filter(':enabled').filter(':checked').length,
@@ -1096,6 +1119,8 @@
 
         this.updateSelected();
         this.resetView();
+
+        this.trigger('post-body');
     };
 
     BootstrapTable.prototype.initServer = function (silent) {
@@ -1310,7 +1335,7 @@
     };
 
     BootstrapTable.prototype.getData = function () {
-        return this.searchText ? this.data : this.options.data;
+        return (this.searchText || !$.isEmptyObject(this.filterColumns)) ? this.data : this.options.data;
     };
 
     BootstrapTable.prototype.load = function (data) {
@@ -1442,6 +1467,22 @@
         this.toggleColumn(getFieldIndex(this.options.columns, field), false, true);
     };
 
+    BootstrapTable.prototype.filterBy = function (columns) {
+        this.filterColumns = $.isEmptyObject(columns) ? {}: columns;
+        this.options.pageNumber = 1;
+        this.initSearch();
+        this.updatePagination();
+    };
+
+    BootstrapTable.prototype.scrollTo = function (value) {
+        var $tbody = this.$container.find('.fixed-table-body');
+        if (typeof value === 'string') {
+            value = value === 'bottom' ? $tbody[0].scrollHeight : 0;
+        }
+        if (typeof value === 'number') {
+            $tbody.scrollTop(value);
+        }
+    };
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
@@ -1456,7 +1497,9 @@
         'resetView',
         'destroy',
         'showLoading', 'hideLoading',
-        'showColumn', 'hideColumn'
+        'showColumn', 'hideColumn',
+        'filterBy',
+        'scrollTo'
     ];
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {

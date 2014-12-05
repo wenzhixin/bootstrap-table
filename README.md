@@ -1,14 +1,14 @@
 # [Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn)
 
-[![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table)
+[![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table) 
+[![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.png)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
+[![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
+[![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/wenzhixin/bootstrap-table/.counters/views-24h.png)](https://github.com/wenzhixin/bootstrap-table)
+[![Gratipay](https://img.shields.io/gratipay/wenzhixin.svg)](https://gratipay.com/wenzhixin/)
 
 An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.
 
 To get started, check out http://bootstrap-table.wenzhixin.net.cn!
-
-## Latest release
-
-1.4.0 (2014-11-21)
 
 ## LICENSE
 
@@ -16,7 +16,8 @@ To get started, check out http://bootstrap-table.wenzhixin.net.cn!
 
 ## Bugs & Enhancements (next version)
 
-- [ ] Fix #144: `onCheck` and `onUncheck` method are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
+- [x] Fix #144: `onCheck` and `onUncheck` events are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
+- [x] Fix #261: add namespace to `.table` style.
 
 ## Features
 
