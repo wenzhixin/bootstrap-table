@@ -206,6 +206,7 @@
         onLoadSuccess: function (data) {return false;},
         onLoadError: function (status) {return false;},
         onColumnSwitch: function (field, checked) {return false;},
+        onColumnSearch: function (field, text) {return false;},
         onPageChange: function (number, size) {return false;},
         onSearch: function (text) {return false;},
         onPreBody: function (data) {return false;},
@@ -231,7 +232,8 @@
         formatter: undefined,
         events: undefined,
         sorter: undefined,
-        cellStyle: undefined
+        cellStyle: undefined,
+        filterControl: undefined // edit, todo: select, todo: date
     };
 
     BootstrapTable.EVENTS = {
@@ -246,6 +248,7 @@
         'load-success.bs.table': 'onLoadSuccess',
         'load-error.bs.table': 'onLoadError',
         'column-switch.bs.table': 'onColumnSwitch',
+        'column-search.bs.table': 'onColumnSearch',
         'page-change.bs.table': 'onPageChange',
         'search.bs.table': 'onSearch',
         'pre-body.bs.table': 'onPreBody',
@@ -355,6 +358,7 @@
             cellStyles: [],
             clickToSelects: []
         };
+
         $.each(this.options.columns, function (i, column) {
             var text = '',
                 halign = '', // header align style
@@ -391,7 +395,7 @@
             html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
                 'sortable' : ''));
 
-            text = column.title;
+            text = '<a href="#">' + column.title + '</a>';
             if (that.options.sortName === column.field && that.options.sortable && column.sortable) {
                 text += that.getCaretHtml();
             }
@@ -411,6 +415,10 @@
             html.push(text);
             html.push('</div>');
             html.push('<div class="fht-cell"></div>');
+            if (column.filterControl) {
+                html.push('<div><input type="text" style="width: 100%;"></div>')
+            }
+
             html.push('</th>');
         });
 
@@ -418,8 +426,8 @@
         this.$header.find('th').each(function (i) {
             $(this).data(visibleColumns[i]);
         });
-        this.$container.off('click', 'th').on('click', 'th', function (event) {
-            if (that.options.sortable && $(this).data().sortable) {
+        this.$header.off('click', 'a').on('click', 'a', function (event) {
+            if (that.options.sortable && $(this).parent().parent().data().sortable) {
                 that.onSort(event);
             }
         });
@@ -440,6 +448,12 @@
                 var checked = $(this).prop('checked');
                 that[checked ? 'checkAll' : 'uncheckAll']();
             });
+
+        this.$header.off('change', 'input').on('change', 'input', function (event) {
+            that.onColumnSearch(event);
+        });
+
+
     };
 
     BootstrapTable.prototype.initData = function (data, append) {
@@ -500,7 +514,7 @@
     };
 
     BootstrapTable.prototype.onSort = function (event) {
-        var $this = $(event.currentTarget),
+        var $this = $(event.currentTarget).parent().parent(),
             $this_ = this.$header.find('th').eq($this.index());
 
         this.$header.add(this.$header_).find('span.order').remove();
@@ -658,12 +672,35 @@
         this.trigger('search', text);
     };
 
+    BootstrapTable.prototype.onColumnSearch = function (event) {
+        var text = $.trim($(event.currentTarget).val());
+        var $field = $(event.currentTarget).parent().parent().data('field')
+
+        // trim search input
+        $(event.currentTarget).val(text);
+
+        if ($.isEmptyObject(this.filterColumnsPartial)) {
+            this.filterColumnsPartial = {};
+        }
+        if (text) {
+            this.filterColumnsPartial[$field] = text;    
+        } else {
+            delete this.filterColumnsPartial[$field];
+        }
+        
+        this.options.pageNumber = 1;
+        this.initSearch();
+        this.updatePagination();
+        /* this.trigger('column-search', $field, text); */
+    };
+
     BootstrapTable.prototype.initSearch = function () {
         var that = this;
 
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null: this.filterColumns;
+            var fp = $.isEmptyObject(this.filterColumnsPartial) ? null: this.filterColumnsPartial;
 
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
@@ -674,6 +711,24 @@
                 }
                 return true;
             }) : this.options.data;
+            
+            //Check partial colum filter
+            this.data = fp ? $.grep(this.data, function (item, i) {
+                for (var key in fp) {
+                    var fval = fp[key].toLowerCase();
+                    var value = item[key];
+                    value = calculateObjectValue(that.header,
+                        that.header.formatters[$.inArray(key, that.header.fields)],
+                        [value, item, i], value);
+
+                    if (! ($.inArray(key, that.header.fields) !== -1 &&
+                        (typeof value === 'string' || typeof value === 'number') &&
+                        (value + '').toLowerCase().indexOf(fval) !== -1)) {
+                        return false;
+                    }
+                }
+                return true;
+            }) : this.data;
 
             this.data = s ? $.grep(this.data, function (item, i) {
                 for (var key in item) {
@@ -1147,6 +1202,11 @@
                 order: params.sortOrder
             };
         }
+
+        if (!($.isEmptyObject(this.filterColumnsPartial))) {
+            params['filter'] = JSON.stringify(this.filterColumnsPartial, null);
+        }
+
         data = calculateObjectValue(this.options, this.options.queryParams, [params], data);
 
         // false to stop request
@@ -1335,7 +1395,9 @@
     };
 
     BootstrapTable.prototype.getData = function () {
-        return (this.searchText || !$.isEmptyObject(this.filterColumns)) ? this.data : this.options.data;
+        return (this.searchText
+        || !$.isEmptyObject(this.filterColumns)
+        || !$.isEmptyObject(this.filterColumnsPartial)) ? this.data : this.options.data;
     };
 
     BootstrapTable.prototype.load = function (data) {
