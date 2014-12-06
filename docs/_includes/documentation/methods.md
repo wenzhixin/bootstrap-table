@@ -121,5 +121,15 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>params</td>
         <td>(Can use only in client-side)Filter data in table, eg. you can filter <code>{age: 10}</code> to show the data only age is equal to 10.</td>
     </tr>
+    <tr>
+        <td>prevPage</td>
+        <td>none</td>
+        <td>Go to previous page.</td>
+    </tr>
+    <tr>
+        <td>nextPage</td>
+        <td>none</td>
+        <td>Go to next page.</td>
+    </tr>
     </tbody>
 </table>
