@@ -166,5 +166,14 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         Support classes or css.
         </td>
     </tr>
+    <tr>
+        <td>searchable</td>
+        <td>data-searchable</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>
+        True to search data for this column.
+        </td>
+    </tr>
     </tbody>
 </table>
