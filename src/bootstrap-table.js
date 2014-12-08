@@ -384,9 +384,9 @@
             that.header.sorters.push(column.sorter);
             that.header.cellStyles.push(column.cellStyle);
             that.header.clickToSelects.push(column.clickToSelect);
-			that.header.searchables.push(column.searchable);
-            
-			html.push('<th',
+            that.header.searchables.push(column.searchable);
+
+            html.push('<th',
                 column.checkbox || column.radio ?
                     sprintf(' class="bs-checkbox %s"', column['class'] || '') :
                     class_,
