@@ -170,6 +170,26 @@
 
         rowAttributes: function (row, index) {return {};},
 
+        onAll: function (name, args) {return false;},
+        onClickRow: function (item, $element) {return false;},
+        onDblClickRow: function (item, $element) {return false;},
+        onSort: function (name, order) {return false;},
+        onCheck: function (row) {return false;},
+        onUncheck: function (row) {return false;},
+        onCheckAll: function () {return false;},
+        onUncheckAll: function () {return false;},
+        onLoadSuccess: function (data) {return false;},
+        onLoadError: function (status) {return false;},
+        onColumnSwitch: function (field, checked) {return false;},
+        onPageChange: function (number, size) {return false;},
+        onSearch: function (text) {return false;},
+        onPreBody: function (data) {return false;},
+        onPostBody: function () {return false;}
+    };
+
+    BootstrapTable.LOCALES = [];
+
+    BootstrapTable.LOCALES['en-US'] = {
         formatLoadingMessage: function () {
             return 'Loading, please wait…';
         },
@@ -193,24 +213,10 @@
         },
         formatColumns: function () {
             return 'Columns';
-        },
-
-        onAll: function (name, args) {return false;},
-        onClickRow: function (item, $element) {return false;},
-        onDblClickRow: function (item, $element) {return false;},
-        onSort: function (name, order) {return false;},
-        onCheck: function (row) {return false;},
-        onUncheck: function (row) {return false;},
-        onCheckAll: function () {return false;},
-        onUncheckAll: function () {return false;},
-        onLoadSuccess: function (data) {return false;},
-        onLoadError: function (status) {return false;},
-        onColumnSwitch: function (field, checked) {return false;},
-        onPageChange: function (number, size) {return false;},
-        onSearch: function (text) {return false;},
-        onPreBody: function (data) {return false;},
-        onPostBody: function () {return false;}
+        }
     };
+
+    $.extend(BootstrapTable.DEFAULTS, BootstrapTable.LOCALES['en-US']);
 
     BootstrapTable.COLUMN_DEFAULTS = {
         radio: false,
@@ -1554,6 +1560,7 @@
     $.fn.bootstrapTable.Constructor = BootstrapTable;
     $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS;
     $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS;
+    $.fn.bootstrapTable.locales = BootstrapTable.LOCALES;
     $.fn.bootstrapTable.methods = allowedMethods;
 
     // BOOTSTRAP TABLE INIT
