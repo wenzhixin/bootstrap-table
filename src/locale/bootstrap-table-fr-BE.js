@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['fr-BE'] = {
         formatLoadingMessage: function () {
             return 'Chargement en cours...';
         },
@@ -21,5 +21,8 @@
         formatNoMatches: function () {
             return 'Pas de fichiers trouvés';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-BE']);
+
 })(jQuery);

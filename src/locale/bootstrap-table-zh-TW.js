@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['zh-TW'] = {
         formatLoadingMessage: function () {
             return '正在努力地載入資料，請稍候……';
         },
@@ -30,5 +30,8 @@
         formatColumns: function () {
             return '列';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-TW']);
+
 })(jQuery);

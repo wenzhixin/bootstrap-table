@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['cs-CZ'] = {
         formatLoadingMessage: function () {
             return 'Čekejte, prosím…';
         },
@@ -21,5 +21,8 @@
         formatNoMatches: function () {
             return 'Nenalezena žádná vyhovující položka';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['cs-CZ']);
+
 })(jQuery);

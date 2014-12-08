@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['it-IT'] = {
         formatLoadingMessage: function () {
             return 'Caricamento in corso…';
         },
@@ -30,5 +30,8 @@
         formatColumns: function () {
             return 'Colonne';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['it-IT']);
+
 })(jQuery);

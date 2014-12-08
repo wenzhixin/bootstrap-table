@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['ur-PK'] = {
         formatLoadingMessage: function () {
             return 'براۓ مہربانی انتظار کیجئے';
         },
@@ -30,5 +30,8 @@
         formatColumns: function () {
             return 'کالم';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ur-PK']);
+
 })(jQuery);

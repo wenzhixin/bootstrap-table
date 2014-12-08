@@ -40,5 +40,8 @@
         {
             return 'คอลัมน์';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['th-TH']);
+
 })(jQuery);

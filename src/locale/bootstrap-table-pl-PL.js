@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['pl-PL'] = {
         formatLoadingMessage: function () {
             return 'Ładowanie, proszę czekać…';
         },
@@ -30,5 +30,8 @@
         formatColumns: function () {
             return 'Kolumny';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pl-PL']);
+
 })(jQuery);

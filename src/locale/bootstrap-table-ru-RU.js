@@ -4,7 +4,7 @@
  */
 (function ($) {
     'use strict';
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['ru-RU'] = {
         formatLoadingMessage: function () {
             return 'Пожалуйста, подождите, идёт загрузка...';
         },
@@ -29,5 +29,8 @@
         formatColumns: function () {
             return 'Колонки';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ru-RU']);
+
 })(jQuery);
