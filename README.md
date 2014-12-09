@@ -18,6 +18,7 @@ To get started, check out http://bootstrap-table.wenzhixin.net.cn!
 
 - [x] Fix #144: `onCheck` and `onUncheck` events are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
 - [x] Fix #261: add namespace to `.table` style.
+- [ ] Add `check` and `uncheck` methods.
 
 ## Features
 
