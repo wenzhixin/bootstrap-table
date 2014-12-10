@@ -17,8 +17,18 @@ To get started, check out http://bootstrap-table.wenzhixin.net.cn!
 ## Bugs & Enhancements (next version)
 
 - [x] Fix #144: `onCheck` and `onUncheck` events are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
+- [x] Fix IE browser display header bug when use `mergeCells` method.
+- [x] Fix #269: array as row bug.
+- [x] Fix #314: `rowStyle` bug.
+- [x] Add de-DE, hu-HU, sk-SK locales.
 - [x] Fix #261: add namespace to `.table` style.
-- [ ] Add `check` and `uncheck` methods.
+- [x] Fix #160, #323: operate events don't work in card view.
+- [x] Add `filterBy`, `scrollTo`, `prevPage` and `nextPage`, `check` and `uncheck` methods.
+- [x] Add `onPreBody` and `onPostBody` events.
+- [x] Add `searchable` column option.
+- [x] Fix #59: support load multiple locale files.
+- [x] Modify the scope of the column events.
+- [x] Improve editable extension.
 
 ## Features
 
