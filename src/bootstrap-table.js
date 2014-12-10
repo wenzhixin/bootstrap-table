@@ -568,8 +568,7 @@
         }
 
         if (this.options.showColumns) {
-            html.push(sprintf('<div class="keep-open %s" title="%s">',
-                this.options.showRefresh || this.options.showToggle ? 'btn-group' : '',
+            html.push(sprintf('<div class="keep-open btn-group" title="%s">',
                 this.options.formatColumns()),
                 '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
                 '<i class="glyphicon glyphicon-th icon-th"></i>',
