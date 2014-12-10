@@ -92,6 +92,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>Uncheck all current page rows.</td>
     </tr>
     <tr>
+        <td>check</td>
+        <td>index</td>
+        <td>Check a row, the row index start with 0.</td>
+    </tr>
+    <tr>
+        <td>uncheck</td>
+        <td>index</td>
+        <td>Uncheck a row, the row index start with 0.</td>
+    </tr>
+    <tr>
         <td>resetView</td>
         <td>params</td>
         <td>Reset the bootstrap table view, for example reset the table height.</td>

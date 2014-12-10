@@ -1081,12 +1081,9 @@
         this.$selectItem.off('click').on('click', function (event) {
             event.stopImmediatePropagation();
 
-            var checkAll = that.$selectItem.filter(':enabled').length ===
-                    that.$selectItem.filter(':enabled').filter(':checked').length,
-                checked = $(this).prop('checked'),
+            var checked = $(this).prop('checked'),
                 row = that.data[$(this).data('index')];
 
-            that.$selectAll.add(that.$selectAll_).prop('checked', checkAll);
             row[that.header.stateField] = checked;
             that.trigger(checked ? 'check' : 'uncheck', row);
 
@@ -1206,6 +1203,11 @@
     };
 
     BootstrapTable.prototype.updateSelected = function () {
+        var checkAll = this.$selectItem.filter(':enabled').length ===
+            this.$selectItem.filter(':enabled').filter(':checked').length;
+
+        this.$selectAll.add(this.$selectAll_).prop('checked', checkAll);
+
         this.$selectItem.each(function () {
             $(this).parents('tr')[$(this).prop('checked') ? 'addClass' : 'removeClass']('selected');
         });
@@ -1430,20 +1432,33 @@
     };
 
     BootstrapTable.prototype.checkAll = function () {
-        this.$selectAll.add(this.$selectAll_).prop('checked', true);
-        this.$selectItem.filter(':enabled').prop('checked', true);
-        this.updateRows(true);
-        this.updateSelected();
-        this.trigger('check-all');
+        this.checkAll_(true);
     };
 
     BootstrapTable.prototype.uncheckAll = function () {
-        this.$selectAll.add(this.$selectAll_).prop('checked', false);
-        this.$selectItem.filter(':enabled').prop('checked', false);
-        this.updateRows(false);
-        this.updateSelected();
-        this.trigger('uncheck-all');
+        this.checkAll_(false);
     };
+
+    BootstrapTable.prototype.checkAll_ = function (checked) {
+        this.$selectItem.filter(':enabled').prop('checked', checked);
+        this.updateRows(checked);
+        this.updateSelected();
+        this.trigger(checked ? 'check-all' : 'uncheck-all');
+    }
+
+    BootstrapTable.prototype.check = function (index) {
+        this.check_(true, index);
+    };
+
+    BootstrapTable.prototype.uncheck = function (index) {
+        this.check_(false, index);
+    };
+
+    BootstrapTable.prototype.check_ = function (checked, index) {
+        this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
+        this.data[index][this.header.stateField] = checked;
+        this.updateSelected();
+    }
 
     BootstrapTable.prototype.destroy = function () {
         this.$el.insertBefore(this.$container);
@@ -1514,6 +1529,7 @@
         'updateRow',
         'mergeCells',
         'checkAll', 'uncheckAll',
+        'check', 'uncheck',
         'refresh',
         'resetView',
         'destroy',
