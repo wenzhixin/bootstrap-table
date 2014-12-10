@@ -1122,7 +1122,7 @@
                             row = that.data[index],
                             value = row[that.header.fields[i]];
 
-                        func(e, value, row, index);
+                        func.apply(this, [e, value, row, index]);
                     });
                 });
             }
