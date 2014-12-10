@@ -379,7 +379,7 @@
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
+            style += sprintf('width: %spx; ', column.checkbox || (column.radio ? 36 : column.width));
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
@@ -393,11 +393,11 @@
             that.header.searchables.push(column.searchable);
 
             html.push('<th',
-                column.checkbox || column.radio ?
+                column.checkbox || (column.radio ?
                     sprintf(' class="bs-checkbox %s"', column['class'] || '') :
                     class_,
                 sprintf(' style="%s"', halign + style),
-                '>');
+                '>'));
             html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
                 'sortable' : ''));
 
@@ -569,7 +569,7 @@
 
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open %s" title="%s">',
-                this.options.showRefresh || this.options.showToggle ? 'btn-group' : '',
+                this.options.showRefresh || (this.options.showToggle ? 'btn-group' : ''),
                 this.options.formatColumns()),
                 '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
                 '<i class="glyphicon glyphicon-th icon-th"></i>',
@@ -1019,8 +1019,8 @@
                             ' />',
                         '</td>'].join('');
                 } else {
-                    value = typeof value === 'undefined' || value === null ?
-                        that.options.undefinedText : value;
+                    value = typeof value === 'undefined' || (value === null ?
+                        that.options.undefinedText : value);
 
                     text = that.options.cardView ?
                         ['<div class="card-view">',
