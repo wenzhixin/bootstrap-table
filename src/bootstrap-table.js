@@ -1111,7 +1111,7 @@
             for (var key in events) {
                 that.$body.find('tr').each(function () {
                     var $tr = $(this),
-                        $td = $tr.find('td').eq(i),
+                        $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(i),
                         index = key.indexOf(' '),
                         name = key.substring(0, index),
                         el = key.substring(index + 1),
