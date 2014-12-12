@@ -2,42 +2,32 @@
  * Bootstrap Table Thai translation
  * Author: Monchai S.<monchais@gmail.com>
  */
-(function ($) 
-{
+(function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, 
-    {
-        formatLoadingMessage: function () 
-        {
+    $.fn.bootstrapTable.locales['th-TH'] = {
+        formatLoadingMessage: function () {
             return 'กำลังโหลดข้อมูล, กรุณารอสักครู่...';
         },
-        formatRecordsPerPage: function (pageNumber) 
-        {
+        formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' รายการต่อหน้า';
         },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) 
-        {
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return 'รายการที่ ' + pageFrom + ' ถึง ' + pageTo + ' จากทั้งหมด ' + totalRows + ' รายการ';
         },
-        formatSearch: function () 
-        {
+        formatSearch: function () {
             return 'ค้นหา';
         },
-        formatNoMatches: function () 
-        {
+        formatNoMatches: function () {
             return 'ไม่พบรายการที่ค้นหา !';
         },
-        formatRefresh: function () 
-        {
+        formatRefresh: function () {
             return 'รีเฟรส';
         },
-        formatToggle: function () 
-        {
+        formatToggle: function () {
             return 'สลับมุมมอง';
         },
-        formatColumns: function () 
-        {
+        formatColumns: function () {
             return 'คอลัมน์';
         }
     };
