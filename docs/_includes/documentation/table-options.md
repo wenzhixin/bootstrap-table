@@ -205,7 +205,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
     <tr>
         <td>searchTimeOut</td>
         <td>data-search-time-out</td>
-        <td>Integer</td>
+        <td>Number</td>
         <td>500</td>
         <td>Set timeout for search fire.</td>
     </tr>
