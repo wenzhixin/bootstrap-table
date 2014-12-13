@@ -165,6 +165,7 @@
         checkboxHeader: true,
         sortable: true,
         maintainSelected: false,
+        searchTimeOut: 500,
 
         rowStyle: function (row, index) {return {};},
 
@@ -640,12 +641,13 @@
                 '</div>');
 
             this.$toolbar.append(html.join(''));
+            var timeOut = this.options.searchTimeOut;
             $search = this.$toolbar.find('.search input');
             $search.off('keyup').on('keyup', function (event) {
                 clearTimeout(timeoutId); // doesn't matter if it's 0
                 timeoutId = setTimeout(function () {
                     that.onSearch(event);
-                }, 500); // 500ms
+                }, timeOut);
             });
         }
     };
