@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['el-GR'] = {
         formatLoadingMessage: function () {
             return 'Φορτώνει, παρακαλώ περιμένετε…';
         },
@@ -21,5 +21,8 @@
         formatNoMatches: function () {
             return 'Δεν βρέθηκαν αποτελέσματα';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['el-GR']);
+
 })(jQuery);

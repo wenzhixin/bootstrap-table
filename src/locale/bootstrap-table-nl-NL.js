@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['nl-NL'] = {
         formatLoadingMessage: function () {
             return 'Laden, even geduld…';
         },
@@ -21,5 +21,8 @@
         formatNoMatches: function () {
             return 'Geen resultaten gevonden';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-NL']);
+
 })(jQuery);

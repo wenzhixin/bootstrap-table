@@ -6,7 +6,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['fr-FR'] = {
         formatLoadingMessage: function () {
             return 'Chargement en cours, patientez, s´il vous plaît ...';
         },
@@ -31,5 +31,8 @@
         formatColumns: function () {
             return 'Colonnes';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-FR']);
+
 })(jQuery);

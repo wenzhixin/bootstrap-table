@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['hu-HU'] = {
         formatLoadingMessage: function () {
             return 'Betöltés, kérem várjon…';
         },
@@ -30,5 +30,8 @@
         formatColumns: function () {
             return 'Oszlopok';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['hu-HU']);
+
 })(jQuery);

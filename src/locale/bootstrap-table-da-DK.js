@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['da-DK'] = {
         formatLoadingMessage: function () {
             return 'Indlæser, vent venligst…';
         },
@@ -30,5 +30,8 @@
         formatColumns: function () {
             return 'Kolonner';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['da-DK']);
+
 })(jQuery);

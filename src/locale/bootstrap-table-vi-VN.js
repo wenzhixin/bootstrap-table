@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['vi-VN'] = {
         formatLoadingMessage: function () {
             return 'Đang tải...';
         },
@@ -21,5 +21,8 @@
         formatNoMatches: function () {
             return 'Không có dữ liệu';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['vi-VN']);
+
 })(jQuery);

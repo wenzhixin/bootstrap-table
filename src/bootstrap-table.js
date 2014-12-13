@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.4.0
+ * version: 1.5.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -170,6 +170,26 @@
 
         rowAttributes: function (row, index) {return {};},
 
+        onAll: function (name, args) {return false;},
+        onClickRow: function (item, $element) {return false;},
+        onDblClickRow: function (item, $element) {return false;},
+        onSort: function (name, order) {return false;},
+        onCheck: function (row) {return false;},
+        onUncheck: function (row) {return false;},
+        onCheckAll: function () {return false;},
+        onUncheckAll: function () {return false;},
+        onLoadSuccess: function (data) {return false;},
+        onLoadError: function (status) {return false;},
+        onColumnSwitch: function (field, checked) {return false;},
+        onPageChange: function (number, size) {return false;},
+        onSearch: function (text) {return false;},
+        onPreBody: function (data) {return false;},
+        onPostBody: function () {return false;}
+    };
+
+    BootstrapTable.LOCALES = [];
+
+    BootstrapTable.LOCALES['en-US'] = {
         formatLoadingMessage: function () {
             return 'Loading, please wait…';
         },
@@ -193,24 +213,10 @@
         },
         formatColumns: function () {
             return 'Columns';
-        },
-
-        onAll: function (name, args) {return false;},
-        onClickRow: function (item, $element) {return false;},
-        onDblClickRow: function (item, $element) {return false;},
-        onSort: function (name, order) {return false;},
-        onCheck: function (row) {return false;},
-        onUncheck: function (row) {return false;},
-        onCheckAll: function () {return false;},
-        onUncheckAll: function () {return false;},
-        onLoadSuccess: function (data) {return false;},
-        onLoadError: function (status) {return false;},
-        onColumnSwitch: function (field, checked) {return false;},
-        onPageChange: function (number, size) {return false;},
-        onSearch: function (text) {return false;},
-        onPreBody: function (data) {return false;},
-        onPostBody: function () {return false;}
+        }
     };
+
+    $.extend(BootstrapTable.DEFAULTS, BootstrapTable.LOCALES['en-US']);
 
     BootstrapTable.COLUMN_DEFAULTS = {
         radio: false,
@@ -231,7 +237,8 @@
         formatter: undefined,
         events: undefined,
         sorter: undefined,
-        cellStyle: undefined
+        cellStyle: undefined,
+        searchable: true
     };
 
     BootstrapTable.EVENTS = {
@@ -353,7 +360,8 @@
             events: [],
             sorters: [],
             cellStyles: [],
-            clickToSelects: []
+            clickToSelects: [],
+            searchables: []
         };
         $.each(this.options.columns, function (i, column) {
             var text = '',
@@ -361,7 +369,8 @@
                 align = '', // body align style
                 style = '',
                 class_ = sprintf(' class="%s"', column['class']),
-                order = that.options.sortOrder || column.order;
+                order = that.options.sortOrder || column.order,
+                searchable = true;
 
             if (!column.visible) {
                 return;
@@ -381,6 +390,7 @@
             that.header.sorters.push(column.sorter);
             that.header.cellStyles.push(column.cellStyle);
             that.header.clickToSelects.push(column.clickToSelect);
+            that.header.searchables.push(column.searchable);
 
             html.push('<th',
                 column.checkbox || column.radio ?
@@ -558,8 +568,7 @@
         }
 
         if (this.options.showColumns) {
-            html.push(sprintf('<div class="keep-open %s" title="%s">',
-                this.options.showRefresh || this.options.showToggle ? 'btn-group' : '',
+            html.push(sprintf('<div class="keep-open btn-group" title="%s">',
                 this.options.formatColumns()),
                 '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
                 '<i class="glyphicon glyphicon-th icon-th"></i>',
@@ -685,7 +694,8 @@
                         that.header.formatters[$.inArray(key, that.header.fields)],
                         [value, item, i], value);
 
-                    if ($.inArray(key, that.header.fields) !== -1 &&
+                    var index = $.inArray(key, that.header.fields);
+                    if (index !== -1 && that.header.searchables[index] &&
                         (typeof value === 'string' ||
                         typeof value === 'number') &&
                         (value + '').toLowerCase().indexOf(s) !== -1) {
@@ -943,7 +953,7 @@
             html.push('<tr',
                 sprintf(' %s', htmlAttributes.join(' ')),
                 sprintf(' id="%s"', $.isArray(item) ? undefined : item._id),
-                sprintf(' class="%s"', style.classes || $.isArray(item) ? undefined : item._class),
+                sprintf(' class="%s"', style.classes || ($.isArray(item) ? undefined : item._class)),
                 sprintf(' data-index="%s"', i),
                 '>'
             );
@@ -1070,12 +1080,9 @@
         this.$selectItem.off('click').on('click', function (event) {
             event.stopImmediatePropagation();
 
-            var checkAll = that.$selectItem.filter(':enabled').length ===
-                    that.$selectItem.filter(':enabled').filter(':checked').length,
-                checked = $(this).prop('checked'),
+            var checked = $(this).prop('checked'),
                 row = that.data[$(this).data('index')];
 
-            that.$selectAll.add(that.$selectAll_).prop('checked', checkAll);
             row[that.header.stateField] = checked;
             that.trigger(checked ? 'check' : 'uncheck', row);
 
@@ -1100,7 +1107,7 @@
             for (var key in events) {
                 that.$body.find('tr').each(function () {
                     var $tr = $(this),
-                        $td = $tr.find('td').eq(i),
+                        $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(i),
                         index = key.indexOf(' '),
                         name = key.substring(0, index),
                         el = key.substring(index + 1),
@@ -1111,7 +1118,7 @@
                             row = that.data[index],
                             value = row[that.header.fields[i]];
 
-                        func(e, value, row, index);
+                        func.apply(this, [e, value, row, index]);
                     });
                 });
             }
@@ -1195,6 +1202,11 @@
     };
 
     BootstrapTable.prototype.updateSelected = function () {
+        var checkAll = this.$selectItem.filter(':enabled').length ===
+            this.$selectItem.filter(':enabled').filter(':checked').length;
+
+        this.$selectAll.add(this.$selectAll_).prop('checked', checkAll);
+
         this.$selectItem.each(function () {
             $(this).parents('tr')[$(this).prop('checked') ? 'addClass' : 'removeClass']('selected');
         });
@@ -1419,20 +1431,33 @@
     };
 
     BootstrapTable.prototype.checkAll = function () {
-        this.$selectAll.add(this.$selectAll_).prop('checked', true);
-        this.$selectItem.filter(':enabled').prop('checked', true);
-        this.updateRows(true);
-        this.updateSelected();
-        this.trigger('check-all');
+        this.checkAll_(true);
     };
 
     BootstrapTable.prototype.uncheckAll = function () {
-        this.$selectAll.add(this.$selectAll_).prop('checked', false);
-        this.$selectItem.filter(':enabled').prop('checked', false);
-        this.updateRows(false);
-        this.updateSelected();
-        this.trigger('uncheck-all');
+        this.checkAll_(false);
     };
+
+    BootstrapTable.prototype.checkAll_ = function (checked) {
+        this.$selectItem.filter(':enabled').prop('checked', checked);
+        this.updateRows(checked);
+        this.updateSelected();
+        this.trigger(checked ? 'check-all' : 'uncheck-all');
+    }
+
+    BootstrapTable.prototype.check = function (index) {
+        this.check_(true, index);
+    };
+
+    BootstrapTable.prototype.uncheck = function (index) {
+        this.check_(false, index);
+    };
+
+    BootstrapTable.prototype.check_ = function (checked, index) {
+        this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
+        this.data[index][this.header.stateField] = checked;
+        this.updateSelected();
+    }
 
     BootstrapTable.prototype.destroy = function () {
         this.$el.insertBefore(this.$container);
@@ -1484,6 +1509,16 @@
         }
     };
 
+    BootstrapTable.prototype.prevPage = function () {
+        this.options.pageNumber > 1 ? this.options.pageNumber-- : null;
+        this.updatePagination();
+    };
+
+    BootstrapTable.prototype.nextPage = function () {
+        this.options.pageNumber < this.options.pageSize ? this.options.pageNumber++ : null;
+        this.updatePagination();
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -1493,13 +1528,15 @@
         'updateRow',
         'mergeCells',
         'checkAll', 'uncheckAll',
+        'check', 'uncheck',
         'refresh',
         'resetView',
         'destroy',
         'showLoading', 'hideLoading',
         'showColumn', 'hideColumn',
         'filterBy',
-        'scrollTo'
+        'scrollTo',
+        'prevPage', 'nextPage'
     ];
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
@@ -1538,6 +1575,7 @@
     $.fn.bootstrapTable.Constructor = BootstrapTable;
     $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS;
     $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS;
+    $.fn.bootstrapTable.locales = BootstrapTable.LOCALES;
     $.fn.bootstrapTable.methods = allowedMethods;
 
     // BOOTSTRAP TABLE INIT

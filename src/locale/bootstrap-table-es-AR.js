@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['es-AR'] = {
         formatLoadingMessage: function () {
             return 'Cargando, espere por favor...';
         },
@@ -21,5 +21,8 @@
         formatNoMatches: function () {
             return 'No se encontraron registros';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-AR']);
+
 })(jQuery);

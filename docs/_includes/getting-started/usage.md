@@ -15,6 +15,8 @@ Include jQuery library, bootstrap library (if your project doesn't use it alread
 <script src="jquery.min.js"></script>
 <script src="bootstrap.min.js"></script>
 <script src="bootstrap-table.js"></script>
+<-- put your locale files after bootstrap-table.js -->
+<script src="bootstrap-table-zh-CN.js"></script>
 ```
 
 ---

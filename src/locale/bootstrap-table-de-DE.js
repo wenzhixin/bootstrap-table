@@ -5,7 +5,7 @@
 (function ($) {
   'use strict';
 
-  $.extend($.fn.bootstrapTable.defaults, {
+  $.fn.bootstrapTable.locales['de-DE'] = {
     formatLoadingMessage: function () {
       return 'Lade, bitte warten…';
     },
@@ -30,5 +30,8 @@
     formatColumns: function () {
       return 'Spalten';
     }
-  });
+  };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['de-DE']);
+
 })(jQuery);

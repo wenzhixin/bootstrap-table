@@ -6,7 +6,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['tr-TR'] = {
         formatLoadingMessage: function () {
             return 'Yükleniyor, lütfen bekleyin…';
         },
@@ -31,5 +31,8 @@
         formatColumns: function () {
             return 'Sütunlar';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['tr-TR']);
+
 })(jQuery);

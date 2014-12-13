@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
+    $.fn.bootstrapTable.locales['ko-KR'] = {
         formatLoadingMessage: function () {
             return '데이터를 불러오는 중입니다...';
         },
@@ -30,5 +30,8 @@
         formatColumns: function () {
             return '컬럼 필터링';
         }
-    });
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ko-KR']);
+
 })(jQuery);
