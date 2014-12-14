@@ -165,6 +165,7 @@
         checkboxHeader: true,
         sortable: true,
         maintainSelected: false,
+        searchTimeOut: 500,
 
         rowStyle: function (row, index) {return {};},
 
@@ -645,7 +646,7 @@
                 clearTimeout(timeoutId); // doesn't matter if it's 0
                 timeoutId = setTimeout(function () {
                     that.onSearch(event);
-                }, 500); // 500ms
+                }, that.options.searchTimeOut);
             });
         }
     };
