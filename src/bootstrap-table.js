@@ -969,7 +969,8 @@
                     type = '',
                     cellStyle = {},
                     id_ = '',
-                    class_ = that.header.classes[j];
+                    class_ = that.header.classes[j],
+                    column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
@@ -997,14 +998,14 @@
                     style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
                 }
 
-                if (that.options.columns[j].checkbox || that.options.columns[j].radio) {
+                if (column.checkbox || column.radio) {
                     //if card view mode bypass
                     if (that.options.cardView) {
                         return true;
                     }
 
-                    type = that.options.columns[j].checkbox ? 'checkbox' : type;
-                    type = that.options.columns[j].radio ? 'radio' : type;
+                    type = column.checkbox ? 'checkbox' : type;
+                    type = column.radio ? 'radio' : type;
 
                     text = ['<td class="bs-checkbox">',
                         '<input' +
@@ -1014,7 +1015,7 @@
                             sprintf(' value="%s"', item[that.options.idField]) +
                             sprintf(' checked="%s"', value === true ||
                                 (value && value.checked) ? 'checked' : undefined) +
-                            sprintf(' disabled="%s"', !that.options.columns[j].checkboxEnabled ||
+                            sprintf(' disabled="%s"', !column.checkboxEnabled ||
                                 (value && value.disabled) ? 'disabled' : undefined) +
                             ' />',
                         '</td>'].join('');
