@@ -113,7 +113,7 @@
     };
 
     var getItemField = function (item, field) {
-        if (typeof text != 'string') {
+        if (typeof field != 'string') {
             return item[field];
         }
 
