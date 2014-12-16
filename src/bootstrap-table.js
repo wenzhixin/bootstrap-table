@@ -113,6 +113,10 @@
     };
 
     var getItemField = function (item, field) {
+        if (typeof text != 'string') {
+            return item[field];
+        }
+
         var arr = field.split(".");
         while(arr.length && (item = item[arr.shift()]));
         return item;
