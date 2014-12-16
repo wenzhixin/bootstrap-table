@@ -112,6 +112,12 @@
         return text;
     };
 
+    var getItemField = function (item, field) {
+        var arr = field.split(".");
+        while(arr.length && (item = item[arr.shift()]));
+        return item;
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -965,7 +971,7 @@
 
             $.each(this.header.fields, function (j, field) {
                 var text = '',
-                    value = item[field],
+                    value = getItemField(item, field),
                     type = '',
                     cellStyle = {},
                     id_ = '',
