@@ -5,7 +5,7 @@
 [![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
 [![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/wenzhixin/bootstrap-table/.counters/views-24h.png)](https://github.com/wenzhixin/bootstrap-table)
 [![Gratipay](https://img.shields.io/gratipay/wenzhixin.svg)](https://gratipay.com/wenzhixin/)
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=wenzhixin2010%40gmail%2ecom&lc=C2&button_subtype=services&currency_code=USD&bn=PP%2dBuyNowBF%3abtn_donateCC_LG%2egif%3aNonHosted)
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDHP676FQDUT6)
 
 An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.
 
