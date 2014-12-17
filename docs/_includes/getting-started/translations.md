@@ -5,6 +5,7 @@
 Community members have translated Bootstrap table's documentation into various languages. None are officially supported and they may not always be up to date.
 
 * [Bootstrap table 中文文档 (Chinese)]()
+* [Bootstrap table po Slovensky (Slovak)]()
 * [Bootstrap table en Español (Spanish)]()
 
 **We don't help organize or host translations, we just link to them.**
