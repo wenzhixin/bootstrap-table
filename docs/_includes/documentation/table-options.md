@@ -77,7 +77,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
     </tr>
     <tr>
         <td>icons</td>
-        <td>-</td>
+        <td>data-icons</td>
         <td>Object</td>
         <td>{<br/>
         &nbsp;&nbsp;refresh: 'glyphicon-refresh icon-refresh',<br/>
