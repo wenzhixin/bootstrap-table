@@ -166,6 +166,12 @@
         sortable: true,
         maintainSelected: false,
         searchTimeOut: 500,
+        iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
+        icons: {
+            refresh: 'glyphicon-refresh icon-refresh',
+            toggle: 'glyphicon-list-alt icon-list-alt',
+            columns: 'glyphicon-th icon-th'
+        },
 
         rowStyle: function (row, index) {return {};},
 
@@ -557,14 +563,14 @@
         if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="refresh" title="%s">',
                 this.options.formatRefresh()),
-                '<i class="glyphicon glyphicon-refresh icon-refresh"></i>',
+                '<i class="'+this.options.iconsPrefix+' '+this.options.icons.refresh+'"></i>',
                 '</button>');
         }
 
         if (this.options.showToggle) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="toggle" title="%s">',
                 this.options.formatToggle()),
-                '<i class="glyphicon glyphicon glyphicon-list-alt icon-list-alt"></i>',
+                '<i class="'+this.options.iconsPrefix+' '+this.options.icons.toggle+'"></i>',
                 '</button>');
         }
 
@@ -572,7 +578,7 @@
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
                 this.options.formatColumns()),
                 '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
-                '<i class="glyphicon glyphicon-th icon-th"></i>',
+                '<i class="'+this.options.iconsPrefix+' '+this.options.icons.columns+'"></i>',
                 ' <span class="caret"></span>',
                 '</button>',
                 '<ul class="dropdown-menu" role="menu">');

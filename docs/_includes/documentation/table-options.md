@@ -69,6 +69,24 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Defines the column sort order, can only be 'asc' or 'desc'.</td>
     </tr>
     <tr>
+        <td>iconsPrefix</td>
+        <td>data-icons-prefix</td>
+        <td>String</td>
+        <td>'glyphicon'</td>
+        <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
+    </tr>
+    <tr>
+        <td>icons</td>
+        <td>-</td>
+        <td>Object</td>
+        <td>{<br/>
+        &nbsp;&nbsp;refresh: 'glyphicon-refresh icon-refresh',<br/>
+        &nbsp;&nbsp;toggle: 'glyphicon-list-alt icon-list-alt',<br/>
+        &nbsp;&nbsp;columns: 'glyphicon-th icon-th'<br/>
+        }</td>
+        <td>Defines icons that used for refresh, toggle and columns buttons</td>
+    </tr>
+    <tr>
         <td>columns</td>
         <td>-</td>
         <td>Array</td>
