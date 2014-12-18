@@ -135,8 +135,6 @@
         data: [],
         remoteDataContainer: null,
         remotePaginationContainer: null,
-        remotePaginationTotal: 'total',
-        remotePagination: 'total',
         method: 'get',
         url: undefined,
         cache: true,
