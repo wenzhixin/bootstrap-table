@@ -102,6 +102,35 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>The data to be loaded.</td>
     </tr>
     <tr>
+        <td>remoteDataContainer</td>
+        <td>-</td>
+        <td>string</td>
+        <td>null</td>
+        <td>The name of remote data container in response object. Use in case when you got data array as a response object property:<br />
+        {
+        &nbsp;&nbsp;status: 1,
+        &nbsp;&nbsp;message: {...},
+        &nbsp;&nbsp;data: [...] // response data container
+        &nbsp;&nbsp;pagination: {...} // response pagination object (see 'remotePaginationContainer' property)
+        }
+        </td>
+    </tr>
+    <tr>
+        <td>remotePaginationContainer</td>
+        <td>-</td>
+        <td>Object</td>
+        <td>null</td>
+        <td>Defines server side pagination object properties in response object to build table pagination:<br />
+        remotePaginationContainer: {
+        &nbsp;&nbsp;name: 'pagination', // remote response pagination object container name
+        &nbsp;&nbsp;total: 'total_items', // Total items pagination object property name
+        &nbsp;&nbsp;pageSize: 'per_page', // Page Size pagination object property name
+        &nbsp;&nbsp;pageNumber: 'current_page', // Page Number pagination object property name
+        &nbsp;&nbsp;totalPages: 'total_pages' // Total Pages pagination object property name
+        }
+        </td>
+    </tr>
+    <tr>
         <td>method</td>
         <td>data-method</td>
         <td>String</td>
@@ -152,7 +181,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-query-params-type</td>
         <td>String</td>
         <td>'limit'</td>
-        <td>Set 'limit' to send query params width RESTFul type.</td>
+        <td>Set 'limit' to send query params width RESTFul type or 'page' to send page number to a server side pagination based on receiving page number to limit data.</td>
     </tr>
     <tr>
         <td>responseHandler</td>

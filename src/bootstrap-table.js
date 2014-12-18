@@ -133,13 +133,17 @@
         striped: false,
         columns: [],
         data: [],
+        remoteDataContainer: null,
+        remotePaginationContainer: null,
+        remotePaginationTotal: 'total',
+        remotePagination: 'total',
         method: 'get',
         url: undefined,
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
         queryParams: function (params) {return params;},
-        queryParamsType: 'limit', // undefined
+        queryParamsType: 'limit', // limit or page
         responseHandler: function (res) {return res;},
         pagination: false,
         sidePagination: 'client', // client or server
@@ -280,16 +284,16 @@
     BootstrapTable.prototype.initContainer = function () {
         this.$container = $([
             '<div class="bootstrap-table">',
-                '<div class="fixed-table-toolbar"></div>',
-                '<div class="fixed-table-container">',
-                    '<div class="fixed-table-header"><table></table></div>',
-                    '<div class="fixed-table-body">',
-                        '<div class="fixed-table-loading">',
-                            this.options.formatLoadingMessage(),
-                        '</div>',
-                    '</div>',
-                    '<div class="fixed-table-pagination"></div>',
-                '</div>',
+            '<div class="fixed-table-toolbar"></div>',
+            '<div class="fixed-table-container">',
+            '<div class="fixed-table-header"><table></table></div>',
+            '<div class="fixed-table-body">',
+            '<div class="fixed-table-loading">',
+            this.options.formatLoadingMessage(),
+            '</div>',
+            '</div>',
+            '<div class="fixed-table-pagination"></div>',
+            '</div>',
             '</div>'].join(''));
 
         this.$container.insertAfter(this.$el);
@@ -566,21 +570,21 @@
 
         if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="refresh" title="%s">',
-                this.options.formatRefresh()),
+                    this.options.formatRefresh()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh),
                 '</button>');
         }
 
         if (this.options.showToggle) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="toggle" title="%s">',
-                this.options.formatToggle()),
+                    this.options.formatToggle()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
         }
 
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
-                this.options.formatColumns()),
+                    this.options.formatColumns()),
                 '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
@@ -595,8 +599,8 @@
 
                 if (column.switchable) {
                     html.push(sprintf('<li>' +
-                        '<label><input type="checkbox" data-field="%s" value="%s"%s> %s</label>' +
-                        '</li>', column.field, i, checked, column.title));
+                    '<label><input type="checkbox" data-field="%s" value="%s"%s> %s</label>' +
+                    '</li>', column.field, i, checked, column.title));
                     switchableCount++;
                 }
             });
@@ -646,8 +650,8 @@
             html = [];
             html.push(
                 '<div class="pull-' + this.options.searchAlign + ' search">',
-                    sprintf('<input class="form-control" type="text" placeholder="%s">',
-                        this.options.formatSearch()),
+                sprintf('<input class="form-control" type="text" placeholder="%s">',
+                    this.options.formatSearch()),
                 '</div>');
 
             this.$toolbar.append(html.join(''));
@@ -753,21 +757,21 @@
 
         html.push(
             '<div class="pull-left pagination-detail">',
-                '<span class="pagination-info">',
-                    this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
-                '</span>');
+            '<span class="pagination-info">',
+            this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
+            '</span>');
 
         html.push('<span class="page-list">');
 
         var pageNumber = [
-            '<span class="btn-group dropup">',
-            '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
-            '<span class="page-size">',
-            this.options.pageSize,
-            '</span>',
-            ' <span class="caret"></span>',
-            '</button>',
-            '<ul class="dropdown-menu" role="menu">'],
+                '<span class="btn-group dropup">',
+                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+                '<span class="page-size">',
+                this.options.pageSize,
+                '</span>',
+                ' <span class="caret"></span>',
+                '</button>',
+                '<ul class="dropdown-menu" role="menu">'],
             pageList = this.options.pageList;
 
         if (typeof this.options.pageList === 'string') {
@@ -792,9 +796,9 @@
 
         html.push('</div>',
             '<div class="pull-right pagination">',
-                '<ul class="pagination">',
-                    '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
-                    '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
+            '<ul class="pagination">',
+            '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
+            '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
 
         if (this.totalPages < 5) {
             from = 1;
@@ -818,9 +822,9 @@
         }
 
         html.push(
-                    '<li class="page-next"><a href="javascript:void(0)">&gt;</a></li>',
-                    '<li class="page-last"><a href="javascript:void(0)">&gt;&gt;</a></li>',
-                '</ul>',
+            '<li class="page-next"><a href="javascript:void(0)">&gt;</a></li>',
+            '<li class="page-last"><a href="javascript:void(0)">&gt;&gt;</a></li>',
+            '</ul>',
             '</div>');
 
         this.$pagination.html(html.join(''));
@@ -928,7 +932,7 @@
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
         }
 
-        if (this.options.sidePagination === 'server') {
+        if (this.options.sidePagination === 'server' && !this.options.remotePaginationContainer) {
             data = this.data;
         }
 
@@ -983,7 +987,6 @@
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
-
                 value = calculateObjectValue(that.header,
                     that.header.formatters[j], [value, item, i], value);
 
@@ -1018,30 +1021,30 @@
                     type = column.radio ? 'radio' : type;
 
                     text = ['<td class="bs-checkbox">',
-                        '<input' +
+                            '<input' +
                             sprintf(' data-index="%s"', i) +
                             sprintf(' name="%s"', that.options.selectItemName) +
                             sprintf(' type="%s"', type) +
                             sprintf(' value="%s"', item[that.options.idField]) +
                             sprintf(' checked="%s"', value === true ||
-                                (value && value.checked) ? 'checked' : undefined) +
+                            (value && value.checked) ? 'checked' : undefined) +
                             sprintf(' disabled="%s"', !column.checkboxEnabled ||
-                                (value && value.disabled) ? 'disabled' : undefined) +
+                            (value && value.disabled) ? 'disabled' : undefined) +
                             ' />',
-                        '</td>'].join('');
+                            '</td>'].join('');
                 } else {
                     value = typeof value === 'undefined' || value === null ?
                         that.options.undefinedText : value;
 
                     text = that.options.cardView ?
                         ['<div class="card-view">',
-                            that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
-                                getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
-                            sprintf('<span class="value">%s</span>', value),
-                            '</div>'].join('') :
+                         that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
+                             getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
+                         sprintf('<span class="value">%s</span>', value),
+                         '</div>'].join('') :
                         [sprintf('<td%s %s %s>', id_, class_, style),
-                            value,
-                            '</td>'].join('');
+                         value,
+                         '</td>'].join('');
 
                     // Hide empty data on Card view when smartDisplay is set to true.
                     if (that.options.cardView && that.options.smartDisplay && value === '') {
@@ -1166,6 +1169,16 @@
                 order: params.sortOrder
             };
         }
+        else if (this.options.queryParamsType === 'page') {
+            params = {
+                limit: params.pageSize,
+                page: params.pageNumber,
+                search: params.searchText,
+                sort: params.sortName,
+                order: params.sortOrder
+            };
+        }
+
         data = calculateObjectValue(this.options, this.options.queryParams, [params], data);
 
         // false to stop request
@@ -1187,12 +1200,30 @@
             success: function (res) {
                 res = calculateObjectValue(that.options, that.options.responseHandler, [res], res);
 
-                var data = res;
+                var data = (that.options.remoteDataContainer) ? res[that.options.remoteDataContainer] : res;
 
                 if (that.options.sidePagination === 'server') {
-                    that.options.totalRows = res.total;
-                    data = res.rows;
+                    if(that.options.remotePaginationContainer)
+                    {
+                        if(that.options.remotePaginationContainer.total)
+                            that.options.totalRows = res[that.options.remotePaginationContainer.name][that.options.remotePaginationContainer.total];
+
+                        if(that.options.remotePaginationContainer.pageSize)
+                            that.options.pageSize = res[that.options.remotePaginationContainer.name][that.options.remotePaginationContainer.pageSize];
+
+                        if(that.options.remotePaginationContainer.pageNumber)
+                            that.options.pageNumber = res[that.options.remotePaginationContainer.name][that.options.remotePaginationContainer.pageNumber];
+
+                        if(that.options.remotePaginationContainer.totalPages)
+                            that.options.totalPages = res[that.options.remotePaginationContainer.name][that.options.remotePaginationContainer.totalPages];
+                    }
+                    else
+                    {
+                        that.options.totalRows = res.total;
+                        data = res.rows;
+                    }
                 }
+
                 that.load(data);
                 that.trigger('load-success', data);
             },
@@ -1210,7 +1241,7 @@
     BootstrapTable.prototype.getCaretHtml = function () {
         return ['<span class="order' + (this.options.sortOrder === 'desc' ? '' : ' dropup') + '">',
                 '<span class="caret" style="margin: 10px 5px;"></span>',
-            '</span>'].join('');
+                '</span>'].join('');
     };
 
     BootstrapTable.prototype.updateSelected = function () {
@@ -1332,7 +1363,7 @@
         }
 
         this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
-            this.$selectItem.length === this.$selectItem.filter(':checked').length);
+        this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
         if (this.options.height) {
             var toolbarHeight = +this.$toolbar.children().outerHeight(true),
