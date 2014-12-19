@@ -1,16 +1,16 @@
 pages:
   getting_started:
-    title: "Getting started"
-    lead: "An overview of Bootstrap Table, how to download and use, basic templates, and more."
+    title: "开始使用"
+    lead: "Bootstrap Table的简单介绍，例如如何下载和使用，基本的模板等等。"
   examples:
-    title: "Examples"
-    lead: "The examples of bootstrap table."
+    title: "例子"
+    lead: "使用Bootstrap Table的例子。"
   documentation:
-    title: "Documentation"
-    lead: "The documentation contains Table Properties, Column Properties, Events, Methods, and much more."
+    title: "文档"
+    lead: "文档包含了表格属性、列属性、事件、方法等等。"
   extensions:
-    title: "Extensions"
-    lead: "The extensions of bootstrap table."
+    title: "扩展"
+    lead: "Bootstrap Table 的扩展"
   faq:
-    title: "FAQ"
-    lead: "Frequently Asked Questions."
+    title: "常见问题"
+    lead: "常见问题。"
