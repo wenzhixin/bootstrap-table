@@ -1,4 +1,4 @@
-# Align []({{ site.repo }}/blob/master/docs/_includes/examples/align.md)
+# Align []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/align.md)
 
 Use `align`, `halign` and `valign` options to set the alignment of the columns and their header. _by [@wenzhixin](https://github.com/wenzhixin)_
 

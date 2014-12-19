@@ -1,4 +1,4 @@
-# Methods []({{ site.repo }}/blob/master/docs/_includes/examples/methods.md)
+# Methods []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/methods.md)
 
 ---
 

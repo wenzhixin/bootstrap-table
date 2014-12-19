@@ -1,4 +1,4 @@
-# FAQ []({{ site.repo }}/blob/master/docs/_includes/faq/faq.md)
+# FAQ []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/faq/faq.md)
 
 ---
 

@@ -1,4 +1,4 @@
-# Editable []({{ site.repo }}/blob/master/docs/_includes/extensions/editable.md)
+# Editable []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/extensions/editable.md)
 
 ---
 

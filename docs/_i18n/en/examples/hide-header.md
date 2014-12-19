@@ -1,4 +1,4 @@
-# Hide Header []({{ site.repo }}/blob/master/docs/_includes/examples/hide-header.md)
+# Hide Header []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/hide-header.md)
 
 Use `showHeader: false` to hide the header of bootstrap table. _by [@wenzhixin](https://github.com/wenzhixin)_
 

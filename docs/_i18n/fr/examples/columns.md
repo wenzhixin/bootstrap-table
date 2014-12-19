@@ -1,4 +1,4 @@
-# Columns []({{ site.repo }}/blob/master/docs/_includes/examples/columns.md)
+# Columns []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/columns.md)
 
 ---
 

@@ -1,4 +1,4 @@
-# Select []({{ site.repo }}/blob/master/docs/_includes/examples/select.md)
+# Select []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/select.md)
 
 ---
 

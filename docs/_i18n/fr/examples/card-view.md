@@ -1,4 +1,4 @@
-# Card View []({{ site.repo }}/blob/master/docs/_includes/examples/card-view.md)
+# Card View []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/card-view.md)
 
 Use `cardView: true` option to show Card View. _by [@wenzhixin](https://github.com/wenzhixin)_
 

@@ -1,4 +1,4 @@
-# Toolbar []({{ site.repo }}/blob/master/docs/_includes/examples/toolbar.md)
+# Toolbar []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/toolbar.md)
 
 ---
 

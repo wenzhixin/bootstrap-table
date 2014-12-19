@@ -1,4 +1,4 @@
-# Compiling CSS and JavaScript []({{ site.repo }}/blob/master/docs/_includes/getting-started/grunt.md)
+# Compiling CSS and JavaScript []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/grunt.md)
 
 ---
 

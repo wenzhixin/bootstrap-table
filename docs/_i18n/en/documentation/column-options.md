@@ -1,4 +1,4 @@
-# Column options []({{ site.repo }}/blob/master/docs/_includes/documentation/column-options.md)
+# Column options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/column-options.md)
 
 ---
 

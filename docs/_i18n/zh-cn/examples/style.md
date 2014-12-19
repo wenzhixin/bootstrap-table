@@ -1,4 +1,4 @@
-# Style []({{ site.repo }}/blob/master/docs/_includes/examples/style.md)
+# Style []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/style.md)
 
 ---
 

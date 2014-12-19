@@ -1,4 +1,4 @@
-# Table options []({{ site.repo }}/blob/master/docs/_includes/documentation/table-options.md)
+# Table options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
 
 ---
 

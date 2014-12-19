@@ -1,4 +1,4 @@
-# Basic []({{ site.repo }}/blob/master/docs/_includes/examples/basic.md)
+# Basic []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/basic.md)
 
 ---
 

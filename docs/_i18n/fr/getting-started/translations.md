@@ -1,4 +1,4 @@
-# Translations []({{ site.repo }}/blob/master/docs/_includes/getting-started/translations.md)
+# Translations []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/translations.md)
 
 ---
 

@@ -1,4 +1,4 @@
-# Format []({{ site.repo }}/blob/master/docs/_includes/examples/format.md)
+# Format []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/format.md)
 
 Use `formatter` column option to format the display of bootstrap table column. _by [@wenzhixin](https://github.com/wenzhixin)_
 

@@ -1,4 +1,4 @@
-# Pagination []({{ site.repo }}/blob/master/docs/_includes/examples/pagination.md)
+# Pagination []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/pagination.md)
 
 ---
 

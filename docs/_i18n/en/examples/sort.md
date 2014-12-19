@@ -1,4 +1,4 @@
-# Sort []({{ site.repo }}/blob/master/docs/_includes/examples/sort.md)
+# Sort []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/examples/sort.md)
 
 ---
 
