@@ -1,24 +1,24 @@
-# Download []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/download.md)
+# 下载 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/download.md)
 
 ---
 
 <p class="lead">
-Bootstrap table (currently v{{ site.current_version }}) has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.
+Bootstrap table (当前版本 v{{ site.current_version }}) 可以有几种快速入门的方法，每种适合不同技能等级的人使用，往下看哪种适合你。
 </p>
 
-## Source code
+## 源码
 
-Source css, JavaScript, locales, and extensions, along with our docs.
+包含了 css，JavaScript，多语言和扩展，以及文档。
 
-<a href="{{ site.master_zip }}" class="btn btn-lg btn-outline" role="button">Download source</a>
+<a href="{{ site.master_zip }}" class="btn btn-lg btn-outline" role="button">下载源码</a>
 
-## Clone or fork via GitHub
+## 克隆或者 Fork 通过 GitHub
 
-<a href="{{ site.repo }}" class="btn btn-lg btn-outline" role="button">Via GitHub</a>
+<a href="{{ site.repo }}" class="btn btn-lg btn-outline" role="button">通过 GitHub</a>
 
 ## CDN
 
-The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bootcss](http://open.bootcss.com/bootstrap-table/) graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these CDN links.
+[CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) 或者 [bootcss](http://open.bootcss.com/bootstrap-table/) 提供了 CDN 来支持 Bootstrap table 的 CSS 和 JavaScript 文件链接。
 
 ```html
 <!-- Latest compiled and minified CSS -->
@@ -33,7 +33,7 @@ The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bo
 
 ## Bower
 
-Install and manage Bootstrap table's CSS, JavaScript, locales, and extensions using [Bower](http://bower.io/).
+通过 [Bower](http://bower.io/) 来安装和管理 Bootstrap table 的 CSS，JavaScript, 多语言和扩展。
 
 ```bash
 $ bower install bootstrap-table
