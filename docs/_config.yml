@@ -12,7 +12,7 @@ permalink: pretty
 
 # Languages
 languages: ["en", "zh-cn", "fr"]
-languages_string: ["English", "Chinese", "French"]
+languages_string: ["English", "简体中文", "French"]
 
 # Custom vars
 current_version: 1.5.0

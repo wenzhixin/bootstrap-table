@@ -13,19 +13,19 @@
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li {% if page.slug == "getting-started" %} class="active"{% endif %}>
-                    <a href="{{ site.baseurl }}/getting-started/">Getting started</a>
+                    <a href="{{ site.baseurl }}/getting-started/">{% t pages.getting_started.title %}</a>
                 </li>
                 <li {% if page.slug == "examples" %} class="active"{% endif %}>
-                    <a href="{{ site.baseurl }}/examples/">Examples</a>
+                    <a href="{{ site.baseurl }}/examples/">{% t pages.examples.title %}</a>
                 </li>
                 <li {% if page.slug == "documentation" %} class="active"{% endif %}>
-                    <a href="{{ site.baseurl }}/documentation/">Documentation</a>
+                    <a href="{{ site.baseurl }}/documentation/">{% t pages.documentation.title %}</a>
                 </li>
                 <li {% if page.slug == "extensions" %} class="active"{% endif %}>
-                    <a href="{{ site.baseurl }}/extensions/">Extensions</a>
+                    <a href="{{ site.baseurl }}/extensions/">{% t pages.extensions.title %}</a>
                 </li>
                 <li {% if page.slug == "faq" %} class="active"{% endif %}>
-                    <a href="{{ site.baseurl }}/faq/">FAQ</a>
+                    <a href="{{ site.baseurl }}/faq/">{% t pages.faq.title %}</a>
                 </li>
                 <li>
                     <a href="{{ site.repo }}" target="_blank">GitHub</a>
