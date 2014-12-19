@@ -10,6 +10,10 @@ highlighter: rouge
 # Permalinks
 permalink: pretty
 
+# Languages
+languages: ["en", "zh-cn", "fr"]
+languages_string: ["English", "Chinese", "French"]
+
 # Custom vars
 current_version: 1.5.0
 repo: https://github.com/wenzhixin/bootstrap-table

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: FAQ
+title: pages.faq.title
 slug: faq
-lead: "Frequently Asked Questions."
+lead: pages.faq.lead
 ---
 
-{% markdown faq/faq.md %}
+{% tf faq/faq.md %}
 
 ---
 
