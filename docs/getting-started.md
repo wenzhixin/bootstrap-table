@@ -12,5 +12,3 @@ lead: pages.getting_started.lead
 {% tf getting-started/grunt.md %}
 
 {% tf getting-started/usage.md %}
-
-{% tf getting-started/translations.md %}
