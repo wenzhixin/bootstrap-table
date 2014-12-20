@@ -10,6 +10,14 @@ highlighter: rouge
 # Permalinks
 permalink: pretty
 
+# Server
+source:           docs
+destination:      _gh_pages
+host:             0.0.0.0
+port:             4000
+url:              http://bootstrap-table.wenzhixin.net.cn
+encoding:         UTF-8
+
 # Languages
 languages: ["en", "zh-cn", "fr"]
 languages_string: ["English", "简体中文", "French"]
