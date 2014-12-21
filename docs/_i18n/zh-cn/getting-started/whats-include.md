@@ -1,8 +1,8 @@
-# What's included []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/whats-include.md)
+# 包含什么 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/whats-include.md)
 
 ---
 
-The Bootstrap table source code download includes the precompiled CSS, JavaScript, locales, extensions, and provides both compiled and minified variations, along with documentation. More specifically, it includes the following and more:
+下载的 Bootstrap table 源码包含了未压缩的 CSS，JavaScript，语言文件以及扩展，并且提供了压缩扰乱的 min 文件，当然也提供了我们的文档。更具体地说，主要包含了以下的文件：
 
 ```bash
 bootstrap-table/
@@ -19,4 +19,4 @@ bootstrap-table/
     └── bootstrap-table.js
 ```
 
-The `src/`, `locale/`, and `extensions/` are the source code for our CSS, JS. The `dist/` folder includes everything compiled and minified with `src/`. The `docs/` folder includes the source code for our documentation. Beyond that, any other included file provides support for packages, license information, and development.
+`src/`，`locale/` 和 `extensions/` 是我们的 CSS，JavaScript 的源码。`dist/`文件夹包含了所有`src/`下压缩并扰乱的文件。`docs/`文件夹包含了我们文档的源码。另外，我们提供了包信息，License 信息，和其他的信息。
