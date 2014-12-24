@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Examples
+title: pages.examples.title
 slug: examples
-lead: "The examples of bootstrap table."
+lead: pages.examples.lead
 ---
 
-{% markdown examples/note.md %}
+{% tf examples/note.md %}
 
-{% markdown examples/basic.md %}
+{% tf examples/basic.md %}
 
-{% markdown examples/style.md %}
+{% tf examples/style.md %}
 
-{% markdown examples/align.md %}
+{% tf examples/align.md %}
 
-{% markdown examples/sort.md %}
+{% tf examples/sort.md %}
 
-{% markdown examples/format.md %}
+{% tf examples/format.md %}
 
-{% markdown examples/hide-header.md %}
+{% tf examples/hide-header.md %}
 
-{% markdown examples/columns.md %}
+{% tf examples/columns.md %}
 
-{% markdown examples/card-view.md %}
+{% tf examples/card-view.md %}
 
-{% markdown examples/select.md %}
+{% tf examples/select.md %}
 
-{% markdown examples/toolbar.md %}
+{% tf examples/toolbar.md %}
 
-{% markdown examples/pagination.md %}
+{% tf examples/pagination.md %}
 
-{% markdown examples/events.md %}
+{% tf examples/events.md %}
 
-{% markdown examples/methods.md %}
+{% tf examples/methods.md %}

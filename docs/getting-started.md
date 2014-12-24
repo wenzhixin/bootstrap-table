@@ -1,16 +1,14 @@
 ---
 layout: default
-title: Getting started
+title: pages.getting_started.title
 slug: getting-started
-lead: "An overview of Bootstrap Table, how to download and use, basic templates, and more."
+lead: pages.getting_started.lead
 ---
 
-{% markdown getting-started/download.md %}
+{% tf getting-started/download.md %}
 
-{% markdown getting-started/whats-include.md %}
+{% tf getting-started/whats-include.md %}
 
-{% markdown getting-started/grunt.md %}
+{% tf getting-started/grunt.md %}
 
-{% markdown getting-started/usage.md %}
-
-{% markdown getting-started/translations.md %}
+{% tf getting-started/usage.md %}

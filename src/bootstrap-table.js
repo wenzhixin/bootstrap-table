@@ -165,6 +165,13 @@
         checkboxHeader: true,
         sortable: true,
         maintainSelected: false,
+        searchTimeOut: 500,
+        iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
+        icons: {
+            refresh: 'glyphicon-refresh icon-refresh',
+            toggle: 'glyphicon-list-alt icon-list-alt',
+            columns: 'glyphicon-th icon-th'
+        },
 
         rowStyle: function (row, index) {return {};},
 
@@ -553,17 +560,21 @@
         // showColumns, showToggle, showRefresh
         html = ['<div class="columns columns-' + this.options.toolbarAlign + ' btn-group pull-' + this.options.toolbarAlign + '">'];
 
+        if (typeof this.options.icons === 'string') {
+            this.options.icons = calculateObjectValue(null, this.options.icons);
+        }
+
         if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="refresh" title="%s">',
                 this.options.formatRefresh()),
-                '<i class="glyphicon glyphicon-refresh icon-refresh"></i>',
+                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh),
                 '</button>');
         }
 
         if (this.options.showToggle) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="toggle" title="%s">',
                 this.options.formatToggle()),
-                '<i class="glyphicon glyphicon glyphicon-list-alt icon-list-alt"></i>',
+                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
         }
 
@@ -571,7 +582,7 @@
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
                 this.options.formatColumns()),
                 '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
-                '<i class="glyphicon glyphicon-th icon-th"></i>',
+                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
                 '</button>',
                 '<ul class="dropdown-menu" role="menu">');
@@ -645,7 +656,7 @@
                 clearTimeout(timeoutId); // doesn't matter if it's 0
                 timeoutId = setTimeout(function () {
                     that.onSearch(event);
-                }, 500); // 500ms
+                }, that.options.searchTimeOut);
             });
         }
     };
@@ -968,7 +979,8 @@
                     type = '',
                     cellStyle = {},
                     id_ = '',
-                    class_ = that.header.classes[j];
+                    class_ = that.header.classes[j],
+                    column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
@@ -996,14 +1008,14 @@
                     style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
                 }
 
-                if (that.options.columns[j].checkbox || that.options.columns[j].radio) {
+                if (column.checkbox || column.radio) {
                     //if card view mode bypass
                     if (that.options.cardView) {
                         return true;
                     }
 
-                    type = that.options.columns[j].checkbox ? 'checkbox' : type;
-                    type = that.options.columns[j].radio ? 'radio' : type;
+                    type = column.checkbox ? 'checkbox' : type;
+                    type = column.radio ? 'radio' : type;
 
                     text = ['<td class="bs-checkbox">',
                         '<input' +
@@ -1013,7 +1025,7 @@
                             sprintf(' value="%s"', item[that.options.idField]) +
                             sprintf(' checked="%s"', value === true ||
                                 (value && value.checked) ? 'checked' : undefined) +
-                            sprintf(' disabled="%s"', !that.options.columns[j].checkboxEnabled ||
+                            sprintf(' disabled="%s"', !column.checkboxEnabled ||
                                 (value && value.disabled) ? 'disabled' : undefined) +
                             ' />',
                         '</td>'].join('');

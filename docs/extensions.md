@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Extensions
+title: pages.extensions.title
 slug: extensions
-lead: "The extensions of bootstrap table."
+lead: pages.extensions.lead
 ---
 
-{% markdown extensions/editable.md %}
+{% tf extensions/editable.md %}
