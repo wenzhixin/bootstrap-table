@@ -13,7 +13,7 @@ The default side pagination of table is `client`. _by [@wenzhixin](https://githu
 
 Use sidePagination: 'server' option to define the server side pagination of table.
 
-<iframe width="100%" height="400" src="http://jsfiddle.net/4r6g4cfu/embedded/html,js,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="400" src="http://jsfiddle.net/4r6g4cfu/3/embedded/html,js,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 Here's the server-side code.
 https://gist.github.com/mikepenz/06df1204cbb65b874cb5
