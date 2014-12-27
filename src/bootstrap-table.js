@@ -1143,7 +1143,7 @@
         this.trigger('post-body');
     };
 
-    BootstrapTable.prototype.initServer = function (silent) {
+    BootstrapTable.prototype.initServer = function (silent, queryparams) {
         var that = this,
             data = {},
             params = {
@@ -1167,6 +1167,7 @@
                 order: params.sortOrder
             };
         }
+
         else if (this.options.queryParamsType === 'page') {
             params = {
                 limit: params.pageSize,
@@ -1177,7 +1178,7 @@
             };
         }
 
-        data = calculateObjectValue(this.options, this.options.queryParams, [params], data);
+        data = calculateObjectValue(this.options, $.extend(this.options.queryParams, queryparams || {}), [params], data);
 
         // false to stop request
         if (data === false) {
@@ -1522,7 +1523,7 @@
             this.options.url = params.url;
             this.options.pageNumber = 1;
         }
-        this.initServer(params && params.silent);
+        this.initServer(params && params.silent, params && params.queryparams);
     };
 
     BootstrapTable.prototype.showColumn = function (field) {

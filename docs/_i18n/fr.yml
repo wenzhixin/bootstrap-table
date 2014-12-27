@@ -1,0 +1,16 @@
+pages:
+  getting_started:
+    title: "Getting started"
+    lead: "An overview of Bootstrap Table, how to download and use, basic templates, and more."
+  examples:
+    title: "Examples"
+    lead: "The examples of bootstrap table."
+  documentation:
+    title: "Documentation"
+    lead: "The documentation contains Table Properties, Column Properties, Events, Methods, and much more."
+  extensions:
+    title: "Extensions"
+    lead: "The extensions of bootstrap table."
+  faq:
+    title: "FAQ"
+    lead: "Frequently Asked Questions."

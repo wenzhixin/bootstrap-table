@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Documentation
+title: pages.documentation.title
 slug: documentation
-lead: "The documentation contains Table Properties, Column Properties, Events, Methods, and much more."
+lead: pages.documentation.lead
 ---
 
-{% markdown documentation/table-options.md %}
+{% tf documentation/table-options.md %}
 
-{% markdown documentation/column-options.md %}
+{% tf documentation/column-options.md %}
 
-{% markdown documentation/events.md %}
+{% tf documentation/events.md %}
 
-{% markdown documentation/methods.md %}
+{% tf documentation/methods.md %}
 
-{% markdown documentation/localizations.md %}
+{% tf documentation/localizations.md %}

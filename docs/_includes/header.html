@@ -7,9 +7,9 @@
 
 <title>
   {% if page.layout == "home" %}
-    {{ page.title }}
+    {% t page.title %}
   {% else %}
-    {{ page.title }} &middot; Bootstrap Table
+    {% t page.title %} &middot; Bootstrap Table
   {% endif %}
 </title>
 
