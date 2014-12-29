@@ -244,6 +244,7 @@
         valign: undefined, // top, middle, bottom
         width: undefined,
         sortable: false,
+        filterable: false,
         order: 'asc', // asc, desc
         visible: true,
         switchable: true,
