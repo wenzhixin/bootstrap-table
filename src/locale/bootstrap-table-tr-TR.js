@@ -8,7 +8,7 @@
 
     $.fn.bootstrapTable.locales['tr-TR'] = {
         formatLoadingMessage: function () {
-            return 'Yükleniyor, lütfen bekleyin…';
+            return 'Yükleniyor, lütfen bekleyin...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return 'Sayfa başına ' + pageNumber + ' kayıt.';
