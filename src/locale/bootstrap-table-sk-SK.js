@@ -7,7 +7,7 @@
 
     $.fn.bootstrapTable.locales['sk-SK'] = {
         formatLoadingMessage: function () {
-            return 'Prosím čakajte …';
+            return 'Prosím čakajte ...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' záznamov na stranu';

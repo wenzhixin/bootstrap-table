@@ -198,7 +198,7 @@
 
     BootstrapTable.LOCALES['en-US'] = {
         formatLoadingMessage: function () {
-            return 'Loading, please wait&#8230';
+            return 'Loading, please wait...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return sprintf('%s records per page', pageNumber);
