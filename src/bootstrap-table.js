@@ -844,7 +844,7 @@
             if (this.totalPages <= 1) {
                 this.$pagination.find('div.pagination').hide();
             }
-            if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[1]) {
+            if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[0]) {
                 this.$pagination.find('span.page-list').hide();
             }
 
