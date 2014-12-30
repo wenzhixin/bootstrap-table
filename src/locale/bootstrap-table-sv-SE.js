@@ -7,7 +7,7 @@
 
     $.fn.bootstrapTable.locales['sv-SE'] = {
         formatLoadingMessage: function () {
-            return 'Laddar, vänligen vänta…';
+            return 'Laddar, vänligen vänta...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' rader per sida';
