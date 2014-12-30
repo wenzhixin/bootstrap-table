@@ -1,3 +1,11 @@
+# Bower vendor folder
 node_modules
+
+# GitHub pages
 _gh_pages
+
+# deploy script
 deploy.sh
+
+# IDE files
+.idea
