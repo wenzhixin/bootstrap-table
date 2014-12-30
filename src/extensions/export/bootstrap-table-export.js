@@ -69,10 +69,13 @@
                     }
                 });
 
+                var $ignoredColumns = this.options.exportIgnoreColumns;
+
                 $menu.find('li').click(function () {
                     that.$el.tableExport({
                         type: $(this).data('type'),
-                        escape: false
+                        escape: false,
+                        ignoreColumn: $ignoredColumns
                     });
                 });
             }
