@@ -501,16 +501,16 @@
                 if (aa === undefined || aa === null) {
                     aa = '';
                 }
-                if (aa === undefined || bb === null) {
+                if (bb === undefined || bb === null) {
                     bb = '';
                 }
 
                 if (aa === bb) {
                     return 0;
                 }
-                if (aa < bb) {
+                if (aa.localeCompare(bb) == -1)
                     return order * -1;
-                }
+                    
                 return order;
             });
         }
