@@ -11,7 +11,7 @@ The default side pagination of table is `client`. _by [@wenzhixin](https://githu
 
 ## Server Side
 
-Use sidePagination: 'server' option to define the server side pagination of table.
+Use sidePagination: `server` option to define the server side pagination of table. _by [@mikepenz](https://github.com/mikepenz)_
 
 <iframe width="100%" height="400" src="http://jsfiddle.net/4r6g4cfu/3/embedded/html,js,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
