@@ -25,4 +25,4 @@ Use Plugin:
 
 ## Editable Examples
 
-<iframe width="100%" height="300" src="http://jsfiddle.net/wenyi/e3nk137y/28/embedded/html,js,resources,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="300" data-src="http://jsfiddle.net/wenyi/e3nk137y/28/embedded/html,js,resources,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
