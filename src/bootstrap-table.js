@@ -606,7 +606,8 @@
 
         html.push('</div>');
 
-        if (html.length > 2) {
+        // Fix #188: this.showToolbar is for extentions
+        if (this.showToolbar || html.length > 2) {
             this.$toolbar.append(html.join(''));
         }
 
