@@ -1,15 +1,15 @@
-# Usage []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/usage.md)
+# 使用 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/usage.md)
 
 ---
 
-Include Bootstrap library (if your project doesn't use it already) and `bootstrap-table.css` in the head tag your html document.
+引入 Bootstrap 库（假如你的项目还没有使用）和 `bootstrap-table.css` 到 head 标签下。
 
 ```html
 <link rel="stylesheet" href="bootstrap.min.css">
 <link rel="stylesheet" href="bootstrap-table.css">
 ```
 
-Include jQuery library, bootstrap library (if your project doesn't use it already) and `bootstrap-table.js` in the head tag or at the very bottom of your document, just before the closing body tag (usually recommended for better performance).
+引入 jQuery 库，bootstrap 库（假如你的项目还没有使用）和 `bootstrap-table.js` 到 head 标签下或者在 body 标签关闭之前（一般建议这么做）。
 
 ```html
 <script src="jquery.min.js"></script>
