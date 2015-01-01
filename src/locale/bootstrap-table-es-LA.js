@@ -20,6 +20,15 @@
         },
         formatNoMatches: function () {
             return 'No se encontraron registros';
+        },
+        formatRefresh: function () {
+            return 'Refrescar';
+        },
+        formatColumns: function () {
+            return 'Seleccionar columnas';
+        },
+        formatExport: function () {
+            return 'Exportar';
         }
     };
 
