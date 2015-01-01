@@ -40,7 +40,7 @@
                 $export = $([
                     '<div class="export btn-group">',
                         '<button class="btn btn-default dropdown-toggle" ' +
-                            'data-toggle="dropdown" type="button">',
+                            'data-toggle="dropdown" type="button" title="'+this.options.formatExport()+'">',
                             '<i class="glyphicon glyphicon-export icon-share"></i> ',
                             '<span class="caret"></span>',
                         '</button>',

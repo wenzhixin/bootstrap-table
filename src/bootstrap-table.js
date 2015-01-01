@@ -220,6 +220,9 @@
         },
         formatColumns: function () {
             return 'Columns';
+        },
+        formatExport: function() {
+            return 'Export';
         }
     };
 
