@@ -26,10 +26,7 @@
             }
             return arg;
         });
-        if (flag) {
-            return str;
-        }
-        return '';
+        return flag ? str : '';
     };
 
     var getPropertyFromOther = function (list, from, to, value) {
