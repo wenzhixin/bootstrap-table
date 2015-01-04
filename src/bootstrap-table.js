@@ -501,16 +501,22 @@
                 if (aa === undefined || aa === null) {
                     aa = '';
                 }
-                if (aa === undefined || bb === null) {
+                if (bb === undefined || bb === null) {
                     bb = '';
                 }
-
+                
+                if ($.isNumeric(aa) && $.isNumeric(bb)) {
+                    if (aa < bb)
+                        return order * -1;
+                    return order;
+                }
+                
                 if (aa === bb) {
                     return 0;
                 }
-                if (aa < bb) {
+                if (aa.localeCompare(bb) == -1)
                     return order * -1;
-                }
+                    
                 return order;
             });
         }
@@ -997,7 +1003,7 @@
                 }
 
                 cellStyle = calculateObjectValue(that.header,
-                    that.header.cellStyles[j], [value, item, i], cellStyle);
+                    that.header.cellStyles[j], [value, field,item, i], cellStyle);
                 if (cellStyle.classes) {
                     class_ = sprintf(' class="%s"', cellStyle.classes);
                 }
