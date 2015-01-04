@@ -937,8 +937,6 @@
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
         }
 
-		//Fix #389 Bootstrap-table-flatJSON is not working
-        
         if (!this.options.pagination || this.options.sidePagination === 'server') {
             this.pageFrom = 1;
             this.pageTo = data.length;
