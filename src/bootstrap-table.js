@@ -1159,12 +1159,14 @@
 
         if (this.options.queryParamsType === 'limit') {
             params = {
-                limit: params.pageSize,
-                offset: params.pageSize * (params.pageNumber - 1),
                 search: params.searchText,
                 sort: params.sortName,
                 order: params.sortOrder
             };
+            if (this.options.pagination) {
+                params.limit = params.pageSize;
+                params.offset = params.pageSize * (params.pageNumber - 1);
+            }
         }
         data = calculateObjectValue(this.options, $.extend(this.options.queryParams, queryparams || {}), [params], data);
 
