@@ -241,6 +241,10 @@
         radio: false,
         checkbox: false,
         checkboxEnabled: true,
+        isBoolean: false,
+        displayFunction: function(value){
+            return value;
+        },
         field: undefined,
         title: undefined,
         'class': undefined,
@@ -1044,6 +1048,12 @@
                 value = calculateObjectValue(that.header,
                     that.header.formatters[j], [value, item, i], value);
 
+                if (typeof column.displayFunction === "string") {
+                    column.displayFunction = new Function("value", column.displayFunction);
+                }
+
+                value = column.displayFunction(value);
+
                 // handle td's id and class
                 if (item['_' + field + '_id']) {
                     id_ = sprintf(' id="%s"', item['_' + field + '_id']);
@@ -1063,6 +1073,10 @@
                         csses_.push(key + ': ' + cellStyle.css[key]);
                     }
                     style = sprintf('style="%s"', csses_.concat(that.header.styles[j]).join('; '));
+                }
+
+                if (column.isBoolean) {
+                    value = parseInt(value) == 1 ? '<i class="glyphicon glyphicon-ok"></i>' : '<i class="glyphicon glyphicon-remove"></i>'
                 }
 
                 if (column.checkbox || column.radio) {
