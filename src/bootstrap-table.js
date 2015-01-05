@@ -1164,8 +1164,8 @@
                 order: params.sortOrder
             };
             if (this.options.pagination) {
-                params.limit = params.pageSize;
-                params.offset = params.pageSize * (params.pageNumber - 1);
+                params.limit = this.options.pageSize;
+                params.offset = this.options.pageSize * (this.options.pageNumber - 1);
             }
         }
         data = calculateObjectValue(this.options, $.extend(this.options.queryParams, queryparams || {}), [params], data);
