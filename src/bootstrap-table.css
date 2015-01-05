@@ -141,11 +141,18 @@
 
 .fixed-table-toolbar .bars,
 .fixed-table-toolbar .search,
+.fixed-table-toolbar .add,
 .fixed-table-toolbar .columns {
     position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
     line-height: 34px;
+}
+
+.fixed-table-toolbar .add
+{
+    margin-left: 4px;
+    line-height: 20px;
 }
 
 .fixed-table-pagination li.disabled a {

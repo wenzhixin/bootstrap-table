@@ -154,6 +154,7 @@
         showRefresh: false,
         showToggle: false,
         buttonsAlign: 'right',
+        showAdd: false,
         smartDisplay: true,
         minimumCountColumns: 1,
         idField: undefined,
@@ -174,7 +175,8 @@
             paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
             refresh: 'glyphicon-refresh icon-refresh',
             toggle: 'glyphicon-list-alt icon-list-alt',
-            columns: 'glyphicon-th icon-th'
+            columns: 'glyphicon-th icon-th',
+            add: 'glyphicon-plus'
         },
 
         rowStyle: function (row, index) {return {};},
@@ -697,6 +699,17 @@
                     that.onSearch(event);
                 }, that.options.searchTimeOut);
             });
+        }
+
+        if (this.options.showAdd) {
+            html = [];
+            html.push(
+                sprintf('<a type="button" href="%s" class="btn btn-success pull-right add"><i class="%s %s"></i></a>',
+                         this.options.showAdd,
+                         this.options.iconsPrefix,
+                         this.options.icons.add)
+            );
+            this.$toolbar.prepend(html.join(''));
         }
     };
 
