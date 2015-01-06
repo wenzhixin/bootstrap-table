@@ -1003,6 +1003,16 @@
                     class_ = that.header.classes[j],
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
+                // support for inner objects (object relations) 
+                if (field.indexOf(".") > -1) {
+                    var fields = field.split(".");
+                    value = item[fields[0]];
+                    $.each(fields, function (i, f) {
+                        if (i > 0)
+                            value = value[f];
+                    });
+                }
+
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
                 value = calculateObjectValue(that.header,
