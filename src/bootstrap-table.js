@@ -245,6 +245,7 @@
         displayFunction: function(value){
             return value;
         },
+        showTitle: true,
         field: undefined,
         title: undefined,
         'class': undefined,
@@ -1112,7 +1113,7 @@
 
                     text = that.options.cardView ?
                         ['<div class="card-view">',
-                            that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
+                            that.options.showHeader && column.showTitle ? sprintf('<span class="title" %s>%s</span>', style,
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
