@@ -786,7 +786,7 @@
         }
 
         $.each(pageList, function (i, page) {
-            if (!that.options.smartDisplay || that.options.totalRows >= page || i === 0) {
+            if (!that.options.smartDisplay || i === 0 || pageList[i-1] <= that.options.totalRows) {
                 var active = page === that.options.pageSize ? ' class="active"' : '';
                 pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
             }
