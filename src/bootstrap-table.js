@@ -156,6 +156,7 @@
         minimumCountColumns: 1,
         idField: undefined,
         cardView: false,
+        trimOnSearch: true,
         clickToSelect: false,
         singleSelect: false,
         toolbar: undefined,
@@ -672,7 +673,7 @@
         var text = $.trim($(event.currentTarget).val());
 
         // trim search input
-        $(event.currentTarget).val(text);
+        if(this.options.trimOnSearch) $(event.currentTarget).val(text);
 
         if (text === this.searchText) {
             return;
