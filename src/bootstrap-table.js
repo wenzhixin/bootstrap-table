@@ -1186,7 +1186,7 @@
             this.$loading.show();
         }
 
-        $.ajax($.extend({}, this.options.ajaxOptions, {
+        $.ajax($.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
             url: this.options.url,
             data: data,
