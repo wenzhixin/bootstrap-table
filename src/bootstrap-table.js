@@ -135,6 +135,7 @@
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
+        ajaxOptions: {},
         queryParams: function (params) {return params;},
         queryParamsType: 'limit', // undefined
         responseHandler: function (res) {return res;},
@@ -1185,7 +1186,7 @@
             this.$loading.show();
         }
 
-        $.ajax({
+        $.ajax($.extend({}, this.options.ajaxOptions, {
             type: this.options.method,
             url: this.options.url,
             data: data,
@@ -1212,7 +1213,7 @@
                     that.$loading.hide();
                 }
             }
-        });
+        }));
     };
 
     BootstrapTable.prototype.getCaretHtml = function () {
