@@ -3,7 +3,7 @@
 ### 1.5.1
 
 - [bug] Fix queryParams bug when use `sidePagination='server'`.
-- [enh] Add uk-UA, sv-SE locales.
+- [enh] Add uk-UA, sv-SE, pt-PT locales.
 - [enh] Add `searchTimeOut` option.
 - [bug] Fix #220: state column hideColumn bug.
 - [enh] Add `iconsPrefix` and `icons` options to support custom icons.
