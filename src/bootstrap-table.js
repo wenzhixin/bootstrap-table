@@ -165,6 +165,7 @@
         sortable: true,
         maintainSelected: false,
         searchTimeOut: 500,
+        elementSize: undefined,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
         icons: {
             refresh: 'glyphicon-refresh icon-refresh',
@@ -572,14 +573,14 @@
         }
 
         if (this.options.showRefresh) {
-            html.push(sprintf('<button class="btn btn-default" type="button" name="refresh" title="%s">',
+            html.push(sprintf('<button class="btn btn-default' + (this.options.elementSize == undefined ? '' :  ' btn-' + this.options.elementSize) + '" type="button" name="refresh" title="%s">',
                 this.options.formatRefresh()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh),
                 '</button>');
         }
 
         if (this.options.showToggle) {
-            html.push(sprintf('<button class="btn btn-default" type="button" name="toggle" title="%s">',
+            html.push(sprintf('<button class="btn btn-default' + (this.options.elementSize == undefined ? '' :  ' btn-' + this.options.elementSize) + '" type="button" name="toggle" title="%s">',
                 this.options.formatToggle()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
@@ -588,7 +589,7 @@
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
                 this.options.formatColumns()),
-                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+                '<button type="button" class="btn btn-default' + (this.options.elementSize == undefined ? '' :  ' btn-' + this.options.elementSize) + ' dropdown-toggle" data-toggle="dropdown">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
                 '</button>',
@@ -654,7 +655,7 @@
             html = [];
             html.push(
                 '<div class="pull-' + this.options.searchAlign + ' search">',
-                    sprintf('<input class="form-control" type="text" placeholder="%s">',
+                    sprintf('<input class="form-control' + (this.options.elementSize == undefined ? '' :  ' input-' + this.options.elementSize)  + '" type="text" placeholder="%s">',
                         this.options.formatSearch()),
                 '</div>');
 
@@ -769,7 +770,7 @@
 
         var pageNumber = [
             '<span class="btn-group dropup">',
-            '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+            '<button type="button" class="btn btn-default '+ (this.options.elementSize == undefined ? '' :  ' btn-' + this.options.elementSize)+ ' dropdown-toggle" data-toggle="dropdown">',
             '<span class="page-size">',
             this.options.pageSize,
             '</span>',
@@ -800,7 +801,7 @@
 
         html.push('</div>',
             '<div class="pull-right pagination">',
-                '<ul class="pagination">',
+                '<ul class="pagination' + (this.options.elementSize == undefined ? '' :  ' pagination-' + this.options.elementSize)  + '">',
                     '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
                     '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
 
