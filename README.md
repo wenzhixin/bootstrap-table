@@ -11,6 +11,8 @@ An extended Bootstrap table with radio, checkbox, sort, pagination, and other ad
 
 To get started, check out http://bootstrap-table.wenzhixin.net.cn!
 
+More examples: https://github.com/wenzhixin/bootstrap-table-examples#examples-list
+
 ## LICENSE
 
 **NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
