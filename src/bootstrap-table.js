@@ -1527,7 +1527,7 @@
         } else {
             button.attr("class", this.options.iconsPrefix + " " + this.options.icons.paginationSwitchUp);
         }
-        this.initServer();
+        this.updatePagination();
     };
 
     BootstrapTable.prototype.refresh = function (params) {
