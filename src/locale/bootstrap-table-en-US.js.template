@@ -7,7 +7,7 @@
 
     $.fn.bootstrapTable.locales['en-US'] = {
         formatLoadingMessage: function () {
-            return 'Loading, please wait…';
+            return 'Loading, please wait...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' records per page';

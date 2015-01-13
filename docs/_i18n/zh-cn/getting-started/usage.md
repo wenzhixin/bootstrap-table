@@ -1,15 +1,15 @@
-# Usage []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/usage.md)
+# 使用 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/usage.md)
 
 ---
 
-Include Bootstrap library (if your project doesn't use it already) and `bootstrap-table.css` in the head tag your html document.
+引入 Bootstrap 库（假如你的项目还没有使用）和 `bootstrap-table.css` 到 head 标签下。
 
 ```html
 <link rel="stylesheet" href="bootstrap.min.css">
 <link rel="stylesheet" href="bootstrap-table.css">
 ```
 
-Include jQuery library, bootstrap library (if your project doesn't use it already) and `bootstrap-table.js` in the head tag or at the very bottom of your document, just before the closing body tag (usually recommended for better performance).
+引入 jQuery 库，bootstrap 库（假如你的项目还没有使用）和 `bootstrap-table.js` 到 head 标签下或者在 body 标签关闭之前（一般建议这么做）。
 
 ```html
 <script src="jquery.min.js"></script>
@@ -21,11 +21,11 @@ Include jQuery library, bootstrap library (if your project doesn't use it alread
 
 ---
 
-The Bootstrap Table plugin displays data in a tabular format, via data attributes or JavaScript.
+通过 data 属性或者 JavaScript 来启用 Bootstrap Table 插件，显示丰富的功能。
 
-## Via data attributes
+## 通过 data 属性的方式
 
-Activate bootstrap table without writing JavaScript. Set `data-toggle="table"` on a normal table.
+无需编写 JavaScript 启用 bootstrap table，我们对普通的 table 设置 `data-toggle="table"` 即可。
 
 ```html
 <table data-toggle="table">
@@ -51,7 +51,7 @@ Activate bootstrap table without writing JavaScript. Set `data-toggle="table"` o
 </table>
 ```
 
-We can also use remote url data by setting `data-url="data1.json"` on a normal table.
+我们也可以通过设置远程的 url 如  `data-url="data1.json"` 来加载数据。
 
 ```html
 <table data-toggle="table" data-url="data1.json">
@@ -65,9 +65,9 @@ We can also use remote url data by setting `data-url="data1.json"` on a normal t
 </table>
 ```
 
-## Via JavaScript
+## 通过 JavaScript 的方式
 
-Call a bootstrap table with id table with JavaScript.
+通过表格 id 来启用 bootstrap table。
 
 ```html
 <table id="table"></table>
@@ -97,7 +97,7 @@ $('#table').bootstrapTable({
 });
 ```
 
-We can also use remote url data by setting `url: 'data1.json'`.
+我们也可以通过设置远程的 url 如  `url: 'data1.json'` 来加载数据。
 
 ```js
 $('#table').bootstrapTable({

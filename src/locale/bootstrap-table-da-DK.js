@@ -7,7 +7,7 @@
 
     $.fn.bootstrapTable.locales['da-DK'] = {
         formatLoadingMessage: function () {
-            return 'Indlæser, vent venligst…';
+            return 'Indlæser, vent venligst...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' poster pr side';

@@ -32,3 +32,7 @@ lead: pages.examples.lead
 {% tf examples/events.md %}
 
 {% tf examples/methods.md %}
+
+# More examples
+
+More examples: [https://github.com/wenzhixin/bootstrap-table-examples#examples-list](https://github.com/wenzhixin/bootstrap-table-examples#examples-list)

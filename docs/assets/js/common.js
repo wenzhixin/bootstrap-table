@@ -20,4 +20,15 @@ $(function () {
             $('.language').text($(this).text());
         }
     });
+
+    // examples
+    $('iframe[data-src]').each(function () {
+        $(this).wrap('<div class="examples-parent"></div>').parent()
+            .append('<button class="examples-button btn btn-primary btn-lg"><i class="glyphicon glyphicon-fire"></i> Start Example</button>');
+    });
+    $(document).on('click', 'button.examples-button', function () {
+        var $iframe = $(this).prev();
+        $iframe.attr('src', $iframe.data('src'));
+        $(this).remove();
+    });
 });

@@ -135,6 +135,7 @@
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
+        ajaxOptions: {},
         queryParams: function (params) {return params;},
         queryParamsType: 'limit', // undefined
         responseHandler: function (res) {return res;},
@@ -155,6 +156,7 @@
         minimumCountColumns: 1,
         idField: undefined,
         cardView: false,
+        trimOnSearch: true,
         clickToSelect: false,
         singleSelect: false,
         toolbar: undefined,
@@ -195,7 +197,7 @@
 
     BootstrapTable.LOCALES['en-US'] = {
         formatLoadingMessage: function () {
-            return 'Loading, please wait…';
+            return 'Loading, please wait...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return sprintf('%s records per page', pageNumber);
@@ -498,16 +500,24 @@
                 if (aa === undefined || aa === null) {
                     aa = '';
                 }
-                if (aa === undefined || bb === null) {
+                if (bb === undefined || bb === null) {
                     bb = '';
                 }
-
+                
+                if ($.isNumeric(aa) && $.isNumeric(bb)) {
+                    if (aa < bb) {
+                        return order * -1;
+                    }
+                    return order;
+                }
+                
                 if (aa === bb) {
                     return 0;
                 }
-                if (aa < bb) {
+                if (aa.localeCompare(bb) == -1) {
                     return order * -1;
                 }
+                    
                 return order;
             });
         }
@@ -603,7 +613,8 @@
 
         html.push('</div>');
 
-        if (html.length > 2) {
+        // Fix #188: this.showToolbar is for extentions
+        if (this.showToolbar || html.length > 2) {
             this.$toolbar.append(html.join(''));
         }
 
@@ -662,7 +673,7 @@
         var text = $.trim($(event.currentTarget).val());
 
         // trim search input
-        $(event.currentTarget).val(text);
+        if(this.options.trimOnSearch) $(event.currentTarget).val(text);
 
         if (text === this.searchText) {
             return;
@@ -777,7 +788,7 @@
         }
 
         $.each(pageList, function (i, page) {
-            if (!that.options.smartDisplay || that.options.totalRows >= page || i === 0) {
+            if (!that.options.smartDisplay || i === 0 || pageList[i-1] <= that.options.totalRows) {
                 var active = page === that.options.pageSize ? ' class="active"' : '';
                 pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
             }
@@ -841,7 +852,7 @@
             if (this.totalPages <= 1) {
                 this.$pagination.find('div.pagination').hide();
             }
-            if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[1]) {
+            if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[0]) {
                 this.$pagination.find('span.page-list').hide();
             }
 
@@ -926,7 +937,7 @@
         }
 
 		//Fix #389 Bootstrap-table-flatJSON is not working
-        
+
         if (!this.options.pagination || this.options.sidePagination === 'server') {
             this.pageFrom = 1;
             this.pageTo = data.length;
@@ -1137,7 +1148,7 @@
         this.trigger('post-body');
     };
 
-    BootstrapTable.prototype.initServer = function (silent) {
+    BootstrapTable.prototype.initServer = function (silent, query) {
         var that = this,
             data = {},
             params = {
@@ -1154,14 +1165,18 @@
 
         if (this.options.queryParamsType === 'limit') {
             params = {
-                limit: params.pageSize,
-                offset: params.pageSize * (params.pageNumber - 1),
                 search: params.searchText,
                 sort: params.sortName,
                 order: params.sortOrder
             };
+            if (this.options.pagination) {
+                params.limit = this.options.pageSize;
+                params.offset = this.options.pageSize * (this.options.pageNumber - 1);
+            }
         }
         data = calculateObjectValue(this.options, this.options.queryParams, [params], data);
+
+        $.extend(data, query || {});
 
         // false to stop request
         if (data === false) {
@@ -1172,7 +1187,7 @@
             this.$loading.show();
         }
 
-        $.ajax({
+        $.ajax($.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
             url: this.options.url,
             data: data,
@@ -1199,7 +1214,7 @@
                     that.$loading.hide();
                 }
             }
-        });
+        }));
     };
 
     BootstrapTable.prototype.getCaretHtml = function () {
@@ -1488,7 +1503,7 @@
             this.options.url = params.url;
             this.options.pageNumber = 1;
         }
-        this.initServer(params && params.silent);
+        this.initServer(params && params.silent, params && params.query);
     };
 
     BootstrapTable.prototype.showColumn = function (field) {

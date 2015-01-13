@@ -1,5 +1,20 @@
 ## ChangeLog
 
+### 1.5.1
+
+- [bug] Fix queryParams bug when use `sidePagination='server'`.
+- [enh] Add uk-UA, sv-SE, pt-PT locales.
+- [enh] Add `searchTimeOut` option.
+- [bug] Fix #220: state column hideColumn bug.
+- [enh] Add `iconsPrefix` and `icons` options to support custom icons.
+- [enh] Add i18n support for docs.
+- [enh] Allow `query` params to be specified during refresh.
+- [bug] Fix bug of ellipsis string.
+- [bug] Fix pageList smartDisplay.
+- [bug] Fix #188: Export Button is not shown only use `showExport=true`.
+- [enh] Add limit and offset params only if pagination is activated.
+- [enh] Add `ajaxOptions` option to custom $.ajax options.
+
 ### 1.5.0
 
 - [bug] Fix #144: `onCheck` and `onUncheck` events are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).

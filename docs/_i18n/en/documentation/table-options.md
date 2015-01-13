@@ -137,6 +137,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>The type of data that you are expecting back from the server.</td>
     </tr>
     <tr>
+        <td>ajaxOptions</td>
+        <td>data-ajax-options</td>
+        <td>Object</td>
+        <td>{}</td>
+        <td>Additional options for submit ajax request. List of values: <a href="http://api.jquery.com/jQuery.ajax">http://api.jquery.com/jQuery.ajax</a>.</td>
+    </tr>
+    <tr>
         <td>queryParams</td>
         <td>data-query-params</td>
         <td>Function</td>

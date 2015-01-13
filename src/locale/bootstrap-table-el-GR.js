@@ -7,7 +7,7 @@
 
     $.fn.bootstrapTable.locales['el-GR'] = {
         formatLoadingMessage: function () {
-            return 'Φορτώνει, παρακαλώ περιμένετε…';
+            return 'Φορτώνει, παρακαλώ περιμένετε...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' αποτελέσματα ανά σελίδα';
