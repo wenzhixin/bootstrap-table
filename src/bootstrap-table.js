@@ -729,11 +729,11 @@
     };
 
     BootstrapTable.prototype.initPagination = function () {
-        this.$pagination = this.$container.find('.fixed-table-pagination');
-
-        if (!this.options.pagination) {
+		if (!this.options.pagination) {
             return;
         }
+		this.$pagination = this.$container.find('.fixed-table-pagination');
+
         var that = this,
             html = [],
             i, from, to,
