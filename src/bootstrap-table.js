@@ -66,7 +66,7 @@
         outer.css('overflow', 'scroll');
         w2 = inner[0].offsetWidth;
 
-        if (w1 == w2) {
+        if (w1 === w2) {
             w2 = outer[0].clientWidth;
         }
 
@@ -98,7 +98,7 @@
     };
 
     var escapeHTML = function (text) {
-        if (typeof text == 'string') {
+        if (typeof text === 'string') {
             return text
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
@@ -514,7 +514,7 @@
                 if (aa === bb) {
                     return 0;
                 }
-                if (aa.localeCompare(bb) == -1) {
+                if (aa.localeCompare(bb) === -1) {
                     return order * -1;
                 }
                     
