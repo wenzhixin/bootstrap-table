@@ -674,8 +674,8 @@
 
         // trim search input
         if(this.options.trimOnSearch) {
-			$(event.currentTarget).val(text);
-		}
+            $(event.currentTarget).val(text);
+        }
 
         if (text === this.searchText) {
             return;
@@ -729,10 +729,10 @@
     };
 
     BootstrapTable.prototype.initPagination = function () {
-		if (!this.options.pagination) {
+        if (!this.options.pagination) {
             return;
         }
-		this.$pagination = this.$container.find('.fixed-table-pagination');
+        this.$pagination = this.$container.find('.fixed-table-pagination');
 
         var that = this,
             html = [],
@@ -938,7 +938,7 @@
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
         }
 
-		//Fix #389 Bootstrap-table-flatJSON is not working
+        //Fix #389 Bootstrap-table-flatJSON is not working
 
         if (!this.options.pagination || this.options.sidePagination === 'server') {
             this.pageFrom = 1;
