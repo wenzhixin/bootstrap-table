@@ -747,13 +747,14 @@
     };
 
     BootstrapTable.prototype.initPagination = function () {
+        this.$pagination = this.$container.find('.fixed-table-pagination');
+
         if (!this.options.pagination) {
             this.$pagination.hide();
             return;
         } else {
             this.$pagination.show();
         }
-        this.$pagination = this.$container.find('.fixed-table-pagination');
 
         var that = this,
             html = [],
