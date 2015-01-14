@@ -168,8 +168,8 @@
         searchTimeOut: 500,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
         icons: {
-            paginationSwitchDown: 'glyphicon-collapse-down',
-            paginationSwitchUp: 'glyphicon-collapse-up',
+            paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+            paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
             refresh: 'glyphicon-refresh icon-refresh',
             toggle: 'glyphicon-list-alt icon-list-alt',
             columns: 'glyphicon-th icon-th'
@@ -388,7 +388,7 @@
                 return;
             }
 
-            halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
+            halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
@@ -751,7 +751,7 @@
             this.$pagination.hide();
             return;
         } else {
-          this.$pagination.show();
+            this.$pagination.show();
         }
         this.$pagination = this.$container.find('.fixed-table-pagination');
 
@@ -1488,7 +1488,7 @@
         this.updateRows(checked);
         this.updateSelected();
         this.trigger(checked ? 'check-all' : 'uncheck-all');
-    }
+    };
 
     BootstrapTable.prototype.check = function (index) {
         this.check_(true, index);
@@ -1502,7 +1502,7 @@
         this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
         this.data[index][this.header.stateField] = checked;
         this.updateSelected();
-    }
+    };
 
     BootstrapTable.prototype.destroy = function () {
         this.$el.insertBefore(this.$container);
