@@ -21,6 +21,9 @@
         formatNoMatches: function () {
             return '没有找到匹配的记录';
         },
+        formatPaginationSwitch: function () {
+            return '隐藏/显示分页';
+        },
         formatRefresh: function () {
             return '刷新';
         },

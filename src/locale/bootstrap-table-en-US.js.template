@@ -21,6 +21,9 @@
         formatNoMatches: function () {
             return 'No matching records found';
         },
+        formatPaginationSwitch: function () {
+            return 'Hide/Show pagination';
+        },
         formatRefresh: function () {
             return 'Refresh';
         },
