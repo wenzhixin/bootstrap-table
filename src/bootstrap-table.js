@@ -109,6 +109,17 @@
         return text;
     };
 
+    //读取item字段，将字段分解为对象
+    var getDataItemFildValue = function (item, field) {
+        var res = item;
+        field = field && String(field).split('.');
+        while (field.length) {
+            if ((res = res[field.shift()]) == null)
+                return '';
+        }
+        return res;
+    }
+    
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -1005,7 +1016,7 @@
 
             $.each(this.header.fields, function (j, field) {
                 var text = '',
-                    value = item[field],
+                    value = getDataItemFildValue(item, field),//支持对象的读取，例如"linkFly.github"
                     type = '',
                     cellStyle = {},
                     id_ = '',
