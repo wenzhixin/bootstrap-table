@@ -296,11 +296,18 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Indicate how to align the search input. 'left', 'right' can be used.</td>
     </tr>
     <tr>
-        <td>toolbarAlign</td>
-        <td>data-toolbar-align</td>
+        <td>buttonsAlign</td>
+        <td>data-buttons-align</td>
         <td>String</td>
         <td>'right'</td>
         <td>Indicate how to align the toolbar buttons. 'left', 'right' can be used.</td>
+    </tr>
+    <tr>
+        <td>toolbarAlign</td>
+        <td>data-toolbar-align</td>
+        <td>String</td>
+        <td>'left'</td>
+        <td>Indicate how to align the custom toolbar. 'left', 'right' can be used.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>

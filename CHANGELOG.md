@@ -14,6 +14,7 @@
 - [bug] Fix #188: Export Button is not shown only use `showExport=true`.
 - [enh] Add limit and offset params only if pagination is activated.
 - [enh] Add `ajaxOptions` option to custom $.ajax options.
+- [enh] Add `buttonsAlign` option and update `toolbarAlign` option.
 
 ### 1.5.0
 

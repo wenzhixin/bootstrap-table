@@ -153,6 +153,7 @@
         showPaginationSwitch: false,
         showRefresh: false,
         showToggle: false,
+        buttonsAlign: 'right',
         smartDisplay: true,
         minimumCountColumns: 1,
         idField: undefined,
@@ -161,7 +162,7 @@
         clickToSelect: false,
         singleSelect: false,
         toolbar: undefined,
-        toolbarAlign: 'right',
+        toolbarAlign: 'left',
         checkboxHeader: true,
         sortable: true,
         maintainSelected: false,
@@ -566,13 +567,14 @@
         this.$toolbar = this.$container.find('.fixed-table-toolbar').html('');
 
         if (typeof this.options.toolbar === 'string') {
-            $('<div class="bars pull-left"></div>')
+            $(sprintf('<div class="bars pull-%s"></div>', this.options.toolbarAlign))
                 .appendTo(this.$toolbar)
                 .append($(this.options.toolbar));
         }
 
         // showColumns, showToggle, showRefresh
-        html = ['<div class="columns columns-' + this.options.toolbarAlign + ' btn-group pull-' + this.options.toolbarAlign + '">'];
+        html = [sprintf('<div class="columns columns-%s btn-group pull-%s">',
+            this.options.buttonsAlign, this.options.buttonsAlign)];
 
         if (typeof this.options.icons === 'string') {
             this.options.icons = calculateObjectValue(null, this.options.icons);
