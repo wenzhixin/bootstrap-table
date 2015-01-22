@@ -43,7 +43,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>
         Remove data from table, the params contains two properties: <br>
         field: the field name of remove rows. <br>
-        values: the values of remove rows.
+        values: the array of values for rows which should be removed. <br>
+        Example: $('#myTable').bootstrapTable('remove', {field: 'id', values: ["73", "74"]})
         </td>
     </tr>
     <tr>
