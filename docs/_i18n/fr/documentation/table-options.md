@@ -210,6 +210,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>When set pagination property, initialize the page size selecting list.</td>
     </tr>
     <tr>
+        <td>showPaginationSwitch </td>
+        <td>data-show-pagination-switch</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show the pagination switch button.</td>
+    </tr>
+    <tr>
         <td>selectItemName</td>
         <td>data-select-item-name</td>
         <td>String</td>
