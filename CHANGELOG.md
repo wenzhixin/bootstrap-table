@@ -1,9 +1,9 @@
 ## ChangeLog
 
-### 1.5.1
+### 1.6.0
 
 - [bug] Fix queryParams bug when use `sidePagination='server'`.
-- [enh] Add uk-UA, sv-SE, pt-PT locales.
+- [enh] Add uk-UA, sv-SE, pt-PT, ms-MY, ja-JP locales.
 - [enh] Add `searchTimeOut` option.
 - [bug] Fix #220: state column hideColumn bug.
 - [enh] Add `iconsPrefix` and `icons` options to support custom icons.
@@ -14,6 +14,9 @@
 - [bug] Fix #188: Export Button is not shown only use `showExport=true`.
 - [enh] Add limit and offset params only if pagination is activated.
 - [enh] Add `ajaxOptions` option to custom $.ajax options.
+- [enh] Add a toggle pagination toolbar button.
+- [enh] Add `iconSize` option.
+- [enh] Add `buttonsAlign` option and update `toolbarAlign` option.
 
 ### 1.5.0
 

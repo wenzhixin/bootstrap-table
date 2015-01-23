@@ -149,7 +149,10 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Function</td>
         <td>function(params) {<br>return params;<br>}</td>
         <td>
-        When request remote data, sending additional parameters by format the queryParams, the parameters object contains: <br>
+        When requesting remote data, you can send additional parameters by modifying queryParams. 
+        If queryParamsType = 'limit', the params object contains: <br>
+        limit, offset, search, sort, order
+        Else, it contains: <br>
         pageSize, pageNumber, searchText, sortName, sortOrder. <br>
         Return false to stop request.
         </td>
@@ -293,11 +296,18 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Indicate how to align the search input. 'left', 'right' can be used.</td>
     </tr>
     <tr>
-        <td>toolbarAlign</td>
-        <td>data-toolbar-align</td>
+        <td>buttonsAlign</td>
+        <td>data-buttons-align</td>
         <td>String</td>
         <td>'right'</td>
         <td>Indicate how to align the toolbar buttons. 'left', 'right' can be used.</td>
+    </tr>
+    <tr>
+        <td>toolbarAlign</td>
+        <td>data-toolbar-align</td>
+        <td>String</td>
+        <td>'left'</td>
+        <td>Indicate how to align the custom toolbar. 'left', 'right' can be used.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>

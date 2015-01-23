@@ -150,8 +150,10 @@
         selectItemName: 'btSelectItem',
         showHeader: true,
         showColumns: false,
+        showPaginationSwitch: false,
         showRefresh: false,
         showToggle: false,
+        buttonsAlign: 'right',
         smartDisplay: true,
         minimumCountColumns: 1,
         idField: undefined,
@@ -160,13 +162,16 @@
         clickToSelect: false,
         singleSelect: false,
         toolbar: undefined,
-        toolbarAlign: 'right',
+        toolbarAlign: 'left',
         checkboxHeader: true,
         sortable: true,
         maintainSelected: false,
         searchTimeOut: 500,
+        iconSize: undefined,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
         icons: {
+            paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+            paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
             refresh: 'glyphicon-refresh icon-refresh',
             toggle: 'glyphicon-list-alt icon-list-alt',
             columns: 'glyphicon-th icon-th'
@@ -210,6 +215,9 @@
         },
         formatNoMatches: function () {
             return 'No matching records found';
+        },
+        formatPaginationSwitch: function () {
+            return 'Hide/Show pagination';
         },
         formatRefresh: function () {
             return 'Refresh';
@@ -382,7 +390,7 @@
                 return;
             }
 
-            halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
+            halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
             style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
@@ -559,27 +567,35 @@
         this.$toolbar = this.$container.find('.fixed-table-toolbar').html('');
 
         if (typeof this.options.toolbar === 'string') {
-            $('<div class="bars pull-left"></div>')
+            $(sprintf('<div class="bars pull-%s"></div>', this.options.toolbarAlign))
                 .appendTo(this.$toolbar)
                 .append($(this.options.toolbar));
         }
 
         // showColumns, showToggle, showRefresh
-        html = ['<div class="columns columns-' + this.options.toolbarAlign + ' btn-group pull-' + this.options.toolbarAlign + '">'];
+        html = [sprintf('<div class="columns columns-%s btn-group pull-%s">',
+            this.options.buttonsAlign, this.options.buttonsAlign)];
 
         if (typeof this.options.icons === 'string') {
             this.options.icons = calculateObjectValue(null, this.options.icons);
         }
 
+        if (this.options.showPaginationSwitch) {
+            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">',
+                this.options.formatPaginationSwitch()),
+                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
+                '</button>');
+        }
+
         if (this.options.showRefresh) {
-            html.push(sprintf('<button class="btn btn-default" type="button" name="refresh" title="%s">',
+            html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize == undefined ? '' :  ' btn-' + this.options.iconSize) + '" type="button" name="refresh" title="%s">',
                 this.options.formatRefresh()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh),
                 '</button>');
         }
 
         if (this.options.showToggle) {
-            html.push(sprintf('<button class="btn btn-default" type="button" name="toggle" title="%s">',
+            html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize == undefined ? '' :  ' btn-' + this.options.iconSize) + '" type="button" name="toggle" title="%s">',
                 this.options.formatToggle()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
@@ -588,7 +604,7 @@
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
                 this.options.formatColumns()),
-                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+                '<button type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' :  ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
                 '</button>',
@@ -616,6 +632,11 @@
         // Fix #188: this.showToolbar is for extentions
         if (this.showToolbar || html.length > 2) {
             this.$toolbar.append(html.join(''));
+        }
+
+        if (this.options.showPaginationSwitch) {
+            this.$toolbar.find('button[name="paginationSwitch"]')
+                .off('click').on('click', $.proxy(this.togglePagination, this));
         }
 
         if (this.options.showRefresh) {
@@ -654,7 +675,7 @@
             html = [];
             html.push(
                 '<div class="pull-' + this.options.searchAlign + ' search">',
-                    sprintf('<input class="form-control" type="text" placeholder="%s">',
+                    sprintf('<input class="form-control' + (this.options.iconSize == undefined ? '' :  ' input-' + this.options.iconSize)  + '" type="text" placeholder="%s">',
                         this.options.formatSearch()),
                 '</div>');
 
@@ -674,8 +695,8 @@
 
         // trim search input
         if(this.options.trimOnSearch) {
-			$(event.currentTarget).val(text);
-		}
+            $(event.currentTarget).val(text);
+        }
 
         if (text === this.searchText) {
             return;
@@ -729,10 +750,14 @@
     };
 
     BootstrapTable.prototype.initPagination = function () {
-		if (!this.options.pagination) {
+        this.$pagination = this.$container.find('.fixed-table-pagination');
+
+        if (!this.options.pagination) {
+            this.$pagination.hide();
             return;
+        } else {
+            this.$pagination.show();
         }
-		this.$pagination = this.$container.find('.fixed-table-pagination');
 
         var that = this,
             html = [],
@@ -771,7 +796,7 @@
 
         var pageNumber = [
             '<span class="btn-group dropup">',
-            '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+            '<button type="button" class="btn btn-default '+ (this.options.iconSize == undefined ? '' :  ' btn-' + this.options.iconSize)+ ' dropdown-toggle" data-toggle="dropdown">',
             '<span class="page-size">',
             this.options.pageSize,
             '</span>',
@@ -802,7 +827,7 @@
 
         html.push('</div>',
             '<div class="pull-right pagination">',
-                '<ul class="pagination">',
+                '<ul class="pagination' + (this.options.iconSize == undefined ? '' :  ' pagination-' + this.options.iconSize)  + '">',
                     '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
                     '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
 
@@ -938,7 +963,7 @@
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
         }
 
-		//Fix #389 Bootstrap-table-flatJSON is not working
+        //Fix #389 Bootstrap-table-flatJSON is not working
 
         if (!this.options.pagination || this.options.sidePagination === 'server') {
             this.pageFrom = 1;
@@ -1467,7 +1492,7 @@
         this.updateRows(checked);
         this.updateSelected();
         this.trigger(checked ? 'check-all' : 'uncheck-all');
-    }
+    };
 
     BootstrapTable.prototype.check = function (index) {
         this.check_(true, index);
@@ -1481,7 +1506,7 @@
         this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
         this.data[index][this.header.stateField] = checked;
         this.updateSelected();
-    }
+    };
 
     BootstrapTable.prototype.destroy = function () {
         this.$el.insertBefore(this.$container);
@@ -1498,6 +1523,17 @@
 
     BootstrapTable.prototype.hideLoading = function () {
         this.$loading.hide();
+    };
+
+    BootstrapTable.prototype.togglePagination = function () {
+        this.options.pagination = !this.options.pagination;
+        var button = this.$toolbar.find('button[name="paginationSwitch"] i');
+        if (this.options.pagination) {
+            button.attr("class", this.options.iconsPrefix + " " + this.options.icons.paginationSwitchDown);
+        } else {
+            button.attr("class", this.options.iconsPrefix + " " + this.options.icons.paginationSwitchUp);
+        }
+        this.updatePagination();
     };
 
     BootstrapTable.prototype.refresh = function (params) {
@@ -1553,6 +1589,7 @@
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',
+        'togglePagination',
         'refresh',
         'resetView',
         'destroy',
