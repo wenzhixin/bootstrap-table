@@ -368,5 +368,12 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         Support all custom attributes.
         </td>
     </tr>
+    <tr>
+        <td>showPaginationSwitch </td>
+        <td>data-show-pagination-switch</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show the pagination switch button.</td>
+    </tr>
     </tbody>
 </table>
