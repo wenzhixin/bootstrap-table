@@ -66,57 +66,56 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>data-halign</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Indicate how to align the table header. 'left', 'right', 'center' can be used.</td>
+        <td>Indica cómo se alinea el encabezado de la tabla. Se puede usar 'left', 'right', 'center'.</td>
     </tr>
     <tr>
         <td>valign</td>
         <td>data-valign</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Indicate how to align the cell data. 'top', 'middle', 'bottom' can be used.</td>
+        <td>Indica cómo se alinea el contenido de la celda. Se puede usar 'top', 'middle', 'bottom'.</td>
     </tr>
     <tr>
         <td>width</td>
         <td>data-width</td>
         <td>Number</td>
         <td>undefined</td>
-        <td>The width of column. If not defined, the width will auto expand to fit its contents.</td>
+        <td>El ancho de la columna. Si no es definido, el ancho se adaptará al contenido.</td>
     </tr>
     <tr>
         <td>sortable</td>
         <td>data-sortable</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to allow the column can be sorted.
-        </td>
+        <td>True para permitir que la coluna sea ordenable.</td>
     </tr>
     <tr>
         <td>order</td>
         <td>data-order</td>
         <td>String</td>
         <td>'asc'</td>
-        <td>The default sort order, can only be 'asc' or 'desc'.</td>
+        <td>El valor por defecto para ordenar los datos, solo puede ser 'asc' o 'desc'.</td>
     </tr>
     <tr>
         <td>visible</td>
         <td>data-visible</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to hide the columns item.</td>
+        <td>False para ocultar el item de la columna.</td>
     </tr>
     <tr>
         <td>switchable</td>
         <td>data-switchable</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to disable the switchable of columns item.</td>
+        <td>False para deshabilitar the switchable en el item de la columna.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>
         <td>data-click-to-select</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>True to select checkbox or radiobox when the column is clicked.</td>
+        <td>True para seleccionar un checkbox o radiobox cuando se le da click a la columna.</td>
     </tr>
     <tr>
         <td>formatter</td>
@@ -124,10 +123,10 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>Function</td>
         <td>undefined</td>
         <td>
-        The cell formatter function, take three parameters: <br>
-        value: the field value. <br>
-        row: the row record data.<br>
-        index: the row index.</td>
+        La función de formateo de la celda, toma tres parámetros: <br>
+        value: el valor del campo. <br>
+        row: los datos de la fila.<br>
+        index: el indice de la fila.</td>
     </tr>
     <tr>
         <td>events</td>
@@ -135,12 +134,11 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>Object</td>
         <td>undefined</td>
         <td>
-        The cell events listener when you use formatter function, take three parameters: <br>
-        event: the jQuery event. <br>
-        value: the field value. <br>
-        row: the row record data.<br>
-        index: the row index.
-        </td>
+        Los eventos de la celda son escuchados cuando se usa la función formatter, toma tres parámetros: <br>
+        event: el evento de jQuery. <br>
+        value: el valor del campo. <br>
+        row: los datos de la fila.<br>
+        index: el indice de la fila.</td>
     </tr>
     <tr>
         <td>sorter</td>
@@ -148,10 +146,9 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>Function</td>
         <td>undefined</td>
         <td>
-        The custom field sort function that used to do local sorting, take two parameters: <br>
-        a: the first field value.<br>
-        b: the second field value.
-        </td>
+        La función sort es usada para hacer el ordenamiendo customizable, toma dos parámetros: <br>
+        a: el primera valor del campo.<br>
+        b: el segundo valor del campo.</td>
     </tr>
     <tr>
         <td>cellStyle</td>
@@ -159,11 +156,11 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>Function</td>
         <td>undefined</td>
         <td>
-        The cell style formatter function, take three parameters: <br>
-        value: the field value.<br>
-        row: the row record data.<br>
-        index: the row index.<br>
-        Support classes or css.
+        La función formatter para el estilo de la celda, toma tres parámetros: <br>
+        value: el valor del campo.<br>
+        row: los datos de la fila.<br>
+        index: el indice de la fila.<br>
+        Soporta clases o CSS.
         </td>
     </tr>
     <tr>
@@ -171,9 +168,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>data-searchable</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>
-        True to search data for this column.
-        </td>
+        <td>True para incluir la columna en la busqueda.</td>
     </tr>
     </tbody>
 </table>
