@@ -2,7 +2,7 @@
 
 ---
 
-The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
+Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`.
 
 <table class="table"
        data-toggle="table"
@@ -11,11 +11,11 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
        data-show-columns="true">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Attribute</th>
-        <th>Type</th>
-        <th>Default</th>
-        <th>Description</th>
+        <th>Nombre</th>
+        <th>Atributo</th>
+        <th>Tipo</th>
+        <th>Valor por defecto</th>
+        <th>Descripción</th>
     </tr>
     </thead>
     <tbody>
@@ -24,56 +24,56 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-toggle</td>
         <td>String</td>
         <td>'table'</td>
-        <td>Activate bootstrap table without writing JavaScript.</td>
+        <td>Activa bootstrap table sin escribir código JavaScript.</td>
     </tr>
     <tr>
         <td>classes</td>
         <td>data-classes</td>
         <td>String</td>
         <td>'table table-hover'</td>
-        <td>The class name of table.</td>
+        <td>El nombre de la clase de la tabla.</td>
     </tr>
     <tr>
         <td>height</td>
         <td>data-height</td>
         <td>Number</td>
         <td>undefined</td>
-        <td>The height of table.</td>
+        <td>El alto de la tabla.</td>
     </tr>
     <tr>
         <td>undefinedText</td>
         <td>data-undefined-text</td>
         <td>String</td>
         <td>'-'</td>
-        <td>Defines the default undefined text.</td>
+        <td>Define el texto por defecto.</td>
     </tr>
     <tr>
         <td>striped</td>
         <td>data-striped</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to stripe the rows.</td>
+        <td>True para stripe las filas.</td>
     </tr>
     <tr>
         <td>sortName</td>
         <td>data-sort-name</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Defines which column can be sorted.</td>
+        <td>Define cuales columnas pueden ser ordenadas.</td>
     </tr>
     <tr>
         <td>sortOrder</td>
         <td>data-sort-order</td>
         <td>String</td>
         <td>'asc'</td>
-        <td>Defines the column sort order, can only be 'asc' or 'desc'.</td>
+        <td>Define el método de ordenamiento, solo puede ser 'asc' o 'desc'.</td>
     </tr>
     <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
         <td>'glyphicon'</td>
-        <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
+        <td>Define el nombre del icono ('glyphicon' o 'fa' para FontAwesome). Por defecto se usa 'glyphicon'. </td>
     </tr>
     <tr>
         <td>icons</td>
@@ -84,57 +84,56 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         &nbsp;&nbsp;toggle: 'glyphicon-list-alt icon-list-alt',<br/>
         &nbsp;&nbsp;columns: 'glyphicon-th icon-th'<br/>
         }</td>
-        <td>Defines icons that used for refresh, toggle and columns buttons</td>
+        <td>Define los iconos que son usados para los botones de refresh, toggle y columnas.</td>
     </tr>
     <tr>
         <td>columns</td>
         <td>-</td>
         <td>Array</td>
         <td>[]</td>
-        <td>The table columns config object, see column properties for more details.
-        </td>
+        <td>El array de columnas de la tabla, vea las propiedades de las columnas para más información.</td>
     </tr>
     <tr>
         <td>data</td>
         <td>-</td>
         <td>Array</td>
         <td>[]</td>
-        <td>The data to be loaded.</td>
+        <td>Los datos que serán cargados.</td>
     </tr>
     <tr>
         <td>method</td>
         <td>data-method</td>
         <td>String</td>
         <td>'get'</td>
-        <td>The method type to request remote data.</td>
+        <td>El tipo de método para hacer request de los datos remotos.</td>
     </tr>
     <tr>
         <td>url</td>
         <td>data-url</td>
         <td>String</td>
         <td>undefined</td>
-        <td>A URL to request data from remote site.</td>
+        <td>Una URL para hacer request de datos en un sitio remoto.</td>
     </tr>
     <tr>
         <td>cache</td>
         <td>data-cache</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to disable caching of AJAX requests.</td>
+        <td>False para deshabilitar los AJAX requests.</td>
     </tr>
     <tr>
         <td>contentType</td>
         <td>data-content-type</td>
         <td>String</td>
         <td>'application/json'</td>
-        <td>The contentType of request remote data.</td>
+        <td>EL contentType para hacer request de los datos.</td>
     </tr>
     <tr>
         <td>dataType</td>
         <td>data-data-type</td>
         <td>String</td>
         <td>'json'</td>
-        <td>The type of data that you are expecting back from the server.</td>
+        <td>El tipo de datos que se esperan del servidor.</td>
     </tr>
     <tr>
         <td>ajaxOptions</td>
