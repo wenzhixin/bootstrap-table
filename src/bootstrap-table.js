@@ -1217,7 +1217,8 @@
         $.ajax($.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
             url: this.options.url,
-            data: data,
+            data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
+                JSON.stringify(data): data,
             cache: this.options.cache,
             contentType: this.options.contentType,
             dataType: this.options.dataType,
