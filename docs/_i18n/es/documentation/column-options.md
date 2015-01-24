@@ -108,7 +108,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>data-switchable</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False para deshabilitar the switchable en el item de la columna.</td>
+        <td>False para deshabilitar el switchable en el item de la columna.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>
@@ -147,7 +147,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>undefined</td>
         <td>
         La función sort es usada para hacer el ordenamiendo customizable, toma dos parámetros: <br>
-        a: el primera valor del campo.<br>
+        a: el primer valor del campo.<br>
         b: el segundo valor del campo.</td>
     </tr>
     <tr>
@@ -168,7 +168,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>data-searchable</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>True para incluir la columna en la busqueda.</td>
+        <td>True para incluir la columna en la búsqueda.</td>
     </tr>
     </tbody>
 </table>

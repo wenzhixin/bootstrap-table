@@ -9,9 +9,9 @@
        data-show-columns="true">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Parameter</th>
-        <th>Default</th>
+        <th>Nombre</th>
+        <th>Parámetro</th>
+        <th>Valor por defecto</th>
     </tr>
     </thead>
     <tbody>
