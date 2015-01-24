@@ -9,10 +9,10 @@
        data-show-columns="true">
     <thead>
     <tr>
-        <th>Option Event</th>
-        <th>jQuery Event</th>
-        <th>Parameter</th>
-        <th>Description</th>
+        <th>Evento</th>
+        <th>Evento de jQuery</th>
+        <th>Parámetros</th>
+        <th>Descripción</th>
     </tr>
     </thead>
     <tbody>
@@ -21,19 +21,18 @@
         <td>all.bs.table</td>
         <td>name, args</td>
         <td>
-        Fires when all events trigger, the parameters contains: <br>
-        name: the event name, <br>
-        args: the event data.
-        </td>
+        Se ejecuta cuando todos los eventos son llamados, los parámetros contienen: <br>
+        name: nombre del evento, <br>
+        args: datos del evento.</td>
     </tr>
     <tr>
         <td>onClickRow</td>
         <td>click-row.bs.table</td>
         <td>row, $element</td>
         <td>
-        Fires when user click a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento tr.
         </td>
     </tr>
     <tr>
@@ -41,9 +40,9 @@
         <td>dbl-click-row.bs.table</td>
         <td>row, $element</td>
         <td>
-        Fires when user click a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento tr.
         </td>
     </tr>
     <tr>
@@ -51,9 +50,9 @@
         <td>sort.bs.table</td>
         <td>name, order</td>
         <td>
-        Fires when user sort a column, the parameters contains: <br>
-        name: the sort column field name<br>
-        order: the sort column order.
+        Se ejecuta cuando el usuario orderna una columna, los parámetros contienen: <br>
+        name: el nombre de la columna del campo ordenado<br>
+        order: el orden utilizado.
         </td>
     </tr>
     <tr>
@@ -61,8 +60,8 @@
         <td>check.bs.table</td>
         <td>row</td>
         <td>
-        Fires when user check a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row.
+        Se ejecuta cuando el usuario chequea una fila, los parámetros contienen: <br>
+        row: el registro que corresponde a la fila chequeada.
         </td>
     </tr>
     <tr>
@@ -70,8 +69,8 @@
         <td>uncheck.bs.table</td>
         <td>row</td>
         <td>
-        Fires when user uncheck a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row.
+        Se ejecuta cuando el usuario des-chequea una fila, los parámetros contienen: <br>
+        row: el registro que corresponde a la fila des-chequeada.
         </td>
     </tr>
     <tr>
@@ -84,51 +83,49 @@
         <td>onUncheckAll</td>
         <td>uncheck-all.bs.table</td>
         <td>none</td>
-        <td>Fires when user uncheck all rows.</td>
+        <td>Se ejecuta cuando el usuario des-chequea todas las filas.</td>
     </tr>
     <tr>
         <td>onLoadSuccess</td>
         <td>load-success.bs.table</td>
         <td>data</td>
-        <td>Fires when remote data is loaded
-            successfully.
-        </td>
+        <td>Se ejecuta cuando los datos remotos se cargan correctamente.</td>
     </tr>
     <tr>
         <td>onLoadError</td>
         <td>load-error.bs.table</td>
         <td>status</td>
-        <td>Fires when some errors occur to load remote data.</td>
+        <td>Se ejecuta cuando ocurre algún error cargando los datos remotos.</td>
     </tr>
     <tr>
         <td>onColumnSwitch</td>
         <td>column-switch.bs.table</td>
         <td>field, checked</td>
-        <td>Fires when switch the column visible.</td>
+        <td>Se ejecuta cuando se cambia la visibilidad de una columna.</td>
     </tr>
     <tr>
         <td>onPageChange</td>
         <td>page-change.bs.table</td>
         <td>number, size</td>
-        <td>Fires when change the page number or page size.</td>
+        <td>Se ejecuta cuando se cambia el número de página o el tamaño de la página.</td>
     </tr>
     <tr>
         <td>onSearch</td>
         <td>search.bs.table</td>
         <td>text</td>
-        <td>Fires when search the table.</td>
+        <td>Se ejecuta cuando se busca en la tabla.</td>
     </tr>
     <tr>
         <td>onPreBody</td>
         <td>pre-body.bs.table</td>
         <td>data</td>
-        <td>Fires before the table body is rendered</td>
+        <td>Se ejecuta antes de que el cuerpo/contenido de la tabla se construya.</td>
     </tr>
     <tr>
         <td>onPostBody</td>
         <td>post-body.bs.table</td>
         <td>none</td>
-        <td>Fires after the table body is rendered and available in the DOM</td>
+        <td>Se ejecuta después de que el cuerpo/contenido de la tabla es renderizado y es disponible en el DOM</td>
     </tr>
     </tbody>
 </table>
