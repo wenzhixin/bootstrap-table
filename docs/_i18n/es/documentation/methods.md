@@ -37,6 +37,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>data</td>
         <td>Se anexan los datos a la tabla.</td>
     </tr>
+	<tr>
+        <td>prepend</td>
+        <td>data</td>
+        <td>Se antepone los datos a la tabla.</td>
+    </tr>
     <tr>
         <td>remove</td>
         <td>params</td>
