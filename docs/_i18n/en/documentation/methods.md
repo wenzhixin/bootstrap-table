@@ -38,6 +38,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>Append the data to table.</td>
     </tr>
     <tr>
+        <td>prepend</td>
+        <td>data</td>
+        <td>Prepend the data to table.</td>
+    </tr>
+    <tr>
         <td>remove</td>
         <td>params</td>
         <td>
@@ -45,6 +50,15 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         field: the field name of remove rows. <br>
         values: the array of values for rows which should be removed. <br>
         Example: $('#myTable').bootstrapTable('remove', {field: 'id', values: ["73", "74"]})
+        </td>
+    </tr>
+    <tr>
+        <td>insertRow</td>
+        <td>params</td>
+        <td>
+        Insert a new row, the param contains following properties:<br>
+        index: the row index to insert into.<br>
+        row: the row data.
         </td>
     </tr>
     <tr>
