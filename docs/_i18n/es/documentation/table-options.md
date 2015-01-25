@@ -140,7 +140,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>data-ajax-options</td>
         <td>Object</td>
         <td>{}</td>
-        <td>Additional options for submit ajax request. List of values: <a href="http://api.jquery.com/jQuery.ajax">http://api.jquery.com/jQuery.ajax</a>.</td>
+        <td>Opciones adicionales para enviar ajax request. Lista de valores: <a href="http://api.jquery.com/jQuery.ajax">http://api.jquery.com/jQuery.ajax</a>.</td>
     </tr>
     <tr>
         <td>queryParams</td>
@@ -148,12 +148,12 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Function</td>
         <td>function(params) {<br>return params;<br>}</td>
         <td>
-        When requesting remote data, you can send additional parameters by modifying queryParams. 
-        If queryParamsType = 'limit', the params object contains: <br>
+        Cuando se solicita datos remotos, se debe enviar parámetros adicionales para modificar los queryParams. 
+        Si queryParamsType = 'limit', el objecto params contiene: <br>
         limit, offset, search, sort, order
-        Else, it contains: <br>
+        Sino, el objeoto contiene: <br>
         pageSize, pageNumber, searchText, sortName, sortOrder. <br>
-        Return false to stop request.
+        Retorna false para parar el request.
         </td>
     </tr>
     <tr>
@@ -169,8 +169,8 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Function</td>
         <td>function(res) {<br>return res;<br>}</td>
         <td>
-        Before load remote data, handler the response data format, the parameters object contains: <br>
-        res: the response data.
+        Antes de cargar los datos remotos, manejar el formato de respuesta de los datos, el objecto parameters contiene: <br>
+        res: los datos devueltos.
         </td>
     </tr>
     <tr>
@@ -178,180 +178,175 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>data-pagination</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show a pagination toolbar on table bottom.</td>
+        <td>True para mostrar la paginación al final de la tabla.</td>
     </tr>
     <tr>
         <td>sidePagination</td>
         <td>data-side-pagination</td>
         <td>String</td>
         <td>'client'</td>
-        <td>Defines the side pagination of table, can only be 'client' or 'server'.</td>
+        <td>Define el tipo de paginación de la tabla, puede ser solo 'client' o 'server'.</td>
     </tr>
     <tr>
         <td>pageNumber</td>
         <td>data-page-number</td>
         <td>Number</td>
         <td>1</td>
-        <td>When set pagination property, initialize the page number.</td>
+        <td>Cuando se habilita la paginación, inicializa el número de página.</td>
     </tr>
     <tr>
         <td>pageSize</td>
         <td>data-page-size</td>
         <td>Number</td>
         <td>10</td>
-        <td>When set pagination property, initialize the page size.</td>
+        <td>Cuando se habilita la paginación, inicializa el tamaño de la página.</td>
     </tr>
     <tr>
         <td>pageList</td>
         <td>data-page-list</td>
         <td>Array</td>
         <td>[10, 25, 50, 100]</td>
-        <td>When set pagination property, initialize the page size selecting list.</td>
+        <td>Cuando se habilita la paginación, inicializa la lista de cantidad de registros por página.</td>
     </tr>
     <tr>
         <td>selectItemName</td>
         <td>data-select-item-name</td>
         <td>String</td>
         <td>'btSelectItem'</td>
-        <td>The name of radio or checkbox input.</td>
+        <td>El nombre del radio o del checkbox.</td>
     </tr>
     <tr>
         <td>smartDisplay</td>
         <td>data-smart-display</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>True to display pagination or card view smartly.</td>
+        <td>True para mostrar la páginación o la vista de tarjeta inteligentemente.</td>
     </tr>
     <tr>
         <td>search</td>
         <td>data-search</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>Enable the search input.</td>
+        <td>Habilita el campo para búsqueda.</td>
     </tr>
     <tr>
         <td>searchTimeOut</td>
         <td>data-search-time-out</td>
         <td>Number</td>
         <td>500</td>
-        <td>Set timeout for search fire.</td>
+        <td>Setea el tiempo de espera para iniciar la búsqueda.</td>
     </tr>
     <tr>
         <td>showHeader</td>
         <td>data-show-header</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to hide the table header.</td>
+        <td>False para ocultar el encabezado de la tabla.</td>
     </tr>
     <tr>
         <td>showColumns</td>
         <td>data-show-columns</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show the columns drop down list.</td>
+        <td>True para mostrar las columnas en una lista.</td>
     </tr>
     <tr>
         <td>showRefresh</td>
         <td>data-show-refresh</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show the refresh button.</td>
+        <td>True para mostrar el botón de refresh.</td>
     </tr>
     <tr>
         <td>showToggle</td>
         <td>data-show-toggle</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show the toggle button to toggle table / card view.
-        </td>
+        <td>True para mostrar el botón de vista cambiada entre vista de tabla y vista de tarjeta.</td>
     </tr>
     <tr>
         <td>minimumCountColumns</td>
         <td>data-minimum-count-columns</td>
         <td>Number</td>
         <td>1</td>
-        <td>The minimum count columns to hide of the columns drop down list.
-        </td>
+        <td>la cantidad mínima de columnas que se deben mostrar.</td>
     </tr>
     <tr>
         <td>idField</td>
         <td>data-id-field</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Indicate which field is an identity field.</td>
+        <td>Indica cuál campo es el identificador.</td>
     </tr>
     <tr>
         <td>cardView</td>
         <td>data-card-view</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show card view table, for example mobile view.</td>
+        <td>True para mostrar la vista de tarjeta, por ejemplo en móviles.</td>
     </tr>
     <tr>
         <td>searchAlign</td>
         <td>data-search-align</td>
         <td>String</td>
         <td>'right'</td>
-        <td>Indicate how to align the search input. 'left', 'right' can be used.</td>
+        <td>Indica cómo alinear el campo de búsqueda. Se puede usar 'left', 'right'.</td>
     </tr>
     <tr>
         <td>buttonsAlign</td>
         <td>data-buttons-align</td>
         <td>String</td>
         <td>'right'</td>
-        <td>Indicate how to align the toolbar buttons. 'left', 'right' can be used.</td>
+        <td>Indica cómo alinear los botones de la barra de herramientas. Se puede usar 'left', 'right'.</td>
     </tr>
     <tr>
         <td>toolbarAlign</td>
         <td>data-toolbar-align</td>
         <td>String</td>
         <td>'left'</td>
-        <td>Indicate how to align the custom toolbar. 'left', 'right' can be used.</td>
+        <td>Indica cómo alinear la barra de herramientas customizable. Se puede usar 'left', 'right'.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>
         <td>data-click-to-select</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to select checkbox or radiobox when click rows.</td>
+        <td>True para seleccionar el checkbox o el radiobox cuando se da click sobre las filas.</td>
     </tr>
     <tr>
         <td>singleSelect</td>
         <td>data-single-select</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to allow checkbox selecting only one row.</td>
+        <td>True para permirir solo un checkbox seleccionado.</td>
     </tr>
     <tr>
         <td>toolbar</td>
         <td>data-toolbar</td>
         <td>String</td>
         <td>undefined</td>
-        <td>
-        A jQuery selector that indicate the toolbar, for example:<br>
-        #toolbar, .toolbar.
-        </td>
+        <td>Un selector jQuery que indica la barra de herramientas, por ejemplo:<br> #toolbar, .toolbar.</td>
     </tr>
     <tr>
         <td>checkboxHeader</td>
         <td>data-checkbox-header</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to hide check-all checkbox in header row.</td>
+        <td>False para ocular el checkbox check-all en el encabezado de la fila.</td>
     </tr>
     <tr>
         <td>maintainSelected</td>
         <td>data-maintain-selected</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to maintain selected rows on change page and search.</td>
+        <td>True para mantener las columnas después de seleccionar o cambiar entre páginas.</td>
     </tr>
     <tr>
         <td>sortable</td>
         <td>data-sortable</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to disable sortable of all columns.</td>
+        <td>False para deshabilitar el ordenamiento en todas las columnas.</td>
     </tr>
     <tr>
         <td>rowStyle</td>
@@ -359,10 +354,10 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Function</td>
         <td>{}</td>
         <td>
-        The row style formatter function, take two parameters: <br>
-        row: the row record data.<br>
-        index: the row index.<br>
-        Support classes or css.
+        La función formatter para aplicar el estilo de la fila, toma dos parámetros: <br>
+        row: los datos de la fila.<br>
+        index: el índice de la fila.<br>
+        Soporta clases y CSS.
         </td>
     </tr>
     <tr>
@@ -371,10 +366,10 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Function</td>
         <td>{}</td>
         <td>
-        The row attribute formatter function, take two parameters: <br>
-        row: the row record data.<br>
-        index: the row index.<br>
-        Support all custom attributes.
+        La función formatter para los atributos de la fiila, toma dos parámetros: <br>
+        row: los datos de la fila.<br>
+        index: el índice de la fila.<br>
+        Soporta cualquier atributo customizable.
         </td>
     </tr>
     </tbody>
