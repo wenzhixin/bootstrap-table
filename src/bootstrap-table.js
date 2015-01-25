@@ -466,9 +466,15 @@
             });
     };
 
-    BootstrapTable.prototype.initData = function (data, append) {
-        if (append) {
+    /**
+     * @param data
+     * @param type: append / prepend
+     */
+    BootstrapTable.prototype.initData = function (data, type) {
+        if (type === 'append') {
             this.data = this.data.concat(data);
+        } else if (type === 'prepend') {
+            this.data = data.concat(this.data);
         } else {
             this.data = data || this.options.data;
         }
@@ -1408,7 +1414,14 @@
     };
 
     BootstrapTable.prototype.append = function (data) {
-        this.initData(data, true);
+        this.initData(data, 'append');
+        this.initSearch();
+        this.initPagination();
+        this.initBody(true);
+    };
+
+    BootstrapTable.prototype.prepend = function (data) {
+        this.initData(data, 'prepend');
         this.initSearch();
         this.initPagination();
         this.initBody(true);
@@ -1439,6 +1452,14 @@
 
         this.initSearch();
         this.initPagination();
+        this.initBody(true);
+    };
+
+    BootstrapTable.prototype.insertRow = function (params) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
+            return;
+        }
+        this.data.splice(params.index, 0, params.row);
         this.initBody(true);
     };
 
@@ -1585,8 +1606,8 @@
 
     var allowedMethods = [
         'getSelections', 'getData',
-        'load', 'append', 'remove',
-        'updateRow',
+        'load', 'append', 'prepend', 'remove',
+        'insertRow', 'updateRow',
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',

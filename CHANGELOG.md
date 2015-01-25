@@ -17,6 +17,7 @@
 - [enh] Add a toggle pagination toolbar button.
 - [enh] Add `iconSize` option.
 - [enh] Add `buttonsAlign` option and update `toolbarAlign` option.
+- [enh] Add prepend and insertRow methods.
 
 ### 1.5.0
 
