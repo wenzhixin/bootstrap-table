@@ -2,14 +2,14 @@
 
 ---
 
-Include Bootstrap library (if your project doesn't use it already) and `bootstrap-table.css` in the head tag your html document.
+Incluya la libreria de Bootstrap (solo si su proyecto no la utiliza aún) y `bootstrap-table.css` en el tag head de su documento html.
 
 ```html
 <link rel="stylesheet" href="bootstrap.min.css">
 <link rel="stylesheet" href="bootstrap-table.css">
 ```
 
-Include jQuery library, bootstrap library (if your project doesn't use it already) and `bootstrap-table.js` in the head tag or at the very bottom of your document, just before the closing body tag (usually recommended for better performance).
+Incluya la libreria jQuery, bootstrap (solo si su proyecto no los utiliza aún) y `bootstrap-table.js` en el tag head o al final de su documento, justo antes de cerra el tag body (se recomienda para mejor rendimiento).
 
 ```html
 <script src="jquery.min.js"></script>
@@ -21,11 +21,11 @@ Include jQuery library, bootstrap library (if your project doesn't use it alread
 
 ---
 
-The Bootstrap Table plugin displays data in a tabular format, via data attributes or JavaScript.
+El plugin Bootstrap Table muestra los datos en formato tabular, vía atributos o via JavaScript.
 
-## Via data attributes
+## Vía data attributes
 
-Activate bootstrap table without writing JavaScript. Set `data-toggle="table"` on a normal table.
+Active bootstrap table sin escribir código JavaScript. Setee `data-toggle="table"` en una tabla normal.
 
 ```html
 <table data-toggle="table">
@@ -51,7 +51,7 @@ Activate bootstrap table without writing JavaScript. Set `data-toggle="table"` o
 </table>
 ```
 
-We can also use remote url data by setting `data-url="data1.json"` on a normal table.
+También podemos usar una URL remota para cargar los datos, setee `data-url="data1.json"` en una tabla normal.
 
 ```html
 <table data-toggle="table" data-url="data1.json">
@@ -65,9 +65,9 @@ We can also use remote url data by setting `data-url="data1.json"` on a normal t
 </table>
 ```
 
-## Via JavaScript
+## Vía JavaScript
 
-Call a bootstrap table with id table with JavaScript.
+Llame a bootstrap table con el id de la tabla con JavaScript.
 
 ```html
 <table id="table"></table>
@@ -97,7 +97,7 @@ $('#table').bootstrapTable({
 });
 ```
 
-We can also use remote url data by setting `url: 'data1.json'`.
+También podemos usar una URL remota para cargar los datos, setee `url: 'data1.json'`.
 
 ```js
 $('#table').bootstrapTable({

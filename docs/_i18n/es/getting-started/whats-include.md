@@ -1,8 +1,7 @@
 # What's included []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/whats-include.md)
 
 ---
-
-The Bootstrap table source code download includes the precompiled CSS, JavaScript, locales, extensions, and provides both compiled and minified variations, along with documentation. More specifically, it includes the following and more:
+El código fuente de Bootstrap table incluye CSS precompilado, JavaScript, locales, extensiones, y las versiones minificadas de estos archivos. Especificamente contiene lo siguiente:
 
 ```bash
 bootstrap-table/
@@ -19,4 +18,4 @@ bootstrap-table/
     └── bootstrap-table.js
 ```
 
-The `src/`, `locale/`, and `extensions/` are the source code for our CSS, JS. The `dist/` folder includes everything compiled and minified with `src/`. The `docs/` folder includes the source code for our documentation. Beyond that, any other included file provides support for packages, license information, and development.
+Los folders `src/`, `locale/`, y `extensions/` son el código fuente de CSS, JS. El folder `dist/` inclute todo compilado y minificado con `src/`. El folder `docs/` incluye el código fuente de la documentación. Además de eso, se incluye archivos de soporte para packages, información de licencia, y desarrollo.

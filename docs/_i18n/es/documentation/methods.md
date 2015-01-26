@@ -147,5 +147,10 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>none</td>
         <td>Ir a la siguiente página.</td>
     </tr>
+	<tr>
+        <td>togglePagination</td>
+        <td>none</td>
+        <td>Habilita y deshabilita la paginación.</td>
+    </tr>
     </tbody>
 </table>

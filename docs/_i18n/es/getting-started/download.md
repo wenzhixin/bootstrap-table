@@ -3,22 +3,22 @@
 ---
 
 <p class="lead">
-Bootstrap table (currently v{{ site.current_version }}) has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.
+Bootstrap table (versión actual v{{ site.current_version }}) tiene maneras sencillas de empezar a usarla sin importar las habilidades. Hay que leer la documentación para cada necesidad en particular.
 </p>
 
-## Source code
+## Código fuente
 
-Source css, JavaScript, locales, and extensions, along with our docs.
+Código fuente de css, JavaScript, locales, y extensiones, con nuestra documentación.
 
-<a href="{{ site.master_zip }}" class="btn btn-lg btn-outline" role="button">Download source</a>
+<a href="{{ site.master_zip }}" class="btn btn-lg btn-outline" role="button">Descargar el código fuente</a>
 
-## Clone or fork via GitHub
+## Clonar vía GitHub
 
-<a href="{{ site.repo }}" class="btn btn-lg btn-outline" role="button">Via GitHub</a>
+<a href="{{ site.repo }}" class="btn btn-lg btn-outline" role="button">Vía GitHub</a>
 
 ## CDN
 
-The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bootcss](http://open.bootcss.com/bootstrap-table/) graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these CDN links.
+Para utilizar CDN use estos links [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) o [bootcss](http://open.bootcss.com/bootstrap-table/).
 
 ```html
 <!-- Latest compiled and minified CSS -->
@@ -33,7 +33,7 @@ The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bo
 
 ## Bower
 
-Install and manage Bootstrap table's CSS, JavaScript, locales, and extensions using [Bower](http://bower.io/).
+Instalar y usar Bootstrap table's CSS, JavaScript, locales, y extensiones usando [Bower](http://bower.io/).
 
 ```bash
 $ bower install bootstrap-table
