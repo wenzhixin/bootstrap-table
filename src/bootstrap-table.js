@@ -1611,7 +1611,6 @@
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',
-        'togglePagination',
         'refresh',
         'resetView',
         'destroy',
@@ -1619,7 +1618,8 @@
         'showColumn', 'hideColumn',
         'filterBy',
         'scrollTo',
-        'prevPage', 'nextPage'
+        'prevPage', 'nextPage',
+        'togglePagination'
     ];
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
