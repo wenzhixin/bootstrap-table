@@ -18,6 +18,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     </thead>
     <tbody>
     <tr>
+        <td>options</td>
+        <td>none</td>
+        <td>Return the options object.</td>
+    </tr>
+    <tr>
         <td>getSelections</td>
         <td>none</td>
         <td>Return all selected rows, when no record selected, am empty array will return.</td>

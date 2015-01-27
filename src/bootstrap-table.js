@@ -1493,6 +1493,10 @@
         $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
     };
 
+    BootstrapTable.prototype.options = function () {
+        return this.options;
+    };
+
     BootstrapTable.prototype.getSelections = function () {
         var that = this;
 
@@ -1605,6 +1609,7 @@
     // =======================
 
     var allowedMethods = [
+        'options',
         'getSelections', 'getData',
         'load', 'append', 'prepend', 'remove',
         'insertRow', 'updateRow',
