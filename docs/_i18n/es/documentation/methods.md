@@ -58,6 +58,15 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         </td>
     </tr>
     <tr>
+        <td>insertRow</td>
+        <td>params</td>
+        <td>
+        Insert a new row, the param contains following properties:<br>
+        index: the row index to insert into.<br>
+        row: the row data.
+        </td>
+    </tr>
+    <tr>
         <td>updateRow</td>
         <td>params</td>
         <td>
