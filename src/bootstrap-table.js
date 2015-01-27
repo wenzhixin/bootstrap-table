@@ -1541,6 +1541,7 @@
         this.$container.next().remove();
         this.$container.remove();
         this.$el.html(this.$el_.html())
+            .css('margin-top', '0')
             .attr('class', this.$el_.attr('class') || ''); // reset the class
     };
 
