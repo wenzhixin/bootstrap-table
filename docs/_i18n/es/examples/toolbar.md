@@ -4,12 +4,12 @@
 
 ## Basic Toolbar
 
-Use `search`, `showColumns`, `showRefresh`, `showToggle` options to show the basic toolbars. _by [@wenzhixin](https://github.com/wenzhixin)_
+Use las opciones `search`, `showColumns`, `showRefresh`, `showToggle` para mostrar una barra de herramientas básica. _by [@wenzhixin](https://github.com/wenzhixin)_
 
 <iframe width="100%" height="300" data-src="http://jsfiddle.net/wenyi/e3nk137y/33/embedded/html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 ## Custom Toolbar
 
-Use `toolbar` option to define the custom toolbars. _by [@wenzhixin](https://github.com/wenzhixin)_
+Use la opción `toolbar` para definir una barra de herramientas customizada. _by [@wenzhixin](https://github.com/wenzhixin)_
 
 <iframe width="100%" height="300" data-src="http://jsfiddle.net/wenyi/e3nk137y/34/embedded/html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>

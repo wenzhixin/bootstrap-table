@@ -2,14 +2,14 @@
 
 ---
 
-## Basic Columns
+## Basic columns
 
-Use `showColumns`, `minimumCountColumns` options, and `visible`, `switchable` column options to show the columns menu list use to switch. _by [@wenzhixin](https://github.com/wenzhixin)_
+Use las opciones `showColumns`, `minimumCountColumns`, y las opciones de columna `visible`, `switchable` para mostrar el menú lisra para mostrar/ocular las columnas. _by [@wenzhixin](https://github.com/wenzhixin)_
 
 <iframe width="100%" height="300" data-src="http://jsfiddle.net/wenyi/e3nk137y/24/embedded/html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-## Large Columns
+## Large columns
 
-Bootstrap table support large columns, it will auto to show the horizontal scroll bar. _by [@wenzhixin](https://github.com/wenzhixin)_
+Bootstrap table soporta columnas grandes, se mostrará automáticamente el scroll horizontal. _by [@wenzhixin](https://github.com/wenzhixin)_
 
 <iframe width="100%" height="350" data-src="http://jsfiddle.net/wenyi/e3nk137y/26/embedded/html,js,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
