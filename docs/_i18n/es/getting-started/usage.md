@@ -23,7 +23,7 @@ Incluya la libreria jQuery, bootstrap (solo si su proyecto no los utiliza aún) 
 
 El plugin Bootstrap Table muestra los datos en formato tabular, vía atributos o via JavaScript.
 
-## Vía data attributes
+## Via data attributes
 
 Active bootstrap table sin escribir código JavaScript. Setee `data-toggle="table"` en una tabla normal.
 
@@ -65,7 +65,7 @@ También podemos usar una URL remota para cargar los datos, setee `data-url="dat
 </table>
 ```
 
-## Vía JavaScript
+## Via JavaScript
 
 Llame a bootstrap table con el id de la tabla con JavaScript.
 

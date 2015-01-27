@@ -4,7 +4,7 @@
 
 Bootstrap table usa [Grunt](http://gruntjs.com/) para compilar, con métodos para trabajar en el framework. Asi es como compilamos el código, hacemos pruebas, y más.
 
-## Instalando Grunt
+## Installing Grunt
 
 Para instalar Grunt, se debe **primero** [descargar e instalar node.js](http://nodejs.org/download/) (incluye npm). npm significa [node packaged modules](http://npmjs.org/) y es una manera de manejar las dependencias de desarrollo através de node.js.
 
@@ -15,7 +15,7 @@ Entonces, en la linea de comandos:
 
 Cuando esté completo, ya se podrá ejecutar varios comandos de Grunt en la linea de comandos.
 
-## Comandos de Grunt disponibles
+## Available Grunt commands
 
 ### `grunt dist` (Just compile CSS and JavaScript)
 
@@ -33,6 +33,6 @@ Compila y purueba el CSS, JavaScript, y otros artchivos cuando se esta ejecutand
 
 Compila y minifica el CSS y JavaScript, compila la documentación, ejecuta el validador de HTML5 contra la documentación, regenera los archivos customizables, y más. Se requiere [Jekyll](http://jekyllrb.com/docs/installation/).
 
-## Solución de problemas
+## Troubleshooting
 
 Si se encuentran problemas instalando las dependencias o ejecutando los comandos de Grunt, primero elimine el folder `/node_modules/` generado por npm. Entonces, vuelva a ejecutar `npm install`.
