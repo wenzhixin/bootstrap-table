@@ -267,6 +267,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         </td>
     </tr>
     <tr>
+        <td>showPaginationSwitch</td>
+        <td>data-show-pagination-switch</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show the pagination switch button.</td>
+    </tr>
+    <tr>
         <td>minimumCountColumns</td>
         <td>data-minimum-count-columns</td>
         <td>Number</td>
