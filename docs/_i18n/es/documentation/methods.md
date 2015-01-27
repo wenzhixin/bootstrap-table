@@ -152,6 +152,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>(Solo se puede usar en client-side)Filtra los datos en la tabla, ejm. se puede filtrar <code>{age: 10}</code> para mostrar los daros solo con la edad igual a 10.</td>
     </tr>
     <tr>
+        <td>selectPage</td>
+        <td>page</td>
+        <td>Go to the a specified page.</td>
+    </tr>
+    <tr>
         <td>prevPage</td>
         <td>none</td>
         <td>Ir a la página anterior.</td>

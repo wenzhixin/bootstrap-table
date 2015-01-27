@@ -781,6 +781,7 @@
         this.totalPages = 0;
         if (this.options.totalRows) {
             this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
+            this.options.totalPages = this.totalPages;
         }
         if (this.totalPages > 0 && this.options.pageNumber > this.totalPages) {
             this.options.pageNumber = this.totalPages;
@@ -1595,14 +1596,25 @@
         }
     };
 
+    BootstrapTable.prototype.selectPage = function (page) {
+        if (page > 0 && page <= this.options.totalPages) {
+            this.options.pageNumber = page;
+            this.updatePagination();
+        }
+    };
+
     BootstrapTable.prototype.prevPage = function () {
-        this.options.pageNumber > 1 ? this.options.pageNumber-- : null;
-        this.updatePagination();
+        if (this.options.pageNumber > 1) {
+            this.options.pageNumber--;
+            this.updatePagination();
+        }
     };
 
     BootstrapTable.prototype.nextPage = function () {
-        this.options.pageNumber < this.options.pageSize ? this.options.pageNumber++ : null;
-        this.updatePagination();
+        if (this.options.pageNumber < this.options.totalPages) {
+            this.options.pageNumber++;
+            this.updatePagination();
+        }
     };
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
@@ -1623,7 +1635,7 @@
         'showColumn', 'hideColumn',
         'filterBy',
         'scrollTo',
-        'prevPage', 'nextPage',
+        'selectPage', 'prevPage', 'nextPage',
         'togglePagination'
     ];
 
