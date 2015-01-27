@@ -18,7 +18,7 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     </thead>
     <tbody>
     <tr>
-        <td>options</td>
+        <td>getOptions</td>
         <td>none</td>
         <td>Return the options object.</td>
     </tr>

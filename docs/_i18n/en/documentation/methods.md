@@ -18,7 +18,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     </thead>
     <tbody>
     <tr>
-        <td>options</td>
+        <td>getOptions</td>
         <td>none</td>
         <td>Return the options object.</td>
     </tr>
