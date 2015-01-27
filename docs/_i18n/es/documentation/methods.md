@@ -20,7 +20,7 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     <tr>
         <td>getOptions</td>
         <td>none</td>
-        <td>Return the options object.</td>
+        <td>Retorna el objeto options.</td>
     </tr>
     <tr>
         <td>getSelections</td>
@@ -61,9 +61,9 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>insertRow</td>
         <td>params</td>
         <td>
-        Insert a new row, the param contains following properties:<br>
-        index: the row index to insert into.<br>
-        row: the row data.
+        Inserta una nueva fila, los paeámetros contienen las siguientes propiedades:<br>
+        index: el índice donde se insertara la nueva fila.<br>
+        row: los datos de la fila.
         </td>
     </tr>
     <tr>
@@ -154,7 +154,7 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     <tr>
         <td>selectPage</td>
         <td>page</td>
-        <td>Go to the a specified page.</td>
+        <td>Ir a una página en especifico.</td>
     </tr>
     <tr>
         <td>prevPage</td>

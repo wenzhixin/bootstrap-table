@@ -269,7 +269,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>data-show-pagination-switch</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show the pagination switch button.</td>
+        <td>True para mostrar el botón de mostrar/ocultar la paginación.</td>
     </tr>
     <tr>
         <td>minimumCountColumns</td>
