@@ -1,4 +1,4 @@
-**Note:** All examples are based on [jsFiddle](http://jsfiddle.net/), you can add your great and representative examples by Edit on GitHub link.
+**Note:** Todos los ejemplos están basados en [jsFiddle](http://jsfiddle.net/), usted puede agregar su ejemplo usando Edit on GitHub link.
 
 ---
 
