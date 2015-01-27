@@ -781,6 +781,7 @@
         this.totalPages = 0;
         if (this.options.totalRows) {
             this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
+            this.options.totalPages = this.totalPages;
         }
         if (this.totalPages > 0 && this.options.pageNumber > this.totalPages) {
             this.options.pageNumber = this.totalPages;
@@ -1493,6 +1494,10 @@
         $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
     };
 
+    BootstrapTable.prototype.getOptions = function () {
+        return this.options;
+    };
+
     BootstrapTable.prototype.getSelections = function () {
         var that = this;
 
@@ -1536,6 +1541,7 @@
         this.$container.next().remove();
         this.$container.remove();
         this.$el.html(this.$el_.html())
+            .css('margin-top', '0')
             .attr('class', this.$el_.attr('class') || ''); // reset the class
     };
 
@@ -1591,20 +1597,32 @@
         }
     };
 
+    BootstrapTable.prototype.selectPage = function (page) {
+        if (page > 0 && page <= this.options.totalPages) {
+            this.options.pageNumber = page;
+            this.updatePagination();
+        }
+    };
+
     BootstrapTable.prototype.prevPage = function () {
-        this.options.pageNumber > 1 ? this.options.pageNumber-- : null;
-        this.updatePagination();
+        if (this.options.pageNumber > 1) {
+            this.options.pageNumber--;
+            this.updatePagination();
+        }
     };
 
     BootstrapTable.prototype.nextPage = function () {
-        this.options.pageNumber < this.options.pageSize ? this.options.pageNumber++ : null;
-        this.updatePagination();
+        if (this.options.pageNumber < this.options.totalPages) {
+            this.options.pageNumber++;
+            this.updatePagination();
+        }
     };
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
     var allowedMethods = [
+        'getOptions',
         'getSelections', 'getData',
         'load', 'append', 'prepend', 'remove',
         'insertRow', 'updateRow',
@@ -1618,7 +1636,7 @@
         'showColumn', 'hideColumn',
         'filterBy',
         'scrollTo',
-        'prevPage', 'nextPage',
+        'selectPage', 'prevPage', 'nextPage',
         'togglePagination'
     ];
 

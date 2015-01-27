@@ -18,6 +18,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     </thead>
     <tbody>
     <tr>
+        <td>getOptions</td>
+        <td>none</td>
+        <td>Return the options object.</td>
+    </tr>
+    <tr>
         <td>getSelections</td>
         <td>none</td>
         <td>Retorna todas las filas seleccionadas, cuando no hay seleccionadas, se retorna un array vacío .</td>
@@ -50,6 +55,15 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         field: el nombre del campo de las filas removidas. <br>
         values: el array de valores de las filas que deberían ser removidas. <br>
         Ejemplo: $('#myTable').bootstrapTable('remove', {field: 'id', values: ["73", "74"]})
+        </td>
+    </tr>
+    <tr>
+        <td>insertRow</td>
+        <td>params</td>
+        <td>
+        Insert a new row, the param contains following properties:<br>
+        index: the row index to insert into.<br>
+        row: the row data.
         </td>
     </tr>
     <tr>
@@ -136,6 +150,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>filterBy</td>
         <td>params</td>
         <td>(Solo se puede usar en client-side)Filtra los datos en la tabla, ejm. se puede filtrar <code>{age: 10}</code> para mostrar los daros solo con la edad igual a 10.</td>
+    </tr>
+    <tr>
+        <td>selectPage</td>
+        <td>page</td>
+        <td>Go to the a specified page.</td>
     </tr>
     <tr>
         <td>prevPage</td>

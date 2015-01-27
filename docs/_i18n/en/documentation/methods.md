@@ -18,6 +18,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     </thead>
     <tbody>
     <tr>
+        <td>getOptions</td>
+        <td>none</td>
+        <td>Return the options object.</td>
+    </tr>
+    <tr>
         <td>getSelections</td>
         <td>none</td>
         <td>Return all selected rows, when no record selected, am empty array will return.</td>
@@ -145,6 +150,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>filterBy</td>
         <td>params</td>
         <td>(Can use only in client-side)Filter data in table, eg. you can filter <code>{age: 10}</code> to show the data only age is equal to 10.</td>
+    </tr>
+    <tr>
+        <td>selectPage</td>
+        <td>page</td>
+        <td>Go to the a specified page.</td>
     </tr>
     <tr>
         <td>prevPage</td>

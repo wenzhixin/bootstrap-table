@@ -265,6 +265,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>True para mostrar el botón de vista cambiada entre vista de tabla y vista de tarjeta.</td>
     </tr>
     <tr>
+        <td>showPaginationSwitch</td>
+        <td>data-show-pagination-switch</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show the pagination switch button.</td>
+    </tr>
+    <tr>
         <td>minimumCountColumns</td>
         <td>data-minimum-count-columns</td>
         <td>Number</td>
