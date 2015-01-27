@@ -2,9 +2,9 @@
 
 ---
 
-### When resize the window, the table header does not adjust automatically, how to solve it?
+### Cuando cambio el tamaño de la ventana del explorador, el encabezado de la tabla no se ajusta automáticamente, ¿cómo se soluciona?
 
-When you set the `height` of bootstrap table, the `fixed header` feature is automatically enabled, that is what cause the problem, you need to listen the `resize` event of window and use the `resetView` method to solve this problem, code example:
+Cuando setee la propiedad `height` de bootstrap table, automáticamente la propiedad`fixed header` es habilitada, eso causa el problema, se necesita escuchar el evento `resize` de la vantana del explorador y usar el método `resetView` para resolver este problema, ejemplo:
 
 ```js
 $(function () {
@@ -18,9 +18,9 @@ $(function () {
 
 ---
 
-### How to better merge cells?
+### ¿Cuál es la mejor opción para unir celdas?
 
-For merged cells, when you do refresh, next page or switch columns to show, the merge cells will be unmerged. We can listen the events(on load success, on column switch, on page change and on search) to solve this problem, code example:
+Para unir celdas, cuando se haga el refresh, se pase a la siguiente página o se muestren/oculten columnas, las celdas unidas se quedarán es su estado normal, no unidas. Se puede escuchar los eventos(on load success, on column switch, on page change y on search) para resolver este problema, ejemplo:
 
 ```js
 $table.on('load-success.bs.table column-switch.bs.table page-change.bs.table search.bs.table', function () {
