@@ -1,6 +1,7 @@
 /**
  * Bootstrap Table Brazilian Portuguese Translation
  * Author: Eduardo Cerqueira<egcerqueira@gmail.com>
+ * Update: João Mello<jmello@hotmail.com.br>
  */
 (function ($) {
     'use strict';
@@ -15,8 +16,20 @@
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return 'Exibindo ' + pageFrom + ' até ' + pageTo + ' de ' + totalRows + ' linhas';
         },
-        formatSearch: function () {
-            return 'Busca';
+        formatSearch: function () { //De Busca para Pesquisar
+            return 'Pesquisar';
+        },
+        formatRefresh: function () { //add
+            return 'Recarregar';
+        },
+        formatToggle: function () { //add
+            return 'Alternar';
+        },
+        formatColumns: function () { //add
+            return 'Colunas';
+        },
+        formatPaginationSwitch: function () { //add
+            return 'Ocultar/Exibir paginação';
         },
         formatNoMatches: function () {
             return 'Nenhum registro encontrado';
