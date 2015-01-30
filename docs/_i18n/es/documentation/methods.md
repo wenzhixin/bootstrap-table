@@ -174,7 +174,7 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     <tr>
         <td>toggleView</td>
         <td>none</td>
-        <td>Toggle the card/table view.</td>
+        <td>Alterna la vista entre tabla y tarjeta.</td>
     </tr>
     </tbody>
 </table>
