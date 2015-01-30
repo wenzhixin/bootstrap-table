@@ -171,5 +171,10 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>none</td>
         <td>Toggle the pagination option.</td>
     </tr>
+    <tr>
+        <td>toggleView</td>
+        <td>none</td>
+        <td>Toggle the card/table view.</td>
+    </tr>
     </tbody>
 </table>
