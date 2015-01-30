@@ -1618,6 +1618,12 @@
         }
     };
 
+    BootstrapTable.prototype.toggleView = function () {
+        this.options.cardView = !this.options.cardView;
+        this.initHeader();
+        this.initBody();
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -1637,7 +1643,8 @@
         'filterBy',
         'scrollTo',
         'selectPage', 'prevPage', 'nextPage',
-        'togglePagination'
+        'togglePagination',
+        'toggleView'
     ];
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
