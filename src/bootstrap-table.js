@@ -1041,11 +1041,11 @@
                     class_ = sprintf(' class="%s"', cellStyle.classes);
                 }
                 if (cellStyle.css) {
-                    csses = [];
+                    var csses_ = [];
                     for (var key in cellStyle.css) {
-                        csses.push(key + ': ' + cellStyle.css[key]);
+                        csses_.push(key + ': ' + cellStyle.css[key]);
                     }
-                    style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
+                    style = sprintf('style="%s"', csses_.concat(that.header.styles[j]).join('; '));
                 }
 
                 if (column.checkbox || column.radio) {
