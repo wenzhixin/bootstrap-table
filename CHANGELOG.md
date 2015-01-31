@@ -18,6 +18,7 @@
 - [enh] Add `iconSize` option.
 - [enh] Add `buttonsAlign` option and update `toolbarAlign` option.
 - [enh] Add `prepend`, `insertRow` and `toggleView` methods.
+- [enh] Add `editable-save.bs.table` event to editatble extension.
 
 ### 1.5.0
 
