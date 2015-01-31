@@ -6,6 +6,7 @@
 - [enh] Add uk-UA, sv-SE, pt-PT, ms-MY, ja-JP locales.
 - [enh] Add `searchTimeOut` option.
 - [bug] Fix #220: state column hideColumn bug.
+- [bug] Fix #221: cellStyle bug.
 - [enh] Add `iconsPrefix` and `icons` options to support custom icons.
 - [enh] Add i18n support for docs.
 - [enh] Allow `query` params to be specified during refresh.
