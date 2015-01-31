@@ -9,11 +9,13 @@
 
     $.extend($.fn.bootstrapTable.defaults, {
         editable: true,
-        onEditableInit: function () {return false;}
+        onEditableInit: function () {return false;},
+        onEditableSave: function (field, row, oldValue, $el) {return false;}
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-        'editable-init.bs.table': 'onEditableInit'
+        'editable-init.bs.table': 'onEditableInit',
+        'editable-save.bs.table': 'onEditableSave'
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
@@ -62,9 +64,12 @@
             that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
                 .off('save').on('save', function (e, params) {
                     var data = that.getData(),
-                        row = data[$(this).parents('tr[data-index]').data('index')];
+                        index = $(this).parents('tr[data-index]').data('index'),
+                        row = data[index],
+                        oldValue = row[column.field];
 
                     row[column.field] = params.submitValue;
+                    that.trigger('editable-save', column.field, row, oldValue, $(this));
                 });
         });
         this.trigger('editable-init');
