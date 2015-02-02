@@ -355,6 +355,7 @@
                 // save td's id and class
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
+                row['_' + field + '_data_value'] = $(this).data('value');
             });
             data.push(row);
         });
@@ -494,8 +495,8 @@
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
-                var aa = a[name],
-                    bb = b[name],
+                var aa = a['_' + name + '_data_value'] || a[name],
+                    bb = b['_' + name + '_data_value'] || b[name],
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
@@ -1034,7 +1035,9 @@
                 if (item['_' + field + '_class']) {
                     class_ = sprintf(' class="%s"', item['_' + field + '_class']);
                 }
-
+                if (item['_' + field + '_data_value']) {
+                    class_ = sprintf(' data-value="%s"', item['_' + field + '_data_value']);
+                }
                 cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
                 if (cellStyle.classes) {
