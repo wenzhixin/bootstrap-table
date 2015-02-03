@@ -918,7 +918,7 @@
             this.initBody();
         }
 
-        this.trigger('page-change', this.options.pageSize, this.options.pageNumber);
+        this.trigger('page-change', this.options.pageNumber, this.options.pageSize);
     };
 
     BootstrapTable.prototype.onPageListChange = function (event) {
