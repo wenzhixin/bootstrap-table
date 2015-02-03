@@ -13,6 +13,7 @@
 - [bug] Fix bug of ellipsis string.
 - [bug] Fix pageList smartDisplay.
 - [bug] Fix #188: Export Button is not shown only use `showExport=true`.
+- [bug] Fix page-change event params bug.
 - [enh] Add limit and offset params only if pagination is activated.
 - [enh] Add `ajaxOptions` option to custom $.ajax options.
 - [enh] Add a toggle pagination toolbar button.
@@ -20,6 +21,7 @@
 - [enh] Add `buttonsAlign` option and update `toolbarAlign` option.
 - [enh] Add `prepend`, `insertRow` and `toggleView` methods.
 - [enh] Add `editable-save.bs.table` event to editatble extension.
+- [enh] #431: load method support pagination.
 
 ### 1.5.0
 
