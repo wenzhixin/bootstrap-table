@@ -1,6 +1,6 @@
 ### Latest release
 
-#### v{{ site.current_version }} (2014-12-12)
+#### v{{ site.current_version }} (2015-02-03)
 
 - [bug] Fix queryParams bug when use `sidePagination='server'`.
 - [enh] Add uk-UA, sv-SE, pt-PT, ms-MY, ja-JP locales.
