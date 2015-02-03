@@ -25,7 +25,7 @@
             return 'Oppdater';
         },
         formatToggle: function () {
-            return 'Skift';
+            return 'Endre';
         },
         formatColumns: function () {
             return 'Kolonner';
