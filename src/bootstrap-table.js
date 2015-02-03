@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.5.0
+ * version: 1.6.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -813,7 +813,7 @@
             pageList = this.options.pageList;
 
         if (typeof this.options.pageList === 'string') {
-            var list = this.options.pageList.slice(1, -1).replace(/ /g, '').split(',');
+            var list = this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').split(',');
 
             pageList = [];
             $.each(list, function (i, value) {
@@ -918,7 +918,7 @@
             this.initBody();
         }
 
-        this.trigger('page-change', this.options.pageSize, this.options.pageNumber);
+        this.trigger('page-change', this.options.pageNumber, this.options.pageSize);
     };
 
     BootstrapTable.prototype.onPageListChange = function (event) {
@@ -1041,11 +1041,11 @@
                     class_ = sprintf(' class="%s"', cellStyle.classes);
                 }
                 if (cellStyle.css) {
-                    csses = [];
+                    var csses_ = [];
                     for (var key in cellStyle.css) {
-                        csses.push(key + ': ' + cellStyle.css[key]);
+                        csses_.push(key + ': ' + cellStyle.css[key]);
                     }
-                    style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
+                    style = sprintf('style="%s"', csses_.concat(that.header.styles[j]).join('; '));
                 }
 
                 if (column.checkbox || column.radio) {
@@ -1232,14 +1232,8 @@
             success: function (res) {
                 res = calculateObjectValue(that.options, that.options.responseHandler, [res], res);
 
-                var data = res;
-
-                if (that.options.sidePagination === 'server') {
-                    that.options.totalRows = res.total;
-                    data = res.rows;
-                }
-                that.load(data);
-                that.trigger('load-success', data);
+                that.load(res);
+                that.trigger('load-success', res);
             },
             error: function (res) {
                 that.trigger('load-error', res.status);
@@ -1408,6 +1402,12 @@
     };
 
     BootstrapTable.prototype.load = function (data) {
+        // #431: support pagination
+        if (this.options.sidePagination === 'server') {
+            this.options.totalRows = data.total;
+            data = data.rows;
+        }
+
         this.initData(data);
         this.initSearch();
         this.initPagination();

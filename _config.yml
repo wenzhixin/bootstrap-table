@@ -23,7 +23,7 @@ languages: ["en", "zh-cn", "es", "fr"]
 languages_string: ["English", "简体中文", "Español", "French"]
 
 # Custom vars
-current_version: 1.5.0
+current_version: 1.6.0
 repo: https://github.com/wenzhixin/bootstrap-table
 website: http://wenzhixin.net.cn
 repos: http://repos.wenzhixin.net.cn
