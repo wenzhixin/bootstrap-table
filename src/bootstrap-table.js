@@ -1232,14 +1232,8 @@
             success: function (res) {
                 res = calculateObjectValue(that.options, that.options.responseHandler, [res], res);
 
-                var data = res;
-
-                if (that.options.sidePagination === 'server') {
-                    that.options.totalRows = res.total;
-                    data = res.rows;
-                }
-                that.load(data);
-                that.trigger('load-success', data);
+                that.load(res);
+                that.trigger('load-success', res);
             },
             error: function (res) {
                 that.trigger('load-error', res.status);
@@ -1408,6 +1402,12 @@
     };
 
     BootstrapTable.prototype.load = function (data) {
+        // #431: support pagination
+        if (this.options.sidePagination === 'server') {
+            this.options.totalRows = data.total;
+            data = data.rows;
+        }
+
         this.initData(data);
         this.initSearch();
         this.initPagination();
