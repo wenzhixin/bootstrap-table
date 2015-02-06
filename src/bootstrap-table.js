@@ -474,7 +474,7 @@
         if (type === 'append') {
             this.data = this.data.concat(data);
         } else if (type === 'prepend') {
-            this.data = data.concat(this.data);
+            this.data = [].concat(data).concat(this.data);
         } else {
             this.data = data || this.options.data;
         }
