@@ -1,5 +1,7 @@
 //JS function to allow natural sorting on bootstrap-table columns
 //just add data-sorter="alphanum" to any th
+//Thanks to Brian Huisman: http://www.greywyvern.com
+
 function alphanum(a, b) {
   function chunkify(t) {
     var tz = [], x = 0, y = -1, n = 0, i, j;
