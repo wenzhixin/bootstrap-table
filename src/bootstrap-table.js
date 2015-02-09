@@ -854,7 +854,7 @@
             }
         }
         for (i = from; i <= to; i++) {
-            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active disabled' : '') + '">',
+            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
                 '<a href="javascript:void(0)">', i ,'</a>',
                 '</li>');
         }
