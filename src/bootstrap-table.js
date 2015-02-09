@@ -1533,6 +1533,7 @@
         this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
         this.data[index][this.header.stateField] = checked;
         this.updateSelected();
+        this.trigger(checked ? 'check' : 'uncheck', this.data[index]);
     };
 
     BootstrapTable.prototype.destroy = function () {
