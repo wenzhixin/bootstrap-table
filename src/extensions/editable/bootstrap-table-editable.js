@@ -42,7 +42,8 @@
                 return ['<a href="javascript:void(0)"',
                     ' data-name="' + column.field + '"',
                     ' data-pk="' + row[that.options.idField] + '"',
-                    '>' + result + '</a>'
+                    ' data-vlaue="' + result + '"',
+                    '>' + '</a>'
                 ].join('');
             };
         });
