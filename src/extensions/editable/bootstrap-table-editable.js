@@ -42,7 +42,7 @@
                 return ['<a href="javascript:void(0)"',
                     ' data-name="' + column.field + '"',
                     ' data-pk="' + row[that.options.idField] + '"',
-                    ' data-vlaue="' + result + '"',
+                    ' data-value="' + result + '"',
                     '>' + '</a>'
                 ].join('');
             };
