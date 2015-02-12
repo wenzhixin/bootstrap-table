@@ -79,3 +79,7 @@ grunt build
 ```
 
 Result will appear in `dist` directory.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/wenzhixin/bootstrap-table/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
