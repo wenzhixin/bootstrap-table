@@ -1542,6 +1542,27 @@
         this.updateSelected();
         this.trigger(checked ? 'check' : 'uncheck', this.data[index]);
     };
+    
+    BootstrapTable.prototype.checkBy = function (obj) {
+        this.checkBy_(true, obj);
+    };
+
+    BootstrapTable.prototype.uncheckBy = function (obj) {
+        this.checkBy_(false, obj);
+    };
+    
+    BootstrapTable.prototype.checkBy_ = function (checked, obj) {
+        var that = this;
+        var is_array = $.isArray(obj.value);
+        $.each(this.data, function (index, row) {
+            if(is_array ? $.inArray(row[obj.field], obj.value) != -1 : row[obj.field] == obj.value) {
+                that.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
+                row[that.header.stateField] = checked;
+                that.trigger(checked ? 'check' : 'uncheck', row);  
+            }
+        });
+        this.updateSelected();
+    };
 
     BootstrapTable.prototype.destroy = function () {
         this.$el.insertBefore(this.$container);
@@ -1643,6 +1664,7 @@
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',
+        'checkBy', 'uncheckBy',
         'refresh',
         'resetView',
         'destroy',
