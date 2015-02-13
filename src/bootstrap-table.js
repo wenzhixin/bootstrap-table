@@ -1515,10 +1515,17 @@
     };
 
     BootstrapTable.prototype.checkAll_ = function (checked) {
+        var rows;
+        if(!checked) {
+            rows = this.getSelections();
+        }
         this.$selectItem.filter(':enabled').prop('checked', checked);
         this.updateRows(checked);
         this.updateSelected();
-        this.trigger(checked ? 'check-all' : 'uncheck-all');
+        if(checked) {
+            rows = this.getSelections();
+        }
+        this.trigger(checked ? 'check-all' : 'uncheck-all', rows);
     };
 
     BootstrapTable.prototype.check = function (index) {
