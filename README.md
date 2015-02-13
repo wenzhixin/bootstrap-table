@@ -1,4 +1,4 @@
-# [Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn)
+# BsGrid
 
 [![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table) 
 [![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.png)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
