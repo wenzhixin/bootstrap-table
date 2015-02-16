@@ -166,6 +166,7 @@
         checkboxHeader: true,
         sortable: true,
         maintainSelected: false,
+        reorderable: false,
         searchTimeOut: 500,
         iconSize: undefined,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
