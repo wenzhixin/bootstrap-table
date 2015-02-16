@@ -274,31 +274,56 @@
     };
 
     BootstrapTable.prototype.init = function () {
+        
         this.initContainer();
+      
         this.initTable();
+        
         this.initHeader();
+        
         this.initData();
+       
         this.initToolbar();
+        
         this.initPagination();
+       
         this.initBody();
+        
         this.initServer();
     };
 
     BootstrapTable.prototype.initContainer = function () {
         this.$container = $([
-            '<div class="bootstrap-table">',
-                '<div class="fixed-table-toolbar"></div>',
-                '<div class="fixed-table-container">',
+            '<div class="bootstrap-table '+(this.options.inPanel ? 'panel panel-default':'')+'">',
+                '<div class="fixed-table-toolbar '+(this.options.inPanel ? 'panel-heading clearfix no-margin':'')+'"></div>',
+                ' '+(this.options.inPanel ? '<div class="panel-body">':'')+'<div class="fixed-table-container">',
                     '<div class="fixed-table-header"><table></table></div>',
                     '<div class="fixed-table-body">',
                         '<div class="fixed-table-loading">',
                             this.options.formatLoadingMessage(),
                         '</div>',
                     '</div>',
-                    '<div class="fixed-table-pagination"></div>',
-                '</div>',
+                '</div>'+(this.options.inPanel ? '</div>':'')+'',
+                '<div class="fixed-table-pagination clearfix'+(this.options.inPanel ? ' panel-footer':'')+'"></div>',
             '</div>'].join(''));
-
+            /*
+        this.$container = $([
+            
+            '<div class="bootstrap-table panel panel-default">',
+                '<div class="fixed-table-toolbar panel-heading clearfix no-margin"></div>',
+                '<div class="panel-body"><div class="fixed-table-container">',
+                    '<div class="fixed-table-header"><table></table></div>',
+                    '<div class="fixed-table-body">',
+                        '<div class="fixed-table-loading">',
+                            this.options.formatLoadingMessage(),
+                        '</div>',
+                    '</div></div>',
+                '</div>',
+                '<div class="fixed-table-pagination panel-footer clearfix"></div>',
+            '</div>'
+            
+            ].join(''));
+            */
         this.$container.insertAfter(this.$el);
         this.$container.find('.fixed-table-body').append(this.$el);
         this.$container.after('<div class="clearfix"></div>');
@@ -307,7 +332,8 @@
         this.$el.addClass(this.options.classes);
         if (this.options.striped) {
             this.$el.addClass('table-striped');
-        }
+        } 
+
     };
 
     BootstrapTable.prototype.initTable = function () {
@@ -331,6 +357,7 @@
             columns.push(column);
         });
         this.options.columns = $.extend([], columns, this.options.columns);
+        
         $.each(this.options.columns, function (i, column) {
             that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS,
                 {field: i}, column); // when field is undefined, use index instead
@@ -571,7 +598,7 @@
             switchableCount = 0;
 
         this.$toolbar = this.$container.find('.fixed-table-toolbar').html('');
-
+        
         if (typeof this.options.toolbar === 'string') {
             $(sprintf('<div class="bars pull-%s"></div>', this.options.toolbarAlign))
                 .appendTo(this.$toolbar)
@@ -794,7 +821,7 @@
         }
 
         html.push(
-            '<div class="pull-left pagination-detail">',
+            '<div class="pull-left pagination-detail '+(this.options.inPanel ? 'no-margin':'')+'">',
                 '<span class="pagination-info">',
                     this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
                 '</span>');
@@ -833,8 +860,8 @@
         html.push('</span>');
 
         html.push('</div>',
-            '<div class="pull-right pagination">',
-                '<ul class="pagination' + (this.options.iconSize == undefined ? '' :  ' pagination-' + this.options.iconSize)  + '">',
+            '<div class="pull-right pagination '+(this.options.inPanel ? 'no-margin':'')+'">',
+                '<ul class="'+(this.options.inPanel ? 'no-margin':'')+' pagination' + (this.options.iconSize == undefined ? '' :  ' pagination-' + this.options.iconSize)  + '">',
                     '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
                     '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
 
@@ -899,6 +926,11 @@
         $next.off('click').on('click', $.proxy(this.onPageNext, this));
         $last.off('click').on('click', $.proxy(this.onPageLast, this));
         $number.off('click').on('click', $.proxy(this.onPageNumber, this));
+
+        //NM adding footer in container
+        if (typeof this.options.footer === 'string') {
+            this.$pagination.after($(this.options.footer));
+        }
     };
 
     BootstrapTable.prototype.updatePagination = function (event) {
@@ -1646,7 +1678,6 @@
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
         var value;
-
         this.each(function () {
             var $this = $(this),
                 data = $this.data('bootstrap.table'),
