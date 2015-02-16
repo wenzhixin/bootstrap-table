@@ -166,6 +166,7 @@
         checkboxHeader: true,
         sortable: true,
         maintainSelected: false,
+        reorderable: false,
         searchTimeOut: 500,
         iconSize: undefined,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
@@ -195,7 +196,13 @@
         onPageChange: function (number, size) {return false;},
         onSearch: function (text) {return false;},
         onPreBody: function (data) {return false;},
-        onPostBody: function () {return false;}
+        onPostBody: function () {return false;},
+        onPostHeader: function ($tbl) {
+            if (this.showHeader && this.reorderable) {
+                $tbl.makeColumnsReorderable();
+            }
+        },
+        onReorder: function ($col) { return false; }
     };
 
     BootstrapTable.LOCALES = [];
@@ -270,7 +277,9 @@
         'page-change.bs.table': 'onPageChange',
         'search.bs.table': 'onSearch',
         'pre-body.bs.table': 'onPreBody',
-        'post-body.bs.table': 'onPostBody'
+        'post-body.bs.table': 'onPostBody',
+        'post-header.bs.table': 'onPostHeader',
+        'reorder.bs.table': 'onReorder'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -364,7 +373,10 @@
     BootstrapTable.prototype.initHeader = function () {
         var that = this,
             visibleColumns = [],
-            html = [];
+            html = [],
+            cntr = 0;
+
+        this.invisibleColumns = cntr;
 
         this.header = {
             fields: [],
@@ -387,6 +399,7 @@
                 searchable = true;
 
             if (!column.visible) {
+                cntr++;
                 return;
             }
 
@@ -437,6 +450,8 @@
             html.push('<div class="fht-cell"></div>');
             html.push('</th>');
         });
+        
+        this.invisibleColumns = cntr;
 
         this.$header.find('tr').html(html.join(''));
         this.$header.find('th').each(function (i) {
@@ -1292,7 +1307,7 @@
         var that = this,
             $fixedHeader = this.$container.find('.fixed-table-header'),
             $fixedBody = this.$container.find('.fixed-table-body'),
-            scrollWidth = this.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
+            scrollWidth = this.$el.height() > $fixedBody.height() ? getScrollBarWidth() : 0;
 
         // fix #61: the hidden table reset header bug.
         if (this.$el.is(':hidden')) {
@@ -1329,6 +1344,8 @@
             $fixedBody.off('scroll').on('scroll', function () {
                 $fixedHeader.scrollLeft($(this).scrollLeft());
             });
+            
+            that.trigger('post-header', that);
         });
     };
 
@@ -1354,6 +1371,103 @@
             }
         }
     };
+
+    // Restructures the table's column parameter and adjusts the table body accordingly,
+    // without calling resetView() & resetting the table's column headers.
+    BootstrapTable.prototype.reorderColumns = function (columns) {
+        
+        var that = this;
+
+        this.options.columns = columns;
+        $.each(this.options.columns, function (i, column) {
+            that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS,
+                { field: i }, column); // when field is undefined, use index instead
+        });
+
+        this.initHeader();
+        this.initBody();
+
+    }
+    
+    BootstrapTable.prototype.makeColumnsReorderable = function () {
+
+        var that = this,
+            strtIdx,
+            fnshIdx,
+            cols = this.options.columns,
+            $fixedHeader = this.$container.find('.fixed-table-header'),
+            $fixedBody = this.$container.find('.fixed-table-body'),
+            $header = (this.options.height) ?
+                            $fixedHeader.find('table').find('thead').find('tr') :
+                            this.$header.find('tr'),
+            wdtHdr, wdtEl, drct;
+         
+        $header.sortable({
+            axis: 'x',
+            containment: $fixedHeader,
+            cursor: 'pointer',
+            distance: 10,
+            forcePlaceholderSize: true,
+            helper: 'clone',
+            placeholder: 'placeholder ui-corner-all',
+            items: 'th:not(.bs-checkbox)',
+            tolerance: 'pointer',
+            start: function (event, ui) {
+                ui.placeholder.width(ui.helper.width());
+                strtIdx = $header.find('th').index(ui.item);
+                wdtHdr = $fixedHeader.width(),
+                wdtEl = ui.item.width();
+                drct = 'none';
+            },
+            beforeStop: function (event, ui) {
+
+                $fixedBody.stop(true, false);
+
+                fnshIdx = $header.find('th').index(ui.item);
+
+                if (strtIdx !== fnshIdx) {
+                    var hdnFlds = that.invisibleColumns,
+                        moved = cols.splice(strtIdx + hdnFlds, 1)[0];
+
+                    cols.splice(fnshIdx + hdnFlds, 0, moved);
+
+
+                    that.initHeader();
+                    that.initBody();
+
+                    // TRIGGER REORDER EVENT
+                    that.trigger('reorder', ui.item);
+                }
+            },
+            sort: function (event, ui) {
+                // Set up scrolling
+                var x = ui.placeholder.position().left,
+                    offset = $fixedBody.scrollLeft(),
+                    rght = x + wdtEl,
+                    maxOffset = that.$el.width() - $fixedHeader.width();
+
+                
+                if (ui.position.left === 0 && offset > 0) {
+                    if (drct !== 'right') {
+                        $fixedBody.stop(true, false);
+                        $fixedBody.animate({ scrollLeft: 0 }, offset * 5, 'linear');
+                        drct = 'right';
+                    }
+                } else if (ui.position.left + wdtEl === wdtHdr - 1 && offset < (that.$el.width() - $fixedHeader.width())) {
+                    if (drct !== 'left') {
+                        $fixedBody.stop(true, false);
+                        $fixedBody.animate({ scrollLeft: maxOffset }, (maxOffset - offset) * 5, 'linear');
+                        drct = 'left';
+                    }
+                } else {
+                    $fixedBody.stop(true, false);
+                    drct = 'none';
+                }
+
+            }
+        });
+
+    }
 
     // PUBLIC FUNCTION DEFINITION
     // =======================
@@ -1386,6 +1500,8 @@
 
         if (this.options.showHeader && this.options.height) {
             this.resetHeader();
+        } else {
+            this.trigger('post-header', this);
         }
 
         if (this.options.height && this.options.showHeader) {
