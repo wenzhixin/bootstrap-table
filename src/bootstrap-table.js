@@ -365,7 +365,10 @@
     BootstrapTable.prototype.initHeader = function () {
         var that = this,
             visibleColumns = [],
-            html = [];
+            html = [],
+            cntr = 0;
+
+        this.invisibleColumns = cntr;
 
         this.header = {
             fields: [],
@@ -388,6 +391,7 @@
                 searchable = true;
 
             if (!column.visible) {
+                cntr++;
                 return;
             }
 
@@ -438,6 +442,8 @@
             html.push('<div class="fht-cell"></div>');
             html.push('</th>');
         });
+        
+        this.invisibleColumns = cntr;
 
         this.$header.find('tr').html(html.join(''));
         this.$header.find('th').each(function (i) {
