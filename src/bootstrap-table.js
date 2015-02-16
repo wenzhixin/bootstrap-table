@@ -196,7 +196,13 @@
         onPageChange: function (number, size) {return false;},
         onSearch: function (text) {return false;},
         onPreBody: function (data) {return false;},
-        onPostBody: function () {return false;}
+        onPostBody: function () {return false;},
+        onPostHeader: function ($tbl) {
+            if (this.showHeader && this.reorderable) {
+                $tbl.makeColumnsReorderable();
+            }
+        },
+        onReorder: function ($col) { return false; }
     };
 
     BootstrapTable.LOCALES = [];
@@ -271,7 +277,9 @@
         'page-change.bs.table': 'onPageChange',
         'search.bs.table': 'onSearch',
         'pre-body.bs.table': 'onPreBody',
-        'post-body.bs.table': 'onPostBody'
+        'post-body.bs.table': 'onPostBody',
+        'post-header.bs.table': 'onPostHeader',
+        'reorder.bs.table': 'onReorder'
     };
 
     BootstrapTable.prototype.init = function () {
