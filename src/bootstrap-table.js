@@ -1358,6 +1358,23 @@
     // PUBLIC FUNCTION DEFINITION
     // =======================
 
+    // Restructures the table's column parameter and adjusts the table body accordingly,
+    // without calling resetView() & resetting the table's column headers.
+    BootstrapTable.prototype.reorderColumns = function (columns) {
+        
+        var that = this;
+
+        this.options.columns = columns;
+        $.each(this.options.columns, function (i, column) {
+            that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS,
+                { field: i }, column); // when field is undefined, use index instead
+        });
+
+        this.initHeader();
+        this.initBody();
+
+    }
+
     BootstrapTable.prototype.resetView = function (params) {
         var that = this,
             header = this.header;
