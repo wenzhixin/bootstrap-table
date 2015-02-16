@@ -237,3 +237,7 @@ div.fixed-table-scroll-outer {
     height: 150px;
     overflow: hidden;
 }
+
+.placeholder { 
+    background-color: #CCC;
+}
