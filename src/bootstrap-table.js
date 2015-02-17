@@ -474,7 +474,7 @@
         if (type === 'append') {
             this.data = this.data.concat(data);
         } else if (type === 'prepend') {
-            this.data = data.concat(this.data);
+            this.data = [].concat(data).concat(this.data);
         } else {
             this.data = data || this.options.data;
         }
@@ -854,7 +854,7 @@
             }
         }
         for (i = from; i <= to; i++) {
-            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active disabled' : '') + '">',
+            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
                 '<a href="javascript:void(0)">', i ,'</a>',
                 '</li>');
         }
@@ -1049,15 +1049,11 @@
                 }
 
                 if (column.checkbox || column.radio) {
-                    //if card view mode bypass
-                    if (that.options.cardView) {
-                        return true;
-                    }
-
                     type = column.checkbox ? 'checkbox' : type;
                     type = column.radio ? 'radio' : type;
 
-                    text = ['<td class="bs-checkbox">',
+                    text = [that.options.cardView ?
+                        '<div class="card-view">' : '<td class="bs-checkbox">',
                         '<input' +
                             sprintf(' data-index="%s"', i) +
                             sprintf(' name="%s"', that.options.selectItemName) +
@@ -1068,7 +1064,7 @@
                             sprintf(' disabled="%s"', !column.checkboxEnabled ||
                                 (value && value.disabled) ? 'disabled' : undefined) +
                             ' />',
-                        '</td>'].join('');
+                        that.options.cardView ? '</div>' : '</td>'].join('');
                 } else {
                     value = typeof value === 'undefined' || value === null ?
                         that.options.undefinedText : value;
@@ -1533,6 +1529,7 @@
         this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
         this.data[index][this.header.stateField] = checked;
         this.updateSelected();
+        this.trigger(checked ? 'check' : 'uncheck', this.data[index]);
     };
 
     BootstrapTable.prototype.destroy = function () {
