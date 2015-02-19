@@ -1548,12 +1548,15 @@
     };
     
     BootstrapTable.prototype.checkBy_ = function (checked, obj) {
-        if (!obj.hasOwnProperty("field") || !obj.hasOwnProperty("values")) {
+        if(!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
             return;
         }
         
         var that = this;
         $.each(this.data, function (index, row) {
+            if(!row.hasOwnProperty(obj.field)) {
+                return false;
+            }
             if($.inArray(row[obj.field], obj.values) != -1) {
                 that.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
                 row[that.header.stateField] = checked;
