@@ -10,6 +10,9 @@ More examples: https://github.com/wenzhixin/bootstrap-table-examples#examples-li
 
 **NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
 
+## Demo
+  <a href="https://jsfiddle.net/ALANFALS/2txptzc6/1/embedded/result/" target="_blank">Click Here</a>
+  
 ## Bugs & Enhancements (next version)
 
 ## Features
