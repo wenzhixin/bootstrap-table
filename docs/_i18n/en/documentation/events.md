@@ -77,14 +77,20 @@
     <tr>
         <td>onCheckAll</td>
         <td>check-all.bs.table</td>
-        <td>none</td>
-        <td>Fires when user check all rows.</td>
+        <td>rows</td>
+        <td>
+        Fires when user check all rows, the parameters contains: <br>
+        rows: array of records corresponding to newly checked rows.
+        </td>
     </tr>
     <tr>
         <td>onUncheckAll</td>
         <td>uncheck-all.bs.table</td>
-        <td>none</td>
-        <td>Fires when user uncheck all rows.</td>
+        <td>rows</td>
+        <td>
+        Fires when user uncheck all rows, the parameters contains: <br>
+        rows: array of records corresponding to previously checked rows.
+        </td>
     </tr>
     <tr>
         <td>onLoadSuccess</td>
