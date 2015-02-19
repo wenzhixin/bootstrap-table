@@ -12,7 +12,7 @@
     // ======================
 
     // it only does '%s', and return '' when arguments are undefined
-    var sprintf = function(str) {
+    var sprintf = function (str) {
         var args = arguments,
             flag = true,
             i = 1;
@@ -136,9 +136,9 @@
         contentType: 'application/json',
         dataType: 'json',
         ajaxOptions: {},
-        queryParams: function (params) {return params;},
+        queryParams: function (params) { return params; },
         queryParamsType: 'limit', // undefined
-        responseHandler: function (res) {return res;},
+        responseHandler: function (res) { return res; },
         pagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
@@ -177,25 +177,25 @@
             columns: 'glyphicon-th icon-th'
         },
 
-        rowStyle: function (row, index) {return {};},
+        rowStyle: function (row, index) { return {}; },
 
-        rowAttributes: function (row, index) {return {};},
+        rowAttributes: function (row, index) { return {}; },
 
-        onAll: function (name, args) {return false;},
-        onClickRow: function (item, $element) {return false;},
-        onDblClickRow: function (item, $element) {return false;},
-        onSort: function (name, order) {return false;},
-        onCheck: function (row) {return false;},
-        onUncheck: function (row) {return false;},
-        onCheckAll: function () {return false;},
-        onUncheckAll: function () {return false;},
-        onLoadSuccess: function (data) {return false;},
-        onLoadError: function (status) {return false;},
-        onColumnSwitch: function (field, checked) {return false;},
-        onPageChange: function (number, size) {return false;},
-        onSearch: function (text) {return false;},
-        onPreBody: function (data) {return false;},
-        onPostBody: function () {return false;}
+        onAll: function (name, args) { return false; },
+        onClickRow: function (item, $element) { return false; },
+        onDblClickRow: function (item, $element) { return false; },
+        onSort: function (name, order) { return false; },
+        onCheck: function (row) { return false; },
+        onUncheck: function (row) { return false; },
+        onCheckAll: function () { return false; },
+        onUncheckAll: function () { return false; },
+        onLoadSuccess: function (data) { return false; },
+        onLoadError: function (status) { return false; },
+        onColumnSwitch: function (field, checked) { return false; },
+        onPageChange: function (number, size) { return false; },
+        onSearch: function (text) { return false; },
+        onPreBody: function (data) { return false; },
+        onPostBody: function () { return false; }
     };
 
     BootstrapTable.LOCALES = [];
@@ -274,29 +274,37 @@
     };
 
     BootstrapTable.prototype.init = function () {
+
         this.initContainer();
+
         this.initTable();
+
         this.initHeader();
+
         this.initData();
+
         this.initToolbar();
+
         this.initPagination();
+
         this.initBody();
+
         this.initServer();
     };
 
     BootstrapTable.prototype.initContainer = function () {
         this.$container = $([
-            '<div class="bootstrap-table">',
-                '<div class="fixed-table-toolbar"></div>',
-                '<div class="fixed-table-container">',
+            '<div class="bootstrap-table ' + (this.options.inPanel ? 'panel panel-default' : '') + '">',
+                '<div class="fixed-table-toolbar ' + (this.options.inPanel ? 'panel-heading clearfix no-margin' : '') + '"></div>',
+                ' ' + (this.options.inPanel ? '<div class="panel-body">' : '') + '<div class="fixed-table-container">',
                     '<div class="fixed-table-header"><table></table></div>',
                     '<div class="fixed-table-body">',
                         '<div class="fixed-table-loading">',
                             this.options.formatLoadingMessage(),
                         '</div>',
                     '</div>',
-                    '<div class="fixed-table-pagination"></div>',
-                '</div>',
+                '</div>' + (this.options.inPanel ? '</div>' : '') + '',
+                '<div class="fixed-table-pagination clearfix' + (this.options.inPanel ? ' panel-footer' : '') + '"></div>',
             '</div>'].join(''));
 
         this.$container.insertAfter(this.$el);
@@ -308,6 +316,7 @@
         if (this.options.striped) {
             this.$el.addClass('table-striped');
         }
+
     };
 
     BootstrapTable.prototype.initTable = function () {
@@ -331,9 +340,10 @@
             columns.push(column);
         });
         this.options.columns = $.extend([], columns, this.options.columns);
+
         $.each(this.options.columns, function (i, column) {
             that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS,
-                {field: i}, column); // when field is undefined, use index instead
+                { field: i }, column); // when field is undefined, use index instead
         });
 
         // if options.data is setting, do not process tbody data
@@ -467,9 +477,9 @@
     };
 
     /**
-     * @param data
-     * @param type: append / prepend
-     */
+    * @param data
+    * @param type: append / prepend
+    */
     BootstrapTable.prototype.initData = function (data, type) {
         if (type === 'append') {
             this.data = this.data.concat(data);
@@ -517,21 +527,21 @@
                 if (bb === undefined || bb === null) {
                     bb = '';
                 }
-                
+
                 if ($.isNumeric(aa) && $.isNumeric(bb)) {
                     if (aa < bb) {
                         return order * -1;
                     }
                     return order;
                 }
-                
+
                 if (aa === bb) {
                     return 0;
                 }
                 if (aa.localeCompare(bb) === -1) {
                     return order * -1;
                 }
-                    
+
                 return order;
             });
         }
@@ -594,14 +604,14 @@
         }
 
         if (this.options.showRefresh) {
-            html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize == undefined ? '' :  ' btn-' + this.options.iconSize) + '" type="button" name="refresh" title="%s">',
+            html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" name="refresh" title="%s">',
                 this.options.formatRefresh()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh),
                 '</button>');
         }
 
         if (this.options.showToggle) {
-            html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize == undefined ? '' :  ' btn-' + this.options.iconSize) + '" type="button" name="toggle" title="%s">',
+            html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" name="toggle" title="%s">',
                 this.options.formatToggle()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
@@ -610,7 +620,7 @@
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
                 this.options.formatColumns()),
-                '<button type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' :  ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
+                '<button type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
                 '</button>',
@@ -681,7 +691,7 @@
             html = [];
             html.push(
                 '<div class="pull-' + this.options.searchAlign + ' search">',
-                    sprintf('<input class="form-control' + (this.options.iconSize == undefined ? '' :  ' input-' + this.options.iconSize)  + '" type="text" placeholder="%s">',
+                    sprintf('<input class="form-control' + (this.options.iconSize == undefined ? '' : ' input-' + this.options.iconSize) + '" type="text" placeholder="%s">',
                         this.options.formatSearch()),
                 '</div>');
 
@@ -700,7 +710,7 @@
         var text = $.trim($(event.currentTarget).val());
 
         // trim search input
-        if(this.options.trimOnSearch) {
+        if (this.options.trimOnSearch) {
             $(event.currentTarget).val(text);
         }
 
@@ -720,7 +730,7 @@
 
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
-            var f = $.isEmptyObject(this.filterColumns) ? null: this.filterColumns;
+            var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
 
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
@@ -780,7 +790,7 @@
 
         this.totalPages = 0;
         if (this.options.totalRows) {
-            this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
+            this.totalPages = ~ ~((this.options.totalRows - 1) / this.options.pageSize) + 1;
             this.options.totalPages = this.totalPages;
         }
         if (this.totalPages > 0 && this.options.pageNumber > this.totalPages) {
@@ -794,7 +804,7 @@
         }
 
         html.push(
-            '<div class="pull-left pagination-detail">',
+            '<div class="pull-left pagination-detail ' + (this.options.inPanel ? 'no-margin' : '') + '">',
                 '<span class="pagination-info">',
                     this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
                 '</span>');
@@ -803,7 +813,7 @@
 
         var pageNumber = [
             '<span class="btn-group dropup">',
-            '<button type="button" class="btn btn-default '+ (this.options.iconSize == undefined ? '' :  ' btn-' + this.options.iconSize)+ ' dropdown-toggle" data-toggle="dropdown">',
+            '<button type="button" class="btn btn-default ' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
             '<span class="page-size">',
             this.options.pageSize,
             '</span>',
@@ -822,7 +832,7 @@
         }
 
         $.each(pageList, function (i, page) {
-            if (!that.options.smartDisplay || i === 0 || pageList[i-1] <= that.options.totalRows) {
+            if (!that.options.smartDisplay || i === 0 || pageList[i - 1] <= that.options.totalRows) {
                 var active = page === that.options.pageSize ? ' class="active"' : '';
                 pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
             }
@@ -833,8 +843,8 @@
         html.push('</span>');
 
         html.push('</div>',
-            '<div class="pull-right pagination">',
-                '<ul class="pagination' + (this.options.iconSize == undefined ? '' :  ' pagination-' + this.options.iconSize)  + '">',
+            '<div class="pull-right pagination ' + (this.options.inPanel ? 'no-margin' : '') + '">',
+                '<ul class="' + (this.options.inPanel ? 'no-margin' : '') + ' pagination' + (this.options.iconSize == undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
                     '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
                     '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
 
@@ -855,7 +865,7 @@
         }
         for (i = from; i <= to; i++) {
             html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-                '<a href="javascript:void(0)">', i ,'</a>',
+                '<a href="javascript:void(0)">', i, '</a>',
                 '</li>');
         }
 
@@ -899,6 +909,11 @@
         $next.off('click').on('click', $.proxy(this.onPageNext, this));
         $last.off('click').on('click', $.proxy(this.onPageLast, this));
         $number.off('click').on('click', $.proxy(this.onPageNumber, this));
+
+        //NM adding footer in container
+        if (typeof this.options.footer === 'string') {
+            this.$pagination.after($(this.options.footer));
+        }
     };
 
     BootstrapTable.prototype.updatePagination = function (event) {
@@ -1014,6 +1029,7 @@
             }
 
             $.each(this.header.fields, function (j, field) {
+
                 var text = '',
                     value = item[field],
                     type = '',
@@ -1031,13 +1047,15 @@
                 if (item['_' + field + '_id']) {
                     id_ = sprintf(' id="%s"', item['_' + field + '_id']);
                 }
-                if (item['_' + field + '_class']) {
-                    class_ = sprintf(' class="%s"', item['_' + field + '_class']);
+                if (item['_' + field + '_class'] || column.editable) {
+                    column.editable ? class_ = 'editable ' : '';
+                    item['_' + field + '_class'] ? class_ = class_ +  item['_' + field + '_class']:'';
                 }
 
                 cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
                 if (cellStyle.classes) {
+
                     class_ = sprintf(' class="%s"', cellStyle.classes);
                 }
                 if (cellStyle.css) {
@@ -1070,17 +1088,19 @@
                         that.options.undefinedText : value;
 
                     text = that.options.cardView ?
-                        ['<div class="card-view">',
-                            that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
-                                getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
-                            sprintf('<span class="value">%s</span>', value),
-                            '</div>'].join('') :
-                        [sprintf('<td%s %s %s>', id_, class_, style),
-                            value,
-                            '</td>'].join('');
+                    ['<div class="card-view">',
+                        that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
+                            getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
+                        sprintf('<span style="%s%s" class="value %s">%s</span>', 'display: inline-block;border-bottom: 1px dashed rgb(200, 200, 200);background-color: rgb(239, 239, 239);min-width:100px;', (column.editable && value == '') ? 'padding:10px' : '', column.editable ? 'editable' : '', value),
+                        '</div>'].join('') :
+
+                    [sprintf('<td%s %s class="%s">', id_, style, class_),
+                        value,
+                        '</td>'].join('');
+
 
                     // Hide empty data on Card view when smartDisplay is set to true.
-                    if (that.options.cardView && that.options.smartDisplay && value === '') {
+                    if (that.options.cardView && that.options.smartDisplay && value === '' && !column.editable) {
                         text = '';
                     }
                 }
@@ -1120,6 +1140,22 @@
                 }
             }
         });
+
+        this.$body.find('.editable').off('dblclick').on('dblclick', function () {
+
+            var row = $(this).closest('tr');
+            var col;
+            
+            if ($(this).parent().hasClass('card-view')) {
+                //card-view mode
+                col = that.header.fields[row.children('td').children().index($(this).parent())]
+            } else {
+                col = that.header.fields[row.children().index($(this))]
+            }
+            that.colEdite($(this), row.data('index'), col);
+
+        });
+
         this.$body.find('tr').off('dblclick').on('dblclick', function () {
             that.trigger('dbl-click-row', that.data[$(this).data('index')], $(this));
         });
@@ -1221,7 +1257,7 @@
             type: this.options.method,
             url: this.options.url,
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
-                JSON.stringify(data): data,
+                JSON.stringify(data) : data,
             cache: this.options.cache,
             contentType: this.options.contentType,
             dataType: this.options.dataType,
@@ -1319,7 +1355,7 @@
                 that.$header_.find('th').eq(i).data($(this).data());
             });
 
-            that.$body.find('tr:first-child:not(.no-records-found) > *').each(function(i) {
+            that.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
                 that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
             });
 
@@ -1606,7 +1642,7 @@
     };
 
     BootstrapTable.prototype.filterBy = function (columns) {
-        this.filterColumns = $.isEmptyObject(columns) ? {}: columns;
+        this.filterColumns = $.isEmptyObject(columns) ? {} : columns;
         this.options.pageNumber = 1;
         this.initSearch();
         this.updatePagination();
@@ -1649,6 +1685,53 @@
         this.initBody();
     };
 
+    BootstrapTable.prototype.colEdite = function (editable, row, col) {
+        var that = this;
+        var text_back = "";
+
+        text_back = editable.text();
+        editable.css('padding', '0px')
+        editable.removeClass("editable")
+        var height = editable.height() < 21 ? '' : '' + editable.height() + 'px'
+        editable.html('');
+
+        var input = $('<input></input>')
+            .attr({
+                'type': 'text',
+                'name': 'fname',
+                'id': 'txt_fullname',
+                'value': text_back
+            })
+            .css('width', '100%')
+            .css('border-radius', '0px')
+            .css('box-sizing', 'border-box')
+            .css('height', height)
+            .addClass('form-control')
+            .appendTo(editable)
+
+        input.focus();
+        that.resetView();
+        input.keypress(function (e) {
+            var key = e.which;
+            if (key == 13)  // the enter key code
+            {
+                var name = input.val();
+                that.data[row][col] = name;
+                editable.text(name);
+                editable.css('padding', name === '' ? '10px' : '');
+                editable.addClass("editable");
+                that.resetView();
+            }
+        });
+
+        input.blur(function (e) {
+            editable.text(text_back);
+            editable.css('padding', text_back == '' ? '10px' : '')
+            editable.addClass("editable")
+            that.resetView();
+        });
+    }
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -1675,7 +1758,6 @@
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
         var value;
-
         this.each(function () {
             var $this = $(this),
                 data = $this.data('bootstrap.table'),
@@ -1701,6 +1783,7 @@
             if (!data) {
                 $this.data('bootstrap.table', (data = new BootstrapTable(this, options)));
             }
+
         });
 
         return typeof value === 'undefined' ? this : value;
@@ -1719,4 +1802,4 @@
         $('[data-toggle="table"]').bootstrapTable();
     });
 
-}(jQuery);
+} (jQuery);
