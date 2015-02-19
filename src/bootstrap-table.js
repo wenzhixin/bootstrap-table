@@ -1047,8 +1047,9 @@
                 if (item['_' + field + '_id']) {
                     id_ = sprintf(' id="%s"', item['_' + field + '_id']);
                 }
-                if (item['_' + field + '_class']) {
-                    class_ = sprintf(' class="%s"', item['_' + field + '_class']);
+                if (item['_' + field + '_class'] || column.editable) {
+                    column.editable ? class_ = 'editable ' : '';
+                    item['_' + field + '_class'] ? class_ = class_ +  item['_' + field + '_class']:'';
                 }
 
                 cellStyle = calculateObjectValue(that.header,
@@ -1086,7 +1087,6 @@
                     value = typeof value === 'undefined' || value === null ?
                         that.options.undefinedText : value;
 
-
                     text = that.options.cardView ?
                     ['<div class="card-view">',
                         that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
@@ -1094,7 +1094,7 @@
                         sprintf('<span style="%s%s" class="value %s">%s</span>', 'display: inline-block;border-bottom: 1px dashed rgb(200, 200, 200);background-color: rgb(239, 239, 239);min-width:100px;', (column.editable && value == '') ? 'padding:10px' : '', column.editable ? 'editable' : '', value),
                         '</div>'].join('') :
 
-                    [sprintf('<td%s %s %s>', id_, column.editable ? class_ = class_.replace('="', '="editable ') : class_, style),
+                    [sprintf('<td%s %s class="%s">', id_, style, class_),
                         value,
                         '</td>'].join('');
 
@@ -1770,7 +1770,7 @@
     // =======================
 
     $(function () {
-         $('[data-toggle="table"]').bootstrapTable();
+        $('[data-toggle="table"]').bootstrapTable();
     });
 
 } (jQuery);
