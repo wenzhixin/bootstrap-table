@@ -1141,7 +1141,6 @@
             }
         });
 
-        //this.$body.find('> tr > td.editable').off('dblclick').on('dblclick', function () {
         this.$body.find('.editable').off('dblclick').on('dblclick', function () {
 
             var row = $(this).closest('tr');
@@ -1658,19 +1657,16 @@
         this.initBody();
     };
 
-    //NM Editable in line function may used evrywhere
     BootstrapTable.prototype.colEdite = function (editable, row, col) {
         var that = this;
         var text_back = "";
 
-        //editable = $(this);
         text_back = editable.text();
         editable.css('padding', '0px')
         editable.removeClass("editable")
         var height = editable.height() < 21 ? '' : '' + editable.height() + 'px'
         editable.html('');
 
-        //var container = $('<div class="input-group"><span class="input-group-btn"><button class="btn btn-default" type="button"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></span></div>');
         var input = $('<input></input>')
             .attr({
                 'type': 'text',
@@ -1684,12 +1680,6 @@
             .css('height', height)
             .addClass('form-control')
             .appendTo(editable)
-
-
-
-        //.prependTo(container );
-        //editable.append(container);
-
 
         input.focus();
         that.resetView();
@@ -1711,7 +1701,6 @@
             editable.css('padding', text_back == '' ? '10px' : '')
             editable.addClass("editable")
             that.resetView();
-            //background - color,rgba(228, 225, 225, 0.46)
         });
     }
 
@@ -1781,7 +1770,7 @@
     // =======================
 
     $(function () {
-        // $('[data-toggle="table"]').bootstrapTable();
+         $('[data-toggle="table"]').bootstrapTable();
     });
 
 } (jQuery);
