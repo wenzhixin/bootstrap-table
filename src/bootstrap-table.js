@@ -195,7 +195,8 @@
         onPageChange: function (number, size) {return false;},
         onSearch: function (text) {return false;},
         onPreBody: function (data) {return false;},
-        onPostBody: function () {return false;}
+        onPostBody: function () {return false;},
+        onPostHeader: function() {return false;}
     };
 
     BootstrapTable.LOCALES = [];
@@ -270,7 +271,8 @@
         'page-change.bs.table': 'onPageChange',
         'search.bs.table': 'onSearch',
         'pre-body.bs.table': 'onPreBody',
-        'post-body.bs.table': 'onPostBody'
+        'post-body.bs.table': 'onPostBody',
+        'post-header.bs.table' : 'onPostHeader'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -1329,6 +1331,8 @@
             $fixedBody.off('scroll').on('scroll', function () {
                 $fixedHeader.scrollLeft($(this).scrollLeft());
             });
+            
+            that.trigger('post-header');
         });
     };
 
@@ -1386,6 +1390,8 @@
 
         if (this.options.showHeader && this.options.height) {
             this.resetHeader();
+        } else {
+            this.trigger('post-header');
         }
 
         if (this.options.height && this.options.showHeader) {
