@@ -122,6 +122,28 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>Uncheck a row, the row index start with 0.</td>
     </tr>
     <tr>
+        <td>checkBy</td>
+        <td>params</td>
+        <td>
+        Check a row by array of values, the params contains:<br>
+        field: name of the field used to find records<br>
+        values: array of values for rows to check<br>
+        Example: <br>
+        $("#table").bootstrapTable("checkBy", {field:"field_name", values:["value1","value2","value3"]})
+        </td>
+    </tr>
+    <tr>
+        <td>uncheckBy</td>
+        <td>params</td>
+        <td>
+        Uncheck a row by array of values, the params contains:<br>
+        field: name of the field used to find records<br>
+        values: array of values for rows to uncheck<br>
+        Example: <br>
+        $("#table").bootstrapTable("uncheckBy", {field:"field_name", values:["value1","value2","value3"]})
+        </td>
+    </tr>
+    <tr>
         <td>resetView</td>
         <td>params</td>
         <td>Reset the bootstrap table view, for example reset the table height.</td>
