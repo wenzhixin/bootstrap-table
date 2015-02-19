@@ -130,5 +130,10 @@
         <td>none</td>
         <td>Fires after the table body is rendered and available in the DOM</td>
     </tr>
+    <tr>
+       <td>onPostHeader</td>
+       <td>post-header.bs.table</td>
+       <td>none</td>
+       <td>Fires after the table header is rendered and availble in the DOM</td>
     </tbody>
 </table>
