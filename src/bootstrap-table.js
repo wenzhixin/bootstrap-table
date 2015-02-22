@@ -1559,11 +1559,11 @@
         }
         
         var that = this;
-        $.each(this.data, function (index, row) {
-            if(!row.hasOwnProperty(obj.field)) {
+        $.each(this.options.data, function (index, row) {
+            if (!row.hasOwnProperty(obj.field)) {
                 return false;
             }
-            if($.inArray(row[obj.field], obj.values) != -1) {
+            if ($.inArray(row[obj.field], obj.values) !== -1) {
                 that.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
                 row[that.header.stateField] = checked;
                 that.trigger(checked ? 'check' : 'uncheck', row);  
