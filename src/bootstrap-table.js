@@ -1422,16 +1422,22 @@
     };
 
     BootstrapTable.prototype.load = function (data) {
+        var fixedScroll = false;
+
         // #431: support pagination
         if (this.options.sidePagination === 'server') {
             this.options.totalRows = data.total;
+            fixedScroll = data.fixedScroll;
             data = data.rows;
+        } else if (!$.isArray(data)) { // support fixedScroll
+            fixedScroll = data.fixedScroll;
+            data = data.data;
         }
 
         this.initData(data);
         this.initSearch();
         this.initPagination();
-        this.initBody();
+        this.initBody(fixedScroll);
     };
 
     BootstrapTable.prototype.append = function (data) {
