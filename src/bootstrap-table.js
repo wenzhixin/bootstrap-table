@@ -517,7 +517,7 @@
                     bb = '';
                 }
                 
-				// IF both values are numeric, do a numeric comparison
+                // IF both values are numeric, do a numeric comparison
                 if ($.isNumeric(aa) && $.isNumeric(bb)) {
                     // Convert numerical values form string to float.
                     aa = parseFloat(aa);
@@ -532,7 +532,7 @@
                     return 0;
                 }
 
-				// If value is not a string, convert to string
+                // If value is not a string, convert to string
                 if (typeof aa !== 'string')
                 {
                     aa = aa.toString();
