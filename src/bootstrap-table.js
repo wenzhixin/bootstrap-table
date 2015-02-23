@@ -357,7 +357,7 @@
                 // save td's id and class
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
-                row['_' + field + '_data_value'] = $(this).attr('data-value');
+                row['_' + field + '_data'] = $(this).data();
             });
             data.push(row);
         });
@@ -497,8 +497,8 @@
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
-                var aa = a['_' + name + '_data_value'] || a[name],
-                    bb = b['_' + name + '_data_value'] || b[name],
+                var aa = a[name],
+                    bb = b[name],
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
@@ -1030,6 +1030,7 @@
                     cellStyle = {},
                     id_ = '',
                     class_ = that.header.classes[j],
+                    data_ = '',
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
@@ -1044,9 +1045,6 @@
                 if (item['_' + field + '_class']) {
                     class_ = sprintf(' class="%s"', item['_' + field + '_class']);
                 }
-                if (item['_' + field + '_data_value']) {
-                    class_ = sprintf(' data-value="%s"', item['_' + field + '_data_value']);
-                }
                 cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
                 if (cellStyle.classes) {
@@ -1058,6 +1056,16 @@
                         csses_.push(key + ': ' + cellStyle.css[key]);
                     }
                     style = sprintf('style="%s"', csses_.concat(that.header.styles[j]).join('; '));
+                }
+
+                if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
+                    $.each(item['_' + field + '_data'], function (k, v) {
+                        // ignore data-index
+                        if (k === 'index') {
+                            return;
+                        }
+                        data_ += sprintf(' data-%s="%s"', k, v);
+                    });
                 }
 
                 if (column.checkbox || column.radio) {
@@ -1087,7 +1095,7 @@
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
-                        [sprintf('<td%s %s %s>', id_, class_, style),
+                        [sprintf('<td%s %s %s %s>', id_, class_, style, data_),
                             value,
                             '</td>'].join('');
 
