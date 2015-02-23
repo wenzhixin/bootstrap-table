@@ -42,7 +42,7 @@
                 $export = $([
                     '<div class="export btn-group">',
                         '<button class="btn btn-default dropdown-toggle" ' +
-                            'data-toggle="dropdown" type="button">',
+                            'data-toggle="dropdown" type="button" title="'+this.options.formatExport()+'">',
                             '<i class="glyphicon glyphicon-export icon-share"></i> ',
                             '<span class="caret"></span>',
                         '</button>',
@@ -71,10 +71,13 @@
                     }
                 });
 
+                var $ignoredColumns = this.options.exportIgnoreColumns;
+
                 $menu.find('li').click(function () {
                     that.$el.tableExport({
                         type: $(this).data('type'),
-                        escape: false
+                        escape: false,
+                        ignoreColumn: $ignoredColumns
                     });
                 });
             }

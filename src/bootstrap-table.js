@@ -154,6 +154,7 @@
         showRefresh: false,
         showToggle: false,
         buttonsAlign: 'right',
+        showAdd: false,
         smartDisplay: true,
         minimumCountColumns: 1,
         idField: undefined,
@@ -174,7 +175,8 @@
             paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
             refresh: 'glyphicon-refresh icon-refresh',
             toggle: 'glyphicon-list-alt icon-list-alt',
-            columns: 'glyphicon-th icon-th'
+            columns: 'glyphicon-th icon-th',
+            add: 'glyphicon-plus'
         },
 
         rowStyle: function (row, index) {return {};},
@@ -228,6 +230,9 @@
         },
         formatColumns: function () {
             return 'Columns';
+        },
+        formatExport: function() {
+            return 'Export';
         }
     };
 
@@ -237,6 +242,11 @@
         radio: false,
         checkbox: false,
         checkboxEnabled: true,
+        isBoolean: false,
+        displayFunction: function(value){
+            return value;
+        },
+        showTitle: true,
         field: undefined,
         title: undefined,
         'class': undefined,
@@ -245,6 +255,7 @@
         valign: undefined, // top, middle, bottom
         width: undefined,
         sortable: false,
+        filterable: false,
         order: 'asc', // asc, desc
         visible: true,
         switchable: true,
@@ -696,6 +707,17 @@
                 }, that.options.searchTimeOut);
             });
         }
+
+        if (this.options.showAdd) {
+            html = [];
+            html.push(
+                sprintf('<a type="button" href="%s" class="btn btn-success pull-right add"><i class="%s %s"></i></a>',
+                         this.options.showAdd,
+                         this.options.iconsPrefix,
+                         this.options.icons.add)
+            );
+            this.$toolbar.prepend(html.join(''));
+        }
     };
 
     BootstrapTable.prototype.onSearch = function (event) {
@@ -1024,10 +1046,26 @@
                     class_ = that.header.classes[j],
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
+                // support for inner objects (object relations) 
+                if (field.indexOf(".") > -1) {
+                    var fields = field.split(".");
+                    value = item[fields[0]];
+                    $.each(fields, function (i, f) {
+                        if (i > 0)
+                            value = value[f];
+                    });
+                }
+
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
                 value = calculateObjectValue(that.header,
                     that.header.formatters[j], [value, item, i], value);
+
+                if (typeof column.displayFunction === "string") {
+                    column.displayFunction = new Function("value", column.displayFunction);
+                }
+
+                value = column.displayFunction(value);
 
                 // handle td's id and class
                 if (item['_' + field + '_id']) {
@@ -1048,6 +1086,10 @@
                         csses_.push(key + ': ' + cellStyle.css[key]);
                     }
                     style = sprintf('style="%s"', csses_.concat(that.header.styles[j]).join('; '));
+                }
+
+                if (column.isBoolean) {
+                    value = parseInt(value) == 1 ? '<i class="glyphicon glyphicon-ok"></i>' : '<i class="glyphicon glyphicon-remove"></i>'
                 }
 
                 if (column.checkbox || column.radio) {
@@ -1073,7 +1115,7 @@
 
                     text = that.options.cardView ?
                         ['<div class="card-view">',
-                            that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
+                            that.options.showHeader && column.showTitle ? sprintf('<span class="title" %s>%s</span>', style,
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
