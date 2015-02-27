@@ -1466,7 +1466,7 @@
             row = this.options.data[i];
 
             if (!row.hasOwnProperty(params.field)) {
-                return;
+                continue;
             }
             if ($.inArray(row[params.field], params.values) !== -1) {
                 this.options.data.splice(i, 1);
