@@ -87,7 +87,12 @@
         },
 
         flatHelper: function (data) {
-            var flatArray = [];
+            var flatArray = [],
+				arrayHelper = [];
+			if (!$.isArray(data)) {
+				arrayHelper.push(data);
+				data = arrayHelper;
+			}
             $.each(data, function (i, element) {
                 flatArray.push(sd.flat(element));
             });
