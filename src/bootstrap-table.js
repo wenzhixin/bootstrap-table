@@ -195,7 +195,8 @@
         onPageChange: function (number, size) {return false;},
         onSearch: function (text) {return false;},
         onPreBody: function (data) {return false;},
-        onPostBody: function () {return false;}
+        onPostBody: function () {return false;},
+        onPostHeader: function() {return false;}
     };
 
     BootstrapTable.LOCALES = [];
@@ -270,7 +271,8 @@
         'page-change.bs.table': 'onPageChange',
         'search.bs.table': 'onSearch',
         'pre-body.bs.table': 'onPreBody',
-        'post-body.bs.table': 'onPostBody'
+        'post-body.bs.table': 'onPostBody',
+        'post-header.bs.table' : 'onPostHeader'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -355,6 +357,7 @@
                 // save td's id and class
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
+                row['_' + field + '_data'] = $(this).data();
             });
             data.push(row);
         });
@@ -502,12 +505,8 @@
                     return order * value;
                 }
 
-                // Convert numerical values form string to float.
-                if ($.isNumeric(aa)) {
-                    aa = parseFloat(aa);
-                }
-                if ($.isNumeric(bb)) {
-                    bb = parseFloat(bb);
+                if (value !== undefined) {
+                    return order * value;
                 }
 
                 // Fix #161: undefined or null string sort bug.
@@ -518,7 +517,11 @@
                     bb = '';
                 }
                 
+                // IF both values are numeric, do a numeric comparison
                 if ($.isNumeric(aa) && $.isNumeric(bb)) {
+                    // Convert numerical values form string to float.
+                    aa = parseFloat(aa);
+                    bb = parseFloat(bb);
                     if (aa < bb) {
                         return order * -1;
                     }
@@ -528,6 +531,13 @@
                 if (aa === bb) {
                     return 0;
                 }
+
+                // If value is not a string, convert to string
+                if (typeof aa !== 'string')
+                {
+                    aa = aa.toString();
+                }
+
                 if (aa.localeCompare(bb) === -1) {
                     return order * -1;
                 }
@@ -1020,6 +1030,7 @@
                     cellStyle = {},
                     id_ = '',
                     class_ = that.header.classes[j],
+                    data_ = '',
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
@@ -1034,7 +1045,6 @@
                 if (item['_' + field + '_class']) {
                     class_ = sprintf(' class="%s"', item['_' + field + '_class']);
                 }
-
                 cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
                 if (cellStyle.classes) {
@@ -1046,6 +1056,16 @@
                         csses_.push(key + ': ' + cellStyle.css[key]);
                     }
                     style = sprintf('style="%s"', csses_.concat(that.header.styles[j]).join('; '));
+                }
+
+                if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
+                    $.each(item['_' + field + '_data'], function (k, v) {
+                        // ignore data-index
+                        if (k === 'index') {
+                            return;
+                        }
+                        data_ += sprintf(' data-%s="%s"', k, v);
+                    });
                 }
 
                 if (column.checkbox || column.radio) {
@@ -1075,7 +1095,7 @@
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
-                        [sprintf('<td%s %s %s>', id_, class_, style),
+                        [sprintf('<td%s %s %s %s>', id_, class_, style, data_),
                             value,
                             '</td>'].join('');
 
@@ -1329,6 +1349,8 @@
             $fixedBody.off('scroll').on('scroll', function () {
                 $fixedHeader.scrollLeft($(this).scrollLeft());
             });
+            
+            that.trigger('post-header');
         });
     };
 
@@ -1386,6 +1408,8 @@
 
         if (this.options.showHeader && this.options.height) {
             this.resetHeader();
+        } else {
+            this.trigger('post-header');
         }
 
         if (this.options.height && this.options.showHeader) {
@@ -1398,16 +1422,22 @@
     };
 
     BootstrapTable.prototype.load = function (data) {
+        var fixedScroll = false;
+
         // #431: support pagination
         if (this.options.sidePagination === 'server') {
             this.options.totalRows = data.total;
+            fixedScroll = data.fixedScroll;
             data = data.rows;
+        } else if (!$.isArray(data)) { // support fixedScroll
+            fixedScroll = data.fixedScroll;
+            data = data.data;
         }
 
         this.initData(data);
         this.initSearch();
         this.initPagination();
-        this.initBody();
+        this.initBody(fixedScroll);
     };
 
     BootstrapTable.prototype.append = function (data) {
@@ -1511,10 +1541,17 @@
     };
 
     BootstrapTable.prototype.checkAll_ = function (checked) {
+        var rows;
+        if(!checked) {
+            rows = this.getSelections();
+        }
         this.$selectItem.filter(':enabled').prop('checked', checked);
         this.updateRows(checked);
         this.updateSelected();
-        this.trigger(checked ? 'check-all' : 'uncheck-all');
+        if(checked) {
+            rows = this.getSelections();
+        }
+        this.trigger(checked ? 'check-all' : 'uncheck-all', rows);
     };
 
     BootstrapTable.prototype.check = function (index) {
@@ -1530,6 +1567,33 @@
         this.data[index][this.header.stateField] = checked;
         this.updateSelected();
         this.trigger(checked ? 'check' : 'uncheck', this.data[index]);
+    };
+    
+    BootstrapTable.prototype.checkBy = function (obj) {
+        this.checkBy_(true, obj);
+    };
+
+    BootstrapTable.prototype.uncheckBy = function (obj) {
+        this.checkBy_(false, obj);
+    };
+    
+    BootstrapTable.prototype.checkBy_ = function (checked, obj) {
+        if(!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
+            return;
+        }
+        
+        var that = this;
+        $.each(this.options.data, function (index, row) {
+            if (!row.hasOwnProperty(obj.field)) {
+                return false;
+            }
+            if ($.inArray(row[obj.field], obj.values) !== -1) {
+                that.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
+                row[that.header.stateField] = checked;
+                that.trigger(checked ? 'check' : 'uncheck', row);  
+            }
+        });
+        this.updateSelected();
     };
 
     BootstrapTable.prototype.destroy = function () {
@@ -1632,6 +1696,7 @@
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',
+        'checkBy', 'uncheckBy',
         'refresh',
         'resetView',
         'destroy',
