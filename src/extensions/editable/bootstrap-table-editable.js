@@ -3,14 +3,18 @@
  * extensions: https://github.com/vitalets/x-editable
  */
 
-!function($) {
+!function ($) {
 
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
         editable: true,
-        onEditableInit: function () {return false;},
-        onEditableSave: function (field, row, oldValue, $el) {return false;}
+        onEditableInit: function () {
+            return false;
+        },
+        onEditableSave: function (field, row, oldValue, $el) {
+            return false;
+        }
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
