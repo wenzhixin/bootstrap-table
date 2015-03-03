@@ -88,11 +88,11 @@
 
         flatHelper: function (data) {
             var flatArray = [],
-				arrayHelper = [];
-			if (!$.isArray(data)) {
-				arrayHelper.push(data);
-				data = arrayHelper;
-			}
+                arrayHelper = [];
+            if (!$.isArray(data)) {
+                arrayHelper.push(data);
+                data = arrayHelper;
+            }
             $.each(data, function (i, element) {
                 flatArray.push(sd.flat(element));
             });

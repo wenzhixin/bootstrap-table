@@ -30,4 +30,10 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 
 Fired when all columns was initialized by `$().editable()` method.
 
+### onEditableSave(editable-save.bs.table)
 
+Fired when an editable cell is saved.
+
+## The existing problems
+
+* Editable extension does not support searchable in the select type.
