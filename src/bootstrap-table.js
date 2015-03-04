@@ -1420,7 +1420,8 @@
 		if (index === -1) {
             return;
         }
-		if (visible) {
+
+        if (visible) {
 			this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'table-row');
 		} else {
 			this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'none');
@@ -1549,7 +1550,7 @@
     };
 	
 	BootstrapTable.prototype.showRow = function (index) {
-		this.toggleRow(index, true);
+        this.toggleRow(index, true);
 	};
 
 	BootstrapTable.prototype.hideRow = function (index) {
