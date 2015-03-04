@@ -1422,7 +1422,7 @@
         }
 
         if (visible) {
-			this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'table-row');
+            this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'table-row');
 		} else {
             this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'none');
 		}
@@ -1554,7 +1554,7 @@
 	};
 
 	BootstrapTable.prototype.hideRow = function (index) {
-		this.toggleRow(index, false);
+        this.toggleRow(index, false);
 	};
 
     BootstrapTable.prototype.mergeCells = function (options) {
