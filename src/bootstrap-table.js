@@ -1415,6 +1415,17 @@
             }
         }
     };
+	
+	BootstrapTable.prototype.toggleRow = function (index, visible) {
+		if (index === -1) {
+            return;
+        }
+		if (visible) {
+			this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'table-row');
+		} else {
+			this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'none');
+		}
+	};
 
     // PUBLIC FUNCTION DEFINITION
     // =======================
@@ -1536,6 +1547,14 @@
         $.extend(this.data[params.index], params.row);
         this.initBody(true);
     };
+	
+	BootstrapTable.prototype.showRow = function (index) {
+		this.toggleRow(index, true);
+	};
+
+	BootstrapTable.prototype.hideRow = function (index) {
+		this.toggleRow(index, false);
+	};
 
     BootstrapTable.prototype.mergeCells = function (options) {
         var row = options.index,
@@ -1679,7 +1698,7 @@
     BootstrapTable.prototype.hideColumn = function (field) {
         this.toggleColumn(getFieldIndex(this.options.columns, field), false, true);
     };
-
+	
     BootstrapTable.prototype.filterBy = function (columns) {
         this.filterColumns = $.isEmptyObject(columns) ? {} : columns;
         this.options.pageNumber = 1;
@@ -1723,7 +1742,7 @@
         this.initHeader();
         this.initBody();
     };
-
+	
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -1731,7 +1750,7 @@
         'getOptions',
         'getSelections', 'getData',
         'load', 'append', 'prepend', 'remove',
-        'insertRow', 'updateRow',
+        'insertRow', 'updateRow', 'showRow', 'hideRow',
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',
