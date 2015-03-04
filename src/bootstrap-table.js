@@ -1423,9 +1423,9 @@
 
         if (visible) {
             this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'table-row');
-		} else {
+        } else {
             this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'none');
-		}
+        }
 	};
 
     // PUBLIC FUNCTION DEFINITION
