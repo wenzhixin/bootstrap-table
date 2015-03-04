@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table) 
 [![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.png)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
 [![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
-[![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/wenzhixin/bootstrap-table/.counters/views-24h.png)](https://github.com/wenzhixin/bootstrap-table)
 [![Gratipay](https://img.shields.io/gratipay/wenzhixin.svg)](https://gratipay.com/wenzhixin/)
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDHP676FQDUT6)
 
@@ -16,8 +15,6 @@ More examples: https://github.com/wenzhixin/bootstrap-table-examples#examples-li
 ## LICENSE
 
 **NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
-
-## Bugs & Enhancements (next version)
 
 ## Features
 
@@ -46,6 +43,12 @@ Use [Releases page](https://github.com/wenzhixin/bootstrap-table/releases) or [t
 
 ```
 bower install bootstrap-table
+```
+
+### Npm
+
+```
+npm install bootstrap-table
 ```
 
 ### CDN
@@ -79,7 +82,4 @@ grunt build
 ```
 
 Result will appear in `dist` directory.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/wenzhixin/bootstrap-table/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
