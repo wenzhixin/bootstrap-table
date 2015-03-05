@@ -245,6 +245,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>False to hide the table header.</td>
     </tr>
     <tr>
+        <td>showFooter</td>
+        <td>data-show-footer</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>If true shows summery footer row</td>
+    </tr>
+    <tr>
         <td>showColumns</td>
         <td>data-show-columns</td>
         <td>Boolean</td>

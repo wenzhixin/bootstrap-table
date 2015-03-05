@@ -69,6 +69,13 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>Indicate how to align the table header. 'left', 'right', 'center' can be used.</td>
     </tr>
     <tr>
+        <td>falign</td>
+        <td>data-falign</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Indicate how to align the table footer. 'left', 'right', 'center' can be used.</td>
+    </tr>
+    <tr>
         <td>valign</td>
         <td>data-valign</td>
         <td>String</td>
@@ -128,6 +135,17 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         value: the field value. <br>
         row: the row record data.<br>
         index: the row index.</td>
+    </tr>
+    <tr>
+        <td>footerFormatter</td>
+        <td>data-footer-formatter</td>
+        <td>Function</td>
+        <td>undefined</td>
+        <td>
+        The context (this) is the column Object.
+        The function, take one parameter: <br>
+        data: Array of all the  data rows. <br>
+        the function should return a string with the text to show in the footer cell.
     </tr>
     <tr>
         <td>events</td>
