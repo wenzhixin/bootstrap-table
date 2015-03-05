@@ -15,6 +15,8 @@
 }
 
 .fixed-table-header {
+    height: 37px; /*cellHeight*/
+    border-bottom: 1px solid #dddddd;
     overflow: hidden;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
