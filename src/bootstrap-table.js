@@ -5,9 +5,9 @@
  */
 
 !function ($) {
-
     'use strict';
 
+    var cellHeight = 37; // update css if changed
     // TOOLS DEFINITION
     // ======================
 
@@ -54,24 +54,28 @@
         return index;
     };
 
+    var cachedWidth = null;
     var getScrollBarWidth = function () {
-        var inner = $('<p/>').addClass('fixed-table-scroll-inner'),
-            outer = $('<div/>').addClass('fixed-table-scroll-outer'),
-            w1, w2;
+        if (cachedWidth === null) {
+            var inner = $('<p/>').addClass('fixed-table-scroll-inner'),
+                outer = $('<div/>').addClass('fixed-table-scroll-outer'),
+                w1, w2;
 
-        outer.append(inner);
-        $('body').append(outer);
+            outer.append(inner);
+            $('body').append(outer);
 
-        w1 = inner[0].offsetWidth;
-        outer.css('overflow', 'scroll');
-        w2 = inner[0].offsetWidth;
+            w1 = inner[0].offsetWidth;
+            outer.css('overflow', 'scroll');
+            w2 = inner[0].offsetWidth;
 
-        if (w1 === w2) {
-            w2 = outer[0].clientWidth;
+            if (w1 === w2) {
+                w2 = outer[0].clientWidth;
+            }
+
+            outer.remove();
+            cachedWidth = w1 - w2;
         }
-
-        outer.remove();
-        return w1 - w2;
+        return cachedWidth;
     };
 
     var calculateObjectValue = function (self, name, args, defaultValue) {
@@ -117,6 +121,7 @@
         this.$el = $(el);
         this.$el_ = this.$el.clone();
         this.timeoutId_ = 0;
+        this.timeoutFooter_ = 0;
 
         this.init();
     };
@@ -153,6 +158,7 @@
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
         showHeader: true,
+        showFooter: false,
         showColumns: false,
         showPaginationSwitch: false,
         showRefresh: false,
@@ -282,6 +288,7 @@
         'class': undefined,
         align: undefined, // left, right, center
         halign: undefined, // left, right, center
+        falign: undefined, // left, right, center
         valign: undefined, // top, middle, bottom
         width: undefined,
         sortable: false,
@@ -290,6 +297,7 @@
         switchable: true,
         clickToSelect: true,
         formatter: undefined,
+        footerFormatter: undefined,
         events: undefined,
         sorter: undefined,
         cellStyle: undefined,
@@ -320,6 +328,7 @@
         this.initTable();
         this.initHeader();
         this.initData();
+        this.initFooter();
         this.initToolbar();
         this.initPagination();
         this.initBody();
@@ -337,6 +346,7 @@
             this.options.formatLoadingMessage(),
             '</div>',
             '</div>',
+            '<div class="fixed-table-footer"><table><tr></tr></table></div>',
             '<div class="fixed-table-pagination"></div>',
             '</div>',
             '</div>'].join(''));
@@ -498,7 +508,7 @@
         } else {
             this.$header.show();
             this.$container.find('.fixed-table-header').show();
-            this.$loading.css('top', '37px');
+            this.$loading.css('top', cellHeight + 'px');
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
@@ -508,6 +518,78 @@
                 that[checked ? 'checkAll' : 'uncheckAll']();
             });
     };
+
+    BootstrapTable.prototype.initFooter = function () {
+        this.$footer =  this.$container.find('.fixed-table-footer');
+        if (!this.options.showFooter || this.options.cardView) {
+            this.$footer.hide();
+        } else {
+            this.$footer.show();
+        }
+    };
+
+    BootstrapTable.prototype.resetFooter = function () {
+        var bt   = this,
+            data = bt.getData(),
+            html = [];
+
+        if (!this.options.showFooter || this.options.cardView) { //do nothing
+            return;
+        }
+
+        $.each(bt.options.columns, function (i, column) {
+            var falign = '', // footer align style
+                style  = '',
+                class_ = sprintf(' class="%s"', column['class']);
+
+            if (!column.visible) {
+                return;
+            }
+
+            falign = sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
+            style = sprintf('vertical-align: %s; ', column.valign);
+
+            html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
+
+
+            html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
+            html.push('</td>');
+        });
+
+        bt.$footer.find('tr').html(html.join(''));
+        clearTimeout(bt.timeoutFooter_);
+        bt.timeoutFooter_ = setTimeout($.proxy(bt.fitFooter, bt), bt.$el.is(':hidden') ? 100: 0);
+        return;
+    };
+
+    BootstrapTable.prototype.fitFooter = function () {
+        var bt = this,
+            $fixedBody,
+            $footerTd,
+            elWidth,
+            scrollWidth;
+        clearTimeout(bt.timeoutFooter_);
+        if (bt.$el.is(':hidden')) {
+            bt.timeoutFooter_ = setTimeout($.proxy(bt.fitFooter, bt), 100);
+            return;
+        }
+
+        $fixedBody  = bt.$container.find('.fixed-table-body');
+        elWidth     = bt.$el.css('width');
+        scrollWidth = elWidth > $fixedBody.width() ? getScrollBarWidth() : 0;
+
+        bt.$footer.css({
+            'margin-right': scrollWidth
+        }).find('table').css('width', elWidth)
+            .attr('class', bt.$el.attr('class'));
+
+        $footerTd = bt.$footer.find('td');
+
+        $fixedBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function(i) {
+            $footerTd.eq(i).outerWidth($(this).outerWidth());
+        });
+    };
+
 
     /**
      * @param data
@@ -1027,7 +1109,8 @@
         }
 
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
-            var item = data[i],
+            var key,
+                item = data[i],
                 style = {},
                 csses = [],
                 attributes = {},
@@ -1036,7 +1119,7 @@
             style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
             if (style && style.css) {
-                for (var key in style.css) {
+                for (key in style.css) {
                     csses.push(key + ': ' + style.css[key]);
                 }
             }
@@ -1045,7 +1128,7 @@
                 this.options.rowAttributes, [item, i], attributes);
 
             if (attributes) {
-                for (var key in attributes) {
+                for (key in attributes) {
                     htmlAttributes.push(sprintf('%s="%s"', key, escapeHTML(attributes[key])));
                 }
             }
@@ -1348,49 +1431,50 @@
     };
 
     BootstrapTable.prototype.resetHeader = function () {
-        var that = this,
-            $fixedHeader = this.$container.find('.fixed-table-header'),
-            $fixedBody = this.$container.find('.fixed-table-body'),
-            scrollWidth = this.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
-
+        this.$el.css('margin-top', -this.$header.height());
         // fix #61: the hidden table reset header bug.
-        if (this.$el.is(':hidden')) {
-            clearTimeout(this.timeoutId_); // doesn't matter if it's 0
-            this.timeoutId_ = setTimeout($.proxy(this.resetHeader, this), 100); // 100ms
+        // fix bug: get $el.css('width') error sometime (height = 500)
+        clearTimeout(this.timeoutId_);
+        this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), this.$el.is(':hidden') ? 100 : 0);
+        return;
+    };
+
+    BootstrapTable.prototype.fitHeader = function () {
+        var bt = this,
+            $fixedHeader,
+            $fixedBody,
+            scrollWidth;
+
+        if (bt.$el.is(':hidden')) {
+            bt.timeoutFooter_ = setTimeout($.proxy(bt.fitHeader, bt), 100);
             return;
         }
+        $fixedHeader = bt.$container.find('.fixed-table-header'),
+        $fixedBody = bt.$container.find('.fixed-table-body'),
+        scrollWidth = bt.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
 
-        this.$header_ = this.$header.clone(true, true);
-        this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
+        bt.$header_ = bt.$header.clone(true, true);
+        bt.$selectAll_ = bt.$header_.find('[name="btSelectAll"]');
+        $fixedHeader.css({
+            'margin-right': scrollWidth
+        }).find('table').css('width', bt.$el.css('width'))
+            .html('').attr('class', bt.$el.attr('class'))
+            .append(bt.$header_);
 
-        // fix bug: get $el.css('width') error sometime (height = 500)
-        setTimeout(function () {
-            $fixedHeader.css({
-                'height': '37px',
-                'border-bottom': '1px solid #dddddd',
-                'margin-right': scrollWidth
-            }).find('table').css('width', that.$el.css('width'))
-                .html('').attr('class', that.$el.attr('class'))
-                .append(that.$header_);
-
-            // fix bug: $.data() is not working as expected after $.append()
-            that.$header.find('th').each(function (i) {
-                that.$header_.find('th').eq(i).data($(this).data());
-            });
-
-            that.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
-                that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
-            });
-
-            that.$el.css('margin-top', -that.$header.height());
-
-            // horizontal scroll event
-            $fixedBody.off('scroll').on('scroll', function () {
-                $fixedHeader.scrollLeft($(this).scrollLeft());
-            });
-
-            that.trigger('post-header');
+        // fix bug: $.data() is not working as expected after $.append()
+        bt.$header.find('th').each(function (i) {
+            bt.$header_.find('th').eq(i).data($(this).data());
         });
+
+        bt.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+            bt.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
+        });
+        // horizontal scroll event
+        // TODO: it's probably better improving the layout than binding to scroll event
+        $fixedBody.off('scroll').on('scroll', function () {
+            $fixedHeader.scrollLeft($(this).scrollLeft());
+        });
+        bt.trigger('post-header');
     };
 
     BootstrapTable.prototype.toggleColumn = function (index, checked, needUpdate) {
@@ -1421,7 +1505,8 @@
 
     BootstrapTable.prototype.resetView = function (params) {
         var that = this,
-            header = this.header;
+            padding = 0,
+            $tableContainer = that.$container.find('.fixed-table-container');
 
         if (params && params.height) {
             this.options.height = params.height;
@@ -1435,25 +1520,31 @@
                 paginationHeight = +this.$pagination.children().outerHeight(true),
                 height = this.options.height - toolbarHeight - paginationHeight;
 
-            this.$container.find('.fixed-table-container').css('height', height + 'px');
+            $tableContainer.css('height', height + 'px');
         }
 
         if (this.options.cardView) {
             // remove the element css
             that.$el.css('margin-top', '0');
-            that.$container.find('.fixed-table-container').css('padding-bottom', '0');
+            $tableContainer.css('padding-bottom', '0');
             return;
         }
 
         if (this.options.showHeader && this.options.height) {
             this.resetHeader();
+            padding += cellHeight;
         } else {
             this.trigger('post-header');
         }
 
-        if (this.options.height && this.options.showHeader) {
-            this.$container.find('.fixed-table-container').css('padding-bottom', '37px');
+        if (this.options.showFooter) {
+            this.resetFooter();
+            if (this.options.height) {
+                padding += cellHeight;
+            }
         }
+
+        $tableContainer.css('padding-bottom', padding + 'px');
     };
 
     BootstrapTable.prototype.getData = function () {
