@@ -1499,13 +1499,14 @@
             }
         }
     };
-	
+
     BootstrapTable.prototype.toggleRow = function (index, visible) {
-	if (index === -1) {
-	   return;
-	}
-		
-	this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr')[visible ? 'show' : 'hide']();
+        if (index === -1) {
+           return;
+        }
+
+        this.$selectItem.filter(sprintf('[data-index="%s"]', index))
+            .parents('tr')[visible ? 'show' : 'hide']();
      };
 
     // PUBLIC FUNCTION DEFINITION
@@ -1635,7 +1636,7 @@
         $.extend(this.data[params.index], params.row);
         this.initBody(true);
     };
-	
+
     BootstrapTable.prototype.showRow = function (index) {
         this.toggleRow(index, true);
     };
@@ -1786,7 +1787,7 @@
     BootstrapTable.prototype.hideColumn = function (field) {
         this.toggleColumn(getFieldIndex(this.options.columns, field), false, true);
     };
-	
+
     BootstrapTable.prototype.filterBy = function (columns) {
         this.filterColumns = $.isEmptyObject(columns) ? {} : columns;
         this.options.pageNumber = 1;
@@ -1830,7 +1831,7 @@
         this.initHeader();
         this.initBody();
     };
-	
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -1838,7 +1839,8 @@
         'getOptions',
         'getSelections', 'getData',
         'load', 'append', 'prepend', 'remove',
-        'insertRow', 'updateRow', 'showRow', 'hideRow',
+        'insertRow', 'updateRow',
+        'showRow', 'hideRow',
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',
