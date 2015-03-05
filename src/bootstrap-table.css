@@ -14,6 +14,7 @@
     -moz-border-radius: 4px;
 }
 
+.fixed-table-footer,
 .fixed-table-header {
     height: 37px; /*cellHeight*/
     border-bottom: 1px solid #dddddd;

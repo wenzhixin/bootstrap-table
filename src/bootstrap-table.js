@@ -121,6 +121,7 @@
         this.$el = $(el);
         this.$el_ = this.$el.clone();
         this.timeoutId_ = 0;
+        this.timeoutFooter_ = 0;
 
         this.init();
     };
@@ -153,6 +154,7 @@
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
         showHeader: true,
+        showFooter: false,
         showColumns: false,
         showPaginationSwitch: false,
         showRefresh: false,
@@ -245,6 +247,7 @@
         'class': undefined,
         align: undefined, // left, right, center
         halign: undefined, // left, right, center
+        falign: undefined, // left, right, center
         valign: undefined, // top, middle, bottom
         width: undefined,
         sortable: false,
@@ -253,6 +256,7 @@
         switchable: true,
         clickToSelect: true,
         formatter: undefined,
+        footerFormatter: undefined,
         events: undefined,
         sorter: undefined,
         cellStyle: undefined,
@@ -282,6 +286,7 @@
         this.initTable();
         this.initHeader();
         this.initData();
+        this.initFooter();
         this.initToolbar();
         this.initPagination();
         this.initBody();
@@ -299,6 +304,7 @@
                             this.options.formatLoadingMessage(),
                         '</div>',
                     '</div>',
+                    '<div class="fixed-table-footer"><table><tr></tr></table></div>',
                     '<div class="fixed-table-pagination"></div>',
                 '</div>',
             '</div>'].join(''));
@@ -469,6 +475,80 @@
                 that[checked ? 'checkAll' : 'uncheckAll']();
             });
     };
+
+    BootstrapTable.prototype.initFooter = function () {
+        this.$footer =  this.$container.find('.fixed-table-footer');
+        if (!this.options.showFooter || this.options.cardView) {
+            this.$footer.hide();
+        } else {
+            this.$footer.show();
+        }
+    };
+
+    BootstrapTable.prototype.resetFooter = function () {
+        var bt   = this,
+            data = bt.getData(),
+            html = [];
+
+        if (!this.options.showFooter || this.options.cardView) { //do nothing
+            return;
+        }
+
+        $.each(bt.options.columns, function (i, column) {
+            var falign = '', // footer align style
+                style  = '',
+                class_ = sprintf(' class="%s"', column['class']);
+
+            if (!column.visible) {
+                return;
+            }
+
+            falign = sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
+            style = sprintf('vertical-align: %s; ', column.valign);
+
+            html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
+            html.push(
+                typeof column.footerFormatter === 'function' ?
+                    column.footerFormatter(data) || '&nbsp;' :
+                    '&nbsp;'
+            );
+            html.push('</td>');
+        });
+
+        bt.$footer.find('tr').html(html.join(''));
+        clearTimeout(bt.timeoutFooter_);
+        bt.timeoutFooter_ = setTimeout($.proxy(bt.fitFooter, bt), bt.$el.is(':hidden') ? 100: 0);
+        return;
+    };
+
+    BootstrapTable.prototype.fitFooter = function () {
+        var bt = this,
+            $fixedBody,
+            $footerTd,
+            elWidth,
+            scrollWidth;
+        clearTimeout(bt.timeoutFooter_);
+        if (bt.$el.is(':hidden')) {
+            bt.timeoutFooter_ = setTimeout($.proxy(bt.fitFooter, bt), 100);
+            return;
+        }
+
+        $fixedBody  = bt.$container.find('.fixed-table-body');
+        elWidth     = bt.$el.css('width');
+        scrollWidth = elWidth > $fixedBody.width() ? getScrollBarWidth() : 0;
+
+        bt.$footer.css({
+            'margin-right': scrollWidth
+        }).find('table').css('width', elWidth)
+            .attr('class', bt.$el.attr('class'));
+
+        $footerTd = bt.$footer.find('td');
+
+        $fixedBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function(i) {
+            $footerTd.eq(i).outerWidth($(this).outerWidth());
+        });
+    };
+
 
     /**
      * @param data
@@ -1398,6 +1478,11 @@
 
         if (this.options.showHeader && this.options.height) {
             this.resetHeader();
+            padding += cellHeight;
+        }
+
+        if (this.options.showFooter) {
+            this.resetFooter();
             padding += cellHeight;
         }
 
