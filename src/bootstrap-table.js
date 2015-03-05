@@ -1420,12 +1420,8 @@
 		if (index === -1) {
             return;
         }
-
-        if (visible) {
-            this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'table-row');
-        } else {
-            this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr').css('display', 'none');
-        }
+		
+		this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr')[visible ? 'show' : 'hide']();
 	};
 
     // PUBLIC FUNCTION DEFINITION
