@@ -507,11 +507,9 @@
             style = sprintf('vertical-align: %s; ', column.valign);
 
             html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
-            html.push(
-                typeof column.footerFormatter === 'function' ?
-                    column.footerFormatter(data) || '&nbsp;' :
-                    '&nbsp;'
-            );
+
+
+            html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
             html.push('</td>');
         });
 
@@ -1481,9 +1479,11 @@
             padding += cellHeight;
         }
 
-        if (this.options.showFooter && this.options.height) {
+        if (this.options.showFooter) {
             this.resetFooter();
-            padding += cellHeight;
+            if (this.options.height) {
+                padding += cellHeight;
+            }
         }
 
         $tableContainer.css('padding-bottom', padding + 'px');
