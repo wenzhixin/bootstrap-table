@@ -1416,13 +1416,13 @@
         }
     };
 	
-	BootstrapTable.prototype.toggleRow = function (index, visible) {
-		if (index === -1) {
-            return;
-        }
+    BootstrapTable.prototype.toggleRow = function (index, visible) {
+	if (index === -1) {
+	   return;
+	}
 		
-		this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr')[visible ? 'show' : 'hide']();
-	};
+	this.$selectItem.filter(sprintf('[data-index="%s"]', index)).parents('tr')[visible ? 'show' : 'hide']();
+     };
 
     // PUBLIC FUNCTION DEFINITION
     // =======================
@@ -1545,13 +1545,13 @@
         this.initBody(true);
     };
 	
-	BootstrapTable.prototype.showRow = function (index) {
+    BootstrapTable.prototype.showRow = function (index) {
         this.toggleRow(index, true);
-	};
+    };
 
-	BootstrapTable.prototype.hideRow = function (index) {
+    BootstrapTable.prototype.hideRow = function (index) {
         this.toggleRow(index, false);
-	};
+    };
 
     BootstrapTable.prototype.mergeCells = function (options) {
         var row = options.index,
