@@ -75,6 +75,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         row: the new row data.
         </td>
     </tr>
+	<tr>
+        <td>showRow</td>
+        <td>index</td>
+        <td>Show the specified row.</td>
+    </tr>
+    <tr>
+        <td>hideRow</td>
+        <td>index</td>
+        <td>Hide the specified row.</td>
+    </tr>
     <tr>
         <td>mergeCells</td>
         <td>options</td>
