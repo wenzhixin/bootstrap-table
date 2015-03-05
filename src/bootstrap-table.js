@@ -1481,7 +1481,7 @@
             padding += cellHeight;
         }
 
-        if (this.options.showFooter) {
+        if (this.options.showFooter && this.options.height) {
             this.resetFooter();
             padding += cellHeight;
         }
