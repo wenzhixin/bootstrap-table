@@ -206,8 +206,8 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>pageList</td>
         <td>data-page-list</td>
         <td>Array</td>
-        <td>[10, 25, 50, 100]</td>
-        <td>When set pagination property, initialize the page size selecting list.</td>
+        <td>[10, 25, 50, 100, All]</td>
+        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table</td>
     </tr>
     <tr>
         <td>selectItemName</td>

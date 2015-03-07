@@ -276,6 +276,9 @@
         },
         formatColumns: function () {
             return 'Columns';
+        },
+        formatAllRows: function () {
+            return 'All';
         }
     };
 
@@ -924,6 +927,7 @@
 
         var that = this,
             html = [],
+            $allSelected = false,
             i, from, to,
             $pageList,
             $first, $pre,
@@ -937,7 +941,13 @@
 
         this.totalPages = 0;
         if (this.options.totalRows) {
+            if (this.options.pageSize === this.options.formatAllRows()) {
+                this.options.pageSize = this.options.totalRows;
+                $allSelected = true;
+            }
+
             this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
+
             this.options.totalPages = this.totalPages;
         }
         if (this.totalPages > 0 && this.options.pageNumber > this.totalPages) {
@@ -962,7 +972,7 @@
                 '<span class="btn-group dropup">',
                 '<button type="button" class="btn btn-default ' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
                 '<span class="page-size">',
-                this.options.pageSize,
+                $allSelected ? this.options.formatAllRows() : this.options.pageSize,
                 '</span>',
                 ' <span class="caret"></span>',
                 '</button>',
@@ -974,13 +984,19 @@
 
             pageList = [];
             $.each(list, function (i, value) {
-                pageList.push(+value);
+                pageList.push(value.toUpperCase() === that.options.formatAllRows().toUpperCase() ?
+                                that.options.formatAllRows() : +value);
             });
         }
 
         $.each(pageList, function (i, page) {
             if (!that.options.smartDisplay || i === 0 || pageList[i - 1] <= that.options.totalRows) {
-                var active = page === that.options.pageSize ? ' class="active"' : '';
+                var active;
+                if ($allSelected) {
+                    active = page === that.options.formatAllRows() ? ' class="active"' : '';
+                } else{
+                    active = page === that.options.pageSize ? ' class="active"' : '';
+                }
                 pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
             }
         });
@@ -1082,7 +1098,8 @@
         var $this = $(event.currentTarget);
 
         $this.parent().addClass('active').siblings().removeClass('active');
-        this.options.pageSize = +$this.text();
+        this.options.pageSize = $this.text().toUpperCase() === this.options.formatAllRows().toUpperCase() ?
+                                    this.options.formatAllRows() : +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
         this.updatePagination(event);
     };
