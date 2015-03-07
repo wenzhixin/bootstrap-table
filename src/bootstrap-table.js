@@ -553,6 +553,12 @@
                 return;
             }
 
+            if (that.options.cardView) {
+                if (!column.cardVisible) {
+                    return;
+                }
+            }
+
             falign = sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
 
@@ -758,7 +764,7 @@
                 if (column.radio || column.checkbox) {
                     return;
                 }
-                var checked = column.visible ? ' checked="checked"' : '';
+                var checked = column.visible || column.cardVisible ? ' checked="checked"' : '';
 
                 if (column.switchable) {
                     html.push(sprintf('<li>' +
@@ -1447,41 +1453,41 @@
     };
 
     BootstrapTable.prototype.fitHeader = function () {
-        var bt = this,
+        var that = this,
             $fixedHeader,
             $fixedBody,
             scrollWidth;
 
-        if (bt.$el.is(':hidden')) {
-            bt.timeoutFooter_ = setTimeout($.proxy(bt.fitHeader, bt), 100);
+        if (that.$el.is(':hidden')) {
+            that.timeoutFooter_ = setTimeout($.proxy(that.fitHeader, that), 100);
             return;
         }
-        $fixedHeader = bt.$container.find('.fixed-table-header'),
-        $fixedBody = bt.$container.find('.fixed-table-body'),
-        scrollWidth = bt.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
+        $fixedHeader = that.$container.find('.fixed-table-header'),
+        $fixedBody = that.$container.find('.fixed-table-body'),
+        scrollWidth = that.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
 
-        bt.$header_ = bt.$header.clone(true, true);
-        bt.$selectAll_ = bt.$header_.find('[name="btSelectAll"]');
+        that.$header_ = that.$header.clone(true, true);
+        that.$selectAll_ = that.$header_.find('[name="btSelectAll"]');
         $fixedHeader.css({
             'margin-right': scrollWidth
-        }).find('table').css('width', bt.$el.css('width'))
-            .html('').attr('class', bt.$el.attr('class'))
-            .append(bt.$header_);
+        }).find('table').css('width', that.$el.css('width'))
+            .html('').attr('class', that.$el.attr('class'))
+            .append(that.$header_);
 
         // fix bug: $.data() is not working as expected after $.append()
-        bt.$header.find('th').each(function (i) {
-            bt.$header_.find('th').eq(i).data($(this).data());
+        that.$header.find('th').each(function (i) {
+            that.$header_.find('th').eq(i).data($(this).data());
         });
 
-        bt.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
-            bt.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
+        that.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+            that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
         });
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
         $fixedBody.off('scroll').on('scroll', function () {
             $fixedHeader.scrollLeft($(this).scrollLeft());
         });
-        bt.trigger('post-header');
+        that.trigger('post-header');
     };
 
     BootstrapTable.prototype.toggleColumn = function (index, checked, needUpdate) {
