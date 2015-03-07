@@ -764,7 +764,7 @@
                 if (column.radio || column.checkbox) {
                     return;
                 }
-                var checked = column.visible || column.cardVisible ? ' checked="checked"' : '';
+                var checked = column.visible && column.cardVisible ? ' checked="checked"' : '';
 
                 if (column.switchable) {
                     html.push(sprintf('<li>' +
