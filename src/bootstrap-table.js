@@ -444,10 +444,8 @@
                 return;
             }
 
-            if (that.options.cardView) {
-                if (!column.cardVisible) {
-                    return;
-                }
+            if (that.options.cardView && (!column.cardVisible)) {
+                return;
             }
 
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
@@ -553,10 +551,8 @@
                 return;
             }
 
-            if (that.options.cardView) {
-                if (!column.cardVisible) {
-                    return;
-                }
+            if (that.options.cardView && (!column.cardVisible)) {
+                return;
             }
 
             falign = sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
@@ -765,10 +761,8 @@
                     return;
                 }
 
-                if (that.options.cardView) {
-                    if (!column.cardVisible) {
-                        return;
-                    }
+                if (that.options.cardView && (!column.cardVisible)) {
+                    return;
                 }
 
                 var checked = column.visible ? ' checked="checked"' : '';
@@ -806,6 +800,7 @@
                 .off('click').on('click', function () {
                     that.options.cardView = !that.options.cardView;
                     that.initHeader();
+                    that.initToolbar();
                     that.initBody();
                 });
         }
@@ -1849,6 +1844,7 @@
     BootstrapTable.prototype.toggleView = function () {
         this.options.cardView = !this.options.cardView;
         this.initHeader();
+        this.initToolbar();
         this.initBody();
     };
 
