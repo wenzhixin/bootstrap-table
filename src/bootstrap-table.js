@@ -177,6 +177,7 @@
         sortable: true,
         maintainSelected: false,
         searchTimeOut: 500,
+        keyEvents: false,
         iconSize: undefined,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
         icons: {
@@ -334,6 +335,7 @@
         this.initPagination();
         this.initBody();
         this.initServer();
+        this.initKeyEvents();
     };
 
     BootstrapTable.prototype.initContainer = function () {
@@ -1397,6 +1399,28 @@
                 }
             }
         }));
+    };
+
+    BootstrapTable.prototype.initKeyEvents = function () {
+      if (this.options.keyEvents) {
+          var that = this;
+          $(document).off('keypress').on('keypress', function (e) {
+              if (!that.options.search) {
+                  return;
+              }
+
+              switch (e.keyCode) {
+                  case 115://s
+                  case 83://S
+                      var $search = that.$toolbar.find('.search input');
+                      if(document.activeElement === $search.get(0)){
+                          return true;
+                      }
+                      $search.focus();
+                      return false;
+              }
+          });
+      }
     };
 
     BootstrapTable.prototype.getCaretHtml = function () {

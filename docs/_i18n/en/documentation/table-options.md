@@ -368,6 +368,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>true</td>
         <td>False to disable sortable of all columns.</td>
     </tr>
+	<tr>
+        <td>keyEvents</td>
+        <td>data-key-events</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to enable the key events. For now when the user presses the "S/s" key the search button will be focused.</td>
+    </tr>
     <tr>
         <td>rowStyle</td>
         <td>data-row-style</td>
