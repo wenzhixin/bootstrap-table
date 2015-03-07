@@ -444,7 +444,7 @@
                 return;
             }
 
-            if (this.options.cardView) {
+            if (that.options.cardView) {
                 if (!column.cardVisible) {
                     return;
                 }
