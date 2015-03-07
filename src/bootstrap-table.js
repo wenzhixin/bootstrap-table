@@ -178,6 +178,7 @@
         maintainSelected: false,
         searchTimeOut: 500,
         keyEvents: false,
+        searchText: '',
         iconSize: undefined,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
         icons: {
@@ -841,6 +842,14 @@
                     that.onSearch(event);
                 }, that.options.searchTimeOut);
             });
+
+            if (this.options.searchText !== '') {
+                $search.val(this.options.searchText);
+                clearTimeout(timeoutId); // doesn't matter if it's 0
+                setTimeout(function () {
+                    $search.trigger('keyup');
+                }, timeoutId);
+            }
         }
     };
 

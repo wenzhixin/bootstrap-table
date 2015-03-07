@@ -230,6 +230,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>false</td>
         <td>Enable the search input.</td>
     </tr>
+	<tr>
+        <td>searchText</td>
+        <td>data-search-text</td>
+        <td>String</td>
+        <td>''</td>
+        <td>When set search property, initialize the search text.</td>
+    </tr>
     <tr>
         <td>searchTimeOut</td>
         <td>data-search-time-out</td>
