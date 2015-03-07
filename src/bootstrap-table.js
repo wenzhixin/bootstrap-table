@@ -301,7 +301,8 @@
         events: undefined,
         sorter: undefined,
         cellStyle: undefined,
-        searchable: true
+        searchable: true,
+        cardVisible: true
     };
 
     BootstrapTable.EVENTS = {
@@ -441,6 +442,12 @@
 
             if (!column.visible) {
                 return;
+            }
+
+            if (this.options.cardView) {
+                if (!column.cardVisible) {
+                    return;
+                }
             }
 
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
