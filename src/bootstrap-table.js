@@ -846,9 +846,9 @@
             if (this.options.searchText !== '') {
                 $search.val(this.options.searchText);
                 clearTimeout(timeoutId); // doesn't matter if it's 0
-                setTimeout(function () {
+                timeoutId = setTimeout(function () {
                     $search.trigger('keyup');
-                }, timeoutId);
+                }, that.options.searchTimeOut);
             }
         }
     };
