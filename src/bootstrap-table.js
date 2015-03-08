@@ -158,7 +158,6 @@
         paginationVAlign: 'bottom', //bottom, top
         paginationDetailHAlign: 'left', //right, left
         paginationDetailVAlign: 'bottom', //bottom, top
-        pageVAlign: 'bottom', //bottom, top
         search: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
