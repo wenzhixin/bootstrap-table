@@ -1059,12 +1059,15 @@
             if (this.totalPages <= 1) {
                 this.$pagination.find('div.pagination').hide();
             }
-            if (this.options.pageList.length < 2 || this.options.totalRows <= this.options.pageList[0]) {
+            if (pageList.length < 2 || this.options.totalRows <= pageList[0]) {
                 this.$pagination.find('span.page-list').hide();
             }
 
             // when data is empty, hide the pagination
             this.$pagination[this.getData().length ? 'show' : 'hide']();
+        }
+        if ($allSelected) {
+            this.options.pageSize = this.options.formatAllRows();
         }
         $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
         $first.off('click').on('click', $.proxy(this.onPageFirst, this));
