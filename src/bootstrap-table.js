@@ -154,6 +154,11 @@
         pageNumber: 1,
         pageSize: 10,
         pageList: [10, 25, 50, 100],
+        paginationHAlign: 'right', //right, left
+        paginationVAlign: 'bottom', //bottom, top
+        paginationDetailHAlign: 'left', //right, left
+        paginationDetailVAlign: 'bottom', //bottom, top
+        pageVAlign: 'bottom', //bottom, top
         search: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
@@ -961,7 +966,7 @@
         }
 
         html.push(
-            '<div class="pull-left pagination-detail">',
+            '<div class="pull-' + this.options.paginationDetailHAlign + ' pagination-detail">',
             '<span class="pagination-info">',
             this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
             '</span>');
@@ -1006,7 +1011,7 @@
         html.push('</span>');
 
         html.push('</div>',
-            '<div class="pull-right pagination">',
+            '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
             '<ul class="pagination' + (this.options.iconSize === undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
             '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
             '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
