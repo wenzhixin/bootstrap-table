@@ -206,8 +206,8 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>pageList</td>
         <td>data-page-list</td>
         <td>Array</td>
-        <td>[10, 25, 50, 100]</td>
-        <td>When set pagination property, initialize the page size selecting list.</td>
+        <td>[10, 25, 50, 100, All]</td>
+        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table</td>
     </tr>
     <tr>
         <td>selectItemName</td>
@@ -229,6 +229,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Boolean</td>
         <td>false</td>
         <td>Enable the search input.</td>
+    </tr>
+	<tr>
+        <td>searchText</td>
+        <td>data-search-text</td>
+        <td>String</td>
+        <td>''</td>
+        <td>When set search property, initialize the search text.</td>
     </tr>
     <tr>
         <td>searchTimeOut</td>
@@ -367,6 +374,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Boolean</td>
         <td>true</td>
         <td>False to disable sortable of all columns.</td>
+    </tr>
+	<tr>
+        <td>keyEvents</td>
+        <td>data-key-events</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to enable the key events. For now when the user presses the "S/s" key the search button will be focused.</td>
     </tr>
     <tr>
         <td>rowStyle</td>

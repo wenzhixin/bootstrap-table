@@ -112,6 +112,13 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>False to hide the columns item.</td>
     </tr>
     <tr>
+        <td>card view visible</td>
+        <td>data-card-visible</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>False to hide the columns item in card view state.</td>
+    </tr>
+	<tr>
         <td>switchable</td>
         <td>data-switchable</td>
         <td>Boolean</td>
