@@ -20,6 +20,18 @@
         },
         formatNoMatches: function () {
             return 'Nenalezena žádná vyhovující položka';
+        },
+        formatPaginationSwitch: function () {
+            return 'Skrýt/Zobrazit stránkování';
+        },
+        formatRefresh: function () {
+            return 'Aktualizovat';
+        },
+        formatToggle: function () {
+            return 'Přepni';
+        },
+        formatColumns: function () {
+            return 'Sloupce';
         }
     };
 
