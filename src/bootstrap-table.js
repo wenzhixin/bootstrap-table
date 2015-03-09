@@ -795,7 +795,7 @@
             this.initServer();
             return;
         }
-        if (this.options.stateSave && cookieEnabled()) {
+        if (this.options.stateSave && cookieEnabled() && (this.options.stateSaveIdTable !== '')) {
             setCookie(idSortOrderStateSave, this.options.sortOrder, this.options.stateSaveExpire);
             setCookie(idSortNameStateSave, this.options.sortName, this.options.stateSaveExpire);
         }
@@ -1199,7 +1199,7 @@
         this.options.pageSize = $this.text().toUpperCase() === this.options.formatAllRows().toUpperCase() ?
                                     this.options.formatAllRows() : +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
-        if (this.options.stateSave && cookieEnabled()) {
+        if (this.options.stateSave && cookieEnabled() (this.options.stateSaveIdTable !== '')) {
             setCookie(idPageListStateSave, this.options.pageSize, this.options.stateSaveExpire);
         }
         this.updatePagination(event);
@@ -1230,7 +1230,7 @@
             return;
         }
         this.options.pageNumber = +$(event.currentTarget).text();
-        if (this.options.stateSave && cookieEnabled()) {
+        if (this.options.stateSave && cookieEnabled() (this.options.stateSaveIdTable !== '')) {
             setCookie(idPageNumberStateSave, this.options.pageNumber, this.options.stateSaveExpire);
         }
         this.updatePagination(event);
