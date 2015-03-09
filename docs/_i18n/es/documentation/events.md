@@ -127,5 +127,11 @@
         <td>none</td>
         <td>Se ejecuta después de que el cuerpo/contenido de la tabla es renderizado y es disponible en el DOM</td>
     </tr>
+	<tr>
+       <td>onPostHeader</td>
+       <td>post-header.bs.table</td>
+       <td>none</td>
+       <td>Se ejecuta después de que el encabezado es renderizado y disponible en el DOM.</td>
+    </tr>
     </tbody>
 </table>

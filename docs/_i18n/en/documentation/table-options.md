@@ -394,7 +394,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-key-events</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to enable the key events. For now when the user presses the "S/s" key the search button will be focused.</td>
+        <td>True to enable the key events. For now when the user presses the "S" or "s" key the search button will be focused.</td>
     </tr>
     <tr>
         <td>rowStyle</td>

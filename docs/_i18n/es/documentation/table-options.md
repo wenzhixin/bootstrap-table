@@ -205,7 +205,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>pageList</td>
         <td>data-page-list</td>
         <td>Array</td>
-        <td>[10, 25, 50, 100]</td>
+        <td>[10, 25, 50, 100, All]</td>
         <td>Cuando se habilita la paginación, inicializa la lista de cantidad de registros por página.</td>
     </tr>
     <tr>
@@ -229,6 +229,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>false</td>
         <td>Habilita el campo para búsqueda.</td>
     </tr>
+	<tr>
+        <td>searchText</td>
+        <td>data-search-text</td>
+        <td>String</td>
+        <td>''</td>
+        <td>Inicializa el campo de búsqueda con el texto especificado.</td>
+    </tr>
     <tr>
         <td>searchTimeOut</td>
         <td>data-search-time-out</td>
@@ -244,6 +251,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>False para ocultar el encabezado de la tabla.</td>
     </tr>
     <tr>
+        <td>showFooter</td>
+        <td>data-show-footer</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True para mostrar el footer.</td>
+    </tr>
+	<tr>
         <td>showColumns</td>
         <td>data-show-columns</td>
         <td>Boolean</td>
@@ -313,6 +327,20 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>'left'</td>
         <td>Indica cómo alinear la barra de herramientas customizable. Se puede usar 'left', 'right'.</td>
     </tr>
+	<tr>
+        <td>paginationHAlign</td>
+        <td>data-pagination-h-align</td>
+        <td>String</td>
+        <td>'right'</td>
+        <td>Indica cómo alinear la paginación. Se puede usar: 'left', 'right'.</td>
+    </tr>
+    <tr>
+        <td>paginationDetailHAlign</td>
+        <td>data-pagination-detail-h-align</td>
+        <td>String</td>
+        <td>'left'</td>
+        <td>Indica cómo alinear el detalle de la paginación. Se puede usar: 'left', 'right'.</td>
+    </tr>
     <tr>
         <td>clickToSelect</td>
         <td>data-click-to-select</td>
@@ -354,6 +382,14 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Boolean</td>
         <td>true</td>
         <td>False para deshabilitar el ordenamiento en todas las columnas.</td>
+    </tr>
+	<tr>
+        <td>keyEvents</td>
+        <td>data-key-events</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True para habilitar los eventos del teclado. Por ahora cuando el 
+		usuario presiona la tecla "S" o "s" el campo de búsqueda tendrá el focus.</td>
     </tr>
     <tr>
         <td>rowStyle</td>

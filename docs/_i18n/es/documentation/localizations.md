@@ -55,5 +55,10 @@
         <td>-</td>
         <td>'Columns'</td>
     </tr>
+	<tr>
+        <td>formatAllRows</td>
+        <td>--/td>
+        <td>'All'</td>
+    </tr>
     </tbody>
 </table>
