@@ -141,5 +141,6 @@
        <td>post-header.bs.table</td>
        <td>none</td>
        <td>Fires after the table header is rendered and availble in the DOM</td>
-    </tbody>
+    </tr>
+	</tbody>
 </table>

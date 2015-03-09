@@ -210,5 +210,3 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     </tr>
     </tbody>
 </table>
-    </tbody>
-</table>

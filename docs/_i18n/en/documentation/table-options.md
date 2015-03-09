@@ -331,6 +331,20 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Indicate how to align the custom toolbar. 'left', 'right' can be used.</td>
     </tr>
     <tr>
+        <td>paginationHAlign</td>
+        <td>data-pagination-h-align</td>
+        <td>String</td>
+        <td>'right'</td>
+        <td>Indicate how to align the pagination. 'left', 'right' can be used.</td>
+    </tr>
+    <tr>
+        <td>paginationDetailHAlign</td>
+        <td>data-pagination-detail-h-align</td>
+        <td>String</td>
+        <td>'left'</td>
+        <td>Indicate how to align the pagination detail. 'left', 'right' can be used.</td>
+    </tr>
+    <tr>
         <td>clickToSelect</td>
         <td>data-click-to-select</td>
         <td>Boolean</td>
@@ -380,7 +394,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-key-events</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to enable the key events. For now when the user presses the "S/s" key the search button will be focused.</td>
+        <td>True to enable the key events. For now when the user presses the "S" or "s" key the search button will be focused.</td>
     </tr>
     <tr>
         <td>rowStyle</td>

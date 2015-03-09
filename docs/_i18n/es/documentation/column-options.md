@@ -68,6 +68,13 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>undefined</td>
         <td>Indica cómo se alinea el encabezado de la tabla. Se puede usar 'left', 'right', 'center'.</td>
     </tr>
+	<tr>
+        <td>falign</td>
+        <td>data-falign</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Indica cómo se alinea el footer. Se puede usar 'left', 'right', 'center'.</td>
+    </tr>
     <tr>
         <td>valign</td>
         <td>data-valign</td>
@@ -103,6 +110,13 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>true</td>
         <td>False para ocultar el item de la columna.</td>
     </tr>
+	<tr>
+        <td>card view visible</td>
+        <td>data-card-visible</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>False para ocultar columnas en el modo card.</td>
+    </tr>
     <tr>
         <td>switchable</td>
         <td>data-switchable</td>
@@ -127,6 +141,17 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         value: el valor del campo. <br>
         row: los datos de la fila.<br>
         index: el indice de la fila.</td>
+    </tr>
+	<tr>
+        <td>footerFormatter</td>
+        <td>data-footer-formatter</td>
+        <td>Function</td>
+        <td>undefined</td>
+        <td>
+        El contexto (this) es el objecto columna.
+        La función toma un parámetro: <br>
+        data: Array de todas las filas. <br>
+        La función debe retornar un string con el texto a mostrar en el footer.
     </tr>
     <tr>
         <td>events</td>

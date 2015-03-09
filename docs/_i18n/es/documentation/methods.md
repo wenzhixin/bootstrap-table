@@ -75,6 +75,16 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         row: los nuevos data de la fila.
         </td>
     </tr>
+	<tr>
+        <td>showRow</td>
+        <td>index</td>
+        <td>Muesta la fila especificada.</td>
+    </tr>
+    <tr>
+        <td>hideRow</td>
+        <td>index</td>
+        <td>Oculta la fila especificada.</td>
+    </tr>
     <tr>
         <td>mergeCells</td>
         <td>options</td>
@@ -120,6 +130,28 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>uncheck</td>
         <td>index</td>
         <td>Des-chequea una fila, el índice de la fila inicia en 0.</td>
+    </tr>
+	<tr>
+        <td>checkBy</td>
+        <td>params</td>
+        <td>
+        Chequea una fila por un array de valores los parámetros continen:<br>
+        field: nombre del campo a usar para encontrar los registros<br>
+        values: array de valores de las filas por chequear<br>
+        Ejemplo: <br>
+        $("#table").bootstrapTable("checkBy", {field:"field_name", values:["value1","value2","value3"]})
+        </td>
+    </tr>
+    <tr>
+        <td>uncheckBy</td>
+        <td>params</td>
+        <td>
+        Deschequea una fila por un array de valores los parámetros continen:<br>
+        field: nombre del campo a usar para encontrar los registros<br>
+        values: array de valores de las filas por deschequear<br>
+        Ejemplo: <br>
+        $("#table").bootstrapTable("uncheckBy", {field:"field_name", values:["value1","value2","value3"]})
+        </td>
     </tr>
     <tr>
         <td>resetView</td>
