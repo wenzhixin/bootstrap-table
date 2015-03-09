@@ -13,7 +13,7 @@
         idSortNameStateSave = 'bs.table.sortName',
         idPageNumberStateSave = 'bs.table.pageNumber',
         idPageListStateSave = 'bs.table.pageList',
-        idsStateSaveArray = {
+        idsStateSaveList = {
                                 'sortOrder': idSortOrderStateSave,
                                 'sortName': idSortNameStateSave,
                                 'pageNumber': idPageNumberStateSave,
@@ -2046,7 +2046,7 @@
             return;
         }
 
-        deleteCookie(idsStateSaveArray[cookieName]);
+        deleteCookie(idsStateSaveList[cookieName]);
     }
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
