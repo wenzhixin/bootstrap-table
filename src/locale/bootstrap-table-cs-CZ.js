@@ -1,6 +1,7 @@
 /**
  * Bootstrap Table Czech translation
  * Author: Lukas Kral (monarcha@seznam.cz)
+ * Author: Jakub Svestka <svestka1999@gmail.com>
  */
 (function ($) {
     'use strict';
@@ -32,6 +33,9 @@
         },
         formatColumns: function () {
             return 'Sloupce';
+        },
+        formatAllRows: function () {
+            return 'Vše';
         }
     };
 
