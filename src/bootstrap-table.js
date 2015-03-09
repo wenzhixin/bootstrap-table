@@ -535,7 +535,8 @@
                 style = '',
                 class_ = sprintf(' class="%s"', column['class']),
                 order = that.options.sortOrder || column.order,
-                searchable = true;
+                searchable = true,
+                unitWidth = 'px';
 
             if (!column.visible) {
                 return;
@@ -545,10 +546,19 @@
                 return;
             }
 
+            if (column.width !== undefined) {
+                if (typeof column.width === 'string') {
+                    if (column.width.indexOf('%') > -1) {
+                        unitWidth = '%'
+                    }
+                    column.width = column.width.replace('%', '').replace('px', '');
+                }
+            }
+
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %spx; ', column.checkbox || column.radio ? 36 : column.width);
+            style += sprintf('width: %s'+ unitWidth +'; ', column.checkbox || column.radio ? 36 : column.width);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
