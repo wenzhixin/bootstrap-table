@@ -338,25 +338,11 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Indicate how to align the pagination. 'left', 'right' can be used.</td>
     </tr>
     <tr>
-        <td>paginationVAlign</td>
-        <td>data-pagination-v-align</td>
-        <td>String</td>
-        <td>'bottom'</td>
-        <td>Indicate how to align the pagination. 'top', 'bottom' can be used.</td>
-    </tr>
-    <tr>
         <td>paginationDetailHAlign</td>
         <td>data-pagination-detail-h-align</td>
         <td>String</td>
         <td>'left'</td>
         <td>Indicate how to align the pagination detail. 'left', 'right' can be used.</td>
-    </tr>
-    <tr>
-        <td>paginationDetailVAlign</td>
-        <td>data-pagination-detail-v-align</td>
-        <td>String</td>
-        <td>'bottom'</td>
-        <td>Indicate how to align the pagination detail. 'top', 'bottom' can be used.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>
