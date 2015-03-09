@@ -85,9 +85,10 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
     <tr>
         <td>width</td>
         <td>data-width</td>
-        <td>Number</td>
+        <td>Number {Pixels or Percentage}</td>
         <td>undefined</td>
-        <td>The width of column. If not defined, the width will auto expand to fit its contents.</td>
+        <td>The width of column. If not defined, the width will auto expand to fit its contents. Also you can add '%' to your number and
+		the bootstrapTable will use the percentage unit, otherwise, you can add or no the 'px' to your number and then the bootstrapTable will use the pixels</td>
     </tr>
     <tr>
         <td>sortable</td>
