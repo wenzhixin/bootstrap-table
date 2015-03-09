@@ -208,5 +208,10 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>none</td>
         <td>Toggle the card/table view.</td>
     </tr>
+	<tr>
+        <td>deleteCookie</td>
+        <td>cookie name</td>
+        <td>Delete a cookie created. You must use: 'sortOrder', 'sortName', 'pageNumber' or 'pageList'.</td>
+    </tr>
     </tbody>
 </table>
