@@ -85,7 +85,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
     <tr>
         <td>width</td>
         <td>data-width</td>
-        <td>Number {Pixeles or Porcentaje}</td>
+        <td>Number {Pixeles o Porcentaje}</td>
         <td>undefined</td>
         <td>Indica el ancho de la columna. Si no es definido, el ancho será auto. Tmabién puede agregar '%' a su número y la bootstrapTable
 		usará la unidad de porcentaje, sino, puede agregar o no 'px' a su número para que bootstrapTable use pixeles.</td>
