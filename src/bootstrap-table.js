@@ -127,10 +127,10 @@
     var cookieEnabled = function (){
         var cookieEnabled = (navigator.cookieEnabled) ? true : false;
 
-        if (typeof navigator.cookieEnabled === "undefined" && !cookieEnabled)
+        if (typeof navigator.cookieEnabled === undefined && !cookieEnabled)
         {
-            document.cookie = "testcookie";
-            cookieEnabled = (document.cookie.indexOf("testcookie") !== -1) ? true : false;
+            document.cookie = 'testcookie';
+            cookieEnabled = (document.cookie.indexOf('testcookie') !== -1) ? true : false;
         }
         return (cookieEnabled);
     };
@@ -140,7 +140,7 @@
         if (!cookieName || /^(?:expires|max\-age|path|domain|secure)$/i.test(cookieName)) {
             return false;
         }
-        var sExpires = "",
+        var sExpires = '',
             time = '';
 
         time = vEnd.replace(/[0-9]/,''); //s,mi,h,d,m,y
@@ -164,11 +164,14 @@
             case 'y':
                 vEnd = vEnd * 365 * 30 * 24 * 60 * 60;
                 break;
+            default:
+                vEnd = undefined;
+                break;
         }
 
-        sExpires = "; max-age=" + vEnd;
+        sExpires = vEnd === undefined ? '' : '; max-age=' + vEnd;
 
-        document.cookie = encodeURIComponent(cookieName) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+        document.cookie = encodeURIComponent(cookieName) + '=' + encodeURIComponent(sValue) + sExpires + (sDomain ? '; domain=' + sDomain : '') + (sPath ? '; path=' + sPath : '') + (bSecure ? '; secure' : '');
         return true;
     };
 
@@ -177,14 +180,14 @@
         if (!cookieName) {
             return null;
         }
-        return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+        return decodeURIComponent(document.cookie.replace(new RegExp('(?:(?:^|.*;)\\s*' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=\\s*([^;]*).*$)|^.*$'), '$1')) || null;
     };
 
     var hasCookie = function (cookieName) {
         if (!cookieName) {
             return false;
         }
-        return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+        return (new RegExp('(?:^|;\\s*)' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=')).test(document.cookie);
     };
 
     var deleteCookie = function (cookieName, sPath, sDomain) {
@@ -192,7 +195,7 @@
         if (!hasCookie(cookieName)) {
             return false;
         }
-        document.cookie = encodeURIComponent(cookieName) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
+        document.cookie = encodeURIComponent(cookieName) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT' + (sDomain ? '; domain=' + sDomain : '') + (sPath ? '; path=' + sPath : '');
         return true;
     };
 
