@@ -1717,13 +1717,18 @@
         }
     };
 
-    BootstrapTable.prototype.toggleRow = function (index, visible) {
+    BootstrapTable.prototype.toggleRow = function (index, isIdField, visible) {
         if (index === -1) {
            return;
         }
 
-        this.$selectItem.filter(sprintf('[data-index="%s"]', index))
-            .parents('tr')[visible ? 'show' : 'hide']();
+        if (isIdField) {
+            this.$selectItem.filter(sprintf('[value="%s"]', index))
+                .parents('tr')[visible ? 'show' : 'hide']();
+        } else {
+            this.$selectItem.filter(sprintf('[data-index="%s"]', index))
+                .parents('tr')[visible ? 'show' : 'hide']();
+        }
      };
 
     // PUBLIC FUNCTION DEFINITION
@@ -1854,12 +1859,20 @@
         this.initBody(true);
     };
 
-    BootstrapTable.prototype.showRow = function (index) {
-        this.toggleRow(index, true);
+    BootstrapTable.prototype.showRow = function (params) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('isIdField')) {
+            return;
+        }
+
+        this.toggleRow(params.index, params.isIdField, true);
     };
 
-    BootstrapTable.prototype.hideRow = function (index) {
-        this.toggleRow(index, false);
+    BootstrapTable.prototype.hideRow = function (params) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('isIdField')) {
+            return;
+        }
+
+        this.toggleRow(params.index, params.isIdField, false);
     };
 
     BootstrapTable.prototype.mergeCells = function (options) {

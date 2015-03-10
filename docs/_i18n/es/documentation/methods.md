@@ -77,13 +77,17 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     </tr>
 	<tr>
         <td>showRow</td>
-        <td>index</td>
-        <td>Muesta la fila especificada.</td>
+        <td>params</td>
+        <td>Muesta la fila especificada. El parámetro contiene los siguiente propiedades: <br>
+        index: el indice o idField de la fila.
+        isIdField: Boolean que indica si el index es idField o la posición de la fila.</td>
     </tr>
     <tr>
         <td>hideRow</td>
-        <td>index</td>
-        <td>Oculta la fila especificada.</td>
+        <td>params</td>
+        <td>Oculta la fila especificada. El parámetro contiene los siguiente propiedades: <br>
+        index: el indice o idField de la fila.
+        isIdField: Boolean que indica si el index es idField o la posición de la fila.</td>
     </tr>
     <tr>
         <td>mergeCells</td>

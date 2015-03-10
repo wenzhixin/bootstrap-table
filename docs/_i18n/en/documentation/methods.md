@@ -77,13 +77,17 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     </tr>
 	<tr>
         <td>showRow</td>
-        <td>index</td>
-        <td>Show the specified row.</td>
+        <td>params</td>
+        <td>Show the specified row. the param contains following properties:
+        index: the row idenx or the idField.
+        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
     </tr>
     <tr>
         <td>hideRow</td>
-        <td>index</td>
-        <td>Hide the specified row.</td>
+        <td>params</td>
+        <td>Hide the specified row. the param contains following properties:
+        index: the row idenx or the idField.
+        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
     </tr>
     <tr>
         <td>mergeCells</td>
