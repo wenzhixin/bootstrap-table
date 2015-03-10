@@ -21,6 +21,9 @@
         },
         formatNoMatches: function () {
             return 'No se encontraron registros';
+        },
+        formatAllRows: function () {
+            return 'Todo';
         }
     };
 
