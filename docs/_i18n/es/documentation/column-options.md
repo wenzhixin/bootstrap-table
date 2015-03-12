@@ -196,5 +196,15 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>true</td>
         <td>True para incluir la columna en la búsqueda.</td>
     </tr>
+    <tr>
+        <td>filterControl</td>
+        <td>data-filter-control</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>
+        Se puede usar 'input' para agregar un input control a la columna o 'select' para agregar una lista
+        a la columna.
+        </td>
+    </tr>
     </tbody>
 </table>
