@@ -810,7 +810,8 @@
                 .off('click').on('click', function () {
                     that.options.cardView = !that.options.cardView;
                     that.initHeader();
-                    that.initToolbar();
+                    // Fixed remove toolbar when click cardView button.
+                    //that.initToolbar();
                     that.initBody();
                 });
         }
