@@ -1139,7 +1139,10 @@
                 this.options.pageSize = this.options.totalRows;
                 $allSelected = true;
             } else if (this.options.pageSize === this.options.totalRows) {
-                $allSelected = true;
+                var pageLst = this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').toLowerCase().split(',');
+                if (pageLst.indexOf(this.options.formatAllRows().toLowerCase()) > -1) {
+                    $allSelected = true;
+                }
             }
 
             this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
