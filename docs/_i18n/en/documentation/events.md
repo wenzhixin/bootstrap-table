@@ -142,5 +142,5 @@
        <td>none</td>
        <td>Fires after the table header is rendered and availble in the DOM</td>
     </tr>
-	</tbody>
+    </tbody>
 </table>
