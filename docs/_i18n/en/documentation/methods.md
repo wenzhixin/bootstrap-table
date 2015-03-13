@@ -90,6 +90,12 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         isIdField: Boolean to indicates if index is the idField od the row or not.</td>
     </tr>
     <tr>
+        <td>getRowsHidden</td>
+        <td>boolean</td>
+        <td>Get all rows hidden and if you pass the show parameter true the rows will be shown again, otherwise, the method
+        only will return the rows hidden.</td>
+    </tr>
+    <tr>
         <td>mergeCells</td>
         <td>options</td>
         <td>

@@ -1138,6 +1138,8 @@
             if (this.options.pageSize === this.options.formatAllRows()) {
                 this.options.pageSize = this.options.totalRows;
                 $allSelected = true;
+            } else if (this.options.pageSize === this.options.totalRows) {
+                $allSelected = true;
             }
 
             this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
@@ -1850,13 +1852,8 @@
            return;
         }
 
-        if (isIdField) {
-            this.$selectItem.filter(sprintf('[value="%s"]', index))
-                .parents('tr')[visible ? 'show' : 'hide']();
-        } else {
-            this.$selectItem.filter(sprintf('[data-index="%s"]', index))
-                .parents('tr')[visible ? 'show' : 'hide']();
-        }
+        $(this.$body[0]).children().filter(sprintf( isIdField ? '[value="%s"]' : '[data-index="%s"]', index))
+            [visible ? 'show' : 'hide']();
      };
 
     // PUBLIC FUNCTION DEFINITION
@@ -1990,20 +1987,31 @@
     };
 
     BootstrapTable.prototype.showRow = function (params) {
-        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('isIdField')) {
+        if (!params.hasOwnProperty('index')) {
             return;
         }
 
-        this.toggleRow(params.index, params.isIdField, true);
+        this.toggleRow(params.index, params.isIdField === undefined ? false : true, true);
     };
 
     BootstrapTable.prototype.hideRow = function (params) {
-        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('isIdField')) {
+        if (!params.hasOwnProperty('index')) {
             return;
         }
 
-        this.toggleRow(params.index, params.isIdField, false);
+        this.toggleRow(params.index, params.isIdField === undefined ? false : true, false);
     };
+
+    BootstrapTable.prototype.getRowsHidden = function (show) {
+        var rows = $(this.$body[0]).children().filter(':hidden'),
+            i = 0;
+        if (show) {
+            for (; i < rows.length; i++) {
+                $(rows[i]).show();
+            }
+        }
+        return rows;
+    }
 
     BootstrapTable.prototype.mergeCells = function (options) {
         var row = options.index,
@@ -2213,7 +2221,7 @@
         'getSelections', 'getData',
         'load', 'append', 'prepend', 'remove',
         'insertRow', 'updateRow',
-        'showRow', 'hideRow',
+        'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',

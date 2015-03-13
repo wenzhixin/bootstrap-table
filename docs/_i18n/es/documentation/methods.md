@@ -90,6 +90,12 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         isIdField: Boolean que indica si el index es idField o la posición de la fila.</td>
     </tr>
     <tr>
+        <td>getRowsHidden</td>
+        <td>boolean</td>
+        <td>Obitnene todas las filas ocultas si se pasa el parámetro show en true las filas serán mostradas, sino, el método solo
+        devolvera las filas ocultas.</td>
+    </tr>
+    <tr>
         <td>mergeCells</td>
         <td>options</td>
         <td>
