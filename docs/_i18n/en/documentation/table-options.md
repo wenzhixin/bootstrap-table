@@ -394,7 +394,11 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-key-events</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to enable the key events. For now when the user presses the "S" or "s" key the search button will be focused.</td>
+        <td>True to enable the key events. The key event list is:
+        S/s: It will be focused the search textbox if it is enabled
+        R/r: It will refresh the table if the showRefresh option is enabled
+        T/t: It will toggle the table view if the showToggle option is enabled
+        P/p: It will fires the pagination switch if the showPaginationSwitch is enabled.</td>
     </tr>
 	<tr>
         <td>stateSave</td>

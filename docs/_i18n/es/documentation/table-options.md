@@ -388,8 +388,11 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>data-key-events</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True para habilitar los eventos del teclado. Por ahora cuando el 
-		usuario presiona la tecla "S" o "s" el campo de búsqueda tendrá el focus.</td>
+        <td>True para habilitar los eventos del teclado. La lista es:
+        S/s: El textbox de búsqueda sera enfocado si la opción search está habilitada
+        R/r: Se refrescará la tabla si la opción showRefresh está habilitada
+        T/t: Se cambiará de vista si la opción showToggle está habilitada
+        P/p: Se ocultara/mostrará la paginación si la opción showPaginationSwitch está habilitada.</td>
     </tr>
 	<tr>
         <td>stateSave</td>
