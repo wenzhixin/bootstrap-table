@@ -154,6 +154,16 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         </td>
     </tr>
     <tr>
+        <td>sort-name</td>
+        <td>data-sort-name</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Fournir une sorte nom personnalisable, pas le genre-nom par défaut dans l'en-tête, ou le nom de domaine
+         de la colonne. Par exemple, une colonne peut afficher la valeur de nomChamp de "html" tel que
+         "<b><span style="color:red">abc</span></b>", mais le nom du champ pour trier est "contenu" à la valeur de "abc".
+        </td>
+    </tr>
+    <tr>
         <td>cellStyle</td>
         <td>data-cell-style</td>
         <td>Function</td>
