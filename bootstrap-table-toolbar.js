@@ -132,6 +132,7 @@
         _load = BootstrapTable.prototype.load;
 
     BootstrapTable.prototype.initToolbar = function() {
+        alert('entra');
         var that = this,
             htmlBtns = [],
             $search,
@@ -184,11 +185,7 @@
         _load.apply(this, Array.prototype.slice.apply(arguments));
 
         if (typeof this.options.idTable === 'undefined') {
-            var e = noty({
-                type: "error",
-                text: 'Error: La propiedad "idTable" de bootstrapTable debe tener el id definido en la tabla.'
-            });
-            return;
+            alert('Error: La propiedad "idTable" de bootstrapTable debe tener el id definido en la tabla.');
         } else {
             if (!firstLoad) {
                 var vTam = parseInt($(".bootstrap-table").height());
