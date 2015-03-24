@@ -132,7 +132,6 @@
         _load = BootstrapTable.prototype.load;
 
     BootstrapTable.prototype.initToolbar = function() {
-        alert('entra');
         var that = this,
             htmlBtns = [],
             $search,
