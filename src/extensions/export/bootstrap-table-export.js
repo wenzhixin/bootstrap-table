@@ -22,7 +22,8 @@
     $.extend($.fn.bootstrapTable.defaults, {
         showExport: false,
         // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
-        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel']
+        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
+        exportOptions: {}
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
@@ -72,10 +73,10 @@
                 });
 
                 $menu.find('li').click(function () {
-                    that.$el.tableExport({
+                    that.$el.tableExport($.extend({}, that.options.exportOptions, {
                         type: $(this).data('type'),
                         escape: false
-                    });
+                    }));
                 });
             }
         }
