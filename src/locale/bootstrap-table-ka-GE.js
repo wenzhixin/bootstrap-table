@@ -13,7 +13,7 @@
             return pageNumber + " ჩანაწერი ერთ გვერდზე";
         },
         formatShowingRows: function(pageFrom, pageTo, totalRows) {
-            return "ნაჩვენებია " + pageFrom + "-დან " + pageTo + "-მდე ჩანაწერი " + totalRows + " დან";
+            return "ნაჩვენებია " + pageFrom + "-დან " + pageTo + "-მდე ჩანაწერი " + totalRows + "-დან";
         },
         formatSearch: function() {
             return "ძებნა";
