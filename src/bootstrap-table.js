@@ -2020,6 +2020,8 @@
             return;
         }
         this.data.splice(params.index, 0, params.row);
+        this.initSearch();
+        this.initPagination();
         this.initBody(true);
     };
 
