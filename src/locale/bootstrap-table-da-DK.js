@@ -16,7 +16,7 @@
             return 'Viser ' + pageFrom + ' til ' + pageTo + ' af ' + totalRows + ' rækker';
         },
         formatSearch: function () {
-            return 'Søg'
+            return 'Søg';
         },
         formatNoMatches: function () {
             return 'Ingen poster fundet';

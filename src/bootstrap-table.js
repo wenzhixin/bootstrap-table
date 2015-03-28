@@ -481,7 +481,7 @@
 
             columns.push(column);
         });
-        this.options.columns = $.extend([], columns, this.options.columns);
+        this.options.columns = $.extend(true, [], columns, this.options.columns);
         $.each(this.options.columns, function (i, column) {
             that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS,
                 {field: i}, column); // when field is undefined, use index instead
@@ -689,15 +689,15 @@
     };
 
     BootstrapTable.prototype.resetFooter = function () {
-        var bt   = this,
-            data = bt.getData(),
+        var that = this,
+            data = that.getData(),
             html = [];
 
         if (!this.options.showFooter || this.options.cardView) { //do nothing
             return;
         }
 
-        $.each(bt.options.columns, function (i, column) {
+        $.each(this.options.columns, function (i, column) {
             var falign = '', // footer align style
                 style  = '',
                 class_ = sprintf(' class="%s"', column['class']);
@@ -720,34 +720,35 @@
             html.push('</td>');
         });
 
-        bt.$footer.find('tr').html(html.join(''));
-        clearTimeout(bt.timeoutFooter_);
-        bt.timeoutFooter_ = setTimeout($.proxy(bt.fitFooter, bt), bt.$el.is(':hidden') ? 100: 0);
-        return;
+        this.$footer.find('tr').html(html.join(''));
+        clearTimeout(this.timeoutFooter_);
+        this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this),
+            this.$el.is(':hidden') ? 100: 0);
     };
 
     BootstrapTable.prototype.fitFooter = function () {
-        var bt = this,
+        var that = this,
             $fixedBody,
             $footerTd,
             elWidth,
             scrollWidth;
-        clearTimeout(bt.timeoutFooter_);
-        if (bt.$el.is(':hidden')) {
-            bt.timeoutFooter_ = setTimeout($.proxy(bt.fitFooter, bt), 100);
+
+        clearTimeout(this.timeoutFooter_);
+        if (this.$el.is(':hidden')) {
+            this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), 100);
             return;
         }
 
-        $fixedBody  = bt.$container.find('.fixed-table-body');
-        elWidth     = bt.$el.css('width');
+        $fixedBody  = this.$container.find('.fixed-table-body');
+        elWidth     = this.$el.css('width');
         scrollWidth = elWidth > $fixedBody.width() ? getScrollBarWidth() : 0;
 
-        bt.$footer.css({
+        this.$footer.css({
             'margin-right': scrollWidth
         }).find('table').css('width', elWidth)
-            .attr('class', bt.$el.attr('class'));
+            .attr('class', this.$el.attr('class'));
 
-        $footerTd = bt.$footer.find('td');
+        $footerTd = this.$footer.find('td');
 
         $fixedBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function(i) {
             $footerTd.eq(i).outerWidth($(this).outerWidth());
@@ -959,7 +960,8 @@
                 .off('click').on('click', function () {
                     that.options.cardView = !that.options.cardView;
                     that.initHeader();
-                    that.initToolbar();
+                    // Fixed remove toolbar when click cardView button.
+                    //that.initToolbar();
                     that.initBody();
                 });
         }
@@ -1204,8 +1206,9 @@
         html.push(this.options.formatRecordsPerPage(pageNumber.join('')));
         html.push('</span>');
 
+        // Fixed #611 vertical-align between pagination block and pagination-detail block. Remove class pagination.
         html.push('</div>',
-            '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
+            '<div class="pull-' + this.options.paginationHAlign + '">',
             '<ul class="pagination' + (this.options.iconSize === undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
             '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
             '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
@@ -1630,9 +1633,10 @@
                 order: params.sortOrder
             };
             if (this.options.pagination) {
-                params.limit = this.options.pageSize === this.options.formatAllRows() ? this.options.totalRows : this.options.pageSize;
-                params.offset = (this.options.pageSize === this.options.formatAllRows() ? this.options.totalRows : this.options.pageSize)
-                                * (this.options.pageNumber - 1);
+                params.limit = this.options.pageSize === this.options.formatAllRows() ?
+                    this.options.totalRows : this.options.pageSize;
+                params.offset = this.options.pageSize === this.options.formatAllRows() ?
+                    0 : this.options.pageSize * (this.options.pageNumber - 1);
             }
         }
 
@@ -1932,6 +1936,7 @@
             this.resetHeader();
             padding += cellHeight;
         } else {
+            this.$container.find('.fixed-table-header').hide();
             this.trigger('post-header');
         }
 
@@ -2017,6 +2022,8 @@
             return;
         }
         this.data.splice(params.index, 0, params.row);
+        this.initSearch();
+        this.initPagination();
         this.initBody(true);
     };
 

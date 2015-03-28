@@ -245,6 +245,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Set timeout for search fire.</td>
     </tr>
     <tr>
+        <td>trimOnSearch</td>
+        <td>data-trim-on-search</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to trim spaces in search field.</td>
+    </tr
+    <tr>
         <td>showHeader</td>
         <td>data-show-header</td>
         <td>Boolean</td>

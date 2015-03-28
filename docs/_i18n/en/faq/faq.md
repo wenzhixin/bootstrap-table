@@ -27,3 +27,7 @@ $table.on('load-success.bs.table column-switch.bs.table page-change.bs.table sea
     $table.bootstrapTable('mergeCells', {...});
 });
 ```
+
+### Export extension does not support unicode characters?
+
+The extension is using the Plugin: [tableExport.jquery.plugin](https://github.com/kayalshri/tableExport.jquery.plugin), because this plugin has [this same problem](https://github.com/carlo/jquery-base64/issues/1), so it doesn't belong to the category of the bootstrap-table, but I think we can try to use this: [jquery.base64.js](https://gist.github.com/wenzhixin/09e218c884f4f380b68a) to replace the base64 plugin.
