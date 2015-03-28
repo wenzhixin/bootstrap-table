@@ -7,20 +7,11 @@
 !function ($) {
     'use strict';
 
-    var cellHeight = 37, // update css if changed
-        idStateSave = '',
-        idSortOrderStateSave = 'bs.table.sortOrder',
-        idSortNameStateSave = 'bs.table.sortName',
-        idPageNumberStateSave = 'bs.table.pageNumber',
-        idPageListStateSave = 'bs.table.pageList',
-        idsStateSaveList = {
-                                'sortOrder': idSortOrderStateSave,
-                                'sortName': idSortNameStateSave,
-                                'pageNumber': idPageNumberStateSave,
-                                'pageList': idPageListStateSave
-                            };
     // TOOLS DEFINITION
     // ======================
+
+    var cellHeight = 37; // update css if changed
+    var cachedWidth = null;
 
     // it only does '%s', and return '' when arguments are undefined
     var sprintf = function (str) {
@@ -64,8 +55,6 @@
         });
         return index;
     };
-
-    var cachedWidth = null;
     var getScrollBarWidth = function () {
         if (cachedWidth === null) {
             var inner = $('<p/>').addClass('fixed-table-scroll-inner'),
@@ -122,74 +111,6 @@
                 .replace(/'/g, "&#039;");
         }
         return text;
-    };
-
-    var cookieEnabled = function (){
-        return (navigator.cookieEnabled) ? true : false;
-    };
-
-    var setCookie = function (cookieName, sValue, vEnd, sPath, sDomain, bSecure) {
-        cookieName = idStateSave + cookieName;
-        if (!cookieName || /^(?:expires|max\-age|path|domain|secure)$/i.test(cookieName)) {
-            return false;
-        }
-        var sExpires = '',
-            time = '';
-
-        time = vEnd.replace(/[0-9]/,''); //s,mi,h,d,m,y
-        vEnd = vEnd.replace(/[A-Za-z]/,''); //number
-
-        switch (time.toLowerCase()) {
-            case 's':
-                vEnd = +vEnd;
-                break;
-            case 'mi':
-                vEnd = vEnd * 60;
-                break;
-            case 'h':
-                vEnd = vEnd * 60 * 60;
-            case 'd':
-                vEnd = vEnd * 24 * 60 * 60;
-                break;
-            case 'm':
-                vEnd = vEnd * 30 * 24 * 60 * 60;
-                break;
-            case 'y':
-                vEnd = vEnd * 365 * 30 * 24 * 60 * 60;
-                break;
-            default:
-                vEnd = undefined;
-                break;
-        }
-
-        sExpires = vEnd === undefined ? '' : '; max-age=' + vEnd;
-
-        document.cookie = encodeURIComponent(cookieName) + '=' + encodeURIComponent(sValue) + sExpires + (sDomain ? '; domain=' + sDomain : '') + (sPath ? '; path=' + sPath : '') + (bSecure ? '; secure' : '');
-        return true;
-    };
-
-    var getCookie = function (cookieName) {
-        cookieName = idStateSave + cookieName;
-        if (!cookieName) {
-            return null;
-        }
-        return decodeURIComponent(document.cookie.replace(new RegExp('(?:(?:^|.*;)\\s*' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=\\s*([^;]*).*$)|^.*$'), '$1')) || null;
-    };
-
-    var hasCookie = function (cookieName) {
-        if (!cookieName) {
-            return false;
-        }
-        return (new RegExp('(?:^|;\\s*)' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=')).test(document.cookie);
-    };
-
-    var deleteCookie = function (cookieName, sPath, sDomain) {
-        cookieName = idStateSave + cookieName;
-        if (!hasCookie(cookieName)) {
-            return false;
-        }
-        document.cookie = encodeURIComponent(cookieName) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT' + (sDomain ? '; domain=' + sDomain : '') + (sPath ? '; path=' + sPath : '');
-        return true;
     };
 
     // BOOTSTRAP TABLE CLASS DEFINITION
@@ -262,9 +183,6 @@
         searchTimeOut: 500,
         keyEvents: false,
         searchText: '',
-        stateSave: false,
-        stateSaveExpire: '2h',
-        stateSaveIdTable: '',
         iconSize: undefined,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
         icons: {
@@ -421,7 +339,6 @@
     };
 
     BootstrapTable.prototype.init = function () {
-        this.initStateSave();
         this.initContainer();
         this.initTable();
         this.initHeader();
@@ -688,74 +605,6 @@
         }
     };
 
-    BootstrapTable.prototype.resetFooter = function () {
-        var that = this,
-            data = that.getData(),
-            html = [];
-
-        if (!this.options.showFooter || this.options.cardView) { //do nothing
-            return;
-        }
-
-        $.each(this.options.columns, function (i, column) {
-            var falign = '', // footer align style
-                style  = '',
-                class_ = sprintf(' class="%s"', column['class']);
-
-            if (!column.visible) {
-                return;
-            }
-
-            if (that.options.cardView && (!column.cardVisible)) {
-                return;
-            }
-
-            falign = sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
-            style = sprintf('vertical-align: %s; ', column.valign);
-
-            html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
-
-
-            html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
-            html.push('</td>');
-        });
-
-        this.$footer.find('tr').html(html.join(''));
-        clearTimeout(this.timeoutFooter_);
-        this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this),
-            this.$el.is(':hidden') ? 100: 0);
-    };
-
-    BootstrapTable.prototype.fitFooter = function () {
-        var that = this,
-            $fixedBody,
-            $footerTd,
-            elWidth,
-            scrollWidth;
-
-        clearTimeout(this.timeoutFooter_);
-        if (this.$el.is(':hidden')) {
-            this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), 100);
-            return;
-        }
-
-        $fixedBody  = this.$container.find('.fixed-table-body');
-        elWidth     = this.$el.css('width');
-        scrollWidth = elWidth > $fixedBody.width() ? getScrollBarWidth() : 0;
-
-        this.$footer.css({
-            'margin-right': scrollWidth
-        }).find('table').css('width', elWidth)
-            .attr('class', this.$el.attr('class'));
-
-        $footerTd = this.$footer.find('td');
-
-        $fixedBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function(i) {
-            $footerTd.eq(i).outerWidth($(this).outerWidth());
-        });
-    };
-
-
     /**
      * @param data
      * @param type: append / prepend
@@ -854,10 +703,7 @@
             this.initServer();
             return;
         }
-        if (this.options.stateSave && cookieEnabled() && (this.options.stateSaveIdTable !== '')) {
-            setCookie(idSortOrderStateSave, this.options.sortOrder, this.options.stateSaveExpire);
-            setCookie(idSortNameStateSave, this.options.sortName, this.options.stateSaveExpire);
-        }
+
         this.initSort();
         this.initBody();
     };
@@ -1306,9 +1152,7 @@
         this.options.pageSize = $this.text().toUpperCase() === this.options.formatAllRows().toUpperCase() ?
                                     this.options.formatAllRows() : +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
-        if (this.options.stateSave && cookieEnabled() (this.options.stateSaveIdTable !== '')) {
-            setCookie(idPageListStateSave, this.options.pageSize, this.options.stateSaveExpire);
-        }
+
         this.updatePagination(event);
     };
 
@@ -1337,9 +1181,6 @@
             return;
         }
         this.options.pageNumber = +$(event.currentTarget).text();
-        if (this.options.stateSave && cookieEnabled() (this.options.stateSaveIdTable !== '')) {
-            setCookie(idPageNumberStateSave, this.options.pageNumber, this.options.stateSaveExpire);
-        }
         this.updatePagination(event);
     };
 
@@ -1743,40 +1584,6 @@
       }
     };
 
-    BootstrapTable.prototype.initStateSave = function () {
-        if (!this.options.stateSave) {
-            return;
-        }
-
-        if (!cookieEnabled()) {
-            return;
-        }
-
-        if (this.options.stateSaveIdTable === '') {
-            return;
-        }
-
-        idStateSave = this.options.stateSaveIdTable + '.';
-
-        var sortOrderStateSave = getCookie(idSortOrderStateSave),
-            sortOrderStateName = getCookie(idSortNameStateSave),
-            pageNumberStateSave = getCookie(idPageNumberStateSave),
-            pageListStateSave = getCookie(idPageListStateSave);
-
-        if (sortOrderStateSave !== undefined && sortOrderStateSave !== null) {
-            this.options.sortOrder = sortOrderStateSave,
-            this.options.sortName = sortOrderStateName;
-        }
-
-        if (pageNumberStateSave !== undefined && pageNumberStateSave !== null) {
-            this.options.pageNumber = +pageNumberStateSave;
-        }
-
-        if (pageListStateSave !== undefined && pageListStateSave !== null) {
-            this.options.pageSize = pageListStateSave === this.options.formatAllRows() ? pageListStateSave : +pageListStateSave;
-        }
-    };
-
     BootstrapTable.prototype.getCaretHtml = function () {
         return ['<span class="order' + (this.options.sortOrder === 'desc' ? '' : ' dropup') + '">',
             '<span class="caret" style="margin: 10px 5px;"></span>',
@@ -1868,6 +1675,73 @@
             $fixedHeader.scrollLeft($(this).scrollLeft());
         });
         that.trigger('post-header');
+    };
+
+    BootstrapTable.prototype.resetFooter = function () {
+        var that = this,
+            data = that.getData(),
+            html = [];
+
+        if (!this.options.showFooter || this.options.cardView) { //do nothing
+            return;
+        }
+
+        $.each(this.options.columns, function (i, column) {
+            var falign = '', // footer align style
+                style  = '',
+                class_ = sprintf(' class="%s"', column['class']);
+
+            if (!column.visible) {
+                return;
+            }
+
+            if (that.options.cardView && (!column.cardVisible)) {
+                return;
+            }
+
+            falign = sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
+            style = sprintf('vertical-align: %s; ', column.valign);
+
+            html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
+
+
+            html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
+            html.push('</td>');
+        });
+
+        this.$footer.find('tr').html(html.join(''));
+        clearTimeout(this.timeoutFooter_);
+        this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this),
+            this.$el.is(':hidden') ? 100: 0);
+    };
+
+    BootstrapTable.prototype.fitFooter = function () {
+        var that = this,
+            $fixedBody,
+            $footerTd,
+            elWidth,
+            scrollWidth;
+
+        clearTimeout(this.timeoutFooter_);
+        if (this.$el.is(':hidden')) {
+            this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), 100);
+            return;
+        }
+
+        $fixedBody  = this.$container.find('.fixed-table-body');
+        elWidth     = this.$el.css('width');
+        scrollWidth = elWidth > $fixedBody.width() ? getScrollBarWidth() : 0;
+
+        this.$footer.css({
+            'margin-right': scrollWidth
+        }).find('table').css('width', elWidth)
+            .attr('class', this.$el.attr('class'));
+
+        $footerTd = this.$footer.find('td');
+
+        $fixedBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function(i) {
+            $footerTd.eq(i).outerWidth($(this).outerWidth());
+        });
     };
 
     BootstrapTable.prototype.toggleColumn = function (index, checked, needUpdate) {
@@ -2250,18 +2124,6 @@
         this.initBody();
     };
 
-    BootstrapTable.prototype.deleteCookie = function (cookieName) {
-        if (cookieName === '') {
-            return;
-        }
-
-        if (!cookieEnabled()) {
-            return;
-        }
-
-        deleteCookie(idsStateSaveList[cookieName]);
-    }
-
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -2284,8 +2146,7 @@
         'scrollTo',
         'selectPage', 'prevPage', 'nextPage',
         'togglePagination',
-        'toggleView',
-        'deleteCookie'
+        'toggleView'
     ];
 
     $.fn.bootstrapTable = function (option, _relatedTarget) {
