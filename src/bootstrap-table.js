@@ -689,15 +689,15 @@
     };
 
     BootstrapTable.prototype.resetFooter = function () {
-        var bt   = this,
-            data = bt.getData(),
+        var that = this,
+            data = that.getData(),
             html = [];
 
         if (!this.options.showFooter || this.options.cardView) { //do nothing
             return;
         }
 
-        $.each(bt.options.columns, function (i, column) {
+        $.each(this.options.columns, function (i, column) {
             var falign = '', // footer align style
                 style  = '',
                 class_ = sprintf(' class="%s"', column['class']);
@@ -720,34 +720,35 @@
             html.push('</td>');
         });
 
-        bt.$footer.find('tr').html(html.join(''));
-        clearTimeout(bt.timeoutFooter_);
-        bt.timeoutFooter_ = setTimeout($.proxy(bt.fitFooter, bt), bt.$el.is(':hidden') ? 100: 0);
-        return;
+        this.$footer.find('tr').html(html.join(''));
+        clearTimeout(this.timeoutFooter_);
+        this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this),
+            this.$el.is(':hidden') ? 100: 0);
     };
 
     BootstrapTable.prototype.fitFooter = function () {
-        var bt = this,
+        var that = this,
             $fixedBody,
             $footerTd,
             elWidth,
             scrollWidth;
-        clearTimeout(bt.timeoutFooter_);
-        if (bt.$el.is(':hidden')) {
-            bt.timeoutFooter_ = setTimeout($.proxy(bt.fitFooter, bt), 100);
+
+        clearTimeout(this.timeoutFooter_);
+        if (this.$el.is(':hidden')) {
+            this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), 100);
             return;
         }
 
-        $fixedBody  = bt.$container.find('.fixed-table-body');
-        elWidth     = bt.$el.css('width');
+        $fixedBody  = this.$container.find('.fixed-table-body');
+        elWidth     = this.$el.css('width');
         scrollWidth = elWidth > $fixedBody.width() ? getScrollBarWidth() : 0;
 
-        bt.$footer.css({
+        this.$footer.css({
             'margin-right': scrollWidth
         }).find('table').css('width', elWidth)
-            .attr('class', bt.$el.attr('class'));
+            .attr('class', this.$el.attr('class'));
 
-        $footerTd = bt.$footer.find('td');
+        $footerTd = this.$footer.find('td');
 
         $fixedBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function(i) {
             $footerTd.eq(i).outerWidth($(this).outerWidth());
@@ -1935,6 +1936,7 @@
             this.resetHeader();
             padding += cellHeight;
         } else {
+            this.$container.find('.fixed-table-header').hide();
             this.trigger('post-header');
         }
 
