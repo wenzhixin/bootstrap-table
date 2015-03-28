@@ -29,6 +29,9 @@
         },
         formatColumns: function () {
             return 'Columnas';
+        },
+        formatAllRows: function () {
+            return 'Todo';
         }
     };
 

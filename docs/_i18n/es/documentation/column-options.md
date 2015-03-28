@@ -85,9 +85,10 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
     <tr>
         <td>width</td>
         <td>data-width</td>
-        <td>Number</td>
+        <td>Number {Pixeles o Porcentaje}</td>
         <td>undefined</td>
-        <td>El ancho de la columna. Si no es definido, el ancho se adaptará al contenido.</td>
+        <td>Indica el ancho de la columna. Si no es definido, el ancho será auto. Tmabién puede agregar '%' a su número y la bootstrapTable
+		usará la unidad de porcentaje, sino, puede agregar o no 'px' a su número para que bootstrapTable use pixeles.</td>
     </tr>
     <tr>
         <td>sortable</td>
@@ -194,6 +195,16 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>Boolean</td>
         <td>true</td>
         <td>True para incluir la columna en la búsqueda.</td>
+    </tr>
+    <tr>
+        <td>filterControl</td>
+        <td>data-filter-control</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>
+        Se puede usar 'input' para agregar un input control a la columna o 'select' para agregar una lista
+        a la columna.
+        </td>
     </tr>
     </tbody>
 </table>

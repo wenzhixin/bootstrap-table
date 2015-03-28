@@ -30,6 +30,9 @@
         },
         formatColumns: function () {
             return 'Colonnes';
+        },
+        formatAllRows: function () {
+            return 'Tous';
         }
     };
 
