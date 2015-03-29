@@ -300,6 +300,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Indica cuál campo es el identificador.</td>
     </tr>
     <tr>
+        <td>uniqueId</td>
+        <td>data-unique-id</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Indica un único id para cada fila.</td>
+    </tr>
+    <tr>
         <td>cardView</td>
         <td>data-card-view</td>
         <td>Boolean</td>

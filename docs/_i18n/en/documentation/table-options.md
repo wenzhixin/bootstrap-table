@@ -310,6 +310,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Indicate which field is an identity field.</td>
     </tr>
     <tr>
+        <td>uniqueId</td>
+        <td>data-unique-id</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Indicate an unique identifier for each row.</td>
+    </tr>
+    <tr>
         <td>cardView</td>
         <td>data-card-view</td>
         <td>Boolean</td>
