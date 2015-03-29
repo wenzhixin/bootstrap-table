@@ -407,28 +407,6 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         T/t: It will toggle the table view if the showToggle option is enabled
         P/p: It will fires the pagination switch if the showPaginationSwitch is enabled.</td>
     </tr>
-	<tr>
-        <td>stateSave</td>
-        <td>data-state-save</td>
-        <td>Boolean</td>
-        <td>false</td>
-        <td>True to save the state of a table (its paging position, ordering state, records per page).</td>
-    </tr>
-	<tr>
-        <td>stateSaveExpire</td>
-        <td>data-state-save-expire</td>
-        <td>String</td>
-        <td>'2h'</td>
-        <td>You must set this property if stateSave is enable to know when will expire the cookie created. Must use this format: 'number{letter}' like '2h', in the letter position
-		you can use: 's','mi','h','d','m','y', these means: 'seconds', 'minutes', 'hours', 'days', 'months', 'years'.</td>
-    </tr>
-	<tr>
-        <td>stateSaveIdTable</td>
-        <td>data-state-save-id-table</td>
-        <td>String</td>
-        <td>''</td>
-        <td>You must set this property if stateSave is enable to sets an unique cookie with an identifier for each table in your page or project. You must set this property because we need create cookies with an identifier.</td>
-    </tr>
     <tr>
         <td>rowStyle</td>
         <td>data-row-style</td>
