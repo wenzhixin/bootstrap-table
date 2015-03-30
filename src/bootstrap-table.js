@@ -171,6 +171,7 @@
         smartDisplay: true,
         minimumCountColumns: 1,
         idField: undefined,
+        uniqueId: undefined,
         cardView: false,
         trimOnSearch: true,
         clickToSelect: false,
@@ -1233,6 +1234,7 @@
                 sprintf(' id="%s"', $.isArray(item) ? undefined : item._id),
                 sprintf(' class="%s"', style.classes || ($.isArray(item) ? undefined : item._class)),
                 sprintf(' data-index="%s"', i),
+                sprintf(' data-unique-id="%s"', item[this.options.uniqueId]),
                 '>'
             );
 

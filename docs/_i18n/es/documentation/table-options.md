@@ -300,6 +300,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Indica cuál campo es el identificador.</td>
     </tr>
     <tr>
+        <td>uniqueId</td>
+        <td>data-unique-id</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Indica un único id para cada fila.</td>
+    </tr>
+    <tr>
         <td>cardView</td>
         <td>data-card-view</td>
         <td>Boolean</td>
@@ -393,28 +400,6 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         R/r: Se refrescará la tabla si la opción showRefresh está habilitada
         T/t: Se cambiará de vista si la opción showToggle está habilitada
         P/p: Se ocultara/mostrará la paginación si la opción showPaginationSwitch está habilitada.</td>
-    </tr>
-	<tr>
-        <td>stateSave</td>
-        <td>data-state-save</td>
-        <td>Boolean</td>
-        <td>false</td>
-        <td>True para guardar el estado de la tabla (la posición de la paginación, ordenamiento, filas por página).</td>
-    </tr>
-	<tr>
-        <td>stateSaveExpire</td>
-        <td>data-state-save-expire</td>
-        <td>String</td>
-        <td>'2h'</td>
-        <td>Indique la propiedad para saber cuando expirará la cookie creada. Use este formato: 'numero{letra}' por ejemplo: '2h', en la posicióon de la letra
-		se puede usar: 's','mi','h','d','m','y', esto significa: 'segundos', 'minutos', 'horas', 'días', 'meses', 'años'.</td>
-    </tr>
-	<tr>
-        <td>stateSaveIdTable</td>
-        <td>data-state-save-id-table</td>
-        <td>String</td>
-        <td>''</td>
-        <td>Debe indicar la propiedad si la stateSave está habilitado. Este será el identificador para cookie guardada por tabla en su página o proyecto.</td>
     </tr>
     <tr>
         <td>rowStyle</td>
