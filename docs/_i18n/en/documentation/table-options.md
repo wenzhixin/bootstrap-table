@@ -102,6 +102,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>The data to be loaded.</td>
     </tr>
     <tr>
+        <td>ajax</td>
+        <td>data-ajax</td>
+        <td>Function</td>
+        <td>undefined</td>
+        <td>A method to replace ajax call. Should implement the same API as jQuery ajax method</td>
+    </tr>
+    <tr>
         <td>method</td>
         <td>data-method</td>
         <td>String</td>
@@ -186,7 +193,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-side-pagination</td>
         <td>String</td>
         <td>'client'</td>
-        <td>Defines the side pagination of table, can only be 'client' or 'server'.</td>
+        <td>Defines the side pagination of table, can only be 'client' or 'server'. Using 'server' side requires either setting the 'url' or 'ajax' option</td>
     </tr>
     <tr>
         <td>pageNumber</td>
