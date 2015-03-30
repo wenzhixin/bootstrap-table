@@ -349,7 +349,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-pagination-v-align</td>
         <td>String</td>
         <td>'bottom'</td>
-        <td>Indicate how to align the pagination. 'top', 'bottom' can be used.</td>
+        <td>Indicate how to align the pagination. 'top', 'bottom', 'both' (put the pagination on top and bottom)  can be used.</td>
     </tr>
     <tr>
         <td>paginationHAlign</td>
