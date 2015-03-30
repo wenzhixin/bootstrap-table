@@ -155,9 +155,8 @@
         pageSize: 10,
         pageList: [10, 25, 50, 100],
         paginationHAlign: 'right', //right, left
-        paginationVAlign: 'bottom', //bottom, top
+        paginationVAlign: 'bottom', //bottom, top, both
         paginationDetailHAlign: 'left', //right, left
-        paginationDetailVAlign: 'bottom', //bottom, top
         search: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
@@ -356,6 +355,9 @@
         this.$container = $([
             '<div class="bootstrap-table">',
             '<div class="fixed-table-toolbar"></div>',
+            this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
+                '<div class="fixed-table-pagination" style="clear: both;"></div>' :
+                '',
             '<div class="fixed-table-container">',
             '<div class="fixed-table-header"><table></table></div>',
             '<div class="fixed-table-body">',
@@ -364,7 +366,9 @@
             '</div>',
             '</div>',
             '<div class="fixed-table-footer"><table><tr></tr></table></div>',
-            '<div class="fixed-table-pagination"></div>',
+            this.options.paginationVAlign === 'bottom' || this.options.paginationVAlign === 'both' ?
+                '<div class="fixed-table-pagination"></div>' :
+                '',
             '</div>',
             '</div>'].join(''));
 
@@ -1017,7 +1021,8 @@
         html.push('<span class="page-list">');
 
         var pageNumber = [
-                '<span class="btn-group dropup">',
+                sprintf('<span class="btn-group %s">', this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
+                    'dropdown' : 'dropup'),
                 '<button type="button" class="btn btn-default ' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
                 '<span class="page-size">',
                 $allSelected ? this.options.formatAllRows() : this.options.pageSize,
