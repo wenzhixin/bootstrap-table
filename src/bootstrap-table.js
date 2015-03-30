@@ -861,7 +861,7 @@
         var text = $.trim($(event.currentTarget).val());
 
         // trim search input
-        if (this.options.trimOnSearch) {
+        if (this.options.trimOnSearch && $(event.currentTarget).val() !== text) {
             $(event.currentTarget).val(text);
         }
 
