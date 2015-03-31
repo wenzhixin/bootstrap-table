@@ -809,11 +809,7 @@
         if (this.options.showToggle) {
             this.$toolbar.find('button[name="toggle"]')
                 .off('click').on('click', function () {
-                    that.options.cardView = !that.options.cardView;
-                    that.initHeader();
-                    // Fixed remove toolbar when click cardView button.
-                    //that.initToolbar();
-                    that.initBody();
+                    that.toggleView();
                 });
         }
 
@@ -2127,7 +2123,8 @@
     BootstrapTable.prototype.toggleView = function () {
         this.options.cardView = !this.options.cardView;
         this.initHeader();
-        this.initToolbar();
+        // Fixed remove toolbar when click cardView button.
+        //that.initToolbar();
         this.initBody();
     };
 
