@@ -1810,6 +1810,7 @@
         }
 
         if (this.options.showHeader && this.options.height) {
+            this.$container.find('.fixed-table-header').show();
             this.resetHeader();
             padding += cellHeight;
         } else {
