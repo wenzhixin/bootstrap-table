@@ -1,6 +1,6 @@
 /**
  * bootstrap-table-flatJSON.js
- * @version: v1.0.0
+ * @version: v1.0.1
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
  *
@@ -63,7 +63,7 @@
             function recurse(cur, prop) {
                 if (Object(cur) !== cur) {
                     result[prop] = cur;
-                } else if (Array.isArray(cur)) {
+                } else if ($.isArray(cur)) {
                     for (var i = 0, l = cur.length; i < l; i++) {
                         recurse(cur[i], prop ? prop + "." + i : "" + i);
                         if (l == 0) {
