@@ -334,6 +334,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>'left'</td>
         <td>Indica cómo alinear la barra de herramientas customizable. Se puede usar 'left', 'right'.</td>
     </tr>
+    <tr>
+        <td>paginationVAlign</td>
+        <td>data-pagination-v-align</td>
+        <td>String</td>
+        <td>'bottom'</td>
+        <td>Indica cómo alinear la paginación. Se puede usar: 'top', 'bottom', 'both' (coloca la paginación arriba y abajo de la tabla.</td>
+    </tr>
 	<tr>
         <td>paginationHAlign</td>
         <td>data-pagination-h-align</td>
