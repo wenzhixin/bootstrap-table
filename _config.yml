@@ -19,8 +19,8 @@ url:              http://bootstrap-table.wenzhixin.net.cn
 encoding:         UTF-8
 
 # Languages
-languages: ["en", "zh-cn", "es", "fr"]
-languages_string: ["English", "简体中文", "Español", "French"]
+languages: ["en", "zh-cn", "es"]
+languages_string: ["English", "简体中文", "Español"]
 
 # Custom vars
 current_version: 1.6.0
