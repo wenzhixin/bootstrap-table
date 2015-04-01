@@ -9,20 +9,20 @@
 (function ($) {
     'use strict';
 
-    var idStateSave = '',
-        idsStateSaveList = {
+    var idsStateSaveList = {
             sortOrder: 'bs.table.sortOrder',
             sortName: 'bs.table.sortName',
             pageNumber: 'bs.table.pageNumber',
-            pageList: 'bs.table.pageList'
+            pageList: 'bs.table.pageList',
+            columnList: 'bs.table.columnList'
         };
 
     var cookieEnabled = function (){
         return (navigator.cookieEnabled) ? true : false;
     };
 
-    var setCookie = function (cookieName, sValue, vEnd, sPath, sDomain, bSecure) {
-        cookieName = idStateSave + cookieName;
+    var setCookie = function (tableName, cookieName, sValue, vEnd, sPath, sDomain, bSecure) {
+        cookieName = tableName + cookieName;
         if (!cookieName || /^(?:expires|max\-age|path|domain|secure)$/i.test(cookieName)) {
             return false;
         }
@@ -62,8 +62,8 @@
         return true;
     };
 
-    var getCookie = function (cookieName) {
-        cookieName = idStateSave + cookieName;
+    var getCookie = function (tableName, cookieName) {
+        cookieName = tableName + cookieName;
         if (!cookieName) {
             return null;
         }
@@ -77,8 +77,8 @@
         return (new RegExp('(?:^|;\\s*)' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=')).test(document.cookie);
     };
 
-    var deleteCookie = function (cookieName, sPath, sDomain) {
-        cookieName = idStateSave + cookieName;
+    var deleteCookie = function (tableName, cookieName, sPath, sDomain) {
+        cookieName = tableName + cookieName;
         if (!hasCookie(cookieName)) {
             return false;
         }
@@ -119,13 +119,12 @@
             return;
         }
 
-        idStateSave = this.options.stateSaveIdTable + '.';
-
-        var sortOrderStateSave = getCookie(idsStateSaveList.sortOrder),
-            sortOrderStateName = getCookie(idsStateSaveList.sortName),
-            pageNumberStateSave = getCookie(idsStateSaveList.pageNumber),
-            pageListStateSave = getCookie(idsStateSaveList.pageList);
-
+        var sortOrderStateSave = getCookie(this.options.stateSaveIdTableid, idsStateSaveList.sortOrder),
+            sortOrderStateName = getCookie(this.options.stateSaveIdTableid, idsStateSaveList.sortName),
+            pageNumberStateSave = getCookie(this.options.stateSaveIdTableid, idsStateSaveList.pageNumber),
+            pageListStateSave = getCookie(this.options.stateSaveIdTableid, idsStateSaveList.pageList),
+            columnListStateSave = JSON.parse(getCookie(this.options.stateSaveIdTableid, idColumnListStateSave));
+            
         if (sortOrderStateSave !== undefined && sortOrderStateSave !== null) {
             this.options.sortOrder = sortOrderStateSave;
             this.options.sortName = sortOrderStateName;
@@ -139,14 +138,24 @@
             this.options.pageSize = pageListStateSave ===
                 this.options.formatAllRows() ? pageListStateSave : +pageListStateSave;
         }
+        
+        if (columnListStateSave !== undefined && columnListStateSave !== null) {
+            this.options.columnList = columnListStateSave;
+        } else {
+            $.each(this.options.columns, function (i) {
+                if (this.visible || this.visible == undefined) {
+                    that.options.columnList.push(i.toString())
+                }
+            });
+        }
     };
 
     BootstrapTable.prototype.onSort = function () {
         _onSort.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.stateSave && cookieEnabled() && (this.options.stateSaveIdTable !== '')) {
-            setCookie(idsStateSaveList.sortOrder, this.options.sortOrder, this.options.stateSaveExpire);
-            setCookie(idsStateSaveList.sortName, this.options.sortName, this.options.stateSaveExpire);
+            setCookie(this.options.stateSaveIdTableid, sStateSaveList.sortOrder, this.options.sortOrder, this.options.stateSaveExpire);
+            setCookie(this.options.stateSaveIdTableid, idsStateSaveList.sortName, this.options.sortName, this.options.stateSaveExpire);
         }
     };
 
@@ -154,7 +163,7 @@
         _onPageNumber.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.stateSave && cookieEnabled() && this.options.stateSaveIdTable !== '') {
-            setCookie(idsStateSaveList.pageNumber, this.options.pageNumber, this.options.stateSaveExpire);
+            setCookie(this.options.stateSaveIdTableid, idsStateSaveList.pageNumber, this.options.pageNumber, this.options.stateSaveExpire);
         }
     };
 
@@ -162,7 +171,15 @@
         _onPageListChange.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.stateSave && cookieEnabled() && this.options.stateSaveIdTable !== '') {
-            setCookie(idsStateSaveList.pageList, this.options.pageSize, this.options.stateSaveExpire);
+            setCookie(this.options.stateSaveIdTableid, idsStateSaveList.pageList, this.options.pageSize, this.options.stateSaveExpire);
+        }
+    };
+    
+    BootstrapTable.prototype.toggleColumn = function () {
+        _onPageListChange.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (this.options.stateSave && cookieEnabled()) {
+            setCookie(this, idColumnListStateSave, JSON.stringify(this.options.columnList), this.options.stateSaveExpire);
         }
     };
 
