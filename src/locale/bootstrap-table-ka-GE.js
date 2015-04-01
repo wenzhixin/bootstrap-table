@@ -7,35 +7,34 @@
 
     $.fn.bootstrapTable.locales['ka-GE'] = {
         formatLoadingMessage: function() {
-            return "იტვირთება, გთხოვთ მოიცადოთ...";
+            return 'იტვირთება, გთხოვთ მოიცადოთ...';
         },
         formatRecordsPerPage: function(pageNumber) {
-            return pageNumber + " ჩანაწერი ერთ გვერდზე";
+            return pageNumber + ' ჩანაწერი ერთ გვერდზე';
         },
         formatShowingRows: function(pageFrom, pageTo, totalRows) {
-            return "ნაჩვენებია " + pageFrom + "-დან " + pageTo + "-მდე ჩანაწერი " + totalRows + "-დან";
+            return 'ნაჩვენებია ' + pageFrom + '-დან ' + pageTo + '-მდე ჩანაწერი ' + totalRows + '-დან';
         },
         formatSearch: function() {
-            return "ძებნა";
+            return 'ძებნა';
         },
         formatNoMatches: function() {
-            return "მონაცემები არ არის";
+            return 'მონაცემები არ არის';
         },
         formatPaginationSwitch: function() {
-            return "გვერდების გადამრთველის დამალვა/გამოჩენა";
+            return 'გვერდების გადამრთველის დამალვა/გამოჩენა';
         },
         formatRefresh: function() {
-            return "განახლება";
+            return 'განახლება';
         },
         formatToggle: function() {
-            return "ჩართვა/გამორთვა";
+            return 'ჩართვა/გამორთვა';
         },
         formatColumns: function() {
-            return "სვეტები";
+            return 'სვეტები';
         }
     };
     
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ka-GE']);
-  });
 
 })(jQuery);
