@@ -988,7 +988,10 @@
                 this.options.pageSize = this.options.totalRows;
                 $allSelected = true;
             } else if (this.options.pageSize === this.options.totalRows) {
-                var pageLst = this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').toLowerCase().split(',');
+                // Fix #667 Table with pagination, multiple pages and a search that matches to one page throws exception
+                var pageLst = typeof this.options.pageList === 'string' ?
+                    this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').toLowerCase().split(',') :
+                    this.options.pageList;
                 if (pageLst.indexOf(this.options.formatAllRows().toLowerCase()) > -1) {
                     $allSelected = true;
                 }
