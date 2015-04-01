@@ -1,24 +1,17 @@
 ### Latest release
 
-#### v{{ site.current_version }} (2015-02-03)
+#### v{{ site.current_version }} (2015-04-01)
 
-- [bug] Fix queryParams bug when use `sidePagination='server'`.
-- [enh] Add uk-UA, sv-SE, pt-PT, ms-MY, ja-JP locales.
-- [enh] Add `searchTimeOut` option.
-- [bug] Fix #220: state column hideColumn bug.
-- [bug] Fix #221: cellStyle bug.
-- [enh] Add `iconsPrefix` and `icons` options to support custom icons.
-- [enh] Add i18n support for docs.
-- [enh] Allow `query` params to be specified during refresh.
-- [bug] Fix bug of ellipsis string.
-- [bug] Fix pageList smartDisplay.
-- [bug] Fix #188: Export Button is not shown only use `showExport=true`.
-- [bug] Fix page-change event params bug.
-- [enh] Add limit and offset params only if pagination is activated.
-- [enh] Add `ajaxOptions` option to custom $.ajax options.
-- [enh] Add a toggle pagination toolbar button.
-- [enh] Add `iconSize` option.
-- [enh] Add `buttonsAlign` option and update `toolbarAlign` option.
-- [enh] Add `prepend`, `insertRow` and `toggleView` methods.
-- [enh] Add `editable-save.bs.table` event to editatble extension.
-- [enh] #431: load method support pagination.
+- [enh] Add `showFooter`, `keyEvents`, `searchText` and `uniqueId` options.
+- [enh] Add `cardVisible` column options.
+- [enh] Add `checkBy` and `uncheckBy`, `showRow` and `hideRow` and `getRowsHidden` methods.
+- [enh] Add nb-NO, ar-SA, es-MX, ka-GE locales.
+- [enh] Add cookie, resizable, natural-sorting, toolbar extensions.
+- [enh] Add exportOptions to export extension.
+- [enh] Fix #263: prepend method support object and array.
+- [enh] Card View support checkbox and radio.
+- [bug] Fix Card View events bug.
+- [enh] Keep all `data-*` attributes when transform from normal table.
+- [enh] Load method support fixedScroll param.
+- [enh] Added 'all' option in pagination.
+- [enh] Added pagination detail align.
