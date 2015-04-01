@@ -1,0 +1,7 @@
+/*
+* bootstrap-table - v1.7.0 - 2015-04-01
+* https://github.com/wenzhixin/bootstrap-table
+* Copyright (c) 2015 zhixin wen
+* Licensed MIT License
+*/
+!function(a){"use strict";var b=function(b){var c=b;a(b.$el).colResizable({disable:!0}),a(b.$el).colResizable({liveDrag:c.options.liveDrag,fixed:c.options.fixed,headerOnly:c.options.headerOnly,minWidth:c.options.minWidth,hoverCursor:c.options.hoverCursor,dragCursor:c.options.dragCursor,onResize:c.options.onResizableResize,onDrag:c.options.onResizableDrag})};a.extend(a.fn.bootstrapTable.defaults,{resizable:!1,liveDrag:!1,fixed:!0,headerOnly:!1,minWidth:15,hoverCursor:"e-resize",dragCursor:"e-resize",onResizableResize:function(){return!1},onResizableDrag:function(){return!1}});var c=a.fn.bootstrapTable.Constructor,d=c.prototype.init,e=c.prototype.toggleColumn,f=c.prototype.toggleView;c.prototype.init=function(){d.apply(this,Array.prototype.slice.apply(arguments)),this.options.resizable&&b(this)},c.prototype.toggleColumn=function(){e.apply(this,Array.prototype.slice.apply(arguments)),this.options.resizable&&b(this)},c.prototype.toggleView=function(){if(f.apply(this,Array.prototype.slice.apply(arguments)),this.options.resizable){if(this.options.cardView)return void a(this.$el).colResizable({disable:!0});b(this)}}}(jQuery);

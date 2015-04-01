@@ -1,28 +1,39 @@
-# Editable []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/extensions/editable.md)
+# Table Editable
 
----
+Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 
-Usando el plugin:
+## Usage
 
-* [x-editable](https://github.com/vitalets/x-editable)
-* [bootstrap-table-editable.js](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/editable)
+```html
+<script src="extensions/editable/bootstrap-table-editable.js"></script>
+```
 
-## Opciones
+## Options
 
 ### editable
 
 * type: Boolean
-* description: Setee false para deshabilitar la opción editable de todas las columnas.
+* description: Set false to disabled editable of all columns.
 * default: `true`
 
-## Opciones de las columnas
+## Column options
 
 ### editable
 
 * type: Object
-* description: Configuration de x-editable. Lista completa de opciones: http://vitalets.github.io/x-editable/docs.html#editable
+* description: Configuration of x-editable. Full list of options: http://vitalets.github.io/x-editable/docs.html#editable
 * default: `undefined`
 
-## Ejemplos
+## Events
 
-<iframe width="100%" height="300" data-src="http://jsfiddle.net/wenyi/e3nk137y/28/embedded/html,js,resources,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+### onEditableInit(editable-init.bs.table)
+
+Fired when all columns was initialized by `$().editable()` method.
+
+### onEditableSave(editable-save.bs.table)
+
+Fired when an editable cell is saved.
+
+## The existing problems
+
+* Editable extension does not support searchable in the select type.

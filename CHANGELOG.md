@@ -1,5 +1,21 @@
 ## ChangeLog
 
+### 1.7.0
+
+- [enh] Add `showFooter`, `keyEvents`, `searchText` and `uniqueId` options.
+- [enh] Add `cardVisible` column options.
+- [enh] Add `checkBy` and `uncheckBy`, `showRow` and `hideRow` and `getRowsHidden` methods.
+- [enh] Add nb-NO, ar-SA, es-MX, ka-GE locales.
+- [enh] Add cookie, resizable, natural-sorting, toolbar extensions.
+- [enh] Add exportOptions to export extension.
+- [enh] Fix #263: prepend method support object and array.
+- [enh] Card View support checkbox and radio.
+- [bug] Fix Card View events bug.
+- [enh] Keep all `data-*` attributes when transform from normal table.
+- [enh] Load method support fixedScroll param.
+- [enh] Added 'all' option in pagination.
+- [enh] Added pagination detail align.
+
 ### 1.6.0
 
 - [bug] Fix queryParams bug when use `sidePagination='server'`.
