@@ -10,11 +10,11 @@
     'use strict';
 
     var idsStateSaveList = {
-        sortOrder: 'bs.table.sortOrder',
-        sortName: 'bs.table.sortName',
-        pageNumber: 'bs.table.pageNumber',
-        pageList: 'bs.table.pageList',
-        columns: 'bs.table.columns'
+            sortOrder: 'bs.table.sortOrder',
+            sortName: 'bs.table.sortName',
+            pageNumber: 'bs.table.pageNumber',
+            pageList: 'bs.table.pageList',
+            columns: 'bs.table.columns'
     };
 
     var cookieEnabled = function () {
@@ -176,7 +176,7 @@
         }
     };
 
-    BootstrapTable.prototype.toggleColumn = function (e) {
+    BootstrapTable.prototype.toggleColumn = function () {
         _toggleColumn.apply(this, Array.prototype.slice.apply(arguments));
 
         var visibleColumns = [];
