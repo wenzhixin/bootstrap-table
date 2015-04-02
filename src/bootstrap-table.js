@@ -478,8 +478,8 @@
 
             if (column.width !== undefined && (!that.options.cardView)) {
                 if (typeof column.width === 'string') {
-                    if (column.width.indexOf('%') > -1) {
-                        unitWidth = '%'
+                    if (column.width.indexOf('%') !== -1) {
+                        unitWidth = '%';
                     }
                 }
             }
@@ -487,7 +487,8 @@
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s'+ unitWidth +'; ', column.checkbox || column.radio ? 36 : column.width.replace('%', '').replace('px', ''));
+            style += sprintf('width: %s'+ unitWidth +'; ', column.checkbox || column.radio ? 36 :
+                (column.width ? column.width.replace('%', '').replace('px', '') : undefined));
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
