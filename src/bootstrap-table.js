@@ -487,8 +487,9 @@
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s'+ unitWidth +'; ', column.checkbox || column.radio ? 36 :
-                (column.width ? column.width.replace('%', '').replace('px', '') : undefined));
+            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 :
+                (column.width ? column.width.replace('%', '').replace('px', '') : undefined),
+                unitWidth);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
