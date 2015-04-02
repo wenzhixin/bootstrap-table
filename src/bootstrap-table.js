@@ -137,6 +137,7 @@
         data: [],
         method: 'get',
         url: undefined,
+        ajax: undefined,
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
@@ -347,7 +348,9 @@
         this.initToolbar();
         this.initPagination();
         this.initBody();
-        this.initServer();
+        if (this.options.sidePagination === 'server') {
+            this.initServer();
+        }
         this.initKeyEvents();
     };
 
@@ -1466,10 +1469,11 @@
                 searchText: this.searchText,
                 sortName: this.options.sortName,
                 sortOrder: this.options.sortOrder
-            };
+            },
+            request;
 
-        if (!this.options.url) {
-            return;
+        if (!this.options.url && !this.options.ajax) {
+            throw new Error("Using Server requires either a `url` or a custom `ajax` method");
         }
 
         if (this.options.queryParamsType === 'limit') {
@@ -1502,8 +1506,7 @@
         if (!silent) {
             this.$loading.show();
         }
-
-        $.ajax($.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
+        request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
             url: this.options.url,
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
@@ -1525,7 +1528,13 @@
                     that.$loading.hide();
                 }
             }
-        }));
+        });
+
+        if (this.options.ajax) {
+            calculateObjectValue(this, this.options.ajax, [request], null);
+        } else {
+            $.ajax(request);
+        }
     };
 
     BootstrapTable.prototype.initKeyEvents = function () {
@@ -2077,6 +2086,15 @@
         this.initServer(params && params.silent, params && params.query);
     };
 
+    BootstrapTable.prototype.resetWidth = function () {
+        if (this.options.showHeader && this.options.height) {
+            this.fitHeader();
+        }
+        if (this.options.showFooter) {
+            this.fitFooter();
+        }
+    };
+
     BootstrapTable.prototype.showColumn = function (field) {
         this.toggleColumn(getFieldIndex(this.options.columns, field), true, true);
     };
@@ -2146,6 +2164,7 @@
         'checkBy', 'uncheckBy',
         'refresh',
         'resetView',
+        'resetWidth',
         'destroy',
         'showLoading', 'hideLoading',
         'showColumn', 'hideColumn',
@@ -2167,7 +2186,7 @@
 
             if (typeof option === 'string') {
                 if ($.inArray(option, allowedMethods) < 0) {
-                    throw "Unknown method: " + option;
+                    throw new Error("Unknown method: " + option);
                 }
 
                 if (!data) {
