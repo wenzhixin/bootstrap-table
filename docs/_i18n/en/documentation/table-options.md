@@ -417,17 +417,6 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>true</td>
         <td>False to disable sortable of all columns.</td>
     </tr>
-	<tr>
-        <td>keyEvents</td>
-        <td>data-key-events</td>
-        <td>Boolean</td>
-        <td>false</td>
-        <td>True to enable the key events. The key event list is:
-        S/s: It will be focused the search textbox if it is enabled
-        R/r: It will refresh the table if the showRefresh option is enabled
-        T/t: It will toggle the table view if the showToggle option is enabled
-        P/p: It will fires the pagination switch if the showPaginationSwitch is enabled.</td>
-    </tr>
     <tr>
         <td>rowStyle</td>
         <td>data-row-style</td>

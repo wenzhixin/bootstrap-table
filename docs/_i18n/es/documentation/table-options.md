@@ -397,17 +397,6 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>true</td>
         <td>False para deshabilitar el ordenamiento en todas las columnas.</td>
     </tr>
-	<tr>
-        <td>keyEvents</td>
-        <td>data-key-events</td>
-        <td>Boolean</td>
-        <td>false</td>
-        <td>True para habilitar los eventos del teclado. La lista es:
-        S/s: El textbox de búsqueda sera enfocado si la opción search está habilitada
-        R/r: Se refrescará la tabla si la opción showRefresh está habilitada
-        T/t: Se cambiará de vista si la opción showToggle está habilitada
-        P/p: Se ocultara/mostrará la paginación si la opción showPaginationSwitch está habilitada.</td>
-    </tr>
     <tr>
         <td>rowStyle</td>
         <td>data-row-style</td>

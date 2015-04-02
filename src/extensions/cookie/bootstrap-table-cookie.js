@@ -1,10 +1,10 @@
 /**
-* @author: Dennis Hernández
-* @webSite: http://djhvscf.github.io/Blog
-* @version: v1.1.0
-*
-* @update zhixin wen <wenzhixin2010@gmail.com>
-*/
+ * @author: Dennis Hernández
+ * @webSite: http://djhvscf.github.io/Blog
+ * @version: v1.1.0
+ *
+ * @update zhixin wen <wenzhixin2010@gmail.com>
+ */
 
 (function ($) {
     'use strict';

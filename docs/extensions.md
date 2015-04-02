@@ -14,3 +14,7 @@ lead: pages.extensions.lead
 {% tf extensions/cookie.md %}
 
 {% tf extensions/resizable.md %}
+
+{% tf extensions/filter.md %}
+
+{% tf extensions/keyevents.md %}
