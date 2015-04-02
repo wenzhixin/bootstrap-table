@@ -182,7 +182,6 @@
         sortable: true,
         maintainSelected: false,
         searchTimeOut: 500,
-        keyEvents: false,
         searchText: '',
         iconSize: undefined,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
@@ -349,7 +348,6 @@
         this.initPagination();
         this.initBody();
         this.initServer();
-        this.initKeyEvents();
     };
 
     BootstrapTable.prototype.initContainer = function () {
@@ -1535,67 +1533,6 @@
             calculateObjectValue(this, this.options.ajax, [request], null);
         } else {
             $.ajax(request);
-        }
-    };
-
-    BootstrapTable.prototype.initKeyEvents = function () {
-        if (this.options.keyEvents) {
-            var that = this;
-            $(document).off('keypress').on('keypress', function (e) {
-                var $search = that.$toolbar.find('.search input'),
-                    $refresh = that.$toolbar.find('button[name="refresh"]'),
-                    $toggle = that.$toolbar.find('button[name="toggle"]'),
-                    $paginationSwitch = that.$toolbar.find('button[name="paginationSwitch"]');
-                switch (e.keyCode) {
-                    case 115://s
-                    case 83://S
-                        if (!that.options.search) {
-                            return;
-                        }
-
-                        if (document.activeElement === $search.get(0)) {
-                            return true;
-                        }
-                        $search.focus();
-                        return false;
-                    case 114: //r
-                    case 82: //R
-                        if (!that.options.showRefresh) {
-                            return;
-                        }
-
-                        if (document.activeElement === $search.get(0)) {
-                            return true;
-                        }
-                        $refresh.click();
-                        return false;
-                    case 116: //t
-                    case 84: //T
-                        if (!that.options.showToggle) {
-                            return;
-                        }
-
-                        if (document.activeElement === $search.get(0)) {
-                            return true;
-                        }
-
-                        $toggle.click();
-                        return false;
-                    case 112: //p
-                    case 80: //p
-                        if (!that.options.showPaginationSwitch) {
-                            return;
-                        }
-
-                        if (document.activeElement === $search.get(0)) {
-                            return true;
-                        }
-
-                        $paginationSwitch.click();
-                        return false;
-
-                }
-            });
         }
     };
 
