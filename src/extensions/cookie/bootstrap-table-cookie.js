@@ -95,15 +95,16 @@
     $.fn.bootstrapTable.methods.push('deleteCookie');
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _init = BootstrapTable.prototype.init,
+        _initTable = BootstrapTable.prototype.initTable,
         _onSort = BootstrapTable.prototype.onSort,
         _onPageNumber = BootstrapTable.prototype.onPageNumber,
         _onPageListChange = BootstrapTable.prototype.onPageListChange,
         _toggleColumn = BootstrapTable.prototype.toggleColumn;
 
-    BootstrapTable.prototype.init = function () {
+    // init save data after initTable function
+    BootstrapTable.prototype.initTable = function () {
+        _initTable.apply(this, Array.prototype.slice.apply(arguments));
         this.initStateSave();
-        _init.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     BootstrapTable.prototype.initStateSave = function () {
@@ -141,12 +142,8 @@
         }
 
         if (columnsStateSave !== undefined && columnsStateSave !== null) {
-            $.each(this.options.columns, function (i) {
-                if (columnsStateSave.indexOf(i) > -1) {
-                    this.visible = true;
-                } else {
-                    this.visible = false;
-                }
+            $.each(this.options.columns, function (i, column) {
+                column.visible = columnsStateSave.indexOf(i) !== -1;
             });
         }
     };
@@ -155,7 +152,7 @@
         _onSort.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.stateSave && cookieEnabled() && (this.options.stateSaveIdTable !== '')) {
-            setCookie(this.options.stateSaveIdTable, sStateSaveList.sortOrder, this.options.sortOrder, this.options.stateSaveExpire);
+            setCookie(this.options.stateSaveIdTable, idsStateSaveList.sortOrder, this.options.sortOrder, this.options.stateSaveExpire);
             setCookie(this.options.stateSaveIdTable, idsStateSaveList.sortName, this.options.sortName, this.options.stateSaveExpire);
         }
     };
