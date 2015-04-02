@@ -348,9 +348,7 @@
         this.initToolbar();
         this.initPagination();
         this.initBody();
-        if (this.options.sidePagination === 'server') {
-            this.initServer();
-        }
+        this.initServer();
         this.initKeyEvents();
     };
 
@@ -1466,7 +1464,8 @@
         var that = this,
             data = {},
             params = {
-                pageSize: this.options.pageSize === this.options.formatAllRows() ? this.options.totalRows : this.options.pageSize,
+                pageSize: this.options.pageSize === this.options.formatAllRows() ?
+                    this.options.totalRows : this.options.pageSize,
                 pageNumber: this.options.pageNumber,
                 searchText: this.searchText,
                 sortName: this.options.sortName,
@@ -1475,7 +1474,7 @@
             request;
 
         if (!this.options.url && !this.options.ajax) {
-            throw new Error("Using Server requires either a `url` or a custom `ajax` method");
+            return;
         }
 
         if (this.options.queryParamsType === 'limit') {
