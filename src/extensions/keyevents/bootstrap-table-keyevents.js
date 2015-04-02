@@ -34,10 +34,10 @@
                     $toggle = that.$toolbar.find('button[name="toggle"]'),
                     $paginationSwitch = that.$toolbar.find('button[name="paginationSwitch"]');
 
-
                 if (document.activeElement === $search.get(0)) {
                     return true;
                 }
+
                 switch (e.keyCode) {
                     case 83: //s
                         if (!that.options.search) {
