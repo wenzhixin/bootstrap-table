@@ -158,6 +158,10 @@
         paginationHAlign: 'right', //right, left
         paginationVAlign: 'bottom', //bottom, top, both
         paginationDetailHAlign: 'left', //right, left
+        paginationFirstText: '&lt;&lt;',
+        paginationPreText: '&lt;',
+        paginationNextText: '&gt;',
+        paginationLastText: '&gt;&gt;',
         search: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
@@ -1061,8 +1065,8 @@
         html.push('</div>',
             '<div class="pull-' + this.options.paginationHAlign + '">',
             '<ul class="pagination' + (this.options.iconSize === undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
-            '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
-            '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
+            '<li class="page-first"><a href="javascript:void(0)">' + this.options.paginationFirstText + '</a></li>',
+            '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
 
         if (this.totalPages < 5) {
             from = 1;
@@ -1086,8 +1090,8 @@
         }
 
         html.push(
-            '<li class="page-next"><a href="javascript:void(0)">&gt;</a></li>',
-            '<li class="page-last"><a href="javascript:void(0)">&gt;&gt;</a></li>',
+            '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
+            '<li class="page-last"><a href="javascript:void(0)">' + this.options.paginationLastText + '</a></li>',
             '</ul>',
             '</div>');
 
