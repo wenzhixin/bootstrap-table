@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.6.0
+ * version: 1.7.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -9,6 +9,16 @@
     border-bottom: 1px solid #dddddd;
     border-collapse: collapse !important;
     border-radius: 1px;
+}
+
+.bootstrap-table
+.table,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    padding: 8px !important;
 }
 
 .fixed-table-container {
@@ -23,11 +33,18 @@
 .fixed-table-footer,
 .fixed-table-header {
     height: 37px; /*cellHeight*/
-    border-bottom: 1px solid #dddddd;
     overflow: hidden;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
+}
+
+.fixed-table-header {
+    border-bottom: 1px solid #dddddd;
+}
+
+.fixed-table-footer {
+    border-top: 1px solid #dddddd;
 }
 
 .fixed-table-body {

@@ -57,8 +57,28 @@
     </tr>
     <tr>
         <td>formatAllRows</td>
-        <td>--/td>
+        <td>-</td>
         <td>'All'</td>
     </tr>
 	</tbody>
 </table>
+
+---
+
+**PS:**
+
+We can import [all locale files](https://github.com/wenzhixin/bootstrap-table/tree/master/src/locale) what you need:
+
+```html
+<script src="bootstrap-table-en-US.js"></script>
+<script src="bootstrap-table-zh-CN.js"></script>
+...
+```
+
+And then use JavaScript to switch locale:
+
+```js
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
+// $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+// ...
+```

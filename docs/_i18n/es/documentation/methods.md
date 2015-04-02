@@ -77,13 +77,23 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     </tr>
 	<tr>
         <td>showRow</td>
-        <td>index</td>
-        <td>Muesta la fila especificada.</td>
+        <td>params</td>
+        <td>Muesta la fila especificada. El parámetro contiene los siguiente propiedades: <br>
+        index: el indice o idField de la fila.
+        isIdField: Boolean que indica si el index es idField o la posición de la fila.</td>
     </tr>
     <tr>
         <td>hideRow</td>
-        <td>index</td>
-        <td>Oculta la fila especificada.</td>
+        <td>params</td>
+        <td>Oculta la fila especificada. El parámetro contiene los siguiente propiedades: <br>
+        index: el indice o idField de la fila.
+        isIdField: Boolean que indica si el index es idField o la posición de la fila.</td>
+    </tr>
+    <tr>
+        <td>getRowsHidden</td>
+        <td>boolean</td>
+        <td>Obitnene todas las filas ocultas si se pasa el parámetro show en true las filas serán mostradas, sino, el método solo
+        devolvera las filas ocultas.</td>
     </tr>
     <tr>
         <td>mergeCells</td>
@@ -207,6 +217,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>toggleView</td>
         <td>none</td>
         <td>Alterna la vista entre tabla y tarjeta.</td>
+    </tr>
+	<tr>
+        <td>deleteCookie</td>
+        <td>cookie name</td>
+        <td>Elimina una cookie creada. Debe usar: 'sortOrder', 'sortName', 'pageNumber' o 'pageList'.</td>
     </tr>
     </tbody>
 </table>

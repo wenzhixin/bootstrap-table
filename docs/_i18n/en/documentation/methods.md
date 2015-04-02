@@ -77,13 +77,23 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     </tr>
 	<tr>
         <td>showRow</td>
-        <td>index</td>
-        <td>Show the specified row.</td>
+        <td>params</td>
+        <td>Show the specified row. the param contains following properties:
+        index: the row idenx or the idField.
+        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
     </tr>
     <tr>
         <td>hideRow</td>
-        <td>index</td>
-        <td>Hide the specified row.</td>
+        <td>params</td>
+        <td>Hide the specified row. the param contains following properties:
+        index: the row idenx or the idField.
+        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
+    </tr>
+    <tr>
+        <td>getRowsHidden</td>
+        <td>boolean</td>
+        <td>Get all rows hidden and if you pass the show parameter true the rows will be shown again, otherwise, the method
+        only will return the rows hidden.</td>
     </tr>
     <tr>
         <td>mergeCells</td>
@@ -159,6 +169,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>Reset the bootstrap table view, for example reset the table height.</td>
     </tr>
     <tr>
+        <td>resetWidth</td>
+        <td>none</td>
+        <td>Resizes header and footer to fit current columns width</td>
+    </tr>
+    <tr>
         <td>destroy</td>
         <td>none</td>
         <td>Destroy the bootstrap table.</td>
@@ -207,6 +222,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>toggleView</td>
         <td>none</td>
         <td>Toggle the card/table view.</td>
+    </tr>
+	<tr>
+        <td>deleteCookie</td>
+        <td>cookie name</td>
+        <td>Delete a cookie created. You must use: 'sortOrder', 'sortName', 'pageNumber' or 'pageList'.</td>
     </tr>
     </tbody>
 </table>
