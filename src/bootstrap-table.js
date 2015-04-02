@@ -473,19 +473,18 @@
                 return;
             }
 
-            if (column.width !== undefined) {
+            if (column.width !== undefined && (!that.options.cardView)) {
                 if (typeof column.width === 'string') {
                     if (column.width.indexOf('%') > -1) {
                         unitWidth = '%'
                     }
-                    column.width = column.width.replace('%', '').replace('px', '');
                 }
             }
 
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s'+ unitWidth +'; ', column.checkbox || column.radio ? 36 : column.width);
+            style += sprintf('width: %s'+ unitWidth +'; ', column.checkbox || column.radio ? 36 : column.width.replace('%', '').replace('px', ''));
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
