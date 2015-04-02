@@ -137,6 +137,7 @@
         data: [],
         method: 'get',
         url: undefined,
+        ajax: undefined,
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
@@ -475,8 +476,8 @@
 
             if (column.width !== undefined && (!that.options.cardView)) {
                 if (typeof column.width === 'string') {
-                    if (column.width.indexOf('%') > -1) {
-                        unitWidth = '%'
+                    if (column.width.indexOf('%') !== -1) {
+                        unitWidth = '%';
                     }
                 }
             }
@@ -484,7 +485,9 @@
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s'+ unitWidth +'; ', column.checkbox || column.radio ? 36 : column.width.replace('%', '').replace('px', ''));
+            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 :
+                (column.width ? column.width.replace('%', '').replace('px', '') : undefined),
+                unitWidth);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
@@ -1461,14 +1464,16 @@
         var that = this,
             data = {},
             params = {
-                pageSize: this.options.pageSize === this.options.formatAllRows() ? this.options.totalRows : this.options.pageSize,
+                pageSize: this.options.pageSize === this.options.formatAllRows() ?
+                    this.options.totalRows : this.options.pageSize,
                 pageNumber: this.options.pageNumber,
                 searchText: this.searchText,
                 sortName: this.options.sortName,
                 sortOrder: this.options.sortOrder
-            };
+            },
+            request;
 
-        if (!this.options.url) {
+        if (!this.options.url && !this.options.ajax) {
             return;
         }
 
@@ -1502,8 +1507,7 @@
         if (!silent) {
             this.$loading.show();
         }
-
-        $.ajax($.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
+        request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
             url: this.options.url,
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
@@ -1525,7 +1529,13 @@
                     that.$loading.hide();
                 }
             }
-        }));
+        });
+
+        if (this.options.ajax) {
+            calculateObjectValue(this, this.options.ajax, [request], null);
+        } else {
+            $.ajax(request);
+        }
     };
 
     BootstrapTable.prototype.initKeyEvents = function () {
@@ -2077,6 +2087,15 @@
         this.initServer(params && params.silent, params && params.query);
     };
 
+    BootstrapTable.prototype.resetWidth = function () {
+        if (this.options.showHeader && this.options.height) {
+            this.fitHeader();
+        }
+        if (this.options.showFooter) {
+            this.fitFooter();
+        }
+    };
+
     BootstrapTable.prototype.showColumn = function (field) {
         this.toggleColumn(getFieldIndex(this.options.columns, field), true, true);
     };
@@ -2146,6 +2165,7 @@
         'checkBy', 'uncheckBy',
         'refresh',
         'resetView',
+        'resetWidth',
         'destroy',
         'showLoading', 'hideLoading',
         'showColumn', 'hideColumn',
@@ -2167,7 +2187,7 @@
 
             if (typeof option === 'string') {
                 if ($.inArray(option, allowedMethods) < 0) {
-                    throw "Unknown method: " + option;
+                    throw new Error("Unknown method: " + option);
                 }
 
                 if (!data) {

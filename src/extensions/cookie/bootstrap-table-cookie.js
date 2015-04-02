@@ -1,36 +1,36 @@
 /**
- * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.0.0
- *
- * @update zhixin wen <wenzhixin2010@gmail.com>
- */
+* @author: Dennis Hernández
+* @webSite: http://djhvscf.github.io/Blog
+* @version: v1.0.0
+*
+* @update zhixin wen <wenzhixin2010@gmail.com>
+*/
 
 (function ($) {
     'use strict';
 
-    var idStateSave = '',
-        idsStateSaveList = {
+    var idsStateSaveList = {
             sortOrder: 'bs.table.sortOrder',
             sortName: 'bs.table.sortName',
             pageNumber: 'bs.table.pageNumber',
-            pageList: 'bs.table.pageList'
-        };
+            pageList: 'bs.table.pageList',
+            columns: 'bs.table.columns'
+    };
 
-    var cookieEnabled = function (){
+    var cookieEnabled = function () {
         return (navigator.cookieEnabled) ? true : false;
     };
 
-    var setCookie = function (cookieName, sValue, vEnd, sPath, sDomain, bSecure) {
-        cookieName = idStateSave + cookieName;
+    var setCookie = function (tableName, cookieName, sValue, vEnd, sPath, sDomain, bSecure) {
+        cookieName = tableName + '.' + cookieName;
         if (!cookieName || /^(?:expires|max\-age|path|domain|secure)$/i.test(cookieName)) {
             return false;
         }
         var sExpires = '',
             time = '';
 
-        time = vEnd.replace(/[0-9]/,''); //s,mi,h,d,m,y
-        vEnd = vEnd.replace(/[A-Za-z]/,''); //number
+        time = vEnd.replace(/[0-9]/, ''); //s,mi,h,d,m,y
+        vEnd = vEnd.replace(/[A-Za-z]/, ''); //number
 
         switch (time.toLowerCase()) {
             case 's':
@@ -62,8 +62,8 @@
         return true;
     };
 
-    var getCookie = function (cookieName) {
-        cookieName = idStateSave + cookieName;
+    var getCookie = function (tableName, cookieName) {
+        cookieName = tableName + '.' + cookieName;
         if (!cookieName) {
             return null;
         }
@@ -77,8 +77,8 @@
         return (new RegExp('(?:^|;\\s*)' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=')).test(document.cookie);
     };
 
-    var deleteCookie = function (cookieName, sPath, sDomain) {
-        cookieName = idStateSave + cookieName;
+    var deleteCookie = function (tableName, cookieName, sPath, sDomain) {
+        cookieName = tableName + '.' + cookieName;
         if (!hasCookie(cookieName)) {
             return false;
         }
@@ -95,18 +95,20 @@
     $.fn.bootstrapTable.methods.push('deleteCookie');
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _init = BootstrapTable.prototype.init,
+        _initTable = BootstrapTable.prototype.initTable,
         _onSort = BootstrapTable.prototype.onSort,
         _onPageNumber = BootstrapTable.prototype.onPageNumber,
-        _onPageListChange = BootstrapTable.prototype.onPageListChange;
+        _onPageListChange = BootstrapTable.prototype.onPageListChange,
+        _toggleColumn = BootstrapTable.prototype.toggleColumn;
 
-    BootstrapTable.prototype.init = function () {
+    // init save data after initTable function
+    BootstrapTable.prototype.initTable = function () {
+        _initTable.apply(this, Array.prototype.slice.apply(arguments));
         this.initStateSave();
-
-        _init.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     BootstrapTable.prototype.initStateSave = function () {
+        var that = this;
         if (!this.options.stateSave) {
             return;
         }
@@ -119,12 +121,11 @@
             return;
         }
 
-        idStateSave = this.options.stateSaveIdTable + '.';
-
-        var sortOrderStateSave = getCookie(idsStateSaveList.sortOrder),
-            sortOrderStateName = getCookie(idsStateSaveList.sortName),
-            pageNumberStateSave = getCookie(idsStateSaveList.pageNumber),
-            pageListStateSave = getCookie(idsStateSaveList.pageList);
+        var sortOrderStateSave = getCookie(this.options.stateSaveIdTable, idsStateSaveList.sortOrder),
+            sortOrderStateName = getCookie(this.options.stateSaveIdTable, idsStateSaveList.sortName),
+            pageNumberStateSave = getCookie(this.options.stateSaveIdTable, idsStateSaveList.pageNumber),
+            pageListStateSave = getCookie(this.options.stateSaveIdTable, idsStateSaveList.pageList),
+            columnsStateSave = JSON.parse(getCookie(this.options.stateSaveIdTable, idsStateSaveList.columns));
 
         if (sortOrderStateSave !== undefined && sortOrderStateSave !== null) {
             this.options.sortOrder = sortOrderStateSave;
@@ -139,14 +140,20 @@
             this.options.pageSize = pageListStateSave ===
                 this.options.formatAllRows() ? pageListStateSave : +pageListStateSave;
         }
+
+        if (columnsStateSave !== undefined && columnsStateSave !== null) {
+            $.each(this.options.columns, function (i, column) {
+                column.visible = columnsStateSave.indexOf(i) !== -1;
+            });
+        }
     };
 
     BootstrapTable.prototype.onSort = function () {
         _onSort.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.stateSave && cookieEnabled() && (this.options.stateSaveIdTable !== '')) {
-            setCookie(idsStateSaveList.sortOrder, this.options.sortOrder, this.options.stateSaveExpire);
-            setCookie(idsStateSaveList.sortName, this.options.sortName, this.options.stateSaveExpire);
+            setCookie(this.options.stateSaveIdTable, idsStateSaveList.sortOrder, this.options.sortOrder, this.options.stateSaveExpire);
+            setCookie(this.options.stateSaveIdTable, idsStateSaveList.sortName, this.options.sortName, this.options.stateSaveExpire);
         }
     };
 
@@ -154,7 +161,7 @@
         _onPageNumber.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.stateSave && cookieEnabled() && this.options.stateSaveIdTable !== '') {
-            setCookie(idsStateSaveList.pageNumber, this.options.pageNumber, this.options.stateSaveExpire);
+            setCookie(this.options.stateSaveIdTable, idsStateSaveList.pageNumber, this.options.pageNumber, this.options.stateSaveExpire);
         }
     };
 
@@ -162,7 +169,23 @@
         _onPageListChange.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.stateSave && cookieEnabled() && this.options.stateSaveIdTable !== '') {
-            setCookie(idsStateSaveList.pageList, this.options.pageSize, this.options.stateSaveExpire);
+            setCookie(this.options.stateSaveIdTable, idsStateSaveList.pageList, this.options.pageSize, this.options.stateSaveExpire);
+        }
+    };
+
+    BootstrapTable.prototype.toggleColumn = function () {
+        _toggleColumn.apply(this, Array.prototype.slice.apply(arguments));
+
+        var visibleColumns = [];
+
+        $.each(this.options.columns, function (i) {
+            if (this.visible) {
+                visibleColumns.push(i);
+            }
+        });
+
+        if (this.options.stateSave && cookieEnabled()) {
+            setCookie(this.options.stateSaveIdTable, idsStateSaveList.columns, JSON.stringify(visibleColumns), this.options.stateSaveExpire);
         }
     };
 
