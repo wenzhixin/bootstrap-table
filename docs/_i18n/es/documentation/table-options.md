@@ -356,6 +356,34 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Indica cómo alinear el detalle de la paginación. Se puede usar: 'left', 'right'.</td>
     </tr>
     <tr>
+        <td>paginationFirstText</td>
+        <td>data-pagination-first-text</td>
+        <td>String</td>
+        <td>'&lt;&lt;'</td>
+        <td>Indica el icono o el texto a mostrar en la paginación, el botón first del detalle de la paginación.</td>
+    </tr>
+    <tr>
+        <td>paginationPreText</td>
+        <td>data-pagination-pre-text</td>
+        <td>String</td>
+        <td>'&lt;'</td>
+        <td>Indica el icono o el texto a mostrar en la paginación, el botón previous del detalle de la paginación.</td>
+    </tr>
+    <tr>
+        <td>paginationNextText</td>
+        <td>data-pagination-next-text</td>
+        <td>String</td>
+        <td>'&gt;'</td>
+        <td>Indica el icono o el texto a mostrar en la paginación, el botón next del detalle de la paginación.</td>
+    </tr>
+    <tr>
+        <td>paginationLastText</td>
+        <td>data-pagination-last-text</td>
+        <td>String</td>
+        <td>'&gt;&gt;'</td>
+        <td>Indica el icono o el texto a mostrar en la paginación, el botón last del detalle de la paginación.</td>
+    </tr>
+    <tr>
         <td>clickToSelect</td>
         <td>data-click-to-select</td>
         <td>Boolean</td>
@@ -396,17 +424,6 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Boolean</td>
         <td>true</td>
         <td>False para deshabilitar el ordenamiento en todas las columnas.</td>
-    </tr>
-	<tr>
-        <td>keyEvents</td>
-        <td>data-key-events</td>
-        <td>Boolean</td>
-        <td>false</td>
-        <td>True para habilitar los eventos del teclado. La lista es:
-        S/s: El textbox de búsqueda sera enfocado si la opción search está habilitada
-        R/r: Se refrescará la tabla si la opción showRefresh está habilitada
-        T/t: Se cambiará de vista si la opción showToggle está habilitada
-        P/p: Se ocultara/mostrará la paginación si la opción showPaginationSwitch está habilitada.</td>
     </tr>
     <tr>
         <td>rowStyle</td>

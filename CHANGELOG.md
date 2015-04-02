@@ -1,5 +1,13 @@
 ## ChangeLog
 
+###
+
+- [bug] Fix #672: Column Fixed Width in Percentage bug.
+- [enh] Added state saving for visible columns and the ability to use extension with multiple simultaneous tables.
+- [enh] Added `ajax' option to replace jquery ajax method.
+- [enh] Added `resetWidth` method to reset header and footer width.
+- [enh] Added keyevents extension.
+
 ### 1.7.0
 
 - [enh] Add `showFooter`, `keyEvents`, `searchText` and `uniqueId` options.

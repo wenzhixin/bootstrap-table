@@ -169,6 +169,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>Reset the bootstrap table view, for example reset the table height.</td>
     </tr>
     <tr>
+        <td>resetWidth</td>
+        <td>none</td>
+        <td>Resizes header and footer to fit current columns width</td>
+    </tr>
+    <tr>
         <td>destroy</td>
         <td>none</td>
         <td>Destroy the bootstrap table.</td>

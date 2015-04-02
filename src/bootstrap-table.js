@@ -137,6 +137,7 @@
         data: [],
         method: 'get',
         url: undefined,
+        ajax: undefined,
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
@@ -157,6 +158,10 @@
         paginationHAlign: 'right', //right, left
         paginationVAlign: 'bottom', //bottom, top, both
         paginationDetailHAlign: 'left', //right, left
+        paginationFirstText: '&lt;&lt;',
+        paginationPreText: '&lt;',
+        paginationNextText: '&gt;',
+        paginationLastText: '&gt;&gt;',
         search: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
@@ -181,7 +186,6 @@
         sortable: true,
         maintainSelected: false,
         searchTimeOut: 500,
-        keyEvents: false,
         searchText: '',
         iconSize: undefined,
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
@@ -348,7 +352,6 @@
         this.initPagination();
         this.initBody();
         this.initServer();
-        this.initKeyEvents();
     };
 
     BootstrapTable.prototype.initContainer = function () {
@@ -473,19 +476,20 @@
                 return;
             }
 
-            if (column.width !== undefined) {
+            if (column.width !== undefined && (!that.options.cardView)) {
                 if (typeof column.width === 'string') {
-                    if (column.width.indexOf('%') > -1) {
-                        unitWidth = '%'
+                    if (column.width.indexOf('%') !== -1) {
+                        unitWidth = '%';
                     }
-                    column.width = column.width.replace('%', '').replace('px', '');
                 }
             }
 
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s'+ unitWidth +'; ', column.checkbox || column.radio ? 36 : column.width);
+            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 :
+                (column.width ? column.width.replace('%', '').replace('px', '') : undefined),
+                unitWidth);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
@@ -583,14 +587,14 @@
             });
 
         if (addedFilterControl) {
-            this.$header.off('keyup', 'input').on('keyup' , 'input', function (event) {
+            this.$header.off('keyup', 'input').on('keyup', 'input', function (event) {
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
 
-            this.$header.off('change', 'select').on('change' , 'select', function (event) {
+            this.$header.off('change', 'select').on('change', 'select', function (event) {
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -602,7 +606,7 @@
     };
 
     BootstrapTable.prototype.initFooter = function () {
-        this.$footer =  this.$container.find('.fixed-table-footer');
+        this.$footer = this.$container.find('.fixed-table-footer');
         if (!this.options.showFooter || this.options.cardView) {
             this.$footer.hide();
         } else {
@@ -905,7 +909,7 @@
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
-            var fp = $.isEmptyObject(this.filterColumnsPartial) ? null: this.filterColumnsPartial;
+            var fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial;
 
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
@@ -926,7 +930,7 @@
                         that.header.formatters[$.inArray(key, that.header.fields)],
                         [value, item, i], value);
 
-                    if (! ($.inArray(key, that.header.fields) !== -1 &&
+                    if (!($.inArray(key, that.header.fields) !== -1 &&
                         (typeof value === 'string' || typeof value === 'number') &&
                         (value + '').toLowerCase().indexOf(fval) !== -1)) {
                         return false;
@@ -1037,7 +1041,7 @@
             pageList = [];
             $.each(list, function (i, value) {
                 pageList.push(value.toUpperCase() === that.options.formatAllRows().toUpperCase() ?
-                                that.options.formatAllRows() : +value);
+                    that.options.formatAllRows() : +value);
             });
         }
 
@@ -1046,7 +1050,7 @@
                 var active;
                 if ($allSelected) {
                     active = page === that.options.formatAllRows() ? ' class="active"' : '';
-                } else{
+                } else {
                     active = page === that.options.pageSize ? ' class="active"' : '';
                 }
                 pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
@@ -1061,8 +1065,8 @@
         html.push('</div>',
             '<div class="pull-' + this.options.paginationHAlign + '">',
             '<ul class="pagination' + (this.options.iconSize === undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
-            '<li class="page-first"><a href="javascript:void(0)">&lt;&lt;</a></li>',
-            '<li class="page-pre"><a href="javascript:void(0)">&lt;</a></li>');
+            '<li class="page-first"><a href="javascript:void(0)">' + this.options.paginationFirstText + '</a></li>',
+            '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
 
         if (this.totalPages < 5) {
             from = 1;
@@ -1086,8 +1090,8 @@
         }
 
         html.push(
-            '<li class="page-next"><a href="javascript:void(0)">&gt;</a></li>',
-            '<li class="page-last"><a href="javascript:void(0)">&gt;&gt;</a></li>',
+            '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
+            '<li class="page-last"><a href="javascript:void(0)">' + this.options.paginationLastText + '</a></li>',
             '</ul>',
             '</div>');
 
@@ -1155,7 +1159,7 @@
 
         $this.parent().addClass('active').siblings().removeClass('active');
         this.options.pageSize = $this.text().toUpperCase() === this.options.formatAllRows().toUpperCase() ?
-                                    this.options.formatAllRows() : +$this.text();
+            this.options.formatAllRows() : +$this.text();
         this.$toolbar.find('.page-size').text(this.options.pageSize);
 
         this.updatePagination(event);
@@ -1340,10 +1344,10 @@
                                     .text(''));
 
                                 selectControl.append($("<option></option>")
-                                    .attr("value",value)
+                                    .attr("value", value)
                                     .text(value));
                             } else {
-                                for (; iOpt < options.length; iOpt++ ) {
+                                for (; iOpt < options.length; iOpt++) {
                                     if (options[iOpt].value === value) {
                                         exitsOpt = true;
                                         break;
@@ -1352,7 +1356,7 @@
 
                                 if (!exitsOpt) {
                                     selectControl.append($("<option></option>")
-                                        .attr("value",value)
+                                        .attr("value", value)
                                         .text(value));
                                 }
                             }
@@ -1462,14 +1466,16 @@
         var that = this,
             data = {},
             params = {
-                pageSize: this.options.pageSize === this.options.formatAllRows() ? this.options.totalRows : this.options.pageSize,
+                pageSize: this.options.pageSize === this.options.formatAllRows() ?
+                    this.options.totalRows : this.options.pageSize,
                 pageNumber: this.options.pageNumber,
                 searchText: this.searchText,
                 sortName: this.options.sortName,
                 sortOrder: this.options.sortOrder
-            };
+            },
+            request;
 
-        if (!this.options.url) {
+        if (!this.options.url && !this.options.ajax) {
             return;
         }
 
@@ -1503,8 +1509,7 @@
         if (!silent) {
             this.$loading.show();
         }
-
-        $.ajax($.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
+        request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
             url: this.options.url,
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
@@ -1526,68 +1531,13 @@
                     that.$loading.hide();
                 }
             }
-        }));
-    };
+        });
 
-    BootstrapTable.prototype.initKeyEvents = function () {
-      if (this.options.keyEvents) {
-          var that = this;
-          $(document).off('keypress').on('keypress', function (e) {
-              var $search = that.$toolbar.find('.search input'),
-                  $refresh = that.$toolbar.find('button[name="refresh"]'),
-                  $toggle= that.$toolbar.find('button[name="toggle"]'),
-                  $paginationSwitch = that.$toolbar.find('button[name="paginationSwitch"]');
-              switch (e.keyCode) {
-                  case 115://s
-                  case 83://S
-                      if (!that.options.search) {
-                          return;
-                      }
-
-                      if(document.activeElement === $search.get(0)){
-                          return true;
-                      }
-                      $search.focus();
-                      return false;
-                  case 114: //r
-                  case 82: //R
-                      if (!that.options.showRefresh) {
-                          return;
-                      }
-
-                      if(document.activeElement === $search.get(0)){
-                          return true;
-                      }
-                      $refresh.click();
-                      return false;
-                  case 116: //t
-                  case 84: //T
-                      if (!that.options.showToggle) {
-                          return;
-                      }
-
-                      if(document.activeElement === $search.get(0)){
-                          return true;
-                      }
-
-                      $toggle.click();
-                      return false;
-                  case 112: //p
-                  case 80: //p
-                      if (!that.options.showPaginationSwitch) {
-                          return;
-                      }
-
-                      if(document.activeElement === $search.get(0)){
-                          return true;
-                      }
-
-                      $paginationSwitch.click();
-                      return false;
-
-              }
-          });
-      }
+        if (this.options.ajax) {
+            calculateObjectValue(this, this.options.ajax, [request], null);
+        } else {
+            $.ajax(request);
+        }
     };
 
     BootstrapTable.prototype.getCaretHtml = function () {
@@ -1656,8 +1606,8 @@
             return;
         }
         $fixedHeader = that.$container.find('.fixed-table-header'),
-        $fixedBody = that.$container.find('.fixed-table-body'),
-        scrollWidth = that.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
+            $fixedBody = that.$container.find('.fixed-table-body'),
+            scrollWidth = that.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
 
         that.$header_ = that.$header.clone(true, true);
         that.$selectAll_ = that.$header_.find('[name="btSelectAll"]');
@@ -1694,7 +1644,7 @@
 
         $.each(this.options.columns, function (i, column) {
             var falign = '', // footer align style
-                style  = '',
+                style = '',
                 class_ = sprintf(' class="%s"', column['class']);
 
             if (!column.visible) {
@@ -1718,7 +1668,7 @@
         this.$footer.find('tr').html(html.join(''));
         clearTimeout(this.timeoutFooter_);
         this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this),
-            this.$el.is(':hidden') ? 100: 0);
+            this.$el.is(':hidden') ? 100 : 0);
     };
 
     BootstrapTable.prototype.fitFooter = function () {
@@ -1734,8 +1684,8 @@
             return;
         }
 
-        $fixedBody  = this.$container.find('.fixed-table-body');
-        elWidth     = this.$el.css('width');
+        $fixedBody = this.$container.find('.fixed-table-body');
+        elWidth = this.$el.css('width');
         scrollWidth = elWidth > $fixedBody.width() ? getScrollBarWidth() : 0;
 
         this.$footer.css({
@@ -1745,7 +1695,7 @@
 
         $footerTd = this.$footer.find('td');
 
-        $fixedBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function(i) {
+        $fixedBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function (i) {
             $footerTd.eq(i).outerWidth($(this).outerWidth());
         });
     };
@@ -1775,12 +1725,12 @@
 
     BootstrapTable.prototype.toggleRow = function (index, isIdField, visible) {
         if (index === -1) {
-           return;
+            return;
         }
 
-        $(this.$body[0]).children().filter(sprintf( isIdField ? '[value="%s"]' : '[data-index="%s"]', index))
+        $(this.$body[0]).children().filter(sprintf(isIdField ? '[value="%s"]' : '[data-index="%s"]', index))
             [visible ? 'show' : 'hide']();
-     };
+    };
 
     // PUBLIC FUNCTION DEFINITION
     // =======================
@@ -2078,6 +2028,15 @@
         this.initServer(params && params.silent, params && params.query);
     };
 
+    BootstrapTable.prototype.resetWidth = function () {
+        if (this.options.showHeader && this.options.height) {
+            this.fitHeader();
+        }
+        if (this.options.showFooter) {
+            this.fitFooter();
+        }
+    };
+
     BootstrapTable.prototype.showColumn = function (field) {
         this.toggleColumn(getFieldIndex(this.options.columns, field), true, true);
     };
@@ -2147,6 +2106,7 @@
         'checkBy', 'uncheckBy',
         'refresh',
         'resetView',
+        'resetWidth',
         'destroy',
         'showLoading', 'hideLoading',
         'showColumn', 'hideColumn',
@@ -2168,7 +2128,7 @@
 
             if (typeof option === 'string') {
                 if ($.inArray(option, allowedMethods) < 0) {
-                    throw "Unknown method: " + option;
+                    throw new Error("Unknown method: " + option);
                 }
 
                 if (!data) {
