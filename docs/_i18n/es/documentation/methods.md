@@ -189,6 +189,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>Setea la posición del scroll, setear 'bottom' significa setear la posición del scroll al final de la tabla.</td>
     </tr>
     <tr>
+        <td>getScrollPosition</td>
+        <td>none</td>
+        <td>Obtiene la posición actual del scroll.</td>
+    </tr>
+    <tr>
         <td>filterBy</td>
         <td>params</td>
         <td>(Solo se puede usar en client-side)Filtra los datos en la tabla, ejm. se puede filtrar <code>{age: 10}</code> para mostrar los daros solo con la edad igual a 10.</td>
