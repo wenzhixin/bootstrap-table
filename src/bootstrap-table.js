@@ -113,6 +113,16 @@
         return text;
     };
 
+    var getRealHeight = function ($el) {
+        var height = 0;
+        $el.children().each(function () {
+            if (height < $(this).outerHeight(true)) {
+                height = $(this).outerHeight(true);
+            }
+        });
+        return height;
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -1748,8 +1758,8 @@
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
         if (this.options.height) {
-            var toolbarHeight = +this.$toolbar.children().outerHeight(true),
-                paginationHeight = +this.$pagination.children().outerHeight(true),
+            var toolbarHeight = getRealHeight(this.$toolbar),
+                paginationHeight = getRealHeight(this.$pagination),
                 height = this.options.height - toolbarHeight - paginationHeight;
 
             $tableContainer.css('height', height + 'px');
