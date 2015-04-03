@@ -17,7 +17,7 @@
     }
 
     var changeView = function (el, width, height) {
-        if(width <= el.options.minWidth && height <= el.options.minHeight ){
+        if(width <= el.options.minWidth && height <= el.options.minHeight){
             if (!toggled) {
                 el.toggleView();
                 toggled = true;
