@@ -493,13 +493,14 @@
                     }
                 }
             }
+            if (column.width && typeof column.width === 'string') {
+                column.width = column.width.replace('%', '').replace('px', '');
+            }
 
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 :
-                (column.width ? column.width.replace('%', '').replace('px', '') : undefined),
-                unitWidth);
+            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : column.width, unitWidth);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
