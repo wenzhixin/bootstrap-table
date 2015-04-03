@@ -1,11 +1,11 @@
 # Table Mobile
 
-Use Plugin: [bootstrap-table-cookie](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/mobile)
+Use Plugin: [bootstrap-table-mobile](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/mobile)
 
 ## Usage
 
 ```html
-<script src="extensions/cookie/bootstrap-table-mobile.js"></script>
+<script src="extensions/mobile/bootstrap-table-mobile.js"></script>
 ```
 
 ## Options
