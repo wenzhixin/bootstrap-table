@@ -199,7 +199,7 @@
         _onSearch.apply(this, Array.prototype.slice.apply(arguments));
 
         setCookie(this, idsStateSaveList.searchText, this.searchText);
-    }
+    };
 
     BootstrapTable.prototype.deleteCookie = function (cookieName) {
         if ((cookieName === '') || (!cookieEnabled())) {
@@ -207,5 +207,5 @@
         }
 
         deleteCookie(idsStateSaveList[cookieName]);
-    }
+    };
 })(jQuery);

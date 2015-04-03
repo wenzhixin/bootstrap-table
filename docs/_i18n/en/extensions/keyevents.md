@@ -15,8 +15,10 @@ Use Plugin: [bootstrap-table-keyevents](https://github.com/wenzhixin/bootstrap-t
 * type: Boolean
 * description:
 True to enable the key events. The key event list is:
-    * S/s: It will be focused the search textbox if it is enabled.
-    * R/r: It will refresh the table if the showRefresh option is enabled.
-    * T/t: It will toggle the table view if the showToggle option is enabled.
-    * P/p: It will fires the pagination switch if the showPaginationSwitch is enabled.
-* default: `true`
+    * s: It will be focused the search textbox if it is enabled.
+    * r: It will refresh the table if the showRefresh option is enabled.
+    * t: It will toggle the table view if the showToggle option is enabled.
+    * p: It will fires the pagination switch if the showPaginationSwitch is enabled.
+    * left: It will go to prev page if the pagination is true.
+    * right: It will go to next page if the pagination is true.
+* default: `false`
