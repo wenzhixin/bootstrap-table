@@ -319,7 +319,7 @@
         cellStyle: undefined,
         searchable: true,
         cardVisible: true,
-        filterControl: undefined // edit, todo: select, todo: date
+        filterControl: undefined // edit, select, todo: date
     };
 
     BootstrapTable.EVENTS = {
@@ -2060,7 +2060,15 @@
         if (typeof value === 'number') {
             $tbody.scrollTop(value);
         }
+
+        if (typeof value === undefined) {
+            return $tbody.scrollTop();
+        }
     };
+
+    BootstrapTable.prototype.getScrollPosition = function () {
+        return this.scrollTo();
+    }
 
     BootstrapTable.prototype.selectPage = function (page) {
         if (page > 0 && page <= this.options.totalPages) {
@@ -2112,6 +2120,7 @@
         'showColumn', 'hideColumn',
         'filterBy',
         'scrollTo',
+        'getScrollPosition',
         'selectPage', 'prevPage', 'nextPage',
         'togglePagination',
         'toggleView'
