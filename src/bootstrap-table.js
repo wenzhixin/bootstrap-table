@@ -257,6 +257,9 @@
         onSearch: function (text) {
             return false;
         },
+        onToggle: function (cardView) {
+            return false;
+        },
         onPreBody: function (data) {
             return false;
         },
@@ -347,6 +350,7 @@
         'column-search.bs.table': 'onColumnSearch',
         'page-change.bs.table': 'onPageChange',
         'search.bs.table': 'onSearch',
+        'toggle.bs.table': 'onToggle',
         'pre-body.bs.table': 'onPreBody',
         'post-body.bs.table': 'onPostBody',
         'post-header.bs.table': 'onPostHeader'
@@ -2101,6 +2105,7 @@
         // Fixed remove toolbar when click cardView button.
         //that.initToolbar();
         this.initBody();
+        this.trigger('toggle', this.options.cardView);
     };
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
