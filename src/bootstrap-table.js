@@ -113,6 +113,16 @@
         return text;
     };
 
+    var getRealHeight = function ($el) {
+        var height = 0;
+        $el.children().each(function () {
+            if (height < $(this).outerHeight(true)) {
+                height = $(this).outerHeight(true);
+            }
+        });
+        return height;
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -483,13 +493,14 @@
                     }
                 }
             }
+            if (column.width && typeof column.width === 'string') {
+                column.width = column.width.replace('%', '').replace('px', '');
+            }
 
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 :
-                (column.width ? column.width.replace('%', '').replace('px', '') : undefined),
-                unitWidth);
+            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : column.width, unitWidth);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
@@ -1745,8 +1756,8 @@
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
         if (this.options.height) {
-            var toolbarHeight = +this.$toolbar.children().outerHeight(true),
-                paginationHeight = +this.$pagination.children().outerHeight(true),
+            var toolbarHeight = getRealHeight(this.$toolbar),
+                paginationHeight = getRealHeight(this.$pagination),
                 height = this.options.height - toolbarHeight - paginationHeight;
 
             $tableContainer.css('height', height + 'px');

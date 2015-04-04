@@ -28,3 +28,11 @@ Use Plugin: [bootstrap-table-cookie](https://github.com/wenzhixin/bootstrap-tabl
 * type: String
 * description: You must set this property if stateSave is enable to sets an unique cookie with an identifier for each table in your page or project. You must set this property because we need create cookies with an identifier.
 * default: ``
+
+## This plugin saves
+
+* Sort order
+* Page number
+* Page number from the list
+* Visible columns
+* Search text
