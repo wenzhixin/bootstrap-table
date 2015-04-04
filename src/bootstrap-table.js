@@ -329,6 +329,7 @@
         footerFormatter: undefined,
         events: undefined,
         sorter: undefined,
+        sortName: undefined,
         cellStyle: undefined,
         searchable: true,
         cardVisible: true,
@@ -466,6 +467,7 @@
             formatters: [],
             events: [],
             sorters: [],
+            sortNames: [],
             cellStyles: [],
             clickToSelects: [],
             searchables: []
@@ -513,6 +515,7 @@
             that.header.formatters.push(column.formatter);
             that.header.events.push(column.events);
             that.header.sorters.push(column.sorter);
+            that.header.sortNames.push(column.sortName);
             that.header.cellStyles.push(column.cellStyle);
             that.header.clickToSelects.push(column.clickToSelect);
             that.header.searchables.push(column.searchable);
@@ -657,6 +660,9 @@
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
+                if(that.header.sortNames[index]) {
+                    name = that.header.sortNames[index];
+                }            	
                 var aa = a[name],
                     bb = b[name],
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
