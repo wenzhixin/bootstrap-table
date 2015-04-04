@@ -646,7 +646,7 @@
         if (index !== -1) {
             this.data.sort(function (a, b) {
                 if(that.header.sortNames[index]) {
-                	name = that.header.sortNames[index];
+                    name = that.header.sortNames[index];
                 }            	
                 var aa = a[name],
                     bb = b[name],
