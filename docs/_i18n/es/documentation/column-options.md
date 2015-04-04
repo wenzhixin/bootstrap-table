@@ -177,13 +177,13 @@ Las propiedades de la columna est√°n definidas en `jQuery.fn.bootstrapTable.colu
         b: el segundo valor del campo.</td>
     </tr>
     <tr>
-        <td>sort-name</td>
+        <td>sortName</td>
         <td>data-sort-name</td>
         <td>String</td>
         <td>undefined</td>
         <td>Proporcionar una especie-nombre adaptable, no la clase-nombre por defecto en la cabecera, o el nombre del campo
 †††††††† de la columna. Por ejemplo, una columna puede mostrar el valor de nombreCampo de "HTML" como
-†††††††† "<b><span style="color:red">abc</span></b>", pero una nombreCampo para ordenar es el "contenido" con el valor de "abc".
+†††††††† "&lt;b&gt;&lt;span style="color:red"&gt;abc&lt;/span&gt;&lt;/b&gt;", pero una nombreCampo para ordenar es el "contenido" con el valor de "abc".
         </td>
     </tr>    
     <tr>
