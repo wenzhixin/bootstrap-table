@@ -661,10 +661,6 @@
                     return order * value;
                 }
 
-                if (value !== undefined) {
-                    return order * value;
-                }
-
                 // Fix #161: undefined or null string sort bug.
                 if (aa === undefined || aa === null) {
                     aa = '';
