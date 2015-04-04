@@ -4,7 +4,7 @@
 
 - [bug] Fix #672: Column Fixed Width in Percentage bug.
 - [enh] Added state saving for visible columns and the ability to use extension with multiple simultaneous tables.
-- [enh] Added `ajax' option to replace jquery ajax method.
+- [enh] Added `ajax` option to replace jquery ajax method.
 - [enh] Added `resetWidth` method to reset header and footer width.
 - [enh] Added keyevents, mobile extensions.
 - [enh] Added `onToggle`, `onColumnSearch` events.
