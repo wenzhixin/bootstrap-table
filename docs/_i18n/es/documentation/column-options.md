@@ -112,7 +112,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>False para ocultar el item de la columna.</td>
     </tr>
 	<tr>
-        <td>card view visible</td>
+        <td>cardViewVisible</td>
         <td>data-card-visible</td>
         <td>Boolean</td>
         <td>true</td>
