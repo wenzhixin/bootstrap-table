@@ -329,7 +329,7 @@
         cellStyle: undefined,
         searchable: true,
         cardVisible: true,
-        filterControl: undefined // edit, todo: select, todo: date
+        filterControl: undefined // edit, select, todo: date
     };
 
     BootstrapTable.EVENTS = {
@@ -661,10 +661,6 @@
                     return order * value;
                 }
 
-                if (value !== undefined) {
-                    return order * value;
-                }
-
                 // Fix #161: undefined or null string sort bug.
                 if (aa === undefined || aa === null) {
                     aa = '';
@@ -856,7 +852,7 @@
 
             this.$toolbar.append(html.join(''));
             $search = this.$toolbar.find('.search input');
-            $search.off('keyup').on('keyup', function (event) {
+            $search.off('keyup drop').on('keyup drop', function (event) {
                 clearTimeout(timeoutId); // doesn't matter if it's 0
                 timeoutId = setTimeout(function () {
                     that.onSearch(event);
@@ -896,9 +892,6 @@
         var text = $.trim($(event.currentTarget).val());
         var $field = $(event.currentTarget).parent().parent().data('field')
 
-        // trim search input
-        //$(event.currentTarget).val(text);
-
         if ($.isEmptyObject(this.filterColumnsPartial)) {
             this.filterColumnsPartial = {};
         }
@@ -909,9 +902,9 @@
         }
 
         this.options.pageNumber = 1;
-        this.initSearch();
+        this.onSearch(event);
         this.updatePagination();
-        /* this.trigger('column-search', $field, text); */
+        this.trigger('column-search', $field, text);
     };
 
     BootstrapTable.prototype.initSearch = function () {
@@ -2071,7 +2064,15 @@
         if (typeof value === 'number') {
             $tbody.scrollTop(value);
         }
+
+        if (typeof value === undefined) {
+            return $tbody.scrollTop();
+        }
     };
+
+    BootstrapTable.prototype.getScrollPosition = function () {
+        return this.scrollTo();
+    }
 
     BootstrapTable.prototype.selectPage = function (page) {
         if (page > 0 && page <= this.options.totalPages) {
@@ -2123,6 +2124,7 @@
         'showColumn', 'hideColumn',
         'filterBy',
         'scrollTo',
+        'getScrollPosition',
         'selectPage', 'prevPage', 'nextPage',
         'togglePagination',
         'toggleView'
