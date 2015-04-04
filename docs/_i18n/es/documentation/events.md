@@ -104,6 +104,12 @@
         <td>Se ejecuta cuando se cambia la visibilidad de una columna.</td>
     </tr>
     <tr>
+        <td>onColumnSearch</td>
+        <td>column-search.bs.table</td>
+        <td>field, text</td>
+        <td>Se ejecuta cuando se busca por columna.</td>
+    </tr>
+    <tr>
         <td>onPageChange</td>
         <td>page-change.bs.table</td>
         <td>number, size</td>

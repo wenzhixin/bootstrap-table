@@ -885,9 +885,6 @@
         var text = $.trim($(event.currentTarget).val());
         var $field = $(event.currentTarget).parent().parent().data('field')
 
-        // trim search input
-        //$(event.currentTarget).val(text);
-
         if ($.isEmptyObject(this.filterColumnsPartial)) {
             this.filterColumnsPartial = {};
         }
@@ -898,9 +895,9 @@
         }
 
         this.options.pageNumber = 1;
-        this.initSearch();
+        this.onSearch(event);
         this.updatePagination();
-        /* this.trigger('column-search', $field, text); */
+        this.trigger('column-search', $field, text);
     };
 
     BootstrapTable.prototype.initSearch = function () {
