@@ -10,10 +10,10 @@
             return 'იტვირთება, გთხოვთ მოიცადოთ...';
         },
         formatRecordsPerPage: function(pageNumber) {
-            return pageNumber + ' ჩანაწერი ერთ გვერდზე';
+            return pageNumber + ' ჩანაწერი თითო გვერდზე';
         },
         formatShowingRows: function(pageFrom, pageTo, totalRows) {
-            return 'ნაჩვენებია ' + pageFrom + '-დან ' + pageTo + '-მდე ჩანაწერი ' + totalRows + '-დან';
+            return 'ნაჩვენებია ' + pageFrom + '-დან ' + pageTo + '-მდე ჩანაწერი ჯამური ' + totalRows + '-დან';
         },
         formatSearch: function() {
             return 'ძებნა';
