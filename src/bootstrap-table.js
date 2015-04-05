@@ -168,10 +168,10 @@
         paginationHAlign: 'right', //right, left
         paginationVAlign: 'bottom', //bottom, top, both
         paginationDetailHAlign: 'left', //right, left
-        paginationFirstText: '&lt;&lt;',
-        paginationPreText: '&lt;',
-        paginationNextText: '&gt;',
-        paginationLastText: '&gt;&gt;',
+        paginationFirstText: '&laquo;',
+        paginationPreText: '&lsaquo;',
+        paginationNextText: '&rsaquo;',
+        paginationLastText: '&raquo;',
         search: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
