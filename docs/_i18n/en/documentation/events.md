@@ -131,6 +131,12 @@
         <td>Fires when search the table.</td>
     </tr>
     <tr>
+        <td>onToggle</td>
+        <td>toggle.bs.table</td>
+        <td>cardView</td>
+        <td>Fires when toggle the view of table.</td>
+    </tr>
+    <tr>
         <td>onPreBody</td>
         <td>pre-body.bs.table</td>
         <td>data</td>
