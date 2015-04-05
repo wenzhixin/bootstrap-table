@@ -485,6 +485,10 @@
                 isVisible = 'hidden';
 
             if (!column.visible) {
+                // Fix #229. Default Sort order is wrong if data-visible="false" is set on the field referenced by data-sort-name.
+                if (column.field === that.options.sortName) {
+                    that.header.fields.push(column.field);
+                }
                 return;
             }
 
