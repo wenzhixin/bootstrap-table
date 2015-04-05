@@ -182,8 +182,8 @@ Las propiedades de la columna est√°n definidas en `jQuery.fn.bootstrapTable.colu
         <td>String</td>
         <td>undefined</td>
         <td>Proporcionar una especie-nombre adaptable, no la clase-nombre por defecto en la cabecera, o el nombre del campo
-†††††††† de la columna. Por ejemplo, una columna puede mostrar el valor de nombreCampo de "HTML" como
-†††††††† "&lt;b&gt;&lt;span style="color:red"&gt;abc&lt;/span&gt;&lt;/b&gt;", pero una nombreCampo para ordenar es el "contenido" con el valor de "abc".
+            de la columna. Por ejemplo, una columna puede mostrar el valor de nombreCampo de "HTML" como
+             "&lt;b&gt;&lt;span style="color:red"&gt;abc&lt;/span&gt;&lt;/b&gt;", pero una nombreCampo para ordenar es el "contenido" con el valor de "abc".
         </td>
     </tr>    
     <tr>
@@ -205,16 +205,6 @@ Las propiedades de la columna est√°n definidas en `jQuery.fn.bootstrapTable.colu
         <td>Boolean</td>
         <td>true</td>
         <td>True para incluir la columna en la b√∫squeda.</td>
-    </tr>
-    <tr>
-        <td>filterControl</td>
-        <td>data-filter-control</td>
-        <td>String</td>
-        <td>undefined</td>
-        <td>
-        Se puede usar 'input' para agregar un input control a la columna o 'select' para agregar una lista
-        a la columna.
-        </td>
     </tr>
     </tbody>
 </table>
