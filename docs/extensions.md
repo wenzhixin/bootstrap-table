@@ -18,3 +18,5 @@ lead: pages.extensions.lead
 {% tf extensions/filter.md %}
 
 {% tf extensions/keyevents.md %}
+
+{% tf extensions/mobile.md %}

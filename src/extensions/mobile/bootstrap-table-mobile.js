@@ -14,10 +14,10 @@
         if (el.options.height || el.options.showFooter) {
             setTimeout(el.resetView(), 1);
         }
-    }
+    };
 
     var changeView = function (el, width, height) {
-        if(width <= el.options.minWidth && height <= el.options.minHeight){
+        if (width <= el.options.minWidth && height <= el.options.minHeight) {
             if (!toggled) {
                 el.toggleView();
                 toggled = true;
@@ -30,7 +30,7 @@
         }
 
         resetView(el);
-    }
+    };
 
     $.extend($.fn.bootstrapTable.defaults, {
         mobileResponsive: false,

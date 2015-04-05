@@ -257,6 +257,9 @@
         onSearch: function (text) {
             return false;
         },
+        onToggle: function (cardView) {
+            return false;
+        },
         onPreBody: function (data) {
             return false;
         },
@@ -326,6 +329,7 @@
         footerFormatter: undefined,
         events: undefined,
         sorter: undefined,
+        sortName: undefined,
         cellStyle: undefined,
         searchable: true,
         cardVisible: true,
@@ -347,6 +351,7 @@
         'column-search.bs.table': 'onColumnSearch',
         'page-change.bs.table': 'onPageChange',
         'search.bs.table': 'onSearch',
+        'toggle.bs.table': 'onToggle',
         'pre-body.bs.table': 'onPreBody',
         'post-body.bs.table': 'onPostBody',
         'post-header.bs.table': 'onPostHeader'
@@ -462,6 +467,7 @@
             formatters: [],
             events: [],
             sorters: [],
+            sortNames: [],
             cellStyles: [],
             clickToSelects: [],
             searchables: []
@@ -509,6 +515,7 @@
             that.header.formatters.push(column.formatter);
             that.header.events.push(column.events);
             that.header.sorters.push(column.sorter);
+            that.header.sortNames.push(column.sortName);
             that.header.cellStyles.push(column.cellStyle);
             that.header.clickToSelects.push(column.clickToSelect);
             that.header.searchables.push(column.searchable);
@@ -653,6 +660,9 @@
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
+                if(that.header.sortNames[index]) {
+                    name = that.header.sortNames[index];
+                }            	
                 var aa = a[name],
                     bb = b[name],
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
@@ -2101,6 +2111,7 @@
         // Fixed remove toolbar when click cardView button.
         //that.initToolbar();
         this.initBody();
+        this.trigger('toggle', this.options.cardView);
     };
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
