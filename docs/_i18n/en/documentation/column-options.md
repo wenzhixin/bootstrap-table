@@ -211,14 +211,5 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         True to search data for this column.
         </td>
     </tr>
-    <tr>
-        <td>filterControl</td>
-        <td>data-filter-control</td>
-        <td>String</td>
-        <td>undefined</td>
-        <td>
-        Can be use 'input' to add an input control to the column or 'select' to add a select control to the column.
-        </td>
-    </tr>
-    </tbody>
+</tbody>
 </table>
