@@ -475,7 +475,8 @@
                 class_ = sprintf(' class="%s"', column['class']),
                 order = that.options.sortOrder || column.order,
                 searchable = true,
-                unitWidth = 'px';
+                unitWidth = 'px',
+                width = column.width;
 
             if (!column.visible) {
                 // Fix #229. Default Sort order is wrong if data-visible="false" is set on the field referenced by data-sort-name.
@@ -497,13 +498,13 @@
                 }
             }
             if (column.width && typeof column.width === 'string') {
-                column.width = column.width.replace('%', '').replace('px', '');
+                width = column.width.replace('%', '').replace('px', '');
             }
 
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : column.width, unitWidth);
+            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : width, unitWidth);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
