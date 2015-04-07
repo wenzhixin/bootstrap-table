@@ -1681,10 +1681,14 @@
         $tableContainer.css('padding-bottom', padding + 'px');
     };
 
-    BootstrapTable.prototype.getData = function () {
+    BootstrapTable.prototype.getData = function (useCurrentPage) {
         return (this.searchText
             || !$.isEmptyObject(this.filterColumns)
-            || !$.isEmptyObject(this.filterColumnsPartial)) ? this.data : this.options.data;
+            || !$.isEmptyObject(this.filterColumnsPartial)) ?
+            (useCurrentPage ? this.data.slice(this.pageFrom -1, this.pageTo)
+                : this.data) :
+            (useCurrentPage ? this.options.data.slice(this.pageFrom - 1, this.pageTo)
+                : this.options.data);
     };
 
     BootstrapTable.prototype.load = function (data) {

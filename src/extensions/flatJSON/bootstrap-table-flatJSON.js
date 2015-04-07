@@ -44,8 +44,6 @@
 
     BootstrapTable.prototype.initData = function () {
 
-        _initData.apply(this, Array.prototype.slice.apply(arguments));
-
         //If the flat is true
         if (this.options.flat) {
             this.options.data = sd.flatHelper(this.options.data);
@@ -53,6 +51,8 @@
         if (this.options.sidePagination === 'server') {
             this.data = this.options.data;
         }
+
+        _initData.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     //Main functions

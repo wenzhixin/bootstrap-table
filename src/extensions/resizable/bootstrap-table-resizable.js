@@ -45,7 +45,8 @@
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
         _toggleColumn = BootstrapTable.prototype.toggleColumn,
-        _toggleView = BootstrapTable.prototype.toggleView;
+        _toggleView = BootstrapTable.prototype.toggleView,
+        _resetView = BootstrapTable.prototype.resetView;
 
     BootstrapTable.prototype.init = function () {
         _init.apply(this, Array.prototype.slice.apply(arguments));
@@ -72,6 +73,14 @@
                 $(this.$el).colResizable({disable: true});
                 return;
             }
+            initResizable(this);
+        }
+    };
+
+    BootstrapTable.prototype.resetView = function () {
+        _resetView.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (this.options.resizable) {
             initResizable(this);
         }
     };
