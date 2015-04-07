@@ -168,10 +168,10 @@
         paginationHAlign: 'right', //right, left
         paginationVAlign: 'bottom', //bottom, top, both
         paginationDetailHAlign: 'left', //right, left
-        paginationFirstText: '&lt;&lt;',
-        paginationPreText: '&lt;',
-        paginationNextText: '&gt;',
-        paginationLastText: '&gt;&gt;',
+        paginationFirstText: '&laquo;',
+        paginationPreText: '&lsaquo;',
+        paginationNextText: '&rsaquo;',
+        paginationLastText: '&raquo;',
         search: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
@@ -617,9 +617,9 @@
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
-                if(that.header.sortNames[index]) {
+                if (that.header.sortNames[index]) {
                     name = that.header.sortNames[index];
-                }            	
+                }
                 var aa = a[name],
                     bb = b[name],
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
@@ -1483,12 +1483,10 @@
     };
 
     BootstrapTable.prototype.resetHeader = function () {
-        this.$el.css('margin-top', -this.$header.height());
         // fix #61: the hidden table reset header bug.
         // fix bug: get $el.css('width') error sometime (height = 500)
         clearTimeout(this.timeoutId_);
         this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), this.$el.is(':hidden') ? 100 : 0);
-        return;
     };
 
     BootstrapTable.prototype.fitHeader = function () {
@@ -1501,24 +1499,25 @@
             that.timeoutFooter_ = setTimeout($.proxy(that.fitHeader, that), 100);
             return;
         }
-        $fixedHeader = that.$container.find('.fixed-table-header'),
-            $fixedBody = that.$container.find('.fixed-table-body'),
-            scrollWidth = that.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
+        $fixedHeader = this.$container.find('.fixed-table-header');
+        $fixedBody = this.$container.find('.fixed-table-body');
+        scrollWidth = this.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
 
-        that.$header_ = that.$header.clone(true, true);
-        that.$selectAll_ = that.$header_.find('[name="btSelectAll"]');
+        this.$el.css('margin-top', -this.$header.height());
+        this.$header_ = this.$header.clone(true, true);
+        this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
         $fixedHeader.css({
             'margin-right': scrollWidth
-        }).find('table').css('width', that.$el.css('width'))
-            .html('').attr('class', that.$el.attr('class'))
-            .append(that.$header_);
+        }).find('table').css('width', this.$el.css('width'))
+            .html('').attr('class', this.$el.attr('class'))
+            .append(this.$header_);
 
         // fix bug: $.data() is not working as expected after $.append()
-        that.$header.find('th').each(function (i) {
+        this.$header.find('th').each(function (i) {
             that.$header_.find('th').eq(i).data($(this).data());
         });
 
-        that.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
             that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
         });
         // horizontal scroll event
