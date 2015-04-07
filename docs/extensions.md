@@ -15,6 +15,8 @@ lead: pages.extensions.lead
 
 {% tf extensions/resizable.md %}
 
+{% tf extensions/reorder.md %}
+
 {% tf extensions/filter.md %}
 
 {% tf extensions/keyevents.md %}
@@ -22,3 +24,5 @@ lead: pages.extensions.lead
 {% tf extensions/mobile.md %}
 
 {% tf extensions/filtercontrol.md %}
+
+{% tf extensions/naturalsorting.md %}
