@@ -21,7 +21,7 @@
             minWidth: that.options.minWidth,
             hoverCursor: that.options.hoverCursor,
             dragCursor: that.options.dragCursor,
-            onResize: that.options.onResizableResize,
+            onResize: that.onResize,
             onDrag: that.options.onResizableDrag
         });
     };
@@ -84,4 +84,10 @@
             initResizable(this);
         }
     };
+
+    BootstrapTable.prototype.onResize = function (e) {
+        var that = $(e.currentTarget);
+        that.bootstrapTable('resetView');
+        that.data('bootstrap.table').options.onResizableResize.apply(e);
+    }
 })(jQuery);
