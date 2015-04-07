@@ -15,7 +15,6 @@ ar-MA
 arn-CL
 ar-OM
 ar-QA
-ar-SA
 ar-SY
 ar-TN
 ar-YE
@@ -101,7 +100,6 @@ is-IS
 it-CH
 iu-Cans-CA
 iu-Latn-CA
-ka-GE
 kk-KZ
 kl-GL
 km-KH
