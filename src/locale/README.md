@@ -133,7 +133,6 @@ quz-BO
 quz-EC
 quz-PE
 rm-CH
-ro-RO
 rw-RW
 sah-RU
 sa-IN
