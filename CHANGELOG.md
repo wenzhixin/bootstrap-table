@@ -12,6 +12,7 @@
 - [bug] Fix double header bug after table show from hidden.
 - [bug] Fix #279: scrollWidth bug.
 - [enh] `getData` method support to get the current page data.
+- [enh] Added `ro-RO` locale.
 
 ### 1.7.0
 
