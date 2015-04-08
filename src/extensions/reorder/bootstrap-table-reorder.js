@@ -21,7 +21,10 @@
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initHeader = BootstrapTable.prototype.initHeader;
+        _initHeader = BootstrapTable.prototype.initHeader,
+        _toggleColumn = BootstrapTable.prototype.toggleColumn,
+        _toggleView = BootstrapTable.prototype.toggleView,
+        _resetView = BootstrapTable.prototype.resetView;
 
     BootstrapTable.prototype.initHeader = function () {
         _initHeader.apply(this, Array.prototype.slice.apply(arguments));
@@ -33,9 +36,46 @@
         this.makeColumnsReorderable();
     };
 
+    BootstrapTable.prototype.toggleColumn = function () {
+        _toggleColumn.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (!this.options.reorderable) {
+            return;
+        }
+
+        this.makeColumnsReorderable();
+    };
+
+    BootstrapTable.prototype.toggleView = function () {
+        _toggleView.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (!this.options.reorderable) {
+            return;
+        }
+
+        if (this.options.cardView) {
+            return;
+        }
+
+        this.makeColumnsReorderable();
+    };
+
+    BootstrapTable.prototype.resetView = function () {
+        _resetView.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (!this.options.reorderable) {
+            return;
+        }
+
+        this.makeColumnsReorderable();
+    };
+
     BootstrapTable.prototype.makeColumnsReorderable = function () {
 
         var that = this;
+        try {
+            $(this.$el).dragtable('destroy');
+        } catch (e) {}
         $(this.$el).dragtable({
             maxMovingRows: that.options.maxMovingRows,
             clickDelay:200,
@@ -46,6 +86,7 @@
                 });
 
                 that.header.fields = ths;
+
                 that.resetView();
                 that.trigger('reorder', ths);
             }
