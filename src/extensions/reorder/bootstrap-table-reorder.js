@@ -1,12 +1,25 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.0.0
+ * @version: v1.1.0
  */
 
 !function ($) {
 
     'use strict';
+
+    var getFieldIndex = function (columns, field) {
+        var index = -1;
+
+        $.each(columns, function (i, column) {
+            if (column.field === field) {
+                index = i;
+                return false;
+            }
+            return true;
+        });
+        return index;
+    };
 
     $.extend($.fn.bootstrapTable.defaults, {
         reorderable: false,
@@ -80,13 +93,23 @@
             maxMovingRows: that.options.maxMovingRows,
             clickDelay:200,
             beforeStop: function() {
-                var ths = [];
+                var ths = [],
+                    columns = [],
+                    columnIndex = -1;
                 that.$header.find('th').each(function (i) {
                     ths.push($(this).data('field'));
                 });
 
-                that.header.fields = ths;
+                for (var i = 0; i < ths.length; i++ ) {
+                    columnIndex = getFieldIndex(that.options.columns, ths[i]);
+                    if (columnIndex !== -1) {
+                        columns.push(that.options.columns[columnIndex]);
+                        that.options.columns.slice(columnIndex, 1);
+                    }
+                }
 
+                that.options.columns = that.options.columns.concat(columns);
+                that.header.fields = ths;
                 that.resetView();
                 that.trigger('reorder', ths);
             }
