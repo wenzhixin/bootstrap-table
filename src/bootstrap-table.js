@@ -1493,6 +1493,7 @@
         var that = this,
             $fixedHeader,
             $fixedBody,
+            fixedBody,
             scrollWidth;
 
         if (that.$el.is(':hidden')) {
@@ -1501,7 +1502,11 @@
         }
         $fixedHeader = this.$container.find('.fixed-table-header');
         $fixedBody = this.$container.find('.fixed-table-body');
-        scrollWidth = this.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
+        fixedBody = $fixedBody.get(0);
+
+        scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
+            fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.height() ?
+            getScrollBarWidth() : 0;
 
         this.$el.css('margin-top', -this.$header.height());
         this.$header_ = this.$header.clone(true, true);

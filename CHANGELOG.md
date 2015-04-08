@@ -6,9 +6,13 @@
 - [enh] Added state saving for visible columns and the ability to use extension with multiple simultaneous tables.
 - [enh] Added `ajax` option to replace jquery ajax method.
 - [enh] Added `resetWidth` method to reset header and footer width.
-- [enh] Added keyevents, mobile extensions.
-- [enh] Added `onToggle`, `onColumnSearch` events.
+- [enh] Added keyevents, mobile, filter control, reorder, naturalsorting extensions.
+- [enh] Added `onToggle` events.
 - [enh] Added `getScrollPosition` method.
+- [bug] Fix double header bug after table show from hidden.
+- [bug] Fix #279: scrollWidth bug.
+- [enh] `getData` method support to get the current page data.
+- [enh] Added `ro-RO` locale.
 
 ### 1.7.0
 
