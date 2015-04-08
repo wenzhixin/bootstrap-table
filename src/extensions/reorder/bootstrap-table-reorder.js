@@ -104,7 +104,7 @@
                     columnIndex = getFieldIndex(that.options.columns, ths[i]);
                     if (columnIndex !== -1) {
                         columns.push(that.options.columns[columnIndex]);
-                        that.options.columns.slice(columnIndex, 1);
+                        that.options.columns.splice(columnIndex, 1);
                     }
                 }
 
