@@ -1460,7 +1460,7 @@
         var that = this;
 
         this.$selectItem.each(function () {
-            that.data[$(this).data('index')][that.header.stateField] = checked;
+            that.data[$(this).data('index')][that.header.stateField] = $(this).prop('checked') && checked;
         });
     };
 
