@@ -7,7 +7,7 @@
 - [enh] Added `ajax` option to replace jquery ajax method.
 - [enh] Added `resetWidth` method to reset header and footer width.
 - [enh] Added keyevents, mobile, filter control, reorder, naturalsorting extensions.
-- [enh] Added `onToggle`, `onColumnSearch` events.
+- [enh] Added `onToggle` events.
 - [enh] Added `getScrollPosition` method.
 - [bug] Fix double header bug after table show from hidden.
 - [bug] Fix #279: scrollWidth bug.
