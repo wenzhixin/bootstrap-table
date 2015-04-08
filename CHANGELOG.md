@@ -13,6 +13,7 @@
 - [bug] Fix #279: scrollWidth bug.
 - [enh] `getData` method support to get the current page data.
 - [enh] Added `ro-RO` locale.
+- [enh] Added `table-no-bordered` class to remove table-bordered style.
 
 ### 1.7.0
 

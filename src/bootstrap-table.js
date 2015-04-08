@@ -394,6 +394,9 @@
         if (this.options.striped) {
             this.$el.addClass('table-striped');
         }
+        if ($.inArray('table-no-bordered', this.options.classes.split(' ')) !== -1) {
+            this.$container.find('.fixed-table-container').addClass('table-no-bordered');
+        }
     };
 
     BootstrapTable.prototype.initTable = function () {
