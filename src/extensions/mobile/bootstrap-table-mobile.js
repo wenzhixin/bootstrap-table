@@ -8,8 +8,6 @@
 
     'use strict';
 
-    var toggled = false;
-
     var resetView = function (el) {
         if (el.options.height || el.options.showFooter) {
             setTimeout(el.resetView(), 1);
@@ -43,9 +41,9 @@
     };
 
     var checkToggledStatus = function (targetToggledStatus, newToggledStatus, el) {
-        if (toggled === targetToggledStatus) {
+        if (el.options.toggled === targetToggledStatus) {
             el.toggleView();
-            toggled = newToggledStatus;
+            el.options.toggled = newToggledStatus;
         }
     };
 
@@ -53,7 +51,8 @@
         mobileResponsive: false,
         minWidth: 562,
         minHeight: undefined,
-        checkOnInit: true
+        checkOnInit: true,
+        toggled: false
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
