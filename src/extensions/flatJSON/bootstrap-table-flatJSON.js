@@ -73,10 +73,14 @@
     BootstrapTable.prototype.load = function (data) {
         //If the flat is true
         if (this.options.flat) {
-            this.options.data = sd.flatHelper(this.options.data);
+            this.options.data = sd.flatHelper(data);
         }
-        
-        _load.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (this.options.sidePagination === 'server') {
+            this.data = this.options.data;
+        }
+
+            _load.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     //Main functions
