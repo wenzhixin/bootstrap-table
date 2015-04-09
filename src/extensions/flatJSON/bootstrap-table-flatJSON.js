@@ -40,7 +40,8 @@
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initTable = BootstrapTable.prototype.initTable;
+        _initTable = BootstrapTable.prototype.initTable,
+        _initData = BootstrapTable.prototype.initData ;
 
     BootstrapTable.prototype.initTable = function () {
 
@@ -53,6 +54,19 @@
         }
 
         _initTable.apply(this, Array.prototype.slice.apply(arguments));
+    };
+
+    BootstrapTable.prototype.initData = function () {
+
+        //If the flat is true
+        if (this.options.flat) {
+            this.options.data = sd.flatHelper(this.options.data);
+        }
+        if (this.options.sidePagination === 'server') {
+            this.data = this.options.data;
+        }
+
+        _initData.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     //Main functions
