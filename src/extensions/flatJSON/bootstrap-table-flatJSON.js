@@ -40,9 +40,9 @@
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initData = BootstrapTable.prototype.initData;
+        _initTable = BootstrapTable.prototype.initTable;
 
-    BootstrapTable.prototype.initData = function () {
+    BootstrapTable.prototype.initTable = function () {
 
         //If the flat is true
         if (this.options.flat) {
@@ -52,7 +52,7 @@
             this.data = this.options.data;
         }
 
-        _initData.apply(this, Array.prototype.slice.apply(arguments));
+        _initTable.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     //Main functions
