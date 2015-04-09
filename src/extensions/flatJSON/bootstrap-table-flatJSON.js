@@ -41,7 +41,8 @@
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initTable = BootstrapTable.prototype.initTable,
-        _initData = BootstrapTable.prototype.initData ;
+        _initData = BootstrapTable.prototype.initData,
+        _load = BootstrapTable.prototype.load;
 
     BootstrapTable.prototype.initTable = function () {
 
@@ -67,6 +68,15 @@
         }
 
         _initData.apply(this, Array.prototype.slice.apply(arguments));
+    };
+
+    BootstrapTable.prototype.load = function (data) {
+        //If the flat is true
+        if (this.options.flat) {
+            this.options.data = sd.flatHelper(this.options.data);
+        }
+        
+        _load.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     //Main functions
