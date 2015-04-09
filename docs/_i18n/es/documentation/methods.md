@@ -29,8 +29,9 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     </tr>
     <tr>
         <td>getData</td>
-        <td>none</td>
-        <td>Retorna los datos cargados en la tabla.</td>
+        <td>useCurrentPage</td>
+        <td>Retorna los datos cargados en la tabla. Si se setea useCurrentPage a true se devolverá los datos mostrados en la página
+        actual</td>
     </tr>
     <tr>
         <td>load</td>
@@ -187,6 +188,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>scrollTo</td>
         <td>value</td>
         <td>Setea la posición del scroll, setear 'bottom' significa setear la posición del scroll al final de la tabla.</td>
+    </tr>
+    <tr>
+        <td>getScrollPosition</td>
+        <td>none</td>
+        <td>Obtiene la posición actual del scroll.</td>
     </tr>
     <tr>
         <td>filterBy</td>

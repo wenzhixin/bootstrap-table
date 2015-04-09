@@ -113,6 +113,16 @@
         return text;
     };
 
+    var getRealHeight = function ($el) {
+        var height = 0;
+        $el.children().each(function () {
+            if (height < $(this).outerHeight(true)) {
+                height = $(this).outerHeight(true);
+            }
+        });
+        return height;
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -158,10 +168,10 @@
         paginationHAlign: 'right', //right, left
         paginationVAlign: 'bottom', //bottom, top, both
         paginationDetailHAlign: 'left', //right, left
-        paginationFirstText: '&lt;&lt;',
-        paginationPreText: '&lt;',
-        paginationNextText: '&gt;',
-        paginationLastText: '&gt;&gt;',
+        paginationFirstText: '&laquo;',
+        paginationPreText: '&lsaquo;',
+        paginationNextText: '&rsaquo;',
+        paginationLastText: '&raquo;',
         search: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
@@ -238,13 +248,13 @@
         onColumnSwitch: function (field, checked) {
             return false;
         },
-        onColumnSearch: function (field, text) {
-            return false;
-        },
         onPageChange: function (number, size) {
             return false;
         },
         onSearch: function (text) {
+            return false;
+        },
+        onToggle: function (cardView) {
             return false;
         },
         onPreBody: function (data) {
@@ -316,10 +326,10 @@
         footerFormatter: undefined,
         events: undefined,
         sorter: undefined,
+        sortName: undefined,
         cellStyle: undefined,
         searchable: true,
-        cardVisible: true,
-        filterControl: undefined // edit, todo: select, todo: date
+        cardVisible: true
     };
 
     BootstrapTable.EVENTS = {
@@ -334,9 +344,9 @@
         'load-success.bs.table': 'onLoadSuccess',
         'load-error.bs.table': 'onLoadError',
         'column-switch.bs.table': 'onColumnSwitch',
-        'column-search.bs.table': 'onColumnSearch',
         'page-change.bs.table': 'onPageChange',
         'search.bs.table': 'onSearch',
+        'toggle.bs.table': 'onToggle',
         'pre-body.bs.table': 'onPreBody',
         'post-body.bs.table': 'onPostBody',
         'post-header.bs.table': 'onPostHeader'
@@ -383,6 +393,9 @@
         this.$el.addClass(this.options.classes);
         if (this.options.striped) {
             this.$el.addClass('table-striped');
+        }
+        if ($.inArray('table-no-bordered', this.options.classes.split(' ')) !== -1) {
+            this.$container.find('.fixed-table-container').addClass('table-no-bordered');
         }
     };
 
@@ -442,7 +455,6 @@
         var that = this,
             visibleColumns = [],
             html = [],
-            addedFilterControl = false,
             timeoutId = 0;
 
         this.header = {
@@ -452,6 +464,7 @@
             formatters: [],
             events: [],
             sorters: [],
+            sortNames: [],
             cellStyles: [],
             clickToSelects: [],
             searchables: []
@@ -466,9 +479,13 @@
                 order = that.options.sortOrder || column.order,
                 searchable = true,
                 unitWidth = 'px',
-                isVisible = 'hidden';
+                width = column.width;
 
             if (!column.visible) {
+                // Fix #229. Default Sort order is wrong if data-visible="false" is set on the field referenced by data-sort-name.
+                if (column.field === that.options.sortName) {
+                    that.header.fields.push(column.field);
+                }
                 return;
             }
 
@@ -483,13 +500,14 @@
                     }
                 }
             }
+            if (column.width && typeof column.width === 'string') {
+                width = column.width.replace('%', '').replace('px', '');
+            }
 
             halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
             align = sprintf('text-align: %s; ', column.align);
             style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 :
-                (column.width ? column.width.replace('%', '').replace('px', '') : undefined),
-                unitWidth);
+            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : width, unitWidth);
 
             visibleColumns.push(column);
             that.header.fields.push(column.field);
@@ -498,6 +516,7 @@
             that.header.formatters.push(column.formatter);
             that.header.events.push(column.events);
             that.header.sorters.push(column.sorter);
+            that.header.sortNames.push(column.sortName);
             that.header.cellStyles.push(column.cellStyle);
             that.header.clickToSelects.push(column.clickToSelect);
             that.header.searchables.push(column.searchable);
@@ -532,30 +551,7 @@
             html.push(text);
             html.push('</div>');
             html.push('<div class="fht-cell"></div>');
-
-            html.push('<div style="margin: 0px 2px 2px 2px;" class="filterControl">');
-
-            if (column.filterControl && column.searchable) {
-                addedFilterControl = true;
-                isVisible = 'visible'
-            }
-
-            if (column.filterControl !== undefined) {
-                switch (column.filterControl.toLowerCase()) {
-                    case 'input' :
-                        html.push(sprintf('<input type="text" class="form-control" style="width: 100%; visibility: %s">', isVisible));
-                        break;
-                    case 'select':
-                        html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>',
-                            column.field, isVisible))
-                        break;
-                }
-            } else {
-                html.push('<div style="height: 34px;"></div>');
-            }
-
             html.push('</div>');
-
             html.push('</th>');
         });
 
@@ -585,24 +581,6 @@
                 var checked = $(this).prop('checked');
                 that[checked ? 'checkAll' : 'uncheckAll']();
             });
-
-        if (addedFilterControl) {
-            this.$header.off('keyup', 'input').on('keyup', 'input', function (event) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
-                    that.onColumnSearch(event);
-                }, that.options.searchTimeOut);
-            });
-
-            this.$header.off('change', 'select').on('change', 'select', function (event) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
-                    that.onColumnSearch(event);
-                }, that.options.searchTimeOut);
-            });
-        } else {
-            this.$header.find('.filterControl').hide();
-        }
     };
 
     BootstrapTable.prototype.initFooter = function () {
@@ -642,13 +620,12 @@
 
         if (index !== -1) {
             this.data.sort(function (a, b) {
+                if (that.header.sortNames[index]) {
+                    name = that.header.sortNames[index];
+                }
                 var aa = a[name],
                     bb = b[name],
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
-
-                if (value !== undefined) {
-                    return order * value;
-                }
 
                 if (value !== undefined) {
                     return order * value;
@@ -830,7 +807,7 @@
             $keepOpen.find('input').off('click').on('click', function () {
                 var $this = $(this);
 
-                that.toggleColumn($this.val(), $this.prop('checked'), false);
+                that.toggleColumn(getFieldIndex(that.options.columns, $(this).data('field')), $this.prop('checked'), false);
                 that.trigger('column-switch', $(this).data('field'), $this.prop('checked'));
             });
         }
@@ -845,7 +822,7 @@
 
             this.$toolbar.append(html.join(''));
             $search = this.$toolbar.find('.search input');
-            $search.off('keyup').on('keyup', function (event) {
+            $search.off('keyup drop').on('keyup drop', function (event) {
                 clearTimeout(timeoutId); // doesn't matter if it's 0
                 timeoutId = setTimeout(function () {
                     that.onSearch(event);
@@ -881,35 +858,12 @@
         this.trigger('search', text);
     };
 
-    BootstrapTable.prototype.onColumnSearch = function (event, isSelectControl) {
-        var text = $.trim($(event.currentTarget).val());
-        var $field = $(event.currentTarget).parent().parent().data('field')
-
-        // trim search input
-        //$(event.currentTarget).val(text);
-
-        if ($.isEmptyObject(this.filterColumnsPartial)) {
-            this.filterColumnsPartial = {};
-        }
-        if (text) {
-            this.filterColumnsPartial[$field] = text;
-        } else {
-            delete this.filterColumnsPartial[$field];
-        }
-
-        this.options.pageNumber = 1;
-        this.initSearch();
-        this.updatePagination();
-        /* this.trigger('column-search', $field, text); */
-    };
-
     BootstrapTable.prototype.initSearch = function () {
         var that = this;
 
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
-            var fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial;
 
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
@@ -920,24 +874,6 @@
                 }
                 return true;
             }) : this.options.data;
-
-            //Check partial colum filter
-            this.data = fp ? $.grep(this.data, function (item, i) {
-                for (var key in fp) {
-                    var fval = fp[key].toLowerCase();
-                    var value = item[key];
-                    value = calculateObjectValue(that.header,
-                        that.header.formatters[$.inArray(key, that.header.fields)],
-                        [value, item, i], value);
-
-                    if (!($.inArray(key, that.header.fields) !== -1 &&
-                        (typeof value === 'string' || typeof value === 'number') &&
-                        (value + '').toLowerCase().indexOf(fval) !== -1)) {
-                        return false;
-                    }
-                }
-                return true;
-            }) : this.data;
 
             this.data = s ? $.grep(this.data, function (item, i) {
                 for (var key in item) {
@@ -1312,6 +1248,8 @@
                                 (value && value.disabled) ? 'disabled' : undefined) +
                             ' />',
                         that.options.cardView ? '</div>' : '</td>'].join('');
+                        
+                    item[that.header.stateField] = value === true || (value && value.checked);
                 } else {
                     value = typeof value === 'undefined' || value === null ?
                         that.options.undefinedText : value;
@@ -1325,43 +1263,6 @@
                         [sprintf('<td%s %s %s %s>', id_, class_, style, data_),
                             value,
                             '</td>'].join('');
-
-                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select'
-                        && column.searchable) {
-
-                        var selectControl = $('.' + column.field),
-                            iOpt = 0,
-                            exitsOpt = false,
-                            options;
-                        if (selectControl !== undefined) {
-                            options = selectControl.get(0).options;
-
-                            if (options.length === 0) {
-
-                                //Added the default option
-                                selectControl.append($("<option></option>")
-                                    .attr("value", '')
-                                    .text(''));
-
-                                selectControl.append($("<option></option>")
-                                    .attr("value", value)
-                                    .text(value));
-                            } else {
-                                for (; iOpt < options.length; iOpt++) {
-                                    if (options[iOpt].value === value) {
-                                        exitsOpt = true;
-                                        break;
-                                    }
-                                }
-
-                                if (!exitsOpt) {
-                                    selectControl.append($("<option></option>")
-                                        .attr("value", value)
-                                        .text(value));
-                                }
-                            }
-                        }
-                    }
 
                     // Hide empty data on Card view when smartDisplay is set to true.
                     if (that.options.cardView && that.options.smartDisplay && value === '') {
@@ -1557,11 +1458,11 @@
         });
     };
 
-    BootstrapTable.prototype.updateRows = function (checked) {
+    BootstrapTable.prototype.updateRows = function () {
         var that = this;
 
         this.$selectItem.each(function () {
-            that.data[$(this).data('index')][that.header.stateField] = checked;
+            that.data[$(this).data('index')][that.header.stateField] = $(this).prop('checked');
         });
     };
 
@@ -1587,42 +1488,46 @@
     };
 
     BootstrapTable.prototype.resetHeader = function () {
-        this.$el.css('margin-top', -this.$header.height());
         // fix #61: the hidden table reset header bug.
         // fix bug: get $el.css('width') error sometime (height = 500)
         clearTimeout(this.timeoutId_);
         this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), this.$el.is(':hidden') ? 100 : 0);
-        return;
     };
 
     BootstrapTable.prototype.fitHeader = function () {
         var that = this,
             $fixedHeader,
             $fixedBody,
+            fixedBody,
             scrollWidth;
 
         if (that.$el.is(':hidden')) {
             that.timeoutFooter_ = setTimeout($.proxy(that.fitHeader, that), 100);
             return;
         }
-        $fixedHeader = that.$container.find('.fixed-table-header'),
-            $fixedBody = that.$container.find('.fixed-table-body'),
-            scrollWidth = that.$el.width() > $fixedBody.width() ? getScrollBarWidth() : 0;
+        $fixedHeader = this.$container.find('.fixed-table-header');
+        $fixedBody = this.$container.find('.fixed-table-body');
+        fixedBody = $fixedBody.get(0);
 
-        that.$header_ = that.$header.clone(true, true);
-        that.$selectAll_ = that.$header_.find('[name="btSelectAll"]');
+        scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
+            fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.height() ?
+            getScrollBarWidth() : 0;
+
+        this.$el.css('margin-top', -this.$header.height());
+        this.$header_ = this.$header.clone(true, true);
+        this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
         $fixedHeader.css({
             'margin-right': scrollWidth
-        }).find('table').css('width', that.$el.css('width'))
-            .html('').attr('class', that.$el.attr('class'))
-            .append(that.$header_);
+        }).find('table').css('width', this.$el.css('width'))
+            .html('').attr('class', this.$el.attr('class'))
+            .append(this.$header_);
 
         // fix bug: $.data() is not working as expected after $.append()
-        that.$header.find('th').each(function (i) {
+        this.$header.find('th').each(function (i) {
             that.$header_.find('th').eq(i).data($(this).data());
         });
 
-        that.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
             that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
         });
         // horizontal scroll event
@@ -1748,8 +1653,8 @@
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
         if (this.options.height) {
-            var toolbarHeight = +this.$toolbar.children().outerHeight(true),
-                paginationHeight = +this.$pagination.children().outerHeight(true),
+            var toolbarHeight = getRealHeight(this.$toolbar),
+                paginationHeight = getRealHeight(this.$pagination),
                 height = this.options.height - toolbarHeight - paginationHeight;
 
             $tableContainer.css('height', height + 'px');
@@ -1781,10 +1686,14 @@
         $tableContainer.css('padding-bottom', padding + 'px');
     };
 
-    BootstrapTable.prototype.getData = function () {
+    BootstrapTable.prototype.getData = function (useCurrentPage) {
         return (this.searchText
             || !$.isEmptyObject(this.filterColumns)
-            || !$.isEmptyObject(this.filterColumnsPartial)) ? this.data : this.options.data;
+            || !$.isEmptyObject(this.filterColumnsPartial)) ?
+            (useCurrentPage ? this.data.slice(this.pageFrom -1, this.pageTo)
+                : this.data) :
+            (useCurrentPage ? this.options.data.slice(this.pageFrom - 1, this.pageTo)
+                : this.options.data);
     };
 
     BootstrapTable.prototype.load = function (data) {
@@ -1941,7 +1850,7 @@
             rows = this.getSelections();
         }
         this.$selectItem.filter(':enabled').prop('checked', checked);
-        this.updateRows(checked);
+        this.updateRows();
         this.updateSelected();
         if (checked) {
             rows = this.getSelections();
@@ -2060,7 +1969,15 @@
         if (typeof value === 'number') {
             $tbody.scrollTop(value);
         }
+
+        if (typeof value === undefined) {
+            return $tbody.scrollTop();
+        }
     };
+
+    BootstrapTable.prototype.getScrollPosition = function () {
+        return this.scrollTo();
+    }
 
     BootstrapTable.prototype.selectPage = function (page) {
         if (page > 0 && page <= this.options.totalPages) {
@@ -2089,6 +2006,7 @@
         // Fixed remove toolbar when click cardView button.
         //that.initToolbar();
         this.initBody();
+        this.trigger('toggle', this.options.cardView);
     };
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
@@ -2112,6 +2030,7 @@
         'showColumn', 'hideColumn',
         'filterBy',
         'scrollTo',
+        'getScrollPosition',
         'selectPage', 'prevPage', 'nextPage',
         'togglePagination',
         'toggleView'

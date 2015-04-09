@@ -4,9 +4,17 @@
 
 - [bug] Fix #672: Column Fixed Width in Percentage bug.
 - [enh] Added state saving for visible columns and the ability to use extension with multiple simultaneous tables.
-- [enh] Added `ajax' option to replace jquery ajax method.
+- [enh] Added `ajax` option to replace jquery ajax method.
 - [enh] Added `resetWidth` method to reset header and footer width.
-- [enh] Added keyevents extension.
+- [enh] Added keyevents, mobile, filter control, reorder, naturalsorting extensions.
+- [enh] Added `onToggle` events.
+- [enh] Added `getScrollPosition` method.
+- [bug] Fix double header bug after table show from hidden.
+- [bug] Fix #279: scrollWidth bug.
+- [enh] `getData` method support to get the current page data.
+- [enh] Added `ro-RO` locale.
+- [enh] Added `table-no-bordered` class to remove table-bordered style.
+- [bug] Fix row state field value bug when there are disabled rows.
 
 ### 1.7.0
 

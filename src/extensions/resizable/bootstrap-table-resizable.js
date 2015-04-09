@@ -21,7 +21,7 @@
             minWidth: that.options.minWidth,
             hoverCursor: that.options.hoverCursor,
             dragCursor: that.options.dragCursor,
-            onResize: that.options.onResizableResize,
+            onResize: that.onResize,
             onDrag: that.options.onResizableDrag
         });
     };
@@ -45,7 +45,8 @@
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
         _toggleColumn = BootstrapTable.prototype.toggleColumn,
-        _toggleView = BootstrapTable.prototype.toggleView;
+        _toggleView = BootstrapTable.prototype.toggleView,
+        _resetView = BootstrapTable.prototype.resetView;
 
     BootstrapTable.prototype.init = function () {
         _init.apply(this, Array.prototype.slice.apply(arguments));
@@ -75,4 +76,18 @@
             initResizable(this);
         }
     };
+
+    BootstrapTable.prototype.resetView = function () {
+        _resetView.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (this.options.resizable) {
+            initResizable(this);
+        }
+    };
+
+    BootstrapTable.prototype.onResize = function (e) {
+        var that = $(e.currentTarget);
+        that.bootstrapTable('resetView');
+        that.data('bootstrap.table').options.onResizableResize.apply(e);
+    }
 })(jQuery);

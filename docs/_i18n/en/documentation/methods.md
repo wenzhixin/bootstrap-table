@@ -29,8 +29,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     </tr>
     <tr>
         <td>getData</td>
-        <td>none</td>
-        <td>Get the loaded data of table.</td>
+        <td>useCurrentPage</td>
+        <td>Get the loaded data of table. If you set the useCurrentPage to true the method will return the data in the current page</td>
     </tr>
     <tr>
         <td>load</td>
@@ -192,6 +192,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>scrollTo</td>
         <td>value</td>
         <td>Scroll to the number value position, set 'bottom' means scroll to the bottom.</td>
+    </tr>
+    <tr>
+        <td>getScrollPosition</td>
+        <td>none</td>
+        <td>Get the current scroll position.</td>
     </tr>
     <tr>
         <td>filterBy</td>

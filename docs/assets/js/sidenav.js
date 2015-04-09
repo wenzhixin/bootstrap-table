@@ -27,7 +27,8 @@
     initViews: function() {
       var that = this,
           counts = {},
-          preLevel = 0;
+          preLevel = 0,
+          parentId = '';
 
       this.$menu = $([
           '<div class="bs-sidebar hidden-print">',
@@ -76,6 +77,9 @@
           id = $.trim($(this).text()).toLowerCase();
           id = id.replace(/ /g, '-');
           id = id.replace(/'|"/g, '');
+          if (level === 2) {
+            id = parentId + '-' + id;
+          }
         }
         $div = $('<div id="' + id + '"></div>');
         $div.insertAfter($this).append($this);
@@ -92,6 +96,9 @@
             that.$list += '</ul></li>';
           }
           that.$list += '<li>' + aElem;
+        }
+        if (level === 1) {
+          parentId = id;
         }
         preLevel = level;
       });

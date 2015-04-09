@@ -31,7 +31,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-classes</td>
         <td>String</td>
         <td>'table table-hover'</td>
-        <td>The class name of table.</td>
+        <td>The class name of table. By default, the table is bordered, you can add 'table-no-bordered' to remove table-bordered style.</td>
     </tr>
     <tr>
         <td>height</td>

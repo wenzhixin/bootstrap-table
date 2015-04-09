@@ -113,6 +113,12 @@
         <td>Fires when switch the column visible.</td>
     </tr>
     <tr>
+        <td>onColumnSearch</td>
+        <td>column-search.bs.table</td>
+        <td>field, text</td>
+        <td>Fires when search by column.</td>
+    </tr>
+    <tr>
         <td>onPageChange</td>
         <td>page-change.bs.table</td>
         <td>number, size</td>
@@ -123,6 +129,12 @@
         <td>search.bs.table</td>
         <td>text</td>
         <td>Fires when search the table.</td>
+    </tr>
+    <tr>
+        <td>onToggle</td>
+        <td>toggle.bs.table</td>
+        <td>cardView</td>
+        <td>Fires when toggle the view of table.</td>
     </tr>
     <tr>
         <td>onPreBody</td>

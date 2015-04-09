@@ -113,7 +113,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>False to hide the columns item.</td>
     </tr>
     <tr>
-        <td>card view visible</td>
+        <td>cardViewVisible</td>
         <td>data-card-visible</td>
         <td>Boolean</td>
         <td>true</td>
@@ -180,6 +180,16 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         </td>
     </tr>
     <tr>
+        <td>sortName</td>
+        <td>data-sort-name</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Provide a customizable sort-name, not the default sort-name in the header, or the field name
+        of the column. For example, a column might display the value of fieldName of "html" such as  
+        "&lt;b&gt;&lt;span style="color:red"&gt;abc&lt;/span&gt;&lt;/b&gt;", but a fieldName to sort is "content" with the value of "abc".
+        </td>
+    </tr>    
+    <tr>
         <td>cellStyle</td>
         <td>data-cell-style</td>
         <td>Function</td>
@@ -201,14 +211,5 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         True to search data for this column.
         </td>
     </tr>
-    <tr>
-        <td>filterControl</td>
-        <td>data-filter-control</td>
-        <td>String</td>
-        <td>undefined</td>
-        <td>
-        Can be use 'input' to add an input control to the column or 'select' to add a select control to the column.
-        </td>
-    </tr>
-    </tbody>
+</tbody>
 </table>
