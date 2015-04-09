@@ -1248,6 +1248,8 @@
                                 (value && value.disabled) ? 'disabled' : undefined) +
                             ' />',
                         that.options.cardView ? '</div>' : '</td>'].join('');
+                        
+                    item[that.header.stateField] = value === true || (value && value.checked);
                 } else {
                     value = typeof value === 'undefined' || value === null ?
                         that.options.undefinedText : value;
@@ -1456,11 +1458,11 @@
         });
     };
 
-    BootstrapTable.prototype.updateRows = function (checked) {
+    BootstrapTable.prototype.updateRows = function () {
         var that = this;
 
         this.$selectItem.each(function () {
-            that.data[$(this).data('index')][that.header.stateField] = checked;
+            that.data[$(this).data('index')][that.header.stateField] = $(this).prop('checked');
         });
     };
 
@@ -1848,7 +1850,7 @@
             rows = this.getSelections();
         }
         this.$selectItem.filter(':enabled').prop('checked', checked);
-        this.updateRows(checked);
+        this.updateRows();
         this.updateSelected();
         if (checked) {
             rows = this.getSelections();
