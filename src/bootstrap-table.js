@@ -1850,7 +1850,7 @@
             rows = this.getSelections();
         }
         this.$selectItem.filter(':enabled').prop('checked', checked);
-        this.updateRows(checked);
+        this.updateRows();
         this.updateSelected();
         if (checked) {
             rows = this.getSelections();
