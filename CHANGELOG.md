@@ -14,6 +14,7 @@
 - [enh] `getData` method support to get the current page data.
 - [enh] Added `ro-RO` locale.
 - [enh] Added `table-no-bordered` class to remove table-bordered style.
+- [bug] Fix row state field value bug when there are disabled rows.
 
 ### 1.7.0
 
