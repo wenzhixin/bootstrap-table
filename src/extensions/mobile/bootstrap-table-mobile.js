@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.0.0
+ * @version: v1.1.0
  */
 
 !function ($) {
@@ -17,26 +17,43 @@
     };
 
     var changeView = function (el, width, height) {
-        if (width <= el.options.minWidth && height <= el.options.minHeight) {
-            if (!toggled) {
-                el.toggleView();
-                toggled = true;
+        if (el.options.minHeight) {
+            if (checkValuesLessEqual(width, el.options.minWidth) && checkValuesLessEqual(height, el.options.minHeight)) {
+                checkToggledStatus(false, true, el);
+            } else if (checkValuesGreater(width, el.options.minWidth) && checkValuesGreater(height, el.options.minHeight)) {
+                checkToggledStatus(true, false, el);
             }
-        } else if (width > el.options.minWidth && height > el.options.minHeight) {
-            if (toggled) {
-                el.toggleView()
-                toggled = false;
+        } else {
+            if (checkValuesLessEqual(width, el.options.minWidth)) {
+                checkToggledStatus(false, true, el);
+            } else if (checkValuesGreater(width, el.options.minWidth)) {
+                checkToggledStatus(true, false, el);
             }
         }
 
         resetView(el);
     };
 
+    var checkValuesLessEqual = function (currentValue, targetValue) {
+        return currentValue <= targetValue;
+    };
+
+    var checkValuesGreater = function (currentValue, targetValue) {
+        return currentValue > targetValue;
+    };
+
+    var checkToggledStatus = function (targetToggledStatus, newToggledStatus, el) {
+        if (toggled === targetToggledStatus) {
+            el.toggleView();
+            toggled = newToggledStatus;
+        }
+    };
+
     $.extend($.fn.bootstrapTable.defaults, {
         mobileResponsive: false,
         minWidth: 562,
-        minHeight: 562,
-        checkOnInit: false
+        minHeight: undefined,
+        checkOnInit: true
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
@@ -46,6 +63,10 @@
         _init.apply(this, Array.prototype.slice.apply(arguments));
 
         if (!this.options.mobileResponsive) {
+            return;
+        }
+
+        if (!this.options.minWidth) {
             return;
         }
 
