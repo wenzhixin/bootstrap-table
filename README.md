@@ -10,7 +10,9 @@ An extended Bootstrap table with radio, checkbox, sort, pagination, and other ad
 
 To get started, check out http://bootstrap-table.wenzhixin.net.cn!
 
-More examples: https://github.com/wenzhixin/bootstrap-table-examples#examples-list
+More examples: https://github.com/wenzhixin/bootstrap-table-examples
+
+Resource issues: https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aresource+is%3Aclosed
 
 ## LICENSE
 
