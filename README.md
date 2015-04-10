@@ -27,6 +27,7 @@ Resource issues: https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Ar
 * Via data attributes
 * Show/Hide columns
 * Show/Hide headers
+* Show/Hide footers
 * Get data in JSON format using AJAX
 * Simple column sorting with a click
 * Format column
@@ -34,6 +35,7 @@ Resource issues: https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Ar
 * Powerful pagination
 * Card view
 * Localization
+* Extensions
 
 ## How to get it
 
