@@ -10,7 +10,9 @@ An extended Bootstrap table with radio, checkbox, sort, pagination, and other ad
 
 To get started, check out http://bootstrap-table.wenzhixin.net.cn!
 
-More examples: https://github.com/wenzhixin/bootstrap-table-examples#examples-list
+More examples: https://github.com/wenzhixin/bootstrap-table-examples
+
+Resource issues: https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aresource+is%3Aclosed
 
 ## LICENSE
 
@@ -25,6 +27,7 @@ More examples: https://github.com/wenzhixin/bootstrap-table-examples#examples-li
 * Via data attributes
 * Show/Hide columns
 * Show/Hide headers
+* Show/Hide footers
 * Get data in JSON format using AJAX
 * Simple column sorting with a click
 * Format column
@@ -32,6 +35,7 @@ More examples: https://github.com/wenzhixin/bootstrap-table-examples#examples-li
 * Powerful pagination
 * Card view
 * Localization
+* Extensions
 
 ## How to get it
 

@@ -8,7 +8,8 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
        data-toggle="table"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Name</th>
@@ -31,7 +32,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-classes</td>
         <td>String</td>
         <td>'table table-hover'</td>
-        <td>The class name of table.</td>
+        <td>The class name of table. By default, the table is bordered, you can add 'table-no-bordered' to remove table-bordered style.</td>
     </tr>
     <tr>
         <td>height</td>
@@ -100,6 +101,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Array</td>
         <td>[]</td>
         <td>The data to be loaded.</td>
+    </tr>
+    <tr>
+        <td>ajax</td>
+        <td>data-ajax</td>
+        <td>Function</td>
+        <td>undefined</td>
+        <td>A method to replace ajax call. Should implement the same API as jQuery ajax method</td>
     </tr>
     <tr>
         <td>method</td>
@@ -186,7 +194,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-side-pagination</td>
         <td>String</td>
         <td>'client'</td>
-        <td>Defines the side pagination of table, can only be 'client' or 'server'.</td>
+        <td>Defines the side pagination of table, can only be 'client' or 'server'. Using 'server' side requires either setting the 'url' or 'ajax' option</td>
     </tr>
     <tr>
         <td>pageNumber</td>
@@ -206,8 +214,8 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>pageList</td>
         <td>data-page-list</td>
         <td>Array</td>
-        <td>[10, 25, 50, 100]</td>
-        <td>When set pagination property, initialize the page size selecting list.</td>
+        <td>[10, 25, 50, 100, All]</td>
+        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table</td>
     </tr>
     <tr>
         <td>selectItemName</td>
@@ -230,6 +238,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>false</td>
         <td>Enable the search input.</td>
     </tr>
+	<tr>
+        <td>searchText</td>
+        <td>data-search-text</td>
+        <td>String</td>
+        <td>''</td>
+        <td>When set search property, initialize the search text.</td>
+    </tr>
     <tr>
         <td>searchTimeOut</td>
         <td>data-search-time-out</td>
@@ -238,11 +253,25 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Set timeout for search fire.</td>
     </tr>
     <tr>
+        <td>trimOnSearch</td>
+        <td>data-trim-on-search</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to trim spaces in search field.</td>
+    </tr
+    <tr>
         <td>showHeader</td>
         <td>data-show-header</td>
         <td>Boolean</td>
         <td>true</td>
         <td>False to hide the table header.</td>
+    </tr>
+    <tr>
+        <td>showFooter</td>
+        <td>data-show-footer</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>If true shows summary footer row</td>
     </tr>
     <tr>
         <td>showColumns</td>
@@ -289,6 +318,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Indicate which field is an identity field.</td>
     </tr>
     <tr>
+        <td>uniqueId</td>
+        <td>data-unique-id</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Indicate an unique identifier for each row.</td>
+    </tr>
+    <tr>
         <td>cardView</td>
         <td>data-card-view</td>
         <td>Boolean</td>
@@ -315,6 +351,55 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>String</td>
         <td>'left'</td>
         <td>Indicate how to align the custom toolbar. 'left', 'right' can be used.</td>
+    </tr>
+    <tr>
+        <td>paginationVAlign</td>
+        <td>data-pagination-v-align</td>
+        <td>String</td>
+        <td>'bottom'</td>
+        <td>Indicate how to align the pagination. 'top', 'bottom', 'both' (put the pagination on top and bottom)  can be used.</td>
+    </tr>
+    <tr>
+        <td>paginationHAlign</td>
+        <td>data-pagination-h-align</td>
+        <td>String</td>
+        <td>'right'</td>
+        <td>Indicate how to align the pagination. 'left', 'right' can be used.</td>
+    </tr>
+    <tr>
+        <td>paginationDetailHAlign</td>
+        <td>data-pagination-detail-h-align</td>
+        <td>String</td>
+        <td>'left'</td>
+        <td>Indicate how to align the pagination detail. 'left', 'right' can be used.</td>
+    </tr>
+    <tr>
+        <td>paginationFirstText</td>
+        <td>data-pagination-first-text</td>
+        <td>String</td>
+        <td>'&lt;&lt;'</td>
+        <td>Indicate the icon or text to be shown in the pagination detail, the first button of the pagination detail.</td>
+    </tr>
+    <tr>
+        <td>paginationPreText</td>
+        <td>data-pagination-pre-text</td>
+        <td>String</td>
+        <td>'&lt;'</td>
+        <td>Indicate the icon or text to be shown in the pagination detail, the previous button.</td>
+    </tr>
+    <tr>
+        <td>paginationNextText</td>
+        <td>data-pagination-next-text</td>
+        <td>String</td>
+        <td>'&gt;'</td>
+        <td>Indicate the icon or text to be shown in the pagination detail, the next button.</td>
+    </tr>
+    <tr>
+        <td>paginationLastText</td>
+        <td>data-pagination-last-text</td>
+        <td>String</td>
+        <td>'&gt;&gt;'</td>
+        <td>Indicate the icon or text to be shown in the pagination detail, the last button.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>

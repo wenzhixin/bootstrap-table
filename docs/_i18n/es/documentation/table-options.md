@@ -8,7 +8,8 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
        data-toggle="table"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Nombre</th>

@@ -8,7 +8,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
        data-toggle="table"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Name</th>

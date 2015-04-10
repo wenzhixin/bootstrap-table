@@ -8,7 +8,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
        data-toggle="table"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Name</th>
@@ -29,8 +30,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     </tr>
     <tr>
         <td>getData</td>
-        <td>none</td>
-        <td>Get the loaded data of table.</td>
+        <td>useCurrentPage</td>
+        <td>Get the loaded data of table. If you set the useCurrentPage to true the method will return the data in the current page</td>
     </tr>
     <tr>
         <td>load</td>
@@ -74,6 +75,26 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         index: the row index to be updated. <br>
         row: the new row data.
         </td>
+    </tr>
+	<tr>
+        <td>showRow</td>
+        <td>params</td>
+        <td>Show the specified row. the param contains following properties:
+        index: the row idenx or the idField.
+        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
+    </tr>
+    <tr>
+        <td>hideRow</td>
+        <td>params</td>
+        <td>Hide the specified row. the param contains following properties:
+        index: the row idenx or the idField.
+        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
+    </tr>
+    <tr>
+        <td>getRowsHidden</td>
+        <td>boolean</td>
+        <td>Get all rows hidden and if you pass the show parameter true the rows will be shown again, otherwise, the method
+        only will return the rows hidden.</td>
     </tr>
     <tr>
         <td>mergeCells</td>
@@ -122,9 +143,36 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>Uncheck a row, the row index start with 0.</td>
     </tr>
     <tr>
+        <td>checkBy</td>
+        <td>params</td>
+        <td>
+        Check a row by array of values, the params contains:<br>
+        field: name of the field used to find records<br>
+        values: array of values for rows to check<br>
+        Example: <br>
+        $("#table").bootstrapTable("checkBy", {field:"field_name", values:["value1","value2","value3"]})
+        </td>
+    </tr>
+    <tr>
+        <td>uncheckBy</td>
+        <td>params</td>
+        <td>
+        Uncheck a row by array of values, the params contains:<br>
+        field: name of the field used to find records<br>
+        values: array of values for rows to uncheck<br>
+        Example: <br>
+        $("#table").bootstrapTable("uncheckBy", {field:"field_name", values:["value1","value2","value3"]})
+        </td>
+    </tr>
+    <tr>
         <td>resetView</td>
         <td>params</td>
         <td>Reset the bootstrap table view, for example reset the table height.</td>
+    </tr>
+    <tr>
+        <td>resetWidth</td>
+        <td>none</td>
+        <td>Resizes header and footer to fit current columns width</td>
     </tr>
     <tr>
         <td>destroy</td>
@@ -145,6 +193,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>scrollTo</td>
         <td>value</td>
         <td>Scroll to the number value position, set 'bottom' means scroll to the bottom.</td>
+    </tr>
+    <tr>
+        <td>getScrollPosition</td>
+        <td>none</td>
+        <td>Get the current scroll position.</td>
     </tr>
     <tr>
         <td>filterBy</td>
@@ -175,6 +228,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>toggleView</td>
         <td>none</td>
         <td>Toggle the card/table view.</td>
+    </tr>
+	<tr>
+        <td>deleteCookie</td>
+        <td>cookie name</td>
+        <td>Delete a cookie created. You must use: 'sortOrder', 'sortName', 'pageNumber' or 'pageList'.</td>
     </tr>
     </tbody>
 </table>
