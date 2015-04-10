@@ -17,15 +17,15 @@
     var changeView = function (el, width, height) {
         if (el.options.minHeight) {
             if (checkValuesLessEqual(width, el.options.minWidth) && checkValuesLessEqual(height, el.options.minHeight)) {
-                checkToggledStatus(false, true, el);
+                conditionCardView(el);
             } else if (checkValuesGreater(width, el.options.minWidth) && checkValuesGreater(height, el.options.minHeight)) {
-                checkToggledStatus(true, false, el);
+                conditionFullView(el);
             }
         } else {
             if (checkValuesLessEqual(width, el.options.minWidth)) {
-                checkToggledStatus(false, true, el);
+                conditionCardView(el);
             } else if (checkValuesGreater(width, el.options.minWidth)) {
-                checkToggledStatus(true, false, el);
+                conditionFullView(el);
             }
         }
 
@@ -40,11 +40,14 @@
         return currentValue > targetValue;
     };
 
-    var checkToggledStatus = function (targetToggledStatus, newToggledStatus, el) {
-        if (el.options.toggled === targetToggledStatus) {
-            el.toggleView();
-            el.options.toggled = newToggledStatus;
-        }
+    var conditionCardView = function (el) {
+        el.options.cardView = false;
+        el.toggleView();
+    };
+
+    var conditionFullView = function (el) {
+        el.options.cardView = true;
+        el.toggleView();
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
