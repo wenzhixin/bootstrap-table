@@ -24,12 +24,11 @@
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initData = BootstrapTable.prototype.initData,
         _init = BootstrapTable.prototype.init,
-        _load = BootstrapTable.prototype.load,
         _initTable = BootstrapTable.prototype.initTable;
 
-    BootstrapTable.prototype.initData = function () {
-        flatJSON(this, this.options.data);
+    BootstrapTable.prototype.initData = function (data) {
         _initData.apply(this, Array.prototype.slice.apply(arguments));
+        flatJSON(this, data === undefined ? this.options.data : data);
     };
 
     BootstrapTable.prototype.init = function () {
@@ -40,11 +39,6 @@
     BootstrapTable.prototype.initTable = function () {
         flatJSON(this, this.options.data);
         _initTable.apply(this, Array.prototype.slice.apply(arguments));
-    };
-
-    BootstrapTable.prototype.load = function (data) {
-        flatJSON(this, data);
-        _load.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     //Main functions
