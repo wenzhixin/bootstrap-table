@@ -35,24 +35,37 @@
 (function ($) {
     'use strict';
 
+    var flatJSON = function (el, data) {
+        if (el.options.flat) {
+            el.options.data = sd.flatHelper(data);
+        }
+        if (el.options.sidePagination === 'server') {
+            el.data = el.options.data;
+        }
+    };
+
     $.extend($.fn.bootstrapTable.defaults, {
         flat: false
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initData = BootstrapTable.prototype.initData;
+        _initData = BootstrapTable.prototype.initData,
+        _init = BootstrapTable.prototype.init,
+        _load = BootstrapTable.prototype.load;
 
     BootstrapTable.prototype.initData = function () {
-
-        //If the flat is true
-        if (this.options.flat) {
-            this.options.data = sd.flatHelper(this.options.data);
-        }
-        if (this.options.sidePagination === 'server') {
-            this.data = this.options.data;
-        }
-
+        flatJSON(this, this.options.data);
         _initData.apply(this, Array.prototype.slice.apply(arguments));
+    };
+
+    BootstrapTable.prototype.init = function () {
+        flatJSON(this, this.options.data);
+        _init.apply(this, Array.prototype.slice.apply(arguments));
+    };
+
+    BootstrapTable.prototype.load = function (data) {
+        flatJSON(this, this.options.data);
+        _load.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     //Main functions
