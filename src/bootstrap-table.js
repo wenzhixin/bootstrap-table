@@ -602,7 +602,7 @@
         } else if (type === 'prepend') {
             this.data = [].concat(data).concat(this.data);
         } else {
-            this.data = data || this.options.data;
+            this.data = this.options.data || data;
         }
         this.options.data = this.data;
 
