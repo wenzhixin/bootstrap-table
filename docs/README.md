@@ -8,7 +8,7 @@ Bootstrap table's documentation, included in this repo in the root directory, is
   - **Windows users:** Read [this unofficial](http://jekyll-windows.juthilo.com/) guide to get Jekyll up and running without problems.
 
 2. Install the Ruby-based syntax highlighter, [Rouge](https://github.com/jneen/rouge), with `gem install rouge`.
-3. From the root /docs directory, run `jekyll serve` in the command line.
+3. From the root / directory, run `jekyll serve` in the command line.
 4. Open http://localhost:4000 in your browser, and voilà.
 
 Learn more about using Jekyll by reading its [documentation](http://jekyllrb.com/docs/home/).
