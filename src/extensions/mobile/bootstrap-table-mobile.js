@@ -8,28 +8,28 @@
 
     'use strict';
 
-    var resetView = function (el) {
-        if (el.options.height || el.options.showFooter) {
-            setTimeout(el.resetView(), 1);
+    var resetView = function (that) {
+        if (that.options.height || that.options.showFooter) {
+            setTimeout(that.resetView(), 1);
         }
     };
 
-    var changeView = function (el, width, height) {
-        if (el.options.minHeight) {
-            if (checkValuesLessEqual(width, el.options.minWidth) && checkValuesLessEqual(height, el.options.minHeight)) {
-                conditionCardView(el);
-            } else if (checkValuesGreater(width, el.options.minWidth) && checkValuesGreater(height, el.options.minHeight)) {
-                conditionFullView(el);
+    var changeView = function (that, width, height) {
+        if (that.options.minHeight) {
+            if (checkValuesLessEqual(width, that.options.minWidth) && checkValuesLessEqual(height, that.options.minHeight)) {
+                conditionCardView(that);
+            } else if (checkValuesGreater(width, that.options.minWidth) && checkValuesGreater(height, that.options.minHeight)) {
+                conditionFullView(that);
             }
         } else {
-            if (checkValuesLessEqual(width, el.options.minWidth)) {
-                conditionCardView(el);
-            } else if (checkValuesGreater(width, el.options.minWidth)) {
-                conditionFullView(el);
+            if (checkValuesLessEqual(width, that.options.minWidth)) {
+                conditionCardView(that);
+            } else if (checkValuesGreater(width, that.options.minWidth)) {
+                conditionFullView(that);
             }
         }
 
-        resetView(el);
+        resetView(that);
     };
 
     var checkValuesLessEqual = function (currentValue, targetValue) {
@@ -40,14 +40,17 @@
         return currentValue > targetValue;
     };
 
-    var conditionCardView = function (el) {
-        el.options.cardView = false;
-        el.toggleView();
+    var conditionCardView = function (that) {
+        changeTableView(that, false);
     };
 
-    var conditionFullView = function (el) {
-        el.options.cardView = true;
-        el.toggleView();
+    var conditionFullView = function (that) {
+        changeTableView(that, true);
+    };
+
+    var changeTableView = function (that, cardViewState) {
+        that.options.cardView = cardViewState;
+        that.toggleView();
     };
 
     $.extend($.fn.bootstrapTable.defaults, {

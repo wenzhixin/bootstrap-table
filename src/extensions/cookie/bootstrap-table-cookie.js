@@ -117,7 +117,6 @@
     };
 
     BootstrapTable.prototype.initStateSave = function () {
-        var that = this;
         if (!this.options.stateSave) {
             return;
         }
