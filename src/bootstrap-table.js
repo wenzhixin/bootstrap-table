@@ -148,6 +148,7 @@
         method: 'get',
         url: undefined,
         ajax: undefined,
+        deferServer: false,
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
@@ -1377,6 +1378,11 @@
             request;
 
         if (!this.options.url && !this.options.ajax) {
+            return;
+        }
+        
+        if (this.options.deferServer) {
+            this.options.deferServer = false;
             return;
         }
 
