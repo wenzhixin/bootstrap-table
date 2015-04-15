@@ -14,13 +14,23 @@ module.exports = function(grunt) {
                 '*/\n',
         // Task configuration.
         clean: ['dist', 'docs/dist'],
+        concat: {
+            options: {
+              separator: ';',
+            },
+            dist: {
+              src: ['src/<%= pkg.name %>.js', 'src/extensions/**/*.js'],
+              dest: 'dist/<%= pkg.name %>-all.js',
+            },
+        },
         uglify: {
             options: {
                 banner: '<%= banner %>'
             },
             my_target: {
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['src/<%=pkg.name %>.js']
+                    'dist/<%= pkg.name %>.min.js': ['src/<%=pkg.name %>.js'],
+                    'dist/<%= pkg.name %>-all.min.js': ['dist/<%=pkg.name %>-all.js']
                 }
             },
             locale_target: {
@@ -69,9 +79,10 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['clean', 'uglify', 'cssmin', 'copy']);
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy']);
 };
