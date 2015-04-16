@@ -25,12 +25,12 @@ restrictions:
   respect the opinions of others.
 
 * Please **do not** open issues or pull requests regarding the code in [`bootstrap-table-examples`](https://github.com/wenzhixin/bootstrap-table-examples) and [`extensions plugin dependence`](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions) (open them in their respective repositories), the dependence list:
-    ** Table Editable: [x-editable](https://github.com/vitalets/x-editable)
-    ** Table Export: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
-    ** Table Filter: [bootstrap-table-filter](https://github.com/lukaskral/bootstrap-table-filter).
-    ** Table flatJSON: [bootstrap-table-flatJSON](https://github.com/djhvscf/bootstrap-table-flatJSON)
-    ** Table Reorder: [jquery-ui](https://code.jquery.com/ui/) and [dragTable](https://github.com/akottr/dragtable/)
-    ** Table Resizable: [colResizable](https://github.com/alvaro-prieto/colResizable)
+    * Table Editable: [x-editable](https://github.com/vitalets/x-editable)
+    * Table Export: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
+    * Table Filter: [bootstrap-table-filter](https://github.com/lukaskral/bootstrap-table-filter).
+    * Table flatJSON: [bootstrap-table-flatJSON](https://github.com/djhvscf/bootstrap-table-flatJSON)
+    * Table Reorder: [jquery-ui](https://code.jquery.com/ui/) and [dragTable](https://github.com/akottr/dragtable/)
+    * Table Resizable: [colResizable](https://github.com/alvaro-prieto/colResizable)
 
 ## Issues and labels
 
@@ -69,9 +69,9 @@ Guidelines for bug reports:
 
 3. **Isolate the problem** &mdash; ideally create a live example.
    [This jsfiddle](http://jsfiddle.net/) is a helpful tools. Consider to use these templates:
-    ** [Table from html](http://jsfiddle.net/wenyi/e3nk137y/11/light/)
-    ** [Table from data](http://jsfiddle.net/wenyi/e3nk137y/13/light/)
-    ** [Table from url](http://jsfiddle.net/wenyi/e3nk137y/14/light/)
+    * [Table from html](http://jsfiddle.net/wenyi/e3nk137y/11/light/)
+    * [Table from data](http://jsfiddle.net/wenyi/e3nk137y/13/light/)
+    * [Table from url](http://jsfiddle.net/wenyi/e3nk137y/14/light/)
 
 
 A good bug report shouldn't leave others needing to chase you up for more
