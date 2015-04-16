@@ -13,6 +13,8 @@ More examples: https://github.com/wenzhixin/bootstrap-table-examples
 
 Resource issues: https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aresource+is%3Aclosed
 
+---
+
 **List of donators**
 
 * Richard C Jordan - $35
