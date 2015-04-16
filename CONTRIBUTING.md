@@ -27,7 +27,7 @@ restrictions:
 * Please **do not** open issues or pull requests regarding the code in [`bootstrap-table-examples`](https://github.com/wenzhixin/bootstrap-table-examples) and [`extensions plugin dependence`](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions) (open them in their respective repositories), the dependence list:
     * Table Editable: [x-editable](https://github.com/vitalets/x-editable)
     * Table Export: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
-    * Table Filter: [bootstrap-table-filter](https://github.com/lukaskral/bootstrap-table-filter).
+    * Table Filter: [bootstrap-table-filter](https://github.com/lukaskral/bootstrap-table-filter)
     * Table flatJSON: [bootstrap-table-flatJSON](https://github.com/djhvscf/bootstrap-table-flatJSON)
     * Table Reorder: [jquery-ui](https://code.jquery.com/ui/) and [dragTable](https://github.com/akottr/dragtable/)
     * Table Resizable: [colResizable](https://github.com/alvaro-prieto/colResizable)
@@ -98,10 +98,6 @@ Example:
 > reported. This might include the lines of code that you have identified as
 > causing the bug, and potential solutions (and your opinions on their
 > merits).
-
-### Issues bots
-
-[@twbs-lmvtfy](https://github.com/twbs-lmvtfy) is a Bootstrap bot that hangs out in our GitHub issue tracker and automatically checks for HTML validation errors in live examples (e.g. jsFiddles, JS Bins, Bootplys, Plunks, CodePens, etc.) posted in issue comments. If it finds any errors, it will post a follow-up comment on the issue and point out the errors. If this happens with an example you've posted, please fix the errors and post an updated live example. If you opened a bug report, please check whether the bug still occurs with your revised, valid live example. If the bug no longer occurs, it was probably due to your invalid HTML rather than something in Bootstrap Table and we'd appreciate it if you could close out the GitHub issue.
 
 
 ## Feature requests
@@ -189,13 +185,6 @@ license your work under the terms of the [MIT License](LICENSE) (if it
 includes code changes) and under the terms of the
 [Creative Commons Attribution 3.0 Unported License](docs/LICENSE)
 (if it includes documentation changes).
-
-### Pull request bots
-
-[@twbs-rorschach](https://github.com/twbs-rorschach) is a Bootstrap bot that hangs out in our GitHub issue tracker and automatically checks all pull requests for a few simple common mistakes. It's possible that Rorschach might leave a comment on your pull request and then close it. If that happens, simply fix the problem(s) mentioned in the comment (there should be link(s) in the comment explaining the problem(s) in detail) and then either:
-
-* Push the revised version to your pull request's branch and post a comment on the pull request saying that you've fixed the problem(s). We will then come along and reopen your pull request.
-* Or you can just open a new pull request for your revised version.
 
 
 ## Code guidelines
