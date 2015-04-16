@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table) 
 [![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.png)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
 [![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
-[![Gratipay](https://img.shields.io/gratipay/wenzhixin.svg)](https://gratipay.com/wenzhixin/)
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDHP676FQDUT6)
 
 An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.
@@ -13,6 +12,14 @@ To get started, check out http://bootstrap-table.wenzhixin.net.cn!
 More examples: https://github.com/wenzhixin/bootstrap-table-examples
 
 Resource issues: https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aresource+is%3Aclosed
+
+**List of donators**
+
+* Richard C Jordan - $35
+* Janet Moery - $5
+* Rene Halskov - $10
+* Angel Arambula Garcia - $5
+* David Graham - $5
 
 ## LICENSE
 
@@ -86,4 +93,3 @@ grunt build
 ```
 
 Result will appear in `dist` directory.
-
