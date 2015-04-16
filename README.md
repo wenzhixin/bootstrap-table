@@ -5,15 +5,10 @@
 [![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDHP676FQDUT6)
 
-An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.
+An extended Bootstrap table with radio, checkbox, sort, pagination, extensions and other added features.
 
-To get started, check out http://bootstrap-table.wenzhixin.net.cn!
+To get started, check out [Docs](http://bootstrap-table.wenzhixin.net.cn), [More examples](https://github.com/wenzhixin/bootstrap-table-examples) and [Resource issues](https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aresource+is%3Aclosed)!
 
-More examples: https://github.com/wenzhixin/bootstrap-table-examples
-
-Resource issues: https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aresource+is%3Aclosed
-
----
 
 **List of donators**
 
