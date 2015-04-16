@@ -15,22 +15,24 @@ module.exports = function(grunt) {
         // Task configuration.
         clean: ['dist', 'docs/dist'],
         concat: {
-            options: {
-              separator: ';',
+            basic_target: {
+                src: ['src/<%= pkg.name %>.js', 'src/extensions/**/*.js'],
+                dest: 'dist/<%= pkg.name %>-all.js'
             },
-            dist: {
-              src: ['src/<%= pkg.name %>.js', 'src/extensions/**/*.js'],
-              dest: 'dist/<%= pkg.name %>-all.js',
-            },
+            locale_target: {
+                src: ['src/locale/**/*.js'],
+                dest: 'dist/<%= pkg.name %>-locale-all.js'
+            }
         },
         uglify: {
             options: {
                 banner: '<%= banner %>'
             },
-            my_target: {
+            basic_target: {
                 files: {
                     'dist/<%= pkg.name %>.min.js': ['src/<%=pkg.name %>.js'],
-                    'dist/<%= pkg.name %>-all.min.js': ['dist/<%=pkg.name %>-all.js']
+                    'dist/<%= pkg.name %>-all.min.js': ['dist/<%=pkg.name %>-all.js'],
+                    'dist/<%= pkg.name %>-locale-all.min.js': ['dist/<%=pkg.name %>-locale-all.js']
                 }
             },
             locale_target: {
