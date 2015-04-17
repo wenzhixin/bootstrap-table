@@ -1633,7 +1633,7 @@
             return;
         }
 
-        $(this.$body[0]).children().filter(sprintf(isIdField ? '[value="%s"]' : '[data-index="%s"]', index))
+        $(this.$body[0]).children().filter(sprintf(isIdField ? '[data-unique-id="%s"]' : '[data-index="%s"]', index))
             [visible ? 'show' : 'hide']();
     };
 
