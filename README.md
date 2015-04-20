@@ -17,6 +17,7 @@ To get started, check out [Docs](http://bootstrap-table.wenzhixin.net.cn), [More
 * Rene Halskov - $10
 * Angel Arambula Garcia - $5
 * David Graham - $5
+* Paul Abbott - $20
 
 ## LICENSE
 
