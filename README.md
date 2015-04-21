@@ -18,6 +18,7 @@ To get started, check out [Docs](http://bootstrap-table.wenzhixin.net.cn), [More
 * Angel Arambula Garcia - $5
 * David Graham - $5
 * Paul Abbott - $20
+* Philip Tepfer - $10
 
 ## LICENSE
 
