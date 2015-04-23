@@ -997,9 +997,8 @@
         html.push(this.options.formatRecordsPerPage(pageNumber.join('')));
         html.push('</span>');
 
-        // Fixed #611 vertical-align between pagination block and pagination-detail block. Remove class pagination.
         html.push('</div>',
-            '<div class="pull-' + this.options.paginationHAlign + '">',
+            '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
             '<ul class="pagination' + (this.options.iconSize === undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
             '<li class="page-first"><a href="javascript:void(0)">' + this.options.paginationFirstText + '</a></li>',
             '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
