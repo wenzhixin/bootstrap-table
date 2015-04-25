@@ -19,6 +19,7 @@ To get started, check out [Docs](http://bootstrap-table.wenzhixin.net.cn), [More
 * David Graham - $5
 * Paul Abbott - $20
 * Philip Tepfer - $10
+* Marcus Eddy - $5
 
 ## LICENSE
 
