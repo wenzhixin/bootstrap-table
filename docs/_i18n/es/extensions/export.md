@@ -1,6 +1,6 @@
 # Table Export
 
-Use Plugin: [tableExport.jquery.plugin](https://github.com/kayalshri/tableExport.jquery.plugin)
+Use Plugin: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
 
 ## Usage
 
@@ -25,5 +25,5 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/kayalshri/tableExport
 ### exportOptions
 
 * type: Object
-* description: export [options](https://github.com/kayalshri/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
+* description: export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
 * default: `{}`
