@@ -1988,15 +1988,13 @@
         if (typeof value === 'number') {
             $tbody.scrollTop(value);
         }
-        // Fix #786 bug getScrollPosition
-        if (value === undefined) {
+        if (typeof value === 'undefined') {
             return $tbody.scrollTop();
         }
     };
 
     BootstrapTable.prototype.getScrollPosition = function () {
-        // Fix #786 bug getScrollPosition
-        return this.scrollTo(undefined);
+        return this.scrollTo();
     }
 
     BootstrapTable.prototype.selectPage = function (page) {
