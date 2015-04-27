@@ -10,8 +10,19 @@
     // TOOLS DEFINITION
     // ======================
 
-    var cellHeight = 37; // update css if changed
-    var cachedWidth = null;
+    var cellHeight = 37, // update css if changed
+        cachedWidth = null,
+        arrowAsc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZ' +
+        '0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBd' +
+        'qEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVo' +
+        'AADeemwtPcZI2wAAAABJRU5ErkJggg==',
+        arrowBoth = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X' +
+        'QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azio' +
+        'NZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4eut' +
+        's6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC',
+        arrowDesc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZUlEQVQ4y2NgGAWj' +
+        'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
+        'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
 
     // it only does '%s', and return '' when arguments are undefined
     var sprintf = function (str) {
@@ -532,9 +543,6 @@
                 'sortable' : ''));
 
             text = column.title;
-            if (that.options.sortName === column.field && that.options.sortable && column.sortable) {
-                text += that.getCaretHtml();
-            }
 
             if (column.checkbox) {
                 if (!that.options.singleSelect && that.options.checkboxHeader) {
@@ -573,6 +581,8 @@
             this.$header.show();
             this.$container.find('.fixed-table-header').show();
             this.$loading.css('top', cellHeight + 'px');
+            // Assign the correct sortable arrow
+            this.getCaretHtml();
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
@@ -682,8 +692,10 @@
         }
         this.trigger('sort', this.options.sortName, this.options.sortOrder);
 
-        $this.add($this_).data('order', this.options.sortOrder)
-            .find('.th-inner').append(this.getCaretHtml());
+        $this.add($this_).data('order', this.options.sortOrder);
+
+        // Assign the correct sortable arrow
+        this.getCaretHtml();
 
         if (this.options.sidePagination === 'server') {
             this.initServer();
@@ -1247,7 +1259,7 @@
                                 (value && value.disabled) ? 'disabled' : undefined) +
                             ' />',
                         that.options.cardView ? '</div>' : '</td>'].join('');
-                        
+
                     item[that.header.stateField] = value === true || (value && value.checked);
                 } else {
                     value = typeof value === 'undefined' || value === null ?
@@ -1441,9 +1453,15 @@
     };
 
     BootstrapTable.prototype.getCaretHtml = function () {
-        return ['<span class="order' + (this.options.sortOrder === 'desc' ? '' : ' dropup') + '">',
-            '<span class="caret" style="margin: 10px 5px;"></span>',
-            '</span>'].join('');
+        var that = this;
+
+        $.each(this.$header.find('th'), function (i, th) {
+            if ($(th).data('field') === that.options.sortName) {
+                $(th).find('.sortable').css('background-image', 'url(' + (that.options.sortOrder === 'desc' ? arrowDesc : arrowAsc) + ')');
+            } else {
+                $(th).find('.sortable').css('background-image', 'url(' + arrowBoth +')');
+            }
+        });
     };
 
     BootstrapTable.prototype.updateSelected = function () {
@@ -1682,6 +1700,8 @@
             }
         }
 
+        // Assign the correct sortable arrow
+        this.getCaretHtml();
         $tableContainer.css('padding-bottom', padding + 'px');
     };
 
