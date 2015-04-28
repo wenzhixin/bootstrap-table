@@ -136,6 +136,10 @@
     margin-bottom: 10px;
 }
 
+.fixed-table-pagination div.pagination .pagination {
+    margin: 0;
+}
+
 .fixed-table-pagination .pagination a {
     padding: 6px 12px;
     line-height: 1.428571429;

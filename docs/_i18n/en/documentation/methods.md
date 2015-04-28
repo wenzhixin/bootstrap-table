@@ -26,7 +26,12 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>getSelections</td>
         <td>none</td>
-        <td>Return all selected rows, when no record selected, am empty array will return.</td>
+        <td>Return selected rows, when no record selected, am empty array will return.</td>
+    </tr>
+    <tr>
+        <td>getAllSelections</td>
+        <td>none</td>
+        <td>Return selected rows in all pages, when no record selected, am empty array will return.</td>
     </tr>
     <tr>
         <td>getData</td>
