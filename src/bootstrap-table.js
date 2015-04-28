@@ -444,15 +444,16 @@
         this.$el.find('tbody tr').each(function () {
             var row = {};
 
-            // save tr's id and class
+            // save tr's id, class and data-* attributes
             row._id = $(this).attr('id');
             row._class = $(this).attr('class');
+            row._data = $(this).data();
 
             $(this).find('td').each(function (i) {
                 var field = that.options.columns[i].field;
 
                 row[field] = $(this).html();
-                // save td's id and class
+                // save td's id, class and data-* attributes
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
                 row['_' + field + '_data'] = $(this).data();
@@ -1164,6 +1165,7 @@
                 item = data[i],
                 style = {},
                 csses = [],
+                data_ = '',
                 attributes = {},
                 htmlAttributes = [];
 
@@ -1184,12 +1186,23 @@
                 }
             }
 
+            if (item._data && !$.isEmptyObject(item._data)) {
+                $.each(item._data, function (k, v) {
+                    // ignore data-index
+                    if (k === 'index') {
+                        return;
+                    }
+                    data_ += sprintf(' data-%s="%s"', k, v);
+                });
+            }
+
             html.push('<tr',
                 sprintf(' %s', htmlAttributes.join(' ')),
                 sprintf(' id="%s"', $.isArray(item) ? undefined : item._id),
                 sprintf(' class="%s"', style.classes || ($.isArray(item) ? undefined : item._class)),
                 sprintf(' data-index="%s"', i),
                 sprintf(' data-unique-id="%s"', item[this.options.uniqueId]),
+                sprintf('%s', data_),
                 '>'
             );
 
