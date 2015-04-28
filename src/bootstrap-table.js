@@ -1201,7 +1201,7 @@
                 sprintf(' id="%s"', $.isArray(item) ? undefined : item._id),
                 sprintf(' class="%s"', style.classes || ($.isArray(item) ? undefined : item._class)),
                 sprintf(' data-index="%s"', i),
-                sprintf(' data-unique-id="%s"', item[this.options.uniqueId]),
+                sprintf(' data-uniqueid="%s"', item[this.options.uniqueId]),
                 sprintf('%s', data_),
                 '>'
             );
@@ -1663,7 +1663,7 @@
             return;
         }
 
-        $(this.$body[0]).children().filter(sprintf(isIdField ? '[data-unique-id="%s"]' : '[data-index="%s"]', index))
+        $(this.$body[0]).children().filter(sprintf(isIdField ? '[data-uniqueid="%s"]' : '[data-index="%s"]', index))
             [visible ? 'show' : 'hide']();
     };
 
