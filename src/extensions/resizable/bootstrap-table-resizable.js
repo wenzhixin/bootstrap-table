@@ -54,11 +54,16 @@
     };
 
     BootstrapTable.prototype.resetView = function () {
-        if (this.options.resizable) {
-            initResizable(this);
-        }
+        var that = this;
 
         _resetView.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (this.options.resizable) {
+            // because in fitHeader function, we use setTimeout(func, 100);
+            setTimeout(function () {
+                initResizable(that);
+            }, 100);
+        }
     };
 
     BootstrapTable.prototype.onResize = function (e) {
