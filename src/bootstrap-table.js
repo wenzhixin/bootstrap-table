@@ -1855,6 +1855,14 @@
         });
     };
 
+    BootstrapTable.prototype.getAllSelections = function () {
+        var that = this;
+
+        return $.grep(this.options.data, function (row) {
+            return row[that.header.stateField];
+        });
+    };
+
     BootstrapTable.prototype.checkAll = function () {
         this.checkAll_(true);
     };
@@ -2032,7 +2040,7 @@
 
     var allowedMethods = [
         'getOptions',
-        'getSelections', 'getData',
+        'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove',
         'insertRow', 'updateRow',
         'showRow', 'hideRow', 'getRowsHidden',
