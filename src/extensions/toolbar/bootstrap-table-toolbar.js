@@ -1,10 +1,11 @@
 /**
- * @author aperez <aperez@datadec.es>
- * Añade los iconos de buscador y buscador avanzado detrás del campo search.
+ * @author: aperez <aperez@datadec.es>
+ * @version: v1.0.0
+ *
+ * @update Dennis Hernández <http://djhvscf.github.io/Blog>
  */
 
-! function($) {
-
+!function($) {
     'use strict';
 
     var firstLoad = false;
@@ -28,8 +29,7 @@
     };
 
 
-    var showAvdSearch = function(pColumns, pObjSearch) {
-
+    var showAvdSearch = function(pColumns, pObjSearch, searchText) {
         if (!$("#avdSearchModal").hasClass("modal")) {
             var vModal = "<div id=\"avdSearchModal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">";
             vModal += "<div class=\"modal-dialog modal-xs\">";
@@ -47,11 +47,8 @@
             vModal += "</div>";
 
             $("body").append($(vModal));
-            var vFormAvd = createFormAvd(pColumns, pObjSearch);
+            var vFormAvd = createFormAvd(pColumns, pObjSearch, searchText);
             $('#avdSearchModalContent').append(vFormAvd.join(''));
-            //
-
-
 
             $("#btnSearchAvd").click(function() {
                 var vFormData = $("#" + pObjSearch.idForm).serializeJSON();
@@ -63,51 +60,45 @@
                 var sFunctionData = JSON.stringify(vFormData);
                 BootstrapTable.DEFAULTS.searchText = sFunctionData;
 
+                //TODO: Implement the search logic
                 //BootstrapTable.prototype.onSearch(this,$.Event('keyup'));
                 /*********************
 
                   * Here, I want to call the method onSearch.
 
                 ***********************/
-
-
             });
 
             $("#avdSearchModal").modal();
         } else {
             $("#avdSearchModal").modal();
         }
-
     };
 
-
-    var createFormAvd = function(pColumns, pObjSearch) {
+    var createFormAvd = function(pColumns, pObjSearch, searchText) {
         var htmlForm = [];
-        htmlForm.push('<form class="form-horizontal" id="' + pObjSearch.idForm + '" action="' + pObjSearch.actionForm + '" >');
-
+        htmlForm.push(sprintf('<form class="form-horizontal" id="%s" action="%s" >', pObjSearch.idForm, pObjSearch.actionForm));
         for (var i in pColumns) {
             var vObjCol = pColumns[i];
             if (!vObjCol.checkbox && vObjCol.visible && vObjCol.searchable) {
-                htmlForm.push('<div class="form-group">',
-                    '<label class="col-sm-4 control-label">' + vObjCol.title + '</label>',
-                    '<div class="col-sm-6">',
-                    '<input type = "text" class="form-control input-md" name="' + vObjCol.field + '" placeholder="Email">',
-                    '</div>',
-                    '</div>');
+                htmlForm.push('<div class="form-group">');
+                htmlForm.push(sprintf('<label class="col-sm-4 control-label">%s</label>', vObjCol.title));
+                htmlForm.push('<div class="col-sm-6">');
+                htmlForm.push(sprintf('<input type="text" class="form-control input-md" name="%s" placeholder="%s">', vObjCol.title, vObjCol.title));
+                htmlForm.push('</div>');
+                htmlForm.push('</div>');
             }
         }
 
-        htmlForm.push('<div class="form-group">',
-            '<div class="col-sm-offset-9 col-sm-3">',
-            '<button type="button" id="btnSearchAvd" class="btn btn-default" >Buscar</button>',
-            '</div>',
-            '</div>',
-            '</form>');
+        htmlForm.push('<div class="form-group">');
+        htmlForm.push('<div class="col-sm-offset-9 col-sm-3">');
+        htmlForm.push(sprintf('<button type="button" id="btnSearchAvd" class="btn btn-default" >%s</button>', searchText));
+        htmlForm.push('</div>');
+        htmlForm.push('</div>');
+        htmlForm.push('</form>');
 
         return htmlForm;
-    }
-
-
+    };
 
     $.extend($.fn.bootstrapTable.defaults, {
         advancedSearch: undefined,
@@ -115,23 +106,27 @@
     });
 
     $.extend($.fn.bootstrapTable.defaults.icons, {
-        avdSearch: 'glyphicon-chevron-down'
+        advancedSearch: 'glyphicon-chevron-down'
     });
 
     $.extend($.fn.bootstrapTable.locales, {
-        formatAvancedSearch: function() {
-            return 'Buscador Avanzado';
+        formatAdvancedSearch: function() {
+            return 'Advanced search';
+        },
+        formatAdvancedSearchButton: function() {
+            return "Search";
         }
     });
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar,        
         _load = BootstrapTable.prototype.load;
 
     BootstrapTable.prototype.initToolbar = function() {
+        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+
         var that = this,
             htmlBtns = [],
             $search,
@@ -142,59 +137,50 @@
                 actionForm: ''
             };
 
-        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
-
         if (typeof this.options.advancedSearch !== 'undefined') {
             advSearch = this.options.advancedSearch;
         }
 
         if (advSearch.active) {
-            htmlBtns.push(sprintf('<div class="btn-group" role="group"><button class="btn btn-default' + (that.options.iconSize === undefined ? '' : ' btn-' + that.options.iconSize) + '" type="button" name="avdSearch" title="%s">',
-                    that.options.formatAvancedSearch()),
-                sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.avdSearch),
+            htmlBtns.push(sprintf('<div class="btn-group" role="group"><button class="btn btn-default' + (that.options.iconSize === undefined ? '' : ' btn-' + that.options.iconSize) + '" type="button" name="advancedSearch" title="%s">',
+                    that.options.formatAdvancedSearch()),
+                sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.advancedSearch),
                 '</button></div>');
 
-            // Añadimos el botón al toolbar.
+            // TODO: For now need the showColumns set to true. CHANGE this!
             that.$toolbar.find('.columns').prepend(htmlBtns.join(''));
 
-            // Creamos el onclick para el booton            
-            that.$toolbar.find('button[name="avdSearch"]')
+            that.$toolbar.find('button[name="advancedSearch"]')
                 .off('click').on('click', function() {
-                    showAvdSearch(that.options.columns, advSearch);
+                    showAvdSearch(that.options.columns, advSearch, that.options.formatAdvancedSearchButton());
                 });
         }
 
-        // Anulamos la búsqueda automática
         if (that.options.searchTimeOut === -1) {
             $search = that.$toolbar.find('.search input');
             $search.off('keyup').on('keyup', function(event) {
                 var text = $.trim($(event.currentTarget).val());
-                // Al pulsar Enter realizamos la búsqueda.
+                //TODO: Check this logic
                 if (event.which === 13) {
                     that.onSearch(event);
                 }
-
             });
         }
-
     };
 
     BootstrapTable.prototype.load = function(data) {
-
         _load.apply(this, Array.prototype.slice.apply(arguments));
 
         if (typeof this.options.idTable === 'undefined') {
-            alert('Error: La propiedad "idTable" de bootstrapTable debe tener el id definido en la tabla.');
+            //TODO: Should we show a error message?
+            return;
         } else {
             if (!firstLoad) {
-                var vTam = parseInt($(".bootstrap-table").height());
-                vTam += 10;
-                $("#" + this.options.idTable).bootstrapTable("resetView", {height: vTam});
+                var height = parseInt($(".bootstrap-table").height());
+                height += 10;
+                $("#" + this.options.idTable).bootstrapTable("resetView", {height: height});
                 firstLoad = true;
             }
         }
-
     };
-
-
 }(jQuery);
