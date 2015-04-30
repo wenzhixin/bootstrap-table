@@ -85,15 +85,15 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>showRow</td>
         <td>params</td>
         <td>Show the specified row. the param contains following properties:
-        index: the row index or the idField.
-        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
+        index: the row index or the uniqueId.
+        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
     </tr>
     <tr>
         <td>hideRow</td>
         <td>params</td>
         <td>Hide the specified row. the param contains following properties:
-        index: the row index or the idField.
-        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
+        index: the row index or the uniqueId.
+        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
     </tr>
     <tr>
         <td>getRowsHidden</td>
