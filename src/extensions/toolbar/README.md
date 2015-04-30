@@ -34,6 +34,18 @@ Use Plugin: [bootstrap-table-toolbar](https://github.com/wenzhixin/bootstrap-tab
 * description: Set the id of the table to create the pop-up form.
 * default: ``
 
+## Locales
+
+### formatAdvancedSearch
+
+* description: Title of the advanced search modal
+* default: `Advanced search`
+
+### formatAdvancedCloseButton
+
+* description: Text of the close button
+* default: `Close`
+
 ## Events
 
 ### onColumnAdvancedSearch(column-advanced-search.bs.table)

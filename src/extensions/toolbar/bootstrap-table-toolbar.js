@@ -9,7 +9,6 @@
     'use strict';
 
     var firstLoad = false;
-    var firstBody = false;
 
     var sprintf = function(str) {
         var args = arguments,
@@ -139,7 +138,7 @@
         formatAdvancedSearch: function() {
             return 'Advanced search';
         },
-        formatAdvancedSearchButton: function() {
+        formatAdvancedCloseButton: function() {
             return "Close";
         }
     });
@@ -174,7 +173,7 @@
 
         that.$toolbar.find('button[name="advancedSearch"]')
             .off('click').on('click', function() {
-                showAvdSearch(that.options.columns, that.options.formatAdvancedSearch(), that.options.formatAdvancedSearchButton(), that);
+                showAvdSearch(that.options.columns, that.options.formatAdvancedSearch(), that.options.formatAdvancedCloseButton(), that);
             });
     };
 
