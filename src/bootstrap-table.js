@@ -615,7 +615,15 @@
         } else {
             this.data = data || this.options.data;
         }
-        this.options.data = this.data;
+
+        // Fix #839 Records deleted when adding new row on filtered table
+        if (type === 'append') {
+            this.options.data = this.options.data.concat(data);
+        } else if (type === 'prepend') {
+            this.options.data = [].concat(data).concat(this.options.data);
+        } else {
+            this.options.data = this.data;
+        }
 
         if (this.options.sidePagination === 'server') {
             return;
