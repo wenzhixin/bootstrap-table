@@ -1341,7 +1341,6 @@
                 row = that.data[$(this).data('index')];
 
             row[that.header.stateField] = checked;
-            that.trigger(checked ? 'check' : 'uncheck', row);
 
             if (that.options.singleSelect) {
                 that.$selectItem.not(this).each(function () {
@@ -1351,6 +1350,7 @@
             }
 
             that.updateSelected();
+            that.trigger(checked ? 'check' : 'uncheck', row);
         });
 
         $.each(this.header.events, function (i, events) {
