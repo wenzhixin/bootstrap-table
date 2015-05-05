@@ -31,7 +31,7 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     <tr>
         <td>getData</td>
         <td>useCurrentPage</td>
-        <td>Retorna los datos cargados en la tabla. Si se setea useCurrentPage a true se devolverá los datos mostrados en la página
+        <td>Retorna los datos cargados en la tabla en el momento que se llama este método. Si se setea useCurrentPage a true se devolverá los datos mostrados en la página
         actual</td>
     </tr>
     <tr>

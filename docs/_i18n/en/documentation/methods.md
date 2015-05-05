@@ -36,7 +36,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>getData</td>
         <td>useCurrentPage</td>
-        <td>Get the loaded data of table. If you set the useCurrentPage to true the method will return the data in the current page</td>
+        <td>Get the loaded data of table at the moment that this method is called. If you set the useCurrentPage to true the method will return the data in the current page</td>
     </tr>
     <tr>
         <td>load</td>
