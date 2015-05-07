@@ -23,7 +23,6 @@
         this.initKeyEvents();
     };
 
-
     BootstrapTable.prototype.initKeyEvents = function () {
         if (this.options.keyEvents) {
             var that = this;
@@ -79,5 +78,4 @@
             });
         }
     };
-
 }(jQuery);
