@@ -64,6 +64,14 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         </td>
     </tr>
     <tr>
+        <td>removeAll</td>
+        <td>-</td>
+        <td>
+        Remove all data from table<br>
+        Example: $('#myTable').bootstrapTable('removeAll')
+        </td>
+    </tr>
+    <tr>
         <td>insertRow</td>
         <td>params</td>
         <td>

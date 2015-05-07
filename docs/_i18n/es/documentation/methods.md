@@ -60,6 +60,14 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         </td>
     </tr>
     <tr>
+        <td>removeAll</td>
+        <td>-</td>
+        <td>
+        Se remueven todos los datos de la tabla <br>
+        Ejemplo: $('#myTable').bootstrapTable('removeAll')
+        </td>
+    </tr>
+    <tr>
         <td>insertRow</td>
         <td>params</td>
         <td>

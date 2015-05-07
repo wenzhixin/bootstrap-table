@@ -1797,6 +1797,15 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.removeAll = function () {
+        if (this.options.data.length > 0) {
+            this.options.data.splice(0, this.options.data.length);
+            this.initSearch();
+            this.initPagination();
+            this.initBody(true);
+        }
+    };
+
     BootstrapTable.prototype.insertRow = function (params) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
@@ -2062,7 +2071,7 @@
     var allowedMethods = [
         'getOptions',
         'getSelections', 'getAllSelections', 'getData',
-        'load', 'append', 'prepend', 'remove',
+        'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow',
         'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
