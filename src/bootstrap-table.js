@@ -66,6 +66,7 @@
         });
         return index;
     };
+
     var getScrollBarWidth = function () {
         if (cachedWidth === null) {
             var inner = $('<p/>').addClass('fixed-table-scroll-inner'),
@@ -132,6 +133,18 @@
             }
         });
         return height;
+    };
+
+    var getRealDataAttr = function (dataAttr) {
+        for (var attr in dataAttr) {
+            var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
+            if (auxAttr !== attr) {
+                dataAttr[auxAttr] = dataAttr[attr];
+                delete dataAttr[attr];
+            }
+        }
+
+        return dataAttr;
     };
 
     // BOOTSTRAP TABLE CLASS DEFINITION
@@ -456,7 +469,7 @@
                 // save td's id, class and data-* attributes
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
-                row['_' + field + '_data'] = $(this).data();
+                row['_' + field + '_data'] = getRealDataAttr($(this).data());
             });
             data.push(row);
         });
