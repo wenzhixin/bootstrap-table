@@ -439,7 +439,7 @@
             var column = $.extend({}, {
                 title: $(this).html(),
                 'class': $(this).attr('class')
-            }, $(this).data());
+            }, getRealDataAttr($(this).data()));
 
             columns.push(column);
         });
@@ -460,7 +460,7 @@
             // save tr's id, class and data-* attributes
             row._id = $(this).attr('id');
             row._class = $(this).attr('class');
-            row._data = $(this).data();
+            row._data = getRealDataAttr($(this).data());
 
             $(this).find('td').each(function (i) {
                 var field = that.options.columns[i].field;
