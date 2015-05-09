@@ -289,6 +289,12 @@
         },
         onPostHeader: function () {
             return false;
+        },
+        onPreRows: function () {
+            return false;
+        },
+        onPostRows: function () {
+            return false;
         }
     };
 
@@ -373,7 +379,9 @@
         'toggle.bs.table': 'onToggle',
         'pre-body.bs.table': 'onPreBody',
         'post-body.bs.table': 'onPostBody',
-        'post-header.bs.table': 'onPostHeader'
+        'post-header.bs.table': 'onPostHeader',
+        'pre-rows.bs.table': 'onPreRows',
+        'post-rows.bs.table': 'onPostRows'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -1332,7 +1340,10 @@
                 '</tr>');
         }
 
+        this.trigger('pre-rows');
         this.$body.html(html.join(''));
+        this.trigger('post-rows');
+
 
         if (!fixedScroll) {
             this.scrollTo(0);
