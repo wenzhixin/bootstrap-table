@@ -477,6 +477,7 @@
                 // save td's id, class and data-* attributes
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
+                row['_' + field + '_rowspan'] = $(this).attr('rowspan');
                 row['_' + field + '_data'] = getRealDataAttr($(this).data());
             });
             data.push(row);
@@ -1247,6 +1248,7 @@
                     id_ = '',
                     class_ = that.header.classes[j],
                     data_ = '',
+                    rowspan_ = '',
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
@@ -1260,6 +1262,9 @@
                 }
                 if (item['_' + field + '_class']) {
                     class_ = sprintf(' class="%s"', item['_' + field + '_class']);
+                }
+                if (item['_' + field + '_rowspan']) {
+                    rowspan_ = sprintf(' rowspan="%s"', item['_' + field + '_rowspan']);
                 }
                 cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
@@ -1313,7 +1318,7 @@
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
-                        [sprintf('<td%s %s %s %s>', id_, class_, style, data_),
+                        [sprintf('<td%s %s %s %s %s>', id_, class_, style, data_, rowspan_),
                             value,
                             '</td>'].join('');
 
