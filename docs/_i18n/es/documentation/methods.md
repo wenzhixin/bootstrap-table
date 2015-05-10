@@ -68,6 +68,14 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         </td>
     </tr>
     <tr>
+        <td>removeByUniqueId</td>
+        <td>id</td>
+        <td>
+        Se remueve el dato de la tabla que contiene el id pasado por parámetro<br>
+        Ejemplo: $('#myTable').bootstrapTable('removeByUniqueId', "122")
+        </td>
+    </tr>
+    <tr>
         <td>insertRow</td>
         <td>params</td>
         <td>

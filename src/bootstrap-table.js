@@ -1835,6 +1835,31 @@
         }
     };
 
+    BootstrapTable.prototype.removeByUniqueId = function (id) {
+        var uniqueId = this.options.uniqueId,
+            len = this.options.data.length,
+            i, row;
+
+        for (i = len - 1; i >= 0; i--) {
+            row = this.options.data[i];
+
+            if (!row.hasOwnProperty(uniqueId)) {
+                continue;
+            }
+            if (row[uniqueId] === id) {
+                this.options.data.splice(i, 1);
+            }
+        }
+
+        if (len === this.options.data.length) {
+            return;
+        }
+
+        this.initSearch();
+        this.initPagination();
+        this.initBody(true);
+    };
+
     BootstrapTable.prototype.insertRow = function (params) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
@@ -1878,7 +1903,7 @@
             }
         }
         return rows;
-    }
+    };
 
     BootstrapTable.prototype.mergeCells = function (options) {
         var row = options.index,
