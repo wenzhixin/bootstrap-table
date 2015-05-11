@@ -1846,6 +1846,17 @@
             if (!row.hasOwnProperty(uniqueId)) {
                 continue;
             }
+
+            if (typeof row[uniqueId] === 'string') {
+                id = id.toString();
+            } else if (typeof row[uniqueId] === 'number') {
+                if ((Number(row[uniqueId]) === row[uniqueId]) && (row[uniqueId] % 1 === 0)) {
+                    id = parseInt(id);
+                } else if ((row[uniqueId] === Number(row[uniqueId])) && (row[uniqueId] !== 0)) {
+                    id = parseFloat(id);
+                }
+            }
+
             if (row[uniqueId] === id) {
                 this.options.data.splice(i, 1);
             }
