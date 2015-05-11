@@ -1878,6 +1878,7 @@
         this.data.splice(params.index, 0, params.row);
         this.initSearch();
         this.initPagination();
+        this.initSort();
         this.initBody(true);
     };
 
@@ -1886,6 +1887,7 @@
             return;
         }
         $.extend(this.data[params.index], params.row);
+        this.initSort();
         this.initBody(true);
     };
 
