@@ -22,15 +22,15 @@
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
-        reorderable: false,
+        reorderableColumns: false,
         maxMovingRows: 10,
-        onReorder: function (headerFields) {
+        onReorderColumn: function (headerFields) {
             return false;
         }
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-        'reorder.bs.table': 'onReorder'
+        'reorder-column.bs.table': 'onReorderColumn'
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
@@ -42,27 +42,27 @@
     BootstrapTable.prototype.initHeader = function () {
         _initHeader.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (!this.options.reorderable) {
+        if (!this.options.reorderableColumns) {
             return;
         }
 
-        this.makeColumnsReorderable();
+        this.makeRowsReorderable();
     };
 
     BootstrapTable.prototype.toggleColumn = function () {
         _toggleColumn.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (!this.options.reorderable) {
+        if (!this.options.reorderableColumns) {
             return;
         }
 
-        this.makeColumnsReorderable();
+        this.makeRowsReorderable();
     };
 
     BootstrapTable.prototype.toggleView = function () {
         _toggleView.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (!this.options.reorderable) {
+        if (!this.options.reorderableColumns) {
             return;
         }
 
@@ -70,20 +70,20 @@
             return;
         }
 
-        this.makeColumnsReorderable();
+        this.makeRowsReorderable();
     };
 
     BootstrapTable.prototype.resetView = function () {
         _resetView.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (!this.options.reorderable) {
+        if (!this.options.reorderableColumns) {
             return;
         }
 
-        this.makeColumnsReorderable();
+        this.makeRowsReorderable();
     };
 
-    BootstrapTable.prototype.makeColumnsReorderable = function () {
+    BootstrapTable.prototype.makeRowsReorderable = function () {
 
         var that = this;
         try {
@@ -111,7 +111,7 @@
                 that.options.columns = that.options.columns.concat(columns);
                 that.header.fields = ths;
                 that.resetView();
-                that.trigger('reorder', ths);
+                that.trigger('reorder-column', ths);
             }
         });
     };

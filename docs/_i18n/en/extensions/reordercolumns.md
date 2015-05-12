@@ -11,12 +11,12 @@ Dependence: [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must incl
 <link rel="stylesheet" href=".../dragtable.css">
 <script src=".../jquery-ui.js"></script>
 <script src=".../jquery.dragtable.js"></script>
-<script src="extensions/cookie/bootstrap-table-reorder.js"></script>
+<script src="extensions/cookie/bootstrap-table-reorder-columns.js"></script>
 ```
 
 ## Options
 
-### reorderable
+### reorderableColumns
 
 * type: Boolean
 * description: Set true to allow the reorder feature.
@@ -30,6 +30,6 @@ Dependence: [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must incl
 
 ## Events
 
-### onReorder(reorder.bs.table)
+### onReorderColumn(reorder.bs.table)
 
 Fired when the column was dropped, receive as parameter the new header fields order
