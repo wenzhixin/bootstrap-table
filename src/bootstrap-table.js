@@ -1833,7 +1833,7 @@
         }
         return rows;
     }
-
+    
     BootstrapTable.prototype.mergeCells = function (options) {
         var row = options.index,
             col = $.inArray(options.field, this.header.fields),
@@ -1855,7 +1855,14 @@
 
         $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
     };
-
+    
+    BootstrapTable.prototype.updateCell = function (params) {
+        if (!params.hasOwnProperty('rowIndex') || !params.hasOwnProperty('fieldName') || !params.hasOwnProperty('fieldValue')) {
+            return;
+        }
+        this.data[params.rowIndex][params.fieldName] = params.fieldValue;
+        this.initBody(true);
+    };
     BootstrapTable.prototype.getOptions = function () {
         return this.options;
     };
@@ -2057,7 +2064,7 @@
         'load', 'append', 'prepend', 'remove',
         'insertRow', 'updateRow',
         'showRow', 'hideRow', 'getRowsHidden',
-        'mergeCells',
+        'mergeCells', 'updateCell',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',
         'checkBy', 'uncheckBy',
