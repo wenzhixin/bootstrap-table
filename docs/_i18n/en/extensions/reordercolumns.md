@@ -30,6 +30,6 @@ Dependence: [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must incl
 
 ## Events
 
-### onReorderColumn(reorder.bs.table)
+### onReorderColumn(reorder-column.bs.table)
 
 Fired when the column was dropped, receive as parameter the new header fields order
