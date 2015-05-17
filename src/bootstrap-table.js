@@ -66,6 +66,7 @@
         });
         return index;
     };
+
     var getScrollBarWidth = function () {
         if (cachedWidth === null) {
             var inner = $('<p/>').addClass('fixed-table-scroll-inner'),
@@ -132,6 +133,18 @@
             }
         });
         return height;
+    };
+
+    var getRealDataAttr = function (dataAttr) {
+        for (var attr in dataAttr) {
+            var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
+            if (auxAttr !== attr) {
+                dataAttr[auxAttr] = dataAttr[attr];
+                delete dataAttr[attr];
+            }
+        }
+
+        return dataAttr;
     };
 
     // BOOTSTRAP TABLE CLASS DEFINITION
@@ -276,6 +289,12 @@
         },
         onPostHeader: function () {
             return false;
+        },
+        onPreRows: function () {
+            return false;
+        },
+        onPostRows: function () {
+            return false;
         }
     };
 
@@ -360,7 +379,9 @@
         'toggle.bs.table': 'onToggle',
         'pre-body.bs.table': 'onPreBody',
         'post-body.bs.table': 'onPostBody',
-        'post-header.bs.table': 'onPostHeader'
+        'post-header.bs.table': 'onPostHeader',
+        'pre-rows.bs.table': 'onPreRows',
+        'post-rows.bs.table': 'onPostRows'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -426,7 +447,7 @@
             var column = $.extend({}, {
                 title: $(this).html(),
                 'class': $(this).attr('class')
-            }, $(this).data());
+            }, getRealDataAttr($(this).data()));
 
             columns.push(column);
         });
@@ -447,7 +468,7 @@
             // save tr's id, class and data-* attributes
             row._id = $(this).attr('id');
             row._class = $(this).attr('class');
-            row._data = $(this).data();
+            row._data = getRealDataAttr($(this).data());
 
             $(this).find('td').each(function (i) {
                 var field = that.options.columns[i].field;
@@ -456,7 +477,8 @@
                 // save td's id, class and data-* attributes
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
-                row['_' + field + '_data'] = $(this).data();
+                row['_' + field + '_rowspan'] = $(this).attr('rowspan');
+                row['_' + field + '_data'] = getRealDataAttr($(this).data());
             });
             data.push(row);
         });
@@ -615,7 +637,15 @@
         } else {
             this.data = data || this.options.data;
         }
-        this.options.data = this.data;
+
+        // Fix #839 Records deleted when adding new row on filtered table
+        if (type === 'append') {
+            this.options.data = this.options.data.concat(data);
+        } else if (type === 'prepend') {
+            this.options.data = [].concat(data).concat(this.options.data);
+        } else {
+            this.options.data = this.data;
+        }
 
         if (this.options.sidePagination === 'server') {
             return;
@@ -1218,6 +1248,7 @@
                     id_ = '',
                     class_ = that.header.classes[j],
                     data_ = '',
+                    rowspan_ = '',
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
@@ -1231,6 +1262,9 @@
                 }
                 if (item['_' + field + '_class']) {
                     class_ = sprintf(' class="%s"', item['_' + field + '_class']);
+                }
+                if (item['_' + field + '_rowspan']) {
+                    rowspan_ = sprintf(' rowspan="%s"', item['_' + field + '_rowspan']);
                 }
                 cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
@@ -1284,7 +1318,7 @@
                                 getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
                             sprintf('<span class="value">%s</span>', value),
                             '</div>'].join('') :
-                        [sprintf('<td%s %s %s %s>', id_, class_, style, data_),
+                        [sprintf('<td%s %s %s %s %s>', id_, class_, style, data_, rowspan_),
                             value,
                             '</td>'].join('');
 
@@ -1311,7 +1345,10 @@
                 '</tr>');
         }
 
+        this.trigger('pre-rows');
         this.$body.html(html.join(''));
+        this.trigger('post-rows');
+
 
         if (!fixedScroll) {
             this.scrollTo(0);
@@ -1341,7 +1378,6 @@
                 row = that.data[$(this).data('index')];
 
             row[that.header.stateField] = checked;
-            that.trigger(checked ? 'check' : 'uncheck', row);
 
             if (that.options.singleSelect) {
                 that.$selectItem.not(this).each(function () {
@@ -1351,6 +1387,7 @@
             }
 
             that.updateSelected();
+            that.trigger(checked ? 'check' : 'uncheck', row);
         });
 
         $.each(this.header.events, function (i, events) {
@@ -1789,6 +1826,51 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.removeAll = function () {
+        if (this.options.data.length > 0) {
+            this.options.data.splice(0, this.options.data.length);
+            this.initSearch();
+            this.initPagination();
+            this.initBody(true);
+        }
+    };
+
+    BootstrapTable.prototype.removeByUniqueId = function (id) {
+        var uniqueId = this.options.uniqueId,
+            len = this.options.data.length,
+            i, row;
+
+        for (i = len - 1; i >= 0; i--) {
+            row = this.options.data[i];
+
+            if (!row.hasOwnProperty(uniqueId)) {
+                continue;
+            }
+
+            if (typeof row[uniqueId] === 'string') {
+                id = id.toString();
+            } else if (typeof row[uniqueId] === 'number') {
+                if ((Number(row[uniqueId]) === row[uniqueId]) && (row[uniqueId] % 1 === 0)) {
+                    id = parseInt(id);
+                } else if ((row[uniqueId] === Number(row[uniqueId])) && (row[uniqueId] !== 0)) {
+                    id = parseFloat(id);
+                }
+            }
+
+            if (row[uniqueId] === id) {
+                this.options.data.splice(i, 1);
+            }
+        }
+
+        if (len === this.options.data.length) {
+            return;
+        }
+
+        this.initSearch();
+        this.initPagination();
+        this.initBody(true);
+    };
+
     BootstrapTable.prototype.insertRow = function (params) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
@@ -1796,6 +1878,7 @@
         this.data.splice(params.index, 0, params.row);
         this.initSearch();
         this.initPagination();
+        this.initSort();
         this.initBody(true);
     };
 
@@ -1804,6 +1887,7 @@
             return;
         }
         $.extend(this.data[params.index], params.row);
+        this.initSort();
         this.initBody(true);
     };
 
@@ -1832,7 +1916,7 @@
             }
         }
         return rows;
-    }
+    };
 
     BootstrapTable.prototype.mergeCells = function (options) {
         var row = options.index,
@@ -2054,8 +2138,8 @@
     var allowedMethods = [
         'getOptions',
         'getSelections', 'getAllSelections', 'getData',
-        'load', 'append', 'prepend', 'remove',
-        'insertRow', 'updateRow',
+        'load', 'append', 'prepend', 'remove', 'removeAll',
+        'insertRow', 'updateRow', 'removeByUniqueId',
         'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
         'checkAll', 'uncheckAll',

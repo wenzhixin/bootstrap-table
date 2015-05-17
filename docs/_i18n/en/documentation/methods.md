@@ -36,7 +36,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>getData</td>
         <td>useCurrentPage</td>
-        <td>Get the loaded data of table. If you set the useCurrentPage to true the method will return the data in the current page</td>
+        <td>Get the loaded data of table at the moment that this method is called. If you set the useCurrentPage to true the method will return the data in the current page</td>
     </tr>
     <tr>
         <td>load</td>
@@ -61,6 +61,22 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         field: the field name of remove rows. <br>
         values: the array of values for rows which should be removed. <br>
         Example: $('#myTable').bootstrapTable('remove', {field: 'id', values: ["73", "74"]})
+        </td>
+    </tr>
+    <tr>
+        <td>removeAll</td>
+        <td>-</td>
+        <td>
+        Remove all data from table<br>
+        Example: $('#myTable').bootstrapTable('removeAll')
+        </td>
+    </tr>
+    <tr>
+        <td>removeByUniqueId</td>
+        <td>id</td>
+        <td>
+        Remove data from table, the row that contains the id passed by parameter<br>
+        Example: $('#myTable').bootstrapTable('removeByUniqueId', "122")
         </td>
     </tr>
     <tr>
