@@ -193,7 +193,7 @@
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select'
                         && column.searchable) {
 
-                        if(column.filterData !== undefined && column.filterData.toLowerCase() === 'column'){
+                        if(column.filterData === undefined || column.filterData.toLowerCase() === 'column'){
                             var selectControl = $('.' + column.field),
                                 iOpt = 0,
                                 exitsOpt = false,
