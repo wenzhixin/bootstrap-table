@@ -2011,7 +2011,7 @@
         }
 
         var that = this;
-        $.each(this.options.data, function (index, row) {
+        $.each(this.data, function (index, row) {
             if (!row.hasOwnProperty(obj.field)) {
                 return false;
             }
