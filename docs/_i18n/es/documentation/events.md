@@ -71,20 +71,40 @@
         <td>row</td>
         <td>
         Se ejecuta cuando el usuario des-chequea una fila, los parámetros contienen: <br>
-        row: el registro que corresponde a la fila des-chequeada.
+        row: el registro que corresponde a la fila deschequeada.
         </td>
     </tr>
     <tr>
         <td>onCheckAll</td>
         <td>check-all.bs.table</td>
-        <td>none</td>
-        <td>Fires when user check all rows.</td>
+        <td>rows</td>
+        <td>Se ejecuta cuando el usuario chequea todas las filas, los parámetros contienen: <br>
+        rows: arreglo de las filas chequeadas.</td>
     </tr>
     <tr>
         <td>onUncheckAll</td>
         <td>uncheck-all.bs.table</td>
-        <td>none</td>
-        <td>Se ejecuta cuando el usuario des-chequea todas las filas.</td>
+        <td>rows</td>
+        <td>Se ejecuta cuando el usuario des-chequea todas las filas, los parámetros contienen: <br>
+        rows: arreglo de las filas deschequeadas.</td>
+    </tr>
+    <tr>
+        <td>onCheckSome</td>
+        <td>check-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Se ejecuta cuando el usuario chequea algunas filas, los parámetros contienen: <br>
+        rows: arreglo de las filas chequeadas.
+        </td>
+    </tr>
+    <tr>
+        <td>onUncheckSome</td>
+        <td>uncheck-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Se ejecuta cuando el usuario deschequea algunas filas, los parámetros contienen: <br>
+        rows: arreglo de las filas deschequeadas.
+        </td>
     </tr>
     <tr>
         <td>onLoadSuccess</td>

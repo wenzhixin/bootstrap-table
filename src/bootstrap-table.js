@@ -257,10 +257,16 @@
         onUncheck: function (row) {
             return false;
         },
-        onCheckAll: function () {
+        onCheckAll: function (rows) {
             return false;
         },
-        onUncheckAll: function () {
+        onUncheckAll: function (rows) {
+            return false;
+        },
+        onCheckSome: function(rows){
+            return false;
+        },
+        onUncheckSome: function(rows){
             return false;
         },
         onLoadSuccess: function (data) {
@@ -371,6 +377,8 @@
         'uncheck.bs.table': 'onUncheck',
         'check-all.bs.table': 'onCheckAll',
         'uncheck-all.bs.table': 'onUncheckAll',
+        'check-some.bs.table': 'onCheckSome',
+        'uncheck-some.bs.table': 'onUncheckSome',
         'load-success.bs.table': 'onLoadSuccess',
         'load-error.bs.table': 'onLoadError',
         'column-switch.bs.table': 'onColumnSwitch',
@@ -2010,7 +2018,8 @@
             return;
         }
 
-        var that = this;
+        var that = this,
+            rows = [];
         $.each(this.options.data, function (index, row) {
             if (!row.hasOwnProperty(obj.field)) {
                 return false;
@@ -2018,10 +2027,12 @@
             if ($.inArray(row[obj.field], obj.values) !== -1) {
                 that.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
                 row[that.header.stateField] = checked;
+                rows.push(row);
                 that.trigger(checked ? 'check' : 'uncheck', row);
             }
         });
         this.updateSelected();
+        this.trigger(checked ? 'check-some' : 'uncheck-some', rows);
     };
 
     BootstrapTable.prototype.destroy = function () {
