@@ -1370,14 +1370,14 @@
         // show no records
         if (!html.length) {
             html.push('<tr class="no-records-found">',
-                sprintf('<td colspan="%s">%s</td>', this.header.fields.length, this.options.formatNoMatches()),
+                sprintf('<td colspan="%s">%s</td>',
+                    this.$header.find('th').length, this.options.formatNoMatches()),
                 '</tr>');
         }
 
         this.trigger('pre-rows');
         this.$body.html(html.join(''));
         this.trigger('post-rows');
-
 
         if (!fixedScroll) {
             this.scrollTo(0);
