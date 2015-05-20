@@ -211,6 +211,10 @@
         idField: undefined,
         uniqueId: undefined,
         cardView: false,
+        detailView: false,
+        detailFormatter: function (index, row) {
+            return '';
+        },
         trimOnSearch: true,
         clickToSelect: false,
         singleSelect: false,
@@ -294,6 +298,12 @@
             return false;
         },
         onPostRows: function () {
+            return false;
+        },
+        onExpandRow: function (index, row, $detail) {
+            return false;
+        },
+        onCollapseRow: function (index, row) {
             return false;
         }
     };
@@ -381,7 +391,9 @@
         'post-body.bs.table': 'onPostBody',
         'post-header.bs.table': 'onPostHeader',
         'pre-rows.bs.table': 'onPreRows',
-        'post-rows.bs.table': 'onPostRows'
+        'post-rows.bs.table': 'onPostRows',
+        'expand-row.bs.table': 'onExpandRow',
+        'collapse-row.bs.table': 'onCollapseRow'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -447,7 +459,7 @@
             var column = $.extend({}, {
                 title: $(this).html(),
                 'class': $(this).attr('class')
-            }, getRealDataAttr($(this).data()));
+            }, $(this).data());
 
             columns.push(column);
         });
@@ -504,6 +516,11 @@
             searchables: []
         };
 
+        if (!this.options.cardView && this.options.detailView) {
+            html.push('<th class="detail"><div class="fht-cell"></div></th>');
+            visibleColumns.push({});
+        }
+
         $.each(this.options.columns, function (i, column) {
             var text = '',
                 halign = '', // header align style
@@ -511,12 +528,12 @@
                 style = '',
                 class_ = sprintf(' class="%s"', column['class']),
                 order = that.options.sortOrder || column.order,
-                searchable = true,
                 unitWidth = 'px',
                 width = column.width;
 
             if (!column.visible) {
-                // Fix #229. Default Sort order is wrong if data-visible="false" is set on the field referenced by data-sort-name.
+                // Fix #229. Default Sort order is wrong
+                // if data-visible="false" is set on the field referenced by data-sort-name.
                 if (column.field === that.options.sortName) {
                     that.header.fields.push(column.field);
                 }
@@ -1240,6 +1257,14 @@
                 html.push(sprintf('<td colspan="%s">', this.header.fields.length));
             }
 
+            if (!this.options.cardView && this.options.detailView) {
+                html.push('<td>',
+                    '<a class="detail-icon" href="javascript:">',
+                    '<i class="glyphicon glyphicon-plus icon-plus"></i>',
+                    '</a>',
+                    '</td>');
+            }
+
             $.each(this.header.fields, function (j, field) {
                 var text = '',
                     value = item[field],
@@ -1368,6 +1393,27 @@
         });
         this.$body.find('tr').off('dblclick').on('dblclick', function () {
             that.trigger('dbl-click-row', that.data[$(this).data('index')], $(this));
+        });
+
+        this.$body.find('.detail-icon').off('click').on('click', function () {
+            var $this = $(this),
+                $tr = $this.parents('tr'),
+                index = $tr.data('index'),
+                row = that.options.data[index];
+
+            // remove and update
+            if ($tr.next().is('tr.detail-view')) {
+                $this.find('i').attr('class', 'glyphicon glyphicon-plus icon-plus');
+                $tr.next().remove();
+                that.trigger('collapse-row', index, row);
+            } else {
+                $this.find('i').attr('class', 'glyphicon glyphicon-minus icon-minus');
+                $tr.after(sprintf('<tr class="detail-view"><td colspan="%s">%s</td></tr>',
+                    $tr.find('td').length, calculateObjectValue(that.options,
+                        that.options.detailFormatter, [index, row], '')));
+                that.trigger('expand-row', index, row, $tr.next().find('td'));
+            }
+            that.resetView();
         });
 
         this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
@@ -1614,6 +1660,10 @@
             return;
         }
 
+        if (!this.options.cardView && this.options.detailView) {
+            html.push('<td></td>');
+        }
+
         $.each(this.options.columns, function (i, column) {
             var falign = '', // footer align style
                 style = '',
@@ -1631,7 +1681,6 @@
             style = sprintf('vertical-align: %s; ', column.valign);
 
             html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
-
 
             html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
             html.push('</td>');
