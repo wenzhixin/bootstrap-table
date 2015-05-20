@@ -430,16 +430,23 @@
             '</div>'].join(''));
 
         this.$container.insertAfter(this.$el);
-        this.$container.find('.fixed-table-body').append(this.$el);
+        this.$tableContainer = this.$container.find('.fixed-table-container');
+        this.$tableHeader = this.$container.find('.fixed-table-header');
+        this.$tableBody = this.$container.find('.fixed-table-body');
+        this.$tableLoading = this.$container.find('.fixed-table-loading');
+        this.$tableFooter = this.$container.find('.fixed-table-footer');
+        this.$toolbar = this.$container.find('.fixed-table-toolbar');
+        this.$pagination = this.$container.find('.fixed-table-pagination');
+
+        this.$tableBody.append(this.$el);
         this.$container.after('<div class="clearfix"></div>');
-        this.$loading = this.$container.find('.fixed-table-loading');
 
         this.$el.addClass(this.options.classes);
         if (this.options.striped) {
             this.$el.addClass('table-striped');
         }
         if ($.inArray('table-no-bordered', this.options.classes.split(' ')) !== -1) {
-            this.$container.find('.fixed-table-container').addClass('table-no-bordered');
+            this.$tableContainer.addClass('table-no-bordered');
         }
     };
 
@@ -615,12 +622,12 @@
 
         if (!this.options.showHeader || this.options.cardView) {
             this.$header.hide();
-            this.$container.find('.fixed-table-header').hide();
-            this.$loading.css('top', 0);
+            this.$tableHeader.hide();
+            this.$tableLoading.css('top', 0);
         } else {
             this.$header.show();
-            this.$container.find('.fixed-table-header').show();
-            this.$loading.css('top', cellHeight + 'px');
+            this.$tableHeader.show();
+            this.$tableLoading.css('top', cellHeight + 'px');
             // Assign the correct sortable arrow
             this.getCaretHtml();
         }
@@ -634,11 +641,10 @@
     };
 
     BootstrapTable.prototype.initFooter = function () {
-        this.$footer = this.$container.find('.fixed-table-footer');
         if (!this.options.showFooter || this.options.cardView) {
-            this.$footer.hide();
+            this.$tableFooter.hide();
         } else {
-            this.$footer.show();
+            this.$tableFooter.show();
         }
     };
 
@@ -762,7 +768,7 @@
             $search,
             switchableCount = 0;
 
-        this.$toolbar = this.$container.find('.fixed-table-toolbar').html('');
+        this.$toolbar.html('');
 
         if (typeof this.options.toolbar === 'string') {
             $(sprintf('<div class="bars pull-%s"></div>', this.options.toolbarAlign))
@@ -959,8 +965,6 @@
     };
 
     BootstrapTable.prototype.initPagination = function () {
-        this.$pagination = this.$container.find('.fixed-table-pagination');
-
         if (!this.options.pagination) {
             this.$pagination.hide();
             return;
@@ -1515,7 +1519,7 @@
         }
 
         if (!silent) {
-            this.$loading.show();
+            this.$tableLoading.show();
         }
         request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
@@ -1536,7 +1540,7 @@
             },
             complete: function () {
                 if (!silent) {
-                    that.$loading.hide();
+                    that.$tableLoading.hide();
                 }
             }
         });
@@ -1609,8 +1613,6 @@
 
     BootstrapTable.prototype.fitHeader = function () {
         var that = this,
-            $fixedHeader,
-            $fixedBody,
             fixedBody,
             scrollWidth;
 
@@ -1618,9 +1620,7 @@
             that.timeoutFooter_ = setTimeout($.proxy(that.fitHeader, that), 100);
             return;
         }
-        $fixedHeader = this.$container.find('.fixed-table-header');
-        $fixedBody = this.$container.find('.fixed-table-body');
-        fixedBody = $fixedBody.get(0);
+        fixedBody = this.$tableBody.get(0);
 
         scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
             fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.height() ?
@@ -1629,7 +1629,7 @@
         this.$el.css('margin-top', -this.$header.height());
         this.$header_ = this.$header.clone(true, true);
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
-        $fixedHeader.css({
+        this.$tableHeader.css({
             'margin-right': scrollWidth
         }).find('table').css('width', this.$el.css('width'))
             .html('').attr('class', this.$el.attr('class'))
@@ -1645,8 +1645,8 @@
         });
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
-        $fixedBody.off('scroll').on('scroll', function () {
-            $fixedHeader.scrollLeft($(this).scrollLeft());
+        this.$tableBody.off('scroll').on('scroll', function () {
+            that.$tableHeader.scrollLeft($(this).scrollLeft());
         });
         that.trigger('post-header');
     };
@@ -1686,7 +1686,7 @@
             html.push('</td>');
         });
 
-        this.$footer.find('tr').html(html.join(''));
+        this.$tableFooter.find('tr').html(html.join(''));
         clearTimeout(this.timeoutFooter_);
         this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this),
             this.$el.is(':hidden') ? 100 : 0);
@@ -1694,7 +1694,6 @@
 
     BootstrapTable.prototype.fitFooter = function () {
         var that = this,
-            $fixedBody,
             $footerTd,
             elWidth,
             scrollWidth;
@@ -1705,18 +1704,17 @@
             return;
         }
 
-        $fixedBody = this.$container.find('.fixed-table-body');
         elWidth = this.$el.css('width');
-        scrollWidth = elWidth > $fixedBody.width() ? getScrollBarWidth() : 0;
+        scrollWidth = elWidth > this.$tableBody.width() ? getScrollBarWidth() : 0;
 
-        this.$footer.css({
+        this.$tableFooter.css({
             'margin-right': scrollWidth
         }).find('table').css('width', elWidth)
             .attr('class', this.$el.attr('class'));
 
-        $footerTd = this.$footer.find('td');
+        $footerTd = this.$tableFooter.find('td');
 
-        $fixedBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function (i) {
+        this.$tableBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function (i) {
             $footerTd.eq(i).outerWidth($(this).outerWidth());
         });
     };
@@ -1758,8 +1756,7 @@
 
     BootstrapTable.prototype.resetView = function (params) {
         var that = this,
-            padding = 0,
-            $tableContainer = that.$container.find('.fixed-table-container');
+            padding = 0;
 
         if (params && params.height) {
             this.options.height = params.height;
@@ -1773,7 +1770,7 @@
                 paginationHeight = getRealHeight(this.$pagination),
                 height = this.options.height - toolbarHeight - paginationHeight;
 
-            $tableContainer.css('height', height + 'px');
+            this.$tableContainer.css('height', height + 'px');
         }
 
         if (this.options.cardView) {
@@ -1784,11 +1781,11 @@
         }
 
         if (this.options.showHeader && this.options.height) {
-            this.$container.find('.fixed-table-header').show();
+            this.$tableHeader.show();
             this.resetHeader();
             padding += cellHeight;
         } else {
-            this.$container.find('.fixed-table-header').hide();
+            this.$tableHeader.hide();
             this.trigger('post-header');
         }
 
@@ -1801,7 +1798,7 @@
 
         // Assign the correct sortable arrow
         this.getCaretHtml();
-        $tableContainer.css('padding-bottom', padding + 'px');
+        this.$tableContainer.css('padding-bottom', padding + 'px');
     };
 
     BootstrapTable.prototype.getData = function (useCurrentPage) {
@@ -2084,11 +2081,11 @@
     };
 
     BootstrapTable.prototype.showLoading = function () {
-        this.$loading.show();
+        this.$tableLoading.show();
     };
 
     BootstrapTable.prototype.hideLoading = function () {
-        this.$loading.hide();
+        this.$tableLoading.hide();
     };
 
     BootstrapTable.prototype.togglePagination = function () {
@@ -2135,15 +2132,14 @@
     };
 
     BootstrapTable.prototype.scrollTo = function (value) {
-        var $tbody = this.$container.find('.fixed-table-body');
         if (typeof value === 'string') {
-            value = value === 'bottom' ? $tbody[0].scrollHeight : 0;
+            value = value === 'bottom' ? this.$tableBody[0].scrollHeight : 0;
         }
         if (typeof value === 'number') {
-            $tbody.scrollTop(value);
+            this.$tableBody.scrollTop(value);
         }
         if (typeof value === 'undefined') {
-            return $tbody.scrollTop();
+            return this.$tableBody.scrollTop();
         }
     };
 
