@@ -173,5 +173,19 @@
        <td>none</td>
        <td>Fires after the table header is rendered and availble in the DOM</td>
     </tr>
+    <tr>
+        <td>onExpandRow</td>
+        <td>expand-row.bs.table</td>
+        <td>index, row, $detail</td>
+        <td>当点击详细图标展开详细页面的时候触发。</td>
+    </tr>
+    <tr>
+       <td>onCollapseRow</td>
+       <td>collapse-row.bs.table</td>
+       <td>index, row</td>
+       <td>当点击详细图片收起详细页面的时候触发。</td>
+    </tr>
+    </tbody>
+</table>
     </tbody>
 </table>
