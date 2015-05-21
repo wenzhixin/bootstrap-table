@@ -1395,13 +1395,13 @@
                 }
             }
         });
-        this.$body.find('tr').off('dblclick').on('dblclick', function () {
+        this.$body.find('> tr').off('dblclick').on('dblclick', function () {
             that.trigger('dbl-click-row', that.data[$(this).data('index')], $(this));
         });
 
-        this.$body.find('.detail-icon').off('click').on('click', function () {
+        this.$body.find('> tr > td > .detail-icon').off('click').on('click', function () {
             var $this = $(this),
-                $tr = $this.parents('tr'),
+                $tr = $this.parent().parent(),
                 index = $tr.data('index'),
                 row = that.options.data[index];
 
