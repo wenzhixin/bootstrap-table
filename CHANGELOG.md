@@ -1,6 +1,6 @@
 ## ChangeLog
 
-###
+### 1.8.0
 
 - [bug] Fix #672: Column Fixed Width in Percentage bug.
 - [enh] Added state saving for visible columns and the ability to use extension with multiple simultaneous tables.
