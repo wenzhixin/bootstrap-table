@@ -242,6 +242,12 @@
         onAll: function (name, args) {
             return false;
         },
+        onClickCell: function (item, row, $element) {
+            return false;
+        },
+        onDblClickCell: function (item, row, $element) {
+            return false;
+        },
         onClickRow: function (item, $element) {
             return false;
         },
@@ -364,6 +370,8 @@
 
     BootstrapTable.EVENTS = {
         'all.bs.table': 'onAll',
+        'click-cell.bs.table': 'onClickCell',
+        'dbl-click-cell.bs.table': 'onDblClickCell',
         'click-row.bs.table': 'onClickRow',
         'dbl-click-row.bs.table': 'onDblClickRow',
         'sort.bs.table': 'onSort',
