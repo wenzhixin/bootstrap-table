@@ -94,6 +94,24 @@
         </td>
     </tr>
     <tr>
+        <td>onCheckSome</td>
+        <td>check-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Fires when user check some rows, the parameters contains: <br>
+        rows: array of records corresponding to previously checked rows.
+        </td>
+    </tr>
+    <tr>
+        <td>onUncheckSome</td>
+        <td>uncheck-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Fires when user uncheck some rows, the parameters contains: <br>
+        rows: array of records corresponding to previously checked rows.
+        </td>
+    </tr>
+    <tr>
         <td>onLoadSuccess</td>
         <td>load-success.bs.table</td>
         <td>data</td>
