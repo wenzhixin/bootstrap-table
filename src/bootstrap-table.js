@@ -2202,7 +2202,7 @@
         'getOptions',
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
-        'insertRow', 'updateRow', 'removeByUniqueId',
+        'insertRow', 'updateRow', 'updateCell', 'removeByUniqueId',
         'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
         'checkAll', 'uncheckAll',
