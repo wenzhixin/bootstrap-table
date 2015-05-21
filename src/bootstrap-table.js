@@ -242,12 +242,6 @@
         onAll: function (name, args) {
             return false;
         },
-        onClickCell: function (field, value, row, $element) {
-            return false;
-        },
-        onDblClickCell: function (field, value, row, $element) {
-            return false;
-        },
         onClickRow: function (item, $element) {
             return false;
         },
@@ -370,8 +364,6 @@
 
     BootstrapTable.EVENTS = {
         'all.bs.table': 'onAll',
-        'click-cell.bs.table': 'onClickCell',
-        'dbl-click-cell.bs.table': 'onDblClickCell',
         'click-row.bs.table': 'onClickRow',
         'dbl-click-row.bs.table': 'onDblClickRow',
         'sort.bs.table': 'onSort',
@@ -1364,15 +1356,8 @@
 
         // click to select by column
         this.$body.find('> tr > td').off('click').on('click', function () {
-            var $td = $(this),
-                $tr = $td.parent(),
-                item = that.data[$tr.data('index')],
-                cellIndex = $td[0].cellIndex,
-                $headerCell = that.$header.find('th:eq(' + cellIndex + ')'),
-                field = $headerCell.data('field'),
-                value = item[field];
-            that.trigger('click-cell', field, value, item, $td);
-            that.trigger('click-row', item, $tr);
+            var $tr = $(this).parent();
+            that.trigger('click-row', that.data[$tr.data('index')], $tr);
             // if click to select - then trigger the checkbox/radio click
             if (that.options.clickToSelect) {
                 if (that.header.clickToSelects[$tr.children().index($(this))]) {
@@ -1381,16 +1366,8 @@
                 }
             }
         });
-        this.$body.find('> tr > td').off('dblclick').on('dblclick', function () {
-            var $td = $(this),
-                $tr = $td.parent(),
-                item = that.data[$tr.data('index')],
-                cellIndex = $td[0].cellIndex,
-                $headerCell = that.$header.find('th:eq(' + cellIndex + ')'),
-                field = $headerCell.data('field'),
-                value = item[field];
-            that.trigger('dbl-click-cell', field, value, item, $td);
-            that.trigger('dbl-click-row', item, $tr);
+        this.$body.find('tr').off('dblclick').on('dblclick', function () {
+            that.trigger('dbl-click-row', that.data[$(this).data('index')], $(this));
         });
 
         this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));

@@ -94,6 +94,24 @@
         </td>
     </tr>
     <tr>
+        <td>onCheckSome</td>
+        <td>check-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Fires when user check some rows, the parameters contains: <br>
+        rows: array of records corresponding to previously checked rows.
+        </td>
+    </tr>
+    <tr>
+        <td>onUncheckSome</td>
+        <td>uncheck-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Fires when user uncheck some rows, the parameters contains: <br>
+        rows: array of records corresponding to previously checked rows.
+        </td>
+    </tr>
+    <tr>
         <td>onLoadSuccess</td>
         <td>load-success.bs.table</td>
         <td>data</td>
@@ -154,6 +172,18 @@
        <td>post-header.bs.table</td>
        <td>none</td>
        <td>Fires after the table header is rendered and availble in the DOM</td>
+    </tr>
+    <tr>
+        <td>onExpandRow</td>
+        <td>expand-row.bs.table</td>
+        <td>index, row, $detail</td>
+        <td>Fires when click the detail icon to expand the detail view.</td>
+    </tr>
+    <tr>
+       <td>onCollapseRow</td>
+       <td>collapse-row.bs.table</td>
+       <td>index, row</td>
+       <td>Fires when click the detail icon to collapse the detail view.</td>
     </tr>
     </tbody>
 </table>

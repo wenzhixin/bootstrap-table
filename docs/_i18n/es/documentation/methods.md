@@ -125,6 +125,16 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         </td>
     </tr>
     <tr>
+        <td>updateCell</td>
+        <td>params</td>
+        <td>
+        Actualiza una celda, los parámetros contienen: <br>
+        rowIndex: índice de la fila. <br>
+        fieldName: el nombre del campo.<br>
+        fieldValue: el nuevo valor de la celda. <br>
+        </td>
+    </tr>
+    <tr>
         <td>refresh</td>
         <td>params</td>
         <td>Refresca los datos remotos del servidor, se puede setear <code>{silent: true}</code> para refrescar los datos silenciosamente, y setear <code>{url: newUrl}</code> para cambiar el URL. Para suministrar query params especificos para este request, setear <code>{query: {foo: 'bar'}}</code></td>
