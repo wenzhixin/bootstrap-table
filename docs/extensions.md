@@ -26,3 +26,5 @@ lead: pages.extensions.lead
 {% tf extensions/filtercontrol.md %}
 
 {% tf extensions/naturalsorting.md %}
+
+{% tf extensions/toolbar.md %}
