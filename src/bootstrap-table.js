@@ -2002,6 +2002,15 @@
         $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
     };
 
+    BootstrapTable.prototype.updateCell = function (params) {
+        if (!params.hasOwnProperty('rowIndex') || !params.hasOwnProperty('fieldName') || !params.hasOwnProperty('fieldValue')) {
+            return;
+        }
+        this.data[params.rowIndex][params.fieldName] = params.fieldValue;
+        this.initSort();
+        this.initBody(true);
+    };
+
     BootstrapTable.prototype.getOptions = function () {
         return this.options;
     };
