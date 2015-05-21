@@ -342,7 +342,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>detailFormatter</td>
         <td>data-detail-formatter</td>
         <td>Function</td>
-        <td>function(res) {<br>return '';<br>}</td>
+        <td>function(index, row) {<br>return '';<br>}</td>
         <td>格式化详细页面模式的视图。</td>
     </tr>
     <tr>

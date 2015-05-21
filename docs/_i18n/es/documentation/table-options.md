@@ -325,7 +325,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>detailFormatter</td>
         <td>data-detail-formatter</td>
         <td>Function</td>
-        <td>function(res) {<br>return '';<br>}</td>
+        <td>function(index, row) {<br>return '';<br>}</td>
         <td>Format your detail view when <code>detailView</code> is set to <code>true</code>.</td>
     </tr>
     <tr>
