@@ -332,6 +332,20 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to show card view table, for example mobile view.</td>
     </tr>
     <tr>
+        <td>detailView</td>
+        <td>data-detail-view</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>设置为 True 可以显示详细页面模式。</td>
+    </tr>
+    <tr>
+        <td>detailFormatter</td>
+        <td>data-detail-formatter</td>
+        <td>Function</td>
+        <td>function(res) {<br>return '';<br>}</td>
+        <td>格式化详细页面模式的视图。</td>
+    </tr>
+    <tr>
         <td>searchAlign</td>
         <td>data-search-align</td>
         <td>String</td>

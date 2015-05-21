@@ -140,5 +140,19 @@
        <td>none</td>
        <td>Se ejecuta después de que el encabezado es renderizado y disponible en el DOM.</td>
     </tr>
+    <tr>
+        <td>onExpandRow</td>
+        <td>expand-row.bs.table</td>
+        <td>index, row, $detail</td>
+        <td>Fires when click the detail icon to expand the detail view.</td>
+    </tr>
+    <tr>
+       <td>onCollapseRow</td>
+       <td>collapse-row.bs.table</td>
+       <td>index, row</td>
+       <td>Fires when click the detail icon to collapse the detail view.</td>
+    </tr>
+    </tbody>
+</table>
     </tbody>
 </table>
