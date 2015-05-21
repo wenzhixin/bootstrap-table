@@ -242,10 +242,10 @@
         onAll: function (name, args) {
             return false;
         },
-        onClickCell: function (item, row, $element) {
+        onClickCell: function (field, value, row, $element) {
             return false;
         },
-        onDblClickCell: function (item, row, $element) {
+        onDblClickCell: function (field, value, row, $element) {
             return false;
         },
         onClickRow: function (item, $element) {
@@ -1371,7 +1371,7 @@
                 $headerCell = that.$header.find('th:eq(' + cellIndex + ')'),
                 field = $headerCell.data('field'),
                 value = item[field];
-            that.trigger('click-cell', value, item, $td);
+            that.trigger('click-cell', field, value, item, $td);
             that.trigger('click-row', item, $tr);
             // if click to select - then trigger the checkbox/radio click
             if (that.options.clickToSelect) {
@@ -1389,7 +1389,7 @@
                 $headerCell = that.$header.find('th:eq(' + cellIndex + ')'),
                 field = $headerCell.data('field'),
                 value = item[field];
-            that.trigger('dbl-click-cell', value, item, $td);
+            that.trigger('dbl-click-cell', field, value, item, $td);
             that.trigger('dbl-click-row', item, $tr);
         });
 
