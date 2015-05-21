@@ -319,14 +319,14 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>data-detail-view</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show detail view table.</td>
+        <td>True para mostrar la vista detalle en la tabla.</td>
     </tr>
     <tr>
         <td>detailFormatter</td>
         <td>data-detail-formatter</td>
         <td>Function</td>
         <td>function(index, row) {<br>return '';<br>}</td>
-        <td>Format your detail view when <code>detailView</code> is set to <code>true</code>.</td>
+        <td>Formatee su vista detalle cuando <code>detailView</code> está seteada en <code>true</code>.</td>
     </tr>
     <tr>
         <td>searchAlign</td>

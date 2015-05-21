@@ -164,13 +164,13 @@
         <td>onExpandRow</td>
         <td>expand-row.bs.table</td>
         <td>index, row, $detail</td>
-        <td>Fires when click the detail icon to expand the detail view.</td>
+        <td>Se ejecuta cuando se da click al icono de detalle para expandir la vista detalle.</td>
     </tr>
     <tr>
        <td>onCollapseRow</td>
        <td>collapse-row.bs.table</td>
        <td>index, row</td>
-       <td>Fires when click the detail icon to collapse the detail view.</td>
+       <td>Se ejecuta cuando se da click al icono de detalle para colapsar la vista detalle.</td>
     </tr>
     </tbody>
 </table>
