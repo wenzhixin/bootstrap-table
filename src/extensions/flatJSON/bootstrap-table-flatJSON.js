@@ -27,8 +27,8 @@
         _initTable = BootstrapTable.prototype.initTable;
 
     BootstrapTable.prototype.initData = function (data) {
-        _initData.apply(this, Array.prototype.slice.apply(arguments));
         flatJSON(this, data === undefined ? this.options.data : data);
+        _initData.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     BootstrapTable.prototype.init = function () {

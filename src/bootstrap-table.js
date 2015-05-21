@@ -658,7 +658,7 @@
         } else if (type === 'prepend') {
             this.data = [].concat(data).concat(this.data);
         } else {
-            this.data = data || this.options.data;
+            this.data = this.options.data || data;
         }
 
         // Fix #839 Records deleted when adding new row on filtered table
