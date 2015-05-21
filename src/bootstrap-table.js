@@ -300,12 +300,6 @@
         onPostHeader: function () {
             return false;
         },
-        onPreRows: function () {
-            return false;
-        },
-        onPostRows: function () {
-            return false;
-        },
         onExpandRow: function (index, row, $detail) {
             return false;
         },
@@ -398,8 +392,6 @@
         'pre-body.bs.table': 'onPreBody',
         'post-body.bs.table': 'onPostBody',
         'post-header.bs.table': 'onPostHeader',
-        'pre-rows.bs.table': 'onPreRows',
-        'post-rows.bs.table': 'onPostRows',
         'expand-row.bs.table': 'onExpandRow',
         'collapse-row.bs.table': 'onCollapseRow'
     };
@@ -1383,9 +1375,7 @@
                 '</tr>');
         }
 
-        this.trigger('pre-rows');
         this.$body.html(html.join(''));
-        this.trigger('post-rows');
 
         if (!fixedScroll) {
             this.scrollTo(0);
@@ -2212,7 +2202,7 @@
         'getOptions',
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
-        'insertRow', 'updateRow', 'removeByUniqueId',
+        'insertRow', 'updateRow', 'updateCell', 'removeByUniqueId',
         'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
         'checkAll', 'uncheckAll',
