@@ -96,6 +96,10 @@
     padding-right: 30px;
 }
 
+.fixed-table-container th.detail {
+    width: 30px;
+}
+
 .fixed-table-container tbody td {
     border-left: 1px solid #dddddd;
 }
