@@ -1448,6 +1448,9 @@
             if (typeof events === 'string') {
                 events = calculateObjectValue(null, events);
             }
+            if (!that.options.cardView && that.options.detailView) {
+                i += 1;
+            }
             for (var key in events) {
                 that.$body.find('tr').each(function () {
                     var $tr = $(this),
@@ -1972,6 +1975,11 @@
             i, j,
             $tr = this.$body.find('tr'),
             $td = $tr.eq(row).find('td').eq(col);
+
+        if (!this.options.cardView && this.options.detailView) {
+            col += 1;
+        }
+        $td = $tr.eq(row).find('td').eq(col);
 
         if (row < 0 || col < 0 || row >= this.data.length) {
             return;
