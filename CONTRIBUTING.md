@@ -28,7 +28,7 @@ restrictions:
     * Table Editable: [x-editable](https://github.com/vitalets/x-editable)
     * Table Export: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
     * Table Filter: [bootstrap-table-filter](https://github.com/lukaskral/bootstrap-table-filter)
-    * Table flatJSON: [bootstrap-table-flatJSON](https://github.com/djhvscf/bootstrap-table-flatJSON)
+    * Table flat-json: [bootstrap-table-flat-json](https://github.com/djhvscf/bootstrap-table-flatJSON)
     * Table Reorder: [jquery-ui](https://code.jquery.com/ui/) and [dragTable](https://github.com/akottr/dragtable/)
     * Table Resizable: [colResizable](https://github.com/alvaro-prieto/colResizable)
 
