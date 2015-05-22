@@ -28,6 +28,30 @@
         </td>
     </tr>
     <tr>
+        <td>onClickCell</td>
+        <td>click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Fires when user click a cell, the parameters contains: <br>
+        field: the field name corresponding to the clicked cell<br>
+        value: the data value corresponding to the clicked cell<br>
+        row: the record corresponding to the clicked row, <br>
+        $element: the td element.
+        </td>
+    </tr>
+    <tr>
+        <td>onDblClickCell</td>
+        <td>dbl-click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Fires when user double click a cell, the parameters contains: <br>
+        field: the field name corresponding to the clicked cell<br>
+        value: the data value corresponding to the clicked cell<br>
+        row: the record corresponding to the clicked row, <br>
+        $element: the td element.
+        </td>
+    </tr>
+    <tr>
         <td>onClickRow</td>
         <td>click-row.bs.table</td>
         <td>row, $element</td>
@@ -42,7 +66,7 @@
         <td>dbl-click-row.bs.table</td>
         <td>row, $element</td>
         <td>
-        Fires when user click a row, the parameters contains: <br>
+        Fires when user double click a row, the parameters contains: <br>
         row: the record corresponding to the clicked row, <br>
         $element: the tr element.
         </td>
