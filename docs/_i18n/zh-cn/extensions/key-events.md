@@ -1,11 +1,11 @@
 # Table Key Events
 
-Use Plugin: [bootstrap-table-keyevents](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/keyevents)
+Use Plugin: [bootstrap-table-key-events](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/key-events)
 
 ## Usage
 
 ```html
-<script src="extensions/cookie/bootstrap-table-keyevents.js"></script>
+<script src="extensions/cookie/bootstrap-table-key-events.js"></script>
 ```
 
 ## Options

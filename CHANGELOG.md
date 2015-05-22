@@ -6,7 +6,7 @@
 - [enh] Added state saving for visible columns and the ability to use extension with multiple simultaneous tables.
 - [enh] Added `ajax` option to replace jquery ajax method.
 - [enh] Added `resetWidth` method to reset header and footer width.
-- [enh] Added keyevents, mobile, filter control, reorder, naturalsorting extensions.
+- [enh] Added key-events, mobile, filter-control, reorder-columns, reorder-rows, resizable, natural-sorting, toolbar extensions, and update the extensions name.
 - [enh] Added `onToggle` events.
 - [enh] Added `getScrollPosition` method.
 - [bug] Fix double header bug after table show from hidden.
