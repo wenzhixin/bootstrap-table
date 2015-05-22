@@ -158,39 +158,30 @@
                     that.header.formatters[j], [value, item, i], value);
 
                 if ((!column.checkbox) || (!column.radio)) {
-                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select'
-                        && column.searchable) {
-
+                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select' && column.searchable) {
                         var selectControl = $('.' + column.field),
                             iOpt = 0,
-                            exitsOpt = false,
+                            existsOpt = false,
                             options;
                         if (selectControl !== undefined) {
                             options = selectControl.get(0).options;
 
                             if (options.length === 0) {
-
                                 //Added the default option
-                                selectControl.append($("<option></option>")
-                                    .attr("value", '')
-                                    .text(''));
+                                selectControl.append($("<option></option>").attr("value", '').text(''));
+                            }
 
+                            for (; iOpt < options.length; iOpt++) {
+                                if (options[iOpt].value === value) {
+                                    existsOpt = true;
+                                    break;
+                                }
+                            }
+
+                            if (!existsOpt) {
                                 selectControl.append($("<option></option>")
                                     .attr("value", value)
                                     .text(value));
-                            } else {
-                                for (; iOpt < options.length; iOpt++) {
-                                    if (options[iOpt].value === value) {
-                                        exitsOpt = true;
-                                        break;
-                                    }
-                                }
-
-                                if (!exitsOpt) {
-                                    selectControl.append($("<option></option>")
-                                        .attr("value", value)
-                                        .text(value));
-                                }
                             }
                         }
                     }
