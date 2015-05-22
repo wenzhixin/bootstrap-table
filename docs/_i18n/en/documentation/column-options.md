@@ -140,6 +140,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>Function</td>
         <td>undefined</td>
         <td>
+        The context (this) is the column Object. <br>
         The cell formatter function, take three parameters: <br>
         value: the field value. <br>
         row: the row record data.<br>
@@ -151,7 +152,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>Function</td>
         <td>undefined</td>
         <td>
-        The context (this) is the column Object.
+        The context (this) is the column Object. <br>
         The function, take one parameter: <br>
         data: Array of all the  data rows. <br>
         the function should return a string with the text to show in the footer cell.
