@@ -65,17 +65,17 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            files: {
-                cwd: 'dist',            // set working folder / root to copy
-                src: '**/*',            // copy all files and subfolders
-                dest: 'docs/dist',      // destination folder
-                expand: true            // required when using cwd
-            },
             source: {
                 cwd: 'src',                     // set working folder / root to copy
                 src: ['**/*.js', '**/*.css'],   // copy all files and subfolders
                 dest: 'dist',                   // destination folder
                 expand: true                    // required when using cwd
+            },
+            files: {
+                cwd: 'dist',            // set working folder / root to copy
+                src: '**/*',            // copy all files and subfolders
+                dest: 'docs/dist',      // destination folder
+                expand: true            // required when using cwd
             }
         }
     });

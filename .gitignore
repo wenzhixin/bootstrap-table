@@ -11,3 +11,11 @@ docs_
 
 # check the locale file on README
 check.js
+
+# Common IDE files
+nbproject
+.~lock.*
+.buildpath
+.idea
+.project
+.settings

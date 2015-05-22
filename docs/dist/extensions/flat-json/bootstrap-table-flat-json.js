@@ -1,58 +1,44 @@
 /**
- * bootstrap-table-flatJSON.js
- * @version: v1.0.1
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- *
- * Created by Dennis Hernández on 01/Nov/2014.
- *
- * Copyright (c) 2014 Dennis Hernández http://djhvscf.github.io/Blog
- *
- * The MIT License (http://www.opensource.org/licenses/mit-license.php)
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use,
- * copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
+ * @version: v1.1.0
  */
+
 
 (function ($) {
     'use strict';
+
+    var flatJSON = function (el, data) {
+        if (el.options.flat) {
+            el.options.data = sd.flatHelper(data);
+        }
+        if (el.options.sidePagination === 'server') {
+            el.data = el.options.data;
+        }
+    };
 
     $.extend($.fn.bootstrapTable.defaults, {
         flat: false
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initData = BootstrapTable.prototype.initData;
+        _initData = BootstrapTable.prototype.initData,
+        _init = BootstrapTable.prototype.init,
+        _initTable = BootstrapTable.prototype.initTable;
 
-    BootstrapTable.prototype.initData = function () {
-
+    BootstrapTable.prototype.initData = function (data) {
         _initData.apply(this, Array.prototype.slice.apply(arguments));
+        flatJSON(this, data === undefined ? this.options.data : data);
+    };
 
-        //If the flat is true
-        if (this.options.flat) {
-            this.options.data = sd.flatHelper(this.options.data);
-        }
-        if (this.options.sidePagination === 'server') {
-            this.data = this.options.data;
-        }
+    BootstrapTable.prototype.init = function () {
+        flatJSON(this, this.options.data);
+        _init.apply(this, Array.prototype.slice.apply(arguments));
+    };
+
+    BootstrapTable.prototype.initTable = function () {
+        flatJSON(this, this.options.data);
+        _initTable.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     //Main functions

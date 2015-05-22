@@ -10,10 +10,10 @@
        data-mobile-responsive="true">
     <thead>
     <tr>
-        <th>Option Event</th>
-        <th>jQuery Event</th>
-        <th>Parameter</th>
-        <th>Description</th>
+        <th>Option 事件</th>
+        <th>jQuery 事件</th>
+        <th>参数</th>
+        <th>描述</th>
     </tr>
     </thead>
     <tbody>
@@ -22,9 +22,9 @@
         <td>all.bs.table</td>
         <td>name, args</td>
         <td>
-        Fires when all events trigger, the parameters contains: <br>
-        name: the event name, <br>
-        args: the event data.
+        所有的事件都会触发该事件，参数包括：<br>
+        name：事件名，<br>
+        args：事件的参数。
         </td>
     </tr>
     <tr>
@@ -32,9 +32,9 @@
         <td>click-row.bs.table</td>
         <td>row, $element</td>
         <td>
-        Fires when user click a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        当用户点击某一行的时候触发，参数包括：<br>
+        row：点击行的数据，<br>
+        $element：tr 元素。
         </td>
     </tr>
     <tr>
@@ -42,9 +42,33 @@
         <td>dbl-click-row.bs.table</td>
         <td>row, $element</td>
         <td>
-        Fires when user click a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        当用户双击某一行的时候触发，参数包括：<br>
+        row：点击行的数据，<br>
+        $element：tr 元素。
+        </td>
+    </tr>
+    <tr>
+        <td>onClickCell</td>
+        <td>click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        当用户点击某一列的时候触发，参数包括：<br>
+        field：点击列的 field 名称，<br>
+        value：点击列的 value 值，<br>
+        row：点击列的整行数据，<br>
+        $element：td 元素。
+        </td>
+    </tr>
+    <tr>
+        <td>onDblClickCell</td>
+        <td>dbl-click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        当用户双击某一列的时候触发，参数包括：<br>
+        field：点击列的 field 名称，<br>
+        value：点击列的 value 值，<br>
+        row：点击列的整行数据，<br>
+        $element：td 元素。
         </td>
     </tr>
     <tr>
@@ -185,7 +209,5 @@
        <td>index, row</td>
        <td>当点击详细图片收起详细页面的时候触发。</td>
     </tr>
-    </tbody>
-</table>
     </tbody>
 </table>

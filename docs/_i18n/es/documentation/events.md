@@ -47,6 +47,30 @@
         </td>
     </tr>
     <tr>
+        <td>onClickCell</td>
+        <td>click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Se ejecuta cuando el usuario le da click a una celda de la tabla, los parámetros contienen: <br>
+        field: el nombre del campo correspondiente a la celda hecho clic, <br>
+        value: el valor de datos correspondiente a la celda hecho clic, <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento td.
+        </td>
+    </tr>
+    <tr>
+        <td>onDblClickCell</td>
+        <td>dbl-click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Se ejecuta cuando el usuario le da click a una celda de la tabla, los parámetros contienen: <br>
+        field: el nombre del campo correspondiente a la celda hecho clic, <br>
+        value: el valor de datos correspondiente a la celda hecho clic, <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento td.
+        </td>
+    </tr>
+    <tr>
         <td>onSort</td>
         <td>sort.bs.table</td>
         <td>name, order</td>
@@ -172,7 +196,5 @@
        <td>index, row</td>
        <td>Se ejecuta cuando se da click al icono de detalle para colapsar la vista detalle.</td>
     </tr>
-    </tbody>
-</table>
     </tbody>
 </table>
