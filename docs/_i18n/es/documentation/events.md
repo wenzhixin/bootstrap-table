@@ -27,6 +27,26 @@
         args: datos del evento.</td>
     </tr>
     <tr>
+        <td>onClickRow</td>
+        <td>click-row.bs.table</td>
+        <td>row, $element</td>
+        <td>
+        Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento tr.
+        </td>
+    </tr>
+    <tr>
+        <td>onDblClickRow</td>
+        <td>dbl-click-row.bs.table</td>
+        <td>row, $element</td>
+        <td>
+        Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento tr.
+        </td>
+    </tr>
+    <tr>
         <td>onClickCell</td>
         <td>click-cell.bs.table</td>
         <td>field, value, row, $element</td>
@@ -48,26 +68,6 @@
         value: el valor de datos correspondiente a la celda hecho clic, <br>
         row: el registro que corresponde con la fila a la que se le dio click, <br>
         $element: el elemento td.
-        </td>
-    </tr>
-    <tr>
-        <td>onClickRow</td>
-        <td>click-row.bs.table</td>
-        <td>row, $element</td>
-        <td>
-        Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
-        row: el registro que corresponde con la fila a la que se le dio click, <br>
-        $element: el elemento tr.
-        </td>
-    </tr>
-    <tr>
-        <td>onDblClickRow</td>
-        <td>dbl-click-row.bs.table</td>
-        <td>row, $element</td>
-        <td>
-        Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
-        row: el registro que corresponde con la fila a la que se le dio click, <br>
-        $element: el elemento tr.
         </td>
     </tr>
     <tr>
