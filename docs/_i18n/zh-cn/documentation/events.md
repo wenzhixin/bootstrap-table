@@ -107,49 +107,6 @@
         Fires when user check all rows, the parameters contains: <br>
         rows: array of records corresponding to newly checked rows.
         </td>
-        Fires when user double click a cell, the parameters contains: <br>
-        field: the field name corresponding to the clicked cell<br>
-        value: the data value corresponding to the clicked cell<br>
-        row: the record corresponding to the clicked row, <br>
-        $element: the td element.
-        </td>
-    </tr>
-    <tr>
-        <td>onSort</td>
-        <td>sort.bs.table</td>
-        <td>name, order</td>
-        <td>
-        Fires when user sort a column, the parameters contains: <br>
-        name: the sort column field name<br>
-        order: the sort column order.
-        </td>
-    </tr>
-    <tr>
-        <td>onCheck</td>
-        <td>check.bs.table</td>
-        <td>row</td>
-        <td>
-        Fires when user check a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row.
-        </td>
-    </tr>
-    <tr>
-        <td>onUncheck</td>
-        <td>uncheck.bs.table</td>
-        <td>row</td>
-        <td>
-        Fires when user uncheck a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row.
-        </td>
-    </tr>
-    <tr>
-        <td>onCheckAll</td>
-        <td>check-all.bs.table</td>
-        <td>rows</td>
-        <td>
-        Fires when user check all rows, the parameters contains: <br>
-        rows: array of records corresponding to newly checked rows.
-        </td>
     </tr>
     <tr>
         <td>onUncheckAll</td>
@@ -252,7 +209,5 @@
        <td>index, row</td>
        <td>当点击详细图片收起详细页面的时候触发。</td>
     </tr>
-    </tbody>
-</table>
     </tbody>
 </table>

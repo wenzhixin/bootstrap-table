@@ -198,5 +198,3 @@
     </tr>
     </tbody>
 </table>
-    </tbody>
-</table>
