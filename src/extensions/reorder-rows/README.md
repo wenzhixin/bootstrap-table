@@ -1,6 +1,6 @@
 # Table Reorder Rows
 
-Use Plugin: [bootstrap-table-reorder-rows](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/reorderrows) </br>
+Use Plugin: [bootstrap-table-reorder-rows](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/reorder-rows) </br>
 Dependence: [tablednd](https://github.com/isocra/TableDnD) v0.9, </br>
 if you want you can include the bootstrap-table-reorder-rows.css file to use the default dragClass
 
@@ -10,7 +10,7 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 ```html
 <link rel="stylesheet" href=".../bootstrap-table-reorder-rows.css">
 <script src=".../jquery.tablednd.js"></script>
-<script src="extensions/reorderrows/bootstrap-table-reorder-rows.js"></script>
+<script src="extensions/reorder-rows/bootstrap-table-reorder-rows.js"></script>
 ```
 
 ## Options
@@ -24,7 +24,7 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 ### onDragStyle
 
 * type: String
-* description: This is the style that is assigned to the row during drag. There are limitations to the styles that can be associated with a row (such as you can't assign a border—well you can, but it won't be displayed).
+* description: This is the style that is assigned to the row during drag. There are limitations to the styles that can be associated with a row (such as you can't assign a borderï¿½well you can, but it won't be displayed).
 * default: `null`
 
 ### onDropStyle

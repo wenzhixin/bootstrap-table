@@ -1,11 +1,11 @@
 # Table Filter Control
 
-Use Plugin: [bootstrap-table-filtercontrol](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/filtercontrol)
+Use Plugin: [bootstrap-table-filter-control](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/filter-control)
 
 ## Usage
 
 ```html
-<script src="extensions/filtercontrol/bootstrap-table-filtercontrol.js"></script>
+<script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>
 ```
 
 ## Options
