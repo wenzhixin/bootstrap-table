@@ -55,11 +55,11 @@
             this.options.rowAttributes = rowAttr;
         }
 
-        var onPostRows = this.options.onPostRows;
-        this.options.onPostRows = function () {
+        var onPostBody = this.options.onPostBody;
+        this.options.onPostBody = function () {
             setTimeout(function () {
                 that.makeRowsReorderable();
-                onPostRows.apply();
+                onPostBody.apply();
             }, 1);
         };
     };
