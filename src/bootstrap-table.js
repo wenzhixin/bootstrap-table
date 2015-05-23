@@ -952,11 +952,13 @@
             this.data = s ? $.grep(this.data, function (item, i) {
                 for (var key in item) {
                     key = $.isNumeric(key) ? parseInt(key, 10) : key;
-                    var value = item[key];
+                    var value = item[key],
+                        column = that.options.columns[getFieldIndex(that.options.columns, key)],
+                        j = $.inArray(key, that.header.fields);
 
                     // Fix #142: search use formated data
-                    value = calculateObjectValue(that.header,
-                        that.header.formatters[$.inArray(key, that.header.fields)],
+                    value = calculateObjectValue(column,
+                        that.header.formatters[j],
                         [value, item, i], value);
 
                     var index = $.inArray(key, that.header.fields);
@@ -1290,7 +1292,7 @@
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
-                value = calculateObjectValue(that.header,
+                value = calculateObjectValue(column,
                     that.header.formatters[j], [value, item, i], value);
 
                 // handle td's id and class
