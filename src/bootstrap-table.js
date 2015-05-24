@@ -1802,7 +1802,7 @@
         if (this.options.cardView) {
             // remove the element css
             that.$el.css('margin-top', '0');
-            $tableContainer.css('padding-bottom', '0');
+            this.$tableContainer.css('padding-bottom', '0');
             return;
         }
 
