@@ -1781,8 +1781,7 @@
     // =======================
 
     BootstrapTable.prototype.resetView = function (params) {
-        var that = this,
-            padding = 0;
+        var padding = 0;
 
         if (params && params.height) {
             this.options.height = params.height;
@@ -1801,7 +1800,7 @@
 
         if (this.options.cardView) {
             // remove the element css
-            that.$el.css('margin-top', '0');
+            this.$el.css('margin-top', '0');
             this.$tableContainer.css('padding-bottom', '0');
             return;
         }
