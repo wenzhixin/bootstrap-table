@@ -1,5 +1,7 @@
 ## ChangeLog
 
+- [enh] Accessing field name in formatter.
+
 ### 1.8.0
 
 - [enh] Added state saving for visible columns and the ability to use extension with multiple simultaneous tables.
