@@ -1,6 +1,7 @@
 ## ChangeLog
 
 - [enh] Accessing field name in formatter.
+- [bug] Fix #912 Bug when switching to card view.
 
 ### 1.8.0
 
