@@ -91,24 +91,29 @@
     };
 
     var calculateObjectValue = function (self, name, args, defaultValue) {
+        var func = name;
+
         if (typeof name === 'string') {
             // support obj.func1.func2
             var names = name.split('.');
 
             if (names.length > 1) {
-                name = window;
+                func = window;
                 $.each(names, function (i, f) {
-                    name = name[f];
+                    func = func[f];
                 });
             } else {
-                name = window[name];
+                func = window[name];
             }
         }
-        if (typeof name === 'object') {
-            return name;
+        if (typeof func === 'object') {
+            return func;
         }
-        if (typeof name === 'function') {
-            return name.apply(self, args);
+        if (typeof func === 'function') {
+            return func.apply(self, args);
+        }
+        if (!func && typeof name === 'string' && sprintf.apply(this, [name].concat(args))) {
+            return sprintf.apply(this, [name].concat(args));
         }
         return defaultValue;
     };
