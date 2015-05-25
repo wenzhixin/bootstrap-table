@@ -21,6 +21,8 @@ lead: pages.extensions.lead
 
 {% tf extensions/mobile.md %}
 
+{% tf extensions/multiple-sort.md %}
+
 {% tf extensions/natural-sorting.md %}
 
 {% tf extensions/reorder-columns.md %}
