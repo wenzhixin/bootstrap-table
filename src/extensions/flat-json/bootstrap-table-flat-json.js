@@ -1,44 +1,26 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.1.0
+ * @version: v1.2.0
  */
 
 
 (function ($) {
     'use strict';
 
-    var flatJSON = function (el, data) {
-        if (el.options.flat) {
-            el.options.data = sd.flatHelper(data);
-        }
-        if (el.options.sidePagination === 'server') {
-            el.data = el.options.data;
-        }
-    };
-
     $.extend($.fn.bootstrapTable.defaults, {
         flat: false
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initData = BootstrapTable.prototype.initData,
-        _init = BootstrapTable.prototype.init,
-        _initTable = BootstrapTable.prototype.initTable;
+        _initData = BootstrapTable.prototype.initData;
 
-    BootstrapTable.prototype.initData = function (data) {
-        _initData.apply(this, Array.prototype.slice.apply(arguments));
-        flatJSON(this, data === undefined ? this.options.data : data);
-    };
-
-    BootstrapTable.prototype.init = function () {
-        flatJSON(this, this.options.data);
-        _init.apply(this, Array.prototype.slice.apply(arguments));
-    };
-
-    BootstrapTable.prototype.initTable = function () {
-        flatJSON(this, this.options.data);
-        _initTable.apply(this, Array.prototype.slice.apply(arguments));
+    BootstrapTable.prototype.initData = function (data, type) {
+        if( this.options.flat ){
+            data = data === undefined ? this.options.data : data;
+            data = sd.flatHelper(data);
+        }
+        _initData.apply(this, [data, type]);
     };
 
     //Main functions
