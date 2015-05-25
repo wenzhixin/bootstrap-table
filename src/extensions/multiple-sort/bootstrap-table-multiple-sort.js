@@ -21,10 +21,6 @@
         'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
         'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
 
-    var cmp = function(x, y) {
-        return x > y ? 1 : x < y ? -1 : 0;
-    };
-
     var showSortModal = function(that) {
         if (!$("#sortModal").hasClass("modal")) {
             var sModal = '  <div class="modal fade" id="sortModal" tabindex="-1" role="dialog" aria-labelledby="sortModalLabel" aria-hidden="true">';
@@ -142,10 +138,10 @@
                         sortName: that.options.sortName,
                         sortOrder: that.options.sortOrder
                     }];
-                } else {
-                    that.addLevel(0);
                 }
-            } else if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
+            }
+            
+            if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
                 for (var i = 0; i < that.options.sortPriority.length; i++) {
                     that.addLevel(i, that.options.sortPriority[i]);
                 }
@@ -260,6 +256,10 @@
 
     BootstrapTable.prototype.onMultipleSort = function() {
         var that = this;
+        
+        var cmp = function(x, y) {
+            return x > y ? 1 : x < y ? -1 : 0;
+        };
 
         var arrayCmp = function(a, b) {
             var arr1 = [],
