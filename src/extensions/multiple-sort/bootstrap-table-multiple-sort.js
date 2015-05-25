@@ -141,9 +141,11 @@
                 }
             }
             
-            if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
-                for (var i = 0; i < that.options.sortPriority.length; i++) {
-                    that.addLevel(i, that.options.sortPriority[i]);
+            if (that.options.sortPriority !== null) {
+                if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
+                    for (var i = 0; i < that.options.sortPriority.length; i++) {
+                        that.addLevel(i, that.options.sortPriority[i]);
+                    }
                 }
             } else {
                 that.addLevel(0);
