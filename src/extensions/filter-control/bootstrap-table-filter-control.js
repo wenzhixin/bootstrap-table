@@ -187,7 +187,7 @@
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 value = calculateObjectValue(that.header,
-                        that.header.formatters[j], [value, item, i], value);
+                    that.header.formatters[j], [value, item, i], value);
 
                 if ((!column.checkbox) || (!column.radio)) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select'
@@ -249,8 +249,8 @@
                     [value, item, i], value);
 
                 if (!($.inArray(key, that.header.fields) !== -1 &&
-                        (typeof value === 'string' || typeof value === 'number') &&
-                        (value + '').toLowerCase().indexOf(fval) !== -1)) {
+                    (typeof value === 'string' || typeof value === 'number') &&
+                    (value + '').toLowerCase().indexOf(fval) !== -1)) {
                     return false;
                 }
             }
