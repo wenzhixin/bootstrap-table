@@ -2252,7 +2252,8 @@
     ];
 
     $.fn.bootstrapTable = function (option) {
-        var value;
+        var value,
+            args = Array.prototype.slice.call(arguments, 1);
 
         this.each(function () {
             var $this = $(this),
@@ -2269,7 +2270,6 @@
                     return;
                 }
 
-                var args = Array.prototype.slice.call(arguments, 0);
                 value = data[option].apply(data, args);
 
                 if (option === 'destroy') {
