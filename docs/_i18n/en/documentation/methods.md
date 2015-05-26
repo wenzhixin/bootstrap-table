@@ -36,7 +36,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>getData</td>
         <td>useCurrentPage</td>
-        <td>Get the loaded data of table. If you set the useCurrentPage to true the method will return the data in the current page</td>
+        <td>Get the loaded data of table at the moment that this method is called. If you set the useCurrentPage to true the method will return the data in the current page</td>
     </tr>
     <tr>
         <td>load</td>
@@ -64,6 +64,22 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         </td>
     </tr>
     <tr>
+        <td>removeAll</td>
+        <td>-</td>
+        <td>
+        Remove all data from table<br>
+        Example: $('#myTable').bootstrapTable('removeAll')
+        </td>
+    </tr>
+    <tr>
+        <td>removeByUniqueId</td>
+        <td>id</td>
+        <td>
+        Remove data from table, the row that contains the id passed by parameter<br>
+        Example: $('#myTable').bootstrapTable('removeByUniqueId', "122")
+        </td>
+    </tr>
+    <tr>
         <td>insertRow</td>
         <td>params</td>
         <td>
@@ -85,15 +101,15 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>showRow</td>
         <td>params</td>
         <td>Show the specified row. the param contains following properties:
-        index: the row index or the idField.
-        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
+        index: the row index or the uniqueId.
+        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
     </tr>
     <tr>
         <td>hideRow</td>
         <td>params</td>
         <td>Hide the specified row. the param contains following properties:
-        index: the row index or the idField.
-        isIdField: Boolean to indicates if index is the idField od the row or not.</td>
+        index: the row index or the uniqueId.
+        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
     </tr>
     <tr>
         <td>getRowsHidden</td>
@@ -110,6 +126,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         field: the field name.<br>
         rowspan: the rowspan count to be merged. <br>
         colspan: the colspan count to be merged.
+        </td>
+    </tr>
+    <tr>
+        <td>updateCell</td>
+        <td>params</td>
+        <td>
+        Update one cell, the params contains following properties: <br>
+        rowIndex: the row index. <br>
+        fieldName: the field name.<br>
+        fieldValue: the new field value. <br>
         </td>
     </tr>
     <tr>

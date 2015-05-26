@@ -7,21 +7,19 @@
 (function ($) {
     'use strict';
 
-    var initResizable = function (el) {
-        var that = el;
-
+    var initResizable = function (that) {
         //Deletes the plugin to re-create it
-        $(el.$el).colResizable({disable: true});
+        that.$el.colResizable({disable: true});
 
         //Creates the plugin
-        $(el.$el).colResizable({
+        that.$el.colResizable({
             liveDrag: that.options.liveDrag,
             fixed: that.options.fixed,
             headerOnly: that.options.headerOnly,
             minWidth: that.options.minWidth,
             hoverCursor: that.options.hoverCursor,
             dragCursor: that.options.dragCursor,
-            onResize: that.options.onResizableResize,
+            onResize: that.onResize,
             onDrag: that.options.onResizableDrag
         });
     };
@@ -43,36 +41,34 @@
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _init = BootstrapTable.prototype.init,
-        _toggleColumn = BootstrapTable.prototype.toggleColumn,
-        _toggleView = BootstrapTable.prototype.toggleView;
-
-    BootstrapTable.prototype.init = function () {
-        _init.apply(this, Array.prototype.slice.apply(arguments));
-
-        if (this.options.resizable) {
-            initResizable(this);
-        }
-    };
-
-    BootstrapTable.prototype.toggleColumn = function () {
-        _toggleColumn.apply(this, Array.prototype.slice.apply(arguments));
-
-        if (this.options.resizable) {
-            initResizable(this);
-        }
-    };
+        _toggleView = BootstrapTable.prototype.toggleView,
+        _resetView = BootstrapTable.prototype.resetView;
 
     BootstrapTable.prototype.toggleView = function () {
         _toggleView.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (this.options.resizable) {
-            if (this.options.cardView) {
-                //Deletes the plugin
-                $(this.$el).colResizable({disable: true});
-                return;
-            }
-            initResizable(this);
+        if (this.options.resizable && this.options.cardView) {
+            //Deletes the plugin
+            $(this.$el).colResizable({disable: true});
         }
     };
+
+    BootstrapTable.prototype.resetView = function () {
+        var that = this;
+
+        _resetView.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (this.options.resizable) {
+            // because in fitHeader function, we use setTimeout(func, 100);
+            setTimeout(function () {
+                initResizable(that);
+            }, 100);
+        }
+    };
+
+    BootstrapTable.prototype.onResize = function (e) {
+        var that = $(e.currentTarget);
+        that.bootstrapTable('resetView');
+        that.data('bootstrap.table').options.onResizableResize.apply(e);
+    }
 })(jQuery);
