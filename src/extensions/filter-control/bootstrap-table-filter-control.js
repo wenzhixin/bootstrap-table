@@ -147,8 +147,7 @@
                             selectControl.append($("<option></option>")
                                 .attr("value", key)
                                 .text(variableValues[key]));
-                        }
-                        ;
+                        };
                         break;
                 }
             }
@@ -177,15 +176,15 @@
         _initBody.apply(this, Array.prototype.slice.apply(arguments));
 
         var that = this,
-                data = this.getData();
+            data = this.getData();
 
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
             var key,
-                    item = data[i];
+                item = data[i];
 
             $.each(this.header.fields, function (j, field) {
                 var value = item[field],
-                        column = that.options.columns[getFieldIndex(that.options.columns, field)];
+                    column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 value = calculateObjectValue(that.header,
                         that.header.formatters[j], [value, item, i], value);
