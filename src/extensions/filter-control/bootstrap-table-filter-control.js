@@ -114,7 +114,7 @@
                         break;
                     case 'select':
                         html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>',
-                            column.field, isVisible));
+                            column.field, isVisible))
                         break;
                 }
             }
