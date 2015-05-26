@@ -2251,7 +2251,7 @@
         'toggleView'
     ];
 
-    $.fn.bootstrapTable = function (option, _relatedTarget) {
+    $.fn.bootstrapTable = function (option) {
         var value;
 
         this.each(function () {
