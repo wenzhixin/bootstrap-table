@@ -1,1 +1,21 @@
 node_modules
+
+# docs site
+_gh_pages
+
+# deploy the docs
+deploy.sh
+
+# old docs
+docs_
+
+# check the locale file on README
+check.js
+
+# Common IDE files
+nbproject
+.~lock.*
+.buildpath
+.idea
+.project
+.settings

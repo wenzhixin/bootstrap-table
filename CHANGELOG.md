@@ -1,5 +1,125 @@
 ## ChangeLog
 
+- [enh] Accessing field name in formatter.
+- [enh] Improve function option to support string format for example formatter.
+- [enh] Added multiple sort extension.
+- [bug] Fix #912 Bug when switching to card view.
+
+### 1.8.0
+
+- [enh] Added state saving for visible columns and the ability to use extension with multiple simultaneous tables.
+- [enh] Added `ajax` option to replace jquery ajax method.
+- [enh] Added `resetWidth` method to reset header and footer width.
+- [enh] Added key-events, mobile, filter-control, reorder-columns, reorder-rows, resizable, natural-sorting, toolbar extensions, and update the extensions name.
+- [enh] Added `onToggle`, `onCheckSome` and `onUncheckSome` events.
+- [enh] Added `getScrollPosition`, `removeAll`, `removeByUniqueId` methods.
+- [bug] Fix double header bug after table show from hidden.
+- [bug] Fix #279: scrollWidth bug.
+- [enh] `getData` method support to get the current page data.
+- [enh] Added 'getAllSelections' method to get checked rows across all pages.
+- [enh] Added `ro-RO` locale.
+- [enh] Added `table-no-bordered` class to remove table-bordered style.
+- [enh] Added `bootstrap-table-all.js` and `bootstrap-table-locale-all.js` files to dist.
+- [enh] Added detail view feature.
+- [enh] Added `updateCell` method.
+- [enh] Added `onClickCell` and `onDblClickCell` events.
+- [bug] Fix #672: Column Fixed Width in Percentage bug.
+- [bug] Fix row state field value bug when there are disabled rows.
+- [bug] Fix #762: save tr's data-* attributes.
+- [bug] Fix #823, #850: break rowspan bug, data-attribute bug.
+
+### 1.7.0
+
+- [enh] Add `showFooter`, `keyEvents`, `searchText` and `uniqueId` options.
+- [enh] Add `cardVisible` column options.
+- [enh] Add `checkBy` and `uncheckBy`, `showRow` and `hideRow` and `getRowsHidden` methods.
+- [enh] Add nb-NO, ar-SA, es-MX, ka-GE locales.
+- [enh] Add cookie, resizable, natural-sorting, toolbar extensions.
+- [enh] Add exportOptions to export extension.
+- [enh] Fix #263: prepend method support object and array.
+- [enh] Card View support checkbox and radio.
+- [bug] Fix Card View events bug.
+- [enh] Keep all `data-*` attributes when transform from normal table.
+- [enh] Load method support fixedScroll param.
+- [enh] Added 'all' option in pagination.
+- [enh] Added pagination detail align.
+
+### 1.6.0
+
+- [bug] Fix queryParams bug when use `sidePagination='server'`.
+- [enh] Add uk-UA, sv-SE, pt-PT, ms-MY, ja-JP locales.
+- [enh] Add `searchTimeOut` option.
+- [bug] Fix #220: state column hideColumn bug.
+- [bug] Fix #221: cellStyle bug.
+- [enh] Add `iconsPrefix` and `icons` options to support custom icons.
+- [enh] Add i18n support for docs.
+- [enh] Allow `query` params to be specified during refresh.
+- [bug] Fix bug of ellipsis string.
+- [bug] Fix pageList smartDisplay.
+- [bug] Fix #188: Export Button is not shown only use `showExport=true`.
+- [bug] Fix page-change event params bug.
+- [enh] Add limit and offset params only if pagination is activated.
+- [enh] Add `ajaxOptions` option to custom $.ajax options.
+- [enh] Add a toggle pagination toolbar button.
+- [enh] Add `iconSize` option.
+- [enh] Add `buttonsAlign` option and update `toolbarAlign` option.
+- [enh] Add `prepend`, `insertRow` and `toggleView` methods.
+- [enh] Add `editable-save.bs.table` event to editatble extension.
+- [enh] #431: load method support pagination.
+
+### 1.5.0
+
+- [bug] Fix #144: `onCheck` and `onUncheck` events are reversed when using `clickToSelect` option. (jQuery 1.7.2 bug).
+- [bug] Fix IE browser display header bug when use `mergeCells` method.
+- [bug] Fix #269: array as row bug.
+- [bug] Fix #314: `rowStyle` bug.
+- [enh] Add de-DE, hu-HU, sk-SK locales.
+- [enh] Fix #261: add namespace to `.table` style.
+- [bug] Fix #160, #323: operate events don't work in card view.
+- [enh] Add `filterBy`, `scrollTo`, `prevPage` and `nextPage`, `check` and `uncheck` methods.
+- [enh] Add `onPreBody` and `onPostBody` events.
+- [enh] Add `searchable` column option.
+- [enh] Fix #59: support load multiple locale files.
+- [enh] Modify the scope of the column events.
+- [enh] Improve editable extension.
+
+### 1.4.0
+
+- [enh] Fix #119, #123: Save all `id` and `class` of `tr` and `td` for html table.
+- [enh] Fix #149: Hide empty data on Card view.
+- [enh] Fix #131: Add `onPageChange` event.
+- [enh] Add `onSearch` event.
+- [enh] Apply `width` column option to row style.
+- [enh] Add bootstrap-table-filter extension.
+- [enh] Add cs-CZ, es-CR, es-NI, pl-PL, ur-PK, ko-KR, th-TH locales.
+- [bug] Fix `minimumCountColumns` option init error.
+- [bug] Fix #161: `undefined` or `null` string sort bug.
+- [bug] Fix #171: IE disabled button can be clicked bug.
+- [bug] Fix #185: Reset the page to the first page when changing the url with `refresh` method.
+- [bug] Fix #202: updateRow method keep the scroll position.
+- [enh] Add `smartDisplay` option.
+- [enh] Add `searchAlign` and `toolbarAlign` options.
+- [enh] Fix #193: Add `dataType` option.
+- [enh] Add flatJSON and editable extensions.
+- [enh] Add `rowAttributes` option.
+- [enh] Update documentation.
+
+### 1.3.0
+
+- [enh] Take `showHeader` option effect to the card view.
+- [enh] Rename and update locale files.
+- [bug] Fix #102: Wrong `options.columns` initialization.
+- [enh] Fix #121: Add extensions for bootstrap table.
+- [bug] Fix #138: IE8 search data and remove method error.
+- [bug] Fix bug: sorter and check all do not work in some case.
+- [enh] Add `bootstrap-table-nl-NL.js` and `bootstrap-table-el-GR.js`.
+- [enh] Support search without data-field set, trim search input.
+- [enh] Fix #81: Allow the `class` to be applied to the radio or checkbox row.
+- [bug] Fix #135, #142: Search use formatted data.
+- [enh] Verify search text before send queryParams.
+- [bug] Fix #148: column events support namespace.
+- [enh] Support to disable radio or checkbox column by formatter.
+
 ### 1.2.4
 
 * [enh] Fix #23: Add css and classes parameters to column cell.

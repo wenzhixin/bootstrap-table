@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    {% include header.html %}
+  </head>
+  <body>
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <!-- Docs master nav -->
+    {% include nav/main.html %}
+
+    <!-- Docs page layout -->
+    <div class="bs-docs-header" id="content">
+      <div class="container">
+        <h1>{% t page.title %}</h1>
+        <p>{% t page.lead %}</p>
+      </div>
+    </div>
+
+    {% include social-buttons.html %}
+
+    <hr>
+
+    <div class="container bs-docs-container">
+
+      <div class="row">
+        <div class="col-md-{% if page.fullwidth == true %}12{% else %}9{% endif %}"
+             role="main"
+             data-toggle="sidenav"
+             data-container="#sidenav"
+             data-hs="h1,h2"
+             data-smart-id="true"
+             data-bottom=".bs-docs-footer">
+          {{ content }}
+        </div>
+        {% unless page.fullwidth == true %}
+        <div class="col-md-3">
+          <div id="sidenav">
+        </div>
+        {% endunless %}
+      </div>
+    </div>
+
+    {% include footer.html %}
+  </body>
+</html>

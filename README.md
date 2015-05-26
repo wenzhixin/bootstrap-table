@@ -1,32 +1,30 @@
-# bootstrap table
+# [Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn)
 
-[![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table)
+[![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.png)](https://travis-ci.org/wenzhixin/bootstrap-table) 
+[![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.png)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
+[![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDHP676FQDUT6)
 
-Bootstrap table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. The table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
+An extended Bootstrap table with radio, checkbox, sort, pagination, extensions and other added features.
 
-* [Documentation](http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html)
-* [Examples](http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html)
-* [JSFiddle Examples](https://github.com/wenzhixin/bootstrap-table/blob/master/docs/jsfiddle-examples.md)
-* [Extensions](http://wenzhixin.net.cn/p/bootstrap-table/docs/extensions.html)
+To get started, check out [Docs](http://bootstrap-table.wenzhixin.net.cn), [More examples](https://github.com/wenzhixin/bootstrap-table-examples), [Example issues](https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aexample+is%3Aclosed), [Resource issues](https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aresource+is%3Aclosed) and [Questions / Helps](http://stackoverflow.com/questions/tagged/bootstrap-table)!
 
+
+**List of donators**
+
+* Richard C Jordan - $35
+* Janet Moery - $5
+* Rene Halskov - $10
+* Angel Arambula Garcia - $5
+* David Graham - $5
+* Paul Abbott - $20
+* Philip Tepfer - $10
+* Marcus Eddy - $5
+* Keith Rockhold - $50
 
 ## LICENSE
 
 **NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
-
-## Bugs & Enhancements (next version)
-
-- [x] Take `showHeader` option effect to the card view.
-- [x] Rename and update locale files.
-- [x] Fix #102: Wrong `options.columns` initialization.
-- [x] Fix #121: Add extensions for bootstrap table.
-- [x] Fix #138: IE8 search data and remove method error.
-- [x] Fix bug: sorter does not work in some case.
-- [x] Add `bootstrap-table-nl-NL.js`.
-- [x] Support search without data-field set.
-- [x] Fix #81: Allow the `class` to be applied to the radio or checkbox row.
-- [x] Fix #135, #142: Search use formatted data.
-- [x] Verify search text before send queryParams.
 
 ## Features
 
@@ -37,6 +35,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 * Via data attributes
 * Show/Hide columns
 * Show/Hide headers
+* Show/Hide footers
 * Get data in JSON format using AJAX
 * Simple column sorting with a click
 * Format column
@@ -44,6 +43,7 @@ Bootstrap table displays data in a tabular format and offers rich support to rad
 * Powerful pagination
 * Card view
 * Localization
+* Extensions
 
 ## How to get it
 
@@ -57,6 +57,12 @@ Use [Releases page](https://github.com/wenzhixin/bootstrap-table/releases) or [t
 bower install bootstrap-table
 ```
 
+### Npm
+
+```
+npm install bootstrap-table
+```
+
 ### CDN
 
 You can source bootstrap-table directly from a CDN like [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bootcss](http://open.bootcss.com/bootstrap-table/).
@@ -67,7 +73,7 @@ Please provide jsFiddle when creating issues!
 
 It's really saves much time. Use this as template:
 
-[jsFiddle Bootstrap Table](http://jsfiddle.net/8svjf80g/1/)
+[jsFiddle Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn/examples/#basic)
 
 Your feedback is very appreciated!
 
