@@ -10,8 +10,8 @@
 
     var sprintf = function (str) {
         var args = arguments,
-                flag = true,
-                i = 1;
+            flag = true,
+            i = 1;
 
         str = str.replace(/%s/g, function () {
             var arg = args[i++];
