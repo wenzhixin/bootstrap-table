@@ -10,8 +10,8 @@
 
     var sprintf = function (str) {
         var args = arguments,
-            flag = true,
-            i = 1;
+                flag = true,
+                i = 1;
 
         str = str.replace(/%s/g, function () {
             var arg = args[i++];
@@ -69,7 +69,8 @@
     });
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
-        filterControl: undefined
+        filterControl: undefined,
+        filterData: undefined
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -77,9 +78,9 @@
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initHeader = BootstrapTable.prototype.initHeader,
-        _initBody = BootstrapTable.prototype.initBody,
-        _initSearch = BootstrapTable.prototype.initSearch;
+            _initHeader = BootstrapTable.prototype.initHeader,
+            _initBody = BootstrapTable.prototype.initBody,
+            _initSearch = BootstrapTable.prototype.initSearch;
 
     BootstrapTable.prototype.initHeader = function () {
         _initHeader.apply(this, Array.prototype.slice.apply(arguments));
@@ -89,10 +90,10 @@
         }
 
         var addedFilterControl = false,
-            that = this,
-            isVisible,
-            html,
-            timeoutId = 0;
+                that = this,
+                isVisible,
+                html,
+                timeoutId = 0;
 
         $.each(this.options.columns, function (i, column) {
             isVisible = 'hidden';
@@ -113,12 +114,44 @@
                         break;
                     case 'select':
                         html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>',
-                            column.field, isVisible))
+                                column.field, isVisible));
                         break;
                 }
             }
 
             that.$header.find(sprintf('.th-inner:contains("%s")', column.title)).next().append(html.join(''));
+            if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
+                var filterDataType = column.filterData.substring(0, 3);
+                var filterDataSource = column.filterData.substring(4, column.filterData.length);
+                var selectControl = $('.' + column.field);
+                selectControl.append($("<option></option>")
+                        .attr("value", '')
+                        .text(''));
+                switch (filterDataType) {
+                    case 'url':
+                        $.ajax({
+                            url: filterDataSource,
+                            dataType: 'json',
+                            success: function (data) {
+                                $.each(data, function (key, value) {
+                                    selectControl.append($("<option></option>")
+                                            .attr("value", key)
+                                            .text(value));
+                                });
+                            }
+                        });
+                        break;
+                    case 'var':
+                        var variableValues = window[filterDataSource];
+                        for (var key in variableValues) {
+                            selectControl.append($("<option></option>")
+                                    .attr("value", key)
+                                    .text(variableValues[key]));
+                        }
+                        ;
+                        break;
+                }
+            }
         });
 
         if (addedFilterControl) {
@@ -144,44 +177,55 @@
         _initBody.apply(this, Array.prototype.slice.apply(arguments));
 
         var that = this,
-            data = this.getData();
+                data = this.getData();
 
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
             var key,
-                item = data[i];
+                    item = data[i];
 
             $.each(this.header.fields, function (j, field) {
                 var value = item[field],
-                    column = that.options.columns[getFieldIndex(that.options.columns, field)];
+                        column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 value = calculateObjectValue(that.header,
-                    that.header.formatters[j], [value, item, i], value);
+                        that.header.formatters[j], [value, item, i], value);
 
                 if ((!column.checkbox) || (!column.radio)) {
-                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select' && column.searchable) {
-                        var selectControl = $('.' + column.field),
-                            iOpt = 0,
-                            existsOpt = false,
-                            options;
-                        if (selectControl !== undefined) {
-                            options = selectControl.get(0).options;
+                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select'
+                            && column.searchable) {
 
-                            if (options.length === 0) {
-                                //Added the default option
-                                selectControl.append($("<option></option>").attr("value", '').text(''));
-                            }
+                        if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
+                            var selectControl = $('.' + column.field),
+                                    iOpt = 0,
+                                    exitsOpt = false,
+                                    options;
+                            if (selectControl !== undefined) {
+                                options = selectControl.get(0).options;
 
-                            for (; iOpt < options.length; iOpt++) {
-                                if (options[iOpt].value === value) {
-                                    existsOpt = true;
-                                    break;
+                                if (options.length === 0) {
+
+                                    //Added the default option
+                                    selectControl.append($("<option></option>")
+                                            .attr("value", '')
+                                            .text(''));
+
+                                    selectControl.append($("<option></option>")
+                                            .attr("value", value)
+                                            .text(value));
+                                } else {
+                                    for (; iOpt < options.length; iOpt++) {
+                                        if (options[iOpt].value === value) {
+                                            exitsOpt = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (!exitsOpt) {
+                                        selectControl.append($("<option></option>")
+                                                .attr("value", value)
+                                                .text(value));
+                                    }
                                 }
-                            }
-
-                            if (!existsOpt) {
-                                selectControl.append($("<option></option>")
-                                    .attr("value", value)
-                                    .text(value));
                             }
                         }
                     }
@@ -202,12 +246,12 @@
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
                 value = calculateObjectValue(that.header,
-                    that.header.formatters[$.inArray(key, that.header.fields)],
-                    [value, item, i], value);
+                        that.header.formatters[$.inArray(key, that.header.fields)],
+                        [value, item, i], value);
 
                 if (!($.inArray(key, that.header.fields) !== -1 &&
-                    (typeof value === 'string' || typeof value === 'number') &&
-                    (value + '').toLowerCase().indexOf(fval) !== -1)) {
+                        (typeof value === 'string' || typeof value === 'number') &&
+                        (value + '').toLowerCase().indexOf(fval) !== -1)) {
                     return false;
                 }
             }
