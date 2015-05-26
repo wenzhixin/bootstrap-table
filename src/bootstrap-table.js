@@ -2269,7 +2269,8 @@
                     return;
                 }
 
-                value = data[option](_relatedTarget);
+                var args = Array.prototype.slice.call(arguments, 0);
+                value = data[option].apply(data, args);
 
                 if (option === 'destroy') {
                     $this.removeData('bootstrap.table');
