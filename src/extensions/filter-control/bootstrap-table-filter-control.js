@@ -78,9 +78,9 @@
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-            _initHeader = BootstrapTable.prototype.initHeader,
-            _initBody = BootstrapTable.prototype.initBody,
-            _initSearch = BootstrapTable.prototype.initSearch;
+        _initHeader = BootstrapTable.prototype.initHeader,
+        _initBody = BootstrapTable.prototype.initBody,
+        _initSearch = BootstrapTable.prototype.initSearch;
 
     BootstrapTable.prototype.initHeader = function () {
         _initHeader.apply(this, Array.prototype.slice.apply(arguments));
@@ -90,10 +90,10 @@
         }
 
         var addedFilterControl = false,
-                that = this,
-                isVisible,
-                html,
-                timeoutId = 0;
+            that = this,
+            isVisible,
+            html,
+            timeoutId = 0;
 
         $.each(this.options.columns, function (i, column) {
             isVisible = 'hidden';
