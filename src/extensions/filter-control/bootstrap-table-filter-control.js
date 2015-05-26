@@ -114,7 +114,7 @@
                         break;
                     case 'select':
                         html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>',
-                                column.field, isVisible));
+                            column.field, isVisible));
                         break;
                 }
             }
@@ -125,8 +125,8 @@
                 var filterDataSource = column.filterData.substring(4, column.filterData.length);
                 var selectControl = $('.' + column.field);
                 selectControl.append($("<option></option>")
-                        .attr("value", '')
-                        .text(''));
+                    .attr("value", '')
+                    .text(''));
                 switch (filterDataType) {
                     case 'url':
                         $.ajax({
@@ -135,8 +135,8 @@
                             success: function (data) {
                                 $.each(data, function (key, value) {
                                     selectControl.append($("<option></option>")
-                                            .attr("value", key)
-                                            .text(value));
+                                        .attr("value", key)
+                                        .text(value));
                                 });
                             }
                         });
@@ -145,8 +145,8 @@
                         var variableValues = window[filterDataSource];
                         for (var key in variableValues) {
                             selectControl.append($("<option></option>")
-                                    .attr("value", key)
-                                    .text(variableValues[key]));
+                                .attr("value", key)
+                                .text(variableValues[key]));
                         }
                         ;
                         break;
@@ -206,12 +206,12 @@
 
                                     //Added the default option
                                     selectControl.append($("<option></option>")
-                                            .attr("value", '')
-                                            .text(''));
+                                        .attr("value", '')
+                                        .text(''));
 
                                     selectControl.append($("<option></option>")
-                                            .attr("value", value)
-                                            .text(value));
+                                        .attr("value", value)
+                                        .text(value));
                                 } else {
                                     for (; iOpt < options.length; iOpt++) {
                                         if (options[iOpt].value === value) {
@@ -222,8 +222,8 @@
 
                                     if (!exitsOpt) {
                                         selectControl.append($("<option></option>")
-                                                .attr("value", value)
-                                                .text(value));
+                                            .attr("value", value)
+                                            .text(value));
                                     }
                                 }
                             }
