@@ -245,8 +245,8 @@
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
                 value = calculateObjectValue(that.header,
-                        that.header.formatters[$.inArray(key, that.header.fields)],
-                        [value, item, i], value);
+                    that.header.formatters[$.inArray(key, that.header.fields)],
+                    [value, item, i], value);
 
                 if (!($.inArray(key, that.header.fields) !== -1 &&
                         (typeof value === 'string' || typeof value === 'number') &&
