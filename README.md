@@ -65,7 +65,7 @@ npm install bootstrap-table
 
 ### CDN
 
-You can source bootstrap-table directly from a CDN like [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bootcss](http://open.bootcss.com/bootstrap-table/).
+You can source bootstrap-table directly from a CDN like [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bootcss](http://open.bootcss.com/bootstrap-table/) or [jsdelivr](http://www.jsdelivr.com/#!bootstrap.table).
 
 ## Reporting issues
 
