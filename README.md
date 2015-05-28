@@ -21,6 +21,7 @@ To get started, check out [Docs](http://bootstrap-table.wenzhixin.net.cn), [More
 * Philip Tepfer - $10
 * Marcus Eddy - $5
 * Keith Rockhold - $50
+* Ramon Sosa Diaz - $10
 
 ## LICENSE
 
