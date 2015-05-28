@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.8.0
+ * version: 1.8.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -91,24 +91,29 @@
     };
 
     var calculateObjectValue = function (self, name, args, defaultValue) {
+        var func = name;
+
         if (typeof name === 'string') {
             // support obj.func1.func2
             var names = name.split('.');
 
             if (names.length > 1) {
-                name = window;
+                func = window;
                 $.each(names, function (i, f) {
-                    name = name[f];
+                    func = func[f];
                 });
             } else {
-                name = window[name];
+                func = window[name];
             }
         }
-        if (typeof name === 'object') {
-            return name;
+        if (typeof func === 'object') {
+            return func;
         }
-        if (typeof name === 'function') {
-            return name.apply(self, args);
+        if (typeof func === 'function') {
+            return func.apply(self, args);
+        }
+        if (!func && typeof name === 'string' && sprintf.apply(this, [name].concat(args))) {
+            return sprintf.apply(this, [name].concat(args));
         }
         return defaultValue;
     };
@@ -952,11 +957,13 @@
             this.data = s ? $.grep(this.data, function (item, i) {
                 for (var key in item) {
                     key = $.isNumeric(key) ? parseInt(key, 10) : key;
-                    var value = item[key];
+                    var value = item[key],
+                        column = that.options.columns[getFieldIndex(that.options.columns, key)],
+                        j = $.inArray(key, that.header.fields);
 
                     // Fix #142: search use formated data
-                    value = calculateObjectValue(that.header,
-                        that.header.formatters[$.inArray(key, that.header.fields)],
+                    value = calculateObjectValue(column,
+                        that.header.formatters[j],
                         [value, item, i], value);
 
                     var index = $.inArray(key, that.header.fields);
@@ -1290,7 +1297,7 @@
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
-                value = calculateObjectValue(that.header,
+                value = calculateObjectValue(column,
                     that.header.formatters[j], [value, item, i], value);
 
                 // handle td's id and class
@@ -1779,8 +1786,7 @@
     // =======================
 
     BootstrapTable.prototype.resetView = function (params) {
-        var that = this,
-            padding = 0;
+        var padding = 0;
 
         if (params && params.height) {
             this.options.height = params.height;
@@ -1799,8 +1805,8 @@
 
         if (this.options.cardView) {
             // remove the element css
-            that.$el.css('margin-top', '0');
-            $tableContainer.css('padding-bottom', '0');
+            this.$el.css('margin-top', '0');
+            this.$tableContainer.css('padding-bottom', '0');
             return;
         }
 
@@ -2245,8 +2251,9 @@
         'toggleView'
     ];
 
-    $.fn.bootstrapTable = function (option, _relatedTarget) {
-        var value;
+    $.fn.bootstrapTable = function (option) {
+        var value,
+            args = Array.prototype.slice.call(arguments, 1);
 
         this.each(function () {
             var $this = $(this),
@@ -2263,7 +2270,7 @@
                     return;
                 }
 
-                value = data[option](_relatedTarget);
+                value = data[option].apply(data, args);
 
                 if (option === 'destroy') {
                     $this.removeData('bootstrap.table');
