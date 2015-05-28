@@ -30,7 +30,7 @@
         _initToolbar = BootstrapTable.prototype.initToolbar;
 
     BootstrapTable.prototype.initToolbar = function () {
-        this.showToolbar = true;
+        this.showToolbar = this.options.showExport;
 
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 

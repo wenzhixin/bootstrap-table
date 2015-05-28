@@ -2251,8 +2251,9 @@
         'toggleView'
     ];
 
-    $.fn.bootstrapTable = function (option, _relatedTarget) {
-        var value;
+    $.fn.bootstrapTable = function (option) {
+        var value,
+            args = Array.prototype.slice.call(arguments, 1);
 
         this.each(function () {
             var $this = $(this),
@@ -2269,7 +2270,7 @@
                     return;
                 }
 
-                value = data[option](_relatedTarget);
+                value = data[option].apply(data, args);
 
                 if (option === 'destroy') {
                     $this.removeData('bootstrap.table');

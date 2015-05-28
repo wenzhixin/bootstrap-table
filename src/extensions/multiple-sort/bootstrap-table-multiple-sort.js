@@ -127,6 +127,7 @@
                         $($alert).remove();
                     }
 
+                    that.options.sortName = "";
                     that.onMultipleSort();
                     $sortModal.modal('hide');
                 }
