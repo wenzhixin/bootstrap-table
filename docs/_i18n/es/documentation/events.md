@@ -196,5 +196,11 @@
        <td>index, row</td>
        <td>Se ejecuta cuando se da click al icono de detalle para colapsar la vista detalle.</td>
     </tr>
+    <tr>
+       <td>onRefreshOptions</td>
+       <td>refresh-options.bs.table</td>
+       <td>options</td>
+       <td>Se ejecuta cuando se actualiza el objeto options, este método se ejecuta antes de los eventos destroy e init</td>
+    </tr>
     </tbody>
 </table>

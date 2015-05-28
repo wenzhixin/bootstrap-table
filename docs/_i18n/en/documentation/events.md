@@ -209,5 +209,11 @@
        <td>index, row</td>
        <td>Fires when click the detail icon to collapse the detail view.</td>
     </tr>
+    <tr>
+       <td>onRefreshOptions</td>
+       <td>refresh-options.bs.table</td>
+       <td>options</td>
+       <td>Fires after refresh the options and before destroy and init the table</td>
+    </tr>
     </tbody>
 </table>
