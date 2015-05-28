@@ -99,6 +99,10 @@
             isVisible = 'hidden';
             html = [];
 
+            if (!column.visible) {
+                return;
+            }
+
             if (!column.filterControl) {
                 html.push('<div style="height: 34px;"></div>');
             } else {
@@ -119,7 +123,7 @@
                 }
             }
 
-            that.$header.find(sprintf('.th-inner:contains("%s")', column.title)).next().append(html.join(''));
+            that.$header.find(sprintf('.th-inner:eq("%s")', i)).next().append(html.join(''));
             if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
                 var filterDataType = column.filterData.substring(0, 3);
                 var filterDataSource = column.filterData.substring(4, column.filterData.length);
