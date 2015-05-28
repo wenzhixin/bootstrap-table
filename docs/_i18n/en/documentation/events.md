@@ -210,10 +210,16 @@
        <td>Fires when click the detail icon to collapse the detail view.</td>
     </tr>
     <tr>
-       <td>onResetView</td>
-       <td>reset-view.bs.table</td>
-       <td></td>
-       <td>Fires when reset view of the table.</td>
+       <td>onRefreshOptions</td>
+       <td>refresh-options.bs.table</td>
+       <td>options</td>
+       <td>Fires after refresh the options and before destroy and init the table</td>
+    </tr>
+    <tr>
+        <td>onResetView</td>
+        <td>reset-view.bs.table</td>
+        <td></td>
+        <td>Fires when reset view of the table.</td>
     </tr>
     </tbody>
 </table>

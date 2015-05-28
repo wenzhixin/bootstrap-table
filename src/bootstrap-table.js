@@ -317,6 +317,9 @@
         onCollapseRow: function (index, row) {
             return false;
         },
+        onRefreshOptions: function (options) {
+            return false;
+        },
         onResetView: function () {
             return false;
         }
@@ -410,6 +413,7 @@
         'post-header.bs.table': 'onPostHeader',
         'expand-row.bs.table': 'onExpandRow',
         'collapse-row.bs.table': 'onCollapseRow',
+        'refresh-options.bs.table': 'onRefreshOptions',
         'reset-view.bs.table': 'onResetView'
     };
 
@@ -2227,6 +2231,13 @@
         this.trigger('toggle', this.options.cardView);
     };
 
+    BootstrapTable.prototype.refreshOptions = function (options) {
+        this.options = $.extend(this.options, options);
+        this.trigger('refresh-options', this.options);
+        this.destroy();
+        this.init();
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -2251,7 +2262,8 @@
         'getScrollPosition',
         'selectPage', 'prevPage', 'nextPage',
         'togglePagination',
-        'toggleView'
+        'toggleView',
+        'refreshOptions'
     ];
 
     $.fn.bootstrapTable = function (option) {
