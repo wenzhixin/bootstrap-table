@@ -260,6 +260,10 @@
                 $('#sortModal').remove();
                 showSortModal(that);
             });
+            
+            this.$el.on('reset-view.bs.table', function() {
+                that.assignSortableArrows();
+            });
         }
     };
 
