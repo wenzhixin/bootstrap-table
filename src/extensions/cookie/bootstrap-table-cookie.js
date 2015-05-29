@@ -156,7 +156,7 @@
 
         if (columnsStateSave) {
             $.each(this.options.columns, function (i, column) {
-                column.visible = columnsStateSave.indexOf(i) !== -1;
+                column.visible = columnsStateSave.indexOf(column.field) !== -1;
             });
         }
 
@@ -211,7 +211,7 @@
 
         $.each(this.options.columns, function (i) {
             if (this.visible) {
-                visibleColumns.push(i);
+                visibleColumns.push(this.field);
             }
         });
 
