@@ -316,6 +316,9 @@
         },
         onCollapseRow: function (index, row) {
             return false;
+        },
+        onResetView: function() {
+            return false;
         }
     };
 
@@ -406,7 +409,8 @@
         'post-body.bs.table': 'onPostBody',
         'post-header.bs.table': 'onPostHeader',
         'expand-row.bs.table': 'onExpandRow',
-        'collapse-row.bs.table': 'onCollapseRow'
+        'collapse-row.bs.table': 'onCollapseRow',
+        'reset-view.bs.table': 'onResetView'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -1829,6 +1833,7 @@
         // Assign the correct sortable arrow
         this.getCaretHtml();
         this.$tableContainer.css('padding-bottom', padding + 'px');
+        this.trigger('reset-view');
     };
 
     BootstrapTable.prototype.getData = function (useCurrentPage) {

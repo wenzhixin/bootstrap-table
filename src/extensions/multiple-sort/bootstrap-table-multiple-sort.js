@@ -133,7 +133,7 @@
                 }
             });
 
-            if (that.options.sortPriority === null) {
+            if (that.options.sortPriority === null || that.options.sortPriority.length === 0) {
                 if (that.options.sortName) {
                     that.options.sortPriority = [{
                         sortName: that.options.sortName,
@@ -142,7 +142,7 @@
                 }
             }
             
-            if (that.options.sortPriority !== null) {
+            if (that.options.sortPriority !== null && that.options.sortPriority.length > 0) {
                 if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
                     for (var i = 0; i < that.options.sortPriority.length; i++) {
                         that.addLevel(i, that.options.sortPriority[i]);
@@ -249,10 +249,20 @@
                 }
             });
 
-            this.$el.on('column-switch.bs.table', function() {
-                that.options.sortPriority = null;
+            this.$el.on('column-switch.bs.table', function(field, checked) {
+                for (var i = 0; i < that.options.sortPriority.length; i++) {
+                    if (that.options.sortPriority[i].sortName === checked) {
+                        that.options.sortPriority.splice(i, 1);
+                    }
+                }
+
+                that.assignSortableArrows();
                 $('#sortModal').remove();
                 showSortModal(that);
+            });
+            
+            this.$el.on('reset-view.bs.table', function() {
+                that.assignSortableArrows();
             });
         }
     };
