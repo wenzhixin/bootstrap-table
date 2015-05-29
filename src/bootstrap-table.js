@@ -77,7 +77,7 @@
             $('body').append(outer);
 
             w1 = inner[0].offsetWidth;
-            outer.css('overflow', 'scroll');
+            outer.css('overflow', 'scroll');n
             w2 = inner[0].offsetWidth;
 
             if (w1 === w2) {
@@ -311,6 +311,9 @@
         },
         onCollapseRow: function (index, row) {
             return false;
+        },
+        onResetView: function() {
+            return false;
         }
     };
 
@@ -401,7 +404,8 @@
         'post-body.bs.table': 'onPostBody',
         'post-header.bs.table': 'onPostHeader',
         'expand-row.bs.table': 'onExpandRow',
-        'collapse-row.bs.table': 'onCollapseRow'
+        'collapse-row.bs.table': 'onCollapseRow',
+        'reset-view.bs.table': 'onResetView'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -1825,6 +1829,7 @@
         // Assign the correct sortable arrow
         this.getCaretHtml();
         this.$tableContainer.css('padding-bottom', padding + 'px');
+        this.trigger('reset-view');
     };
 
     BootstrapTable.prototype.getData = function (useCurrentPage) {
