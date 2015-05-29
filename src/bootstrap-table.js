@@ -77,7 +77,7 @@
             $('body').append(outer);
 
             w1 = inner[0].offsetWidth;
-            outer.css('overflow', 'scroll');n
+            outer.css('overflow', 'scroll');
             w2 = inner[0].offsetWidth;
 
             if (w1 === w2) {
