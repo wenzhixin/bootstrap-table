@@ -6,7 +6,8 @@
        data-toggle="table"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Evento</th>
@@ -46,6 +47,30 @@
         </td>
     </tr>
     <tr>
+        <td>onClickCell</td>
+        <td>click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Se ejecuta cuando el usuario le da click a una celda de la tabla, los parámetros contienen: <br>
+        field: el nombre del campo correspondiente a la celda hecho clic, <br>
+        value: el valor de datos correspondiente a la celda hecho clic, <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento td.
+        </td>
+    </tr>
+    <tr>
+        <td>onDblClickCell</td>
+        <td>dbl-click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Se ejecuta cuando el usuario le da click a una celda de la tabla, los parámetros contienen: <br>
+        field: el nombre del campo correspondiente a la celda hecho clic, <br>
+        value: el valor de datos correspondiente a la celda hecho clic, <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento td.
+        </td>
+    </tr>
+    <tr>
         <td>onSort</td>
         <td>sort.bs.table</td>
         <td>name, order</td>
@@ -70,20 +95,40 @@
         <td>row</td>
         <td>
         Se ejecuta cuando el usuario des-chequea una fila, los parámetros contienen: <br>
-        row: el registro que corresponde a la fila des-chequeada.
+        row: el registro que corresponde a la fila deschequeada.
         </td>
     </tr>
     <tr>
         <td>onCheckAll</td>
         <td>check-all.bs.table</td>
-        <td>none</td>
-        <td>Fires when user check all rows.</td>
+        <td>rows</td>
+        <td>Se ejecuta cuando el usuario chequea todas las filas, los parámetros contienen: <br>
+        rows: arreglo de las filas chequeadas.</td>
     </tr>
     <tr>
         <td>onUncheckAll</td>
         <td>uncheck-all.bs.table</td>
-        <td>none</td>
-        <td>Se ejecuta cuando el usuario des-chequea todas las filas.</td>
+        <td>rows</td>
+        <td>Se ejecuta cuando el usuario des-chequea todas las filas, los parámetros contienen: <br>
+        rows: arreglo de las filas deschequeadas.</td>
+    </tr>
+    <tr>
+        <td>onCheckSome</td>
+        <td>check-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Se ejecuta cuando el usuario chequea algunas filas, los parámetros contienen: <br>
+        rows: arreglo de las filas chequeadas.
+        </td>
+    </tr>
+    <tr>
+        <td>onUncheckSome</td>
+        <td>uncheck-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Se ejecuta cuando el usuario deschequea algunas filas, los parámetros contienen: <br>
+        rows: arreglo de las filas deschequeadas.
+        </td>
     </tr>
     <tr>
         <td>onLoadSuccess</td>
@@ -138,6 +183,18 @@
        <td>post-header.bs.table</td>
        <td>none</td>
        <td>Se ejecuta después de que el encabezado es renderizado y disponible en el DOM.</td>
+    </tr>
+    <tr>
+        <td>onExpandRow</td>
+        <td>expand-row.bs.table</td>
+        <td>index, row, $detail</td>
+        <td>Se ejecuta cuando se da click al icono de detalle para expandir la vista detalle.</td>
+    </tr>
+    <tr>
+       <td>onCollapseRow</td>
+       <td>collapse-row.bs.table</td>
+       <td>index, row</td>
+       <td>Se ejecuta cuando se da click al icono de detalle para colapsar la vista detalle.</td>
     </tr>
     </tbody>
 </table>

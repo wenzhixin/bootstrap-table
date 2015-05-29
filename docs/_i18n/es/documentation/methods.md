@@ -8,7 +8,8 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
        data-toggle="table"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Nombre</th>
@@ -30,7 +31,7 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     <tr>
         <td>getData</td>
         <td>useCurrentPage</td>
-        <td>Retorna los datos cargados en la tabla. Si se setea useCurrentPage a true se devolverá los datos mostrados en la página
+        <td>Retorna los datos cargados en la tabla en el momento que se llama este método. Si se setea useCurrentPage a true se devolverá los datos mostrados en la página
         actual</td>
     </tr>
     <tr>
@@ -56,6 +57,22 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         field: el nombre del campo de las filas removidas. <br>
         values: el array de valores de las filas que deberían ser removidas. <br>
         Ejemplo: $('#myTable').bootstrapTable('remove', {field: 'id', values: ["73", "74"]})
+        </td>
+    </tr>
+    <tr>
+        <td>removeAll</td>
+        <td>-</td>
+        <td>
+        Se remueven todos los datos de la tabla <br>
+        Ejemplo: $('#myTable').bootstrapTable('removeAll')
+        </td>
+    </tr>
+    <tr>
+        <td>removeByUniqueId</td>
+        <td>id</td>
+        <td>
+        Se remueve el dato de la tabla que contiene el id pasado por parámetro<br>
+        Ejemplo: $('#myTable').bootstrapTable('removeByUniqueId', "122")
         </td>
     </tr>
     <tr>
@@ -105,6 +122,16 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         field: el nombre del campo.<br>
         rowspan: el rowspan para ser unidas. <br>
         colspan: el colspan para ser unidas.
+        </td>
+    </tr>
+    <tr>
+        <td>updateCell</td>
+        <td>params</td>
+        <td>
+        Actualiza una celda, los parámetros contienen: <br>
+        rowIndex: índice de la fila. <br>
+        fieldName: el nombre del campo.<br>
+        fieldValue: el nuevo valor de la celda. <br>
         </td>
     </tr>
     <tr>

@@ -8,7 +8,8 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
        data-toggle="table"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Nombre</th>
@@ -138,6 +139,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>Function</td>
         <td>undefined</td>
         <td>
+        El contexto (this) es el objecto columna. <br>
         La función de formateo de la celda, toma tres parámetros: <br>
         value: el valor del campo. <br>
         row: los datos de la fila.<br>
@@ -149,7 +151,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>Function</td>
         <td>undefined</td>
         <td>
-        El contexto (this) es el objecto columna.
+        El contexto (this) es el objecto columna. <br>
         La función toma un parámetro: <br>
         data: Array de todas las filas. <br>
         La función debe retornar un string con el texto a mostrar en el footer.

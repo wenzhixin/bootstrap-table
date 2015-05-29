@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.7.0
+ * version: 1.8.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -90,6 +90,14 @@
 
 .fixed-table-container thead th .sortable {
     cursor: pointer;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azioNZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4euts6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC');
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: 30px;
+}
+
+.fixed-table-container th.detail {
+    width: 30px;
 }
 
 .fixed-table-container tbody td {
@@ -126,10 +134,14 @@
     text-align: center;
 }
 
-.fixed-table-pagination .pagination,
+.fixed-table-pagination div.pagination,
 .fixed-table-pagination .pagination-detail {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.fixed-table-pagination div.pagination .pagination {
+    margin: 0;
 }
 
 .fixed-table-pagination .pagination a {

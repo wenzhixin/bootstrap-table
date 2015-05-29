@@ -1,6 +1,6 @@
 pages:
   getting_started:
-    title: "Empezando con Bootstrap-table"
+    title: "Iniciar con Bootstrap-table"
     lead: "Una visión de Bootstrap Table, cómo descargarlo, usarlo, templates básicos, y más."
   examples:
     title: "Ejemplos"

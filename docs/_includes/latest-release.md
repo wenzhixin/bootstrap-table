@@ -1,17 +1,12 @@
 ### Latest release
 
-#### v{{ site.current_version }} (2015-04-01)
+#### v{{ site.current_version }} (2015-05-29)
 
-- [enh] Add `showFooter`, `keyEvents`, `searchText` and `uniqueId` options.
-- [enh] Add `cardVisible` column options.
-- [enh] Add `checkBy` and `uncheckBy`, `showRow` and `hideRow` and `getRowsHidden` methods.
-- [enh] Add nb-NO, ar-SA, es-MX, ka-GE locales.
-- [enh] Add cookie, resizable, natural-sorting, toolbar extensions.
-- [enh] Add exportOptions to export extension.
-- [enh] Fix #263: prepend method support object and array.
-- [enh] Card View support checkbox and radio.
-- [bug] Fix Card View events bug.
-- [enh] Keep all `data-*` attributes when transform from normal table.
-- [enh] Load method support fixedScroll param.
-- [enh] Added 'all' option in pagination.
-- [enh] Added pagination detail align.
+- [enh] Accessing field name in formatter.
+- [enh] Improve function option to support string format for example formatter.
+- [enh] Added multiple sort extension.
+- [enh] Improve filter control extension.
+- [enh] Added jsdelivr CDN.
+- [bug] Fix #912: Bug when switching to card view.
+- [bug] Fix #914: extra empty toolbar div bug.
+- [bug] Fix bootstrap-table-pt-PT.js typo.

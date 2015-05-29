@@ -20,7 +20,7 @@ Use Plugin: [bootstrap-table-mobile](https://github.com/wenzhixin/bootstrap-tabl
 
 * type: Boolean
 * description: Set true to check the window size on init.
-* default: `false`
+* default: `true`
 
 ### minWidth
 
@@ -32,4 +32,4 @@ Use Plugin: [bootstrap-table-mobile](https://github.com/wenzhixin/bootstrap-tabl
 
 * type: Integer
 * description: Set the minimum height when the table will change the view.
-* default: `562`
+* default: `undefined`

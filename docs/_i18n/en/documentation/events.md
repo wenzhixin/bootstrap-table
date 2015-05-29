@@ -6,7 +6,8 @@
        data-toggle="table"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Option Event</th>
@@ -41,9 +42,33 @@
         <td>dbl-click-row.bs.table</td>
         <td>row, $element</td>
         <td>
-        Fires when user click a row, the parameters contains: <br>
+        Fires when user double click a row, the parameters contains: <br>
         row: the record corresponding to the clicked row, <br>
         $element: the tr element.
+        </td>
+    </tr>
+    <tr>
+        <td>onClickCell</td>
+        <td>click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Fires when user click a cell, the parameters contains: <br>
+        field: the field name corresponding to the clicked cell, <br>
+        value: the data value corresponding to the clicked cell, <br>
+        row: the record corresponding to the clicked row, <br>
+        $element: the td element.
+        </td>
+    </tr>
+    <tr>
+        <td>onDblClickCell</td>
+        <td>dbl-click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Fires when user double click a cell, the parameters contains: <br>
+        field: the field name corresponding to the clicked cell, <br>
+        value: the data value corresponding to the clicked cell, <br>
+        row: the record corresponding to the clicked row, <br>
+        $element: the td element.
         </td>
     </tr>
     <tr>
@@ -89,6 +114,24 @@
         <td>rows</td>
         <td>
         Fires when user uncheck all rows, the parameters contains: <br>
+        rows: array of records corresponding to previously checked rows.
+        </td>
+    </tr>
+    <tr>
+        <td>onCheckSome</td>
+        <td>check-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Fires when user check some rows, the parameters contains: <br>
+        rows: array of records corresponding to previously checked rows.
+        </td>
+    </tr>
+    <tr>
+        <td>onUncheckSome</td>
+        <td>uncheck-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Fires when user uncheck some rows, the parameters contains: <br>
         rows: array of records corresponding to previously checked rows.
         </td>
     </tr>
@@ -153,6 +196,18 @@
        <td>post-header.bs.table</td>
        <td>none</td>
        <td>Fires after the table header is rendered and availble in the DOM</td>
+    </tr>
+    <tr>
+        <td>onExpandRow</td>
+        <td>expand-row.bs.table</td>
+        <td>index, row, $detail</td>
+        <td>Fires when click the detail icon to expand the detail view.</td>
+    </tr>
+    <tr>
+       <td>onCollapseRow</td>
+       <td>collapse-row.bs.table</td>
+       <td>index, row</td>
+       <td>Fires when click the detail icon to collapse the detail view.</td>
     </tr>
     </tbody>
 </table>

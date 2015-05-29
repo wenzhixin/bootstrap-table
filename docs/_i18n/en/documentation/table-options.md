@@ -8,7 +8,8 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
        data-toggle="table"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Name</th>
@@ -329,6 +330,20 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Boolean</td>
         <td>false</td>
         <td>True to show card view table, for example mobile view.</td>
+    </tr>
+    <tr>
+        <td>detailView</td>
+        <td>data-detail-view</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show detail view table.</td>
+    </tr>
+    <tr>
+        <td>detailFormatter</td>
+        <td>data-detail-formatter</td>
+        <td>Function</td>
+        <td>function(index, row) {<br>return '';<br>}</td>
+        <td>Format your detail view when <code>detailView</code> is set to <code>true</code>.</td>
     </tr>
     <tr>
         <td>searchAlign</td>
