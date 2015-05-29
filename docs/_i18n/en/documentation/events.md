@@ -209,5 +209,11 @@
        <td>index, row</td>
        <td>Fires when click the detail icon to collapse the detail view.</td>
     </tr>
+    <tr>
+       <td>onResetView</td>
+       <td>reset-view.bs.table</td>
+       <td></td>
+       <td>Fires when reset view of the table.</td>
+    </tr>
     </tbody>
 </table>
