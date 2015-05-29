@@ -133,7 +133,7 @@
                 }
             });
 
-            if (that.options.sortPriority === null) {
+            if (that.options.sortPriority === null || that.options.sortPriority.length === 0) {
                 if (that.options.sortName) {
                     that.options.sortPriority = [{
                         sortName: that.options.sortName,
@@ -142,7 +142,7 @@
                 }
             }
             
-            if (that.options.sortPriority !== null) {
+            if (that.options.sortPriority !== null && that.options.sortPriority.length > 0) {
                 if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
                     for (var i = 0; i < that.options.sortPriority.length; i++) {
                         that.addLevel(i, that.options.sortPriority[i]);
