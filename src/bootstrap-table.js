@@ -11,18 +11,7 @@
     // ======================
 
     var cellHeight = 37, // update css if changed
-        cachedWidth = null,
-        arrowAsc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZ' +
-        '0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBd' +
-        'qEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVo' +
-        'AADeemwtPcZI2wAAAABJRU5ErkJggg==',
-        arrowBoth = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X' +
-        'QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azio' +
-        'NZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4eut' +
-        's6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC',
-        arrowDesc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZUlEQVQ4y2NgGAWj' +
-        'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
-        'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
+        cachedWidth = null;
 
     // it only does '%s', and return '' when arguments are undefined
     var sprintf = function (str) {
@@ -116,6 +105,35 @@
             return sprintf.apply(this, [name].concat(args));
         }
         return defaultValue;
+    };
+
+    var compareObjects = function (objectA, objectB, compareLength) {
+        // Create arrays of property names
+        var objectAProperties = Object.getOwnPropertyNames(objectA),
+            objectBProperties = Object.getOwnPropertyNames(objectB),
+            propName = '';
+
+        if (compareLength) {
+            // If number of properties is different, objects are not equivalent
+            if (objectAProperties.length != objectBProperties.length) {
+                return false;
+            }
+        }
+
+        for (var i = 0; i < objectAProperties.length; i++) {
+            propName = objectAProperties[i];
+
+            // If the property is not in the object B properties, continue with the next property
+            if ($.inArray(propName, objectBProperties) > -1) {
+                // If values of same property are not equal, objects are not equivalent
+                if (objectA[propName] !== objectB[propName]) {
+                    return false;
+                }
+            }
+        }
+
+        // If we made it this far, objects are considered equivalent
+        return true;
     };
 
     var escapeHTML = function (text) {
@@ -316,6 +334,9 @@
         },
         onCollapseRow: function (index, row) {
             return false;
+        },
+        onRefreshOptions: function (options) {
+            return false;
         }
     };
 
@@ -406,7 +427,8 @@
         'post-body.bs.table': 'onPostBody',
         'post-header.bs.table': 'onPostHeader',
         'expand-row.bs.table': 'onExpandRow',
-        'collapse-row.bs.table': 'onCollapseRow'
+        'collapse-row.bs.table': 'onCollapseRow',
+        'refresh-options.bs.table': 'onRefreshOptions'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -600,7 +622,7 @@
                 '>');
 
             html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
-                'sortable' : ''));
+                'sortable both' : ''));
 
             text = column.title;
 
@@ -642,7 +664,7 @@
             this.$tableHeader.show();
             this.$tableLoading.css('top', cellHeight + 'px');
             // Assign the correct sortable arrow
-            this.getCaretHtml();
+            this.getCaret();
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
@@ -762,7 +784,7 @@
         $this.add($this_).data('order', this.options.sortOrder);
 
         // Assign the correct sortable arrow
-        this.getCaretHtml();
+        this.getCaret();
 
         if (this.options.sidePagination === 'server') {
             this.initServer();
@@ -1583,15 +1605,11 @@
         }
     };
 
-    BootstrapTable.prototype.getCaretHtml = function () {
+    BootstrapTable.prototype.getCaret = function () {
         var that = this;
 
         $.each(this.$header.find('th'), function (i, th) {
-            if ($(th).data('field') === that.options.sortName) {
-                $(th).find('.sortable').css('background-image', 'url(' + (that.options.sortOrder === 'desc' ? arrowDesc : arrowAsc) + ')');
-            } else {
-                $(th).find('.sortable').css('background-image', 'url(' + arrowBoth +')');
-            }
+            $(th).find('.sortable').removeClass('desc asc').addClass($(th).data('field') === that.options.sortName ? that.options.sortOrder : 'both');
         });
     };
 
@@ -1827,7 +1845,7 @@
         }
 
         // Assign the correct sortable arrow
-        this.getCaretHtml();
+        this.getCaret();
         this.$tableContainer.css('padding-bottom', padding + 'px');
     };
 
@@ -2224,6 +2242,17 @@
         this.trigger('toggle', this.options.cardView);
     };
 
+    BootstrapTable.prototype.refreshOptions = function (options) {
+        //If the objects are equivalent then avoid the call of destroy / init methods
+        if (compareObjects(this.options, options, false)) {
+            return;
+        }
+        this.options = $.extend(this.options, options);
+        this.trigger('refresh-options', this.options);
+        this.destroy();
+        this.init();
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -2248,7 +2277,8 @@
         'getScrollPosition',
         'selectPage', 'prevPage', 'nextPage',
         'togglePagination',
-        'toggleView'
+        'toggleView',
+        'refreshOptions'
     ];
 
     $.fn.bootstrapTable = function (option) {
