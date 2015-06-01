@@ -69,7 +69,8 @@
     });
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
-        filterControl: undefined
+        filterControl: undefined,
+        filterData: undefined
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -98,6 +99,10 @@
             isVisible = 'hidden';
             html = [];
 
+            if (!column.visible) {
+                return;
+            }
+
             if (!column.filterControl) {
                 html.push('<div style="height: 34px;"></div>');
             } else {
@@ -118,7 +123,38 @@
                 }
             }
 
-            that.$header.find(sprintf('.th-inner:contains("%s")', column.title)).next().append(html.join(''));
+            that.$header.find(sprintf('.th-inner:eq("%s")', i)).next().append(html.join(''));
+            if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
+                var filterDataType = column.filterData.substring(0, 3);
+                var filterDataSource = column.filterData.substring(4, column.filterData.length);
+                var selectControl = $('.' + column.field);
+                selectControl.append($("<option></option>")
+                    .attr("value", '')
+                    .text(''));
+                switch (filterDataType) {
+                    case 'url':
+                        $.ajax({
+                            url: filterDataSource,
+                            dataType: 'json',
+                            success: function (data) {
+                                $.each(data, function (key, value) {
+                                    selectControl.append($("<option></option>")
+                                        .attr("value", key)
+                                        .text(value));
+                                });
+                            }
+                        });
+                        break;
+                    case 'var':
+                        var variableValues = window[filterDataSource];
+                        for (var key in variableValues) {
+                            selectControl.append($("<option></option>")
+                                .attr("value", key)
+                                .text(variableValues[key]));
+                        };
+                        break;
+                }
+            }
         });
 
         if (addedFilterControl) {
@@ -159,37 +195,39 @@
 
                 if ((!column.checkbox) || (!column.radio)) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select'
-                        && column.searchable) {
+                            && column.searchable) {
 
-                        var selectControl = $('.' + column.field),
-                            iOpt = 0,
-                            exitsOpt = false,
-                            options;
-                        if (selectControl !== undefined) {
-                            options = selectControl.get(0).options;
+                        if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
+                            var selectControl = $('.' + column.field),
+                                    iOpt = 0,
+                                    exitsOpt = false,
+                                    options;
+                            if (selectControl !== undefined) {
+                                options = selectControl.get(0).options;
 
-                            if (options.length === 0) {
+                                if (options.length === 0) {
 
-                                //Added the default option
-                                selectControl.append($("<option></option>")
-                                    .attr("value", '')
-                                    .text(''));
+                                    //Added the default option
+                                    selectControl.append($("<option></option>")
+                                        .attr("value", '')
+                                        .text(''));
 
-                                selectControl.append($("<option></option>")
-                                    .attr("value", value)
-                                    .text(value));
-                            } else {
-                                for (; iOpt < options.length; iOpt++) {
-                                    if (options[iOpt].value === value) {
-                                        exitsOpt = true;
-                                        break;
-                                    }
-                                }
-
-                                if (!exitsOpt) {
                                     selectControl.append($("<option></option>")
                                         .attr("value", value)
                                         .text(value));
+                                } else {
+                                    for (; iOpt < options.length; iOpt++) {
+                                        if (options[iOpt].value === value) {
+                                            exitsOpt = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (!exitsOpt) {
+                                        selectControl.append($("<option></option>")
+                                            .attr("value", value)
+                                            .text(value));
+                                    }
                                 }
                             }
                         }
