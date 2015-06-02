@@ -10,16 +10,9 @@
     var isSingleSort = false;
 
     var sort_order = {
-            asc: 'Ascending',
-            desc: 'Descending'
-        },
-        arrowAsc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZ' +
-        '0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBd' +
-        'qEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVo' +
-        'AADeemwtPcZI2wAAAABJRU5ErkJggg==',
-        arrowDesc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZUlEQVQ4y2NgGAWj' +
-        'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
-        'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
+        asc: 'Ascending',
+        desc: 'Descending'
+    };
 
     var showSortModal = function(that) {
         if (!$("#sortModal").hasClass("modal")) {
@@ -141,7 +134,7 @@
                     }];
                 }
             }
-            
+
             if (that.options.sortPriority !== null && that.options.sortPriority.length > 0) {
                 if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
                     for (var i = 0; i < that.options.sortPriority.length; i++) {
@@ -260,7 +253,7 @@
                 $('#sortModal').remove();
                 showSortModal(that);
             });
-            
+
             this.$el.on('reset-view.bs.table', function() {
                 that.assignSortableArrows();
             });
@@ -269,7 +262,7 @@
 
     BootstrapTable.prototype.onMultipleSort = function() {
         var that = this;
-        
+
         var cmp = function(x, y) {
             return x > y ? 1 : x < y ? -1 : 0;
         };
@@ -353,7 +346,7 @@
         for (var i = 0; i < headers.length; i++) {
             for (var c = 0; c < that.options.sortPriority.length; c++) {
                 if ($(headers[i]).data('field') === that.options.sortPriority[c].sortName) {
-                    $(headers[i]).find('.sortable').css('background-image', 'url(' + (that.options.sortPriority[c].sortOrder === 'desc' ? arrowDesc : arrowAsc) + ')');
+                    $(headers[i]).find('.sortable').addClass(that.options.sortPriority[c].sortOrder);
                 }
             }
         }
