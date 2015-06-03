@@ -209,5 +209,11 @@
        <td>index, row</td>
        <td>当点击详细图片收起详细页面的时候触发。</td>
     </tr>
+    <tr>
+       <td>onRefreshOptions</td>
+       <td>refresh-options.bs.table</td>
+       <td>options</td>
+       <td>Fires after refresh the options and before destroy and init the table</td>
+    </tr>
     </tbody>
 </table>
