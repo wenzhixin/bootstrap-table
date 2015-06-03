@@ -81,13 +81,13 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-icons</td>
         <td>Object</td>
         <td>{<br/>
-        &nbsp;&nbsp;<b>paginationSwitchDown:</b> 'glyphicon-collapse-down icon-chevron-down',<br/>
-        &nbsp;&nbsp;<b>paginationSwitchUp:</b> 'glyphicon-collapse-up icon-chevron-up',<br/>
-        &nbsp;&nbsp;<b>refresh:</b> 'glyphicon-refresh icon-refresh',<br/>
-        &nbsp;&nbsp;<b>toggle:</b> 'glyphicon-list-alt icon-list-alt',<br/>
-        &nbsp;&nbsp;<b>columns:</b> 'glyphicon-th icon-th',<br/>
-        &nbsp;&nbsp;<b>detailOpen:</b> 'glyphicon-plus icon-plus',<br/>
-        &nbsp;&nbsp;<b>detailClose:</b> 'glyphicon-minus icon-minus'<br/>
+        &nbsp;&nbsp;<i>paginationSwitchDown:</i> 'glyphicon-collapse-down icon-chevron-down',<br/>
+        &nbsp;&nbsp;<i>paginationSwitchUp:</i> 'glyphicon-collapse-up icon-chevron-up',<br/>
+        &nbsp;&nbsp;<i>refresh:</i> 'glyphicon-refresh icon-refresh',<br/>
+        &nbsp;&nbsp;<i>toggle:</i> 'glyphicon-list-alt icon-list-alt',<br/>
+        &nbsp;&nbsp;<i>columns:</i> 'glyphicon-th icon-th',<br/>
+        &nbsp;&nbsp;<i>detailOpen:</i> 'glyphicon-plus icon-plus',<br/>
+        &nbsp;&nbsp;<i>detailClose:</i> 'glyphicon-minus icon-minus'<br/>
         }
         </td>
         <td>Defines icons that used for refresh, toggle and columns buttons</td>
