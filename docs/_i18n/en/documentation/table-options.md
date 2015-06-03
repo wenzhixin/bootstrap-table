@@ -80,7 +80,8 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>icons</td>
         <td>data-icons</td>
         <td>Object</td>
-        <td><pre>{
+        <td>```javascript
+{
   paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
   paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
   refresh: 'glyphicon-refresh icon-refresh',
@@ -88,7 +89,9 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
   columns: 'glyphicon-th icon-th',
   detailOpen: 'glyphicon-plus icon-plus',
   detailClose: 'glyphicon-minus icon-minus'
-}</pre></td>
+}
+```
+</td>
         <td>Defines icons that used for refresh, toggle and columns buttons</td>
     </tr>
     <tr>
