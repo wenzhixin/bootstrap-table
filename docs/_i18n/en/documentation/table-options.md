@@ -90,7 +90,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         &nbsp;&nbsp;<i>detailClose:</i> 'glyphicon-minus icon-minus'<br/>
         }
         </td>
-        <td>Defines icons that used for refresh, toggle and columns buttons</td>
+        <td>Defines icons used in the toolbar, pagination, and details view.</td>
     </tr>
     <tr>
         <td>columns</td>
