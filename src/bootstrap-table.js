@@ -255,7 +255,9 @@
             paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
             refresh: 'glyphicon-refresh icon-refresh',
             toggle: 'glyphicon-list-alt icon-list-alt',
-            columns: 'glyphicon-th icon-th'
+            columns: 'glyphicon-th icon-th',
+            detailOpen: 'glyphicon-plus icon-plus',
+            detailClose: 'glyphicon-minus icon-minus'
         },
 
         rowStyle: function (row, index) {
@@ -1301,7 +1303,7 @@
             if (!this.options.cardView && this.options.detailView) {
                 html.push('<td>',
                     '<a class="detail-icon" href="javascript:">',
-                    '<i class="glyphicon glyphicon-plus icon-plus"></i>',
+                    sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.detailOpen),
                     '</a>',
                     '</td>');
             }
@@ -1457,11 +1459,11 @@
 
             // remove and update
             if ($tr.next().is('tr.detail-view')) {
-                $this.find('i').attr('class', 'glyphicon glyphicon-plus icon-plus');
+                $this.find('i').attr('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailOpen));
                 $tr.next().remove();
                 that.trigger('collapse-row', index, row);
             } else {
-                $this.find('i').attr('class', 'glyphicon glyphicon-minus icon-minus');
+                $this.find('i').attr('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailClose));
                 $tr.after(sprintf('<tr class="detail-view"><td colspan="%s">%s</td></tr>',
                     $tr.find('td').length, calculateObjectValue(that.options,
                         that.options.detailFormatter, [index, row], '')));
