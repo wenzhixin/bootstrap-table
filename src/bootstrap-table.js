@@ -1682,7 +1682,7 @@
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
         this.$tableHeader.css({
             'margin-right': scrollWidth
-        }).find('table').css('width', this.$el.css('width'))
+        }).find('table').css('width', this.$el.outerWidth())
             .html('').attr('class', this.$el.attr('class'))
             .append(this.$header_);
 
