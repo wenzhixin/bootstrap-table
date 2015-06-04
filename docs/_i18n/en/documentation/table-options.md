@@ -2,7 +2,7 @@
 
 ---
 
-The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
+The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 <table class="table"
        data-toggle="table"
@@ -312,7 +312,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-minimum-count-columns</td>
         <td>Number</td>
         <td>1</td>
-        <td>The minimum count columns to hide of the columns drop down list.
+        <td>The minimum number of columns to hide from the columns drop down list.
         </td>
     </tr>
     <tr>
@@ -425,7 +425,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-click-to-select</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to select checkbox or radiobox when click rows.</td>
+        <td>True to select checkbox or radiobox when clicking rows.</td>
     </tr>
     <tr>
         <td>singleSelect</td>
@@ -440,7 +440,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>String</td>
         <td>undefined</td>
         <td>
-        A jQuery selector that indicate the toolbar, for example:<br>
+        A jQuery selector that indicates the toolbar, for example:<br>
         #toolbar, .toolbar.
         </td>
     </tr>
@@ -471,7 +471,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Function</td>
         <td>{}</td>
         <td>
-        The row style formatter function, take two parameters: <br>
+        The row style formatter function, takes two parameters: <br>
         row: the row record data.<br>
         index: the row index.<br>
         Support classes or css.
@@ -483,7 +483,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Function</td>
         <td>{}</td>
         <td>
-        The row attribute formatter function, take two parameters: <br>
+        The row attribute formatter function, takes two parameters: <br>
         row: the row record data.<br>
         index: the row index.<br>
         Support all custom attributes.
