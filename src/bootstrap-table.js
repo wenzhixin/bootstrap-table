@@ -1681,10 +1681,10 @@
         fixedBody = this.$tableBody.get(0);
 
         scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-            fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.height() ?
+            fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
             getScrollBarWidth() : 0;
 
-        this.$el.css('margin-top', -this.$header.height());
+        this.$el.css('margin-top', -this.$header.outerHeight());
         this.$header_ = this.$header.clone(true, true);
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
         this.$tableHeader.css({
