@@ -2194,6 +2194,12 @@
         this.toggleColumn(getFieldIndex(this.options.columns, field), false, true);
     };
 
+    BootstrapTable.prototype.getHiddenColumns = function () {
+        return $.grep(this.options.columns, function( column ) {
+            return !column.visible;
+        });
+    };
+
     BootstrapTable.prototype.filterBy = function (columns) {
         this.filterColumns = $.isEmptyObject(columns) ? {} : columns;
         this.options.pageNumber = 1;
@@ -2276,7 +2282,7 @@
         'resetWidth',
         'destroy',
         'showLoading', 'hideLoading',
-        'showColumn', 'hideColumn',
+        'showColumn', 'hideColumn', 'getHiddenColumns',
         'filterBy',
         'scrollTo',
         'getScrollPosition',
