@@ -1,8 +1,7 @@
 # Table Filter Control
 
 Use Plugin: [bootstrap-table-filter-control](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/filter-control)
-Dependence if you use the datepicker option: [jquery-ui](http://code.jquery.com/ui/1.11.4/jquery-ui.js) v1.11.4 (must include the css file), </br>
-[jquery-ui css](http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css) v1.11.4
+Dependence if you use the datepicker option: [bootstrap-datepicker](https://github.com/eternicode/bootstrap-datepicker) v1.4.0
 
 ## Usage
 
@@ -28,7 +27,7 @@ Dependence if you use the datepicker option: [jquery-ui](http://code.jquery.com/
 
 ### filterDatepickerOptions
 * type: Object
-* description: If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"firstDay":2, "changeMonth": true, "showButtonPanel": true}'`.
+* description: If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"autoclose":true, "clearBtn": true, "todayHighlight": true}'`.
 * default: `undefined`
 
 ## Events

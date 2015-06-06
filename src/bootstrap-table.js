@@ -2218,7 +2218,7 @@
 
     BootstrapTable.prototype.getScrollPosition = function () {
         return this.scrollTo();
-    }
+    };
 
     BootstrapTable.prototype.selectPage = function (page) {
         if (page > 0 && page <= this.options.totalPages) {

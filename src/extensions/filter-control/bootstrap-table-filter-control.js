@@ -202,11 +202,13 @@
                 $.each(this.options.columns, function (i, column) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
                         column.filterDatepickerOptions = $.extend(column.filterDatepickerOptions, {
-                            onSelect: function (text, obj) {
-                                $(obj.input).keyup();
-                            }
+                            calendarWeeks: true
                         });
-                        that.$header.find('.date-filter-control.' + column.field).datepicker(column.filterDatepickerOptions);
+
+                        that.$header.find('.date-filter-control.' + column.field).datepicker(column.filterDatepickerOptions)
+                            .on('changeDate', function (e) {
+                                $(e.currentTarget).keyup();
+                            });
                     }
                 });
             }
