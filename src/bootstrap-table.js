@@ -2194,6 +2194,12 @@
         this.toggleColumn(getFieldIndex(this.options.columns, field), false, true);
     };
 
+    BootstrapTable.prototype.getHiddenColumns = function () {
+        return $.grep(this.options.columns, function( column ) {
+            return !column.visible;
+        });
+    };
+
     BootstrapTable.prototype.filterBy = function (columns) {
         this.filterColumns = $.isEmptyObject(columns) ? {} : columns;
         this.options.pageNumber = 1;
@@ -2215,7 +2221,7 @@
 
     BootstrapTable.prototype.getScrollPosition = function () {
         return this.scrollTo();
-    }
+    };
 
     BootstrapTable.prototype.selectPage = function (page) {
         if (page > 0 && page <= this.options.totalPages) {
@@ -2276,7 +2282,7 @@
         'resetWidth',
         'destroy',
         'showLoading', 'hideLoading',
-        'showColumn', 'hideColumn',
+        'showColumn', 'hideColumn', 'getHiddenColumns',
         'filterBy',
         'scrollTo',
         'getScrollPosition',

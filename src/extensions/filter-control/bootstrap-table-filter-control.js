@@ -61,6 +61,31 @@
         return defaultValue;
     };
 
+    var addValueToSelectControl = function (selectControl, value, text) {
+        var isValidToAdd = existsValueInSelectControl(selectControl, value);
+
+        if (isValidToAdd) {
+            selectControl.append($("<option></option>")
+                .attr("value", value)
+                .text(text));
+        }
+    };
+
+    var existsValueInSelectControl = function (selectControl, value) {
+        var options = selectControl.get(0).options,
+            iOpt = 0;
+
+        for (; iOpt < options.length; iOpt++) {
+            if (options[iOpt].value === value) {
+                //The value is nor valid to add
+                return false;
+            }
+        }
+
+        //If we get here, the value is valid to add
+        return true;
+    };
+
     $.extend($.fn.bootstrapTable.defaults, {
         filterControl: false,
         onColumnSearch: function (field, text) {
@@ -70,7 +95,8 @@
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
         filterControl: undefined,
-        filterData: undefined
+        filterData: undefined,
+        filterDatepickerOptions: undefined
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -120,6 +146,10 @@
                         html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>',
                             column.field, isVisible))
                         break;
+                    case 'datepicker':
+                        html.push(sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">',
+                            column.field, isVisible));
+                        break;
                 }
             }
 
@@ -128,9 +158,8 @@
                 var filterDataType = column.filterData.substring(0, 3);
                 var filterDataSource = column.filterData.substring(4, column.filterData.length);
                 var selectControl = $('.' + column.field);
-                selectControl.append($("<option></option>")
-                    .attr("value", '')
-                    .text(''));
+                addValueToSelectControl(selectControl, '', '');
+
                 switch (filterDataType) {
                     case 'url':
                         $.ajax({
@@ -138,9 +167,7 @@
                             dataType: 'json',
                             success: function (data) {
                                 $.each(data, function (key, value) {
-                                    selectControl.append($("<option></option>")
-                                        .attr("value", key)
-                                        .text(value));
+                                    addValueToSelectControl(selectControl, key, value);
                                 });
                             }
                         });
@@ -148,10 +175,8 @@
                     case 'var':
                         var variableValues = window[filterDataSource];
                         for (var key in variableValues) {
-                            selectControl.append($("<option></option>")
-                                .attr("value", key)
-                                .text(variableValues[key]));
-                        };
+                            addValueToSelectControl(selectControl, key, variableValues[key]);
+                        }
                         break;
                 }
             }
@@ -171,6 +196,22 @@
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
+
+            var datepickers = that.$header.find('.date-filter-control');
+            if (datepickers.length > 0) {
+                $.each(this.options.columns, function (i, column) {
+                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
+                        column.filterDatepickerOptions = $.extend(column.filterDatepickerOptions, {
+                            calendarWeeks: true
+                        });
+
+                        that.$header.find('.date-filter-control.' + column.field).datepicker(column.filterDatepickerOptions)
+                            .on('changeDate', function (e) {
+                                $(e.currentTarget).keyup();
+                            });
+                    }
+                });
+            }
         } else {
             this.$header.find('.filterControl').hide();
         }
@@ -198,37 +239,15 @@
                             && column.searchable) {
 
                         if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
-                            var selectControl = $('.' + column.field),
-                                    iOpt = 0,
-                                    exitsOpt = false,
-                                    options;
+                            var selectControl = $('.' + column.field);
                             if (selectControl !== undefined) {
-                                options = selectControl.get(0).options;
-
-                                if (options.length === 0) {
-
+                                if (selectControl.get(0).options.length === 0) {
                                     //Added the default option
-                                    selectControl.append($("<option></option>")
-                                        .attr("value", '')
-                                        .text(''));
-
-                                    selectControl.append($("<option></option>")
-                                        .attr("value", value)
-                                        .text(value));
-                                } else {
-                                    for (; iOpt < options.length; iOpt++) {
-                                        if (options[iOpt].value === value) {
-                                            exitsOpt = true;
-                                            break;
-                                        }
-                                    }
-
-                                    if (!exitsOpt) {
-                                        selectControl.append($("<option></option>")
-                                            .attr("value", value)
-                                            .text(value));
-                                    }
+                                    addValueToSelectControl(selectControl, '', '');
                                 }
+
+                                //Added a new value
+                                addValueToSelectControl(selectControl, value, value);
                             }
                         }
                     }
