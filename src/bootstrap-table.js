@@ -1428,7 +1428,7 @@
         }
 
         // click to select by column
-        this.$body.find('> tr > td').off('click').on('click', function () {
+        this.$body.find('> tr[data-index] > td').off('click').on('click', function () {
             var $td = $(this),
                 $tr = $td.parent(),
                 item = that.data[$tr.data('index')],
@@ -1436,6 +1436,7 @@
                 $headerCell = that.$header.find('th:eq(' + cellIndex + ')'),
                 field = $headerCell.data('field'),
                 value = item[field];
+
             that.trigger('click-cell', field, value, item, $td);
             that.trigger('click-row', item, $tr);
             // if click to select - then trigger the checkbox/radio click
@@ -1446,7 +1447,7 @@
                 }
             }
         });
-        this.$body.find('> tr > td').off('dblclick').on('dblclick', function () {
+        this.$body.find('> tr[data-index] > td').off('dblclick').on('dblclick', function () {
             var $td = $(this),
                 $tr = $td.parent(),
                 item = that.data[$tr.data('index')],
@@ -1458,7 +1459,7 @@
             that.trigger('dbl-click-row', item, $tr);
         });
 
-        this.$body.find('> tr > td > .detail-icon').off('click').on('click', function () {
+        this.$body.find('> tr[data-index] > td > .detail-icon').off('click').on('click', function () {
             var $this = $(this),
                 $tr = $this.parent().parent(),
                 index = $tr.data('index'),
