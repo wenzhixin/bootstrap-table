@@ -22,6 +22,8 @@ To get started, check out [Docs](http://bootstrap-table.wenzhixin.net.cn), [More
 * Marcus Eddy - $5
 * Keith Rockhold - $50
 * Ramon Sosa Diaz - $10
+* Goncalo Cordeiro - $10
+* Marzena Wspanialy - $25
 
 ## LICENSE
 
@@ -43,6 +45,7 @@ To get started, check out [Docs](http://bootstrap-table.wenzhixin.net.cn), [More
 * Single or multiple row selection
 * Powerful pagination
 * Card view
+* Detail view
 * Localization
 * Extensions
 
@@ -80,7 +83,7 @@ Your feedback is very appreciated!
 
 ## Acknowledgements
 
-Thanks to everyone who have given feedback and submitted pull requests. A list of all the contributors can be found [here](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTORS.md).
+Thanks to everyone who have given feedback and submitted pull requests. A list of all the contributors can be found [here](https://github.com/wenzhixin/bootstrap-table/graphs/contributors).
 
 ## Release History
 

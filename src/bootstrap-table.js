@@ -550,8 +550,7 @@
     BootstrapTable.prototype.initHeader = function () {
         var that = this,
             visibleColumns = [],
-            html = [],
-            timeoutId = 0;
+            html = [];
 
         this.header = {
             fields: [],
@@ -581,19 +580,6 @@
                 unitWidth = 'px',
                 width = column.width;
 
-            if (!column.visible) {
-                // Fix #229. Default Sort order is wrong
-                // if data-visible="false" is set on the field referenced by data-sort-name.
-                if (column.field === that.options.sortName) {
-                    that.header.fields.push(column.field);
-                }
-                return;
-            }
-
-            if (that.options.cardView && (!column.cardVisible)) {
-                return;
-            }
-
             if (column.width !== undefined && (!that.options.cardView)) {
                 if (typeof column.width === 'string') {
                     if (column.width.indexOf('%') !== -1) {
@@ -610,7 +596,6 @@
             style = sprintf('vertical-align: %s; ', column.valign);
             style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : width, unitWidth);
 
-            visibleColumns.push(column);
             that.header.fields.push(column.field);
             that.header.styles.push(align + style);
             that.header.classes.push(class_);
@@ -621,6 +606,16 @@
             that.header.cellStyles.push(column.cellStyle);
             that.header.clickToSelects.push(column.clickToSelect);
             that.header.searchables.push(column.searchable);
+
+            if (!column.visible) {
+                return;
+            }
+
+            if (that.options.cardView && (!column.cardVisible)) {
+                return;
+            }
+
+            visibleColumns.push(column);
 
             html.push('<th',
                 column.checkbox || column.radio ?
@@ -916,7 +911,8 @@
             $keepOpen.find('input').off('click').on('click', function () {
                 var $this = $(this);
 
-                that.toggleColumn(getFieldIndex(that.options.columns, $(this).data('field')), $this.prop('checked'), false);
+                that.toggleColumn(getFieldIndex(that.options.columns,
+                    $(this).data('field')), $this.prop('checked'), false);
                 that.trigger('column-switch', $(this).data('field'), $this.prop('checked'));
             });
         }
@@ -1325,6 +1321,10 @@
                     rowspan_ = '',
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
+                if (!column.visible) {
+                    return;
+                }
+
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
                 value = calculateObjectValue(column,
@@ -1428,7 +1428,7 @@
         }
 
         // click to select by column
-        this.$body.find('> tr[data-index] > td').off('click').on('click', function () {
+        this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', function (e) {
             var $td = $(this),
                 $tr = $td.parent(),
                 item = that.data[$tr.data('index')],
@@ -1437,26 +1437,15 @@
                 field = $headerCell.data('field'),
                 value = item[field];
 
-            that.trigger('click-cell', field, value, item, $td);
-            that.trigger('click-row', item, $tr);
+            that.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
+            that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr);
             // if click to select - then trigger the checkbox/radio click
-            if (that.options.clickToSelect) {
+            if (e.type === 'click' && that.options.clickToSelect) {
                 if (that.header.clickToSelects[$tr.children().index($(this))]) {
                     $tr.find(sprintf('[name="%s"]',
                         that.options.selectItemName))[0].click(); // #144: .trigger('click') bug
                 }
             }
-        });
-        this.$body.find('> tr[data-index] > td').off('dblclick').on('dblclick', function () {
-            var $td = $(this),
-                $tr = $td.parent(),
-                item = that.data[$tr.data('index')],
-                cellIndex = $td[0].cellIndex,
-                $headerCell = that.$header.find('th:eq(' + cellIndex + ')'),
-                field = $headerCell.data('field'),
-                value = item[field];
-            that.trigger('dbl-click-cell', field, value, item, $td);
-            that.trigger('dbl-click-row', item, $tr);
         });
 
         this.$body.find('> tr[data-index] > td > .detail-icon').off('click').on('click', function () {
@@ -1508,13 +1497,20 @@
             if (typeof events === 'string') {
                 events = calculateObjectValue(null, events);
             }
-            if (!that.options.cardView && that.options.detailView) {
-                i += 1;
-            }
+
+            var field = that.header.fields[i],
+                fieldIndex = -1;
+            that.$header.find('th').each(function (i) {
+                if (field === $(this).data('field')) {
+                    fieldIndex = i;
+                    return false;
+                }
+            });
+
             for (var key in events) {
                 that.$body.find('tr').each(function () {
                     var $tr = $(this),
-                        $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(i),
+                        $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(fieldIndex),
                         index = key.indexOf(' '),
                         name = key.substring(0, index),
                         el = key.substring(index + 1),
@@ -1523,7 +1519,7 @@
                     $td.find(el).off(name).on(name, function (e) {
                         var index = $tr.data('index'),
                             row = that.data[index],
-                            value = row[that.header.fields[i]];
+                            value = row[field];
 
                         func.apply(this, [e, value, row, index]);
                     });
@@ -2020,16 +2016,20 @@
 
     BootstrapTable.prototype.mergeCells = function (options) {
         var row = options.index,
-            col = $.inArray(options.field, this.header.fields),
+            col = -1,
             rowspan = options.rowspan || 1,
             colspan = options.colspan || 1,
             i, j,
             $tr = this.$body.find('tr'),
-            $td = $tr.eq(row).find('td').eq(col);
+            $td;
 
-        if (!this.options.cardView && this.options.detailView) {
-            col += 1;
-        }
+        this.$header.find('th').each(function (i) {
+            if ($(this).data('field') === options.field) {
+                col = i;
+                return false;
+            }
+        });
+
         $td = $tr.eq(row).find('td').eq(col);
 
         if (row < 0 || col < 0 || row >= this.data.length) {
