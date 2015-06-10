@@ -139,7 +139,13 @@
                 }
             }
 
-            header.find(sprintf('.th-inner:eq("%s")', i)).next().append(html.join(''));
+            $.each(header.children().children(), function (i, tr) {
+                tr = $(tr);
+                if (tr.data('field') === column.field) {
+                    tr.find('.fht-cell').append(html.join(''));
+                    return false;
+                }
+            });
             if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
                 var filterDataType = column.filterData.substring(0, 3);
                 var filterDataSource = column.filterData.substring(4, column.filterData.length);
@@ -290,7 +296,7 @@
 
                         if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
                             var selectControl = $('.' + column.field);
-                            if (selectControl !== undefined) {
+                            if (selectControl !== undefined && selectControl.length > 0) {
                                 if (selectControl.get(0).options.length === 0) {
                                     //Added the default option
                                     addValueToSelectControl(selectControl, '', '');
