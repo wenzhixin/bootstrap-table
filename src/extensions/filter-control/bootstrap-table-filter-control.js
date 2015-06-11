@@ -61,41 +61,53 @@
         return defaultValue;
     };
 
-    $.extend($.fn.bootstrapTable.defaults, {
-        filterControl: false,
-        onColumnSearch: function (field, text) {
-            return false;
+    var addValueToSelectControl = function (selectControl, value, text) {
+        if (existsValueInSelectControl(selectControl, value)) {
+            selectControl.append($("<option></option>")
+                .attr("value", value)
+                .text(text));
         }
-    });
+    };
 
-    $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
-        filterControl: undefined,
-        filterData: undefined
-    });
+    var existsValueInSelectControl = function (selectControl, value) {
+        var options = selectControl.get(0).options,
+            iOpt = 0;
 
-    $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-        'column-search.bs.table': 'onColumnSearch'
-    });
-
-    var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initHeader = BootstrapTable.prototype.initHeader,
-        _initBody = BootstrapTable.prototype.initBody,
-        _initSearch = BootstrapTable.prototype.initSearch;
-
-    BootstrapTable.prototype.initHeader = function () {
-        _initHeader.apply(this, Array.prototype.slice.apply(arguments));
-
-        if (!this.options.filterControl) {
-            return;
+        for (; iOpt < options.length; iOpt++) {
+            if (options[iOpt].value === value) {
+                //The value is nor valid to add
+                return false;
+            }
         }
 
+        //If we get here, the value is valid to add
+        return true;
+    };
+
+    var fixHeaderCSS = function (that) {
+        that.$tableHeader.css('height', '77px');
+    };
+
+    var copyValues = function (that) {
+        that.options.values = [];
+        that.$tableHeader.find('table select, table input').each(function () {
+            that.options.values.push($(this).val());
+        });
+    };
+
+    var setValues = function(that) {
+        that.$tableHeader.find('table select, table input').each(function (index, ele) {
+            $(this).val(that.options.values[index]);
+        });
+    };
+
+    var createControls = function (that, header) {
         var addedFilterControl = false,
-            that = this,
             isVisible,
             html,
             timeoutId = 0;
 
-        $.each(this.options.columns, function (i, column) {
+        $.each(that.options.columns, function (i, column) {
             isVisible = 'hidden';
             html = [];
 
@@ -120,17 +132,26 @@
                         html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>',
                             column.field, isVisible))
                         break;
+                    case 'datepicker':
+                        html.push(sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">',
+                            column.field, isVisible));
+                        break;
                 }
             }
 
-            that.$header.find(sprintf('.th-inner:eq("%s")', i)).next().append(html.join(''));
+            $.each(header.children().children(), function (i, tr) {
+                tr = $(tr);
+                if (tr.data('field') === column.field) {
+                    tr.find('.fht-cell').append(html.join(''));
+                    return false;
+                }
+            });
             if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
                 var filterDataType = column.filterData.substring(0, 3);
                 var filterDataSource = column.filterData.substring(4, column.filterData.length);
                 var selectControl = $('.' + column.field);
-                selectControl.append($("<option></option>")
-                    .attr("value", '')
-                    .text(''));
+                addValueToSelectControl(selectControl, '', '');
+
                 switch (filterDataType) {
                     case 'url':
                         $.ajax({
@@ -138,9 +159,7 @@
                             dataType: 'json',
                             success: function (data) {
                                 $.each(data, function (key, value) {
-                                    selectControl.append($("<option></option>")
-                                        .attr("value", key)
-                                        .text(value));
+                                    addValueToSelectControl(selectControl, key, value);
                                 });
                             }
                         });
@@ -148,32 +167,110 @@
                     case 'var':
                         var variableValues = window[filterDataSource];
                         for (var key in variableValues) {
-                            selectControl.append($("<option></option>")
-                                .attr("value", key)
-                                .text(variableValues[key]));
-                        };
+                            addValueToSelectControl(selectControl, key, variableValues[key]);
+                        }
                         break;
                 }
             }
         });
 
         if (addedFilterControl) {
-            this.$header.off('keyup', 'input').on('keyup', 'input', function (event) {
+            header.off('keyup', 'input').on('keyup', 'input', function (event) {
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
 
-            this.$header.off('change', 'select').on('change', 'select', function (event) {
+            header.off('change', 'select').on('change', 'select', function (event) {
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
+
+            var datepickers = that.$header.find('.date-filter-control');
+            if (datepickers.length > 0) {
+                $.each(that.options.columns, function (i, column) {
+                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
+                        column.filterDatepickerOptions = $.extend(column.filterDatepickerOptions, {
+                            calendarWeeks: true
+                        });
+
+                        header.find('.date-filter-control.' + column.field).datepicker(column.filterDatepickerOptions)
+                            .on('changeDate', function (e) {
+                                //Fired the keyup event
+                                $(e.currentTarget).keyup();
+                            });
+                    }
+                });
+            }
         } else {
-            this.$header.find('.filterControl').hide();
+            header.find('.filterControl').hide();
         }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, {
+        filterControl: false,
+        onColumnSearch: function (field, text) {
+            return false;
+        },
+        values: [] //internal variables
+    });
+
+    $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
+        filterControl: undefined,
+        filterData: undefined,
+        filterDatepickerOptions: undefined
+    });
+
+    $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+        'column-search.bs.table': 'onColumnSearch'
+    });
+
+    var BootstrapTable = $.fn.bootstrapTable.Constructor,
+        _init = BootstrapTable.prototype.init,
+        _initHeader = BootstrapTable.prototype.initHeader,
+        _initBody = BootstrapTable.prototype.initBody,
+        _initSearch = BootstrapTable.prototype.initSearch;
+
+    BootstrapTable.prototype.init = function () {
+        //Make sure that the filtercontrol option is set
+        if (this.options.filterControl) {
+            var that = this;
+            this.$el.on('reset-view.bs.table', function () {
+
+                //Create controls on $tableHeader if the height is set
+                if (!that.options.height) {
+                    return;
+                }
+
+                //Avoid recreate the controls
+                if (that.$tableHeader.find('select').length > 0 || that.$tableHeader.find('input').length > 0) {
+                    return;
+                }
+
+                createControls(that, that.$tableHeader);
+            }).on('post-header.bs.table', function () {
+                setValues(that);
+            });
+
+            this.$el.on('post-body.bs.table', function () {
+                if (that.options.height) {
+                    fixHeaderCSS(that);
+                }
+            });
+        }
+        _init.apply(this, Array.prototype.slice.apply(arguments));
+    };
+
+    BootstrapTable.prototype.initHeader = function () {
+        _initHeader.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (!this.options.filterControl) {
+            return;
+        }
+        createControls(this, this.$header);
     };
 
     BootstrapTable.prototype.initBody = function () {
@@ -198,37 +295,15 @@
                             && column.searchable) {
 
                         if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
-                            var selectControl = $('.' + column.field),
-                                    iOpt = 0,
-                                    exitsOpt = false,
-                                    options;
-                            if (selectControl !== undefined) {
-                                options = selectControl.get(0).options;
-
-                                if (options.length === 0) {
-
+                            var selectControl = $('.' + column.field);
+                            if (selectControl !== undefined && selectControl.length > 0) {
+                                if (selectControl.get(0).options.length === 0) {
                                     //Added the default option
-                                    selectControl.append($("<option></option>")
-                                        .attr("value", '')
-                                        .text(''));
-
-                                    selectControl.append($("<option></option>")
-                                        .attr("value", value)
-                                        .text(value));
-                                } else {
-                                    for (; iOpt < options.length; iOpt++) {
-                                        if (options[iOpt].value === value) {
-                                            exitsOpt = true;
-                                            break;
-                                        }
-                                    }
-
-                                    if (!exitsOpt) {
-                                        selectControl.append($("<option></option>")
-                                            .attr("value", value)
-                                            .text(value));
-                                    }
+                                    addValueToSelectControl(selectControl, '', '');
                                 }
+
+                                //Added a new value
+                                addValueToSelectControl(selectControl, value, value);
                             }
                         }
                     }
@@ -263,6 +338,7 @@
     };
 
     BootstrapTable.prototype.onColumnSearch = function (event) {
+        copyValues(this);
         var text = $.trim($(event.currentTarget).val());
         var $field = $(event.currentTarget).parent().parent().parent().data('field')
 
