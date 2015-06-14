@@ -292,20 +292,16 @@
             pageTo = this.pageTo < this.options.data.length ? this.options.data.length : this.pageTo;
 
         for (var i = this.pageFrom - 1; i < pageTo; i++) {
-            var key,
-                item = data[i];
+            var item = data[i];
 
             $.each(this.header.fields, function (j, field) {
                 var value = item[field],
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
-                value = calculateObjectValue(that.header,
-                    that.header.formatters[j], [value, item, i], value);
+                value = calculateObjectValue(that.header, that.header.formatters[j], [value, item, i], value);
 
                 if ((!column.checkbox) || (!column.radio)) {
-                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select'
-                            && column.searchable) {
-
+                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select' && column.searchable) {
                         if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
                             var selectControl = $('.' + column.field);
                             if (selectControl !== undefined && selectControl.length > 0) {
