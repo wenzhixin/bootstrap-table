@@ -10,7 +10,7 @@
 
     var resetView = function (that) {
         if (that.options.height || that.options.showFooter) {
-            setTimeout(that.resetView(), 1);
+            setTimeout(that.resetView, 1);
         }
     };
 
