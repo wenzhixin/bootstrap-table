@@ -267,6 +267,10 @@
         rowAttributes: function (row, index) {
             return {};
         },
+        
+        filterRow: function (row, index) {
+            return true;
+        }
 
         onAll: function (name, args) {
             return false;
@@ -979,6 +983,11 @@
                 }
                 return true;
             }) : this.options.data;
+            
+            // Fix #981: Grep-style filter callback function
+            this.data = $.grep(this.data, function (item, i) {
+               return calculateObjectValue(item, that.options.filterRows, [item, i], true); 
+            });
 
             this.data = s ? $.grep(this.data, function (item, i) {
                 for (var key in item) {
