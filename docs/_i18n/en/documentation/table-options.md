@@ -489,5 +489,17 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         Support all custom attributes.
         </td>
     </tr>
+    <tr>
+        <td>filterRows</td>
+        <td>data-filter-rows</td>
+        <td>Function</td>
+        <td>{}</td>
+        <td>
+        The row filter function, takes two parameters: <br>
+        row: the row record data.<br>
+        index: the row index.<br>
+        Return <code>false</code> to exclude the row
+        </td>
+    </tr>
     </tbody>
 </table>
