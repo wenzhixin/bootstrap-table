@@ -1452,7 +1452,7 @@
             var $this = $(this),
                 $tr = $this.parent().parent(),
                 index = $tr.data('index'),
-                row = that.options.data[index];
+                row = data[index]; // Fix #980 Detail view, when searching, returns wrong row
 
             // remove and update
             if ($tr.next().is('tr.detail-view')) {
