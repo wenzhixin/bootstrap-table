@@ -19,11 +19,11 @@
     };
 
     var cookieEnabled = function () {
-        return (navigator.cookieEnabled) ? true : false;
+        return !!(navigator.cookieEnabled);
     };
 
-    var setCookie = function (that, cookieName, sValue) {
-        if ((!that.options.stateSave) || (!cookieEnabled()) || (that.options.cookieIdTable === '')) {
+    var setCookie = function (that, cookieName, cookieValue) {
+        if ((!that.options.cookie) || (!cookieEnabled()) || (that.options.cookieIdTable === '')) {
             return;
         }
 
@@ -32,7 +32,7 @@
             return false;
         }
 
-        document.cookie = encodeURIComponent(cookieName) + '=' + encodeURIComponent(sValue) + calculateExpiration(that.options.cookieExpire) + (that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '') + (that.options.cookiePath ? '; path=' + that.options.cookiePath : '') + (that.cookieSecure ? '; secure' : '');
+        document.cookie = encodeURIComponent(cookieName) + '=' + encodeURIComponent(cookieValue) + calculateExpiration(that.options.cookieExpire) + (that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '') + (that.options.cookiePath ? '; path=' + that.options.cookiePath : '') + (that.cookieSecure ? '; secure' : '');
         return true;
     };
 
@@ -125,11 +125,7 @@
             return;
         }
 
-        if (!cookieEnabled()) {
-            return;
-        }
-
-        if (this.options.cookieIdTable === '' || this.options.cookieExpire === '') {
+        if ((this.options.cookieIdTable === '') || (this.options.cookieExpire === '') || (!cookieEnabled())) {
             return;
         }
 
@@ -218,6 +214,6 @@
             return;
         }
 
-        deleteCookie(cookieIds[cookieName], this.options.cookiePath, this.options.cookieDomain);
+        deleteCookie(this.options.cookieIdTable, cookieIds[cookieName], this.options.cookiePath, this.options.cookieDomain);
     };
 })(jQuery);

@@ -38,13 +38,13 @@ Use Plugin: [bootstrap-table-cookie](https://github.com/wenzhixin/bootstrap-tabl
 ### cookieSecure
 
 * type: Boolean
-* description: This property keep cookie communication limited to encrypted transmission, directing browsers to use cookies only via secure/encrypted connections.
+* description: This property keeps cookie communication limited to encrypted transmission, directing browsers to use cookies only via secure/encrypted connections.
 * default: `null`
 
 ### cookieIdTable
 
 * type: String
-* description: You must set this property if stateSave is enable to sets an unique cookie with an identifier for each table in your page or project. You must set this property because we need create cookies with an identifier.
+* description: You must set this property if the cookie property is enabled to set an unique cookie with an identifier for each table in your page or project. You must set this property because we need create cookies with an identifier.
 * default: ``
 
 ## This plugin saves
