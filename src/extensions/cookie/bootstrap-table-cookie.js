@@ -23,7 +23,7 @@
     };
 
     var setCookie = function (that, cookieName, cookieValue) {
-        if ((!that.options.stateSave) || (!cookieEnabled()) || (that.options.cookieIdTable === '')) {
+        if ((!that.options.cookie) || (!cookieEnabled()) || (that.options.cookieIdTable === '')) {
             return;
         }
 
