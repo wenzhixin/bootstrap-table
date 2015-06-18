@@ -388,6 +388,7 @@
         checkboxEnabled: true,
         field: undefined,
         title: undefined,
+        titleTooltip: undefined,
         'class': undefined,
         align: undefined, // left, right, center
         halign: undefined, // left, right, center
@@ -507,7 +508,8 @@
         this.$header.find('th').each(function () {
             var column = $.extend({}, {
                 title: $(this).html(),
-                'class': $(this).attr('class')
+                'class': $(this).attr('class'),
+                titleTooltip: $(this).attr('title')
             }, $(this).data());
 
             columns.push(column);
@@ -618,7 +620,7 @@
 
             visibleColumns.push(column);
 
-            html.push('<th',
+            html.push('<th' + sprintf(' title="%s"', column.titleTooltip),
                 column.checkbox || column.radio ?
                 sprintf(' class="bs-checkbox %s"', column['class'] || '') :
                 class_,

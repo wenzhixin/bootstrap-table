@@ -49,6 +49,13 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>The column title text.</td>
     </tr>
     <tr>
+        <td>titleTooltip</td>
+        <td>data-title-tooltip</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>The column title tooltip text. This option also support the title HTML attribute</td>
+    </tr>
+    <tr>
         <td>class</td>
         <td>class / data-class</td>
         <td>String</td>
