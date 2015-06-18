@@ -268,7 +268,7 @@
             return {};
         },
         
-        filterRow: function (row, index) {
+        filterRows: function (row, index) {
             return true;
         },
 
@@ -448,6 +448,7 @@
         this.initData();
         this.initFooter();
         this.initToolbar();
+        this.initSearch();
         this.initPagination();
         this.initBody();
         this.initServer();
@@ -1865,7 +1866,7 @@
     };
 
     BootstrapTable.prototype.getData = function (useCurrentPage) {
-        return (this.searchText || !$.isEmptyObject(this.filterColumns) || !$.isEmptyObject(this.filterColumnsPartial)) ?
+        return (this.searchText || !$.isEmptyObject(this.filterColumns) || typeof this.options.filterRows === "string" || !$.isEmptyObject(this.filterColumnsPartial)) ?
             (useCurrentPage ? this.data.slice(this.pageFrom - 1, this.pageTo) : this.data) :
             (useCurrentPage ? this.options.data.slice(this.pageFrom - 1, this.pageTo) : this.options.data);
     };
@@ -2217,6 +2218,11 @@
         this.updatePagination();
     };
 
+    BootstrapTable.prototype.refilterRows = function () {
+        this.initSearch();
+        this.updatePagination();
+    };
+
     BootstrapTable.prototype.scrollTo = function (value) {
         if (typeof value === 'string') {
             value = value === 'bottom' ? this.$tableBody[0].scrollHeight : 0;
@@ -2293,7 +2299,7 @@
         'destroy',
         'showLoading', 'hideLoading',
         'showColumn', 'hideColumn', 'getHiddenColumns',
-        'filterBy',
+        'filterBy', 'refilterRows',
         'scrollTo',
         'getScrollPosition',
         'selectPage', 'prevPage', 'nextPage',
