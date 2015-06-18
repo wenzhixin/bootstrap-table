@@ -388,6 +388,7 @@
         checkboxEnabled: true,
         field: undefined,
         title: undefined,
+        titleTooltip: undefined,
         'class': undefined,
         align: undefined, // left, right, center
         halign: undefined, // left, right, center
@@ -452,22 +453,22 @@
     BootstrapTable.prototype.initContainer = function () {
         this.$container = $([
             '<div class="bootstrap-table">',
-            '<div class="fixed-table-toolbar"></div>',
-            this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
-            '<div class="fixed-table-pagination" style="clear: both;"></div>' :
-            '',
-            '<div class="fixed-table-container">',
-            '<div class="fixed-table-header"><table></table></div>',
-            '<div class="fixed-table-body">',
-            '<div class="fixed-table-loading">',
-            this.options.formatLoadingMessage(),
-            '</div>',
-            '</div>',
-            '<div class="fixed-table-footer"><table><tr></tr></table></div>',
-            this.options.paginationVAlign === 'bottom' || this.options.paginationVAlign === 'both' ?
-            '<div class="fixed-table-pagination"></div>' :
-            '',
-            '</div>',
+                '<div class="fixed-table-toolbar"></div>',
+                    this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
+                    '<div class="fixed-table-pagination" style="clear: both;"></div>' :
+                    '',
+                '<div class="fixed-table-container">',
+                '<div class="fixed-table-header"><table></table></div>',
+                '<div class="fixed-table-body">',
+                    '<div class="fixed-table-loading">',
+                        this.options.formatLoadingMessage(),
+                    '</div>',
+                '</div>',
+                '<div class="fixed-table-footer"><table><tr></tr></table></div>',
+                this.options.paginationVAlign === 'bottom' || this.options.paginationVAlign === 'both' ?
+                '<div class="fixed-table-pagination"></div>' :
+                '',
+                '</div>',
             '</div>'
         ].join(''));
 
@@ -507,7 +508,8 @@
         this.$header.find('th').each(function () {
             var column = $.extend({}, {
                 title: $(this).html(),
-                'class': $(this).attr('class')
+                'class': $(this).attr('class'),
+                titleTooltip: $(this).attr('title')
             }, $(this).data());
 
             columns.push(column);
@@ -540,6 +542,7 @@
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
                 row['_' + field + '_rowspan'] = $(this).attr('rowspan');
+                row['_' + field + '_title'] = $(this).attr('title');
                 row['_' + field + '_data'] = getRealDataAttr($(this).data());
             });
             data.push(row);
@@ -617,7 +620,7 @@
 
             visibleColumns.push(column);
 
-            html.push('<th',
+            html.push('<th' + sprintf(' title="%s"', column.titleTooltip),
                 column.checkbox || column.radio ?
                 sprintf(' class="bs-checkbox %s"', column['class'] || '') :
                 class_,
@@ -1319,6 +1322,7 @@
                     class_ = that.header.classes[j],
                     data_ = '',
                     rowspan_ = '',
+                    title_ = '',
                     column = that.options.columns[getFieldIndex(that.options.columns, field)];
 
                 if (!column.visible) {
@@ -1339,6 +1343,9 @@
                 }
                 if (item['_' + field + '_rowspan']) {
                     rowspan_ = sprintf(' rowspan="%s"', item['_' + field + '_rowspan']);
+                }
+                if (item['_' + field + '_title']) {
+                    title_ = sprintf(' title="%s"', item['_' + field + '_title']);
                 }
                 cellStyle = calculateObjectValue(that.header,
                     that.header.cellStyles[j], [value, item, i], cellStyle);
@@ -1392,7 +1399,7 @@
                             getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
                         sprintf('<span class="value">%s</span>', value),
                         '</div>'
-                    ].join('') : [sprintf('<td%s %s %s %s %s>', id_, class_, style, data_, rowspan_),
+                    ].join('') : [sprintf('<td%s %s %s %s %s %s>', id_, class_, style, data_, rowspan_, title_),
                         value,
                         '</td>'
                     ].join('');

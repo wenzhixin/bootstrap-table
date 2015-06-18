@@ -49,6 +49,13 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>El título de la columna.</td>
     </tr>
     <tr>
+        <td>titleTooltip</td>
+        <td>data-title-tooltip</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Texto del title tooltip de la columna. Esta opción soporta el tag title de HTML.</td>
+    </tr>
+    <tr>
         <td>class</td>
         <td>class / data-class</td>
         <td>String</td>
