@@ -974,6 +974,7 @@
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
+            var r = (typeof this.options.filterRows === "string");
 
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
@@ -986,9 +987,9 @@
             }) : this.options.data;
             
             // Fix #981: Grep-style filter callback function
-            this.data = $.grep(this.data, function (item, i) {
+            this.data = r ? $.grep(this.data, function (item, i) {
                return calculateObjectValue(item, that.options.filterRows, [item, i], true); 
-            });
+            }) : this.data;
 
             this.data = s ? $.grep(this.data, function (item, i) {
                 for (var key in item) {
