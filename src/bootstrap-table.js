@@ -453,22 +453,22 @@
     BootstrapTable.prototype.initContainer = function () {
         this.$container = $([
             '<div class="bootstrap-table">',
-            '<div class="fixed-table-toolbar"></div>',
-            this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
-            '<div class="fixed-table-pagination" style="clear: both;"></div>' :
-            '',
-            '<div class="fixed-table-container">',
-            '<div class="fixed-table-header"><table></table></div>',
-            '<div class="fixed-table-body">',
-            '<div class="fixed-table-loading">',
-            this.options.formatLoadingMessage(),
-            '</div>',
-            '</div>',
-            '<div class="fixed-table-footer"><table><tr></tr></table></div>',
-            this.options.paginationVAlign === 'bottom' || this.options.paginationVAlign === 'both' ?
-            '<div class="fixed-table-pagination"></div>' :
-            '',
-            '</div>',
+                '<div class="fixed-table-toolbar"></div>',
+                    this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
+                    '<div class="fixed-table-pagination" style="clear: both;"></div>' :
+                    '',
+                '<div class="fixed-table-container">',
+                '<div class="fixed-table-header"><table></table></div>',
+                '<div class="fixed-table-body">',
+                    '<div class="fixed-table-loading">',
+                        this.options.formatLoadingMessage(),
+                    '</div>',
+                '</div>',
+                '<div class="fixed-table-footer"><table><tr></tr></table></div>',
+                this.options.paginationVAlign === 'bottom' || this.options.paginationVAlign === 'both' ?
+                '<div class="fixed-table-pagination"></div>' :
+                '',
+                '</div>',
             '</div>'
         ].join(''));
 
