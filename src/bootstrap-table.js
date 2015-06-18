@@ -450,7 +450,6 @@
         this.initToolbar();
         this.initPagination();
         this.initBody();
-        this.initSearch();
         this.initServer();
     };
 
