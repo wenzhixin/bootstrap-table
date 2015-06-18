@@ -270,7 +270,7 @@
         
         filterRow: function (row, index) {
             return true;
-        }
+        },
 
         onAll: function (name, args) {
             return false;
