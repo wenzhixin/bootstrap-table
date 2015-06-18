@@ -1938,9 +1938,10 @@
         }
     };
 
-    BootstrapTable.prototype.removeByUniqueId = function (id) {
+    BootstrapTable.prototype.getRowByUniqueId = function (id) {
         var uniqueId = this.options.uniqueId,
             len = this.options.data.length,
+            dataRow = undefined,
             i, row;
 
         for (i = len - 1; i >= 0; i--) {
@@ -1961,8 +1962,20 @@
             }
 
             if (row[uniqueId] === id) {
-                this.options.data.splice(i, 1);
+                dataRow = row;
+                break;
             }
+        }
+
+        return dataRow;
+    };
+
+    BootstrapTable.prototype.removeByUniqueId = function (id) {
+        var len = this.options.data.length,
+            row = this.getRowByUniqueId(id);
+
+        if (row) {
+            this.options.data.splice(this.options.data.indexOf(row), 1);
         }
 
         if (len === this.options.data.length) {
@@ -2280,7 +2293,7 @@
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'removeByUniqueId',
-        'showRow', 'hideRow', 'getRowsHidden',
+        'getRowByUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',

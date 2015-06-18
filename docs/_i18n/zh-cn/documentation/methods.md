@@ -59,6 +59,30 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         </td>
     </tr>
     <tr>
+        <td>removeAll</td>
+        <td>-</td>
+        <td>
+        Remove all data from table<br>
+        Example: $('#myTable').bootstrapTable('removeAll')
+        </td>
+    </tr>
+    <tr>
+        <td>removeByUniqueId</td>
+        <td>id</td>
+        <td>
+        Remove data from table, the row that contains the id passed by parameter<br>
+        Example: $('#myTable').bootstrapTable('removeByUniqueId', "122")
+        </td>
+    </tr>
+    <tr>
+        <td>getRowByUniqueId</td>
+        <td>id</td>
+        <td>
+        Get data from table, the row that contains the id passed by parameter<br>
+        Example: $('#myTable').bootstrapTable('getRowByUniqueId', "122")
+        </td>
+    </tr>
+    <tr>
         <td>insertRow</td>
         <td>params</td>
         <td>

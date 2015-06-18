@@ -80,6 +80,14 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         </td>
     </tr>
     <tr>
+        <td>getRowByUniqueId</td>
+        <td>id</td>
+        <td>
+        Get data from table, the row that contains the id passed by parameter<br>
+        Example: $('#myTable').bootstrapTable('getRowByUniqueId', "122")
+        </td>
+    </tr>
+    <tr>
         <td>insertRow</td>
         <td>params</td>
         <td>
