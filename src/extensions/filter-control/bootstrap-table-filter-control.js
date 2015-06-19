@@ -89,9 +89,31 @@
         that.$tableHeader.css('height', '77px');
     };
 
+    var getCurrentHeader = function (that) {
+        var header = that.$header;
+        if (that.options.height) {
+            header = that.$tableHeader;
+        }
+
+        return header;
+    };
+
+    var getCurrentSearchControls = function (that) {
+        var searchControls = 'select, input';
+        if (that.options.height) {
+            searchControls = 'table select, table input';
+        }
+
+        return searchControls;
+    };
+
     var copyValues = function (that) {
+        var header = getCurrentHeader(that),
+            searchControls = getCurrentSearchControls(that);
+
         that.options.values = [];
-        that.$tableHeader.find('table select, table input').each(function () {
+
+        header.find(searchControls).each(function () {
             that.options.values.push(
                 {
                     field: $(this).parent().parent().parent().data('field'),
@@ -101,18 +123,23 @@
     };
 
     var setValues = function(that) {
-        var field = null;
-        that.$tableHeader.find('table select, table input').each(function (index, ele) {
-            if (that.options.values.length > 0) {
+        var field = null,
+            result = [],
+            header = getCurrentHeader(that),
+            searchControls = getCurrentSearchControls(that);
+
+        if (that.options.values.length > 0) {
+            header.find(searchControls).each(function (index, ele) {
                 field = $(this).parent().parent().parent().data('field');
-                for (var i = 0; i < that.options.values.length; i++) {
-                    if (field === that.options.values[i].field) {
-                        $(this).val(that.options.values[i].value);
-                        break;
-                    }
+                result = $.grep(that.options.values, function (valueObj) {
+                    return valueObj.field === field;
+                });
+
+                if (result.length > 0) {
+                    $(this).val(result[0].value);
                 }
-            }
-        });
+            });
+        }
     };
 
     var createControls = function (that, header) {
@@ -270,6 +297,8 @@
                 if (that.options.height) {
                     fixHeaderCSS(that);
                 }
+            }).on('column-switch.bs.table', function(field, checked) {
+                setValues(that);
             });
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
