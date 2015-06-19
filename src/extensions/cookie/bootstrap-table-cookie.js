@@ -112,6 +112,7 @@
         _onPageNext = BootstrapTable.prototype.onPageNext,
         _onPageLast = BootstrapTable.prototype.onPageLast,
         _toggleColumn = BootstrapTable.prototype.toggleColumn,
+        _selectPage = BootstrapTable.prototype.selectPage,
         _onSearch = BootstrapTable.prototype.onSearch;
 
     // init save data after initTable function
@@ -202,6 +203,11 @@
         });
 
         setCookie(this, cookieIds.columns, JSON.stringify(visibleColumns));
+    };
+    
+    BootstrapTable.prototype.selectPage = function (page) {
+        _selectPage.apply(this, Array.prototype.slice.apply(arguments));
+        setCookie(this, idsStateSaveList.pageNumber, page);
     };
 
     BootstrapTable.prototype.onSearch = function () {
