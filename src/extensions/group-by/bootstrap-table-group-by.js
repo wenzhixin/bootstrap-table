@@ -69,10 +69,14 @@
         var that = this;
         //**TESTING**
         this.options.groupByField = 'name';
-        console.log(this.options.data);
         var result = groupBy(this.options.data, function(item) {
             return [item[that.options.groupByField]];
         });
+
+        for (var i = 0; i < result.length; i++) {
+            result[i].unshift({name: 'Testing'});
+        }
+
         console.log(result);
         //**TESTING**
     };
