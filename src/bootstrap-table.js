@@ -185,6 +185,7 @@
 
     BootstrapTable.DEFAULTS = {
         classes: 'table table-hover',
+        locale: undefined,
         height: undefined,
         undefinedText: '-',
         sortName: undefined,
@@ -347,7 +348,7 @@
 
     BootstrapTable.LOCALES = [];
 
-    BootstrapTable.LOCALES['en-US'] = {
+    BootstrapTable.LOCALES['en-US'] = BootstrapTable.LOCALES['en'] = {
         formatLoadingMessage: function () {
             return 'Loading, please wait...';
         },
@@ -439,6 +440,7 @@
     };
 
     BootstrapTable.prototype.init = function () {
+        this.initLocale();
         this.initContainer();
         this.initTable();
         this.initHeader();
@@ -450,6 +452,13 @@
         this.initServer();
     };
 
+    BootstrapTable.prototype.initLocaler = function () {
+        // apply locale if found, otherwaise use default/last loaded
+        if (this.options.locale && this.locales[this.options.locale]) {
+            $.extend(this.options, $.fn.bootstrapTable.locales[this.options.locale]);
+        }
+    };
+    
     BootstrapTable.prototype.initContainer = function () {
         this.$container = $([
             '<div class="bootstrap-table">',
