@@ -452,11 +452,22 @@
         this.initServer();
     };
 
-    BootstrapTable.prototype.initLocaler = function () {
-        // apply locale if found, otherwaise use default/last loaded
-        if (this.options.locale && this.locales[this.options.locale]) {
-            $.extend(this.options, $.fn.bootstrapTable.locales[this.options.locale]);
-        }
+    BootstrapTable.prototype.initLocale = function () {
+		if (this.options.locale) {
+			var parts = this.options.locale.split(/-|_/);
+			parts[0].toLowerCase();
+			parts[1] && parts[1].toUpperCase();
+			if ($.fn.bootstrapTable.locales[this.options.locale]) {
+				// locale as requested
+				$.extend(this.options, $.fn.bootstrapTable.locales[this.options.locale]);
+			} else if ($.fn.bootstrapTable.locales[parts.join('-')]) {
+				// locale with sep set to - (in case original was specified with _)
+				$.extend(this.options, $.fn.bootstrapTable.locales[parts.join('-')]);
+			} else if ($.fn.bootstrapTable.locales[parts[0]]) {
+				// short locale language code (i.e. 'en')
+				$.extend(this.options, $.fn.bootstrapTable.locales[parts[0]]);
+			}
+		}
     };
     
     BootstrapTable.prototype.initContainer = function () {
