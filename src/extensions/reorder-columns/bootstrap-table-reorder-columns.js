@@ -26,7 +26,8 @@
         maxMovingRows: 10,
         onReorderColumn: function (headerFields) {
             return false;
-        }
+        },
+        dragaccept: null
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -84,13 +85,13 @@
     };
 
     BootstrapTable.prototype.makeRowsReorderable = function () {
-
         var that = this;
         try {
             $(this.$el).dragtable('destroy');
         } catch (e) {}
         $(this.$el).dragtable({
             maxMovingRows: that.options.maxMovingRows,
+            dragaccept: that.options.dragaccept,
             clickDelay:200,
             beforeStop: function() {
                 var ths = [],

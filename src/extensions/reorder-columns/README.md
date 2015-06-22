@@ -28,6 +28,12 @@ Dependence: [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must incl
 * description: Moving only the header. Recommended for very large tables (cells > 1000)
 * default: `10`
 
+### dragaccept
+
+* type: String
+* description: Allow to drag only the rows that have the css class as attribute.
+* default: `null`
+
 ## Events
 
 ### onReorderColumn(reorder-column.bs.table)
