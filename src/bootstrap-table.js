@@ -267,6 +267,10 @@
         rowAttributes: function (row, index) {
             return {};
         },
+        
+        filterRows: function (row, index) {
+            return true;
+        },
 
         onAll: function (name, args) {
             return false;
@@ -445,6 +449,7 @@
         this.initData();
         this.initFooter();
         this.initToolbar();
+        this.initSearch();
         this.initPagination();
         this.initBody();
         this.initServer();
@@ -972,6 +977,7 @@
         if (this.options.sidePagination !== 'server') {
             var s = this.searchText && this.searchText.toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
+            var r = (typeof this.options.filterRows === "string");
 
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
@@ -982,6 +988,11 @@
                 }
                 return true;
             }) : this.options.data;
+            
+            // Fix #981: Grep-style filter callback function
+            this.data = r ? $.grep(this.data, function (item, i) {
+               return calculateObjectValue(item, that.options.filterRows, [item, i], true); 
+            }) : this.data;
 
             this.data = s ? $.grep(this.data, function (item, i) {
                 for (var key in item) {
@@ -1863,7 +1874,7 @@
     };
 
     BootstrapTable.prototype.getData = function (useCurrentPage) {
-        return (this.searchText || !$.isEmptyObject(this.filterColumns) || !$.isEmptyObject(this.filterColumnsPartial)) ?
+        return (this.searchText || !$.isEmptyObject(this.filterColumns) || typeof this.options.filterRows === "string" || !$.isEmptyObject(this.filterColumnsPartial)) ?
             (useCurrentPage ? this.data.slice(this.pageFrom - 1, this.pageTo) : this.data) :
             (useCurrentPage ? this.options.data.slice(this.pageFrom - 1, this.pageTo) : this.options.data);
     };
@@ -2228,6 +2239,11 @@
         this.updatePagination();
     };
 
+    BootstrapTable.prototype.refilterRows = function () {
+        this.initSearch();
+        this.updatePagination();
+    };
+
     BootstrapTable.prototype.scrollTo = function (value) {
         if (typeof value === 'string') {
             value = value === 'bottom' ? this.$tableBody[0].scrollHeight : 0;
@@ -2304,7 +2320,7 @@
         'destroy',
         'showLoading', 'hideLoading',
         'showColumn', 'hideColumn', 'getHiddenColumns',
-        'filterBy',
+        'filterBy', 'refilterRows',
         'scrollTo',
         'getScrollPosition',
         'selectPage', 'prevPage', 'nextPage',
