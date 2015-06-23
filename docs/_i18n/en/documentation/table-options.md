@@ -491,7 +491,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     </tr>
      <tr>
         <td>locale</td>
-        <td>data-local</td>
+        <td>data-locale</td>
         <td>string</td>
         <td>undefined</td>
         <td>
