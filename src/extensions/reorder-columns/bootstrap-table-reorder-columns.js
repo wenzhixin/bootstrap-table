@@ -96,10 +96,21 @@
             beforeStop: function() {
                 var ths = [],
                     columns = [],
+                    columnsHidden = [],
                     columnIndex = -1;
                 that.$header.find('th').each(function (i) {
                     ths.push($(this).data('field'));
                 });
+
+                //Exist columns not shown
+                if (ths.length < that.options.columns.length) {
+                    columnsHidden = $.grep(that.options.columns, function (column) {
+                       return !column.visible;
+                    });
+                    for (var i = 0; i < columnsHidden.length; i++) {
+                        ths.push(columnsHidden[i].field);
+                    }
+                }
 
                 for (var i = 0; i < ths.length; i++ ) {
                     columnIndex = getFieldIndex(that.options.columns, ths[i]);
