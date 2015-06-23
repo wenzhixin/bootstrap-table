@@ -70,6 +70,7 @@
         mobileResponsive: false,
         minWidth: 562,
         minHeight: undefined,
+        heightThreshold: 100, // just slightly larger than mobile chrome's auto-hiding toolbar
         checkOnInit: true,
         toggled: false
     });
