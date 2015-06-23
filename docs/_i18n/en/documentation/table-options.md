@@ -502,7 +502,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <li>Then tries the locale with <code>'_'</code> translated to 
         <code>'-'</code> and the region code upper cased,</li>
         <li>Then tries the the short locale code (i.e. <code>'fr'</code> instead of <code>'fr-CA'</code>),</li>
-        <li>And finally will use the last local file loaded (or the dfault locale if no locales loaded).</li>
+        <li>And finally will use the last locale file loaded (or the default locale if no locales loaded).</li>
         </ol>
         If left undfined or an empty string, uses the last locale loaded (or <code>'en-US'</code>
         if no locale files loaded).
