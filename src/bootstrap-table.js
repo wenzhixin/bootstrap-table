@@ -1474,8 +1474,10 @@
             // if click to select - then trigger the checkbox/radio click
             if (e.type === 'click' && that.options.clickToSelect) {
                 if (that.header.clickToSelects[$tr.children().index($(this))]) {
-                    $tr.find(sprintf('[name="%s"]',
-                        that.options.selectItemName))[0].click(); // #144: .trigger('click') bug
+                    var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
+                    if ($selectItem.length) {
+                        $selectItem[0].click(); // #144: .trigger('click') bug
+                    }
                 }
             }
         });
