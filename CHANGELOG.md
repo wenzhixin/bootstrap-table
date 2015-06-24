@@ -1,5 +1,17 @@
 ## ChangeLog
 
+### 1.8.2
+
+- [enh] Update bootstrap-table-cookie.js.
+- [enh] Use options for detailView's open/close icons.
+- [enh] Added `refreshOptions` and `gtHiddenColumns` method.
+- [enh] Added `datepicker` option to Filter Control.
+- [bug] Fix #936 Sort carets shouldn't be inline-styled by JS.
+- [bug] Fix table header width bug when setting table to no bordered.
+- [bug] Fix #938, fix #940: Multiple Sort and Hide/Show column.
+- [bug] Fix #970: click and dblclick bug on no-rows table.
+- [bug] Fix #967: unselected column while column sorted display error.
+
 ### 1.8.1
 
 - [enh] Accessing field name in formatter.
