@@ -26,7 +26,8 @@
         maxMovingRows: 10,
         onReorderColumn: function (headerFields) {
             return false;
-        }
+        },
+        dragaccept: null
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -84,21 +85,32 @@
     };
 
     BootstrapTable.prototype.makeRowsReorderable = function () {
-
         var that = this;
         try {
             $(this.$el).dragtable('destroy');
         } catch (e) {}
         $(this.$el).dragtable({
             maxMovingRows: that.options.maxMovingRows,
+            dragaccept: that.options.dragaccept,
             clickDelay:200,
             beforeStop: function() {
                 var ths = [],
                     columns = [],
+                    columnsHidden = [],
                     columnIndex = -1;
                 that.$header.find('th').each(function (i) {
                     ths.push($(this).data('field'));
                 });
+
+                //Exist columns not shown
+                if (ths.length < that.options.columns.length) {
+                    columnsHidden = $.grep(that.options.columns, function (column) {
+                       return !column.visible;
+                    });
+                    for (var i = 0; i < columnsHidden.length; i++) {
+                        ths.push(columnsHidden[i].field);
+                    }
+                }
 
                 for (var i = 0; i < ths.length; i++ ) {
                     columnIndex = getFieldIndex(that.options.columns, ths[i]);
