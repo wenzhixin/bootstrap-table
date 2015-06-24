@@ -185,6 +185,7 @@
 
     BootstrapTable.DEFAULTS = {
         classes: 'table table-hover',
+        locale: undefined,
         height: undefined,
         undefinedText: '-',
         sortName: undefined,
@@ -347,7 +348,7 @@
 
     BootstrapTable.LOCALES = [];
 
-    BootstrapTable.LOCALES['en-US'] = {
+    BootstrapTable.LOCALES['en-US'] = BootstrapTable.LOCALES['en'] = {
         formatLoadingMessage: function () {
             return 'Loading, please wait...';
         },
@@ -439,6 +440,7 @@
     };
 
     BootstrapTable.prototype.init = function () {
+        this.initLocale();
         this.initContainer();
         this.initTable();
         this.initHeader();
@@ -450,6 +452,24 @@
         this.initServer();
     };
 
+    BootstrapTable.prototype.initLocale = function () {
+        if (this.options.locale) {
+            var parts = this.options.locale.split(/-|_/);
+            parts[0].toLowerCase();
+            parts[1] && parts[1].toUpperCase();
+            if ($.fn.bootstrapTable.locales[this.options.locale]) {
+                // locale as requested
+                $.extend(this.options, $.fn.bootstrapTable.locales[this.options.locale]);
+            } else if ($.fn.bootstrapTable.locales[parts.join('-')]) {
+                // locale with sep set to - (in case original was specified with _)
+                $.extend(this.options, $.fn.bootstrapTable.locales[parts.join('-')]);
+            } else if ($.fn.bootstrapTable.locales[parts[0]]) {
+                // short locale language code (i.e. 'en')
+                $.extend(this.options, $.fn.bootstrapTable.locales[parts[0]]);
+            }
+        }
+    };
+    
     BootstrapTable.prototype.initContainer = function () {
         this.$container = $([
             '<div class="bootstrap-table">',
