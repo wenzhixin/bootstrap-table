@@ -244,8 +244,7 @@
                 }, that.options.searchTimeOut);
             });
 
-            var datepickers = header.find('.date-filter-control');
-            if (datepickers.length > 0) {
+            if (header.find('.date-filter-control').length > 0) {
                 $.each(that.options.columns, function (i, column) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
                         header.find('.date-filter-control.' + column.field).datepicker(column.filterDatepickerOptions)
