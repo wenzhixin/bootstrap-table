@@ -53,10 +53,24 @@
         that.toggleView();
     };
 
+    var debounce = function(func,wait) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                func.apply(context,args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later,wait);
+        };
+    };
+
     $.extend($.fn.bootstrapTable.defaults, {
         mobileResponsive: false,
         minWidth: 562,
         minHeight: undefined,
+        heightThreshold: 100, // just slightly larger than mobile chrome's auto-hiding toolbar
         checkOnInit: true,
         toggled: false
     });
@@ -75,13 +89,21 @@
             return;
         }
 
-        var that = this;
-        $(window).resize(function () {
-            changeView(that, $(this).width(), $(this).height())
-        });
+        var that = this, old = { w: $(window).width(), h: $(window).height() };
+
+        $(window).on('resize orientationchange',debounce(function (evt) {
+            // reset view if height has only changed by at least the threshold.
+            var h = $(this).height(), w = $(this).width();
+            if (Math.abs(old.h - h) > that.options.heightThreshold || old.w != w) {
+                changeView(that, w, h);
+                old = { w: w, h: h };
+            }
+        },200));
 
         if (this.options.checkOnInit) {
-            changeView(this, $(window).width(), $(window).height());
+            var h = $(window).height(), w = $(window).width();
+            changeView(this, w, h);
+            old = { w: w, h: h };
         }
     };
 }(jQuery);

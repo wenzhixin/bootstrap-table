@@ -16,6 +16,12 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jqu
 * description: set `true` to show export button.
 * default: `false`
 
+### exportDataType
+
+* type: String
+* description: export data type, support: 'basic', 'all', 'selected'.
+* default: `basic`
+
 ### exportTypes
 
 * type: Array

@@ -1,6 +1,6 @@
 # Table Filter Control
 
-Use Plugin: [bootstrap-table-filter-control](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/filter-control)
+Use Plugin: [bootstrap-table-filter-control](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/filter-control) </br>
 Dependence if you use the datepicker option: [bootstrap-datepicker](https://github.com/eternicode/bootstrap-datepicker) v1.4.0
 
 ## Usage
@@ -22,7 +22,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### filterControl
 
 * type: String
-* description: Set `input`: show an input control, `select`: show a select control, 'datepicker': show a datepicker control.
+* description: Set `input`: show an input control, `select`: show a select control, `datepicker`: show a datepicker control.
 * default: `undefined`
 
 ### filterDatepickerOptions

@@ -220,8 +220,8 @@
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.showMultiSort) {
-            var $btnGroup = this.$toolbar.find('>.btn-group'),
-                $multiSortBtn = $btnGroup.find('div.multi-sort');
+            var $btnGroup = this.$toolbar.find('>.btn-group').first(),
+                $multiSortBtn = this.$toolbar.find('div.multi-sort');
 
             if (!$multiSortBtn.length) {
                 $multiSortBtn = '  <button class="multi-sort btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" data-toggle="modal" data-target="' + sortModalId + '" title="' + this.options.formatMultipleSort() + '">';

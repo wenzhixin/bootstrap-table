@@ -15,3 +15,9 @@ Use Plugin: [bootstrap-table-flat-json](https://github.com/djhvscf/bootstrap-tab
 * type: Boolean
 * description: Set true to flat the JSON object.
 * default: `false`
+
+### flatSeparator
+
+* type: String
+* description: Set the default separator between object levels.
+* default: `.`
