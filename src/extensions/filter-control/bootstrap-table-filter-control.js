@@ -274,7 +274,8 @@
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
         filterControl: undefined,
         filterData: undefined,
-        filterDatepickerOptions: undefined
+        filterDatepickerOptions: undefined,
+        filterShowClear: false
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -283,6 +284,7 @@
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
+        _initToolbar = BootstrapTable.prototype.initToolbar,
         _initHeader = BootstrapTable.prototype.initHeader,
         _initBody = BootstrapTable.prototype.initBody,
         _initSearch = BootstrapTable.prototype.initSearch;
@@ -317,6 +319,30 @@
             });
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
+    };
+
+    BootstrapTable.prototype.initToolbar = function () {
+        if (!this.showToolbar) {
+            this.showToolbar = this.options.filterControl;
+        }
+
+        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (this.options.filterControl && this.options.filterShowClear) {
+            var $btnGroup = this.$toolbar.find('>.btn-group'),
+                $btnClear = $btnGroup.find('div.export');
+
+            if (!$btnClear.length) {
+              $btnClear = $([
+                    '<button class="btn btn-default " ' +
+                        'type="button">',
+                    '<i class="glyphicon glyphicon-trash icon-share"></i> ',
+                    '</button>',
+                    '</ul>'].join('')).appendTo($btnGroup);
+
+                $btnClear.off('click').on('click', $.proxy(this.refreshFilterControl, this));
+            }
+        }
     };
 
     BootstrapTable.prototype.initHeader = function () {
@@ -407,5 +433,24 @@
         this.onSearch(event);
         this.updatePagination();
         this.trigger('column-search', $field, text);
+    };
+
+    BootstrapTable.prototype.refreshFilterControl = function () {
+        $.each(this.options.values, function (i, obj) {
+            obj.value = '';
+        });
+
+        setValues(this);
+
+        var controls = getCurrentHeader(this).find(getCurrentSearchControls(this)),
+            timeoutId = 0;
+
+        if (controls.length > 0) {
+            this.filterColumnsPartial = {};
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function () {
+                $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
+            }, this.options.searchTimeOut);
+        }
     };
 }(jQuery);
