@@ -33,10 +33,3 @@ Use Plugin: [bootstrap-table-mobile](https://github.com/wenzhixin/bootstrap-tabl
 * type: Integer
 * description: Set the minimum height when the table will change the view.
 * default: `undefined`
-
-### heightThreshold
-
-* type: Integer
-* description: minimum change in height in pixels before cardView is triggered.
-Usefull for mobile browsers that auto hide/show the toolbar on vertical scroll.
-* default: `100`
