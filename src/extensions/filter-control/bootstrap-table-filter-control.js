@@ -81,8 +81,8 @@
                 }
                 return a > b ? 1 : a < b ? -1 : 0;
             });
-			selectControl.find('option:gt(0)').remove();
-			selectControl.append($opts);
+            selectControl.find('option:gt(0)').remove();
+            selectControl.append($opts);
         }
     };
 
