@@ -142,9 +142,9 @@
         //sortName
         this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : undefined;
         //pageNumber
-        this.options.pageNumber = pageNumberCookie ? +pageNumberCookie : 1;
+        this.options.pageNumber = pageNumberCookie ? +pageNumberCookie : this.options.pageNumber;
         //pageSize
-        this.options.pageSize = pageListCookie ? pageListCookie === this.options.formatAllRows() ? pageListCookie : +pageListCookie : 10;
+        this.options.pageSize = pageListCookie ? pageListCookie === this.options.formatAllRows() ? pageListCookie : +pageListCookie : this.options.pageSize;
         //searchText
         this.options.searchText = searchTextCookie ? searchTextCookie : '';
 
