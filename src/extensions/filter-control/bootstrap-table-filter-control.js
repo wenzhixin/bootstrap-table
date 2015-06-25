@@ -66,7 +66,21 @@
         if (existsOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
                 .attr("value", value)
-                .text(text));
+                .text($('<div />').html(text).text()));
+            // Sort it. Not overly efficient to do this here
+            var $opts = selectControl.find('option:gt(0)');
+            $opts.sort(function(a,b){
+                a = $(a).text().toLowerCase();
+                b = $(b).text().toLowerCase();
+                if ($.isNumeric(a) && $.isNumeric(b)) {
+                    // Convert numerical values from string to float.
+                    a = parseFloat(a);
+                    b = parseFloat(b);
+                }
+                return a > b ? 1 : a < b ? -1 : 0;
+            });
+            selectControl.find('option:gt(0)').remove();
+            selectControl.append($opts);
         }
     };
 
