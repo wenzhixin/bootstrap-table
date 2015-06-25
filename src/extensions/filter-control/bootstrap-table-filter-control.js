@@ -66,7 +66,7 @@
         if (existsOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
                 .attr("value", value)
-                .text(text));
+                .text($('<div />').html(text).text()));
         }
     };
 
