@@ -322,7 +322,7 @@
     };
 
     BootstrapTable.prototype.initToolbar = function () {
-        if (!this.showToolbar) {
+        if ((!this.showToolbar) && (this.options.filterControl)) {
             this.showToolbar = this.options.filterControl;
         }
 
@@ -340,7 +340,7 @@
                     '</button>',
                     '</ul>'].join('')).appendTo($btnGroup);
 
-                $btnClear.off('click').on('click', $.proxy(this.refreshFilterControl, this));
+                $btnClear.off('click').on('click', $.proxy(this.clearFilterControl, this));
             }
         }
     };
@@ -435,9 +435,9 @@
         this.trigger('column-search', $field, text);
     };
 
-    BootstrapTable.prototype.refreshFilterControl = function () {
-        $.each(this.options.values, function (i, obj) {
-            obj.value = '';
+    BootstrapTable.prototype.clearFilterControl = function () {
+        $.each(this.options.values, function (i, item) {
+            item.value = '';
         });
 
         setValues(this);
