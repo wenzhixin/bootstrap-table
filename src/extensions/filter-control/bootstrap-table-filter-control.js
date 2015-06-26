@@ -67,9 +67,10 @@
             selectControl.append($("<option></option>")
                 .attr("value", value)
                 .text($('<div />').html(text).text()));
+
             // Sort it. Not overly efficient to do this here
             var $opts = selectControl.find('option:gt(0)');
-            $opts.sort(function(a,b){
+            $opts.sort(function (a, b) {
                 a = $(a).text().toLowerCase();
                 b = $(b).text().toLowerCase();
                 if ($.isNumeric(a) && $.isNumeric(b)) {
@@ -79,6 +80,7 @@
                 }
                 return a > b ? 1 : a < b ? -1 : 0;
             });
+
             selectControl.find('option:gt(0)').remove();
             selectControl.append($opts);
         }
@@ -244,8 +246,7 @@
                 }, that.options.searchTimeOut);
             });
 
-            var datepickers = header.find('.date-filter-control');
-            if (datepickers.length > 0) {
+            if (header.find('.date-filter-control').length > 0) {
                 $.each(that.options.columns, function (i, column) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
                         header.find('.date-filter-control.' + column.field).datepicker(column.filterDatepickerOptions)
@@ -273,7 +274,8 @@
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
         filterControl: undefined,
         filterData: undefined,
-        filterDatepickerOptions: undefined
+        filterDatepickerOptions: undefined,
+        filterShowClear: false
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -282,6 +284,7 @@
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
+        _initToolbar = BootstrapTable.prototype.initToolbar,
         _initHeader = BootstrapTable.prototype.initHeader,
         _initBody = BootstrapTable.prototype.initBody,
         _initSearch = BootstrapTable.prototype.initSearch;
@@ -316,6 +319,30 @@
             });
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
+    };
+
+    BootstrapTable.prototype.initToolbar = function () {
+        if ((!this.showToolbar) && (this.options.filterControl)) {
+            this.showToolbar = this.options.filterControl;
+        }
+
+        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (this.options.filterControl && this.options.filterShowClear) {
+            var $btnGroup = this.$toolbar.find('>.btn-group'),
+                $btnClear = $btnGroup.find('div.export');
+
+            if (!$btnClear.length) {
+              $btnClear = $([
+                    '<button class="btn btn-default " ' +
+                        'type="button">',
+                    '<i class="glyphicon glyphicon-trash icon-share"></i> ',
+                    '</button>',
+                    '</ul>'].join('')).appendTo($btnGroup);
+
+                $btnClear.off('click').on('click', $.proxy(this.clearFilterControl, this));
+            }
+        }
     };
 
     BootstrapTable.prototype.initHeader = function () {
@@ -406,5 +433,26 @@
         this.onSearch(event);
         this.updatePagination();
         this.trigger('column-search', $field, text);
+    };
+
+    BootstrapTable.prototype.clearFilterControl = function () {
+        if (this.options.filterControl && this.options.filterShowClear) {
+            $.each(this.options.values, function (i, item) {
+                item.value = '';
+            });
+
+            setValues(this);
+
+            var controls = getCurrentHeader(this).find(getCurrentSearchControls(this)),
+                timeoutId = 0;
+
+            if (controls.length > 0) {
+                this.filterColumnsPartial = {};
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function () {
+                    $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
+                }, this.options.searchTimeOut);
+            }
+        }
     };
 }(jQuery);
