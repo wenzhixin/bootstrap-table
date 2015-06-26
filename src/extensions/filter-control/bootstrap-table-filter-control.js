@@ -436,21 +436,23 @@
     };
 
     BootstrapTable.prototype.clearFilterControl = function () {
-        $.each(this.options.values, function (i, item) {
-            item.value = '';
-        });
+        if (this.options.filterControl && this.options.filterShowClear) {
+            $.each(this.options.values, function (i, item) {
+                item.value = '';
+            });
 
-        setValues(this);
+            setValues(this);
 
-        var controls = getCurrentHeader(this).find(getCurrentSearchControls(this)),
-            timeoutId = 0;
+            var controls = getCurrentHeader(this).find(getCurrentSearchControls(this)),
+                timeoutId = 0;
 
-        if (controls.length > 0) {
-            this.filterColumnsPartial = {};
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(function () {
-                $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
-            }, this.options.searchTimeOut);
+            if (controls.length > 0) {
+                this.filterColumnsPartial = {};
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function () {
+                    $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
+                }, this.options.searchTimeOut);
+            }
         }
     };
 }(jQuery);
