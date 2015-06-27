@@ -76,7 +76,7 @@
             for (j = 0; j < columns[i].length; j++) {
                 var r = columns[i][j],
                     rowspan = r.rowspan || 1,
-                    colspan = r.colspan　|| 1,
+                    colspan = r.colspan || 1,
                     index = $.inArray(false, flag[i]);
 
                 if (colspan === 1) {
