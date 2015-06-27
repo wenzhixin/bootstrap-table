@@ -67,14 +67,14 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>rowspan / data-rowspan</td>
         <td>Number</td>
         <td>undefined</td>
-        <td>Indicate how many rows a cell should take up.</td>
+        <td>Indica cuantas filas debe tomar una celda.</td>
     </tr>
     <tr>
         <td>colspan</td>
         <td>colspan / data-colspan</td>
         <td>Number</td>
         <td>undefined</td>
-        <td>Indicate how many columns a cell should take up.</td>
+        <td>indica cuantas columnas debe tomar una celda.</td>
     </tr>
     <tr>
         <td>align</td>

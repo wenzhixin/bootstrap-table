@@ -124,93 +124,39 @@
         _initData = BootstrapTable.prototype.initData;
 
     BootstrapTable.prototype.init = function () {
-        if ((this.options.groupBy) && (this.options.groupByField !== '')) {
-            var that = this;
+        //Temporal validation
+        if (!this.options.sortName) {
+            if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+                var that = this;
 
-            // Compatibility: IE < 9 and old browsers
-            if (!Object.keys) {
-                setObjectKeys();
+                // Compatibility: IE < 9 and old browsers
+                if (!Object.keys) {
+                    setObjectKeys();
+                }
+
+                //Make sure that the internal variables are set correctly
+                this.options.loaded = false;
+                this.options.originalData = undefined;
+
+                originalRowAttr = this.options.rowAttributes;
+                this.options.rowAttributes = rowAttr;
+                this.$el.on('post-body.bs.table', function () {
+                    that.$el.treetable({
+                        expandable: true
+                    }, true);
+                });
             }
-
-            //Make sure that the internal variables are set correctly
-            this.options.loaded = false;
-            this.options.originalData = undefined;
-
-            originalRowAttr = this.options.rowAttributes;
-            this.options.rowAttributes = rowAttr;
-            this.$el.on('post-body.bs.table', function () {
-                that.$el.treetable({
-                    expandable: true
-                }, true);
-            });
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     BootstrapTable.prototype.initData = function () {
-        if ((this.options.groupBy) && (this.options.groupByField !== '')) {
-            makeGrouped(this);
+        //Temporal validation
+        if (!this.options.sortName) {
+            if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+                makeGrouped(this);
+            }
         }
-
         _initData.apply(this, Array.prototype.slice.apply(arguments));
     };
-
-    /*BootstrapTable.prototype.initSort = function () {
-        var that = this,
-            name = this.options.sortName,
-            order = this.options.sortOrder === 'desc' ? -1 : 1,
-            index = $.inArray(this.options.sortName, this.header.fields);
-
-        if (index !== -1) {
-            this.data.sort(function (a, b) {
-                if ((a.IsParent) || (b.IsParent)) {
-                    return order;
-                }
-                if (that.header.sortNames[index]) {
-                    name = that.header.sortNames[index];
-                }
-                var aa = a[name],
-                    bb = b[name],
-                    value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
-
-                if (value !== undefined) {
-                    return order * value;
-                }
-
-                // Fix #161: undefined or null string sort bug.
-                if (aa === undefined || aa === null) {
-                    aa = '';
-                }
-                if (bb === undefined || bb === null) {
-                    bb = '';
-                }
-
-                // IF both values are numeric, do a numeric comparison
-                if ($.isNumeric(aa) && $.isNumeric(bb)) {
-                    // Convert numerical values form string to float.
-                    aa = parseFloat(aa);
-                    bb = parseFloat(bb);
-                    if (aa < bb) {
-                        return order * -1;
-                    }
-                    return order;
-                }
-
-                if (aa === bb) {
-                    return 0;
-                }
-
-                // If value is not a string, convert to string
-                if (typeof aa !== 'string') {
-                    aa = aa.toString();
-                }
-
-                if (aa.localeCompare(bb) === -1) {
-                    return order * -1;
-                }
-
-                return order;
-            });
-        }
-    };*/
 }(jQuery);
