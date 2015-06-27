@@ -34,7 +34,7 @@
             return;
         }
 
-        $.each(this.options.columns, function (i, column) {
+        $.each(this.columns, function (i, column) {
             if (!column.editable) {
                 return;
             }
@@ -61,7 +61,7 @@
             return;
         }
 
-        $.each(this.options.columns, function (i, column) {
+        $.each(this.columns, function (i, column) {
             if (!column.editable) {
                 return;
             }
