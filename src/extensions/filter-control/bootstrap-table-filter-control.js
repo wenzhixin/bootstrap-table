@@ -164,7 +164,7 @@
             html,
             timeoutId = 0;
 
-        $.each(that.options.columns, function (i, column) {
+        $.each(that.columns, function (i, column) {
             isVisible = 'hidden';
             html = [];
 
@@ -247,7 +247,7 @@
             });
 
             if (header.find('.date-filter-control').length > 0) {
-                $.each(that.options.columns, function (i, column) {
+                $.each(that.columns, function (i, column) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
                         header.find('.date-filter-control.' + column.field).datepicker(column.filterDatepickerOptions)
                             .on('changeDate', function (e) {
@@ -366,7 +366,7 @@
 
             $.each(this.header.fields, function (j, field) {
                 var value = item[field],
-                    column = that.options.columns[getFieldIndex(that.options.columns, field)];
+                    column = that.columns[getFieldIndex(that.columns, field)];
 
                 value = calculateObjectValue(that.header, that.header.formatters[j], [value, item, i], value);
 

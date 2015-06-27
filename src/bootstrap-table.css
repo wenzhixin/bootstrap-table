@@ -40,15 +40,10 @@
 
 .fixed-table-footer,
 .fixed-table-header {
-    height: 37px; /*cellHeight*/
     overflow: hidden;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
-}
-
-.fixed-table-header {
-    border-bottom: 1px solid #dddddd;
 }
 
 .fixed-table-footer {
@@ -265,7 +260,7 @@
 
 .bootstrap-table .table > thead > tr > th {
     vertical-align: bottom;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 /* support bootstrap 3 */

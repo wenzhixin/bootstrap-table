@@ -103,8 +103,8 @@
                 });
 
                 //Exist columns not shown
-                if (ths.length < that.options.columns.length) {
-                    columnsHidden = $.grep(that.options.columns, function (column) {
+                if (ths.length < that.columns.length) {
+                    columnsHidden = $.grep(that.columns, function (column) {
                        return !column.visible;
                     });
                     for (var i = 0; i < columnsHidden.length; i++) {
@@ -113,14 +113,14 @@
                 }
 
                 for (var i = 0; i < ths.length; i++ ) {
-                    columnIndex = getFieldIndex(that.options.columns, ths[i]);
+                    columnIndex = getFieldIndex(that.columns, ths[i]);
                     if (columnIndex !== -1) {
-                        columns.push(that.options.columns[columnIndex]);
-                        that.options.columns.splice(columnIndex, 1);
+                        columns.push(that.columns[columnIndex]);
+                        that.columns.splice(columnIndex, 1);
                     }
                 }
 
-                that.options.columns = that.options.columns.concat(columns);
+                that.columns = that.columns.concat(columns);
                 that.header.fields = ths;
                 that.resetView();
                 that.trigger('reorder-column', ths);

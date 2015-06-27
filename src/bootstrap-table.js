@@ -10,8 +10,7 @@
     // TOOLS DEFINITION
     // ======================
 
-    var cellHeight = 37, // update css if changed
-        cachedWidth = null;
+    var cachedWidth = null;
 
     // it only does '%s', and return '' when arguments are undefined
     var sprintf = function (str) {
@@ -55,6 +54,48 @@
         });
         return index;
     };
+
+    // http://jsfiddle.net/wenyi/47nz7ez9/3/
+    var setFieldIndex = function (columns) {
+        var i, j, k,
+            totalCol = 0,
+            flag = [];
+
+        for (i = 0; i < columns[0].length; i++) {
+            totalCol += columns[0][i].colspan || 1;
+        }
+
+        for (i = 0; i < columns.length; i++) {
+            flag[i] = [];
+            for (j = 0; j < totalCol; j++) {
+                flag[i][j] = false;
+            }
+        }
+
+        for (i = 0; i < columns.length; i++) {
+            for (j = 0; j < columns[i].length; j++) {
+                var r = columns[i][j],
+                    rowspan = r.rowspan || 1,
+                    colspan = r.colspan || 1,
+                    index = $.inArray(false, flag[i]);
+
+                if (colspan === 1) {
+                    r.fieldIndex = index;
+                    // when field is undefined, use index instead
+                    if (typeof r.field === 'undefined') {
+                        r.field = index;
+                    }
+                }
+
+                for (k = 0; k < rowspan; k++) {
+                    flag[i + k][index] = true;
+                }
+                for (k = 0; k < colspan; k++) {
+                    flag[i][index + k] = true;
+                }
+            }
+        }
+    }
 
     var getScrollBarWidth = function () {
         if (cachedWidth === null) {
@@ -191,7 +232,7 @@
         sortName: undefined,
         sortOrder: 'asc',
         striped: false,
-        columns: [],
+        columns: [[]],
         data: [],
         method: 'get',
         url: undefined,
@@ -523,23 +564,37 @@
         if (!this.$header.length) {
             this.$header = $('<thead></thead>').appendTo(this.$el);
         }
-        if (!this.$header.find('tr').length) {
-            this.$header.append('<tr></tr>');
-        }
-        this.$header.find('th').each(function () {
-            var column = $.extend({}, {
-                title: $(this).html(),
-                'class': $(this).attr('class'),
-                titleTooltip: $(this).attr('title')
-            }, $(this).data());
+        this.$header.find('tr').each(function () {
+            var column = [];
 
+            $(this).find('th').each(function () {
+                column.push($.extend({}, {
+                    title: $(this).html(),
+                    'class': $(this).attr('class'),
+                    titleTooltip: $(this).attr('title'),
+                    rowspan: $(this).attr('rowspan') ? +$(this).attr('rowspan') : undefined,
+                    colspan: $(this).attr('colspan') ? +$(this).attr('colspan') : undefined
+                }, $(this).data()));
+            });
             columns.push(column);
         });
+        if (!$.isArray(this.options.columns[0])) {
+            this.options.columns = [this.options.columns];
+        }
         this.options.columns = $.extend(true, [], columns, this.options.columns);
-        $.each(this.options.columns, function (i, column) {
-            that.options.columns[i] = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, {
-                field: i
-            }, column); // when field is undefined, use index instead
+        this.columns = [];
+
+        setFieldIndex(this.options.columns);
+        $.each(this.options.columns, function (i, columns) {
+            $.each(columns, function (j, column) {
+                column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
+
+                if (typeof column.fieldIndex !== 'undefined') {
+                    that.columns[column.fieldIndex] = column;
+                }
+
+                that.options.columns[i][j] = column;
+            });
         });
 
         // if options.data is setting, do not process tbody data
@@ -556,7 +611,7 @@
             row._data = getRealDataAttr($(this).data());
 
             $(this).find('td').each(function (i) {
-                var field = that.options.columns[i].field;
+                var field = that.columns[i].field;
 
                 row[field] = $(this).html();
                 // save td's id, class and data-* attributes
@@ -573,7 +628,7 @@
 
     BootstrapTable.prototype.initHeader = function () {
         var that = this,
-            visibleColumns = [],
+            visibleColumns = {},
             html = [];
 
         this.header = {
@@ -589,92 +644,102 @@
             searchables: []
         };
 
-        if (!this.options.cardView && this.options.detailView) {
-            html.push('<th class="detail"><div class="fht-cell"></div></th>');
-            visibleColumns.push({});
-        }
+        $.each(this.options.columns, function (i, columns) {
+            html.push('<tr>');
 
-        $.each(this.options.columns, function (i, column) {
-            var text = '',
-                halign = '', // header align style
-                align = '', // body align style
-                style = '',
-                class_ = sprintf(' class="%s"', column['class']),
-                order = that.options.sortOrder || column.order,
-                unitWidth = 'px',
-                width = column.width;
+            if (i == 0 && !that.options.cardView && that.options.detailView) {
+                html.push(sprintf('<th class="detail" rowspan="%s"><div class="fht-cell"></div></th>',
+                    that.options.columns.length));
+            }
 
-            if (column.width !== undefined && (!that.options.cardView)) {
-                if (typeof column.width === 'string') {
-                    if (column.width.indexOf('%') !== -1) {
-                        unitWidth = '%';
+            $.each(columns, function (j, column) {
+                var text = '',
+                    halign = '', // header align style
+                    align = '', // body align style
+                    style = '',
+                    class_ = sprintf(' class="%s"', column['class']),
+                    order = that.options.sortOrder || column.order,
+                    unitWidth = 'px',
+                    width = column.width;
+
+                if (column.width !== undefined && (!that.options.cardView)) {
+                    if (typeof column.width === 'string') {
+                        if (column.width.indexOf('%') !== -1) {
+                            unitWidth = '%';
+                        }
                     }
                 }
-            }
-            if (column.width && typeof column.width === 'string') {
-                width = column.width.replace('%', '').replace('px', '');
-            }
-
-            halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
-            align = sprintf('text-align: %s; ', column.align);
-            style = sprintf('vertical-align: %s; ', column.valign);
-            style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : width, unitWidth);
-
-            that.header.fields.push(column.field);
-            that.header.styles.push(align + style);
-            that.header.classes.push(class_);
-            that.header.formatters.push(column.formatter);
-            that.header.events.push(column.events);
-            that.header.sorters.push(column.sorter);
-            that.header.sortNames.push(column.sortName);
-            that.header.cellStyles.push(column.cellStyle);
-            that.header.clickToSelects.push(column.clickToSelect);
-            that.header.searchables.push(column.searchable);
-
-            if (!column.visible) {
-                return;
-            }
-
-            if (that.options.cardView && (!column.cardVisible)) {
-                return;
-            }
-
-            visibleColumns.push(column);
-
-            html.push('<th' + sprintf(' title="%s"', column.titleTooltip),
-                column.checkbox || column.radio ?
-                sprintf(' class="bs-checkbox %s"', column['class'] || '') :
-                class_,
-                sprintf(' style="%s"', halign + style),
-                '>');
-
-            html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
-                'sortable both' : ''));
-
-            text = column.title;
-
-            if (column.checkbox) {
-                if (!that.options.singleSelect && that.options.checkboxHeader) {
-                    text = '<input name="btSelectAll" type="checkbox" />';
+                if (column.width && typeof column.width === 'string') {
+                    width = column.width.replace('%', '').replace('px', '');
                 }
-                that.header.stateField = column.field;
-            }
-            if (column.radio) {
-                text = '';
-                that.header.stateField = column.field;
-                that.options.singleSelect = true;
-            }
 
-            html.push(text);
-            html.push('</div>');
-            html.push('<div class="fht-cell"></div>');
-            html.push('</div>');
-            html.push('</th>');
+                halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
+                align = sprintf('text-align: %s; ', column.align);
+                style = sprintf('vertical-align: %s; ', column.valign);
+                style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : width, unitWidth);
+
+                if (typeof column.fieldIndex !== 'undefined') {
+                    that.header.fields[column.fieldIndex] = column.field;
+                    that.header.styles[column.fieldIndex] = align + style;
+                    that.header.classes[column.fieldIndex] = class_;
+                    that.header.formatters[column.fieldIndex] = column.formatter;
+                    that.header.events[column.fieldIndex] = column.events;
+                    that.header.sorters[column.fieldIndex] = column.sorter;
+                    that.header.sortNames[column.fieldIndex] = column.sortName;
+                    that.header.cellStyles[column.fieldIndex] = column.cellStyle;
+                    that.header.clickToSelects[column.fieldIndex] = column.clickToSelect;
+                    that.header.searchables[column.fieldIndex] = column.searchable;
+
+                    if (!column.visible) {
+                        return;
+                    }
+
+                    if (that.options.cardView && (!column.cardVisible)) {
+                        return;
+                    }
+
+                    visibleColumns[column.field] = column;
+                }
+
+                html.push('<th' + sprintf(' title="%s"', column.titleTooltip),
+                    column.checkbox || column.radio ?
+                    sprintf(' class="bs-checkbox %s"', column['class'] || '') :
+                    class_,
+                    sprintf(' style="%s"', halign + style),
+                    sprintf(' rowspan="%s"', column.rowspan),
+                    sprintf(' colspan="%s"', column.colspan),
+                    sprintf(' data-field="%s"', column.field),
+                    '>');
+
+                html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
+                    'sortable both' : ''));
+
+                text = column.title;
+
+                if (column.checkbox) {
+                    if (!that.options.singleSelect && that.options.checkboxHeader) {
+                        text = '<input name="btSelectAll" type="checkbox" />';
+                    }
+                    that.header.stateField = column.field;
+                }
+                if (column.radio) {
+                    text = '';
+                    that.header.stateField = column.field;
+                    that.options.singleSelect = true;
+                }
+
+                html.push(text);
+                html.push('</div>');
+                html.push('<div class="fht-cell"></div>');
+                html.push('</div>');
+                html.push('</th>');
+            });
+            html.push('</tr>');
         });
 
-        this.$header.find('tr').html(html.join(''));
-        this.$header.find('th').each(function (i) {
-            $(this).data(visibleColumns[i]);
+        this.$header.html(html.join(''));
+        this.$header.find('th[data-field]').each(function (i) {
+            $(this).data(visibleColumns[$(this).data('field')]);
         });
         this.$container.off('click', '.th-inner').on('click', '.th-inner', function (event) {
             if (that.options.sortable && $(this).parent().data().sortable) {
@@ -689,7 +754,7 @@
         } else {
             this.$header.show();
             this.$tableHeader.show();
-            this.$tableLoading.css('top', cellHeight + 'px');
+            this.$tableLoading.css('top', this.$header.outerHeight() + 1);
             // Assign the correct sortable arrow
             this.getCaret();
         }
@@ -876,7 +941,7 @@
                 '</button>',
                 '<ul class="dropdown-menu" role="menu">');
 
-            $.each(this.options.columns, function (i, column) {
+            $.each(this.columns, function (i, column) {
                 if (column.radio || column.checkbox) {
                     return;
                 }
@@ -935,7 +1000,7 @@
             $keepOpen.find('input').off('click').on('click', function () {
                 var $this = $(this);
 
-                that.toggleColumn(getFieldIndex(that.options.columns,
+                that.toggleColumn(getFieldIndex(that.columns,
                     $(this).data('field')), $this.prop('checked'), false);
                 that.trigger('column-switch', $(this).data('field'), $this.prop('checked'));
             });
@@ -1008,7 +1073,7 @@
                 for (var key in item) {
                     key = $.isNumeric(key) ? parseInt(key, 10) : key;
                     var value = item[key],
-                        column = that.options.columns[getFieldIndex(that.options.columns, key)],
+                        column = that.columns[getFieldIndex(that.columns, key)],
                         j = $.inArray(key, that.header.fields);
 
                     // Fix #142: search use formated data
@@ -1354,7 +1419,7 @@
                     data_ = '',
                     rowspan_ = '',
                     title_ = '',
-                    column = that.options.columns[getFieldIndex(that.options.columns, field)];
+                    column = that.columns[getFieldIndex(that.columns, field)];
 
                 if (!column.visible) {
                     return;
@@ -1427,7 +1492,7 @@
 
                     text = that.options.cardView ? ['<div class="card-view">',
                         that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
-                            getPropertyFromOther(that.options.columns, 'field', 'title', field)) : '',
+                            getPropertyFromOther(that.columns, 'field', 'title', field)) : '',
                         sprintf('<span class="value">%s</span>', value),
                         '</div>'
                     ].join('') : [sprintf('<td%s %s %s %s %s %s>', id_, class_, style, data_, rowspan_, title_),
@@ -1539,13 +1604,11 @@
             }
 
             var field = that.header.fields[i],
-                fieldIndex = -1;
-            that.$header.find('th').each(function (i) {
-                if (field === $(this).data('field')) {
-                    fieldIndex = i;
-                    return false;
-                }
-            });
+                fieldIndex = $.inArray(field, that.getVisibleFields());
+
+            if (that.options.detailView && !that.options.cardView) {
+                fieldIndex += 1;
+            }
 
             for (var key in events) {
                 that.$body.find('tr').each(function () {
@@ -1712,7 +1775,7 @@
             scrollWidth;
 
         if (that.$el.is(':hidden')) {
-            that.timeoutFooter_ = setTimeout($.proxy(that.fitHeader, that), 100);
+            that.timeoutId_ = setTimeout($.proxy(that.fitHeader, that), 100);
             return;
         }
         fixedBody = this.$tableBody.get(0);
@@ -1731,12 +1794,25 @@
             .append(this.$header_);
 
         // fix bug: $.data() is not working as expected after $.append()
-        this.$header.find('th').each(function (i) {
-            that.$header_.find('th').eq(i).data($(this).data());
+        this.$header.find('th[data-field]').each(function (i) {
+            that.$header_.find(sprintf('th[data-field="%s"]', $(this).data('field'))).data($(this).data());
         });
 
+        var visibleFields = this.getVisibleFields();
+
         this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
-            that.$header_.find('div.fht-cell').eq(i).width($(this).innerWidth());
+            var $this = $(this),
+                index = i;
+
+            if (that.options.detailView && !that.options.cardView) {
+                if (i === 0) {
+                    that.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth());
+                }
+                index = i - 1;
+            }
+
+            that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]))
+                .find('.fht-cell').width($this.innerWidth());
         });
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
@@ -1759,7 +1835,7 @@
             html.push('<td></td>');
         }
 
-        $.each(this.options.columns, function (i, column) {
+        $.each(this.columns, function (i, column) {
             var falign = '', // footer align style
                 style = '',
                 class_ = sprintf(' class="%s"', column['class']);
@@ -1818,7 +1894,7 @@
         if (index === -1) {
             return;
         }
-        this.options.columns[index].visible = checked;
+        this.columns[index].visible = checked;
         this.initHeader();
         this.initSearch();
         this.initPagination();
@@ -1843,6 +1919,21 @@
         }
 
         $(this.$body[0]).children().filter(sprintf(isIdField ? '[data-uniqueid="%s"]' : '[data-index="%s"]', index))[visible ? 'show' : 'hide']();
+    };
+
+    BootstrapTable.prototype.getVisibleFields = function () {
+        var that = this,
+            visibleFields = [];
+
+        $.each(this.header.fields, function (j, field) {
+            var column = that.columns[getFieldIndex(that.columns, field)];
+
+            if (!column.visible) {
+                return;
+            }
+            visibleFields.push(field);
+        });
+        return visibleFields;
     };
 
     // PUBLIC FUNCTION DEFINITION
@@ -1876,7 +1967,7 @@
         if (this.options.showHeader && this.options.height) {
             this.$tableHeader.show();
             this.resetHeader();
-            padding += cellHeight;
+            padding += this.$header.outerHeight();
         } else {
             this.$tableHeader.hide();
             this.trigger('post-header');
@@ -1885,7 +1976,7 @@
         if (this.options.showFooter) {
             this.resetFooter();
             if (this.options.height) {
-                padding += cellHeight;
+                padding += this.$tableFooter.outerHeight();
             }
         }
 
@@ -2069,19 +2160,16 @@
 
     BootstrapTable.prototype.mergeCells = function (options) {
         var row = options.index,
-            col = -1,
+            col = $.inArray(options.field, this.getVisibleFields()),
             rowspan = options.rowspan || 1,
             colspan = options.colspan || 1,
             i, j,
             $tr = this.$body.find('tr'),
             $td;
 
-        this.$header.find('th').each(function (i) {
-            if ($(this).data('field') === options.field) {
-                col = i;
-                return false;
-            }
-        });
+        if (this.options.detailView && !this.options.cardView) {
+            col += 1;
+        }
 
         $td = $tr.eq(row).find('td').eq(col);
 
@@ -2241,15 +2329,15 @@
     };
 
     BootstrapTable.prototype.showColumn = function (field) {
-        this.toggleColumn(getFieldIndex(this.options.columns, field), true, true);
+        this.toggleColumn(getFieldIndex(this.columns, field), true, true);
     };
 
     BootstrapTable.prototype.hideColumn = function (field) {
-        this.toggleColumn(getFieldIndex(this.options.columns, field), false, true);
+        this.toggleColumn(getFieldIndex(this.columns, field), false, true);
     };
 
     BootstrapTable.prototype.getHiddenColumns = function () {
-        return $.grep(this.options.columns, function( column ) {
+        return $.grep(this.columns, function( column ) {
             return !column.visible;
         });
     };

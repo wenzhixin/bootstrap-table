@@ -63,11 +63,25 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>The column class name.</td>
     </tr>
     <tr>
+        <td>rowspan</td>
+        <td>rowspan / data-rowspan</td>
+        <td>Number</td>
+        <td>undefined</td>
+        <td>Indicate how many rows a cell should take up.</td>
+    </tr>
+    <tr>
+        <td>colspan</td>
+        <td>colspan / data-colspan</td>
+        <td>Number</td>
+        <td>undefined</td>
+        <td>Indicate how many columns a cell should take up.</td>
+    </tr>
+    <tr>
         <td>align</td>
         <td>data-align</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Indicate how to align the column data. "left', 'right', 'center' can be used.</td>
+        <td>Indicate how to align the column data. 'left', 'right', 'center' can be used.</td>
     </tr>
     <tr>
         <td>halign</td>

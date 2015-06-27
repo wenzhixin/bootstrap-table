@@ -328,7 +328,7 @@
         var $multiSortName = this.$sortModal.find('.multi-sort-name').last(),
             $multiSortOrder = this.$sortModal.find('.multi-sort-order').last();
 
-        this.options.columns.forEach(function(column) {
+        this.columns.forEach(function(column) {
             if (column.sortable === false || column.visible === false) {
                 return true;
             }
