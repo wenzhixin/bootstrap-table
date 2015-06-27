@@ -63,11 +63,25 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>La clase CSS de la columna.</td>
     </tr>
     <tr>
+        <td>rowspan</td>
+        <td>rowspan / data-rowspan</td>
+        <td>Number</td>
+        <td>undefined</td>
+        <td>Indicate how many rows a cell should take up.</td>
+    </tr>
+    <tr>
+        <td>colspan</td>
+        <td>colspan / data-colspan</td>
+        <td>Number</td>
+        <td>undefined</td>
+        <td>Indicate how many columns a cell should take up.</td>
+    </tr>
+    <tr>
         <td>align</td>
         <td>data-align</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Indica cómo se alinea la columna. Se puede usar "left', 'right', 'center'.</td>
+        <td>Indica cómo se alinea la columna. Se puede usar 'left', 'right', 'center'.</td>
     </tr>
     <tr>
         <td>halign</td>
