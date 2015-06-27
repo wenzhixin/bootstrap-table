@@ -262,6 +262,7 @@
         paginationNextText: '&rsaquo;',
         paginationLastText: '&raquo;',
         search: false,
+        strictSearch: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
         showHeader: true,
@@ -1080,11 +1081,16 @@
                         that.header.formatters[j], [value, item, i], value);
 
                     var index = $.inArray(key, that.header.fields);
-                    if (index !== -1 && that.header.searchables[index] &&
-                        (typeof value === 'string' ||
-                            typeof value === 'number') &&
-                        (value + '').toLowerCase().indexOf(s) !== -1) {
-                        return true;
+                    if (index !== -1 && that.header.searchables[index] && (typeof value === 'string' || typeof value === 'number')) {
+                        if (that.options.strictSearch) {
+                            if ((value + '').toLowerCase() === s) {
+                                return true;
+                            }
+                        } else {
+                            if ((value + '').toLowerCase().indexOf(s) !== -1) {
+                               return true;
+                            }
+                        }
                     }
                 }
                 return false;
