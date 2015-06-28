@@ -33,3 +33,9 @@ Use Plugin: [bootstrap-table-mobile](https://github.com/wenzhixin/bootstrap-tabl
 * type: Integer
 * description: Set the minimum height when the table will change the view.
 * default: `undefined`
+
+### columnsHidden
+
+* type: String
+* description: Set the columns fields in this array in order to hide those columns in the cardView mode. Use this way in `data-*` configuration: ` data-columns-hidden="['name', 'description']"` or this way in javascript configuration: `columnsHidden = ['name', 'description']`. 
+* default: `undefined`

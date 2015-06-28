@@ -8,6 +8,31 @@
 
     'use strict';
 
+    var getFieldIndex = function (columns, field) {
+        var index = -1;
+
+        $.each(columns, function (i, column) {
+            if (column.field === field) {
+                index = i;
+                return false;
+            }
+            return true;
+        });
+        return index;
+    };
+
+    var showHideColumns = function (that, checked) {
+        if (that.options.columnsHidden.length > 0 ) {
+            $.each(that.columns, function (i, column) {
+                if (that.options.columnsHidden.indexOf(column.field) !== -1) {
+                    if (column.visible !== checked) {
+                        that.toggleColumn(getFieldIndex(that.columns, column.field), checked, true);
+                    }
+                }
+            });
+        }
+    };
+
     var resetView = function (that) {
         if (that.options.height || that.options.showFooter) {
             setTimeout(that.resetView, 1);
@@ -34,10 +59,12 @@
 
     var conditionCardView = function (that) {
         changeTableView(that, false);
+        showHideColumns(that, false);
     };
 
     var conditionFullView = function (that) {
         changeTableView(that, true);
+        showHideColumns(that, true);
     };
 
     var changeTableView = function (that, cardViewState) {
@@ -48,13 +75,14 @@
     var debounce = function(func,wait) {
         var timeout;
         return function() {
-            var context = this, args = arguments;
+            var context = this,
+                args = arguments;
             var later = function() {
                 timeout = null;
                 func.apply(context,args);
             };
             clearTimeout(timeout);
-            timeout = setTimeout(later,wait);
+            timeout = setTimeout(later, wait);
         };
     };
 
@@ -63,7 +91,8 @@
         minWidth: 562,
         minHeight: undefined,
         heightThreshold: 100, // just slightly larger than mobile chrome's auto-hiding toolbar
-        checkOnInit: true
+        checkOnInit: true,
+        columnsHidden: []
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
