@@ -149,7 +149,7 @@
         this.options.searchText = searchTextCookie ? searchTextCookie : '';
 
         if (columnsCookie) {
-            $.each(this.columns, function (i, column) {
+            $.each(this.options.columns, function (i, column) {
                 column.visible = columnsCookie.indexOf(column.field) !== -1;
             });
         }
