@@ -1,6 +1,6 @@
 /**
- * Bootstrap Table English translation
- * Author: Zhixin Wen<wenzhixin2010@gmail.com>
+ * Bootstrap Table Persian translation
+ * Author: MJ Vakili <mjv.1989@Gmail.com>
  */
 (function ($) {
     'use strict';
