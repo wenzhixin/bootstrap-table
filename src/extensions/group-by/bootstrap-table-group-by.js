@@ -119,6 +119,11 @@
         originalData: undefined
     });
 
+    $.extend($.fn.bootstrapTable.methods, [
+        'collapseAll',
+        'expandAll'
+    ]);
+
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
         _initData = BootstrapTable.prototype.initData;
@@ -142,7 +147,17 @@
                 this.options.rowAttributes = rowAttr;
                 this.$el.on('post-body.bs.table', function () {
                     that.$el.treetable({
-                        expandable: true
+                        expandable: true,
+                        onNodeExpand: function () {
+                            if (that.options.height) {
+                                that.resetHeader();
+                            }
+                        },
+                        onNodeCollapse: function () {
+                            if (that.options.height) {
+                                that.resetHeader();
+                            }
+                        }
                     }, true);
                 });
             }
@@ -158,5 +173,13 @@
             }
         }
         _initData.apply(this, Array.prototype.slice.apply(arguments));
+    };
+
+    BootstrapTable.prototype.expandAll = function () {
+        this.$el.treetable("expandAll");
+    };
+
+    BootstrapTable.prototype.collapseAll = function () {
+        this.$el.treetable("collapseAll");
     };
 }(jQuery);

@@ -24,6 +24,16 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 * description: Set the field that you want to group the data.
 * default: ``
 
+## Methods
+
+### expandAll
+
+* Expand all the nodes in the table.
+
+### collapseAll
+
+* Collapse all the nodes in the table.
+
 ## Known issues
 
 ### OnSort
