@@ -267,6 +267,7 @@
         onColumnSearch: function (field, text) {
             return false;
         },
+        filterShowClear: false,
         //internal variables
         values: []
     });
@@ -274,8 +275,7 @@
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
         filterControl: undefined,
         filterData: undefined,
-        filterDatepickerOptions: undefined,
-        filterShowClear: false
+        filterDatepickerOptions: undefined
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
