@@ -385,6 +385,9 @@
         },
         onResetView: function () {
             return false;
+        },
+        onPostInit: function () {
+            return false;
         }
     };
 
@@ -478,7 +481,8 @@
         'expand-row.bs.table': 'onExpandRow',
         'collapse-row.bs.table': 'onCollapseRow',
         'refresh-options.bs.table': 'onRefreshOptions',
-        'reset-view.bs.table': 'onResetView'
+        'reset-view.bs.table': 'onResetView',
+        'post-init.bs.table': 'onPostInit'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -492,6 +496,7 @@
         this.initPagination();
         this.initBody();
         this.initServer();
+        this.trigger('post-init');
     };
 
     BootstrapTable.prototype.initLocale = function () {
