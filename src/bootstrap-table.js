@@ -1025,10 +1025,7 @@
 
             if (this.options.searchText !== '') {
                 $search.val(this.options.searchText);
-                clearTimeout(timeoutId); // doesn't matter if it's 0
-                timeoutId = setTimeout(function () {
-                    $search.trigger('keyup');
-                }, that.options.searchTimeOut);
+                that.onSearch({currentTarget: $search});
             }
         }
     };
