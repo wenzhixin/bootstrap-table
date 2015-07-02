@@ -39,7 +39,7 @@
         }, true);
         $(window).resize(function () {
           if (options) $el.bootstrapTable('resetView');
-        })
+        });
       }
     };
   })
