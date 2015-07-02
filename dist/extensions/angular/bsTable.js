@@ -25,12 +25,13 @@
             scroll = $el.bootstrapTable('getScrollPosition');
             $el.bootstrapTable('destroy');
           }
-          options = $.extend(options ? {
+          if (options) newOptions = $.extend({}, newOptions, {
             sortName: options.sortName,
             sortOrder: options.sortOrder,
             pageNumber: options.pageNumber,
             pageSize: options.pageSize
-          } : {}, newOptions);
+          });
+          options = newOptions;
           $el.bootstrapTable(options);
           if (scroll) $el.bootstrapTable('scrollTo', scroll);
         }, true);
