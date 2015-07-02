@@ -25,11 +25,9 @@
             scroll = $el.bootstrapTable('getScrollPosition');
             $el.bootstrapTable('destroy');
           }
-          if (options) newOptions = $.extend({}, newOptions, {
-            sortName: options.sortName,
-            sortOrder: options.sortOrder,
-            pageNumber: options.pageNumber,
-            pageSize: options.pageSize
+          newOptions = angular.copy(newOptions);
+          if (options) angular.forEach(['sortName', 'sortOrder', 'pageNumber', 'pageSize'], function (key) {
+            if (key in options) newOptions[key] = options[key];
           });
           options = newOptions;
           $el.bootstrapTable(options);
