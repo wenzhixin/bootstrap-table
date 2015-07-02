@@ -1,6 +1,8 @@
 // JavaScript source code
 (function () {
   angular.module('bsTable', []).directive('bsTableControl', function () {
+    var SEARCH_SELECTOR = '.search input';
+    var CONTAINER_SELECTOR = '.bootstrap-table';
     return {
       restrict: 'EA',
       scope: {options: '='},
@@ -25,6 +27,7 @@
         $s.$watch('options', function (newOptions) {
           if (!newOptions) return;
 
+          var searchHasFocus = $el.closest(CONTAINER_SELECTOR).find(SEARCH_SELECTOR).is(':focus');
           if (options) {
             scroll = $el.bootstrapTable('getScrollPosition');
             $el.bootstrapTable('destroy');
@@ -36,6 +39,7 @@
           options = newOptions;
           $el.bootstrapTable(options);
           if (scroll) $el.bootstrapTable('scrollTo', scroll);
+          if (searchHasFocus) $el.closest(CONTAINER_SELECTOR).find(SEARCH_SELECTOR).focus(); // $el gets detached so have to recompute whole chain
         }, true);
         $(window).resize(function () {
           if (options) $el.bootstrapTable('resetView');
