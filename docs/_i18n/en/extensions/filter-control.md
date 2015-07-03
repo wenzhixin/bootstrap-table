@@ -17,6 +17,13 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set true to add an `input` or `select` into the column.
 * default: `false`
 
+### filterShowClear
+
+* type: Boolean
+* description: Set true to add a button to clear all the controls added by this plugin
+* default: `false`
+
+
 ## Column options
 
 ### filterControl
