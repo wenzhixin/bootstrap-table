@@ -119,8 +119,7 @@
         cookieIdTable: '',
         //internal variable
         filterControls: [],
-        filterControlValuesLoaded: false,
-        filterControlSearchFired: false
+        filterControlValuesLoaded: false
     });
 
     $.fn.bootstrapTable.methods.push('deleteCookie');
@@ -140,9 +139,9 @@
         _onSearch = BootstrapTable.prototype.onSearch;
 
     BootstrapTable.prototype.init = function () {
+        var timeoutId = 0;
         this.options.filterControls = [];
         this.options.filterControlValuesLoaded = false;
-        this.options.filterControlSearchFired = false;
 
         if (this.options.filterControl) {
             var that = this;
@@ -183,10 +182,7 @@
 
                                 if (result.length > 0) {
                                     $(this).val(result[0].text);
-                                    if (!that.options.filterControlSearchFired) {
-                                        that.options.filterControlSearchFired = true;
-                                        $(this).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change');
-                                    }
+                                    that.onColumnSearch({currentTarget: $(this)});
                                 }
                             });
                         }
