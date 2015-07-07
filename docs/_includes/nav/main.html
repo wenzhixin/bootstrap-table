@@ -15,9 +15,6 @@
                 <li {% if page.slug == "getting-started" %} class="active"{% endif %}>
                     <a href="{{ site.baseurl }}/getting-started/">{% t pages.getting_started.title %}</a>
                 </li>
-                <li {% if page.slug == "examples" %} class="active"{% endif %}>
-                    <a href="{{ site.baseurl }}/examples/">{% t pages.examples.title %}</a>
-                </li>
                 <li {% if page.slug == "documentation" %} class="active"{% endif %}>
                     <a href="{{ site.baseurl }}/documentation/">{% t pages.documentation.title %}</a>
                 </li>
@@ -28,10 +25,16 @@
                     <a href="{{ site.baseurl }}/faq/">{% t pages.faq.title %}</a>
                 </li>
                 <li>
-                    <a href="{{ site.repo }}" target="_blank">GitHub</a>
+                    <a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">Examples</a>
                 </li>
                 <li>
-                    <a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">Bootstrap Table Examples <span class="badge">New</span></a>
+                    <a href="http://bootstrap-group-select.wenzhixin.net.cn" target="_blank">
+                        Bootstrap Group Select
+                        <span class="badge">New</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ site.repo }}" target="_blank">GitHub</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
