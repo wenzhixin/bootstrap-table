@@ -9,10 +9,27 @@
     'use strict';
 
     var originalRowAttr,
-        dataTTId ="data-tt-id",
-        dataTTParentId = "data-tt-parent-id",
+        dataTTId = 'data-tt-id',
+        dataTTParentId = 'data-tt-parent-id',
         obj = {},
         parentId = undefined;
+
+    var sumData = function (that, data) {
+        var sumRow = {};
+        $.each(data, function (i, row) {
+            for(var prop in row) {
+                if (!row.IsParent) {
+                    if (!isNaN(parseFloat(row[prop]))) {
+                        if (sumRow[prop] === undefined) {
+                            sumRow[prop] = 0;
+                        }
+                        sumRow[prop] += +row[prop];
+                    }
+                }
+            }
+        });
+        return sumRow;
+    };
 
     var rowAttr = function (row, index) {
         //Call the User Defined Function
@@ -59,11 +76,11 @@
        });
     };
 
-    var makeGrouped = function (that) {
+    var makeGrouped = function (that, data) {
         var newRow = {},
             newData = [];
 
-        var result = groupBy(that.options.data, function (item) {
+        var result = groupBy(data, function (item) {
             return [item[that.options.groupByField]];
         });
 
@@ -71,49 +88,28 @@
             newRow[that.options.groupByField.toString()] = result[i][0][that.options.groupByField];
             newRow.IsParent = true;
             result[i].unshift(newRow);
+            if (that.options.groupBySumGroup) {
+                result[i].push(sumData(that, result[i]));
+            }
             newRow = {};
         }
 
         newData = newData.concat.apply(newData, result);
 
-        if (!that.options.loaded) {
+        if (!that.options.loaded && newData.length > 0) {
             that.options.loaded = true;
             that.options.originalData = that.options.data;
             that.options.data = newData;
         }
-    };
 
-    var calculateObjectValue = function (self, name, args, defaultValue) {
-        var func = name;
-
-        if (typeof name === 'string') {
-            // support obj.func1.func2
-            var names = name.split('.');
-
-            if (names.length > 1) {
-                func = window;
-                $.each(names, function (i, f) {
-                    func = func[f];
-                });
-            } else {
-                func = window[name];
-            }
-        }
-        if (typeof func === 'object') {
-            return func;
-        }
-        if (typeof func === 'function') {
-            return func.apply(self, args);
-        }
-        if (!func && typeof name === 'string' && sprintf.apply(this, [name].concat(args))) {
-            return sprintf.apply(this, [name].concat(args));
-        }
-        return defaultValue;
+        return newData;
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
         groupBy: false,
         groupByField: '',
+        groupBySumGroup: false,
+        groupByInitExpanded: false,
         //internal variables
         loaded: false,
         originalData: undefined
@@ -159,27 +155,35 @@
                             }
                         }
                     }, true);
+
+                    if (that.options.groupByInitExpanded) {
+                        that.expandNode('0');
+                    }
                 });
             }
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
     };
 
-    BootstrapTable.prototype.initData = function () {
+    BootstrapTable.prototype.initData = function (data, type) {
         //Temporal validation
         if (!this.options.sortName) {
             if ((this.options.groupBy) && (this.options.groupByField !== '')) {
-                makeGrouped(this);
+                data = makeGrouped(this, data ? data : this.options.data);
             }
         }
-        _initData.apply(this, Array.prototype.slice.apply(arguments));
+        _initData.apply(this, [data, type]);
     };
 
     BootstrapTable.prototype.expandAll = function () {
-        this.$el.treetable("expandAll");
+        this.$el.treetable('expandAll');
     };
 
     BootstrapTable.prototype.collapseAll = function () {
-        this.$el.treetable("collapseAll");
+        this.$el.treetable('collapseAll');
     };
+
+    BootstrapTable.prototype.expandNode = function (id) {
+        this.$el.treetable('expandNode', id);
+    }
 }(jQuery);
