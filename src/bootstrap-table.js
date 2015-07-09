@@ -640,7 +640,6 @@
             sorters: [],
             sortNames: [],
             cellStyles: [],
-            clickToSelects: [],
             searchables: []
         };
 
@@ -687,7 +686,6 @@
                     that.header.sorters[column.fieldIndex] = column.sorter;
                     that.header.sortNames[column.fieldIndex] = column.sortName;
                     that.header.cellStyles[column.fieldIndex] = column.cellStyle;
-                    that.header.clickToSelects[column.fieldIndex] = column.clickToSelect;
                     that.header.searchables[column.fieldIndex] = column.searchable;
 
                     if (!column.visible) {
@@ -1535,20 +1533,23 @@
             var $td = $(this),
                 $tr = $td.parent(),
                 item = that.data[$tr.data('index')],
-                cellIndex = $td[0].cellIndex,
-                $headerCell = that.$header.find('th:eq(' + cellIndex + ')'),
-                field = $headerCell.data('field'),
+                index = $td[0].cellIndex,
+                field = that.header.fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
+                colomn = that.columns[getFieldIndex(that.columns, field)],
                 value = item[field];
+
+            if ($td.find('.detail-icon').length) {
+                return;
+            }
 
             that.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
             that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr);
+
             // if click to select - then trigger the checkbox/radio click
-            if (e.type === 'click' && that.options.clickToSelect) {
-                if (that.header.clickToSelects[$tr.children().index($(this))]) {
-                    var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
-                    if ($selectItem.length) {
-                        $selectItem[0].click(); // #144: .trigger('click') bug
-                    }
+            if (e.type === 'click' && that.options.clickToSelect && colomn.clickToSelect) {
+                var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
+                if ($selectItem.length) {
+                    $selectItem[0].click(); // #144: .trigger('click') bug
                 }
             }
         });
