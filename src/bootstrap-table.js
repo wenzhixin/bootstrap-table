@@ -1751,7 +1751,9 @@
         $.each(this.data, function (i, row) {
             that.$selectAll.prop('checked', false);
             that.$selectItem.prop('checked', false);
-            row[that.header.stateField] = false;
+            if (that.header.stateField) {
+                row[that.header.stateField] = false;
+            }
         });
     };
 
