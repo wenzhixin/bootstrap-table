@@ -1076,7 +1076,7 @@
                         j = $.inArray(key, that.header.fields);
 
                     // Fix #142: search use formated data
-                    if (column.searchFormatter) {
+                    if (column && column.searchFormatter) {
                         value = calculateObjectValue(column,
                             that.header.formatters[j], [value, item, i], value);
                     }
