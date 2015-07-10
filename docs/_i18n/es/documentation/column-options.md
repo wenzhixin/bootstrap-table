@@ -230,8 +230,8 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>True para incluir la columna en la búsqueda.</td>
     </tr>
     <tr>
-        <td>searchFomatter</td>
-        <td>data-search-fomatter</td>
+        <td>searchFormatter</td>
+        <td>data-search-formatter</td>
         <td>Boolean</td>
         <td>true</td>
         <td>

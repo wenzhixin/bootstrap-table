@@ -450,7 +450,7 @@
         sortName: undefined,
         cellStyle: undefined,
         searchable: true,
-        searchFomatter: true,
+        searchFormatter: true,
         cardVisible: true
     };
 
@@ -1076,7 +1076,7 @@
                         j = $.inArray(key, that.header.fields);
 
                     // Fix #142: search use formated data
-                    if (column.searchFomatter) {
+                    if (column.searchFormatter) {
                         value = calculateObjectValue(column,
                             that.header.formatters[j], [value, item, i], value);
                     }

@@ -235,8 +235,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         </td>
     </tr>
     <tr>
-        <td>searchFomatter</td>
-        <td>data-search-fomatter</td>
+        <td>searchFormatter</td>
+        <td>data-search-formatter</td>
         <td>Boolean</td>
         <td>true</td>
         <td>
