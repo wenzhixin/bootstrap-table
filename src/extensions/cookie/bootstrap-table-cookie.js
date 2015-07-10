@@ -80,7 +80,7 @@
     };
 
     var calculateExpiration = function(cookieExpire) {
-        var time = cookieExpire.replace(/[0-9]/, ''); //s,mi,h,d,m,y
+        var time = cookieExpire.replace(/[0-9]*/, ''); //s,mi,h,d,m,y
         cookieExpire = cookieExpire.replace(/[A-Za-z]/, ''); //number
 
         switch (time.toLowerCase()) {
