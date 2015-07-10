@@ -24,6 +24,18 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 * description: Set the field that you want to group the data.
 * default: ``
 
+### groupBySumGroup
+
+* type: Boolean
+* description: Set to True to include a sum row.
+* default: `false`
+
+### groupByInitExpanded
+
+* type: Boolean
+* description: Set to True to expand the first node of the table.
+* default: `false`
+
 ## Methods
 
 ### expandAll
