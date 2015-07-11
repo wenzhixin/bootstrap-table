@@ -1894,6 +1894,7 @@
         this.$tableBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function (i) {
             $footerTd.eq(i).outerWidth($(this).outerWidth());
         });
+        this.$tableFooter.find('table').width(this.$tableBody.find('table').innerWidth());
     };
 
     BootstrapTable.prototype.toggleColumn = function (index, checked, needUpdate) {
