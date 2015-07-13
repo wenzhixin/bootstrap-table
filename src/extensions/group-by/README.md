@@ -33,8 +33,8 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 ### groupByInitExpanded
 
 * type: Boolean
-* description: Set to True to expand the first node of the table.
-* default: `false`
+* description: You can use the node number (parent row index) or you can use the `all` option in order to expand all nodes of the table.
+* default: `undefined`
 
 ## Methods
 

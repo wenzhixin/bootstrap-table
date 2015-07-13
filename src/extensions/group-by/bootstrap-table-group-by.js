@@ -14,6 +14,18 @@
         obj = {},
         parentId = undefined;
 
+    var getParentRowId = function (that, id) {
+        var parentRows = that.$body.find('tr').not('[' + 'data-tt-parent-id]');
+
+        for (var i = 0; i < parentRows.length; i++) {
+            if (i === id) {
+                return $(parentRows[i]).attr('data-tt-id');
+            }
+        }
+
+        return undefined;
+    };
+
     var sumData = function (that, data) {
         var sumRow = {};
         $.each(data, function (i, row) {
@@ -109,7 +121,7 @@
         groupBy: false,
         groupByField: '',
         groupBySumGroup: false,
-        groupByInitExpanded: false,
+        groupByInitExpanded: undefined, //node, 'all'
         //internal variables
         loaded: false,
         originalData: undefined
@@ -156,8 +168,12 @@
                         }
                     }, true);
 
-                    if (that.options.groupByInitExpanded) {
-                        that.expandNode('0');
+                    if (that.options.groupByInitExpanded !== undefined) {
+                        if (typeof that.options.groupByInitExpanded === 'number') {
+                            that.expandNode(that.options.groupByInitExpanded);
+                        } else if (that.options.groupByInitExpanded.toLowerCase() === 'all') {
+                            that.expandAll();
+                        }
                     }
                 });
             }
@@ -184,6 +200,9 @@
     };
 
     BootstrapTable.prototype.expandNode = function (id) {
-        this.$el.treetable('expandNode', id);
+        id = getParentRowId(this, id);
+        if (id !== undefined) {
+            this.$el.treetable('expandNode', id);
+        }
     }
 }(jQuery);
