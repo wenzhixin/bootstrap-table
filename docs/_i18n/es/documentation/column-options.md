@@ -134,7 +134,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>False para ocultar el item de la columna.</td>
     </tr>
 	<tr>
-        <td>cardViewVisible</td>
+        <td>cardVisible</td>
         <td>data-card-visible</td>
         <td>Boolean</td>
         <td>true</td>
@@ -228,6 +228,15 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>Boolean</td>
         <td>true</td>
         <td>True para incluir la columna en la búsqueda.</td>
+    </tr>
+    <tr>
+        <td>searchFormatter</td>
+        <td>data-search-formatter</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>
+        True to search use formated data.
+        </td>
     </tr>
     </tbody>
 </table>

@@ -135,7 +135,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>False to hide the columns item.</td>
     </tr>
     <tr>
-        <td>cardViewVisible</td>
+        <td>cardVisible</td>
         <td>data-card-visible</td>
         <td>Boolean</td>
         <td>true</td>
@@ -232,6 +232,15 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>true</td>
         <td>
         True to search data for this column.
+        </td>
+    </tr>
+    <tr>
+        <td>searchFormatter</td>
+        <td>data-search-formatter</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>
+        True to search use formated data.
         </td>
     </tr>
 </tbody>
