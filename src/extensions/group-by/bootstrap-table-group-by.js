@@ -14,6 +14,19 @@
         obj = {},
         parentId = undefined;
 
+    var getFieldIndex = function (columns, field) {
+        var index = -1;
+
+        $.each(columns, function (i, column) {
+            if (column.field === field) {
+                index = i;
+                return false;
+            }
+            return true;
+        });
+        return index;
+    };
+
     var getParentRowId = function (that, id) {
         var parentRows = that.$body.find('tr').not('[' + 'data-tt-parent-id]');
 
@@ -32,10 +45,12 @@
             for(var prop in row) {
                 if (!row.IsParent) {
                     if (!isNaN(parseFloat(row[prop]))) {
-                        if (sumRow[prop] === undefined) {
-                            sumRow[prop] = 0;
+                        if (that.columns[getFieldIndex(that.columns, prop)].groupBySumGroup) {
+                            if (sumRow[prop] === undefined) {
+                                sumRow[prop] = 0;
+                            }
+                            sumRow[prop] += +row[prop];
                         }
-                        sumRow[prop] += +row[prop];
                     }
                 }
             }
@@ -90,7 +105,8 @@
 
     var makeGrouped = function (that, data) {
         var newRow = {},
-            newData = [];
+            newData = [],
+            sumRow = {};
 
         var result = groupBy(data, function (item) {
             return [item[that.options.groupByField]];
@@ -101,7 +117,10 @@
             newRow.IsParent = true;
             result[i].unshift(newRow);
             if (that.options.groupBySumGroup) {
-                result[i].push(sumData(that, result[i]));
+                sumRow = sumData(that, result[i])
+                if (!$.isEmptyObject(sumRow)) {
+                    result[i].push(sumRow);
+                }
             }
             newRow = {};
         }
@@ -131,6 +150,10 @@
         'collapseAll',
         'expandAll'
     ]);
+
+    $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
+        groupBySumGroup: false
+    });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
