@@ -34,6 +34,8 @@ Fired when all columns was initialized by `$().editable()` method.
 
 Fired when an editable cell is saved.
 
+parameters: field, row, oldValue, $el
+
 ## The existing problems
 
 * Editable extension does not support searchable in the select type.
