@@ -27,14 +27,14 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 ### groupBySumGroup
 
 * type: Boolean
-* description: Set to True to include a sum row.
+* description: Set to True to include a sum per column.
 * default: `false`
 
 ### groupByInitExpanded
 
 * type: Boolean
-* description: Set to True to expand the first node of the table.
-* default: `false`
+* description: You can use the node number (parent row index) or you can use the `all` option in order to expand all nodes of the table.
+* default: `undefined`
 
 ## Methods
 
@@ -45,6 +45,15 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 ### collapseAll
 
 * Collapse all the nodes in the table.
+
+## Column options
+
+### groupBySumGroup
+
+* type: Boolean
+* description: Set to True to sum the column values.
+* default: `false`
+
 
 ## Known issues
 

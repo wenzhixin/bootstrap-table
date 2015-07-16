@@ -14,16 +14,43 @@
         obj = {},
         parentId = undefined;
 
+    var getFieldIndex = function (columns, field) {
+        var index = -1;
+
+        $.each(columns, function (i, column) {
+            if (column.field === field) {
+                index = i;
+                return false;
+            }
+            return true;
+        });
+        return index;
+    };
+
+    var getParentRowId = function (that, id) {
+        var parentRows = that.$body.find('tr').not('[' + 'data-tt-parent-id]');
+
+        for (var i = 0; i < parentRows.length; i++) {
+            if (i === id) {
+                return $(parentRows[i]).attr('data-tt-id');
+            }
+        }
+
+        return undefined;
+    };
+
     var sumData = function (that, data) {
         var sumRow = {};
         $.each(data, function (i, row) {
             for(var prop in row) {
                 if (!row.IsParent) {
                     if (!isNaN(parseFloat(row[prop]))) {
-                        if (sumRow[prop] === undefined) {
-                            sumRow[prop] = 0;
+                        if (that.columns[getFieldIndex(that.columns, prop)].groupBySumGroup) {
+                            if (sumRow[prop] === undefined) {
+                                sumRow[prop] = 0;
+                            }
+                            sumRow[prop] += +row[prop];
                         }
-                        sumRow[prop] += +row[prop];
                     }
                 }
             }
@@ -78,7 +105,8 @@
 
     var makeGrouped = function (that, data) {
         var newRow = {},
-            newData = [];
+            newData = [],
+            sumRow = {};
 
         var result = groupBy(data, function (item) {
             return [item[that.options.groupByField]];
@@ -89,7 +117,10 @@
             newRow.IsParent = true;
             result[i].unshift(newRow);
             if (that.options.groupBySumGroup) {
-                result[i].push(sumData(that, result[i]));
+                sumRow = sumData(that, result[i])
+                if (!$.isEmptyObject(sumRow)) {
+                    result[i].push(sumRow);
+                }
             }
             newRow = {};
         }
@@ -109,7 +140,7 @@
         groupBy: false,
         groupByField: '',
         groupBySumGroup: false,
-        groupByInitExpanded: false,
+        groupByInitExpanded: undefined, //node, 'all'
         //internal variables
         loaded: false,
         originalData: undefined
@@ -119,6 +150,10 @@
         'collapseAll',
         'expandAll'
     ]);
+
+    $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
+        groupBySumGroup: false
+    });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
@@ -156,8 +191,12 @@
                         }
                     }, true);
 
-                    if (that.options.groupByInitExpanded) {
-                        that.expandNode('0');
+                    if (that.options.groupByInitExpanded !== undefined) {
+                        if (typeof that.options.groupByInitExpanded === 'number') {
+                            that.expandNode(that.options.groupByInitExpanded);
+                        } else if (that.options.groupByInitExpanded.toLowerCase() === 'all') {
+                            that.expandAll();
+                        }
                     }
                 });
             }
@@ -184,6 +223,9 @@
     };
 
     BootstrapTable.prototype.expandNode = function (id) {
-        this.$el.treetable('expandNode', id);
+        id = getParentRowId(this, id);
+        if (id !== undefined) {
+            this.$el.treetable('expandNode', id);
+        }
     }
 }(jQuery);
