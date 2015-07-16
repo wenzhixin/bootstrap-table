@@ -85,21 +85,19 @@
                     that.trigger('editable-save', column.field, row, oldValue, $(this));
                 });
             that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
-                .off('shown').on('shown', function (e, params) {
+                .off('shown').on('shown', function (e) {
                     var data = that.getData(),
                         index = $(this).parents('tr[data-index]').data('index'),
                         row = data[index];
-
-                    row[column.field] = params.submitValue;
+                    
                     that.trigger('editable-shown', column.field, row, $(this));
                 });
             that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
-                .off('hidden').on('hidden', function (e, params) {
+                .off('hidden').on('hidden', function (e, editable) {
                     var data = that.getData(),
                         index = $(this).parents('tr[data-index]').data('index'),
                         row = data[index];
-
-                    row[column.field] = params.submitValue;
+                    
                     that.trigger('editable-hidden', column.field, row, $(this));
                 });
         });
