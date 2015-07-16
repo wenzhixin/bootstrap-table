@@ -40,7 +40,7 @@ parameters: field, row, oldValue, $el
 
 Fired when an editable cell is opened for edits.
 
-parameters: field, row, $el
+parameters: field, row, $el, editable
 
 ### onEditableHidden(editable-hidden.bs.table)
 
