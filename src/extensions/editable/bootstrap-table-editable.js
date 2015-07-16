@@ -15,7 +15,7 @@
         onEditableSave: function (field, row, oldValue, $el) {
             return false;
         },
-        onEditableShown: function (field, row, $el) {
+        onEditableShown: function (field, row, $el, editable) {
             return false;
         },
         onEditableHidden: function (field, row, $el) {
@@ -98,11 +98,10 @@
                         index = $(this).parents('tr[data-index]').data('index'),
                         row = data[index];
                     
-                    that.trigger('editable-hidden', column.field, row, $(this));
+                    that.trigger('editable-hidden', column.field, row, $(this), editable);
                 });
         });
         this.trigger('editable-init');
     };
 
 }(jQuery);
-
