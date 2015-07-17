@@ -180,6 +180,10 @@
     BootstrapTable.prototype.load = function(data) {
         _load.apply(this, Array.prototype.slice.apply(arguments));
 
+        if (!this.options.advancedSearch) {
+            return;
+        }
+
         if (typeof this.options.idTable === 'undefined') {
             return;
         } else {
@@ -194,6 +198,10 @@
 
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (!this.options.advancedSearch) {
+            return;
+        }
 
         var that = this;
         var fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial;
