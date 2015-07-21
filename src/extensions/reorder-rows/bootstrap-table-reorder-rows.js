@@ -107,7 +107,7 @@
         tableBsOptions.data = newData;
 
         //Call the user defined function
-        tableBsOptions.onReorderRowsDrop.apply(table, [droppedRow]);
+        tableBsOptions.onReorderRowsDrop.apply(table, [table, droppedRow]);
 
         //Call the event reorder-row
         tableBsData.trigger('reorder-row', newData);
