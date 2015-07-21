@@ -44,8 +44,6 @@
 
     BootstrapTable.prototype.init = function () {
 
-        _init.apply(this, Array.prototype.slice.apply(arguments));
-
         if (!this.options.reorderableRows) {
             return;
         }
@@ -62,6 +60,8 @@
                 onPostBody.apply();
             }, 1);
         };
+
+        _init.apply(this, Array.prototype.slice.apply(arguments));
     };
 
     BootstrapTable.prototype.initSearch = function () {
