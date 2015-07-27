@@ -146,10 +146,7 @@
         originalData: undefined
     });
 
-    $.extend($.fn.bootstrapTable.methods, [
-        'collapseAll',
-        'expandAll'
-    ]);
+    $.fn.bootstrapTable.methods.push('collapseAll', 'expandAll');
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
         groupBySumGroup: false
