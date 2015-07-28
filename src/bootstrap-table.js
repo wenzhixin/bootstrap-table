@@ -288,6 +288,7 @@
         toolbarAlign: 'left',
         checkboxHeader: true,
         sortable: true,
+        silentSort: true,
         maintainSelected: false,
         searchTimeOut: 500,
         searchText: '',
@@ -878,7 +879,7 @@
         this.getCaret();
 
         if (this.options.sidePagination === 'server') {
-            this.initServer();
+            this.initServer(this.options.silentSort);
             return;
         }
 

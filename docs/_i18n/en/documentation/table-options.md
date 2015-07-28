@@ -473,6 +473,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>False to disable sortable of all columns.</td>
     </tr>
     <tr>
+        <td>silentSort</td>
+        <td>data-silent-sort</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>Set <code>false</code> to sort the data silently. This options works when the sidePagination option is set to <code>server</code>.</td>
+    </tr>
+    <tr>
         <td>rowStyle</td>
         <td>data-row-style</td>
         <td>Function</td>
