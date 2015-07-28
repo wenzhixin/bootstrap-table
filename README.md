@@ -10,20 +10,7 @@ An extended Bootstrap table with radio, checkbox, sort, pagination, extensions a
 To get started, check out [Docs](http://bootstrap-table.wenzhixin.net.cn), [More examples](https://github.com/wenzhixin/bootstrap-table-examples), [Example issues](https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aexample+is%3Aclosed), [Resource issues](https://github.com/wenzhixin/bootstrap-table/issues?q=label%3Aresource+is%3Aclosed) and [Questions / Helps](http://stackoverflow.com/questions/tagged/bootstrap-table)!
 
 
-**List of donators**
-
-* Richard C Jordan - $35
-* Janet Moery - $5
-* Rene Halskov - $10
-* Angel Arambula Garcia - $5
-* David Graham - $5
-* Paul Abbott - $20
-* Philip Tepfer - $10
-* Marcus Eddy - $5
-* Keith Rockhold - $50
-* Ramon Sosa Diaz - $10
-* Goncalo Cordeiro - $10
-* Marzena Wspanialy - $25
+[**List of donators**](https://github.com/wenzhixin/bootstrap-table/blob/master/DONATORS.md)
 
 ## LICENSE
 
