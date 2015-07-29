@@ -41,9 +41,6 @@
 .fixed-table-footer,
 .fixed-table-header {
     overflow: hidden;
-    border-radius: 4px 4px 0 0;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
 }
 
 .fixed-table-footer {
@@ -74,7 +71,8 @@
     -moz-border-radius-topleft: 4px;
 }
 
-.fixed-table-container thead th .th-inner {
+.fixed-table-container thead th .th-inner,
+.fixed-table-container tbody td .th-inner {
     padding: 8px;
     line-height: 24px;
     vertical-align: top;
@@ -267,6 +265,15 @@
 .bootstrap-table .table thead > tr > th {
     padding: 0;
     margin: 0;
+}
+
+.bootstrap-table .fixed-table-footer tbody > tr > td {
+    padding: 0 !important;
+}
+
+.bootstrap-table .fixed-table-footer .table {
+    border-bottom: none;
+    border-radius: 0;
 }
 
 .pull-right .dropdown-menu {

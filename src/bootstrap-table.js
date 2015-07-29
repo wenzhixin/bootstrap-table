@@ -1825,7 +1825,7 @@
         this.$tableBody.off('scroll').on('scroll', function () {
             that.$tableHeader.scrollLeft($(this).scrollLeft());
 
-            if (this.options.showFooter && !this.options.cardView) {
+            if (that.options.showFooter && !that.options.cardView) {
                 that.$tableFooter.scrollLeft($(this).scrollLeft());
             }
         });
@@ -1842,7 +1842,7 @@
         }
 
         if (!this.options.cardView && this.options.detailView) {
-            html.push('<td></td>');
+            html.push('<td><div class="th-inner">&nbsp;</div><div class="fht-cell"></div></td>');
         }
 
         $.each(this.columns, function (i, column) {
@@ -1862,8 +1862,13 @@
             style = sprintf('vertical-align: %s; ', column.valign);
 
             html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
+            html.push('<div class="th-inner">');
 
             html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
+
+            html.push('</div>');
+            html.push('<div class="fht-cell"></div>');
+            html.push('</div>');
             html.push('</td>');
         });
 
@@ -1895,8 +1900,10 @@
 
         $footerTd = this.$tableFooter.find('td');
 
-        this.$tableBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function (i) {
-            $footerTd.eq(i).outerWidth($(this).outerWidth());
+        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+            var $this = $(this);
+
+            $footerTd.eq(i).find('.fht-cell').width($this.innerWidth());
         });
     };
 
@@ -1986,7 +1993,7 @@
         if (this.options.showFooter) {
             this.resetFooter();
             if (this.options.height) {
-                padding += this.$tableFooter.outerHeight();
+                padding += this.$tableFooter.outerHeight() + 1;
             }
         }
 
