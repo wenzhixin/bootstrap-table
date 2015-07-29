@@ -448,6 +448,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>False para deshabilitar el ordenamiento en todas las columnas.</td>
     </tr>
     <tr>
+        <td>silentSort</td>
+        <td>data-silent-sort</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>Setear a <code>false</code> para ordenar los datos silenciosamente. Esta opción funciona cuando la opción sidePagination es seteada a <code>server</code>.</td>
+    </tr>
+    <tr>
         <td>rowStyle</td>
         <td>data-row-style</td>
         <td>Function</td>
