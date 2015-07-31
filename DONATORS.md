@@ -14,3 +14,4 @@
 * Marzena Wspanialy - $10
 * Nicolas Pascual - $10
 * Hassan Ejaz - $10
+* Frank Hines - $100
