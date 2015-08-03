@@ -13,7 +13,7 @@
             return pageNumber + ' resultados por página';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Mostrando desde la página ' + pageFrom + ' hasta ' + pageTo + ' - En total ' + totalRows + ' resultados';
+            return 'Mostrando desde ' + pageFrom + ' hasta ' + pageTo + ' - En total ' + totalRows + ' resultados';
         },
         formatSearch: function () {
             return 'Buscar';

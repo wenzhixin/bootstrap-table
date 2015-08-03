@@ -13,7 +13,7 @@
             return pageNumber + ' resultats per pàgina';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Mostrant de la pàgina ' + pageFrom + ' fins ' + pageTo + ' - total ' + totalRows + ' resultats';
+            return 'Mostrant de ' + pageFrom + ' fins ' + pageTo + ' - total ' + totalRows + ' resultats';
         },
         formatSearch: function () {
             return 'Buscar';
