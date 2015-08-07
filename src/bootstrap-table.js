@@ -2080,7 +2080,7 @@
     BootstrapTable.prototype.getRowByUniqueId = function (id) {
         var uniqueId = this.options.uniqueId,
             len = this.options.data.length,
-            dataRow = undefined,
+            dataRow = null,
             i, row;
 
         for (i = len - 1; i >= 0; i--) {
