@@ -444,11 +444,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     <tr>
         <td>toolbar</td>
         <td>data-toolbar</td>
-        <td>String</td>
+        <td>String | Node</td>
         <td>undefined</td>
         <td>
         A jQuery selector that indicates the toolbar, for example:<br>
-        #toolbar, .toolbar.
+        #toolbar, .toolbar, or a DOM node.
         </td>
     </tr>
     <tr>

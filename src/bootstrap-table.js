@@ -897,7 +897,7 @@
 
         this.$toolbar.html('');
 
-        if (typeof this.options.toolbar === 'string') {
+        if (typeof this.options.toolbar === 'string' || typeof this.options.toolbar === 'object') {
             $(sprintf('<div class="bars pull-%s"></div>', this.options.toolbarAlign))
                 .appendTo(this.$toolbar)
                 .append($(this.options.toolbar));
