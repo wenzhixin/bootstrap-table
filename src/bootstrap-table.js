@@ -1335,6 +1335,15 @@
         var that = this,
             html = [],
             data = this.getData();
+        
+        function getItemField(item, field) {
+            var props = field.split('.');
+            var value = item;
+            for(var p in props) {
+                value = value[props[p]];
+            }
+            return value;
+        }
 
         this.trigger('pre-body', data);
 
@@ -1410,7 +1419,7 @@
 
             $.each(this.header.fields, function (j, field) {
                 var text = '',
-                    value = item[field],
+                    value = getItemField(item, field),
                     type = '',
                     cellStyle = {},
                     id_ = '',
@@ -1537,7 +1546,7 @@
                 index = $td[0].cellIndex,
                 field = that.header.fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
                 colomn = that.columns[getFieldIndex(that.columns, field)],
-                value = item[field];
+                value = getItemField(item, field);
 
             if ($td.find('.detail-icon').length) {
                 return;
