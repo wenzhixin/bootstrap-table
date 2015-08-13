@@ -210,6 +210,15 @@
 
         return dataAttr;
     };
+    
+    var getItemField = function (item, field) {
+        var props = field.split('.');
+        var value = item;
+        for(var p in props) {
+            value = value[props[p]];
+        }
+        return value;
+    }
 
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
@@ -814,8 +823,8 @@
                 if (that.header.sortNames[index]) {
                     name = that.header.sortNames[index];
                 }
-                var aa = a[name],
-                    bb = b[name],
+                var aa = getItemField(a, name),
+                    bb = getItemField(b, name),
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
@@ -1335,15 +1344,6 @@
         var that = this,
             html = [],
             data = this.getData();
-        
-        function getItemField(item, field) {
-            var props = field.split('.');
-            var value = item;
-            for(var p in props) {
-                value = value[props[p]];
-            }
-            return value;
-        }
 
         this.trigger('pre-body', data);
 
