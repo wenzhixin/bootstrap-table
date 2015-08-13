@@ -126,7 +126,15 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-url</td>
         <td>String</td>
         <td>undefined</td>
-        <td>A URL to request data from remote site.</td>
+        <td>
+        	A URL to request data from remote site.
+        	<br/>Note that the required server response format is different depending on whether the 'sidePagination'
+        	option is specified. See the following examples:
+        	<ul>
+        		<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
+        		<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
+        	</ul>
+        </td>
     </tr>
     <tr>
         <td>cache</td>
@@ -199,7 +207,16 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-side-pagination</td>
         <td>String</td>
         <td>'client'</td>
-        <td>Defines the side pagination of table, can only be 'client' or 'server'. Using 'server' side requires either setting the 'url' or 'ajax' option</td>
+        <td>
+        	Defines the side pagination of table, can only be 'client' or 'server'.
+        	Using 'server' side requires either setting the 'url' or 'ajax' option.
+        	<br/>Note that the required server response format is different depending on whether
+        	the 'client' or 'server' option is specified. See the following examples:
+        	<ul>
+        		<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
+        		<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
+        	</ul>
+        </td>
     </tr>
     <tr>
         <td>pageNumber</td>
