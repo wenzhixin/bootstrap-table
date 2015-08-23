@@ -897,7 +897,7 @@
 
         this.$toolbar.html('');
 
-        if (typeof this.options.toolbar === 'string') {
+        if (typeof this.options.toolbar === 'string' || typeof this.options.toolbar === 'object') {
             $(sprintf('<div class="bars pull-%s"></div>', this.options.toolbarAlign))
                 .appendTo(this.$toolbar)
                 .append($(this.options.toolbar));
@@ -1025,10 +1025,7 @@
 
             if (this.options.searchText !== '') {
                 $search.val(this.options.searchText);
-                clearTimeout(timeoutId); // doesn't matter if it's 0
-                timeoutId = setTimeout(function () {
-                    $search.trigger('keyup');
-                }, that.options.searchTimeOut);
+                that.onSearch({currentTarget: $search});
             }
         }
     };
@@ -1826,7 +1823,7 @@
         this.$tableBody.off('scroll').on('scroll', function () {
             that.$tableHeader.scrollLeft($(this).scrollLeft());
 
-            if (this.options.showFooter && !this.options.cardView) {
+            if (that.options.showFooter && !that.options.cardView) {
                 that.$tableFooter.scrollLeft($(this).scrollLeft());
             }
         });
@@ -1843,7 +1840,7 @@
         }
 
         if (!this.options.cardView && this.options.detailView) {
-            html.push('<td></td>');
+            html.push('<td><div class="th-inner">&nbsp;</div><div class="fht-cell"></div></td>');
         }
 
         $.each(this.columns, function (i, column) {
@@ -1863,8 +1860,13 @@
             style = sprintf('vertical-align: %s; ', column.valign);
 
             html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
+            html.push('<div class="th-inner">');
 
             html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
+
+            html.push('</div>');
+            html.push('<div class="fht-cell"></div>');
+            html.push('</div>');
             html.push('</td>');
         });
 
@@ -1896,8 +1898,10 @@
 
         $footerTd = this.$tableFooter.find('td');
 
-        this.$tableBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function (i) {
-            $footerTd.eq(i).outerWidth($(this).outerWidth());
+        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+            var $this = $(this);
+
+            $footerTd.eq(i).find('.fht-cell').width($this.innerWidth());
         });
     };
 
@@ -1987,7 +1991,7 @@
         if (this.options.showFooter) {
             this.resetFooter();
             if (this.options.height) {
-                padding += this.$tableFooter.outerHeight();
+                padding += this.$tableFooter.outerHeight() + 1;
             }
         }
 
@@ -2076,7 +2080,7 @@
     BootstrapTable.prototype.getRowByUniqueId = function (id) {
         var uniqueId = this.options.uniqueId,
             len = this.options.data.length,
-            dataRow = undefined,
+            dataRow = null,
             i, row;
 
         for (i = len - 1; i >= 0; i--) {
@@ -2417,6 +2421,12 @@
         this.init();
     };
 
+    BootstrapTable.prototype.resetSearch = function (text) {
+        var $search = this.$toolbar.find('.search input');
+        $search.val(text || '');
+        this.onSearch({currentTarget: $search});
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -2442,7 +2452,8 @@
         'selectPage', 'prevPage', 'nextPage',
         'togglePagination',
         'toggleView',
-        'refreshOptions'
+        'refreshOptions',
+        'resetSearch'
     ];
 
     $.fn.bootstrapTable = function (option) {

@@ -93,7 +93,7 @@
 
     var groupBy = function (array , f) {
        var groups = {};
-       array.forEach(function(o) {
+       $.each(array, function(i, o) {
            var group = JSON.stringify(f(o));
            groups[group] = groups[group] || [];
            groups[group].push(o);
