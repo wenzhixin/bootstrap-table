@@ -40,6 +40,50 @@
 })(jQuery);
 
 /**
+ * Bootstrap Table Catalan translation
+ * Author: Marc Pina<iwalkalone69@gmail.com>
+ */
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['ca-ES'] = {
+        formatLoadingMessage: function () {
+            return 'Si us plau esperi...';
+        },
+        formatRecordsPerPage: function (pageNumber) {
+            return pageNumber + ' resultats per pàgina';
+        },
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            return 'Mostrant de ' + pageFrom + ' fins ' + pageTo + ' - total ' + totalRows + ' resultats';
+        },
+        formatSearch: function () {
+            return 'Buscar';
+        },
+        formatNoMatches: function () {
+            return 'No s\'han trobat resultats';
+        },
+        formatPaginationSwitch: function () {
+            return 'Amagar/Mostrar paginació';
+        },
+        formatRefresh: function () {
+            return 'Refrescar';
+        },
+        formatToggle: function () {
+            return 'Amagar/Mostrar';
+        },
+        formatColumns: function () {
+            return 'Columnes';
+        },
+        formatAllRows: function () {
+            return 'Tots';
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ca-ES']);
+
+})(jQuery);
+
+/**
  * Bootstrap Table Czech translation
  * Author: Lukas Kral (monarcha@seznam.cz)
  * Author: Jakub Svestka <svestka1999@gmail.com>
@@ -304,6 +348,50 @@
 })(jQuery);
 
 /**
+ * Bootstrap Table Spanish Spain translation
+ * Author: Marc Pina<iwalkalone69@gmail.com>
+ */
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['es-ES'] = {
+        formatLoadingMessage: function () {
+            return 'Por favor espere...';
+        },
+        formatRecordsPerPage: function (pageNumber) {
+            return pageNumber + ' resultados por página';
+        },
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            return 'Mostrando desde ' + pageFrom + ' hasta ' + pageTo + ' - En total ' + totalRows + ' resultados';
+        },
+        formatSearch: function () {
+            return 'Buscar';
+        },
+        formatNoMatches: function () {
+            return 'No se encontraron resultados';
+        },
+        formatPaginationSwitch: function () {
+            return 'Ocultar/Mostrar paginación';
+        },
+        formatRefresh: function () {
+            return 'Refrescar';
+        },
+        formatToggle: function () {
+            return 'Ocultar/Mostrar';
+        },
+        formatColumns: function () {
+            return 'Columnas';
+        },
+        formatAllRows: function () {
+            return 'Todos';
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-ES']);
+
+})(jQuery);
+
+/**
  * Bootstrap Table Spanish (México) translation (Obtenido de traducción de Argentina)
  * Author: Felix Vera (felix.vera@gmail.com) 
  * Copiado: Mauricio Vera (mauricioa.vera@gmail.com)
@@ -418,6 +506,49 @@
 
 })(jQuery);
 /**
+ * Bootstrap Table Persian translation
+ * Author: MJ Vakili <mjv.1989@Gmail.com>
+ */
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['fa-IR'] = {
+        formatLoadingMessage: function () {
+            return 'در حال بارگذاری, لطفا صبر کنید...';
+        },
+        formatRecordsPerPage: function (pageNumber) {
+            return pageNumber + ' رکورد در صفحه';
+        },
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            return 'نمایش ' + pageFrom + ' تا ' + pageTo + ' از ' + totalRows + ' ردیف';
+        },
+        formatSearch: function () {
+            return 'جستجو';
+        },
+        formatNoMatches: function () {
+            return 'رکوردی یافت نشد.';
+        },
+        formatPaginationSwitch: function () {
+            return 'نمایش/مخفی صفحه بندی';
+        },
+        formatRefresh: function () {
+            return 'به روز رسانی';
+        },
+        formatToggle: function () {
+            return 'تغییر نمایش';
+        },
+        formatColumns: function () {
+            return 'سطر ها';
+        },
+        formatAllRows: function () {
+            return 'همه';
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fa-IR']);
+
+})(jQuery);
+/**
  * Bootstrap Table French (Belgium) translation
  * Author: Julien Bisconti (julien.bisconti@gmail.com)
  */
@@ -489,6 +620,51 @@
 })(jQuery);
 
 /**
+ * Bootstrap Table Croatian translation
+ * Author: Petra Štrbenac (petra.strbenac@gmail.com)
+ * Author: Petra Štrbenac (petra.strbenac@gmail.com)
+ */
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['hr-HR'] = {
+        formatLoadingMessage: function () {
+            return 'Molimo pričekajte ...';
+        },
+        formatRecordsPerPage: function (pageNumber) {
+            return pageNumber + ' broj zapisa po stranici';
+        },
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            return 'Prikazujem ' + pageFrom + '. - ' + pageTo + '. od ukupnog broja zapisa ' + totalRows;
+        },
+        formatSearch: function () {
+            return 'Pretraži';
+        },
+        formatNoMatches: function () {
+            return 'Nije pronađen niti jedan zapis';
+        },
+        formatPaginationSwitch: function () {
+            return 'Prikaži/sakrij stranice';
+        },
+        formatRefresh: function () {
+            return 'Osvježi';
+        },
+        formatToggle: function () {
+            return 'Promijeni prikaz';
+        },
+        formatColumns: function () {
+            return 'Kolone';
+        },
+        formatAllRows: function () {
+            return 'Sve';
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['hr-HR']);
+
+})(jQuery);
+
+/**
  * Bootstrap Table Hungarian translation
  * Author: Nagy Gergely <info@nagygergely.eu>
  */
@@ -511,14 +687,20 @@
         formatNoMatches: function () {
             return 'Nincs találat';
         },
+        formatPaginationSwitch: function () {
+            return 'Lapozó elrejtése/megjelenítése';
+        },
         formatRefresh: function () {
             return 'Frissítés';
         },
         formatToggle: function () {
-            return 'Váltás';
+            return 'Összecsuk/Kinyit';
         },
         formatColumns: function () {
             return 'Oszlopok';
+        },
+        formatAllRows: function () {
+            return 'Összes';
         }
     };
 
@@ -1123,6 +1305,9 @@
         },
         formatColumns: function () {
             return 'Sütunlar';
+        },
+        formatAllRows: function () {
+            return 'Tüm Satırlar';
         }
     };
 

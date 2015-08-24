@@ -21,6 +21,7 @@
 
     $.extend($.fn.bootstrapTable.defaults, {
         showExport: false,
+        exportDataType: 'basic', // basic, all, selected
         // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
         exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
         exportOptions: {}
@@ -73,10 +74,28 @@
                 });
 
                 $menu.find('li').click(function () {
-                    that.$el.tableExport($.extend({}, that.options.exportOptions, {
-                        type: $(this).data('type'),
-                        escape: false
-                    }));
+                    var type = $(this).data('type'),
+                        doExport = function () {
+                            that.$el.tableExport($.extend({}, that.options.exportOptions, {
+                                type: type,
+                                escape: false
+                            }));
+                        };
+
+                    if (that.options.exportDataType === 'all' && that.options.pagination) {
+                        that.togglePagination();
+                        doExport();
+                        that.togglePagination();
+                    } else if (that.options.exportDataType === 'selected') {
+                        var data = that.getData(),
+                            selectedData = that.getAllSelections();
+
+                        that.load(selectedData);
+                        doExport();
+                        that.load(data);
+                    } else {
+                        doExport();
+                    }
                 });
             }
         }
