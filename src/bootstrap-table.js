@@ -1789,6 +1789,20 @@
             getScrollBarWidth() : 0;
 
         this.$el.css('margin-top', -this.$header.outerHeight());
+
+        if($(':focus').length > 0) {
+            var $th = $(':focus').parents('th');
+            if($th.length > 0) {
+                var dataField = $th.attr('data-field');
+                if(dataField !== undefined) {
+                    var $headerTh = this.$header.find("[data-field='" + dataField + "']");
+                    if($headerTh.length > 0) {
+                        $headerTh.find(":input").addClass("focus-temp");
+                    }                
+                }
+            }
+        }
+
         this.$header_ = this.$header.clone(true, true);
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
         this.$tableHeader.css({
@@ -1797,6 +1811,11 @@
             .html('').attr('class', this.$el.attr('class'))
             .append(this.$header_);
 
+        var $focus = $('.focus-temp:visible:eq(0)');
+        if($focus.length > 0) {
+            $focus.focus();
+            this.$header.find('.focus-temp').removeClass('focus-temp');
+        }
         // fix bug: $.data() is not working as expected after $.append()
         this.$header.find('th[data-field]').each(function (i) {
             that.$header_.find(sprintf('th[data-field="%s"]', $(this).data('field'))).data($(this).data());
