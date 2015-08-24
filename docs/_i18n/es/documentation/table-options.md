@@ -5,7 +5,7 @@
 Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`.
 
 <table class="table"
-       data-toggle="table"
+       id="t"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"
