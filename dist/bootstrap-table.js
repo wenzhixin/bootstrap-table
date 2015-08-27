@@ -1038,9 +1038,6 @@
             $(event.currentTarget).val(text);
         }
 
-        if (text === this.searchText) {
-            return;
-        }
         this.searchText = text;
 
         this.options.pageNumber = 1;
