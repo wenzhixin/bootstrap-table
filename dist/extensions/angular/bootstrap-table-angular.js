@@ -1,5 +1,8 @@
 // JavaScript source code
 (function () {
+  if (typeof angular === 'undefined') {
+    return;
+  }
   angular.module('bsTable', []).directive('bsTableControl', function () {
     var CONTAINER_SELECTOR = '.bootstrap-table';
     var SCROLLABLE_SELECTOR = '.fixed-table-body';
