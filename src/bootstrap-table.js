@@ -1729,7 +1729,8 @@
     };
 
     BootstrapTable.prototype.updateSelected = function () {
-        var checkAll = this.$selectItem.filter(':enabled').length ===
+        var checkAll = this.$selectItem.filter(':enabled').length &&
+            this.$selectItem.filter(':enabled').length ===
             this.$selectItem.filter(':enabled').filter(':checked').length;
 
         this.$selectAll.add(this.$selectAll_).prop('checked', checkAll);
@@ -2247,9 +2248,9 @@
         if (!checked) {
             rows = this.getSelections();
         }
+        this.$selectAll.add(this.$selectAll_).prop('checked', checked);
         this.$selectItem.filter(':enabled').prop('checked', checked);
         this.updateRows();
-        this.updateSelected();
         if (checked) {
             rows = this.getSelections();
         }
