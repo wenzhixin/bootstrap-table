@@ -5,7 +5,7 @@
 The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 <table class="table"
-       data-toggle="table"
+       id="c"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"

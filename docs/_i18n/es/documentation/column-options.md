@@ -5,7 +5,7 @@
 Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.columnDefaults`.
 
 <table class="table"
-       data-toggle="table"
+       id="c"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"
