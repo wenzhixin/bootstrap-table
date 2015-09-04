@@ -246,6 +246,24 @@
                 }, that.options.searchTimeOut);
             });
 
+            header.off('mouseup', 'input').on('mouseup', 'input', function (event) {
+                var $input = $(this),
+                oldValue = $input.val();
+
+                if (oldValue == "") return;
+
+                setTimeout(function(){
+                    var newValue = $input.val();
+
+                    if (newValue == ""){
+                        clearTimeout(timeoutId);
+                        timeoutId = setTimeout(function () {
+                            that.onColumnSearch(event);
+                        }, that.options.searchTimeOut);
+                    }
+                }, 1);
+            });
+
             if (header.find('.date-filter-control').length > 0) {
                 $.each(that.columns, function (i, column) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
