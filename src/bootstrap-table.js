@@ -1778,6 +1778,8 @@
         this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), this.$el.is(':hidden') ? 100 : 0);
     };
 
+    BootstrapTable.prototype.canFitHeader = true;
+
     BootstrapTable.prototype.fitHeader = function () {
         var that = this,
             fixedBody,
@@ -1787,71 +1789,57 @@
             that.timeoutId_ = setTimeout($.proxy(that.fitHeader, that), 100);
             return;
         }
-        fixedBody = this.$tableBody.get(0);
 
-        scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-            fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
-            getScrollBarWidth() : 0;
+        if(this.canFitHeader) {
+            fixedBody = this.$tableBody.get(0);
 
-        this.$el.css('margin-top', -this.$header.outerHeight());
+            scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
+                fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
+                getScrollBarWidth() : 0;
 
-        if($(':focus').length > 0) {
-            var $th = $(':focus').parents('th');
-            if($th.length > 0) {
-                var dataField = $th.attr('data-field');
-                if(dataField !== undefined) {
-                    var $headerTh = this.$header.find("[data-field='" + dataField + "']");
-                    if($headerTh.length > 0) {
-                        $headerTh.find(":input").addClass("focus-temp");
-                    }                
+            this.$el.css('margin-top', -this.$header.outerHeight());
+            this.$header_ = this.$header.clone(true, true);
+            this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
+            this.$tableHeader.css({
+                'margin-right': scrollWidth
+            }).find('table').css('width', this.$el.outerWidth())
+                .html('').attr('class', this.$el.attr('class'))
+                .append(this.$header_);
+
+            // fix bug: $.data() is not working as expected after $.append()
+            this.$header.find('th[data-field]').each(function (i) {
+                that.$header_.find(sprintf('th[data-field="%s"]', $(this).data('field'))).data($(this).data());
+            });
+
+            var visibleFields = this.getVisibleFields();
+
+            this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+                var $this = $(this),
+                    index = i;
+
+                if (that.options.detailView && !that.options.cardView) {
+                    if (i === 0) {
+                        that.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth());
+                    }
+                    index = i - 1;
                 }
-            }
-        }
 
-        this.$header_ = this.$header.clone(true, true);
-        this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
-        this.$tableHeader.css({
-            'margin-right': scrollWidth
-        }).find('table').css('width', this.$el.outerWidth())
-            .html('').attr('class', this.$el.attr('class'))
-            .append(this.$header_);
+                that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]))
+                    .find('.fht-cell').width($this.innerWidth());
+            });
+            // horizontal scroll event
+            // TODO: it's probably better improving the layout than binding to scroll event
+            this.$tableBody.off('scroll').on('scroll', function () {
+                that.$tableHeader.scrollLeft($(this).scrollLeft());
 
-        var $focus = $('.focus-temp:visible:eq(0)');
-        if($focus.length > 0) {
-            $focus.focus();
-            this.$header.find('.focus-temp').removeClass('focus-temp');
-        }
-        // fix bug: $.data() is not working as expected after $.append()
-        this.$header.find('th[data-field]').each(function (i) {
-            that.$header_.find(sprintf('th[data-field="%s"]', $(this).data('field'))).data($(this).data());
-        });
-
-        var visibleFields = this.getVisibleFields();
-
-        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
-            var $this = $(this),
-                index = i;
-
-            if (that.options.detailView && !that.options.cardView) {
-                if (i === 0) {
-                    that.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth());
+                if (that.options.showFooter && !that.options.cardView) {
+                    that.$tableFooter.scrollLeft($(this).scrollLeft());
                 }
-                index = i - 1;
-            }
-
-            that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]))
-                .find('.fht-cell').width($this.innerWidth());
-        });
-        // horizontal scroll event
-        // TODO: it's probably better improving the layout than binding to scroll event
-        this.$tableBody.off('scroll').on('scroll', function () {
-            that.$tableHeader.scrollLeft($(this).scrollLeft());
-
-            if (that.options.showFooter && !that.options.cardView) {
-                that.$tableFooter.scrollLeft($(this).scrollLeft());
-            }
-        });
-        that.trigger('post-header');
+            });
+            that.trigger('post-header');
+        } else {
+            this.canFitHeader = true;
+        }
     };
 
     BootstrapTable.prototype.resetFooter = function () {
