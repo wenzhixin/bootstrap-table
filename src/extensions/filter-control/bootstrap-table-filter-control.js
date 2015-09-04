@@ -234,6 +234,7 @@
         if (addedFilterControl) {
             var fitHeaderTimeoutId = 0;
             var fitHeaderFunc = function () {
+                var focusStart, focusEnd;
                 if($(':focus').length > 0) {
                     var $th = $(':focus').parents('th');
                     if($th.length > 0) {
@@ -241,6 +242,8 @@
                         if(dataField !== undefined) {
                             var $headerTh = that.$header.find("[data-field='" + dataField + "']");
                             if($headerTh.length > 0) {
+                                focusStart = $(':focus')[0].selectionStart;
+                                focusEnd = $(':focus')[0].selectionEnd;
                                 $headerTh.find(":input").addClass("focus-temp");
                             }                
                         }
@@ -250,7 +253,8 @@
                 var $focus = $('.focus-temp:visible:eq(0)');
                 if($focus.length > 0) {
                     $focus.focus();
-                    $focus[0].selectionStart = $focus[0].selectionEnd = $focus[0].value.length;
+                    $focus[0].selectionStart = focusStart;
+                    $focus[0].selectionEnd = focusEnd;
                     that.$header.find('.focus-temp').removeClass('focus-temp');
                 }
             }
