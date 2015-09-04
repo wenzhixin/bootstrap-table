@@ -62,7 +62,7 @@
     };
 
     var addOptionToSelectControl = function (selectControl, value, text) {
-        //selectControl = $(selectControl.get(0));
+        selectControl = $(selectControl.get(selectControl.length - 1));
         if (existsOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
                 .attr("value", value)
@@ -87,11 +87,9 @@
     };
 
     var existsOptionInSelectControl = function (selectControl, value) {
-        var options = selectControl.get(0).options,
-            iOpt = 0;
-
-        for (; iOpt < options.length; iOpt++) {
-            if (options[iOpt].value === value) {
+        var options = selectControl.get(selectControl.length - 1).options;
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === value) {
                 //The value is nor valid to add
                 return false;
             }
@@ -232,18 +230,69 @@
         });
 
         if (addedFilterControl) {
+            var fitHeaderTimeoutId = 0;
+            var fitHeaderFunc = function () {
+                var focusStart, focusEnd;
+                if($(':focus').length > 0) {
+                    var $th = $(':focus').parents('th');
+                    if($th.length > 0) {
+                        var dataField = $th.attr('data-field');
+                        if(dataField !== undefined) {
+                            var $headerTh = that.$header.find("[data-field='" + dataField + "']");
+                            if($headerTh.length > 0) {
+                                focusStart = $(':focus')[0].selectionStart;
+                                focusEnd = $(':focus')[0].selectionEnd;
+                                $headerTh.find(":input").addClass("focus-temp");
+                            }                
+                        }
+                    }
+                }
+                that.fitHeader();
+                var $focus = $('.focus-temp:visible:eq(0)');
+                if($focus.length > 0) {
+                    $focus.focus();
+                    $focus[0].selectionStart = focusStart;
+                    $focus[0].selectionEnd = focusEnd;
+                    that.$header.find('.focus-temp').removeClass('focus-temp');
+                }
+            }
+
             header.off('keyup', 'input').on('keyup', 'input', function (event) {
                 clearTimeout(timeoutId);
+                clearTimeout(fitHeaderTimeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
+                
+                fitHeaderTimeoutId = setTimeout(fitHeaderFunc, 2000);
             });
 
             header.off('change', 'select').on('change', 'select', function (event) {
                 clearTimeout(timeoutId);
+                clearTimeout(fitHeaderTimeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
+                
+                fitHeaderTimeoutId = setTimeout(fitHeaderFunc, that.options.searchTimeOut);
+            });
+
+            header.off('mouseup', 'input').on('mouseup', 'input', function (event) {
+                var $input = $(this),
+                oldValue = $input.val();
+
+                if (oldValue == "") return;
+
+                setTimeout(function(){
+                    var newValue = $input.val();
+
+                    if (newValue == ""){
+                        clearTimeout(timeoutId);
+                        timeoutId = setTimeout(function () {
+                            that.onColumnSearch(event);
+                        }, that.options.searchTimeOut);
+                    }
+                }, 1);
             });
 
             if (header.find('.date-filter-control').length > 0) {
@@ -375,7 +424,7 @@
                         if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
                             var selectControl = $('.' + column.field);
                             if (selectControl !== undefined && selectControl.length > 0) {
-                                if (selectControl.get(0).options.length === 0) {
+                                if (selectControl.get(selectControl.length - 1).options.length === 0) {
                                     //Added the default option
                                     addOptionToSelectControl(selectControl, '', '');
                                 }
@@ -416,6 +465,7 @@
     };
 
     BootstrapTable.prototype.onColumnSearch = function (event) {
+        this.canFitHeader = false;
         copyValues(this);
         var text = $.trim($(event.currentTarget).val());
         var $field = $(event.currentTarget).parent().parent().parent().data('field')
