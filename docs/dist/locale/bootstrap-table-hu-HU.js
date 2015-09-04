@@ -21,14 +21,20 @@
         formatNoMatches: function () {
             return 'Nincs találat';
         },
+        formatPaginationSwitch: function () {
+            return 'Lapozó elrejtése/megjelenítése';
+        },
         formatRefresh: function () {
             return 'Frissítés';
         },
         formatToggle: function () {
-            return 'Váltás';
+            return 'Összecsuk/Kinyit';
         },
         formatColumns: function () {
             return 'Oszlopok';
+        },
+        formatAllRows: function () {
+            return 'Összes';
         }
     };
 

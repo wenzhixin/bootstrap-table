@@ -243,7 +243,7 @@
 
         if (columnsCookie) {
             $.each(this.columns, function (i, column) {
-                column.visible = columnsCookie.indexOf(column.field) !== -1;
+                column.visible = $.inArray(column.field, columnsCookie) !== -1;
             });
         }
     };

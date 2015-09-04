@@ -156,7 +156,7 @@
 
         if (compareLength) {
             // If number of properties is different, objects are not equivalent
-            if (objectAProperties.length != objectBProperties.length) {
+            if (objectAProperties.length !== objectBProperties.length) {
                 return false;
             }
         }
@@ -493,6 +493,7 @@
         this.initToolbar();
         this.initPagination();
         this.initBody();
+        this.initSearchText();
         this.initServer();
     };
 
@@ -1022,11 +1023,6 @@
                     that.onSearch(event);
                 }, that.options.searchTimeOut);
             });
-
-            if (this.options.searchText !== '') {
-                $search.val(this.options.searchText);
-                that.onSearch({currentTarget: $search});
-            }
         }
     };
 
@@ -1716,6 +1712,14 @@
         }
     };
 
+    BootstrapTable.prototype.initSearchText = function () {
+        if (this.options.searchText !== '') {
+            var $search = this.$toolbar.find('.search input');
+            $search.val(this.options.searchText);
+            this.onSearch({currentTarget: $search});
+        }
+    };
+
     BootstrapTable.prototype.getCaret = function () {
         var that = this;
 
@@ -1725,7 +1729,8 @@
     };
 
     BootstrapTable.prototype.updateSelected = function () {
-        var checkAll = this.$selectItem.filter(':enabled').length ===
+        var checkAll = this.$selectItem.filter(':enabled').length &&
+            this.$selectItem.filter(':enabled').length ===
             this.$selectItem.filter(':enabled').filter(':checked').length;
 
         this.$selectAll.add(this.$selectAll_).prop('checked', checkAll);
@@ -2243,9 +2248,9 @@
         if (!checked) {
             rows = this.getSelections();
         }
+        this.$selectAll.add(this.$selectAll_).prop('checked', checked);
         this.$selectItem.filter(':enabled').prop('checked', checked);
         this.updateRows();
-        this.updateSelected();
         if (checked) {
             rows = this.getSelections();
         }
