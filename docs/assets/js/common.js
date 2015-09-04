@@ -31,4 +31,25 @@ $(function () {
         $iframe.attr('src', $iframe.data('src'));
         $(this).remove();
     });
+
+    if (location.href.indexOf('documentation') > -1) {
+        var query = {
+            t: '',
+            c: '',
+            e: '',
+            m: '',
+            l: ''
+        };
+        $.each(location.search.substring(1).split('&'), function (i, t) {
+            var arr = t.split('=');
+            if (query.hasOwnProperty(arr[0])) {
+                query[arr[0]] = arr[1];
+            }
+        });
+        $.each(query, function (id, value) {
+            $('#' + id).bootstrapTable({
+                searchText: value
+            });
+        });
+    }
 });

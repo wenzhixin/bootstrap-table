@@ -3,7 +3,7 @@
 ---
 
 <table class="table"
-       data-toggle="table"
+       id="e"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"

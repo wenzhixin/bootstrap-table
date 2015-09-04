@@ -26,7 +26,8 @@
         maxMovingRows: 10,
         onReorderColumn: function (headerFields) {
             return false;
-        }
+        },
+        dragaccept: null
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -84,31 +85,42 @@
     };
 
     BootstrapTable.prototype.makeRowsReorderable = function () {
-
         var that = this;
         try {
             $(this.$el).dragtable('destroy');
         } catch (e) {}
         $(this.$el).dragtable({
             maxMovingRows: that.options.maxMovingRows,
+            dragaccept: that.options.dragaccept,
             clickDelay:200,
             beforeStop: function() {
                 var ths = [],
                     columns = [],
+                    columnsHidden = [],
                     columnIndex = -1;
                 that.$header.find('th').each(function (i) {
                     ths.push($(this).data('field'));
                 });
 
-                for (var i = 0; i < ths.length; i++ ) {
-                    columnIndex = getFieldIndex(that.options.columns, ths[i]);
-                    if (columnIndex !== -1) {
-                        columns.push(that.options.columns[columnIndex]);
-                        that.options.columns.splice(columnIndex, 1);
+                //Exist columns not shown
+                if (ths.length < that.columns.length) {
+                    columnsHidden = $.grep(that.columns, function (column) {
+                       return !column.visible;
+                    });
+                    for (var i = 0; i < columnsHidden.length; i++) {
+                        ths.push(columnsHidden[i].field);
                     }
                 }
 
-                that.options.columns = that.options.columns.concat(columns);
+                for (var i = 0; i < ths.length; i++ ) {
+                    columnIndex = getFieldIndex(that.columns, ths[i]);
+                    if (columnIndex !== -1) {
+                        columns.push(that.columns[columnIndex]);
+                        that.columns.splice(columnIndex, 1);
+                    }
+                }
+
+                that.columns = that.columns.concat(columns);
                 that.header.fields = ths;
                 that.resetView();
                 that.trigger('reorder-column', ths);

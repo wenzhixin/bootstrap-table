@@ -5,7 +5,7 @@
 The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
 
 <table class="table"
-       data-toggle="table"
+       id="m"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"

@@ -95,11 +95,13 @@
             clickDelay:200,
             beforeStop: function() {
                 var ths = [],
+                    formatters = [],
                     columns = [],
                     columnsHidden = [],
                     columnIndex = -1;
                 that.$header.find('th').each(function (i) {
                     ths.push($(this).data('field'));
+                    formatters.push($(this).data('formatter'));
                 });
 
                 //Exist columns not shown
@@ -109,6 +111,7 @@
                     });
                     for (var i = 0; i < columnsHidden.length; i++) {
                         ths.push(columnsHidden[i].field);
+                        formatters.push(columnsHidden[i].formatter);
                     }
                 }
 
@@ -122,6 +125,7 @@
 
                 that.columns = that.columns.concat(columns);
                 that.header.fields = ths;
+                that.header.formatters = formatters;
                 that.resetView();
                 that.trigger('reorder-column', ths);
             }

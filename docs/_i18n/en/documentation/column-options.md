@@ -5,7 +5,7 @@
 The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 <table class="table"
-       data-toggle="table"
+       id="c"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"
@@ -109,8 +109,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>data-width</td>
         <td>Number {Pixels or Percentage}</td>
         <td>undefined</td>
-        <td>The width of column. If not defined, the width will auto expand to fit its contents. Also you can add '%' to your number and
-		the bootstrapTable will use the percentage unit, otherwise, you can add or no the 'px' to your number and then the bootstrapTable will use the pixels</td>
+        <td>The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this 'width' might be ignored (use min/max-width via class or such then). Also you can add '%' to your number and the bootstrapTable will use the percentage unit, otherwise, leave as number (or add 'px') to make it use pixels.</td>
     </tr>
     <tr>
         <td>sortable</td>
