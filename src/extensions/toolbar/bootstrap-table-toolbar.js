@@ -51,8 +51,8 @@
     };
 
     var showAvdSearch = function(pColumns, searchTitle, searchText, that) {
-        if (!$("#avdSearchModal").hasClass("modal")) {
-            var vModal = "<div id=\"avdSearchModal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">";
+        if (!$("#avdSearchModal" + "_" + that.options.idTable).hasClass("modal")) {
+            var vModal = sprintf("<div id=\"avdSearchModal%s\"  class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">", "_" + that.options.idTable);
             vModal += "<div class=\"modal-dialog modal-xs\">";
             vModal += " <div class=\"modal-content\">";
             vModal += "  <div class=\"modal-header\">";
@@ -60,7 +60,7 @@
             vModal += sprintf("   <h4 class=\"modal-title\">%s</h4>", searchTitle);
             vModal += "  </div>";
             vModal += "  <div class=\"modal-body modal-body-custom\">";
-            vModal += "   <div class=\"container-fluid\" id=\"avdSearchModalContent\" style=\"padding-right: 0px;padding-left: 0px;\" >";
+            vModal += sprintf("   <div class=\"container-fluid\" id=\"avdSearchModalContent%s\" style=\"padding-right: 0px;padding-left: 0px;\" >", "_" + that.options.idTable);
             vModal += "   </div>";
             vModal += "  </div>";
             vModal += "  </div>";
@@ -72,7 +72,7 @@
             var vFormAvd = createFormAvd(pColumns, searchText, that),
                 timeoutId = 0;;
 
-            $('#avdSearchModalContent').append(vFormAvd.join(''));
+            $('#avdSearchModalContent' + "_" + that.options.idTable).append(vFormAvd.join(''));
 
             $('#' + that.options.idForm).off('keyup blur', 'input').on('keyup blur', 'input', function (event) {
                 clearTimeout(timeoutId);
@@ -81,13 +81,13 @@
                 }, that.options.searchTimeOut);
             });
 
-            $("#btnCloseAvd").click(function() {
-                $("#avdSearchModal").modal('hide');
+            $("#btnCloseAvd" + "_" + that.options.idTable).click(function() {
+                $("#avdSearchModal" + "_" + that.options.idTable).modal('hide');
             });
 
-            $("#avdSearchModal").modal();
+            $("#avdSearchModal" + "_" + that.options.idTable).modal();
         } else {
-            $("#avdSearchModal").modal();
+            $("#avdSearchModal" + "_" + that.options.idTable).modal();
         }
     };
 
@@ -108,7 +108,7 @@
 
         htmlForm.push('<div class="form-group">');
         htmlForm.push('<div class="col-sm-offset-9 col-sm-3">');
-        htmlForm.push(sprintf('<button type="button" id="btnCloseAvd" class="btn btn-default" >%s</button>', searchText));
+        htmlForm.push(sprintf('<button type="button" id="btnCloseAvd%s" class="btn btn-default" >%s</button>', "_" + that.options.idTable, searchText));
         htmlForm.push('</div>');
         htmlForm.push('</div>');
         htmlForm.push('</form>');
@@ -158,6 +158,10 @@
         }
 
         if (!this.options.advancedSearch) {
+            return;
+        }
+
+        if (!this.options.idTable) {
             return;
         }
 

@@ -31,7 +31,7 @@ Use Plugin: [bootstrap-table-toolbar](https://github.com/wenzhixin/bootstrap-tab
 ### idTable
 
 * type: String
-* description: Set the id of the table to create the pop-up form.
+* description: Set the id of the table to create the pop-up form. Required.
 * default: ``
 
 ## Locales
