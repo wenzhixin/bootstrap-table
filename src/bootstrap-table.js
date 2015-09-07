@@ -524,7 +524,7 @@
                     '',
                 '<div class="fixed-table-container">',
                 '<div class="fixed-table-header"><table></table></div>',
-                '<div class="fixed-table-body">',
+                '<div class="fixed-table-body"  style="position:relative;">',
                     '<div class="fixed-table-loading">',
                         this.options.formatLoadingMessage(),
                     '</div>',
