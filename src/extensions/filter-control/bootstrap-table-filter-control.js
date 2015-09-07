@@ -250,12 +250,12 @@
                 var $input = $(this),
                 oldValue = $input.val();
 
-                if (oldValue == "") return;
+                if (oldValue === "") return;
 
                 setTimeout(function(){
                     var newValue = $input.val();
 
-                    if (newValue == ""){
+                    if (newValue === ""){
                         clearTimeout(timeoutId);
                         timeoutId = setTimeout(function () {
                             that.onColumnSearch(event);
