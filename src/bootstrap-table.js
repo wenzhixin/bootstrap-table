@@ -1713,10 +1713,12 @@
     };
 
     BootstrapTable.prototype.initSearchText = function () {
-        if (this.options.searchText !== '') {
-            var $search = this.$toolbar.find('.search input');
-            $search.val(this.options.searchText);
-            this.onSearch({currentTarget: $search});
+        if (this.options.search) {
+            if (this.options.searchText !== '') {
+                var $search = this.$toolbar.find('.search input');
+                $search.val(this.options.searchText);
+                this.onSearch({currentTarget: $search});
+            }
         }
     };
 
@@ -1781,7 +1783,9 @@
     BootstrapTable.prototype.fitHeader = function () {
         var that = this,
             fixedBody,
-            scrollWidth;
+            scrollWidth,
+            focused,
+            focusedTemp;
 
         if (that.$el.is(':hidden')) {
             that.timeoutId_ = setTimeout($.proxy(that.fitHeader, that), 100);
@@ -1794,6 +1798,21 @@
             getScrollBarWidth() : 0;
 
         this.$el.css('margin-top', -this.$header.outerHeight());
+
+        focused = $(':focus');
+        if(focused.length > 0) {
+            var $th = focused.parents('th');
+            if($th.length > 0) {
+                var dataField = $th.attr('data-field');
+                if(dataField !== undefined) {
+                    var $headerTh = this.$header.find("[data-field='" + dataField + "']");
+                    if($headerTh.length > 0) {
+                        $headerTh.find(":input").addClass("focus-temp");
+                    }
+                }
+            }
+        }
+
         this.$header_ = this.$header.clone(true, true);
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
         this.$tableHeader.css({
@@ -1801,6 +1820,13 @@
         }).find('table').css('width', this.$el.outerWidth())
             .html('').attr('class', this.$el.attr('class'))
             .append(this.$header_);
+
+
+        focusedTemp = $('.focus-temp:visible:eq(0)');
+        if(focusedTemp.length > 0) {
+            focusedTemp.focus();
+            this.$header.find('.focus-temp').removeClass('focus-temp');
+        }
 
         // fix bug: $.data() is not working as expected after $.append()
         this.$header.find('th[data-field]').each(function (i) {
