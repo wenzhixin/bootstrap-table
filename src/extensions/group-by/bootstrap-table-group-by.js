@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.0.0
+ * @version: v1.1.0
  */
 
 !function ($) {
@@ -13,6 +13,35 @@
         dataTTParentId = 'data-tt-parent-id',
         obj = {},
         parentId = undefined;
+
+    var compareObjects = function (objectA, objectB, compareLength) {
+        // Create arrays of property names
+        var objectAProperties = Object.getOwnPropertyNames(objectA),
+            objectBProperties = Object.getOwnPropertyNames(objectB),
+            propName = '';
+
+        if (compareLength) {
+            // If number of properties is different, objects are not equivalent
+            if (objectAProperties.length !== objectBProperties.length) {
+                return false;
+            }
+        }
+
+        for (var i = 0; i < objectAProperties.length; i++) {
+            propName = objectAProperties[i];
+
+            // If the property is not in the object B properties, continue with the next property
+            if ($.inArray(propName, objectBProperties) > -1) {
+                // If values of same property are not equal, objects are not equivalent
+                if (objectA[propName] !== objectB[propName]) {
+                    return false;
+                }
+            }
+        }
+
+        // If we made it this far, objects are considered equivalent
+        return true;
+    };
 
     var getFieldIndex = function (columns, field) {
         var index = -1;
@@ -42,16 +71,16 @@
     var sumData = function (that, data) {
         var sumRow = {};
         $.each(data, function (i, row) {
-            for(var prop in row) {
-                if (!row.IsParent) {
-                    if (!isNaN(parseFloat(row[prop]))) {
-                        if (that.columns[getFieldIndex(that.columns, prop)].groupBySumGroup) {
-                            if (sumRow[prop] === undefined) {
-                                sumRow[prop] = 0;
+            if (!row.IsParent) {
+                for(var prop in row) {
+                        if (!isNaN(parseFloat(row[prop]))) {
+                            if (that.columns[getFieldIndex(that.columns, prop)].groupBySumGroup) {
+                                if (sumRow[prop] === undefined) {
+                                    sumRow[prop] = 0;
+                                }
+                                sumRow[prop] += +row[prop];
                             }
-                            sumRow[prop] += +row[prop];
                         }
-                    }
                 }
             }
         });
@@ -91,6 +120,26 @@
        }
     };
 
+    var getDataArrayFromItem = function (that, item) {
+        var itemDataArray = [];
+        for (var i = 0; i < that.options.groupByField.length; i++) {
+            itemDataArray.push(item[that.options.groupByField[i]]);
+        }
+
+        return itemDataArray;
+    };
+
+    var getNewRow = function (that, result, index) {
+        var newRow = {};
+        for (var i = 0; i < that.options.groupByField.length; i++) {
+            newRow[that.options.groupByField[i].toString()] = result[index][0][that.options.groupByField[i]];
+        }
+
+        newRow.IsParent = true;
+
+        return newRow;
+    };
+
     var groupBy = function (array , f) {
        var groups = {};
        $.each(array, function(i, o) {
@@ -104,25 +153,21 @@
     };
 
     var makeGrouped = function (that, data) {
-        var newRow = {},
-            newData = [],
+        var newData = [],
             sumRow = {};
 
         var result = groupBy(data, function (item) {
-            return [item[that.options.groupByField]];
+            return getDataArrayFromItem(that, item);
         });
 
         for (var i = 0; i < result.length; i++) {
-            newRow[that.options.groupByField.toString()] = result[i][0][that.options.groupByField];
-            newRow.IsParent = true;
-            result[i].unshift(newRow);
+            result[i].unshift(getNewRow(that, result, i));
             if (that.options.groupBySumGroup) {
-                sumRow = sumData(that, result[i])
+                sumRow = sumData(that, result[i]);
                 if (!$.isEmptyObject(sumRow)) {
                     result[i].push(sumRow);
                 }
             }
-            newRow = {};
         }
 
         newData = newData.concat.apply(newData, result);
@@ -138,7 +183,7 @@
 
     $.extend($.fn.bootstrapTable.defaults, {
         groupBy: false,
-        groupByField: '',
+        groupByField: [],
         groupBySumGroup: false,
         groupByInitExpanded: undefined, //node, 'all'
         //internal variables
@@ -146,7 +191,7 @@
         originalData: undefined
     });
 
-    $.fn.bootstrapTable.methods.push('collapseAll', 'expandAll');
+    $.fn.bootstrapTable.methods.push('collapseAll', 'expandAll', 'refreshGroupByField');
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
         groupBySumGroup: false
@@ -159,7 +204,7 @@
     BootstrapTable.prototype.init = function () {
         //Temporal validation
         if (!this.options.sortName) {
-            if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+            if ((this.options.groupBy) && (this.options.groupByField.length > 0)) {
                 var that = this;
 
                 // Compatibility: IE < 9 and old browsers
@@ -204,7 +249,12 @@
     BootstrapTable.prototype.initData = function (data, type) {
         //Temporal validation
         if (!this.options.sortName) {
-            if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+            if ((this.options.groupBy) && (this.options.groupByField.length > 0)) {
+
+                this.options.groupByField = typeof this.options.groupByField === 'string' ?
+                    this.options.groupByField.replace('[', '').replace(']', '')
+                        .replace(/ /g, '').toLowerCase().split(',') : this.options.groupByField;
+
                 data = makeGrouped(this, data ? data : this.options.data);
             }
         }
@@ -224,5 +274,12 @@
         if (id !== undefined) {
             this.$el.treetable('expandNode', id);
         }
-    }
+    };
+
+    BootstrapTable.prototype.refreshGroupByField = function (groupByFields) {
+        if (!compareObjects(this.options.groupByField, groupByFields)) {
+            this.options.groupByField = groupByFields;
+            this.load(this.options.originalData);
+        }
+    };
 }(jQuery);

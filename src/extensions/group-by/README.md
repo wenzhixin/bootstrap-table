@@ -20,9 +20,9 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 
 ### groupByField
 
-* type: String
-* description: Set the field that you want to group the data.
-* default: ``
+* type: Array
+* description: Set the array fields that you want to group the data.
+* default: `[]`
 
 ### groupBySumGroup
 
