@@ -1696,7 +1696,7 @@
                 that.trigger('load-success', res);
             },
             error: function (res) {
-                that.trigger('load-error', res.status);
+                that.trigger('load-error', res.status, res);
             },
             complete: function () {
                 if (!silent) {
