@@ -1469,22 +1469,21 @@
                     type = column.checkbox ? 'checkbox' : type;
                     type = column.radio ? 'radio' : type;
 
-					// appends the value if column has formatter
                     text = [that.options.cardView ?
-							'<div class="card-view">' : '<td class="bs-checkbox">',
-							'<input' +
-							sprintf(' data-index="%s"', i) +
-							sprintf(' name="%s"', that.options.selectItemName) +
-							sprintf(' type="%s"', type) +
-							sprintf(' value="%s"', item[that.options.idField]),
-							column.formatter === undefined ?
-							sprintf(' checked="%s"', value === true ||
-								(value && value.checked) ? 'checked' : undefined) +
-							sprintf(' disabled="%s"', !column.checkboxEnabled ||
-								(value && value.disabled) ? 'disabled' : undefined) +
-							' />': ' />' + value,
-							that.options.cardView ? '</div>' : '</td>'
-						].join('');
+                            '<div class="card-view">' : '<td class="bs-checkbox">',
+                            '<input' +
+                            sprintf(' data-index="%s"', i) +
+                            sprintf(' name="%s"', that.options.selectItemName) +
+                            sprintf(' type="%s"', type) +
+                            sprintf(' value="%s"', item[that.options.idField]),
+                            column.formatter === undefined ?
+                            sprintf(' checked="%s"', value === true ||
+                               (value && value.checked) ? 'checked' : undefined) +
+                            sprintf(' disabled="%s"', !column.checkboxEnabled ||
+                                (value && value.disabled) ? 'disabled' : undefined) +
+                            ' />': ' />' + value,
+                            that.options.cardView ? '</div>' : '</td>'
+                        ].join('');;
 
                     item[that.header.stateField] = value === true || (value && value.checked);
                 } else {
