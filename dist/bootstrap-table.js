@@ -1469,6 +1469,7 @@
                     type = column.checkbox ? 'checkbox' : type;
                     type = column.radio ? 'radio' : type;
 
+					// appends the value if column has formatter
                     text = [that.options.cardView ?
 							'<div class="card-view">' : '<td class="bs-checkbox">',
 							'<input' +
