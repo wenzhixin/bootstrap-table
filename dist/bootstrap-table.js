@@ -1483,7 +1483,7 @@
                                 (value && value.disabled) ? 'disabled' : undefined) +
                             ' />': ' />' + value,
                             that.options.cardView ? '</div>' : '</td>'
-                        ].join('');;
+                        ].join('');
 
                     item[that.header.stateField] = value === true || (value && value.checked);
                 } else {
