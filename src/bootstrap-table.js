@@ -749,7 +749,7 @@
             }
         });
 
-        this.$container.find("th").off('keypress').on('keypress', function (event) {
+        this.$header.children().children().off('keypress').on('keypress', function (event) {
             if (that.options.sortable && $(this).data().sortable) {
                 var code = event.keyCode || event.which;
                 if(code == 13) { //Enter keycode
