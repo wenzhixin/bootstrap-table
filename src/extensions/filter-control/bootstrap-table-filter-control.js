@@ -91,7 +91,7 @@
             iOpt = 0;
 
         for (; iOpt < options.length; iOpt++) {
-            if (options[iOpt].value == value) {
+            if (options[iOpt].value === value.toString()) {
                 //The value is nor valid to add
                 return false;
             }
