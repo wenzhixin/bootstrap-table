@@ -710,6 +710,7 @@
                     sprintf(' rowspan="%s"', column.rowspan),
                     sprintf(' colspan="%s"', column.colspan),
                     sprintf(' data-field="%s"', column.field),
+                    "tabindex='0'",
                     '>');
 
                 html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
@@ -745,6 +746,15 @@
         this.$container.off('click', '.th-inner').on('click', '.th-inner', function (event) {
             if (that.options.sortable && $(this).parent().data().sortable) {
                 that.onSort(event);
+            }
+        });
+
+        this.$container.find("th").off('keypress').on('keypress', function (event) {
+            if (that.options.sortable && $(this).data().sortable) {
+                var code = event.keyCode || event.which;
+                if(code == 13) { //Enter keycode
+                    that.onSort(event);
+                }
             }
         });
 
@@ -861,7 +871,7 @@
     };
 
     BootstrapTable.prototype.onSort = function (event) {
-        var $this = $(event.currentTarget).parent(),
+        var $this = event.type === "keypress" ? $(event.currentTarget) : $(event.currentTarget).parent(),
             $this_ = this.$header.find('th').eq($this.index());
 
         this.$header.add(this.$header_).find('span.order').remove();
