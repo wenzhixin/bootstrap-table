@@ -210,6 +210,15 @@
 
         return dataAttr;
     };
+    
+    var getItemField = function (item, field) {
+        var props = field.split('.');
+        var value = item;
+        for(var p in props) {
+            value = value[props[p]];
+        }
+        return value;
+    }
 
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
@@ -825,8 +834,8 @@
                 if (that.header.sortNames[index]) {
                     name = that.header.sortNames[index];
                 }
-                var aa = a[name],
-                    bb = b[name],
+                var aa = getItemField(a, name),
+                    bb = getItemField(b, name),
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
@@ -1416,7 +1425,7 @@
 
             $.each(this.header.fields, function (j, field) {
                 var text = '',
-                    value = item[field],
+                    value = getItemField(item, field),
                     type = '',
                     cellStyle = {},
                     id_ = '',
@@ -1543,7 +1552,7 @@
                 index = $td[0].cellIndex,
                 field = that.header.fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
                 colomn = that.columns[getFieldIndex(that.columns, field)],
-                value = item[field];
+                value = getItemField(item, field);
 
             if ($td.find('.detail-icon').length) {
                 return;
