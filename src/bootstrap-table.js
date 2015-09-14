@@ -243,6 +243,7 @@
         striped: false,
         columns: [[]],
         data: [],
+        dataField: 'rows',
         method: 'get',
         url: undefined,
         ajax: undefined,
@@ -2064,7 +2065,7 @@
         if (this.options.sidePagination === 'server') {
             this.options.totalRows = data.total;
             fixedScroll = data.fixedScroll;
-            data = data.rows;
+            data = data[this.options.dataField];
         } else if (!$.isArray(data)) { // support fixedScroll
             fixedScroll = data.fixedScroll;
             data = data.data;
