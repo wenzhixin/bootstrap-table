@@ -5,7 +5,7 @@ Use Plugin: [bootstrap-table-key-events](https://github.com/wenzhixin/bootstrap-
 ## Usage
 
 ```html
-<script src="extensions/cookie/bootstrap-table-key-events.js"></script>
+<script src="extensions/key-events/bootstrap-table-key-events.js"></script>
 ```
 
 ## Options
