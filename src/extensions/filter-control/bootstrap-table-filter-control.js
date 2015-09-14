@@ -62,7 +62,7 @@
     };
 
     var addOptionToSelectControl = function (selectControl, value, text) {
-        //selectControl = $(selectControl.get(0));
+        selectControl = $(selectControl.get(selectControl.length - 1));
         if (existsOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
                 .attr("value", value)
@@ -87,11 +87,9 @@
     };
 
     var existsOptionInSelectControl = function (selectControl, value) {
-        var options = selectControl.get(0).options,
-            iOpt = 0;
-
-        for (; iOpt < options.length; iOpt++) {
-            if (options[iOpt].value === value) {
+        var options = selectControl.get(selectControl.length - 1).options;
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === value) {
                 //The value is nor valid to add
                 return false;
             }
@@ -395,7 +393,7 @@
                         if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
                             var selectControl = $('.' + column.field);
                             if (selectControl !== undefined && selectControl.length > 0) {
-                                if (selectControl.get(0).options.length === 0) {
+                                if (selectControl.get(selectControl.length - 1).options.length === 0) {
                                     //Added the default option
                                     addOptionToSelectControl(selectControl, '', '');
                                 }
