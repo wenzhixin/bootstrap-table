@@ -1062,6 +1062,7 @@
         this.options.pageNumber = 1;
         this.initSearch();
         this.updatePagination();
+        this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
         this.trigger('search', text);
     };
 
@@ -2333,7 +2334,7 @@
 
         var that = this,
             rows = [];
-        $.each(this.options.data, function (index, row) {
+        $.each(this.data, function (index, row) {
             if (!row.hasOwnProperty(obj.field)) {
                 return false;
             }
