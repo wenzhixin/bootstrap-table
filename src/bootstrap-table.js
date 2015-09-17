@@ -2546,6 +2546,12 @@
     $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS;
     $.fn.bootstrapTable.locales = BootstrapTable.LOCALES;
     $.fn.bootstrapTable.methods = allowedMethods;
+    $.fn.bootstrapTable.utils = {
+        sprintf: sprintf,
+        getFieldIndex: getFieldIndex,
+        compareObjects: compareObjects,
+        calculateObjectValue: calculateObjectValue
+    };
 
     // BOOTSTRAP TABLE INIT
     // =======================

@@ -8,58 +8,7 @@
 
     'use strict';
 
-    var sprintf = function (str) {
-        var args = arguments,
-            flag = true,
-            i = 1;
-
-        str = str.replace(/%s/g, function () {
-            var arg = args[i++];
-
-            if (typeof arg === 'undefined') {
-                flag = false;
-                return '';
-            }
-            return arg;
-        });
-        return flag ? str : '';
-    };
-
-    var getFieldIndex = function (columns, field) {
-        var index = -1;
-
-        $.each(columns, function (i, column) {
-            if (column.field === field) {
-                index = i;
-                return false;
-            }
-            return true;
-        });
-        return index;
-    };
-
-    var calculateObjectValue = function (self, name, args, defaultValue) {
-        if (typeof name === 'string') {
-            // support obj.func1.func2
-            var names = name.split('.');
-
-            if (names.length > 1) {
-                name = window;
-                $.each(names, function (i, f) {
-                    name = name[f];
-                });
-            } else {
-                name = window[name];
-            }
-        }
-        if (typeof name === 'object') {
-            return name;
-        }
-        if (typeof name === 'function') {
-            return name.apply(self, args);
-        }
-        return defaultValue;
-    };
+    var sprintf = $.fn.bootstrapTable.utils.sprintf;
 
     var addOptionToSelectControl = function (selectControl, value, text) {
         selectControl = $(selectControl.get(selectControl.length - 1));
@@ -384,9 +333,9 @@
 
             $.each(this.header.fields, function (j, field) {
                 var value = item[field],
-                    column = that.columns[getFieldIndex(that.columns, field)];
+                    column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)];
 
-                value = calculateObjectValue(that.header, that.header.formatters[j], [value, item, i], value);
+                value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, that.header.formatters[j], [value, item, i], value);
 
                 if ((!column.checkbox) || (!column.radio)) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select' && column.searchable) {
@@ -419,7 +368,7 @@
             for (var key in fp) {
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
-                value = calculateObjectValue(that.header,
+                value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header,
                     that.header.formatters[$.inArray(key, that.header.fields)],
                     [value, item, i], value);
 

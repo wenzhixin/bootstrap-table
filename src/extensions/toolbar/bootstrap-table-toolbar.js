@@ -10,45 +10,7 @@
 
     var firstLoad = false;
 
-    var sprintf = function(str) {
-        var args = arguments,
-            flag = true,
-            i = 1;
-
-        str = str.replace(/%s/g, function() {
-            var arg = args[i++];
-
-            if (typeof arg === 'undefined') {
-                flag = false;
-                return '';
-            }
-            return arg;
-        });
-        return flag ? str : '';
-    };
-
-    var calculateObjectValue = function (self, name, args, defaultValue) {
-        if (typeof name === 'string') {
-            // support obj.func1.func2
-            var names = name.split('.');
-
-            if (names.length > 1) {
-                name = window;
-                $.each(names, function (i, f) {
-                    name = name[f];
-                });
-            } else {
-                name = window[name];
-            }
-        }
-        if (typeof name === 'object') {
-            return name;
-        }
-        if (typeof name === 'function') {
-            return name.apply(self, args);
-        }
-        return defaultValue;
-    };
+    var sprintf = $.fn.bootstrapTable.utils.sprintf;
 
     var showAvdSearch = function(pColumns, searchTitle, searchText, that) {
         if (!$("#avdSearchModal" + "_" + that.options.idTable).hasClass("modal")) {
@@ -214,7 +176,7 @@
             for (var key in fp) {
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
-                value = calculateObjectValue(that.header,
+                value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header,
                     that.header.formatters[$.inArray(key, that.header.fields)],
                     [value, item, i], value);
 

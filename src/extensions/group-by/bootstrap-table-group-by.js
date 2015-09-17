@@ -14,48 +14,6 @@
         obj = {},
         parentId = undefined;
 
-    var compareObjects = function (objectA, objectB, compareLength) {
-        // Create arrays of property names
-        var objectAProperties = Object.getOwnPropertyNames(objectA),
-            objectBProperties = Object.getOwnPropertyNames(objectB),
-            propName = '';
-
-        if (compareLength) {
-            // If number of properties is different, objects are not equivalent
-            if (objectAProperties.length !== objectBProperties.length) {
-                return false;
-            }
-        }
-
-        for (var i = 0; i < objectAProperties.length; i++) {
-            propName = objectAProperties[i];
-
-            // If the property is not in the object B properties, continue with the next property
-            if ($.inArray(propName, objectBProperties) > -1) {
-                // If values of same property are not equal, objects are not equivalent
-                if (objectA[propName] !== objectB[propName]) {
-                    return false;
-                }
-            }
-        }
-
-        // If we made it this far, objects are considered equivalent
-        return true;
-    };
-
-    var getFieldIndex = function (columns, field) {
-        var index = -1;
-
-        $.each(columns, function (i, column) {
-            if (column.field === field) {
-                index = i;
-                return false;
-            }
-            return true;
-        });
-        return index;
-    };
-
     var getParentRowId = function (that, id) {
         var parentRows = that.$body.find('tr').not('[' + 'data-tt-parent-id]');
 
@@ -72,15 +30,15 @@
         var sumRow = {};
         $.each(data, function (i, row) {
             if (!row.IsParent) {
-                for(var prop in row) {
-                        if (!isNaN(parseFloat(row[prop]))) {
-                            if (that.columns[getFieldIndex(that.columns, prop)].groupBySumGroup) {
-                                if (sumRow[prop] === undefined) {
-                                    sumRow[prop] = 0;
-                                }
-                                sumRow[prop] += +row[prop];
+                for (var prop in row) {
+                    if (!isNaN(parseFloat(row[prop]))) {
+                        if (that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, prop)].groupBySumGroup) {
+                            if (sumRow[prop] === undefined) {
+                                sumRow[prop] = 0;
                             }
+                            sumRow[prop] += +row[prop];
                         }
+                    }
                 }
             }
         });
@@ -105,19 +63,19 @@
 
     var setObjectKeys = function () {
         // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-       Object.keys = function (o) {
-           if (o !== Object(o)) {
-               throw new TypeError('Object.keys called on a non-object');
-           }
-           var k = [],
-               p;
-           for (p in o) {
-               if (Object.prototype.hasOwnProperty.call(o, p)) {
-                   k.push(p);
-               }
-           }
-           return k;
-       }
+        Object.keys = function (o) {
+            if (o !== Object(o)) {
+                throw new TypeError('Object.keys called on a non-object');
+            }
+            var k = [],
+                p;
+            for (p in o) {
+                if (Object.prototype.hasOwnProperty.call(o, p)) {
+                    k.push(p);
+                }
+            }
+            return k;
+        }
     };
 
     var getDataArrayFromItem = function (that, item) {
@@ -140,16 +98,16 @@
         return newRow;
     };
 
-    var groupBy = function (array , f) {
-       var groups = {};
-       $.each(array, function(i, o) {
-           var group = JSON.stringify(f(o));
-           groups[group] = groups[group] || [];
-           groups[group].push(o);
-       });
-       return Object.keys(groups).map(function (group) {
+    var groupBy = function (array, f) {
+        var groups = {};
+        $.each(array, function (i, o) {
+            var group = JSON.stringify(f(o));
+            groups[group] = groups[group] || [];
+            groups[group].push(o);
+        });
+        return Object.keys(groups).map(function (group) {
             return groups[group];
-       });
+        });
     };
 
     var makeGrouped = function (that, data) {
@@ -277,7 +235,7 @@
     };
 
     BootstrapTable.prototype.refreshGroupByField = function (groupByFields) {
-        if (!compareObjects(this.options.groupByField, groupByFields)) {
+        if (!$.fn.bootstrapTable.utils.compareObjects(this.options.groupByField, groupByFields)) {
             this.options.groupByField = groupByFields;
             this.load(this.options.originalData);
         }
