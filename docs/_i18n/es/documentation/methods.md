@@ -270,9 +270,14 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>Alterna la vista entre tabla y tarjeta.</td>
     </tr>
 	<tr>
-        <td>deleteCookie</td>
-        <td>cookie name</td>
-        <td>Elimina una cookie creada. Debe usar: 'sortOrder', 'sortName', 'pageNumber' o 'pageList'.</td>
+        <td>expandRow</td>
+        <td>index</td>
+        <td>Expand a row, the row index start with 0.</td>
+    </tr>
+	<tr>
+        <td>collapseRow</td>
+        <td>index</td>
+        <td>Collapse a row, the row index start with 0.</td>
     </tr>
     <tr>
         <td>expandRow</td>
