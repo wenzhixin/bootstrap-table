@@ -2257,10 +2257,12 @@
     };
 
     BootstrapTable.prototype.updateCell = function (params) {
-        if (!params.hasOwnProperty('rowIndex') || !params.hasOwnProperty('fieldName') || !params.hasOwnProperty('fieldValue')) {
+        if (!params.hasOwnProperty('index') ||
+            !params.hasOwnProperty('field') ||
+            !params.hasOwnProperty('value')) {
             return;
         }
-        this.data[params.rowIndex][params.fieldName] = params.fieldValue;
+        this.data[params.index][params.field] = params.value;
         this.initSort();
         this.initBody(true);
     };
