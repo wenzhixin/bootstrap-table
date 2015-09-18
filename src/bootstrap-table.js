@@ -212,10 +212,12 @@
     };
 
     var getItemField = function (item, field) {
-        var props = field.split('.');
         var value = item;
-        for (var p in props) {
-            value = value[props[p]];
+        if (field !== undefined) {
+            var props = field.split('.');
+            for (var p in props) {
+                value = value[props[p]];
+            }
         }
         return value;
     }
@@ -2478,17 +2480,67 @@
         this.onSearch({currentTarget: $search});
     };
 
-    BootstrapTable.prototype.expandRow = function (index) {
+    BootstrapTable.prototype.expandRow_ = function (expand, index) {
         var $tr = this.$body.find(sprintf('> tr[data-index="%s"]', index));
-        if (!$tr.next().is('tr.detail-view')) {
+        if ($tr.next().is('tr.detail-view') === (expand ? false : true)) {
             $tr.find('> td > .detail-icon').click();
         }
     };
 
+    BootstrapTable.prototype.expandRow = function (index) {
+        this.expandRow_(true, index);
+    };
+
     BootstrapTable.prototype.collapseRow = function (index) {
-        var $tr = this.$body.find(sprintf('> tr[data-index="%s"]', index));
-        if ($tr.next().is('tr.detail-view')) {
-            $tr.find('> td > .detail-icon').click();
+        this.expandRow_(false, index);
+    };
+
+    BootstrapTable.prototype.expandAllRows = function (isSubTable) {
+        if (isSubTable) {
+            var $tr = this.$body.find(sprintf('> tr[data-index="%s"]', 0)),
+                that = this,
+                detailIcon = null,
+                executeInterval = false,
+                idInterval = -1;
+
+            if (!$tr.next().is('tr.detail-view')) {
+                $tr.find('> td > .detail-icon').click();
+                executeInterval = true;
+            } else if (!$tr.next().next().is('tr.detail-view')) {
+                $tr.next().find(".detail-icon").click();
+                executeInterval = true;
+            }
+
+            if (executeInterval) {
+                try {
+                    idInterval = setInterval(function () {
+                        detailIcon = that.$body.find("tr.detail-view").last().find(".detail-icon");
+                        if (detailIcon.length > 0) {
+                            detailIcon.click();
+                        } else {
+                            clearInterval(idInterval);
+                        }
+                    }, 1);
+                } catch (ex) {
+                    clearInterval(idInterval);
+                }
+            }
+        } else {
+            var trs = this.$body.children();
+            for (var i = 0; i < trs.length; i++) {
+                this.expandRow_(true, $(trs[i]).data("index"));
+            }
+        }
+    };
+
+    BootstrapTable.prototype.collapseAllRows = function (isSubTable) {
+        if (isSubTable) {
+            this.expandRow_(false, 0);
+        } else {
+            var trs = this.$body.children();
+            for (var i = 0; i < trs.length; i++) {
+                this.expandRow_(false, $(trs[i]).data("index"));
+            }
         }
     };
 
@@ -2519,7 +2571,7 @@
         'toggleView',
         'refreshOptions',
         'resetSearch',
-        'expandRow', 'collapseRow'
+        'expandRow', 'collapseRow', 'expandAllRows', 'collapseAllRows'
     ];
 
     $.fn.bootstrapTable = function (option) {
