@@ -146,7 +146,7 @@
     <tr>
         <td>onLoadError</td>
         <td>load-error.bs.table</td>
-        <td>status</td>
+        <td>status, res</td>
         <td>Fires when some errors occur to load remote data.</td>
     </tr>
     <tr>

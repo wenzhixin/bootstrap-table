@@ -8,25 +8,12 @@
 
     'use strict';
 
-    var getFieldIndex = function (columns, field) {
-        var index = -1;
-
-        $.each(columns, function (i, column) {
-            if (column.field === field) {
-                index = i;
-                return false;
-            }
-            return true;
-        });
-        return index;
-    };
-
     var showHideColumns = function (that, checked) {
         if (that.options.columnsHidden.length > 0 ) {
             $.each(that.columns, function (i, column) {
                 if (that.options.columnsHidden.indexOf(column.field) !== -1) {
                     if (column.visible !== checked) {
-                        that.toggleColumn(getFieldIndex(that.columns, column.field), checked, true);
+                        that.toggleColumn($.fn.bootstrapTable.utils.getFieldIndex(that.columns, column.field), checked, true);
                     }
                 }
             });
