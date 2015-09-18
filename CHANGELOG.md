@@ -26,6 +26,8 @@
 - [enh] Improved reorder-columns extension.
 - [enh] Added multiple-search, accent-neutralise extension.
 - [enh] Added fixed-columns extension.
+- [enh] Added `$.fn.bootstrapTable.utils` tools.
+- [enh] Added `expandRow` and `collapseRow` methods.
 
 ### 1.8.1
 

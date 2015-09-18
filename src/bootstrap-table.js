@@ -2478,6 +2478,20 @@
         this.onSearch({currentTarget: $search});
     };
 
+    BootstrapTable.prototype.expandRow = function (index) {
+        var $tr = this.$body.find(sprintf('> tr[data-index="%s"]', index));
+        if (!$tr.next().is('tr.detail-view')) {
+            $tr.find('> td > .detail-icon').click();
+        }
+    };
+
+    BootstrapTable.prototype.collapseRow = function (index) {
+        var $tr = this.$body.find(sprintf('> tr[data-index="%s"]', index));
+        if ($tr.next().is('tr.detail-view')) {
+            $tr.find('> td > .detail-icon').click();
+        }
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -2504,7 +2518,8 @@
         'togglePagination',
         'toggleView',
         'refreshOptions',
-        'resetSearch'
+        'resetSearch',
+        'expandRow', 'collapseRow'
     ];
 
     $.fn.bootstrapTable = function (option) {
