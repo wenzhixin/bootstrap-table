@@ -1982,12 +1982,15 @@
         }
     };
 
-    BootstrapTable.prototype.toggleRow = function (index, isIdField, visible) {
+    BootstrapTable.prototype.toggleRow = function (index, uniqueId, visible) {
         if (index === -1) {
             return;
         }
 
-        $(this.$body[0]).children().filter(sprintf(isIdField ? '[data-uniqueid="%s"]' : '[data-index="%s"]', index))[visible ? 'show' : 'hide']();
+        this.$body.find(typeof index !== 'undefined' ?
+            sprintf('tr[data-index="%s"]', index) :
+            sprintf('tr[data-uniqueid="%s"]', uniqueId))
+            [visible ? 'show' : 'hide']();
     };
 
     BootstrapTable.prototype.getVisibleFields = function () {
@@ -2201,19 +2204,17 @@
     };
 
     BootstrapTable.prototype.showRow = function (params) {
-        if (!params.hasOwnProperty('index')) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('uniqueId')) {
             return;
         }
-
-        this.toggleRow(params.index, params.isIdField === undefined ? false : true, true);
+        this.toggleRow(params.index, params.uniqueId, true);
     };
 
     BootstrapTable.prototype.hideRow = function (params) {
-        if (!params.hasOwnProperty('index')) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('uniqueId')) {
             return;
         }
-
-        this.toggleRow(params.index, params.isIdField === undefined ? false : true, false);
+        this.toggleRow(params.index, params.uniqueId, false);
     };
 
     BootstrapTable.prototype.getRowsHidden = function (show) {
