@@ -115,6 +115,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Key in incoming json containing rows data list.</td>
     </tr>
     <tr>
+        <td>jsonAlwaysNested</td>
+        <td>data-json-always-nested</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>Always read data from nested field.</td>
+    </tr>
+    <tr>
         <td>ajax</td>
         <td>data-ajax</td>
         <td>Function</td>

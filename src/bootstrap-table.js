@@ -244,6 +244,7 @@
         columns: [[]],
         data: [],
         dataField: 'rows',
+        jsonAlwaysNested: true,
         method: 'get',
         url: undefined,
         ajax: undefined,
@@ -2068,7 +2069,11 @@
             data = data[this.options.dataField];
         } else if (!$.isArray(data)) { // support fixedScroll
             fixedScroll = data.fixedScroll;
-            data = data.data;
+            if (this.options.jsonAlwaysNested == true) {
+                data = data[this.options.dataField];
+            } else {
+                data = data.data;
+            };
         }
 
         this.initData(data);
