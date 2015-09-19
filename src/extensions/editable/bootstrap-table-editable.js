@@ -49,13 +49,22 @@
 
             var _formatter = column.formatter;
             column.formatter = function (value, row, index) {
-                var result = _formatter ? _formatter(value, row, index) : value;
+                var result,
+                    formatterResult = '';
+
+                if(column.separateFormatter) {
+                    result = value;
+                    formatterResult = _formatter ? _formatter(value, row, index) : formatterResult;
+                } else {
+                    result = _formatter ? _formatter(value, row, index) : value;
+                }
 
                 return ['<a href="javascript:void(0)"',
                     ' data-name="' + column.field + '"',
                     ' data-pk="' + row[that.options.idField] + '"',
                     ' data-value="' + result + '"',
-                    '>' + '</a>'
+                    '>' + '</a>' +
+                    formatterResult
                 ].join('');
             };
         });
