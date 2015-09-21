@@ -84,19 +84,21 @@
     <tr>
         <td>onCheck</td>
         <td>check.bs.table</td>
-        <td>row</td>
+        <td>row, $element</td>
         <td>
         Fires when user check a row, the parameters contain: <br>
         row: the record corresponding to the clicked row.
+        $element: the DOM element checked.
         </td>
     </tr>
     <tr>
         <td>onUncheck</td>
         <td>uncheck.bs.table</td>
-        <td>row</td>
+        <td>row, $element</td>
         <td>
         Fires when user uncheck a row, the parameters contain: <br>
         row: the record corresponding to the clicked row.
+        $element: the DOM element unchecked.
         </td>
     </tr>
     <tr>

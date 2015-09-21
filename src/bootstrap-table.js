@@ -1598,8 +1598,9 @@
         this.$selectItem.off('click').on('click', function (event) {
             event.stopImmediatePropagation();
 
-            var checked = $(this).prop('checked'),
-                row = that.data[$(this).data('index')];
+            var $this = $(this),
+                checked = $this.prop('checked'),
+                row = that.data[$this.data('index')];
 
             row[that.header.stateField] = checked;
 
@@ -1611,7 +1612,7 @@
             }
 
             that.updateSelected();
-            that.trigger(checked ? 'check' : 'uncheck', row);
+            that.trigger(checked ? 'check' : 'uncheck', row, $this);
         });
 
         $.each(this.header.events, function (i, events) {
