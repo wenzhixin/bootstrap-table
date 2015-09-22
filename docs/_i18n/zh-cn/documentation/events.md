@@ -88,6 +88,7 @@
         <td>
         Fires when user check a row, the parameters contains: <br>
         row: the record corresponding to the clicked row.
+        $element: the DOM element checked.
         </td>
     </tr>
     <tr>
@@ -97,6 +98,7 @@
         <td>
         Fires when user uncheck a row, the parameters contains: <br>
         row: the record corresponding to the clicked row.
+        $element: the DOM element unchecked.
         </td>
     </tr>
     <tr>
