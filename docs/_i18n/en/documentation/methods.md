@@ -283,5 +283,25 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>cookie name</td>
         <td>Delete a cookie created. You must use: 'sortOrder', 'sortName', 'pageNumber' or 'pageList'.</td>
     </tr>
+    <tr>
+        <td>expandRow</td>
+        <td>index</td>
+        <td>Expand the row that has the index passed by parameter if the detail view option is set to True.</td>
+    </tr>
+    <tr>
+        <td>collapseRow</td>
+        <td>index</td>
+        <td>Collapse the row that has the index passed by parameter if the detail view option is set to True.</td>
+    </tr>
+    <tr>
+        <td>expandAllRows</td>
+        <td>is subtable</td>
+        <td>Expand all rows if the detail view option is set to True.</td>
+    </tr>
+    <tr>
+        <td>collapseAllRows</td>
+        <td>is subtable</td>
+        <td>Collapse all rows if the detail view option is set to True.</td>
+    </tr>
     </tbody>
 </table>

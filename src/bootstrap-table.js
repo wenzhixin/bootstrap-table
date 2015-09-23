@@ -4,7 +4,7 @@
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
-! function ($) {
+!function ($) {
     'use strict';
 
     // TOOLS DEFINITION
@@ -95,7 +95,7 @@
                 }
             }
         }
-    }
+    };
 
     var getScrollBarWidth = function () {
         if (cachedWidth === null) {
@@ -211,6 +211,17 @@
         return dataAttr;
     };
 
+    var getItemField = function (item, field) {
+        var value = item;
+        if (field !== undefined) {
+            var props = field.split('.');
+            for (var p in props) {
+                value = value[props[p]];
+            }
+        }
+        return value;
+    }
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -234,6 +245,7 @@
         striped: false,
         columns: [[]],
         data: [],
+        dataField: 'rows',
         method: 'get',
         url: undefined,
         ajax: undefined,
@@ -514,26 +526,26 @@
             }
         }
     };
-    
+
     BootstrapTable.prototype.initContainer = function () {
         this.$container = $([
             '<div class="bootstrap-table">',
-                '<div class="fixed-table-toolbar"></div>',
-                    this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
-                    '<div class="fixed-table-pagination" style="clear: both;"></div>' :
-                    '',
-                '<div class="fixed-table-container">',
-                '<div class="fixed-table-header"><table></table></div>',
-                '<div class="fixed-table-body">',
-                    '<div class="fixed-table-loading">',
-                        this.options.formatLoadingMessage(),
-                    '</div>',
-                '</div>',
-                '<div class="fixed-table-footer"><table><tr></tr></table></div>',
-                this.options.paginationVAlign === 'bottom' || this.options.paginationVAlign === 'both' ?
+            '<div class="fixed-table-toolbar"></div>',
+            this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
+                '<div class="fixed-table-pagination" style="clear: both;"></div>' :
+                '',
+            '<div class="fixed-table-container">',
+            '<div class="fixed-table-header"><table></table></div>',
+            '<div class="fixed-table-body">',
+            '<div class="fixed-table-loading">',
+            this.options.formatLoadingMessage(),
+            '</div>',
+            '</div>',
+            '<div class="fixed-table-footer"><table><tr></tr></table></div>',
+            this.options.paginationVAlign === 'bottom' || this.options.paginationVAlign === 'both' ?
                 '<div class="fixed-table-pagination"></div>' :
                 '',
-                '</div>',
+            '</div>',
             '</div>'
         ].join(''));
 
@@ -704,8 +716,8 @@
 
                 html.push('<th' + sprintf(' title="%s"', column.titleTooltip),
                     column.checkbox || column.radio ?
-                    sprintf(' class="bs-checkbox %s"', column['class'] || '') :
-                    class_,
+                        sprintf(' class="bs-checkbox %s"', column['class'] || '') :
+                        class_,
                     sprintf(' style="%s"', halign + style),
                     sprintf(' rowspan="%s"', column.rowspan),
                     sprintf(' colspan="%s"', column.colspan),
@@ -752,7 +764,7 @@
         this.$header.children().children().off('keypress').on('keypress', function (event) {
             if (that.options.sortable && $(this).data().sortable) {
                 var code = event.keyCode || event.which;
-                if(code == 13) { //Enter keycode
+                if (code == 13) { //Enter keycode
                     that.onSort(event);
                 }
             }
@@ -825,8 +837,8 @@
                 if (that.header.sortNames[index]) {
                     name = that.header.sortNames[index];
                 }
-                var aa = a[name],
-                    bb = b[name],
+                var aa = getItemField(a, name),
+                    bb = getItemField(b, name),
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
@@ -1093,7 +1105,7 @@
                             }
                         } else {
                             if ((value + '').toLowerCase().indexOf(s) !== -1) {
-                               return true;
+                                return true;
                             }
                         }
                     }
@@ -1166,10 +1178,10 @@
         var pageNumber = [
                 sprintf('<span class="btn-group %s">',
                     this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
-                    'dropdown' : 'dropup'),
+                        'dropdown' : 'dropup'),
                 '<button type="button" class="btn btn-default ' +
-                    (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) +
-                    ' dropdown-toggle" data-toggle="dropdown">',
+                (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) +
+                ' dropdown-toggle" data-toggle="dropdown">',
                 '<span class="page-size">',
                 $allSelected ? this.options.formatAllRows() : this.options.pageSize,
                 '</span>',
@@ -1416,7 +1428,7 @@
 
             $.each(this.header.fields, function (j, field) {
                 var text = '',
-                    value = item[field],
+                    value = getItemField(item, field),
                     type = '',
                     cellStyle = {},
                     id_ = '',
@@ -1483,9 +1495,9 @@
                         sprintf(' type="%s"', type) +
                         sprintf(' value="%s"', item[that.options.idField]) +
                         sprintf(' checked="%s"', value === true ||
-                            (value && value.checked) ? 'checked' : undefined) +
+                        (value && value.checked) ? 'checked' : undefined) +
                         sprintf(' disabled="%s"', !column.checkboxEnabled ||
-                            (value && value.disabled) ? 'disabled' : undefined) +
+                        (value && value.disabled) ? 'disabled' : undefined) +
                         ' />',
                         that.options.cardView ? '</div>' : '</td>'
                     ].join('');
@@ -1543,7 +1555,7 @@
                 index = $td[0].cellIndex,
                 field = that.header.fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
                 colomn = that.columns[getFieldIndex(that.columns, field)],
-                value = item[field];
+                value = getItemField(item, field);
 
             if ($td.find('.detail-icon').length) {
                 return;
@@ -1586,8 +1598,9 @@
         this.$selectItem.off('click').on('click', function (event) {
             event.stopImmediatePropagation();
 
-            var checked = $(this).prop('checked'),
-                row = that.data[$(this).data('index')];
+            var $this = $(this),
+                checked = $this.prop('checked'),
+                row = that.data[$this.data('index')];
 
             row[that.header.stateField] = checked;
 
@@ -1599,7 +1612,7 @@
             }
 
             that.updateSelected();
-            that.trigger(checked ? 'check' : 'uncheck', row);
+            that.trigger(checked ? 'check' : 'uncheck', row, $this);
         });
 
         $.each(this.header.events, function (i, events) {
@@ -1706,7 +1719,7 @@
                 that.trigger('load-success', res);
             },
             error: function (res) {
-                that.trigger('load-error', res.status);
+                that.trigger('load-error', res.status, res);
             },
             complete: function () {
                 if (!silent) {
@@ -1804,19 +1817,19 @@
         fixedBody = this.$tableBody.get(0);
 
         scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-            fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
+        fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
             getScrollBarWidth() : 0;
 
         this.$el.css('margin-top', -this.$header.outerHeight());
 
         focused = $(':focus');
-        if(focused.length > 0) {
+        if (focused.length > 0) {
             var $th = focused.parents('th');
-            if($th.length > 0) {
+            if ($th.length > 0) {
                 var dataField = $th.attr('data-field');
-                if(dataField !== undefined) {
+                if (dataField !== undefined) {
                     var $headerTh = this.$header.find("[data-field='" + dataField + "']");
-                    if($headerTh.length > 0) {
+                    if ($headerTh.length > 0) {
                         $headerTh.find(":input").addClass("focus-temp");
                     }
                 }
@@ -1833,7 +1846,7 @@
 
 
         focusedTemp = $('.focus-temp:visible:eq(0)');
-        if(focusedTemp.length > 0) {
+        if (focusedTemp.length > 0) {
             focusedTemp.focus();
             this.$header.find('.focus-temp').removeClass('focus-temp');
         }
@@ -1933,8 +1946,8 @@
         scrollWidth = elWidth > this.$tableBody.width() ? getScrollBarWidth() : 0;
 
         this.$tableFooter.css({
-                'margin-right': scrollWidth
-            }).find('table').css('width', elWidth)
+            'margin-right': scrollWidth
+        }).find('table').css('width', elWidth)
             .attr('class', this.$el.attr('class'));
 
         $footerTd = this.$tableFooter.find('td');
@@ -2055,7 +2068,7 @@
         if (this.options.sidePagination === 'server') {
             this.options.totalRows = data.total;
             fixedScroll = data.fixedScroll;
-            data = data.rows;
+            data = data[this.options.dataField];
         } else if (!$.isArray(data)) { // support fixedScroll
             fixedScroll = data.fixedScroll;
             data = data.data;
@@ -2393,7 +2406,7 @@
     };
 
     BootstrapTable.prototype.getHiddenColumns = function () {
-        return $.grep(this.columns, function( column ) {
+        return $.grep(this.columns, function (column) {
             return !column.visible;
         });
     };
@@ -2468,6 +2481,70 @@
         this.onSearch({currentTarget: $search});
     };
 
+    BootstrapTable.prototype.expandRow_ = function (expand, index) {
+        var $tr = this.$body.find(sprintf('> tr[data-index="%s"]', index));
+        if ($tr.next().is('tr.detail-view') === (expand ? false : true)) {
+            $tr.find('> td > .detail-icon').click();
+        }
+    };
+
+    BootstrapTable.prototype.expandRow = function (index) {
+        this.expandRow_(true, index);
+    };
+
+    BootstrapTable.prototype.collapseRow = function (index) {
+        this.expandRow_(false, index);
+    };
+
+    BootstrapTable.prototype.expandAllRows = function (isSubTable) {
+        if (isSubTable) {
+            var $tr = this.$body.find(sprintf('> tr[data-index="%s"]', 0)),
+                that = this,
+                detailIcon = null,
+                executeInterval = false,
+                idInterval = -1;
+
+            if (!$tr.next().is('tr.detail-view')) {
+                $tr.find('> td > .detail-icon').click();
+                executeInterval = true;
+            } else if (!$tr.next().next().is('tr.detail-view')) {
+                $tr.next().find(".detail-icon").click();
+                executeInterval = true;
+            }
+
+            if (executeInterval) {
+                try {
+                    idInterval = setInterval(function () {
+                        detailIcon = that.$body.find("tr.detail-view").last().find(".detail-icon");
+                        if (detailIcon.length > 0) {
+                            detailIcon.click();
+                        } else {
+                            clearInterval(idInterval);
+                        }
+                    }, 1);
+                } catch (ex) {
+                    clearInterval(idInterval);
+                }
+            }
+        } else {
+            var trs = this.$body.children();
+            for (var i = 0; i < trs.length; i++) {
+                this.expandRow_(true, $(trs[i]).data("index"));
+            }
+        }
+    };
+
+    BootstrapTable.prototype.collapseAllRows = function (isSubTable) {
+        if (isSubTable) {
+            this.expandRow_(false, 0);
+        } else {
+            var trs = this.$body.children();
+            for (var i = 0; i < trs.length; i++) {
+                this.expandRow_(false, $(trs[i]).data("index"));
+            }
+        }
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -2494,7 +2571,8 @@
         'togglePagination',
         'toggleView',
         'refreshOptions',
-        'resetSearch'
+        'resetSearch',
+        'expandRow', 'collapseRow', 'expandAllRows', 'collapseAllRows'
     ];
 
     $.fn.bootstrapTable = function (option) {
@@ -2536,6 +2614,12 @@
     $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS;
     $.fn.bootstrapTable.locales = BootstrapTable.LOCALES;
     $.fn.bootstrapTable.methods = allowedMethods;
+    $.fn.bootstrapTable.utils = {
+        sprintf: sprintf,
+        getFieldIndex: getFieldIndex,
+        compareObjects: compareObjects,
+        calculateObjectValue: calculateObjectValue
+    };
 
     // BOOTSTRAP TABLE INIT
     // =======================

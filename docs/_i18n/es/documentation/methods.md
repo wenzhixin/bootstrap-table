@@ -274,5 +274,25 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>cookie name</td>
         <td>Elimina una cookie creada. Debe usar: 'sortOrder', 'sortName', 'pageNumber' o 'pageList'.</td>
     </tr>
+    <tr>
+        <td>expandRow</td>
+        <td>index</td>
+        <td>Expande la fila que tiene el index pasado por parámetro si la opción detail view está en True.</td>
+    </tr>
+    <tr>
+        <td>collapseRow</td>
+        <td>index</td>
+        <td>Colapsa la fila que tiene el index pasado por parámetro si la opción detail view está en True.</td>
+    </tr>
+    <tr>
+        <td>expandAllRows</td>
+        <td>is subtable</td>
+        <td>Expande todas las filas si la opción detail view está en True..</td>
+    </tr>
+    <tr>
+        <td>collapseAllRows</td>
+        <td>is subtable</td>
+        <td>Colapsa todas las filas si la opción detail view está en True.</td>
+    </tr>
     </tbody>
 </table>

@@ -8,19 +8,6 @@
 
     'use strict';
 
-    var getFieldIndex = function (columns, field) {
-        var index = -1;
-
-        $.each(columns, function (i, column) {
-            if (column.field === field) {
-                index = i;
-                return false;
-            }
-            return true;
-        });
-        return index;
-    };
-
     $.extend($.fn.bootstrapTable.defaults, {
         reorderableColumns: false,
         maxMovingRows: 10,
@@ -116,7 +103,7 @@
                 }
 
                 for (var i = 0; i < ths.length; i++ ) {
-                    columnIndex = getFieldIndex(that.columns, ths[i]);
+                    columnIndex = $.fn.bootstrapTable.utils.getFieldIndex(that.columns, ths[i]);
                     if (columnIndex !== -1) {
                         columns.push(that.columns[columnIndex]);
                         that.columns.splice(columnIndex, 1);
