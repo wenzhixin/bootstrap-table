@@ -242,7 +242,8 @@
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
         filterControl: undefined,
         filterData: undefined,
-        filterDatepickerOptions: undefined
+        filterDatepickerOptions: undefined,
+        filterStrictSearch: false
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -366,17 +367,27 @@
         //Check partial column filter
         this.data = fp ? $.grep(this.data, function (item, i) {
             for (var key in fp) {
+                var thisColumn = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, key)];
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
                 value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header,
                     that.header.formatters[$.inArray(key, that.header.fields)],
                     [value, item, i], value);
 
-                if (!($.inArray(key, that.header.fields) !== -1 &&
-                    (typeof value === 'string' || typeof value === 'number') &&
-                    (value + '').toLowerCase().indexOf(fval) !== -1)) {
-                    return false;
+                if(thisColumn.filterStrictSearch===true){
+                    if (!($.inArray(key, that.header.fields) !== -1 &&
+                        (typeof value === 'string' || typeof value === 'number') &&
+                        value.toLowerCase() === fval.toLowerCase())) {
+                        return false;
+                    }
                 }
+                else{
+                    if (!($.inArray(key, that.header.fields) !== -1 &&
+                        (typeof value === 'string' || typeof value === 'number') &&
+                        (value + '').toLowerCase().indexOf(fval) !== -1)) {
+                        return false;
+                    }
+                };
             }
             return true;
         }) : this.data;
