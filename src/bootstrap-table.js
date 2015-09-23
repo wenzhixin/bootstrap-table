@@ -1499,6 +1499,7 @@
                         sprintf(' disabled="%s"', !column.checkboxEnabled ||
                         (value && value.disabled) ? 'disabled' : undefined) +
                         ' />',
+                        column.formatter ? value : '',
                         that.options.cardView ? '</div>' : '</td>'
                     ].join('');
 
