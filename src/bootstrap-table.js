@@ -213,16 +213,16 @@
 
     var getItemField = function (item, field) {
         var value = item;
-        if (typeof field === 'string') {
-            var props = field.split('.');
-            for (var p in props) {
-                value = value[props[p]];
-            }
-        } else {
+
+        if (typeof field !== 'string' || item.hasOwnProperty(field)) {
             return item[field];
         }
+        var props = field.split('.');
+        for (var p in props) {
+            value = value[props[p]];
+        }
         return value;
-    }
+    };
 
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
