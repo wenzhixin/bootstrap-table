@@ -46,7 +46,7 @@ parameters: field, row, $el, editable
 
 Fired when an editable cell is hidden / closed.
 
-parameters: field, row, $el
+parameters: field, row, $el, reason
 
 ## The existing problems
 

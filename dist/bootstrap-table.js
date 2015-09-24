@@ -1475,12 +1475,13 @@
                         sprintf(' data-index="%s"', i) +
                         sprintf(' name="%s"', that.options.selectItemName) +
                         sprintf(' type="%s"', type) +
-                        sprintf(' value="%s"', item[that.options.idField]) +
+                        sprintf(' value="%s"', item[that.options.idField]),
+                        column.formatter === undefined ?
                         sprintf(' checked="%s"', value === true ||
-                            (value && value.checked) ? 'checked' : undefined) +
+                           (value && value.checked) ? 'checked' : undefined) +
                         sprintf(' disabled="%s"', !column.checkboxEnabled ||
                             (value && value.disabled) ? 'disabled' : undefined) +
-                        ' />',
+                        ' />': ' />' + value,
                         that.options.cardView ? '</div>' : '</td>'
                     ].join('');
 
