@@ -690,7 +690,8 @@
                 halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
                 align = sprintf('text-align: %s; ', column.align);
                 style = sprintf('vertical-align: %s; ', column.valign);
-                style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : width, unitWidth);
+                style += sprintf('width: %s; ', (column.checkbox || column.radio) && !width ?
+                    '36px' : width + unitWidth);
 
                 if (typeof column.fieldIndex !== 'undefined') {
                     that.header.fields[column.fieldIndex] = column.field;
