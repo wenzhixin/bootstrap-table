@@ -213,11 +213,13 @@
 
     var getItemField = function (item, field) {
         var value = item;
-        if (field !== undefined) {
+        if (typeof field === 'string') {
             var props = field.split('.');
             for (var p in props) {
                 value = value[props[p]];
             }
+        } else {
+            return item[field];
         }
         return value;
     }
@@ -1500,7 +1502,7 @@
                         sprintf(' disabled="%s"', !column.checkboxEnabled ||
                         (value && value.disabled) ? 'disabled' : undefined) +
                         ' />',
-                        column.formatter ? value : '',
+                        that.header.formatters[j] ? value : '',
                         that.options.cardView ? '</div>' : '</td>'
                     ].join('');
 
@@ -1556,7 +1558,7 @@
                 item = that.data[$tr.data('index')],
                 index = $td[0].cellIndex,
                 field = that.header.fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
-                colomn = that.columns[getFieldIndex(that.columns, field)],
+                column = that.columns[getFieldIndex(that.columns, field)],
                 value = getItemField(item, field);
 
             if ($td.find('.detail-icon').length) {
@@ -1567,7 +1569,7 @@
             that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr);
 
             // if click to select - then trigger the checkbox/radio click
-            if (e.type === 'click' && that.options.clickToSelect && colomn.clickToSelect) {
+            if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
                 var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
                 if ($selectItem.length) {
                     $selectItem[0].click(); // #144: .trigger('click') bug
