@@ -2354,7 +2354,8 @@
                 return false;
             }
             if ($.inArray(row[obj.field], obj.values) !== -1) {
-                that.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
+                that.$selectItem.filter(':enabled')
+                    .filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
                 row[that.header.stateField] = checked;
                 rows.push(row);
                 that.trigger(checked ? 'check' : 'uncheck', row);
