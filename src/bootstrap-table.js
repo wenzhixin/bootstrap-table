@@ -1606,6 +1606,12 @@
                 checked = $this.prop('checked'),
                 row = that.data[$this.data('index')];
 
+            if (that.options.maintainSelected && $(this).is(':radio')) {
+                $.each(that.options.data, function (i, row) {
+                    row[that.header.stateField] = false;
+                });
+            }
+
             row[that.header.stateField] = checked;
 
             if (that.options.singleSelect) {
