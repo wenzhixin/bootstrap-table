@@ -18,7 +18,7 @@
         onEditableShown: function (field, row, $el, editable) {
             return false;
         },
-        onEditableHidden: function (field, row, $el) {
+        onEditableHidden: function (field, row, $el, reason) {
             return false;
         }
     });
@@ -85,20 +85,20 @@
                     that.trigger('editable-save', column.field, row, oldValue, $(this));
                 });
             that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
-                .off('shown').on('shown', function (e) {
+                .off('shown').on('shown', function (e, editable) {
                     var data = that.getData(),
                         index = $(this).parents('tr[data-index]').data('index'),
                         row = data[index];
                     
-                    that.trigger('editable-shown', column.field, row, $(this));
+                    that.trigger('editable-shown', column.field, row, $(this), editable);
                 });
             that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
-                .off('hidden').on('hidden', function (e, editable) {
+                .off('hidden').on('hidden', function (e, reason) {
                     var data = that.getData(),
                         index = $(this).parents('tr[data-index]').data('index'),
                         row = data[index];
                     
-                    that.trigger('editable-hidden', column.field, row, $(this), editable);
+                    that.trigger('editable-hidden', column.field, row, $(this), reason);
                 });
         });
         this.trigger('editable-init');

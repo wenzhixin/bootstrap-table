@@ -213,14 +213,16 @@
 
     var getItemField = function (item, field) {
         var value = item;
-        if (field !== undefined) {
-            var props = field.split('.');
-            for (var p in props) {
-                value = value[props[p]];
-            }
+
+        if (typeof field !== 'string' || item.hasOwnProperty(field)) {
+            return item[field];
+        }
+        var props = field.split('.');
+        for (var p in props) {
+            value = value[props[p]];
         }
         return value;
-    }
+    };
 
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
@@ -690,7 +692,8 @@
                 halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
                 align = sprintf('text-align: %s; ', column.align);
                 style = sprintf('vertical-align: %s; ', column.valign);
-                style += sprintf('width: %s%s; ', column.checkbox || column.radio ? 36 : width, unitWidth);
+                style += sprintf('width: %s; ', (column.checkbox || column.radio) && !width ?
+                    '36px' : (width ? width + unitWidth : undefined));
 
                 if (typeof column.fieldIndex !== 'undefined') {
                     that.header.fields[column.fieldIndex] = column.field;
@@ -1499,6 +1502,7 @@
                         sprintf(' disabled="%s"', !column.checkboxEnabled ||
                         (value && value.disabled) ? 'disabled' : undefined) +
                         ' />',
+                        that.header.formatters[j] ? value : '',
                         that.options.cardView ? '</div>' : '</td>'
                     ].join('');
 
@@ -1554,7 +1558,7 @@
                 item = that.data[$tr.data('index')],
                 index = $td[0].cellIndex,
                 field = that.header.fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
-                colomn = that.columns[getFieldIndex(that.columns, field)],
+                column = that.columns[getFieldIndex(that.columns, field)],
                 value = getItemField(item, field);
 
             if ($td.find('.detail-icon').length) {
@@ -1565,7 +1569,7 @@
             that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr);
 
             // if click to select - then trigger the checkbox/radio click
-            if (e.type === 'click' && that.options.clickToSelect && colomn.clickToSelect) {
+            if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
                 var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
                 if ($selectItem.length) {
                     $selectItem[0].click(); // #144: .trigger('click') bug
@@ -1982,12 +1986,15 @@
         }
     };
 
-    BootstrapTable.prototype.toggleRow = function (index, isIdField, visible) {
+    BootstrapTable.prototype.toggleRow = function (index, uniqueId, visible) {
         if (index === -1) {
             return;
         }
 
-        $(this.$body[0]).children().filter(sprintf(isIdField ? '[data-uniqueid="%s"]' : '[data-index="%s"]', index))[visible ? 'show' : 'hide']();
+        this.$body.find(typeof index !== 'undefined' ?
+            sprintf('tr[data-index="%s"]', index) :
+            sprintf('tr[data-uniqueid="%s"]', uniqueId))
+            [visible ? 'show' : 'hide']();
     };
 
     BootstrapTable.prototype.getVisibleFields = function () {
@@ -2201,19 +2208,17 @@
     };
 
     BootstrapTable.prototype.showRow = function (params) {
-        if (!params.hasOwnProperty('index')) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('uniqueId')) {
             return;
         }
-
-        this.toggleRow(params.index, params.isIdField === undefined ? false : true, true);
+        this.toggleRow(params.index, params.uniqueId, true);
     };
 
     BootstrapTable.prototype.hideRow = function (params) {
-        if (!params.hasOwnProperty('index')) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('uniqueId')) {
             return;
         }
-
-        this.toggleRow(params.index, params.isIdField === undefined ? false : true, false);
+        this.toggleRow(params.index, params.uniqueId, false);
     };
 
     BootstrapTable.prototype.getRowsHidden = function (show) {
@@ -2256,10 +2261,12 @@
     };
 
     BootstrapTable.prototype.updateCell = function (params) {
-        if (!params.hasOwnProperty('rowIndex') || !params.hasOwnProperty('fieldName') || !params.hasOwnProperty('fieldValue')) {
+        if (!params.hasOwnProperty('index') ||
+            !params.hasOwnProperty('field') ||
+            !params.hasOwnProperty('value')) {
             return;
         }
-        this.data[params.rowIndex][params.fieldName] = params.fieldValue;
+        this.data[params.index][params.field] = params.value;
         this.initSort();
         this.initBody(true);
     };

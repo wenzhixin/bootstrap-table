@@ -37,6 +37,11 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"autoclose":true, "clearBtn": true, "todayHighlight": true}'`.
 * default: `undefined`
 
+### filterStrictSearch
+* type: Boolean
+* description: Set to true if you want to use the strict search mode.
+* default: `false`
+
 ## Events
 
 ### onColumnSearch(column-search.bs.table)
