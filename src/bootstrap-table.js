@@ -577,7 +577,7 @@
             columns = [],
             data = [];
 
-        this.$header = this.$el.find('thead');
+        this.$header = this.$el.find('>thead');
         if (!this.$header.length) {
             this.$header = $('<thead></thead>').appendTo(this.$el);
         }
@@ -619,7 +619,7 @@
             return;
         }
 
-        this.$el.find('tbody tr').each(function () {
+        this.$el.find('>tbody>tr').each(function () {
             var row = {};
 
             // save tr's id, class and data-* attributes
@@ -1359,7 +1359,7 @@
 
         this.trigger('pre-body', data);
 
-        this.$body = this.$el.find('tbody');
+        this.$body = this.$el.find('>tbody');
         if (!this.$body.length) {
             this.$body = $('<tbody></tbody>').appendTo(this.$el);
         }
@@ -1502,7 +1502,7 @@
                         sprintf(' disabled="%s"', !column.checkboxEnabled ||
                         (value && value.disabled) ? 'disabled' : undefined) +
                         ' />',
-                        that.header.formatters[j] ? value : '',
+                        that.header.formatters[j] && typeof value === 'string' ? value : '',
                         that.options.cardView ? '</div>' : '</td>'
                     ].join('');
 
@@ -1606,6 +1606,12 @@
                 checked = $this.prop('checked'),
                 row = that.data[$this.data('index')];
 
+            if (that.options.maintainSelected && $(this).is(':radio')) {
+                $.each(that.options.data, function (i, row) {
+                    row[that.header.stateField] = false;
+                });
+            }
+
             row[that.header.stateField] = checked;
 
             if (that.options.singleSelect) {
@@ -1636,7 +1642,7 @@
             }
 
             for (var key in events) {
-                that.$body.find('tr').each(function () {
+                that.$body.find('>tr').each(function () {
                     var $tr = $(this),
                         $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(fieldIndex),
                         index = key.indexOf(' '),
@@ -1862,7 +1868,7 @@
 
         var visibleFields = this.getVisibleFields();
 
-        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+        this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i) {
             var $this = $(this),
                 index = i;
 
@@ -1956,7 +1962,7 @@
 
         $footerTd = this.$tableFooter.find('td');
 
-        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+        this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i) {
             var $this = $(this);
 
             $footerTd.eq(i).find('.fht-cell').width($this.innerWidth());
@@ -2238,14 +2244,14 @@
             rowspan = options.rowspan || 1,
             colspan = options.colspan || 1,
             i, j,
-            $tr = this.$body.find('tr'),
+            $tr = this.$body.find('>tr'),
             $td;
 
         if (this.options.detailView && !this.options.cardView) {
             col += 1;
         }
 
-        $td = $tr.eq(row).find('td').eq(col);
+        $td = $tr.eq(row).find('>td').eq(col);
 
         if (row < 0 || col < 0 || row >= this.data.length) {
             return;
@@ -2253,7 +2259,7 @@
 
         for (i = row; i < row + rowspan; i++) {
             for (j = col; j < col + colspan; j++) {
-                $tr.eq(i).find('td').eq(j).hide();
+                $tr.eq(i).find('>td').eq(j).hide();
             }
         }
 
@@ -2348,7 +2354,8 @@
                 return false;
             }
             if ($.inArray(row[obj.field], obj.values) !== -1) {
-                that.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
+                that.$selectItem.filter(':enabled')
+                    .filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
                 row[that.header.stateField] = checked;
                 rows.push(row);
                 that.trigger(checked ? 'check' : 'uncheck', row);
