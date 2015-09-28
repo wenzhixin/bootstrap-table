@@ -210,6 +210,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to show a pagination toolbar on table bottom.</td>
     </tr>
     <tr>
+        <td>onlyInfoPagination</td>
+        <td>data-only-info-pagination</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show only the quantity of the data that is showing in the table. It needs the pagination table options is set to true.</td>
+    </tr>
+    <tr>
         <td>sidePagination</td>
         <td>data-side-pagination</td>
         <td>String</td>

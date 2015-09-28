@@ -263,6 +263,7 @@
             return res;
         },
         pagination: false,
+        onlyInfoPagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
         pageNumber: 1,
@@ -414,6 +415,9 @@
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
+        },
+        formatDetailPagination: function (totalRows) {
+            return sprintf('Showing %s rows', totalRows);
         },
         formatSearch: function () {
             return 'Search';
@@ -1173,124 +1177,129 @@
         html.push(
             '<div class="pull-' + this.options.paginationDetailHAlign + ' pagination-detail">',
             '<span class="pagination-info">',
+            this.options.onlyInfoPagination ? this.options.formatDetailPagination(this.options.totalRows) :
             this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
             '</span>');
 
-        html.push('<span class="page-list">');
+        if (!this.options.onlyInfoPagination) {
+            html.push('<span class="page-list">');
 
-        var pageNumber = [
-                sprintf('<span class="btn-group %s">',
-                    this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
-                        'dropdown' : 'dropup'),
-                '<button type="button" class="btn btn-default ' +
-                (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) +
-                ' dropdown-toggle" data-toggle="dropdown">',
-                '<span class="page-size">',
-                $allSelected ? this.options.formatAllRows() : this.options.pageSize,
-                '</span>',
-                ' <span class="caret"></span>',
-                '</button>',
-                '<ul class="dropdown-menu" role="menu">'
-            ],
-            pageList = this.options.pageList;
+            var pageNumber = [
+                    sprintf('<span class="btn-group %s">',
+                        this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
+                            'dropdown' : 'dropup'),
+                    '<button type="button" class="btn btn-default ' +
+                    (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) +
+                    ' dropdown-toggle" data-toggle="dropdown">',
+                    '<span class="page-size">',
+                    $allSelected ? this.options.formatAllRows() : this.options.pageSize,
+                    '</span>',
+                    ' <span class="caret"></span>',
+                    '</button>',
+                    '<ul class="dropdown-menu" role="menu">'
+                ],
+                pageList = this.options.pageList;
 
-        if (typeof this.options.pageList === 'string') {
-            var list = this.options.pageList.replace('[', '').replace(']', '')
-                .replace(/ /g, '').split(',');
+            if (typeof this.options.pageList === 'string') {
+                var list = this.options.pageList.replace('[', '').replace(']', '')
+                    .replace(/ /g, '').split(',');
 
-            pageList = [];
-            $.each(list, function (i, value) {
-                pageList.push(value.toUpperCase() === that.options.formatAllRows().toUpperCase() ?
-                    that.options.formatAllRows() : +value);
-            });
-        }
+                pageList = [];
+                $.each(list, function (i, value) {
+                    pageList.push(value.toUpperCase() === that.options.formatAllRows().toUpperCase() ?
+                        that.options.formatAllRows() : +value);
+                });
+            }
 
-        $.each(pageList, function (i, page) {
-            if (!that.options.smartDisplay || i === 0 || pageList[i - 1] <= that.options.totalRows) {
-                var active;
-                if ($allSelected) {
-                    active = page === that.options.formatAllRows() ? ' class="active"' : '';
-                } else {
-                    active = page === that.options.pageSize ? ' class="active"' : '';
+            $.each(pageList, function (i, page) {
+                if (!that.options.smartDisplay || i === 0 || pageList[i - 1] <= that.options.totalRows) {
+                    var active;
+                    if ($allSelected) {
+                        active = page === that.options.formatAllRows() ? ' class="active"' : '';
+                    } else {
+                        active = page === that.options.pageSize ? ' class="active"' : '';
+                    }
+                    pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
                 }
-                pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
-            }
-        });
-        pageNumber.push('</ul></span>');
+            });
+            pageNumber.push('</ul></span>');
 
-        html.push(this.options.formatRecordsPerPage(pageNumber.join('')));
-        html.push('</span>');
+            html.push(this.options.formatRecordsPerPage(pageNumber.join('')));
+            html.push('</span>');
 
-        html.push('</div>',
-            '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
-            '<ul class="pagination' + (this.options.iconSize === undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
-            '<li class="page-first"><a href="javascript:void(0)">' + this.options.paginationFirstText + '</a></li>',
-            '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
+            html.push('</div>',
+                '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
+                '<ul class="pagination' + (this.options.iconSize === undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
+                '<li class="page-first"><a href="javascript:void(0)">' + this.options.paginationFirstText + '</a></li>',
+                '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
 
-        if (this.totalPages < 5) {
-            from = 1;
-            to = this.totalPages;
-        } else {
-            from = this.options.pageNumber - 2;
-            to = from + 4;
-            if (from < 1) {
+            if (this.totalPages < 5) {
                 from = 1;
-                to = 5;
-            }
-            if (to > this.totalPages) {
                 to = this.totalPages;
-                from = to - 4;
+            } else {
+                from = this.options.pageNumber - 2;
+                to = from + 4;
+                if (from < 1) {
+                    from = 1;
+                    to = 5;
+                }
+                if (to > this.totalPages) {
+                    to = this.totalPages;
+                    from = to - 4;
+                }
             }
-        }
-        for (i = from; i <= to; i++) {
-            html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-                '<a href="javascript:void(0)">', i, '</a>',
-                '</li>');
-        }
+            for (i = from; i <= to; i++) {
+                html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                    '<a href="javascript:void(0)">', i, '</a>',
+                    '</li>');
+            }
 
-        html.push(
-            '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
-            '<li class="page-last"><a href="javascript:void(0)">' + this.options.paginationLastText + '</a></li>',
-            '</ul>',
-            '</div>');
+            html.push(
+                '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
+                '<li class="page-last"><a href="javascript:void(0)">' + this.options.paginationLastText + '</a></li>',
+                '</ul>',
+                '</div>');
 
+        }
         this.$pagination.html(html.join(''));
 
-        $pageList = this.$pagination.find('.page-list a');
-        $first = this.$pagination.find('.page-first');
-        $pre = this.$pagination.find('.page-pre');
-        $next = this.$pagination.find('.page-next');
-        $last = this.$pagination.find('.page-last');
-        $number = this.$pagination.find('.page-number');
+        if (!this.options.onlyInfoPagination) {
+            $pageList = this.$pagination.find('.page-list a');
+            $first = this.$pagination.find('.page-first');
+            $pre = this.$pagination.find('.page-pre');
+            $next = this.$pagination.find('.page-next');
+            $last = this.$pagination.find('.page-last');
+            $number = this.$pagination.find('.page-number');
 
-        if (this.options.pageNumber <= 1) {
-            $first.addClass('disabled');
-            $pre.addClass('disabled');
-        }
-        if (this.options.pageNumber >= this.totalPages) {
-            $next.addClass('disabled');
-            $last.addClass('disabled');
-        }
-        if (this.options.smartDisplay) {
-            if (this.totalPages <= 1) {
-                this.$pagination.find('div.pagination').hide();
+            if (this.options.pageNumber <= 1) {
+                $first.addClass('disabled');
+                $pre.addClass('disabled');
             }
-            if (pageList.length < 2 || this.options.totalRows <= pageList[0]) {
-                this.$pagination.find('span.page-list').hide();
+            if (this.options.pageNumber >= this.totalPages) {
+                $next.addClass('disabled');
+                $last.addClass('disabled');
             }
+            if (this.options.smartDisplay) {
+                if (this.totalPages <= 1) {
+                    this.$pagination.find('div.pagination').hide();
+                }
+                if (pageList.length < 2 || this.options.totalRows <= pageList[0]) {
+                    this.$pagination.find('span.page-list').hide();
+                }
 
-            // when data is empty, hide the pagination
-            this.$pagination[this.getData().length ? 'show' : 'hide']();
+                // when data is empty, hide the pagination
+                this.$pagination[this.getData().length ? 'show' : 'hide']();
+            }
+            if ($allSelected) {
+                this.options.pageSize = this.options.formatAllRows();
+            }
+            $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
+            $first.off('click').on('click', $.proxy(this.onPageFirst, this));
+            $pre.off('click').on('click', $.proxy(this.onPagePre, this));
+            $next.off('click').on('click', $.proxy(this.onPageNext, this));
+            $last.off('click').on('click', $.proxy(this.onPageLast, this));
+            $number.off('click').on('click', $.proxy(this.onPageNumber, this));
         }
-        if ($allSelected) {
-            this.options.pageSize = this.options.formatAllRows();
-        }
-        $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
-        $first.off('click').on('click', $.proxy(this.onPageFirst, this));
-        $pre.off('click').on('click', $.proxy(this.onPagePre, this));
-        $next.off('click').on('click', $.proxy(this.onPageNext, this));
-        $last.off('click').on('click', $.proxy(this.onPageLast, this));
-        $number.off('click').on('click', $.proxy(this.onPageNumber, this));
     };
 
     BootstrapTable.prototype.updatePagination = function (event) {

@@ -32,6 +32,11 @@
         <td>'Showing %s to %s of %s rows'</td>
     </tr>
     <tr>
+        <td>formatDetailPagination</td>
+        <td>totalRows</td>
+        <td>'Showing %s rows'</td>
+    </tr>
+    <tr>
         <td>formatSearch</td>
         <td>-</td>
         <td>'Search'</td>
