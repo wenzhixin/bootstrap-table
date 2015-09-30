@@ -27,3 +27,11 @@ $table.on('load-success.bs.table column-switch.bs.table page-change.bs.table sea
     $table.bootstrapTable('mergeCells', {...});
 });
 ```
+
+---
+
+### How can I support development of bootstrap-table?
+
+All your ideas and feedback are very appreciated! Please feel free to open issues on GitHub or send me email.
+
+I'm also grateful for your donations: <a href="donate">{% t pages.donate.title %}</a>
