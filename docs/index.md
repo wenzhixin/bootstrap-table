@@ -27,14 +27,12 @@ title: pages.home.title
     <hr class="half-rule">
 
     <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-sm-5">
+      <div class="col-md-5">
         {% tf home/feature.md %}
       </div>
-      <div class="col-sm-5">
+      <div class="col-md-7">
         {% markdown latest-release.md %}
       </div>
-      <div class="col-md-1"></div>
     </div>
   </div>
 </div>

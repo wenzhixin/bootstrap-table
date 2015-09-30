@@ -31,6 +31,7 @@
 - [enh] Updated `showRow`, `hideRow` and `updateCell` methods.
 - [bug] Fix #1390: radio maintainSelected bug.
 - [bug] Fix #1421: checkBy filter enabled.
+- [bug] Remove `bootstrap-table-all.js` and `bootstrap-table-all.min.js`.
 
 ### 1.8.1
 
