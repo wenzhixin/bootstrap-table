@@ -1524,7 +1524,7 @@
                     // Hide empty data on Card view when smartDisplay is set to true.
                     if (that.options.cardView && that.options.smartDisplay && value === '') {
                         // Should set a placeholder for event binding correct fieldIndex
-+                       text = '<div class="card-view"></div>';
+                        text = '<div class="card-view"></div>';
                     }
                 }
 
