@@ -1642,7 +1642,7 @@
             }
 
             for (var key in events) {
-                that.$body.find('>tr').each(function () {
+                that.$body.find('>tr:not(.no-records-found)').each(function () {
                     var $tr = $(this),
                         $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(fieldIndex),
                         index = key.indexOf(' '),
