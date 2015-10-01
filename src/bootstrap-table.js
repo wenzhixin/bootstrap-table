@@ -790,6 +790,7 @@
             .on('click', '[name="btSelectAll"]', function () {
                 var checked = $(this).prop('checked');
                 that[checked ? 'checkAll' : 'uncheckAll']();
+                that.updateSelected();
             });
     };
 
