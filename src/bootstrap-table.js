@@ -1151,7 +1151,7 @@
                 var pageLst = typeof this.options.pageList === 'string' ?
                     this.options.pageList.replace('[', '').replace(']', '')
                         .replace(/ /g, '').toLowerCase().split(',') : this.options.pageList;
-                if (pageLst.indexOf(this.options.formatAllRows().toLowerCase()) > -1) {
+                if ($.inArray(this.options.formatAllRows().toLowerCase(), pageLst)  > -1) {
                     $allSelected = true;
                 }
             }
