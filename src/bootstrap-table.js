@@ -2339,10 +2339,10 @@
     };
 
     BootstrapTable.prototype.check_ = function (checked, index) {
-        this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
+        var $el = this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
         this.data[index][this.header.stateField] = checked;
         this.updateSelected();
-        this.trigger(checked ? 'check' : 'uncheck', this.data[index]);
+        this.trigger(checked ? 'check' : 'uncheck', this.data[index], $el);
     };
 
     BootstrapTable.prototype.checkBy = function (obj) {
@@ -2365,11 +2365,11 @@
                 return false;
             }
             if ($.inArray(row[obj.field], obj.values) !== -1) {
-                that.$selectItem.filter(':enabled')
+                var $el = that.$selectItem.filter(':enabled')
                     .filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
                 row[that.header.stateField] = checked;
                 rows.push(row);
-                that.trigger(checked ? 'check' : 'uncheck', row);
+                that.trigger(checked ? 'check' : 'uncheck', row, $el);
             }
         });
         this.updateSelected();
