@@ -242,7 +242,7 @@
         this.options.searchText = searchTextCookie ? searchTextCookie : '';
 
         if (columnsCookie) {
-            $.each(this.columns, function (i, column) {
+            $.each(this.options.columns, function (i, column) {
                 column.visible = $.inArray(column.field, columnsCookie) !== -1;
             });
         }
@@ -289,7 +289,7 @@
 
         var visibleColumns = [];
 
-        $.each(this.columns, function (i, column) {
+        $.each(this.options.columns, function (i, column) {
             if (column.visible) {
                 visibleColumns.push(column.field);
             }
