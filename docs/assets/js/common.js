@@ -53,3 +53,11 @@ $(function () {
         });
     }
 });
+
+function methodFormatter(value) {
+    if (!value) {
+        return '';
+    }
+    var href = 'http://issues.wenzhixin.net.cn/bootstrap-table/#methods/' + value + '.html';
+    return '<a target="_blank" href="' + href + '"><i class="glyphicon glyphicon-screenshot"></i></a>';
+}

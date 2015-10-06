@@ -84,8 +84,11 @@
 
                     if (that.options.exportDataType === 'all' && that.options.pagination) {
                         that.togglePagination();
-                        doExport();
-                        that.togglePagination();
+                        that.$el.on('load-success.bs.table', function () {
+                            doExport();
+                            that.$el.off('load-success.bs.table');
+                            that.togglePagination();
+                        });
                     } else if (that.options.exportDataType === 'selected') {
                         var data = that.getData(),
                             selectedData = that.getAllSelections();

@@ -108,6 +108,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>The data to be loaded.</td>
     </tr>
     <tr>
+        <td>dataField</td>
+        <td>data-data-field</td>
+        <td>String</td>
+        <td>'rows'</td>
+        <td>Key in incoming json containing rows data list.</td>
+    </tr>
+    <tr>
         <td>ajax</td>
         <td>data-ajax</td>
         <td>Function</td>

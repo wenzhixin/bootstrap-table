@@ -18,3 +18,9 @@
     left: 20px;
     top: 20px;
 }
+.tc {
+    text-align: center;
+}
+.tc img {
+    max-width: 100%;
+}

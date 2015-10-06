@@ -18,20 +18,17 @@
                 <li {% if page.slug == "documentation" %} class="active"{% endif %}>
                     <a href="{{ site.baseurl }}/documentation/">{% t pages.documentation.title %}</a>
                 </li>
+                <li>
+                    <a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">{% t pages.examples.title %}</a>
+                </li>
                 <li {% if page.slug == "extensions" %} class="active"{% endif %}>
                     <a href="{{ site.baseurl }}/extensions/">{% t pages.extensions.title %}</a>
                 </li>
+                <li {% if page.slug == "donate" %} class="active"{% endif %}>
+                    <a href="{{ site.baseurl }}/donate/">{% t pages.donate.title %}</a>
+                </li>
                 <li {% if page.slug == "faq" %} class="active"{% endif %}>
                     <a href="{{ site.baseurl }}/faq/">{% t pages.faq.title %}</a>
-                </li>
-                <li>
-                    <a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">Examples</a>
-                </li>
-                <li>
-                    <a href="http://bootstrap-group-select.wenzhixin.net.cn" target="_blank">
-                        Bootstrap Group Select
-                        <span class="badge">New</span>
-                    </a>
                 </li>
                 <li>
                     <a href="{{ site.repo }}" target="_blank">GitHub</a>

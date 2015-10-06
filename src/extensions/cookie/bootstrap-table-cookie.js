@@ -41,12 +41,25 @@
         return !!(navigator.cookieEnabled);
     };
 
+    var inArrayCookiesEnabled = function (cookieName, cookiesEnabled) {
+        var index = -1;
+
+        for (var i = 0; i < cookiesEnabled.length; i++) {
+            if (cookieName.toLowerCase() === cookiesEnabled[i].toLowerCase()) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    };
+
     var setCookie = function (that, cookieName, cookieValue) {
         if ((!that.options.cookie) || (!cookieEnabled()) || (that.options.cookieIdTable === '')) {
             return;
         }
 
-        if ($.inArray(cookieName.toLowerCase(), that.options.cookiesEnabled) === -1) {
+        if (inArrayCookiesEnabled(cookieName, that.options.cookiesEnabled) === -1) {
             return;
         }
 
@@ -64,7 +77,7 @@
             return null;
         }
 
-        if ($.inArray(cookieName.toLowerCase(), that.options.cookiesEnabled) === -1) {
+        if (inArrayCookiesEnabled(cookieName, that.options.cookiesEnabled) === -1) {
             return null;
         }
 
