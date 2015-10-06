@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.8.1
+ * version: 1.9.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -794,6 +794,7 @@
             .on('click', '[name="btSelectAll"]', function () {
                 var checked = $(this).prop('checked');
                 that[checked ? 'checkAll' : 'uncheckAll']();
+                that.updateSelected();
             });
     };
 
@@ -1155,7 +1156,7 @@
                 var pageLst = typeof this.options.pageList === 'string' ?
                     this.options.pageList.replace('[', '').replace(']', '')
                         .replace(/ /g, '').toLowerCase().split(',') : this.options.pageList;
-                if (pageLst.indexOf(this.options.formatAllRows().toLowerCase()) > -1) {
+                if ($.inArray(this.options.formatAllRows().toLowerCase(), pageLst)  > -1) {
                     $allSelected = true;
                 }
             }
@@ -1532,7 +1533,8 @@
 
                     // Hide empty data on Card view when smartDisplay is set to true.
                     if (that.options.cardView && that.options.smartDisplay && value === '') {
-                        text = '';
+                        // Should set a placeholder for event binding correct fieldIndex
+                        text = '<div class="card-view"></div>';
                     }
                 }
 
@@ -1651,7 +1653,7 @@
             }
 
             for (var key in events) {
-                that.$body.find('>tr').each(function () {
+                that.$body.find('>tr:not(.no-records-found)').each(function () {
                     var $tr = $(this),
                         $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(fieldIndex),
                         index = key.indexOf(' '),
@@ -2337,10 +2339,10 @@
     };
 
     BootstrapTable.prototype.check_ = function (checked, index) {
-        this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
+        var $el = this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
         this.data[index][this.header.stateField] = checked;
         this.updateSelected();
-        this.trigger(checked ? 'check' : 'uncheck', this.data[index]);
+        this.trigger(checked ? 'check' : 'uncheck', this.data[index], $el);
     };
 
     BootstrapTable.prototype.checkBy = function (obj) {
@@ -2363,11 +2365,11 @@
                 return false;
             }
             if ($.inArray(row[obj.field], obj.values) !== -1) {
-                that.$selectItem.filter(':enabled')
+                var $el = that.$selectItem.filter(':enabled')
                     .filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
                 row[that.header.stateField] = checked;
                 rows.push(row);
-                that.trigger(checked ? 'check' : 'uncheck', row);
+                that.trigger(checked ? 'check' : 'uncheck', row, $el);
             }
         });
         this.updateSelected();

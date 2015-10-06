@@ -22,36 +22,51 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>getOptions</td>
         <td>none</td>
         <td>Return the options object.</td>
+        <td>getOptions</td>
     </tr>
     <tr>
         <td>getSelections</td>
         <td>none</td>
         <td>Return selected rows, when no record selected, am empty array will return.</td>
+        <td>getSelections</td>
     </tr>
     <tr>
         <td>getAllSelections</td>
         <td>none</td>
-        <td>Return selected rows in all pages, when no record selected, am empty array will return.</td>
+        <td>Return all selected rows contain search or filter, when no record selected, am empty array will return.</td>
+        <td>getAllSelections</td>
     </tr>
     <tr>
         <td>getData</td>
         <td>useCurrentPage</td>
-        <td>Get the loaded data of table at the moment that this method is called. If you set the useCurrentPage to true the method will return the data in the current page</td>
+        <td>Get the loaded data of table at the moment that this method is called. If you set the useCurrentPage to true the method will return the data in the current page.</td>
+        <td>getData</td>
+    </tr>
+    <tr>
+        <td>getRowByUniqueId</td>
+        <td>id</td>
+        <td>
+        Get data from table, the row that contains the id passed by parameter.
+        </td>
+        <td>getRowByUniqueId</td>
     </tr>
     <tr>
         <td>load</td>
         <td>data</td>
         <td>Load the data to table, the old rows will be removed.</td>
+        <td>load</td>
     </tr>
     <tr>
         <td>append</td>
         <td>data</td>
         <td>Append the data to table.</td>
+        <td>append</td>
     </tr>
     <tr>
         <td>prepend</td>
         <td>data</td>
         <td>Prepend the data to table.</td>
+        <td>prepend</td>
     </tr>
     <tr>
         <td>remove</td>
@@ -59,33 +74,25 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>
         Remove data from table, the params contains two properties: <br>
         field: the field name of remove rows. <br>
-        values: the array of values for rows which should be removed. <br>
-        Example: $('#myTable').bootstrapTable('remove', {field: 'id', values: ["73", "74"]})
+        values: the array of values for rows which should be removed.
+        <td>remove</td>
         </td>
     </tr>
     <tr>
         <td>removeAll</td>
         <td>-</td>
         <td>
-        Remove all data from table<br>
-        Example: $('#myTable').bootstrapTable('removeAll')
+        Remove all data from table.
         </td>
+        <td>removeAll</td>
     </tr>
     <tr>
         <td>removeByUniqueId</td>
         <td>id</td>
         <td>
-        Remove data from table, the row that contains the id passed by parameter<br>
-        Example: $('#myTable').bootstrapTable('removeByUniqueId', "122")
+        Remove data from table, the row that contains the id passed by parameter.
         </td>
-    </tr>
-    <tr>
-        <td>getRowByUniqueId</td>
-        <td>id</td>
-        <td>
-        Get data from table, the row that contains the id passed by parameter<br>
-        Example: $('#myTable').bootstrapTable('getRowByUniqueId', "122")
-        </td>
+        <td>removeByUniqueId</td>
     </tr>
     <tr>
         <td>insertRow</td>
@@ -141,9 +148,9 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>params</td>
         <td>
         Update one cell, the params contains following properties: <br>
-        rowIndex: the row index. <br>
-        fieldName: the field name.<br>
-        fieldValue: the new field value. <br>
+        index: the row index. <br>
+        field: the field name.<br>
+        value: the new field value.
         </td>
     </tr>
     <tr>
@@ -241,12 +248,12 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>scrollTo</td>
         <td>value</td>
-        <td>Scroll to the number value position, set 'bottom' means scroll to the bottom.</td>
+        <td>Scroll to the number value position, the unit is 'px', set 'bottom' means scroll to the bottom.</td>
     </tr>
     <tr>
         <td>getScrollPosition</td>
         <td>none</td>
-        <td>Get the current scroll position.</td>
+        <td>Get the current scroll position, the unit is 'px'.</td>
     </tr>
     <tr>
         <td>filterBy</td>
@@ -277,16 +284,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>toggleView</td>
         <td>none</td>
         <td>Toggle the card/table view.</td>
-    </tr>
-	<tr>
-        <td>expandRow</td>
-        <td>index</td>
-        <td>Expand a row, the row index start with 0.</td>
-    </tr>
-	<tr>
-        <td>collapseRow</td>
-        <td>index</td>
-        <td>Collapse a row, the row index start with 0.</td>
     </tr>
     <tr>
         <td>expandRow</td>

@@ -31,8 +31,15 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
     <tr>
         <td>getData</td>
         <td>useCurrentPage</td>
-        <td>Retorna los datos cargados en la tabla en el momento que se llama este método. Si se setea useCurrentPage a true se devolverá los datos mostrados en la página
-        actual</td>
+        <td>Retorna los datos cargados en la tabla en el momento que se llama este método. Si se setea useCurrentPage a true se devolverá los datos mostrados en la página actual.</td>
+    </tr>
+    <tr>
+        <td>getRowByUniqueId</td>
+        <td>id</td>
+        <td>
+        Se obtiene el dato de la tabla que contiene el id pasado por parámetro<br>
+        Ejemplo: $('#myTable').bootstrapTable('getRowByUniqueId', "122")
+        </td>
     </tr>
     <tr>
         <td>load</td>
@@ -73,14 +80,6 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>
         Se remueve el dato de la tabla que contiene el id pasado por parámetro<br>
         Ejemplo: $('#myTable').bootstrapTable('removeByUniqueId', "122")
-        </td>
-    </tr>
-    <tr>
-        <td>getRowByUniqueId</td>
-        <td>id</td>
-        <td>
-        Se obtiene el dato de la tabla que contiene el id pasado por parámetro<br>
-        Ejemplo: $('#myTable').bootstrapTable('getRowByUniqueId', "122")
         </td>
     </tr>
     <tr>
@@ -268,16 +267,6 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>toggleView</td>
         <td>none</td>
         <td>Alterna la vista entre tabla y tarjeta.</td>
-    </tr>
-	<tr>
-        <td>expandRow</td>
-        <td>index</td>
-        <td>Expand a row, the row index start with 0.</td>
-    </tr>
-	<tr>
-        <td>collapseRow</td>
-        <td>index</td>
-        <td>Collapse a row, the row index start with 0.</td>
     </tr>
     <tr>
         <td>expandRow</td>

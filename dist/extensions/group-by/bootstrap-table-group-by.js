@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.0.0
+ * @version: v1.1.0
  */
 
 !function ($) {
@@ -13,19 +13,6 @@
         dataTTParentId = 'data-tt-parent-id',
         obj = {},
         parentId = undefined;
-
-    var getFieldIndex = function (columns, field) {
-        var index = -1;
-
-        $.each(columns, function (i, column) {
-            if (column.field === field) {
-                index = i;
-                return false;
-            }
-            return true;
-        });
-        return index;
-    };
 
     var getParentRowId = function (that, id) {
         var parentRows = that.$body.find('tr').not('[' + 'data-tt-parent-id]');
@@ -42,10 +29,10 @@
     var sumData = function (that, data) {
         var sumRow = {};
         $.each(data, function (i, row) {
-            for(var prop in row) {
-                if (!row.IsParent) {
+            if (!row.IsParent) {
+                for (var prop in row) {
                     if (!isNaN(parseFloat(row[prop]))) {
-                        if (that.columns[getFieldIndex(that.columns, prop)].groupBySumGroup) {
+                        if (that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, prop)].groupBySumGroup) {
                             if (sumRow[prop] === undefined) {
                                 sumRow[prop] = 0;
                             }
@@ -76,53 +63,69 @@
 
     var setObjectKeys = function () {
         // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-       Object.keys = function (o) {
-           if (o !== Object(o)) {
-               throw new TypeError('Object.keys called on a non-object');
-           }
-           var k = [],
-               p;
-           for (p in o) {
-               if (Object.prototype.hasOwnProperty.call(o, p)) {
-                   k.push(p);
-               }
-           }
-           return k;
-       }
+        Object.keys = function (o) {
+            if (o !== Object(o)) {
+                throw new TypeError('Object.keys called on a non-object');
+            }
+            var k = [],
+                p;
+            for (p in o) {
+                if (Object.prototype.hasOwnProperty.call(o, p)) {
+                    k.push(p);
+                }
+            }
+            return k;
+        }
     };
 
-    var groupBy = function (array , f) {
-       var groups = {};
-       $.each(array, function(i, o) {
-           var group = JSON.stringify(f(o));
-           groups[group] = groups[group] || [];
-           groups[group].push(o);
-       });
-       return Object.keys(groups).map(function (group) {
+    var getDataArrayFromItem = function (that, item) {
+        var itemDataArray = [];
+        for (var i = 0; i < that.options.groupByField.length; i++) {
+            itemDataArray.push(item[that.options.groupByField[i]]);
+        }
+
+        return itemDataArray;
+    };
+
+    var getNewRow = function (that, result, index) {
+        var newRow = {};
+        for (var i = 0; i < that.options.groupByField.length; i++) {
+            newRow[that.options.groupByField[i].toString()] = result[index][0][that.options.groupByField[i]];
+        }
+
+        newRow.IsParent = true;
+
+        return newRow;
+    };
+
+    var groupBy = function (array, f) {
+        var groups = {};
+        $.each(array, function (i, o) {
+            var group = JSON.stringify(f(o));
+            groups[group] = groups[group] || [];
+            groups[group].push(o);
+        });
+        return Object.keys(groups).map(function (group) {
             return groups[group];
-       });
+        });
     };
 
     var makeGrouped = function (that, data) {
-        var newRow = {},
-            newData = [],
+        var newData = [],
             sumRow = {};
 
         var result = groupBy(data, function (item) {
-            return [item[that.options.groupByField]];
+            return getDataArrayFromItem(that, item);
         });
 
         for (var i = 0; i < result.length; i++) {
-            newRow[that.options.groupByField.toString()] = result[i][0][that.options.groupByField];
-            newRow.IsParent = true;
-            result[i].unshift(newRow);
+            result[i].unshift(getNewRow(that, result, i));
             if (that.options.groupBySumGroup) {
-                sumRow = sumData(that, result[i])
+                sumRow = sumData(that, result[i]);
                 if (!$.isEmptyObject(sumRow)) {
                     result[i].push(sumRow);
                 }
             }
-            newRow = {};
         }
 
         newData = newData.concat.apply(newData, result);
@@ -138,7 +141,7 @@
 
     $.extend($.fn.bootstrapTable.defaults, {
         groupBy: false,
-        groupByField: '',
+        groupByField: [],
         groupBySumGroup: false,
         groupByInitExpanded: undefined, //node, 'all'
         //internal variables
@@ -146,7 +149,7 @@
         originalData: undefined
     });
 
-    $.fn.bootstrapTable.methods.push('collapseAll', 'expandAll');
+    $.fn.bootstrapTable.methods.push('collapseAll', 'expandAll', 'refreshGroupByField');
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
         groupBySumGroup: false
@@ -159,7 +162,7 @@
     BootstrapTable.prototype.init = function () {
         //Temporal validation
         if (!this.options.sortName) {
-            if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+            if ((this.options.groupBy) && (this.options.groupByField.length > 0)) {
                 var that = this;
 
                 // Compatibility: IE < 9 and old browsers
@@ -204,7 +207,12 @@
     BootstrapTable.prototype.initData = function (data, type) {
         //Temporal validation
         if (!this.options.sortName) {
-            if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+            if ((this.options.groupBy) && (this.options.groupByField.length > 0)) {
+
+                this.options.groupByField = typeof this.options.groupByField === 'string' ?
+                    this.options.groupByField.replace('[', '').replace(']', '')
+                        .replace(/ /g, '').toLowerCase().split(',') : this.options.groupByField;
+
                 data = makeGrouped(this, data ? data : this.options.data);
             }
         }
@@ -224,5 +232,12 @@
         if (id !== undefined) {
             this.$el.treetable('expandNode', id);
         }
-    }
+    };
+
+    BootstrapTable.prototype.refreshGroupByField = function (groupByFields) {
+        if (!$.fn.bootstrapTable.utils.compareObjects(this.options.groupByField, groupByFields)) {
+            this.options.groupByField = groupByFields;
+            this.load(this.options.originalData);
+        }
+    };
 }(jQuery);
