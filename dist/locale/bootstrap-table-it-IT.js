@@ -13,7 +13,7 @@
             return pageNumber + ' elementi per pagina';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Elementi da ' + pageFrom + ' a ' + pageTo + ' di ' + totalRows + ' totali';
+            return 'Elementi da ' + pageFrom + ' a ' + pageTo + ' di ' + totalRows + ' totali.';
         },
         formatSearch: function () {
             return 'Cerca';
