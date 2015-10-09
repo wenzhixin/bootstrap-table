@@ -10,22 +10,22 @@
             return 'Caricamento in corso...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' records per pagina';
+            return pageNumber + ' elementi per pagina';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Pagina ' + pageFrom + ' di ' + pageTo + ' (' + totalRows + ' records)';
+            return 'Elementi da ' + pageFrom + ' a ' + pageTo + ' di ' + totalRows + ' totali.';
         },
         formatSearch: function () {
             return 'Cerca';
         },
         formatNoMatches: function () {
-            return 'Nessun record trovato';
+            return 'Nessun elemento trovato';
         },
         formatRefresh: function () {
-            return 'Rinfrescare';
+            return 'Aggiorna';
         },
         formatToggle: function () {
-            return 'Alternare';
+            return 'Alterna';
         },
         formatColumns: function () {
             return 'Colonne';
