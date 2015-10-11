@@ -14,8 +14,8 @@
         txt: 'TXT',
         sql: 'SQL',
         doc: 'MS-Word',
-        excel: 'MS-Excel',
-        powerpoint: 'MS-Powerpoint',
+        excel: 'Ms-Excel',
+        powerpoint: 'Ms-Powerpoint',
         pdf: 'PDF'
     };
 
