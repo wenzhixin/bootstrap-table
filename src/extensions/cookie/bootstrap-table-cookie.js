@@ -313,7 +313,7 @@
     
     BootstrapTable.prototype.selectPage = function (page) {
         _selectPage.apply(this, Array.prototype.slice.apply(arguments));
-        setCookie(this, idsStateSaveList.pageNumber, page);
+        setCookie(this, cookieIds.pageNumber, page);
     };
 
     BootstrapTable.prototype.onSearch = function () {
