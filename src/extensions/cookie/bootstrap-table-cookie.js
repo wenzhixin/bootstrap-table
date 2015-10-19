@@ -246,7 +246,7 @@
         //sortOrder
         this.options.sortOrder = sortOrderCookie ? sortOrderCookie : 'asc';
         //sortName
-        this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : undefined;
+        this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : this.options.sortName;
         //pageNumber
         this.options.pageNumber = pageNumberCookie ? +pageNumberCookie : this.options.pageNumber;
         //pageSize
