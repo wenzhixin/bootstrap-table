@@ -2159,26 +2159,30 @@
         var uniqueId = this.options.uniqueId,
             len = this.options.data.length,
             dataRow = null,
-            i, row;
+            i, row, rowUniqueId;
 
         for (i = len - 1; i >= 0; i--) {
             row = this.options.data[i];
 
-            if (!row.hasOwnProperty(uniqueId)) {
+            if (row.hasOwnProperty(uniqueId)) { // uniqueId is a column
+                rowUniqueId = row[uniqueId];
+            } else if(row._data.hasOwnProperty(uniqueId)) { // uniqueId is a row data property
+                rowUniqueId = row._data[uniqueId];
+            } else {
                 continue;
             }
 
-            if (typeof row[uniqueId] === 'string') {
+            if (typeof rowUniqueId === 'string') {
                 id = id.toString();
-            } else if (typeof row[uniqueId] === 'number') {
-                if ((Number(row[uniqueId]) === row[uniqueId]) && (row[uniqueId] % 1 === 0)) {
+            } else if (typeof rowUniqueId === 'number') {
+                if ((Number(rowUniqueId) === rowUniqueId) && (rowUniqueId % 1 === 0)) {
                     id = parseInt(id);
-                } else if ((row[uniqueId] === Number(row[uniqueId])) && (row[uniqueId] !== 0)) {
+                } else if ((rowUniqueId === Number(rowUniqueId)) && (rowUniqueId !== 0)) {
                     id = parseFloat(id);
                 }
             }
 
-            if (row[uniqueId] === id) {
+            if (rowUniqueId === id) {
                 dataRow = row;
                 break;
             }
