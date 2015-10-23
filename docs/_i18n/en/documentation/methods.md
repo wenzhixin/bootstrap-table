@@ -15,6 +15,9 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <th>Name</th>
         <th>Parameter</th>
         <th>Description</th>
+        <th data-formatter="methodFormatter"
+            data-align="center"
+            data-valign="middle">Example</th>
     </tr>
     </thead>
     <tbody>
@@ -45,9 +48,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>getRowByUniqueId</td>
         <td>id</td>
-        <td>
-        Get data from table, the row that contains the id passed by parameter.
-        </td>
+        <td>Get data from table, the row that contains the id passed by parameter.</td>
         <td>getRowByUniqueId</td>
     </tr>
     <tr>
@@ -75,8 +76,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         Remove data from table, the params contains two properties: <br>
         field: the field name of remove rows. <br>
         values: the array of values for rows which should be removed.
-        <td>remove</td>
         </td>
+        <td>remove</td>
     </tr>
     <tr>
         <td>removeAll</td>

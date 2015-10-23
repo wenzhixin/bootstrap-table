@@ -15,3 +15,13 @@
 * Nicolas Pascual - $10
 * Hassan Ejaz - $10
 * Frank Hines - $100
+* Luis Triana Vega - $10
+* PROMOTUX DI FRANCESCO MELONI E C. S.N.C. - $15
+
+## 支付宝
+
+* 萃华：10.18元
+* 小马哥：5元
+* 振：20元
+* 懒虫：8.8元
+* rainc：50元
