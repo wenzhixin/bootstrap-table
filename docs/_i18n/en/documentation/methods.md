@@ -258,7 +258,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>filterBy</td>
         <td>params</td>
-        <td>(Can use only in client-side)Filter data in table, eg. you can filter <code>{age: 10}</code> to show the data only age is equal to 10.</td>
+        <td>(Can use only in client-side) Filter data in table, e.g. you can filter <code>{age: 10}</code> to show the data only age is equal to 10.  You can also filter with an array of values, as in: <code>{age: 10, hairColor: ["blue", "red", "green"]} to find data where age is equal to 10 and hairColor is either blue, red, or green.</td>
     </tr>
     <tr>
         <td>selectPage</td>

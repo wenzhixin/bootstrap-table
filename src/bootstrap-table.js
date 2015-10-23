@@ -1085,7 +1085,11 @@
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
                 for (var key in f) {
-                    if (item[key] !== f[key]) {
+                    if ($.isArray(f[key])) {
+                        if ($.inArray(item[key], f[key]) === -1) {
+                            return false;
+                        }
+                    } else if (item[key] !== f[key]) {
                         return false;
                     }
                 }
