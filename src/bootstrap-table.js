@@ -2193,6 +2193,24 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.updateByUniqueId = function (params) {
+        var rowId;
+
+        if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
+            return;
+        }
+
+        rowId = $.inArray(this.getRowByUniqueId(params.id), this.options.data);
+
+        if (rowId === -1) {
+            return;
+        }
+
+        $.extend(this.data[rowId], params.row);
+        this.initSort();
+        this.initBody(true);
+    };
+
     BootstrapTable.prototype.insertRow = function (params) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
@@ -2566,7 +2584,7 @@
         'getOptions',
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
-        'insertRow', 'updateRow', 'updateCell', 'removeByUniqueId',
+        'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
         'checkAll', 'uncheckAll',
