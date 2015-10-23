@@ -2200,7 +2200,11 @@
             return;
         }
 
-        rowId = this.options.data.indexOf(this.getRowByUniqueId(params.id));
+        rowId = $.inArray(this.getRowByUniqueId(params.id), this.options.data);
+
+        if (rowId === -1) {
+            return;
+        }
 
         $.extend(this.data[rowId], params.row);
         this.initSort();
