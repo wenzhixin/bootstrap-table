@@ -1378,7 +1378,8 @@
                 csses = [],
                 data_ = '',
                 attributes = {},
-                htmlAttributes = [];
+                htmlAttributes = [],
+                detailViewColPos = -1;
 
             style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
@@ -1422,6 +1423,7 @@
             }
 
             if (!this.options.cardView && this.options.detailView) {
+                detailViewColPos = html.length;
                 html.push('<td>',
                     '<a class="detail-icon" href="javascript:">',
                     sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.detailOpen),
@@ -1535,6 +1537,45 @@
             }
 
             html.push('</tr>');
+
+            if (detailViewColPos > -1) {
+
+                var existingRowIndex;           //Current item in the existing table
+                var $existingRow;               //jquery obj of the existing table item row
+                var $existingRowDetailView;    //jquery obj of the existing table item row's detailview
+                var $detailRow;                 //the new detail row we'll append to html
+
+                //if the detailview was open previously, keep it open
+                existingRowIndex = $.inArray(that.getRowByUniqueId(item[that.options.uniqueId]), that.options.data);
+
+                if (existingRowIndex >= 0 ) {
+                
+                    $existingRow = that.$body.first().children('tr[data-index="' + existingRowIndex + '"]');
+                    $existingRowDetailView = $existingRow.next('tr.detail-view');
+
+                    if ($existingRowDetailView.length > 0) {
+
+                        //edit the icon to the opened version
+                        html[detailViewColPos] = '<td>';
+                        html[detailViewColPos + 1] = '<a class="detail-icon" href="javascript:">';
+                        html[detailViewColPos + 2] = sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.detailClose);
+                        html[detailViewColPos + 3] = '</a>';
+                        html[detailViewColPos + 4] = '</td>';
+
+                        //create the detailview data
+                        $detailRow = $(sprintf(
+                            '<tr class="detail-view"><td colspan="%s">%s</td></tr>',
+                            $existingRow.find('td').length, 
+                            calculateObjectValue(that.options,
+                                that.options.detailFormatter, [item, i], '')));
+
+                        that.options.onExpandRow(i, item, $detailRow.find('td'));
+
+                        html.push($detailRow.prop('outerHTML'));
+
+                    }
+                }
+            }
         }
 
         // show no records
