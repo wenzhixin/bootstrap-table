@@ -20,7 +20,7 @@ lead: pages.donate.lead
         <li>小马哥：5元</li>
         <li>振：20元</li>
         <li>懒虫：8.8元</li>
-        <li>rainc：50元<li>
+        <li>rainc：50元</li>
         </ul>
     </div>
     <div class="col-md-6">
