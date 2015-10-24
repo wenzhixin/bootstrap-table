@@ -244,9 +244,9 @@
             searchTextCookie = getCookie(this, this.options.cookieIdTable, cookieIds.searchText);
 
         //sortOrder
-        this.options.sortOrder = sortOrderCookie ? sortOrderCookie : 'asc';
+        this.options.sortOrder = ( sortOrderCookie ? sortOrderCookie : ( this.options.sortOrder ? this.options.sortOrder : undefined ) );
         //sortName
-        this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : undefined;
+        this.options.sortName = ( sortOrderNameCookie ? sortOrderNameCookie : ( this.options.sortName ? this.options.sortName : 'asc' ) );
         //pageNumber
         this.options.pageNumber = pageNumberCookie ? +pageNumberCookie : this.options.pageNumber;
         //pageSize
