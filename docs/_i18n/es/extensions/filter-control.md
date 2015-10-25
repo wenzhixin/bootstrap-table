@@ -24,6 +24,13 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * default: `false`
 
 
+### filterStrictSearch
+
+* type: Boolean
+* description: Set true to enable the strict search in column.
+* default: `false`
+
+
 ## Column options
 
 ### filterControl

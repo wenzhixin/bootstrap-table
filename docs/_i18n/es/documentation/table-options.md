@@ -182,6 +182,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>True para mostrar la paginación al final de la tabla.</td>
     </tr>
     <tr>
+        <td>onlyInfoPagination</td>
+        <td>data-only-info-pagination</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True para mostrar solo la cantidad de los registros que se están mostrando en la tabla. Esta opción necesita que la opción pagination este en true.</td>
+    </tr>
+    <tr>
         <td>sidePagination</td>
         <td>data-side-pagination</td>
         <td>String</td>
