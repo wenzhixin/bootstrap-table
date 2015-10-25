@@ -113,6 +113,15 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         row: the new row data.
         </td>
     </tr>
+    <tr>
+        <td>updateByUniqueId</td>
+        <td>params</td>
+        <td>
+        Update the specified row, the param contains following properties: <br>
+        id: a row id where the id should be the uniqueid field assigned to the table. <br>
+        row: the new row data.
+        </td>
+    </tr>
 	<tr>
         <td>showRow</td>
         <td>params</td>
