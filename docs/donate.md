@@ -8,22 +8,32 @@ lead: pages.donate.lead
 {% tf donate.md %}
 
 <div class="row">
-    <div class="col-md-6">
-        <div class="tc">
-            <img src="../assets/images/alipayLogo.png">
+    <div class="col-md-8">
+        <div class="col-md-6">
+            <div class="tc">
+                <img src="../assets/images/alipayLogo.png">
+            </div>
+            <div class="tc">
+                <img src="../assets/images/alipay.jpg">
+            </div>
+            <ul style="margin-top: 20px">
+            <li>萃华：10.18元</li>
+            <li>小马哥：5元</li>
+            <li>振：20元</li>
+            <li>懒虫：8.8元</li>
+            <li>rainc：50元</li>
+            </ul>
         </div>
-        <div class="tc">
-            <img src="../assets/images/alipay.jpg">
+        <div class="col-md-6">
+            <div class="tc">
+                <img src="../assets/images/weixinLogo.png">
+            </div>
+            <div class="tc">
+                <img src="../assets/images/weixin.png">
+            </div>
         </div>
-        <ul style="margin-top: 20px">
-        <li>萃华：10.18元</li>
-        <li>小马哥：5元</li>
-        <li>振：20元</li>
-        <li>懒虫：8.8元</li>
-        <li>rainc：50元</li>
-        </ul>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="tc">
             <img src="../assets/images/paypalLogo.png">
         </div>
@@ -50,6 +60,7 @@ lead: pages.donate.lead
         <li>Frank Hines - $100</li>
         <li>Luis Triana Vega - $10</li>
         <li>PROMOTUX DI FRANCESCO MELONI E C. S.N.C. - $15</li>
+        <li>Emmanuel Kielichowski - $15</li>
         </ul>
     </div>
 </div>

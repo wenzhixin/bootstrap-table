@@ -15,6 +15,8 @@
 - [enh] UniqueId can also be stored in a row's data property.
 - [enh] Use default settings when cookie settings don't exist(cookie extension).
 - [enh] Expand `filterBy` to accept and array of values.
+- [enh] Added `updateByUniqueId` method.
+- [doc] Added `iconSize` docs.
 
 ### 1.9.0
 

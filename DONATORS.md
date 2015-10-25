@@ -17,6 +17,7 @@
 * Frank Hines - $100
 * Luis Triana Vega - $10
 * PROMOTUX DI FRANCESCO MELONI E C. S.N.C. - $15
+* Emmanuel Kielichowski - $15
 
 ## 支付宝
 
