@@ -31,6 +31,9 @@ lead: pages.donate.lead
             <div class="tc">
                 <img src="../assets/images/weixin.png">
             </div>
+            <ul style="margin-top: 20px">
+            <li>笑：50元</li>
+            </ul>
         </div>
     </div>
     <div class="col-md-4">
