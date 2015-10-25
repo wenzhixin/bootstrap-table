@@ -109,7 +109,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>params</td>
         <td>
         Update the specified row, the param contains following properties: <br>
-        index: the row index to be updated. <br>
+        index or uniqueId: the row index/uniqueId to be updated. <br>
         row: the new row data.
         </td>
     </tr>

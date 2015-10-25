@@ -2250,10 +2250,21 @@
     };
 
     BootstrapTable.prototype.updateRow = function (params) {
-        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
+        if ((!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) || !params.hasOwnProperty('row')) {
             return;
         }
-        $.extend(this.data[params.index], params.row);
+
+        if (params.hasOwnProperty('uniqueId')) {
+            var row = this.getRowByUniqueId(params.uniqueId);
+            if (!row) {
+                return;
+            }
+            var rowIndex = $.inArray(row, this.options.data);
+            $.extend(this.options.data[rowIndex], params.row);
+
+        } else {
+            $.extend(this.data[params.index], params.row);
+        }
         this.initSort();
         this.initBody(true);
     };
