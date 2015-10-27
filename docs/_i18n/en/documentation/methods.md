@@ -122,7 +122,13 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         row: the new row data.
         </td>
     </tr>
-	<tr>
+    <tr>
+        <td>getRowIdViaUniqueId</td>
+        <td>id</td>
+        <td>Returns row id based on unique id provided to it.
+        If the unique id can't be found in the table it will return "-1".</td>
+    </tr>
+    <tr>
         <td>showRow</td>
         <td>params</td>
         <td>Show the specified row. the param contains following properties:
