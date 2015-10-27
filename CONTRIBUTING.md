@@ -24,7 +24,7 @@ restrictions:
 * Please **do not** derail or troll issues. Keep the discussion on topic and
   respect the opinions of others.
 
-* Please **do not** open issues or pull requests regarding the code in [`bootstrap-table-examples`](https://github.com/wenzhixin/bootstrap-table-examples) and [`extensions plugin dependence`](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions) (open them in their respective repositories), the dependence list:
+* Please **do not** open issues or pull requests regarding the code in [`bootstrap-table-examples`](https://github.com/wenzhixin/bootstrap-table-examples) and [`extensions plugin dependence`](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions) (open them in their respective repositories), the dependence list:
     * Table Editable: [x-editable](https://github.com/vitalets/x-editable)
     * Table Export: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
     * Table Filter: [bootstrap-table-filter](https://github.com/lukaskral/bootstrap-table-filter)
@@ -124,11 +124,11 @@ project (indentation, accurate comments, etc.) and any other requirements
 (such as test coverage).
 
 **Do not edit files of `dist` directly!** Those files are automatically generated. You should edit the
-source files in [`/src/`](https://github.com/wenzhixin/bootstrap-table/tree/master/src) instead.
+source files in [`/src/`](https://github.com/wenzhixin/bootstrap-table/tree/develop/src) instead.
 
 Similarly, when contributing to Bootstrap's documentation, you should edit the
 documentation source files in
-[the `/docs/` directory of the `master` branch](https://github.com/wenzhixin/bootstrap-table/tree/master/docs).
+[the `/docs/` directory of the `develop` branch](https://github.com/wenzhixin/bootstrap-table/tree/develop/docs).
 
 Adhering to the following process is the best way to get your work
 included in the project:
@@ -148,8 +148,8 @@ included in the project:
 2. If you cloned a while ago, get the latest changes from upstream:
 
    ```bash
-   git checkout master
-   git pull upstream master
+   git checkout develop
+   git pull upstream develop
    ```
 
 3. Create a new topic branch (off the main project development branch) to
@@ -168,7 +168,7 @@ included in the project:
 5. Locally merge (or rebase) the upstream development branch into your topic branch:
 
    ```bash
-   git pull [--rebase] upstream master
+   git pull [--rebase] upstream develop
    ```
 
 6. Push your topic branch up to your fork:
@@ -178,7 +178,7 @@ included in the project:
    ```
 
 7. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/)
-    with a clear title and description against the `master` branch.
+    with a clear title and description against the `develop` branch.
 
 **IMPORTANT**: By submitting a patch, you agree to allow the project owners to
 license your work under the terms of the [MIT License](LICENSE) (if it

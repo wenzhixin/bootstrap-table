@@ -11,12 +11,12 @@
     border-radius: 1px;
 }
 
-.bootstrap-table .table,
-.bootstrap-table .table > tbody > tr > th,
-.bootstrap-table .table > tfoot > tr > th,
-.bootstrap-table .table > thead > tr > td,
-.bootstrap-table .table > tbody > tr > td,
-.bootstrap-table .table > tfoot > tr > td {
+.bootstrap-table .table:not(.table-condensed),
+.bootstrap-table .table:not(.table-condensed) > tbody > tr > th,
+.bootstrap-table .table:not(.table-condensed) > tfoot > tr > th,
+.bootstrap-table .table:not(.table-condensed) > thead > tr > td,
+.bootstrap-table .table:not(.table-condensed) > tbody > tr > td,
+.bootstrap-table .table:not(.table-condensed) > tfoot > tr > td {
     padding: 8px !important;
 }
 
