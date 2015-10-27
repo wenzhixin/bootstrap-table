@@ -32,6 +32,9 @@
         },
         formatColumns: function () {
             return 'Lajur';
+        },
+        formatAllRows: function () {
+            return 'Semua';
         }
     };
 

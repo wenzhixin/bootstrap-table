@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.9.0
+ * version: 1.9.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -950,14 +950,18 @@
         }
 
         if (this.options.showRefresh) {
-            html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" name="refresh" title="%s">',
+            html.push(sprintf('<button class="btn btn-default' +
+                    sprintf(' btn-%s', this.options.iconSize) +
+                    '" type="button" name="refresh" title="%s">',
                     this.options.formatRefresh()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh),
                 '</button>');
         }
 
         if (this.options.showToggle) {
-            html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" name="toggle" title="%s">',
+            html.push(sprintf('<button class="btn btn-default' +
+                    sprintf(' btn-%s', this.options.iconSize) +
+                    '" type="button" name="toggle" title="%s">',
                     this.options.formatToggle()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
@@ -966,7 +970,9 @@
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
                     this.options.formatColumns()),
-                '<button type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
+                '<button type="button" class="btn btn-default' +
+                sprintf(' btn-%s', this.options.iconSize) +
+                ' dropdown-toggle" data-toggle="dropdown">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
                 '</button>',
@@ -1041,7 +1047,9 @@
             html = [];
             html.push(
                 '<div class="pull-' + this.options.searchAlign + ' search">',
-                sprintf('<input class="form-control' + (this.options.iconSize === undefined ? '' : ' input-' + this.options.iconSize) + '" type="text" placeholder="%s">',
+                sprintf('<input class="form-control' +
+                    sprintf(' input-%s', this.options.iconSize) +
+                    '" type="text" placeholder="%s">',
                     this.options.formatSearch()),
                 '</div>');
 
@@ -1085,7 +1093,11 @@
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
                 for (var key in f) {
-                    if (item[key] !== f[key]) {
+                    if ($.isArray(f[key])) {
+                        if ($.inArray(item[key], f[key]) === -1) {
+                            return false;
+                        }
+                    } else if (item[key] !== f[key]) {
                         return false;
                     }
                 }
@@ -1190,7 +1202,7 @@
                         this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ?
                             'dropdown' : 'dropup'),
                     '<button type="button" class="btn btn-default ' +
-                    (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) +
+                    sprintf(' btn-%s', this.options.iconSize) +
                     ' dropdown-toggle" data-toggle="dropdown">',
                     '<span class="page-size">',
                     $allSelected ? this.options.formatAllRows() : this.options.pageSize,
@@ -1230,7 +1242,7 @@
 
             html.push('</div>',
                 '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
-                '<ul class="pagination' + (this.options.iconSize === undefined ? '' : ' pagination-' + this.options.iconSize) + '">',
+                '<ul class="pagination' + sprintf(' pagination-%s', this.options.iconSize) + '">',
                 '<li class="page-first"><a href="javascript:void(0)">' + this.options.paginationFirstText + '</a></li>',
                 '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
 
@@ -2159,26 +2171,30 @@
         var uniqueId = this.options.uniqueId,
             len = this.options.data.length,
             dataRow = null,
-            i, row;
+            i, row, rowUniqueId;
 
         for (i = len - 1; i >= 0; i--) {
             row = this.options.data[i];
 
-            if (!row.hasOwnProperty(uniqueId)) {
+            if (row.hasOwnProperty(uniqueId)) { // uniqueId is a column
+                rowUniqueId = row[uniqueId];
+            } else if(row._data.hasOwnProperty(uniqueId)) { // uniqueId is a row data property
+                rowUniqueId = row._data[uniqueId];
+            } else {
                 continue;
             }
 
-            if (typeof row[uniqueId] === 'string') {
+            if (typeof rowUniqueId === 'string') {
                 id = id.toString();
-            } else if (typeof row[uniqueId] === 'number') {
-                if ((Number(row[uniqueId]) === row[uniqueId]) && (row[uniqueId] % 1 === 0)) {
+            } else if (typeof rowUniqueId === 'number') {
+                if ((Number(rowUniqueId) === rowUniqueId) && (rowUniqueId % 1 === 0)) {
                     id = parseInt(id);
-                } else if ((row[uniqueId] === Number(row[uniqueId])) && (row[uniqueId] !== 0)) {
+                } else if ((rowUniqueId === Number(rowUniqueId)) && (rowUniqueId !== 0)) {
                     id = parseFloat(id);
                 }
             }
 
-            if (row[uniqueId] === id) {
+            if (rowUniqueId === id) {
                 dataRow = row;
                 break;
             }
@@ -2201,6 +2217,24 @@
 
         this.initSearch();
         this.initPagination();
+        this.initBody(true);
+    };
+
+    BootstrapTable.prototype.updateByUniqueId = function (params) {
+        var rowId;
+
+        if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
+            return;
+        }
+
+        rowId = $.inArray(this.getRowByUniqueId(params.id), this.options.data);
+
+        if (rowId === -1) {
+            return;
+        }
+
+        $.extend(this.data[rowId], params.row);
+        this.initSort();
         this.initBody(true);
     };
 
@@ -2577,7 +2611,7 @@
         'getOptions',
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
-        'insertRow', 'updateRow', 'updateCell', 'removeByUniqueId',
+        'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
         'checkAll', 'uncheckAll',
