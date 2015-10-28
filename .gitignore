@@ -3,6 +3,9 @@ node_modules
 # docs site
 _gh_pages
 
+# build the extensions
+extensions.js
+
 # deploy the docs
 deploy.sh
 
