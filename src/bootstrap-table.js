@@ -1287,10 +1287,16 @@
             if (this.options.pageNumber <= 1) {
                 $first.addClass('disabled');
                 $pre.addClass('disabled');
+            } else {
+                $first.attr('title', 1);
+                $pre.attr('title', (this.options.pageNumber - 1));
             }
             if (this.options.pageNumber >= this.totalPages) {
                 $next.addClass('disabled');
                 $last.addClass('disabled');
+            } else {
+                $next.attr('title', (this.options.pageNumber + 1));
+                $last.attr('title', this.totalPages);
             }
             if (this.options.smartDisplay) {
                 if (this.totalPages <= 1) {
