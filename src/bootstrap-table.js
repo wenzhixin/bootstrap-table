@@ -2203,7 +2203,7 @@
         return dataRow;
     };
 
-    BootstrapTable.prototype.getRowIdViaUniqueId = function(uniqueId){
+    BootstrapTable.prototype.getRowIdByUniqueId = function(uniqueId){
         var rowId;
         rowId = $.inArray(this.getRowByUniqueId(uniqueId), this.options.data);
         return rowId;
@@ -2618,7 +2618,7 @@
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
-        'getRowByUniqueId', 'getRowIdViaUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
+        'getRowByUniqueId', 'getRowIdByUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
         'checkAll', 'uncheckAll',
         'check', 'uncheck',
