@@ -1579,11 +1579,13 @@
                     if ($existingRowDetailView.length > 0) {
 
                         //edit the icon to the opened version
-                        html[detailViewColPos] = '<td>';
-                        html[detailViewColPos + 1] = '<a class="detail-icon" href="javascript:">';
-                        html[detailViewColPos + 2] = sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.detailClose);
-                        html[detailViewColPos + 3] = '</a>';
-                        html[detailViewColPos + 4] = '</td>';
+                        html.splice(detailViewColPos, 5, 
+                            '<td>',
+                            '<a class="detail-icon" href="javascript:">',
+                            sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.detailClose),
+                            '</a>',
+                            '</td>'
+                        );
 
                         //create the detailview data
                         $detailRow = $(sprintf(
