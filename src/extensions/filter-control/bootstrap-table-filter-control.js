@@ -9,6 +9,9 @@
     'use strict';
 
     var sprintf = $.fn.bootstrapTable.utils.sprintf;
+    $.extend($.fn.bootstrapTable.defaults.icons, {
+        clear: 'glyphicon-trash icon-clear'
+    });
 
     var addOptionToSelectControl = function (selectControl, value, text) {
         selectControl = $(selectControl.get(selectControl.length - 1));
@@ -304,7 +307,7 @@
               $btnClear = $([
                     '<button class="btn btn-default " ' +
                         'type="button">',
-                    '<i class="glyphicon glyphicon-trash icon-share"></i> ',
+                    sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
                     '</button>',
                     '</ul>'].join('')).appendTo($btnGroup);
 
