@@ -2,10 +2,11 @@
  * @author: Brian Huisman
  * @webSite: http://www.greywyvern.com
  * @version: v1.0.0
- * JS function to allow natural sorting on bootstrap-table columns
- * just add data-sorter="alphanum" to any th
+ * JS functions to allow natural sorting on bootstrap-table columns
+ * add data-sorter="alphanum" or data-sorter="numericOnly" to any th
  *
  * @update Dennis Hernández <http://djhvscf.github.io/Blog>
+ * @update Duane May
  */
 
 function alphanum(a, b) {
@@ -44,4 +45,13 @@ function alphanum(a, b) {
     }
   }
   return aa.length - bb.length;
+}
+
+function numericOnly(a, b) {
+    function stripNonNumber(s) {
+        s = s.replace(new RegExp(/[^0-9]/g), "");
+        return parseInt(s, 10);
+    }
+
+    return stripNonNumber(a) - stripNonNumber(b);
 }
