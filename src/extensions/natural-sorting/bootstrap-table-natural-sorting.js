@@ -50,11 +50,8 @@ function alphanum(a, b) {
 function numericOnly(a, b) {
     function stripNonNumber(s) {
         s = s.replace(new RegExp(/[^0-9]/g), "");
-        return parseInt(s.toLowerCase());
+        return parseInt(s, 10);
     }
 
-    aa = stripNonNumber(a);
-    bb = stripNonNumber(b);
-
-    return aa - bb;
+    return stripNonNumber(a) - stripNonNumber(b);
 }
