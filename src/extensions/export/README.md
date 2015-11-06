@@ -33,3 +33,6 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jqu
 * type: Object
 * description: export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
 * default: `{}`
+
+### Icons
+* export: 'glyphicon-export icon-share'
