@@ -58,9 +58,12 @@ npm install bootstrap-table
 
 You can source bootstrap-table directly from a CDN like [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bootcss](http://open.bootcss.com/bootstrap-table/) or [jsdelivr](http://www.jsdelivr.com/#!bootstrap.table).
 
-## Reporting issues
 
-Please provide jsFiddle when creating issues!
+## Reporting Issues && Contributing
+
+Whether feature requests, bug reports or just enhancements - ensure you first read [CONTRIBUTING.md](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTING.md)
+
+And as stated there, please provide jsFiddle when creating issues!
 
 It's really saves much time. Use this as template:
 
