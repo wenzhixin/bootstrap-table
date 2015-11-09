@@ -10,7 +10,7 @@
             return 'Laden, even geduld...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' records per pagina';
+            return pageNumber + ' rows per pagina';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return 'Toon ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' records';
