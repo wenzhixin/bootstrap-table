@@ -1647,7 +1647,7 @@
             that.trigger(checked ? 'check' : 'uncheck', row, $this);
         });
 
-        $.each(this.header.events, function (i, events) {
+        $.each(this.header.events, function (fieldIndex, events) {
             if (!events) {
                 return;
             }
@@ -1656,8 +1656,7 @@
                 events = calculateObjectValue(null, events);
             }
 
-            var field = that.header.fields[i],
-                fieldIndex = $.inArray(field, that.getVisibleFields());
+            var field = that.header.fields[fieldIndex];
 
             if (that.options.detailView && !that.options.cardView) {
                 fieldIndex += 1;
