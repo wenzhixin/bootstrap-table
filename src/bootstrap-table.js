@@ -619,7 +619,7 @@
         });
 
         // if options.data is setting, do not process tbody data
-        if (this.options.data.length) {
+        if (this.options.data) {
             return;
         }
 
@@ -790,8 +790,7 @@
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
-        this.$container.off('click', '[name="btSelectAll"]')
-            .on('click', '[name="btSelectAll"]', function () {
+        this.$selectAll.off('click').on('click', function () {
                 var checked = $(this).prop('checked');
                 that[checked ? 'checkAll' : 'uncheckAll']();
                 that.updateSelected();
@@ -1461,7 +1460,7 @@
                     data_ = '',
                     rowspan_ = '',
                     title_ = '',
-                    column = that.columns[getFieldIndex(that.columns, field)];
+                    column = that.columns[j];
 
                 if (!column.visible) {
                     return;
@@ -1648,7 +1647,7 @@
             that.trigger(checked ? 'check' : 'uncheck', row, $this);
         });
 
-        $.each(this.header.events, function (i, events) {
+        $.each(this.header.events, function (fieldIndex, events) {
             if (!events) {
                 return;
             }
@@ -1657,8 +1656,7 @@
                 events = calculateObjectValue(null, events);
             }
 
-            var field = that.header.fields[i],
-                fieldIndex = $.inArray(field, that.getVisibleFields());
+            var field = that.header.fields[fieldIndex];
 
             if (that.options.detailView && !that.options.cardView) {
                 fieldIndex += 1;
