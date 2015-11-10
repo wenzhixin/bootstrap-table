@@ -1460,7 +1460,7 @@
                     data_ = '',
                     rowspan_ = '',
                     title_ = '',
-                    column = that.columns[getFieldIndex(that.columns, field)];
+                    column = that.columns[j];
 
                 if (!column.visible) {
                     return;
