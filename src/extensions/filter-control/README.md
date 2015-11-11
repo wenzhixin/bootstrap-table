@@ -42,6 +42,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set to true if you want to use the strict search mode.
 * default: `false`
 
+### Icons
+* clear: 'glyphicon-trash icon-clear'
+
 ## Events
 
 ### onColumnSearch(column-search.bs.table)

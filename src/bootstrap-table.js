@@ -619,7 +619,7 @@
         });
 
         // if options.data is setting, do not process tbody data
-        if (this.options.data.length) {
+        if (this.options.data) {
             return;
         }
 
@@ -790,8 +790,7 @@
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
-        this.$container.off('click', '[name="btSelectAll"]')
-            .on('click', '[name="btSelectAll"]', function () {
+        this.$selectAll.off('click').on('click', function () {
                 var checked = $(this).prop('checked');
                 that[checked ? 'checkAll' : 'uncheckAll']();
                 that.updateSelected();
