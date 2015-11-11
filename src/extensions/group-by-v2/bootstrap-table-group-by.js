@@ -103,15 +103,23 @@
                     checkBox = true;
                 } else {
                     if (column.visible) {
-                        visibleColumns++;
+                        visibleColumns += 1;
                     }
                 }
             });
+
+            if (this.options.detailView && !this.options.cardView) {
+                visibleColumns += 1;
+            }
 
             tableGroups.forEach(function(item){
                 var html = [];
 
                 html.push(sprintf('<tr class="info groupBy expanded" data-group-index="%s">', item.id));
+
+                if (that.options.detailView && !that.options.cardView) {
+                    html.push('<td class="detail"></td>');
+                }
 
                 if (checkBox) {
                     html.push('<td class="bs-checkbox">',
