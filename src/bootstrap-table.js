@@ -1333,14 +1333,6 @@
             $last = this.$pagination.find('.page-last');
             $number = this.$pagination.find('.page-number');
 
-            if (this.options.pageNumber <= 1) {
-                $first.addClass('disabled');
-                $pre.addClass('disabled');
-            }
-            if (this.options.pageNumber >= this.totalPages) {
-                $next.addClass('disabled');
-                $last.addClass('disabled');
-            }
             if (this.options.smartDisplay) {
                 if (this.totalPages <= 1) {
                     this.$pagination.find('div.pagination').hide();
@@ -1401,12 +1393,20 @@
     };
 
     BootstrapTable.prototype.onPagePre = function (event) {
-        this.options.pageNumber--;
+        if ((this.options.pageNumber - 1) == 0) {
+            this.options.pageNumber = this.options.totalPages;
+        } else {
+            this.options.pageNumber--;
+        }
         this.updatePagination(event);
     };
 
     BootstrapTable.prototype.onPageNext = function (event) {
-        this.options.pageNumber++;
+        if ((this.options.pageNumber + 1) > this.options.totalPages) {
+            this.options.pageNumber = 1;
+        } else {
+            this.options.pageNumber++;
+        }
         this.updatePagination(event);
     };
 
