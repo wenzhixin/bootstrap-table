@@ -19,7 +19,7 @@
             return '搜尋';
         },
         formatNoMatches: function () {
-            return '沒有找符合的結果';
+            return '沒有找到符合的結果';
         },
         formatPaginationSwitch: function () {
             return '隱藏/顯示分頁';
