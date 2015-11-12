@@ -1001,7 +1001,7 @@
 
         html.push('</div>');
 
-        // Fix #188: this.showToolbar is for extentions
+        // Fix #188: this.showToolbar is for extensions
         if (this.showToolbar || html.length > 2) {
             this.$toolbar.append(html.join(''));
         }
@@ -1110,7 +1110,7 @@
                         column = that.columns[getFieldIndex(that.columns, key)],
                         j = $.inArray(key, that.header.fields);
 
-                    // Fix #142: search use formated data
+                    // Fix #142: search use formatted data
                     if (column && column.searchFormatter) {
                         value = calculateObjectValue(column,
                             that.header.formatters[j], [value, item, i], value);
