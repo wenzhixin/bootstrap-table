@@ -272,10 +272,8 @@
         paginationHAlign: 'right', //right, left
         paginationVAlign: 'bottom', //bottom, top, both
         paginationDetailHAlign: 'left', //right, left
-        paginationFirstText: '&laquo;',
         paginationPreText: '&lsaquo;',
         paginationNextText: '&rsaquo;',
-        paginationLastText: '&raquo;',
         search: false,
         strictSearch: false,
         searchAlign: 'right',
@@ -1242,7 +1240,6 @@
             html.push('</div>',
                 '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
                 '<ul class="pagination' + sprintf(' pagination-%s', this.options.iconSize) + '">',
-                '<li class="page-first"><a href="javascript:void(0)">' + this.options.paginationFirstText + '</a></li>',
                 '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
 
             if (this.totalPages < 5) {
@@ -1260,18 +1257,71 @@
                     from = to - 4;
                 }
             }
+
+            if (this.totalPages >= 6) {
+                if (this.options.pageNumber >= 3) {
+                    html.push('<li class="page-first' + (1 === this.options.pageNumber ? ' active' : '') + '">',
+                        '<a href="javascript:void(0)">', 1, '</a>',
+                        '</li>');
+
+                    from++;
+                }
+
+                if (this.options.pageNumber >= 4) {
+                    if (this.options.pageNumber == 4 || this.totalPages == 6 || this.totalPages == 7) {
+                        from--;
+                    } else {
+                        html.push('<li class="page-first-separator disabled">',
+                            '<a href="javascript:void(0)">...</a>',
+                            '</li>');
+                    }
+
+                    to--;
+                }
+            }
+
+            if (this.totalPages >= 7) {
+                if (this.options.pageNumber >= (this.totalPages - 2)) {
+                    from--;
+                }
+            }
+
+            if (this.totalPages == 6) {
+                if (this.options.pageNumber >= (this.totalPages - 2)) {
+                    to++;
+                }
+            } else if (this.totalPages >= 7) {
+                if (this.totalPages == 7 || this.options.pageNumber >= (this.totalPages - 3)) {
+                    to++;
+                }
+            }
+
             for (i = from; i <= to; i++) {
                 html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
                     '<a href="javascript:void(0)">', i, '</a>',
                     '</li>');
             }
 
+            if (this.totalPages >= 8) {
+                if (this.options.pageNumber <= (this.totalPages - 4)) {
+                    html.push('<li class="page-last-separator disabled">',
+                        '<a href="javascript:void(0)">...</a>',
+                        '</li>');
+                }
+            }
+
+            if (this.totalPages >= 6) {
+                if (this.options.pageNumber <= (this.totalPages - 3)) {
+                    html.push('<li class="page-last' + (this.totalPages === this.options.pageNumber ? ' active' : '') + '">',
+                        '<a href="javascript:void(0)">', this.totalPages, '</a>',
+                        '</li>');
+                }
+            }
+
             html.push(
                 '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
-                '<li class="page-last"><a href="javascript:void(0)">' + this.options.paginationLastText + '</a></li>',
                 '</ul>',
                 '</div>');
-
         }
         this.$pagination.html(html.join(''));
 
@@ -1286,16 +1336,10 @@
             if (this.options.pageNumber <= 1) {
                 $first.addClass('disabled');
                 $pre.addClass('disabled');
-            } else {
-                $first.attr('title', 1);
-                $pre.attr('title', (this.options.pageNumber - 1));
             }
             if (this.options.pageNumber >= this.totalPages) {
                 $next.addClass('disabled');
                 $last.addClass('disabled');
-            } else {
-                $next.attr('title', (this.options.pageNumber + 1));
-                $last.attr('title', this.totalPages);
             }
             if (this.options.smartDisplay) {
                 if (this.totalPages <= 1) {
@@ -2688,5 +2732,4 @@
     $(function () {
         $('[data-toggle="table"]').bootstrapTable();
     });
-
 }(jQuery);
