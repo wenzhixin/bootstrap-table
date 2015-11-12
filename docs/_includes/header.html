@@ -43,6 +43,11 @@
   ga('send', 'pageview');
 </script>
 
+<script type="text/javascript">
+    if (window!=top) // 判断当前的window对象是否是top对象
+        top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+</script>
+
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 <!-- 将此标记放置在 head 中，或放置在结束 body 标记之前，并使其紧邻此标记。 -->
