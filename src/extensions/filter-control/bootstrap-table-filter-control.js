@@ -361,6 +361,10 @@
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
 
+        if ('filterRemote' in this.options && this.options.filterRemote) {
+            return;
+        }
+
         var that = this;
         var fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial;
 
