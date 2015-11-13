@@ -246,7 +246,8 @@
         filterControl: undefined,
         filterData: undefined,
         filterDatepickerOptions: undefined,
-        filterStrictSearch: false
+        filterStrictSearch: false,
+        filterLocal: true
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -363,6 +364,10 @@
 
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (! this.options.filterLocal) {
+            return;
+        }
 
         var that = this;
         var fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial;
