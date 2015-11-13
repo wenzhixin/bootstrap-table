@@ -149,7 +149,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Function</td>
         <td>function(params) {<br>return params;<br>}</td>
         <td>
-        Cuando se solicita datos remotos, se debe enviar parámetros adicionales para modificar los queryParams. 
+        Cuando se solicita datos remotos, se debe enviar parámetros adicionales para modificar los queryParams.
         Si queryParamsType = 'limit', el objecto params contiene: <br>
         limit, offset, search, sort, order
         Sino, el objeoto contiene: <br>
