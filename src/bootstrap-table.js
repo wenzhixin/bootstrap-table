@@ -2041,7 +2041,8 @@
     };
 
     BootstrapTable.prototype.getFieldIndex = function (absoluteIndex) {
-      var relativeIndex = absoluteIndex;
+      var that = this,
+          relativeIndex = absoluteIndex;
       $.each(this.header.fields, function (j, field) {
           var column = that.columns[j];
           if (j < absoluteIndex) {
