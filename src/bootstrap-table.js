@@ -1755,14 +1755,11 @@
 
                 that.load(res);
                 that.trigger('load-success', res);
+                if (!silent) that.$tableLoading.hide();
             },
             error: function (res) {
                 that.trigger('load-error', res.status, res);
-            },
-            complete: function () {
-                if (!silent) {
-                    that.$tableLoading.hide();
-                }
+                if (!silent) that.$tableLoading.hide();
             }
         });
 
