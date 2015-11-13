@@ -1647,7 +1647,7 @@
             that.trigger(checked ? 'check' : 'uncheck', row, $this);
         });
 
-        $.each(this.header.events, function (fieldIndex, events) {
+        $.each(this.header.events, function (j, events) {
             if (!events) {
                 return;
             }
@@ -1656,6 +1656,7 @@
                 events = calculateObjectValue(null, events);
             }
 
+            var fieldIndex = that.getFieldIndex(j);
             var field = that.header.fields[fieldIndex];
 
             if (that.options.detailView && !that.options.cardView) {
@@ -2038,6 +2039,20 @@
         });
         return visibleFields;
     };
+
+    BootstrapTable.prototype.getFieldIndex = function (absoluteIndex) {
+      var relativeIndex = absoluteIndex;
+      $.each(this.header.fields, function (j, field) {
+          var column = that.columns[j];
+          if (j < absoluteIndex) {
+            return false;
+          }
+          if (!column.visible) {
+            relativeIndex--;
+          }
+        });
+        return relativeIndex;
+    }
 
     // PUBLIC FUNCTION DEFINITION
     // =======================
