@@ -385,13 +385,6 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Indica cómo alinear el detalle de la paginación. Se puede usar: 'left', 'right'.</td>
     </tr>
     <tr>
-        <td>paginationFirstText</td>
-        <td>data-pagination-first-text</td>
-        <td>String</td>
-        <td>'&lt;&lt;'</td>
-        <td>Indica el icono o el texto a mostrar en la paginación, el botón first del detalle de la paginación.</td>
-    </tr>
-    <tr>
         <td>paginationPreText</td>
         <td>data-pagination-pre-text</td>
         <td>String</td>
@@ -404,13 +397,6 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>String</td>
         <td>'&gt;'</td>
         <td>Indica el icono o el texto a mostrar en la paginación, el botón next del detalle de la paginación.</td>
-    </tr>
-    <tr>
-        <td>paginationLastText</td>
-        <td>data-pagination-last-text</td>
-        <td>String</td>
-        <td>'&gt;&gt;'</td>
-        <td>Indica el icono o el texto a mostrar en la paginación, el botón last del detalle de la paginación.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>
