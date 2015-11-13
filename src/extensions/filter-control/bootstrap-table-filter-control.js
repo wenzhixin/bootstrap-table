@@ -238,6 +238,7 @@
             return false;
         },
         filterShowClear: false,
+        filterLocal: true,
         //internal variables
         values: []
     });
@@ -246,8 +247,7 @@
         filterControl: undefined,
         filterData: undefined,
         filterDatepickerOptions: undefined,
-        filterStrictSearch: false,
-        filterLocal: true
+        filterStrictSearch: false
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
