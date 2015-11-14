@@ -24,6 +24,7 @@
         exportDataType: 'basic', // basic, all, selected
         // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
         exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
+        exportIconSize: undefined,
         exportOptions: {}
     });
 
@@ -41,9 +42,13 @@
                 $export = $btnGroup.find('div.export');
 
             if (!$export.length) {
+                var iconSizeClass= '';
+                if (this.options.exportIconSize) {
+                    iconSizeClass = ' btn-'+ this.options.exportIconSize; 
+                }
                 $export = $([
                     '<div class="export btn-group">',
-                        '<button class="btn btn-default dropdown-toggle" ' +
+                        '<button class="btn btn-default dropdown-toggle'+iconSizeClass+'" ' +
                             'data-toggle="dropdown" type="button">',
                             '<i class="glyphicon glyphicon-export icon-share"></i> ',
                             '<span class="caret"></span>',
