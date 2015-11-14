@@ -43,7 +43,7 @@
 
             if (!$export.length) {
                 var iconSizeClass= '';
-                if (this.exportIconSize) {
+                if (this.options.exportIconSize) {
                     iconSizeClass = 'btn-'+ this.options.exportIconSize + ' '; 
                 }
                 $export = $([
