@@ -30,13 +30,13 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>getSelections</td>
         <td>none</td>
-        <td>Return selected rows, when no record selected, am empty array will return.</td>
+        <td>Return selected rows, when no record selected, an empty array will return.</td>
         <td>getSelections</td>
     </tr>
     <tr>
         <td>getAllSelections</td>
         <td>none</td>
-        <td>Return all selected rows contain search or filter, when no record selected, am empty array will return.</td>
+        <td>Return all selected rows contain search or filter, when no record selected, an empty array will return.</td>
         <td>getAllSelections</td>
     </tr>
     <tr>

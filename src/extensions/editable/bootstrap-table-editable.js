@@ -81,6 +81,7 @@
                         row = data[index],
                         oldValue = row[column.field];
 
+                    $(this).data('value', params.submitValue);
                     row[column.field] = params.submitValue;
                     that.trigger('editable-save', column.field, row, oldValue, $(this));
                 });
