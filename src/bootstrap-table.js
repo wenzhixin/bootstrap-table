@@ -1742,15 +1742,18 @@
     BootstrapTable.prototype.initServer = function (silent, query) {
         var that = this,
             data = {},
-            params = {
-                pageSize: this.options.pageSize === this.options.formatAllRows() ?
-                    this.options.totalRows : this.options.pageSize,
-                pageNumber: this.options.pageNumber,
+            params = {                
                 searchText: this.searchText,
                 sortName: this.options.sortName,
                 sortOrder: this.options.sortOrder
             },
             request;
+
+        if(this.options.pagination) {
+            params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
+                this.options.totalRows : this.options.pageSize;
+            params.pageNumber = this.options.pageNumber;
+        }
 
         if (!this.options.url && !this.options.ajax) {
             return;
