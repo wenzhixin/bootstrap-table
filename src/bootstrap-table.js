@@ -1749,10 +1749,9 @@
             },
             request;
 
-        if(this.options.pagination)
-        {
-        	params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
-                    this.options.totalRows : this.options.pageSize;
+        if(this.options.pagination) {
+            params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
+                this.options.totalRows : this.options.pageSize;
             params.pageNumber = this.options.pageNumber;
         }
 
