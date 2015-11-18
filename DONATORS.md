@@ -18,6 +18,7 @@
 * Luis Triana Vega - $10
 * PROMOTUX DI FRANCESCO MELONI E C. S.N.C. - $15
 * Emmanuel Kielichowski - $15
+* 우공이산 우공이산 - $50
 
 ## 支付宝
 
@@ -26,6 +27,7 @@
 * 振：20元
 * 懒虫：8.8元
 * rainc：50元
+* 印：10元
 
 ## 微信
 
