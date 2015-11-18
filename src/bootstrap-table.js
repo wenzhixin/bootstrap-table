@@ -224,6 +224,17 @@
         return value;
     };
 
+    var isIEBrowser = function () {
+        var userAgent = window.navigator.userAgent;
+        var msie = userAgent.indexOf("MSIE ");
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) { // If Internet Explorer, return true
+            return true;
+        } else { // If another browser, return false
+            return false;
+        }
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -1058,6 +1069,15 @@
                     that.onSearch(event);
                 }, that.options.searchTimeOut);
             });
+
+            if (isIEBrowser()) {
+                $search.off('mouseup').on('mouseup', function (event) {
+                    clearTimeout(timeoutId); // doesn't matter if it's 0
+                    timeoutId = setTimeout(function () {
+                        that.onSearch(event);
+                    }, that.options.searchTimeOut);
+                });
+            }
         }
     };
 
