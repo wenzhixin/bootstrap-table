@@ -303,7 +303,7 @@
             if (!$btnClear.length) {
               $btnClear = $([
                     '<button class="btn btn-default " ' +
-                        'type="button">',
+                        'type="button" title="Clear filters">',
                     '<i class="glyphicon glyphicon-trash icon-share"></i> ',
                     '</button>',
                     '</ul>'].join('')).appendTo($btnGroup);
