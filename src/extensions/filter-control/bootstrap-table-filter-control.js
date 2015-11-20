@@ -38,8 +38,13 @@
     var existsOptionInSelectControl = function (selectControl, value) {
         var options = selectControl.get(selectControl.length - 1).options;
         for (var i = 0; i < options.length; i++) {
-            if (options[i].value === value.toString()) {
-                //The value is nor valid to add
+            if(value){
+                if (options[i].value === value.toString()) {
+                    //The value is nor valid to add
+                    return false;
+                }
+            }
+            else{
                 return false;
             }
         }
