@@ -9,6 +9,9 @@
     'use strict';
 
     var sprintf = $.fn.bootstrapTable.utils.sprintf;
+    $.extend($.fn.bootstrapTable.defaults.icons, {
+        clear: 'glyphicon-trash icon-clear'
+    });
 
     var addOptionToSelectControl = function (selectControl, value, text) {
         selectControl = $(selectControl.get(selectControl.length - 1));
@@ -38,8 +41,13 @@
     var existsOptionInSelectControl = function (selectControl, value) {
         var options = selectControl.get(selectControl.length - 1).options;
         for (var i = 0; i < options.length; i++) {
-            if (options[i].value === value.toString()) {
-                //The value is nor valid to add
+            if(value){
+                if (options[i].value === value.toString()) {
+                    //The value is nor valid to add
+                    return false;
+                }
+            }
+            else{
                 return false;
             }
         }
@@ -134,7 +142,7 @@
                         break;
                     case 'select':
                         html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>',
-                            column.field, isVisible))
+                            column.field, isVisible));
                         break;
                     case 'datepicker':
                         html.push(sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">',
@@ -235,6 +243,7 @@
             return false;
         },
         filterShowClear: false,
+        filterLocal: true,
         //internal variables
         values: []
     });
@@ -258,7 +267,7 @@
         _initSearch = BootstrapTable.prototype.initSearch;
 
     BootstrapTable.prototype.init = function () {
-        //Make sure that the filtercontrol option is set
+        //Make sure that the filterControl option is set
         if (this.options.filterControl) {
             var that = this;
             //Make sure that the internal variables are set correctly
@@ -282,7 +291,7 @@
                 if (that.options.height) {
                     fixHeaderCSS(that);
                 }
-            }).on('column-switch.bs.table', function(field, checked) {
+            }).on('column-switch.bs.table', function() {
                 setValues(that);
             });
         }
@@ -304,7 +313,7 @@
               $btnClear = $([
                     '<button class="btn btn-default " ' +
                         'type="button">',
-                    '<i class="glyphicon glyphicon-trash icon-share"></i> ',
+                    sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
                     '</button>',
                     '</ul>'].join('')).appendTo($btnGroup);
 
@@ -360,6 +369,10 @@
 
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (! this.options.filterLocal) {
+            return;
+        }
 
         var that = this;
         var fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial;
