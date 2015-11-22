@@ -238,7 +238,6 @@
             return false;
         },
         filterShowClear: false,
-        filterLocal: true,
         //internal variables
         values: []
     });
@@ -365,7 +364,7 @@
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (! this.options.filterLocal) {
+        if (!this.options.sidePagination === 'server') {
             return;
         }
 
