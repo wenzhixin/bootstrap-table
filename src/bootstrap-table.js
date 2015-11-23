@@ -224,6 +224,10 @@
         return value;
     };
 
+    var isIEBrowser = function () {
+        return !!(navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./));
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -761,7 +765,11 @@
             $(this).data(visibleColumns[$(this).data('field')]);
         });
         this.$container.off('click', '.th-inner').on('click', '.th-inner', function (event) {
-            if (that.options.sortable && $(this).parent().data().sortable) {
+            var target = $(this);
+            if (target.closest('.bootstrap-table')[0] !== that.$container[0])
+                return false;
+
+            if (that.options.sortable && target.parent().data().sortable) {
                 that.onSort(event);
             }
         });
@@ -1058,6 +1066,15 @@
                     that.onSearch(event);
                 }, that.options.searchTimeOut);
             });
+
+            if (isIEBrowser()) {
+                $search.off('mouseup').on('mouseup', function (event) {
+                    clearTimeout(timeoutId); // doesn't matter if it's 0
+                    timeoutId = setTimeout(function () {
+                        that.onSearch(event);
+                    }, that.options.searchTimeOut);
+                });
+            }
         }
     };
 
@@ -1818,13 +1835,7 @@
     };
 
     BootstrapTable.prototype.initSearchText = function () {
-        if (this.options.search) {
-            if (this.options.searchText !== '') {
-                var $search = this.$toolbar.find('.search input');
-                $search.val(this.options.searchText);
-                this.onSearch({currentTarget: $search});
-            }
-        }
+        this.search_(this.options.searchText);
     };
 
     BootstrapTable.prototype.getCaret = function () {
@@ -2459,6 +2470,14 @@
         this.trigger(checked ? 'check-some' : 'uncheck-some', rows);
     };
 
+    BootstrapTable.prototype.search_ = function (text) {
+        if (this.options.search) {
+            var $search = this.$toolbar.find('.search input');
+            $search.val(text);
+            this.onSearch({currentTarget: $search});
+        }
+    };
+
     BootstrapTable.prototype.destroy = function () {
         this.$el.insertBefore(this.$container);
         $(this.options.toolbar).insertBefore(this.$el);
@@ -2584,9 +2603,7 @@
     };
 
     BootstrapTable.prototype.resetSearch = function (text) {
-        var $search = this.$toolbar.find('.search input');
-        $search.val(text || '');
-        this.onSearch({currentTarget: $search});
+        this.search_(text);
     };
 
     BootstrapTable.prototype.expandRow_ = function (expand, index) {

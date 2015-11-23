@@ -136,8 +136,8 @@
                         html.push(sprintf('<input type="text" class="form-control" style="width: 100%; visibility: %s">', isVisible));
                         break;
                     case 'select':
-                        html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>',
-                            column.field, isVisible));
+                        html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s" dir="%s"></select>',
+                            column.field, isVisible, getDirectionOfSelectOptions(that.options.alignmentSelectControlOptions)));
                         break;
                     case 'datepicker':
                         html.push(sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">',
@@ -232,13 +232,28 @@
         }
     };
 
+    var getDirectionOfSelectOptions = function (alignment) {
+        alignment = alignment === undefined ? 'left' : alignment.toLowerCase();
+
+        switch (alignment) {
+            case 'left':
+                return 'ltr';
+            case 'right':
+                return 'rtl';
+            case 'auto':
+                return 'auto';
+            default:
+                return 'ltr'
+        }
+    };
+
     $.extend($.fn.bootstrapTable.defaults, {
         filterControl: false,
         onColumnSearch: function (field, text) {
             return false;
         },
         filterShowClear: false,
-        filterLocal: true,
+        alignmentSelectControlOptions: undefined,
         //internal variables
         values: []
     });
@@ -365,7 +380,7 @@
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (! this.options.filterLocal) {
+        if (!this.options.sidePagination === 'server') {
             return;
         }
 
