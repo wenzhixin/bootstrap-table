@@ -1835,13 +1835,7 @@
     };
 
     BootstrapTable.prototype.initSearchText = function () {
-        if (this.options.search) {
-            if (this.options.searchText !== '') {
-                var $search = this.$toolbar.find('.search input');
-                $search.val(this.options.searchText);
-                this.onSearch({currentTarget: $search});
-            }
-        }
+        this.search_(this.options.searchText);
     };
 
     BootstrapTable.prototype.getCaret = function () {
@@ -2476,6 +2470,14 @@
         this.trigger(checked ? 'check-some' : 'uncheck-some', rows);
     };
 
+    BootstrapTable.prototype.search_ = function (text) {
+        if (this.options.search) {
+            var $search = this.$toolbar.find('.search input');
+            $search.val(text);
+            this.onSearch({currentTarget: $search});
+        }
+    };
+
     BootstrapTable.prototype.destroy = function () {
         this.$el.insertBefore(this.$container);
         $(this.options.toolbar).insertBefore(this.$el);
@@ -2601,9 +2603,7 @@
     };
 
     BootstrapTable.prototype.resetSearch = function (text) {
-        var $search = this.$toolbar.find('.search input');
-        $search.val(text || '');
-        this.onSearch({currentTarget: $search});
+        this.search_(text);
     };
 
     BootstrapTable.prototype.expandRow_ = function (expand, index) {
