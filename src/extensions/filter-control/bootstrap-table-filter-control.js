@@ -233,19 +233,17 @@
     };
 
     var getDirectionOfSelectOptions = function (alignment) {
-        if (alignment !== undefined) {
-            alignment = alignment.toLowerCase();
+        alignment = alignment === undefined ? 'left' : alignment.toLowerCase();
 
-            switch (alignment) {
-                case 'left':
-                    return 'ltr';
-                case 'right':
-                    return 'rtl';
-                case 'auto':
-                    return 'auto';
-                default:
-                    return 'ltr'
-            }
+        switch (alignment) {
+            case 'left':
+                return 'ltr';
+            case 'right':
+                return 'rtl';
+            case 'auto':
+                return 'auto';
+            default:
+                return 'ltr'
         }
     };
 
