@@ -225,14 +225,7 @@
     };
 
     var isIEBrowser = function () {
-        var userAgent = window.navigator.userAgent;
-        var msie = userAgent.indexOf("MSIE ");
-
-        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) { // If Internet Explorer, return true
-            return true;
-        } else { // If another browser, return false
-            return false;
-        }
+        return !!(navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./));
     };
 
     // BOOTSTRAP TABLE CLASS DEFINITION
@@ -772,7 +765,11 @@
             $(this).data(visibleColumns[$(this).data('field')]);
         });
         this.$container.off('click', '.th-inner').on('click', '.th-inner', function (event) {
-            if (that.options.sortable && $(this).parent().data().sortable) {
+            var target = $(this);
+            if (target.closest('.bootstrap-table')[0] !== that.$container[0])
+                return false;
+
+            if (that.options.sortable && target.parent().data().sortable) {
                 that.onSort(event);
             }
         });
