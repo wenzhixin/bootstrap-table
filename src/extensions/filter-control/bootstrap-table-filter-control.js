@@ -82,7 +82,7 @@
         header.find(searchControls).each(function () {
             that.options.values.push(
                 {
-                    field: $(this).parent().parent().parent().data('field'),
+                    field: $(this).closest('[data-field]').data('field'),
                     value: $(this).val()
                 });
         });
@@ -96,7 +96,7 @@
 
         if (that.options.values.length > 0) {
             header.find(searchControls).each(function (index, ele) {
-                field = $(this).parent().parent().parent().data('field');
+                field = $(this).closest('[data-field]').data('field');
                 result = $.grep(that.options.values, function (valueObj) {
                     return valueObj.field === field;
                 });
@@ -125,24 +125,13 @@
             if (!column.filterControl) {
                 html.push('<div style="height: 34px;"></div>');
             } else {
-                html.push('<div style="margin: 0px 2px 2px 2px;" class="filterControl">');
+                html.push('<div style="margin: 0 2px 2px 2px;" class="filterControl">');
 
-                if (column.filterControl && column.searchable) {
+                var nameControl = column.filterControl.toLowerCase();
+                if (column.searchable && that.options.filterTemplate[nameControl]) {
                     addedFilterControl = true;
-                    isVisible = 'visible'
-                }
-                switch (column.filterControl.toLowerCase()) {
-                    case 'input' :
-                        html.push(sprintf('<input type="text" class="form-control" style="width: 100%; visibility: %s">', isVisible));
-                        break;
-                    case 'select':
-                        html.push(sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>',
-                            column.field, isVisible));
-                        break;
-                    case 'datepicker':
-                        html.push(sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">',
-                            column.field, isVisible));
-                        break;
+                    isVisible = 'visible';
+                    html.push(that.options.filterTemplate[nameControl](column.field, isVisible));
                 }
             }
 
@@ -240,7 +229,18 @@
         filterShowClear: false,
         filterLocal: true,
         //internal variables
-        values: []
+        values: [],
+        filterTemplate: {
+            input: function (field, isVisible) {
+                return sprintf('<input type="text" class="form-control %s" style="width: 100%; visibility: %s">', field, isVisible);
+            },
+            select: function (field, isVisible) {
+                return sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>', field, isVisible);
+            },
+            datepicker: function (field, isVisible) {
+                return sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">', field, isVisible);
+            }
+        }
     });
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
@@ -404,7 +404,7 @@
     BootstrapTable.prototype.onColumnSearch = function (event) {
         copyValues(this);
         var text = $.trim($(event.currentTarget).val());
-        var $field = $(event.currentTarget).parent().parent().parent().data('field')
+        var $field = $(event.currentTarget).closest('[data-field]').data('field');
 
         if ($.isEmptyObject(this.filterColumnsPartial)) {
             this.filterColumnsPartial = {};
