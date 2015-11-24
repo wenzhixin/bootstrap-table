@@ -82,7 +82,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>String</td>
         <td>undefined</td>
         <td>Defines icon size: <ul><li>undefined => btn</li><li>xs => btn-xs</li><li>sm => btn-sm</li><li>lg => btn-lg</li></ul>
-    </tr>    
+    </tr>
     <tr>
         <td>icons</td>
         <td>data-icons</td>
@@ -184,7 +184,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Function</td>
         <td>function(params) {<br>return params;<br>}</td>
         <td>
-        When requesting remote data, you can send additional parameters by modifying queryParams. 
+        When requesting remote data, you can send additional parameters by modifying queryParams.
         If queryParamsType = 'limit', the params object contains: <br>
         limit, offset, search, sort, order
         Else, it contains: <br>
@@ -438,13 +438,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Indicate how to align the pagination detail. 'left', 'right' can be used.</td>
     </tr>
     <tr>
-        <td>paginationFirstText</td>
-        <td>data-pagination-first-text</td>
-        <td>String</td>
-        <td>'&lt;&lt;'</td>
-        <td>Indicate the icon or text to be shown in the pagination detail, the first button of the pagination detail.</td>
-    </tr>
-    <tr>
         <td>paginationPreText</td>
         <td>data-pagination-pre-text</td>
         <td>String</td>
@@ -457,13 +450,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>String</td>
         <td>'&gt;'</td>
         <td>Indicate the icon or text to be shown in the pagination detail, the next button.</td>
-    </tr>
-    <tr>
-        <td>paginationLastText</td>
-        <td>data-pagination-last-text</td>
-        <td>String</td>
-        <td>'&gt;&gt;'</td>
-        <td>Indicate the icon or text to be shown in the pagination detail, the last button.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>
@@ -551,7 +537,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         Allows for fallback locales, if loaded, in the following order:<br>
         <ol>
         <li>First tries for the locale as specified,</li>
-        <li>Then tries the locale with <code>'_'</code> translated to 
+        <li>Then tries the locale with <code>'_'</code> translated to
         <code>'-'</code> and the region code upper cased,</li>
         <li>Then tries the the short locale code (i.e. <code>'fr'</code> instead of <code>'fr-CA'</code>),</li>
         <li>And finally will use the last locale file loaded (or the default locale if no locales loaded).</li>
