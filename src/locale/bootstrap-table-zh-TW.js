@@ -25,7 +25,7 @@
             return '隱藏/顯示分頁';
         },
         formatRefresh: function () {
-            return '刷新';
+            return '重新整理';
         },
         formatToggle: function () {
             return '切換';
