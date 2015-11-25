@@ -8,6 +8,7 @@
 (function ($) {
     'use strict';
 
+    var sprintf = $.fn.bootstrapTable.utils.sprintf;
     $.extend($.fn.bootstrapTable.defaults, {
         stickyHeader: false
     });
@@ -28,9 +29,10 @@
         var anchor_begin_id = header_id +'_sticky_anchor_begin';
         var anchor_end_id = header_id +'_sticky_anchor_end';
         // add begin and end anchors to track table position
-        table.before('<div id="'+sticky_header_container_id+'" class="hidden"></div>');
-        table.before('<div id="'+anchor_begin_id+'"></div>');
-        table.after('<div id="'+anchor_end_id+'"></div>');
+
+        table.before(sprintf('<div id="%s" class="hidden"></div>', sticky_header_container_id));
+        table.before(sprintf('<div id="%s"></div>', anchor_begin_id));
+        table.after(sprintf('<div id="%s"></div>', anchor_end_id));
 
         table.find('thead').attr('id', header_id);
 
