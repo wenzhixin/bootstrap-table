@@ -95,7 +95,7 @@
             var table_header_id = table.find('thead').attr('id');
             // match clone and source header positions when left-right scroll
             $("#"+sticky_header_container_id).css(
-                'width', table.closest('.fixed-table-body').css('width')
+                'width', +table.closest('.fixed-table-body').css('width').replace('px', '') + 1
             );
             $("#"+sticky_header_container_id+" thead").parent().scrollLeft(Math.abs($('#'+table_header_id).position().left));
         }
