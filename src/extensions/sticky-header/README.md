@@ -6,7 +6,7 @@ You must include the bootstrap-table-sticky-header.css file in order to get the 
 ## Usage
 
 ```html
-<script src="extensions/group-by/bootstrap-table-sticky-header.js"></script>
+<script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
 ```
 
 ## Options
