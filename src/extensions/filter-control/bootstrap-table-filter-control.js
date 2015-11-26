@@ -14,6 +14,7 @@
     });
 
     var addOptionToSelectControl = function (selectControl, value, text) {
+        value = $.trim(value);
         selectControl = $(selectControl.get(selectControl.length - 1));
         if (existsOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
