@@ -317,8 +317,12 @@
     };
 
     BootstrapTable.prototype.onSearch = function () {
-        _onSearch.apply(this, Array.prototype.slice.apply(arguments));
-        setCookie(this, cookieIds.searchText, this.searchText);
+        var target = Array.prototype.slice.apply(arguments);
+        _onSearch.apply(this, target);
+
+        if ($(target[0].currentTarget).parent().hasClass('search')) {
+          setCookie(this, cookieIds.searchText, this.searchText);
+        }
     };
 
     BootstrapTable.prototype.deleteCookie = function (cookieName) {
