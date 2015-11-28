@@ -203,7 +203,7 @@
                                 searchControls = getCurrentSearchControls(that);
 
                             header.find(searchControls).each(function (index, ele) {
-                                field = $(this).parent().parent().parent().data('field');
+                                field = $(this).closest('[data-field]').data('field');
                                 result = $.grep(filterControl, function (valueObj) {
                                     return valueObj.field === field;
                                 });

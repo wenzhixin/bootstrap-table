@@ -17,7 +17,7 @@
 .bootstrap-table .table:not(.table-condensed) > thead > tr > td,
 .bootstrap-table .table:not(.table-condensed) > tbody > tr > td,
 .bootstrap-table .table:not(.table-condensed) > tfoot > tr > td {
-    padding: 8px !important;
+    padding: 8px;
 }
 
 .bootstrap-table .table.table-no-bordered > thead > tr > th,
@@ -274,6 +274,7 @@
 .bootstrap-table .fixed-table-footer .table {
     border-bottom: none;
     border-radius: 0;
+    padding: 0 !important;
 }
 
 .pull-right .dropdown-menu {
