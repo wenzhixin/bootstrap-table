@@ -854,8 +854,6 @@
                 }
                 var aa = getItemField(a, name),
                     bb = getItemField(b, name),
-                    aa_position = getItemField(a, 'position'),
-                    bb_position = getItemField(b, 'position'),
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
@@ -872,6 +870,9 @@
 
                 // Found to be equal
                 if (aa === bb) {
+                    var aa_position = getItemField(a, 'position'),
+                        bb_position = getItemField(b, 'position');
+
                     if (order == 1) {
                         aa = (length - aa_position),
                         bb = (length - bb_position);
