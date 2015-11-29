@@ -2308,14 +2308,14 @@
     };
 
     BootstrapTable.prototype.showRow = function (params) {
-        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('uniqueId')) {
+        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
             return;
         }
         this.toggleRow(params.index, params.uniqueId, true);
     };
 
     BootstrapTable.prototype.hideRow = function (params) {
-        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('uniqueId')) {
+        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
             return;
         }
         this.toggleRow(params.index, params.uniqueId, false);
