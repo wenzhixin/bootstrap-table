@@ -123,7 +123,7 @@
                 cookieExpire = cookieExpire * 30 * 24 * 60 * 60;
                 break;
             case 'y':
-                cookieExpire = cookieExpire * 365 * 30 * 24 * 60 * 60;
+                cookieExpire = cookieExpire * 365 * 24 * 60 * 60;
                 break;
             default:
                 cookieExpire = undefined;
