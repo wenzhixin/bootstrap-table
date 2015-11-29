@@ -125,16 +125,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
 	<tr>
         <td>showRow</td>
         <td>params</td>
-        <td>Show the specified row. the param contains following properties:
-        index: the row index or the uniqueId.
-        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
+        <td>Show the specified row. The param must contain at least one of the following properties:
+        index: the row index.
+        uniqueId: the value of the uniqueId for that row.</td>
     </tr>
     <tr>
         <td>hideRow</td>
         <td>params</td>
-        <td>Hide the specified row. the param contains following properties:
-        index: the row index or the uniqueId.
-        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
+        <td>Hide the specified row. The param must contain at least one of the following properties:
+        index: the row index.
+        uniqueId: the value of the uniqueId for that row.</td>
     </tr>
     <tr>
         <td>getRowsHidden</td>
