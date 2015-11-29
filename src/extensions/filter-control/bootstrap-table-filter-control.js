@@ -379,9 +379,13 @@
                 var thisColumn = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, key)];
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
-                value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header,
+                
+                // Fix #142: search use formated data
+                if (thisColumn && thisColumn.searchFormatter) {
+                    value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header,
                     that.header.formatters[$.inArray(key, that.header.fields)],
                     [value, item, i], value);
+                }
 
                 if(thisColumn.filterStrictSearch){
                     if (!($.inArray(key, that.header.fields) !== -1 &&
