@@ -44,7 +44,7 @@
                 $export = $([
                     '<div class="export btn-group">',
                         '<button class="btn btn-default dropdown-toggle" ' +
-                            'data-toggle="dropdown" type="button" title="Export data">',
+                            'data-toggle="dropdown" type="button" title="'+BootstrapTable.LOCALES['en-US'].formatExport()+'">',
                             '<i class="glyphicon glyphicon-export icon-share"></i> ',
                             '<span class="caret"></span>',
                         '</button>',

@@ -20,6 +20,27 @@
         },
         formatNoMatches: function () {
             return 'Geen resultaten gevonden';
+        },
+	formatPaginationSwitch: function () {
+            return 'Verberg/Toon paginatie';
+        },
+        formatRefresh: function () {
+            return 'Verversen';
+        },
+        formatToggle: function () {
+            return 'Wisselen';
+        },
+        formatColumns: function () {
+            return ' Kolommen';
+        },
+        formatAllRows: function () {
+            return 'Allemaal';
+        },
+        formatExport: function () {
+            return 'Exporteer data';
+        },
+        formatClearFilters: function () {
+            return 'Verwijder filters';
         }
     };
 
