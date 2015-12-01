@@ -239,6 +239,14 @@
         <td>True to display pagination or card view smartly.</td>
     </tr>
     <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>转义HTML字符串，替换 <code>&</code>, <code><</code>,
+        <code>></code>, <code>"</code>, <code>`</code>, 和 <code>'</code> 字符.</td>
+    </tr>
+    <tr>
         <td>search</td>
         <td>data-search</td>
         <td>Boolean</td>

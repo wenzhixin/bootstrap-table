@@ -231,6 +231,15 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>True para mostrar la páginación o la vista de tarjeta inteligentemente.</td>
     </tr>
     <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>Escapes a string for insertion into HTML,
+        replacing <code>&</code>, <code><</code>, <code>></code>,
+        <code>"</code>, <code>`</code>, and <code>'</code> characters.</td>
+    </tr>
+    <tr>
         <td>search</td>
         <td>data-search</td>
         <td>Boolean</td>

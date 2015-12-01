@@ -275,6 +275,15 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to display pagination or card view smartly.</td>
     </tr>
     <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>Escapes a string for insertion into HTML,
+        replacing <code>&</code>, <code><</code>, <code>></code>,
+        <code>"</code>, <code>`</code>, and <code>'</code> characters.</td>
+    </tr>
+    <tr>
         <td>search</td>
         <td>data-search</td>
         <td>Boolean</td>
