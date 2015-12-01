@@ -180,11 +180,12 @@
     var escapeHTML = function (text) {
         if (typeof text === 'string') {
             return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;')
+                .replace(/`/g, '&#x60;');
         }
         return text;
     };
@@ -211,17 +212,17 @@
         return dataAttr;
     };
 
-    var getItemField = function (item, field) {
+    var getItemField = function (item, field, escape) {
         var value = item;
 
         if (typeof field !== 'string' || item.hasOwnProperty(field)) {
-            return item[field];
+            return escape ? escapeHTML(item[field]) : item[field];
         }
         var props = field.split('.');
         for (var p in props) {
             value = value[props[p]];
         }
-        return value;
+        return escape ? escapeHTML(value) : value;
     };
 
     // BOOTSTRAP TABLE CLASS DEFINITION
@@ -286,6 +287,7 @@
         showToggle: false,
         buttonsAlign: 'right',
         smartDisplay: true,
+        escape: true,
         minimumCountColumns: 1,
         idField: undefined,
         uniqueId: undefined,
@@ -842,8 +844,8 @@
                 if (that.header.sortNames[index]) {
                     name = that.header.sortNames[index];
                 }
-                var aa = getItemField(a, name),
-                    bb = getItemField(b, name),
+                var aa = getItemField(a, name, that.options.escape),
+                    bb = getItemField(b, name, that.options.escape),
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
@@ -1502,7 +1504,7 @@
 
             $.each(this.header.fields, function (j, field) {
                 var text = '',
-                    value = getItemField(item, field),
+                    value = getItemField(item, field, that.options.escape),
                     type = '',
                     cellStyle = {},
                     id_ = '',
@@ -1631,7 +1633,7 @@
                 index = $td[0].cellIndex,
                 field = that.header.fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
                 column = that.columns[getFieldIndex(that.columns, field)],
-                value = getItemField(item, field);
+                value = getItemField(item, field, that.options.escape);
 
             if ($td.find('.detail-icon').length) {
                 return;
@@ -2308,14 +2310,14 @@
     };
 
     BootstrapTable.prototype.showRow = function (params) {
-        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('uniqueId')) {
             return;
         }
         this.toggleRow(params.index, params.uniqueId, true);
     };
 
     BootstrapTable.prototype.hideRow = function (params) {
-        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
+        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('uniqueId')) {
             return;
         }
         this.toggleRow(params.index, params.uniqueId, false);
