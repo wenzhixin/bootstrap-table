@@ -5,7 +5,8 @@
     "homepage": "http://bootstrap-table.wenzhixin.net.cn/",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/wenzhixin/bootstrap-table/issues"
+        "issues": "https://github.com/wenzhixin/bootstrap-table/issues",
+        "homepage": "https://github.com/wenzhixin/bootstrap-table"
     },
     "authors": [
         {
