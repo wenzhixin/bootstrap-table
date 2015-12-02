@@ -1,12 +1,12 @@
 {
     "name": "wenzhixin/bootstrap-table",
     "description": "Bootstrap Table Extension",
+    "keywords": ["bootstrap","table"],
     "type": "component",
-    "homepage": "http://bootstrap-table.wenzhixin.net.cn/",
+    "homepage": "https://github.com/wenzhixin/bootstrap-table",
     "license": "MIT",
-    "support": {
-        "issues": "https://github.com/wenzhixin/bootstrap-table/issues",
-        "homepage": "https://github.com/wenzhixin/bootstrap-table"
+    "require": {
+        "twitter/bootstrap": ">=3.0.0"
     },
     "authors": [
         {
