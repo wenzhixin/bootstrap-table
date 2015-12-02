@@ -1,0 +1,17 @@
+{
+    "name": "wenzhixin/bootstrap-table",
+    "description": "Bootstrap Table Extension",
+    "type": "component",
+    "homepage": "http://bootstrap-table.wenzhixin.net.cn/",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/wenzhixin/bootstrap-table/issues",
+        "source": "httpshttp://bootstrap-table.wenzhixin.net.cn/"
+    },
+    "authors": [
+        {
+            "name": "wenzhixin2010",
+            "email": "wenzhixin2010@gmail.com"
+        }
+    ],
+}
