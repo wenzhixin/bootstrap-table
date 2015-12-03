@@ -109,6 +109,24 @@
         }
     };
 
+    var collectBootstrapCookies = function cookiesRegex() {
+        var cookies = [],
+            foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g);
+
+        if (foundCookies) {
+            $.each(foundCookies, function (i, cookie) {
+                if (/./.test(cookie)) {
+                    cookie = cookie.split(".").pop();
+                }
+
+                if ($.inArray(cookie, cookies) === -1) {
+                    cookies.push(cookie);
+                }
+            });
+            return cookies;
+        }
+    };
+
     var createControls = function (that, header) {
         var addedFilterControl = false,
             isVisible,
@@ -400,7 +418,7 @@
                         (value + '').toLowerCase().indexOf(fval) !== -1)) {
                         return false;
                     }
-                };
+                }
             }
             return true;
         }) : this.data;
@@ -428,22 +446,49 @@
 
     BootstrapTable.prototype.clearFilterControl = function () {
         if (this.options.filterControl && this.options.filterShowClear) {
-            $.each(this.options.values, function (i, item) {
+            var bootstrap = this,
+                cookies = collectBootstrapCookies(),
+                header = getCurrentHeader(bootstrap),
+                table = header.closest('table'),
+                controls = header.find(getCurrentSearchControls(bootstrap)),
+                search = this.$toolbar.find('.search input'),
+                timeoutId = 0;
+
+            $.each(bootstrap.options.values, function (i, item) {
                 item.value = '';
             });
 
-            setValues(this);
+            setValues(bootstrap);
 
-            var controls = getCurrentHeader(this).find(getCurrentSearchControls(this)),
-                timeoutId = 0;
-
+            // Clear each type of filter if it exists.
+            // Requires the body to reload each time a type of filter is found because we never know
+            // which ones are going to be present.
             if (controls.length > 0) {
                 this.filterColumnsPartial = {};
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
-                    $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
-                }, this.options.searchTimeOut);
+                $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
             }
+
+            if (search.length > 0) {
+                bootstrap.resetSearch();
+            }
+
+            // use the default sort order if it exists. do nothing if it does not
+            if (bootstrap.options.sortName !== table.data('sortName') || bootstrap.options.sortOrder !== table.data('sortOrder')) {
+                var sorter = header.find('[data-field="' + $(controls[0]).closest('table').data('sortName') + '"]');
+                bootstrap.onSort(table.data('sortName'), table.data('sortName'));
+                $(sorter).find('.sortable').trigger('click');
+            }
+
+            // clear cookies once the filters are clean
+
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function () {
+                if (cookies && cookies.length > 0) {
+                    cookies.forEach( function (cookie) {
+                        bootstrap.deleteCookie(cookie);
+                    });
+                }
+            }, this.options.searchTimeOut);
         }
     };
 }(jQuery);
