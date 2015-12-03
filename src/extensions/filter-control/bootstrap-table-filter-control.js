@@ -119,7 +119,7 @@
                     cookie = cookie.split(".").pop();
                 }
 
-                if (cookies.indexOf(cookie) === -1) {
+                if ($.inArray(cookie, cookies) === -1) {
                     cookies.push(cookie);
                 }
             });
