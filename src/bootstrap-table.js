@@ -219,7 +219,11 @@
         }
         var props = field.split('.');
         for (var p in props) {
-            value = value[props[p]];
+            if(value[props[p]]){
+                value = value[props[p]];
+            }else{
+                value="-";
+            }
         }
         return value;
     };
