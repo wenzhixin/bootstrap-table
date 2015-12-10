@@ -94,7 +94,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>falign</td>
         <td>data-falign</td>
         <td>String</td>
-        <td>undefined</td>
+        <td>undefined</td>e
         <td>Indicate how to align the table footer. 'left', 'right', 'center' can be used.</td>
     </tr>
     <tr>
@@ -187,7 +187,10 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         event: the jQuery event. <br>
         value: the field value. <br>
         row: the row record data.<br>
-        index: the row index.
+        index: the row index. <br>
+        Example code: 
+        <code>&lt;th .. data-events="operateEvent"&gt;</code>
+        <code>var operateEvents = {'click .like': function (e, value, row, index) {}};</code>
         </td>
     </tr>
     <tr>
