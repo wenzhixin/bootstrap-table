@@ -2120,6 +2120,7 @@
         this.initData(data, 'append');
         this.initSearch();
         this.initPagination();
+        this.initSort();
         this.initBody(true);
     };
 
@@ -2127,6 +2128,7 @@
         this.initData(data, 'prepend');
         this.initSearch();
         this.initPagination();
+        this.initSort();
         this.initBody(true);
     };
 
@@ -2155,6 +2157,7 @@
 
         this.initSearch();
         this.initPagination();
+        this.initSort();
         this.initBody(true);
     };
 
