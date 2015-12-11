@@ -76,6 +76,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>'glyphicon'</td>
         <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
     </tr>
+     <tr>
+        <td>iconSize</td>
+        <td>data-icon-size</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Defines icon size: <ul><li>undefined => btn</li><li>xs => btn-xs</li><li>sm => btn-sm</li><li>lg => btn-lg</li></ul>
+    </tr>    
     <tr>
         <td>icons</td>
         <td>data-icons</td>
@@ -208,6 +215,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Boolean</td>
         <td>false</td>
         <td>True to show a pagination toolbar on table bottom.</td>
+    </tr>
+    <tr>
+        <td>onlyInfoPagination</td>
+        <td>data-only-info-pagination</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show only the quantity of the data that is showing in the table. It needs the pagination table options is set to true.</td>
     </tr>
     <tr>
         <td>sidePagination</td>

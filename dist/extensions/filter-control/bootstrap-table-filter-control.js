@@ -374,10 +374,10 @@
                     that.header.formatters[$.inArray(key, that.header.fields)],
                     [value, item, i], value);
 
-                if(thisColumn.filterStrictSearch===true){
+                if(thisColumn.filterStrictSearch){
                     if (!($.inArray(key, that.header.fields) !== -1 &&
                         (typeof value === 'string' || typeof value === 'number') &&
-                        value.toLowerCase() === fval.toLowerCase())) {
+                        value.toString().toLowerCase() === fval.toString().toLowerCase())) {
                         return false;
                     }
                 }
