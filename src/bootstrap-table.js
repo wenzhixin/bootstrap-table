@@ -925,6 +925,9 @@
             $search,
             switchableCount = 0;
 
+        if (this.$toolbar.find('.bars').children().length) {
+            $('body').append($(this.options.toolbar));
+        }
         this.$toolbar.html('');
 
         if (typeof this.options.toolbar === 'string' || typeof this.options.toolbar === 'object') {
@@ -2655,6 +2658,21 @@
         }
     };
 
+    BootstrapTable.prototype.updateFormatText = function (name, text) {
+        if (this.options[sprintf('format%s', name)]) {
+            if (typeof text === 'string') {
+                this.options[sprintf('format%s', name)] = function () {
+                    return text;
+                };
+            } else if (typeof text === 'function') {
+                this.options[sprintf('format%s', name)] = text;
+            }
+        }
+        this.initToolbar();
+        this.initPagination();
+        this.initBody();
+    };
+
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================
 
@@ -2682,7 +2700,8 @@
         'toggleView',
         'refreshOptions',
         'resetSearch',
-        'expandRow', 'collapseRow', 'expandAllRows', 'collapseAllRows'
+        'expandRow', 'collapseRow', 'expandAllRows', 'collapseAllRows',
+        'updateFormatText'
     ];
 
     $.fn.bootstrapTable = function (option) {
