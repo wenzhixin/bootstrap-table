@@ -1,12 +1,12 @@
 {
     "name": "wenzhixin/bootstrap-table",
-    "description": "Bootstrap Table Extension",
-    "keywords": ["bootstrap","table"],
+    "description": "An extended Bootstrap table with radio, checkbox, sort, pagination and other features.",
+    "keywords": ["bootstrap","table","tablesort","pagination"],
     "type": "component",
     "homepage": "https://github.com/wenzhixin/bootstrap-table",
     "license": "MIT",
     "require": {
-        "twitter/bootstrap": ">=3.0.0"
+        "twitter/bootstrap": ">=2.3.0"
     },
     "authors": [
         {
