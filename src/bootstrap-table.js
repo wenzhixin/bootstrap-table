@@ -2579,7 +2579,7 @@
 
     BootstrapTable.prototype.refreshOptions = function (options) {
         //If the objects are equivalent then avoid the call of destroy / init methods
-        if (compareObjects(this.options, options, false)) {
+        if (compareObjects(this.options, options, true)) {
             return;
         }
         this.options = $.extend(this.options, options);
