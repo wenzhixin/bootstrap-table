@@ -219,7 +219,8 @@
         }
         var props = field.split('.');
         for (var p in props) {
-            value = value[props[p]];
+            if(value instanceof Object && props[p] in value)
+                value = value[props[p]];
         }
         return value;
     };
