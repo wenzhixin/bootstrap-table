@@ -861,6 +861,20 @@
                     bb = '';
                 }
 
+                if (aa === bb) {
+                    return 0;
+                }
+
+                var formatRegexp = /,/g;
+                // If value is not a string, convert to string
+                if (typeof aa !== 'string') {
+					// Replace comma for formatted number, eg: 45,646,206
+                    aa = aa.toString().replace(formatRegexp, "");
+                }
+                if (typeof bb !== 'string') {
+                    bb = bb.toString().replace(formatRegexp, "");
+                }
+
                 // IF both values are numeric, do a numeric comparison
                 if ($.isNumeric(aa) && $.isNumeric(bb)) {
                     // Convert numerical values form string to float.
@@ -870,15 +884,6 @@
                         return order * -1;
                     }
                     return order;
-                }
-
-                if (aa === bb) {
-                    return 0;
-                }
-
-                // If value is not a string, convert to string
-                if (typeof aa !== 'string') {
-                    aa = aa.toString();
                 }
 
                 if (aa.localeCompare(bb) === -1) {
