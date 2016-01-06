@@ -13,15 +13,30 @@
             return pageNumber + ' records per pagina';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Toon ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' records';
+            return 'Toon ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' record' + ((totalRows > 1) ? "s" : "");
         },
-        formatSearch: function () {
+        formatDetailPagination: function (totalRows) {
+            return 'Toon ' + totalRows + ' record' + ((totalRows > 1) ? "s" : "");
+        },
+		formatSearch: function () {
             return 'Zoeken';
         },
         formatNoMatches: function () {
             return 'Geen resultaten gevonden';
+        },
+        formatRefresh: function () {
+           return 'Vernieuwen';
+        },
+        formatToggle: function () {
+          return 'Omschakelen';
+        },
+        formatColumns: function () {
+          return 'Kolommen';
+        },
+		formatAllRows: function () {
+          return 'Alle';
         }
-    };
+	};
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-NL']);
 
