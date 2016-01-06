@@ -521,7 +521,15 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         The row style formatter function, takes two parameters: <br>
         row: the row record data.<br>
         index: the row index.<br>
-        Support classes or css.
+        Support classes or css. Example usage:<br>
+<pre>
+function rowStyle(value, row, index) {
+  return {
+    classes: 'text-nowrap another-class',
+    css: {"color": "blue", "font-size": "50px"}
+  };
+}
+</pre>
         </td>
     </tr>
     <tr>
