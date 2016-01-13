@@ -150,7 +150,7 @@
                 if (column.searchable && that.options.filterTemplate[nameControl]) {
                     addedFilterControl = true;
                     isVisible = 'visible';
-                    html.push(that.options.filterTemplate[nameControl](column.field, isVisible));
+                    html.push(that.options.filterTemplate[nameControl](that, column.field, isVisible));
                 }
             }
 
@@ -240,23 +240,40 @@
         }
     };
 
+    var getDirectionOfSelectOptions = function (alignment) {
+        alignment = alignment === undefined ? 'left' : alignment.toLowerCase();
+
+        switch (alignment) {
+            case 'left':
+                return 'ltr';
+            case 'right':
+                return 'rtl';
+            case 'auto':
+                return 'auto';
+            default:
+                return 'ltr'
+        }
+    };
+
     $.extend($.fn.bootstrapTable.defaults, {
         filterControl: false,
         onColumnSearch: function (field, text) {
             return false;
         },
         filterShowClear: false,
-        filterLocal: true,
+        alignmentSelectControlOptions: undefined,
         //internal variables
         values: [],
+        that: this,
         filterTemplate: {
-            input: function (field, isVisible) {
+            input: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="form-control %s" style="width: 100%; visibility: %s">', field, isVisible);
             },
-            select: function (field, isVisible) {
-                return sprintf('<select class="%s form-control" style="width: 100%; visibility: %s"></select>', field, isVisible);
+            select: function (that, field, isVisible) {
+                return sprintf('<select class="%s form-control" style="width: 100%; visibility: %s" dir="%s"></select>',
+                    field, isVisible, getDirectionOfSelectOptions(that.options.alignmentSelectControlOptions))
             },
-            datepicker: function (field, isVisible) {
+            datepicker: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">', field, isVisible);
             }
         }
@@ -384,7 +401,7 @@
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (! this.options.filterLocal) {
+        if (!this.options.sidePagination === 'server') {
             return;
         }
 

@@ -23,11 +23,11 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set true to add a button to clear all the controls added by this plugin
 * default: `false`
 
-### filterLocal
+### alignmentSelectControlOptions
 
-* type: Boolean
-* description: Set false to disable local data filtering. This allows you to filter the data on server side when using remote data sources.
-* default: `true`
+* type: String
+* description: Set the alignemnt of the select control options. Use Use `left`, `right` or `auto`.
+* default: `undefined`
 
 ## Column options
 
