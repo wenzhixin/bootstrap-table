@@ -1,7 +1,11 @@
 node_modules
+bower_components
 
 # docs site
 _gh_pages
+
+# build the extensions
+extensions.js
 
 # deploy the docs
 deploy.sh
