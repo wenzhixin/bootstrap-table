@@ -44,11 +44,14 @@
             var that = this,
                 $btnGroup = this.$toolbar.find('>.btn-group'),
                 $export = $btnGroup.find('div.export');
-
             if (!$export.length) {
+                var iconSizeClass= '';
+                if (this.options.exportIconSize) {
+                    iconSizeClass = ' btn-'+ this.options.exportIconSize; 
+                }
                 $export = $([
                     '<div class="export btn-group">',
-                        '<button class="btn btn-default dropdown-toggle" ' +
+                        '<button class="btn btn-default dropdown-toggle'+iconSizeClass+'" ' +
                             'data-toggle="dropdown" type="button">',
                             sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.export),
                             '<span class="caret"></span>',
