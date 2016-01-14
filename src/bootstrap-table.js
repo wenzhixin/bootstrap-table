@@ -2391,7 +2391,9 @@
         this.data[params.index][params.field] = params.value;
 
         var reinit = params.reinit;
-        if (reinit===false || reinit==='false') return;
+        if (params.reinit===false || params.reinit === 'false') {
+            return;
+        }
         this.initSort();
         this.initBody(true);
     };
