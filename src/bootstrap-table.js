@@ -326,6 +326,10 @@
         rowStyle: function (row, index) {
             return {};
         },
+        
+        footerStyle: function (row, index) {
+            return {};
+        },
 
         rowAttributes: function (row, index) {
             return {};
@@ -2002,26 +2006,37 @@
         }
 
         $.each(this.columns, function (i, column) {
-            var falign = '', // footer align style
-                style = '',
+            var key,
+                falign = '', // footer align style
+                valign = '',
+                csses = [],
+                style = {},
                 class_ = sprintf(' class="%s"', column['class']);
-
+ 
             if (!column.visible) {
                 return;
             }
-
+ 
             if (that.options.cardView && (!column.cardVisible)) {
                 return;
             }
-
+ 
             falign = sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
-            style = sprintf('vertical-align: %s; ', column.valign);
-
-            html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
+            valign = sprintf('vertical-align: %s; ', column.valign);
+ 
+            style = calculateObjectValue(null, that.options.footerStyle);
+ 
+            if (style && style.css) {
+                for (key in style.css) {
+                    csses.push(key + ': ' + style.css[key]);
+                }
+            }
+ 
+            html.push('<td', class_, sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>');
             html.push('<div class="th-inner">');
-
+ 
             html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
-
+ 
             html.push('</div>');
             html.push('<div class="fht-cell"></div>');
             html.push('</div>');
