@@ -161,6 +161,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         index: the row index. <br>
         field: the field name.<br>
         value: the new field value.
+        <br>
+        To disable table re-initialization you can set <code>{reinit: false}</code>
         </td>
     </tr>
     <tr>
