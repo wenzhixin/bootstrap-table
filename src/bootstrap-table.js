@@ -1095,6 +1095,7 @@
             return;
         }
         this.searchText = text;
+        this.options.searchText = text;
 
         this.options.pageNumber = 1;
         this.initSearch();
