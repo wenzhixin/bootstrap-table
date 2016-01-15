@@ -312,6 +312,13 @@
         _init.apply(this, Array.prototype.slice.apply(arguments));
     };
 
+    $.extend($.fn.bootstrapTable.locales, {
+        formatClearFilters: function () {
+            return 'Clear Filters';
+        }
+    });
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+
     BootstrapTable.prototype.initToolbar = function () {
         if ((!this.showToolbar) && (this.options.filterControl)) {
             this.showToolbar = this.options.filterControl;
@@ -325,8 +332,8 @@
 
             if (!$btnClear.length) {
               $btnClear = $([
-                    '<button class="btn btn-default " ' +
-                        'type="button">',
+                    '<button class="btn btn-default" ',
+                    sprintf('type="button" title="%s">', this.options.formatClearFilters()),
                     sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
                     '</button>',
                     '</ul>'].join('')).appendTo($btnGroup);
@@ -405,14 +412,14 @@
                     [value, item, i], value);
                 }
 
-                if(thisColumn.filterStrictSearch){
+                if (thisColumn.filterStrictSearch) {
                     if (!($.inArray(key, that.header.fields) !== -1 &&
                         (typeof value === 'string' || typeof value === 'number') &&
                         value.toString().toLowerCase() === fval.toString().toLowerCase())) {
                         return false;
                     }
                 }
-                else{
+                else {
                     if (!($.inArray(key, that.header.fields) !== -1 &&
                         (typeof value === 'string' || typeof value === 'number') &&
                         (value + '').toLowerCase().indexOf(fval) !== -1)) {
