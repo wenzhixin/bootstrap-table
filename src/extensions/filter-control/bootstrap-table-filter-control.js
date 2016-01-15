@@ -9,14 +9,11 @@
     'use strict';
 
     var sprintf = $.fn.bootstrapTable.utils.sprintf;
-    $.extend($.fn.bootstrapTable.defaults.icons, {
-        clear: 'glyphicon-trash icon-clear'
-    });
 
     var addOptionToSelectControl = function (selectControl, value, text) {
         value = $.trim(value);
         selectControl = $(selectControl.get(selectControl.length - 1));
-        if (existsOptionInSelectControl(selectControl, value)) {
+        if (existOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
                 .attr("value", value)
                 .text($('<div />').html(text).text()));
@@ -39,11 +36,11 @@
         }
     };
 
-    var existsOptionInSelectControl = function (selectControl, value) {
+    var existOptionInSelectControl = function (selectControl, value) {
         var options = selectControl.get(selectControl.length - 1).options;
         for (var i = 0; i < options.length; i++) {
             if (options[i].value === value.toString()) {
-                //The value is nor valid to add
+                //The value is not valid to add
                 return false;
             }
         }
@@ -78,10 +75,10 @@
         var header = getCurrentHeader(that),
             searchControls = getCurrentSearchControls(that);
 
-        that.options.values = [];
+        that.options.valuesFilterControl = [];
 
         header.find(searchControls).each(function () {
-            that.options.values.push(
+            that.options.valuesFilterControl.push(
                 {
                     field: $(this).closest('[data-field]').data('field'),
                     value: $(this).val()
@@ -95,10 +92,10 @@
             header = getCurrentHeader(that),
             searchControls = getCurrentSearchControls(that);
 
-        if (that.options.values.length > 0) {
+        if (that.options.valuesFilterControl.length > 0) {
             header.find(searchControls).each(function (index, ele) {
                 field = $(this).closest('[data-field]').data('field');
-                result = $.grep(that.options.values, function (valueObj) {
+                result = $.grep(that.options.valuesFilterControl, function (valueObj) {
                     return valueObj.field === field;
                 });
 
@@ -263,8 +260,7 @@
         filterShowClear: false,
         alignmentSelectControlOptions: undefined,
         //internal variables
-        values: [],
-        that: this,
+        valuesFilterControl: [],
         filterTemplate: {
             input: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="form-control %s" style="width: 100%; visibility: %s">', field, isVisible);
@@ -290,6 +286,10 @@
         'column-search.bs.table': 'onColumnSearch'
     });
 
+    $.extend($.fn.bootstrapTable.defaults.icons, {
+        clear: 'glyphicon-trash icon-clear'
+    });
+
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
         _initToolbar = BootstrapTable.prototype.initToolbar,
@@ -302,7 +302,7 @@
         if (this.options.filterControl) {
             var that = this;
             //Make sure that the internal variables are set correctly
-            this.options.values = [];
+            this.options.valuesFilterControl = [];
 
             this.$el.on('reset-view.bs.table', function () {
                 //Create controls on $tableHeader if the height is set
@@ -463,19 +463,19 @@
 
     BootstrapTable.prototype.clearFilterControl = function () {
         if (this.options.filterControl && this.options.filterShowClear) {
-            var bootstrap = this,
+            var that = this,
                 cookies = collectBootstrapCookies(),
-                header = getCurrentHeader(bootstrap),
+                header = getCurrentHeader(that),
                 table = header.closest('table'),
-                controls = header.find(getCurrentSearchControls(bootstrap)),
-                search = this.$toolbar.find('.search input'),
+                controls = header.find(getCurrentSearchControls(that)),
+                search = that.$toolbar.find('.search input'),
                 timeoutId = 0;
 
-            $.each(bootstrap.options.values, function (i, item) {
+            $.each(that.options.valuesFilterControl, function (i, item) {
                 item.value = '';
             });
 
-            setValues(bootstrap);
+            setValues(that);
 
             // Clear each type of filter if it exists.
             // Requires the body to reload each time a type of filter is found because we never know
@@ -486,26 +486,25 @@
             }
 
             if (search.length > 0) {
-                bootstrap.resetSearch();
+                that.resetSearch();
             }
 
             // use the default sort order if it exists. do nothing if it does not
-            if (bootstrap.options.sortName !== table.data('sortName') || bootstrap.options.sortOrder !== table.data('sortOrder')) {
-                var sorter = header.find('[data-field="' + $(controls[0]).closest('table').data('sortName') + '"]');
-                bootstrap.onSort(table.data('sortName'), table.data('sortName'));
+            if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
+                var sorter = sprintf(header.find('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')));
+                that.onSort(table.data('sortName'), table.data('sortName'));
                 $(sorter).find('.sortable').trigger('click');
             }
 
             // clear cookies once the filters are clean
-
             clearTimeout(timeoutId);
             timeoutId = setTimeout(function () {
                 if (cookies && cookies.length > 0) {
-                    cookies.forEach( function (cookie) {
-                        bootstrap.deleteCookie(cookie);
+                    $.each(cookies, function (i, item) {
+                        that.deleteCookie(item);
                     });
                 }
-            }, this.options.searchTimeOut);
+            }, that.options.searchTimeOut);
         }
     };
 }(jQuery);
