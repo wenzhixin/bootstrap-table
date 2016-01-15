@@ -94,7 +94,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>falign</td>
         <td>data-falign</td>
         <td>String</td>
-        <td>undefined</td>e
+        <td>undefined</td>
         <td>Indicate how to align the table footer. 'left', 'right', 'center' can be used.</td>
     </tr>
     <tr>
