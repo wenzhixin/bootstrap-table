@@ -408,8 +408,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>detailFormatter</td>
         <td>data-detail-formatter</td>
         <td>Function</td>
-        <td>function(index, row) {<br>return '';<br>}</td>
-        <td>Format your detail view when <code>detailView</code> is set to <code>true</code>.</td>
+        <td>function(index, row, element) {<br>return '';<br>}</td>
+        <td>Format your detail view when <code>detailView</code> is set to <code>true</code>. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</td>
     </tr>
     <tr>
         <td>searchAlign</td>
