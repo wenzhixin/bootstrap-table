@@ -36,7 +36,7 @@
 		formatAllRows: function () {
           return 'Alle';
         }
-	};
+    };
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-NL']);
 
