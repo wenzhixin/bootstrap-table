@@ -1670,8 +1670,8 @@
                 $tr.after(sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.find('td').length));
                 var $element = $tr.next().find('td');
                 var content = calculateObjectValue(that.options, that.options.detailFormatter, [index, row, $element], '');
-                if($element.length == 1) {
-                  $element.append(content);
+                if($element.length === 1) {
+                    $element.append(content);
                 }
                 that.trigger('expand-row', index, row, $element);
             }
