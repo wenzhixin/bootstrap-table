@@ -291,6 +291,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Enable the search input.</td>
     </tr>
     <tr>
+        <td>searchOnEnterKey</td>
+        <td>data-search-on-enter-key</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>The search method will be executed until the Enter key is pressed.</td>
+    </tr>
+    <tr>
         <td>strictSearch</td>
         <td>data-strict-search</td>
         <td>Boolean</td>
