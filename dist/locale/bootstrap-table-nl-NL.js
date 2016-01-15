@@ -33,7 +33,7 @@
         formatColumns: function () {
           return 'Kolommen';
         },
-		formatAllRows: function () {
+        formatAllRows: function () {
           return 'Alle';
         }
     };
