@@ -2390,7 +2390,7 @@
         }
         this.data[params.index][params.field] = params.value;
 
-        if (params.reinit === false || params.reinit === 'false') {
+        if (params.reinit === false) {
             return;
         }
         this.initSort();
