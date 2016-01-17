@@ -1775,7 +1775,7 @@
     BootstrapTable.prototype.initServer = function (silent, query) {
         var that = this,
             data = {},
-            params = {                
+            params = {
                 searchText: this.searchText,
                 sortName: this.options.sortName,
                 sortOrder: this.options.sortOrder
@@ -2403,6 +2403,10 @@
             return;
         }
         this.data[params.index][params.field] = params.value;
+
+        if (params.reinit === false) {
+            return;
+        }
         this.initSort();
         this.initBody(true);
     };
