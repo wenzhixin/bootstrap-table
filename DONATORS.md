@@ -19,6 +19,9 @@
 * PROMOTUX DI FRANCESCO MELONI E C. S.N.C. - $15
 * Emmanuel Kielichowski - $15
 * 우공이산 우공이산 - $50
+* Empirica srl - $15
+* Hassan Gareballa - $10
+* Jihwang Yi - $10
 
 ## 支付宝
 
@@ -28,7 +31,11 @@
 * 懒虫：8.8元
 * rainc：50元
 * 印：10元
+* 大个子：50元
+* 拓海真一：100元
+* IO芒果：7元
 
 ## 微信
 
 * 笑：50元
+* 一牛九毛：100元
