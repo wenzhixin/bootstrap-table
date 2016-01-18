@@ -13,12 +13,12 @@
             return pageNumber + ' records per pagina';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Toon ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' record' + ((totalRows > 1) ? "s" : "");
+            return 'Toon ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' record' + ((totalRows > 1) ? 's' : '');
         },
         formatDetailPagination: function (totalRows) {
-            return 'Toon ' + totalRows + ' record' + ((totalRows > 1) ? "s" : "");
+            return 'Toon ' + totalRows + ' record' + ((totalRows > 1) ? 's' : '');
         },
-		formatSearch: function () {
+        formatSearch: function () {
             return 'Zoeken';
         },
         formatNoMatches: function () {
