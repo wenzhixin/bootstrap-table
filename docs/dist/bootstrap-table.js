@@ -624,7 +624,7 @@
         });
 
         // if options.data is setting, do not process tbody data
-        if (this.options.data) {
+        if (this.options.data.length) {
             return;
         }
 

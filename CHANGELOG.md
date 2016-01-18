@@ -20,6 +20,7 @@
 - [enh] Added `updateFormatText` method.
 - [enh] Added a third parameter to `detailFormatter` method passing the jQuery element.
 - [enh] Added new param for `updateCell` method to avoid table reinitialization.
+- [enh] Removed outline of th.
 - [enh] Added extension.json and composer.json files.
 - [enh] Added alternative group-by extension.
 - [enh] Added sticky-header extension.
