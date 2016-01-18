@@ -27,7 +27,7 @@
       <div class="row">
         <div class="col-md-{% if page.fullwidth == true %}12{% else %}9{% endif %}"
              role="main"
-             data-toggle="sidenav"
+             {% if page.slug != "examples" %}data-toggle="sidenav"{% endif %}
              data-container="#sidenav"
              data-hs="h1,h2"
              data-smart-id="true"

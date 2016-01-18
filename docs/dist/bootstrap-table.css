@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.8.1
+ * version: 1.10.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -17,7 +17,7 @@
 .bootstrap-table .table:not(.table-condensed) > thead > tr > td,
 .bootstrap-table .table:not(.table-condensed) > tbody > tr > td,
 .bootstrap-table .table:not(.table-condensed) > tfoot > tr > td {
-    padding: 8px !important;
+    padding: 8px;
 }
 
 .bootstrap-table .table.table-no-bordered > thead > tr > th,
@@ -62,6 +62,10 @@
     padding: 0;
     margin: 0;
     border-left: 1px solid #dddddd;
+}
+
+.fixed-table-container thead th:focus {
+    outline: 0 solid transparent;
 }
 
 .fixed-table-container thead th:first-child {
@@ -274,6 +278,7 @@
 .bootstrap-table .fixed-table-footer .table {
     border-bottom: none;
     border-radius: 0;
+    padding: 0 !important;
 }
 
 .pull-right .dropdown-menu {

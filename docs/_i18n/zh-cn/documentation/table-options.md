@@ -157,7 +157,7 @@
         <td>Function</td>
         <td>function(params) {<br>return params;<br>}</td>
         <td>
-        When requesting remote data, you can send additional parameters by modifying queryParams. 
+        When requesting remote data, you can send additional parameters by modifying queryParams.
         If queryParamsType = 'limit', the params object contains: <br>
         limit, offset, search, sort, order
         Else, it contains: <br>
@@ -239,11 +239,26 @@
         <td>True to display pagination or card view smartly.</td>
     </tr>
     <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>转义HTML字符串，替换 <code>&</code>, <code><</code>,
+        <code>></code>, <code>"</code>, <code>`</code>, 和 <code>'</code> 字符.</td>
+    </tr>
+    <tr>
         <td>search</td>
         <td>data-search</td>
         <td>Boolean</td>
         <td>false</td>
         <td>Enable the search input.</td>
+    </tr>
+    <tr>
+        <td>searchOnEnterKey</td>
+        <td>data-search-on-enter-key</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>The search method will be executed until the Enter key is pressed.</td>
     </tr>
     <tr>
         <td>strictSearch</td>
@@ -402,13 +417,6 @@
         <td>Indicate how to align the pagination detail. 'left', 'right' can be used.</td>
     </tr>
     <tr>
-        <td>paginationFirstText</td>
-        <td>data-pagination-first-text</td>
-        <td>String</td>
-        <td>'&lt;&lt;'</td>
-        <td>Indicate the icon or text to be shown in the pagination detail, the first button of the pagination detail.</td>
-    </tr>
-    <tr>
         <td>paginationPreText</td>
         <td>data-pagination-pre-text</td>
         <td>String</td>
@@ -421,13 +429,6 @@
         <td>String</td>
         <td>'&gt;'</td>
         <td>Indicate the icon or text to be shown in the pagination detail, the next button.</td>
-    </tr>
-    <tr>
-        <td>paginationLastText</td>
-        <td>data-pagination-last-text</td>
-        <td>String</td>
-        <td>'&gt;&gt;'</td>
-        <td>Indicate the icon or text to be shown in the pagination detail, the last button.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>

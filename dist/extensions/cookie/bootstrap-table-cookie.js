@@ -123,7 +123,7 @@
                 cookieExpire = cookieExpire * 30 * 24 * 60 * 60;
                 break;
             case 'y':
-                cookieExpire = cookieExpire * 365 * 30 * 24 * 60 * 60;
+                cookieExpire = cookieExpire * 365 * 24 * 60 * 60;
                 break;
             default:
                 cookieExpire = undefined;
@@ -203,7 +203,7 @@
                                 searchControls = getCurrentSearchControls(that);
 
                             header.find(searchControls).each(function (index, ele) {
-                                field = $(this).parent().parent().parent().data('field');
+                                field = $(this).closest('[data-field]').data('field');
                                 result = $.grep(filterControl, function (valueObj) {
                                     return valueObj.field === field;
                                 });
@@ -317,8 +317,12 @@
     };
 
     BootstrapTable.prototype.onSearch = function () {
-        _onSearch.apply(this, Array.prototype.slice.apply(arguments));
-        setCookie(this, cookieIds.searchText, this.searchText);
+        var target = Array.prototype.slice.apply(arguments);
+        _onSearch.apply(this, target);
+
+        if ($(target[0].currentTarget).parent().hasClass('search')) {
+          setCookie(this, cookieIds.searchText, this.searchText);
+        }
     };
 
     BootstrapTable.prototype.deleteCookie = function (cookieName) {

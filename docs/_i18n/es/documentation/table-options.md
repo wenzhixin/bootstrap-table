@@ -149,7 +149,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Function</td>
         <td>function(params) {<br>return params;<br>}</td>
         <td>
-        Cuando se solicita datos remotos, se debe enviar parámetros adicionales para modificar los queryParams. 
+        Cuando se solicita datos remotos, se debe enviar parámetros adicionales para modificar los queryParams.
         Si queryParamsType = 'limit', el objecto params contiene: <br>
         limit, offset, search, sort, order
         Sino, el objeoto contiene: <br>
@@ -231,11 +231,27 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>True para mostrar la páginación o la vista de tarjeta inteligentemente.</td>
     </tr>
     <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>Escapes a string for insertion into HTML,
+        replacing <code>&</code>, <code><</code>, <code>></code>,
+        <code>"</code>, <code>`</code>, and <code>'</code> characters.</td>
+    </tr>
+    <tr>
         <td>search</td>
         <td>data-search</td>
         <td>Boolean</td>
         <td>false</td>
         <td>Habilita el campo para búsqueda.</td>
+    </tr>
+    <tr>
+        <td>searchOnEnterKey</td>
+        <td>data-search-on-enter-key</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>El método será ejecutado hasta que la tecla Enter sea presionada.</td>
     </tr>
     <tr>
         <td>strictSearch</td>
@@ -385,13 +401,6 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Indica cómo alinear el detalle de la paginación. Se puede usar: 'left', 'right'.</td>
     </tr>
     <tr>
-        <td>paginationFirstText</td>
-        <td>data-pagination-first-text</td>
-        <td>String</td>
-        <td>'&lt;&lt;'</td>
-        <td>Indica el icono o el texto a mostrar en la paginación, el botón first del detalle de la paginación.</td>
-    </tr>
-    <tr>
         <td>paginationPreText</td>
         <td>data-pagination-pre-text</td>
         <td>String</td>
@@ -404,13 +413,6 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>String</td>
         <td>'&gt;'</td>
         <td>Indica el icono o el texto a mostrar en la paginación, el botón next del detalle de la paginación.</td>
-    </tr>
-    <tr>
-        <td>paginationLastText</td>
-        <td>data-pagination-last-text</td>
-        <td>String</td>
-        <td>'&gt;&gt;'</td>
-        <td>Indica el icono o el texto a mostrar en la paginación, el botón last del detalle de la paginación.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>

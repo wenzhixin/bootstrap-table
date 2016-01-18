@@ -22,9 +22,29 @@ $(function () {
     });
 
     // examples
-    $('iframe[data-src]').each(function () {
-        $(this).wrap('<div class="examples-parent"></div>').parent()
-            .append('<button class="examples-button btn btn-primary btn-lg"><i class="glyphicon glyphicon-fire"></i> Start Example</button>');
+    $('#examples').load('/wenzhixin/bootstrap-table/issues/1765 #issue-119870991 .comment-content', function () {
+        var $this = $(this);
+        $this.find('h1').each(function () {
+            $(this).after('<hr>');
+        });
+        $this.find('li').each(function () {
+            var $href = $(this).find('a[href^="http://jsfiddle.net"]');
+            var href = $href.attr('href');
+
+            href = href.replace(/\/$/, '');
+            $(this).append([
+                '<div class="examples-parent">',
+                '<iframe width="100%" height="300" data-src="',
+                href,
+                '/embedded/result,html,js,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>',
+                '<button class="examples-button btn btn-primary btn-lg">',
+                '<i class="glyphicon glyphicon-fire"></i>',
+                ' Start Example</button>',
+                '</div>',
+                '<hr>'
+            ].join(''));
+        });
+        $('[data-container="#sidenav"]').sideNav();
     });
     $(document).on('click', 'button.examples-button', function () {
         var $iframe = $(this).prev();

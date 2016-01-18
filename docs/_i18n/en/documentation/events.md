@@ -2,6 +2,19 @@
 
 ---
 
+To use event syntax: 
+```js
+$('#table').bootstrapTable({
+    onEventName: function (arg1, arg2, ...) {
+        // ...
+    }
+});
+
+$('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
+    // ...
+});
+```
+
 <table class="table"
        id="e"
        data-search="true"

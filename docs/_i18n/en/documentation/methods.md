@@ -30,13 +30,13 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>getSelections</td>
         <td>none</td>
-        <td>Return selected rows, when no record selected, am empty array will return.</td>
+        <td>Return selected rows, when no record selected, an empty array will return.</td>
         <td>getSelections</td>
     </tr>
     <tr>
         <td>getAllSelections</td>
         <td>none</td>
-        <td>Return all selected rows contain search or filter, when no record selected, am empty array will return.</td>
+        <td>Return all selected rows contain search or filter, when no record selected, an empty array will return.</td>
         <td>getAllSelections</td>
     </tr>
     <tr>
@@ -125,16 +125,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
 	<tr>
         <td>showRow</td>
         <td>params</td>
-        <td>Show the specified row. the param contains following properties:
-        index: the row index or the uniqueId.
-        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
+        <td>Show the specified row. The param must contain at least one of the following properties:
+        index: the row index.
+        uniqueId: the value of the uniqueId for that row.</td>
     </tr>
     <tr>
         <td>hideRow</td>
         <td>params</td>
-        <td>Hide the specified row. the param contains following properties:
-        index: the row index or the uniqueId.
-        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
+        <td>Hide the specified row. The param must contain at least one of the following properties:
+        index: the row index.
+        uniqueId: the value of the uniqueId for that row.</td>
     </tr>
     <tr>
         <td>getRowsHidden</td>
@@ -161,6 +161,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         index: the row index. <br>
         field: the field name.<br>
         value: the new field value.
+        <br>
+        To disable table re-initialization you can set <code>{reinit: false}</code>
         </td>
     </tr>
     <tr>
