@@ -64,6 +64,10 @@
     border-left: 1px solid #dddddd;
 }
 
+.fixed-table-container thead th:focus {
+    outline: 0 solid transparent;
+}
+
 .fixed-table-container thead th:first-child {
     border-left: none;
     border-top-left-radius: 4px;
