@@ -2,7 +2,8 @@
 
 ---
 
-To use event syntax: 
+To use event syntax:
+
 ```js
 $('#table').bootstrapTable({
     onEventName: function (arg1, arg2, ...) {
