@@ -278,7 +278,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>escape</td>
         <td>data-escape</td>
         <td>Boolean</td>
-        <td>true</td>
+        <td>false</td>
         <td>Escapes a string for insertion into HTML,
         replacing <code>&</code>, <code><</code>, <code>></code>,
         <code>"</code>, <code>`</code>, and <code>'</code> characters.</td>
@@ -408,8 +408,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>detailFormatter</td>
         <td>data-detail-formatter</td>
         <td>Function</td>
-        <td>function(index, row) {<br>return '';<br>}</td>
-        <td>Format your detail view when <code>detailView</code> is set to <code>true</code>.</td>
+        <td>function(index, row, element) {<br>return '';<br>}</td>
+        <td>Format your detail view when <code>detailView</code> is set to <code>true</code>. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</td>
     </tr>
     <tr>
         <td>searchAlign</td>
@@ -528,7 +528,15 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         The row style formatter function, takes two parameters: <br>
         row: the row record data.<br>
         index: the row index.<br>
-        Support classes or css.
+        Support classes or css. Example usage:<br>
+<pre>
+function rowStyle(value, row, index) {
+  return {
+    classes: 'text-nowrap another-class',
+    css: {"color": "blue", "font-size": "50px"}
+  };
+}
+</pre>
         </td>
     </tr>
     <tr>

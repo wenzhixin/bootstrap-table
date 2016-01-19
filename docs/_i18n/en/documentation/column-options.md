@@ -94,7 +94,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>falign</td>
         <td>data-falign</td>
         <td>String</td>
-        <td>undefined</td>e
+        <td>undefined</td>
         <td>Indicate how to align the table footer. 'left', 'right', 'center' can be used.</td>
     </tr>
     <tr>
@@ -224,7 +224,15 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         value: the field value.<br>
         row: the row record data.<br>
         index: the row index.<br>
-        Support classes or css.
+        Support classes or css. Example usage:<br>
+<pre>
+function cellStyle(value, row, index) {
+  return {
+    classes: 'text-nowrap another-class',
+    css: {"color": "blue", "font-size": "50px"}
+  };
+}
+</pre>
         </td>
     </tr>
     <tr>

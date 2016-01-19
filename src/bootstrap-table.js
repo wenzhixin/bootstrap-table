@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.9.1
+ * version: 1.10.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -292,7 +292,7 @@
         showToggle: false,
         buttonsAlign: 'right',
         smartDisplay: true,
-        escape: true,
+        escape: false,
         minimumCountColumns: 1,
         idField: undefined,
         uniqueId: undefined,
@@ -624,7 +624,7 @@
         });
 
         // if options.data is setting, do not process tbody data
-        if (this.options.data) {
+        if (this.options.data.length) {
             return;
         }
 
@@ -1102,6 +1102,7 @@
             return;
         }
         this.searchText = text;
+        this.options.searchText = text;
 
         this.options.pageNumber = 1;
         this.initSearch();
@@ -1691,10 +1692,13 @@
                 that.trigger('collapse-row', index, row);
             } else {
                 $this.find('i').attr('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailClose));
-                $tr.after(sprintf('<tr class="detail-view"><td colspan="%s">%s</td></tr>',
-                    $tr.find('td').length, calculateObjectValue(that.options,
-                        that.options.detailFormatter, [index, row], '')));
-                that.trigger('expand-row', index, row, $tr.next().find('td'));
+                $tr.after(sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.find('td').length));
+                var $element = $tr.next().find('td');
+                var content = calculateObjectValue(that.options, that.options.detailFormatter, [index, row, $element], '');
+                if($element.length === 1) {
+                    $element.append(content);
+                }
+                that.trigger('expand-row', index, row, $element);
             }
             that.resetView();
         });
@@ -1771,7 +1775,7 @@
     BootstrapTable.prototype.initServer = function (silent, query) {
         var that = this,
             data = {},
-            params = {                
+            params = {
                 searchText: this.searchText,
                 sortName: this.options.sortName,
                 sortOrder: this.options.sortOrder
@@ -2198,6 +2202,7 @@
         this.initData(data, 'append');
         this.initSearch();
         this.initPagination();
+        this.initSort();
         this.initBody(true);
     };
 
@@ -2205,6 +2210,7 @@
         this.initData(data, 'prepend');
         this.initSearch();
         this.initPagination();
+        this.initSort();
         this.initBody(true);
     };
 
@@ -2233,6 +2239,7 @@
 
         this.initSearch();
         this.initPagination();
+        this.initSort();
         this.initBody(true);
     };
 
@@ -2396,6 +2403,10 @@
             return;
         }
         this.data[params.index][params.field] = params.value;
+
+        if (params.reinit === false) {
+            return;
+        }
         this.initSort();
         this.initBody(true);
     };
@@ -2603,7 +2614,7 @@
 
     BootstrapTable.prototype.refreshOptions = function (options) {
         //If the objects are equivalent then avoid the call of destroy / init methods
-        if (compareObjects(this.options, options, false)) {
+        if (compareObjects(this.options, options, true)) {
             return;
         }
         this.options = $.extend(this.options, options);

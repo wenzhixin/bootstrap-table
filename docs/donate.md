@@ -22,6 +22,10 @@ lead: pages.donate.lead
             <li>振：20元</li>
             <li>懒虫：8.8元</li>
             <li>rainc：50元</li>
+            <li>印：10元</li>
+            <li>大个子：50元</li>
+            <li>拓海真一：100元</li>
+            <li>IO芒果：7元</li>
             </ul>
         </div>
         <div class="col-md-6">
@@ -33,6 +37,7 @@ lead: pages.donate.lead
             </div>
             <ul style="margin-top: 20px">
             <li>笑：50元</li>
+            <li>一牛九毛：100元</li>
             </ul>
         </div>
     </div>
@@ -64,6 +69,10 @@ lead: pages.donate.lead
         <li>Luis Triana Vega - $10</li>
         <li>PROMOTUX DI FRANCESCO MELONI E C. S.N.C. - $15</li>
         <li>Emmanuel Kielichowski - $15</li>
+        <li>우공이산 우공이산 - $50</li>
+        <li>Empirica srl - $15</li>
+        <li>Hassan Gareballa - $10</li>
+        <li>Jihwang Yi - $10</li>
         </ul>
     </div>
 </div>
