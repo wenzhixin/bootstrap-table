@@ -242,7 +242,7 @@
         <td>escape</td>
         <td>data-escape</td>
         <td>Boolean</td>
-        <td>true</td>
+        <td>false</td>
         <td>转义HTML字符串，替换 <code>&</code>, <code><</code>,
         <code>></code>, <code>"</code>, <code>`</code>, 和 <code>'</code> 字符.</td>
     </tr>

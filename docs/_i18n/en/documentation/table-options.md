@@ -278,7 +278,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>escape</td>
         <td>data-escape</td>
         <td>Boolean</td>
-        <td>true</td>
+        <td>false</td>
         <td>Escapes a string for insertion into HTML,
         replacing <code>&</code>, <code><</code>, <code>></code>,
         <code>"</code>, <code>`</code>, and <code>'</code> characters.</td>
