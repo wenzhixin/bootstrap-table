@@ -33,5 +33,13 @@
   "bugs": {
     "url": "https://github.com/wenzhixin/bootstrap-table/issues"
   },
-  "homepage": "https://github.com/wenzhixin/bootstrap-table"
+  "homepage": "https://github.com/wenzhixin/bootstrap-table",
+  "devDependencies": {
+    "cz-conventional-changelog": "^1.1.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
