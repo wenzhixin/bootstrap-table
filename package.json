@@ -6,7 +6,8 @@
   "directories": {
     "doc": "docs"
   },
-  "dependencies": {
+  "devDependencies": {
+    "cz-conventional-changelog": "^1.1.5",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-clean": "^0.6.0",
@@ -34,9 +35,6 @@
     "url": "https://github.com/wenzhixin/bootstrap-table/issues"
   },
   "homepage": "https://github.com/wenzhixin/bootstrap-table",
-  "devDependencies": {
-    "cz-conventional-changelog": "^1.1.5"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
