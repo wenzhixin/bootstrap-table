@@ -2439,6 +2439,20 @@
         this.checkAll_(false);
     };
 
+    BootstrapTable.prototype.checkInvert = function () {
+        var that = this;
+        var rows = that.$selectItem.filter(':enabled');
+        var checked = rows.filter(':checked');
+        rows.each(function() {
+            $(this).prop('checked', !$(this).prop('checked'));
+        });
+        that.updateRows();
+        that.updateSelected();
+        that.trigger('uncheck-some', checked);
+        checked = that.getSelections();
+        that.trigger('check-some', checked);
+    };
+
     BootstrapTable.prototype.checkAll_ = function (checked) {
         var rows;
         if (!checked) {
