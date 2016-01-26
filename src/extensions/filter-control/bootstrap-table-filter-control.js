@@ -385,19 +385,17 @@
 
                 value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, that.header.formatters[j], [value, item, i], value);
 
-                if ((!column.checkbox) || (!column.radio)) {
-                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select' && column.searchable) {
-                        if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
-                            var selectControl = $('.' + column.field);
-                            if (selectControl !== undefined && selectControl.length > 0) {
-                                if (selectControl.get(selectControl.length - 1).options.length === 0) {
-                                    //Added the default option
-                                    addOptionToSelectControl(selectControl, '', '');
-                                }
-
-                                //Added a new value
-                                addOptionToSelectControl(selectControl, value, value);
+                if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select' && column.searchable) {
+                    if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
+                        var selectControl = $('.' + column.field);
+                        if (selectControl !== undefined && selectControl.length > 0) {
+                            if (selectControl.get(selectControl.length - 1).options.length === 0) {
+                                //Added the default option
+                                addOptionToSelectControl(selectControl, '', '');
                             }
+
+                            //Added a new value
+                            addOptionToSelectControl(selectControl, value, value);
                         }
                     }
                 }
