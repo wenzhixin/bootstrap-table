@@ -448,6 +448,19 @@
         }) : this.data;
     };
 
+    BootstrapTable.prototype.initColumnSearch = function(filterColumnsDefaults) {
+        copyValues(this);
+
+        if (filterColumnsDefaults) {
+            this.filterColumnsPartial = filterColumnsDefaults;
+            this.updatePagination();
+
+            for (var filter in filterColumnsDefaults) {
+              this.trigger('column-search', filter, filterColumnsDefaults[filter]);
+            }
+        }
+    };
+
     BootstrapTable.prototype.onColumnSearch = function (event) {
         copyValues(this);
         var text = $.trim($(event.currentTarget).val());
@@ -464,7 +477,6 @@
 
         this.options.pageNumber = 1;
         this.onSearch(event);
-        this.updatePagination();
         this.trigger('column-search', $field, text);
     };
 
