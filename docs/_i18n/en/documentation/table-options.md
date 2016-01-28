@@ -568,8 +568,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 		<pre>
 		function footerStyle(value, row, index) {
 		  return {
-		    classes: 'text-nowrap another-class',
-		    css: {"color": "blue", "font-size": "50px"}
+		    css: { "font-weight": "bold" }
 		  };
 		}
 		</pre>
