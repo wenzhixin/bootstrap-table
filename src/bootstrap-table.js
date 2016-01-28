@@ -2732,7 +2732,7 @@
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
-        'checkAll', 'uncheckAll',
+        'checkAll', 'uncheckAll', 'checkInvert',
         'check', 'uncheck',
         'checkBy', 'uncheckBy',
         'refresh',
