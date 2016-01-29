@@ -1,6 +1,6 @@
 /**
  * Bootstrap Table Hebrew translation
- * Author: Zhixin Wen<wenzhixin2010@gmail.com>
+ * Author: legshooter
  */
 (function ($) {
     'use strict';
