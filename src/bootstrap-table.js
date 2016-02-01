@@ -2306,19 +2306,24 @@
     };
 
     BootstrapTable.prototype.updateByUniqueId = function (params) {
-        var rowId;
+        var that = this;
+        var allParams = $.isArray(params) ? params : [ params ];
 
-        if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
-            return;
-        }
+        $.each(allParams, function(i, params) {
+            var rowId;
 
-        rowId = $.inArray(this.getRowByUniqueId(params.id), this.options.data);
+            if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
+                return;
+            }
 
-        if (rowId === -1) {
-            return;
-        }
+            rowId = $.inArray(that.getRowByUniqueId(params.id), that.options.data);
 
-        $.extend(this.data[rowId], params.row);
+            if (rowId === -1) {
+                return;
+            }
+            $.extend(that.data[rowId], params.row);
+        });
+
         this.initSort();
         this.initBody(true);
     };
@@ -2335,10 +2340,16 @@
     };
 
     BootstrapTable.prototype.updateRow = function (params) {
-        if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
-            return;
-        }
-        $.extend(this.data[params.index], params.row);
+        var that = this;
+        var allParams = $.isArray(params) ? params : [ params ];
+
+        $.each(allParams, function(i, params) {
+            if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
+                return;
+            }
+            $.extend(that.data[params.index], params.row);
+        });
+
         this.initSort();
         this.initBody(true);
     };
