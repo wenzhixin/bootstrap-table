@@ -196,6 +196,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>Uncheck all current page rows.</td>
     </tr>
     <tr>
+        <td>checkInvert</td>
+        <td>none</td>
+        <td>Invert check of current page rows. Triggers onCheckSome and onUncheckSome events.</td>
+    </tr>
+    <tr>
         <td>check</td>
         <td>index</td>
         <td>Check a row, the row index start with 0.</td>
