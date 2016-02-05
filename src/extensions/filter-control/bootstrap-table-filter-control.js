@@ -144,7 +144,7 @@
 
             $.each(bootstrapTable.header.fields, function (j, field) {
                 var column = bootstrapTable.columns[$.fn.bootstrapTable.utils.getFieldIndex(bootstrapTable.columns, field)],
-                    selectControl = $('.' + column.field);
+                    selectControl = $('.bootstrap-table-filter-control-' + column.field);
 
 
                 if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
@@ -201,7 +201,7 @@
             if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
                 var filterDataType = column.filterData.substring(0, 3);
                 var filterDataSource = column.filterData.substring(4, column.filterData.length);
-                var selectControl = $('.' + column.field);
+                var selectControl = $('.bootstrap-table-filter-control-' + column.field);
                 addOptionToSelectControl(selectControl, '', '');
 
                 switch (filterDataType) {
@@ -264,7 +264,7 @@
             if (header.find('.date-filter-control').length > 0) {
                 $.each(that.columns, function (i, column) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
-                        header.find('.date-filter-control.' + column.field).datepicker(column.filterDatepickerOptions)
+                        header.find('.date-filter-control.bootstrap-table-filter-control-' + column.field).datepicker(column.filterDatepickerOptions)
                             .on('changeDate', function (e) {
                                 //Fired the keyup event
                                 $(e.currentTarget).keyup();
@@ -303,10 +303,10 @@
         valuesFilterControl: [],
         filterTemplate: {
             input: function (that, field, isVisible) {
-                return sprintf('<input type="text" class="form-control %s" style="width: 100%; visibility: %s">', field, isVisible);
+                return sprintf('<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">', field, isVisible);
             },
             select: function (that, field, isVisible) {
-                return sprintf('<select class="%s form-control" style="width: 100%; visibility: %s" dir="%s"></select>',
+                return sprintf('<select class="bootstrap-table-filter-control-%s form-control" style="width: 100%; visibility: %s" dir="%s"></select>',
                     field, isVisible, getDirectionOfSelectOptions(that.options.alignmentSelectControlOptions))
             },
             datepicker: function (that, field, isVisible) {
