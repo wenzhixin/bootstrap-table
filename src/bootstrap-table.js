@@ -1846,7 +1846,7 @@
         if (this.options.ajax) {
             calculateObjectValue(this, this.options.ajax, [request], null);
         } else {
-            if(this._xhr){
+            if(this._xhr) {
                 this._xhr.abort();
             }
             this._xhr = $.ajax(request);
