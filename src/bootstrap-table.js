@@ -324,6 +324,8 @@
             detailClose: 'glyphicon-minus icon-minus'
         },
 
+        customSearch: $.noop,
+
         rowStyle: function (row, index) {
             return {};
         },
@@ -1114,6 +1116,10 @@
         var that = this;
 
         if (this.options.sidePagination !== 'server') {
+            if (this.options.customSearch !== $.noop) {
+                this.options.customSearch.apply(this, [this.searchText]);
+                return;
+            }
             var s = this.searchText && this.searchText.toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
 
