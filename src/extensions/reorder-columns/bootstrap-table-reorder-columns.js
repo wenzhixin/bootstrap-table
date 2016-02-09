@@ -8,6 +8,7 @@
 
     'use strict';
 
+    //From MDN site, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
     var filterFn = function () {
         if (!Array.prototype.filter) {
             Array.prototype.filter = function(fun/*, thisArg*/) {
