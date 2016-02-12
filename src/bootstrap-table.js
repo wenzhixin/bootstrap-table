@@ -1485,7 +1485,8 @@
                 csses = [],
                 data_ = '',
                 attributes = {},
-                htmlAttributes = [];
+                htmlAttributes = [],
+                fieldCounts = {};
 
             style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
@@ -1546,7 +1547,15 @@
                     data_ = '',
                     rowspan_ = '',
                     title_ = '',
-                    column = that.columns[getFieldIndex(that.columns, field)];
+                    column = {};
+
+                if (!fieldCounts.hasOwnProperty(field)) {
+                    fieldCounts[field] = 1;
+                } else {
+                    fieldCounts[field]++;
+                }
+
+                column = that.columns[getFieldIndex(that.columns, field, fieldCounts[field])];
 
                 if (!column.visible) {
                     return;
