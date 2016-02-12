@@ -42,12 +42,18 @@
         return result;
     };
 
-    var getFieldIndex = function (columns, field) {
-        var index = -1;
+    var getFieldIndex = function (columns, field, fieldCount) {
+        var index = -1, count = 0;
 
         $.each(columns, function (i, column) {
             if (column.field === field) {
                 index = i;
+                count++;
+
+                if (fieldCount !== undefined) {
+                    return count < fieldCount;
+                }
+
                 return false;
             }
             return true;
