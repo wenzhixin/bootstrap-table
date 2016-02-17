@@ -55,6 +55,18 @@
         return index;
     };
 
+    var getFieldIndexFromColumnIndex = function (columns, fieldIndex) {
+        $.each(columns, function (i, column) {
+          if (!column.visible) {
+            fieldIndex--;
+          }
+          if (i == fieldIndex) {
+            return false;
+          }
+        });
+        return fieldIndex;
+    };
+
     // http://jsfiddle.net/wenyi/47nz7ez9/3/
     var setFieldIndex = function (columns) {
         var i, j, k,
@@ -1048,8 +1060,7 @@
             $keepOpen.find('input').off('click').on('click', function () {
                 var $this = $(this);
 
-                that.toggleColumn(getFieldIndex(that.columns,
-                    $(this).data('field')), $this.prop('checked'), false);
+                that.toggleColumn($(this).val(), $this.prop('checked'), false);
                 that.trigger('column-switch', $(this).data('field'), $this.prop('checked'));
             });
         }
@@ -1540,7 +1551,7 @@
                     data_ = '',
                     rowspan_ = '',
                     title_ = '',
-                    column = that.columns[getFieldIndex(that.columns, field)];
+                    column = that.columns[j];
 
                 if (!column.visible) {
                     return;
@@ -1744,7 +1755,7 @@
             }
 
             var field = that.header.fields[i],
-                fieldIndex = $.inArray(field, that.getVisibleFields());
+                fieldIndex = getFieldIndexFromColumnIndex(that.columns, i);
 
             if (that.options.detailView && !that.options.cardView) {
                 fieldIndex += 1;
