@@ -25,6 +25,10 @@
     border-right: 2px solid transparent;
 }
 
+.bootstrap-table .table.table-no-bordered > tbody > tr > td:last-child {
+    border-right: none;
+}
+
 .fixed-table-container {
     position: relative;
     clear: both;
