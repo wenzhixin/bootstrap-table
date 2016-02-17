@@ -6,14 +6,16 @@
   "directories": {
     "doc": "docs"
   },
-  "dependencies": {
-    "grunt-contrib-copy": "^0.8.0",
-    "grunt-contrib-concat": "^0.5.1",
+  "devDependencies": {
+    "cz-conventional-changelog": "^1.1.5",
+    "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-cssmin": "^0.12.2",
-    "grunt-contrib-uglify": "^0.8.0",
     "grunt-contrib-jshint": "^0.10.0",
-    "grunt": "^0.4.5"
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-release": "^0.13.0"
   },
   "repository": {
     "type": "git",
@@ -33,5 +35,10 @@
   "bugs": {
     "url": "https://github.com/wenzhixin/bootstrap-table/issues"
   },
-  "homepage": "https://github.com/wenzhixin/bootstrap-table"
+  "homepage": "https://github.com/wenzhixin/bootstrap-table",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

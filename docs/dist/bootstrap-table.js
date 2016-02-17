@@ -292,7 +292,7 @@
         showToggle: false,
         buttonsAlign: 'right',
         smartDisplay: true,
-        escape: true,
+        escape: false,
         minimumCountColumns: 1,
         idField: undefined,
         uniqueId: undefined,
