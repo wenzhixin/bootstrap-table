@@ -19,7 +19,7 @@
             return 'Vyhľadávanie';
         },
         formatNoMatches: function () {
-            return 'Nenájdená žiadne vyhovujúca položka';
+            return 'Nenájdená žiadna vyhovujúca položka';
         },
         formatRefresh: function () {
             return 'Obnoviť';

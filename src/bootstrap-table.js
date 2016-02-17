@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.10.0
+ * version: 1.10.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -53,6 +53,18 @@
             return true;
         });
         return index;
+    };
+
+    var getFieldIndexFromColumnIndex = function (columns, fieldIndex) {
+        $.each(columns, function (i, column) {
+          if (!column.visible) {
+            fieldIndex--;
+          }
+          if (i == fieldIndex) {
+            return false;
+          }
+        });
+        return fieldIndex;
     };
 
     // http://jsfiddle.net/wenyi/47nz7ez9/3/
@@ -323,6 +335,10 @@
             detailOpen: 'glyphicon-plus icon-plus',
             detailClose: 'glyphicon-minus icon-minus'
         },
+
+        customSearch: $.noop,
+
+        customSort: $.noop,
 
         rowStyle: function (row, index) {
             return {};
@@ -848,6 +864,11 @@
             order = this.options.sortOrder === 'desc' ? -1 : 1,
             index = $.inArray(this.options.sortName, this.header.fields);
 
+        if (this.options.customSort !== $.noop) {
+            this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder]);
+            return;
+        }
+
         if (index !== -1) {
             this.data.sort(function (a, b) {
                 if (that.header.sortNames[index]) {
@@ -1048,8 +1069,7 @@
             $keepOpen.find('input').off('click').on('click', function () {
                 var $this = $(this);
 
-                that.toggleColumn(getFieldIndex(that.columns,
-                    $(this).data('field')), $this.prop('checked'), false);
+                that.toggleColumn($(this).val(), $this.prop('checked'), false);
                 that.trigger('column-switch', $(this).data('field'), $this.prop('checked'));
             });
         }
@@ -1114,6 +1134,10 @@
         var that = this;
 
         if (this.options.sidePagination !== 'server') {
+            if (this.options.customSearch !== $.noop) {
+                this.options.customSearch.apply(this, [this.searchText]);
+                return;
+            }
             var s = this.searchText && this.searchText.toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
 
@@ -1540,9 +1564,13 @@
                     data_ = '',
                     rowspan_ = '',
                     title_ = '',
-                    column = that.columns[getFieldIndex(that.columns, field)];
+                    column = that.columns[j];
 
                 if (!column.visible) {
+                    return;
+                }
+
+                if (that.options.cardView && (!column.cardVisible)) {
                     return;
                 }
 
@@ -1740,7 +1768,7 @@
             }
 
             var field = that.header.fields[i],
-                fieldIndex = $.inArray(field, that.getVisibleFields());
+                fieldIndex = getFieldIndexFromColumnIndex(that.columns, i);
 
             if (that.options.detailView && !that.options.cardView) {
                 fieldIndex += 1;
@@ -2578,6 +2606,32 @@
             return column.visible;
         });
     };
+    
+    BootstrapTable.prototype.toggleAllColumns = function (visible) {
+        $.each(this.columns, function (i, column) {
+            this.columns[i].visible = visible;
+        });
+
+        this.initHeader();
+        this.initSearch();
+        this.initPagination();
+        this.initBody();
+        if (this.options.showColumns) {
+            var $items = this.$toolbar.find('.keep-open input').prop('disabled', false);
+
+            if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
+                $items.filter(':checked').prop('disabled', true);
+            }
+        }
+    };
+
+    BootstrapTable.prototype.showAllColumns = function () {
+        this.toggleAllColumns(true);
+    };
+
+    BootstrapTable.prototype.hideAllColumns = function () {
+        this.toggleAllColumns(false);
+    };
 
     BootstrapTable.prototype.filterBy = function (columns) {
         this.filterColumns = $.isEmptyObject(columns) ? {} : columns;
@@ -2738,7 +2792,7 @@
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
-        'checkAll', 'uncheckAll',
+        'checkAll', 'uncheckAll', 'checkInvert',
         'check', 'uncheck',
         'checkBy', 'uncheckBy',
         'refresh',
@@ -2747,6 +2801,7 @@
         'destroy',
         'showLoading', 'hideLoading',
         'showColumn', 'hideColumn', 'getHiddenColumns', 'getVisibleColumns',
+        'showAllColumns', 'hideAllColumns',
         'filterBy',
         'scrollTo',
         'getScrollPosition',
@@ -2802,7 +2857,8 @@
         sprintf: sprintf,
         getFieldIndex: getFieldIndex,
         compareObjects: compareObjects,
-        calculateObjectValue: calculateObjectValue
+        calculateObjectValue: calculateObjectValue,
+        getItemField: getItemField
     };
 
     // BOOTSTRAP TABLE INIT
