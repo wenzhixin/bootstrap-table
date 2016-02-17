@@ -47,6 +47,13 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set to true if you want to use the strict search mode.
 * default: `false`
 
+### filterData
+
+* type: Object
+* description: Used to set default values for the `select` filterControl. Use this way:(in the document head)`var filterDefaults = {somekey: 'somevalue'}` (in the column th definition)`data-filter-data='var:filterDefaults'`. In order for the server to make only one call with serverside pagination, this field must be set for all selects. Otherwise, the client will make an initial call to the server to populate the dropdown list with data.
+* default: `undefined`
+
+
 ### Icons
 * clear: 'glyphicon-trash icon-clear'
 
