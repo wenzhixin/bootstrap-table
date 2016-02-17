@@ -1,5 +1,7 @@
 'use strict';
 
+var fs = require('fs');
+
 module.exports = function(grunt) {
 
     // Project configuration.
@@ -77,7 +79,46 @@ module.exports = function(grunt) {
                 dest: 'docs/dist',      // destination folder
                 expand: true            // required when using cwd
             }
+        },
+        release: {
+            options: {
+                additionalFiles: ['bootstrap-table.jquery.json'],
+                beforeRelease: ['docs', 'default']
+            }
         }
+    });
+
+    var bumpVersion = function (path, version, startWith) {
+        var lines = fs.readFileSync(path, 'utf8').split('\n');
+        lines.forEach(function (line, i) {
+            if (line.indexOf(startWith) === 0) {
+                lines[i] = startWith + version;
+            }
+        });
+        fs.writeFileSync(path, lines.join('\n'), 'utf8');
+
+        grunt.log.ok('bumped version of ' + path + ' to ' + version);
+    };
+
+    grunt.registerTask('docs', 'build the docs', function () {
+        var version = require('./package.json').version;
+        bumpVersion('./_config.yml', version, 'current_version: ');
+        bumpVersion('./src/bootstrap-table.js', version, ' * version: ');
+        bumpVersion('./src/bootstrap-table.css', version, ' * version: ');
+
+        var changeLog = fs.readFileSync('./CHANGELOG.md', 'utf8');
+        var latestLogs = changeLog.split('### ')[1];
+        var date = new Date();
+
+        var lines = [
+            '### Latest release (' +
+            [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-') + ')',
+            '',
+            '#### v' + latestLogs
+        ];
+        fs.writeFileSync('./docs/_includes/latest-release.md', lines.join('\n'), 'utf8');
+
+        grunt.log.ok('updated the latest-release.md to ' + version);
     });
 
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -85,6 +126,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-release');
 
     grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy']);
 };
