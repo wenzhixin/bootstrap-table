@@ -124,6 +124,46 @@
         }
     };
 
+    var initFilterSelectControls = function (bootstrapTable) {
+        var data = bootstrapTable.options.data,
+            itemsPerPage = bootstrapTable.pageTo < bootstrapTable.options.data.length ? bootstrapTable.options.data.length : bootstrapTable.pageTo,
+
+            isColumnSearchableViaSelect = function (column) {
+                return column.filterControl && column.filterControl.toLowerCase() === 'select' && column.searchable;
+            },
+
+            isFilterDataNotGiven = function (column) {
+                return column.filterData === undefined || column.filterData.toLowerCase() === 'column';
+            },
+
+            hasSelectControlElement = function (selectControl) {
+                return selectControl && selectControl.length > 0;
+            };
+
+        for (var i = bootstrapTable.pageFrom - 1; i < bootstrapTable.pageTo; i++) {
+
+            $.each(bootstrapTable.header.fields, function (j, field) {
+                var column = bootstrapTable.columns[$.fn.bootstrapTable.utils.getFieldIndex(bootstrapTable.columns, field)],
+                    selectControl = $('.' + column.field);
+
+
+                if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
+                    if (selectControl.get(selectControl.length - 1).options.length === 0) {
+                        //Added the default option
+                        addOptionToSelectControl(selectControl, '', '');
+                    }
+
+                    //Added a new value
+                    var fieldValue = data[i][field],
+                        formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(bootstrapTable.header, bootstrapTable.header.formatters[j], [fieldValue, data[i], i], fieldValue);
+
+                    addOptionToSelectControl(selectControl, fieldValue, formattedValue);
+                }
+            });
+        }
+
+    }
+
     var createControls = function (that, header) {
         var addedFilterControl = false,
             isVisible,
@@ -372,37 +412,7 @@
     BootstrapTable.prototype.initBody = function () {
         _initBody.apply(this, Array.prototype.slice.apply(arguments));
 
-        var that = this,
-            data = this.options.data,
-            pageTo = this.pageTo < this.options.data.length ? this.options.data.length : this.pageTo;
-
-        for (var i = this.pageFrom - 1; i < pageTo; i++) {
-            var item = data[i];
-
-            $.each(this.header.fields, function (j, field) {
-                var value = item[field],
-                    column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)];
-
-                value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, that.header.formatters[j], [value, item, i], value);
-
-                if ((!column.checkbox) || (!column.radio)) {
-                    if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select' && column.searchable) {
-                        if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
-                            var selectControl = $('.' + column.field);
-                            if (selectControl !== undefined && selectControl.length > 0) {
-                                if (selectControl.get(selectControl.length - 1).options.length === 0) {
-                                    //Added the default option
-                                    addOptionToSelectControl(selectControl, '', '');
-                                }
-
-                                //Added a new value
-                                addOptionToSelectControl(selectControl, value, value);
-                            }
-                        }
-                    }
-                }
-            });
-        }
+        initFilterSelectControls(this);
     };
 
     BootstrapTable.prototype.initSearch = function () {
