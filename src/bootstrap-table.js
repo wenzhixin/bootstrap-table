@@ -120,7 +120,7 @@
                 
                 for(k = jCurrentCol; k < (jCurrentCol + jColSpan); k++)
                 {
-                	vColumns[k][i] = i + "." + j;
+                    vColumns[k][i] = i + "." + j;
                     if(i > 0) {
                       	if(typeof columns[i][j].parents === 'undefined') {
                         	columns[i][j].parents = [];
