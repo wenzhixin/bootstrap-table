@@ -107,6 +107,32 @@
                 }
             }
         }
+        
+        var vColumns = []; // new Array(totalCol);
+        for(k = 0; k < totalCol; k++){
+            vColumns[k] = [];
+        }
+        
+        for (i = 0; i < columns.length; i++) {
+            var jCurrentCol = 0;
+            for (j = 0; j < columns[i].length; j++) {
+                var jColSpan = columns[i][j].colspan || 1;
+                
+                for(k = jCurrentCol; k < (jCurrentCol + jColSpan); k++)
+                {
+                	vColumns[k][i] = i + "." + j;
+                    if(i > 0) {
+                      	if(typeof columns[i][j].parents === 'undefined') {
+                        	columns[i][j].parents = [];
+                        }
+                        $.each(vColumns[k].slice(0,i), function(vcolInd,vcolVal) {
+            	          	columns[i][j].parents.push(vcolVal);            
+                        });
+                    }
+                }
+                jCurrentCol += jColSpan;
+            }
+        }
     };
 
     var getScrollBarWidth = function () {
@@ -703,6 +729,20 @@
             cellStyles: [],
             searchables: []
         };
+            
+        $.each(this.options.columns, function(i, columns) {
+            $.each(columns, function(j, column) {
+                column.colspan = 0;
+                if(typeof column.parents !== 'undefined') {
+                    $.each(column.parents,function(k,lookupStr) {              
+                    	var lookupKeys = lookupStr.split("."),
+                      	    parentCol = that.options.columns[lookupKeys[0]][lookupKeys[1]];
+                        parentCol.colspan += (column.visible) ? 1 : -1;
+                        parentCol.visible = (parentCol.colspan > 0);
+                  	});
+                }
+            });
+        });
 
         $.each(this.options.columns, function (i, columns) {
             html.push('<tr>');
