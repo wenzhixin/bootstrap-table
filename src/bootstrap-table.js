@@ -644,7 +644,9 @@
             return;
         }
 
-        this.$el.find('>tbody>tr').each(function () {
+        this.fromHtml = true;
+        var m = [];
+        this.$el.find('>tbody>tr').each(function (y) {
             var row = {};
 
             // save tr's id, class and data-* attributes
@@ -652,14 +654,31 @@
             row._class = $(this).attr('class');
             row._data = getRealDataAttr($(this).data());
 
-            $(this).find('td').each(function (i) {
-                var field = that.columns[i].field;
+            $(this).find('td').each(function (x) {
+                var $this = $(this),
+                    cspan = +$this.attr('colspan') || 1,
+                    rspan = +$this.attr('rowspan') || 1,
+                    tx, ty;
+
+                for (; m[y] && m[y][x]; x++); //skip already occupied cells in current row
+
+                for (tx = x; tx < x + cspan; tx++) { //mark matrix elements occupied by current cell with true
+                    for (ty = y; ty < y + rspan; ty++) {
+                        if (!m[ty]) { //fill missing rows
+                            m[ty] = [];
+                        }
+                        m[ty][tx] = true;
+                    }
+                }
+
+                var field = that.columns[x].field;
 
                 row[field] = $(this).html();
                 // save td's id, class and data-* attributes
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
                 row['_' + field + '_rowspan'] = $(this).attr('rowspan');
+                row['_' + field + '_colspan'] = $(this).attr('colspan');
                 row['_' + field + '_title'] = $(this).attr('title');
                 row['_' + field + '_data'] = getRealDataAttr($(this).data());
             });
@@ -1563,8 +1582,13 @@
                     class_ = that.header.classes[j],
                     data_ = '',
                     rowspan_ = '',
+                    colspan_ = '',
                     title_ = '',
                     column = that.columns[j];
+
+                if (that.fromHtml && typeof value === 'undefined') {
+                    return;
+                }
 
                 if (!column.visible) {
                     return;
@@ -1588,6 +1612,9 @@
                 }
                 if (item['_' + field + '_rowspan']) {
                     rowspan_ = sprintf(' rowspan="%s"', item['_' + field + '_rowspan']);
+                }
+                if (item['_' + field + '_colspan']) {
+                    colspan_ = sprintf(' colspan="%s"', item['_' + field + '_colspan']);
                 }
                 if (item['_' + field + '_title']) {
                     title_ = sprintf(' title="%s"', item['_' + field + '_title']);
@@ -1645,7 +1672,8 @@
                             getPropertyFromOther(that.columns, 'field', 'title', field)) : '',
                         sprintf('<span class="value">%s</span>', value),
                         '</div>'
-                    ].join('') : [sprintf('<td%s %s %s %s %s %s>', id_, class_, style, data_, rowspan_, title_),
+                    ].join('') : [sprintf('<td%s %s %s %s %s %s %s>',
+                        id_, class_, style, data_, rowspan_, colspan_, title_),
                         value,
                         '</td>'
                     ].join('');
