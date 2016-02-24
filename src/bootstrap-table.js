@@ -229,6 +229,16 @@
         return !!(navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./));
     };
 
+    var fitHeaderOnDocumentResizeEvent = function (that) {
+        if (that.options.height) {
+            $(window).resize(function () {
+                setTimeout (function () {
+                    that.fitHeader();
+                }, 250);
+            });
+        }
+    };
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -2168,6 +2178,7 @@
             this.$tableHeader.show();
             this.resetHeader();
             padding += this.$header.outerHeight();
+            fitHeaderOnDocumentResizeEvent(this);
         } else {
             this.$tableHeader.hide();
             this.trigger('post-header');
