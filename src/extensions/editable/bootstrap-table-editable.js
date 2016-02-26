@@ -67,8 +67,8 @@
                 var result = _formatter ? _formatter(value, row, index) : value;
 
                 $.each(column, processDataOptions);
-                
-                if (column.editable.conditional == false) {
+                var _dont_edit_formatter = column.editable.conditional = column.editable.conditional;
+                if (_dont_edit_formatter !== false) {
                     $.each(editableOptions, function (key, value) {
                         editableDataMarkup.push(' ' + key + '="' + value + '"');
                     });
@@ -81,7 +81,6 @@
                         '>' + '</a>'
                     ].join('');
                 } else {
-                    var _dont_edit_formatter = column.editable.conditional;
                     return _dont_edit_formatter(value, row, index);
                 }
             };
