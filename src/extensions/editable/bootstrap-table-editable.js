@@ -54,7 +54,9 @@
               var dashKey = key.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
               if (dashKey.slice(0, editableDataPrefix.length) == editableDataPrefix) {
                 var dataKey = dashKey.replace(editableDataPrefix, 'data-');
-                editableOptions[dataKey] = value;
+                if (dataKey!="conditional") {
+                    editableOptions[dataKey] = value;
+                }
               }
             };
 
