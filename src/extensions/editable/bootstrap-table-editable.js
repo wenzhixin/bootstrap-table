@@ -65,18 +65,22 @@
                 var result = _formatter ? _formatter(value, row, index) : value;
 
                 $.each(column, processDataOptions);
-
-                $.each(editableOptions, function (key, value) {
-                    editableDataMarkup.push(' ' + key + '="' + value + '"');
-                });
-
-                return ['<a href="javascript:void(0)"',
-                    ' data-name="' + column.field + '"',
-                    ' data-pk="' + row[that.options.idField] + '"',
-                    ' data-value="' + result + '"',
-                    editableDataMarkup.join(''),
-                    '>' + '</a>'
-                ].join('');
+                if (!editableOptions["conditional"]) {
+                    $.each(editableOptions, function (key, value) {
+                        editableDataMarkup.push(' ' + key + '="' + value + '"');
+                    });
+    
+                    return ['<a href="javascript:void(0)"',
+                        ' data-name="' + column.field + '"',
+                        ' data-pk="' + row[that.options.idField] + '"',
+                        ' data-value="' + result + '"',
+                        editableDataMarkup.join(''),
+                        '>' + '</a>'
+                    ].join('');
+                } else {
+                    var _dont_edit_formatter = editableOptions["conditional"];
+                    return _dont_edit_formatter(value, row, index);
+                }
             };
         });
     };
