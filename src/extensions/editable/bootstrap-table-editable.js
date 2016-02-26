@@ -21,7 +21,6 @@
         onEditableHidden: function (field, row, $el, reason) {
             return false;
         }
-        conditional: false;
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -66,7 +65,7 @@
                 var result = _formatter ? _formatter(value, row, index) : value;
 
                 $.each(column, processDataOptions);
-                if (!this.options.conditional) {
+                if (!column.options.conditional) {
                     $.each(editableOptions, function (key, value) {
                         editableDataMarkup.push(' ' + key + '="' + value + '"');
                     });
