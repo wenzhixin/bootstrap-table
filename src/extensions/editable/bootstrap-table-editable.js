@@ -81,7 +81,7 @@
                         '>' + '</a>'
                     ].join('');
                 } else {
-                    var _dont_edit_formatter = that.options.conditional;
+                    var _dont_edit_formatter = column.editable.conditional;
                     return _dont_edit_formatter(value, row, index);
                 }
             };
