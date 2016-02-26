@@ -78,7 +78,7 @@
                         '>' + '</a>'
                     ].join('');
                 } else {
-                    var _dont_edit_formatter = editableOptions["conditional"];
+                    var _dont_edit_formatter = that.options.conditional;
                     return _dont_edit_formatter(value, row, index);
                 }
             };
