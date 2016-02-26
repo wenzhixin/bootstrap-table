@@ -66,7 +66,7 @@
                 var result = _formatter ? _formatter(value, row, index) : value;
 
                 $.each(column, processDataOptions);
-                if (!editableOptions["conditional"]) {
+                if (!this.options.conditional) {
                     $.each(editableOptions, function (key, value) {
                         editableDataMarkup.push(' ' + key + '="' + value + '"');
                     });
