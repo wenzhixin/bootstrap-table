@@ -162,7 +162,7 @@
             });
         }
 
-    }
+    };
 
     var createControls = function (that, header) {
         var addedFilterControl = false,
