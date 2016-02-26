@@ -21,6 +21,7 @@
         onEditableHidden: function (field, row, $el, reason) {
             return false;
         }
+        conditional: false;
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
