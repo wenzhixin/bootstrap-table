@@ -68,7 +68,7 @@
 
                 $.each(column, processDataOptions);
                 
-                if (!that.options.conditional) {
+                if (!column.editable.conditional) {
                     $.each(editableOptions, function (key, value) {
                         editableDataMarkup.push(' ' + key + '="' + value + '"');
                     });
