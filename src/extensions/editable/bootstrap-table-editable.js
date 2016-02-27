@@ -53,11 +53,6 @@
               // Replace camel case with dashes.
               var dashKey = key.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
               if (dashKey.slice(0, editableDataPrefix.length) == editableDataPrefix) {
-//      if (dataKey != "noedit") {
-//                    editableOptions[dataKey] = value;
-//                }
-
-
                 var dataKey = dashKey.replace(editableDataPrefix, 'data-');
                 editableOptions[dataKey] = value;
               }
