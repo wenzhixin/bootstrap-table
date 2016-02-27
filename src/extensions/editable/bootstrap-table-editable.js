@@ -53,10 +53,13 @@
               // Replace camel case with dashes.
               var dashKey = key.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
               if (dashKey.slice(0, editableDataPrefix.length) == editableDataPrefix) {
+//      if (dataKey != "noedit") {
+//                    editableOptions[dataKey] = value;
+//                }
+
+
                 var dataKey = dashKey.replace(editableDataPrefix, 'data-');
-                if (dataKey!="conditional") {
-                    editableOptions[dataKey] = value;
-                }
+                editableOptions[dataKey] = value;
               }
             };
 
@@ -67,12 +70,17 @@
                 var result = _formatter ? _formatter(value, row, index) : value;
 
                 $.each(column, processDataOptions);
-                var _dont_edit_formatter = column.editable.conditional = column.editable.conditional;
-                if (_dont_edit_formatter !== false) {
-                    $.each(editableOptions, function (key, value) {
-                        editableDataMarkup.push(' ' + key + '="' + value + '"');
-                    });
-    
+
+                $.each(editableOptions, function (key, value) {
+                    editableDataMarkup.push(' ' + key + '="' + value + '"');
+                });
+                
+                var _dont_edit_formatter = false;
+                if (column.editable.hasOwnProperty('noedit')) {
+                    _dont_edit_formatter = column.editable.noedit(value, row, index);
+                }
+  
+                if (_dont_edit_formatter === false) {
                     return ['<a href="javascript:void(0)"',
                         ' data-name="' + column.field + '"',
                         ' data-pk="' + row[that.options.idField] + '"',
@@ -81,8 +89,9 @@
                         '>' + '</a>'
                     ].join('');
                 } else {
-                    return _dont_edit_formatter(value, row, index);
+                    return _dont_edit_formatter;
                 }
+
             };
         });
     };
@@ -133,3 +142,6 @@
     };
 
 }(jQuery);
+
+
+  
