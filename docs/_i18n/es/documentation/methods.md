@@ -229,6 +229,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>Obtiene las columnas ocultas.</td>
     </tr>
     <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>Retorna las columnas visibles.</td>
+    </tr>
+    <tr>
         <td>scrollTo</td>
         <td>value</td>
         <td>Setea la posición del scroll, setear 'bottom' significa setear la posición del scroll al final de la tabla.</td>

@@ -263,6 +263,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>Get hidden columns.</td>
     </tr>
     <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>Get visible columns.</td>
+    </tr>
+    <tr>
         <td>scrollTo</td>
         <td>value</td>
         <td>Scroll to the number value position, the unit is 'px', set 'bottom' means scroll to the bottom.</td>
