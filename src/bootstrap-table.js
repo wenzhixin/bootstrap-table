@@ -241,7 +241,7 @@
         return !!(navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./));
     };
 
-    var fitHeaderOnDocumentResizeEvent = function (that) {
+    var fitHeaderOnWindowResizeEvent = function (that) {
         if (that.options.height) {
             $(window).resize(function () {
                 setTimeout (function () {
@@ -845,6 +845,7 @@
             this.$tableLoading.css('top', this.$header.outerHeight() + 1);
             // Assign the correct sortable arrow
             this.getCaret();
+            fitHeaderOnWindowResizeEvent(this);
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
@@ -2227,7 +2228,6 @@
             this.$tableHeader.show();
             this.resetHeader();
             padding += this.$header.outerHeight();
-            fitHeaderOnDocumentResizeEvent(this);
         } else {
             this.$tableHeader.hide();
             this.trigger('post-header');
