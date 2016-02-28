@@ -1,20 +1,21 @@
 {
   "name": "bootstrap-table",
   "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3).",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "main": "Gruntfile.js",
   "directories": {
     "doc": "docs"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^1.1.5",
-    "grunt-contrib-copy": "^0.8.0",
-    "grunt-contrib-concat": "^0.5.1",
+    "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-cssmin": "^0.12.2",
-    "grunt-contrib-uglify": "^0.8.0",
     "grunt-contrib-jshint": "^0.10.0",
-    "grunt": "^0.4.5"
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-release": "^0.13.0"
   },
   "repository": {
     "type": "git",
