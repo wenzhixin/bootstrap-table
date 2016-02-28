@@ -37,6 +37,12 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set `input`: show an input control, `select`: show a select control, `datepicker`: show a datepicker control.
 * default: `undefined`
 
+### filterData
+
+* type: String
+* description: Set custom select filter values, use `var:variable` to load from a variable or `url:http://www.example.com/data.json` to load from json file. 
+* default: `undefined`
+
 ### filterDatepickerOptions
 * type: Object
 * description: If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"autoclose":true, "clearBtn": true, "todayHighlight": true}'`.
