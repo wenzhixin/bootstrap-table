@@ -1829,7 +1829,7 @@
         this.updateSelected();
         this.resetView();
 
-        this.trigger('post-body');
+        this.trigger('post-body', data);
     };
 
     BootstrapTable.prototype.initServer = function (silent, query) {
