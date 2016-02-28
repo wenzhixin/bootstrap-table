@@ -300,10 +300,19 @@
         if (singleSelect) {
             $('tbody tr td.bs-checkbox input:checked').click();
         }
+
+        if(!that.options.filterMaintainSelected){
+            var checkedCheckboxes = $('tbody tr td.bs-checkbox input[type="checkbox"]:checked');
+            $.each(checkedCheckboxes, function (i, item) {
+                item.click();
+            });
+            console.log(that);
+        }
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
         filterControl: false,
+        filterMaintainSelected: true,
         onColumnSearch: function (field, text) {
             return false;
         },

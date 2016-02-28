@@ -53,6 +53,11 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set to true if you want to use the strict search mode.
 * default: `false`
 
+### filterMaintainSelected
+* type: Boolean
+* description: True to maintain selected rows on filter.
+* default: `true`
+
 ### Icons
 * clear: 'glyphicon-trash icon-clear'
 
