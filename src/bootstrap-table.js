@@ -1611,9 +1611,6 @@
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
 
-                value = calculateObjectValue(column,
-                    that.header.formatters[j], [value, item, i], value);
-
                 // handle td's id and class
                 if (item['_' + field + '_id']) {
                     id_ = sprintf(' id="%s"', item['_' + field + '_id']);
@@ -1642,6 +1639,9 @@
                     }
                     style = sprintf('style="%s"', csses_.concat(that.header.styles[j]).join('; '));
                 }
+
+                value = calculateObjectValue(column,
+                    that.header.formatters[j], [value, item, i], value);
 
                 if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
                     $.each(item['_' + field + '_data'], function (k, v) {
