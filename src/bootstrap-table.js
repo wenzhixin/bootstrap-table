@@ -658,7 +658,7 @@
             row._class = $(this).attr('class');
             row._data = getRealDataAttr($(this).data());
 
-            $(this).find('td').each(function (x) {
+            $(this).find('>td').each(function (x) {
                 var $this = $(this),
                     cspan = +$this.attr('colspan') || 1,
                     rspan = +$this.attr('rowspan') || 1,
