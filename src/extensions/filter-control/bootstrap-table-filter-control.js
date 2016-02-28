@@ -228,6 +228,7 @@
 
         if (addedFilterControl) {
             header.off('keyup', 'input').on('keyup', 'input', function (event) {
+                resetCheckboxes(that);
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -235,6 +236,7 @@
             });
 
             header.off('change', 'select').on('change', 'select', function (event) {
+                resetCheckboxes(that);
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -289,6 +291,14 @@
                 return 'auto';
             default:
                 return 'ltr'
+        }
+    };
+
+    var resetCheckboxes = function(that) {
+        var singleSelect = that.options.singleSelect;
+
+        if (singleSelect) {
+            $('tbody tr td.bs-checkbox input:checked').click();
         }
     };
 
