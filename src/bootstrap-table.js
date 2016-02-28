@@ -2110,7 +2110,7 @@
         });
 
         this.$tableFooter.find('tr').html(html.join(''));
-		this.$tableFooter.show();
+        this.$tableFooter.show();
         clearTimeout(this.timeoutFooter_);
         this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this),
             this.$el.is(':hidden') ? 100 : 0);
@@ -2219,7 +2219,7 @@
             // remove the element css
             this.$el.css('margin-top', '0');
             this.$tableContainer.css('padding-bottom', '0');
-			this.$tableFooter.hide();
+            this.$tableFooter.hide();
             return;
         }
 
