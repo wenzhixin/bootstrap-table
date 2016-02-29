@@ -2640,6 +2640,12 @@
         });
     };
 
+    BootstrapTable.prototype.getVisibleColumns = function () {
+        return $.grep(this.columns, function (column) {
+            return column.visible;
+        });
+    };
+
     BootstrapTable.prototype.toggleAllColumns = function (visible) {
         $.each(this.columns, function (i, column) {
             this.columns[i].visible = visible;
@@ -2833,7 +2839,7 @@
         'resetWidth',
         'destroy',
         'showLoading', 'hideLoading',
-        'showColumn', 'hideColumn', 'getHiddenColumns',
+        'showColumn', 'hideColumn', 'getHiddenColumns', 'getVisibleColumns',
         'showAllColumns', 'hideAllColumns',
         'filterBy',
         'scrollTo',
