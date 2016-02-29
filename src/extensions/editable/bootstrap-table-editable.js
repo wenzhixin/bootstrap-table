@@ -71,7 +71,7 @@
                 });
                 
                 var _dont_edit_formatter = false;
-                if (column.editable.hasOwnProperty('noedit')) {
+                if (column.editable.hasOwnProperty('noeditFormatter')) {
                     _dont_edit_formatter = column.editable.noedit(value, row, index);
                 }
   
