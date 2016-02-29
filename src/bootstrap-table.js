@@ -1840,7 +1840,8 @@
             }
 
             var field = that.header.fields[i],
-                fieldIndex = getFieldIndexFromColumnIndex(that.columns, i);
+                // Fix #1578 - TODO REVERTME DEBUG - temp disable to rule this out from breaking my changes
+                fieldIndex = $.inArray(field, that.getVisibleFields()); // getFieldIndexFromColumnIndex(that.columns, i);
 
             if (that.options.detailView && !that.options.cardView) {
                 fieldIndex += 1;
