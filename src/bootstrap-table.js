@@ -737,7 +737,7 @@
                     $.each(column.parents,function(k,lookupStr) {              
                     	var lookupKeys = lookupStr.split("."),
                       	    parentCol = that.options.columns[lookupKeys[0]][lookupKeys[1]];
-                        parentCol.colspan += (column.visible) ? 1 : -1;
+                        parentCol.colspan += parentCol.colspan += (column.visible) ? 1 : (parentCol.colspan > 0) ? -1 : 0;
                         parentCol.visible = (parentCol.colspan > 0);
                   	});
                 }
@@ -799,6 +799,10 @@
                     }
 
                     visibleColumns[column.field] = column;
+                    
+                } else if (!column.visible) {
+                    // Fix #1578 - needed to pickup on multi-level th visibility
+                    return;
                 }
 
                 html.push('<th' + sprintf(' title="%s"', column.titleTooltip),
