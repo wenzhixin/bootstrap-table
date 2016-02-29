@@ -40,6 +40,18 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>getAllSelections</td>
     </tr>
     <tr>
+        <td>showAllColumns</td>
+        <td>none</td>
+        <td>Show All the columns.</td>
+        <td>showAllColumns</td>
+    </tr>
+    <tr>
+        <td>hideAllColumns</td>
+        <td>none</td>
+        <td>Hide All the columns.</td>
+        <td>hidAllColumns</td>
+    </tr>
+    <tr>
         <td>getData</td>
         <td>useCurrentPage</td>
         <td>Get the loaded data of table at the moment that this method is called. If you set the useCurrentPage to true the method will return the data in the current page.</td>
