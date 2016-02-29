@@ -732,12 +732,12 @@
             
         $.each(this.options.columns, function(i, columns) {
             $.each(columns, function(j, column) {
-                column.colspan = 0;
+                column.colspan = 1;
                 if(typeof column.parents !== 'undefined') {
                     $.each(column.parents,function(k,lookupStr) {              
                     	var lookupKeys = lookupStr.split("."),
                       	    parentCol = that.options.columns[lookupKeys[0]][lookupKeys[1]];
-                        parentCol.colspan += parentCol.colspan += (column.visible) ? 1 : (parentCol.colspan > 0) ? -1 : 0;
+                        parentCol.colspan += (column.visible) ? 1 : (parentCol.colspan > 0) ? -1 : 0;
                         parentCol.visible = (parentCol.colspan > 0);
                   	});
                 }
