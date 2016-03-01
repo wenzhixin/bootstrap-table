@@ -72,7 +72,7 @@
                 
                 var _dont_edit_formatter = false;
                 if (column.editable.hasOwnProperty('noeditFormatter')) {
-                    _dont_edit_formatter = column.editable.noedit(value, row, index);
+                    _dont_edit_formatter = column.editable.noeditFormatter(value, row, index);
                 }
   
                 if (_dont_edit_formatter === false) {
