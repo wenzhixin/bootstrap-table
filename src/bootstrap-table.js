@@ -241,16 +241,6 @@
         return !!(navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./));
     };
 
-    var fitHeaderOnWindowResizeEvent = function (that) {
-        if (that.options.height) {
-            $(window).resize(function () {
-                setTimeout (function () {
-                    that.fitHeader();
-                }, 250);
-            });
-        }
-    };
-
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -836,6 +826,7 @@
             }
         });
 
+        $(window).off('resize.bootstrap-table');
         if (!this.options.showHeader || this.options.cardView) {
             this.$header.hide();
             this.$tableHeader.hide();
@@ -846,7 +837,7 @@
             this.$tableLoading.css('top', this.$header.outerHeight() + 1);
             // Assign the correct sortable arrow
             this.getCaret();
-            fitHeaderOnWindowResizeEvent(this);
+            $(window).on('resize.bootstrap-table', $.proxy(this.resetWidth, this));
         }
 
         this.$selectAll = this.$header.find('[name="btSelectAll"]');
