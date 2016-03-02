@@ -120,7 +120,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>updateRow</td>
         <td>params</td>
         <td>
-        Update the specified row, the param contains following properties: <br>
+        Update the specified row(s), each param contains following properties: <br>
         index: the row index to be updated. <br>
         row: the new row data.
         </td>
@@ -129,7 +129,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>updateByUniqueId</td>
         <td>params</td>
         <td>
-        Update the specified row, the param contains following properties: <br>
+        Update the specified row(s), each param contains following properties: <br>
         id: a row id where the id should be the uniqueid field assigned to the table. <br>
         row: the new row data.
         </td>
@@ -273,6 +273,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>getHiddenColumns</td>
         <td>-</td>
         <td>Get hidden columns.</td>
+    </tr>
+    <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>Get visible columns.</td>
     </tr>
     <tr>
         <td>scrollTo</td>

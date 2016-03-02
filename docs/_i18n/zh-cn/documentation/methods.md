@@ -259,6 +259,11 @@
         <td>获取隐藏的列。</td>
     </tr>
     <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>获取可见列。</td>
+    </tr>
+    <tr>
         <td>scrollTo</td>
         <td>value</td>
         <td>滚动到指定位置，单位为 px，设置 'bottom' 表示跳到最后。</td>
