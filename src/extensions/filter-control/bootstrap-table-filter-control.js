@@ -222,6 +222,12 @@
                             addOptionToSelectControl(selectControl, key, variableValues[key]);
                         }
                         break;
+                    case 'jso':
+                        var variableValues = JSON.parse(filterDataSource);
+                        for (var key in variableValues) {
+                            addOptionToSelectControl(selectControl, key, variableValues[key]);
+                        }
+                        break;
                 }
             }
         });
