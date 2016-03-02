@@ -228,6 +228,7 @@
 
         if (addedFilterControl) {
             header.off('keyup', 'input').on('keyup', 'input', function (event) {
+                resetCheckboxes(that);
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -235,6 +236,7 @@
             });
 
             header.off('change', 'select').on('change', 'select', function (event) {
+                resetCheckboxes(that);
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -292,8 +294,25 @@
         }
     };
 
+    var resetCheckboxes = function(that) {
+        var singleSelect = that.options.singleSelect;
+
+        if (singleSelect) {
+            $('tbody tr td.bs-checkbox input:checked').click();
+        }
+
+        if(!that.options.filterMaintainSelected){
+            var checkedCheckboxes = $('tbody tr td.bs-checkbox input[type="checkbox"]:checked');
+            $.each(checkedCheckboxes, function (i, item) {
+                item.click();
+            });
+            console.log(that);
+        }
+    };
+
     $.extend($.fn.bootstrapTable.defaults, {
         filterControl: false,
+        filterMaintainSelected: true,
         onColumnSearch: function (field, text) {
             return false;
         },
