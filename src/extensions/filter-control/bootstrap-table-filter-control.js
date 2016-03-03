@@ -210,7 +210,7 @@
                     addOptionToSelectControl(selectControl, '', '');
                     filterDataType(filterDataSource, selectControl);
                 } else {
-                    throw new SyntaxError('Error. You should use any of this allowed filter data methods: ' + filterDataAllowedMethods.join(', ') + '. Use like this: var: {key: "value"}');
+                    throw new SyntaxError('Error. You should use any of these allowed filter data methods: var, json, url.' + ' Use like this: var: {key: "value"}');
                 }
             }
         });
