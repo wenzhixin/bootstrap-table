@@ -1,14 +1,15 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.0.0
+ * @version: v2.0.0
  */
 
 !function ($) {
 
     'use strict';
 
-    var sprintf = $.fn.bootstrapTable.utils.sprintf;
+    var sprintf = $.fn.bootstrapTable.utils.sprintf,
+        objectKeys = $.fn.bootstrapTable.utils.objectKeys;
 
     var addOptionToSelectControl = function (selectControl, value, text) {
         value = $.trim(value);
@@ -198,30 +199,18 @@
                     return false;
                 }
             });
-            if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
-                var filterDataType = column.filterData.substring(0, 3);
-                var filterDataSource = column.filterData.substring(4, column.filterData.length);
-                var selectControl = $('.' + column.field);
-                addOptionToSelectControl(selectControl, '', '');
 
-                switch (filterDataType) {
-                    case 'url':
-                        $.ajax({
-                            url: filterDataSource,
-                            dataType: 'json',
-                            success: function (data) {
-                                $.each(data, function (key, value) {
-                                    addOptionToSelectControl(selectControl, key, value);
-                                });
-                            }
-                        });
-                        break;
-                    case 'var':
-                        var variableValues = window[filterDataSource];
-                        for (var key in variableValues) {
-                            addOptionToSelectControl(selectControl, key, variableValues[key]);
-                        }
-                        break;
+            if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
+                var filterDataType = getFilterDataMethod(filterDataMethods, column.filterData.substring(0, column.filterData.indexOf(':')));
+
+                if (filterDataType !== null) {
+                    var filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length),
+                        selectControl = $('.' + column.field);
+
+                    addOptionToSelectControl(selectControl, '', '');
+                    filterDataType(filterDataSource, selectControl);
+                } else {
+                    throw new SyntaxError('Error. You should use any of this allowed filter data methods: ' + filterDataAllowedMethods.join(', ') + '. Use like this: var: {key: "value"}');
                 }
             }
         });
@@ -292,6 +281,43 @@
         }
     };
 
+    var filterDataMethods =
+        {
+            'var': function (filterDataSource, selectControl) {
+                var variableValues = window[filterDataSource];
+                for (var key in variableValues) {
+                    addOptionToSelectControl(selectControl, key, variableValues[key]);
+                }
+            },
+            'url': function (filterDataSource, selectControl) {
+                $.ajax({
+                    url: filterDataSource,
+                    dataType: 'json',
+                    success: function (data) {
+                        $.each(data, function (key, value) {
+                            addOptionToSelectControl(selectControl, key, value);
+                        });
+                    }
+                });
+            },
+            'json':function (filterDataSource, selectControl) {
+                var variableValues = JSON.parse(filterDataSource);
+                for (var key in variableValues) {
+                    addOptionToSelectControl(selectControl, key, variableValues[key]);
+                }
+            }
+        };
+
+    var getFilterDataMethod = function (objFilterDataMethod, searchTerm) {
+        var keys = Object.keys(objFilterDataMethod);
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] === searchTerm) {
+                return objFilterDataMethod[searchTerm];
+            }
+        }
+        return null;
+    };
+
     $.extend($.fn.bootstrapTable.defaults, {
         filterControl: false,
         onColumnSearch: function (field, text) {
@@ -341,6 +367,12 @@
         //Make sure that the filterControl option is set
         if (this.options.filterControl) {
             var that = this;
+
+            // Compatibility: IE < 9 and old browsers
+            if (!Object.keys) {
+                objectKeys();
+            }
+
             //Make sure that the internal variables are set correctly
             this.options.valuesFilterControl = [];
 
