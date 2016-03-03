@@ -53,6 +53,11 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set to true if you want to use the strict search mode.
 * default: `false`
 
+### filterStartsWithSearch
+* type: Boolean
+* description: Set to true if you want to use the starts with search mode.
+* default: `false`
+
 ### Icons
 * clear: 'glyphicon-trash icon-clear'
 
