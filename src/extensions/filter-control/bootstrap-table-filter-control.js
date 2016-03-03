@@ -325,7 +325,8 @@
         filterControl: undefined,
         filterData: undefined,
         filterDatepickerOptions: undefined,
-        filterStrictSearch: false
+        filterStrictSearch: false,
+        filterStartsWithSearch: false
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -451,6 +452,13 @@
                         value.toString().toLowerCase() === fval.toString().toLowerCase())) {
                         return false;
                     }
+                }
+                else if(thisColumn.filterStartsWithSearch){
+                  if (!($.inArray(key, that.header.fields) !== -1 &&
+                      (typeof value === 'string' || typeof value === 'number') &&
+                      (value + '').toLowerCase().indexOf(fval) == 0)) {
+                      return false;
+                  }
                 }
                 else {
                     if (!($.inArray(key, that.header.fields) !== -1 &&
