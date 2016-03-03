@@ -58,6 +58,18 @@
         <td>load</td>
     </tr>
     <tr>
+        <td>showAllColumns</td>
+        <td>none</td>
+        <td>Show All the columns.</td>
+        <td>showAllColumns</td>
+    </tr>
+    <tr>
+        <td>hideAllColumns</td>
+        <td>none</td>
+        <td>Hide All the columns.</td>
+        <td>hidAllColumns</td>
+    </tr>
+    <tr>
         <td>append</td>
         <td>data</td>
         <td>添加数据到表格在现有数据之后。</td>
