@@ -853,8 +853,11 @@
         });
         this.$container.off('click', '.th-inner').on('click', '.th-inner', function (event) {
             var target = $(this);
-            if (target.closest('.bootstrap-table')[0] !== that.$container[0])
-                return false;
+
+            if (that.options.detailView) {
+                if (target.closest('.bootstrap-table')[0] !== that.$container[0])
+                    return false;
+            }
 
             if (that.options.sortable && target.parent().data().sortable) {
                 that.onSort(event);
