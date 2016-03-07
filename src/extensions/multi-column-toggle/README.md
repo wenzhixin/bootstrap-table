@@ -2,7 +2,7 @@
 
 Use Plugin: [multi-column-toggle](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions/multi-column-toggle)
 
-Adds a button to the toolbar that hides and shows all collumns that are 'switchable'.
+Adds a button to the toolbar that hides and shows all columns that are 'switchable'.
 
 ## Usage
 
@@ -21,7 +21,7 @@ Adds a button to the toolbar that hides and shows all collumns that are 'switcha
 ### multiToggleDefaults
 
 * type: Array of Strings
-* description: Defines 'default' columns that will never be hidden with this extension. These are diffrent from 
+* description: Defines 'default' columns that will never be hidden with this extension. These are different from 
 * default: `[]`
 * example html: `data-multi-toggle-defaults='["column1", "column2"]'`
 
@@ -29,8 +29,8 @@ Adds a button to the toolbar that hides and shows all collumns that are 'switcha
 
 ### copyColumnsToClipboard
 
-* copys the contents of the selected rows to the clipboard.
+* copies the contents of the selected rows to the clipboard.
 
 ### copyColumnsToClipboardWithHidden
 
-* copys the contents of the selected rows to the clipboard, *including hidden rows*.
+* copies the contents of the selected rows to the clipboard, *including hidden rows*.
