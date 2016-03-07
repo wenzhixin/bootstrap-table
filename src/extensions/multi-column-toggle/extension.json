@@ -1,7 +1,7 @@
 {
   "name": "Multi Column Toggle",
   "version": "1.0.0",
-  "description": "Allows allows hiding and showing of multiple columns at once.",
+  "description": "Allows hiding and showing of multiple columns at once.",
   "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/multi-column-toggle",
   "example": "http://issues.wenzhixin.net.cn/bootstrap-table/#extensions/multi-column-toggle.html",
 
