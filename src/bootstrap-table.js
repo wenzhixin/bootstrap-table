@@ -2392,9 +2392,10 @@
             if (rowId === -1) {
                 return;
             }
-            $.extend(that.data[rowId], params.row);
+            $.extend(that.options.data[rowId], params.row);
         });
 
+        this.initSearch();
         this.initSort();
         this.initBody(true);
     };
@@ -2418,9 +2419,10 @@
             if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
                 return;
             }
-            $.extend(that.data[params.index], params.row);
+            $.extend(that.options.data[params.index], params.row);
         });
 
+        this.initSearch();
         this.initSort();
         this.initBody(true);
     };
