@@ -2,6 +2,8 @@
 
 Use Plugin: [copy-rows](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions/copy-rows)
 
+This extension adds functionality for copying selected rows to the clipboard. Currently works on all desktop browsers except safari.
+
 ## Usage
 
 ```html
@@ -25,7 +27,7 @@ Use Plugin: [copy-rows](https://github.com/wenzhixin/bootstrap-table/tree/develo
 ### copyDelemeter
 
 * type: String
-* description: This string will be inserted inbetween the column values when copying
+* description: This string will be inserted in-between the column values when copying
 * default: ` `
 
 ## Methods
