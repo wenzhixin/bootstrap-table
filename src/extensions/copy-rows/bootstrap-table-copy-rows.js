@@ -59,15 +59,15 @@
     };
 
     BootstrapTable.prototype.copyColumnsToClipboard = function () {
-        var self = this,
+        var that = this,
             ret = "",
             delimet = this.options.copyDelemeter;
 
-        $.each(self.getSelections(), function (index, row) {
-            $.each(self.options.columns[0], function (indy, column) {
+        $.each(that.getSelections(), function (index, row) {
+            $.each(that.options.columns[0], function (indy, column) {
                 if (column.field !== "state" && column.field !== "RowNumber" && column.visible) {
                     if (row[column.field] !== null) {
-                        ret += calculateObjectValue(column, self.header.formatters[indy], [row[column.field], row, index], row[column.field]);
+                        ret += calculateObjectValue(column, that.header.formatters[indy], [row[column.field], row, index], row[column.field]);
                     }
                     ret += delimet;
                 }
@@ -80,15 +80,15 @@
     };
 
     BootstrapTable.prototype.copyColumnsToClipboardWithHidden = function () {
-        var self = this,
+        var that = this,
             ret = "",
             delimet = this.options.copyDelemeter;
 
-        $.each(self.getSelections(), function (index, row) {
-            $.each(self.options.columns[0], function (indy, column) {
+        $.each(that.getSelections(), function (index, row) {
+            $.each(that.options.columns[0], function (indy, column) {
                 if (column.field != "state" && column.field !== "RowNumber") {
                     if (row[column.field] !== null) {
-                        ret += calculateObjectValue(column, self.header.formatters[indy], [row[column.field], row, index], row[column.field]);
+                        ret += calculateObjectValue(column, that.header.formatters[indy], [row[column.field], row, index], row[column.field]);
                     }
                     ret += delimet;
                 }
