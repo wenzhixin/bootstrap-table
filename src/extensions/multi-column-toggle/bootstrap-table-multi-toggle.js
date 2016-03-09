@@ -16,8 +16,8 @@
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
-        showHideAllBtn: false,
-        showHideAllDefaults: [], //column names go here
+        showToggleBtn: false,
+        multiToggleDefaults: [], //column names go here
     });
 
     $.fn.bootstrapTable.methods.push('hideAllColumns', 'showAllColumns');
@@ -32,11 +32,11 @@
         var that = this,
             $btnGroup = this.$toolbar.find('>.btn-group');
 
-        if (typeof this.options.showHideAllDefaults === 'string') {
-            this.options.showHideAllDefaults = JSON.parse(this.options.showHideAllDefaults);
+        if (typeof this.options.multiToggleDefaults === 'string') {
+            this.options.multiToggleDefaults = JSON.parse(this.options.multiToggleDefaults);
         }
 
-        if (this.options.showHideAllBtn && this.options.showColumns) {
+        if (this.options.showToggleBtn && this.options.showColumns) {
             var showbtn = "<button class='btn btn-default hidden' id='showAllBtn'><span class='glyphicon glyphicon-resize-full icon-zoom-in'></span></button>",
                 hidebtn = "<button class='btn btn-default' id='hideAllBtn'><span class='glyphicon glyphicon-resize-small icon-zoom-out'></span></button>";
 
@@ -54,35 +54,35 @@
     };
 
     BootstrapTable.prototype.hideAllColumns = function () {
-        var self = this,
-            defaults = self.options.showHideAllDefaults;
+        var that = this,
+            defaults = that.options.multiToggleDefaults;
 
         $.each(this.columns, function (index, column) {
             //if its one of the defaults dont touch it
             if (defaults.indexOf(column.field) == -1 && column.switchable) {
                 column.visible = false;
-                var $items = self.$toolbar.find('.keep-open input').prop('disabled', false);
+                var $items = that.$toolbar.find('.keep-open input').prop('disabled', false);
                 $items.filter(sprintf('[value="%s"]', index)).prop('checked', false);
             }
         });
 
-        reInit(self);
+        reInit(that);
     };
 
     BootstrapTable.prototype.showAllColumns = function () {
-        var self = this;
+        var that = this;
         $.each(this.columns, function (index, column) {
             if (column.switchable) {
                 column.visible = true;
             }
 
-            var $items = self.$toolbar.find('.keep-open input').prop('disabled', false);
+            var $items = that.$toolbar.find('.keep-open input').prop('disabled', false);
             $items.filter(sprintf('[value="%s"]', index)).prop('checked', true);
         });
 
-        reInit(self);
+        reInit(that);
 
-        self.toggleColumn(0, self.columns[0].visible, false);
+        that.toggleColumn(0, that.columns[0].visible, false);
     };
     
 }(jQuery);
