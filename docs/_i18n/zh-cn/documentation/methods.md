@@ -58,6 +58,18 @@
         <td>load</td>
     </tr>
     <tr>
+        <td>showAllColumns</td>
+        <td>none</td>
+        <td>Show All the columns.</td>
+        <td>showAllColumns</td>
+    </tr>
+    <tr>
+        <td>hideAllColumns</td>
+        <td>none</td>
+        <td>Hide All the columns.</td>
+        <td>hidAllColumns</td>
+    </tr>
+    <tr>
         <td>append</td>
         <td>data</td>
         <td>添加数据到表格在现有数据之后。</td>
@@ -245,6 +257,11 @@
         <td>getHiddenColumns</td>
         <td>-</td>
         <td>获取隐藏的列。</td>
+    </tr>
+    <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>获取可见列。</td>
     </tr>
     <tr>
         <td>scrollTo</td>

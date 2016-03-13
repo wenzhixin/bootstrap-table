@@ -84,6 +84,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Defines icon size: <ul><li>undefined => btn</li><li>xs => btn-xs</li><li>sm => btn-sm</li><li>lg => btn-lg</li></ul>
     </tr>
     <tr>
+        <td>buttonsClass</td>
+        <td>data-buttons-class</td>
+        <td>String</td>
+        <td>'default'</td>
+        <td>Defines the Bootstrap class (added after 'btn-') of table buttons: EX: 'primary', 'danger', 'warning'...</td>
+    </tr>
+    <tr>
         <td>icons</td>
         <td>data-icons</td>
         <td>Object</td>
@@ -549,6 +556,41 @@ function rowStyle(value, row, index) {
         row: the row record data.<br>
         index: the row index.<br>
         Support all custom attributes.
+        </td>
+    </tr>
+    <tr>
+        <td>customSearch</td>
+        <td>data-custom-search</td>
+        <td>Function</td>
+        <td>$.noop</td>
+        <td>
+        The custom search function is executed instead of built-in search function, takes one parameters: <br>
+        text: the search text.<br>
+        Example usage:<br>
+        <pre>
+        function customSearch(text) {
+            //Search logic here. 
+            //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
+        }
+        </pre>
+        </td>
+    </tr>
+    <tr>
+        <td>customSort</td>
+        <td>data-custom-sort</td>
+        <td>Function</td>
+        <td>$.noop</td>
+        <td>
+        The custom sort function is executed instead of built-in sort function, takes two parameters: <br>
+        sortName: the sort name.<br>
+        sortOrder: the sort order.<br>
+        Example usage:<br>
+        <pre>
+        function customSort(sortName, sortOrder) {
+            //Sort logic here. 
+            //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
+        }
+        </pre>
         </td>
     </tr>
      <tr>

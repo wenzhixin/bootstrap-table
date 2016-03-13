@@ -204,7 +204,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <tr>
         <td>onPostBody</td>
         <td>post-body.bs.table</td>
-        <td>none</td>
+        <td>data</td>
         <td>Fires after the table body is rendered and available in the DOM</td>
     </tr>
     <tr>

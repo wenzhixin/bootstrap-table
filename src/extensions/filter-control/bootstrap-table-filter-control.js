@@ -39,7 +39,7 @@
     var existOptionInSelectControl = function (selectControl, value) {
         var options = selectControl.get(selectControl.length - 1).options;
         for (var i = 0; i < options.length; i++) {
-            if (options[i].value === value.toString()) {
+            if (!value || options[i].value === value.toString()) {
                 //The value is not valid to add
                 return false;
             }
@@ -162,7 +162,7 @@
             });
         }
 
-    }
+    };
 
     var createControls = function (that, header) {
         var addedFilterControl = false,
