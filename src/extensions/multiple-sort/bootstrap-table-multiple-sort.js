@@ -119,9 +119,22 @@
                         $($alert).remove();
                     }
 
-                    that.options.sortName = "";
-                    that.onMultipleSort();
                     that.$sortModal.modal('hide');
+                    that.options.sortName = "";                    
+
+                    if (that.options.sidePagination === 'server') {
+                        
+                        that.options.queryParams = function(params){                            
+                            params.multiSort = that.options.sortPriority;
+                            return params;
+                        }
+                        
+                        that.initServer(that.options.silentSort);
+                        return;
+                    } 
+
+                    that.onMultipleSort();
+                    
                 }
             });
 
