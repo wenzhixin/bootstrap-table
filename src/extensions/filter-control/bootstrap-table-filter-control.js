@@ -144,7 +144,7 @@
 
             $.each(bootstrapTable.header.fields, function (j, field) {
                 var column = bootstrapTable.columns[$.fn.bootstrapTable.utils.getFieldIndex(bootstrapTable.columns, field)],
-                    selectControl = $('.' + column.field);
+                    selectControl = $('.' + escapeID(column.field));
 
 
                 if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
@@ -163,6 +163,10 @@
         }
 
     };
+    
+    var escapeID = function( id ) {
+       return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+    }
 
     var createControls = function (that, header) {
         var addedFilterControl = false,
@@ -201,7 +205,7 @@
             if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
                 var filterDataType = column.filterData.substring(0, 3);
                 var filterDataSource = column.filterData.substring(4, column.filterData.length);
-                var selectControl = $('.' + column.field);
+                var selectControl = $('.' + escapeID(column.field));
                 addOptionToSelectControl(selectControl, '', '');
 
                 switch (filterDataType) {
