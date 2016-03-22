@@ -156,6 +156,7 @@
 
           $selectEle.select2(select2Opts);
           $selectEle.on("select2:unselecting", function (event) {
+            event.preventDefault();
             $selectEle.val(null).trigger('change');
             that.searchText = undefined;
             that.onColumnSearch(event);
