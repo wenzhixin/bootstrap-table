@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.0.0
+ * @version: v2.1.0
  */
 
 !function ($) {
@@ -125,9 +125,9 @@
         }
     };
 
-    var initFilterSelectControls = function (bootstrapTable) {
-        var data = bootstrapTable.options.data,
-            itemsPerPage = bootstrapTable.pageTo < bootstrapTable.options.data.length ? bootstrapTable.options.data.length : bootstrapTable.pageTo,
+    var initFilterSelectControls = function (that) {
+        var data = that.options.data,
+            itemsPerPage = that.pageTo < that.options.data.length ? that.options.data.length : that.pageTo,
 
             isColumnSearchableViaSelect = function (column) {
                 return column.filterControl && column.filterControl.toLowerCase() === 'select' && column.searchable;
@@ -141,10 +141,15 @@
                 return selectControl && selectControl.length > 0;
             };
 
-        for (var i = bootstrapTable.pageFrom - 1; i < bootstrapTable.pageTo; i++) {
+        var z = that.options.pagination
+                ? (that.options.sidePagination === 'server'
+                    ? that.pageTo
+                    : that.options.totalRows)
+                : that.pageTo;
 
-            $.each(bootstrapTable.header.fields, function (j, field) {
-                var column = bootstrapTable.columns[$.fn.bootstrapTable.utils.getFieldIndex(bootstrapTable.columns, field)],
+        for (var i = 0; i < z; i++) {
+            $.each(that.header.fields, function (j, field) {
+                var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
                     selectControl = $('.' + column.field);
 
 
@@ -156,7 +161,7 @@
 
                     //Added a new value
                     var fieldValue = data[i][field],
-                        formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(bootstrapTable.header, bootstrapTable.header.formatters[j], [fieldValue, data[i], i], fieldValue);
+                        formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, that.header.formatters[j], [fieldValue, data[i], i], fieldValue);
 
                     addOptionToSelectControl(selectControl, fieldValue, formattedValue);
                 }
