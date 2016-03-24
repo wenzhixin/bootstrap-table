@@ -697,7 +697,7 @@
             return;
         }
 
-        this.fromHtml = true;
+        this.fromHtml = this.options.sidePagination === 'server' ? false : true;
         var m = [];
         this.$el.find('>tbody>tr').each(function (y) {
             var row = {};
@@ -1906,6 +1906,8 @@
             params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
                 this.options.totalRows : this.options.pageSize;
             params.pageNumber = this.options.pageNumber;
+        } else {
+            params.pageSize = this.options.totalRows;
         }
 
         if (!this.options.url && !this.options.ajax) {
@@ -1918,11 +1920,14 @@
                 sort: params.sortName,
                 order: params.sortOrder
             };
+            params.offset = this.options.pageSize === this.options.formatAllRows() ?
+                0 : this.options.pageSize * (this.options.pageNumber - 1);
+
             if (this.options.pagination) {
                 params.limit = this.options.pageSize === this.options.formatAllRows() ?
                     this.options.totalRows : this.options.pageSize;
-                params.offset = this.options.pageSize === this.options.formatAllRows() ?
-                    0 : this.options.pageSize * (this.options.pageNumber - 1);
+            } else {
+                params.limit = this.options.totalRows;
             }
         }
 
