@@ -1220,7 +1220,9 @@
                 this.options.customSearch.apply(this, [this.searchText]);
                 return;
             }
-            var s = this.searchText && this.searchText.toLowerCase();
+
+            var s = !this.options.escape ? this.searchText && escapeHTML(this.searchText).toLowerCase()
+                                            : this.searchText && this.searchText.toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
 
             // Check filter
