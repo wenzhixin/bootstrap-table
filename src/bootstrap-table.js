@@ -1175,6 +1175,10 @@
                     }
                 }
 
+                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                    return;
+                }
+
                 clearTimeout(timeoutId); // doesn't matter if it's 0
                 timeoutId = setTimeout(function () {
                     that.onSearch(event);
@@ -2972,7 +2976,8 @@
         compareObjects: compareObjects,
         calculateObjectValue: calculateObjectValue,
         getItemField: getItemField,
-        objectKeys: objectKeys
+        objectKeys: objectKeys,
+        isIEBrowser: isIEBrowser
     };
 
     // BOOTSTRAP TABLE INIT
