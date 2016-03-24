@@ -237,5 +237,11 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
         <td></td>
         <td>Fires when reset view of the table.</td>
     </tr>
+    <tr>
+       <td>onRefresh</td>
+       <td>refresh.bs.table</td>
+       <td>params</td>
+       <td>Fires after the click the refresh button.</td>
+    </tr>
     </tbody>
 </table>

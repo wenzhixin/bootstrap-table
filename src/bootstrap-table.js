@@ -465,6 +465,9 @@
         onRefreshOptions: function (options) {
             return false;
         },
+        onRefresh: function (params) {
+          return false;
+        },
         onResetView: function () {
             return false;
         }
@@ -564,7 +567,8 @@
         'expand-row.bs.table': 'onExpandRow',
         'collapse-row.bs.table': 'onCollapseRow',
         'refresh-options.bs.table': 'onRefreshOptions',
-        'reset-view.bs.table': 'onResetView'
+        'reset-view.bs.table': 'onResetView',
+        'refresh.bs.table': 'onRefresh'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -2677,6 +2681,7 @@
             this.options.pageNumber = 1;
         }
         this.initServer(params && params.silent, params && params.query);
+        this.trigger('refresh', params);
     };
 
     BootstrapTable.prototype.resetWidth = function () {

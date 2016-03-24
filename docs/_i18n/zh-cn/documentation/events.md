@@ -215,7 +215,13 @@
        <td>onRefreshOptions</td>
        <td>refresh-options.bs.table</td>
        <td>options</td>
-       <td>Fires after refresh the options and before destroy and init the table</td>
+       <td>Fires after refresh the options and before destroy and init the table.</td>
+    </tr>
+    <tr>
+       <td>onRefresh</td>
+       <td>refresh.bs.table</td>
+       <td>params</td>
+       <td>Fires after the click the refresh button.</td>
     </tr>
     </tbody>
 </table>
