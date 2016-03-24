@@ -72,6 +72,38 @@
         return searchControls;
     };
 
+    var getCursorPosition = function(el) {
+        if ($.fn.bootstrapTable.utils.isIEBrowser()) {
+            if ($(el).is('input')) {
+                var pos = 0;
+                if ('selectionStart' in el) {
+                    pos = el.selectionStart;
+                } else if ('selection' in document) {
+                    el.focus();
+                    var Sel = document.selection.createRange();
+                    var SelLength = document.selection.createRange().text.length;
+                    Sel.moveStart('character', -el.value.length);
+                    pos = Sel.text.length - SelLength;
+                }
+                return pos;
+            } else {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
+    };
+
+    var setCursorPosition = function (el, index) {
+        if ($.fn.bootstrapTable.utils.isIEBrowser()) {
+            if(el.setSelectionRange !== undefined) {
+                el.setSelectionRange(index, index);
+            } else {
+                $(el).val(el.value);
+            }
+        }
+    };
+
     var copyValues = function (that) {
         var header = getCurrentHeader(that),
             searchControls = getCurrentSearchControls(that);
@@ -82,7 +114,8 @@
             that.options.valuesFilterControl.push(
                 {
                     field: $(this).closest('[data-field]').data('field'),
-                    value: $(this).val()
+                    value: $(this).val(),
+                    position: getCursorPosition($(this).get(0))
                 });
         });
     };
@@ -102,6 +135,7 @@
 
                 if (result.length > 0) {
                     $(this).val(result[0].value);
+                    setCursorPosition($(this).get(0), result[0].position);
                 }
             });
         }
@@ -330,8 +364,6 @@
         },
         filterShowClear: false,
         alignmentSelectControlOptions: undefined,
-        //internal variables
-        valuesFilterControl: [],
         filterTemplate: {
             input: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="form-control %s" style="width: 100%; visibility: %s">', field, isVisible);
@@ -343,7 +375,9 @@
             datepicker: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">', field, isVisible);
             }
-        }
+        },
+        //internal variables
+        valuesFilterControl: []
     });
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
@@ -496,6 +530,10 @@
     };
 
     BootstrapTable.prototype.onColumnSearch = function (event) {
+        if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+            return;
+        }
+
         copyValues(this);
         var text = $.trim($(event.currentTarget).val());
         var $field = $(event.currentTarget).closest('[data-field]').data('field');
