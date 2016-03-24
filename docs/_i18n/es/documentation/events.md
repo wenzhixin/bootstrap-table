@@ -33,7 +33,8 @@
         <td>
         Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
         row: el registro que corresponde con la fila a la que se le dio click, <br>
-        $element: el elemento tr.
+        $element: el elemento tr, <br>
+        field: el nombre del campo correspondiente a la celda hecho clic.
         </td>
     </tr>
     <tr>
@@ -43,7 +44,8 @@
         <td>
         Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
         row: el registro que corresponde con la fila a la que se le dio click, <br>
-        $element: el elemento tr.
+        $element: el elemento tr, <br>
+        field: el nombre del campo correspondiente a la celda hecho clic.
         </td>
     </tr>
     <tr>

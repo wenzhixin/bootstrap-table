@@ -34,7 +34,8 @@
         <td>
         当用户点击某一行的时候触发，参数包括：<br>
         row：点击行的数据，<br>
-        $element：tr 元素。
+        $element：tr 元素，<br>
+        field：点击列的 field 名称。
         </td>
     </tr>
     <tr>
@@ -44,7 +45,8 @@
         <td>
         当用户双击某一行的时候触发，参数包括：<br>
         row：点击行的数据，<br>
-        $element：tr 元素。
+        $element：tr 元素，<br>
+        field：点击列的 field 名称。
         </td>
     </tr>
     <tr>
