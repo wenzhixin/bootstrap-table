@@ -37,5 +37,9 @@ Dependence if you use the select2 option: [Select2](https://select2.github.io/) 
 
 ### setFilterData
 
+
 * Set column's filter data.
-	* <code> $table.bootstrapTable("setFilterData", "columnA.filed", ["itemA", "itemB", "itemC"]);</code>
+  * Parameters
+      * String : column field.
+      * Object : filter data list.
+  * Example: <code> $table.bootstrapTable("setFilterData", "columnA.filed", ["itemA", "itemB", "itemC"]);</code>
