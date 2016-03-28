@@ -30,7 +30,7 @@ Dependence if you use the select2 option: [Select2](https://select2.github.io/) 
 * type: Object
 * description: Set filter option to configure the filter. <br>Example: {type:'select', data:["itemA", "itemB", "itemC"]}
 	* type: add an `input` or `select` into the column.
-	* data: need to set when type is `select` , filter data list. (The same as [Select2 Options](https://select2.github.io/))
+	* data: need to set when type is `select` , filter data list. (The same as [Select2 Options](http://select2.github.io/examples.html#data))
 * default: `undefined`
 
 ## Methods
