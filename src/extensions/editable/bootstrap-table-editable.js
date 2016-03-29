@@ -60,9 +60,9 @@
 
             $.each(that.options, processDataOptions);
 
-            var _formatter = column.formatter;
+            column._formatter = column._formatter? column._formatter: column.formatter;
             column.formatter = function (value, row, index) {
-                var result = _formatter ? _formatter(value, row, index) : value;
+                var result = column._formatter? column._formatter(value, row, index): value;
 
                 $.each(column, processDataOptions);
 
