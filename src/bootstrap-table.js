@@ -465,6 +465,9 @@
         onRefreshOptions: function (options) {
             return false;
         },
+        onRefresh: function (params) {
+          return false;
+        },
         onResetView: function () {
             return false;
         }
@@ -564,7 +567,8 @@
         'expand-row.bs.table': 'onExpandRow',
         'collapse-row.bs.table': 'onCollapseRow',
         'refresh-options.bs.table': 'onRefreshOptions',
-        'reset-view.bs.table': 'onResetView'
+        'reset-view.bs.table': 'onResetView',
+        'refresh.bs.table': 'onRefresh'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -693,7 +697,7 @@
             return;
         }
 
-        this.fromHtml = true;
+        this.fromHtml = this.options.sidePagination === 'client';
         var m = [];
         this.$el.find('>tbody>tr').each(function (y) {
             var row = {};
@@ -1171,6 +1175,10 @@
                     }
                 }
 
+                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                    return;
+                }
+
                 clearTimeout(timeoutId); // doesn't matter if it's 0
                 timeoutId = setTimeout(function () {
                     that.onSearch(event);
@@ -1216,7 +1224,9 @@
                 this.options.customSearch.apply(this, [this.searchText]);
                 return;
             }
-            var s = this.searchText && this.searchText.toLowerCase();
+
+            var s = !this.options.escape ? this.searchText && escapeHTML(this.searchText).toLowerCase()
+                                            : this.searchText && this.searchText.toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
 
             // Check filter
@@ -1785,7 +1795,7 @@
             }
 
             that.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
-            that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr);
+            that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
 
             // if click to select - then trigger the checkbox/radio click
             if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
@@ -1903,6 +1913,8 @@
             params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
                 this.options.totalRows : this.options.pageSize;
             params.pageNumber = this.options.pageNumber;
+        } else {
+            params.pageSize = this.options.totalRows;
         }
 
         if (!this.options.url && !this.options.ajax) {
@@ -1915,11 +1927,14 @@
                 sort: params.sortName,
                 order: params.sortOrder
             };
+            params.offset = this.options.pageSize === this.options.formatAllRows() ?
+                0 : this.options.pageSize * (this.options.pageNumber - 1);
+
             if (this.options.pagination) {
                 params.limit = this.options.pageSize === this.options.formatAllRows() ?
                     this.options.totalRows : this.options.pageSize;
-                params.offset = this.options.pageSize === this.options.formatAllRows() ?
-                    0 : this.options.pageSize * (this.options.pageNumber - 1);
+            } else {
+                params.limit = this.options.totalRows;
             }
         }
 
@@ -2088,7 +2103,8 @@
             that.$header_.find(sprintf('th[data-field="%s"]', $(this).data('field'))).data($(this).data());
         });
 
-        var visibleFields = this.getVisibleFields();
+        var visibleFields = this.getVisibleFields(),
+            $ths = this.$header_.find('th');
 
         this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i) {
             var $this = $(this),
@@ -2101,8 +2117,12 @@
                 index = i - 1;
             }
 
-            that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]))
-                .find('.fht-cell').width($this.innerWidth());
+            var $th = that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]));
+            if ($th.length > 1) {
+                $th = $($ths[$this[0].cellIndex]);
+            }
+
+            $th.find('.fht-cell').width($this.innerWidth());
         });
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
@@ -2680,6 +2700,7 @@
             this.options.pageNumber = 1;
         }
         this.initServer(params && params.silent, params && params.query);
+        this.trigger('refresh', params);
     };
 
     BootstrapTable.prototype.resetWidth = function () {
@@ -2963,7 +2984,8 @@
         compareObjects: compareObjects,
         calculateObjectValue: calculateObjectValue,
         getItemField: getItemField,
-        objectKeys: objectKeys
+        objectKeys: objectKeys,
+        isIEBrowser: isIEBrowser
     };
 
     // BOOTSTRAP TABLE INIT

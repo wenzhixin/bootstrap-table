@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.0.0
+ * @version: v2.1.0
  */
 
 !function ($) {
@@ -72,6 +72,38 @@
         return searchControls;
     };
 
+    var getCursorPosition = function(el) {
+        if ($.fn.bootstrapTable.utils.isIEBrowser()) {
+            if ($(el).is('input')) {
+                var pos = 0;
+                if ('selectionStart' in el) {
+                    pos = el.selectionStart;
+                } else if ('selection' in document) {
+                    el.focus();
+                    var Sel = document.selection.createRange();
+                    var SelLength = document.selection.createRange().text.length;
+                    Sel.moveStart('character', -el.value.length);
+                    pos = Sel.text.length - SelLength;
+                }
+                return pos;
+            } else {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
+    };
+
+    var setCursorPosition = function (el, index) {
+        if ($.fn.bootstrapTable.utils.isIEBrowser()) {
+            if(el.setSelectionRange !== undefined) {
+                el.setSelectionRange(index, index);
+            } else {
+                $(el).val(el.value);
+            }
+        }
+    };
+
     var copyValues = function (that) {
         var header = getCurrentHeader(that),
             searchControls = getCurrentSearchControls(that);
@@ -82,7 +114,8 @@
             that.options.valuesFilterControl.push(
                 {
                     field: $(this).closest('[data-field]').data('field'),
-                    value: $(this).val()
+                    value: $(this).val(),
+                    position: getCursorPosition($(this).get(0))
                 });
         });
     };
@@ -102,6 +135,7 @@
 
                 if (result.length > 0) {
                     $(this).val(result[0].value);
+                    setCursorPosition($(this).get(0), result[0].position);
                 }
             });
         }
@@ -125,9 +159,9 @@
         }
     };
 
-    var initFilterSelectControls = function (bootstrapTable) {
-        var data = bootstrapTable.options.data,
-            itemsPerPage = bootstrapTable.pageTo < bootstrapTable.options.data.length ? bootstrapTable.options.data.length : bootstrapTable.pageTo,
+    var initFilterSelectControls = function (that) {
+        var data = that.options.data,
+            itemsPerPage = that.pageTo < that.options.data.length ? that.options.data.length : that.pageTo,
 
             isColumnSearchableViaSelect = function (column) {
                 return column.filterControl && column.filterControl.toLowerCase() === 'select' && column.searchable;
@@ -141,10 +175,15 @@
                 return selectControl && selectControl.length > 0;
             };
 
-        for (var i = bootstrapTable.pageFrom - 1; i < bootstrapTable.pageTo; i++) {
+        var z = that.options.pagination
+                ? (that.options.sidePagination === 'server'
+                    ? that.pageTo
+                    : that.options.totalRows)
+                : that.pageTo;
 
-            $.each(bootstrapTable.header.fields, function (j, field) {
-                var column = bootstrapTable.columns[$.fn.bootstrapTable.utils.getFieldIndex(bootstrapTable.columns, field)],
+        for (var i = 0; i < z; i++) {
+            $.each(that.header.fields, function (j, field) {
+                var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
                     selectControl = $('.' + column.field);
 
 
@@ -156,7 +195,7 @@
 
                     //Added a new value
                     var fieldValue = data[i][field],
-                        formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(bootstrapTable.header, bootstrapTable.header.formatters[j], [fieldValue, data[i], i], fieldValue);
+                        formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, that.header.formatters[j], [fieldValue, data[i], i], fieldValue);
 
                     addOptionToSelectControl(selectControl, fieldValue, formattedValue);
                 }
@@ -325,8 +364,6 @@
         },
         filterShowClear: false,
         alignmentSelectControlOptions: undefined,
-        //internal variables
-        valuesFilterControl: [],
         filterTemplate: {
             input: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="form-control %s" style="width: 100%; visibility: %s">', field, isVisible);
@@ -338,7 +375,9 @@
             datepicker: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">', field, isVisible);
             }
-        }
+        },
+        //internal variables
+        valuesFilterControl: []
     });
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
@@ -491,6 +530,10 @@
     };
 
     BootstrapTable.prototype.onColumnSearch = function (event) {
+        if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+            return;
+        }
+
         copyValues(this);
         var text = $.trim($(event.currentTarget).val());
         var $field = $(event.currentTarget).closest('[data-field]').data('field');
