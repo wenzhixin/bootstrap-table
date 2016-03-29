@@ -697,7 +697,7 @@
             return;
         }
 
-        this.fromHtml = this.options.sidePagination === 'server' ? false : true;
+        this.fromHtml = this.options.sidePagination === 'client';
         var m = [];
         this.$el.find('>tbody>tr').each(function (y) {
             var row = {};
@@ -2104,7 +2104,7 @@
         });
 
         var visibleFields = this.getVisibleFields(),
-            ths = this.$header_.find('th');
+            $ths = this.$header_.find('th');
 
         this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i) {
             var $this = $(this),
@@ -2117,12 +2117,12 @@
                 index = i - 1;
             }
 
-            var th = that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]));
-            if (th.length > 1) {
-                th = $(ths[$this[0].cellIndex]);
+            var $th = that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]));
+            if ($th.length > 1) {
+                $th = $($ths[$this[0].cellIndex]);
             }
 
-            th.find('.fht-cell').width($this.innerWidth());
+            $th.find('.fht-cell').width($this.innerWidth());
         });
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
