@@ -6,10 +6,6 @@
 !function ($) {
   'use strict';
 
-  var BootstrapTable = $.fn.bootstrapTable.Constructor,
-      _init = BootstrapTable.prototype.init,
-      _initHeader = BootstrapTable.prototype.initHeader;
-
   function getCurrentHeader(that) {
     var header = that.$header;
     if (that.options.height) {
@@ -21,13 +17,6 @@
 
   function getFilterFields(that) {
     return getCurrentHeader(that).find('[data-filter-field]');
-  }
-
-  function saveFilterValues(that) {
-    var $filterElms = getFilterFields(that);
-    $filterElms.each(function (idx, ele) {
-      that.filterColumnsPartial[$(ele).attr('data-filter-field')] = $(ele).val();
-    });
   }
 
   function setFilterValues(that) {
@@ -49,7 +38,7 @@
   }
 
   function createFilter(that, header) {
-    var isSearchable = false,
+    var enableFilter = false,
         isVisible,
         html,
         timeoutId = 0;
@@ -69,7 +58,7 @@
         html.push('<div style="margin: 0px 2px 2px 2px;" class="filter' + filterClass + '">');
 
         if (column.searchable) {
-          isSearchable = true;
+          enableFilter = true;
           isVisible = 'visible'
         }
 
@@ -92,7 +81,7 @@
       });
     });
 
-    if (isSearchable) {
+    if (enableFilter) {
       var $inputs = header.find('input'),
           $selects = header.find('select');
 
@@ -175,14 +164,20 @@
     filter: undefined
   });
 
+  var BootstrapTable = $.fn.bootstrapTable.Constructor,
+      _init = BootstrapTable.prototype.init,
+      _initHeader = BootstrapTable.prototype.initHeader,
+      _initSearch = BootstrapTable.prototype.initSearch;
+
   BootstrapTable.prototype.init = function () {
     //Make sure that the filtercontrol option is set
     if (this.options.filter) {
       var that = this;
 
-      //Make sure that the internal variables are set correctly
-      that.filterColumnsPartial = this.options.filterValues;
-      this.options.filterValues = {};
+      if (!$.isEmptyObject(that.options.filterValues)) {
+        that.filterColumnsPartial = that.options.filterValues;
+        that.options.filterValues = {};
+      }
 
       this.$el.on('reset-view.bs.table', function () {
         //Create controls on $tableHeader if the height is set
@@ -219,9 +214,46 @@
     }
   };
 
-  BootstrapTable.prototype.onColumnSearch = function (event) {
-    saveFilterValues(this);
+  BootstrapTable.prototype.initSearch = function () {
+    _initSearch.apply(this, Array.prototype.slice.apply(arguments));
 
+    var that = this,
+        filterValues = that.filterColumnsPartial;
+
+    // Filter for client
+    if (that.options.sidePagination === 'client') {
+      this.data = $.grep(this.data, function (row, idx) {
+        for (var field in filterValues) {
+          var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
+              filterValue = filterValues[field].toLowerCase(),
+              rowValue = row[field];
+
+          rowValue = $.fn.bootstrapTable.utils.calculateObjectValue(
+              that.header,
+              that.header.formatters[$.inArray(field, that.header.fields)],
+              [rowValue, row, idx], rowValue);
+
+          if (column.filterStrictSearch) {
+            if (!($.inArray(field, that.header.fields) !== -1 &&
+                (typeof rowValue === 'string' || typeof rowValue === 'number') &&
+                rowValue.toString().toLowerCase() === filterValue.toString().toLowerCase())) {
+              return false;
+            }
+          } else {
+            if (!($.inArray(field, that.header.fields) !== -1 &&
+                (typeof rowValue === 'string' || typeof rowValue === 'number') &&
+                (rowValue + '').toLowerCase().indexOf(filterValue) !== -1)) {
+              return false;
+            }
+          }
+        }
+
+        return true;
+      });
+    }
+  };
+
+  BootstrapTable.prototype.onColumnSearch = function (event) {
     var field = $(event.currentTarget).attr('data-filter-field'),
         value = $.trim($(event.currentTarget).val());
 
