@@ -661,7 +661,7 @@
             $(this).find('th').each(function () {
                 // Fix #2014 - getFieldIndex and elsewhere assume this is string, causes issues if not
                 if (typeof $(this).data('field') !== 'undefined') {
-                    $(this).data('field', new String($(this).data('field')).valueOf()); 
+                    $(this).data('field', new String($(this).data('field')).valueOf());
                 }
                 column.push($.extend({}, {
                     title: $(this).html(),
@@ -1104,7 +1104,7 @@
                 var checked = column.visible ? ' checked="checked"' : '';
 
                 if (column.switchable) {
-                    html.push(sprintf('<li>' +
+                    html.push(sprintf('<li class="dropdown-item">' +
                         '<label><input type="checkbox" data-field="%s" value="%s"%s> %s</label>' +
                         '</li>', column.field, i, checked, column.title));
                     switchableCount++;
@@ -1368,11 +1368,11 @@
                 if (!that.options.smartDisplay || i === 0 || pageList[i - 1] <= that.options.totalRows) {
                     var active;
                     if ($allSelected) {
-                        active = page === that.options.formatAllRows() ? ' class="active"' : '';
+                        active = page === that.options.formatAllRows() ? ' active' : '';
                     } else {
-                        active = page === that.options.pageSize ? ' class="active"' : '';
+                        active = page === that.options.pageSize ? ' active' : '';
                     }
-                    pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+                    pageNumber.push(sprintf('<li class="dropdown-item%s"><a href="javascript:void(0)">%s</a></li>', active, page));
                 }
             });
             pageNumber.push('</ul></span>');
@@ -1383,7 +1383,7 @@
             html.push('</div>',
                 '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
                 '<ul class="pagination' + sprintf(' pagination-%s', this.options.iconSize) + '">',
-                '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
+                '<li class="page-item page-pre"><a class="page-link" href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
 
             if (this.totalPages < 5) {
                 from = 1;
@@ -1403,8 +1403,8 @@
 
             if (this.totalPages >= 6) {
                 if (this.options.pageNumber >= 3) {
-                    html.push('<li class="page-first' + (1 === this.options.pageNumber ? ' active' : '') + '">',
-                        '<a href="javascript:void(0)">', 1, '</a>',
+                    html.push('<li class="page-item page-first' + (1 === this.options.pageNumber ? ' active' : '') + '">',
+                        '<a class="page-link" href="javascript:void(0)">', 1, '</a>',
                         '</li>');
 
                     from++;
@@ -1414,8 +1414,8 @@
                     if (this.options.pageNumber == 4 || this.totalPages == 6 || this.totalPages == 7) {
                         from--;
                     } else {
-                        html.push('<li class="page-first-separator disabled">',
-                            '<a href="javascript:void(0)">...</a>',
+                        html.push('<li class="page-item page-first-separator disabled">',
+                            '<a class="page-link" href="javascript:void(0)">...</a>',
                             '</li>');
                     }
 
@@ -1440,29 +1440,29 @@
             }
 
             for (i = from; i <= to; i++) {
-                html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-                    '<a href="javascript:void(0)">', i, '</a>',
+                html.push('<li class="page-item page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                    '<a class="page-link" href="javascript:void(0)">', i, '</a>',
                     '</li>');
             }
 
             if (this.totalPages >= 8) {
                 if (this.options.pageNumber <= (this.totalPages - 4)) {
-                    html.push('<li class="page-last-separator disabled">',
-                        '<a href="javascript:void(0)">...</a>',
+                    html.push('<li class="page-item page-last-separator disabled">',
+                        '<a class="page-link" href="javascript:void(0)">...</a>',
                         '</li>');
                 }
             }
 
             if (this.totalPages >= 6) {
                 if (this.options.pageNumber <= (this.totalPages - 3)) {
-                    html.push('<li class="page-last' + (this.totalPages === this.options.pageNumber ? ' active' : '') + '">',
-                        '<a href="javascript:void(0)">', this.totalPages, '</a>',
+                    html.push('<li class="page-item page-last' + (this.totalPages === this.options.pageNumber ? ' active' : '') + '">',
+                        '<a class="page-link" href="javascript:void(0)">', this.totalPages, '</a>',
                         '</li>');
                 }
             }
 
             html.push(
-                '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
+                '<li class="page-item page-next"><a class="page-link" href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
                 '</ul>',
                 '</div>');
         }
