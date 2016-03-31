@@ -28,6 +28,14 @@
             sModal += '                 </div>';
             sModal += '                 <div class="modal-body">';
             sModal += '                     <div class="bootstrap-table">';
+            sModal += '                         <div class="fixed-table-toolbar">';
+            sModal += '                             <div class="bars">';
+            sModal += '                                 <div id="toolbar">';
+            sModal += '                                     <button id="add" type="button" class="btn btn-default"><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.plus + '"></i> ' + that.options.formatAddLevel() + '</button>';
+            sModal += '                                     <button id="delete" type="button" class="btn btn-default" disabled><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.minus + '"></i> ' + that.options.formatDeleteLevel() + '</button>';
+            sModal += '                                 </div>';
+            sModal += '                             </div>';
+            sModal += '                         </div>';
             sModal += '                         <div class="fixed-table-container">';
             sModal += '                             <table id="multi-sort" class="table">';
             sModal += '                                 <thead>';
@@ -35,23 +43,16 @@
             sModal += '                                         <th></th>';
             sModal += '                                         <th><div class="th-inner">' + that.options.formatColumn() + '</div></th>';
             sModal += '                                         <th><div class="th-inner">' + that.options.formatOrder() + '</div></th>';
-            sModal += '                                         <th></th>';
             sModal += '                                     </tr>';
             sModal += '                                 </thead>';
             sModal += '                                 <tbody></tbody>';
             sModal += '                             </table>';
-
-            sModal += '                             <br/><div>';
-            sModal += '                                 <button id="add" type="button" class="btn btn-sm btn-default"><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.plus + '"></i> ' + that.options.formatAddLevel() + '</button>';
-            sModal += '                             </div>';
-
-
             sModal += '                         </div>';
             sModal += '                     </div>';
             sModal += '                 </div>';
             sModal += '                 <div class="modal-footer">';
             sModal += '                     <button type="button" class="btn btn-default" data-dismiss="modal">' + that.options.formatCancel() + '</button>';
-            sModal += '                     <button type="button" class="btn btn-primary btn-submit">' + that.options.formatSort() + '</button>';
+            sModal += '                     <button type="button" class="btn btn-primary">' + that.options.formatSort() + '</button>';
             sModal += '                 </div>';
             sModal += '             </div>';
             sModal += '         </div>';
@@ -62,31 +63,34 @@
             that.$sortModal = $(_selector);
             var $rows = that.$sortModal.find("tbody > tr");
 
-            that.$sortModal.off('click', '#add').on('click', '#add', function(e) {
-                e.preventDefault();
+            that.$sortModal.off('click', '#add').on('click', '#add', function() {
                 var total = that.$sortModal.find('.multi-sort-name:first option').length,
                     current = that.$sortModal.find('tbody tr').length;
 
                 if (current < total) {
-                    that.addLevel(current);
+                    current++;
+                    that.addLevel();
                     that.setButtonStates();
                 }
             });
 
-            that.$sortModal.off('click', '.btn-delete').on('click', '.btn-delete', function(e) {
-                e.preventDefault();
+            that.$sortModal.off('click', '#delete').on('click', '#delete', function() {
+                var total = that.$sortModal.find('.multi-sort-name:first option').length,
+                    current = that.$sortModal.find('tbody tr').length;
 
-                var $this = $(this);
-                $this.closest('tr').remove();
-                that.setButtonStates();
+                if (current > 1 && current <= total) {
+                    current--;
+                    that.$sortModal.find('tbody tr:last').remove();
+                    that.setButtonStates();
+                }
             });
 
-            that.$sortModal.off('click', '.btn-submit').on('click', '.btn-submit', function(e) {
-                e.preventDefault();
+            that.$sortModal.off('click', '.btn-primary').on('click', '.btn-primary', function() {
                 var $rows = that.$sortModal.find("tbody > tr"),
                     $alert = that.$sortModal.find('div.alert'),
                     fields = [],
                     results = [];
+
 
                 that.options.sortPriority = $.map($rows, function(row) {
                     var $row = $(row),
@@ -112,7 +116,7 @@
                 if (results.length > 0) {
                     if ($alert.length === 0) {
                         $alert = '<div class="alert alert-danger" role="alert"><strong>' + that.options.formatDuplicateAlertTitle() + '</strong> ' + that.options.formatDuplicateAlertDescription() + '</div>';
-                        $($alert).insertBefore(that.$sortModal.find('.bootstrap-table'));
+                        $($alert).insertBefore(that.$sortModal.find('.bars'));
                     }
                 } else {
                     if ($alert.length === 1) {
@@ -151,7 +155,6 @@
     $.extend($.fn.bootstrapTable.defaults, {
         showMultiSort: false,
         sortPriority: null,
-        sortPriorityParamName: 'multiple_sort',
         onMultipleSort: function() {
             return false;
         }
@@ -160,7 +163,7 @@
     $.extend($.fn.bootstrapTable.defaults.icons, {
         sort: 'glyphicon-sort',
         plus: 'glyphicon-plus',
-        remove: 'glyphicon-minus'
+        minus: 'glyphicon-minus'
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -173,6 +176,9 @@
         },
         formatAddLevel: function() {
             return "Add Level";
+        },
+        formatDeleteLevel: function() {
+            return "Delete Level";
         },
         formatColumn: function() {
             return "Column";
@@ -236,11 +242,7 @@
             });
 
             this.$el.on('load-success.bs.table', function() {
-                if (
-                    (!isSingleSort && that.options.sortPriority !== null) &&
-                    (typeof that.options.sortPriority === 'object') &&
-                    (that.options.sidePagination !== 'server')
-                ) {
+                if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object') {
                     that.onMultipleSort();
                 }
             });
@@ -304,17 +306,11 @@
             return cmp(arr1, arr2);
         };
 
-				if (this.options.sidePagination === 'server') {
-          var query = {};
-          query[that.options.sortPriorityParamName] = that.options.sortPriority;
-					this.initServer(false, query);
-				} else {
-					this.data.sort(function(a, b) {
-	            return arrayCmp(a, b);
-	        });
-					this.initBody();
-				}
+        this.data.sort(function(a, b) {
+            return arrayCmp(a, b);
+        });
 
+        this.initBody();
         this.assignSortableArrows();
         this.trigger('multiple-sort');
     };
@@ -322,17 +318,11 @@
     BootstrapTable.prototype.addLevel = function(index, sortPriority) {
         var text = index === 0 ? this.options.formatSortBy() : this.options.formatThenBy();
 
-        var $delete_btn = $('<a href="#" class="btn-delete"><i class="' + this.options.iconsPrefix + ' ' + this.options.icons.remove + '"></i></a>');
-        if(index === 0) {
-          $delete_btn.css({'visibility' : 'hidden'});
-        }
-
         this.$sortModal.find('tbody')
             .append($('<tr>')
                 .append($('<td>').text(text))
                 .append($('<td>').append($('<select class="form-control multi-sort-name">')))
                 .append($('<td>').append($('<select class="form-control multi-sort-order">')))
-                .append($('<td>').append($delete_btn))
         );
 
         var $multiSortName = this.$sortModal.find('.multi-sort-name').last(),
@@ -375,8 +365,14 @@
         if (current == total) {
             this.$sortModal.find('#add').attr('disabled', 'disabled');
         }
+        if (current > 1) {
+            this.$sortModal.find('#delete').removeAttr('disabled');
+        }
         if (current < total) {
             this.$sortModal.find('#add').removeAttr('disabled');
+        }
+        if (current == 1) {
+            this.$sortModal.find('#delete').attr('disabled', 'disabled');
         }
     };
 })(jQuery);
