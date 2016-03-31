@@ -40,12 +40,9 @@
             sModal += '                                 </thead>';
             sModal += '                                 <tbody></tbody>';
             sModal += '                             </table>';
-
             sModal += '                             <br/><div>';
             sModal += '                                 <button id="add" type="button" class="btn btn-sm btn-default"><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.plus + '"></i> ' + that.options.formatAddLevel() + '</button>';
             sModal += '                             </div>';
-
-
             sModal += '                         </div>';
             sModal += '                     </div>';
             sModal += '                 </div>';
