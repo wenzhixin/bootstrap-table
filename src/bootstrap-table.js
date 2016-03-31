@@ -289,13 +289,12 @@
     // ======================
 
     var BootstrapTable = function (el, options) {
-        this.$el.data('bootstrap.table', this);
-
         this.options = options;
         this.$el = $(el);
         this.$el_ = this.$el.clone();
         this.timeoutId_ = 0;
         this.timeoutFooter_ = 0;
+        this.$el.data('bootstrap.table', this);
 
         this.init();
     };
