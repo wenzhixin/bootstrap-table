@@ -84,6 +84,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to get a stable sorting. We will add <code>_position</code> property to the row.</td>
     </tr>
     <tr>
+        <td>rememberOrder</td>
+        <td>data-remember-order</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>Set <code>false</code> to reset the order to the default (set by column's order attribute) on every sort action for a column that is not currently sorted.</td>
+    </tr>
+    <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
