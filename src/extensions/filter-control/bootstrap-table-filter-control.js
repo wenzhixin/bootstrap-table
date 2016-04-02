@@ -11,29 +11,13 @@
     var sprintf = $.fn.bootstrapTable.utils.sprintf;
 
     var addOptionToSelectControl = function (selectControl, value, text) {
-        value = $.trim(value);
-        selectControl = $(selectControl.get(selectControl.length - 1));
-        if (existOptionInSelectControl(selectControl, value)) {
-            selectControl.append($("<option></option>")
-                .attr("value", value)
-                .text($('<div />').html(text).text()));
-
-            // Sort it. Not overly efficient to do this here
-            var $opts = selectControl.find('option:gt(0)');
-            $opts.sort(function (a, b) {
-                a = $(a).text().toLowerCase();
-                b = $(b).text().toLowerCase();
-                if ($.isNumeric(a) && $.isNumeric(b)) {
-                    // Convert numerical values from string to float.
-                    a = parseFloat(a);
-                    b = parseFloat(b);
-                }
-                return a > b ? 1 : a < b ? -1 : 0;
-            });
-
-            selectControl.find('option:gt(0)').remove();
-            selectControl.append($opts);
-        }
+    	value = $.trim(value);
+    	selectControl = $(selectControl.get(selectControl.length - 1));
+    	if (existOptionInSelectControl(selectControl, value)) {
+    		selectControl.append($("<option></option>")
+    			.attr("value", value)
+    			.text($('<div />').html(text).text()));
+    	}
     };
 
     var existOptionInSelectControl = function (selectControl, value) {
@@ -124,46 +108,67 @@
         }
     };
 
-    var initFilterSelectControls = function (bootstrapTable) {
-        var data = bootstrapTable.options.data,
-            itemsPerPage = bootstrapTable.pageTo < bootstrapTable.options.data.length ? bootstrapTable.options.data.length : bootstrapTable.pageTo,
+	var initFilterSelectControls = function (bootstrapTable) {
+		var data = bootstrapTable.options.data,
+		itemsPerPage = bootstrapTable.pageTo < bootstrapTable.options.data.length ? bootstrapTable.options.data.length : bootstrapTable.pageTo,
 
-            isColumnSearchableViaSelect = function (column) {
-                return column.filterControl && column.filterControl.toLowerCase() === 'select' && column.searchable;
-            },
+		isColumnSearchableViaSelect = function (column) {
+			return column.filterControl && column.filterControl.toLowerCase() === 'select' && column.searchable;
+		},
 
-            isFilterDataNotGiven = function (column) {
-                return column.filterData === undefined || column.filterData.toLowerCase() === 'column';
-            },
+		isFilterDataNotGiven = function (column) {
+			return column.filterData === undefined || column.filterData.toLowerCase() === 'column';
+		},
 
-            hasSelectControlElement = function (selectControl) {
-                return selectControl && selectControl.length > 0;
-            };
+		hasSelectControlElement = function (selectControl) {
+			return selectControl && selectControl.length > 0;
+		};
 
-        for (var i = bootstrapTable.pageFrom - 1; i < bootstrapTable.pageTo; i++) {
+		$.each(bootstrapTable.header.fields, function (j, field) {
+			var column = bootstrapTable.columns[$.fn.bootstrapTable.utils.getFieldIndex(bootstrapTable.columns, field)],
+			selectControl = $('.' + column.field);
 
-            $.each(bootstrapTable.header.fields, function (j, field) {
-                var column = bootstrapTable.columns[$.fn.bootstrapTable.utils.getFieldIndex(bootstrapTable.columns, field)],
-                    selectControl = $('.' + column.field);
+			if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
+				if (selectControl.get(selectControl.length - 1).options.length === 0) {
+					//Added the default option
+					addOptionToSelectControl(selectControl, '', '');
+				}
 
+				var uniqueValues = {};
+				for (var i = 0; i < data.length; i++) {
+					//Added a new value
+					var fieldValue = data[i][field],
+					formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(bootstrapTable.header, bootstrapTable.header.formatters[j], [fieldValue, data[i], i], fieldValue);
 
-                if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
-                    if (selectControl.get(selectControl.length - 1).options.length === 0) {
-                        //Added the default option
-                        addOptionToSelectControl(selectControl, '', '');
-                    }
+					uniqueValues[fieldValue] = formattedValue;
+				}
 
-                    //Added a new value
-                    var fieldValue = data[i][field],
-                        formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(bootstrapTable.header, bootstrapTable.header.formatters[j], [fieldValue, data[i], i], fieldValue);
+				for (var key in uniqueValues) {
+					addOptionToSelectControl(selectControl, key, uniqueValues[key]);
+				}
 
-                    addOptionToSelectControl(selectControl, fieldValue, formattedValue);
-                }
-            });
-        }
+				sortSelectControl(selectControl);
+			}
+		});
+	};
 
-    }
+	var sortSelectControl = function (selectControl) {
+		var $opts = selectControl.find('option:gt(0)');
+		$opts.sort(function (a, b) {
+			a = $(a).text().toLowerCase();
+			b = $(b).text().toLowerCase();
+			if ($.isNumeric(a) && $.isNumeric(b)) {
+				// Convert numerical values from string to float.
+				a = parseFloat(a);
+				b = parseFloat(b);
+			}
+			return a > b ? 1 : a < b ? -1 : 0;
+		});
 
+		selectControl.find('option:gt(0)').remove();
+		selectControl.append($opts);
+	}
+	
     var createControls = function (that, header) {
         var addedFilterControl = false,
             isVisible,
@@ -210,9 +215,10 @@
                             url: filterDataSource,
                             dataType: 'json',
                             success: function (data) {
-                                $.each(data, function (key, value) {
-                                    addOptionToSelectControl(selectControl, key, value);
-                                });
+                                for (var key in data) {
+                                    addOptionToSelectControl(selectControl, key, data[key]);
+                                }
+								sortSelectControl(selectControl);
                             }
                         });
                         break;
@@ -221,6 +227,7 @@
                         for (var key in variableValues) {
                             addOptionToSelectControl(selectControl, key, variableValues[key]);
                         }
+						sortSelectControl(selectControl);
                         break;
                 }
             }
