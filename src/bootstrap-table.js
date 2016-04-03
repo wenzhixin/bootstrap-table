@@ -1670,8 +1670,8 @@
             that.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
             that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr);
 
-            // if click to select - then trigger the checkbox/radio click
-            if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
+            // if click to select - then trigger the checkbox/radio click unless the target is a link
+            if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect && !$(e.target).is('a')) {
                 var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
                 if ($selectItem.length) {
                     $selectItem[0].click(); // #144: .trigger('click') bug
