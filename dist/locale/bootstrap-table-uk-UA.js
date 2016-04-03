@@ -13,7 +13,7 @@
             return pageNumber + ' записів на сторінку';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Показано з ' + pageFrom + ' по ' + pageTo + '. Всього: ' + totalRows;
+            return 'Відображено з ' + pageFrom + ' по ' + pageTo + '. Загалом: ' + totalRows;
         },
         formatSearch: function () {
             return 'Пошук';
