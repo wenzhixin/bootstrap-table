@@ -254,6 +254,7 @@
                     throw new SyntaxError('Error. You should use any of these allowed filter data methods: var, json, url.' + ' Use like this: var: {key: "value"}');
                 }
 
+                var variableValues, key;
                 switch (filterDataType) {
                     case 'url':
                         $.ajax({
@@ -267,14 +268,14 @@
                         });
                         break;
                     case 'var':
-                        var variableValues = window[filterDataSource];
-                        for (var key in variableValues) {
+                        variableValues = window[filterDataSource];
+                        for (key in variableValues) {
                             addOptionToSelectControl(selectControl, key, variableValues[key]);
                         }
                         break;
                     case 'jso':
-                        var variableValues = JSON.parse(filterDataSource);
-                        for (var key in variableValues) {
+                        variableValues = JSON.parse(filterDataSource);
+                        for (key in variableValues) {
                             addOptionToSelectControl(selectControl, key, variableValues[key]);
                         }
                         break;
@@ -545,15 +546,13 @@
                         value.toString().toLowerCase() === fval.toString().toLowerCase())) {
                         return false;
                     }
-                }
-                else if(thisColumn.filterStartsWithSearch){
+                } else if (thisColumn.filterStartsWithSearch) {
                   if (!($.inArray(key, that.header.fields) !== -1 &&
                       (typeof value === 'string' || typeof value === 'number') &&
-                      (value + '').toLowerCase().indexOf(fval) == 0)) {
+                      (value + '').toLowerCase().indexOf(fval) === 0)) {
                       return false;
                   }
-                }
-                else {
+                } else {
                     if (!($.inArray(key, that.header.fields) !== -1 &&
                         (typeof value === 'string' || typeof value === 'number') &&
                         (value + '').toLowerCase().indexOf(fval) !== -1)) {
