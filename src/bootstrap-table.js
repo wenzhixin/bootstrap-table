@@ -332,14 +332,17 @@
         pageSize: 10,
         pageList: [10, 25, 50, 100],
         paginationHAlign: 'right', //right, left
+        paginationHAlignClass: 'pull-xs-right',
         paginationVAlign: 'bottom', //bottom, top, both
         paginationDetailHAlign: 'left', //right, left
+        paginationDetailHAlignClass: 'pull-xs-left',
         paginationPreText: '&lsaquo;',
         paginationNextText: '&rsaquo;',
         search: false,
         searchOnEnterKey: false,
         strictSearch: false,
         searchAlign: 'right',
+        searchAlignClass: 'pull-xs-right',
         selectItemName: 'btSelectItem',
         showHeader: true,
         showFooter: false,
@@ -348,6 +351,7 @@
         showRefresh: false,
         showToggle: false,
         buttonsAlign: 'right',
+        buttonsAlignClass: 'pull-xs-right',
         smartDisplay: true,
         escape: false,
         minimumCountColumns: 1,
@@ -363,6 +367,7 @@
         singleSelect: false,
         toolbar: undefined,
         toolbarAlign: 'left',
+        toolbarAlignClass: 'pull-xs-left',
         checkboxHeader: true,
         sortable: true,
         silentSort: true,
@@ -1039,14 +1044,14 @@
         this.$toolbar.html('');
 
         if (typeof this.options.toolbar === 'string' || typeof this.options.toolbar === 'object') {
-            $(sprintf('<div class="bars pull-%s"></div>', this.options.toolbarAlign))
+            $(sprintf('<div class="bars pull-%s %s"></div>', this.options.toolbarAlign, this.options.toolbarAlign, this.options.toolbarAlignClass))
                 .appendTo(this.$toolbar)
                 .append($(this.options.toolbar));
         }
 
         // showColumns, showToggle, showRefresh
-        html = [sprintf('<div class="columns columns-%s btn-group pull-%s">',
-            this.options.buttonsAlign, this.options.buttonsAlign)];
+        html = [sprintf('<div class="columns columns-%s btn-group pull-%s %s">',
+            this.options.buttonsAlign, this.options.buttonsAlign, this.options.buttonsAlignClass)];
 
         if (typeof this.options.icons === 'string') {
             this.options.icons = calculateObjectValue(null, this.options.icons);
@@ -1160,7 +1165,7 @@
         if (this.options.search) {
             html = [];
             html.push(
-                '<div class="pull-' + this.options.searchAlign + ' search">',
+                '<div class="pull-' + this.options.searchAlign + ' ' + this.options.searchAlignClass + ' search">',
                 sprintf('<input class="form-control' +
                     sprintf(' input-%s', this.options.iconSize) +
                     '" type="text" placeholder="%s">',
@@ -1328,7 +1333,7 @@
         }
 
         html.push(
-            '<div class="pull-' + this.options.paginationDetailHAlign + ' pagination-detail">',
+            '<div class="pull-' + this.options.paginationDetailHAlign + ' ' + this.options.paginationDetailHAlignClass + ' pagination-detail">',
             '<span class="pagination-info">',
             this.options.onlyInfoPagination ? this.options.formatDetailPagination(this.options.totalRows) :
             this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
@@ -1382,7 +1387,7 @@
             html.push('</span>');
 
             html.push('</div>',
-                '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
+                '<div class="pull-' + this.options.paginationHAlign + ' ' + this.options.paginationHAlignClass + ' pagination">',
                 '<ul class="pagination' + sprintf(' pagination-%s', this.options.iconSize) + '">',
                 '<li class="page-item page-pre"><a class="page-link" href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
 
