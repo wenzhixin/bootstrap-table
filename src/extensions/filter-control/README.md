@@ -40,7 +40,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### filterData
 
 * type: String
-* description: Set custom select filter values, use `var:variable` to load from a variable or `url:http://www.example.com/data.json` to load from json file. 
+* description: Set custom select filter values, use `var:variable` to load from a variable or `url:http://www.example.com/data.json` to load from a remote json file or `jso:{key:data}` to load from a json string. 
 * default: `undefined`
 
 ### filterDatepickerOptions
@@ -51,6 +51,11 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### filterStrictSearch
 * type: Boolean
 * description: Set to true if you want to use the strict search mode.
+* default: `false`
+
+### filterStartsWithSearch
+* type: Boolean
+* description: Set to true if you want to use the starts with search mode.
 * default: `false`
 
 ### Icons
