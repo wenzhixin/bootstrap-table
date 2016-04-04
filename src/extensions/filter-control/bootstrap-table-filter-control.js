@@ -4,7 +4,7 @@
  * @version: v2.1.0
  */
 
-!function ($) {
+(function ($) {
 
     'use strict';
 
@@ -175,17 +175,14 @@
                 return selectControl && selectControl.length > 0;
             };
 
-        var z = that.options.pagination
-                ? (that.options.sidePagination === 'server'
-                    ? that.pageTo
-                    : that.options.totalRows)
-                : that.pageTo;
+        var z = that.options.pagination ?
+            (that.options.sidePagination === 'server' ? that.pageTo : that.options.totalRows) :
+            that.pageTo;
 
         for (var i = 0; i < z; i++) {
             $.each(that.header.fields, function (j, field) {
                 var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
-                    selectControl = $('.' + column.field);
-
+                    selectControl = $('.' + escapeID(column.field));
 
                 if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
                     if (selectControl.get(selectControl.length - 1).options.length === 0) {
@@ -203,6 +200,10 @@
         }
 
     };
+
+    var escapeID = function( id ) {
+       return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+   };
 
     var createControls = function (that, header) {
         var addedFilterControl = false,
@@ -241,15 +242,43 @@
 
             if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
                 var filterDataType = getFilterDataMethod(filterDataMethods, column.filterData.substring(0, column.filterData.indexOf(':')));
+                var filterDataSource, selectControl;
 
                 if (filterDataType !== null) {
-                    var filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length),
-                        selectControl = $('.' + column.field);
+                    filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length);
+                    selectControl = $('.' + escapeID(column.field));
 
                     addOptionToSelectControl(selectControl, '', '');
                     filterDataType(filterDataSource, selectControl);
                 } else {
                     throw new SyntaxError('Error. You should use any of these allowed filter data methods: var, json, url.' + ' Use like this: var: {key: "value"}');
+                }
+
+                var variableValues, key;
+                switch (filterDataType) {
+                    case 'url':
+                        $.ajax({
+                            url: filterDataSource,
+                            dataType: 'json',
+                            success: function (data) {
+                                $.each(data, function (key, value) {
+                                    addOptionToSelectControl(selectControl, key, value);
+                                });
+                            }
+                        });
+                        break;
+                    case 'var':
+                        variableValues = window[filterDataSource];
+                        for (key in variableValues) {
+                            addOptionToSelectControl(selectControl, key, variableValues[key]);
+                        }
+                        break;
+                    case 'jso':
+                        variableValues = JSON.parse(filterDataSource);
+                        for (key in variableValues) {
+                            addOptionToSelectControl(selectControl, key, variableValues[key]);
+                        }
+                        break;
                 }
             }
         });
@@ -316,7 +345,7 @@
             case 'auto':
                 return 'auto';
             default:
-                return 'ltr'
+                return 'ltr';
         }
     };
 
@@ -370,7 +399,7 @@
             },
             select: function (that, field, isVisible) {
                 return sprintf('<select class="%s form-control" style="width: 100%; visibility: %s" dir="%s"></select>',
-                    field, isVisible, getDirectionOfSelectOptions(that.options.alignmentSelectControlOptions))
+                    field, isVisible, getDirectionOfSelectOptions(that.options.alignmentSelectControlOptions));
             },
             datepicker: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">', field, isVisible);
@@ -384,7 +413,8 @@
         filterControl: undefined,
         filterData: undefined,
         filterDatepickerOptions: undefined,
-        filterStrictSearch: false
+        filterStrictSearch: false,
+        filterStartsWithSearch: false
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -489,7 +519,7 @@
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (!this.options.sidePagination === 'server') {
+        if (this.options.sidePagination !== 'server') {
             return;
         }
 
@@ -502,7 +532,7 @@
                 var thisColumn = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, key)];
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
-                
+
                 // Fix #142: search use formated data
                 if (thisColumn && thisColumn.searchFormatter) {
                     value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header,
@@ -516,8 +546,13 @@
                         value.toString().toLowerCase() === fval.toString().toLowerCase())) {
                         return false;
                     }
-                }
-                else {
+                } else if (thisColumn.filterStartsWithSearch) {
+                  if (!($.inArray(key, that.header.fields) !== -1 &&
+                      (typeof value === 'string' || typeof value === 'number') &&
+                      (value + '').toLowerCase().indexOf(fval) === 0)) {
+                      return false;
+                  }
+                } else {
                     if (!($.inArray(key, that.header.fields) !== -1 &&
                         (typeof value === 'string' || typeof value === 'number') &&
                         (value + '').toLowerCase().indexOf(fval) !== -1)) {
@@ -599,4 +634,4 @@
             }, that.options.searchTimeOut);
         }
     };
-}(jQuery);
+})(jQuery);
