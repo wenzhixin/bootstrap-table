@@ -286,7 +286,7 @@
         sortName: undefined,
         sortOrder: 'asc',
         sortStable: false,
-        rememberOrder: true,
+        rememberOrder: false,
         striped: false,
         columns: [[]],
         data: [],
@@ -1021,10 +1021,12 @@
             this.options.sortOrder = this.options.sortOrder === 'asc' ? 'desc' : 'asc';
         } else {
             this.options.sortName = $this.data('field');
-            if(this.options.rememberOrder) {
+            if (this.options.rememberOrder) {
                 this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc';
             } else {
-                this.options.sortOrder = this.options.columns[0].find(function(option) { return option.field === $this.data('field'); }).order;
+                this.options.sortOrder = this.options.columns[0].filter(function(option) {
+                    return option.field === $this.data('field');
+                })[0].order;
             }
         }
         this.trigger('sort', this.options.sortName, this.options.sortOrder);
