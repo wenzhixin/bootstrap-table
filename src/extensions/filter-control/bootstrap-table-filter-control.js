@@ -1,14 +1,19 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
+<<<<<<< HEAD
  * @version: v1.0.1
+=======
+ * @version: v2.1.0
+>>>>>>> develop
  */
 
 !function ($) {
 
     'use strict';
 
-    var sprintf = $.fn.bootstrapTable.utils.sprintf;
+    var sprintf = $.fn.bootstrapTable.utils.sprintf,
+        objectKeys = $.fn.bootstrapTable.utils.objectKeys;
 
     var addOptionToSelectControl = function (selectControl, value, text) {
         value = $.trim(value);
@@ -40,7 +45,7 @@
     var existOptionInSelectControl = function (selectControl, value) {
         var options = selectControl.get(selectControl.length - 1).options;
         for (var i = 0; i < options.length; i++) {
-            if (options[i].value === value.toString()) {
+            if (!value || options[i].value === value.toString()) {
                 //The value is not valid to add
                 return true;
             }
@@ -72,6 +77,38 @@
         return searchControls;
     };
 
+    var getCursorPosition = function(el) {
+        if ($.fn.bootstrapTable.utils.isIEBrowser()) {
+            if ($(el).is('input')) {
+                var pos = 0;
+                if ('selectionStart' in el) {
+                    pos = el.selectionStart;
+                } else if ('selection' in document) {
+                    el.focus();
+                    var Sel = document.selection.createRange();
+                    var SelLength = document.selection.createRange().text.length;
+                    Sel.moveStart('character', -el.value.length);
+                    pos = Sel.text.length - SelLength;
+                }
+                return pos;
+            } else {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
+    };
+
+    var setCursorPosition = function (el, index) {
+        if ($.fn.bootstrapTable.utils.isIEBrowser()) {
+            if(el.setSelectionRange !== undefined) {
+                el.setSelectionRange(index, index);
+            } else {
+                $(el).val(el.value);
+            }
+        }
+    };
+
     var copyValues = function (that) {
         var header = getCurrentHeader(that),
             searchControls = getCurrentSearchControls(that);
@@ -82,7 +119,8 @@
             that.options.valuesFilterControl.push(
                 {
                     field: $(this).closest('[data-field]').data('field'),
-                    value: $(this).val()
+                    value: $(this).val(),
+                    position: getCursorPosition($(this).get(0))
                 });
         });
     };
@@ -102,6 +140,7 @@
 
                 if (result.length > 0) {
                     $(this).val(result[0].value);
+                    setCursorPosition($(this).get(0), result[0].position);
                 }
             });
         }
@@ -125,9 +164,9 @@
         }
     };
 
-    var initFilterSelectControls = function (bootstrapTable) {
-        var data = bootstrapTable.options.data,
-            itemsPerPage = bootstrapTable.pageTo < bootstrapTable.options.data.length ? bootstrapTable.options.data.length : bootstrapTable.pageTo,
+    var initFilterSelectControls = function (that) {
+        var data = that.options.data,
+            itemsPerPage = that.pageTo < that.options.data.length ? that.options.data.length : that.pageTo,
 
             isColumnSearchableViaSelect = function (column) {
                 return column.filterControl && column.filterControl.toLowerCase() === 'select' && column.searchable;
@@ -141,9 +180,23 @@
                 return selectControl && selectControl.length > 0;
             };
 
+<<<<<<< HEAD
         $.each(bootstrapTable.header.fields, function (j, field) {
             var column = bootstrapTable.columns[$.fn.bootstrapTable.utils.getFieldIndex(bootstrapTable.columns, field)],
             selectControl = $('.' + column.field);
+=======
+        var z = that.options.pagination
+                ? (that.options.sidePagination === 'server'
+                    ? that.pageTo
+                    : that.options.totalRows)
+                : that.pageTo;
+
+        for (var i = 0; i < z; i++) {
+            $.each(that.header.fields, function (j, field) {
+                var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
+                    selectControl = $('.' + column.field);
+
+>>>>>>> develop
 
             if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
                 if (selectControl.get(selectControl.length - 1).options.length === 0) {
@@ -155,14 +208,22 @@
                 for (var i = 0; i < data.length; i++) {
                     //Added a new value
                     var fieldValue = data[i][field],
+<<<<<<< HEAD
                     formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(bootstrapTable.header, bootstrapTable.header.formatters[j], [fieldValue, data[i], i], fieldValue);
+=======
+                        formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, that.header.formatters[j], [fieldValue, data[i], i], fieldValue);
+>>>>>>> develop
 
                     uniqueValues[formattedValue] = fieldValue;
                 }
 
+<<<<<<< HEAD
                 for (var key in uniqueValues) {
                     addOptionToSelectControl(selectControl, uniqueValues[key], key);
                 }
+=======
+    };
+>>>>>>> develop
 
                 sortSelectControl(selectControl);
             }
@@ -203,7 +264,9 @@
                     return false;
                 }
             });
+
             if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
+<<<<<<< HEAD
                 var filterDataType = column.filterData.substring(0, 3);
                 var filterDataSource = column.filterData.substring(4, column.filterData.length);
                 var selectControl = $('.' + column.field);
@@ -229,6 +292,18 @@
                         }
                         sortSelectControl(selectControl);
                         break;
+=======
+                var filterDataType = getFilterDataMethod(filterDataMethods, column.filterData.substring(0, column.filterData.indexOf(':')));
+
+                if (filterDataType !== null) {
+                    var filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length),
+                        selectControl = $('.' + column.field);
+
+                    addOptionToSelectControl(selectControl, '', '');
+                    filterDataType(filterDataSource, selectControl);
+                } else {
+                    throw new SyntaxError('Error. You should use any of these allowed filter data methods: var, json, url.' + ' Use like this: var: {key: "value"}');
+>>>>>>> develop
                 }
             }
         });
@@ -299,6 +374,43 @@
         }
     };
 
+    var filterDataMethods =
+        {
+            'var': function (filterDataSource, selectControl) {
+                var variableValues = window[filterDataSource];
+                for (var key in variableValues) {
+                    addOptionToSelectControl(selectControl, key, variableValues[key]);
+                }
+            },
+            'url': function (filterDataSource, selectControl) {
+                $.ajax({
+                    url: filterDataSource,
+                    dataType: 'json',
+                    success: function (data) {
+                        $.each(data, function (key, value) {
+                            addOptionToSelectControl(selectControl, key, value);
+                        });
+                    }
+                });
+            },
+            'json':function (filterDataSource, selectControl) {
+                var variableValues = JSON.parse(filterDataSource);
+                for (var key in variableValues) {
+                    addOptionToSelectControl(selectControl, key, variableValues[key]);
+                }
+            }
+        };
+
+    var getFilterDataMethod = function (objFilterDataMethod, searchTerm) {
+        var keys = Object.keys(objFilterDataMethod);
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] === searchTerm) {
+                return objFilterDataMethod[searchTerm];
+            }
+        }
+        return null;
+    };
+
     $.extend($.fn.bootstrapTable.defaults, {
         filterControl: false,
         onColumnSearch: function (field, text) {
@@ -306,8 +418,6 @@
         },
         filterShowClear: false,
         alignmentSelectControlOptions: undefined,
-        //internal variables
-        valuesFilterControl: [],
         filterTemplate: {
             input: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="form-control %s" style="width: 100%; visibility: %s">', field, isVisible);
@@ -319,7 +429,9 @@
             datepicker: function (that, field, isVisible) {
                 return sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">', field, isVisible);
             }
-        }
+        },
+        //internal variables
+        valuesFilterControl: []
     });
 
     $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
@@ -348,6 +460,12 @@
         //Make sure that the filterControl option is set
         if (this.options.filterControl) {
             var that = this;
+
+            // Compatibility: IE < 9 and old browsers
+            if (!Object.keys) {
+                objectKeys();
+            }
+
             //Make sure that the internal variables are set correctly
             this.options.valuesFilterControl = [];
 
@@ -466,6 +584,10 @@
     };
 
     BootstrapTable.prototype.onColumnSearch = function (event) {
+        if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+            return;
+        }
+
         copyValues(this);
         var text = $.trim($(event.currentTarget).val());
         var $field = $(event.currentTarget).closest('[data-field]').data('field');

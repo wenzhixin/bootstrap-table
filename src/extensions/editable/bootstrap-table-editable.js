@@ -104,6 +104,7 @@
                     $(this).data('value', params.submitValue);
                     row[column.field] = params.submitValue;
                     that.trigger('editable-save', column.field, row, oldValue, $(this));
+                    that.resetFooter();
                 });
             that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
                 .off('shown').on('shown', function (e, editable) {

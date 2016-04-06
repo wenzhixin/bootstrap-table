@@ -32,6 +32,9 @@
         },
         formatColumns: function () {
             return 'Columns';
+        },
+        formatAllRows: function () {
+            return 'All';
         }
     };
 

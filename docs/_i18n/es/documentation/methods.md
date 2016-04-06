@@ -42,6 +42,18 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         </td>
     </tr>
     <tr>
+        <td>showAllColumns</td>
+        <td>none</td>
+        <td>Muestra todas las columnas.</td>
+        <td>showAllColumns</td>
+    </tr>
+    <tr>
+        <td>hideAllColumns</td>
+        <td>none</td>
+        <td>Oculta todas las columnas.</td>
+        <td>hideAllColumns</td>
+    </tr>
+    <tr>
         <td>load</td>
         <td>data</td>
         <td>Se cargan los datos en la tabla, las filas antiguas se removeran.</td>
@@ -227,6 +239,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>getHiddenColumns</td>
         <td>-</td>
         <td>Obtiene las columnas ocultas.</td>
+    </tr>
+    <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>Retorna las columnas visibles.</td>
     </tr>
     <tr>
         <td>scrollTo</td>

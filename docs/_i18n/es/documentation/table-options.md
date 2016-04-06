@@ -487,5 +487,40 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         Soporta cualquier atributo customizable.
         </td>
     </tr>
+    <tr>
+            <td>customSearch</td>
+            <td>data-custom-search</td>
+            <td>Function</td>
+            <td>$.noop</td>
+            <td>
+            The custom search function is executed instead of built-in search function, takes one parameters: <br>
+            text: the search text.<br>
+            Example usage:<br>
+            <pre>
+            function customSearch(text) {
+                //Search logic here. 
+                //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
+            }
+            </pre>
+            </td>
+        </tr>
+        <tr>
+            <td>customSort</td>
+            <td>data-custom-sort</td>
+            <td>Function</td>
+            <td>$.noop</td>
+            <td>
+            The custom sort function is executed instead of built-in sort function, takes two parameters: <br>
+            sortName: the sort name.<br>
+            sortOrder: the sort order.<br>
+            Example usage:<br>
+            <pre>
+            function customSort(sortName, sortOrder) {
+                //Sort logic here. 
+                //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
+            }
+            </pre>
+            </td>
+        </tr>
     </tbody>
 </table>
