@@ -14,12 +14,14 @@
     var addOptionToSelectControl = function (selectControl, value, text) {
         value = $.trim(value);
         selectControl = $(selectControl.get(selectControl.length - 1));
-        if (existOptionInSelectControl(selectControl, value)) {
+        if (!existOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
                 .attr("value", value)
                 .text($('<div />').html(text).text()));
+        }
+    };
 
-            // Sort it. Not overly efficient to do this here
+    var sortSelectControl = function (selectControl) {
             var $opts = selectControl.find('option:gt(0)');
             $opts.sort(function (a, b) {
                 a = $(a).text().toLowerCase();
@@ -34,20 +36,19 @@
 
             selectControl.find('option:gt(0)').remove();
             selectControl.append($opts);
-        }
     };
 
     var existOptionInSelectControl = function (selectControl, value) {
         var options = selectControl.get(selectControl.length - 1).options;
         for (var i = 0; i < options.length; i++) {
-            if (!value || options[i].value === value.toString()) {
+            if (options[i].value === value.toString()) {
                 //The value is not valid to add
-                return false;
+                return true;
             }
         }
 
         //If we get here, the value is valid to add
-        return true;
+        return false;
     };
 
     var fixHeaderCSS = function (that) {
@@ -179,26 +180,31 @@
             (that.options.sidePagination === 'server' ? that.pageTo : that.options.totalRows) :
             that.pageTo;
 
-        for (var i = 0; i < z; i++) {
-            $.each(that.header.fields, function (j, field) {
-                var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
-                    selectControl = $('.' + escapeID(column.field));
+        $.each(that.header.fields, function (j, field) {
+            var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
+                selectControl = $('.' + escapeID(column.field));
 
-                if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
-                    if (selectControl.get(selectControl.length - 1).options.length === 0) {
-                        //Added the default option
-                        addOptionToSelectControl(selectControl, '', '');
-                    }
-
+            if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
+                if (selectControl.get(selectControl.length - 1).options.length === 0) {
+                    //Added the default option
+                    addOptionToSelectControl(selectControl, '', '');
+                }
+                
+                var uniqueValues = {};
+                for (var i = 0; i < z; i++) {
                     //Added a new value
                     var fieldValue = data[i][field],
                         formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, that.header.formatters[j], [fieldValue, data[i], i], fieldValue);
 
-                    addOptionToSelectControl(selectControl, fieldValue, formattedValue);
+                    uniqueValues[formattedValue] = fieldValue;
                 }
-            });
-        }
-
+                for (var key in uniqueValues) {
+                    addOptionToSelectControl(selectControl, uniqueValues[key], key);
+                }
+                
+                sortSelectControl(selectControl);
+            }
+        });
     };
 
     var escapeID = function( id ) {
@@ -261,9 +267,10 @@
                             url: filterDataSource,
                             dataType: 'json',
                             success: function (data) {
-                                $.each(data, function (key, value) {
-                                    addOptionToSelectControl(selectControl, key, value);
-                                });
+                                for (var key in data) {
+                                    addOptionToSelectControl(selectControl, key, data[key]);
+                                }
+                                sortSelectControl(selectControl);
                             }
                         });
                         break;
@@ -272,12 +279,14 @@
                         for (key in variableValues) {
                             addOptionToSelectControl(selectControl, key, variableValues[key]);
                         }
+                        sortSelectControl(selectControl);
                         break;
                     case 'jso':
                         variableValues = JSON.parse(filterDataSource);
                         for (key in variableValues) {
                             addOptionToSelectControl(selectControl, key, variableValues[key]);
                         }
+                        sortSelectControl(selectControl);
                         break;
                 }
             }
@@ -356,15 +365,17 @@
                 for (var key in variableValues) {
                     addOptionToSelectControl(selectControl, key, variableValues[key]);
                 }
+                sortSelectControl(selectControl);
             },
             'url': function (filterDataSource, selectControl) {
                 $.ajax({
                     url: filterDataSource,
                     dataType: 'json',
                     success: function (data) {
-                        $.each(data, function (key, value) {
-                            addOptionToSelectControl(selectControl, key, value);
-                        });
+                        for (var key in data) {
+                            addOptionToSelectControl(selectControl, key, data[key]);
+                        }
+                        sortSelectControl(selectControl);
                     }
                 });
             },
@@ -373,6 +384,7 @@
                 for (var key in variableValues) {
                     addOptionToSelectControl(selectControl, key, variableValues[key]);
                 }
+                sortSelectControl(selectControl);
             }
         };
 
