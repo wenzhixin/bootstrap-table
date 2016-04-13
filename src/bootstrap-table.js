@@ -1899,7 +1899,7 @@
         this.trigger('post-body', data);
     };
 
-    BootstrapTable.prototype.initServer = function (silent, query) {
+    BootstrapTable.prototype.initServer = function (silent, query, url) {
         var that = this,
             data = {},
             params = {
@@ -1956,7 +1956,7 @@
         }
         request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
-            url: this.options.url,
+            url: (url === undefined ? this.options.url : url),
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
                 JSON.stringify(data) : data,
             cache: this.options.cache,
@@ -2696,10 +2696,9 @@
 
     BootstrapTable.prototype.refresh = function (params) {
         if (params && params.url) {
-            this.options.url = params.url;
             this.options.pageNumber = 1;
         }
-        this.initServer(params && params.silent, params && params.query);
+        this.initServer(params && params.silent, params && params.query, params && params.url);
         this.trigger('refresh', params);
     };
 
