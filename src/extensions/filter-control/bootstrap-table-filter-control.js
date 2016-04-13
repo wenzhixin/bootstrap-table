@@ -499,7 +499,10 @@
             // which ones are going to be present.
             if (controls.length > 0) {
                 this.filterColumnsPartial = {};
-                $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
+                var element = _.find(controls, function(value) {
+                  return !(value.tagName == 'INPUT' && value.type == 'checkbox')
+                });
+                $(element).trigger(element.tagName === 'INPUT' ? 'keyup' : 'change');
             }
 
             if (search.length > 0) {
