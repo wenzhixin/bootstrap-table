@@ -4,7 +4,7 @@
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
-!function ($) {
+(function ($) {
     'use strict';
 
     // TOOLS DEFINITION
@@ -475,7 +475,7 @@
 
     BootstrapTable.LOCALES = [];
 
-    BootstrapTable.LOCALES['en-US'] = BootstrapTable.LOCALES['en'] = {
+    BootstrapTable.LOCALES['en-US'] = BootstrapTable.LOCALES.en = {
         formatLoadingMessage: function () {
             return 'Loading, please wait...';
         },
@@ -589,7 +589,7 @@
         if (this.options.locale) {
             var parts = this.options.locale.split(/-|_/);
             parts[0].toLowerCase();
-            parts[1] && parts[1].toUpperCase();
+            if (parts[1]) parts[1].toUpperCase();
             if ($.fn.bootstrapTable.locales[this.options.locale]) {
                 // locale as requested
                 $.extend(this.options, $.fn.bootstrapTable.locales[this.options.locale]);
@@ -661,7 +661,7 @@
             $(this).find('th').each(function () {
                 // Fix #2014 - getFieldIndex and elsewhere assume this is string, causes issues if not
                 if (typeof $(this).data('field') !== 'undefined') {
-                    $(this).data('field', new String($(this).data('field')).valueOf()); 
+                    $(this).data('field', $(this).data('field') + '');
                 }
                 column.push($.extend({}, {
                     title: $(this).html(),
@@ -760,7 +760,7 @@
         $.each(this.options.columns, function (i, columns) {
             html.push('<tr>');
 
-            if (i == 0 && !that.options.cardView && that.options.detailView) {
+            if (i === 0 && !that.options.cardView && that.options.detailView) {
                 html.push(sprintf('<th class="detail" rowspan="%s"><div class="fht-cell"></div></th>',
                     that.options.columns.length));
             }
@@ -1290,7 +1290,8 @@
             $first, $pre,
             $next, $last,
             $number,
-            data = this.getData();
+            data = this.getData(),
+            pageList = this.options.pageList;
 
         if (this.options.sidePagination !== 'server') {
             this.options.totalRows = data.length;
@@ -1350,8 +1351,7 @@
                     ' <span class="caret"></span>',
                     '</button>',
                     '<ul class="dropdown-menu" role="menu">'
-                ],
-                pageList = this.options.pageList;
+                ];
 
             if (typeof this.options.pageList === 'string') {
                 var list = this.options.pageList.replace('[', '').replace(']', '')
@@ -1536,7 +1536,7 @@
     };
 
     BootstrapTable.prototype.onPagePre = function (event) {
-        if ((this.options.pageNumber - 1) == 0) {
+        if ((this.options.pageNumber - 1) === 0) {
             this.options.pageNumber = this.options.totalPages;
         } else {
             this.options.pageNumber--;
@@ -1939,7 +1939,7 @@
         }
 
         if (!($.isEmptyObject(this.filterColumnsPartial))) {
-            params['filter'] = JSON.stringify(this.filterColumnsPartial, null);
+            params.filter = JSON.stringify(this.filterColumnsPartial, null);
         }
 
         data = calculateObjectValue(this.options, this.options.queryParams, [params], data);
@@ -2460,9 +2460,10 @@
             if (rowId === -1) {
                 return;
             }
-            $.extend(that.data[rowId], params.row);
+            $.extend(that.options.data[rowId], params.row);
         });
 
+        this.initSearch();
         this.initSort();
         this.initBody(true);
     };
@@ -2486,9 +2487,10 @@
             if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
                 return;
             }
-            $.extend(that.data[params.index], params.row);
+            $.extend(that.options.data[params.index], params.row);
         });
 
+        this.initSearch();
         this.initSort();
         this.initBody(true);
     };
@@ -2992,4 +2994,4 @@
     $(function () {
         $('[data-toggle="table"]').bootstrapTable();
     });
-}(jQuery);
+})(jQuery);
