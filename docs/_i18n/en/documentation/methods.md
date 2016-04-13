@@ -40,6 +40,18 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>getAllSelections</td>
     </tr>
     <tr>
+        <td>showAllColumns</td>
+        <td>none</td>
+        <td>Show All the columns.</td>
+        <td>showAllColumns</td>
+    </tr>
+    <tr>
+        <td>hideAllColumns</td>
+        <td>none</td>
+        <td>Hide All the columns.</td>
+        <td>hidAllColumns</td>
+    </tr>
+    <tr>
         <td>getData</td>
         <td>useCurrentPage</td>
         <td>Get the loaded data of table at the moment that this method is called. If you set the useCurrentPage to true the method will return the data in the current page.</td>
@@ -108,7 +120,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>updateRow</td>
         <td>params</td>
         <td>
-        Update the specified row, the param contains following properties: <br>
+        Update the specified row(s), each param contains following properties: <br>
         index: the row index to be updated. <br>
         row: the new row data.
         </td>
@@ -117,7 +129,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>updateByUniqueId</td>
         <td>params</td>
         <td>
-        Update the specified row, the param contains following properties: <br>
+        Update the specified row(s), each param contains following properties: <br>
         id: a row id where the id should be the uniqueid field assigned to the table. <br>
         row: the new row data.
         </td>
@@ -261,6 +273,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>getHiddenColumns</td>
         <td>-</td>
         <td>Get hidden columns.</td>
+    </tr>
+    <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>Get visible columns.</td>
     </tr>
     <tr>
         <td>scrollTo</td>

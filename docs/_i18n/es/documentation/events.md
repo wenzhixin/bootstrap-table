@@ -33,7 +33,8 @@
         <td>
         Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
         row: el registro que corresponde con la fila a la que se le dio click, <br>
-        $element: el elemento tr.
+        $element: el elemento tr, <br>
+        field: el nombre del campo correspondiente a la celda hecho clic.
         </td>
     </tr>
     <tr>
@@ -43,7 +44,8 @@
         <td>
         Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
         row: el registro que corresponde con la fila a la que se le dio click, <br>
-        $element: el elemento tr.
+        $element: el elemento tr, <br>
+        field: el nombre del campo correspondiente a la celda hecho clic.
         </td>
     </tr>
     <tr>
@@ -202,7 +204,13 @@
        <td>onRefreshOptions</td>
        <td>refresh-options.bs.table</td>
        <td>options</td>
-       <td>Se ejecuta cuando se actualiza el objeto options, este método se ejecuta antes de los eventos destroy e init</td>
+       <td>Se ejecuta cuando se actualiza el objeto options, este método se ejecuta antes de los eventos destroy e init.</td>
+    </tr>
+    <tr>
+       <td>onRefresh</td>
+       <td>refresh.bs.table</td>
+       <td>params</td>
+       <td>Se ejecuta cuando se cliquea el botón de refresh.</td>
     </tr>
     </tbody>
 </table>

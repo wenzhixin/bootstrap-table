@@ -48,7 +48,8 @@
             if (!$export.length) {
                 $export = $([
                     '<div class="export btn-group">',
-                        '<button class="btn btn-default' +
+                        '<button class="btn' +
+                            sprintf(' btn-%s', this.options.buttonsClass) +
                             sprintf(' btn-%s', this.options.iconSize) +
                             ' dropdown-toggle" ' +
                             'data-toggle="dropdown" type="button">',
@@ -90,7 +91,7 @@
                         };
 
                     if (that.options.exportDataType === 'all' && that.options.pagination) {
-                        that.$el.one('load-success.bs.table page-change.bs.table', function () {
+                        that.$el.one(that.options.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table', function () {
                             doExport();
                             that.togglePagination();
                         });
