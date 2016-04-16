@@ -196,7 +196,7 @@
     line-height: 1.428571429;
 }
 
-.fixed-table-toolbar .bars,
+.fixed-table-toolbar .bars-bs-table,
 .fixed-table-toolbar .search,
 .fixed-table-toolbar .columns {
     position: relative;

@@ -1032,13 +1032,13 @@
             $search,
             switchableCount = 0;
 
-        if (this.$toolbar.find('.bars').children().length) {
+        if (this.$toolbar.find('.bars-bs-table').children().length) {
             $('body').append($(this.options.toolbar));
         }
         this.$toolbar.html('');
 
         if (typeof this.options.toolbar === 'string' || typeof this.options.toolbar === 'object') {
-            $(sprintf('<div class="bars pull-%s"></div>', this.options.toolbarAlign))
+            $(sprintf('<div class="bars-bs-table pull-%s"></div>', this.options.toolbarAlign))
                 .appendTo(this.$toolbar)
                 .append($(this.options.toolbar));
         }
