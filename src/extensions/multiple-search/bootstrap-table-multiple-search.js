@@ -17,6 +17,9 @@
 
     BootstrapTable.prototype.initSearch = function () {
         if (this.options.multipleSearch) {
+            if (this.searchText === undefined) {
+                return;
+            }
             var strArray = this.searchText.split(" "),
                 that = this,
                 f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns,
