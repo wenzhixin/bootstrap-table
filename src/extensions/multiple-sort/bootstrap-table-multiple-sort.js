@@ -200,7 +200,7 @@
         formatDuplicateAlertDescription: function() {
             return "Please remove or change any duplicate column.";
         },
-        sortOrders : function () {
+        formatSortOrders : function () {
             return {
               asc: 'Ascending',
               desc: 'Descending'
@@ -337,7 +337,7 @@
             $multiSortName.append('<option value="' + column.field + '">' + column.title + '</option>');
         });
 
-        $.each(this.options.sortOrders(), function(value, order) {
+        $.each(this.options.formatSortOrders(), function(value, order) {
             $multiSortOrder.append('<option value="' + value + '">' + order + '</option>');
         });
 

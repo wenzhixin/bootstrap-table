@@ -84,6 +84,11 @@ Use Plugin: [bootstrap-table-multiple-sort](https://github.com/dimbslmh/bootstra
 * description: Text of the duplicate alert
 * default: `Please remove or change any duplicate column.`
 
+### formatSortOrders
+
+* description: Text of the sort orders
+* default: asc : `Ascending` and desc : `Descending`
+
 ## Events
 
 ### onMultipleSort(multiple-sort.bs.table)
