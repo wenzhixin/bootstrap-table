@@ -17,7 +17,7 @@
         _initSearch = BootstrapTable.prototype.initSearch;
 
     BootstrapTable.prototype.initSearch = function () {
-        if (this.options.multipleSearch) {
+        if (this.options.multipleSearch && this.searchText != undefined) {
             //removing leading or trailing spaces around the delimiter and split in terms
             var strArray = this.searchText.replace(/\s*,\s*/gmi, this.options.searchDelimiter).split(this.options.searchDelimiter),
                 that = this,
