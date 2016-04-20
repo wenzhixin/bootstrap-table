@@ -1032,13 +1032,13 @@
             $search,
             switchableCount = 0;
 
-        if (this.$toolbar.find('.bars-bs-table').children().length) {
+        if (this.$toolbar.find('.bs-bars').children().length) {
             $('body').append($(this.options.toolbar));
         }
         this.$toolbar.html('');
 
         if (typeof this.options.toolbar === 'string' || typeof this.options.toolbar === 'object') {
-            $(sprintf('<div class="bars-bs-table pull-%s"></div>', this.options.toolbarAlign))
+            $(sprintf('<div class="bs-bars pull-%s"></div>', this.options.toolbarAlign))
                 .appendTo(this.$toolbar)
                 .append($(this.options.toolbar));
         }
@@ -1956,7 +1956,7 @@
         }
         request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
-            url: (url === undefined ? this.options.url : url),
+            url:  url || this.options.url,
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
                 JSON.stringify(data) : data,
             cache: this.options.cache,
