@@ -519,7 +519,7 @@
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (this.options.sidePagination !== 'server') {
+        if (this.options.sidePagination === 'server') {
             return;
         }
 
