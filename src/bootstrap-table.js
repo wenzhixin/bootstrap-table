@@ -1032,13 +1032,13 @@
             $search,
             switchableCount = 0;
 
-        if (this.$toolbar.find('.bars').children().length) {
+        if (this.$toolbar.find('.bs-bars').children().length) {
             $('body').append($(this.options.toolbar));
         }
         this.$toolbar.html('');
 
         if (typeof this.options.toolbar === 'string' || typeof this.options.toolbar === 'object') {
-            $(sprintf('<div class="bars pull-%s"></div>', this.options.toolbarAlign))
+            $(sprintf('<div class="bs-bars pull-%s"></div>', this.options.toolbarAlign))
                 .appendTo(this.$toolbar)
                 .append($(this.options.toolbar));
         }
@@ -1899,7 +1899,7 @@
         this.trigger('post-body', data);
     };
 
-    BootstrapTable.prototype.initServer = function (silent, query) {
+    BootstrapTable.prototype.initServer = function (silent, query, url) {
         var that = this,
             data = {},
             params = {
@@ -1956,7 +1956,7 @@
         }
         request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
-            url: this.options.url,
+            url:  url || this.options.url,
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
                 JSON.stringify(data) : data,
             cache: this.options.cache,
@@ -2696,10 +2696,9 @@
 
     BootstrapTable.prototype.refresh = function (params) {
         if (params && params.url) {
-            this.options.url = params.url;
             this.options.pageNumber = 1;
         }
-        this.initServer(params && params.silent, params && params.query);
+        this.initServer(params && params.silent, params && params.query, params && params.url);
         this.trigger('refresh', params);
     };
 

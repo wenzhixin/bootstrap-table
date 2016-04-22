@@ -610,6 +610,8 @@
             if (controls.length > 0) {
                 this.filterColumnsPartial = {};
                 $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
+            } else {
+                return;
             }
 
             if (search.length > 0) {
@@ -618,9 +620,11 @@
 
             // use the default sort order if it exists. do nothing if it does not
             if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
-                var sorter = sprintf(header.find('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')));
-                that.onSort(table.data('sortName'), table.data('sortName'));
-                $(sorter).find('.sortable').trigger('click');
+                var sorter = header.find(sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')));
+                if (sorter.length > 0) {
+                    that.onSort(table.data('sortName'), table.data('sortName'));
+                    $(sorter).find('.sortable').trigger('click');
+                }
             }
 
             // clear cookies once the filters are clean
@@ -628,7 +632,9 @@
             timeoutId = setTimeout(function () {
                 if (cookies && cookies.length > 0) {
                     $.each(cookies, function (i, item) {
-                        that.deleteCookie(item);
+                        if (that.deleteCookie !== undefined) {
+                            that.deleteCookie(item);
+                        }
                     });
                 }
             }, that.options.searchTimeOut);

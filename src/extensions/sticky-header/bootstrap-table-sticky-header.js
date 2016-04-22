@@ -20,14 +20,16 @@
         var that = this;
         _initHeader.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (!this.options.stickyHeader) return;
+        if (!this.options.stickyHeader) {
+            return;
+        }
 
-        var table = this.$tableBody.find('table');
-        var table_id = table.attr('id');
-        var header_id = table.attr('id') + '-sticky-header';
-        var sticky_header_container_id = header_id +'-sticky-header-container';
-        var anchor_begin_id = header_id +'_sticky_anchor_begin';
-        var anchor_end_id = header_id +'_sticky_anchor_end';
+        var table = this.$tableBody.find('table'),
+            table_id = table.attr('id'),
+            header_id = table.attr('id') + '-sticky-header',
+            sticky_header_container_id = header_id +'-sticky-header-container',
+            anchor_begin_id = header_id +'_sticky_anchor_begin',
+            anchor_end_id = header_id +'_sticky_anchor_end';
         // add begin and end anchors to track table position
 
         table.before(sprintf('<div id="%s" class="hidden"></div>', sticky_header_container_id));
@@ -38,7 +40,7 @@
 
         // clone header just once, to be used as sticky header
         // deep clone header. using source header affects tbody>td width
-        this.$stickyHeader = $($('#'+header_id).clone());
+        this.$stickyHeader = $($('#'+header_id).clone(true, true));
         // avoid id conflict
         this.$stickyHeader.removeAttr('id');
 
@@ -48,7 +50,12 @@
         // render sticky when table scroll left-right
         table.closest('.fixed-table-container').find('.fixed-table-body').on('scroll.'+table_id, table, match_position_x);
 
-        function render_sticky_header(event){
+        this.$el.on('all.bs.table', function (e) {
+            that.$stickyHeader = $($('#'+header_id).clone(true, true));
+            that.$stickyHeader.removeAttr('id');
+        });
+
+        function render_sticky_header(event) {
             var table = event.data;
             var table_header_id = table.find('thead').attr('id');
             // console.log('render_sticky_header for > '+table_header_id);
