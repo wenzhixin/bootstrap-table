@@ -4,20 +4,22 @@
  * @version: v1.0.0
  */
 
-!function ($) {
+! function ($) {
 
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
-        multipleSearch: false
+        multipleSearch: false,
+        searchDelimiter: " "
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initSearch = BootstrapTable.prototype.initSearch;
 
     BootstrapTable.prototype.initSearch = function () {
-        if (this.options.multipleSearch) {
-            var strArray = this.searchText.split(" "),
+        if (this.options.multipleSearch && this.searchText != undefined) {
+            //removing leading or trailing spaces around the delimiter and split in terms
+            var strArray = this.searchText.replace(/\s*,\s*/gmi, this.options.searchDelimiter).split(this.options.searchDelimiter),
                 that = this,
                 f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns,
                 dataFiltered = [];
