@@ -1,7 +1,5 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * UPDATED BY DOBOBAIE
- * PLEASE EDITE https://github.com/dobobaie/tableExport.jquery.plugin/blob/patch-1/tableExport.js
  * extensions: https://github.com/kayalshri/tableExport.jquery.plugin
  */
 
@@ -58,12 +56,12 @@
                             '<span class="caret"></span>',
                         '</button>',
                         '<ul class="dropdown-menu dropdown-menu-large row" role="menu">',
-                            '<li class="col-sm-8 col-ld-8">'+
+                            '<li class="col-sm-7 col-ld-7">'+
                                 '<ul class="listColumns">'+
                                     '<li class="dropdown-header">Columns to export</li>'+
                                 '</ul>'+
                             '</li>'+
-                            '<li class="col-sm-4 col-ld-4">'+
+                            '<li class="col-sm-5 col-ld-5">'+
                                 '<ul class="listExts">'+
                                     '<li class="dropdown-header">Export to</li>'+
                                 '</ul>'+
