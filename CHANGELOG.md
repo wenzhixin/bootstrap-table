@@ -21,6 +21,11 @@ ChangeLog
 - refactor(filter-control extension): refactor the filterDataType method
 - feat(angular extension): add constant in order to get it from angular scope
 - fix(js): return field from visible cells
+- feat(js): add `onRefresh` event
+- fix(js): onSearch event is not fire when we press the arrows keys
+- feat(js): add field parameter in the click and dblClick row events
+- feat(filter-control extension): add select list data to be passed in as JSON string and filter control starts with search
+
 
 ### 1.10.1
 
