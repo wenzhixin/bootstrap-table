@@ -245,7 +245,6 @@
         // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
         if (!Object.keys) {
             Object.keys = (function() {
-                'use strict';
                 var hasOwnProperty = Object.prototype.hasOwnProperty,
                     hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
                     dontEnums = [
@@ -697,7 +696,6 @@
             return;
         }
 
-        this.fromHtml = this.options.sidePagination === 'client';
         var m = [];
         this.$el.find('>tbody>tr').each(function (y) {
             var row = {};
@@ -738,6 +736,7 @@
             data.push(row);
         });
         this.options.data = data;
+        if (data.length) this.fromHtml = true;
     };
 
     BootstrapTable.prototype.initHeader = function () {
