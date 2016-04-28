@@ -57,12 +57,9 @@
 
     var getFieldIndexFromColumnIndex = function (columns, fieldIndex) {
         $.each(columns, function (i, column) {
-          if (!column.visible) {
-            fieldIndex--;
-          }
-          if (i == fieldIndex) {
-            return false;
-          }
+            if (!column.visible) {
+                fieldIndex--;
+            }
         });
         return fieldIndex;
     };
