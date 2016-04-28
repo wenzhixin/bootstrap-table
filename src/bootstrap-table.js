@@ -636,11 +636,17 @@
     BootstrapTable.prototype.initTable = function () {
         var that = this,
             columns = [],
+            footer = [],
             data = [];
 
         this.$header = this.$el.find('>thead');
+        this.$footer = this.$el.find('>tfoot');
+        this.$footer.hide();
         if (!this.$header.length) {
             this.$header = $('<thead></thead>').appendTo(this.$el);
+        }
+        if (!this.$footer.length) {
+            this.$footer = $('<tfoot></tfoot>').appendTo(this.$el);
         }
         this.$header.find('tr').each(function () {
             var column = [];
@@ -725,6 +731,21 @@
         });
         this.options.data = data;
         if (data.length) this.fromHtml = true;
+
+        this.$footer.find('tr>th').each(function () {
+            // Fix #2014 - getFieldIndex and elsewhere assume this is string, causes issues if not
+            if (typeof $(this).data('field') !== 'undefined') {
+                $(this).data('field', $(this).data('field') + '');
+            }
+            footer.push($.extend({}, {
+                title: $(this).html(),
+                'class': $(this).attr('class'),
+                titleTooltip: $(this).attr('title'),
+                rowspan: $(this).attr('rowspan') ? +$(this).attr('rowspan') : undefined,
+                colspan: $(this).attr('colspan') ? +$(this).attr('colspan') : undefined
+            }, $(this).data()));
+        });
+        this.options.footer = footer;    
     };
 
     BootstrapTable.prototype.initHeader = function () {
@@ -2122,6 +2143,7 @@
     BootstrapTable.prototype.resetFooter = function () {
         var that = this,
             data = that.getData(),
+            footerData = that.options.footer,
             html = [];
 
         if (!this.options.showFooter || this.options.cardView) { //do nothing
@@ -2151,7 +2173,11 @@
             html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
             html.push('<div class="th-inner">');
 
-            html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
+            if (footerData.length) {
+                html.push(calculateObjectValue(column, column.footerFormatter, footerData[i], footerData[i].title) || footerData[i].title);
+            } else {
+                html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
+            }
 
             html.push('</div>');
             html.push('<div class="fht-cell"></div>');
