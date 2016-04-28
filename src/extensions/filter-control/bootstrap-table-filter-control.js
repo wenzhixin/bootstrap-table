@@ -478,23 +478,21 @@
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     BootstrapTable.prototype.initToolbar = function () {
-        if ((!this.showToolbar) && (this.options.filterControl)) {
-            this.showToolbar = this.options.filterControl;
-        }
+        this.showToolbar = this.options.filterControl && this.options.filterShowClear;
 
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.filterControl && this.options.filterShowClear) {
             var $btnGroup = this.$toolbar.find('>.btn-group'),
-                $btnClear = $btnGroup.find('div.export');
+                $btnClear = $btnGroup.find('.filter-show-clear');
 
             if (!$btnClear.length) {
-              $btnClear = $([
-                    '<button class="btn btn-default" ',
+                $btnClear = $([
+                    '<button class="btn btn-default filter-show-clear" ',
                     sprintf('type="button" title="%s">', this.options.formatClearFilters()),
                     sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
-                    '</button>',
-                    '</ul>'].join('')).appendTo($btnGroup);
+                    '</button>'
+                ].join('')).appendTo($btnGroup);
 
                 $btnClear.off('click').on('click', $.proxy(this.clearFilterControl, this));
             }
