@@ -55,15 +55,6 @@
         return index;
     };
 
-    var getFieldIndexFromColumnIndex = function (columns, fieldIndex) {
-        $.each(columns, function (i, column) {
-            if (!column.visible) {
-                fieldIndex--;
-            }
-        });
-        return fieldIndex;
-    };
-
     // http://jsfiddle.net/wenyi/47nz7ez9/3/
     var setFieldIndex = function (columns) {
         var i, j, k,
@@ -1863,7 +1854,7 @@
             }
 
             var field = that.header.fields[i],
-                fieldIndex = getFieldIndexFromColumnIndex(that.columns, i);
+                fieldIndex = $.inArray(field, that.getVisibleFields());
 
             if (that.options.detailView && !that.options.cardView) {
                 fieldIndex += 1;
