@@ -1,18 +1,14 @@
 /**
  * @author Nadim Basalamah <dimbslmh@gmail.com>
- * @version: v1.0.0
+ * @version: v1.1.0
  * https://github.com/dimbslmh/bootstrap-table/tree/master/src/extensions/multiple-sort/bootstrap-table-multiple-sort.js
+ * Modification: ErwannNevou <https://github.com/ErwannNevou>
  */
 
 (function($) {
     'use strict';
 
     var isSingleSort = false;
-
-    var sort_order = {
-        asc: 'Ascending',
-        desc: 'Descending'
-    };
 
     var showSortModal = function(that) {
         var _selector = that.$sortModal.selector,
@@ -203,6 +199,12 @@
         },
         formatDuplicateAlertDescription: function() {
             return "Please remove or change any duplicate column.";
+        },
+        formatSortOrders : function () {
+            return {
+              asc: 'Ascending',
+              desc: 'Descending'
+            }
         }
     });
 
@@ -335,7 +337,7 @@
             $multiSortName.append('<option value="' + column.field + '">' + column.title + '</option>');
         });
 
-        $.each(sort_order, function(value, order) {
+        $.each(this.options.formatSortOrders(), function(value, order) {
             $multiSortOrder.append('<option value="' + value + '">' + order + '</option>');
         });
 

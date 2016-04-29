@@ -55,18 +55,6 @@
         return index;
     };
 
-    var getFieldIndexFromColumnIndex = function (columns, fieldIndex) {
-        $.each(columns, function (i, column) {
-          if (!column.visible) {
-            fieldIndex--;
-          }
-          if (i == fieldIndex) {
-            return false;
-          }
-        });
-        return fieldIndex;
-    };
-
     // http://jsfiddle.net/wenyi/47nz7ez9/3/
     var setFieldIndex = function (columns) {
         var i, j, k,
@@ -245,7 +233,6 @@
         // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
         if (!Object.keys) {
             Object.keys = (function() {
-                'use strict';
                 var hasOwnProperty = Object.prototype.hasOwnProperty,
                     hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
                     dontEnums = [
@@ -697,7 +684,6 @@
             return;
         }
 
-        this.fromHtml = this.options.sidePagination === 'client';
         var m = [];
         this.$el.find('>tbody>tr').each(function (y) {
             var row = {};
@@ -738,6 +724,7 @@
             data.push(row);
         });
         this.options.data = data;
+        if (data.length) this.fromHtml = true;
     };
 
     BootstrapTable.prototype.initHeader = function () {
@@ -1867,7 +1854,7 @@
             }
 
             var field = that.header.fields[i],
-                fieldIndex = getFieldIndexFromColumnIndex(that.columns, i);
+                fieldIndex = $.inArray(field, that.getVisibleFields());
 
             if (that.options.detailView && !that.options.cardView) {
                 fieldIndex += 1;
@@ -1909,15 +1896,13 @@
             },
             request;
 
-        if(this.options.pagination) {
+        if (this.options.pagination) {
             params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
                 this.options.totalRows : this.options.pageSize;
             params.pageNumber = this.options.pageNumber;
-        } else {
-            params.pageSize = this.options.totalRows;
         }
 
-        if (!this.options.url && !this.options.ajax) {
+        if (!(url || this.options.url) && !this.options.ajax) {
             return;
         }
 
@@ -1927,14 +1912,12 @@
                 sort: params.sortName,
                 order: params.sortOrder
             };
-            params.offset = this.options.pageSize === this.options.formatAllRows() ?
-                0 : this.options.pageSize * (this.options.pageNumber - 1);
 
             if (this.options.pagination) {
+                params.offset = this.options.pageSize === this.options.formatAllRows() ?
+                    0 : this.options.pageSize * (this.options.pageNumber - 1);
                 params.limit = this.options.pageSize === this.options.formatAllRows() ?
                     this.options.totalRows : this.options.pageSize;
-            } else {
-                params.limit = this.options.totalRows;
             }
         }
 
