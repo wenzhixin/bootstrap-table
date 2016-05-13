@@ -1619,7 +1619,7 @@
             );
 
             if (this.options.cardView) {
-                html.push(sprintf('<td colspan="%s">', this.header.fields.length));
+                html.push(sprintf('<td colspan="%s"><div class="card-views">', this.header.fields.length));
             }
 
             if (!this.options.cardView && this.options.detailView) {
@@ -1746,7 +1746,7 @@
             });
 
             if (this.options.cardView) {
-                html.push('</td>');
+                html.push('</div></td>');
             }
 
             html.push('</tr>');

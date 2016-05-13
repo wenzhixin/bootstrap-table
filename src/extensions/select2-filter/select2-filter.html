@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Select2 Filter</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css"/>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+  <script src="bootstrap-table-select2-filter.js"></script>
+  <script>
+    $(function () {
+      var options = {
+        filterValues: {price: "$2"},
+        url: "data.json",
+        columns: [
+          {
+            field: "id",
+            title: "ID",
+            filter: {
+              type: "input"
+            }
+          },
+          {
+            field: "name",
+            title: "Item Name",
+            filter: {
+              type: "select",
+              data: []
+            }
+          },
+          {
+            field: "price",
+            title: "Item Price",
+            filter: {
+              type: "select",
+              data: ["$1", "$2", "$3"]
+            }
+          }
+        ],
+        filter: true
+      };
+
+      var $table = $("#table").bootstrapTable(options);
+      $table.bootstrapTable("setFilterData", "name", ["item 1", "item 2", "item 3"]);
+    });
+  </script>
+</head>
+<body>
+<div class="container">
+  <h1>Select2 Filter</h1>
+  <table id="table"></table>
+</div>
+</body>
+</html>
