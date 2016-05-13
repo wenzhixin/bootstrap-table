@@ -35,6 +35,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>El nombre de la clase de la tabla.</td>
     </tr>
     <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>El nombre de la clase de los elementos td que están ordenados.</td>
+    </tr>
+    <tr>
         <td>height</td>
         <td>data-height</td>
         <td>Number</td>
@@ -498,7 +505,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
             Example usage:<br>
             <pre>
             function customSearch(text) {
-                //Search logic here. 
+                //Search logic here.
                 //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
             }
             </pre>
@@ -516,7 +523,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
             Example usage:<br>
             <pre>
             function customSort(sortName, sortOrder) {
-                //Sort logic here. 
+                //Sort logic here.
                 //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
             }
             </pre>

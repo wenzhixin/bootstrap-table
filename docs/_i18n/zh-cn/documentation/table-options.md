@@ -35,6 +35,13 @@
         <td>表格的类名称。默认情况下，表格是有边框的，你可以添加 'table-no-bordered' 来删除表格的边框样式。</td>
     </tr>
     <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>The class name of the td elements which are sorted.</td>
+    </tr>
+    <tr>
         <td>height</td>
         <td>data-height</td>
         <td>Number</td>
@@ -524,7 +531,7 @@
             Example usage:<br>
             <pre>
             function customSearch(text) {
-                //Search logic here. 
+                //Search logic here.
                 //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
             }
             </pre>
@@ -542,7 +549,7 @@
             Example usage:<br>
             <pre>
             function customSort(sortName, sortOrder) {
-                //Sort logic here. 
+                //Sort logic here.
                 //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
             }
             </pre>

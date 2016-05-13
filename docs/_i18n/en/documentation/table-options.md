@@ -35,6 +35,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>The class name of table. By default, the table is bordered, you can add 'table-no-bordered' to remove table-bordered style.</td>
     </tr>
     <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>The class name of the td elements which are sorted.</td>
+    </tr>
+    <tr>
         <td>height</td>
         <td>data-height</td>
         <td>Number</td>
@@ -569,7 +576,7 @@ function rowStyle(value, row, index) {
         Example usage:<br>
         <pre>
         function customSearch(text) {
-            //Search logic here. 
+            //Search logic here.
             //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
         }
         </pre>
@@ -587,7 +594,7 @@ function rowStyle(value, row, index) {
         Example usage:<br>
         <pre>
         function customSort(sortName, sortOrder) {
-            //Sort logic here. 
+            //Sort logic here.
             //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
         }
         </pre>
