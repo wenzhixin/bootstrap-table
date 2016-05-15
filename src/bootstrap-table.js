@@ -2553,7 +2553,7 @@
     BootstrapTable.prototype.getSelections = function () {
         var that = this;
 
-        return $.grep(this.data, function (row) {
+        return $.grep(this.options.data, function (row) {
             return row[that.header.stateField];
         });
     };
