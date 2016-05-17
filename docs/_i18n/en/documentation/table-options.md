@@ -70,6 +70,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Defines the column sort order, can only be 'asc' or 'desc'.</td>
     </tr>
     <tr>
+        <td>sortStable</td>
+        <td>data-sort-stable</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to get a stable sorting. We will add <code>_position</code> property to the row.</td>
+    </tr>
+    <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
@@ -569,7 +576,7 @@ function rowStyle(value, row, index) {
         Example usage:<br>
         <pre>
         function customSearch(text) {
-            //Search logic here. 
+            //Search logic here.
             //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
         }
         </pre>
@@ -587,7 +594,7 @@ function rowStyle(value, row, index) {
         Example usage:<br>
         <pre>
         function customSort(sortName, sortOrder) {
-            //Sort logic here. 
+            //Sort logic here.
             //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
         }
         </pre>

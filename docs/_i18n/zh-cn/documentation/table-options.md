@@ -70,6 +70,13 @@
         <td>定义排序方式 'asc' 或者 'desc'</td>
     </tr>
     <tr>
+        <td>sortStable</td>
+        <td>data-sort-stable</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>设置为 <code>true</code> 将获得稳定的排序，我们会添加<code>_position</code>属性到 row 数据中。</td>
+    </tr>
+    <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
@@ -524,7 +531,7 @@
             Example usage:<br>
             <pre>
             function customSearch(text) {
-                //Search logic here. 
+                //Search logic here.
                 //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
             }
             </pre>
@@ -542,7 +549,7 @@
             Example usage:<br>
             <pre>
             function customSort(sortName, sortOrder) {
-                //Sort logic here. 
+                //Sort logic here.
                 //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
             }
             </pre>
