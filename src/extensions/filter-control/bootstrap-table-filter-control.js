@@ -189,7 +189,7 @@
                     //Added the default option
                     addOptionToSelectControl(selectControl, '', '');
                 }
-                
+
                 var uniqueValues = {};
                 for (var i = 0; i < z; i++) {
                     //Added a new value
@@ -201,7 +201,7 @@
                 for (var key in uniqueValues) {
                     addOptionToSelectControl(selectControl, uniqueValues[key], key);
                 }
-                
+
                 sortSelectControl(selectControl);
             }
         });
@@ -437,6 +437,13 @@
         clear: 'glyphicon-trash icon-clear'
     });
 
+    $.extend($.fn.bootstrapTable.locales, {
+        formatClearFilters: function () {
+            return 'Clear Filters';
+        }
+    });
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
         _initToolbar = BootstrapTable.prototype.initToolbar,
@@ -481,13 +488,6 @@
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
     };
-
-    $.extend($.fn.bootstrapTable.locales, {
-        formatClearFilters: function () {
-            return 'Clear Filters';
-        }
-    });
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     BootstrapTable.prototype.initToolbar = function () {
         this.showToolbar = this.options.filterControl && this.options.filterShowClear;
