@@ -32,6 +32,13 @@
         export: 'glyphicon-export icon-share'
     });
 
+    $.extend($.fn.bootstrapTable.locales, {
+        formatExport: function () {
+            return 'Export data';
+        }
+    });
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar;
 
@@ -52,6 +59,7 @@
                             sprintf(' btn-%s', this.options.buttonsClass) +
                             sprintf(' btn-%s', this.options.iconSize) +
                             ' dropdown-toggle" ' +
+                            'title="' + this.options.formatExport() + '" ' +
                             'data-toggle="dropdown" type="button">',
                             sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.export),
                             '<span class="caret"></span>',
