@@ -292,6 +292,7 @@
         undefinedText: '-',
         sortName: undefined,
         sortOrder: 'asc',
+        sortStable: false,
         striped: false,
         columns: [[]],
         data: [],
@@ -934,6 +935,12 @@
         }
 
         if (index !== -1) {
+            if (this.options.sortStable) {
+                $.each(this.data, function (i, row) {
+                    if (!row.hasOwnProperty('_position')) row._position = i;
+                });
+            }
+
             this.data.sort(function (a, b) {
                 if (that.header.sortNames[index]) {
                     name = that.header.sortNames[index];
@@ -952,6 +959,11 @@
                 }
                 if (bb === undefined || bb === null) {
                     bb = '';
+                }
+
+                if (that.options.sortStable && aa === bb) {
+                    aa = a._position;
+                    bb = b._position;
                 }
 
                 // IF both values are numeric, do a numeric comparison
