@@ -222,6 +222,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         value: the field value.<br>
         row: the row record data.<br>
         index: the row index.<br>
+        field: the row field.<br>
         Support classes or css.
         </td>
     </tr>
