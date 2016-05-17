@@ -1674,7 +1674,7 @@
                     title_ = sprintf(' title="%s"', item['_' + field + '_title']);
                 }
                 cellStyle = calculateObjectValue(that.header,
-                    that.header.cellStyles[j], [value, item, i], cellStyle);
+                    that.header.cellStyles[j], [value, item, i, field], cellStyle);
                 if (cellStyle.classes) {
                     class_ = sprintf(' class="%s"', cellStyle.classes);
                 }
