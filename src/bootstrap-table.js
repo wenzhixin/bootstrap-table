@@ -272,6 +272,20 @@
         }
     };
 
+    if (!Object.keys) {
+        Object.keys = function(obj) {
+            var keys = [];
+
+            for (var i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    keys.push(i);
+                }
+            }
+
+            return keys;
+        };
+    }
+
     // BOOTSTRAP TABLE CLASS DEFINITION
     // ======================
 
@@ -926,7 +940,17 @@
         var that = this,
             name = this.options.sortName,
             order = this.options.sortOrder === 'desc' ? -1 : 1,
-            index = $.inArray(this.options.sortName, this.header.fields);
+            index = $.inArray(this.options.sortName, this.header.fields),
+            length = Object.keys(this.data).length;
+
+        // Add current position to data object in order to enable a stable sort
+        // for times when values are compared as equal
+        for (var key in this.data) {
+            if (this.data.hasOwnProperty(key)) {
+                // Save position
+                this.data[key].position = key;
+            }
+        }
 
         if (this.options.customSort !== $.noop) {
             this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder]);
@@ -954,7 +978,21 @@
                     bb = '';
                 }
 
-                // IF both values are numeric, do a numeric comparison
+                // Found to be equal
+                if (aa === bb) {
+                    var aa_position = getItemField(a, 'position'),
+                        bb_position = getItemField(b, 'position');
+
+                    if (order == 1) {
+                        aa = (length - aa_position),
+                        bb = (length - bb_position);
+                    } else {
+                        aa = aa_position,
+                        bb = bb_position;
+                    }
+                }
+
+                // If both values are numeric, do a numeric comparison
                 if ($.isNumeric(aa) && $.isNumeric(bb)) {
                     // Convert numerical values form string to float.
                     aa = parseFloat(aa);
@@ -963,10 +1001,6 @@
                         return order * -1;
                     }
                     return order;
-                }
-
-                if (aa === bb) {
-                    return 0;
                 }
 
                 // If value is not a string, convert to string
