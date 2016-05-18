@@ -619,5 +619,24 @@ function rowStyle(value, row, index) {
         if no locale files loaded).
         </td>
     </tr>
+    <tr>
+	<td>footerStyle</td>
+	<td>data-footer-style</td>
+	<td>Function</td>
+	<td>{}</td>
+	<td>
+	        The footer style formatter function, takes two parameters: <br>
+	        row: the row record data.<br>
+	        index: the row index.<br>
+	        Support classes or css. Example usage:<br>
+		<pre>
+		function footerStyle(value, row, index) {
+		  return {
+		    css: { "font-weight": "bold" }
+		  };
+		}
+		</pre>
+	</td>
+    </tr>
    </tbody>
 </table>
