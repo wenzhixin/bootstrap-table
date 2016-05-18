@@ -183,6 +183,7 @@
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
         _initTable = BootstrapTable.prototype.initTable,
+        _initServer = BootstrapTable.prototype.initServer,
         _onSort = BootstrapTable.prototype.onSort,
         _onPageNumber = BootstrapTable.prototype.onPageNumber,
         _onPageListChange = BootstrapTable.prototype.onPageListChange,
@@ -232,6 +233,40 @@
             getCookie: getCookie
         });
     };
+
+    BootstrapTable.prototype.initServer = function () {
+        var bootstrapTable = this,
+            selectsWithoutDefaults = [],
+
+            columnHasSelectControl = function (column) {
+                return column.filterControl && column.filterControl === 'select';
+            },
+
+            columnHasDefaultSelectValues = function (column) {
+                return column.filterData && column.filterData !== 'column';
+            },
+
+            cookiesPresent = function() {
+                return bootstrapTable.options.cookie && bootstrapTable.getCookies(bootstrapTable);
+            };
+
+        selectsWithoutDefaults = $.grep(bootstrapTable.columns, function(column) {
+            return columnHasSelectControl(column) && !columnHasDefaultSelectValues(column);
+        });
+
+        // reset variable to original initServer function, so that future calls to initServer
+        // use the original function from this point on.
+        BootstrapTable.prototype.initServer = _initServer;
+
+        // early return if we don't need to populate any select values with cookie values
+        if (cookiesPresent() && selectsWithoutDefaults.length === 0) {
+            return;
+        }
+
+        // call BootstrapTable.prototype.initServer
+        _initServer.apply(this, Array.prototype.slice.apply(arguments));
+    }
+
 
     BootstrapTable.prototype.initTable = function () {
         _initTable.apply(this, Array.prototype.slice.apply(arguments));
@@ -322,7 +357,7 @@
 
         setCookie(this, cookieIds.columns, JSON.stringify(visibleColumns));
     };
-    
+
     BootstrapTable.prototype.selectPage = function (page) {
         _selectPage.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, page);
@@ -335,6 +370,16 @@
         if ($(target[0].currentTarget).parent().hasClass('search')) {
           setCookie(this, cookieIds.searchText, this.searchText);
         }
+    };
+
+    BootstrapTable.prototype.getCookies = function(bootstrapTable) {
+        var cookies = [];
+        $.each( cookieIds, function( key, value ) {
+            var cookie = JSON.parse(getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, cookieIds.filterControl));
+            cookies.concat(cookie);
+        });
+
+        return cookies;
     };
 
     BootstrapTable.prototype.deleteCookie = function (cookieName) {
