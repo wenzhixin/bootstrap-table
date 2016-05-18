@@ -252,7 +252,7 @@
 
                 if (filterDataType !== null) {
                     filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length);
-                    selectControl = $('.' + escapeID(column.field));
+                    selectControl = $('select.' + escapeID(column.field));
 
                     addOptionToSelectControl(selectControl, '', '');
                     filterDataType(filterDataSource, selectControl);
