@@ -380,7 +380,7 @@
         rowAttributes: function (row, index) {
             return {};
         },
-    
+
         footerStyle: function (row, index) {
             return {};
         },
@@ -2155,31 +2155,31 @@
                 csses = [],
                 style = {},
                 class_ = sprintf(' class="%s"', column['class']);
- 
+
             if (!column.visible) {
                 return;
             }
- 
+
             if (that.options.cardView && (!column.cardVisible)) {
                 return;
             }
- 
+
             falign = sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
             valign = sprintf('vertical-align: %s; ', column.valign);
- 
+
             style = calculateObjectValue(null, that.options.footerStyle);
- 
+
             if (style && style.css) {
                 for (key in style.css) {
                     csses.push(key + ': ' + style.css[key]);
                 }
             }
- 
+
             html.push('<td', class_, sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>');
             html.push('<div class="th-inner">');
- 
+
             html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
- 
+
             html.push('</div>');
             html.push('<div class="fht-cell"></div>');
             html.push('</div>');
