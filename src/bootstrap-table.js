@@ -1236,6 +1236,7 @@
             this.data = f ? $.grep(this.options.data, function (item, i) {
                 for (var key in f) {
                     if ($.isArray(f[key])) {
+                        // TODO: remove this extra if statement
                         if ($.inArray(item[key], f[key]) === -1) {
                             return false;
                         }

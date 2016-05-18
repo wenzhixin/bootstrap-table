@@ -133,6 +133,38 @@
         return cookieExpire === undefined ? '' : '; max-age=' + cookieExpire;
     };
 
+    var initCookieFilters = function (bootstrapTable) {
+        setTimeout(function () {
+            var parsedCookieFilters = JSON.parse(getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, cookieIds.filterControl));
+
+            if (!bootstrapTable.options.filterControlValuesLoaded && parsedCookieFilters) {
+                bootstrapTable.options.filterControlValuesLoaded = true;
+
+                var cachedFilters = {},
+                    header = getCurrentHeader(bootstrapTable),
+                    searchControls = getCurrentSearchControls(bootstrapTable),
+
+                    applyCookieFilters = function (element, filteredCookies) {
+                        $(filteredCookies).each(function (i, cookie) {
+                            $(element).val(cookie.text);
+                            cachedFilters[cookie.field] = cookie.text;
+                        });
+                    };
+
+                header.find(searchControls).each(function () {
+                    var field = $(this).closest('[data-field]').data('field'),
+                        filteredCookies = $.grep(parsedCookieFilters, function (cookie) {
+                            return cookie.field === field;
+                        });
+
+                    applyCookieFilters(this, filteredCookies);
+                });
+
+                bootstrapTable.initColumnSearch(cachedFilters);
+            }
+        }, 250);
+    }
+
     $.extend($.fn.bootstrapTable.defaults, {
         cookie: false,
         cookieExpire: '2h',
@@ -191,32 +223,7 @@
                 }
 
                 setCookie(that, cookieIds.filterControl, JSON.stringify(that.options.filterControls));
-            }).on('post-body.bs.table', function () {
-                setTimeout(function () {
-                    if (!that.options.filterControlValuesLoaded) {
-                        that.options.filterControlValuesLoaded = true;
-                        var filterControl = JSON.parse(getCookie(that, that.options.cookieIdTable, cookieIds.filterControl));
-                        if (filterControl) {
-                            var field = null,
-                                result = [],
-                                header = getCurrentHeader(that),
-                                searchControls = getCurrentSearchControls(that);
-
-                            header.find(searchControls).each(function (index, ele) {
-                                field = $(this).closest('[data-field]').data('field');
-                                result = $.grep(filterControl, function (valueObj) {
-                                    return valueObj.field === field;
-                                });
-
-                                if (result.length > 0) {
-                                    $(this).val(result[0].text);
-                                    that.onColumnSearch({currentTarget: $(this)});
-                                }
-                            });
-                        }
-                    }
-                }, 250);
-            });
+            }).on('post-body.bs.table', initCookieFilters(that));
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
 
