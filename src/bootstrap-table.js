@@ -359,6 +359,8 @@
         iconSize: undefined,
         buttonsClass: 'default',
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
+        // fix #2188. Reset the offset to 0 on Table refresh
+        resetOffset: false,
         icons: {
             paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
             paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
@@ -1931,10 +1933,16 @@
             };
 
             if (this.options.pagination) {
-                params.offset = this.options.pageSize === this.options.formatAllRows() ?
-                    0 : this.options.pageSize * (this.options.pageNumber - 1);
                 params.limit = this.options.pageSize === this.options.formatAllRows() ?
                     this.options.totalRows : this.options.pageSize;
+                // fix #2188. Reset the offset to 0 on Table refresh
+                if(this.options.resetOffset === true){
+                    params.offset = 0;
+                    this.options.resetOffset = false;
+                }else{
+                    params.offset = this.options.pageSize === this.options.formatAllRows() ?
+                        0 : this.options.pageSize * (this.options.pageNumber - 1);
+                }
             }
         }
 
@@ -2706,6 +2714,11 @@
     };
 
     BootstrapTable.prototype.refresh = function (params) {
+        // fix #2188. Reset the offset to 0 on Table refresh
+        if(params.resetOffset === true){
+            this.options.resetOffset = true;
+            this.options.pageNumber = 1;
+        }
         if (params && params.url) {
             this.options.pageNumber = 1;
         }
