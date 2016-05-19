@@ -359,6 +359,8 @@
         iconSize: undefined,
         buttonsClass: 'default',
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
+        // fix #2188. Reset the offset to 0 on Table refresh
+        resetOffset: false,
         icons: {
             paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
             paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
@@ -2690,6 +2692,11 @@
     };
 
     BootstrapTable.prototype.refresh = function (params) {
+        // fix #2188. Reset the offset to 0 on Table refresh
+        if (params && params.resetOffset) {
+            this.options.resetOffset = true;
+            this.options.pageNumber = 1;
+        }
         if (params && params.url) {
             this.options.pageNumber = 1;
         }

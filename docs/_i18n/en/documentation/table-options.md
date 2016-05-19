@@ -619,5 +619,12 @@ function rowStyle(value, row, index) {
         if no locale files loaded).
         </td>
     </tr>
+    <tr>
+        <td>resetOffset</td>
+        <td>data-reset-offset</td>
+        <td>Boolean</td>
+        <td>False</td>
+        <td>True will set pageNumber to 1. Offset will be 0 while pageNumber is 1</td>
+    </tr>
    </tbody>
 </table>
