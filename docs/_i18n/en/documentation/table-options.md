@@ -77,6 +77,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Defines the column sort order, can only be 'asc' or 'desc'.</td>
     </tr>
     <tr>
+        <td>sortStable</td>
+        <td>data-sort-stable</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to get a stable sorting. We will add <code>_position</code> property to the row.</td>
+    </tr>
+    <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
@@ -618,6 +625,25 @@ function rowStyle(value, row, index) {
         If left undfined or an empty string, uses the last locale loaded (or <code>'en-US'</code>
         if no locale files loaded).
         </td>
+    </tr>
+    <tr>
+	<td>footerStyle</td>
+	<td>data-footer-style</td>
+	<td>Function</td>
+	<td>{}</td>
+	<td>
+	        The footer style formatter function, takes two parameters: <br>
+	        row: the row record data.<br>
+	        index: the row index.<br>
+	        Support classes or css. Example usage:<br>
+		<pre>
+		function footerStyle(value, row, index) {
+		  return {
+		    css: { "font-weight": "bold" }
+		  };
+		}
+		</pre>
+	</td>
     </tr>
    </tbody>
 </table>

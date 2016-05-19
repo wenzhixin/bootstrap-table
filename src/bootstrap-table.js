@@ -293,6 +293,7 @@
         undefinedText: '-',
         sortName: undefined,
         sortOrder: 'asc',
+        sortStable: false,
         striped: false,
         columns: [[]],
         data: [],
@@ -378,6 +379,10 @@
         },
 
         rowAttributes: function (row, index) {
+            return {};
+        },
+
+        footerStyle: function (row, index) {
             return {};
         },
 
@@ -468,7 +473,7 @@
             return 'Loading, please wait...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return sprintf('%s records per page', pageNumber);
+            return sprintf('%s rows per page', pageNumber);
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
@@ -936,6 +941,12 @@
         }
 
         if (index !== -1) {
+            if (this.options.sortStable) {
+                $.each(this.data, function (i, row) {
+                    if (!row.hasOwnProperty('_position')) row._position = i;
+                });
+            }
+
             this.data.sort(function (a, b) {
                 if (that.header.sortNames[index]) {
                     name = that.header.sortNames[index];
@@ -954,6 +965,11 @@
                 }
                 if (bb === undefined || bb === null) {
                     bb = '';
+                }
+
+                if (that.options.sortStable && aa === bb) {
+                    aa = a._position;
+                    bb = b._position;
                 }
 
                 // IF both values are numeric, do a numeric comparison
@@ -1231,6 +1247,7 @@
             this.data = f ? $.grep(this.options.data, function (item, i) {
                 for (var key in f) {
                     if ($.isArray(f[key])) {
+                        // TODO: remove this extra if statement
                         if ($.inArray(item[key], f[key]) === -1) {
                             return false;
                         }
@@ -1685,7 +1702,7 @@
                     title_ = sprintf(' title="%s"', item['_' + field + '_title']);
                 }
                 cellStyle = calculateObjectValue(that.header,
-                    that.header.cellStyles[j], [value, item, i], cellStyle);
+                    that.header.cellStyles[j], [value, item, i, field], cellStyle);
                 if (cellStyle.classes) {
                     class_ = sprintf(' class="%s"', cellStyle.classes);
                 }
@@ -2144,8 +2161,11 @@
         }
 
         $.each(this.columns, function (i, column) {
-            var falign = '', // footer align style
-                style = '',
+            var key,
+                falign = '', // footer align style
+                valign = '',
+                csses = [],
+                style = {},
                 class_ = sprintf(' class="%s"', column['class']);
 
             if (!column.visible) {
@@ -2157,9 +2177,17 @@
             }
 
             falign = sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
-            style = sprintf('vertical-align: %s; ', column.valign);
+            valign = sprintf('vertical-align: %s; ', column.valign);
 
-            html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
+            style = calculateObjectValue(null, that.options.footerStyle);
+
+            if (style && style.css) {
+                for (key in style.css) {
+                    csses.push(key + ': ' + style.css[key]);
+                }
+            }
+
+            html.push('<td', class_, sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>');
             html.push('<div class="th-inner">');
 
             html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
@@ -2564,7 +2592,7 @@
     BootstrapTable.prototype.getSelections = function () {
         var that = this;
 
-        return $.grep(this.data, function (row) {
+        return $.grep(this.options.data, function (row) {
             return row[that.header.stateField];
         });
     };

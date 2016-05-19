@@ -188,7 +188,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         value: the field value. <br>
         row: the row record data.<br>
         index: the row index. <br>
-        Example code: 
+        Example code:
         <code>&lt;th .. data-events="operateEvent"&gt;</code>
         <code>var operateEvents = {'click .like': function (e, value, row, index) {}};</code>
         </td>
@@ -224,9 +224,10 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         value: the field value.<br>
         row: the row record data.<br>
         index: the row index.<br>
+        field: the row field.<br>
         Support classes or css. Example usage:<br>
 <pre>
-function cellStyle(value, row, index) {
+function cellStyle(value, row, index, field) {
   return {
     classes: 'text-nowrap another-class',
     css: {"color": "blue", "font-size": "50px"}

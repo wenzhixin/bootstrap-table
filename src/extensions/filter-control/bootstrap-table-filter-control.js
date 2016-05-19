@@ -14,12 +14,14 @@
     var addOptionToSelectControl = function (selectControl, value, text) {
         value = $.trim(value);
         selectControl = $(selectControl.get(selectControl.length - 1));
-        if (existOptionInSelectControl(selectControl, value)) {
+        if (!existOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
                 .attr("value", value)
                 .text($('<div />').html(text).text()));
+        }
+    };
 
-            // Sort it. Not overly efficient to do this here
+    var sortSelectControl = function (selectControl) {
             var $opts = selectControl.find('option:gt(0)');
             $opts.sort(function (a, b) {
                 a = $(a).text().toLowerCase();
@@ -34,20 +36,19 @@
 
             selectControl.find('option:gt(0)').remove();
             selectControl.append($opts);
-        }
     };
 
     var existOptionInSelectControl = function (selectControl, value) {
         var options = selectControl.get(selectControl.length - 1).options;
         for (var i = 0; i < options.length; i++) {
-            if (!value || options[i].value === value.toString()) {
+            if (options[i].value === value.toString()) {
                 //The value is not valid to add
-                return false;
+                return true;
             }
         }
 
         //If we get here, the value is valid to add
-        return true;
+        return false;
     };
 
     var fixHeaderCSS = function (that) {
@@ -179,26 +180,31 @@
             (that.options.sidePagination === 'server' ? that.pageTo : that.options.totalRows) :
             that.pageTo;
 
-        for (var i = 0; i < z; i++) {
-            $.each(that.header.fields, function (j, field) {
-                var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
-                    selectControl = $('.' + escapeID(column.field));
+        $.each(that.header.fields, function (j, field) {
+            var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
+                selectControl = $('.bootstrap-table-filter-control-' + escapeID(column.field));
 
-                if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
-                    if (selectControl.get(selectControl.length - 1).options.length === 0) {
-                        //Added the default option
-                        addOptionToSelectControl(selectControl, '', '');
-                    }
+            if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
+                if (selectControl.get(selectControl.length - 1).options.length === 0) {
+                    //Added the default option
+                    addOptionToSelectControl(selectControl, '', '');
+                }
 
+                var uniqueValues = {};
+                for (var i = 0; i < z; i++) {
                     //Added a new value
                     var fieldValue = data[i][field],
                         formattedValue = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, that.header.formatters[j], [fieldValue, data[i], i], fieldValue);
 
-                    addOptionToSelectControl(selectControl, fieldValue, formattedValue);
+                    uniqueValues[formattedValue] = fieldValue;
                 }
-            });
-        }
+                for (var key in uniqueValues) {
+                    addOptionToSelectControl(selectControl, uniqueValues[key], key);
+                }
 
+                sortSelectControl(selectControl);
+            }
+        });
     };
 
     var escapeID = function( id ) {
@@ -246,7 +252,7 @@
 
                 if (filterDataType !== null) {
                     filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length);
-                    selectControl = $('.' + escapeID(column.field));
+                    selectControl = $('.bootstrap-table-filter-control-' + escapeID(column.field));
 
                     addOptionToSelectControl(selectControl, '', '');
                     filterDataType(filterDataSource, selectControl);
@@ -261,9 +267,10 @@
                             url: filterDataSource,
                             dataType: 'json',
                             success: function (data) {
-                                $.each(data, function (key, value) {
-                                    addOptionToSelectControl(selectControl, key, value);
-                                });
+                                for (var key in data) {
+                                    addOptionToSelectControl(selectControl, key, data[key]);
+                                }
+                                sortSelectControl(selectControl);
                             }
                         });
                         break;
@@ -272,12 +279,14 @@
                         for (key in variableValues) {
                             addOptionToSelectControl(selectControl, key, variableValues[key]);
                         }
+                        sortSelectControl(selectControl);
                         break;
                     case 'jso':
                         variableValues = JSON.parse(filterDataSource);
                         for (key in variableValues) {
                             addOptionToSelectControl(selectControl, key, variableValues[key]);
                         }
+                        sortSelectControl(selectControl);
                         break;
                 }
             }
@@ -321,7 +330,7 @@
             if (header.find('.date-filter-control').length > 0) {
                 $.each(that.columns, function (i, column) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
-                        header.find('.date-filter-control.' + column.field).datepicker(column.filterDatepickerOptions)
+                        header.find('.date-filter-control.bootstrap-table-filter-control-' + column.field).datepicker(column.filterDatepickerOptions)
                             .on('changeDate', function (e) {
                                 //Fired the keyup event
                                 $(e.currentTarget).keyup();
@@ -356,15 +365,17 @@
                 for (var key in variableValues) {
                     addOptionToSelectControl(selectControl, key, variableValues[key]);
                 }
+                sortSelectControl(selectControl);
             },
             'url': function (filterDataSource, selectControl) {
                 $.ajax({
                     url: filterDataSource,
                     dataType: 'json',
                     success: function (data) {
-                        $.each(data, function (key, value) {
-                            addOptionToSelectControl(selectControl, key, value);
-                        });
+                        for (var key in data) {
+                            addOptionToSelectControl(selectControl, key, data[key]);
+                        }
+                        sortSelectControl(selectControl);
                     }
                 });
             },
@@ -373,6 +384,7 @@
                 for (var key in variableValues) {
                     addOptionToSelectControl(selectControl, key, variableValues[key]);
                 }
+                sortSelectControl(selectControl);
             }
         };
 
@@ -395,14 +407,14 @@
         alignmentSelectControlOptions: undefined,
         filterTemplate: {
             input: function (that, field, isVisible) {
-                return sprintf('<input type="text" class="form-control %s" style="width: 100%; visibility: %s">', field, isVisible);
+                return sprintf('<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">', field, isVisible);
             },
             select: function (that, field, isVisible) {
-                return sprintf('<select class="%s form-control" style="width: 100%; visibility: %s" dir="%s"></select>',
+                return sprintf('<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" dir="%s"></select>',
                     field, isVisible, getDirectionOfSelectOptions(that.options.alignmentSelectControlOptions));
             },
             datepicker: function (that, field, isVisible) {
-                return sprintf('<input type="text" class="date-filter-control %s form-control" style="width: 100%; visibility: %s">', field, isVisible);
+                return sprintf('<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">', field, isVisible);
             }
         },
         //internal variables
@@ -424,6 +436,13 @@
     $.extend($.fn.bootstrapTable.defaults.icons, {
         clear: 'glyphicon-trash icon-clear'
     });
+
+    $.extend($.fn.bootstrapTable.locales, {
+        formatClearFilters: function () {
+            return 'Clear Filters';
+        }
+    });
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
@@ -469,13 +488,6 @@
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
     };
-
-    $.extend($.fn.bootstrapTable.locales, {
-        formatClearFilters: function () {
-            return 'Clear Filters';
-        }
-    });
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     BootstrapTable.prototype.initToolbar = function () {
         this.showToolbar = this.options.filterControl && this.options.filterShowClear;
@@ -562,6 +574,19 @@
         }) : this.data;
     };
 
+    BootstrapTable.prototype.initColumnSearch = function(filterColumnsDefaults) {
+        copyValues(this);
+
+        if (filterColumnsDefaults) {
+            this.filterColumnsPartial = filterColumnsDefaults;
+            this.updatePagination();
+
+            for (var filter in filterColumnsDefaults) {
+              this.trigger('column-search', filter, filterColumnsDefaults[filter]);
+            }
+        }
+    };
+
     BootstrapTable.prototype.onColumnSearch = function (event) {
         if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
             return;
@@ -580,9 +605,15 @@
             delete this.filterColumnsPartial[$field];
         }
 
+        // if the searchText is the same as the previously selected column value,
+        // bootstrapTable will not try searching again (even though the selected column
+        // may be different from the previous search).  As a work around
+        // we're manually appending some text to bootrap's searchText field
+        // to guarantee that it will perform a search again when we call this.onSearch(event)
+        this.searchText += "randomText";
+
         this.options.pageNumber = 1;
         this.onSearch(event);
-        this.updatePagination();
         this.trigger('column-search', $field, text);
     };
 
