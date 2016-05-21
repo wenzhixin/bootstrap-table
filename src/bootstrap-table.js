@@ -1978,7 +1978,10 @@
         if (this.options.ajax) {
             calculateObjectValue(this, this.options.ajax, [request], null);
         } else {
-            $.ajax(request);
+            if(this._xhr) {
+                this._xhr.abort();
+            }
+            this._xhr = $.ajax(request);
         }
     };
 
