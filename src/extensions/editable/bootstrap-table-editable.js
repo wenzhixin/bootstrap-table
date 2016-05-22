@@ -69,14 +69,24 @@
                 $.each(editableOptions, function (key, value) {
                     editableDataMarkup.push(' ' + key + '="' + value + '"');
                 });
+                
+                var _dont_edit_formatter = false;
+                if (column.editable.hasOwnProperty('noeditFormatter')) {
+                    _dont_edit_formatter = column.editable.noeditFormatter(value, row, index);
+                }
+  
+                if (_dont_edit_formatter === false) {
+                    return ['<a href="javascript:void(0)"',
+                        ' data-name="' + column.field + '"',
+                        ' data-pk="' + row[that.options.idField] + '"',
+                        ' data-value="' + result + '"',
+                        editableDataMarkup.join(''),
+                        '>' + '</a>'
+                    ].join('');
+                } else {
+                    return _dont_edit_formatter;
+                }
 
-                return ['<a href="javascript:void(0)"',
-                    ' data-name="' + column.field + '"',
-                    ' data-pk="' + row[that.options.idField] + '"',
-                    ' data-value="' + result + '"',
-                    editableDataMarkup.join(''),
-                    '>' + '</a>'
-                ].join('');
             };
         });
     };
