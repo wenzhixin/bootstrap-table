@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <title>from-data</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://issues.wenzhixin.net.cn/bootstrap-table//assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://issues.wenzhixin.net.cn/bootstrap-table//assets/bootstrap-table/src/bootstrap-table.css">
+    <link rel="stylesheet" href="../bootstrap-table-tree-column.css">
+    <script src="http://issues.wenzhixin.net.cn/bootstrap-table/assets/jquery.min.js"></script>
+    <script src="http://issues.wenzhixin.net.cn/bootstrap-table/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../../bootstrap-table.js"></script>
+    <script src="../bootstrap-table-tree-column.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Tree Display</h1>
+        <p></p>
+        <table id="table" class="table table-hover">
+            <thead>
+                <tr>
+                    <th style="" data-field="id" tabindex="0">
+                        <div class="th-inner ">ID</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="" data-field="pid" tabindex="0">
+                        <div class="th-inner ">PID</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="" data-field="name" tabindex="0">
+                        <div class="th-inner ">Item Name</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="" data-field="price" tabindex="0">
+                        <div class="th-inner ">Item Price</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <script>
+        var $table = $('#table');
+
+        $(function() {
+            $table.bootstrapTable({
+                treeShowField: 'name',
+                url: 'data.js'
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
