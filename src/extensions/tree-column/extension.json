@@ -1,0 +1,17 @@
+{
+  "name": "Tree column",
+  "version": "1.0.0",
+  "description": "Plugin to  support display tree data column.",
+  "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/tree-column",
+  "example": "http://issues.wenzhixin.net.cn/bootstrap-table/#extensions/tree-column.html",
+
+  "plugins": [{
+    "name": "bootstrap-table-reorder-rows",
+    "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/tree-column"
+  }],
+
+  "author": {
+    "name": "KingYang",
+    "image": "https://avatars3.githubusercontent.com/u/1540211"
+  }
+}
