@@ -169,6 +169,7 @@
 
                 that.header.fields = ths;
                 that.header.formatters = formatters;
+                that.initToolbar();
                 that.resetView();
                 that.trigger('reorder-column', ths);
             }
