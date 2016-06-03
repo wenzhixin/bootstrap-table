@@ -465,7 +465,7 @@
         }
     };
 
-    BootstrapTable.LOCALES = [];
+    BootstrapTable.LOCALES = {};
 
     BootstrapTable.LOCALES['en-US'] = BootstrapTable.LOCALES.en = {
         formatLoadingMessage: function () {
@@ -1057,6 +1057,7 @@
         if (this.options.showPaginationSwitch) {
             html.push(sprintf('<button class="btn' +
                     sprintf(' btn-%s', this.options.buttonsClass) +
+                    sprintf(' btn-%s', this.options.iconSize) +
                     '" type="button" name="paginationSwitch" title="%s">',
                     this.options.formatPaginationSwitch()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
@@ -1100,7 +1101,7 @@
                     return;
                 }
 
-                if (that.options.cardView && (!column.cardVisible)) {
+                if (that.options.cardView && !column.cardVisible) {
                     return;
                 }
 
@@ -1172,10 +1173,8 @@
             this.$toolbar.append(html.join(''));
             $search = this.$toolbar.find('.search input');
             $search.off('keyup drop').on('keyup drop', function (event) {
-                if (that.options.searchOnEnterKey) {
-                    if (event.keyCode !== 13) {
-                        return;
-                    }
+                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                    return;
                 }
 
                 if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
@@ -1228,19 +1227,15 @@
                 return;
             }
 
-            var s = !this.options.escape ? this.searchText && escapeHTML(this.searchText).toLowerCase()
-                                            : this.searchText && this.searchText.toLowerCase();
+            var s = this.searchText && (this.options.escape ?
+                escapeHTML(this.searchText) : this.searchText).toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
 
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
                 for (var key in f) {
-                    if ($.isArray(f[key])) {
-                        // TODO: remove this extra if statement
-                        if ($.inArray(item[key], f[key]) === -1) {
-                            return false;
-                        }
-                    } else if (item[key] !== f[key]) {
+                    if ($.isArray(f[key]) && $.inArray(item[key], f[key]) === -1 ||
+                            item[key] !== f[key]) {
                         return false;
                     }
                 }
@@ -1668,7 +1663,7 @@
                     return;
                 }
 
-                if (that.options.cardView && (!column.cardVisible)) {
+                if (that.options.cardView && !column.cardVisible) {
                     return;
                 }
 
@@ -2712,7 +2707,8 @@
         if (params && params.url) {
             this.options.pageNumber = 1;
         }
-        this.initServer(params && params.silent, params && params.query, params && params.url);
+        this.initServer(params && params.silent,
+            params && params.query, params && params.url);
         this.trigger('refresh', params);
     };
 
