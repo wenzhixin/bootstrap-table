@@ -46,35 +46,35 @@
         <td>data-undefined-text</td>
         <td>String</td>
         <td>'-'</td>
-        <td>Defines the default undefined text.</td>
+        <td>定义默认的未定义的文本。</td>
     </tr>
     <tr>
         <td>striped</td>
         <td>data-striped</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to stripe the rows.</td>
+        <td>True 表示 以条纹色显示每行数据（隔行换色）。</td>
     </tr>
     <tr>
         <td>sortName</td>
         <td>data-sort-name</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Defines which column can be sorted.</td>
+        <td>定义哪些列可以进行排序。</td>
     </tr>
     <tr>
         <td>sortOrder</td>
         <td>data-sort-order</td>
         <td>String</td>
         <td>'asc'</td>
-        <td>Defines the column sort order, can only be 'asc' or 'desc'.</td>
+        <td>定义了列的排序顺序, 智能是 'asc' 或 'desc'。</td>
     </tr>
     <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
         <td>'glyphicon'</td>
-        <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
+        <td>定义图标组名称 ('glyphicon' 或 FontAwesome的'fa' ). 在默认情况下使用 'glyphicon' 。</td>
     </tr>
     <tr>
         <td>icons</td>
@@ -85,14 +85,14 @@
         &nbsp;&nbsp;toggle: 'glyphicon-list-alt icon-list-alt',<br/>
         &nbsp;&nbsp;columns: 'glyphicon-th icon-th'<br/>
         }</td>
-        <td>Defines icons that used for refresh, toggle and columns buttons</td>
+        <td>定义刷新、切换、列三个按钮的图标</td>
     </tr>
     <tr>
         <td>columns</td>
         <td>-</td>
         <td>Array</td>
         <td>[]</td>
-        <td>The table columns config object, see column properties for more details.
+        <td>表格的列的配置对象, 请查看 列配置 获取更多信息.
         </td>
     </tr>
     <tr>
@@ -100,35 +100,35 @@
         <td>-</td>
         <td>Array</td>
         <td>[]</td>
-        <td>The data to be loaded.</td>
+        <td>需要加载的数据.</td>
     </tr>
     <tr>
         <td>ajax</td>
         <td>data-ajax</td>
         <td>Function</td>
         <td>undefined</td>
-        <td>A method to replace ajax call. Should implement the same API as jQuery ajax method</td>
+        <td>一个取代ajax调用的方法. 需要实现和jQuery ajax 方法相同的API。</td>
     </tr>
     <tr>
         <td>method</td>
         <td>data-method</td>
         <td>String</td>
         <td>'get'</td>
-        <td>The method type to request remote data.</td>
+        <td>请求远程数据的方法类型。</td>
     </tr>
     <tr>
         <td>url</td>
         <td>data-url</td>
         <td>String</td>
         <td>undefined</td>
-        <td>A URL to request data from remote site.</td>
+        <td>从远程站点请求数据的 URL 。</td>
     </tr>
     <tr>
         <td>cache</td>
         <td>data-cache</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to disable caching of AJAX requests.</td>
+        <td>False 表示 禁用AJAX请求的缓存。</td>
     </tr>
     <tr>
         <td>contentType</td>
@@ -142,14 +142,14 @@
         <td>data-data-type</td>
         <td>String</td>
         <td>'json'</td>
-        <td>The type of data that you are expecting back from the server.</td>
+        <td>您期望从服务器返回的数据的类型。</td>
     </tr>
     <tr>
         <td>ajaxOptions</td>
         <td>data-ajax-options</td>
         <td>Object</td>
         <td>{}</td>
-        <td>Additional options for submit ajax request. List of values: <a href="http://api.jquery.com/jQuery.ajax">http://api.jquery.com/jQuery.ajax</a>.</td>
+        <td>提交ajax请求的附加选项。 List of values: <a href="http://api.jquery.com/jQuery.ajax">http://api.jquery.com/jQuery.ajax</a>.</td>
     </tr>
     <tr>
         <td>queryParams</td>
