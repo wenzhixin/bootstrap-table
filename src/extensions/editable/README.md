@@ -52,7 +52,7 @@ Fired when all columns was initialized by `$().editable()` method.
 
 Fired when an editable cell is saved.
 
-parameters: editable, field, row, old, $el
+parameters: editable, field, row, oldValue, $el
 
 ### onEditableShown(editable-shown.bs.table)
 
