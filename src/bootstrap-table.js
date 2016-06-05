@@ -1243,20 +1243,33 @@
             }) : this.options.data;
 
             this.data = s ? $.grep(this.data, function (item, i) {
-                for (var key in item) {
-                    key = $.isNumeric(key) ? parseInt(key, 10) : key;
-                    var value = item[key],
-                        column = that.columns[getFieldIndex(that.columns, key)],
-                        j = $.inArray(key, that.header.fields);
+                for (var j = 0; j < that.header.fields.length; j++) {
 
-                    // Fix #142: search use formatted data
-                    if (column && column.searchFormatter) {
-                        value = calculateObjectValue(column,
-                            that.header.formatters[j], [value, item, i], value);
+                    if (!that.header.searchables[j]) {
+                        continue;
                     }
 
-                    var index = $.inArray(key, that.header.fields);
-                    if (index !== -1 && that.header.searchables[index] && (typeof value === 'string' || typeof value === 'number')) {
+                    var key = $.isNumeric(that.header.fields[j]) ? parseInt(that.header.fields[j], 10) : that.header.fields[j];
+                    var column = that.columns[getFieldIndex(that.columns, key)];
+                    var value;
+
+                    if (typeof key === 'string') {
+                        value = item;
+                        var props = key.split('.');
+                        for (var prop_index = 0; prop_index < props.length; prop_index++) {
+                            value = value[props[prop_index]];
+                        }
+
+                        // Fix #142: respect searchForamtter boolean
+                        if (column && column.searchFormatter) {
+                            value = calculateObjectValue(column,
+                                that.header.formatters[j], [value, item, i], value);
+                        }
+                    } else {
+                        value = item[key];
+                    }
+
+                    if (typeof value === 'string' || typeof value === 'number') {
                         if (that.options.strictSearch) {
                             if ((value + '').toLowerCase() === s) {
                                 return true;
