@@ -1,5 +1,6 @@
 <!-- https://github.com/wenzhixin/bootstrap-table/blob/develop/CONTRIBUTING.md#bug-reports -->
 
+
 Short and descriptive example bug report title
 
 A summary of the issue and the browser/OS environment in which it occurs. If suitable, include the steps required to reproduce the bug.
