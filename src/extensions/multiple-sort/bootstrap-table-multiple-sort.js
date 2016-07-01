@@ -54,10 +54,10 @@
             sModal += '         </div>';
             sModal += '     </div>';
 
-            $("body").append($(sModal));
+            $('body').append($(sModal));
 
             that.$sortModal = $(_selector);
-            var $rows = that.$sortModal.find("tbody > tr");
+            var $rows = that.$sortModal.find('tbody > tr');
 
             that.$sortModal.off('click', '#add').on('click', '#add', function() {
                 var total = that.$sortModal.find('.multi-sort-name:first option').length,
@@ -82,7 +82,7 @@
             });
 
             that.$sortModal.off('click', '.btn-primary').on('click', '.btn-primary', function() {
-                var $rows = that.$sortModal.find("tbody > tr"),
+                var $rows = that.$sortModal.find('tbody > tr'),
                     $alert = that.$sortModal.find('div.alert'),
                     fields = [],
                     results = [];
@@ -120,21 +120,21 @@
                     }
 
                     that.$sortModal.modal('hide');
-                    that.options.sortName = "";                    
+                    that.options.sortName = '';
 
                     if (that.options.sidePagination === 'server') {
-                        
-                        that.options.queryParams = function(params){                            
+
+                        that.options.queryParams = function(params) {
                             params.multiSort = that.options.sortPriority;
                             return params;
-                        }
-                        
+                        };
+
                         that.initServer(that.options.silentSort);
                         return;
-                    } 
+                    }
 
                     that.onMultipleSort();
-                    
+
                 }
             });
 
@@ -184,40 +184,40 @@
             return 'Multiple Sort';
         },
         formatAddLevel: function() {
-            return "Add Level";
+            return 'Add Level';
         },
         formatDeleteLevel: function() {
-            return "Delete Level";
+            return 'Delete Level';
         },
         formatColumn: function() {
-            return "Column";
+            return 'Column';
         },
         formatOrder: function() {
-            return "Order";
+            return 'Order';
         },
         formatSortBy: function() {
-            return "Sort by";
+            return 'Sort by';
         },
         formatThenBy: function() {
-            return "Then by";
+            return 'Then by';
         },
         formatSort: function() {
-            return "Sort";
+            return 'Sort';
         },
         formatCancel: function() {
-            return "Cancel";
+            return 'Cancel';
         },
         formatDuplicateAlertTitle: function() {
-            return "Duplicate(s) detected!";
+            return 'Duplicate(s) detected!';
         },
         formatDuplicateAlertDescription: function() {
-            return "Please remove or change any duplicate column.";
+            return 'Please remove or change any duplicate column.';
         },
-        formatSortOrders : function () {
+        formatSortOrders: function() {
             return {
-              asc: 'Ascending',
-              desc: 'Descending'
-            }
+                asc: 'Ascending',
+                desc: 'Descending'
+            };
         }
     });
 
@@ -338,12 +338,12 @@
                 .append($('<td>').text(text))
                 .append($('<td>').append($('<select class="form-control multi-sort-name">')))
                 .append($('<td>').append($('<select class="form-control multi-sort-order">')))
-        );
+            );
 
         var $multiSortName = this.$sortModal.find('.multi-sort-name').last(),
             $multiSortOrder = this.$sortModal.find('.multi-sort-order').last();
 
-        $.each(this.columns, function (i, column) {
+        $.each(this.columns, function(i, column) {
             if (column.sortable === false || column.visible === false) {
                 return true;
             }
