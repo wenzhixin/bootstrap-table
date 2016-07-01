@@ -204,7 +204,7 @@
             return {
               asc: 'Ascending',
               desc: 'Descending'
-            }
+        }
         }
     });
 
@@ -298,11 +298,21 @@
                 if (typeof aa !== 'string') {
                     aa = aa.toString();
                 }
+                var hasSorter = $.grep(that.columns, function(e){
+                    return (e.field === that.options.sortPriority[i].sortName && e.sorter)
+                });
+                
+                var sorter;
+                if (hasSorter[0]) {
+                    sorter = hasSorter[0].sorter;
+                } else {
+                    sorter = cmp;
+                }
 
                 arr1.push(
-                    order * cmp(aa, bb));
+                    order * sorter(aa, bb));
                 arr2.push(
-                    order * cmp(bb, aa));
+                    order * sorter(bb, aa));
             }
 
             return cmp(arr1, arr2);
