@@ -9,7 +9,8 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
-        multipleSearch: false
+        multipleSearch: false,
+	    delimeter: " "
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
@@ -17,7 +18,10 @@
 
     BootstrapTable.prototype.initSearch = function () {
         if (this.options.multipleSearch) {
-            var strArray = this.searchText.split(" "),
+            if (this.searchText === undefined) {
+                return;
+            }
+            var strArray = this.searchText.split(this.options.delimeter),
                 that = this,
                 f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns,
                 dataFiltered = [];
