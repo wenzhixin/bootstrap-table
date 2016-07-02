@@ -21,6 +21,7 @@ ChangeLog
 - fix(locale): add formatAllRows in template locale
 - fix(filter-control extension): add check for null values on existsOptionInSelectControl
 - fix(filter-control extension): fix show-clear button bug
+- fix(editable extesion): fix editable formatter error when refreshOptions
 - feat(js): add support for transfer from rowspan / colspan table
 - feat(js): add data variable to post-body event
 - feat(js): add `buttonsClass` option
@@ -38,6 +39,7 @@ ChangeLog
 - feat(angular extension): add constant in order to get it from angular scope
 - feat(export extension): add `formatExport` locale
 - feat(multiple-sort extension): add `formatSortOrders` option
+- feat(multiple-sort extension): support pagination server
 - refactor(filter-control extension): refactor the filterDataType method
 - refactor(filter-control extension): adding all unique values to select control and performance improvements
 - refactor(extension): refactor filter cookies extension to avoid dbcalls
