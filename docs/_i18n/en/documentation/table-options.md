@@ -83,13 +83,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>'glyphicon'</td>
         <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
     </tr>
-     <tr>
+    <tr>
         <td>iconSize</td>
         <td>data-icon-size</td>
         <td>String</td>
         <td>undefined</td>
         <td>Defines icon size: <ul><li>undefined => btn</li><li>xs => btn-xs</li><li>sm => btn-sm</li><li>lg => btn-lg</li></ul>
-        <td>
+        </td>
     </tr>
     <tr>
         <td>buttonsClass</td>
@@ -545,7 +545,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         index: the row index.<br>
         Support classes or css. Example usage:<br>
 <pre>
-function rowStyle(value, row, index) {
+function rowStyle(row, index) {
   return {
     classes: 'text-nowrap another-class',
     css: {"color": "blue", "font-size": "50px"}
