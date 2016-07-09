@@ -313,6 +313,7 @@
         },
         pagination: false,
         onlyInfoPagination: false,
+        paginationLoop: true,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
         pageNumber: 1,
@@ -1499,6 +1500,16 @@
                 // when data is empty, hide the pagination
                 this.$pagination[this.getData().length ? 'show' : 'hide']();
             }
+
+            if (!this.options.paginationLoop) {
+                if (this.options.pageNumber === 1) {
+                    $pre.addClass('disabled');
+                }
+                if (this.options.pageNumber === this.totalPages) {
+                    $next.addClass('disabled');
+                }
+            }
+
             if ($allSelected) {
                 this.options.pageSize = this.options.formatAllRows();
             }
