@@ -232,6 +232,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to show a pagination toolbar on table bottom.</td>
     </tr>
     <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to enable pagination continuous loop mode.</td>
+    </tr>
+    <tr>
         <td>onlyInfoPagination</td>
         <td>data-only-info-pagination</td>
         <td>Boolean</td>

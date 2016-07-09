@@ -189,6 +189,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>True para mostrar la paginación al final de la tabla.</td>
     </tr>
     <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to enable pagination continuous loop mode.</td>
+    </tr>
+    <tr>
         <td>onlyInfoPagination</td>
         <td>data-only-info-pagination</td>
         <td>Boolean</td>

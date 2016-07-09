@@ -3,8 +3,9 @@ ChangeLog
 
 ### 1.11.1
 
-- fix(js): fix #2439, filterBy cannot filter array keys
+- fix(js): fix #2439, `filterBy` cannot filter array keys
 - fix(js): fix #2424, from html with checkbox bug
+- feat(js): fix #2414, add `paginationLoop` option
 
 ### 1.11.0
 

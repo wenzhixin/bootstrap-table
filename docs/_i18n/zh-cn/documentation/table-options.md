@@ -200,7 +200,14 @@
         <td>data-pagination</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>设置为 <code>true</code> 会在表格底部显示 分页条</td>
+        <td>设置为 <code>true</code> 会在表格底部显示分页条</td>
+    </tr>
+    <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>设置为 <code>true</code> 启用分页条无限循环的功能。</td>
     </tr>
     <tr>
         <td>onlyInfoPagination</td>
