@@ -4,6 +4,7 @@ ChangeLog
 ### 1.11.1
 
 - fix(js): fix #2439, filterBy cannot filter array keys
+- fix(js): fix #2424, from html with checkbox bug
 
 ### 1.11.0
 
