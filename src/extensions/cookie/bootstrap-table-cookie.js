@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.2.1
+ * @version: v1.2.2
  *
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
@@ -163,7 +163,7 @@
                 bootstrapTable.initColumnSearch(cachedFilters);
             }
         }, 250);
-    }
+    };
 
     $.extend($.fn.bootstrapTable.defaults, {
         cookie: false,
@@ -172,13 +172,24 @@
         cookieDomain: null,
         cookieSecure: null,
         cookieIdTable: '',
-        cookiesEnabled: ['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl'],
+        cookiesEnabled: [
+            'bs.table.sortOrder', 'bs.table.sortName',
+            'bs.table.pageNumber', 'bs.table.pageList',
+            'bs.table.columns', 'bs.table.searchText',
+            'bs.table.filterControl'
+        ],
         //internal variable
         filterControls: [],
         filterControlValuesLoaded: false
     });
 
+    $.fn.bootstrapTable.methods.push('getCookies');
     $.fn.bootstrapTable.methods.push('deleteCookie');
+
+    $.extend($.fn.bootstrapTable.utils, {
+        setCookie: setCookie,
+        getCookie: getCookie
+    });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
@@ -200,9 +211,10 @@
         this.options.filterControls = [];
         this.options.filterControlValuesLoaded = false;
 
-
         this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
-            this.options.cookiesEnabled.replace('[', '').replace(']', '').replace(/ /g, '').toLowerCase().split(',') : this.options.cookiesEnabled;
+            this.options.cookiesEnabled.replace('[', '').replace(']', '')
+                .replace(/ /g, '').toLowerCase().split(',') :
+                this.options.cookiesEnabled;
 
         if (this.options.filterControl) {
             var that = this;
@@ -227,11 +239,6 @@
             }).on('post-body.bs.table', initCookieFilters(that));
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
-
-        $.extend($.fn.bootstrapTable.utils, {
-            setCookie: setCookie,
-            getCookie: getCookie
-        });
     };
 
     BootstrapTable.prototype.initServer = function () {
@@ -247,7 +254,8 @@
             },
 
             cookiesPresent = function() {
-                return bootstrapTable.options.cookie && bootstrapTable.getCookies(bootstrapTable);
+                var cookie = JSON.parse(getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, cookieIds.filterControl));
+                return bootstrapTable.options.cookie && cookie;
             };
 
         selectsWithoutDefaults = $.grep(bootstrapTable.columns, function(column) {
@@ -259,13 +267,13 @@
         BootstrapTable.prototype.initServer = _initServer;
 
         // early return if we don't need to populate any select values with cookie values
-        if (cookiesPresent() && selectsWithoutDefaults.length === 0) {
+        if (this.options.filterControl && cookiesPresent() && selectsWithoutDefaults.length === 0) {
             return;
         }
 
         // call BootstrapTable.prototype.initServer
         _initServer.apply(this, Array.prototype.slice.apply(arguments));
-    }
+    };
 
 
     BootstrapTable.prototype.initTable = function () {
@@ -280,7 +288,6 @@
 
         if ((this.options.cookieIdTable === '') || (this.options.cookieExpire === '') || (!cookieEnabled())) {
             throw new Error("Configuration error. Please review the cookieIdTable, cookieExpire properties, if those properties are ok, then this browser does not support the cookies");
-            return;
         }
 
         var sortOrderCookie = getCookie(this, this.options.cookieIdTable, cookieIds.sortOrder),
@@ -372,13 +379,15 @@
         }
     };
 
-    BootstrapTable.prototype.getCookies = function(bootstrapTable) {
-        var cookies = [];
-        $.each( cookieIds, function( key, value ) {
-            var cookie = JSON.parse(getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, cookieIds.filterControl));
-            cookies.concat(cookie);
+    BootstrapTable.prototype.getCookies = function () {
+        var bootstrapTable = this;
+        var cookies = {};
+        $.each(cookieIds, function(key, value) {
+            cookies[key] = getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, value);
+            if (key === 'columns') {
+                cookies[key] = JSON.parse(cookies[key]);
+            }
         });
-
         return cookies;
     };
 
