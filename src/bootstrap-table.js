@@ -1235,7 +1235,7 @@
             this.data = f ? $.grep(this.options.data, function (item, i) {
                 for (var key in f) {
                     if ($.isArray(f[key]) && $.inArray(item[key], f[key]) === -1 ||
-                            item[key] !== f[key]) {
+                            !$.isArray(f[key]) && item[key] !== f[key]) {
                         return false;
                     }
                 }
