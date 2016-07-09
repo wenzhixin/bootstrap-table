@@ -5,6 +5,7 @@ ChangeLog
 
 - fix(js): fix #2439, `filterBy` cannot filter array keys
 - fix(js): fix #2424, from html with checkbox bug
+- fix(js): fix #2385, checkbox render bug with formatter
 - feat(js): fix #2414, add `paginationLoop` option
 - feat(cookie extension): fix #2386, add `getCookies` method
 
