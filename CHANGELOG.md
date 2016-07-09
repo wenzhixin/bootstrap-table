@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### 1.11.1
+
+- fix(js): fix #2439, filterBy cannot filter array keys
+
 ### 1.11.0
 
 - fix(js): fix cardVisible doesn't work bug

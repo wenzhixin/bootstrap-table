@@ -2593,7 +2593,8 @@
         var that = this;
 
         return $.grep(this.options.data, function (row) {
-            return row[that.header.stateField];
+            // fix #2424: from html with checkbox
+            return row[that.header.stateField] === true;
         });
     };
 
