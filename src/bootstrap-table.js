@@ -570,6 +570,7 @@
         this.initTable();
         this.initHeader();
         this.initData();
+        this.initHiddenRows();
         this.initFooter();
         this.initToolbar();
         this.initPagination();
@@ -1617,6 +1618,10 @@
                 attributes = {},
                 htmlAttributes = [];
 
+            if ($.inArray(item, this.hiddenRows) > -1) {
+                continue;
+            }
+
             style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
             if (style && style.css) {
@@ -2053,6 +2058,7 @@
                 row[that.header.stateField] = false;
             }
         });
+        this.initHiddenRows();
     };
 
     BootstrapTable.prototype.trigger = function (name) {
@@ -2267,17 +2273,6 @@
                 $items.filter(':checked').prop('disabled', true);
             }
         }
-    };
-
-    BootstrapTable.prototype.toggleRow = function (index, uniqueId, visible) {
-        if (index === -1) {
-            return;
-        }
-
-        this.$body.find(typeof index !== 'undefined' ?
-            sprintf('tr[data-index="%s"]', index) :
-            sprintf('tr[data-uniqueid="%s"]', uniqueId))
-            [visible ? 'show' : 'hide']();
     };
 
     BootstrapTable.prototype.getVisibleFields = function () {
@@ -2529,28 +2524,52 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.initHiddenRows = function () {
+        this.hiddenRows = [];
+    };
+
     BootstrapTable.prototype.showRow = function (params) {
-        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
-            return;
-        }
-        this.toggleRow(params.index, params.uniqueId, true);
+        this.toggleRow(params, true);
     };
 
     BootstrapTable.prototype.hideRow = function (params) {
-        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
-            return;
-        }
-        this.toggleRow(params.index, params.uniqueId, false);
+        this.toggleRow(params, false);
     };
 
-    BootstrapTable.prototype.getRowsHidden = function (show) {
-        var rows = $(this.$body[0]).children().filter(':hidden'),
-            i = 0;
-        if (show) {
-            for (; i < rows.length; i++) {
-                $(rows[i]).show();
-            }
+    BootstrapTable.prototype.toggleRow = function (params, visible) {
+        var row, index;
+
+        if (params.hasOwnProperty('index')) {
+            row = this.getData()[params.index];
+        } else if (params.hasOwnProperty('uniqueId')) {
+            row = this.getRowByUniqueId(params.uniqueId);
         }
+
+        if (!row) {
+            return;
+        }
+
+        index = $.inArray(row, this.hiddenRows);
+
+        if (!visible && index === -1) {
+            this.hiddenRows.push(row);
+        } else if (visible && index > -1) {
+            this.hiddenRows.splice(index, 1);
+        }
+        this.initBody(true);
+    };
+
+    BootstrapTable.prototype.getHiddenRows = function (show) {
+        var that = this,
+            data = this.getData(),
+            rows = [];
+
+        $.each(data, function (i, row) {
+            if ($.inArray(row, that.hiddenRows) > -1) {
+                rows.push(row);
+            }
+        });
+        this.hiddenRows = rows;
         return rows;
     };
 
