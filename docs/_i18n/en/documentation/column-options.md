@@ -53,7 +53,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>data-title-tooltip</td>
         <td>String</td>
         <td>undefined</td>
-        <td>The column title tooltip text. This option also support the title HTML attribute</td>
+        <td>The column title tooltip text. This option also support the title HTML attribute.</td>
     </tr>
     <tr>
         <td>class</td>
@@ -152,7 +152,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>data-click-to-select</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>True to select checkbox or radiobox when the column is clicked.</td>
+        <td>True to select checkbox or radio when the column is clicked.</td>
     </tr>
     <tr>
         <td>formatter</td>
@@ -183,7 +183,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>Object</td>
         <td>undefined</td>
         <td>
-        The cell events listener when you use formatter function, take three parameters: <br>
+        The cell events listener when you use formatter function, take four parameters: <br>
         event: the jQuery event. <br>
         value: the field value. <br>
         row: the row record data.<br>

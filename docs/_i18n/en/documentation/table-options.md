@@ -67,7 +67,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-sort-name</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Defines which column can be sorted.</td>
+        <td>Defines which column will be sorted.</td>
     </tr>
     <tr>
         <td>sortOrder</td>
@@ -90,12 +90,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>'glyphicon'</td>
         <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
     </tr>
-     <tr>
+    <tr>
         <td>iconSize</td>
         <td>data-icon-size</td>
         <td>String</td>
         <td>undefined</td>
         <td>Defines icon size: <ul><li>undefined => btn</li><li>xs => btn-xs</li><li>sm => btn-sm</li><li>lg => btn-lg</li></ul>
+        </td>
     </tr>
     <tr>
         <td>buttonsClass</td>
@@ -147,7 +148,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-ajax</td>
         <td>Function</td>
         <td>undefined</td>
-        <td>A method to replace ajax call. Should implement the same API as jQuery ajax method</td>
+        <td>A method to replace ajax call. Should implement the same API as jQuery ajax method.</td>
     </tr>
     <tr>
         <td>method</td>
@@ -238,6 +239,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to show a pagination toolbar on table bottom.</td>
     </tr>
     <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to enable pagination continuous loop mode.</td>
+    </tr>
+    <tr>
         <td>onlyInfoPagination</td>
         <td>data-only-info-pagination</td>
         <td>Boolean</td>
@@ -278,8 +286,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>pageList</td>
         <td>data-page-list</td>
         <td>Array</td>
-        <td>[10, 25, 50, 100, All]</td>
-        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table</td>
+        <td>[10, 25, 50, 100]</td>
+        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table.</td>
     </tr>
     <tr>
         <td>selectItemName</td>
@@ -358,7 +366,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-show-footer</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>If true shows summary footer row</td>
+        <td>True to show the summary footer row.</td>
     </tr>
     <tr>
         <td>showColumns</td>
@@ -478,14 +486,14 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>paginationPreText</td>
         <td>data-pagination-pre-text</td>
         <td>String</td>
-        <td>'&lt;'</td>
+        <td>'&lsaquo;'</td>
         <td>Indicate the icon or text to be shown in the pagination detail, the previous button.</td>
     </tr>
     <tr>
         <td>paginationNextText</td>
         <td>data-pagination-next-text</td>
         <td>String</td>
-        <td>'&gt;'</td>
+        <td>'&rsaquo;'</td>
         <td>Indicate the icon or text to be shown in the pagination detail, the next button.</td>
     </tr>
     <tr>
@@ -551,7 +559,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         index: the row index.<br>
         Support classes or css. Example usage:<br>
 <pre>
-function rowStyle(value, row, index) {
+function rowStyle(row, index) {
   return {
     classes: 'text-nowrap another-class',
     css: {"color": "blue", "font-size": "50px"}
@@ -610,7 +618,7 @@ function rowStyle(value, row, index) {
      <tr>
         <td>locale</td>
         <td>data-locale</td>
-        <td>string</td>
+        <td>String</td>
         <td>undefined</td>
         <td>
         Sets the locale to use (i.e. <code>'fr-CA'</code>). Locale files must be pre-loaded.

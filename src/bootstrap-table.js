@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.10.1
+ * version: 1.11.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -314,6 +314,7 @@
         },
         pagination: false,
         onlyInfoPagination: false,
+        paginationLoop: true,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
         pageNumber: 1,
@@ -466,7 +467,7 @@
         }
     };
 
-    BootstrapTable.LOCALES = [];
+    BootstrapTable.LOCALES = {};
 
     BootstrapTable.LOCALES['en-US'] = BootstrapTable.LOCALES.en = {
         formatLoadingMessage: function () {
@@ -570,6 +571,7 @@
         this.initTable();
         this.initHeader();
         this.initData();
+        this.initHiddenRows();
         this.initFooter();
         this.initToolbar();
         this.initPagination();
@@ -1068,6 +1070,7 @@
         if (this.options.showPaginationSwitch) {
             html.push(sprintf('<button class="btn' +
                     sprintf(' btn-%s', this.options.buttonsClass) +
+                    sprintf(' btn-%s', this.options.iconSize) +
                     '" type="button" name="paginationSwitch" title="%s">',
                     this.options.formatPaginationSwitch()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
@@ -1111,7 +1114,7 @@
                     return;
                 }
 
-                if (that.options.cardView && (!column.cardVisible)) {
+                if (that.options.cardView && !column.cardVisible) {
                     return;
                 }
 
@@ -1183,10 +1186,8 @@
             this.$toolbar.append(html.join(''));
             $search = this.$toolbar.find('.search input');
             $search.off('keyup drop').on('keyup drop', function (event) {
-                if (that.options.searchOnEnterKey) {
-                    if (event.keyCode !== 13) {
-                        return;
-                    }
+                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                    return;
                 }
 
                 if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
@@ -1239,19 +1240,15 @@
                 return;
             }
 
-            var s = !this.options.escape ? this.searchText && escapeHTML(this.searchText).toLowerCase()
-                                            : this.searchText && this.searchText.toLowerCase();
+            var s = this.searchText && (this.options.escape ?
+                escapeHTML(this.searchText) : this.searchText).toLowerCase();
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
 
             // Check filter
             this.data = f ? $.grep(this.options.data, function (item, i) {
                 for (var key in f) {
-                    if ($.isArray(f[key])) {
-                        // TODO: remove this extra if statement
-                        if ($.inArray(item[key], f[key]) === -1) {
-                            return false;
-                        }
-                    } else if (item[key] !== f[key]) {
+                    if ($.isArray(f[key]) && $.inArray(item[key], f[key]) === -1 ||
+                            !$.isArray(f[key]) && item[key] !== f[key]) {
                         return false;
                     }
                 }
@@ -1259,20 +1256,33 @@
             }) : this.options.data;
 
             this.data = s ? $.grep(this.data, function (item, i) {
-                for (var key in item) {
-                    key = $.isNumeric(key) ? parseInt(key, 10) : key;
-                    var value = item[key],
-                        column = that.columns[getFieldIndex(that.columns, key)],
-                        j = $.inArray(key, that.header.fields);
+                for (var j = 0; j < that.header.fields.length; j++) {
 
-                    // Fix #142: search use formatted data
-                    if (column && column.searchFormatter) {
-                        value = calculateObjectValue(column,
-                            that.header.formatters[j], [value, item, i], value);
+                    if (!that.header.searchables[j]) {
+                        continue;
                     }
 
-                    var index = $.inArray(key, that.header.fields);
-                    if (index !== -1 && that.header.searchables[index] && (typeof value === 'string' || typeof value === 'number')) {
+                    var key = $.isNumeric(that.header.fields[j]) ? parseInt(that.header.fields[j], 10) : that.header.fields[j];
+                    var column = that.columns[getFieldIndex(that.columns, key)];
+                    var value;
+
+                    if (typeof key === 'string') {
+                        value = item;
+                        var props = key.split('.');
+                        for (var prop_index = 0; prop_index < props.length; prop_index++) {
+                            value = value[props[prop_index]];
+                        }
+
+                        // Fix #142: respect searchForamtter boolean
+                        if (column && column.searchFormatter) {
+                            value = calculateObjectValue(column,
+                                that.header.formatters[j], [value, item, i], value);
+                        }
+                    } else {
+                        value = item[key];
+                    }
+
+                    if (typeof value === 'string' || typeof value === 'number') {
                         if (that.options.strictSearch) {
                             if ((value + '').toLowerCase() === s) {
                                 return true;
@@ -1502,6 +1512,16 @@
                 // when data is empty, hide the pagination
                 this.$pagination[this.getData().length ? 'show' : 'hide']();
             }
+
+            if (!this.options.paginationLoop) {
+                if (this.options.pageNumber === 1) {
+                    $pre.addClass('disabled');
+                }
+                if (this.options.pageNumber === this.totalPages) {
+                    $next.addClass('disabled');
+                }
+            }
+
             if ($allSelected) {
                 this.options.pageSize = this.options.formatAllRows();
             }
@@ -1609,6 +1629,10 @@
                 attributes = {},
                 htmlAttributes = [];
 
+            if ($.inArray(item, this.hiddenRows) > -1) {
+                continue;
+            }
+
             style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
             if (style && style.css) {
@@ -1660,7 +1684,8 @@
 
             $.each(this.header.fields, function (j, field) {
                 var text = '',
-                    value = getItemField(item, field, that.options.escape),
+                    value_ = getItemField(item, field, that.options.escape),
+                    value = '',
                     type = '',
                     cellStyle = {},
                     id_ = '',
@@ -1671,7 +1696,7 @@
                     title_ = '',
                     column = that.columns[j];
 
-                if (that.fromHtml && typeof value === 'undefined') {
+                if (that.fromHtml && typeof value_ === 'undefined') {
                     return;
                 }
 
@@ -1679,7 +1704,7 @@
                     return;
                 }
 
-                if (that.options.cardView && (!column.cardVisible)) {
+                if (that.options.cardView && !column.cardVisible) {
                     return;
                 }
 
@@ -1702,7 +1727,7 @@
                     title_ = sprintf(' title="%s"', item['_' + field + '_title']);
                 }
                 cellStyle = calculateObjectValue(that.header,
-                    that.header.cellStyles[j], [value, item, i, field], cellStyle);
+                    that.header.cellStyles[j], [value_, item, i, field], cellStyle);
                 if (cellStyle.classes) {
                     class_ = sprintf(' class="%s"', cellStyle.classes);
                 }
@@ -1715,7 +1740,7 @@
                 }
 
                 value = calculateObjectValue(column,
-                    that.header.formatters[j], [value, item, i], value);
+                    that.header.formatters[j], [value_, item, i], value_);
 
                 if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
                     $.each(item['_' + field + '_data'], function (k, v) {
@@ -1739,7 +1764,7 @@
                         sprintf(' type="%s"', type) +
                         sprintf(' value="%s"', item[that.options.idField]) +
                         sprintf(' checked="%s"', value === true ||
-                        (value && value.checked) ? 'checked' : undefined) +
+                        (value_ || value && value.checked) ? 'checked' : undefined) +
                         sprintf(' disabled="%s"', !column.checkboxEnabled ||
                         (value && value.disabled) ? 'disabled' : undefined) +
                         ' />',
@@ -1989,7 +2014,10 @@
         if (this.options.ajax) {
             calculateObjectValue(this, this.options.ajax, [request], null);
         } else {
-            $.ajax(request);
+            if (this._xhr && this._xhr.readyState !== 4) {
+                this._xhr.abort();
+            }
+            this._xhr = $.ajax(request);
         }
     };
 
@@ -2041,6 +2069,7 @@
                 row[that.header.stateField] = false;
             }
         });
+        this.initHiddenRows();
     };
 
     BootstrapTable.prototype.trigger = function (name) {
@@ -2255,17 +2284,6 @@
                 $items.filter(':checked').prop('disabled', true);
             }
         }
-    };
-
-    BootstrapTable.prototype.toggleRow = function (index, uniqueId, visible) {
-        if (index === -1) {
-            return;
-        }
-
-        this.$body.find(typeof index !== 'undefined' ?
-            sprintf('tr[data-index="%s"]', index) :
-            sprintf('tr[data-uniqueid="%s"]', uniqueId))
-            [visible ? 'show' : 'hide']();
     };
 
     BootstrapTable.prototype.getVisibleFields = function () {
@@ -2517,28 +2535,52 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.initHiddenRows = function () {
+        this.hiddenRows = [];
+    };
+
     BootstrapTable.prototype.showRow = function (params) {
-        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
-            return;
-        }
-        this.toggleRow(params.index, params.uniqueId, true);
+        this.toggleRow(params, true);
     };
 
     BootstrapTable.prototype.hideRow = function (params) {
-        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
-            return;
-        }
-        this.toggleRow(params.index, params.uniqueId, false);
+        this.toggleRow(params, false);
     };
 
-    BootstrapTable.prototype.getRowsHidden = function (show) {
-        var rows = $(this.$body[0]).children().filter(':hidden'),
-            i = 0;
-        if (show) {
-            for (; i < rows.length; i++) {
-                $(rows[i]).show();
-            }
+    BootstrapTable.prototype.toggleRow = function (params, visible) {
+        var row, index;
+
+        if (params.hasOwnProperty('index')) {
+            row = this.getData()[params.index];
+        } else if (params.hasOwnProperty('uniqueId')) {
+            row = this.getRowByUniqueId(params.uniqueId);
         }
+
+        if (!row) {
+            return;
+        }
+
+        index = $.inArray(row, this.hiddenRows);
+
+        if (!visible && index === -1) {
+            this.hiddenRows.push(row);
+        } else if (visible && index > -1) {
+            this.hiddenRows.splice(index, 1);
+        }
+        this.initBody(true);
+    };
+
+    BootstrapTable.prototype.getHiddenRows = function (show) {
+        var that = this,
+            data = this.getData(),
+            rows = [];
+
+        $.each(data, function (i, row) {
+            if ($.inArray(row, that.hiddenRows) > -1) {
+                rows.push(row);
+            }
+        });
+        this.hiddenRows = rows;
         return rows;
     };
 
@@ -2593,7 +2635,8 @@
         var that = this;
 
         return $.grep(this.options.data, function (row) {
-            return row[that.header.stateField];
+            // fix #2424: from html with checkbox
+            return row[that.header.stateField] === true;
         });
     };
 
@@ -2720,7 +2763,8 @@
         if (params && params.url) {
             this.options.pageNumber = 1;
         }
-        this.initServer(params && params.silent, params && params.query, params && params.url);
+        this.initServer(params && params.silent,
+            params && params.query, params && params.url);
         this.trigger('refresh', params);
     };
 

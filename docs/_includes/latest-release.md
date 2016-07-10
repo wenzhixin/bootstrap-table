@@ -1,13 +1,45 @@
-### Latest release (2016-2-17)
+### Latest release (2016-07-02)
 
-#### v1.10.1
+#### v1.11.0
 
-- revert: feat: update escape to false
-- feat: add `checkInvert` method
-- feat: add `bootstrap-table-he-IL.js`
-- bug: update grunt to development dependency
-- bug: press on toolbar elements, the key-events it will not run
-- bug: remove bogus conditions that will always be true
-- bug: refactor filter control select input initialization
-- bug: typo in Slovak translation
-
+- fix(js): fix cardVisible doesn't work bug
+- fix(js): int field break toggleColumn
+- fix(js): table elements inside bootstrap table bug
+- fix(js): move formatter after cellStyle
+- fix(js): the footer is hidden in card view
+- fix(js): fix sorting rows not working bug
+- fix(js): return field from visible cells
+- fix(js): onSearch event is not fire when we press the arrows keys
+- fix(js): fix fromHtml error
+- fix(js): fix event cannot work when some columns are hideen
+- fix(js): remove page size and number when pagination is false
+- fix(js): remove getFieldIndexFromColumnIndex because it cause events bug
+- fix(js): fix getSelections method bug
+- fix(js): update records to rows
+- fix(locale): update it-IT locale
+- fix(locale): add formatAllRows in template locale
+- fix(filter-control extension): add check for null values on existsOptionInSelectControl
+- fix(filter-control extension): fix show-clear button bug
+- fix(editable extesion): fix editable formatter error when refreshOptions
+- feat(js): add support for transfer from rowspan / colspan table
+- feat(js): add data variable to post-body event
+- feat(js): add `buttonsClass` option
+- feat(js): add `getVisibleColumns` method
+- feat(js): add resize event to fit the header
+- feat(js): add `onRefresh` event
+- feat(js): add field parameter in the click and dblClick row events
+- feat(js): add div.card-views surrounds all the card view divs
+- feat(js): add `field` parameter to cellStyle
+- feat(js): add `sortStable` option
+- feat(js): add `footerStyle` option
+- feat(extension): add select2 filter and i18n enhance extensions
+- feat(extension): add multi-column-toggle extension
+- feat(filter-control extension): add select list data to be passed in as JSON string and filter control starts with search
+- feat(angular extension): add constant in order to get it from angular scope
+- feat(export extension): add `formatExport` locale
+- feat(multiple-sort extension): add `formatSortOrders` option
+- feat(multiple-sort extension): support pagination server
+- refactor(filter-control extension): refactor the filterDataType method
+- refactor(filter-control extension): adding all unique values to select control and performance improvements
+- refactor(extension): refactor filter cookies extension to avoid dbcalls
+- docs(filter-control extension): add documentation for filterData

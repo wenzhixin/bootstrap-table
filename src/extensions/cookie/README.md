@@ -53,6 +53,18 @@ Use Plugin: [bootstrap-table-cookie](https://github.com/wenzhixin/bootstrap-tabl
 * description: Set this array with the table properties (sortOrder, sortName, pageNumber, pageList, columns, searchText, filterControl) that you want to save
 * default: `['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']`
 
+## methods
+
+### getCookies
+
+* parameters: none
+* description: Return the saved cookies.
+
+### deleteCookie
+
+* parameters: cookieName
+* description: Delete the saved cookie by cookie name.
+
 ## This plugin saves
 
 * Sort order

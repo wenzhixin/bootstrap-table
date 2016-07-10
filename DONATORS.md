@@ -27,6 +27,9 @@
 * Anton Blinov - $30
 * THARAKESH PULIKONDA - $10
 * Linear Design Group, LLC - $20
+* Alon Feldman - $100
+* Fabian de Rosa - $5
+* Zhe Wang - $35
 
 ## 支付宝
 
@@ -40,6 +43,7 @@
 * 拓海真一：100元
 * IO芒果：7元
 * 醉、千秋：18.88元
+* 路人甲：5.27元
 
 ## 微信
 
@@ -49,3 +53,8 @@
 * 佚名：6.6元
 * Evo4me：30元
 * zhang：50.05元
+* 郝亮：20元
+* 王挺：6.6元
+* 无心向你：9.9元
+* 指间沙：9.9元
+* 董琛：9.9元
