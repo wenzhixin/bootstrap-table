@@ -2969,7 +2969,7 @@
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
-        'getRowByUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
+        'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
         'mergeCells',
         'checkAll', 'uncheckAll', 'checkInvert',
         'check', 'uncheck',

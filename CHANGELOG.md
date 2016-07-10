@@ -8,6 +8,8 @@ ChangeLog
 - fix(js): fix #2385, checkbox render bug with formatter
 - fix(js): fix #750, showRow and hideRow bug
 - feat(js): fix #2414, add `paginationLoop` option
+- feat(js): update method `getRowsHidden` to `getHiddenRows`
+- fix(filter-control extension): fix #2418, `height` cause datepicker not display the selected date
 - feat(cookie extension): fix #2386, add `getCookies` method
 
 ### 1.11.0
