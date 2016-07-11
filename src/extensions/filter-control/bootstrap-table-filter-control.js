@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.1.0
+ * @version: v2.1.1
  */
 
 (function ($) {
@@ -332,6 +332,7 @@
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
                         header.find('.date-filter-control.bootstrap-table-filter-control-' + column.field).datepicker(column.filterDatepickerOptions)
                             .on('changeDate', function (e) {
+                                $(sprintf(".%s", e.currentTarget.classList.toString().split(" ").join("."))).val(e.currentTarget.value);
                                 //Fired the keyup event
                                 $(e.currentTarget).keyup();
                             });
