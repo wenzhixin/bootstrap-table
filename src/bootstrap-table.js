@@ -1393,7 +1393,7 @@
             }
 
             $.each(pageList, function (i, page) {
-                if (!that.options.smartDisplay || i === 0 || pageList[i - 1] <= that.options.totalRows) {
+                if (!that.options.smartDisplay || i === 0 || pageList[i - 1] < that.options.totalRows) {
                     var active;
                     if ($allSelected) {
                         active = page === that.options.formatAllRows() ? ' class="active"' : '';
