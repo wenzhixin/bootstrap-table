@@ -44,7 +44,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <tr>
         <td>onClickRow</td>
         <td>click-row.bs.table</td>
-        <td>row, $element</td>
+        <td>row, $element, field</td>
         <td>
         Fires when user click a row, the parameters contain: <br>
         row: the record corresponding to the clicked row, <br>
@@ -55,7 +55,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <tr>
         <td>onDblClickRow</td>
         <td>dbl-click-row.bs.table</td>
-        <td>row, $element</td>
+        <td>row, $element, field</td>
         <td>
         Fires when user double click a row, the parameters contain: <br>
         row: the record corresponding to the clicked row, <br>
