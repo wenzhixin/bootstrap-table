@@ -1,4 +1,4 @@
-# 包含什么 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/whats-include.md)
+# 包含什么 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/getting-started/whats-include.md)
 
 ---
 
