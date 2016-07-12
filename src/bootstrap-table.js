@@ -287,6 +287,7 @@
 
     BootstrapTable.DEFAULTS = {
         classes: 'table table-hover',
+        sortClass: undefined,
         locale: undefined,
         height: undefined,
         undefinedText: '-',
@@ -933,7 +934,8 @@
         var that = this,
             name = this.options.sortName,
             order = this.options.sortOrder === 'desc' ? -1 : 1,
-            index = $.inArray(this.options.sortName, this.header.fields);
+            index = $.inArray(this.options.sortName, this.header.fields),
+            timeoutId = 0;
 
         if (this.options.customSort !== $.noop) {
             this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder]);
@@ -998,6 +1000,15 @@
 
                 return order;
             });
+
+            //$('table tr td:nth-child('+($this.index()+1)+')').css("background-color", "red")
+            if (this.options.sortClass !== undefined) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function () {
+                  that.$el.removeClass(that.options.sortClass);
+                  that.$el.find('tr td:nth-child('+(that.$header.find("[data-field='" + that.options.sortName + "']").index()+1)+')').addClass(that.options.sortClass);
+                }, 250);
+            }
         }
     };
 

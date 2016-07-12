@@ -35,6 +35,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>The class name of table. By default, the table is bordered, you can add 'table-no-bordered' to remove table-bordered style.</td>
     </tr>
     <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>The class name of the td elements which are sorted.</td>
+    </tr>
+    <tr>
         <td>height</td>
         <td>data-height</td>
         <td>Number</td>
