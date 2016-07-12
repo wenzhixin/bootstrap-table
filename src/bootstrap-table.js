@@ -1001,12 +1001,14 @@
                 return order;
             });
 
-            //$('table tr td:nth-child('+($this.index()+1)+')').css("background-color", "red")
             if (this.options.sortClass !== undefined) {
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
-                  that.$el.removeClass(that.options.sortClass);
-                  that.$el.find('tr td:nth-child('+(that.$header.find("[data-field='" + that.options.sortName + "']").index()+1)+')').addClass(that.options.sortClass);
+                    that.$el.removeClass(that.options.sortClass);
+                    var index = that.$header.find(sprintf('[data-field="%s"]',
+                        that.options.sortName).index() + 1);
+                    that.$el.find(sprintf('tr td:nth-child(%s)', index))
+                        .addClass(that.options.sortClass);
                 }, 250);
             }
         }
