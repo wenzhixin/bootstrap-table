@@ -1,11 +1,12 @@
-# Table Mobile
+# Table Multiple Selection Row
 
 Use Plugin: [bootstrap-table-multiple-selection-row](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/multiple-selection-row)
 
 ## Usage
 
 ```html
-<script src="extensions/mobile/bootstrap-table-multiple-selection-row.js"></script>
+<link rel="stylesheet" type="text/css" href="extensions/multiple-selection-row/bootstrap-table-multiple-selection-row.css">
+<script src="extensions/multiple-selection-row/bootstrap-table-multiple-selection-row.js"></script>
 ```
 
 ## Options
@@ -22,20 +23,11 @@ Use Plugin: [bootstrap-table-multiple-selection-row](https://github.com/wenzhixi
 * description: The class that will be applied in the rows selected.
 * default: `multiple-select-row-selected`
 
-### minWidth
+## Methods
 
-* type: Integer
-* description: Set the minimum width when the table will change the view.
-* default: `562`
+### clearAllMultipleSelectionRow
 
-### minHeight
-
-* type: Integer
-* description: Set the minimum height when the table will change the view.
-* default: `undefined`
-
-### columnsHidden
-
-* type: String
-* description: Set the columns fields in this array in order to hide those columns in the cardView mode. Use this way in `data-*` configuration: ` data-columns-hidden="['name', 'description']"` or this way in javascript configuration: `columnsHidden = ['name', 'description']`. 
-* default: `undefined`
+* Clear all the selected rows.
+  * Parameters
+      * It does not receive parameters.
+  * Example: <code> $table.bootstrapTable("clearAllMultipleSelectionRow");</code>
