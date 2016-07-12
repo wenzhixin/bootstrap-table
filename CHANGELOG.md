@@ -9,8 +9,11 @@ ChangeLog
 - fix(js): fix #750, showRow and hideRow bug
 - feat(js): fix #2414, add `paginationLoop` option
 - feat(js): update method `getRowsHidden` to `getHiddenRows`
+- feat(js): add `sortClass` option
 - fix(filter-control extension): fix #2418, `height` cause datepicker not display the selected date
+- fix(export extension): fix #2220, selected rows does not work when data-pagination-side is server
 - feat(cookie extension): fix #2386, add `getCookies` method
+- feat(multiple-selection-row extension): add multiple-selection-row extension
 
 ### 1.11.0
 
