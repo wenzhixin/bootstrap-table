@@ -285,7 +285,7 @@
     padding: 0 !important;
 }
 
-.pull-right .dropdown-menu {
+.bootstrap-table .pull-right .dropdown-menu {
     right: 0;
     left: auto;
 }
