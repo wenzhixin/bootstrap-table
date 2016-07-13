@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.1.1
+ * @version: v2.1.2
  */
 
 (function ($) {
@@ -10,6 +10,24 @@
 
     var sprintf = $.fn.bootstrapTable.utils.sprintf,
         objectKeys = $.fn.bootstrapTable.utils.objectKeys;
+
+    var getOptionsFromSelectControl = function (selectControl) {
+        return selectControl.get(selectControl.length - 1).options;
+    };
+
+    var disableOptionSelectControl = function (selectControl, uniqueValues) {
+        var options = getOptionsFromSelectControl(selectControl);
+
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value !== "") {
+                if (!uniqueValues.hasOwnProperty(options[i].value)) {
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).attr("disabled", "disabled"); 
+                } else {
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).removeAttr("disabled"); 
+                }
+            }
+        }
+    };
 
     var addOptionToSelectControl = function (selectControl, value, text) {
         value = $.trim(value);
@@ -39,7 +57,7 @@
     };
 
     var existOptionInSelectControl = function (selectControl, value) {
-        var options = selectControl.get(selectControl.length - 1).options;
+        var options = getOptionsFromSelectControl(selectControl);
         for (var i = 0; i < options.length; i++) {
             if (options[i].value === value.toString()) {
                 //The value is not valid to add
@@ -161,7 +179,7 @@
     };
 
     var initFilterSelectControls = function (that) {
-        var data = that.options.data,
+        var data = that.data,
             itemsPerPage = that.pageTo < that.options.data.length ? that.options.data.length : that.pageTo,
 
             isColumnSearchableViaSelect = function (column) {
@@ -198,11 +216,14 @@
 
                     uniqueValues[formattedValue] = fieldValue;
                 }
+                
                 for (var key in uniqueValues) {
                     addOptionToSelectControl(selectControl, uniqueValues[key], key);
                 }
 
                 sortSelectControl(selectControl);
+
+                disableOptionSelectControl(selectControl, uniqueValues);
             }
         });
     };
@@ -226,9 +247,9 @@
             }
 
             if (!column.filterControl) {
-                html.push('<div style="height: 34px;"></div>');
+                html.push('<div class="no-filter-control"></div>');
             } else {
-                html.push('<div style="margin: 0 2px 2px 2px;" class="filterControl">');
+                html.push('<div class="filter-control">');
 
                 var nameControl = column.filterControl.toLowerCase();
                 if (column.searchable && that.options.filterTemplate[nameControl]) {

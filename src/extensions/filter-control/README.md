@@ -6,6 +6,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ## Usage
 
 ```html
+<link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
 <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>
 ```
 

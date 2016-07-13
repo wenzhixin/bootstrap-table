@@ -1,0 +1,17 @@
+/**
+ * @author: Dennis Hernández
+ * @webSite: http://djhvscf.github.io/Blog
+ * @version: v2.1.2
+ */
+ 
+.no-filter-control {
+    height: 34px;
+}
+
+.filter-control {
+    margin: 0 2px 2px 2px;
+}
+
+select option:disabled {
+    background-color: #f2f2f2;
+}
