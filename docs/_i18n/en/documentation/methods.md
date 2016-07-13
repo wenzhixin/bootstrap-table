@@ -188,6 +188,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>Refresh the options</td>
     </tr>
     <tr>
+        <td>resetSearch</td>
+        <td>text</td>
+        <td>Set the search text</td>
+    </tr>
+    <tr>
         <td>showLoading</td>
         <td>none</td>
         <td>Show loading status.</td>

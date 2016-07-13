@@ -164,6 +164,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>Actualiza el objecto options</td>
     </tr>
     <tr>
+        <td>resetSearch</td>
+        <td>text</td>
+        <td>Setea el texto de búsqueda</td>
+    </tr>
+    <tr>
         <td>showLoading</td>
         <td>none</td>
         <td>Mostrar el estado de la carga.</td>
