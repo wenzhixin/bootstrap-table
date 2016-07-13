@@ -16,6 +16,7 @@ ChangeLog
 - fix(css): fix #2208, dropdown-menu style bug
 - fix(filter-control extension): fix #2418, `height` cause datepicker not display the selected date
 - fix(export extension): fix #2220, selected rows does not work when data-pagination-side is server
+- fix(reorder-row extension): fix #1343, reorder rows bug with pagination
 - feat(cookie extension): fix #2386, add `getCookies` method
 - feat(multiple-selection-row extension): add multiple-selection-row extension
 - feat(filter-control extension): fix #1540, disable unnecessary/unused values from select options
