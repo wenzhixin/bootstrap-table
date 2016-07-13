@@ -15,15 +15,15 @@
         return selectControl.get(selectControl.length - 1).options;
     };
 
-    var disableOptionSelectControl = function (selectControl, uniqueValues) {
+    var hideUnusedSelectOptions = function (selectControl, uniqueValues) {
         var options = getOptionsFromSelectControl(selectControl);
 
         for (var i = 0; i < options.length; i++) {
             if (options[i].value !== "") {
                 if (!uniqueValues.hasOwnProperty(options[i].value)) {
-                    selectControl.find(sprintf("option[value='%s']", options[i].value)).attr("disabled", "disabled"); 
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).css("display", "none"); 
                 } else {
-                    selectControl.find(sprintf("option[value='%s']", options[i].value)).removeAttr("disabled"); 
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).css("display", "block"); 
                 }
             }
         }
@@ -223,8 +223,8 @@
 
                 sortSelectControl(selectControl);
 
-                if (that.options.disableUnusedSelectOptions) {
-                    disableOptionSelectControl(selectControl, uniqueValues);
+                if (that.options.hideUnusedSelectOptions) {
+                    hideUnusedSelectOptions(selectControl, uniqueValues);
                 }
             }
         });

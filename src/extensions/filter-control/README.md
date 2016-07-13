@@ -30,10 +30,10 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set the alignemnt of the select control options. Use Use `left`, `right` or `auto`.
 * default: `undefined`
 
-### disableUnusedSelectOptions
+### hideUnusedSelectOptions
 
 * type: Boolean
-* description: Set to true in order to disable the options that are not in the table. This option does not work on server-side pagination.
+* description: Set to true in order to hide the options that are not in the table. This option does not work on server-side pagination.
 * default: `false`
 
 ## Column options
