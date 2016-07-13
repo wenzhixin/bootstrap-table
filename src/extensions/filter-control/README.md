@@ -21,7 +21,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### filterShowClear
 
 * type: Boolean
-* description: Set true to add a button to clear all the controls added by this plugin
+* description: Set true to add a button to clear all the controls added by this plugin.
 * default: `false`
 
 ### alignmentSelectControlOptions
@@ -29,6 +29,12 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * type: String
 * description: Set the alignemnt of the select control options. Use Use `left`, `right` or `auto`.
 * default: `undefined`
+
+### disableUnusedSelectOptions
+
+* type: Boolean
+* description: Set to true in order to disable the options that are not in the table. This option does not work on server-side pagination.
+* default: `false`
 
 ## Column options
 

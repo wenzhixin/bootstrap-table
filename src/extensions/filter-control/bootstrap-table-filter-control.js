@@ -223,12 +223,14 @@
 
                 sortSelectControl(selectControl);
 
-                disableOptionSelectControl(selectControl, uniqueValues);
+                if (that.options.disableUnusedSelectOptions) {
+                    disableOptionSelectControl(selectControl, uniqueValues);
+                }
             }
         });
     };
 
-    var escapeID = function( id ) {
+    var escapeID = function(id) {
        return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
    };
 
