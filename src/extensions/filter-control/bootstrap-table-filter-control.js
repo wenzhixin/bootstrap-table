@@ -21,9 +21,9 @@
         for (var i = 0; i < options.length; i++) {
             if (options[i].value !== "") {
                 if (!uniqueValues.hasOwnProperty(options[i].value)) {
-                    selectControl.find(sprintf("option[value='%s']", options[i].value)).css("display", "none"); 
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).hide(); 
                 } else {
-                    selectControl.find(sprintf("option[value='%s']", options[i].value)).css("display", "block"); 
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).show(); 
                 }
             }
         }
