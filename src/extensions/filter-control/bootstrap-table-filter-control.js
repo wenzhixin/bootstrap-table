@@ -11,6 +11,24 @@
     var sprintf = $.fn.bootstrapTable.utils.sprintf,
         objectKeys = $.fn.bootstrapTable.utils.objectKeys;
 
+    var getOptionsFromSelectControl = function (selectControl) {
+        return selectControl.get(selectControl.length - 1).options;
+    };
+
+    var hideUnusedSelectOptions = function (selectControl, uniqueValues) {
+        var options = getOptionsFromSelectControl(selectControl);
+
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value !== "") {
+                if (!uniqueValues.hasOwnProperty(options[i].value)) {
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).hide(); 
+                } else {
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).show(); 
+                }
+            }
+        }
+    };
+
     var addOptionToSelectControl = function (selectControl, value, text) {
         value = $.trim(value);
         selectControl = $(selectControl.get(selectControl.length - 1));
@@ -39,7 +57,7 @@
     };
 
     var existOptionInSelectControl = function (selectControl, value) {
-        var options = selectControl.get(selectControl.length - 1).options;
+        var options = getOptionsFromSelectControl(selectControl);
         for (var i = 0; i < options.length; i++) {
             if (options[i].value === value.toString()) {
                 //The value is not valid to add
@@ -161,7 +179,7 @@
     };
 
     var initFilterSelectControls = function (that) {
-        var data = that.options.data,
+        var data = that.data,
             itemsPerPage = that.pageTo < that.options.data.length ? that.options.data.length : that.pageTo,
 
             isColumnSearchableViaSelect = function (column) {
@@ -198,16 +216,21 @@
 
                     uniqueValues[formattedValue] = fieldValue;
                 }
+                
                 for (var key in uniqueValues) {
                     addOptionToSelectControl(selectControl, uniqueValues[key], key);
                 }
 
                 sortSelectControl(selectControl);
+
+                if (that.options.hideUnusedSelectOptions) {
+                    hideUnusedSelectOptions(selectControl, uniqueValues);
+                }
             }
         });
     };
 
-    var escapeID = function( id ) {
+    var escapeID = function(id) {
        return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
    };
 
@@ -226,9 +249,9 @@
             }
 
             if (!column.filterControl) {
-                html.push('<div style="height: 34px;"></div>');
+                html.push('<div class="no-filter-control"></div>');
             } else {
-                html.push('<div style="margin: 0 2px 2px 2px;" class="filterControl">');
+                html.push('<div class="filter-control">');
 
                 var nameControl = column.filterControl.toLowerCase();
                 if (column.searchable && that.options.filterTemplate[nameControl]) {

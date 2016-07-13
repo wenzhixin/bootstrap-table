@@ -16,6 +16,12 @@ ChangeLog
 - fix(export extension): fix #2220, selected rows does not work when data-pagination-side is server
 - feat(cookie extension): fix #2386, add `getCookies` method
 - feat(multiple-selection-row extension): add multiple-selection-row extension
+- feat(filter-control extension): fix #1540, disable unnecessary/unused values from select options
+- feat(filter-control extension): fix #2448, create a css file which contains the style for this extension
+
+#### Breaking changes in 1.11.1
+- **Filter-Control extension**: deleted the inline-style and now this extension is using a separated css file.
+
 
 ### 1.11.0
 
