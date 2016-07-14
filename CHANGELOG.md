@@ -14,6 +14,7 @@ ChangeLog
 - feat(js): add `sortClass` option
 - feat(js): add `totalField` Option
 - fix(css): fix #2208, dropdown-menu style bug
+- fix(js): fix #2461, adding the initPagination call to updateByUniqueId and updateRow methods
 - fix(filter-control extension): fix #2418, `height` cause datepicker not display the selected date
 - fix(export extension): fix #2220, selected rows does not work when data-pagination-side is server
 - fix(reorder-row extension): fix #1343, reorder rows bug with pagination
