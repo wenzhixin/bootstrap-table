@@ -2538,6 +2538,7 @@
         });
 
         this.initSearch();
+        this.initPagination();
         this.initSort();
         this.initBody(true);
     };
