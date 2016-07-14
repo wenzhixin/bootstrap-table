@@ -304,3 +304,10 @@ div.fixed-table-scroll-outer {
     height: 150px;
     overflow: hidden;
 }
+
+/* for get correct heights  */
+.fixed-table-toolbar:after, .fixed-table-pagination:after {
+  content:"";
+  display:block;
+  clear:both;
+}

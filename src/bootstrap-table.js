@@ -190,16 +190,6 @@
         return text;
     };
 
-    var getRealHeight = function ($el) {
-        var height = 0;
-        $el.children().each(function () {
-            if (height < $(this).outerHeight(true)) {
-                height = $(this).outerHeight(true);
-            }
-        });
-        return height;
-    };
-
     var getRealDataAttr = function (dataAttr) {
         for (var attr in dataAttr) {
             var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
@@ -2318,8 +2308,8 @@
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
         if (this.options.height) {
-            var toolbarHeight = getRealHeight(this.$toolbar),
-                paginationHeight = getRealHeight(this.$pagination),
+            var toolbarHeight = this.$toolbar.outerHeight(true),
+                paginationHeight = this.$pagination.outerHeight(true),
                 height = this.options.height - toolbarHeight - paginationHeight;
 
             this.$tableContainer.css('height', height + 'px');
