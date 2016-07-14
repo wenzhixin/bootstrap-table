@@ -257,7 +257,7 @@
                 if (column.searchable && that.options.filterTemplate[nameControl]) {
                     addedFilterControl = true;
                     isVisible = 'visible';
-                    html.push(that.options.filterTemplate[nameControl](that, column.field, isVisible));
+                    html.push(that.options.filterTemplate[nameControl](that, column.field, isVisible, column.filterControlPlaceholder));
                 }
             }
 
@@ -430,8 +430,8 @@
         filterShowClear: false,
         alignmentSelectControlOptions: undefined,
         filterTemplate: {
-            input: function (that, field, isVisible) {
-                return sprintf('<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">', field, isVisible);
+            input: function (that, field, isVisible, placeholder) {
+                return sprintf('<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" placeholder="%s">', field, isVisible, placeholder);
             },
             select: function (that, field, isVisible) {
                 return sprintf('<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" dir="%s"></select>',
@@ -450,7 +450,8 @@
         filterData: undefined,
         filterDatepickerOptions: undefined,
         filterStrictSearch: false,
-        filterStartsWithSearch: false
+        filterStartsWithSearch: false,
+        filterControlPlaceholder: ""
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {

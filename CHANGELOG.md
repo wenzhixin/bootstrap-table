@@ -22,6 +22,7 @@ ChangeLog
 - feat(multiple-selection-row extension): add multiple-selection-row extension
 - feat(filter-control extension): fix #1540, disable unnecessary/unused values from select options
 - feat(filter-control extension): fix #2448, create a css file which contains the style for this extension
+- feat(filter-control extension): fix #2189, set placeholder of the filter-control input
 
 #### Breaking changes in 1.11.1
 - **Filter-Control extension**: deleted the inline-style and now this extension is using a separated css file.
