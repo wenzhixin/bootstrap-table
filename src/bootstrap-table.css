@@ -307,7 +307,7 @@ div.fixed-table-scroll-outer {
 
 /* for get correct heights  */
 .fixed-table-toolbar:after, .fixed-table-pagination:after {
-  content:"";
-  display:block;
-  clear:both;
+    content: "";
+    display: block;
+    clear: both;
 }
