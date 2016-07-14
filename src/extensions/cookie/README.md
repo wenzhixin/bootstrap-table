@@ -47,6 +47,12 @@ Use Plugin: [bootstrap-table-cookie](https://github.com/wenzhixin/bootstrap-tabl
 * description: You must set this property if the cookie property is enabled to set an unique cookie with an identifier for each table in your page or project. You must set this property because we need create cookies with an identifier.
 * default: ``
 
+### cookieStorage
+
+* type: String
+* description: Set the storage that this extension will use. Use `cookieStorage` or `localStorage` or `sessionStorage`.
+* default: `cookieStorage`
+
 ### cookiesEnabled
 
 * type: Array

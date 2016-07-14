@@ -64,11 +64,27 @@
         }
 
         cookieName = that.options.cookieIdTable + '.' + cookieName;
-        if (!cookieName || /^(?:expires|max\-age|path|domain|secure)$/i.test(cookieName)) {
-            return false;
+
+        switch(that.options.cookieStorage) {
+            case 'cookieStorage':
+                document.cookie = [
+                        cookieName, '=', cookieValue,
+                        '; expires=' + that.options.cookieExpire,
+                        that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
+                        that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
+                        that.options.cookieSecure ? '; secure' : ''
+                    ].join('');
+            break;
+            case 'localStorage':
+                localStorage.setItem(cookieName, cookieValue);
+            break;
+            case 'sessionStorage':
+                sessionStorage.setItem(cookieName, cookieValue);
+            break;
+            default:
+                return false;
         }
 
-        document.cookie = encodeURIComponent(cookieName) + '=' + encodeURIComponent(cookieValue) + calculateExpiration(that.options.cookieExpire) + (that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '') + (that.options.cookiePath ? '; path=' + that.options.cookiePath : '') + (that.cookieSecure ? '; secure' : '');
         return true;
     };
 
@@ -83,22 +99,38 @@
 
         cookieName = tableName + '.' + cookieName;
 
-        return decodeURIComponent(document.cookie.replace(new RegExp('(?:(?:^|.*;)\\s*' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=\\s*([^;]*).*$)|^.*$'), '$1')) || null;
-    };
-
-    var hasCookie = function (cookieName) {
-        if (!cookieName) {
-            return false;
+        switch(that.options.cookieStorage) {
+            case 'cookieStorage':
+                return decodeURIComponent(document.cookie.replace(new RegExp('(?:(?:^|.*;)\\s*' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=\\s*([^;]*).*$)|^.*$'), '$1')) || null;
+            case 'localStorage':
+                return localStorage.getItem(cookieName);
+            case 'sessionStorage':
+                return sessionStorage.getItem(cookieName);
+            default:
+                return null;
         }
-        return (new RegExp('(?:^|;\\s*)' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=')).test(document.cookie);
     };
 
-    var deleteCookie = function (tableName, cookieName, sPath, sDomain) {
+    var deleteCookie = function (that, tableName, cookieName) {
         cookieName = tableName + '.' + cookieName;
-        if (!hasCookie(cookieName)) {
-            return false;
+        
+        switch(that.options.cookieStorage) {
+            case 'cookieStorage':
+                document.cookie = [
+                        encodeURIComponent(cookieName), '=',
+                        '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
+                        that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
+                        that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
+                    ].join('');
+                break;
+            case 'localStorage':
+                localStorage.removeItem(cookieName);
+            break;
+            case 'sessionStorage':
+                sessionStorage.removeItem(cookieName);
+            break;
+
         }
-        document.cookie = encodeURIComponent(cookieName) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT' + (sDomain ? '; domain=' + sDomain : '') + (sPath ? '; path=' + sPath : '');
         return true;
     };
 
@@ -178,6 +210,7 @@
             'bs.table.columns', 'bs.table.searchText',
             'bs.table.filterControl'
         ],
+        cookieStorage: 'cookieStorage', //localStorage, sessionStorage
         //internal variable
         filterControls: [],
         filterControlValuesLoaded: false
@@ -396,6 +429,6 @@
             return;
         }
 
-        deleteCookie(this.options.cookieIdTable, cookieIds[cookieName], this.options.cookiePath, this.options.cookieDomain);
+        deleteCookie(this, this.options.cookieIdTable, cookieIds[cookieName]);
     };
 })(jQuery);

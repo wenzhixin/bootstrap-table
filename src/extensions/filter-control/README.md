@@ -65,8 +65,19 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set to true if you want to use the starts with search mode.
 * default: `false`
 
+### filterControlPlaceholder
+* type: String
+* description: Set this in order to show a placeholder only in the input filter control.
+* default: ``
+
 ### Icons
 * clear: 'glyphicon-trash icon-clear'
+
+## Locale
+
+### formatClearFilters
+* type: Function
+* default: `function () { return "Clear Filters";}`
 
 ## Events
 
