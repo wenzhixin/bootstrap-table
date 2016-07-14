@@ -73,6 +73,12 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### Icons
 * clear: 'glyphicon-trash icon-clear'
 
+## Locale
+
+### formatClearFilters
+* type: Function
+* default: `function () { return "Clear Filters";}`
+
 ## Events
 
 ### onColumnSearch(column-search.bs.table)
