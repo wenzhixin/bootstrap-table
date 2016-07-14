@@ -9,6 +9,7 @@ ChangeLog
 - fix(js): fix #750, showRow and hideRow bug
 - fix(js): fix #2387, page list bug
 - fix(js): decrement totalRows on remove if using server side pagination
+- fix(js): bug in the calculation of toolbar and pagination heights
 - feat(js): fix #2414, add `paginationLoop` option
 - feat(js): update method `getRowsHidden` to `getHiddenRows`
 - feat(js): add `sortClass` option
