@@ -1193,6 +1193,13 @@
                 }, that.options.searchTimeOut);
             });
 
+            $search.off('blur').on('blur', function(event) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function() {
+                    that.onSearch(event);
+                }, that.options.searchTimeOut);
+            });
+
             if (isIEBrowser()) {
                 $search.off('mouseup').on('mouseup', function (event) {
                     clearTimeout(timeoutId); // doesn't matter if it's 0
