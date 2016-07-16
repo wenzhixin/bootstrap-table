@@ -75,7 +75,7 @@
                     }
                     function sortRows(data,colName,sortOrder) {
                         if(!colName){
-                            return;
+                            return data;
                         }
                         var reverse = sortOrder != 'asc';
                         reverse = -((+reverse) || -1);
