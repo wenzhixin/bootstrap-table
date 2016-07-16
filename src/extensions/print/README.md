@@ -31,7 +31,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 ### printPageBuilder
 
 * type: Function
-* description: Receive html <table> element as string parameter, returns html string for printing. Used for styling and adding header or footer.
+* description: Receive html `<table>` element as string parameter, returns html string for printing. Used for styling and adding header or footer.
 * default: `function(table){return printPageBuilderDefault(table)}`
 
 ## Column options
