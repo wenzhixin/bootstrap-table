@@ -13,6 +13,49 @@
   <script src="bootstrap-table-select2-filter.js"></script>
   <script>
     $(function () {
+      function getNumberFilterTemplate(fieldId) {
+        var numberFilterClass = 'numberFilter-' + fieldId,
+                template = function (bootstrapTable, col, isVisible) {
+                  var search = function (event, value) {
+                    bootstrapTable.searchText = undefined;
+                    clearTimeout(bootstrapTable.timeoutId);
+                    bootstrapTable.timeoutId = setTimeout(function () {
+                      bootstrapTable.onColumnSearch(event, fieldId, value);
+                    }, bootstrapTable.options.searchTimeOut);
+                  };
+
+                  var $el = $('<div class="input-group input-group-sm ' + numberFilterClass + '" style="width: 100%; visibility:' + isVisible + '">' +
+                                  '<span class="input-group-addon">&gt;</span>' +
+                                  '<input type="number" class="form-control">' +
+                                  '</div>'),
+                          $input = $el.find('input');
+
+                  $input.off('keyup').on('keyup', function (event) {
+                    search(event, $(this).val());
+                  });
+
+                  $input.off('mouseup').on('mouseup', function (event) {
+                    var $input = $(this),
+                            oldValue = $input.val();
+
+                    if (oldValue === "") {
+                      return;
+                    }
+
+                    setTimeout(function () {
+                      var newValue = $input.val();
+                      if (newValue === "") {
+                        search(event, newValue);
+                      }
+                    }, 1);
+                  });
+
+                  return $el;
+                };
+
+        return template;
+      }
+
       var options = {
         filterValues: {price: "$2"},
         url: "data.json",
@@ -39,13 +82,31 @@
               type: "select",
               data: ["$1", "$2", "$3"]
             }
+          },
+          {
+            field: "amount",
+            title: "Amount",
+            width: 200,
+            filter: {
+              template: getNumberFilterTemplate("amount"),
+              setFilterValue: function ($filter, field, value) {
+                if (value) {
+                  $filter.find('input').val(value.value);
+                }
+              }
+            }
           }
         ],
-        filter: true
+        filter: true,
+        filterTemplate: {
+          input: function (bootstrapTable, column, isVisible) {
+            return '<input type="text" class="form-control input-sm" data-filter-field="' + column.field + '" style="width: 100%; visibility:' + isVisible + '">';
+          }
+        }
       };
 
       var $table = $("#table").bootstrapTable(options);
-      $table.bootstrapTable("setFilterData", "name", ["item 1", "item 2", "item 3"]);
+      $table.bootstrapTable("setSelect2Data", "name", ["item 1", "item 2", "item 3"]);
     });
   </script>
 </head>
