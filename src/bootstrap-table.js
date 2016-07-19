@@ -1178,7 +1178,7 @@
 
             this.$toolbar.append(html.join(''));
             $search = this.$toolbar.find('.search input');
-            $search.off('keyup drop').on('keyup drop', function (event) {
+            $search.off('keyup drop blur').on('keyup drop blur', function (event) {
                 if (that.options.searchOnEnterKey && event.keyCode !== 13) {
                     return;
                 }
@@ -1189,13 +1189,6 @@
 
                 clearTimeout(timeoutId); // doesn't matter if it's 0
                 timeoutId = setTimeout(function () {
-                    that.onSearch(event);
-                }, that.options.searchTimeOut);
-            });
-
-            $search.off('blur').on('blur', function(event) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function() {
                     that.onSearch(event);
                 }, that.options.searchTimeOut);
             });
