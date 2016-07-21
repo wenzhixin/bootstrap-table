@@ -285,7 +285,7 @@
     padding: 0 !important;
 }
 
-.pull-right .dropdown-menu {
+.bootstrap-table .pull-right .dropdown-menu {
     right: 0;
     left: auto;
 }
@@ -303,4 +303,11 @@ div.fixed-table-scroll-outer {
     width: 200px;
     height: 150px;
     overflow: hidden;
+}
+
+/* for get correct heights  */
+.fixed-table-toolbar:after, .fixed-table-pagination:after {
+    content: "";
+    display: block;
+    clear: both;
 }

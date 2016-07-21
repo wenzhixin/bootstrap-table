@@ -108,6 +108,15 @@
                         var data = that.getData(),
                             selectedData = that.getAllSelections();
 
+                        // Quick fix #2220
+                        if (that.options.sidePagination === 'server') {
+                            data = {total: that.options.totalRows};
+                            data[that.options.dataField] = that.getData();
+
+                            selectedData = {total: that.options.totalRows};
+                            selectedData[that.options.dataField] = that.getAllSelections();
+                        }
+
                         that.load(selectedData);
                         doExport();
                         that.load(data);
