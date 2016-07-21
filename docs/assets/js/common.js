@@ -22,7 +22,7 @@ $(function () {
     });
 
     // examples
-    $('#examples').load('/wenzhixin/bootstrap-table/issues/1765 #issue-119870991 .comment-content', function () {
+    $('#examples').load('/wenzhixin/bootstrap-table/issues/1765 #issue-119870991 .comment-body', function () {
         var $this = $(this);
         $this.find('h1').each(function () {
             $(this).after('<hr>');
