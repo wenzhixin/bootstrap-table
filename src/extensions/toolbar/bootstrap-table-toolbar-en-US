@@ -1,0 +1,22 @@
+/**
+ * @author: aperez <aperez@datadec.es>
+ * @version: v2.0.0
+ *
+ * @update Dennis Hernández <http://djhvscf.github.io/Blog>
+ */
+
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['en-US'] = {
+        formatAdvancedSearch: function() {
+            return 'Advanced search';
+        },
+        formatAdvancedCloseButton: function() {
+            return "Close";
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
+
+})(jQuery);
