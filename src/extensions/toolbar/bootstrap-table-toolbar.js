@@ -102,6 +102,17 @@
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
         'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
     });
+    
+    $.extend($.fn.bootstrapTable.locales, {
+        formatAdvancedSearch: function() {
+            return 'Advanced search';
+        },
+        formatAdvancedCloseButton: function() {
+            return "Close";
+        }
+    });
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar,        
