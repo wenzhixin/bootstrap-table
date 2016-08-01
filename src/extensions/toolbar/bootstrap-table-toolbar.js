@@ -103,7 +103,7 @@
         'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
     });
     
-    $.extend($.fn.bootstrapTable.locales, {
+    $.extend($.fn.bootstrapTable.locales['en-US'], {
         formatAdvancedSearch: function() {
             return 'Advanced search';
         },
@@ -112,7 +112,7 @@
         }
     });
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar,        
