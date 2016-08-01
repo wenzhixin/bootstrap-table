@@ -5,14 +5,14 @@
 (function ($) {
     'use strict';
 
-    $.fn.bootstrapTable.locales['fr-FR'] = {
+    $.extend($.fn.bootstrapTable.locales['fr-FR'], {
         formatAdvancedSearch: function() {
             return 'Recherche avancée';
         },
         formatAdvancedCloseButton: function() {
             return "Fermer";
         }
-    };
+    });
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-FR']);
 
