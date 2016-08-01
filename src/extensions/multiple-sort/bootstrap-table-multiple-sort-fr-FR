@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.fn.bootstrapTable.locales['fr-FR'] = {
+    $.extend($.fn.bootstrapTable.locales['fr-FR'], {
         formatMultipleSort: function() {
             return 'Tri avancé';
         },
@@ -45,7 +45,7 @@
                 desc: 'Décroissant'
             };
         }
-    };
+    });
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-FR']);
 
