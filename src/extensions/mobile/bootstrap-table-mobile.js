@@ -22,7 +22,9 @@
 
     var resetView = function (that) {
         if (that.options.height || that.options.showFooter) {
-            setTimeout(that.resetView, 1);
+            setTimeout(function(){
+                that.resetView.call(that);
+            }, 1);
         }
     };
 
@@ -94,6 +96,11 @@
 
         if (!this.options.minWidth) {
             return;
+        }
+
+        if (this.options.minWidth < 100 && this.options.resizable) {
+            console.log("The minWidth when the resizable extension is active should be greater or equal than 100");
+            this.options.minWidth = 100;
         }
 
         var that = this,

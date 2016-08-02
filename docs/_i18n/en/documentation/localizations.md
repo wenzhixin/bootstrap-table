@@ -1,4 +1,4 @@
-# Localizations []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/localizations.md)
+# Localizations []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/localizations.md)
 
 ---
 
@@ -30,6 +30,11 @@
         <td>formatShowingRows</td>
         <td>pageFrom, pageTo, totalRows</td>
         <td>'Showing %s to %s of %s rows'</td>
+    </tr>
+    <tr>
+        <td>formatDetailPagination</td>
+        <td>totalRows</td>
+        <td>'Showing %s rows'</td>
     </tr>
     <tr>
         <td>formatSearch</td>

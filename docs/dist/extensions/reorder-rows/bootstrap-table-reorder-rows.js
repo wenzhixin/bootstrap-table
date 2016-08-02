@@ -45,6 +45,7 @@
     BootstrapTable.prototype.init = function () {
 
         if (!this.options.reorderableRows) {
+            _init.apply(this, Array.prototype.slice.apply(arguments));
             return;
         }
 

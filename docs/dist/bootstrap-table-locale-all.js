@@ -1,4 +1,45 @@
 /**
+ * Bootstrap Table Afrikaans translation
+ * Author: Phillip Kruger <phillip.kruger@gmail.com>
+ */
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['af-ZA'] = {
+        formatLoadingMessage: function () {
+            return 'Besig om te laai, wag asseblief ...';
+        },
+        formatRecordsPerPage: function (pageNumber) {
+            return pageNumber + ' rekords per bladsy';
+        },
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            return 'Resultate ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' rye';
+        },
+        formatSearch: function () {
+            return 'Soek';
+        },
+        formatNoMatches: function () {
+            return 'Geen rekords gevind nie';
+        },
+        formatPaginationSwitch: function () {
+            return 'Wys/verberg bladsy nummering';
+        },
+        formatRefresh: function () {
+            return 'Herlaai';
+        },
+        formatToggle: function () {
+            return 'Wissel';
+        },
+        formatColumns: function () {
+            return 'Kolomme';
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['af-ZA']);
+
+})(jQuery);
+
+/**
  * Bootstrap Table English translation
  * Author: Zhixin Wen<wenzhixin2010@gmail.com>
  */
@@ -41,14 +82,15 @@
 
 /**
  * Bootstrap Table Catalan translation
- * Author: Marc Pina<iwalkalone69@gmail.com>
+ * Authors: Marc Pina<iwalkalone69@gmail.com>
+ *          Claudi Martinez<claudix.kernel@gmail.com>
  */
 (function ($) {
     'use strict';
 
     $.fn.bootstrapTable.locales['ca-ES'] = {
         formatLoadingMessage: function () {
-            return 'Si us plau esperi...';
+            return 'Espereu, si us plau...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' resultats per pàgina';
@@ -57,19 +99,19 @@
             return 'Mostrant de ' + pageFrom + ' fins ' + pageTo + ' - total ' + totalRows + ' resultats';
         },
         formatSearch: function () {
-            return 'Buscar';
+            return 'Cerca';
         },
         formatNoMatches: function () {
             return 'No s\'han trobat resultats';
         },
         formatPaginationSwitch: function () {
-            return 'Amagar/Mostrar paginació';
+            return 'Amaga/Mostra paginació';
         },
         formatRefresh: function () {
-            return 'Refrescar';
+            return 'Refresca';
         },
         formatToggle: function () {
-            return 'Amagar/Mostrar';
+            return 'Alterna formatació';
         },
         formatColumns: function () {
             return 'Columnes';
@@ -244,7 +286,7 @@
             return 'Loading, please wait...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' records per page';
+            return pageNumber + ' rows per page';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return 'Showing ' + pageFrom + ' to ' + pageTo + ' of ' + totalRows + ' rows';
@@ -269,12 +311,19 @@
         },
         formatAllRows: function () {
             return 'All';
+        },
+        formatExport: function () {
+            return 'Export data';
+        },
+        formatClearFilters: function () {
+            return 'Clear filters';
         }
     };
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
 
 })(jQuery);
+
 /**
  * Bootstrap Table Spanish (Argentina) translation
  * Author: Felix Vera (felix.vera@gmail.com)
@@ -506,6 +555,49 @@
 
 })(jQuery);
 /**
+ * Bootstrap Table Estonian translation
+ * Author: kristjan@logist.it>
+ */
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['et-EE'] = {
+        formatLoadingMessage: function () {
+            return 'Päring käib, palun oota...';
+        },
+        formatRecordsPerPage: function (pageNumber) {
+            return pageNumber + ' rida lehe kohta';
+        },
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            return 'Näitan tulemusi ' + pageFrom + ' kuni ' + pageTo + ' - kokku ' + totalRows + ' tulemust';
+        },
+        formatSearch: function () {
+            return 'Otsi';
+        },
+        formatNoMatches: function () {
+            return 'Päringu tingimustele ei vastanud ühtegi tulemust';
+        },
+        formatPaginationSwitch: function () {
+            return 'Näita/Peida lehtedeks jagamine';
+        },
+        formatRefresh: function () {
+            return 'Värskenda';
+        },
+        formatToggle: function () {
+            return 'Lülita';
+        },
+        formatColumns: function () {
+            return 'Veerud';
+        },
+        formatAllRows: function () {
+            return 'Kõik';
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['et-EE']);
+
+})(jQuery);
+/**
  * Bootstrap Table Persian translation
  * Author: MJ Vakili <mjv.1989@Gmail.com>
  */
@@ -620,6 +712,50 @@
 })(jQuery);
 
 /**
+ * Bootstrap Table Hebrew translation
+ * Author: legshooter
+ */
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['he-IL'] = {
+        formatLoadingMessage: function () {
+            return 'טוען, נא להמתין...';
+        },
+        formatRecordsPerPage: function (pageNumber) {
+            return pageNumber + ' שורות בעמוד';
+        },
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            return 'מציג ' + pageFrom + ' עד ' + pageTo + ' מ-' + totalRows + ' שורות';
+        },
+        formatSearch: function () {
+            return 'חיפוש';
+        },
+        formatNoMatches: function () {
+            return 'לא נמצאו רשומות תואמות';
+        },
+        formatPaginationSwitch: function () {
+            return 'הסתר/הצג מספור דפים';
+        },
+        formatRefresh: function () {
+            return 'רענן';
+        },
+        formatToggle: function () {
+            return 'החלף תצוגה';
+        },
+        formatColumns: function () {
+            return 'עמודות';
+        },
+        formatAllRows: function () {
+            return 'הכל';
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['he-IL']);
+
+})(jQuery);
+
+/**
  * Bootstrap Table Croatian translation
  * Author: Petra Štrbenac (petra.strbenac@gmail.com)
  * Author: Petra Štrbenac (petra.strbenac@gmail.com)
@@ -711,6 +847,8 @@
 /**
  * Bootstrap Table Italian translation
  * Author: Davide Renzi<davide.renzi@gmail.com>
+ * Author: Davide Borsatto <davide.borsatto@gmail.com>
+ * Author: Alessio Felicioni <alessio.felicioni@gmail.com>
  */
 (function ($) {
     'use strict';
@@ -720,25 +858,28 @@
             return 'Caricamento in corso...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' records per pagina';
+            return pageNumber + ' elementi per pagina';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Pagina ' + pageFrom + ' di ' + pageTo + ' (' + totalRows + ' records)';
+            return 'Pagina ' + pageFrom + ' di ' + pageTo + ' (' + totalRows + ' elementi)';
         },
         formatSearch: function () {
             return 'Cerca';
         },
         formatNoMatches: function () {
-            return 'Nessun record trovato';
+            return 'Nessun elemento trovato';
         },
         formatRefresh: function () {
-            return 'Rinfrescare';
+            return 'Aggiorna';
         },
         formatToggle: function () {
-            return 'Alternare';
+            return 'Alterna';
         },
         formatColumns: function () {
             return 'Colonne';
+        },
+        formatAllRows: function () {
+            return 'Tutto';
         }
     };
 
@@ -780,6 +921,9 @@
         },
         formatColumns: function () {
             return '列';
+        },
+        formatAllRows: function () {
+            return 'すべて';
         }
     };
 
@@ -898,6 +1042,9 @@
         },
         formatColumns: function () {
             return 'Lajur';
+        },
+        formatAllRows: function () {
+            return 'Semua';
         }
     };
 
@@ -946,24 +1093,48 @@
  * Bootstrap Table Dutch translation
  * Author: Your Name <info@a2hankes.nl>
  */
-(function ($) {
+(function($) {
     'use strict';
 
     $.fn.bootstrapTable.locales['nl-NL'] = {
-        formatLoadingMessage: function () {
+        formatLoadingMessage: function() {
             return 'Laden, even geduld...';
         },
-        formatRecordsPerPage: function (pageNumber) {
+        formatRecordsPerPage: function(pageNumber) {
             return pageNumber + ' records per pagina';
         },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Toon ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' records';
+        formatShowingRows: function(pageFrom, pageTo, totalRows) {
+            return 'Toon ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' record' + ((totalRows > 1) ? 's' : '');
         },
-        formatSearch: function () {
+        formatDetailPagination: function(totalRows) {
+            return 'Toon ' + totalRows + ' record' + ((totalRows > 1) ? 's' : '');
+        },
+        formatSearch: function() {
             return 'Zoeken';
         },
-        formatNoMatches: function () {
+        formatNoMatches: function() {
             return 'Geen resultaten gevonden';
+        },
+        formatRefresh: function() {
+            return 'Vernieuwen';
+        },
+        formatToggle: function() {
+            return 'Omschakelen';
+        },
+        formatColumns: function() {
+            return 'Kolommen';
+        },
+        formatAllRows: function() {
+            return 'Alle';
+        },
+        formatPaginationSwitch: function() {
+            return 'Verberg/Toon paginatie';
+        },
+        formatExport: function() {
+            return 'Exporteer data';
+        },
+        formatClearFilters: function() {
+            return 'Verwijder filters';
         }
     };
 
@@ -1060,19 +1231,34 @@
 
     $.fn.bootstrapTable.locales['pt-PT'] = {
         formatLoadingMessage: function () {
-            return 'A carregar, aguarde...';
+            return 'A carregar, por favor aguarde...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' registos por página';
+            return pageNumber + ' registos por p&aacute;gina';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'A mostrar ' + pageFrom + ' até ' + pageTo + ' de ' + totalRows + ' linhas';
+            return 'A mostrar ' + pageFrom + ' at&eacute; ' + pageTo + ' de ' + totalRows + ' linhas';
         },
         formatSearch: function () {
             return 'Pesquisa';
         },
         formatNoMatches: function () {
             return 'Nenhum registo encontrado';
+        },
+        formatPaginationSwitch: function () {
+            return 'Esconder/Mostrar pagina&ccedil&atilde;o';
+        },
+        formatRefresh: function () {
+            return 'Atualizar';
+        },
+        formatToggle: function () {
+            return 'Alternar';
+        },
+        formatColumns: function () {
+            return 'Colunas';
+        },
+        formatAllRows: function () {
+            return 'Tudo';
         }
     };
 
@@ -1153,6 +1339,9 @@
         },
         formatColumns: function () {
             return 'Колонки';
+        },
+        formatClearFilters: function () {
+            return 'Очистить фильтры';
         }
     };
 
@@ -1181,7 +1370,7 @@
             return 'Vyhľadávanie';
         },
         formatNoMatches: function () {
-            return 'Nenájdená žiadne vyhovujúca položka';
+            return 'Nenájdená žiadna vyhovujúca položka';
         },
         formatRefresh: function () {
             return 'Obnoviť';
@@ -1197,6 +1386,7 @@
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sk-SK']);
 
 })(jQuery);
+
 /**
  * Bootstrap Table Swedish translation
  * Author: C Bratt <bratt@inix.se>
@@ -1453,12 +1643,19 @@
         },
         formatColumns: function () {
             return '列';
+        },
+        formatExport: function () {
+            return '导出数据';
+        },
+        formatClearFilters: function () {
+            return '清空过滤';
         }
     };
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
 
 })(jQuery);
+
 /**
  * Bootstrap Table Chinese translation
  * Author: Zhixin Wen<wenzhixin2010@gmail.com>
@@ -1480,13 +1677,13 @@
             return '搜尋';
         },
         formatNoMatches: function () {
-            return '沒有找符合的結果';
+            return '沒有找到符合的結果';
         },
         formatPaginationSwitch: function () {
             return '隱藏/顯示分頁';
         },
         formatRefresh: function () {
-            return '刷新';
+            return '重新整理';
         },
         formatToggle: function () {
             return '切換';

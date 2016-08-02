@@ -1,7 +1,11 @@
 node_modules
+bower_components
 
 # docs site
 _gh_pages
+
+# build the extensions
+extensions.js
 
 # deploy the docs
 deploy.sh
@@ -19,3 +23,9 @@ nbproject
 .idea
 .project
 .settings
+*.iml
+
+# OS X Finder internal system files
+.DS_Store
+.localized
+Icon

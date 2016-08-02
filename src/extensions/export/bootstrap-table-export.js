@@ -5,6 +5,7 @@
 
 (function ($) {
     'use strict';
+    var sprintf = $.fn.bootstrapTable.utils.sprintf;
 
     var TYPE_NAME = {
         json: 'JSON',
@@ -14,8 +15,8 @@
         txt: 'TXT',
         sql: 'SQL',
         doc: 'MS-Word',
-        excel: 'Ms-Excel',
-        powerpoint: 'Ms-Powerpoint',
+        excel: 'MS-Excel',
+        powerpoint: 'MS-Powerpoint',
         pdf: 'PDF'
     };
 
@@ -26,6 +27,17 @@
         exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
         exportOptions: {}
     });
+
+    $.extend($.fn.bootstrapTable.defaults.icons, {
+        export: 'glyphicon-export icon-share'
+    });
+
+    $.extend($.fn.bootstrapTable.locales, {
+        formatExport: function () {
+            return 'Export data';
+        }
+    });
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar;
@@ -43,9 +55,13 @@
             if (!$export.length) {
                 $export = $([
                     '<div class="export btn-group">',
-                        '<button class="btn btn-default dropdown-toggle" ' +
+                        '<button class="btn' +
+                            sprintf(' btn-%s', this.options.buttonsClass) +
+                            sprintf(' btn-%s', this.options.iconSize) +
+                            ' dropdown-toggle" ' +
+                            'title="' + this.options.formatExport() + '" ' +
                             'data-toggle="dropdown" type="button">',
-                            '<i class="glyphicon glyphicon-export icon-share"></i> ',
+                            sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.export),
                             '<span class="caret"></span>',
                         '</button>',
                         '<ul class="dropdown-menu" role="menu">',
@@ -83,12 +99,23 @@
                         };
 
                     if (that.options.exportDataType === 'all' && that.options.pagination) {
-                        that.togglePagination();
-                        doExport();
+                        that.$el.one(that.options.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table', function () {
+                            doExport();
+                            that.togglePagination();
+                        });
                         that.togglePagination();
                     } else if (that.options.exportDataType === 'selected') {
                         var data = that.getData(),
                             selectedData = that.getAllSelections();
+
+                        // Quick fix #2220
+                        if (that.options.sidePagination === 'server') {
+                            data = {total: that.options.totalRows};
+                            data[that.options.dataField] = that.getData();
+
+                            selectedData = {total: that.options.totalRows};
+                            selectedData[that.options.dataField] = that.getAllSelections();
+                        }
 
                         that.load(selectedData);
                         doExport();
