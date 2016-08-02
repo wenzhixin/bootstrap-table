@@ -524,7 +524,8 @@
         cellStyle: undefined,
         searchable: true,
         searchFormatter: true,
-        cardVisible: true
+        cardVisible: true,
+        escape : false
     };
 
     BootstrapTable.EVENTS = {
@@ -826,6 +827,10 @@
                     text = '';
                     that.header.stateField = column.field;
                     that.options.singleSelect = true;
+                }
+                
+                if(column.escape) {
+                	that.options.escapeColumn = true;
                 }
 
                 html.push(text);
@@ -1699,6 +1704,10 @@
 
                 if (that.options.cardView && !column.cardVisible) {
                     return;
+                }
+                
+                if(that.columns[j].escape) {
+                	value_ = escapeHTML(value_);
                 }
 
                 style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
