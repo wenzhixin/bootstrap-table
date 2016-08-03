@@ -1,7 +1,7 @@
 /**
  * @author horken wong <horken.wong@gmail.com>
  * @version: v1.0.0
- * https://github.com/vinzloh/bootstrap-table/
+ * https://github.com/horkenw/bootstrap-table
  * Click to edit row for bootstrap-table
  */
 
