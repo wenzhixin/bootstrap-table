@@ -10,7 +10,7 @@
 
     // var sprintf = $.fn.bootstrapTable.utils.sprintf;
     $.extend($.fn.bootstrapTable.defaults, {
-        clickEdit: true;
+        clickEdit: true
     });
 
     function clikcToEdit(evt){
