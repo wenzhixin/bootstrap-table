@@ -28,7 +28,7 @@
             return 'Puis par';
         },
         formatSort: function() {
-            return 'Tri';
+            return 'Trier';
         },
         formatCancel: function() {
             return 'Annuler';
