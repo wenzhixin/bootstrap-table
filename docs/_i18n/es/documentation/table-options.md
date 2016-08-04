@@ -1,4 +1,4 @@
-# Table options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
+# Table options []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
 
 ---
 
@@ -33,6 +33,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>String</td>
         <td>'table table-hover'</td>
         <td>El nombre de la clase de la tabla.</td>
+    </tr>
+    <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>El nombre de la clase de los elementos td que están ordenados.</td>
     </tr>
     <tr>
         <td>height</td>
@@ -187,6 +194,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Boolean</td>
         <td>false</td>
         <td>True para mostrar la paginación al final de la tabla.</td>
+    </tr>
+    <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to enable pagination continuous loop mode.</td>
     </tr>
     <tr>
         <td>onlyInfoPagination</td>

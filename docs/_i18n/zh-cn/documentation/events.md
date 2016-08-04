@@ -1,4 +1,4 @@
-# 事件 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/events.md)
+# 事件 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/events.md)
 
 ---
 

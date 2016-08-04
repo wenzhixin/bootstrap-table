@@ -1,4 +1,4 @@
-# 多语言 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/localizations.md)
+# 多语言 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/localizations.md)
 
 ---
 

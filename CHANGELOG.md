@@ -1,6 +1,35 @@
 ChangeLog
 ---------
 
+### 1.11.1
+
+- fix(js): fix #2439, `filterBy` cannot filter array keys
+- fix(js): fix #2424, from html with checkbox bug
+- fix(js): fix #2385, checkbox render bug with formatter
+- fix(js): fix #750, showRow and hideRow bug
+- fix(js): fix #2387, page list bug
+- fix(js): decrement totalRows on remove if using server side pagination
+- fix(js): bug in the calculation of toolbar and pagination heights
+- feat(js): fix #2414, add `paginationLoop` option
+- feat(js): update method `getRowsHidden` to `getHiddenRows`
+- feat(js): add `sortClass` option
+- feat(js): add `totalField` Option
+- fix(css): fix #2208, dropdown-menu style bug
+- fix(js): fix #2461, adding the initPagination call to updateByUniqueId and updateRow methods
+- fix(filter-control extension): fix #2418, `height` cause datepicker not display the selected date
+- fix(export extension): fix #2220, selected rows does not work when data-pagination-side is server
+- fix(reorder-row extension): fix #1343, reorder rows bug with pagination
+- feat(cookie extension): fix #2386, add `getCookies` method
+- feat(cookie extension): fix #2371, add `cookieStorage` option
+- feat(multiple-selection-row extension): add multiple-selection-row extension
+- feat(filter-control extension): fix #1540, disable unnecessary/unused values from select options
+- feat(filter-control extension): fix #2448, create a css file which contains the style for this extension
+- feat(filter-control extension): fix #2189, set placeholder of the filter-control input
+
+#### Breaking changes in 1.11.1
+- **Filter-Control extension**: deleted the inline-style and now this extension is using a separated css file.
+
+
 ### 1.11.0
 
 - fix(js): fix cardVisible doesn't work bug

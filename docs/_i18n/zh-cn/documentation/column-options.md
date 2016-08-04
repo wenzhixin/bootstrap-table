@@ -1,4 +1,4 @@
-# 列参数 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/column-options.md)
+# 列参数 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/column-options.md)
 
 ---
 
