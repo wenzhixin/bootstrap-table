@@ -830,10 +830,6 @@
                     that.header.stateField = column.field;
                     that.options.singleSelect = true;
                 }
-                
-                if(column.escape) {
-                	that.options.escapeColumn = true;
-                }
 
                 html.push(text);
                 html.push('</div>');
