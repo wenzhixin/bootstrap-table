@@ -48,6 +48,12 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 * description: set true to hide this column in the printed page. 
 * default: `false`
 
+### printFormatter
+
+* type: Function
+* description: function(value, row, index) - returns a string. Formats the cell values for this column in the printed table. Function behaviour is similar to the 'formatter' column option
+* default: `undefined`
+
 ## Icons
 
 * print: `'glyphicon-print icon-share'`
