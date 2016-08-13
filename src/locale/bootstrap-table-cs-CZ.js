@@ -36,6 +36,12 @@
         },
         formatAllRows: function () {
             return 'Vše';
+        },
+        formatExport: function () {
+            return 'Exportovat data';
+        },
+        formatClearFilters: function () {
+            return 'Smazat filtry';
         }
     };
 
