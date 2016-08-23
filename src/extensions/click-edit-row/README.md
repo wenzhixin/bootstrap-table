@@ -14,9 +14,10 @@ Ps. Used this plugin is better on table columns not more than five.
 
 ### editable
 
-* type: Boolean
-* description: Set false to disabled editable of all columns.
-* default: `true`
+* type: input、select
+* default: `input`
+* description: Set select must setup `$.selectArray` for select options.
+* $.selectArray example: `$.selectArray= {price: [{idxNum: '$', name: '100'}, {idxNum: '$', name: '500'}, {idxNum: '$', name: '5000'}]}`, obj name must same as 'data-field' value.
 
 All options can be defined via `data-editable-*` HTML attributes. Table wide options are used for every row but can be overridden:
 
@@ -26,8 +27,8 @@ All options can be defined via `data-editable-*` HTML attributes. Table wide opt
   <thead>
     <tr>
       <th data-field="id">ID</th>
-      <th data-field="name" data-editable="true">Item Name</th>
-      <th data-field="price" data-editable="true">Item Price</th>
+      <th data-field="name" data-editable="input">Item Name</th>
+      <th data-field="price" data-editable="select">Item Price</th>
     </tr>
   </thead>
 </table>
