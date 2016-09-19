@@ -26,6 +26,8 @@
     }
   });
 
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+
   var BootstrapTable = $.fn.bootstrapTable.Constructor;
   var _init = BootstrapTable.prototype.init;
   var _initToolbar = BootstrapTable.prototype.initToolbar;
