@@ -1,5 +1,3 @@
-/* global jQuery:true */
-
 /**
  * @author: Alec Fenichel
  * @webSite: https://fenichelar.com
@@ -15,7 +13,6 @@
     autoRefreshInterval: 60,
     autoRefreshSilent: true,
     autoRefreshStatus: true,
-
     autoRefreshFunction: null
   });
 
@@ -38,9 +35,9 @@
     _init.apply(this, Array.prototype.slice.apply(arguments));
 
     if (this.options.autoRefresh && this.options.autoRefreshStatus) {
-      var _this = this;
+      var that = this;
       this.options.autoRefreshFunction = setInterval(function () {
-        _this.refresh({silent: _this.options.autoRefreshSilent});
+        that.refresh({silent: that.options.autoRefreshSilent});
       }, this.options.autoRefreshInterval*1000);
     }
   };
@@ -72,9 +69,9 @@
         clearInterval(this.options.autoRefreshFunction);
         this.$toolbar.find('>.btn-group').find('.auto-refresh').removeClass('enabled');
       } else {
-        var _this = this;
+        var that = this;
         this.options.autoRefreshFunction = setInterval(function () {
-          _this.refresh({silent: _this.options.autoRefreshSilent});
+          that.refresh({silent: that.options.autoRefreshSilent});
         }, this.options.autoRefreshInterval*1000);
         this.$toolbar.find('>.btn-group').find('.auto-refresh').addClass('enabled');
       }
