@@ -2306,7 +2306,7 @@
         if (params && params.height) {
             this.options.height = params.height;
         }
-		if (params && params.maxHeight) {
+        if (params && params.maxHeight) {
             this.options.maxHeight = params.maxHeight;
         }
 
