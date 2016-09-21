@@ -282,6 +282,7 @@
         sortClass: undefined,
         locale: undefined,
         height: undefined,
+        maxHeight: undefined,
         undefinedText: '-',
         sortName: undefined,
         sortOrder: 'asc',
@@ -2305,6 +2306,9 @@
         if (params && params.height) {
             this.options.height = params.height;
         }
+		if (params && params.maxHeight) {
+            this.options.maxHeight = params.maxHeight;
+        }
 
         this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
@@ -2315,6 +2319,14 @@
                 height = this.options.height - toolbarHeight - paginationHeight;
 
             this.$tableContainer.css('height', height + 'px');
+        }
+
+        if (this.options.maxHeight) {
+            var toolbarHeight = this.$toolbar.outerHeight(true),
+                paginationHeight = this.$pagination.outerHeight(true),
+                maxHeight = this.options.maxHeight - toolbarHeight - paginationHeight;
+
+            this.$tableContainer.css('max-height', maxHeight + 'px');
         }
 
         if (this.options.cardView) {
