@@ -1,4 +1,4 @@
-# Usage []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/usage.md)
+# Usage []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/getting-started/usage.md)
 
 ---
 

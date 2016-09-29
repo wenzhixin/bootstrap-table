@@ -18,8 +18,15 @@
                 <li {% if page.slug == "documentation" %} class="active"{% endif %}>
                     <a href="{{ site.baseurl }}/documentation/">{% t pages.documentation.title %}</a>
                 </li>
-                <li>
-                    <a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">{% t pages.examples.title %}</a>
+                <li class="dropdown" {% if page.slug == "examples" %} class="active"{% endif %}>
+                    <a href="javascript:" data-toggle="dropdown">
+                        {% t pages.examples.title %}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">{% t pages.examples.title %}</a></li>
+                        <li><a href="{{ site.baseurl }}/examples/">jsFiddle Examples</a></li>
+                    </ul>
                 </li>
                 <li {% if page.slug == "extensions" %} class="active"{% endif %}>
                     <a href="{{ site.baseurl }}/extensions/">{% t pages.extensions.title %}</a>
@@ -29,9 +36,6 @@
                 </li>
                 <li {% if page.slug == "faq" %} class="active"{% endif %}>
                     <a href="{{ site.baseurl }}/faq/">{% t pages.faq.title %}</a>
-                </li>
-                <li>
-                    <a href="http://stackoverflow.com/questions/tagged/bootstrap-table" target="_blank">Questions / Helps</a>
                 </li>
                 <li>
                     <a href="{{ site.repo }}" target="_blank">GitHub</a>

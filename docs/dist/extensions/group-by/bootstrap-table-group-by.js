@@ -167,7 +167,7 @@
 
                 // Compatibility: IE < 9 and old browsers
                 if (!Object.keys) {
-                    setObjectKeys();
+                    $.fn.bootstrapTable.utils.objectKeys();
                 }
 
                 //Make sure that the internal variables are set correctly

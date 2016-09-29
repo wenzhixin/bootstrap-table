@@ -1,4 +1,4 @@
-# Methods []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/methods.md)
+# Methods []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/methods.md)
 
 ---
 
@@ -30,14 +30,26 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
     <tr>
         <td>getSelections</td>
         <td>none</td>
-        <td>Return selected rows, when no record selected, am empty array will return.</td>
+        <td>Return selected rows, when no record selected, an empty array will return.</td>
         <td>getSelections</td>
     </tr>
     <tr>
         <td>getAllSelections</td>
         <td>none</td>
-        <td>Return all selected rows contain search or filter, when no record selected, am empty array will return.</td>
+        <td>Return all selected rows contain search or filter, when no record selected, an empty array will return.</td>
         <td>getAllSelections</td>
+    </tr>
+    <tr>
+        <td>showAllColumns</td>
+        <td>none</td>
+        <td>Show All the columns.</td>
+        <td>showAllColumns</td>
+    </tr>
+    <tr>
+        <td>hideAllColumns</td>
+        <td>none</td>
+        <td>Hide All the columns.</td>
+        <td>hidAllColumns</td>
     </tr>
     <tr>
         <td>getData</td>
@@ -108,7 +120,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>updateRow</td>
         <td>params</td>
         <td>
-        Update the specified row, the param contains following properties: <br>
+        Update the specified row(s), each param contains following properties: <br>
         index: the row index to be updated. <br>
         row: the new row data.
         </td>
@@ -117,7 +129,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>updateByUniqueId</td>
         <td>params</td>
         <td>
-        Update the specified row, the param contains following properties: <br>
+        Update the specified row(s), each param contains following properties: <br>
         id: a row id where the id should be the uniqueid field assigned to the table. <br>
         row: the new row data.
         </td>
@@ -125,16 +137,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
 	<tr>
         <td>showRow</td>
         <td>params</td>
-        <td>Show the specified row. the param contains following properties:
-        index: the row index or the uniqueId.
-        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
+        <td>Show the specified row. The param must contain at least one of the following properties:
+        index: the row index.
+        uniqueId: the value of the uniqueId for that row.</td>
     </tr>
     <tr>
         <td>hideRow</td>
         <td>params</td>
-        <td>Hide the specified row. the param contains following properties:
-        index: the row index or the uniqueId.
-        isIdField: Boolean to indicates if index is the uniqueId or the row or not.</td>
+        <td>Hide the specified row. The param must contain at least one of the following properties:
+        index: the row index.
+        uniqueId: the value of the uniqueId for that row.</td>
     </tr>
     <tr>
         <td>getRowsHidden</td>
@@ -161,6 +173,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         index: the row index. <br>
         field: the field name.<br>
         value: the new field value.
+        <br>
+        To disable table re-initialization you can set <code>{reinit: false}</code>
         </td>
     </tr>
     <tr>
@@ -172,6 +186,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>refreshOptions</td>
         <td>options</td>
         <td>Refresh the options</td>
+    </tr>
+    <tr>
+        <td>resetSearch</td>
+        <td>text</td>
+        <td>Set the search text</td>
     </tr>
     <tr>
         <td>showLoading</td>
@@ -192,6 +211,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>uncheckAll</td>
         <td>none</td>
         <td>Uncheck all current page rows.</td>
+    </tr>
+    <tr>
+        <td>checkInvert</td>
+        <td>none</td>
+        <td>Invert check of current page rows. Triggers onCheckSome and onUncheckSome events.</td>
     </tr>
     <tr>
         <td>check</td>
@@ -254,6 +278,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>getHiddenColumns</td>
         <td>-</td>
         <td>Get hidden columns.</td>
+    </tr>
+    <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>Get visible columns.</td>
     </tr>
     <tr>
         <td>scrollTo</td>

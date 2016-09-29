@@ -1,4 +1,4 @@
-# Methods []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/methods.md)
+# Methods []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/methods.md)
 
 ---
 
@@ -40,6 +40,18 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         Se obtiene el dato de la tabla que contiene el id pasado por parámetro<br>
         Ejemplo: $('#myTable').bootstrapTable('getRowByUniqueId', "122")
         </td>
+    </tr>
+    <tr>
+        <td>showAllColumns</td>
+        <td>none</td>
+        <td>Muestra todas las columnas.</td>
+        <td>showAllColumns</td>
+    </tr>
+    <tr>
+        <td>hideAllColumns</td>
+        <td>none</td>
+        <td>Oculta todas las columnas.</td>
+        <td>hideAllColumns</td>
     </tr>
     <tr>
         <td>load</td>
@@ -152,6 +164,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>Actualiza el objecto options</td>
     </tr>
     <tr>
+        <td>resetSearch</td>
+        <td>text</td>
+        <td>Setea el texto de búsqueda</td>
+    </tr>
+    <tr>
         <td>showLoading</td>
         <td>none</td>
         <td>Mostrar el estado de la carga.</td>
@@ -227,6 +244,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>getHiddenColumns</td>
         <td>-</td>
         <td>Obtiene las columnas ocultas.</td>
+    </tr>
+    <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>Retorna las columnas visibles.</td>
     </tr>
     <tr>
         <td>scrollTo</td>

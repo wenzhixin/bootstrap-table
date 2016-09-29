@@ -1,4 +1,4 @@
-# Table options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
+# Table options []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
 
 ---
 
@@ -35,6 +35,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>El nombre de la clase de la tabla.</td>
     </tr>
     <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>El nombre de la clase de los elementos td que están ordenados.</td>
+    </tr>
+    <tr>
         <td>height</td>
         <td>data-height</td>
         <td>Number</td>
@@ -68,6 +75,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>String</td>
         <td>'asc'</td>
         <td>Define el método de ordenamiento, solo puede ser 'asc' o 'desc'.</td>
+    </tr>
+    <tr>
+        <td>sortStable</td>
+        <td>data-sort-stable</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to get a stable sorting. We will add <code>_position</code> property to the row.</td>
     </tr>
     <tr>
         <td>iconsPrefix</td>
@@ -149,7 +163,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Function</td>
         <td>function(params) {<br>return params;<br>}</td>
         <td>
-        Cuando se solicita datos remotos, se debe enviar parámetros adicionales para modificar los queryParams. 
+        Cuando se solicita datos remotos, se debe enviar parámetros adicionales para modificar los queryParams.
         Si queryParamsType = 'limit', el objecto params contiene: <br>
         limit, offset, search, sort, order
         Sino, el objeoto contiene: <br>
@@ -180,6 +194,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Boolean</td>
         <td>false</td>
         <td>True para mostrar la paginación al final de la tabla.</td>
+    </tr>
+    <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to enable pagination continuous loop mode.</td>
     </tr>
     <tr>
         <td>onlyInfoPagination</td>
@@ -231,11 +252,27 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>True para mostrar la páginación o la vista de tarjeta inteligentemente.</td>
     </tr>
     <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>Escapes a string for insertion into HTML,
+        replacing <code>&</code>, <code><</code>, <code>></code>,
+        <code>"</code>, <code>`</code>, and <code>'</code> characters.</td>
+    </tr>
+    <tr>
         <td>search</td>
         <td>data-search</td>
         <td>Boolean</td>
         <td>false</td>
         <td>Habilita el campo para búsqueda.</td>
+    </tr>
+    <tr>
+        <td>searchOnEnterKey</td>
+        <td>data-search-on-enter-key</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>El método será ejecutado hasta que la tecla Enter sea presionada.</td>
     </tr>
     <tr>
         <td>strictSearch</td>
@@ -385,13 +422,6 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Indica cómo alinear el detalle de la paginación. Se puede usar: 'left', 'right'.</td>
     </tr>
     <tr>
-        <td>paginationFirstText</td>
-        <td>data-pagination-first-text</td>
-        <td>String</td>
-        <td>'&lt;&lt;'</td>
-        <td>Indica el icono o el texto a mostrar en la paginación, el botón first del detalle de la paginación.</td>
-    </tr>
-    <tr>
         <td>paginationPreText</td>
         <td>data-pagination-pre-text</td>
         <td>String</td>
@@ -404,13 +434,6 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>String</td>
         <td>'&gt;'</td>
         <td>Indica el icono o el texto a mostrar en la paginación, el botón next del detalle de la paginación.</td>
-    </tr>
-    <tr>
-        <td>paginationLastText</td>
-        <td>data-pagination-last-text</td>
-        <td>String</td>
-        <td>'&gt;&gt;'</td>
-        <td>Indica el icono o el texto a mostrar en la paginación, el botón last del detalle de la paginación.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>
@@ -485,5 +508,40 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         Soporta cualquier atributo customizable.
         </td>
     </tr>
+    <tr>
+            <td>customSearch</td>
+            <td>data-custom-search</td>
+            <td>Function</td>
+            <td>$.noop</td>
+            <td>
+            The custom search function is executed instead of built-in search function, takes one parameters: <br>
+            text: the search text.<br>
+            Example usage:<br>
+            <pre>
+            function customSearch(text) {
+                //Search logic here.
+                //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
+            }
+            </pre>
+            </td>
+        </tr>
+        <tr>
+            <td>customSort</td>
+            <td>data-custom-sort</td>
+            <td>Function</td>
+            <td>$.noop</td>
+            <td>
+            The custom sort function is executed instead of built-in sort function, takes two parameters: <br>
+            sortName: the sort name.<br>
+            sortOrder: the sort order.<br>
+            Example usage:<br>
+            <pre>
+            function customSort(sortName, sortOrder) {
+                //Sort logic here.
+                //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
+            }
+            </pre>
+            </td>
+        </tr>
     </tbody>
 </table>

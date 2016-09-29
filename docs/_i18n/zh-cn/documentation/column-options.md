@@ -1,4 +1,4 @@
-# 列参数 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/column-options.md)
+# 列参数 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/column-options.md)
 
 ---
 
@@ -222,6 +222,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         value: the field value.<br>
         row: the row record data.<br>
         index: the row index.<br>
+        field: the row field.<br>
         Support classes or css.
         </td>
     </tr>

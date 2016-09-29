@@ -1,4 +1,4 @@
-# 方法 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/methods.md)
+# 方法 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/methods.md)
 
 ---
 
@@ -56,6 +56,18 @@
         <td>data</td>
         <td>加载数据到表格中，旧数据会被替换。</td>
         <td>load</td>
+    </tr>
+    <tr>
+        <td>showAllColumns</td>
+        <td>none</td>
+        <td>Show All the columns.</td>
+        <td>showAllColumns</td>
+    </tr>
+    <tr>
+        <td>hideAllColumns</td>
+        <td>none</td>
+        <td>Hide All the columns.</td>
+        <td>hidAllColumns</td>
     </tr>
     <tr>
         <td>append</td>
@@ -165,6 +177,11 @@
         <td>Refresh the options</td>
     </tr>
     <tr>
+        <td>resetSearch</td>
+        <td>text</td>
+        <td>Set the search text</td>
+    </tr>
+    <tr>
         <td>showLoading</td>
         <td>none</td>
         <td>Show loading status.</td>
@@ -245,6 +262,11 @@
         <td>getHiddenColumns</td>
         <td>-</td>
         <td>获取隐藏的列。</td>
+    </tr>
+    <tr>
+        <td>getVisibleColumns</td>
+        <td>-</td>
+        <td>获取可见列。</td>
     </tr>
     <tr>
         <td>scrollTo</td>

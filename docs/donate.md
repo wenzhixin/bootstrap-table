@@ -22,6 +22,12 @@ lead: pages.donate.lead
             <li>振：20元</li>
             <li>懒虫：8.8元</li>
             <li>rainc：50元</li>
+            <li>印：10元</li>
+            <li>大个子：50元</li>
+            <li>拓海真一：100元</li>
+            <li>IO芒果：7元</li>
+            <li>醉、千秋：18.88元</li>
+            <li>路人甲：5.27元</li>
             </ul>
         </div>
         <div class="col-md-6">
@@ -32,7 +38,17 @@ lead: pages.donate.lead
                 <img src="../assets/images/weixin.png">
             </div>
             <ul style="margin-top: 20px">
+            <li>一牛九毛：100元</li>
             <li>笑：50元</li>
+            <li>111111：4元</li>
+            <li>佚名：6.6元</li>
+            <li>Evo4me：30元</li>
+            <li>zhang：50.05元</li>
+            <li>郝亮：20元</li>
+            <li>王挺：6.6元</li>
+            <li>无心向你：9.9元</li>
+            <li>指间沙：9.9元</li>
+            <li>董琛：9.9元</li>
             </ul>
         </div>
     </div>
@@ -64,6 +80,18 @@ lead: pages.donate.lead
         <li>Luis Triana Vega - $10</li>
         <li>PROMOTUX DI FRANCESCO MELONI E C. S.N.C. - $15</li>
         <li>Emmanuel Kielichowski - $15</li>
+        <li>우공이산 우공이산 - $50</li>
+        <li>Empirica srl - $15</li>
+        <li>Hassan Gareballa - $10</li>
+        <li>지황 이 - $10</li>
+        <li>Onur Kose - $15</li>
+        <li>Александр Вейсов - $30</li>
+        <li>Anton Blinov - $30</li>
+        <li>THARAKESH PULIKONDA - $10</li>
+        <li>Linear Design Group, LLC - $20</li>
+        <li>Alon Feldman - $100</li>
+        <li>Fabian de Rosa - $5</li>
+        <li>Zhe Wang - $35</li>
         </ul>
     </div>
 </div>

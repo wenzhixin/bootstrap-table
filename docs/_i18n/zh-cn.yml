@@ -26,4 +26,5 @@ pages:
     lead: "假如你喜欢 Bootstrap Table，假如你的项目使用到 Bootstrap Table，假如你想让 Bootstrap Table 更好……"
 common:
   social_tip: "假如您喜欢 Bootstrap Table："
+  help: "问题/帮助："
   qq_group: "QQ群："

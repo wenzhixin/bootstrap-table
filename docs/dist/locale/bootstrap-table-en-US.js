@@ -10,7 +10,7 @@
             return 'Loading, please wait...';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' records per page';
+            return pageNumber + ' rows per page';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return 'Showing ' + pageFrom + ' to ' + pageTo + ' of ' + totalRows + ' rows';
@@ -35,6 +35,12 @@
         },
         formatAllRows: function () {
             return 'All';
+        },
+        formatExport: function () {
+            return 'Export data';
+        },
+        formatClearFilters: function () {
+            return 'Clear filters';
         }
     };
 
