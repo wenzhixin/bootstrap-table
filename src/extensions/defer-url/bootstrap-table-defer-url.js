@@ -7,7 +7,7 @@
  * such, you can use data-defer-url instead of data-url to allow you to instruct
  * bootstrap-table to not make that initial request, rather it will use the data
  * already on the page.
- * 
+ *
  * @author: Ruben Suarez
  * @webSite: http://rubensa.eu.org
  * @version: v1.0.0
@@ -28,10 +28,5 @@
         if (this.options.deferUrl) {
             this.options.url = this.options.deferUrl;
         }
-
-        // reset variable to original initServer function, so that future calls
-        // to initServer
-        // use the original function from this point on.
-        BootstrapTable.prototype.initServer = _initServer;
     }
 })(jQuery);
