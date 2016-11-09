@@ -922,7 +922,7 @@
         }
 
         if (this.options.sidePagination === 'server') {
-            return;
+            //return;
         }
         this.initSort();
     };
