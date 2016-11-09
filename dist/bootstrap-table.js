@@ -2589,6 +2589,12 @@
         return this.options;
     };
 
+    BootstrapTable.prototype.setOptions = function (option, data) {
+        if(this.options.hasOwnProperty(option)){
+            this.options[option]=data;
+        }
+    };
+
     BootstrapTable.prototype.getSelections = function () {
         var that = this;
 
@@ -2933,7 +2939,7 @@
     // =======================
 
     var allowedMethods = [
-        'getOptions',
+        'getOptions', 'setOptions',
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
