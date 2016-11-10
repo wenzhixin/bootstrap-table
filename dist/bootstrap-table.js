@@ -2389,7 +2389,8 @@
             if (!row.hasOwnProperty(params.field)) {
                 continue;
             }
-            if ($.inArray(row[params.field], params.values) !== -1) {
+            //if ($.inArray(row[params.field], params.values) !== -1) {
+            if (row[params.field]==params.values) {
                 this.options.data.splice(i, 1);
             }
         }
