@@ -345,6 +345,7 @@
         singleSelect: false,
         toolbar: undefined,
         toolbarAlign: 'left',
+        customToolbar: undefined,
         checkboxHeader: true,
         sortable: true,
         silentSort: true,
@@ -619,7 +620,12 @@
         this.$tableBody = this.$container.find('.fixed-table-body');
         this.$tableLoading = this.$container.find('.fixed-table-loading');
         this.$tableFooter = this.$container.find('.fixed-table-footer');
-        this.$toolbar = this.$container.find('.fixed-table-toolbar');
+        // checking if custom table-toolbar exists or not
+        if (this.options.customToolbar) {
+            this.$toolbar = $('body').find(this.options.customToolbar);
+        } else {
+            this.$toolbar = this.$container.find('.fixed-table-toolbar');
+        }
         this.$pagination = this.$container.find('.fixed-table-pagination');
 
         this.$tableBody.append(this.$el);
