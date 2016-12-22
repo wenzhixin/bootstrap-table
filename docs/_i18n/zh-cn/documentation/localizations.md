@@ -1,12 +1,13 @@
-# Localizations []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/localizations.md)
+# 多语言 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/localizations.md)
 
 ---
 
 <table class="table"
-       data-toggle="table"
+       id="l"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Name</th>
@@ -29,6 +30,11 @@
         <td>formatShowingRows</td>
         <td>pageFrom, pageTo, totalRows</td>
         <td>'Showing %s to %s of %s rows'</td>
+    </tr>
+    <tr>
+        <td>formatDetailPagination</td>
+        <td>totalRows</td>
+        <td>'Showing %s rows'</td>
     </tr>
     <tr>
         <td>formatSearch</td>
@@ -55,5 +61,30 @@
         <td>-</td>
         <td>'Columns'</td>
     </tr>
-    </tbody>
+    <tr>
+        <td>formatAllRows</td>
+        <td>-</td>
+        <td>'All'</td>
+    </tr>
+	</tbody>
 </table>
+
+---
+
+**PS:**
+
+We can import [all locale files](https://github.com/wenzhixin/bootstrap-table/tree/master/src/locale) what you need:
+
+```html
+<script src="bootstrap-table-en-US.js"></script>
+<script src="bootstrap-table-zh-CN.js"></script>
+...
+```
+
+And then use JavaScript to switch locale:
+
+```js
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
+// $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+// ...
+```

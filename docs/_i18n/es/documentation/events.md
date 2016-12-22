@@ -3,10 +3,11 @@
 ---
 
 <table class="table"
-       data-toggle="table"
+       id="e"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Evento</th>
@@ -32,7 +33,8 @@
         <td>
         Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
         row: el registro que corresponde con la fila a la que se le dio click, <br>
-        $element: el elemento tr.
+        $element: el elemento tr, <br>
+        field: el nombre del campo correspondiente a la celda hecho clic.
         </td>
     </tr>
     <tr>
@@ -42,7 +44,32 @@
         <td>
         Se ejecuta cuando el usuario le da click a una fila, los parámetros contienen: <br>
         row: el registro que corresponde con la fila a la que se le dio click, <br>
-        $element: el elemento tr.
+        $element: el elemento tr, <br>
+        field: el nombre del campo correspondiente a la celda hecho clic.
+        </td>
+    </tr>
+    <tr>
+        <td>onClickCell</td>
+        <td>click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Se ejecuta cuando el usuario le da click a una celda de la tabla, los parámetros contienen: <br>
+        field: el nombre del campo correspondiente a la celda hecho clic, <br>
+        value: el valor de datos correspondiente a la celda hecho clic, <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento td.
+        </td>
+    </tr>
+    <tr>
+        <td>onDblClickCell</td>
+        <td>dbl-click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Se ejecuta cuando el usuario le da click a una celda de la tabla, los parámetros contienen: <br>
+        field: el nombre del campo correspondiente a la celda hecho clic, <br>
+        value: el valor de datos correspondiente a la celda hecho clic, <br>
+        row: el registro que corresponde con la fila a la que se le dio click, <br>
+        $element: el elemento td.
         </td>
     </tr>
     <tr>
@@ -62,6 +89,7 @@
         <td>
         Se ejecuta cuando el usuario chequea una fila, los parámetros contienen: <br>
         row: el registro que corresponde a la fila chequeada.
+        $element: el elemento DOM chequeado.
         </td>
     </tr>
     <tr>
@@ -70,20 +98,41 @@
         <td>row</td>
         <td>
         Se ejecuta cuando el usuario des-chequea una fila, los parámetros contienen: <br>
-        row: el registro que corresponde a la fila des-chequeada.
+        row: el registro que corresponde a la fila deschequeada.
+        $element: el elemento DOM deschequeado.
         </td>
     </tr>
     <tr>
         <td>onCheckAll</td>
         <td>check-all.bs.table</td>
-        <td>none</td>
-        <td>Fires when user check all rows.</td>
+        <td>rows</td>
+        <td>Se ejecuta cuando el usuario chequea todas las filas, los parámetros contienen: <br>
+        rows: arreglo de las filas chequeadas.</td>
     </tr>
     <tr>
         <td>onUncheckAll</td>
         <td>uncheck-all.bs.table</td>
-        <td>none</td>
-        <td>Se ejecuta cuando el usuario des-chequea todas las filas.</td>
+        <td>rows</td>
+        <td>Se ejecuta cuando el usuario des-chequea todas las filas, los parámetros contienen: <br>
+        rows: arreglo de las filas deschequeadas.</td>
+    </tr>
+    <tr>
+        <td>onCheckSome</td>
+        <td>check-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Se ejecuta cuando el usuario chequea algunas filas, los parámetros contienen: <br>
+        rows: arreglo de las filas chequeadas.
+        </td>
+    </tr>
+    <tr>
+        <td>onUncheckSome</td>
+        <td>uncheck-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Se ejecuta cuando el usuario deschequea algunas filas, los parámetros contienen: <br>
+        rows: arreglo de las filas deschequeadas.
+        </td>
     </tr>
     <tr>
         <td>onLoadSuccess</td>
@@ -102,6 +151,12 @@
         <td>column-switch.bs.table</td>
         <td>field, checked</td>
         <td>Se ejecuta cuando se cambia la visibilidad de una columna.</td>
+    </tr>
+    <tr>
+        <td>onColumnSearch</td>
+        <td>column-search.bs.table</td>
+        <td>field, text</td>
+        <td>Se ejecuta cuando se busca por columna.</td>
     </tr>
     <tr>
         <td>onPageChange</td>
@@ -126,6 +181,36 @@
         <td>post-body.bs.table</td>
         <td>none</td>
         <td>Se ejecuta después de que el cuerpo/contenido de la tabla es renderizado y es disponible en el DOM</td>
+    </tr>
+	<tr>
+       <td>onPostHeader</td>
+       <td>post-header.bs.table</td>
+       <td>none</td>
+       <td>Se ejecuta después de que el encabezado es renderizado y disponible en el DOM.</td>
+    </tr>
+    <tr>
+        <td>onExpandRow</td>
+        <td>expand-row.bs.table</td>
+        <td>index, row, $detail</td>
+        <td>Se ejecuta cuando se da click al icono de detalle para expandir la vista detalle.</td>
+    </tr>
+    <tr>
+       <td>onCollapseRow</td>
+       <td>collapse-row.bs.table</td>
+       <td>index, row</td>
+       <td>Se ejecuta cuando se da click al icono de detalle para colapsar la vista detalle.</td>
+    </tr>
+    <tr>
+       <td>onRefreshOptions</td>
+       <td>refresh-options.bs.table</td>
+       <td>options</td>
+       <td>Se ejecuta cuando se actualiza el objeto options, este método se ejecuta antes de los eventos destroy e init.</td>
+    </tr>
+    <tr>
+       <td>onRefresh</td>
+       <td>refresh.bs.table</td>
+       <td>params</td>
+       <td>Se ejecuta cuando se cliquea el botón de refresh.</td>
     </tr>
     </tbody>
 </table>

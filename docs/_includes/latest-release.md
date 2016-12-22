@@ -1,24 +1,45 @@
-### Latest release
+### Latest release (2016-07-02)
 
-#### v{{ site.current_version }} (2015-02-03)
+#### v1.11.0
 
-- [bug] Fix queryParams bug when use `sidePagination='server'`.
-- [enh] Add uk-UA, sv-SE, pt-PT, ms-MY, ja-JP locales.
-- [enh] Add `searchTimeOut` option.
-- [bug] Fix #220: state column hideColumn bug.
-- [bug] Fix #221: cellStyle bug.
-- [enh] Add `iconsPrefix` and `icons` options to support custom icons.
-- [enh] Add i18n support for docs.
-- [enh] Allow `query` params to be specified during refresh.
-- [bug] Fix bug of ellipsis string.
-- [bug] Fix pageList smartDisplay.
-- [bug] Fix #188: Export Button is not shown only use `showExport=true`.
-- [bug] Fix page-change event params bug.
-- [enh] Add limit and offset params only if pagination is activated.
-- [enh] Add `ajaxOptions` option to custom $.ajax options.
-- [enh] Add a toggle pagination toolbar button.
-- [enh] Add `iconSize` option.
-- [enh] Add `buttonsAlign` option and update `toolbarAlign` option.
-- [enh] Add `prepend`, `insertRow` and `toggleView` methods.
-- [enh] Add `editable-save.bs.table` event to editatble extension.
-- [enh] #431: load method support pagination.
+- fix(js): fix cardVisible doesn't work bug
+- fix(js): int field break toggleColumn
+- fix(js): table elements inside bootstrap table bug
+- fix(js): move formatter after cellStyle
+- fix(js): the footer is hidden in card view
+- fix(js): fix sorting rows not working bug
+- fix(js): return field from visible cells
+- fix(js): onSearch event is not fire when we press the arrows keys
+- fix(js): fix fromHtml error
+- fix(js): fix event cannot work when some columns are hideen
+- fix(js): remove page size and number when pagination is false
+- fix(js): remove getFieldIndexFromColumnIndex because it cause events bug
+- fix(js): fix getSelections method bug
+- fix(js): update records to rows
+- fix(locale): update it-IT locale
+- fix(locale): add formatAllRows in template locale
+- fix(filter-control extension): add check for null values on existsOptionInSelectControl
+- fix(filter-control extension): fix show-clear button bug
+- fix(editable extesion): fix editable formatter error when refreshOptions
+- feat(js): add support for transfer from rowspan / colspan table
+- feat(js): add data variable to post-body event
+- feat(js): add `buttonsClass` option
+- feat(js): add `getVisibleColumns` method
+- feat(js): add resize event to fit the header
+- feat(js): add `onRefresh` event
+- feat(js): add field parameter in the click and dblClick row events
+- feat(js): add div.card-views surrounds all the card view divs
+- feat(js): add `field` parameter to cellStyle
+- feat(js): add `sortStable` option
+- feat(js): add `footerStyle` option
+- feat(extension): add select2 filter and i18n enhance extensions
+- feat(extension): add multi-column-toggle extension
+- feat(filter-control extension): add select list data to be passed in as JSON string and filter control starts with search
+- feat(angular extension): add constant in order to get it from angular scope
+- feat(export extension): add `formatExport` locale
+- feat(multiple-sort extension): add `formatSortOrders` option
+- feat(multiple-sort extension): support pagination server
+- refactor(filter-control extension): refactor the filterDataType method
+- refactor(filter-control extension): adding all unique values to select control and performance improvements
+- refactor(extension): refactor filter cookies extension to avoid dbcalls
+- docs(filter-control extension): add documentation for filterData

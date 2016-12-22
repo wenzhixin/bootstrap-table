@@ -1,21 +1,22 @@
-# Table options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
+# 表格参数 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
 
 ---
 
-The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
+表格的参数定义在 `jQuery.fn.bootstrapTable.defaults`。
 
 <table class="table"
-       data-toggle="table"
+       id="t"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Attribute</th>
-        <th>Type</th>
-        <th>Default</th>
-        <th>Description</th>
+        <th>名称</th>
+        <th>标签</th>
+        <th>类型</th>
+        <th>默认</th>
+        <th>描述</th>
     </tr>
     </thead>
     <tbody>
@@ -24,74 +25,88 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-toggle</td>
         <td>String</td>
         <td>'table'</td>
-        <td>Activate bootstrap table without writing JavaScript.</td>
+        <td>不用写 JavaScript 直接启用表格。</td>
     </tr>
     <tr>
         <td>classes</td>
         <td>data-classes</td>
         <td>String</td>
         <td>'table table-hover'</td>
-        <td>The class name of table.</td>
+        <td>表格的类名称。默认情况下，表格是有边框的，你可以添加 'table-no-bordered' 来删除表格的边框样式。</td>
     </tr>
     <tr>
         <td>height</td>
         <td>data-height</td>
         <td>Number</td>
         <td>undefined</td>
-        <td>The height of table.</td>
+        <td>定义表格的高度。</td>
     </tr>
     <tr>
         <td>undefinedText</td>
         <td>data-undefined-text</td>
         <td>String</td>
         <td>'-'</td>
-        <td>Defines the default undefined text.</td>
+        <td>当数据为 undefined 时显示的字符</td>
     </tr>
     <tr>
         <td>striped</td>
         <td>data-striped</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to stripe the rows.</td>
+        <td>设置为 <code>true</code> 会有隔行变色效果</td>
     </tr>
     <tr>
         <td>sortName</td>
         <td>data-sort-name</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Defines which column can be sorted.</td>
+        <td>定义排序列,通过url方式获取数据填写字段名，否则填写下标</td>
     </tr>
     <tr>
         <td>sortOrder</td>
         <td>data-sort-order</td>
         <td>String</td>
         <td>'asc'</td>
-        <td>Defines the column sort order, can only be 'asc' or 'desc'.</td>
+        <td>定义排序方式 'asc' 或者 'desc'</td>
+    </tr>
+    <tr>
+        <td>sortStable</td>
+        <td>data-sort-stable</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>设置为 <code>true</code> 将获得稳定的排序，我们会添加<code>_position</code>属性到 row 数据中。</td>
     </tr>
     <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
         <td>'glyphicon'</td>
-        <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
+        <td>定义字体库 ('Glyphicon' or 'fa' for FontAwesome),使用"fa"时需引用 FontAwesome，并且配合 icons 属性实现效果<br>
+		Glyphicon 集成于Bootstrap可免费使用 参考：<a href="http://glyphicons.com/">http://glyphicons.com/</a><br>
+		FontAwesome 参考：<a href="http://fortawesome.github.io/">http://fortawesome.github.io/</a>
+		</td>
     </tr>
     <tr>
         <td>icons</td>
         <td>data-icons</td>
         <td>Object</td>
         <td>{<br/>
-        &nbsp;&nbsp;refresh: 'glyphicon-refresh icon-refresh',<br/>
-        &nbsp;&nbsp;toggle: 'glyphicon-list-alt icon-list-alt',<br/>
-        &nbsp;&nbsp;columns: 'glyphicon-th icon-th'<br/>
+        &nbsp;&nbsp;paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',<br/>
+        &nbsp;&nbsp;paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',<br/>
+        &nbsp;&nbsp;refresh: 'glyphicon-refresh icon-refresh'<br/>
+		&nbsp;&nbsp;toggle: 'glyphicon-list-alt icon-list-alt'<br/>
+		&nbsp;&nbsp;columns: 'glyphicon-th icon-th'<br/>
+		&nbsp;&nbsp;detailOpen: 'glyphicon-plus icon-plus'<br/>
+		&nbsp;&nbsp;detailClose: 'glyphicon-minus icon-minus'<br/>
         }</td>
-        <td>Defines icons that used for refresh, toggle and columns buttons</td>
+        <td>自定义图标</td>
     </tr>
     <tr>
         <td>columns</td>
         <td>-</td>
         <td>Array</td>
         <td>[]</td>
-        <td>The table columns config object, see column properties for more details.
+        <td>列配置项,详情请查看 列参数 表格.
         </td>
     </tr>
     <tr>
@@ -99,49 +114,56 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>-</td>
         <td>Array</td>
         <td>[]</td>
-        <td>The data to be loaded.</td>
+        <td>加载json格式的数据</td>
+    </tr>
+    <tr>
+        <td>ajax</td>
+        <td>data-ajax</td>
+        <td>Function</td>
+        <td>undefined</td>
+        <td>自定义 AJAX 方法,须实现 jQuery AJAX API</td>
     </tr>
     <tr>
         <td>method</td>
         <td>data-method</td>
         <td>String</td>
         <td>'get'</td>
-        <td>The method type to request remote data.</td>
+        <td>服务器数据的请求方式 'get' or 'post' </td>
     </tr>
     <tr>
         <td>url</td>
         <td>data-url</td>
         <td>String</td>
         <td>undefined</td>
-        <td>A URL to request data from remote site.</td>
+        <td>服务器数据的加载地址</td>
     </tr>
     <tr>
         <td>cache</td>
         <td>data-cache</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to disable caching of AJAX requests.</td>
+        <td>设置为 <code>true</code> 禁用 AJAX 数据缓存</td>
     </tr>
     <tr>
         <td>contentType</td>
         <td>data-content-type</td>
         <td>String</td>
         <td>'application/json'</td>
-        <td>The contentType of request remote data.</td>
+        <td>发送到服务器的数据编码类型</td>
     </tr>
     <tr>
         <td>dataType</td>
         <td>data-data-type</td>
         <td>String</td>
         <td>'json'</td>
-        <td>The type of data that you are expecting back from the server.</td>
+        <td>服务器返回的数据类型</td>
     </tr>
     <tr>
         <td>ajaxOptions</td>
         <td>data-ajax-options</td>
         <td>Object</td>
         <td>{}</td>
-        <td>Additional options for submit ajax request. List of values: <a href="http://api.jquery.com/jQuery.ajax">http://api.jquery.com/jQuery.ajax</a>.</td>
+        <td>提交ajax请求时的附加参数，可用参数列请查看<a href="http://api.jquery.com/jQuery.ajax">http://api.jquery.com/jQuery.ajax</a>.</td>
     </tr>
     <tr>
         <td>queryParams</td>
@@ -149,12 +171,12 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Function</td>
         <td>function(params) {<br>return params;<br>}</td>
         <td>
-        When requesting remote data, you can send additional parameters by modifying queryParams. 
-        If queryParamsType = 'limit', the params object contains: <br>
+		请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数
+		如果 queryParamsType = 'limit' ,返回参数必须包含<br>
         limit, offset, search, sort, order
-        Else, it contains: <br>
+		否则, 需要包含: <br>
         pageSize, pageNumber, searchText, sortName, sortOrder. <br>
-        Return false to stop request.
+        返回false将会终止请求
         </td>
     </tr>
     <tr>
@@ -162,7 +184,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-query-params-type</td>
         <td>String</td>
         <td>'limit'</td>
-        <td>Set 'limit' to send query params width RESTFul type.</td>
+        <td>设置为 'limit' 则会发送符合 RESTFul 格式的参数.</td>
     </tr>
     <tr>
         <td>responseHandler</td>
@@ -170,8 +192,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Function</td>
         <td>function(res) {<br>return res;<br>}</td>
         <td>
-        Before load remote data, handler the response data format, the parameters object contains: <br>
-        res: the response data.
+		加载服务器数据之前的处理程序，可以用来格式化数据。<br />参数：res为从服务器请求到的数据。
         </td>
     </tr>
     <tr>
@@ -179,42 +200,49 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-pagination</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show a pagination toolbar on table bottom.</td>
+        <td>设置为 <code>true</code> 会在表格底部显示 分页条</td>
+    </tr>
+    <tr>
+        <td>onlyInfoPagination</td>
+        <td>data-only-info-pagination</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>设置为 <code>true</code> 只显示总数据数，而不显示分页按钮。需要 pagination='True'</td>
     </tr>
     <tr>
         <td>sidePagination</td>
         <td>data-side-pagination</td>
         <td>String</td>
         <td>'client'</td>
-        <td>Defines the side pagination of table, can only be 'client' or 'server'.</td>
+        <td>设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法</td>
     </tr>
     <tr>
         <td>pageNumber</td>
         <td>data-page-number</td>
         <td>Number</td>
         <td>1</td>
-        <td>When set pagination property, initialize the page number.</td>
+        <td>如果设置了分页，首页页码</td>
     </tr>
     <tr>
         <td>pageSize</td>
         <td>data-page-size</td>
         <td>Number</td>
         <td>10</td>
-        <td>When set pagination property, initialize the page size.</td>
+        <td>如果设置了分页，页面数据条数</td>
     </tr>
     <tr>
         <td>pageList</td>
         <td>data-page-list</td>
         <td>Array</td>
-        <td>[10, 25, 50, 100]</td>
-        <td>When set pagination property, initialize the page size selecting list.</td>
+        <td>[10, 25, 50, 100, All]</td>
+        <td>如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。</td>
     </tr>
     <tr>
         <td>selectItemName</td>
         <td>data-select-item-name</td>
         <td>String</td>
         <td>'btSelectItem'</td>
-        <td>The name of radio or checkbox input.</td>
+        <td>radio or checkbox 的字段名</td>
     </tr>
     <tr>
         <td>smartDisplay</td>
@@ -224,46 +252,89 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to display pagination or card view smartly.</td>
     </tr>
     <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>转义HTML字符串，替换 <code>&</code>, <code><</code>,
+        <code>></code>, <code>"</code>, <code>`</code>, 和 <code>'</code> 字符.</td>
+    </tr>
+    <tr>
         <td>search</td>
         <td>data-search</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>Enable the search input.</td>
+        <td>是否启用搜索框</td>
+    </tr>
+    <tr>
+        <td>searchOnEnterKey</td>
+        <td>data-search-on-enter-key</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>设置为 <code>true</code>时，按回车触发搜索方法，否则自动触发搜索方法</td>
+    </tr>
+    <tr>
+        <td>strictSearch</td>
+        <td>data-strict-search</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>设置为 <code>true</code>启用 全匹配搜索，否则为模糊搜索</td>
+    </tr>
+	<tr>
+        <td>searchText</td>
+        <td>data-search-text</td>
+        <td>String</td>
+        <td>''</td>
+        <td>初始化搜索文字</td>
     </tr>
     <tr>
         <td>searchTimeOut</td>
         <td>data-search-time-out</td>
         <td>Number</td>
         <td>500</td>
-        <td>Set timeout for search fire.</td>
+        <td>设置搜索超时时间</td>
     </tr>
+    <tr>
+        <td>trimOnSearch</td>
+        <td>data-trim-on-search</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>设置为 <code>true</code> 将允许空字符搜索</td>
+    </tr
     <tr>
         <td>showHeader</td>
         <td>data-show-header</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to hide the table header.</td>
+        <td>是否显示列头</td>
+    </tr>
+    <tr>
+        <td>showFooter</td>
+        <td>data-show-footer</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>是否显示列脚</td>
     </tr>
     <tr>
         <td>showColumns</td>
         <td>data-show-columns</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show the columns drop down list.</td>
+        <td>是否显示 内容列下拉框</td>
     </tr>
     <tr>
         <td>showRefresh</td>
         <td>data-show-refresh</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show the refresh button.</td>
+        <td>是否显示 刷新按钮</td>
     </tr>
     <tr>
         <td>showToggle</td>
         <td>data-show-toggle</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show the toggle button to toggle table / card view.
+        <td>是否显示 切换试图（table/card）按钮
         </td>
     </tr>
     <tr>
@@ -271,14 +342,14 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-show-pagination-switch</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show the pagination switch button.</td>
+        <td>是否显示 数据条数选择框</td>
     </tr>
     <tr>
         <td>minimumCountColumns</td>
         <td>data-minimum-count-columns</td>
         <td>Number</td>
         <td>1</td>
-        <td>The minimum count columns to hide of the columns drop down list.
+        <td>当列数小于此值时，将隐藏内容列下拉框。
         </td>
     </tr>
     <tr>
@@ -286,49 +357,105 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-id-field</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Indicate which field is an identity field.</td>
+        <td>指定主键列</td>
+    </tr>
+    <tr>
+        <td>uniqueId</td>
+        <td>data-unique-id</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Indicate an unique identifier for each row.</td>
     </tr>
     <tr>
         <td>cardView</td>
         <td>data-card-view</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show card view table, for example mobile view.</td>
+        <td>设置为 <code>true</code>将显示card视图，适用于移动设备。否则为table试图，适用于pc</td>
+    </tr>
+    <tr>
+        <td>detailView</td>
+        <td>data-detail-view</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>设置为 <code>true</code> 可以显示详细页面模式。</td>
+    </tr>
+    <tr>
+        <td>detailFormatter</td>
+        <td>data-detail-formatter</td>
+        <td>Function</td>
+        <td>function(index, row) {<br>return '';<br>}</td>
+        <td>格式化详细页面模式的视图。</td>
     </tr>
     <tr>
         <td>searchAlign</td>
         <td>data-search-align</td>
         <td>String</td>
         <td>'right'</td>
-        <td>Indicate how to align the search input. 'left', 'right' can be used.</td>
+        <td>指定 搜索框 水平方向的位置。'left' or 'right'</td>
     </tr>
     <tr>
         <td>buttonsAlign</td>
         <td>data-buttons-align</td>
         <td>String</td>
         <td>'right'</td>
-        <td>Indicate how to align the toolbar buttons. 'left', 'right' can be used.</td>
+        <td>指定 按钮 水平方向的位置。'left' or 'right'</td>
     </tr>
     <tr>
         <td>toolbarAlign</td>
         <td>data-toolbar-align</td>
         <td>String</td>
         <td>'left'</td>
-        <td>Indicate how to align the custom toolbar. 'left', 'right' can be used.</td>
+        <td>指定 toolbar 水平方向的位置。'left' or 'right'</td>
+    </tr>
+    <tr>
+        <td>paginationVAlign</td>
+        <td>data-pagination-v-align</td>
+        <td>String</td>
+        <td>'bottom'</td>
+        <td>指定 分页条 在垂直方向的位置。'top' or 'bottom' or 'bonth'</td>
+    </tr>
+    <tr>
+        <td>paginationHAlign</td>
+        <td>data-pagination-h-align</td>
+        <td>String</td>
+        <td>'right'</td>
+        <td>指定 分页条 在水平方向的位置。'left' or 'right'</td>
+    </tr>
+    <tr>
+        <td>paginationDetailHAlign</td>
+        <td>data-pagination-detail-h-align</td>
+        <td>String</td>
+        <td>'left'</td>
+        <td>指定 分页详细信息 在水平方向的位置。'left' or 'right'</td>
+    </tr>
+    <tr>
+        <td>paginationPreText</td>
+        <td>data-pagination-pre-text</td>
+        <td>String</td>
+        <td>'&lt;'</td>
+        <td>指定分页条中上一页按钮的图标或文字</td>
+    </tr>
+    <tr>
+        <td>paginationNextText</td>
+        <td>data-pagination-next-text</td>
+        <td>String</td>
+        <td>'&gt;'</td>
+        <td>指定分页条中下一页按钮的图标或文字</td>
     </tr>
     <tr>
         <td>clickToSelect</td>
         <td>data-click-to-select</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to select checkbox or radiobox when click rows.</td>
+        <td>设置true 将在点击行时，自动选择rediobox 和 checkbox</td>
     </tr>
     <tr>
         <td>singleSelect</td>
         <td>data-single-select</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to allow checkbox selecting only one row.</td>
+        <td>设置True 将禁止多选</td>
     </tr>
     <tr>
         <td>toolbar</td>
@@ -336,7 +463,7 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>String</td>
         <td>undefined</td>
         <td>
-        A jQuery selector that indicate the toolbar, for example:<br>
+      一个jQuery 选择器，指明自定义的toolbar 例如:<br>
         #toolbar, .toolbar.
         </td>
     </tr>
@@ -345,45 +472,88 @@ The table options is defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-checkbox-header</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to hide check-all checkbox in header row.</td>
+        <td>设置false 将在列头隐藏check-all checkbox .</td>
     </tr>
     <tr>
         <td>maintainSelected</td>
         <td>data-maintain-selected</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to maintain selected rows on change page and search.</td>
+        <td>设置为 <code>true</code> 在点击分页按钮或搜索按钮时，将记住checkbox的选择项</td>
     </tr>
     <tr>
         <td>sortable</td>
         <td>data-sortable</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>False to disable sortable of all columns.</td>
+        <td>设置为<code>false</code> 将禁止所有列的排序</td>
+    </tr>
+    <tr>
+        <td>silentSort</td>
+        <td>data-silent-sort</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>设置为 <code>false</code> 将在点击分页按钮时，自动记住排序项。仅在 sidePagination设置为 <code>server</code>时生效.</td>
     </tr>
     <tr>
         <td>rowStyle</td>
         <td>data-row-style</td>
         <td>Function</td>
-        <td>{}</td>
+        <td>function(row,index) {<br>return class;<br>}</td>
         <td>
-        The row style formatter function, take two parameters: <br>
-        row: the row record data.<br>
-        index: the row index.<br>
-        Support classes or css.
+        自定义行样式 参数为：<br>
+        row: 行数据<br>
+        index: 行下标<br>
+        返回值可以为class或者css
         </td>
     </tr>
     <tr>
         <td>rowAttributes</td>
         <td>data-row-attributes</td>
         <td>Function</td>
-        <td>{}</td>
+        <td>function(row,index) {<br>return attributes;<br>}</td>
         <td>
-        The row attribute formatter function, take two parameters: <br>
-        row: the row record data.<br>
-        index: the row index.<br>
-        Support all custom attributes.
+        自定义行属性 参数为：<br>
+        row: 行数据<br>
+        index: 行下标<br>
+        返回值可以为class或者css
+        支持所有自定义属性
         </td>
     </tr>
+    <tr>
+            <td>customSearch</td>
+            <td>data-custom-search</td>
+            <td>Function</td>
+            <td>$.noop</td>
+            <td>
+            The custom search function is executed instead of built-in search function, takes one parameters: <br>
+            text: the search text.<br>
+            Example usage:<br>
+            <pre>
+            function customSearch(text) {
+                //Search logic here.
+                //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
+            }
+            </pre>
+            </td>
+        </tr>
+        <tr>
+            <td>customSort</td>
+            <td>data-custom-sort</td>
+            <td>Function</td>
+            <td>$.noop</td>
+            <td>
+            The custom sort function is executed instead of built-in sort function, takes two parameters: <br>
+            sortName: the sort name.<br>
+            sortOrder: the sort order.<br>
+            Example usage:<br>
+            <pre>
+            function customSort(sortName, sortOrder) {
+                //Sort logic here.
+                //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
+            }
+            </pre>
+            </td>
+        </tr>
     </tbody>
 </table>

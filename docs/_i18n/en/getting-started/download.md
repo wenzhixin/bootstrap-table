@@ -18,7 +18,7 @@ Source css, JavaScript, locales, and extensions, along with our docs.
 
 ## CDN
 
-The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bootcss](http://open.bootcss.com/bootstrap-table/) graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these CDN links.
+The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) and [bootcss](http://open.bootcss.com/bootstrap-table/) graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these CDN links.
 
 ```html
 <!-- Latest compiled and minified CSS -->
