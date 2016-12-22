@@ -1,4 +1,4 @@
-# 下载 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/download.md)
+# 下载 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/getting-started/download.md)
 
 ---
 

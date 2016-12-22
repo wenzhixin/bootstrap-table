@@ -1,4 +1,4 @@
-# Methods []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/methods.md)
+# Methods []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/methods.md)
 
 ---
 
@@ -186,6 +186,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>refreshOptions</td>
         <td>options</td>
         <td>Refresh the options</td>
+    </tr>
+    <tr>
+        <td>resetSearch</td>
+        <td>text</td>
+        <td>Set the search text</td>
     </tr>
     <tr>
         <td>showLoading</td>

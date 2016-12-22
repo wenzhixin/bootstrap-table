@@ -1,4 +1,4 @@
-# Methods []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/methods.md)
+# Methods []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/methods.md)
 
 ---
 
@@ -162,6 +162,11 @@ Sintaxis para llamar a un método: `$('#table').bootstrapTable('method', paramet
         <td>refreshOptions</td>
         <td>options</td>
         <td>Actualiza el objecto options</td>
+    </tr>
+    <tr>
+        <td>resetSearch</td>
+        <td>text</td>
+        <td>Setea el texto de búsqueda</td>
     </tr>
     <tr>
         <td>showLoading</td>

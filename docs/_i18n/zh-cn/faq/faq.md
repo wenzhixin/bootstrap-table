@@ -1,4 +1,4 @@
-# 常见问题 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/faq/faq.md)
+# 常见问题 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/faq/faq.md)
 
 ---
 
