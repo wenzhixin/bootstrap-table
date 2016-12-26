@@ -13,7 +13,7 @@
 
     var addOptionToSelectControl = function (selectControl, value, text) {
         value = $.trim(value);
-        selectControl = $(selectControl.get(0));
+        selectControl = $(selectControl.get(selectControl.length - 1));
         if (!existOptionInSelectControl(selectControl, value)) {
             selectControl.append($("<option></option>")
                 .attr("value", value)
