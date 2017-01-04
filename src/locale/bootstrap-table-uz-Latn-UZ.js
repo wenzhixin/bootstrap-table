@@ -5,7 +5,7 @@
 (function ($) {
     'use strict';
 
-    $.fn.bootstrapTable.locales['uz-UZ'] = {
+    $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
         formatLoadingMessage: function () {
             return 'Yuklanyapti, iltimos kuting...';
         },
@@ -44,6 +44,6 @@
         }
     };
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['uz-UZ']);
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['uz-Latn-UZ']);
 
 })(jQuery);
