@@ -31,7 +31,8 @@
           $ele.val(value).trigger('change');
         }
         else {
-          $ele.val(value);
+          //$ele.val(value);
+          $ele.trigger('change');
         }
       });
     }
