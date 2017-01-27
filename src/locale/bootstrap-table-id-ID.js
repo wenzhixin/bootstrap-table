@@ -7,7 +7,7 @@
 
     $.fn.bootstrapTable.locales['id-ID'] = {
         formatLoadingMessage: function () {
-            return 'Loading, harap tunggu ...';
+            return 'Memuat, mohon tunggu...';
         },
         formatRecordsPerPage: function (pageNumber) {
             return pageNumber + ' baris per halaman';
@@ -19,13 +19,13 @@
             return 'Pencarian';
         },
         formatNoMatches: function () {
-            return 'Tidak ada catatan yang cocok ditemukan';
+            return 'Tidak ditemukan data yang cocok';
         },
         formatPaginationSwitch: function () {
-            return 'Sembunyikan/Tampilkan pagination';
+            return 'Sembunyikan/Tampilkan halaman';
         },
         formatRefresh: function () {
-            return 'Menyegarkan';
+            return 'Muat ulang';
         },
         formatToggle: function () {
             return 'Beralih';
@@ -37,10 +37,10 @@
             return 'Semua';
         },
         formatExport: function () {
-            return 'Data ekspor';
+            return 'Ekspor data';
         },
         formatClearFilters: function () {
-            return 'Jelas filter';
+            return 'Bersihkan filter';
         }
     };
 
