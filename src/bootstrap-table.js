@@ -140,7 +140,7 @@
             return func;
         }
         if (typeof func === 'function') {
-            return func.apply(self, args);
+            return func.apply(self, args || []);
         }
         if (!func && typeof name === 'string' && sprintf.apply(this, [name].concat(args))) {
             return sprintf.apply(this, [name].concat(args));
