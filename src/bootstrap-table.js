@@ -2761,8 +2761,10 @@
 
     BootstrapTable.prototype.refresh = function (params) {
         if (params && params.url) {
+            this.options.url = params.url;
             this.options.pageNumber = 1;
         }
+
         this.initServer(params && params.silent,
             params && params.query, params && params.url);
         this.trigger('refresh', params);
