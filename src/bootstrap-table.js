@@ -2762,16 +2762,15 @@
     BootstrapTable.prototype.refresh = function (params) {
         if (params && params.url) {
             this.options.url = params.url;
-            this.options.pageNumber = 1;
         }
         if (params && params.pageNumber) {
-            this.options.pageNumber = params.pageNumber; // New param for refresh method: set needed page number
+            this.options.pageNumber = params.pageNumber;
+        } else {
+            this.options.pageNumber = 1;
         }
         if (params && params.pageSize) {
-            this.options.pageSize = params.pageSize; // New param for refresh method: set needed page size
+            this.options.pageSize = params.pageSize;
         }
-
-
         this.initServer(params && params.silent,
             params && params.query, params && params.url);
         this.trigger('refresh', params);
