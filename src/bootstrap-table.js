@@ -2764,9 +2764,13 @@
             this.options.url = params.url;
             this.options.pageNumber = 1;
         }
-        if (params && params.page) {
-            this.options.pageNumber = params.page; // New param for refresh method: set needed page number
+        if (params && params.pageNumber) {
+            this.options.pageNumber = params.pageNumber; // New param for refresh method: set needed page number
         }
+        if (params && params.pageSize) {
+            this.options.pageSize = params.pageSize; // New param for refresh method: set needed page size
+        }
+
 
         this.initServer(params && params.silent,
             params && params.query, params && params.url);
