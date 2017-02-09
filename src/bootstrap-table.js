@@ -2764,6 +2764,9 @@
             this.options.url = params.url;
             this.options.pageNumber = 1;
         }
+        if (params && params.page) {
+            this.options.pageNumber = params.page; // New param for refresh method: set needed page number
+        }
 
         this.initServer(params && params.silent,
             params && params.query, params && params.url);
