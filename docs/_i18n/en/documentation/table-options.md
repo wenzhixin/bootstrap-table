@@ -99,6 +99,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Defines the Bootstrap class (added after 'btn-') of table buttons: EX: 'primary', 'danger', 'warning'...</td>
     </tr>
     <tr>
+        <td>iconSize</td>
+        <td>data-icon-size</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Defines icon size: <ul><li>undefined => btn</li><li>xs => btn-xs</li><li>sm => btn-sm</li><li>lg => btn-lg</li></ul>
+    </tr>    
+    <tr>
         <td>icons</td>
         <td>data-icons</td>
         <td>Object</td>
