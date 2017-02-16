@@ -21,9 +21,9 @@
         for (var i = 0; i < options.length; i++) {
             if (options[i].value !== "") {
                 if (!uniqueValues.hasOwnProperty(options[i].value)) {
-                    selectControl.find(sprintf("option[value='%s']", options[i].value)).hide(); 
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).hide();
                 } else {
-                    selectControl.find(sprintf("option[value='%s']", options[i].value)).show(); 
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).show();
                 }
             }
         }
@@ -216,7 +216,7 @@
 
                     uniqueValues[formattedValue] = fieldValue;
                 }
-                
+
                 for (var key in uniqueValues) {
                     addOptionToSelectControl(selectControl, uniqueValues[key], key);
                 }
@@ -232,7 +232,7 @@
 
     var escapeID = function(id) {
        return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
-   };
+    };
 
     var createControls = function (that, header) {
         var addedFilterControl = false,

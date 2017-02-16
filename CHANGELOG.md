@@ -14,17 +14,24 @@ ChangeLog
 - feat(js): update method `getRowsHidden` to `getHiddenRows`
 - feat(js): add `sortClass` option
 - feat(js): add `totalField` Option
-- fix(css): fix #2208, dropdown-menu style bug
+- feat(js): add 'pageNumber' and 'pageSize' to 'refresh' method
 - fix(js): fix #2461, adding the initPagination call to updateByUniqueId and updateRow methods
+- fix(js): fix #2879, IE8 bug
+- fix(css): fix #2208, dropdown-menu style bug
 - fix(filter-control extension): fix #2418, `height` cause datepicker not display the selected date
 - fix(export extension): fix #2220, selected rows does not work when data-pagination-side is server
 - fix(reorder-row extension): fix #1343, reorder rows bug with pagination
+- fix(cookie extension): correction regex to match 'mi'
+- feat(locale): fix #2759, add es-CL and uz-UZ locales
 - feat(cookie extension): fix #2386, add `getCookies` method
 - feat(cookie extension): fix #2371, add `cookieStorage` option
 - feat(multiple-selection-row extension): add multiple-selection-row extension
 - feat(filter-control extension): fix #1540, disable unnecessary/unused values from select options
 - feat(filter-control extension): fix #2448, create a css file which contains the style for this extension
 - feat(filter-control extension): fix #2189, set placeholder of the filter-control input
+- feat(print extension): add print extension
+- feat(auto-refresh extension): add auto refresh extension
+- feat(tree-column extension): add tree column extension
 
 #### Breaking changes in 1.11.1
 - **Filter-Control extension**: deleted the inline-style and now this extension is using a separated css file.
