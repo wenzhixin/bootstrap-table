@@ -25,7 +25,7 @@ Use Plugin: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jqu
 ### exportTypes
 
 * type: Array
-* description: export types, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'pdf'.
+* description: export types, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'.
 * default: `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
 
 ### exportOptions
