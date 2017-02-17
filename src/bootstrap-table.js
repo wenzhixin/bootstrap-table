@@ -2787,8 +2787,6 @@
         }
         if (params && params.pageNumber) {
             this.options.pageNumber = params.pageNumber;
-        } else {
-            this.options.pageNumber = 1;
         }
         if (params && params.pageSize) {
             this.options.pageSize = params.pageSize;
