@@ -58,7 +58,7 @@
                         '<button class="btn' +
                             sprintf(' btn-%s', this.options.buttonsClass) +
                             sprintf(' btn-%s', this.options.iconSize) +
-                            ' dropdown-toggle" ' +
+                            ' dropdown-toggle" aria-label="export type" ' +
                             'title="' + this.options.formatExport() + '" ' +
                             'data-toggle="dropdown" type="button">',
                             sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.export),
@@ -81,7 +81,7 @@
                 }
                 $.each(exportTypes, function (i, type) {
                     if (TYPE_NAME.hasOwnProperty(type)) {
-                        $menu.append(['<li data-type="' + type + '">',
+                        $menu.append(['<li role="menuitem" data-type="' + type + '">',
                                 '<a href="javascript:void(0)">',
                                     TYPE_NAME[type],
                                 '</a>',
