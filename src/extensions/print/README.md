@@ -16,6 +16,12 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 * description: Set true to show the Print button on the toolbar.
 * default: `false`
 
+### printAsFilteredAndSortedOnUI
+
+* type: Boolean
+* description: When true - print table as sorted and filtered on UI. Please note that if true is set, along with explicit predefined print options for filtering and sorting (printFilter, printSortOrder, printSortColumn)- then they will be applied on data already filtered and sorted by UI controls. For printing data as filtered and sorted on UI - do not set these 3 options: printFilter, printSortOrder, printSortColumn
+* default: `true`
+
 ### printSortColumn
 
 * type: String

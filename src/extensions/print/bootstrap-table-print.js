@@ -21,6 +21,9 @@
     }
     $.extend($.fn.bootstrapTable.defaults, {
         showPrint: false,
+        printAsFilteredAndSortedOnUI: true, //boolean, when true - print table as sorted and filtered on UI.
+                                            //Please note that if true is set, along with explicit predefined print options for filtering and sorting (printFilter, printSortOrder, printSortColumn)- then they will be applied on data already filtered and sorted by UI controls.
+                                            //For printing data as filtered and sorted on UI - do not set these 3 options:printFilter, printSortOrder, printSortColumn
         printSortColumn: undefined  , //String, set column field name to be sorted by
         printSortOrder: 'asc', //String: 'asc' , 'desc'  - relevant only if printSortColumn is set
         printPageBuilder: function(table){return printPageBuilderDefault(table)} // function, receive html <table> element as string, returns html string for printing. by default delegates to function printPageBuilderDefault(table). used for styling and adding header or footer
@@ -122,7 +125,7 @@
                         newWin.print();
                         newWin.close();
                     };
-                    doPrint(that.options.data.slice(0));
+                    doPrint(that.options.printAsFilteredAndSortedOnUI? that.getData() : that.options.data.slice(0));
                 });
             }
         }
