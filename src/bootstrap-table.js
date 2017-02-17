@@ -1816,9 +1816,10 @@
 
         // show no records
         if (!hasTr) {
-            trFragments.append('<tr class="no-records-found">'+
-                sprintf('<td colspan="%s">%s</td>'+
-                    this.$header.find('th').length, this.options.formatNoMatches())+
+            trFragments.append('<tr class="no-records-found">' +
+                sprintf('<td colspan="%s">%s</td>',
+                this.$header.find('th').length,
+                this.options.formatNoMatches()) +
                 '</tr>');
         }
 
