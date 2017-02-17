@@ -431,14 +431,14 @@
         alignmentSelectControlOptions: undefined,
         filterTemplate: {
             input: function (that, field, isVisible, placeholder) {
-                return sprintf('<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" placeholder="%s">', field, isVisible, placeholder);
+                return sprintf('<input type="text" class="form-control bootstrap-table-filter-control-%s input-%s" style="width: 100%; visibility: %s">', field,that.options.classSize,isVisible);
             },
             select: function (that, field, isVisible) {
-                return sprintf('<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" dir="%s"></select>',
-                    field, isVisible, getDirectionOfSelectOptions(that.options.alignmentSelectControlOptions));
+                return sprintf('<select class="form-control bootstrap-table-filter-control-%s input-%s" style="width: 100%; visibility: %s" dir="%s"></select>',
+                    field, that.options.classSize, isVisible, getDirectionOfSelectOptions(that.options.alignmentSelectControlOptions));
             },
             datepicker: function (that, field, isVisible) {
-                return sprintf('<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">', field, isVisible);
+                return sprintf('<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s input-%s" style="width: 100%; visibility: %s">', field,that.options.classSize, isVisible);
             }
         },
         //internal variables
@@ -525,7 +525,7 @@
 
             if (!$btnClear.length) {
                 $btnClear = $([
-                    '<button class="btn btn-default filter-show-clear" ',
+                    sprintf('<button class="btn btn-default filter-show-clear btn-%s" ',this.options.iconSize),
                     sprintf('type="button" title="%s">', this.options.formatClearFilters()),
                     sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
                     '</button>'
