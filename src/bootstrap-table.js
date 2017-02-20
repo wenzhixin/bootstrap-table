@@ -526,7 +526,8 @@
         cellStyle: undefined,
         searchable: true,
         searchFormatter: true,
-        cardVisible: true
+        cardVisible: true,
+        escape : false
     };
 
     BootstrapTable.EVENTS = {
@@ -1689,6 +1690,10 @@
 
             if (that.options.cardView && (!column.cardVisible)) {
                 return;
+            }
+
+            if (column.escape) {
+                value_ = escapeHTML(value_);
             }
 
             style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
