@@ -93,10 +93,38 @@
                 $menu.find('li').click(function () {
                     var type = $(this).data('type'),
                         doExport = function () {
+                            
+                            if (!!that.options.exportFooter) {
+                                var data = that.getData();
+                                var $footerRow = that.$tableFooter.find("tr").first();
+
+                                var footerData = { };
+                                var footerText = [];
+
+                                $.each($footerRow.children(), function (index, footerCell) {
+                                    var footerCellText = $(footerCell).children(".th-inner").first().text();
+                                    footerData[that.columns[index].field] = footerCellText;
+                                    // grab footer cell text into cell index-based array
+                                    footerText.push(footerCellText);
+                                });
+
+                                that.append(footerData);
+
+                                var lastTableRow = that.$body.children().last();
+
+                                $.each(lastTableRow.children(), function (index, lastTableRowCell) {
+                                    $(lastTableRowCell).text(footerText[index]);
+                                });
+                            }
+                            
                             that.$el.tableExport($.extend({}, that.options.exportOptions, {
                                 type: type,
                                 escape: false
                             }));
+                            
+                            if (!!that.options.exportFooter) {
+                                that.load(data);
+                            }
                         };
 
                     if (that.options.exportDataType === 'all' && that.options.pagination) {
