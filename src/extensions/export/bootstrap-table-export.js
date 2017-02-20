@@ -110,9 +110,9 @@
 
                                 that.append(footerData);
 
-                                var lastTableRow = that.$body.children().last();
+                                var $lastTableRow = that.$body.children().last();
 
-                                $.each(lastTableRow.children(), function (index, lastTableRowCell) {
+                                $.each($lastTableRow.children(), function (index, lastTableRowCell) {
                                     $(lastTableRowCell).text(footerText[index]);
                                 });
                             }
