@@ -817,7 +817,7 @@
                 html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
                     'sortable both' : ''));
 
-                text = column.title;
+                text = that.options.escape ? escapeHTML(column.title) : column.title;
 
                 if (column.checkbox) {
                     if (!that.options.singleSelect && that.options.checkboxHeader) {
