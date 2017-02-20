@@ -96,10 +96,10 @@
                             
                             if (!!that.options.exportFooter) {
                                 var data = that.getData();
-                                var $footerRow = that.$tableFooter.find("tr").first();
+                                $footerRow = that.$tableFooter.find("tr").first();
 
-                                var footerData = { };
-                                var footerText = [];
+                                footerData = { };
+                                footerText = [];
 
                                 $.each($footerRow.children(), function (index, footerCell) {
                                     var footerCellText = $(footerCell).children(".th-inner").first().text();
@@ -110,7 +110,7 @@
 
                                 that.append(footerData);
 
-                                var $lastTableRow = that.$body.children().last();
+                                $lastTableRow = that.$body.children().last();
 
                                 $.each($lastTableRow.children(), function (index, lastTableRowCell) {
                                     $(lastTableRowCell).text(footerText[index]);
