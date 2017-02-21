@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.11.0
+ * version: 1.11.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -285,7 +285,7 @@
     padding: 0 !important;
 }
 
-.pull-right .dropdown-menu {
+.bootstrap-table .pull-right .dropdown-menu {
     right: 0;
     left: auto;
 }
@@ -303,4 +303,11 @@ div.fixed-table-scroll-outer {
     width: 200px;
     height: 150px;
     overflow: hidden;
+}
+
+/* for get correct heights  */
+.fixed-table-toolbar:after, .fixed-table-pagination:after {
+    content: "";
+    display: block;
+    clear: both;
 }
