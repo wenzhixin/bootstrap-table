@@ -1,13 +1,14 @@
 # Table click-edit-row
 
 Use Plugin: [bootstrap-click-edit-row](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions/click-edit-row) </br>
-You must include the editable.css file in order to get the appropriate style.
+You must include the bootstrap-table-click-editable.css file in order to get the appropriate style.
 Ps. Used this plugin is better on table columns not more than five.
 
 ## Usage
 
 ```html
-<script src="extensions/click-edit-row/bootstrap-table-click-edit.js"></script>
+<link rel="stylesheet" href="bootstrap-table-click-edit-row.css"></style>
+<script src="bootstrap-table-click-edit-row.js"></script>
 ```
 
 ## Options
@@ -23,7 +24,7 @@ All options can be defined via `data-editable-*` HTML attributes. Table wide opt
 
 ````html
 <table id="my_table_id"
-  data-url="data1.json">
+  data-url="data.json">
   <thead>
     <tr>
       <th data-field="id">ID</th>
