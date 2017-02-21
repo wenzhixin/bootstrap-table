@@ -15,8 +15,10 @@ ChangeLog
 - feat(js): add `sortClass` option
 - feat(js): add `totalField` Option
 - feat(js): add 'pageNumber' and 'pageSize' to 'refresh' method
+- feat(js): add `escape` column option
 - fix(js): fix #2461, adding the initPagination call to updateByUniqueId and updateRow methods
 - fix(js): fix #2879, IE8 bug
+- fix(js): fix #2719, remove `tabindex`
 - fix(css): fix #2208, dropdown-menu style bug
 - fix(filter-control extension): fix #2418, `height` cause datepicker not display the selected date
 - fix(export extension): fix #2220, selected rows does not work when data-pagination-side is server
