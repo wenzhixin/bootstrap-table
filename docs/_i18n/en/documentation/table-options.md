@@ -1,4 +1,4 @@
-# Table options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
+# Table options []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
 
 ---
 
@@ -33,6 +33,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>String</td>
         <td>'table table-hover'</td>
         <td>The class name of table. By default, the table is bordered, you can add 'table-no-bordered' to remove table-bordered style.</td>
+    </tr>
+    <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>The class name of the td elements which are sorted.</td>
     </tr>
     <tr>
         <td>height</td>
@@ -83,13 +90,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>'glyphicon'</td>
         <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
     </tr>
-     <tr>
+    <tr>
         <td>iconSize</td>
         <td>data-icon-size</td>
         <td>String</td>
         <td>undefined</td>
         <td>Defines icon size: <ul><li>undefined => btn</li><li>xs => btn-xs</li><li>sm => btn-sm</li><li>lg => btn-lg</li></ul>
-        <td>
+        </td>
     </tr>
     <tr>
         <td>buttonsClass</td>
@@ -135,6 +142,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>String</td>
         <td>'rows'</td>
         <td>Key in incoming json containing rows data list.</td>
+    </tr>
+    <tr>
+        <td>totalField</td>
+        <td>data-total-field</td>
+        <td>String</td>
+        <td>'total'</td>
+        <td>Key in incoming json containing  "total" data .</td>
     </tr>
     <tr>
         <td>ajax</td>
@@ -230,6 +244,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Boolean</td>
         <td>false</td>
         <td>True to show a pagination toolbar on table bottom.</td>
+    </tr>
+    <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to enable pagination continuous loop mode.</td>
     </tr>
     <tr>
         <td>onlyInfoPagination</td>
@@ -545,7 +566,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         index: the row index.<br>
         Support classes or css. Example usage:<br>
 <pre>
-function rowStyle(value, row, index) {
+function rowStyle(row, index) {
   return {
     classes: 'text-nowrap another-class',
     css: {"color": "blue", "font-size": "50px"}

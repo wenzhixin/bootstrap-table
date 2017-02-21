@@ -1,4 +1,4 @@
-# 方法 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/methods.md)
+# 方法 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/methods.md)
 
 ---
 
@@ -175,6 +175,11 @@
         <td>refreshOptions</td>
         <td>options</td>
         <td>Refresh the options</td>
+    </tr>
+    <tr>
+        <td>resetSearch</td>
+        <td>text</td>
+        <td>Set the search text</td>
     </tr>
     <tr>
         <td>showLoading</td>

@@ -52,13 +52,13 @@ Fired when all columns was initialized by `$().editable()` method.
 
 Fired when an editable cell is saved.
 
-parameters: field, row, oldValue, $el
+parameters: editable, field, row, oldValue, $el
 
 ### onEditableShown(editable-shown.bs.table)
 
 Fired when an editable cell is opened for edits.
 
-parameters: field, row, $el, editable
+parameters: editable, field, row, $el
 
 ### onEditableHidden(editable-hidden.bs.table)
 
