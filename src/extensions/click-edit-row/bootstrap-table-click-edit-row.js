@@ -41,9 +41,8 @@
                 index: table.$data.thId,
                 row: {
                     noOld: txt[0],
-                    area: tarNode.find('select').eq(0).children(':selected').text(),
-                    town: tarNode.find('select').eq(1).children(':selected').text(),
-                    address: txt[1]
+                    name: tarNode.find('[type=text]').val(),
+                    price: tarNode.find('select option:selected').text()
                 }
             });
             $('#tooling').remove();
