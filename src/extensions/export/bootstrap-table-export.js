@@ -99,13 +99,15 @@
                                 var $footerRow = that.$tableFooter.find("tr").first();
 
                                 var footerData = { };
-                                var footerText = [];
+                                var footerHtml = [];
 
                                 $.each($footerRow.children(), function (index, footerCell) {
-                                    var footerCellText = $(footerCell).children(".th-inner").first().text();
-                                    footerData[that.columns[index].field] = footerCellText;
+                                    
+                                    var footerCellHtml = $(footerCell).children(".th-inner").first().html();
+                                    footerData[that.columns[index].field] = footerCellHtml == '&nbsp;' ? null : footerCellHtml;
+
                                     // grab footer cell text into cell index-based array
-                                    footerText.push(footerCellText);
+                                    footerHtml.push(footerCellHtml);
                                 });
 
                                 that.append(footerData);
@@ -113,7 +115,8 @@
                                 var $lastTableRow = that.$body.children().last();
 
                                 $.each($lastTableRow.children(), function (index, lastTableRowCell) {
-                                    $(lastTableRowCell).text(footerText[index]);
+
+                                    $(lastTableRowCell).html(footerHtml[index]);
                                 });
                             }
                             
