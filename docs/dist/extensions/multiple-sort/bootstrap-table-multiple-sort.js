@@ -257,7 +257,7 @@
             });
 
             this.$el.on('load-success.bs.table', function() {
-                if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object') {
+                if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
                     that.onMultipleSort();
                 }
             });

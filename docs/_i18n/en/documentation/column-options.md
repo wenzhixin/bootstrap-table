@@ -254,5 +254,14 @@ function cellStyle(value, row, index, field) {
         True to search use formated data.
         </td>
     </tr>
+    <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>
+        Escapes a string for insertion into HTML, replacing &, <, >, ", `, and ' characters.
+        </td>
+    </tr>
 </tbody>
 </table>

@@ -144,6 +144,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Key in incoming json containing rows data list.</td>
     </tr>
     <tr>
+        <td>totalField</td>
+        <td>data-total-field</td>
+        <td>String</td>
+        <td>'total'</td>
+        <td>Key in incoming json containing  "total" data .</td>
+    </tr>
+    <tr>
         <td>ajax</td>
         <td>data-ajax</td>
         <td>Function</td>
