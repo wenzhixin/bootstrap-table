@@ -340,7 +340,7 @@
         detailFormatter: function (index, row) {
             return '';
         },
-        detailFilter: function (index, item) {
+        detailFilter: function (index, row) {
             return true;
         },
         trimOnSearch: true,
