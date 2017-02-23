@@ -448,6 +448,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Format your detail view when <code>detailView</code> is set to <code>true</code>. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</td>
     </tr>
     <tr>
+        <td>detailFilter</td>
+        <td>data-detail-filter</td>
+        <td>Function</td>
+        <td>function(index, row) {<br>return true;<br>}</td>
+        <td>Enable expansion per row when <code>detailView</code> is set to <code>true</code>. Return `true` and the row will be enabled for expansion, return `false` and expansion for the row will be disabled. Default function returns `true` to enable expansion for all rows.</td>
+    </tr>
+    <tr>
         <td>searchAlign</td>
         <td>data-search-align</td>
         <td>String</td>
