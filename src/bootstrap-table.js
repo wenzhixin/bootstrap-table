@@ -340,6 +340,9 @@
         detailFormatter: function (index, row) {
             return '';
         },
+        detailFilter: function (index, item) {
+            return true;
+        },
         trimOnSearch: true,
         clickToSelect: false,
         singleSelect: false,
@@ -1658,11 +1661,15 @@
         }
 
         if (!this.options.cardView && this.options.detailView) {
-            html.push('<td>',
-                '<a class="detail-icon" href="#">',
+            html.push('<td>');
+
+            if (calculateObjectValue(null, this.options.detailFilter, [i, item])) {
+                html.push('<a class="detail-icon" href="javascript:">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.detailOpen),
-                '</a>',
-                '</td>');
+                '</a>');
+            }
+
+            html.push('</td>');
         }
 
         $.each(this.header.fields, function(j, field) {
