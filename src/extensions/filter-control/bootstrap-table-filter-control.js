@@ -525,7 +525,7 @@
 
             if (!$btnClear.length) {
                 $btnClear = $([
-                    '<button class="btn btn-default filter-show-clear" ',
+                    sprintf('<button class="btn btn-%s filter-show-clear" ', this.options.buttonsClass),
                     sprintf('type="button" title="%s">', this.options.formatClearFilters()),
                     sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
                     '</button>'
