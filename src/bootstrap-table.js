@@ -41,20 +41,7 @@
         });
         return result;
     };
-
-    var getFieldIndex = function (columns, field) {
-        var index = -1;
-
-        $.each(columns, function (i, column) {
-            if (column.field === field) {
-                index = i;
-                return false;
-            }
-            return true;
-        });
-        return index;
-    };
-
+    
     // http://jsfiddle.net/wenyi/47nz7ez9/3/
     var setFieldIndex = function (columns) {
         var i, j, k,
@@ -671,6 +658,7 @@
         }
         this.options.columns = $.extend(true, [], columns, this.options.columns);
         this.columns = [];
+        this.fieldsColumnsIndex = [];
 
         setFieldIndex(this.options.columns);
         $.each(this.options.columns, function (i, columns) {
@@ -679,6 +667,7 @@
 
                 if (typeof column.fieldIndex !== 'undefined') {
                     that.columns[column.fieldIndex] = column;
+                    that.fieldsColumnsIndex[column.field] = column.fieldIndex;
                 }
 
                 that.options.columns[i][j] = column;
@@ -1268,7 +1257,7 @@
                     }
 
                     var key = $.isNumeric(that.header.fields[j]) ? parseInt(that.header.fields[j], 10) : that.header.fields[j];
-                    var column = that.columns[getFieldIndex(that.columns, key)];
+                    var column = that.columns[that.fieldsColumnsIndex[key]];
                     var value;
 
                     if (typeof key === 'string') {
@@ -1861,7 +1850,7 @@
                 index = $td[0].cellIndex,
                 fields = that.getVisibleFields(),
                 field = fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
-                column = that.columns[getFieldIndex(that.columns, field)],
+                column = that.columns[that.fieldsColumnsIndex[field]],
                 value = getItemField(item, field, that.options.escape);
 
             if ($td.find('.detail-icon').length) {
@@ -2326,7 +2315,7 @@
             visibleFields = [];
 
         $.each(this.header.fields, function (j, field) {
-            var column = that.columns[getFieldIndex(that.columns, field)];
+            var column = that.columns[that.fieldsColumnsIndex[field]];
 
             if (!column.visible) {
                 return;
@@ -2824,11 +2813,11 @@
     };
 
     BootstrapTable.prototype.showColumn = function (field) {
-        this.toggleColumn(getFieldIndex(this.columns, field), true, true);
+        this.toggleColumn(this.fieldsColumnsIndex[field], true, true);
     };
 
     BootstrapTable.prototype.hideColumn = function (field) {
-        this.toggleColumn(getFieldIndex(this.columns, field), false, true);
+        this.toggleColumn(this.fieldsColumnsIndex[field], false, true);
     };
 
     BootstrapTable.prototype.getHiddenColumns = function () {
@@ -3091,7 +3080,6 @@
     $.fn.bootstrapTable.methods = allowedMethods;
     $.fn.bootstrapTable.utils = {
         sprintf: sprintf,
-        getFieldIndex: getFieldIndex,
         compareObjects: compareObjects,
         calculateObjectValue: calculateObjectValue,
         getItemField: getItemField,
