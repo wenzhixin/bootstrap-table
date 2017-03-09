@@ -163,6 +163,7 @@
 
     $.extend($.fn.bootstrapTable.defaults, {
         showMultiSort: false,
+        showMultiSortButton: true,
         sortPriority: null,
         onMultipleSort: function() {
             return false;
@@ -238,7 +239,7 @@
             var $btnGroup = this.$toolbar.find('>.btn-group').first(),
                 $multiSortBtn = this.$toolbar.find('div.multi-sort');
 
-            if (!$multiSortBtn.length) {
+            if (!$multiSortBtn.length && this.options.showMultiSortButton) {
                 $multiSortBtn = '  <button class="multi-sort btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" data-toggle="modal" data-target="' + sortModalId + '" title="' + this.options.formatMultipleSort() + '">';
                 $multiSortBtn += '     <i class="' + this.options.iconsPrefix + ' ' + this.options.icons.sort + '"></i>';
                 $multiSortBtn += '</button>';
