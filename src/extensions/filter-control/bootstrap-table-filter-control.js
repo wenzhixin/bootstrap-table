@@ -467,7 +467,12 @@
             return 'Clear Filters';
         }
     });
+
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+
+    $.extend($.fn.bootstrapTable.methods, [
+        'triggerSearch'
+    ]);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
@@ -693,5 +698,19 @@
                 }
             }, that.options.searchTimeOut);
         }
+    };
+
+    BootstrapTable.prototype.triggerSearch = function () {
+        var header = getCurrentHeader(this),
+            searchControls = getCurrentSearchControls(this);
+
+        header.find(searchControls).each(function () {
+            var el = $(this);
+            if(el.is('select')) {
+                el.change();
+            } else {
+                el.keyup();
+            }
+        });
     };
 })(jQuery);

@@ -84,3 +84,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### onColumnSearch(column-search.bs.table)
 
 * Fired when we are searching into the column data
+
+## Methods
+
+### triggerSearch
+
+* Trigger manually the search action
