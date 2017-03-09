@@ -149,7 +149,7 @@
         <td>data-cache</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>设置为 <code>true</code> 禁用 AJAX 数据缓存</td>
+        <td>设置为 <code>false</code> 禁用 AJAX 数据缓存</td>
     </tr>
     <tr>
         <td>contentType</td>

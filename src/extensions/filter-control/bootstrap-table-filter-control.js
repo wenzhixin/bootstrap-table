@@ -199,7 +199,7 @@
             that.pageTo;
 
         $.each(that.header.fields, function (j, field) {
-            var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
+            var column = that.columns[that.fieldsColumnsIndex[field]],
                 selectControl = $('.bootstrap-table-filter-control-' + escapeID(column.field));
 
             if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
@@ -525,7 +525,7 @@
 
             if (!$btnClear.length) {
                 $btnClear = $([
-                    '<button class="btn btn-default filter-show-clear" ',
+                    sprintf('<button class="btn btn-%s filter-show-clear" ', this.options.buttonsClass),
                     sprintf('type="button" title="%s">', this.options.formatClearFilters()),
                     sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
                     '</button>'
@@ -564,7 +564,7 @@
         //Check partial column filter
         this.data = fp ? $.grep(this.data, function (item, i) {
             for (var key in fp) {
-                var thisColumn = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, key)];
+                var thisColumn = that.columns[that.fieldsColumnsIndex[key]];
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
 

@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.1.0
+ * @version: v2.1.1
  */
 
 (function ($) {
@@ -10,6 +10,24 @@
 
     var sprintf = $.fn.bootstrapTable.utils.sprintf,
         objectKeys = $.fn.bootstrapTable.utils.objectKeys;
+
+    var getOptionsFromSelectControl = function (selectControl) {
+        return selectControl.get(selectControl.length - 1).options;
+    };
+
+    var hideUnusedSelectOptions = function (selectControl, uniqueValues) {
+        var options = getOptionsFromSelectControl(selectControl);
+
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value !== "") {
+                if (!uniqueValues.hasOwnProperty(options[i].value)) {
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).hide();
+                } else {
+                    selectControl.find(sprintf("option[value='%s']", options[i].value)).show();
+                }
+            }
+        }
+    };
 
     var addOptionToSelectControl = function (selectControl, value, text) {
         value = $.trim(value);
@@ -39,7 +57,7 @@
     };
 
     var existOptionInSelectControl = function (selectControl, value) {
-        var options = selectControl.get(selectControl.length - 1).options;
+        var options = getOptionsFromSelectControl(selectControl);
         for (var i = 0; i < options.length; i++) {
             if (options[i].value === value.toString()) {
                 //The value is not valid to add
@@ -161,7 +179,7 @@
     };
 
     var initFilterSelectControls = function (that) {
-        var data = that.options.data,
+        var data = that.data,
             itemsPerPage = that.pageTo < that.options.data.length ? that.options.data.length : that.pageTo,
 
             isColumnSearchableViaSelect = function (column) {
@@ -198,18 +216,23 @@
 
                     uniqueValues[formattedValue] = fieldValue;
                 }
+
                 for (var key in uniqueValues) {
                     addOptionToSelectControl(selectControl, uniqueValues[key], key);
                 }
 
                 sortSelectControl(selectControl);
+
+                if (that.options.hideUnusedSelectOptions) {
+                    hideUnusedSelectOptions(selectControl, uniqueValues);
+                }
             }
         });
     };
 
-    var escapeID = function( id ) {
+    var escapeID = function(id) {
        return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
-   };
+    };
 
     var createControls = function (that, header) {
         var addedFilterControl = false,
@@ -226,15 +249,15 @@
             }
 
             if (!column.filterControl) {
-                html.push('<div style="height: 34px;"></div>');
+                html.push('<div class="no-filter-control"></div>');
             } else {
-                html.push('<div style="margin: 0 2px 2px 2px;" class="filterControl">');
+                html.push('<div class="filter-control">');
 
                 var nameControl = column.filterControl.toLowerCase();
                 if (column.searchable && that.options.filterTemplate[nameControl]) {
                     addedFilterControl = true;
                     isVisible = 'visible';
-                    html.push(that.options.filterTemplate[nameControl](that, column.field, isVisible));
+                    html.push(that.options.filterTemplate[nameControl](that, column.field, isVisible, column.filterControlPlaceholder));
                 }
             }
 
@@ -332,6 +355,7 @@
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
                         header.find('.date-filter-control.bootstrap-table-filter-control-' + column.field).datepicker(column.filterDatepickerOptions)
                             .on('changeDate', function (e) {
+                                $(sprintf(".%s", e.currentTarget.classList.toString().split(" ").join("."))).val(e.currentTarget.value);
                                 //Fired the keyup event
                                 $(e.currentTarget).keyup();
                             });
@@ -406,8 +430,8 @@
         filterShowClear: false,
         alignmentSelectControlOptions: undefined,
         filterTemplate: {
-            input: function (that, field, isVisible) {
-                return sprintf('<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">', field, isVisible);
+            input: function (that, field, isVisible, placeholder) {
+                return sprintf('<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" placeholder="%s">', field, isVisible, placeholder);
             },
             select: function (that, field, isVisible) {
                 return sprintf('<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" dir="%s"></select>',
@@ -426,7 +450,8 @@
         filterData: undefined,
         filterDatepickerOptions: undefined,
         filterStrictSearch: false,
-        filterStartsWithSearch: false
+        filterStartsWithSearch: false,
+        filterControlPlaceholder: ""
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {

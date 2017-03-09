@@ -31,6 +31,39 @@
         },
         formatClearFilters: function () {
             return 'Очистить фильтры';
+        },
+        formatMultipleSort: function () {
+            return 'Множественная сортировка';
+        },
+        formatAddLevel: function () {
+            return 'Добавить уровень';
+        },
+        formatDeleteLevel: function () {
+            return 'Удалить уровень';
+        },
+        formatColumn: function () {
+            return 'Колонка';
+        },
+        formatOrder: function () {
+            return 'Порядок';
+        },
+        formatSortBy: function () {
+            return 'Сортировать по';
+        },
+        formatThenBy: function () {
+            return 'затем по';
+        },
+        formatSort: function () {
+            return 'Сортировать';
+        },
+        formatCancel: function () {
+            return 'Отмена';
+        },
+        formatDuplicateAlertTitle: function () {
+            return 'Дублирование колонок!';
+        },
+        formatDuplicateAlertDescription: function () {
+            return 'Удалите, пожалуйста, дублирующую колонку, или замените ее на другую.';
         }
     };
 

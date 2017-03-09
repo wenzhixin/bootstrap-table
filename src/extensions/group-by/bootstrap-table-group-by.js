@@ -32,7 +32,7 @@
             if (!row.IsParent) {
                 for (var prop in row) {
                     if (!isNaN(parseFloat(row[prop]))) {
-                        if (that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, prop)].groupBySumGroup) {
+                        if (that.columns[that.fieldsColumnsIndex[prop]].groupBySumGroup) {
                             if (sumRow[prop] === undefined) {
                                 sumRow[prop] = 0;
                             }
