@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.2.2
+ * @version: v1.2.3
  *
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
@@ -320,7 +320,9 @@
         }
 
         if ((this.options.cookieIdTable === '') || (this.options.cookieExpire === '') || (!cookieEnabled())) {
-            throw new Error("Configuration error. Please review the cookieIdTable, cookieExpire properties, if those properties are ok, then this browser does not support the cookies");
+            console.error("Configuration error. Please review the cookieIdTable, cookieExpire properties, if those properties are ok, then this browser does not support the cookies");
+            this.options.cookie = false; //Make sure that the cookie extension is disabled
+            return;
         }
 
         var sortOrderCookie = getCookie(this, this.options.cookieIdTable, cookieIds.sortOrder),
