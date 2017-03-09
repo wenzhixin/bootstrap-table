@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.1.1
+ * @version: v2.1.2
  */
 
 (function ($) {
@@ -441,6 +441,7 @@
                 return sprintf('<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">', field, isVisible);
             }
         },
+        disableControlWhenSearch: false,
         //internal variables
         valuesFilterControl: []
     });
@@ -467,7 +468,12 @@
             return 'Clear Filters';
         }
     });
+
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+
+    $.extend($.fn.bootstrapTable.methods, [
+        'triggerSearch'
+    ]);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
@@ -509,6 +515,10 @@
                 }
             }).on('column-switch.bs.table', function() {
                 setValues(that);
+            }).on('load-success.bs.table', function() {
+                that.EnableControls(true);
+            }).on('load-error.bs.table', function() {
+                that.EnableControls(true);
             });
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
@@ -638,6 +648,7 @@
         this.searchText += "randomText";
 
         this.options.pageNumber = 1;
+        this.EnableControls(false);
         this.onSearch(event);
         this.trigger('column-search', $field, text);
     };
@@ -692,6 +703,33 @@
                     });
                 }
             }, that.options.searchTimeOut);
+        }
+    };
+
+    BootstrapTable.prototype.triggerSearch = function () {
+        var header = getCurrentHeader(this),
+            searchControls = getCurrentSearchControls(this);
+
+        header.find(searchControls).each(function () {
+            var el = $(this);
+            if(el.is('select')) {
+                el.change();
+            } else {
+                el.keyup();
+            }
+        });
+    };
+
+    BootstrapTable.prototype.EnableControls = function(enable) {
+        if((this.options.disableControlWhenSearch) && (this.options.sidePagination === 'server')) {
+            var header = getCurrentHeader(this),
+            searchControls = getCurrentSearchControls(this);
+
+            if(!enable) {
+                header.find(searchControls).prop('disabled', 'disabled');
+            } else {
+                header.find(searchControls).removeProp('disabled');
+            }
         }
     };
 })(jQuery);
