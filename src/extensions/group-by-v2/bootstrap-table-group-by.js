@@ -38,6 +38,12 @@
 
         return groups;
     };
+	
+	Object.resolve = function(path, obj) {
+        return path.split('.').reduce(function(prev, curr) {
+            return prev ? prev[curr] : undefined
+        }, obj || self)
+    }
 
     $.extend($.fn.bootstrapTable.defaults, {
         groupBy: false,
@@ -59,13 +65,19 @@
 
             if ((this.options.sortName != this.options.groupByField)) {
                 this.data.sort(function(a, b) {
-                    return a[that.options.groupByField].localeCompare(b[that.options.groupByField]);
+                    if (Object.resolve(that.options.groupByField,a) < Object.resolve(that.options.groupByField,b)) return -1;
+                    if (Object.resolve(that.options.groupByField,a) > Object.resolve(that.options.groupByField,b)) return 1;
+
+                    if (a[that.options.sortName] < b[that.options.sortName]) return order * -1;
+                    if (a[that.options.sortName] > b[that.options.sortName]) return order * 1;
+
+                    return 0;
                 });
             }
 
             var that = this;
             var groups = groupBy(that.data, function (item) {
-                return [item[that.options.groupByField]];
+                return [Object.resolve(that.options.groupByField,item)];
             });
 
             var index = 0;

@@ -2170,7 +2170,7 @@
         var visibleFields = this.getVisibleFields(),
             $ths = this.$header_.find('th');
 
-        this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i) {
+        this.$body.find('>tr:not(.no-records-found):not(.groupBy)').first().find('> *').each(function (i) {
             var $this = $(this),
                 index = i;
 
