@@ -161,6 +161,8 @@
         }
     };
 
+    $.fn.bootstrapTable.methods.push('multipleSort');
+
     $.extend($.fn.bootstrapTable.defaults, {
         showMultiSort: false,
         showMultiSortButton: true,
@@ -263,12 +265,6 @@
                 }
             });
 
-            this.$el.on('force-multiple-sort.bs.table', function() {
-                if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
-                    that.onMultipleSort();
-                }
-            });
-
             this.$el.on('column-switch.bs.table', function(field, checked) {
                 for (var i = 0; i < that.options.sortPriority.length; i++) {
                     if (that.options.sortPriority[i].sortName === checked) {
@@ -286,6 +282,13 @@
                     that.assignSortableArrows();
                 }
             });
+        }
+    };
+
+    BootstrapTable.prototype.multipleSort = function() {
+        var that = this;
+        if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
+            that.onMultipleSort();
         }
     };
 
