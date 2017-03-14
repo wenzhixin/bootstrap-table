@@ -10,16 +10,19 @@
       return 'Lade, bitte warten...';
     },
     formatRecordsPerPage: function (pageNumber) {
-      return pageNumber + ' Einträge pro Seite';
+      return pageNumber + ' Einträge pro Seite.';
     },
     formatShowingRows: function (pageFrom, pageTo, totalRows) {
-      return 'Zeige ' + pageFrom + ' bis ' + pageTo + ' von ' + totalRows + ' Zeile' + ((totalRows > 1) ? "n" : "");
+      return 'Zeige Zeile ' + pageFrom + ' bis ' + pageTo + ' von ' + totalRows + ' Zeile' + ((totalRows > 1) ? "n" : "")+".";
+    },
+    formatDetailPagination: function (totalRows) {
+      return 'Zeige ' + totalRows + ' Zeile' + ((totalRows > 1) ? "n" : "")+".";
     },
     formatSearch: function () {
-      return 'Suchen';
+      return 'Suchen ...';
     },
     formatNoMatches: function () {
-      return 'Keine passenden Ergebnisse gefunden';
+      return 'Keine passenden Ergebnisse gefunden.';
     },
     formatRefresh: function () {
       return 'Neu laden';
@@ -29,6 +32,9 @@
     },
     formatColumns: function () {
       return 'Spalten';
+    },
+    formatAllRows: function () {
+      return 'Alle';
     }
   };
 

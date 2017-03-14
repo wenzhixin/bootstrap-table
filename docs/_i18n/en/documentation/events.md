@@ -1,4 +1,4 @@
-# Events []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/events.md)
+# Events []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/events.md)
 
 ---
 
@@ -44,21 +44,23 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <tr>
         <td>onClickRow</td>
         <td>click-row.bs.table</td>
-        <td>row, $element</td>
+        <td>row, $element, field</td>
         <td>
         Fires when user click a row, the parameters contain: <br>
         row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        $element: the tr element, <br>
+        field: the field name corresponding to the clicked cell.
         </td>
     </tr>
     <tr>
         <td>onDblClickRow</td>
         <td>dbl-click-row.bs.table</td>
-        <td>row, $element</td>
+        <td>row, $element, field</td>
         <td>
         Fires when user double click a row, the parameters contain: <br>
         row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        $element: the tr element, <br>
+        field: the field name corresponding to the clicked cell.
         </td>
     </tr>
     <tr>
@@ -236,6 +238,12 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
         <td>reset-view.bs.table</td>
         <td></td>
         <td>Fires when reset view of the table.</td>
+    </tr>
+    <tr>
+       <td>onRefresh</td>
+       <td>refresh.bs.table</td>
+       <td>params</td>
+       <td>Fires after the click the refresh button.</td>
     </tr>
     </tbody>
 </table>

@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.10.1
+ * version: 1.11.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -23,6 +23,10 @@
 .bootstrap-table .table.table-no-bordered > thead > tr > th,
 .bootstrap-table .table.table-no-bordered > tbody > tr > td {
     border-right: 2px solid transparent;
+}
+
+.bootstrap-table .table.table-no-bordered > tbody > tr > td:last-child {
+    border-right: none;
 }
 
 .fixed-table-container {
@@ -192,7 +196,7 @@
     line-height: 1.428571429;
 }
 
-.fixed-table-toolbar .bars,
+.fixed-table-toolbar .bs-bars,
 .fixed-table-toolbar .search,
 .fixed-table-toolbar .columns {
     position: relative;
@@ -281,7 +285,7 @@
     padding: 0 !important;
 }
 
-.pull-right .dropdown-menu {
+.bootstrap-table .pull-right .dropdown-menu {
     right: 0;
     left: auto;
 }
@@ -299,4 +303,11 @@ div.fixed-table-scroll-outer {
     width: 200px;
     height: 150px;
     overflow: hidden;
+}
+
+/* for get correct heights  */
+.fixed-table-toolbar:after, .fixed-table-pagination:after {
+    content: "";
+    display: block;
+    clear: both;
 }

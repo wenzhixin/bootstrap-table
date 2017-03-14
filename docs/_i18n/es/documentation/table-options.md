@@ -1,4 +1,4 @@
-# Table options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
+# Table options []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
 
 ---
 
@@ -35,6 +35,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>El nombre de la clase de la tabla.</td>
     </tr>
     <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>El nombre de la clase de los elementos td que están ordenados.</td>
+    </tr>
+    <tr>
         <td>height</td>
         <td>data-height</td>
         <td>Number</td>
@@ -68,6 +75,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>String</td>
         <td>'asc'</td>
         <td>Define el método de ordenamiento, solo puede ser 'asc' o 'desc'.</td>
+    </tr>
+    <tr>
+        <td>sortStable</td>
+        <td>data-sort-stable</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to get a stable sorting. We will add <code>_position</code> property to the row.</td>
     </tr>
     <tr>
         <td>iconsPrefix</td>
@@ -180,6 +194,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Boolean</td>
         <td>false</td>
         <td>True para mostrar la paginación al final de la tabla.</td>
+    </tr>
+    <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to enable pagination continuous loop mode.</td>
     </tr>
     <tr>
         <td>onlyInfoPagination</td>
@@ -498,7 +519,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
             Example usage:<br>
             <pre>
             function customSearch(text) {
-                //Search logic here. 
+                //Search logic here.
                 //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
             }
             </pre>
@@ -516,7 +537,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
             Example usage:<br>
             <pre>
             function customSort(sortName, sortOrder) {
-                //Sort logic here. 
+                //Sort logic here.
                 //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
             }
             </pre>

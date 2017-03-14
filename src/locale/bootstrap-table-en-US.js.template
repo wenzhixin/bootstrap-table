@@ -35,6 +35,12 @@
         },
         formatAllRows: function () {
             return 'All';
+        },
+        formatExport: function () {
+            return 'Export data';
+        },
+        formatClearFilters: function () {
+            return 'Clear filters';
         }
     };
 

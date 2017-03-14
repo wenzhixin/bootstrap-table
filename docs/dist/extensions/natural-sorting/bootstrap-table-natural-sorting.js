@@ -29,8 +29,18 @@ function alphanum(a, b) {
     return tz;
   }
 
-  var aa = chunkify(a);
-  var bb = chunkify(b);
+  function stringfy(v) {
+    if (typeof(v) === "number") {
+      v = "" + v;
+    }
+    if (!v) {
+      v = "";
+    }
+    return v;
+  }
+
+  var aa = chunkify(stringfy(a));
+  var bb = chunkify(stringfy(b));
 
   for (x = 0; aa[x] && bb[x]; x++) {
     if (aa[x] !== bb[x]) {

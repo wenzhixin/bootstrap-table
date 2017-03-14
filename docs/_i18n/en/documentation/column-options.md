@@ -1,4 +1,4 @@
-# Column options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/column-options.md)
+# Column options []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/column-options.md)
 
 ---
 
@@ -53,7 +53,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>data-title-tooltip</td>
         <td>String</td>
         <td>undefined</td>
-        <td>The column title tooltip text. This option also support the title HTML attribute</td>
+        <td>The column title tooltip text. This option also support the title HTML attribute.</td>
     </tr>
     <tr>
         <td>class</td>
@@ -152,7 +152,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>data-click-to-select</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>True to select checkbox or radiobox when the column is clicked.</td>
+        <td>True to select checkbox or radio when the column is clicked.</td>
     </tr>
     <tr>
         <td>formatter</td>
@@ -183,12 +183,12 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>Object</td>
         <td>undefined</td>
         <td>
-        The cell events listener when you use formatter function, take three parameters: <br>
+        The cell events listener when you use formatter function, take four parameters: <br>
         event: the jQuery event. <br>
         value: the field value. <br>
         row: the row record data.<br>
         index: the row index. <br>
-        Example code: 
+        Example code:
         <code>&lt;th .. data-events="operateEvent"&gt;</code>
         <code>var operateEvents = {'click .like': function (e, value, row, index) {}};</code>
         </td>
@@ -224,9 +224,10 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         value: the field value.<br>
         row: the row record data.<br>
         index: the row index.<br>
+        field: the row field.<br>
         Support classes or css. Example usage:<br>
 <pre>
-function cellStyle(value, row, index) {
+function cellStyle(value, row, index, field) {
   return {
     classes: 'text-nowrap another-class',
     css: {"color": "blue", "font-size": "50px"}
@@ -251,6 +252,15 @@ function cellStyle(value, row, index) {
         <td>true</td>
         <td>
         True to search use formated data.
+        </td>
+    </tr>
+    <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>
+        Escapes a string for insertion into HTML, replacing &, <, >, ", `, and ' characters.
         </td>
     </tr>
 </tbody>

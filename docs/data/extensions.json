@@ -85,6 +85,23 @@
         }
     },
     {
+      "name": "Copy Rows",
+      "version": "1.0.0",
+      "description": "Allows pushing of selected column data to the clipboard.",
+      "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/copy-rows",
+      "example": "http://issues.wenzhixin.net.cn/bootstrap-table/#extensions/copy-rows.html",
+
+      "plugins": [{
+        "name": "copy-rows",
+        "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/copy-rows"
+        }],
+
+        "author": {
+            "name": "Homer Glascock",
+            "image": "https://avatars1.githubusercontent.com/u/5546710"
+        }
+    },
+    {
         "name": "Filter Control",
         "version": "1.0.0",
         "description": "Plugin to add input/select element on the top of the columns in order to filter the data.",
@@ -230,6 +247,23 @@
         "author": {
             "name": "dimbslmh",
             "image": "https://avatars1.githubusercontent.com/u/745635"
+        }
+    },
+    {
+        "name": "Multi Column Toggle",
+        "version": "1.0.0",
+        "description": "Allows allows hiding and showing of multiple columns at once.",
+        "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/multi-column-toggle",
+        "example": "http://issues.wenzhixin.net.cn/bootstrap-table/#extensions/multi-column-toggle.html",
+
+        "plugins": [{
+            "name": "multi-column-toggle",
+            "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/multi-column-toggle"
+        }],
+
+        "author": {
+            "name": "Homer Glascock",
+            "image": "https://avatars1.githubusercontent.com/u/5546710"
         }
     },
     {

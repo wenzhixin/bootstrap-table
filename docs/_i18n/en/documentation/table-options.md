@@ -1,4 +1,4 @@
-# Table options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
+# Table options []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
 
 ---
 
@@ -35,6 +35,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>The class name of table. By default, the table is bordered, you can add 'table-no-bordered' to remove table-bordered style.</td>
     </tr>
     <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>The class name of the td elements which are sorted.</td>
+    </tr>
+    <tr>
         <td>height</td>
         <td>data-height</td>
         <td>Number</td>
@@ -60,7 +67,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-sort-name</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Defines which column can be sorted.</td>
+        <td>Defines which column will be sorted.</td>
     </tr>
     <tr>
         <td>sortOrder</td>
@@ -70,18 +77,33 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Defines the column sort order, can only be 'asc' or 'desc'.</td>
     </tr>
     <tr>
+        <td>sortStable</td>
+        <td>data-sort-stable</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to get a stable sorting. We will add <code>_position</code> property to the row.</td>
+    </tr>
+    <tr>
+        <td>rememberOrder</td>
+        <td>data-remember-order</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>Set <code>true</code> remember the order for each column.</td>
+    </tr>
+    <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
         <td>'glyphicon'</td>
         <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
     </tr>
-     <tr>
+    <tr>
         <td>iconSize</td>
         <td>data-icon-size</td>
         <td>String</td>
         <td>undefined</td>
         <td>Defines icon size: <ul><li>undefined => btn</li><li>xs => btn-xs</li><li>sm => btn-sm</li><li>lg => btn-lg</li></ul>
+        </td>
     </tr>
     <tr>
         <td>buttonsClass</td>
@@ -129,11 +151,18 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Key in incoming json containing rows data list.</td>
     </tr>
     <tr>
+        <td>totalField</td>
+        <td>data-total-field</td>
+        <td>String</td>
+        <td>'total'</td>
+        <td>Key in incoming json containing  "total" data .</td>
+    </tr>
+    <tr>
         <td>ajax</td>
         <td>data-ajax</td>
         <td>Function</td>
         <td>undefined</td>
-        <td>A method to replace ajax call. Should implement the same API as jQuery ajax method</td>
+        <td>A method to replace ajax call. Should implement the same API as jQuery ajax method.</td>
     </tr>
     <tr>
         <td>method</td>
@@ -224,6 +253,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to show a pagination toolbar on table bottom.</td>
     </tr>
     <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>True to enable pagination continuous loop mode.</td>
+    </tr>
+    <tr>
         <td>onlyInfoPagination</td>
         <td>data-only-info-pagination</td>
         <td>Boolean</td>
@@ -264,8 +300,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>pageList</td>
         <td>data-page-list</td>
         <td>Array</td>
-        <td>[10, 25, 50, 100, All]</td>
-        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table</td>
+        <td>[10, 25, 50, 100]</td>
+        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table.</td>
     </tr>
     <tr>
         <td>selectItemName</td>
@@ -344,7 +380,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-show-footer</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>If true shows summary footer row</td>
+        <td>True to show the summary footer row.</td>
     </tr>
     <tr>
         <td>showColumns</td>
@@ -419,6 +455,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Format your detail view when <code>detailView</code> is set to <code>true</code>. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</td>
     </tr>
     <tr>
+        <td>detailFilter</td>
+        <td>data-detail-filter</td>
+        <td>Function</td>
+        <td>function(index, row) {<br>return true;<br>}</td>
+        <td>Enable expansion per row when <code>detailView</code> is set to <code>true</code>. Return <code>true</code> and the row will be enabled for expansion, return <code>false</code> and expansion for the row will be disabled. Default function returns <code>true</code> to enable expansion for all rows.</td>
+    </tr>
+    <tr>
         <td>searchAlign</td>
         <td>data-search-align</td>
         <td>String</td>
@@ -464,14 +507,14 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>paginationPreText</td>
         <td>data-pagination-pre-text</td>
         <td>String</td>
-        <td>'&lt;'</td>
+        <td>'&lsaquo;'</td>
         <td>Indicate the icon or text to be shown in the pagination detail, the previous button.</td>
     </tr>
     <tr>
         <td>paginationNextText</td>
         <td>data-pagination-next-text</td>
         <td>String</td>
-        <td>'&gt;'</td>
+        <td>'&rsaquo;'</td>
         <td>Indicate the icon or text to be shown in the pagination detail, the next button.</td>
     </tr>
     <tr>
@@ -537,7 +580,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         index: the row index.<br>
         Support classes or css. Example usage:<br>
 <pre>
-function rowStyle(value, row, index) {
+function rowStyle(row, index) {
   return {
     classes: 'text-nowrap another-class',
     css: {"color": "blue", "font-size": "50px"}
@@ -569,7 +612,7 @@ function rowStyle(value, row, index) {
         Example usage:<br>
         <pre>
         function customSearch(text) {
-            //Search logic here. 
+            //Search logic here.
             //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
         }
         </pre>
@@ -587,7 +630,7 @@ function rowStyle(value, row, index) {
         Example usage:<br>
         <pre>
         function customSort(sortName, sortOrder) {
-            //Sort logic here. 
+            //Sort logic here.
             //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
         }
         </pre>
@@ -596,7 +639,7 @@ function rowStyle(value, row, index) {
      <tr>
         <td>locale</td>
         <td>data-locale</td>
-        <td>string</td>
+        <td>String</td>
         <td>undefined</td>
         <td>
         Sets the locale to use (i.e. <code>'fr-CA'</code>). Locale files must be pre-loaded.
@@ -611,6 +654,25 @@ function rowStyle(value, row, index) {
         If left undfined or an empty string, uses the last locale loaded (or <code>'en-US'</code>
         if no locale files loaded).
         </td>
+    </tr>
+    <tr>
+	<td>footerStyle</td>
+	<td>data-footer-style</td>
+	<td>Function</td>
+	<td>{}</td>
+	<td>
+	        The footer style formatter function, takes two parameters: <br>
+	        row: the row record data.<br>
+	        index: the row index.<br>
+	        Support classes or css. Example usage:<br>
+		<pre>
+		function footerStyle(value, row, index) {
+		  return {
+		    css: { "font-weight": "bold" }
+		  };
+		}
+		</pre>
+	</td>
     </tr>
    </tbody>
 </table>
