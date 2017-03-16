@@ -58,7 +58,10 @@
     BootstrapTable.prototype.initSort = function () {
         _initSort.apply(this, Array.prototype.slice.apply(arguments));
 
-        var that = this;
+        var that = this,
+            order = this.options.sortOrder === 'desc' ? -1 : 1;
+        
+        
         tableGroups = [];
 
         if ((this.options.groupBy) && (this.options.groupByField !== '')) {
