@@ -446,7 +446,7 @@
         valuesFilterControl: []
     });
 
-    $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
+    $.extend($.fn.bootstrapTable.columnDefaults, {
         filterControl: undefined,
         filterData: undefined,
         filterDatepickerOptions: undefined,
