@@ -41,7 +41,7 @@
         });
         return result;
     };
-    
+
     // http://jsfiddle.net/wenyi/47nz7ez9/3/
     var setFieldIndex = function (columns) {
         var i, j, k,
@@ -2155,7 +2155,6 @@
             .html('').attr('class', this.$el.attr('class'))
             .append(this.$header_);
 
-
         focusedTemp = $('.focus-temp:visible:eq(0)');
         if (focusedTemp.length > 0) {
             focusedTemp.focus();
@@ -2188,16 +2187,9 @@
 
             $th.find('.fht-cell').width($this.innerWidth());
         });
-        // horizontal scroll event
-        // TODO: it's probably better improving the layout than binding to scroll event
-        this.$tableBody.off('scroll').on('scroll', function () {
-            that.$tableHeader.scrollLeft($(this).scrollLeft());
 
-            if (that.options.showFooter && !that.options.cardView) {
-                that.$tableFooter.scrollLeft($(this).scrollLeft());
-            }
-        });
-        that.trigger('post-header');
+        this.horizontalScroll();
+        this.trigger('post-header');
     };
 
     BootstrapTable.prototype.resetFooter = function () {
@@ -2284,6 +2276,23 @@
             var $this = $(this);
 
             $footerTd.eq(i).find('.fht-cell').width($this.innerWidth());
+        });
+
+        this.horizontalScroll();
+    };
+
+    BootstrapTable.prototype.horizontalScroll = function () {
+        var that = this;
+        // horizontal scroll event
+        // TODO: it's probably better improving the layout than binding to scroll event
+        this.$tableBody.off('scroll').on('scroll', function () {
+            if (that.options.showHeader && that.options.height) {
+              that.$tableHeader.scrollLeft($(this).scrollLeft());
+            }
+
+            if (that.options.showFooter && !that.options.cardView) {
+                that.$tableFooter.scrollLeft($(this).scrollLeft());
+            }
         });
     };
 
@@ -2807,7 +2816,7 @@
         if (this.options.showHeader && this.options.height) {
             this.fitHeader();
         }
-        if (this.options.showFooter) {
+        if (this.options.showFooter && !that.options.cardView) {
             this.fitFooter();
         }
     };
