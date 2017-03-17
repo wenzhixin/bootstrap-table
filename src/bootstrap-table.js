@@ -931,7 +931,7 @@
         if (index !== -1) {
             if (this.options.sortStable) {
                 $.each(this.data, function (i, row) {
-                    if (!row.hasOwnProperty('_position')) row._position = i;
+                    row._position = i;
                 });
             }
 
@@ -944,6 +944,9 @@
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
+                    if (that.options.sortStable && value === 0) {
+                        return a._position - b._position;
+                    }
                     return order * value;
                 }
 
@@ -958,6 +961,7 @@
                 if (that.options.sortStable && aa === bb) {
                     aa = a._position;
                     bb = b._position;
+                    return a._position - b._position;
                 }
 
                 // IF both values are numeric, do a numeric comparison
