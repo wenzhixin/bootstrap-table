@@ -2553,7 +2553,7 @@
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
         }
-        this.data.splice(params.index, 0, params.row);
+        this.options.data.splice(params.index, 0, params.row);
         this.initSearch();
         this.initPagination();
         this.initSort();
