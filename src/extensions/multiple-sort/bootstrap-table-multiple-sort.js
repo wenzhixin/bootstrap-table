@@ -161,8 +161,11 @@
         }
     };
 
+    $.fn.bootstrapTable.methods.push('multipleSort');
+
     $.extend($.fn.bootstrapTable.defaults, {
         showMultiSort: false,
+        showMultiSortButton: true,
         sortPriority: null,
         onMultipleSort: function() {
             return false;
@@ -240,7 +243,7 @@
             var $btnGroup = this.$toolbar.find('>.btn-group').first(),
                 $multiSortBtn = this.$toolbar.find('div.multi-sort');
 
-            if (!$multiSortBtn.length) {
+            if (!$multiSortBtn.length && this.options.showMultiSortButton) {
                 $multiSortBtn = '  <button class="multi-sort btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" data-toggle="modal" data-target="' + sortModalId + '" title="' + this.options.formatMultipleSort() + '">';
                 $multiSortBtn += '     <i class="' + this.options.iconsPrefix + ' ' + this.options.icons.sort + '"></i>';
                 $multiSortBtn += '</button>';
@@ -281,6 +284,13 @@
                     that.assignSortableArrows();
                 }
             });
+        }
+    };
+
+    BootstrapTable.prototype.multipleSort = function() {
+        var that = this;
+        if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
+            that.onMultipleSort();
         }
     };
 
