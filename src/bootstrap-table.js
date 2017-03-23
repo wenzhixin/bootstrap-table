@@ -1865,18 +1865,23 @@
             that.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
             that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
 
+            // if click to select then row which is clicking background is changing
+            if(e.type === 'click'){
+                if(that.options.singleSelect){
+                    that.$selectItem.closest('tr').find('td').css({'background-color':'white'});
+                }
+                if($(this).closest('tr').hasClass('selected')){ //judge the node is or not contain selected class
+                    $(this).closest('tr').find('td').css({'background':'white'});
+                }else{
+                    $(this).closest('tr').find('td').css({'background':that.options.clickToSelectColor});
+                }
+            }
+            
             // if click to select - then trigger the checkbox/radio click
             if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
                 var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
                 if ($selectItem.length) {
                     $selectItem[0].click(); // #144: .trigger('click') bug
-                }
-            }
-            // if click to select then row which is clicking background is changing
-            if(e.type === 'click'){
-                $(this).closest('tr').find('td').css({'background':that.options.clickToSelectColor});
-                if(that.options.singleSelect){
-                    that.$selectItem.closest('tr').find('td').css({'background-color':'white'});
                 }
             }
         });
