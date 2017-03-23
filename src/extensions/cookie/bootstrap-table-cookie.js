@@ -113,7 +113,7 @@
 
     var deleteCookie = function (that, tableName, cookieName) {
         cookieName = tableName + '.' + cookieName;
-        
+
         switch(that.options.cookieStorage) {
             case 'cookieStorage':
                 document.cookie = [
@@ -355,33 +355,39 @@
     };
 
     BootstrapTable.prototype.onPageNumber = function () {
-        _onPageNumber.apply(this, Array.prototype.slice.apply(arguments));
+        var ret = _onPageNumber.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return ret;
     };
 
     BootstrapTable.prototype.onPageListChange = function () {
-        _onPageListChange.apply(this, Array.prototype.slice.apply(arguments));
+        var ret = _onPageListChange.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageList, this.options.pageSize);
+        return ret;
     };
 
     BootstrapTable.prototype.onPageFirst = function () {
-        _onPageFirst.apply(this, Array.prototype.slice.apply(arguments));
+        var ret = _onPageFirst.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return ret;
     };
 
     BootstrapTable.prototype.onPagePre = function () {
-        _onPagePre.apply(this, Array.prototype.slice.apply(arguments));
+        var ret = _onPagePre.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return ret;
     };
 
     BootstrapTable.prototype.onPageNext = function () {
-        _onPageNext.apply(this, Array.prototype.slice.apply(arguments));
+        var ret = _onPageNext.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return ret;
     };
 
     BootstrapTable.prototype.onPageLast = function () {
-        _onPageLast.apply(this, Array.prototype.slice.apply(arguments));
+        var ret = _onPageLast.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return ret;
     };
 
     BootstrapTable.prototype.toggleColumn = function () {
