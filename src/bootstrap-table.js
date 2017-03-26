@@ -1683,7 +1683,7 @@
                 column = that.columns[j];
 
             if (that.fromHtml && typeof value_ === 'undefined') {
-                if(!column.checkbox && !column.radio) {
+                if((!column.checkbox) && (!column.radio)) {
                     return;
                 }
             }
