@@ -298,8 +298,8 @@
         paginationLoop: true,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
-        footerValues: null,
-        footerValuesField: null,
+        footerValues: false,
+        footerValuesField: false,
         pageNumber: 1,
         pageSize: 10,
         pageList: [10, 25, 50, 100],
@@ -2243,7 +2243,7 @@
             html.push('<td', class_, sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>');
             html.push('<div class="th-inner">');
             
-            if(that.options.footerValues && typeof that.options.footerValues[column.field] != 'undefined') {
+            if(that.options.sidePagination === 'server' && that.options.footerValues) {
                 html.push(calculateObjectValue(column, column.footerFormatter, [that.options.footerValues[column.field]], '&nbsp;') || '&nbsp;');
             }
             else {
