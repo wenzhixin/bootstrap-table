@@ -298,7 +298,7 @@
         paginationLoop: true,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
-        footerValues: [],
+        footerValues: null,
         footerValuesField: null,
         pageNumber: 1,
         pageSize: 10,
