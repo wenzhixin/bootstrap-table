@@ -298,6 +298,8 @@
         paginationLoop: true,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
+        footerValues: [],
+        footerValuesField: null,
         pageNumber: 1,
         pageSize: 10,
         pageList: [10, 25, 50, 100],
@@ -2240,9 +2242,14 @@
 
             html.push('<td', class_, sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>');
             html.push('<div class="th-inner">');
-
-            html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
-
+            
+            if(that.options.footerValues && typeof that.options.footerValues[column.field] != 'undefined') {
+                html.push(calculateObjectValue(column, column.footerFormatter, [that.options.footerValues[column.field]], '&nbsp;') || '&nbsp;');
+            }
+            else {
+                html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
+            }
+            
             html.push('</div>');
             html.push('<div class="fht-cell"></div>');
             html.push('</div>');
@@ -2403,6 +2410,10 @@
         // #431: support pagination
         if (this.options.sidePagination === 'server') {
             this.options.totalRows = data[this.options.totalField];
+            if(this.options.footerValuesField) {
+               this.options.footerValues = data[this.options.footerValuesField]
+            }
+            
             fixedScroll = data.fixedScroll;
             data = data[this.options.dataField];
         } else if (!$.isArray(data)) { // support fixedScroll
