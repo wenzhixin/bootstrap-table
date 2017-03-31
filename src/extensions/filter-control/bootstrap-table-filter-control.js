@@ -317,15 +317,15 @@
 
         if (addedFilterControl) {
             header.off('keyup', 'input').on('keyup', 'input', function (event) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
+                clearTimeout(event.currentTarget.timeoutId);
+                event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
 
             header.off('change', 'select').on('change', 'select', function (event) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
+                clearTimeout(event.currentTarget.timeoutId);
+                event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
@@ -342,8 +342,8 @@
                     var newValue = $input.val();
 
                     if (newValue === "") {
-                        clearTimeout(timeoutId);
-                        timeoutId = setTimeout(function () {
+                        clearTimeout(event.currentTarget.timeoutId);
+                        event.currentTarget.timeoutId = setTimeout(function () {
                             that.onColumnSearch(event);
                         }, that.options.searchTimeOut);
                     }
