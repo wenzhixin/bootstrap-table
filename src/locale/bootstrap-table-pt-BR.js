@@ -33,12 +33,6 @@
         },
         formatNoMatches: function () {
             return 'Nenhum registro encontrado';
-        },
-        formatExport: function () {
-            return 'Exportar dados';
-        },
-        formatClearFilters: function () {
-            return 'Remover filtros';
         }
     };
 
