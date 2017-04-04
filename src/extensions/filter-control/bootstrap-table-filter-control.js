@@ -257,7 +257,7 @@
                 if (column.searchable && that.options.filterTemplate[nameControl]) {
                     addedFilterControl = true;
                     isVisible = 'visible';
-                    html.push(that.options.filterTemplate[nameControl](that, column.field, isVisible, column.filterControlPlaceholder ? column.filterControlPlaceholder : ""));
+                    html.push(that.options.filterTemplate[nameControl](that, column.field, isVisible, column.filterControlPlaceholder ? column.filterControlPlaceholder : "", "filter-control-" + i));
                 }
             }
 
@@ -317,15 +317,15 @@
 
         if (addedFilterControl) {
             header.off('keyup', 'input').on('keyup', 'input', function (event) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
+                clearTimeout(event.currentTarget.timeoutId);
+                event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
 
             header.off('change', 'select').on('change', 'select', function (event) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
+                clearTimeout(event.currentTarget.timeoutId);
+                event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
@@ -342,8 +342,8 @@
                     var newValue = $input.val();
 
                     if (newValue === "") {
-                        clearTimeout(timeoutId);
-                        timeoutId = setTimeout(function () {
+                        clearTimeout(event.currentTarget.timeoutId);
+                        event.currentTarget.timeoutId = setTimeout(function () {
                             that.onColumnSearch(event);
                         }, that.options.searchTimeOut);
                     }
@@ -355,7 +355,7 @@
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'datepicker') {
                         header.find('.date-filter-control.bootstrap-table-filter-control-' + column.field).datepicker(column.filterDatepickerOptions)
                             .on('changeDate', function (e) {
-                                $(sprintf(".%s", e.currentTarget.classList.toString().split(" ").join("."))).val(e.currentTarget.value);
+                                $(sprintf("#%s", e.currentTarget.id)).val(e.currentTarget.value);
                                 //Fired the keyup event
                                 $(e.currentTarget).keyup();
                             });
