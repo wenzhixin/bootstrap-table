@@ -650,6 +650,11 @@
         this.options.pageNumber = 1;
         this.EnableControls(false);
         this.onSearch(event);
+        var sortable = $(event.currentTarget).parents("th").children(".sortable");
+        if (sortable[0] !== "null" && sortable[0] !== "undefined") {
+            event.currentTarget = sortable;
+            this.onSort(event, true);
+        }
         this.trigger('column-search', $field, text);
     };
 
