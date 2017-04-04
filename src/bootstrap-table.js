@@ -1004,22 +1004,28 @@
         }
     };
 
-    BootstrapTable.prototype.onSort = function (event) {
+    BootstrapTable.prototype.onSort = function (event, reSort) {
         var $this = event.type === "keypress" ? $(event.currentTarget) : $(event.currentTarget).parent(),
             $this_ = this.$header.find('th').eq($this.index());
 
+        if (reSort && (this.options.sortName === "null" || this.options.sortName === "undefined")) {
+            return;
+        }
+
         this.$header.add(this.$header_).find('span.order').remove();
 
-        if (this.options.sortName === $this.data('field')) {
-            this.options.sortOrder = this.options.sortOrder === 'asc' ? 'desc' : 'asc';
-        } else {
-            this.options.sortName = $this.data('field');
-            if (this.options.rememberOrder) {
-                this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc';
+        if (!reSort) {
+            if (this.options.sortName === $this.data('field')) {
+                this.options.sortOrder = this.options.sortOrder === 'asc' ? 'desc' : 'asc';
             } else {
-                this.options.sortOrder = this.options.columns[0].filter(function(option) {
-                    return option.field === $this.data('field');
-                })[0].order;
+                this.options.sortName = $this.data('field');
+                if (this.options.rememberOrder) {
+                    this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc';
+                } else {
+                    this.options.sortOrder = this.options.columns[0].filter(function(option) {
+                        return option.field === $this.data('field');
+                    })[0].order;
+                }
             }
         }
         this.trigger('sort', this.options.sortName, this.options.sortOrder);
