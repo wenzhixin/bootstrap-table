@@ -2392,9 +2392,11 @@
             data = data.data;
         }
 
+        this.initHeader();
         this.initData(data);
         this.initSearch();
         this.initPagination();
+        this.initSort();
         this.initBody(fixedScroll);
     };
 
