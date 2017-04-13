@@ -29,6 +29,42 @@
         },
         formatColumns: function () {
             return 'Стовпці';
+        },
+        formatClearFilters: function () {
+            return 'Очистити фільтри';
+        },
+        formatMultipleSort: function () {
+            return 'Сортування за кількома стовпцями';
+        },
+        formatAddLevel: function () {
+            return 'Додати рівень';
+        },
+        formatDeleteLevel: function () {
+            return 'Видалити рівень';
+        },
+        formatColumn: function () {
+            return 'Стовпець';
+        },
+        formatOrder: function () {
+            return 'Порядок';
+        },
+        formatSortBy: function () {
+            return 'Сортувати за';
+        },
+        formatThenBy: function () {
+            return 'потім за';
+        },
+        formatSort: function () {
+            return 'Сортувати';
+        },
+        formatCancel: function () {
+            return 'Скасувати';
+        },
+        formatDuplicateAlertTitle: function () {
+            return 'Дублювання стовпців!';
+        },
+        formatDuplicateAlertDescription: function () {
+            return 'Видаліть, будь ласка, дублюючий стовпець, або замініть його на інший.';
         }
     };
 
