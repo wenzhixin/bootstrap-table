@@ -2282,6 +2282,10 @@
 
             $footerTd.eq(i).find('.fht-cell').width($this.innerWidth());
         });
+        if (this.$tableFooter.find('table').width() != this.$tableBody.find('table').innerWidth())
+        {
+            this.$tableFooter.find('table').width(this.$tableBody.find('table').innerWidth());
+        }
     };
 
     BootstrapTable.prototype.toggleColumn = function (index, checked, needUpdate) {
