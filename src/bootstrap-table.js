@@ -2542,7 +2542,11 @@
             if (rowId === -1) {
                 return;
             }
-            $.extend(that.options.data[rowId], params.row);
+            if (params.hasOwnProperty('replace') && params.replace) {
+                that.options.data[rowId] = params.row;
+            } else {
+                $.extend(that.options.data[rowId], params.row);
+            }
         });
 
         this.initSearch();
@@ -2570,7 +2574,11 @@
             if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
                 return;
             }
-            $.extend(that.options.data[params.index], params.row);
+            if (params.hasOwnProperty('replace') && params.replace) {
+                that.options.data[params.index] = params.row;
+            } else {
+                $.extend(that.options.data[params.index], params.row);
+            }
         });
 
         this.initSearch();
