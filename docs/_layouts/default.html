@@ -8,7 +8,7 @@
     <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <!-- Docs master nav -->
-    {% include nav/main.html %}
+    {% include nav.html %}
 
     <!-- Docs page layout -->
     <div class="bs-docs-header" id="content">
@@ -27,7 +27,7 @@
       <div class="row">
         <div class="col-md-{% if page.fullwidth == true %}12{% else %}9{% endif %}"
              role="main"
-             data-toggle="sidenav"
+             {% if page.slug != "examples" %}data-toggle="sidenav"{% endif %}
              data-container="#sidenav"
              data-hs="h1,h2"
              data-smart-id="true"

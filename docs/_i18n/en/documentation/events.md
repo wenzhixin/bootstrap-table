@@ -1,12 +1,27 @@
-# Events []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/events.md)
+# Events []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/events.md)
 
 ---
 
+To use event syntax:
+
+```js
+$('#table').bootstrapTable({
+    onEventName: function (arg1, arg2, ...) {
+        // ...
+    }
+});
+
+$('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
+    // ...
+});
+```
+
 <table class="table"
-       data-toggle="table"
+       id="e"
        data-search="true"
        data-show-toggle="true"
-       data-show-columns="true">
+       data-show-columns="true"
+       data-mobile-responsive="true">
     <thead>
     <tr>
         <th>Option Event</th>
@@ -21,7 +36,7 @@
         <td>all.bs.table</td>
         <td>name, args</td>
         <td>
-        Fires when all events trigger, the parameters contains: <br>
+        Fires when all events trigger, the parameters contain: <br>
         name: the event name, <br>
         args: the event data.
         </td>
@@ -29,21 +44,47 @@
     <tr>
         <td>onClickRow</td>
         <td>click-row.bs.table</td>
-        <td>row, $element</td>
+        <td>row, $element, field</td>
         <td>
-        Fires when user click a row, the parameters contains: <br>
+        Fires when user click a row, the parameters contain: <br>
         row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        $element: the tr element, <br>
+        field: the field name corresponding to the clicked cell.
         </td>
     </tr>
     <tr>
         <td>onDblClickRow</td>
         <td>dbl-click-row.bs.table</td>
-        <td>row, $element</td>
+        <td>row, $element, field</td>
         <td>
-        Fires when user click a row, the parameters contains: <br>
+        Fires when user double click a row, the parameters contain: <br>
         row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        $element: the tr element, <br>
+        field: the field name corresponding to the clicked cell.
+        </td>
+    </tr>
+    <tr>
+        <td>onClickCell</td>
+        <td>click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Fires when user click a cell, the parameters contain: <br>
+        field: the field name corresponding to the clicked cell, <br>
+        value: the data value corresponding to the clicked cell, <br>
+        row: the record corresponding to the clicked row, <br>
+        $element: the td element.
+        </td>
+    </tr>
+    <tr>
+        <td>onDblClickCell</td>
+        <td>dbl-click-cell.bs.table</td>
+        <td>field, value, row, $element</td>
+        <td>
+        Fires when user double click a cell, the parameters contain: <br>
+        field: the field name corresponding to the clicked cell, <br>
+        value: the data value corresponding to the clicked cell, <br>
+        row: the record corresponding to the clicked row, <br>
+        $element: the td element.
         </td>
     </tr>
     <tr>
@@ -51,7 +92,7 @@
         <td>sort.bs.table</td>
         <td>name, order</td>
         <td>
-        Fires when user sort a column, the parameters contains: <br>
+        Fires when user sort a column, the parameters contain: <br>
         name: the sort column field name<br>
         order: the sort column order.
         </td>
@@ -59,19 +100,21 @@
     <tr>
         <td>onCheck</td>
         <td>check.bs.table</td>
-        <td>row</td>
+        <td>row, $element</td>
         <td>
-        Fires when user check a row, the parameters contains: <br>
+        Fires when user check a row, the parameters contain: <br>
         row: the record corresponding to the clicked row.
+        $element: the DOM element checked.
         </td>
     </tr>
     <tr>
         <td>onUncheck</td>
         <td>uncheck.bs.table</td>
-        <td>row</td>
+        <td>row, $element</td>
         <td>
-        Fires when user uncheck a row, the parameters contains: <br>
+        Fires when user uncheck a row, the parameters contain: <br>
         row: the record corresponding to the clicked row.
+        $element: the DOM element unchecked.
         </td>
     </tr>
     <tr>
@@ -79,7 +122,7 @@
         <td>check-all.bs.table</td>
         <td>rows</td>
         <td>
-        Fires when user check all rows, the parameters contains: <br>
+        Fires when user check all rows, the parameters contain: <br>
         rows: array of records corresponding to newly checked rows.
         </td>
     </tr>
@@ -88,7 +131,25 @@
         <td>uncheck-all.bs.table</td>
         <td>rows</td>
         <td>
-        Fires when user uncheck all rows, the parameters contains: <br>
+        Fires when user uncheck all rows, the parameters contain: <br>
+        rows: array of records corresponding to previously checked rows.
+        </td>
+    </tr>
+    <tr>
+        <td>onCheckSome</td>
+        <td>check-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Fires when user check some rows, the parameters contain: <br>
+        rows: array of records corresponding to previously checked rows.
+        </td>
+    </tr>
+    <tr>
+        <td>onUncheckSome</td>
+        <td>uncheck-some.bs.table</td>
+        <td>rows</td>
+        <td>
+        Fires when user uncheck some rows, the parameters contain: <br>
         rows: array of records corresponding to previously checked rows.
         </td>
     </tr>
@@ -103,7 +164,7 @@
     <tr>
         <td>onLoadError</td>
         <td>load-error.bs.table</td>
-        <td>status</td>
+        <td>status, res</td>
         <td>Fires when some errors occur to load remote data.</td>
     </tr>
     <tr>
@@ -111,6 +172,12 @@
         <td>column-switch.bs.table</td>
         <td>field, checked</td>
         <td>Fires when switch the column visible.</td>
+    </tr>
+    <tr>
+        <td>onColumnSearch</td>
+        <td>column-search.bs.table</td>
+        <td>field, text</td>
+        <td>Fires when search by column.</td>
     </tr>
     <tr>
         <td>onPageChange</td>
@@ -125,6 +192,12 @@
         <td>Fires when search the table.</td>
     </tr>
     <tr>
+        <td>onToggle</td>
+        <td>toggle.bs.table</td>
+        <td>cardView</td>
+        <td>Fires when toggle the view of table.</td>
+    </tr>
+    <tr>
         <td>onPreBody</td>
         <td>pre-body.bs.table</td>
         <td>data</td>
@@ -133,7 +206,7 @@
     <tr>
         <td>onPostBody</td>
         <td>post-body.bs.table</td>
-        <td>none</td>
+        <td>data</td>
         <td>Fires after the table body is rendered and available in the DOM</td>
     </tr>
     <tr>
@@ -142,5 +215,35 @@
        <td>none</td>
        <td>Fires after the table header is rendered and availble in the DOM</td>
     </tr>
-	</tbody>
+    <tr>
+        <td>onExpandRow</td>
+        <td>expand-row.bs.table</td>
+        <td>index, row, $detail</td>
+        <td>Fires when click the detail icon to expand the detail view.</td>
+    </tr>
+    <tr>
+       <td>onCollapseRow</td>
+       <td>collapse-row.bs.table</td>
+       <td>index, row</td>
+       <td>Fires when click the detail icon to collapse the detail view.</td>
+    </tr>
+    <tr>
+       <td>onRefreshOptions</td>
+       <td>refresh-options.bs.table</td>
+       <td>options</td>
+       <td>Fires after refresh the options and before destroy and init the table</td>
+    </tr>
+    <tr>
+        <td>onResetView</td>
+        <td>reset-view.bs.table</td>
+        <td></td>
+        <td>Fires when reset view of the table.</td>
+    </tr>
+    <tr>
+       <td>onRefresh</td>
+       <td>refresh.bs.table</td>
+       <td>params</td>
+       <td>Fires after the click the refresh button.</td>
+    </tr>
+    </tbody>
 </table>
