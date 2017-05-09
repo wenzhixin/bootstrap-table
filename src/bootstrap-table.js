@@ -41,7 +41,7 @@
         });
         return result;
     };
-    
+
     // http://jsfiddle.net/wenyi/47nz7ez9/3/
     var setFieldIndex = function (columns) {
         var i, j, k,
@@ -931,7 +931,7 @@
         if (index !== -1) {
             if (this.options.sortStable) {
                 $.each(this.data, function (i, row) {
-                    if (!row.hasOwnProperty('_position')) row._position = i;
+                    row._position = i;
                 });
             }
 
@@ -944,6 +944,9 @@
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
+                    if (that.options.sortStable && value === 0) {
+                        return a._position - b._position;
+                    }
                     return order * value;
                 }
 
@@ -958,6 +961,7 @@
                 if (that.options.sortStable && aa === bb) {
                     aa = a._position;
                     bb = b._position;
+                    return a._position - b._position;
                 }
 
                 // IF both values are numeric, do a numeric comparison
@@ -2157,7 +2161,6 @@
             .html('').attr('class', this.$el.attr('class'))
             .append(this.$header_);
 
-
         focusedTemp = $('.focus-temp:visible:eq(0)');
         if (focusedTemp.length > 0) {
             focusedTemp.focus();
@@ -2190,16 +2193,9 @@
 
             $th.find('.fht-cell').width($this.innerWidth());
         });
-        // horizontal scroll event
-        // TODO: it's probably better improving the layout than binding to scroll event
-        this.$tableBody.off('scroll').on('scroll', function () {
-            that.$tableHeader.scrollLeft($(this).scrollLeft());
 
-            if (that.options.showFooter && !that.options.cardView) {
-                that.$tableFooter.scrollLeft($(this).scrollLeft());
-            }
-        });
-        that.trigger('post-header');
+        this.horizontalScroll();
+        this.trigger('post-header');
     };
 
     BootstrapTable.prototype.resetFooter = function () {
@@ -2286,6 +2282,23 @@
             var $this = $(this);
 
             $footerTd.eq(i).find('.fht-cell').width($this.innerWidth());
+        });
+
+        this.horizontalScroll();
+    };
+
+    BootstrapTable.prototype.horizontalScroll = function () {
+        var that = this;
+        // horizontal scroll event
+        // TODO: it's probably better improving the layout than binding to scroll event
+        this.$tableBody.off('scroll').on('scroll', function () {
+            if (that.options.showHeader && that.options.height) {
+              that.$tableHeader.scrollLeft($(this).scrollLeft());
+            }
+
+            if (that.options.showFooter && !that.options.cardView) {
+                that.$tableFooter.scrollLeft($(this).scrollLeft());
+            }
         });
     };
 
@@ -2542,7 +2555,7 @@
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
         }
-        this.data.splice(params.index, 0, params.row);
+        this.options.data.splice(params.index, 0, params.row);
         this.initSearch();
         this.initPagination();
         this.initSort();
@@ -2809,7 +2822,7 @@
         if (this.options.showHeader && this.options.height) {
             this.fitHeader();
         }
-        if (this.options.showFooter) {
+        if (this.options.showFooter && !that.options.cardView) {
             this.fitFooter();
         }
     };
