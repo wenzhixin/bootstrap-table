@@ -2557,13 +2557,15 @@
         }
 
         this.columns[this.fieldsColumnsIndex[params.field]].title = this.options.escape 
-                                                                    ? escapeHTML(params.field) 
-                                                                    : params.field;
+                                                                    ? escapeHTML(params.title) 
+                                                                    : params.title;
         
         if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
-            this.$header.find('th[data-field]').each(function (i) {
+            var header = this.options.height !== undefined ? this.$tableHeader : this.$header; 
+            header.find('th[data-field]').each(function (i) {
                 if ($(this).data('field') === params.field) {
-                     $($(this).find(".th-inner")[0]).text(params.title);
+                    $($(this).find(".th-inner")[0]).text(params.title);
+                    return false;
                 }
             });
         }
