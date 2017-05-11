@@ -2551,6 +2551,24 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.refreshColumnTitle = function (params) {
+        if (!params.hasOwnProperty('field') || !params.hasOwnProperty('title')) {
+            return;
+        }
+
+        this.columns[this.fieldsColumnsIndex[params.field]].title = this.options.escape 
+                                                                    ? escapeHTML(params.field) 
+                                                                    : params.field;
+        
+        if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
+            this.$header.find('th[data-field]').each(function (i) {
+                if ($(this).data('field') === params.field) {
+                     $($(this).find(".th-inner")[0]).text(params.title);
+                }
+            });
+        }
+    };
+
     BootstrapTable.prototype.insertRow = function (params) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
@@ -3031,7 +3049,7 @@
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
-        'mergeCells',
+        'mergeCells', 'refreshColumnTitle',
         'checkAll', 'uncheckAll', 'checkInvert',
         'check', 'uncheck',
         'checkBy', 'uncheckBy',
