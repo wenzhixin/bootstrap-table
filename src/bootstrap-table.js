@@ -2868,8 +2868,9 @@
     };
 
     BootstrapTable.prototype.toggleAllColumns = function (visible) {
+        var that = this;
         $.each(this.columns, function (i, column) {
-            this.columns[i].visible = visible;
+            that.columns[i].visible = visible;
         });
 
         this.initHeader();
