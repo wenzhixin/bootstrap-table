@@ -1,0 +1,16 @@
+/**
+ * Bootstrap Table extension toolbar French (France) translation
+ * Author: FL
+ */
+(function ($) {
+    'use strict';
+
+    $.extend($.fn.bootstrapTable.locales['fr-FR'], {
+        formatExport: function () {
+            return 'Exporter les données';
+        }
+    });
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-FR']);
+
+})(jQuery);
