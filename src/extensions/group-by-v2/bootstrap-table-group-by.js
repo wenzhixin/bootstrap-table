@@ -59,13 +59,26 @@
 
             if ((this.options.sortName != this.options.groupByField)) {
                 this.data.sort(function(a, b) {
-                    return a[that.options.groupByField].localeCompare(b[that.options.groupByField]);
+                    var props = that.options.groupByField.split('.');
+                    for (var p in props) {
+                        if (props.hasOwnProperty(p)) {
+                            a = a && a[props[p]];
+                            b = b && b[props[p]];
+                        }
+                    }
+                    return a.localeCompare(b);
                 });
             }
 
             var that = this;
             var groups = groupBy(that.data, function (item) {
-                return [item[that.options.groupByField]];
+                var props = that.options.groupByField.split('.');
+                for (var p in props) {
+                    if (props.hasOwnProperty(p)) {
+                        item = item && item[props[p]];
+                    }
+                }
+                return item;
             });
 
             var index = 0;
