@@ -1,5 +1,7 @@
 # [Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn)
 
+[![Join the chat at https://gitter.im/wenzhixin/bootstrap-table](https://badges.gitter.im/wenzhixin/bootstrap-table.svg)](https://gitter.im/wenzhixin/bootstrap-table?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.svg)](https://travis-ci.org/wenzhixin/bootstrap-table) 
 [![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.svg)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
 [![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
