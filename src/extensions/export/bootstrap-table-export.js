@@ -33,12 +33,12 @@
         export: 'glyphicon-export icon-share'
     });
 
-    $.extend($.fn.bootstrapTable.locales, {
+    $.extend($.fn.bootstrapTable.locales['en-US'], {
         formatExport: function () {
             return 'Export data';
         }
     });
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar;
