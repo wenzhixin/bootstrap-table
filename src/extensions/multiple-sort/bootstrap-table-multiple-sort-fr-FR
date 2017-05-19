@@ -1,0 +1,52 @@
+/**
+ * Bootstrap Table extension toolbar French (France) translation
+ * Author: FL
+ */
+(function ($) {
+    'use strict';
+
+    $.extend($.fn.bootstrapTable.locales['fr-FR'], {
+        formatMultipleSort: function() {
+            return 'Tri avancé';
+        },
+        formatAddLevel: function() {
+            return 'Ajouter un niveau';
+        },
+        formatDeleteLevel: function() {
+            return 'Supprimer un niveau';
+        },
+        formatColumn: function() {
+            return 'Colonne';
+        },
+        formatOrder: function() {
+            return 'Order';
+        },
+        formatSortBy: function() {
+            return 'Trier par';
+        },
+        formatThenBy: function() {
+            return 'Puis par';
+        },
+        formatSort: function() {
+            return 'Trier';
+        },
+        formatCancel: function() {
+            return 'Annuler';
+        },
+        formatDuplicateAlertTitle: function() {
+            return 'Doublon(s) détecté(s)!';
+        },
+        formatDuplicateAlertDescription: function() {
+            return 'Supprimez ou changez les colonnes dupliquées.';
+        },
+        formatSortOrders: function() {
+            return {
+                asc: 'Croissant',
+                desc: 'Décroissant'
+            };
+        }
+    });
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-FR']);
+
+})(jQuery);
