@@ -823,7 +823,9 @@
                     that.options.singleSelect = true;
                 }
 
+                html.push('<p>');
                 html.push(text);
+                html.push('</p>');
                 html.push('</div>');
                 html.push('<div class="fht-cell"></div>');
                 html.push('</div>');
