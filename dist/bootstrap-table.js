@@ -2615,6 +2615,7 @@
             col = $.inArray(options.field, this.getVisibleFields()),
             rowspan = options.rowspan || 1,
             colspan = options.colspan || 1,
+            align = options.align,
             i, j,
             $tr = this.$body.find('>tr'),
             $td;
@@ -2635,7 +2636,7 @@
             }
         }
 
-        $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
+        $td.attr('rowspan', rowspan).attr('colspan', colspan).attr('align', align).show();
     };
 
     BootstrapTable.prototype.updateCell = function (params) {
