@@ -36,13 +36,20 @@
 
             $('#avdSearchModalContent' + "_" + that.options.idTable).append(vFormAvd.join(''));
 
-            $('#' + that.options.idForm).off('keyup blur', 'input').on('keyup blur', 'input', function (event) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
+             if (that.options.sidePagination==='server'){// Event on the change : decrease the number of request to the server and more user friendly
+                $('#' + that.options.idForm).off('change', 'input').on('change', 'input', function (event){
                     that.onColumnAdvancedSearch(event);
-                }, that.options.searchTimeOut);
-            });
-
+                });
+            }
+            else{
+                $('#' + that.options.idForm).off('keyup blur', 'input').on('keyup blur', 'input', function (event) {
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(function () {
+                        that.onColumnAdvancedSearch(event);
+                    }, that.options.searchTimeOut);
+                });
+            }
+            
             $("#btnCloseAvd" + "_" + that.options.idTable).click(function() {
                 $("#avdSearchModal" + "_" + that.options.idTable).modal('hide');
             });
@@ -95,8 +102,8 @@
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
         'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
     });
-
-    $.extend($.fn.bootstrapTable.locales, {
+    
+    $.extend($.fn.bootstrapTable.locales['en-US'], {
         formatAdvancedSearch: function() {
             return 'Advanced search';
         },
@@ -105,7 +112,7 @@
         }
     });
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar,
@@ -146,7 +153,7 @@
     BootstrapTable.prototype.load = function(data) {
         _load.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (!this.options.advancedSearch) {
+        if (!this.options.advancedSearch || this.options.sidePagination==='server') {//No Filter if is the server
             return;
         }
 
