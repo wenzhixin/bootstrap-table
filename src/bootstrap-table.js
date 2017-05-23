@@ -333,6 +333,7 @@
         },
         trimOnSearch: true,
         clickToSelect: false,
+        clickToSelectColor: '#7ccc7c',
         singleSelect: false,
         toolbar: undefined,
         toolbarAlign: 'left',
@@ -1871,6 +1872,13 @@
                 var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
                 if ($selectItem.length) {
                     $selectItem[0].click(); // #144: .trigger('click') bug
+                }
+            }
+            // if click to select then row which is clicking background is changing
+            if(e.type === 'click'){
+                $(this).closest('tr').find('td').css({'background':that.options.clickToSelectColor});
+                if(that.options.singleSelect){
+                    that.$selectItem.closest('tr').find('td').css({'background-color':'white'});
                 }
             }
         });
