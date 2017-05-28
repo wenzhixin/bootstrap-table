@@ -307,6 +307,7 @@
         paginationPreText: '&lsaquo;',
         paginationNextText: '&rsaquo;',
         search: false,
+        multiSearch: false,
         searchOnEnterKey: false,
         strictSearch: false,
         searchAlign: 'right',
@@ -1240,6 +1241,7 @@
 
             var s = this.searchText && (this.options.escape ?
                 escapeHTML(this.searchText) : this.searchText).toLowerCase();
+
             var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
 
             // Check filter
@@ -1252,6 +1254,10 @@
                 }
                 return true;
             }) : this.options.data;
+
+            if(typeof(s) !== "undefined" && this.options.multiSearch && s.indexOf(this.options.multiSearch) !== -1 ) {
+                var s_m = s.split("; ");
+            }
 
             this.data = s ? $.grep(this.data, function (item, i) {
                 for (var j = 0; j < that.header.fields.length; j++) {
@@ -1286,9 +1292,17 @@
                                 return true;
                             }
                         } else {
+                          if(s_m) {
+                            for(var s_m_i = 0; s_m_i <= s_m.length; s_m_i++) {
+                              if ((value + '').toLowerCase().indexOf(s_m[s_m_i]) !== -1) {
+                                  return true;
+                              }
+                            }
+                          } else {
                             if ((value + '').toLowerCase().indexOf(s) !== -1) {
                                 return true;
                             }
+                          }
                         }
                     }
                 }
