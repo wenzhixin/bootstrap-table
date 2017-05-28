@@ -1256,7 +1256,7 @@
             }) : this.options.data;
 
             if(typeof(s) !== "undefined" && this.options.multiSearch && s.indexOf(this.options.multiSearch) !== -1 ) {
-                var s_m = s.split("; ");
+                var s_m = s.split(this.options.multiSearch);
             }
 
             this.data = s ? $.grep(this.data, function (item, i) {
