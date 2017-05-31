@@ -2340,6 +2340,21 @@
         return visibleFields;
     };
 
+    BootstrapTable.prototype.getFieldIndex = function (absoluteIndex) {
+      var that = this,
+          relativeIndex = absoluteIndex;
+      $.each(this.header.fields, function (j, field) {
+          var column = that.columns[j];
+          if (j > absoluteIndex) {
+            return false;
+          }
+          if (!column.visible) {
+            relativeIndex--;
+          }
+        });
+        return relativeIndex;
+    }
+
     // PUBLIC FUNCTION DEFINITION
     // =======================
 
