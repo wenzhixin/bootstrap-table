@@ -182,50 +182,6 @@
         'multiple-sort.bs.table': 'onMultipleSort'
     });
 
-    $.extend($.fn.bootstrapTable.locales, {
-        formatMultipleSort: function() {
-            return 'Multiple Sort';
-        },
-        formatAddLevel: function() {
-            return 'Add Level';
-        },
-        formatDeleteLevel: function() {
-            return 'Delete Level';
-        },
-        formatColumn: function() {
-            return 'Column';
-        },
-        formatOrder: function() {
-            return 'Order';
-        },
-        formatSortBy: function() {
-            return 'Sort by';
-        },
-        formatThenBy: function() {
-            return 'Then by';
-        },
-        formatSort: function() {
-            return 'Sort';
-        },
-        formatCancel: function() {
-            return 'Cancel';
-        },
-        formatDuplicateAlertTitle: function() {
-            return 'Duplicate(s) detected!';
-        },
-        formatDuplicateAlertDescription: function() {
-            return 'Please remove or change any duplicate column.';
-        },
-        formatSortOrders: function() {
-            return {
-                asc: 'Ascending',
-                desc: 'Descending'
-            };
-        }
-    });
-
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar;
 
