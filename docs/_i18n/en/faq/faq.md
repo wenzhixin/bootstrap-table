@@ -56,4 +56,4 @@ onClickRow: function (row, $element) {
 
 All your ideas and feedback are very appreciated! Please feel free to open issues on GitHub or send me email.
 
-I'm also grateful for your donations: <a href="donate">{% t pages.donate.title %}</a>
+I'm also grateful for your donations: <a href="/donate">{% t pages.donate.title %}</a>
