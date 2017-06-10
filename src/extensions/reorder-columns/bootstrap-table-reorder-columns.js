@@ -5,12 +5,13 @@
  */
 
 !function ($) {
+
     'use strict';
 
     //From MDN site, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
     var filterFn = function () {
         if (!Array.prototype.filter) {
-            Array.prototype.filter = function (fun/*, thisArg*/) {
+            Array.prototype.filter = function(fun/*, thisArg*/) {
                 'use strict';
 
                 if (this === void 0 || this === null) {
@@ -112,12 +113,12 @@
         var that = this;
         try {
             $(this.$el).dragtable('destroy');
-        } catch (e) { }
+        } catch (e) {}
         $(this.$el).dragtable({
             maxMovingRows: that.options.maxMovingRows,
             dragaccept: that.options.dragaccept,
-            clickDelay: 200,
-            beforeStop: function () {
+            clickDelay:200,
+            beforeStop: function() {
                 var ths = [],
                     formatters = [],
                     columns = [],
@@ -125,16 +126,14 @@
                     columnIndex = -1,
                     optionsColumns = [];
                 that.$header.find('th').each(function (i) {
-                    if ($(this).data("field") != undefined) {
-                        ths.push($(this).data('field'));
-                        formatters.push($(this).data('formatter'));
-                    }
+                    ths.push($(this).data('field'));
+                    formatters.push($(this).data('formatter'));
                 });
 
                 //Exist columns not shown
                 if (ths.length < that.columns.length) {
                     columnsHidden = $.grep(that.columns, function (column) {
-                        return !column.visible;
+                       return !column.visible;
                     });
                     for (var i = 0; i < columnsHidden.length; i++) {
                         ths.push(columnsHidden[i].field);
@@ -142,7 +141,7 @@
                     }
                 }
 
-                for (var i = 0; i < ths.length; i++) {
+                for (var i = 0; i < ths.length; i++ ) {
                     columnIndex = $.fn.bootstrapTable.utils.getFieldIndex(that.columns, ths[i]);
                     if (columnIndex !== -1) {
                         that.columns[columnIndex].fieldIndex = i;
@@ -154,11 +153,11 @@
                 that.columns = that.columns.concat(columns);
 
                 filterFn(); //Support <IE9
-                $.each(that.columns, function (i, column) {
+                $.each(that.columns, function(i, column) {
                     var found = false,
                         field = column.field;
-                    that.options.columns[0].filter(function (item) {
-                        if (!found && item["field"] == field) {
+                    that.options.columns[0].filter(function(item) {
+                        if(!found && item["field"] == field) {
                             optionsColumns.push(item);
                             found = true;
                             return false;
