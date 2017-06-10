@@ -193,6 +193,7 @@
                 });
 
                 bootstrapTable.initColumnSearch(cachedFilters);
+                bootstrapTable.refresh();
             }
         }, 250);
     };
