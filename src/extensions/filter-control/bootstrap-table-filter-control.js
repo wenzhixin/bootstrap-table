@@ -488,9 +488,7 @@
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
-    $.extend($.fn.bootstrapTable.methods, [
-        'triggerSearch'
-    ]);
+    $.fn.bootstrapTable.methods.push('triggerSearch');
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,

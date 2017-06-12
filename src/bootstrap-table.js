@@ -2699,7 +2699,8 @@
     };
 
     BootstrapTable.prototype.getOptions = function () {
-        return this.options;
+        //Deep copy
+        return $.extend(true, {}, this.options);
     };
 
     BootstrapTable.prototype.getSelections = function () {
