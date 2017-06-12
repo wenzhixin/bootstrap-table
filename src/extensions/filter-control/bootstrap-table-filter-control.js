@@ -317,6 +317,14 @@
 
         if (addedFilterControl) {
             header.off('keyup', 'input').on('keyup', 'input', function (event) {
+                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                    return;
+                }
+
+                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                    return;
+                }
+
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -324,6 +332,14 @@
             });
 
             header.off('change', 'select').on('change', 'select', function (event) {
+                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                    return;
+                }
+
+                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                    return;
+                }
+                
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -442,6 +458,7 @@
             }
         },
         disableControlWhenSearch: false,
+        searchOnEnterKey: false,
         //internal variables
         valuesFilterControl: []
     });
