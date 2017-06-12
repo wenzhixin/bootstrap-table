@@ -193,6 +193,7 @@
                 });
 
                 bootstrapTable.initColumnSearch(cachedFilters);
+                bootstrapTable.refresh();
             }
         }, 250);
     };
@@ -359,31 +360,37 @@
     BootstrapTable.prototype.onPageNumber = function () {
         _onPageNumber.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.onPageListChange = function () {
         _onPageListChange.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageList, this.options.pageSize);
+        return false;
     };
 
     BootstrapTable.prototype.onPageFirst = function () {
         _onPageFirst.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.onPagePre = function () {
         _onPagePre.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.onPageNext = function () {
         _onPageNext.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.onPageLast = function () {
         _onPageLast.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.toggleColumn = function () {
