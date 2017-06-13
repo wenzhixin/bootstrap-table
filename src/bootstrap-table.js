@@ -2558,6 +2558,26 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.refreshColumnTitle = function (params) {
+        if (!params.hasOwnProperty('field') || !params.hasOwnProperty('title')) {
+            return;
+        }
+
+        this.columns[this.fieldsColumnsIndex[params.field]].title = this.options.escape 
+                                                                    ? escapeHTML(params.title) 
+                                                                    : params.title;
+        
+        if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
+            var header = this.options.height !== undefined ? this.$tableHeader : this.$header; 
+            header.find('th[data-field]').each(function (i) {
+                if ($(this).data('field') === params.field) {
+                    $($(this).find(".th-inner")[0]).text(params.title);
+                    return false;
+                }
+            });
+        }
+    };
+
     BootstrapTable.prototype.insertRow = function (params) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
@@ -2679,7 +2699,8 @@
     };
 
     BootstrapTable.prototype.getOptions = function () {
-        return this.options;
+        //Deep copy
+        return $.extend(true, {}, this.options);
     };
 
     BootstrapTable.prototype.getSelections = function () {
@@ -2855,8 +2876,9 @@
     };
 
     BootstrapTable.prototype.toggleAllColumns = function (visible) {
+        var that = this;
         $.each(this.columns, function (i, column) {
-            this.columns[i].visible = visible;
+            that.columns[i].visible = visible;
         });
 
         this.initHeader();
@@ -3038,7 +3060,7 @@
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
-        'mergeCells',
+        'mergeCells', 'refreshColumnTitle',
         'checkAll', 'uncheckAll', 'checkInvert',
         'check', 'uncheck',
         'checkBy', 'uncheckBy',
