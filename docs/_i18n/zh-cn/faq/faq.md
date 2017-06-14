@@ -54,4 +54,4 @@ onClickRow: function (row, $element) {
 
 非常感谢你的想法和建议，你可以到 GitHub 上提 issue 或者发邮件给我。
 
-当然，假如你也可以 <a href="donate">{% t pages.donate.title %}</a> 我们的项目。
+当然，假如你也可以 <a href="/donate">{% t pages.donate.title %}</a> 我们的项目。

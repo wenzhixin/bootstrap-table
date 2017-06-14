@@ -317,6 +317,14 @@
 
         if (addedFilterControl) {
             header.off('keyup', 'input').on('keyup', 'input', function (event) {
+                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                    return;
+                }
+
+                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                    return;
+                }
+
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -324,6 +332,14 @@
             });
 
             header.off('change', 'select').on('change', 'select', function (event) {
+                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                    return;
+                }
+
+                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                    return;
+                }
+                
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -442,6 +458,7 @@
             }
         },
         disableControlWhenSearch: false,
+        searchOnEnterKey: false,
         //internal variables
         valuesFilterControl: []
     });
@@ -471,9 +488,7 @@
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
-    $.extend($.fn.bootstrapTable.methods, [
-        'triggerSearch'
-    ]);
+    $.fn.bootstrapTable.methods.push('triggerSearch');
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
@@ -569,10 +584,10 @@
         }
 
         var that = this;
-        var fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial;
+        var fp = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial;
 
         //Check partial column filter
-        this.data = fp ? $.grep(this.data, function (item, i) {
+        that.data = fp ? $.grep(that.data, function (item, i) {
             for (var key in fp) {
                 var thisColumn = that.columns[that.fieldsColumnsIndex[key]];
                 var fval = fp[key].toLowerCase();
@@ -585,28 +600,27 @@
                     [value, item, i], value);
                 }
 
-                if (thisColumn.filterStrictSearch) {
-                    if (!($.inArray(key, that.header.fields) !== -1 &&
-                        (typeof value === 'string' || typeof value === 'number') &&
-                        value.toString().toLowerCase() === fval.toString().toLowerCase())) {
-                        return false;
-                    }
-                } else if (thisColumn.filterStartsWithSearch) {
-                  if (!($.inArray(key, that.header.fields) !== -1 &&
-                      (typeof value === 'string' || typeof value === 'number') &&
-                      (value + '').toLowerCase().indexOf(fval) === 0)) {
-                      return false;
-                  }
-                } else {
-                    if (!($.inArray(key, that.header.fields) !== -1 &&
-                        (typeof value === 'string' || typeof value === 'number') &&
-                        (value + '').toLowerCase().indexOf(fval) !== -1)) {
-                        return false;
+                if($.inArray(key, that.header.fields) !== -1 ) {
+                    if(typeof value === 'string' || typeof value === 'number') {
+                        if (thisColumn.filterStrictSearch) {
+                            if(value.toString().toLowerCase() === fval.toString().toLowerCase()) {
+                                return true;
+                            }
+                        } else if (thisColumn.filterStartsWithSearch) {
+                            if((value + '').toLowerCase().indexOf(fval) === 0) {
+                                return true;
+                            }
+                        } else {
+                            if((value + '').toLowerCase().indexOf(fval) !== -1) {
+                                return true;
+                            }
+                        }
                     }
                 }
             }
-            return true;
-        }) : this.data;
+
+            return false;
+        }) : that.data;
     };
 
     BootstrapTable.prototype.initColumnSearch = function(filterColumnsDefaults) {
