@@ -40,5 +40,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "types": "./index.d.ts",
+  "dependencies": {
+    "@types/jquery": "^2.0.46"
   }
 }

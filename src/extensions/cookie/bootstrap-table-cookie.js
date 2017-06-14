@@ -170,7 +170,6 @@
             var parsedCookieFilters = JSON.parse(getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, cookieIds.filterControl));
 
             if (!bootstrapTable.options.filterControlValuesLoaded && parsedCookieFilters) {
-                bootstrapTable.options.filterControlValuesLoaded = true;
 
                 var cachedFilters = {},
                     header = getCurrentHeader(bootstrapTable),
@@ -193,6 +192,8 @@
                 });
 
                 bootstrapTable.initColumnSearch(cachedFilters);
+                bootstrapTable.options.filterControlValuesLoaded = true;
+                bootstrapTable.initServer();
             }
         }, 250);
     };
@@ -240,7 +241,6 @@
         _onSearch = BootstrapTable.prototype.onSearch;
 
     BootstrapTable.prototype.init = function () {
-        var timeoutId = 0;
         this.options.filterControls = [];
         this.options.filterControlValuesLoaded = false;
 
@@ -275,36 +275,12 @@
     };
 
     BootstrapTable.prototype.initServer = function () {
-        var bootstrapTable = this,
-            selectsWithoutDefaults = [],
-
-            columnHasSelectControl = function (column) {
-                return column.filterControl && column.filterControl === 'select';
-            },
-
-            columnHasDefaultSelectValues = function (column) {
-                return column.filterData && column.filterData !== 'column';
-            },
-
-            cookiesPresent = function() {
-                var cookie = JSON.parse(getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, cookieIds.filterControl));
-                return bootstrapTable.options.cookie && cookie;
-            };
-
-        selectsWithoutDefaults = $.grep(bootstrapTable.columns, function(column) {
-            return columnHasSelectControl(column) && !columnHasDefaultSelectValues(column);
-        });
-
-        // reset variable to original initServer function, so that future calls to initServer
-        // use the original function from this point on.
-        BootstrapTable.prototype.initServer = _initServer;
-
-        // early return if we don't need to populate any select values with cookie values
-        if (this.options.filterControl && cookiesPresent() && selectsWithoutDefaults.length === 0) {
-            return;
+        var bootstrapTable = this;
+        if (bootstrapTable.options.cookie && bootstrapTable.options.filterControl && !bootstrapTable.options.filterControlValuesLoaded) {
+            var cookie = JSON.parse(getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, cookieIds.filterControl));
+            if (cookie)
+                return;
         }
-
-        // call BootstrapTable.prototype.initServer
         _initServer.apply(this, Array.prototype.slice.apply(arguments));
     };
 
@@ -359,31 +335,37 @@
     BootstrapTable.prototype.onPageNumber = function () {
         _onPageNumber.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.onPageListChange = function () {
         _onPageListChange.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageList, this.options.pageSize);
+        return false;
     };
 
     BootstrapTable.prototype.onPageFirst = function () {
         _onPageFirst.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.onPagePre = function () {
         _onPagePre.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.onPageNext = function () {
         _onPageNext.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.onPageLast = function () {
         _onPageLast.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        return false;
     };
 
     BootstrapTable.prototype.toggleColumn = function () {
