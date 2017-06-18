@@ -25,6 +25,7 @@
                 flag = false;
                 return '';
             }
+            
             if (typeof arg === 'string') {
                 if(arg.indexOf('"') > -1) {
                     arg = arg.replace(/"/g, "'")
