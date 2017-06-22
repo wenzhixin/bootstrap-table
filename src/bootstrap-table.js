@@ -448,6 +448,9 @@
         },
         onResetView: function () {
             return false;
+        },
+        onScrollBody: function () {
+            return false;
         }
     };
 
@@ -547,7 +550,8 @@
         'collapse-row.bs.table': 'onCollapseRow',
         'refresh-options.bs.table': 'onRefreshOptions',
         'reset-view.bs.table': 'onResetView',
-        'refresh.bs.table': 'onRefresh'
+        'refresh.bs.table': 'onRefresh',
+        'scroll-body.bs.table': 'onScrollBody'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -2291,6 +2295,8 @@
         var that = this;
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
+
+        that.trigger('scroll-body');
         this.$tableBody.off('scroll').on('scroll', function () {
             if (that.options.showHeader && that.options.height) {
               that.$tableHeader.scrollLeft($(this).scrollLeft());
