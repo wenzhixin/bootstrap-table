@@ -84,6 +84,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to get a stable sorting. We will add <code>_position</code> property to the row.</td>
     </tr>
     <tr>
+        <td>rememberOrder</td>
+        <td>data-remember-order</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>Set <code>true</code> remember the order for each column.</td>
+    </tr>
+    <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
@@ -446,6 +453,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Function</td>
         <td>function(index, row, element) {<br>return '';<br>}</td>
         <td>Format your detail view when <code>detailView</code> is set to <code>true</code>. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</td>
+    </tr>
+    <tr>
+        <td>detailFilter</td>
+        <td>data-detail-filter</td>
+        <td>Function</td>
+        <td>function(index, row) {<br>return true;<br>}</td>
+        <td>Enable expansion per row when <code>detailView</code> is set to <code>true</code>. Return <code>true</code> and the row will be enabled for expansion, return <code>false</code> and expansion for the row will be disabled. Default function returns <code>true</code> to enable expansion for all rows.</td>
     </tr>
     <tr>
         <td>searchAlign</td>

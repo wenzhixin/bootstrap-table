@@ -24,6 +24,7 @@
         printAsFilteredAndSortedOnUI: true, //boolean, when true - print table as sorted and filtered on UI.
                                             //Please note that if true is set, along with explicit predefined print options for filtering and sorting (printFilter, printSortOrder, printSortColumn)- then they will be applied on data already filtered and sorted by UI controls.
                                             //For printing data as filtered and sorted on UI - do not set these 3 options:printFilter, printSortOrder, printSortColumn
+
         printSortColumn: undefined  , //String, set column field name to be sorted by
         printSortOrder: 'asc', //String: 'asc' , 'desc'  - relevant only if printSortColumn is set
         printPageBuilder: function(table){return printPageBuilderDefault(table)} // function, receive html <table> element as string, returns html string for printing. by default delegates to function printPageBuilderDefault(table). used for styling and adding header or footer
@@ -32,6 +33,7 @@
         printFilter: undefined, //set value to filter by in print page
         printIgnore: false, //boolean, set true to ignore this column in the print page
         printFormatter:undefined //function(value, row, index), formats the cell value for this column in the printed table. Function behaviour is similar to the 'formatter' column option
+
     });
     $.extend($.fn.bootstrapTable.defaults.icons, {
         print: 'glyphicon-print icon-share'
@@ -66,6 +68,7 @@
                             return  value || "-";
                         }
                     }
+                  
                     function buildTable(data,columns) {
                         var out = "<table><thead><tr>";
                         for(var h = 0; h < columns.length; h++) {

@@ -36,6 +36,18 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set to true in order to hide the options that are not in the table. This option does not work on server-side pagination.
 * default: `false`
 
+### disableControlWhenSearch
+
+* type: Boolean
+* description: Set to true if you want to disable the control while the server is responding the data. This options will work if the sidePagination is 'server'.
+* default: `false`
+
+### searchOnEnterKey
+
+* type: Boolean
+* description: Set to true to fire the search action when the user press the enter key.
+* default: `false`
+
 ## Column options
 
 ### filterControl
@@ -84,3 +96,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### onColumnSearch(column-search.bs.table)
 
 * Fired when we are searching into the column data
+
+## Methods
+
+### triggerSearch
+
+* Trigger manually the search action

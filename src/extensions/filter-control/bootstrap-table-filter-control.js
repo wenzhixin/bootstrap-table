@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.1.1
+ * @version: v2.1.2
  */
 
 (function ($) {
@@ -199,7 +199,7 @@
             that.pageTo;
 
         $.each(that.header.fields, function (j, field) {
-            var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
+            var column = that.columns[that.fieldsColumnsIndex[field]],
                 selectControl = $('.bootstrap-table-filter-control-' + escapeID(column.field));
 
             if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
@@ -257,7 +257,7 @@
                 if (column.searchable && that.options.filterTemplate[nameControl]) {
                     addedFilterControl = true;
                     isVisible = 'visible';
-                    html.push(that.options.filterTemplate[nameControl](that, column.field, isVisible, column.filterControlPlaceholder));
+                    html.push(that.options.filterTemplate[nameControl](that, column.field, isVisible, column.filterControlPlaceholder ? column.filterControlPlaceholder : ""));
                 }
             }
 
@@ -317,6 +317,14 @@
 
         if (addedFilterControl) {
             header.off('keyup', 'input').on('keyup', 'input', function (event) {
+                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                    return;
+                }
+
+                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                    return;
+                }
+
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -324,6 +332,14 @@
             });
 
             header.off('change', 'select').on('change', 'select', function (event) {
+                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                    return;
+                }
+
+                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                    return;
+                }
+                
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -441,11 +457,13 @@
                 return sprintf('<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">', field, isVisible);
             }
         },
+        disableControlWhenSearch: false,
+        searchOnEnterKey: false,
         //internal variables
         valuesFilterControl: []
     });
 
-    $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
+    $.extend($.fn.bootstrapTable.columnDefaults, {
         filterControl: undefined,
         filterData: undefined,
         filterDatepickerOptions: undefined,
@@ -467,7 +485,10 @@
             return 'Clear Filters';
         }
     });
+
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+
+    $.fn.bootstrapTable.methods.push('triggerSearch');
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _init = BootstrapTable.prototype.init,
@@ -509,6 +530,10 @@
                 }
             }).on('column-switch.bs.table', function() {
                 setValues(that);
+            }).on('load-success.bs.table', function() {
+                that.EnableControls(true);
+            }).on('load-error.bs.table', function() {
+                that.EnableControls(true);
             });
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
@@ -525,7 +550,7 @@
 
             if (!$btnClear.length) {
                 $btnClear = $([
-                    '<button class="btn btn-default filter-show-clear" ',
+                    sprintf('<button class="btn btn-%s filter-show-clear" ', this.options.buttonsClass),
                     sprintf('type="button" title="%s">', this.options.formatClearFilters()),
                     sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
                     '</button>'
@@ -559,12 +584,12 @@
         }
 
         var that = this;
-        var fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial;
+        var fp = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial;
 
         //Check partial column filter
-        this.data = fp ? $.grep(this.data, function (item, i) {
+        that.data = fp ? $.grep(that.data, function (item, i) {
             for (var key in fp) {
-                var thisColumn = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, key)];
+                var thisColumn = that.columns[that.fieldsColumnsIndex[key]];
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
 
@@ -575,28 +600,27 @@
                     [value, item, i], value);
                 }
 
-                if (thisColumn.filterStrictSearch) {
-                    if (!($.inArray(key, that.header.fields) !== -1 &&
-                        (typeof value === 'string' || typeof value === 'number') &&
-                        value.toString().toLowerCase() === fval.toString().toLowerCase())) {
-                        return false;
-                    }
-                } else if (thisColumn.filterStartsWithSearch) {
-                  if (!($.inArray(key, that.header.fields) !== -1 &&
-                      (typeof value === 'string' || typeof value === 'number') &&
-                      (value + '').toLowerCase().indexOf(fval) === 0)) {
-                      return false;
-                  }
-                } else {
-                    if (!($.inArray(key, that.header.fields) !== -1 &&
-                        (typeof value === 'string' || typeof value === 'number') &&
-                        (value + '').toLowerCase().indexOf(fval) !== -1)) {
-                        return false;
+                if($.inArray(key, that.header.fields) !== -1 ) {
+                    if(typeof value === 'string' || typeof value === 'number') {
+                        if (thisColumn.filterStrictSearch) {
+                            if(value.toString().toLowerCase() === fval.toString().toLowerCase()) {
+                                return true;
+                            }
+                        } else if (thisColumn.filterStartsWithSearch) {
+                            if((value + '').toLowerCase().indexOf(fval) === 0) {
+                                return true;
+                            }
+                        } else {
+                            if((value + '').toLowerCase().indexOf(fval) !== -1) {
+                                return true;
+                            }
+                        }
                     }
                 }
             }
-            return true;
-        }) : this.data;
+
+            return false;
+        }) : that.data;
     };
 
     BootstrapTable.prototype.initColumnSearch = function(filterColumnsDefaults) {
@@ -638,6 +662,7 @@
         this.searchText += "randomText";
 
         this.options.pageNumber = 1;
+        this.EnableControls(false);
         this.onSearch(event);
         this.trigger('column-search', $field, text);
     };
@@ -692,6 +717,33 @@
                     });
                 }
             }, that.options.searchTimeOut);
+        }
+    };
+
+    BootstrapTable.prototype.triggerSearch = function () {
+        var header = getCurrentHeader(this),
+            searchControls = getCurrentSearchControls(this);
+
+        header.find(searchControls).each(function () {
+            var el = $(this);
+            if(el.is('select')) {
+                el.change();
+            } else {
+                el.keyup();
+            }
+        });
+    };
+
+    BootstrapTable.prototype.EnableControls = function(enable) {
+        if((this.options.disableControlWhenSearch) && (this.options.sidePagination === 'server')) {
+            var header = getCurrentHeader(this),
+            searchControls = getCurrentSearchControls(this);
+
+            if(!enable) {
+                header.find(searchControls).prop('disabled', 'disabled');
+            } else {
+                header.find(searchControls).removeProp('disabled');
+            }
         }
     };
 })(jQuery);
