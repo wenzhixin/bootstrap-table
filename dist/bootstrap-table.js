@@ -1277,6 +1277,9 @@
                         value = item[key];
                     }
 
+                    value = value.replace(/<[^>]*>/gi, '');
+                    console.log(value);
+
                     if (typeof value === 'string' || typeof value === 'number') {
                         if (that.options.strictSearch) {
                             if ((value + '').toLowerCase() === s) {
