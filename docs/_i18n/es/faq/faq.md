@@ -1,4 +1,4 @@
-# FAQ []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/faq/faq.md)
+# FAQ []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/faq/faq.md)
 
 ---
 
@@ -30,8 +30,30 @@ $table.on('load-success.bs.table column-switch.bs.table page-change.bs.table sea
 
 ---
 
+### Is event parameter put in the wrong order?
+
+When you use like this:
+
+```
+$('#eventsTable').on('click-row.bs.table', function (event, row, $element) {
+
+});
+```
+
+the first parameter is always `event`: http://jsfiddle.net/wenyi/e3nk137y/11688/
+
+and use onClickRow event:
+
+```
+onClickRow: function (row, $element) {
+
+}
+```
+
+---
+
 ### How can I support development of bootstrap-table?
 
 All your ideas and feedback are very appreciated! Please feel free to open issues on GitHub or send me email.
 
-I'm also grateful for your donations: <a href="donate">{% t pages.donate.title %}</a>
+I'm also grateful for your donations: <a href="/donate">{% t pages.donate.title %}</a>

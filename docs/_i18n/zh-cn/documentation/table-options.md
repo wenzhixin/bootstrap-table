@@ -1,4 +1,4 @@
-# 表格参数 []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
+# 表格参数 []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/table-options.md)
 
 ---
 
@@ -33,6 +33,13 @@
         <td>String</td>
         <td>'table table-hover'</td>
         <td>表格的类名称。默认情况下，表格是有边框的，你可以添加 'table-no-bordered' 来删除表格的边框样式。</td>
+    </tr>
+    <tr>
+        <td>sortClass</td>
+        <td>data-sort-class</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>The class name of the td elements which are sorted.</td>
     </tr>
     <tr>
         <td>height</td>
@@ -142,7 +149,7 @@
         <td>data-cache</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>设置为 <code>true</code> 禁用 AJAX 数据缓存</td>
+        <td>设置为 <code>false</code> 禁用 AJAX 数据缓存</td>
     </tr>
     <tr>
         <td>contentType</td>
@@ -200,7 +207,14 @@
         <td>data-pagination</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>设置为 <code>true</code> 会在表格底部显示 分页条</td>
+        <td>设置为 <code>true</code> 会在表格底部显示分页条</td>
+    </tr>
+    <tr>
+        <td>paginationLoop</td>
+        <td>data-pagination-loop</td>
+        <td>Boolean</td>
+        <td>true</td>
+        <td>设置为 <code>true</code> 启用分页条无限循环的功能。</td>
     </tr>
     <tr>
         <td>onlyInfoPagination</td>

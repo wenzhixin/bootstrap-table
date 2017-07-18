@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.11.0
+ * version: 1.11.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -140,7 +140,7 @@
             return func;
         }
         if (typeof func === 'function') {
-            return func.apply(self, args);
+            return func.apply(self, args || []);
         }
         if (!func && typeof name === 'string' && sprintf.apply(this, [name].concat(args))) {
             return sprintf.apply(this, [name].concat(args));
@@ -190,16 +190,6 @@
         return text;
     };
 
-    var getRealHeight = function ($el) {
-        var height = 0;
-        $el.children().each(function () {
-            if (height < $(this).outerHeight(true)) {
-                height = $(this).outerHeight(true);
-            }
-        });
-        return height;
-    };
-
     var getRealDataAttr = function (dataAttr) {
         for (var attr in dataAttr) {
             var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
@@ -220,7 +210,9 @@
         }
         var props = field.split('.');
         for (var p in props) {
-            value = value && value[props[p]];
+            if (props.hasOwnProperty(p)) {
+                value = value && value[props[p]];
+            }
         }
         return escape ? escapeHTML(value) : value;
     };
@@ -287,6 +279,7 @@
 
     BootstrapTable.DEFAULTS = {
         classes: 'table table-hover',
+        sortClass: undefined,
         locale: undefined,
         height: undefined,
         undefinedText: '-',
@@ -296,6 +289,7 @@
         striped: false,
         columns: [[]],
         data: [],
+        totalField: 'total',
         dataField: 'rows',
         method: 'get',
         url: undefined,
@@ -313,6 +307,7 @@
         },
         pagination: false,
         onlyInfoPagination: false,
+        paginationLoop: true,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
         pageNumber: 1,
@@ -531,7 +526,8 @@
         cellStyle: undefined,
         searchable: true,
         searchFormatter: true,
-        cardVisible: true
+        cardVisible: true,
+        escape : false
     };
 
     BootstrapTable.EVENTS = {
@@ -569,6 +565,7 @@
         this.initTable();
         this.initHeader();
         this.initData();
+        this.initHiddenRows();
         this.initFooter();
         this.initToolbar();
         this.initPagination();
@@ -814,13 +811,12 @@
                     sprintf(' rowspan="%s"', column.rowspan),
                     sprintf(' colspan="%s"', column.colspan),
                     sprintf(' data-field="%s"', column.field),
-                    "tabindex='0'",
                     '>');
 
                 html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
                     'sortable both' : ''));
 
-                text = column.title;
+                text = that.options.escape ? escapeHTML(column.title) : column.title;
 
                 if (column.checkbox) {
                     if (!that.options.singleSelect && that.options.checkboxHeader) {
@@ -931,7 +927,8 @@
         var that = this,
             name = this.options.sortName,
             order = this.options.sortOrder === 'desc' ? -1 : 1,
-            index = $.inArray(this.options.sortName, this.header.fields);
+            index = $.inArray(this.options.sortName, this.header.fields),
+            timeoutId = 0;
 
         if (this.options.customSort !== $.noop) {
             this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder]);
@@ -996,6 +993,17 @@
 
                 return order;
             });
+
+            if (this.options.sortClass !== undefined) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function () {
+                    that.$el.removeClass(that.options.sortClass);
+                    var index = that.$header.find(sprintf('[data-field="%s"]',
+                        that.options.sortName).index() + 1);
+                    that.$el.find(sprintf('tr td:nth-child(%s)', index))
+                        .addClass(that.options.sortClass);
+                }, 250);
+            }
         }
     };
 
@@ -1058,7 +1066,7 @@
             html.push(sprintf('<button class="btn' +
                     sprintf(' btn-%s', this.options.buttonsClass) +
                     sprintf(' btn-%s', this.options.iconSize) +
-                    '" type="button" name="paginationSwitch" title="%s">',
+                    '" type="button" name="paginationSwitch" aria-label="pagination Switch" title="%s">',
                     this.options.formatPaginationSwitch()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
                 '</button>');
@@ -1068,7 +1076,7 @@
             html.push(sprintf('<button class="btn' +
                     sprintf(' btn-%s', this.options.buttonsClass) +
                     sprintf(' btn-%s', this.options.iconSize) +
-                    '" type="button" name="refresh" title="%s">',
+                    '" type="button" name="refresh" aria-label="refresh" title="%s">',
                     this.options.formatRefresh()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh),
                 '</button>');
@@ -1078,7 +1086,7 @@
             html.push(sprintf('<button class="btn' +
                     sprintf(' btn-%s', this.options.buttonsClass) +
                     sprintf(' btn-%s', this.options.iconSize) +
-                    '" type="button" name="toggle" title="%s">',
+                    '" type="button" name="toggle" aria-label="toggle" title="%s">',
                     this.options.formatToggle()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
@@ -1087,7 +1095,7 @@
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
                     this.options.formatColumns()),
-                '<button type="button" class="btn' +
+                '<button type="button" aria-label="columns" class="btn' +
                 sprintf(' btn-%s', this.options.buttonsClass) +
                 sprintf(' btn-%s', this.options.iconSize) +
                 ' dropdown-toggle" data-toggle="dropdown">',
@@ -1108,7 +1116,7 @@
                 var checked = column.visible ? ' checked="checked"' : '';
 
                 if (column.switchable) {
-                    html.push(sprintf('<li>' +
+                    html.push(sprintf('<li role="menuitem">' +
                         '<label><input type="checkbox" data-field="%s" value="%s"%s> %s</label>' +
                         '</li>', column.field, i, checked, column.title));
                     switchableCount++;
@@ -1172,7 +1180,7 @@
 
             this.$toolbar.append(html.join(''));
             $search = this.$toolbar.find('.search input');
-            $search.off('keyup drop').on('keyup drop', function (event) {
+            $search.off('keyup drop blur').on('keyup drop blur', function (event) {
                 if (that.options.searchOnEnterKey && event.keyCode !== 13) {
                     return;
                 }
@@ -1235,7 +1243,7 @@
             this.data = f ? $.grep(this.options.data, function (item, i) {
                 for (var key in f) {
                     if ($.isArray(f[key]) && $.inArray(item[key], f[key]) === -1 ||
-                            item[key] !== f[key]) {
+                            !$.isArray(f[key]) && item[key] !== f[key]) {
                         return false;
                     }
                 }
@@ -1377,14 +1385,14 @@
             }
 
             $.each(pageList, function (i, page) {
-                if (!that.options.smartDisplay || i === 0 || pageList[i - 1] <= that.options.totalRows) {
+                if (!that.options.smartDisplay || i === 0 || pageList[i - 1] < that.options.totalRows) {
                     var active;
                     if ($allSelected) {
                         active = page === that.options.formatAllRows() ? ' class="active"' : '';
                     } else {
                         active = page === that.options.pageSize ? ' class="active"' : '';
                     }
-                    pageNumber.push(sprintf('<li%s><a href="javascript:void(0)">%s</a></li>', active, page));
+                    pageNumber.push(sprintf('<li role="menuitem"%s><a href="#">%s</a></li>', active, page));
                 }
             });
             pageNumber.push('</ul></span>');
@@ -1395,7 +1403,7 @@
             html.push('</div>',
                 '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
                 '<ul class="pagination' + sprintf(' pagination-%s', this.options.iconSize) + '">',
-                '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
+                '<li class="page-pre"><a href="#">' + this.options.paginationPreText + '</a></li>');
 
             if (this.totalPages < 5) {
                 from = 1;
@@ -1416,7 +1424,7 @@
             if (this.totalPages >= 6) {
                 if (this.options.pageNumber >= 3) {
                     html.push('<li class="page-first' + (1 === this.options.pageNumber ? ' active' : '') + '">',
-                        '<a href="javascript:void(0)">', 1, '</a>',
+                        '<a href="#">', 1, '</a>',
                         '</li>');
 
                     from++;
@@ -1427,7 +1435,7 @@
                         from--;
                     } else {
                         html.push('<li class="page-first-separator disabled">',
-                            '<a href="javascript:void(0)">...</a>',
+                            '<a href="#">...</a>',
                             '</li>');
                     }
 
@@ -1453,14 +1461,14 @@
 
             for (i = from; i <= to; i++) {
                 html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-                    '<a href="javascript:void(0)">', i, '</a>',
+                    '<a href="#">', i, '</a>',
                     '</li>');
             }
 
             if (this.totalPages >= 8) {
                 if (this.options.pageNumber <= (this.totalPages - 4)) {
                     html.push('<li class="page-last-separator disabled">',
-                        '<a href="javascript:void(0)">...</a>',
+                        '<a href="#">...</a>',
                         '</li>');
                 }
             }
@@ -1468,13 +1476,13 @@
             if (this.totalPages >= 6) {
                 if (this.options.pageNumber <= (this.totalPages - 3)) {
                     html.push('<li class="page-last' + (this.totalPages === this.options.pageNumber ? ' active' : '') + '">',
-                        '<a href="javascript:void(0)">', this.totalPages, '</a>',
+                        '<a href="#">', this.totalPages, '</a>',
                         '</li>');
                 }
             }
 
             html.push(
-                '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
+                '<li class="page-next"><a href="#">' + this.options.paginationNextText + '</a></li>',
                 '</ul>',
                 '</div>');
         }
@@ -1499,6 +1507,16 @@
                 // when data is empty, hide the pagination
                 this.$pagination[this.getData().length ? 'show' : 'hide']();
             }
+
+            if (!this.options.paginationLoop) {
+                if (this.options.pageNumber === 1) {
+                    $pre.addClass('disabled');
+                }
+                if (this.options.pageNumber === this.totalPages) {
+                    $next.addClass('disabled');
+                }
+            }
+
             if ($allSelected) {
                 this.options.pageSize = this.options.formatAllRows();
             }
@@ -1540,11 +1558,13 @@
         this.$toolbar.find('.page-size').text(this.options.pageSize);
 
         this.updatePagination(event);
+        return false;
     };
 
     BootstrapTable.prototype.onPageFirst = function (event) {
         this.options.pageNumber = 1;
         this.updatePagination(event);
+        return false;
     };
 
     BootstrapTable.prototype.onPagePre = function (event) {
@@ -1554,6 +1574,7 @@
             this.options.pageNumber--;
         }
         this.updatePagination(event);
+        return false;
     };
 
     BootstrapTable.prototype.onPageNext = function (event) {
@@ -1563,11 +1584,13 @@
             this.options.pageNumber++;
         }
         this.updatePagination(event);
+        return false;
     };
 
     BootstrapTable.prototype.onPageLast = function (event) {
         this.options.pageNumber = this.totalPages;
         this.updatePagination(event);
+        return false;
     };
 
     BootstrapTable.prototype.onPageNumber = function (event) {
@@ -1576,6 +1599,198 @@
         }
         this.options.pageNumber = +$(event.currentTarget).text();
         this.updatePagination(event);
+        return false;
+    };
+
+    BootstrapTable.prototype.initRow = function(item, i, data, parentDom) {
+        var that=this,
+            key,
+            html = [],
+            style = {},
+            csses = [],
+            data_ = '',
+            attributes = {},
+            htmlAttributes = [];
+
+        if ($.inArray(item, this.hiddenRows) > -1) {
+            return;
+        }
+
+        style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
+
+        if (style && style.css) {
+            for (key in style.css) {
+                csses.push(key + ': ' + style.css[key]);
+            }
+        }
+
+        attributes = calculateObjectValue(this.options,
+            this.options.rowAttributes, [item, i], attributes);
+
+        if (attributes) {
+            for (key in attributes) {
+                htmlAttributes.push(sprintf('%s="%s"', key, escapeHTML(attributes[key])));
+            }
+        }
+
+        if (item._data && !$.isEmptyObject(item._data)) {
+            $.each(item._data, function(k, v) {
+                // ignore data-index
+                if (k === 'index') {
+                    return;
+                }
+                data_ += sprintf(' data-%s="%s"', k, v);
+            });
+        }
+
+        html.push('<tr',
+            sprintf(' %s', htmlAttributes.join(' ')),
+            sprintf(' id="%s"', $.isArray(item) ? undefined : item._id),
+            sprintf(' class="%s"', style.classes || ($.isArray(item) ? undefined : item._class)),
+            sprintf(' data-index="%s"', i),
+            sprintf(' data-uniqueid="%s"', item[this.options.uniqueId]),
+            sprintf('%s', data_),
+            '>'
+        );
+
+        if (this.options.cardView) {
+            html.push(sprintf('<td colspan="%s"><div class="card-views">', this.header.fields.length));
+        }
+
+        if (!this.options.cardView && this.options.detailView) {
+            html.push('<td>',
+                '<a class="detail-icon" href="#">',
+                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.detailOpen),
+                '</a>',
+                '</td>');
+        }
+
+        $.each(this.header.fields, function(j, field) {
+            var text = '',
+                value_ = getItemField(item, field, that.options.escape),
+                value = '',
+                type = '',
+                cellStyle = {},
+                id_ = '',
+                class_ = that.header.classes[j],
+                data_ = '',
+                rowspan_ = '',
+                colspan_ = '',
+                title_ = '',
+                column = that.columns[j];
+
+            if (that.fromHtml && typeof value_ === 'undefined') {
+                return;
+            }
+
+            if (!column.visible) {
+                return;
+            }
+
+            if (that.options.cardView && (!column.cardVisible)) {
+                return;
+            }
+
+            if (column.escape) {
+                value_ = escapeHTML(value_);
+            }
+
+            style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
+
+            // handle td's id and class
+            if (item['_' + field + '_id']) {
+                id_ = sprintf(' id="%s"', item['_' + field + '_id']);
+            }
+            if (item['_' + field + '_class']) {
+                class_ = sprintf(' class="%s"', item['_' + field + '_class']);
+            }
+            if (item['_' + field + '_rowspan']) {
+                rowspan_ = sprintf(' rowspan="%s"', item['_' + field + '_rowspan']);
+            }
+            if (item['_' + field + '_colspan']) {
+                colspan_ = sprintf(' colspan="%s"', item['_' + field + '_colspan']);
+            }
+            if (item['_' + field + '_title']) {
+                title_ = sprintf(' title="%s"', item['_' + field + '_title']);
+            }
+            cellStyle = calculateObjectValue(that.header,
+                that.header.cellStyles[j], [value_, item, i, field], cellStyle);
+            if (cellStyle.classes) {
+                class_ = sprintf(' class="%s"', cellStyle.classes);
+            }
+            if (cellStyle.css) {
+                var csses_ = [];
+                for (var key in cellStyle.css) {
+                    csses_.push(key + ': ' + cellStyle.css[key]);
+                }
+                style = sprintf('style="%s"', csses_.concat(that.header.styles[j]).join('; '));
+            }
+
+            value = calculateObjectValue(column,
+                that.header.formatters[j], [value_, item, i], value_);
+
+            if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
+                $.each(item['_' + field + '_data'], function(k, v) {
+                    // ignore data-index
+                    if (k === 'index') {
+                        return;
+                    }
+                    data_ += sprintf(' data-%s="%s"', k, v);
+                });
+            }
+
+            if (column.checkbox || column.radio) {
+                type = column.checkbox ? 'checkbox' : type;
+                type = column.radio ? 'radio' : type;
+
+                text = [sprintf(that.options.cardView ?
+                        '<div class="card-view %s">' : '<td class="bs-checkbox %s">', column['class'] || ''),
+                    '<input' +
+                    sprintf(' data-index="%s"', i) +
+                    sprintf(' name="%s"', that.options.selectItemName) +
+                    sprintf(' type="%s"', type) +
+                    sprintf(' value="%s"', item[that.options.idField]) +
+                    sprintf(' checked="%s"', value === true ||
+                        (value_ || value && value.checked) ? 'checked' : undefined) +
+                    sprintf(' disabled="%s"', !column.checkboxEnabled ||
+                        (value && value.disabled) ? 'disabled' : undefined) +
+                    ' />',
+                    that.header.formatters[j] && typeof value === 'string' ? value : '',
+                    that.options.cardView ? '</div>' : '</td>'
+                ].join('');
+
+                item[that.header.stateField] = value === true || (value && value.checked);
+            } else {
+                value = typeof value === 'undefined' || value === null ?
+                    that.options.undefinedText : value;
+
+                text = that.options.cardView ? ['<div class="card-view">',
+                    that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
+                        getPropertyFromOther(that.columns, 'field', 'title', field)) : '',
+                    sprintf('<span class="value">%s</span>', value),
+                    '</div>'
+                ].join('') : [sprintf('<td%s %s %s %s %s %s %s>',
+                        id_, class_, style, data_, rowspan_, colspan_, title_),
+                    value,
+                    '</td>'
+                ].join('');
+
+                // Hide empty data on Card view when smartDisplay is set to true.
+                if (that.options.cardView && that.options.smartDisplay && value === '') {
+                    // Should set a placeholder for event binding correct fieldIndex
+                    text = '<div class="card-view"></div>';
+                }
+            }
+
+            html.push(text);
+        });
+
+        if (this.options.cardView) {
+            html.push('</div></td>');
+        }
+        html.push('</tr>');
+
+        return html.join(' ');
     };
 
     BootstrapTable.prototype.initBody = function (fixedScroll) {
@@ -1597,195 +1812,28 @@
             this.pageTo = data.length;
         }
 
+        var trFragments = $(document.createDocumentFragment());
+        var hasTr;
+
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
-            var key,
-                item = data[i],
-                style = {},
-                csses = [],
-                data_ = '',
-                attributes = {},
-                htmlAttributes = [];
-
-            style = calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
-
-            if (style && style.css) {
-                for (key in style.css) {
-                    csses.push(key + ': ' + style.css[key]);
-                }
+            var item = data[i];
+            var tr = this.initRow(item, i, data, trFragments);
+            hasTr = hasTr || !!tr;
+            if (tr&&tr!==true) {
+                trFragments.append(tr);
             }
-
-            attributes = calculateObjectValue(this.options,
-                this.options.rowAttributes, [item, i], attributes);
-
-            if (attributes) {
-                for (key in attributes) {
-                    htmlAttributes.push(sprintf('%s="%s"', key, escapeHTML(attributes[key])));
-                }
-            }
-
-            if (item._data && !$.isEmptyObject(item._data)) {
-                $.each(item._data, function (k, v) {
-                    // ignore data-index
-                    if (k === 'index') {
-                        return;
-                    }
-                    data_ += sprintf(' data-%s="%s"', k, v);
-                });
-            }
-
-            html.push('<tr',
-                sprintf(' %s', htmlAttributes.join(' ')),
-                sprintf(' id="%s"', $.isArray(item) ? undefined : item._id),
-                sprintf(' class="%s"', style.classes || ($.isArray(item) ? undefined : item._class)),
-                sprintf(' data-index="%s"', i),
-                sprintf(' data-uniqueid="%s"', item[this.options.uniqueId]),
-                sprintf('%s', data_),
-                '>'
-            );
-
-            if (this.options.cardView) {
-                html.push(sprintf('<td colspan="%s"><div class="card-views">', this.header.fields.length));
-            }
-
-            if (!this.options.cardView && this.options.detailView) {
-                html.push('<td>',
-                    '<a class="detail-icon" href="javascript:">',
-                    sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.detailOpen),
-                    '</a>',
-                    '</td>');
-            }
-
-            $.each(this.header.fields, function (j, field) {
-                var text = '',
-                    value = getItemField(item, field, that.options.escape),
-                    type = '',
-                    cellStyle = {},
-                    id_ = '',
-                    class_ = that.header.classes[j],
-                    data_ = '',
-                    rowspan_ = '',
-                    colspan_ = '',
-                    title_ = '',
-                    column = that.columns[j];
-
-                if (that.fromHtml && typeof value === 'undefined') {
-                    return;
-                }
-
-                if (!column.visible) {
-                    return;
-                }
-
-                if (that.options.cardView && !column.cardVisible) {
-                    return;
-                }
-
-                style = sprintf('style="%s"', csses.concat(that.header.styles[j]).join('; '));
-
-                // handle td's id and class
-                if (item['_' + field + '_id']) {
-                    id_ = sprintf(' id="%s"', item['_' + field + '_id']);
-                }
-                if (item['_' + field + '_class']) {
-                    class_ = sprintf(' class="%s"', item['_' + field + '_class']);
-                }
-                if (item['_' + field + '_rowspan']) {
-                    rowspan_ = sprintf(' rowspan="%s"', item['_' + field + '_rowspan']);
-                }
-                if (item['_' + field + '_colspan']) {
-                    colspan_ = sprintf(' colspan="%s"', item['_' + field + '_colspan']);
-                }
-                if (item['_' + field + '_title']) {
-                    title_ = sprintf(' title="%s"', item['_' + field + '_title']);
-                }
-                cellStyle = calculateObjectValue(that.header,
-                    that.header.cellStyles[j], [value, item, i, field], cellStyle);
-                if (cellStyle.classes) {
-                    class_ = sprintf(' class="%s"', cellStyle.classes);
-                }
-                if (cellStyle.css) {
-                    var csses_ = [];
-                    for (var key in cellStyle.css) {
-                        csses_.push(key + ': ' + cellStyle.css[key]);
-                    }
-                    style = sprintf('style="%s"', csses_.concat(that.header.styles[j]).join('; '));
-                }
-
-                value = calculateObjectValue(column,
-                    that.header.formatters[j], [value, item, i], value);
-
-                if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
-                    $.each(item['_' + field + '_data'], function (k, v) {
-                        // ignore data-index
-                        if (k === 'index') {
-                            return;
-                        }
-                        data_ += sprintf(' data-%s="%s"', k, v);
-                    });
-                }
-
-                if (column.checkbox || column.radio) {
-                    type = column.checkbox ? 'checkbox' : type;
-                    type = column.radio ? 'radio' : type;
-
-                    text = [sprintf(that.options.cardView ?
-                        '<div class="card-view %s">' : '<td class="bs-checkbox %s">', column['class'] || ''),
-                        '<input' +
-                        sprintf(' data-index="%s"', i) +
-                        sprintf(' name="%s"', that.options.selectItemName) +
-                        sprintf(' type="%s"', type) +
-                        sprintf(' value="%s"', item[that.options.idField]) +
-                        sprintf(' checked="%s"', value === true ||
-                        (value && value.checked) ? 'checked' : undefined) +
-                        sprintf(' disabled="%s"', !column.checkboxEnabled ||
-                        (value && value.disabled) ? 'disabled' : undefined) +
-                        ' />',
-                        that.header.formatters[j] && typeof value === 'string' ? value : '',
-                        that.options.cardView ? '</div>' : '</td>'
-                    ].join('');
-
-                    item[that.header.stateField] = value === true || (value && value.checked);
-                } else {
-                    value = typeof value === 'undefined' || value === null ?
-                        that.options.undefinedText : value;
-
-                    text = that.options.cardView ? ['<div class="card-view">',
-                        that.options.showHeader ? sprintf('<span class="title" %s>%s</span>', style,
-                            getPropertyFromOther(that.columns, 'field', 'title', field)) : '',
-                        sprintf('<span class="value">%s</span>', value),
-                        '</div>'
-                    ].join('') : [sprintf('<td%s %s %s %s %s %s %s>',
-                        id_, class_, style, data_, rowspan_, colspan_, title_),
-                        value,
-                        '</td>'
-                    ].join('');
-
-                    // Hide empty data on Card view when smartDisplay is set to true.
-                    if (that.options.cardView && that.options.smartDisplay && value === '') {
-                        // Should set a placeholder for event binding correct fieldIndex
-                        text = '<div class="card-view"></div>';
-                    }
-                }
-
-                html.push(text);
-            });
-
-            if (this.options.cardView) {
-                html.push('</div></td>');
-            }
-
-            html.push('</tr>');
         }
 
         // show no records
-        if (!html.length) {
-            html.push('<tr class="no-records-found">',
+        if (!hasTr) {
+            trFragments.append('<tr class="no-records-found">' +
                 sprintf('<td colspan="%s">%s</td>',
-                    this.$header.find('th').length, this.options.formatNoMatches()),
+                this.$header.find('th').length,
+                this.options.formatNoMatches()) +
                 '</tr>');
         }
 
-        this.$body.html(html.join(''));
+        this.$body.html(trFragments);
 
         if (!fixedScroll) {
             this.scrollTo(0);
@@ -1827,8 +1875,8 @@
             // remove and update
             if ($tr.next().is('tr.detail-view')) {
                 $this.find('i').attr('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailOpen));
-                $tr.next().remove();
                 that.trigger('collapse-row', index, row);
+                $tr.next().remove();
             } else {
                 $this.find('i').attr('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailClose));
                 $tr.after(sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.find('td').length));
@@ -1840,6 +1888,7 @@
                 that.trigger('expand-row', index, row, $element);
             }
             that.resetView();
+            return false;
         });
 
         this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
@@ -2041,6 +2090,7 @@
                 row[that.header.stateField] = false;
             }
         });
+        this.initHiddenRows();
     };
 
     BootstrapTable.prototype.trigger = function (name) {
@@ -2257,17 +2307,6 @@
         }
     };
 
-    BootstrapTable.prototype.toggleRow = function (index, uniqueId, visible) {
-        if (index === -1) {
-            return;
-        }
-
-        this.$body.find(typeof index !== 'undefined' ?
-            sprintf('tr[data-index="%s"]', index) :
-            sprintf('tr[data-uniqueid="%s"]', uniqueId))
-            [visible ? 'show' : 'hide']();
-    };
-
     BootstrapTable.prototype.getVisibleFields = function () {
         var that = this,
             visibleFields = [];
@@ -2297,8 +2336,8 @@
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
         if (this.options.height) {
-            var toolbarHeight = getRealHeight(this.$toolbar),
-                paginationHeight = getRealHeight(this.$pagination),
+            var toolbarHeight = this.$toolbar.outerHeight(true),
+                paginationHeight = this.$pagination.outerHeight(true),
                 height = this.options.height - toolbarHeight - paginationHeight;
 
             this.$tableContainer.css('height', height + 'px');
@@ -2345,7 +2384,7 @@
 
         // #431: support pagination
         if (this.options.sidePagination === 'server') {
-            this.options.totalRows = data.total;
+            this.options.totalRows = data[this.options.totalField];
             fixedScroll = data.fixedScroll;
             data = data[this.options.dataField];
         } else if (!$.isArray(data)) { // support fixedScroll
@@ -2391,6 +2430,9 @@
             }
             if ($.inArray(row[params.field], params.values) !== -1) {
                 this.options.data.splice(i, 1);
+                if (this.options.sidePagination === 'server') {
+                    this.options.totalRows -= 1;
+                }
             }
         }
 
@@ -2486,6 +2528,7 @@
         });
 
         this.initSearch();
+        this.initPagination();
         this.initSort();
         this.initBody(true);
     };
@@ -2513,32 +2556,57 @@
         });
 
         this.initSearch();
+        this.initPagination();
         this.initSort();
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.initHiddenRows = function () {
+        this.hiddenRows = [];
+    };
+
     BootstrapTable.prototype.showRow = function (params) {
-        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
-            return;
-        }
-        this.toggleRow(params.index, params.uniqueId, true);
+        this.toggleRow(params, true);
     };
 
     BootstrapTable.prototype.hideRow = function (params) {
-        if (!params.hasOwnProperty('index') && !params.hasOwnProperty('uniqueId')) {
-            return;
-        }
-        this.toggleRow(params.index, params.uniqueId, false);
+        this.toggleRow(params, false);
     };
 
-    BootstrapTable.prototype.getRowsHidden = function (show) {
-        var rows = $(this.$body[0]).children().filter(':hidden'),
-            i = 0;
-        if (show) {
-            for (; i < rows.length; i++) {
-                $(rows[i]).show();
-            }
+    BootstrapTable.prototype.toggleRow = function (params, visible) {
+        var row, index;
+
+        if (params.hasOwnProperty('index')) {
+            row = this.getData()[params.index];
+        } else if (params.hasOwnProperty('uniqueId')) {
+            row = this.getRowByUniqueId(params.uniqueId);
         }
+
+        if (!row) {
+            return;
+        }
+
+        index = $.inArray(row, this.hiddenRows);
+
+        if (!visible && index === -1) {
+            this.hiddenRows.push(row);
+        } else if (visible && index > -1) {
+            this.hiddenRows.splice(index, 1);
+        }
+        this.initBody(true);
+    };
+
+    BootstrapTable.prototype.getHiddenRows = function (show) {
+        var that = this,
+            data = this.getData(),
+            rows = [];
+
+        $.each(data, function (i, row) {
+            if ($.inArray(row, that.hiddenRows) > -1) {
+                rows.push(row);
+            }
+        });
+        this.hiddenRows = rows;
         return rows;
     };
 
@@ -2593,7 +2661,8 @@
         var that = this;
 
         return $.grep(this.options.data, function (row) {
-            return row[that.header.stateField];
+            // fix #2424: from html with checkbox
+            return row[that.header.stateField] === true;
         });
     };
 
@@ -2718,7 +2787,13 @@
 
     BootstrapTable.prototype.refresh = function (params) {
         if (params && params.url) {
-            this.options.pageNumber = 1;
+            this.options.url = params.url;
+        }
+        if (params && params.pageNumber) {
+            this.options.pageNumber = params.pageNumber;
+        }
+        if (params && params.pageSize) {
+            this.options.pageSize = params.pageSize;
         }
         this.initServer(params && params.silent,
             params && params.query, params && params.url);
@@ -2937,7 +3012,7 @@
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
-        'getRowByUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
+        'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
         'mergeCells',
         'checkAll', 'uncheckAll', 'checkInvert',
         'check', 'uncheck',

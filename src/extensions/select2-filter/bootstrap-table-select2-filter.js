@@ -259,7 +259,7 @@
           var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
             filterValue = filterValues[field].toLowerCase(),
             rowValue = row[field];
-
+          
           rowValue = $.fn.bootstrapTable.utils.calculateObjectValue(
             that.header,
             that.header.formatters[$.inArray(field, that.header.fields)], [rowValue, row, idx], rowValue);

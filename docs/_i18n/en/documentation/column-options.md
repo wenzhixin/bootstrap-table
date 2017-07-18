@@ -1,4 +1,4 @@
-# Column options []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/documentation/column-options.md)
+# Column options []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/documentation/column-options.md)
 
 ---
 
@@ -164,7 +164,18 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         The cell formatter function, take three parameters: <br>
         value: the field value. <br>
         row: the row record data.<br>
-        index: the row index.</td>
+        index: the row index.<br>
+        field: the row field.<br>
+        Example usage:<br>
+<pre>
+function formatter(value, row, index, field) {
+  if (value === 'foo') {
+    return '<strong>' + value + '</strong>';
+  }
+  return value;
+}
+</pre>
+        </td>
     </tr>
     <tr>
         <td>footerFormatter</td>
@@ -252,6 +263,15 @@ function cellStyle(value, row, index, field) {
         <td>true</td>
         <td>
         True to search use formated data.
+        </td>
+    </tr>
+    <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>
+        Escapes a string for insertion into HTML, replacing &, <, >, ", `, and ' characters.
         </td>
     </tr>
 </tbody>

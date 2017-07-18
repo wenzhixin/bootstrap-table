@@ -1,4 +1,4 @@
-# 编译 CSS 和 JavaScript []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/grunt.md)
+# 编译 CSS 和 JavaScript []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/getting-started/grunt.md)
 
 ---
 

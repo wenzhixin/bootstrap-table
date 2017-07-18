@@ -16,6 +16,12 @@ Use Plugin: [bootstrap-table-multiple-sort](https://github.com/dimbslmh/bootstra
 * description: Set true to allow the multiple sort.
 * default: `false`
 
+### showMultiSortButton
+
+* type: Boolean
+* description: Set false to hide multiple sort UI button.
+* default: `true`
+
 ### sortPriority
 
 * type: Object
@@ -26,6 +32,13 @@ Use Plugin: [bootstrap-table-multiple-sort](https://github.com/dimbslmh/bootstra
 * sort: `glyphicon-sort`
 * plus: `glyphicon-plus`
 * minus: `glyphicon-minus`
+
+## methods
+
+### multipleSort
+
+* parameters: none
+* description: Force mutltiple sort table (usable after manual data changes).
 
 ## Locales
 

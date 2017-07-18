@@ -1,4 +1,4 @@
-# Download []({{ site.repo }}/blob/master/docs/_i18n/{{ site.lang }}/getting-started/download.md)
+# Download []({{ site.repo }}/blob/develop/docs/_i18n/{{ site.lang }}/getting-started/download.md)
 
 ---
 
