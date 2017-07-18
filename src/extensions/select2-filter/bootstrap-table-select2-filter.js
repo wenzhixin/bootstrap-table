@@ -1,9 +1,9 @@
 /**
  * @author: Jewway
- * @version: v1.1.0
+ * @version: v1.1.1
  */
 
-!function ($) {
+! function ($) {
   'use strict';
 
   function getCurrentHeader(that) {
@@ -42,9 +42,9 @@
 
   function createFilter(that, header) {
     var enableFilter = false,
-        isVisible,
-        html,
-        timeoutId = 0;
+      isVisible,
+      html,
+      timeoutId = 0;
 
     $.each(that.columns, function (i, column) {
       isVisible = 'hidden';
@@ -72,18 +72,33 @@
 
           switch (column.filter.type) {
             case 'input':
-              $filter.off('keyup').on('keyup', function (event) {
-                var $input = $(this);
+              var cpLock = true;
+              $filter.off('compositionstart').on('compositionstart', function (event) {
+                cpLock = false;
+              });
 
+              $filter.off('compositionend').on('compositionend', function (event) {
+                cpLock = true;
+                var $input = $(this);
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                   that.onColumnSearch(event, column.field, $input.val());
                 }, that.options.searchTimeOut);
               });
 
+              $filter.off('keyup').on('keyup', function (event) {
+                if (cpLock) {
+                  var $input = $(this);
+                  clearTimeout(timeoutId);
+                  timeoutId = setTimeout(function () {
+                    that.onColumnSearch(event, column.field, $input.val());
+                  }, that.options.searchTimeOut);
+                }
+              });
+
               $filter.off('mouseup').on('mouseup', function (event) {
                 var $input = $(this),
-                    oldValue = $input.val();
+                  oldValue = $input.val();
 
                 if (oldValue === "") {
                   return;
@@ -142,8 +157,6 @@
         var $selectEle = $header.find('select[data-filter-field=' + column.field + ']');
 
         if ($selectEle.length > 0 && !$selectEle.data().select2) {
-          column.filter.data.unshift("");
-
           var select2Opts = {
             placeholder: "",
             allowClear: true,
@@ -182,9 +195,9 @@
   });
 
   var BootstrapTable = $.fn.bootstrapTable.Constructor,
-      _init = BootstrapTable.prototype.init,
-      _initHeader = BootstrapTable.prototype.initHeader,
-      _initSearch = BootstrapTable.prototype.initSearch;
+    _init = BootstrapTable.prototype.init,
+    _initHeader = BootstrapTable.prototype.initHeader,
+    _initSearch = BootstrapTable.prototype.initSearch;
 
   BootstrapTable.prototype.init = function () {
     //Make sure that the filtercontrol option is set
@@ -236,23 +249,20 @@
   };
 
   BootstrapTable.prototype.initSearch = function () {
-    _initSearch.apply(this, Array.prototype.slice.apply(arguments));
-
     var that = this,
-        filterValues = that.filterColumnsPartial;
+      filterValues = that.filterColumnsPartial;
 
     // Filter for client
     if (that.options.sidePagination === 'client') {
       this.data = $.grep(this.data, function (row, idx) {
         for (var field in filterValues) {
           var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
-              filterValue = filterValues[field].toLowerCase(),
-              rowValue = row[field];
+            filterValue = filterValues[field].toLowerCase(),
+            rowValue = row[field];
 
           rowValue = $.fn.bootstrapTable.utils.calculateObjectValue(
-              that.header,
-              that.header.formatters[$.inArray(field, that.header.fields)],
-              [rowValue, row, idx], rowValue);
+            that.header,
+            that.header.formatters[$.inArray(field, that.header.fields)], [rowValue, row, idx], rowValue);
 
           if (column.filterStrictSearch) {
             if (!($.inArray(field, that.header.fields) !== -1 &&
@@ -272,6 +282,8 @@
         return true;
       });
     }
+
+    _initSearch.apply(this, Array.prototype.slice.apply(arguments));
   };
 
   BootstrapTable.prototype.onColumnSearch = function (event, field, value) {
@@ -292,9 +304,8 @@
 
   BootstrapTable.prototype.setSelect2Data = function (field, data) {
     var that = this,
-        $header = getCurrentHeader(that),
-        $selectEle = $header.find('select[data-filter-field=\"' + field + '\"]');
-    data.unshift("");
+      $header = getCurrentHeader(that),
+      $selectEle = $header.find('select[data-filter-field=\"' + field + '\"]');
     $selectEle.empty();
     $selectEle.select2({
       data: data,
