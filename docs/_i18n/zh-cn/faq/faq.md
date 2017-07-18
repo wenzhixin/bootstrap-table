@@ -30,8 +30,28 @@ $table.on('load-success.bs.table column-switch.bs.table page-change.bs.table sea
 
 ---
 
+### 事件参数位置错误？
+
+当你使用：
+
+```
+$('#eventsTable').on('click-row.bs.table', function (event, row, $element) {
+
+});
+```
+
+的时候，第一个参数总是 `event`：http://jsfiddle.net/wenyi/e3nk137y/11688/
+
+而使用 `onClickRow` 就正常:
+
+```
+onClickRow: function (row, $element) {
+
+}
+```
+
 ### 我要如何支持 Bootstrap Table 的开发？
 
 非常感谢你的想法和建议，你可以到 GitHub 上提 issue 或者发邮件给我。
 
-当然，假如你也可以 <a href="donate">{% t pages.donate.title %}</a> 我们的项目。
+当然，假如你也可以 <a href="/donate">{% t pages.donate.title %}</a> 我们的项目。
