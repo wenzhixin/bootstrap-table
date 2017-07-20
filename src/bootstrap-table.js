@@ -707,7 +707,7 @@
 
                 var field = that.columns[x].field;
 
-                row[field] = $(this).html();
+                row[field] = ($(this).data('value') || $(this).html());
                 // save td's id, class and data-* attributes
                 row['_' + field + '_id'] = $(this).attr('id');
                 row['_' + field + '_class'] = $(this).attr('class');
