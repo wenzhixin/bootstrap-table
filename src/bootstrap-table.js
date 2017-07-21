@@ -203,6 +203,19 @@
         }
         return escape ? escapeHTML(value) : value;
     };
+    
+    var getItemSortValue = function (item, field, escape) {
+        var data;
+
+        if (item.hasOwnProperty('_' + field + '_data')) {
+            data = item['_' + field + '_data'];
+
+            if(data && (data.sortValue || data['sort-value'])){
+                return (data.sortValue || data['sort-value']);
+            }
+        }
+        return getItemField(item, field, escape);
+    };
 
     var isIEBrowser = function () {
         return !!(navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./));
@@ -921,7 +934,8 @@
             name = this.options.sortName,
             order = this.options.sortOrder === 'desc' ? -1 : 1,
             index = $.inArray(this.options.sortName, this.header.fields),
-            timeoutId = 0;
+            timeoutId = 0,
+            sortingFunc = getItemField;
 
         if (this.options.customSort !== $.noop) {
             this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder]);
@@ -934,13 +948,14 @@
                     row._position = i;
                 });
             }
-
+            
+            if (this.fromHtml) { sortingFunc = getItemSortValue; }
             this.data.sort(function (a, b) {
                 if (that.header.sortNames[index]) {
                     name = that.header.sortNames[index];
                 }
-                var aa = getItemField(a, name, that.options.escape),
-                    bb = getItemField(b, name, that.options.escape),
+                var aa = sortingFunc(a, name, that.options.escape),
+                    bb = sortingFunc(b, name, that.options.escape),
                     value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
 
                 if (value !== undefined) {
