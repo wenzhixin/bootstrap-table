@@ -333,7 +333,6 @@
         },
         trimOnSearch: true,
         clickToSelect: false,
-        clickToSelectColor: '#7ccc7c',
         singleSelect: false,
         toolbar: undefined,
         toolbarAlign: 'left',
@@ -753,7 +752,7 @@
                     halign = '', // header align style
                     align = '', // body align style
                     style = '',
-                    class_ = sprintf(' class="%s"', column['class']),
+                    class_ = sprintf(' class="%s"', calculateObjectValue(null, that.options.rowStyle, [null, j, column['field']])['classes'] || column['class']),
                     order = that.options.sortOrder || column.order,
                     unitWidth = 'px',
                     width = column.width;
@@ -771,6 +770,12 @@
 
                 halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
                 align = sprintf('text-align: %s; ', column.align);
+								//create tmp variable, storage css style through rowStyle function   rowStyle  function  argument list  :    data index field
+								var _style= calculateObjectValue(null, that.options.rowStyle, [null, j, column['field']])['css'] || {};
+                for(var key in _style){
+                    style += key+ ': ' + _style[key] + '; ';
+                }
+                style += sprintf('vertical-align: %s; ', column.valign);
                 style = sprintf('vertical-align: %s; ', column.valign);
                 style += sprintf('width: %s; ', (column.checkbox || column.radio) && !width ?
                     '36px' : (width ? width + unitWidth : undefined));
@@ -1235,7 +1240,7 @@
 
         if (this.options.sidePagination !== 'server') {
             if (this.options.customSearch !== $.noop) {
-                this.options.customSearch.apply(this, [this.searchText]);
+                window[this.options.customSearch].apply(this, [this.searchText]);
                 return;
             }
 
@@ -1688,7 +1693,9 @@
                 column = that.columns[j];
 
             if (that.fromHtml && typeof value_ === 'undefined') {
-                return;
+                if((!column.checkbox) && (!column.radio)) {
+                    return;
+                }
             }
 
             if (!column.visible) {
@@ -1735,7 +1742,7 @@
             }
 
             value = calculateObjectValue(column,
-                that.header.formatters[j], [value_, item, i], value_);
+                that.header.formatters[j], [value_, item, i, field], value_);
 
             if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
                 $.each(item['_' + field + '_data'], function(k, v) {
@@ -1865,18 +1872,6 @@
             that.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
             that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
 
-            // if click to select then row which is clicking background is changing
-            if(e.type === 'click'){
-                if(that.options.singleSelect){
-                    that.$selectItem.closest('tr').find('td').css({'background-color':'white'});
-                }
-                if($(this).closest('tr').hasClass('selected')){ //judge the node is or not contain selected class
-                    $(this).closest('tr').find('td').css({'background':'white'});
-                }else{
-                    $(this).closest('tr').find('td').css({'background':that.options.clickToSelectColor});
-                }
-            }
-            
             // if click to select - then trigger the checkbox/radio click
             if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
                 var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
@@ -2403,9 +2398,16 @@
     };
 
     BootstrapTable.prototype.getData = function (useCurrentPage) {
-        return (this.searchText || !$.isEmptyObject(this.filterColumns) || !$.isEmptyObject(this.filterColumnsPartial)) ?
-            (useCurrentPage ? this.data.slice(this.pageFrom - 1, this.pageTo) : this.data) :
-            (useCurrentPage ? this.options.data.slice(this.pageFrom - 1, this.pageTo) : this.options.data);
+        var data = this.options.data;
+        if (this.searchText || this.options.sortName || !$.isEmptyObject(this.filterColumns) || !$.isEmptyObject(this.filterColumnsPartial)) {
+            data = this.data;
+        }
+
+        if (useCurrentPage) {
+            return data.slice(this.pageFrom - 1, this.pageTo);
+        }
+
+        return data;
     };
 
     BootstrapTable.prototype.load = function (data) {
@@ -2562,6 +2564,26 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.refreshColumnTitle = function (params) {
+        if (!params.hasOwnProperty('field') || !params.hasOwnProperty('title')) {
+            return;
+        }
+
+        this.columns[this.fieldsColumnsIndex[params.field]].title = this.options.escape 
+                                                                    ? escapeHTML(params.title) 
+                                                                    : params.title;
+        
+        if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
+            var header = this.options.height !== undefined ? this.$tableHeader : this.$header; 
+            header.find('th[data-field]').each(function (i) {
+                if ($(this).data('field') === params.field) {
+                    $($(this).find(".th-inner")[0]).text(params.title);
+                    return false;
+                }
+            });
+        }
+    };
+
     BootstrapTable.prototype.insertRow = function (params) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
@@ -2683,7 +2705,8 @@
     };
 
     BootstrapTable.prototype.getOptions = function () {
-        return this.options;
+        //Deep copy
+        return $.extend(true, {}, this.options);
     };
 
     BootstrapTable.prototype.getSelections = function () {
@@ -2859,8 +2882,9 @@
     };
 
     BootstrapTable.prototype.toggleAllColumns = function (visible) {
+        var that = this;
         $.each(this.columns, function (i, column) {
-            this.columns[i].visible = visible;
+            that.columns[i].visible = visible;
         });
 
         this.initHeader();
@@ -3042,7 +3066,7 @@
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
-        'mergeCells',
+        'mergeCells', 'refreshColumnTitle',
         'checkAll', 'uncheckAll', 'checkInvert',
         'check', 'uncheck',
         'checkBy', 'uncheckBy',
