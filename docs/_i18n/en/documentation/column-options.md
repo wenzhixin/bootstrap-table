@@ -164,7 +164,18 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         The cell formatter function, take three parameters: <br>
         value: the field value. <br>
         row: the row record data.<br>
-        index: the row index.</td>
+        index: the row index.<br>
+        field: the row field.<br>
+        Example usage:<br>
+<pre>
+function formatter(value, row, index, field) {
+  if (value === 'foo') {
+    return '<strong>' + value + '</strong>';
+  }
+  return value;
+}
+</pre>
+        </td>
     </tr>
     <tr>
         <td>footerFormatter</td>

@@ -1396,7 +1396,7 @@
 
         if (this.options.sidePagination !== 'server') {
             if (this.options.customSearch !== $.noop) {
-                this.options.customSearch.apply(this, [this.searchText]);
+                window[this.options.customSearch].apply(this, [this.searchText]);
                 return;
             }
 
@@ -2066,6 +2066,8 @@
                 if (item['_' + field + '_colspan']) {
                     columnOptions.propDOM['colspan'] = item['_' + field + '_colspan'];
                 }
+                value = calculateObjectValue(column,
+                    that.header.formatters[j], [value_, item, i, field], value_);
 
                 if (item['_' + field + '_title']) {
                     columnOptions.propDOM['title'] = item['_' + field + '_title'];
@@ -2777,9 +2779,16 @@
     };
 
     BootstrapTable.prototype.getData = function(useCurrentPage) {
-        return (this.searchText || !$.isEmptyObject(this.filterColumns) || !$.isEmptyObject(this.filterColumnsPartial)) ?
-            (useCurrentPage ? this.data.slice(this.pageFrom - 1, this.pageTo) : this.data) :
-            (useCurrentPage ? this.options.data.slice(this.pageFrom - 1, this.pageTo) : this.options.data);
+        var data = this.options.data;
+        if (this.searchText || this.options.sortName || !$.isEmptyObject(this.filterColumns) || !$.isEmptyObject(this.filterColumnsPartial)) {
+            data = this.data;
+        }
+
+        if (useCurrentPage) {
+            return data.slice(this.pageFrom - 1, this.pageTo);
+        }
+
+        return data;
     };
 
     BootstrapTable.prototype.load = function(data) {
@@ -2969,6 +2978,26 @@
         });
     };
 
+    BootstrapTable.prototype.refreshColumnTitle = function(params) {
+        if (!params.hasOwnProperty('field') || !params.hasOwnProperty('title')) {
+            return;
+        }
+
+        this.columns[this.fieldsColumnsIndex[params.field]].title = this.options.escape ?
+            escapeHTML(params.title) :
+            params.title;
+
+        if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
+            var header = this.options.height !== undefined ? this.$tableHeader : this.$header;
+            header.find('th[data-field]').each(function(i) {
+                if ($(this).data('field') === params.field) {
+                    $($(this).find(".th-inner")[0]).text(params.title);
+                    return false;
+                }
+            });
+        }
+    };
+
     BootstrapTable.prototype.insertRow = function(params) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
@@ -3097,7 +3126,8 @@
     };
 
     BootstrapTable.prototype.getOptions = function() {
-        return this.options;
+        //Deep copy
+        return $.extend(true, {}, this.options);
     };
 
     BootstrapTable.prototype.getSelections = function() {
@@ -3273,8 +3303,9 @@
     };
 
     BootstrapTable.prototype.toggleAllColumns = function(visible) {
+        var that = this;
         $.each(this.columns, function(i, column) {
-            this.columns[i].visible = visible;
+            that.columns[i].visible = visible;
         });
 
         this.initHeader();
@@ -3458,7 +3489,7 @@
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
-        'mergeCells',
+        'mergeCells', 'refreshColumnTitle',
         'checkAll', 'uncheckAll', 'checkInvert',
         'check', 'uncheck',
         'checkBy', 'uncheckBy',

@@ -64,6 +64,19 @@ We can also use remote url data by setting `data-url="data1.json"` on a normal t
     </thead>
 </table>
 ```
+You can also add `pagination`, `search`, and `sorting` to a table like the following table.
+
+```html
+<table data-pagination="true" data-search="true" data-toggle="table" data-url="data1.json">
+    <thead>
+        <tr>
+            <th data-sortable="true" data-field="id">Item ID</th>
+            <th data-field="name">Item Name</th>
+            <th data-field="price">Item Price</th>
+        </tr>
+    </thead>
+</table>
+```
 
 ## Via JavaScript
 

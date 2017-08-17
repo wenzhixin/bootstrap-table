@@ -123,16 +123,15 @@
                     that.options.sortName = '';
 
                     if (that.options.sidePagination === 'server') {
-
+                        var t = that.options.queryParams;
                         that.options.queryParams = function(params) {
                             params.multiSort = that.options.sortPriority;
-                            return params;
+                            return t(params);
                         };
-
+                        isSingleSort=false;
                         that.initServer(that.options.silentSort);
                         return;
                     }
-
                     that.onMultipleSort();
 
                 }
@@ -238,6 +237,14 @@
         this.sortModalSelector = sortModalSelector;
 
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+        
+        if (that.options.sidePagination === 'server' && !isSingleSort && that.options.sortPriority !== null){
+            var t = that.options.queryParams;
+            that.options.queryParams = function(params) {
+                params.multiSort = that.options.sortPriority;
+                return t(params);
+            };
+        }
 
         if (this.options.showMultiSort) {
             var $btnGroup = this.$toolbar.find('>.btn-group').first(),
