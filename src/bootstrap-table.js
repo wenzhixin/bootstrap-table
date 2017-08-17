@@ -617,7 +617,7 @@
                 column.push($.extend(true, {}, {
                     title: $(this).html(),
                     'class': $(this).prop('class'),
-                    titleTooltip: $(this).attr('title'),
+                    titleTooltip: $(this).prop('title'),
                     rowspan: $(this).prop('rowspan') ? +$(this).prop('rowspan') : undefined,
                     colspan: $(this).prop('colspan') ? +$(this).prop('colspan') : undefined
                 }, $(this).data()));
@@ -685,7 +685,7 @@
                 row['_' + field + '_class'] = $(this).prop('class');
                 row['_' + field + '_rowspan'] = $(this).prop('rowspan');
                 row['_' + field + '_colspan'] = $(this).prop('colspan');
-                row['_' + field + '_title'] = $(this).attr('title');
+                row['_' + field + '_title'] = $(this).prop('title');
                 row['_' + field + '_data'] = getRealDataAttr($(this).data());
             });
             data.push(row);
@@ -908,21 +908,6 @@
 
                 if (!displayNoneUsed) {
                     if (columnHeadOptions.hasOwnProperty('rowspan')) {
-                        columnHeadOptions.attrHTML.rowspan = parseInt(columnHeadOptions.rowspan);
-                        specialAttrHTML.rowspan.push({
-                            count: columnHeadOptions.attrHTML.rowspan - 1,
-                            colIndex: j
-                        });
-                    } else if (rowHeadOptions.hasOwnProperty('rowspan') && (!columnOptions.hasOwnProperty('replaceOptionsDefaults') || !columnOptions.replaceOptionsDefaults)) {
-                        columnHeadOptions.attrHTML.rowspan = parseInt(rowHeadOptions.rowspan);
-                        specialAttrHTML.rowspan.push({
-                            count: columnHeadOptions.attrHTML.rowspan - 1,
-                            colIndex: j
-                        });
-                    }
-                }
-                if (!displayNoneUsed) {
-                    if (columnHeadOptions.hasOwnProperty('rowspan')) {
                         columnHeadOptions.propDOM.rowspan = parseInt(columnHeadOptions.rowspan);
                         specialPropDOM.rowspan.push({
                             count: columnHeadOptions.propDOM.rowspan - 1,
@@ -937,16 +922,6 @@
                     }
                 }
 
-                if (columnHeadOptions.hasOwnProperty('colspan') && specialAttrHTMLCol.colspan === 0) {
-                    columnHeadOptions.attrHTML.colspan = parseInt(columnHeadOptions.colspan);
-                    specialAttrHTMLCol.colspan = columnHeadOptions.attrHTML.colspan - 1;
-                } else if (rowHeadOptions.hasOwnProperty('colspan') && specialAttrHTMLCol.colspan === 0 && (!columnOptions.hasOwnProperty('replaceOptionsDefaults') || !columnOptions.replaceOptionsDefaults)) {
-                    columnHeadOptions.attrHTML.colspan = parseInt(rowHeadOptions.colspan);
-                    specialAttrHTMLCol.colspan = columnHeadOptions.attrHTML.colspan - 1;
-                } else if (specialAttrHTMLCol.colspan !== 0) {
-                    specialAttrHTMLCol.colspan--;
-                    columnHeadOptions.css['display'] = 'none';
-                }
                 if (columnHeadOptions.hasOwnProperty('colspan') && specialPropDOMCol.colspan === 0) {
                     columnHeadOptions.propDOM.colspan = parseInt(columnHeadOptions.colspan);
                     specialPropDOMCol.colspan = columnHeadOptions.propDOM.colspan - 1;
@@ -961,9 +936,6 @@
                 if (columnHeadOptions.hasOwnProperty('field')) {
                     columnHeadOptions.attrHTML['data-field'] = columnHeadOptions.field;
                 }
-                // if (columnHeadOptions.hasOwnProperty('title')) {
-                //     columnHeadOptions.attrHTML['title'] = columnHeadOptions.title;
-                // }
                 if (columnHeadOptions.hasOwnProperty('title')) {
                     columnHeadOptions.propDOM['title'] = columnHeadOptions.title;
                 }
@@ -1829,21 +1801,17 @@
                 if (k === 'index') {
                     return;
                 }
-                rowOptions.attrHTML['data-' + k] = v;
+                rowOptions.propDOM['data-' + k] = v;
             });
         }
         if (!$.isArray(item) && item.hasOwnProperty('_id')) {
             rowOptions.propDOM['id'] = item._id;
         }
 
-        rowOptions.attrHTML['data-index'] = i;
+        rowOptions.propDOM['data-index'] = i;
         if (item[this.options.uniqueId]) {
-            rowOptions.attrHTML['data-uniqueid'] = item[this.options.uniqueId];
+            rowOptions.propDOM['data-uniqueid'] = item[this.options.uniqueId];
         }
-        // rowOptions.propDOM['data-index'] = i;
-        // if (item[this.options.uniqueId]) {
-        //     rowOptions.propDOM['data-uniqueid'] = item[this.options.uniqueId];
-        // }
 
         $elementRow
             .attr(rowOptions.attrHTML)
@@ -1875,7 +1843,7 @@
                 .append(
                     $(document.createElement('a'))
                     .addClass('detail-icon')
-                    .attr('href', '#')
+                    .prop('href', '#')
                     .append(
                         $(document.createElement('i'))
                         .addClass((this.options.iconsPrefix + ' ' + this.options.icons.detailOpen))
@@ -1983,21 +1951,6 @@
 
                     if (!displayNoneUsed) {
                         if (columnOptions.hasOwnProperty('rowspan')) {
-                            columnOptions.attrHTML.rowspan = parseInt(columnOptions.rowspan);
-                            specialAttrHTML.rowspan.push({
-                                count: columnOptions.attrHTML.rowspan - 1,
-                                colIndex: j
-                            });
-                        } else if (rowOptions.hasOwnProperty('rowspan') && (!columnOptions.hasOwnProperty('replaceOptionsDefaults') || !columnOptions.replaceOptionsDefaults)) {
-                            columnOptions.attrHTML.rowspan = parseInt(rowOptions.rowspan);
-                            specialAttrHTML.rowspan.push({
-                                count: columnOptions.attrHTML.rowspan - 1,
-                                colIndex: j
-                            });
-                        }
-                    }
-                    if (!displayNoneUsed) {
-                        if (columnOptions.hasOwnProperty('rowspan')) {
                             columnOptions.propDOM.rowspan = parseInt(columnOptions.rowspan);
                             specialPropDOM.rowspan.push({
                                 count: columnOptions.propDOM.rowspan - 1,
@@ -2012,16 +1965,6 @@
                         }
                     }
 
-                    if (columnOptions.hasOwnProperty('colspan') && specialAttrHTMLCol.colspan === 0) {
-                        columnOptions.attrHTML.colspan = parseInt(columnOptions.colspan);
-                        specialAttrHTMLCol.colspan = columnOptions.attrHTML.colspan - 1;
-                    } else if (rowOptions.hasOwnProperty('colspan') && specialAttrHTMLCol.colspan === 0 && (!columnOptions.hasOwnProperty('replaceOptionsDefaults') || !columnOptions.replaceOptionsDefaults)) {
-                        columnOptions.attrHTML.colspan = parseInt(rowOptions.colspan);
-                        specialAttrHTMLCol.colspan = columnOptions.attrHTML.colspan - 1;
-                    } else if (specialAttrHTMLCol.colspan !== 0) {
-                        specialAttrHTMLCol.colspan--;
-                        columnOptions.css['display'] = 'none';
-                    }
                     if (columnOptions.hasOwnProperty('colspan') && specialPropDOMCol.colspan === 0) {
                         columnOptions.propDOM.colspan = parseInt(columnOptions.colspan);
                         specialPropDOMCol.colspan = columnOptions.propDOM.colspan - 1;
@@ -2085,21 +2028,6 @@
 
                     if (!displayNoneUsed) {
                         if (columnOptions.hasOwnProperty('rowspan')) {
-                            columnOptions.attrHTML.rowspan = parseInt(columnOptions.rowspan);
-                            specialAttrHTML.rowspan.push({
-                                count: columnOptions.attrHTML.rowspan - 1,
-                                colIndex: j
-                            });
-                        } else if (rowOptions.hasOwnProperty('rowspan')) {
-                            columnOptions.attrHTML.rowspan = parseInt(rowOptions.rowspan);
-                            specialAttrHTML.rowspan.push({
-                                count: columnOptions.attrHTML.rowspan - 1,
-                                colIndex: j
-                            });
-                        }
-                    }
-                    if (!displayNoneUsed) {
-                        if (columnOptions.hasOwnProperty('rowspan')) {
                             columnOptions.propDOM.rowspan = parseInt(columnOptions.rowspan);
                             specialPropDOM.rowspan.push({
                                 count: columnOptions.propDOM.rowspan - 1,
@@ -2114,16 +2042,6 @@
                         }
                     }
 
-                    if (columnOptions.hasOwnProperty('colspan') && specialAttrHTMLCol.colspan === 0) {
-                        columnOptions.attrHTML.colspan = parseInt(columnOptions.colspan);
-                        specialAttrHTMLCol.colspan = columnOptions.attrHTML.colspan - 1;
-                    } else if (rowOptions.hasOwnProperty('colspan') && specialAttrHTMLCol.colspan === 0) {
-                        columnOptions.attrHTML.colspan = parseInt(rowOptions.colspan);
-                        specialAttrHTMLCol.colspan = columnOptions.attrHTML.colspan - 1;
-                    } else if (specialAttrHTMLCol.colspan !== 0) {
-                        specialAttrHTMLCol.colspan--;
-                        columnOptions.css['display'] = 'none';
-                    }
                     if (columnOptions.hasOwnProperty('colspan') && specialPropDOMCol.colspan === 0) {
                         columnOptions.propDOM.colspan = parseInt(columnOptions.colspan);
                         specialPropDOMCol.colspan = columnOptions.propDOM.colspan - 1;
@@ -2148,9 +2066,7 @@
                 if (item['_' + field + '_colspan']) {
                     columnOptions.propDOM['colspan'] = item['_' + field + '_colspan'];
                 }
-                // if (item['_' + field + '_title']) {
-                //     columnOptions.attrHTML['title'] = item['_' + field + '_title'];
-                // }
+
                 if (item['_' + field + '_title']) {
                     columnOptions.propDOM['title'] = item['_' + field + '_title'];
                 }
@@ -2164,7 +2080,7 @@
                         if (k === 'index') {
                             return;
                         }
-                        columnOptions.attrHTML['data-' + k] = v;
+                        columnOptions.propDOM['data-' + k] = v;
                     });
                 }
 
@@ -2200,10 +2116,10 @@
                     $elementColumn
                         .append(
                             $(document.createElement('input'))
-                            .attr(inputAttr)
+                            .prop(inputAttr)
                         );
                     if (that.header.formatters[j] && typeof value === 'string') {
-                        $elementColumn.attr({
+                        $elementColumn.prop({
                             [value.match(/([^\=]*)\=(.*)/)[1]]: value.match(/([^\=]*)\=(.*)/)[2]
                         });
                     }
@@ -2609,7 +2525,7 @@
         if (focused.length > 0) {
             var $th = focused.parents('th');
             if ($th.length > 0) {
-                var dataField = $th.attr('data-field');
+                var dataField = $th.prop('data-field');
                 if (dataField !== undefined) {
                     var $headerTh = this.$header.find("[data-field='" + dataField + "']");
                     if ($headerTh.length > 0) {
@@ -3305,9 +3221,9 @@
         this.options.pagination = !this.options.pagination;
         var button = this.$toolbar.find('button[name="paginationSwitch"] i');
         if (this.options.pagination) {
-            button.attr("class", this.options.iconsPrefix + " " + this.options.icons.paginationSwitchDown);
+            button.prop("class", this.options.iconsPrefix + " " + this.options.icons.paginationSwitchDown);
         } else {
-            button.attr("class", this.options.iconsPrefix + " " + this.options.icons.paginationSwitchUp);
+            button.prop("class", this.options.iconsPrefix + " " + this.options.icons.paginationSwitchUp);
         }
         this.updatePagination();
     };
