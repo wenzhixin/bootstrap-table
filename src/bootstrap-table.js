@@ -1811,6 +1811,9 @@
         rowOptions.propDOM['data-index'] = i;
         if (item[this.options.uniqueId]) {
             rowOptions.propDOM['data-uniqueid'] = item[this.options.uniqueId];
+            if (this.options.hasOwnProperty('attrUniqueId') && this.options.attrUniqueId) {
+                rowOptions.attrHTML['data-uniqueid'] = item[this.options.uniqueId];
+            }
         }
 
         $elementRow
