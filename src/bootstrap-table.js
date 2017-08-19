@@ -3013,10 +3013,34 @@
     };
 
     BootstrapTable.prototype.updateRow = function(params) {
-        var that = this;
-        var allParams = $.isArray(params) ? params : [params];
+        var that = this,
+            allParams = $.isArray(params) ? params : [params],
+            allParamsWithoutRefresh = [],
+            refresh_table = false;
 
         $.each(allParams, function(i, params) {
+            if (params.hasOwnProperty('reinit') && !params.reinit) {
+                allParamsWithoutRefresh.push(params);
+            } else {
+                if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
+                    return;
+                }
+                if (params.hasOwnProperty('replace') && params.replace) {
+                    that.options.data[params.index] = params.row;
+                } else {
+                    $.extend(that.options.data[params.index], params.row);
+                }
+            }
+        });
+
+        if (refresh_table) {
+            this.initSearch();
+            this.initPagination();
+            this.initSort();
+            this.initBody(true);
+        }
+
+        $.each(allParamsWithoutRefresh, function(i, params) {
             if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
                 return;
             }
@@ -3026,11 +3050,6 @@
                 $.extend(that.options.data[params.index], params.row);
             }
         });
-
-        this.initSearch();
-        this.initPagination();
-        this.initSort();
-        this.initBody(true);
     };
 
     BootstrapTable.prototype.initHiddenRows = function() {
