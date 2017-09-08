@@ -43,7 +43,7 @@
     };
 
     // http://jsfiddle.net/wenyi/47nz7ez9/3/
-    var setFieldIndex = function (columns) {
+    var setFieldIndex = function (columns) { 
         var i, j, k,
             totalCol = 0,
             flag = [];
