@@ -316,17 +316,17 @@
         });
 
         if (addedFilterControl) {
-            var inputs = header.find("[class*='bootstrap-table-filter-control-']");
-            
-            inputs.off('keyup').on('keyup', function (event) {
-                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
-                    return;
-                }
+            var inputs = header.find("input[class*='bootstrap-table-filter-control-']");
 
-                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
-                    return;
-                }
+            inputs.off('keyup', 'input').on('keyup', 'input', function (event) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function () {
+                    that.onColumnSearch(event);
+                }, that.options.searchTimeOut);
+            });
 
+            var selects = header.find("select[class*='bootstrap-table-filter-control-']");
+            selects.off('change').on('change', function (event) {
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
