@@ -316,7 +316,9 @@
         });
 
         if (addedFilterControl) {
-            header.off('keyup', 'input').on('keyup', 'input', function (event) {
+            var inputs = header.find("[class*='bootstrap-table-filter-control-']");
+            
+            inputs.off('keyup').on('keyup', function (event) {
                 if (that.options.searchOnEnterKey && event.keyCode !== 13) {
                     return;
                 }
@@ -331,22 +333,7 @@
                 }, that.options.searchTimeOut);
             });
 
-            header.off('change', 'select').on('change', 'select', function (event) {
-                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
-                    return;
-                }
-
-                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
-                    return;
-                }
-                
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
-                    that.onColumnSearch(event);
-                }, that.options.searchTimeOut);
-            });
-
-            header.off('mouseup', 'input').on('mouseup', 'input', function (event) {
+            inputs.off('mouseup').on('mouseup', function (event) {
                 var $input = $(this),
                 oldValue = $input.val();
 
