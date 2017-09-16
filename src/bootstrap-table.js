@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.11.2 - edycja wlasna https://github.com/andig89/bootstrap-table
+ * version: 1.11.3 - edycja wlasna https://github.com/andig89/bootstrap-table
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -522,6 +522,7 @@
     };
 
     BootstrapTable.prototype.init = function() {
+        this.prepareOptions();
         this.initLocale();
         this.initContainer();
         this.initTable();
@@ -562,7 +563,7 @@
             '<div class="fixed-table-pagination" style="clear: both;"></div>' :
             '',
             '<div class="fixed-table-container">',
-            '<div class="fixed-table-header"><table></table></div>',
+            '<div class="fixed-table-header"><table><thead></thead></table></div>',
             '<div class="fixed-table-body">',
             '<div class="fixed-table-loading">',
             this.options.formatLoadingMessage(),
@@ -584,6 +585,9 @@
         this.$tableFooter = this.$container.find('.fixed-table-footer');
         this.$toolbar = this.$container.find('.fixed-table-toolbar');
         this.$pagination = this.$container.find('.fixed-table-pagination');
+        this.eventsBodies = [];
+        this.eventsHeaderBodies = [];
+        this.eventsTable = [];
 
         this.$tableBody.append(this.$el);
         this.$container.after('<div class="clearfix"></div>');
@@ -602,10 +606,7 @@
             columns = [],
             data = [];
 
-        this.$header = this.$el.find('>thead');
-        if (!this.$header.length) {
-            this.$header = $('<thead></thead>').appendTo(this.$el);
-        }
+        this.$header = that.$tableHeader.find('thead');
         this.$header.find('tr').each(function() {
             var column = [];
 
@@ -694,20 +695,197 @@
         if (data.length) this.fromHtml = true;
     };
 
+    BootstrapTable.prototype.prepareOptions = function() {
+        var that = this,
+            rowsOptionsDefaults = $.extend(true, {}, that.options.hasOwnProperty('rowsOptionsDefaults') ? that.options.rowsOptionsDefaults : {}),
+            columnsOptionsDefaults = $.extend(true, {}, that.options.hasOwnProperty('columnsOptionsDefaults') ? that.options.columnsOptionsDefaults : {}),
+            rowsHeadOptionsDefaults = {};
+
+        if (rowsOptionsDefaults.hasOwnProperty('head')) {
+            rowsHeadOptionsDefaults = $.extend(true, {}, rowsOptionsDefaults.head);
+        }
+        delete rowsOptionsDefaults.head;
+
+        $.each(that.options.columns, function(index_row_head, row) {
+            var rowOptions = $.extend(true, {}, rowsOptionsDefaults),
+                rowHeadOptions = $.extend(true, {}, rowsHeadOptionsDefaults);
+
+            if (typeof rowOptions.rows !== 'undefined' && typeof rowOptions.rows[index_row_head] !== 'undefined') {
+                if (typeof rowOptions.rows[index_row_head].extend === 'undefined' || rowOptions.rows[index_row_head].extend) {
+                    $.extend(rowOptions, rowOptions.rows[index_row_head]);
+                } else {
+                    rowOptions = rowOptions.rows[index_row_head];
+                }
+                if (typeof rowOptions.head !== 'undefined') {
+                    if (typeof rowOptions.head.extend === 'undefined' || rowOptions.head.extend) {
+                        $.extend(true, rowHeadOptions, rowOptions.head);
+                    } else {
+                        rowHeadOptions = rowOptions.head;
+                    }
+                }
+            }
+
+            rowHeadOptions.sortable = BootstrapTable.COLUMN_DEFAULTS.sortable;
+            rowHeadOptions.checkbox = BootstrapTable.COLUMN_DEFAULTS.checkbox;
+            rowHeadOptions.radio = BootstrapTable.COLUMN_DEFAULTS.radio;
+            delete rowHeadOptions.field;
+
+            rowOptions.sortable = BootstrapTable.COLUMN_DEFAULTS.sortable;
+            rowOptions.checkbox = BootstrapTable.COLUMN_DEFAULTS.checkbox;
+            rowOptions.radio = BootstrapTable.COLUMN_DEFAULTS.radio;
+            delete rowOptions.field;
+            delete rowOptions.head;
+
+            $.each(row, function(index_column, column) {
+                var columnHeadOptions = typeof columnsOptionsDefaults.head === 'undefined' ? $.extend(true, {}, rowHeadOptions) : $.extend(true, {}, rowHeadOptions, columnsOptionsDefaults.head),
+                    columnOptions = $.extend(true, {}, rowOptions, columnsOptionsDefaults);
+
+                delete columnOptions.head;
+                if (typeof columnOptions.columns !== 'undefined' && typeof columnOptions.columns[index_column] !== 'undefined') {
+                    if (typeof columnOptions.columns[index_column].extend === 'undefined' || columnHeadOptions.columns[index_column].extend) {
+                        $.extend(columnOptions, columnOptions.columns[index_column]);
+                    } else {
+                        columnOptions = columnOptions.columns[index_column];
+                    }
+                    if (typeof columnOptions.head !== 'undefined') {
+                        if (typeof columnOptions.head.extend === 'undefined' || columnOptions.head.extend) {
+                            $.extend(columnHeadOptions, columnOptions.head);
+                        } else {
+                            columnHeadOptions = columnOptions.head;
+                        }
+                    }
+                    delete columnOptions.head;
+                }
+
+                if (typeof column.extend === 'undefined' || column.extend) {
+                    $.extend(true, columnOptions, column);
+                } else {
+                    columnOptions = $.extend(true, {}, column);
+                }
+                if (typeof columnOptions.head !== 'undefined') {
+                    if (typeof columnOptions.head.extend === 'undefined' || columnOptions.head.extend) {
+                        $.extend(columnHeadOptions, columnOptions.head);
+                    } else {
+                        columnHeadOptions = columnOptions.head;
+                    }
+                }
+                if (typeof columnOptions.unsedDataColumn !== 'undefined') {
+                    columnHeadOptions.unsedDataColumn = columnOptions.unsedDataColumn;
+                }
+                if (typeof columnOptions.cardVisible !== 'undefined') {
+                    columnHeadOptions.cardVisible = columnOptions.cardVisible;
+                }
+                if (typeof columnOptions.switchable !== 'undefined') {
+                    columnHeadOptions.switchable = columnOptions.switchable;
+                }
+                if (typeof columnOptions.sortable !== 'undefined') {
+                    columnHeadOptions.sortable = columnOptions.sortable;
+                }
+                if (typeof columnOptions.checkbox !== 'undefined') {
+                    columnHeadOptions.checkbox = columnOptions.checkbox;
+                }
+                if (typeof columnOptions.radio !== 'undefined') {
+                    columnHeadOptions.radio = columnOptions.radio;
+                }
+                if (typeof columnOptions.title !== 'undefined') {
+                    columnHeadOptions.title = columnOptions.title;
+                }
+                if (typeof columnOptions.field !== 'undefined') {
+                    columnHeadOptions.field = columnOptions.field;
+                }
+
+                columnOptions.head = columnHeadOptions;
+
+                that.options.columns[index_row_head][index_column] = columnOptions;
+            });
+        });
+    };
+
+    BootstrapTable.prototype.prepareRowOptions = function(data) {
+        var cellOptions = $.extend(true, {}, data.column),
+            cellHeadOptions = typeof cellOptions.head === 'undefined' ? {} : cellOptions.head;
+
+        if (typeof cellOptions.rows !== 'undefined' && typeof cellOptions.rows[data.index_row] !== 'undefined') {
+            if (typeof cellOptions.unsedDataColumn !== 'undefined') {
+                cellOptions.rows[data.index_row].unsedDataColumn = cellOptions.unsedDataColumn;
+            }
+            if (typeof cellOptions.cardVisible !== 'undefined') {
+                cellOptions.rows[data.index_row].cardVisible = cellOptions.cardVisible;
+            }
+            if (typeof cellOptions.switchable !== 'undefined') {
+                cellOptions.rows[data.index_row].switchable = cellOptions.switchable;
+            }
+            if (typeof cellOptions.sortable !== 'undefined') {
+                cellOptions.rows[data.index_row].sortable = cellOptions.sortable;
+            }
+            if (typeof cellOptions.checkbox !== 'undefined') {
+                cellOptions.rows[data.index_row].checkbox = cellOptions.checkbox;
+            }
+            if (typeof cellOptions.radio !== 'undefined') {
+                cellOptions.rows[data.index_row].radio = cellOptions.radio;
+            }
+            if (typeof cellOptions.title !== 'undefined') {
+                cellOptions.rows[data.index_row].title = cellOptions.title;
+            }
+            if (typeof cellOptions.field !== 'undefined') {
+                cellOptions.rows[data.index_row].field = cellOptions.field;
+            }
+            if (typeof cellOptions.extend === 'undefined' || cellOptions.extend) {
+                $.extend(cellOptions, cellOptions.rows[data.index_row]);
+            } else {
+                cellOptions = cellOptions.rows[data.index_row];
+            }
+        }
+        if (typeof cellOptions.head !== 'undefined') {
+            if (typeof cellOptions.head.extend === 'undefined' || cellOptions.head.extend) {
+                $.extend(cellHeadOptions, cellOptions.head);
+            } else {
+                cellHeadOptions = cellOptions.head;
+            }
+        }
+        delete cellOptions.head;
+
+        if (typeof cellOptions.unsedDataColumn !== 'undefined') {
+            cellHeadOptions.unsedDataColumn = cellOptions.unsedDataColumn;
+        }
+        if (typeof cellOptions.cardVisible !== 'undefined') {
+            cellHeadOptions.cardVisible = cellOptions.cardVisible;
+        }
+        if (typeof cellOptions.switchable !== 'undefined') {
+            cellHeadOptions.switchable = cellOptions.switchable;
+        }
+        if (typeof cellOptions.sortable !== 'undefined') {
+            cellHeadOptions.sortable = cellOptions.sortable;
+        }
+        if (typeof cellOptions.checkbox !== 'undefined') {
+            cellHeadOptions.checkbox = cellOptions.checkbox;
+        }
+        if (typeof cellOptions.radio !== 'undefined') {
+            cellHeadOptions.radio = cellOptions.radio;
+        }
+        if (typeof cellOptions.title !== 'undefined') {
+            cellHeadOptions.title = cellOptions.title;
+        }
+        if (typeof cellOptions.field !== 'undefined') {
+            cellHeadOptions.field = cellOptions.field;
+        }
+
+        return {
+            cellOptions: cellOptions,
+            cellHeadOptions: cellHeadOptions
+        }
+    };
+
     BootstrapTable.prototype.initHeader = function() {
         var that = this,
             visibleColumns = {},
-            html = [],
-            elementsHead = [],
-            rowsOptionsDefaults = that.options.hasOwnProperty('rowsOptionsDefaults') ? that.options.rowsOptionsDefaults : {},
-            columnsOptionsDefaults = that.options.hasOwnProperty('columnsOptionsDefaults') ? that.options.columnsOptionsDefaults : {},
-            columnsHeadOptionsDefaults = columnsOptionsDefaults.hasOwnProperty('head') ? columnsOptionsDefaults.head : columnsOptionsDefaults,
-            specialAttrHTML = {
-                rowspan: []
-            },
-            specialPropDOM = {
-                rowspan: []
-            };
+            elementsHead = [];
+
+        $.each(this.eventsHeaderBodies, function(index_row, row) {
+            $.each(row, function(index_column, event) {
+                event.$body.off(event.types, event.selector);
+            });
+        });
 
         this.header = {
             fields: [],
@@ -720,265 +898,211 @@
             searchables: []
         };
 
-        $.each(this.options.columns, function(i, columns) {
+        $.each(this.options.columns, function(index_row_head, row) {
             var $elementHead = $(document.createElement('tr')),
-                rowHeadOptions = (rowsOptionsDefaults.hasOwnProperty('rows') && typeof rowsOptionsDefaults.rows[i] !== 'undefined') ?
-                rowsOptionsDefaults.rows[i].hasOwnProperty('head') ? rowsOptionsDefaults.rows[i].head : rowsOptionsDefaults.rows[i] : rowsOptionsDefaults;
+                trsOptions = that.options.hasOwnProperty('trsOptions') ? that.options.trsOptions : {},
+                trHeadOptions = $.extend(true, {}, trsOptions.head !== 'undefined' ? trsOptions.head : {});
 
-            if (!rowHeadOptions.hasOwnProperty('css')) {
-                rowHeadOptions.css = {};
+            if (typeof trsOptions.rows !== 'undefined' && typeof trsOptions.rows[index_row_head] !== 'undefined' && typeof trsOptions.rows[index_row_head].head !== 'undefined') {
+                if (typeof trsOptions.rows[index_row_head].head.extend === 'undefined' || trsOptions.rows[index_row_head].head.extend) {
+                    $.extend(true, trHeadOptions, trsOptions.rows[index_row_head].head);
+                } else {
+                    trHeadOptions = $.extend(true, {}, trsOptions.rows[index_row_head].head);
+                }
             }
-            if (!rowHeadOptions.hasOwnProperty('attrHTML')) {
-                rowHeadOptions.attrHTML = {};
+
+            if (typeof trHeadOptions.css === 'undefined') {
+                trHeadOptions.css = {};
             }
-            if (!rowHeadOptions.hasOwnProperty('propDOM')) {
-                rowHeadOptions.propDOM = {};
+            if (typeof trHeadOptions.attrHTML === 'undefined') {
+                trHeadOptions.attrHTML = {};
             }
-            if (!rowHeadOptions.hasOwnProperty('class')) {
-                rowHeadOptions.class = '';
+            if (typeof trHeadOptions.propDOM === 'undefined') {
+                trHeadOptions.propDOM = {};
+            }
+            if (typeof trHeadOptions.class === 'undefined') {
+                trHeadOptions.class = '';
             }
 
             $elementHead
-                .css(rowHeadOptions.css)
-                .attr(rowHeadOptions.attrHTML)
-                .prop(rowHeadOptions.propDOM)
-                .addClass(rowHeadOptions.class);
+                .css(trHeadOptions.css)
+                .attr(trHeadOptions.attrHTML)
+                .prop(trHeadOptions.propDOM)
+                .addClass(trHeadOptions.class);
 
-            if (i === 0 && !that.options.cardView && that.options.detailView) {
+            if (index_row_head === 0 && !that.options.cardView && that.options.detailView) {
                 $elementHead
                     .append(
                         $(document.createElement('th'))
                         .addClass('detail')
-                        .prop('rowspan', that.options.columns.length)
+                        .prop({
+                            'rowspan': that.options.columns.length,
+                            'width_auto': true
+                        })
                         .append(
                             $(document.createElement('div'))
                             .addClass('fht-cell')
                         )
-                    )
+                    );
             }
 
-            var specialAttrHTMLCol = {
-                    colspan: 0
-                },
-                specialPropDOMCol = {
-                    colspan: 0
-                };
+            $.each(row, function(index_column, column) {
+                var responsePrepareRowOptions = that.prepareRowOptions({
+                        column: column,
+                        index_row: index_row_head
+                    }),
+                    cellHeadOptions = responsePrepareRowOptions.cellHeadOptions,
+                    cellOptions = responsePrepareRowOptions.cellOptions;
 
-            $.each(columns, function(j, column) {
-                var text = '',
-                    halign = '', // header align style
-                    align = '', // body align style
-                    style = '',
-                    class_ = sprintf(' class="%s"', column['class']),
-                    order = that.options.sortOrder || column.order,
-                    unitWidth = 'px',
-                    width = column.width,
-                    columnHeadOptions = $.extend(true, {}, columnsHeadOptionsDefaults);
 
-                if (column.width !== undefined && (!that.options.cardView)) {
-                    if (typeof column.width === 'string') {
-                        if (column.width.indexOf('%') !== -1) {
+                if (typeof cellHeadOptions.css === 'undefined') {
+                    cellHeadOptions.css = {};
+                }
+                if (typeof cellHeadOptions.attrHTML === 'undefined') {
+                    cellHeadOptions.attrHTML = {};
+                }
+                if (typeof cellHeadOptions.propDOM === 'undefined') {
+                    cellHeadOptions.propDOM = {};
+                }
+                if (typeof cellHeadOptions.class === 'undefined') {
+                    cellHeadOptions.class = '';
+                }
+
+                var unitWidth = 'px',
+                    width = cellHeadOptions.width;
+
+                if (typeof cellHeadOptions.width !== 'undefined' && (!that.options.cardView)) {
+                    if (typeof cellHeadOptions.width === 'string') {
+                        if (cellHeadOptions.width.indexOf('%') !== -1) {
                             unitWidth = '%';
                         }
                     }
                 }
-                if (column.width && typeof column.width === 'string') {
-                    width = parseFloat(column.width);
+                if (cellHeadOptions.width && typeof cellHeadOptions.width === 'string') {
+                    width = parseFloat(cellHeadOptions.width);
                 }
 
-                $.extend(true, columnHeadOptions, column);
-
-                if (column.hasOwnProperty('rows') && typeof column.rows[i] !== 'undefined' && (!column.hasOwnProperty('head') || column.rows[i].hasOwnProperty('head'))) {
-                    var row = column.rows[i];
-
-                    if (row.hasOwnProperty('head')) {
-                        if (row.head.hasOwnProperty('replaceOptionsDefaults') && row.head.replaceOptionsDefaults) {
-                            columnHeadOptions = row.head;
-                        } else {
-                            $.extend(true, columnHeadOptions, row.head);
-                        }
-                    } else if (row.hasOwnProperty('replaceOptionsDefaults') && row.replaceOptionsDefaults) {
-                        columnHeadOptions = row;
-                    } else {
-                        $.extend(true, columnHeadOptions, row);
+                if (typeof cellHeadOptions.rowspan !== 'undefined') {
+                    if (typeof cellHeadOptions.propDOM.rowspan === 'undefined') {
+                        cellHeadOptions.propDOM.rowspan = parseInt(cellHeadOptions.rowspan);
                     }
+                }
+                if (typeof cellHeadOptions.colspan !== 'undefined') {
+                    if (typeof cellHeadOptions.propDOM.colspan === 'undefined') {
+                        cellHeadOptions.propDOM.colspan = parseInt(cellHeadOptions.colspan);
+                    }
+                }
+
+                if (cellHeadOptions.halign) {
+                    cellHeadOptions.css['text-align'] = cellHeadOptions.halign;
+                } else if (cellHeadOptions.align) {
+                    cellHeadOptions.css['text-align'] = cellHeadOptions.align;
+                }
+                if (cellHeadOptions.valign) {
+                    cellHeadOptions.css['vertical-align'] = cellHeadOptions.valign;
+                }
+                if (width) {
+                    cellHeadOptions.css.width = width + unitWidth;
+                }
+
+                if (typeof cellHeadOptions.title !== 'undefined') {
+                    cellHeadOptions.propDOM.title = cellHeadOptions.title;
+                }
+                if (typeof column.field !== 'undefined') {
+                    cellHeadOptions.attrHTML['data-field'] = column.field;
+                }
+
+                if (cellHeadOptions.checkbox || cellHeadOptions.radio) {
+                    cellHeadOptions.class += 'bs-checkbox ' + (cellHeadOptions['class'] ? cellHeadOptions['class'] : '');
                 } else {
-                    if (column.hasOwnProperty('head')) {
-                        if (column.head.hasOwnProperty('replaceOptionsDefaults') && column.head.replaceOptionsDefaults) {
-                            columnHeadOptions = column.head;
-                        } else {
-                            $.extend(true, columnHeadOptions, column.head);
-                        }
-                    } else if (column.hasOwnProperty('replaceOptionsDefaults') && column.replaceOptionsDefaults) {
-                        columnHeadOptions = column;
-                    }
+                    cellHeadOptions.class += cellHeadOptions['class'] ? cellHeadOptions['class'] : '';
                 }
 
-                if (!columnHeadOptions.hasOwnProperty('css')) {
-                    columnHeadOptions.css = {};
-                }
-                if (!columnHeadOptions.hasOwnProperty('attrHTML')) {
-                    columnHeadOptions.attrHTML = {};
-                }
-                if (!columnHeadOptions.hasOwnProperty('propDOM')) {
-                    columnHeadOptions.propDOM = {};
-                }
-                if (!columnHeadOptions.hasOwnProperty('class')) {
-                    columnHeadOptions.class = '';
+                if (typeof cellHeadOptions.css.width === 'undefined') {
+                    cellHeadOptions.propDOM.width_auto = true;
+                } else {
+                    cellHeadOptions.propDOM.width_auto = false;
                 }
 
-                if (columnHeadOptions.halign) {
-                    columnHeadOptions.css['text-align'] = columnHeadOptions.halign;
-                } else if (columnHeadOptions.align) {
-                    columnHeadOptions.css['text-align'] = columnHeadOptions.align;
-                }
-                if (columnHeadOptions.valign) {
-                    columnHeadOptions.css['vertical-align'] = columnHeadOptions.valign;
-                }
-                if ((columnHeadOptions.checkbox || columnHeadOptions.radio) && !width) {
-                    columnHeadOptions.css['width'] = '36px';
-                } else if (width) {
-                    columnHeadOptions.css['width'] = width + unitWidth;
-                }
+                if (typeof cellOptions.fieldIndex !== 'undefined') {
+                    that.header.fields.push(cellOptions.field);
+                    that.header.formatters.push(cellOptions.formatter);
+                    that.header.sorters.push(cellOptions.sorter);
+                    that.header.sortNames.push(cellOptions.sortName);
+                    that.header.searchables.push(cellOptions.searchable);
 
-                if (!columnHeadOptions.hasOwnProperty('dataField') || columnHeadOptions.dataField) {
-                    that.header.fields.push(columnHeadOptions.field);
-                    that.header.formatters.push(columnHeadOptions.formatter);
-                    that.header.events.push(columnHeadOptions.events);
-                    that.header.sorters.push(columnHeadOptions.sorter);
-                    that.header.sortNames.push(columnHeadOptions.sortName);
-                    that.header.searchables.push(columnHeadOptions.searchable);
-
-                    if (!columnHeadOptions.visible) {
-                        return;
-                    }
-
-                    if (that.options.cardView && (!columnHeadOptions.cardVisible)) {
+                    if (typeof cellHeadOptions.visible !== 'undefined' && !cellHeadOptions.visible) {
                         return;
                     }
                 }
 
-                visibleColumns[columnHeadOptions.field] = columnHeadOptions;
-
-                if (column.hasOwnProperty('rowspan')) {
-                    specialAttrHTMLCol.rowspan = {
-                        count: parseInt(column.rowspan)
-                    }
-                }
-
-                if (column.hasOwnProperty('colspan')) {
-                    specialPropDOMCol.colspan = {
-                        count: parseInt(column.colspan)
-                    }
-                }
-
-                var displayNoneUsed = false;
-
-                if (specialAttrHTML.rowspan.length !== 0) {
-                    $.each(specialAttrHTML.rowspan, function(index_rowspan, rowspan) {
-                        if (rowspan.colIndex === j) {
-                            displayNoneUsed = true;
-                            rowspan.count--;
-                            if (rowspan.count === 0) {
-                                specialAttrHTML.rowspan.splice(index_rowspan, 1);
-                            } else {
-                                specialAttrHTML.rowspan[index_rowspan] = rowspan;
-                            }
-
-                            return false;
-                        }
-                    });
-                }
-
-                if (specialPropDOM.rowspan.length !== 0) {
-                    $.each(specialPropDOM.rowspan, function(index_rowspan, rowspan) {
-                        if (rowspan.colIndex === j) {
-                            displayNoneUsed = true;
-                            rowspan.count--;
-                            if (rowspan.count === 0) {
-                                specialPropDOM.rowspan.splice(index_rowspan, 1);
-                            } else {
-                                specialPropDOM.rowspan[index_rowspan] = rowspan;
-                            }
-
-                            return false;
-                        }
-                    });
-                }
-
-                if (!displayNoneUsed) {
-                    if (columnHeadOptions.hasOwnProperty('rowspan')) {
-                        columnHeadOptions.propDOM.rowspan = parseInt(columnHeadOptions.rowspan);
-                        specialPropDOM.rowspan.push({
-                            count: columnHeadOptions.propDOM.rowspan - 1,
-                            colIndex: j
-                        });
-                    } else if (rowHeadOptions.hasOwnProperty('rowspan') && (!columnOptions.hasOwnProperty('replaceOptionsDefaults') || !columnOptions.replaceOptionsDefaults)) {
-                        columnHeadOptions.propDOM.rowspan = parseInt(rowHeadOptions.rowspan);
-                        specialPropDOM.rowspan.push({
-                            count: columnHeadOptions.propDOM.rowspan - 1,
-                            colIndex: j
-                        });
-                    }
-                }
-
-                if (columnHeadOptions.hasOwnProperty('colspan') && specialPropDOMCol.colspan === 0) {
-                    columnHeadOptions.propDOM.colspan = parseInt(columnHeadOptions.colspan);
-                    specialPropDOMCol.colspan = columnHeadOptions.propDOM.colspan - 1;
-                } else if (rowHeadOptions.hasOwnProperty('colspan') && specialPropDOMCol.colspan === 0 && (!columnOptions.hasOwnProperty('replaceOptionsDefaults') || !columnOptions.replaceOptionsDefaults)) {
-                    columnHeadOptions.propDOM.colspan = parseInt(rowHeadOptions.colspan);
-                    specialPropDOMCol.colspan = columnHeadOptions.propDOM.colspan - 1;
-                } else if (specialPropDOMCol.colspan !== 0) {
-                    specialPropDOMCol.colspan--;
-                    columnHeadOptions.css['display'] = 'none';
-                }
-
-                if (columnHeadOptions.hasOwnProperty('field')) {
-                    columnHeadOptions.attrHTML['data-field'] = columnHeadOptions.field;
-                }
-                if (columnHeadOptions.hasOwnProperty('title')) {
-                    columnHeadOptions.propDOM['title'] = columnHeadOptions.title;
-                }
-                if (columnHeadOptions.hasOwnProperty('field')) {
-                    columnHeadOptions.propDOM['data-field'] = columnHeadOptions.field;
-                }
-
-                if (columnHeadOptions.checkbox || columnHeadOptions.radio) {
-                    columnHeadOptions.class += 'bs-checkbox ' + (columnHeadOptions['class'] ? columnHeadOptions['class'] : '');
-                } else {
-                    columnHeadOptions.class += columnHeadOptions['class'] ? columnHeadOptions['class'] : '';
-                }
+                visibleColumns[cellHeadOptions.field] = cellHeadOptions;
 
                 var $elementHeadSub = $elementHead
                     .append(
                         $(document.createElement('th'))
-                        .addClass(columnHeadOptions.class)
-                        .attr(columnHeadOptions.attrHTML)
-                        .prop(columnHeadOptions.propDOM)
-                        .css(columnHeadOptions.css)
+                        .addClass(cellHeadOptions.class)
+                        .attr(cellHeadOptions.attrHTML)
+                        .prop(cellHeadOptions.propDOM)
+                        .css(cellHeadOptions.css)
                     )
                     .children(':last-child')
                     .append(
                         $(document.createElement('div'))
-                        .addClass('th-inner ' + (that.options.sortable && columnHeadOptions.sortable ? 'sortable both' : ''))
+                        .addClass('th-inner ' + (that.options.sortable && cellHeadOptions.sortable ? 'sortable both' : ''))
                     )
                     .children(':last-child')
 
-                $elementHeadSub.html(that.options.escape ? escapeHTML(columnHeadOptions.title) : columnHeadOptions.title);
+                $elementHeadSub.html(that.options.escape ? escapeHTML(cellHeadOptions.title) : cellHeadOptions.title);
 
-                if (columnHeadOptions.checkbox) {
+                if (cellHeadOptions.checkbox) {
                     if (!that.options.singleSelect && that.options.checkboxHeader) {
                         $elementHeadSub.html('<input name="btSelectAll" type="checkbox" />');
                     }
-                    that.header.stateField = columnHeadOptions.field;
+                    that.header.stateField = cellHeadOptions.field;
                 }
-                if (columnHeadOptions.radio) {
+                if (cellHeadOptions.radio) {
                     $elementHeadSub.html('');
-                    that.header.stateField = columnHeadOptions.field;
+                    that.header.stateField = cellHeadOptions.field;
                     that.options.singleSelect = true;
                 }
 
                 $elementHeadSub.parent().append('<div class="fht-cell"></div>');
+                if (typeof cellHeadOptions.events !== 'undefined') {
+                    var events = cellHeadOptions.events;
+
+                    // fix bug, if events is defined with namespace
+                    if (typeof events === 'string') {
+                        events = calculateObjectValue(null, events);
+                    }
+
+                    $.each(events, function(index_events, event) {
+                        var $bodyEvent = typeof event.find === 'undefined' ? $elementHeadSub.parent() : $elementHeadSub.parent().find(event.find);
+
+                        switch (event.type_handler) {
+                            case 'one':
+                                $bodyEvent.one(event.types, event.selector, event.data, event.handler);
+                                break;
+                            default:
+                                $bodyEvent.on(event.types, event.selector, event.data, event.handler);
+                        }
+
+                        if (typeof that.eventsHeaderBodies[index_row_head] === 'undefined') {
+                            that.eventsHeaderBodies[index_row_head] = {};
+                            that.eventsHeaderBodies[index_row_head][index_column] = {
+                                $body: $bodyEvent,
+                                selector: event.selector,
+                                types: event.types
+                            };
+                        } else {
+                            that.eventsHeaderBodies[index_row_head][index_column] = {
+                                $body: $bodyEvent,
+                                selector: event.selector,
+                                types: event.types
+                            };
+                        }
+                    });
+                }
             });
             elementsHead.push($elementHead);
         });
@@ -1015,6 +1139,9 @@
             this.$header.hide();
             this.$tableHeader.hide();
             this.$tableLoading.css('top', 0);
+
+            this.getCaret();
+            $(window).on('resize.bootstrap-table', $.proxy(this.resetWidth, this));
         } else {
             this.$header.show();
             this.$tableHeader.show();
@@ -1157,10 +1284,7 @@
     };
 
     BootstrapTable.prototype.onSort = function(event) {
-        var $this = event.type === "keypress" ? $(event.currentTarget) : $(event.currentTarget).parent(),
-            $this_ = this.$header.find('th').eq($this.index());
-
-        this.$header.add(this.$header_).find('span.order').remove();
+        var $this = event.type === "keypress" ? $(event.currentTarget) : $(event.currentTarget).parent();
 
         if (this.options.sortName === $this.data('field')) {
             this.options.sortOrder = this.options.sortOrder === 'asc' ? 'desc' : 'asc';
@@ -1168,25 +1292,11 @@
             this.options.sortName = $this.data('field');
             if (this.options.rememberOrder) {
                 this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc';
-            } else {
-                var order = null;
-
-                $.each(this.options.columns, function(index_rows, rows) {
-                    var column = rows.filter(function(column) {
-                        return column.field === $this.data('field');
-                    });
-
-                    if (column.length !== 0) {
-                        order = column[0].order;
-
-                        return false;
-                    }
-                });
             }
         }
         this.trigger('sort', this.options.sortName, this.options.sortOrder);
 
-        $this.add($this_).data('order', this.options.sortOrder);
+        $this.data('order', this.options.sortOrder);
 
         // Assign the correct sortable arrow
         this.getCaret();
@@ -1767,32 +1877,36 @@
         return false;
     };
 
-    BootstrapTable.prototype.initRow = function(item, i, data, parentDom, specialAttrHTML, specialPropDOM) {
+    BootstrapTable.prototype.initRow = function(item, i, data, parentDom, specialPropDOM) {
         var that = this,
-            $elementRow = $(document.createElement('tr')),
-            key,
-            rowOptions = $.extend(true, {}, this.options.hasOwnProperty('rowsOptionsDefaults') ?
-                this.options.rowsOptionsDefaults.hasOwnProperty('rows') && typeof this.options.rowsOptionsDefaults.rows[i] !== 'undefined' ?
-                this.options.rowsOptionsDefaults.rows[i] : this.options.rowsOptionsDefaults : {}),
-            columnsOptionsDefaults = this.options.hasOwnProperty('columnsOptionsDefaults') ? this.options.columnsOptionsDefaults : {};
+            $elementRow = $(document.createElement('tr'));
 
         if ($.inArray(item, this.hiddenRows) > -1) {
             return;
         }
 
-        if (!rowOptions.hasOwnProperty('attrHTML')) {
-            rowOptions.attrHTML = {};
-        }
-        if (!rowOptions.hasOwnProperty('propDOM')) {
-            rowOptions.propDOM = {};
+        var trsOptions = that.options.hasOwnProperty('trsOptions') ? that.options.trsOptions : {},
+            trOptions = $.extend(true, {}, trsOptions.head !== 'undefined' ? trsOptions.head : {});
+
+        if (typeof trsOptions.rows !== 'undefined' && typeof trsOptions.rows[index_row_head] !== 'undefined' && typeof trsOptions.rows[index_row_head].head !== 'undefined') {
+            if (typeof trsOptions.rows[index_row_head].head.extend === 'undefined' || trsOptions.rows[index_row_head].head.extend) {
+                $.extend(true, trOptions, trsOptions.rows[index_row_head].head);
+            } else {
+                trOptions = $.extend(true, {}, trsOptions.rows[index_row_head].head);
+            }
         }
 
-        if (!rowOptions.hasOwnProperty('css')) {
-            rowOptions.css = {};
+        if (typeof trOptions.css === 'undefined') {
+            trOptions.css = {};
         }
-
-        if (!rowOptions.hasOwnProperty('class')) {
-            rowOptions.class = '';
+        if (typeof trOptions.attrHTML === 'undefined') {
+            trOptions.attrHTML = {};
+        }
+        if (typeof trOptions.propDOM === 'undefined') {
+            trOptions.propDOM = {};
+        }
+        if (typeof trOptions.class === 'undefined') {
+            trOptions.class = '';
         }
 
         if (item._data && !$.isEmptyObject(item._data)) {
@@ -1801,26 +1915,26 @@
                 if (k === 'index') {
                     return;
                 }
-                rowOptions.propDOM['data-' + k] = v;
+                trOptions.propDOM['data-' + k] = v;
             });
         }
         if (!$.isArray(item) && item.hasOwnProperty('_id')) {
-            rowOptions.propDOM['id'] = item._id;
+            trOptions.propDOM['id'] = item._id;
         }
 
-        rowOptions.propDOM['data-index'] = i;
+        trOptions.propDOM['data-index'] = i;
         if (item[this.options.uniqueId]) {
-            rowOptions.propDOM['data-uniqueid'] = item[this.options.uniqueId];
+            trOptions.propDOM['data-uniqueid'] = item[this.options.uniqueId];
             if (this.options.hasOwnProperty('attrUniqueId') && this.options.attrUniqueId) {
-                rowOptions.attrHTML['data-uniqueid'] = item[this.options.uniqueId];
+                trOptions.attrHTML['data-uniqueid'] = item[this.options.uniqueId];
             }
         }
 
         $elementRow
-            .attr(rowOptions.attrHTML)
-            .prop(rowOptions.propDOM)
-            .addClass(rowOptions.class)
-            .css(rowOptions.css);
+            .attr(trOptions.attrHTML)
+            .prop(trOptions.propDOM)
+            .addClass(trOptions.class)
+            .css(trOptions.css);
 
         var $elementRowSub = null;
 
@@ -1855,12 +1969,14 @@
             )
         }
 
-        var specialAttrHTMLCol = {
-                colspan: 0
+        var specialPropDOMCol = {
+            colspan: {
+                count: 1
             },
-            specialPropDOMCol = {
-                colspan: 0
-            };
+            rowspan: {
+                count: 1
+            }
+        };
 
         $.each(this.header.fields, function(j, field) {
             if (!that.columns[j].hasOwnProperty('unsedDataColumn') && !that.columns[j].unsedDataColumn) {
@@ -1869,214 +1985,110 @@
                     value = '',
                     type = '',
                     column = that.columns[j],
-                    columnOptions = $.extend(true, {}, columnsOptionsDefaults);
+                    cellOptions = that.prepareRowOptions({
+                        column: column,
+                        index_row: i
+                    }).cellOptions;
+
+                if (typeof cellOptions.css === 'undefined') {
+                    cellOptions.css = {};
+                }
+                if (typeof cellOptions.attrHTML === 'undefined') {
+                    cellOptions.attrHTML = {};
+                }
+                if (typeof cellOptions.propDOM === 'undefined') {
+                    cellOptions.propDOM = {};
+                }
+                if (typeof cellOptions.class === 'undefined') {
+                    cellOptions.class = '';
+                }
 
                 if (that.fromHtml && typeof value_ === 'undefined') {
                     return;
                 }
 
-                if (!column.visible) {
+                if (!cellOptions.visible) {
                     return;
                 }
 
-                if (that.options.cardView && (!column.cardVisible)) {
+                if (that.options.cardView && (!cellOptions.cardVisible)) {
                     return;
                 }
 
-                if (column.escape) {
+                if (cellOptions.escape) {
                     value_ = escapeHTML(value_);
                 }
 
-                if (column.hasOwnProperty('replaceOptionsDefaults') && column.replaceOptionsDefaults) {
-                    columnOptions = column;
-                } else {
-                    $.extend(true, columnOptions, column);
+                var displayNotUsed = true;
+
+                if (specialPropDOM.rowspan.length !== 0) {
+                    $.each(specialPropDOM.rowspan, function(index_rowspan, rowspan) {
+                        if (rowspan.colIndex === j) {
+                            displayNotUsed = false;
+                            cellOptions.css.display = 'none';
+                            specialPropDOM.rowspan[index_rowspan].count--;
+                            if (specialPropDOM.rowspan[index_rowspan].count === 1) {
+                                specialPropDOM.rowspan.splice(index_rowspan, 1);
+                            } else {
+                                specialPropDOM.rowspan[index_rowspan] = rowspan;
+                            }
+
+                            return false;
+                        }
+                    });
                 }
 
-                if (column.hasOwnProperty('rows') && typeof column.rows[i] !== 'undefined') {
-                    var row = column.rows[i];
+                if (displayNotUsed) {
+                    if (typeof cellOptions.rowspan !== 'undefined' && cellOptions.rowspan > 1) {
+                        cellOptions.propDOM.rowspan = parseInt(cellOptions.rowspan);
+                        specialPropDOM.rowspan.push({
+                            count: parseInt(cellOptions.propDOM.rowspan),
+                            colIndex: j
+                        });
+                    }
 
-                    if (row.hasOwnProperty('replaceOptionsDefaults') && row.replaceOptionsDefaults) {
-                        columnOptions = row;
+                    if (typeof cellOptions.colspan === 'undefined') {
+                        if (specialPropDOMCol.colspan.count !== 1) {
+                            specialPropDOMCol.colspan.count--;
+                            cellOptions.css.display = 'none';
+                        }
                     } else {
-                        $.extend(true, columnOptions, row);
-                    }
-
-                    if (!columnOptions.hasOwnProperty('css')) {
-                        columnOptions.css = {};
-                    }
-
-                    if (!columnOptions.hasOwnProperty('attrHTML')) {
-                        columnOptions.attrHTML = {};
-                    }
-                    if (!columnOptions.hasOwnProperty('propDOM')) {
-                        columnOptions.propDOM = {};
-                    }
-
-                    if (!columnOptions.hasOwnProperty('class')) {
-                        columnOptions.class = '';
-                    }
-
-                    var displayNoneUsed = false;
-
-                    if (specialAttrHTML.rowspan.length !== 0) {
-                        $.each(specialAttrHTML.rowspan, function(index_rowspan, rowspan) {
-                            if (rowspan.colIndex === j) {
-                                displayNoneUsed = true;
-                                rowspan.count--;
-                                columnOptions.css['display'] = 'none';
-                                if (rowspan.count === 0) {
-                                    specialAttrHTML.rowspan.splice(index_rowspan, 1);
-                                } else {
-                                    specialAttrHTML.rowspan[index_rowspan] = rowspan;
-                                }
-
-                                return false;
-                            }
-                        });
-                    }
-                    if (specialPropDOM.rowspan.length !== 0) {
-                        $.each(specialPropDOM.rowspan, function(index_rowspan, rowspan) {
-                            if (rowspan.colIndex === j) {
-                                displayNoneUsed = true;
-                                rowspan.count--;
-                                columnOptions.css['display'] = 'none';
-                                if (rowspan.count === 0) {
-                                    specialPropDOM.rowspan.splice(index_rowspan, 1);
-                                } else {
-                                    specialPropDOM.rowspan[index_rowspan] = rowspan;
-                                }
-
-                                return false;
-                            }
-                        });
-                    }
-
-                    if (!displayNoneUsed) {
-                        if (columnOptions.hasOwnProperty('rowspan')) {
-                            columnOptions.propDOM.rowspan = parseInt(columnOptions.rowspan);
-                            specialPropDOM.rowspan.push({
-                                count: columnOptions.propDOM.rowspan - 1,
-                                colIndex: j
-                            });
-                        } else if (rowOptions.hasOwnProperty('rowspan') && (!columnOptions.hasOwnProperty('replaceOptionsDefaults') || !columnOptions.replaceOptionsDefaults)) {
-                            columnOptions.propDOM.rowspan = parseInt(rowOptions.rowspan);
-                            specialPropDOM.rowspan.push({
-                                count: columnOptions.propDOM.rowspan - 1,
-                                colIndex: j
-                            });
+                        if (specialPropDOMCol.colspan.count === 1) {
+                            cellOptions.propDOM.colspan = parseInt(cellOptions.colspan);
+                            specialPropDOMCol.colspan.count = cellOptions.propDOM.colspan;
+                        } else {
+                            specialPropDOMCol.colspan.count--;
+                            cellOptions.css.display = 'none';
                         }
-                    }
-
-                    if (columnOptions.hasOwnProperty('colspan') && specialPropDOMCol.colspan === 0) {
-                        columnOptions.propDOM.colspan = parseInt(columnOptions.colspan);
-                        specialPropDOMCol.colspan = columnOptions.propDOM.colspan - 1;
-                    } else if (rowOptions.hasOwnProperty('colspan') && specialPropDOMCol.colspan === 0 && (!columnOptions.hasOwnProperty('replaceOptionsDefaults') || !columnOptions.replaceOptionsDefaults)) {
-                        columnOptions.propDOM.colspan = parseInt(rowOptions.colspan);
-                        specialPropDOMCol.colspan = columnOptions.propDOM.colspan - 1;
-                    } else if (specialPropDOMCol.colspan !== 0) {
-                        specialPropDOMCol.colspan--;
-                        columnOptions.css['display'] = 'none';
-                    }
-                } else {
-                    if (!columnOptions.hasOwnProperty('css')) {
-                        columnOptions.css = {};
-                    }
-
-                    if (!columnOptions.hasOwnProperty('attrHTML')) {
-                        columnOptions.attrHTML = {};
-                    }
-                    if (!columnOptions.hasOwnProperty('propDOM')) {
-                        columnOptions.propDOM = {};
-                    }
-
-                    if (!columnOptions.hasOwnProperty('class')) {
-                        columnOptions.class = '';
-                    }
-
-                    var displayNoneUsed = false;
-
-                    if (specialAttrHTML.rowspan.length !== 0) {
-                        $.each(specialAttrHTML.rowspan, function(index_rowspan, rowspan) {
-                            if (rowspan.colIndex === j) {
-                                displayNoneUsed = true;
-                                rowspan.count--;
-                                columnOptions.css['display'] = 'none';
-                                if (rowspan.count === 0) {
-                                    specialAttrHTML.rowspan.splice(index_rowspan, 1);
-                                } else {
-                                    specialAttrHTML.rowspan[index_rowspan] = rowspan;
-                                }
-
-                                return false;
-                            }
-                        });
-                    }
-                    if (specialPropDOM.rowspan.length !== 0) {
-                        $.each(specialPropDOM.rowspan, function(index_rowspan, rowspan) {
-                            if (rowspan.colIndex === j) {
-                                displayNoneUsed = true;
-                                rowspan.count--;
-                                columnOptions.css['display'] = 'none';
-                                if (rowspan.count === 0) {
-                                    specialPropDOM.rowspan.splice(index_rowspan, 1);
-                                } else {
-                                    specialPropDOM.rowspan[index_rowspan] = rowspan;
-                                }
-
-                                return false;
-                            }
-                        });
-                    }
-
-                    if (!displayNoneUsed) {
-                        if (columnOptions.hasOwnProperty('rowspan')) {
-                            columnOptions.propDOM.rowspan = parseInt(columnOptions.rowspan);
-                            specialPropDOM.rowspan.push({
-                                count: columnOptions.propDOM.rowspan - 1,
-                                colIndex: j
-                            });
-                        } else if (rowOptions.hasOwnProperty('rowspan')) {
-                            columnOptions.propDOM.rowspan = parseInt(rowOptions.rowspan);
-                            specialPropDOM.rowspan.push({
-                                count: columnOptions.propDOM.rowspan - 1,
-                                colIndex: j
-                            });
-                        }
-                    }
-
-                    if (columnOptions.hasOwnProperty('colspan') && specialPropDOMCol.colspan === 0) {
-                        columnOptions.propDOM.colspan = parseInt(columnOptions.colspan);
-                        specialPropDOMCol.colspan = columnOptions.propDOM.colspan - 1;
-                    } else if (rowOptions.hasOwnProperty('colspan') && specialPropDOMCol.colspan === 0) {
-                        columnOptions.propDOM.colspan = parseInt(rowOptions.colspan);
-                        specialPropDOMCol.colspan = columnOptions.propDOM.colspan - 1;
-                    } else if (specialPropDOMCol.colspan !== 0) {
-                        specialPropDOMCol.colspan--;
-                        columnOptions.css['display'] = 'none';
                     }
                 }
 
                 if (item['_' + field + '_id']) {
-                    columnOptions.propDOM['id'] = item['_' + field + '_id'];
+                    cellOptions.propDOM.id = item['_' + field + '_id'];
                 }
                 if (item['_' + field + '_class']) {
-                    columnOptions.class = item['_' + field + '_class'];
+                    cellOptions.class = item['_' + field + '_class'];
                 }
                 if (item['_' + field + '_rowspan']) {
-                    columnOptions.propDOM['rowspan'] = item['_' + field + '_rowspan'];
+                    cellOptions.propDOM.rowspan = parseInt(item['_' + field + '_rowspan']);
+                }
+                if (cellOptions.propDOM.rowspan === 1) {
+                    delete cellOptions.propDOM.rowspan;
                 }
                 if (item['_' + field + '_colspan']) {
-                    columnOptions.propDOM['colspan'] = item['_' + field + '_colspan'];
+                    cellOptions.propDOM.colspan = parseInt(item['_' + field + '_colspan']);
                 }
-                value = calculateObjectValue(column,
+                if (cellOptions.propDOM.colspan === 1) {
+                    delete cellOptions.propDOM.colspan;
+                }
+                value = calculateObjectValue(cellOptions,
                     that.header.formatters[j], [value_, item, i, field], value_);
 
                 if (item['_' + field + '_title']) {
-                    columnOptions.propDOM['title'] = item['_' + field + '_title'];
+                    cellOptions.propDOM.title = item['_' + field + '_title'];
                 }
 
-                value = calculateObjectValue(column,
+                value = calculateObjectValue(cellOptions,
                     that.header.formatters[j], [value_, item, i], value_);
 
                 if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
@@ -2085,23 +2097,23 @@
                         if (k === 'index') {
                             return;
                         }
-                        columnOptions.propDOM['data-' + k] = v;
+                        cellOptions.propDOM['data-' + k] = v;
                     });
                 }
 
-                if (column.checkbox || column.radio) {
-                    type = column.checkbox ? 'checkbox' : type;
-                    type = column.radio ? 'radio' : type;
+                if (cellOptions.checkbox || cellOptions.radio) {
+                    type = cellOptions.checkbox ? 'checkbox' : type;
+                    type = cellOptions.radio ? 'radio' : type;
 
                     if (that.options.cardView) {
                         $elementColumn = $(document.createElement('div'))
-                            .addClass("card-view " + columnOptions.class);
+                            .addClass("card-view " + cellOptions.class);
                     } else {
                         $elementColumn = $(document.createElement('td'))
-                            .addClass("bs-checkbox " + columnOptions.class)
-                            .attr(columnOptions.attrHTML)
-                            .prop(columnOptions.propDOM)
-                            .css(columnOptions.css);
+                            .addClass("bs-checkbox " + cellOptions.class)
+                            .attr(cellOptions.attrHTML)
+                            .prop(cellOptions.propDOM)
+                            .css(cellOptions.css);
                     }
 
                     var inputAttr = {
@@ -2114,7 +2126,7 @@
                     if (value === true || (value_ || value && value.checked)) {
                         inputAttr['checked'] = 'checked';
                     }
-                    if (!column.checkboxEnabled || (value && value.disabled)) {
+                    if (!cellOptions.checkboxEnabled || (value && value.disabled)) {
                         inputAttr['disabled'] = 'disabled';
                     }
 
@@ -2140,23 +2152,21 @@
 
                         var $span = $(document.createElement('span'));
 
-                        if (that.options.showHeader) {
-                            $span
-                                .addClass('title')
-                                .css(columnOptions.css)
-                                .append(getPropertyFromOther(that.columns, 'field', 'title', field));
-                            $elementColumn.append($span);
-                        }
+                        $span
+                            .addClass('title')
+                            .css(cellOptions.css)
+                            .append(getPropertyFromOther(that.columns, 'field', 'title', field));
+                        $elementColumn.append($span);
 
                         $span = $(document.createElement('span'))
                             .addClass('value')
                             .append(value);
                     } else {
                         $elementColumn = $(document.createElement('td'))
-                            .addClass(columnOptions.class)
-                            .attr(columnOptions.attrHTML)
-                            .prop(columnOptions.propDOM)
-                            .css(columnOptions.css)
+                            .addClass(cellOptions.class)
+                            .attr(cellOptions.attrHTML)
+                            .prop(cellOptions.propDOM)
+                            .css(cellOptions.css)
                             .append(value);
                     }
 
@@ -2168,18 +2178,53 @@
                     }
                 }
 
+                if (typeof cellOptions.events !== 'undefined') {
+                    var events = cellOptions.events;
+
+                    // fix bug, if events is defined with namespace
+                    if (typeof events === 'string') {
+                        events = calculateObjectValue(null, events);
+                    }
+
+                    $.each(events, function(index_events, event) {
+                        var $bodyEvent = typeof event.find === 'undefined' ? $elementColumn : $elementColumn.find(event.find);
+
+                        switch (event.type_handler) {
+                            case 'one':
+                                $bodyEvent.one(event.types, event.selector, event.data, event.handler);
+                                break;
+                            default:
+                                $bodyEvent.on(event.types, event.selector, event.data, event.handler);
+                        }
+
+                        if (typeof that.eventsBodies[i] === 'undefined') {
+                            that.eventsBodies[i] = {};
+                            that.eventsBodies[i][j] = {
+                                $body: $bodyEvent,
+                                selector: event.selector,
+                                types: event.types
+                            };
+                        } else {
+                            that.eventsBodies[i][j] = {
+                                $body: $bodyEvent,
+                                selector: event.selector,
+                                types: event.types
+                            };
+                        }
+                    });
+                }
+
                 $elementRowSub.append($elementColumn);
             }
         });
 
         $elementRow.append($elementRowSub);
 
-        return [$elementRow[0], specialAttrHTML, specialPropDOM];
+        return [$elementRow[0], specialPropDOM];
     };
 
     BootstrapTable.prototype.initBody = function(fixedScroll) {
         var that = this,
-            html = [],
             data = this.getData();
 
         this.trigger('pre-body', data);
@@ -2198,20 +2243,21 @@
 
         var trFragments = $(document.createDocumentFragment()),
             hasTr,
-            specialAttrHTML = {
-                rowspan: []
-            },
             specialPropDOM = {
                 rowspan: []
             };
 
+        $.each(this.eventsBodies, function(index_row, row) {
+            $.each(row, function(index_column, event) {
+                event.$body.off(event.types, event.selector);
+            });
+        });
         for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
             var item = data[i],
-                responseInitRow = this.initRow(item, i, data, trFragments, specialAttrHTML, specialPropDOM),
+                responseInitRow = this.initRow(item, i, data, trFragments, specialPropDOM),
                 tr = responseInitRow[0];
 
-            specialAttrHTML = responseInitRow[1];
-            specialPropDOM = responseInitRow[2];
+            specialPropDOM = responseInitRow[1];
             hasTr = hasTr || !!tr;
             if (tr && tr !== true) {
                 trFragments.append(tr);
@@ -2227,61 +2273,67 @@
                 '</tr>');
         }
 
-        this.$body.html(trFragments);
+        this.$body.html('').append(trFragments);
 
         if (!fixedScroll) {
             this.scrollTo(0);
         }
 
         // click to select by column
-        this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', function(e) {
+        this.$body.find('> tr > td').off('click dblclick').on('click dblclick', function(e) {
             var $td = $(this),
-                $tr = $td.parent(),
-                item = that.data[$tr.data('index')],
-                index = $td[0].cellIndex,
-                fields = that.getVisibleFields(),
-                field = fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
-                column = that.columns[getFieldIndex(that.columns, field)],
-                value = getItemField(item, field, that.options.escape);
+                $tr = $td.parent();
 
-            if ($td.find('.detail-icon').length) {
-                return;
-            }
+            if (typeof $tr.prop('data-index') !== 'undefined') {
+                var item = that.data[$tr.prop('data-index')],
+                    index = $td[0].cellIndex,
+                    fields = that.getVisibleFields(),
+                    field = fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
+                    column = that.columns[getFieldIndex(that.columns, field)],
+                    value = getItemField(item, field, that.options.escape);
 
-            that.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
-            that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
+                if ($td.find('.detail-icon').length) {
+                    return;
+                }
 
-            // if click to select - then trigger the checkbox/radio click
-            if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
-                var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
-                if ($selectItem.length) {
-                    $selectItem[0].click(); // #144: .trigger('click') bug
+                that.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
+                that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
+
+                // if click to select - then trigger the checkbox/radio click
+                if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
+                    var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
+                    if ($selectItem.length) {
+                        $selectItem[0].click(); // #144: .trigger('click') bug
+                    }
                 }
             }
         });
 
-        this.$body.find('> tr[data-index] > td > .detail-icon').off('click').on('click', function() {
+        this.$body.find('> tr > td > .detail-icon').off('click').on('click', function() {
             var $this = $(this),
-                $tr = $this.parent().parent(),
-                index = $tr.data('index'),
-                row = data[index]; // Fix #980 Detail view, when searching, returns wrong row
+                $tr = $this.parent().parent();
 
-            // remove and update
-            if ($tr.next().is('tr.detail-view')) {
-                $this.find('i').prop('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailOpen));
-                that.trigger('collapse-row', index, row);
-                $tr.next().remove();
-            } else {
-                $this.find('i').prop('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailClose));
-                $tr.after(sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.find('td').length));
-                var $element = $tr.next().find('td');
-                var content = calculateObjectValue(that.options, that.options.detailFormatter, [index, row, $element], '');
-                if ($element.length === 1) {
-                    $element.append(content);
+            if (typeof $tr.prop('data-index') !== 'undefined') {
+                var index = $tr.prop('data-index'),
+                    row = data[index]; // Fix #980 Detail view, when searching, returns wrong row
+
+                // remove and update
+                if ($tr.next().is('tr.detail-view')) {
+                    $this.find('i').prop('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailOpen));
+                    that.trigger('collapse-row', index, row);
+                    $tr.next().remove();
+                } else {
+                    $this.find('i').prop('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailClose));
+                    $tr.after(sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.find('td').length));
+                    var $element = $tr.next().find('td');
+                    var content = calculateObjectValue(that.options, that.options.detailFormatter, [index, row, $element], '');
+                    if ($element.length === 1) {
+                        $element.append(content);
+                    }
+                    that.trigger('expand-row', index, row, $element);
                 }
-                that.trigger('expand-row', index, row, $element);
+                that.resetView();
             }
-            that.resetView();
             return false;
         });
 
@@ -2302,51 +2354,47 @@
             row[that.header.stateField] = checked;
 
             if (that.options.singleSelect) {
-                that.$selectItem.not(this).each(function() {
-                    that.data[$(this).data('index')][that.header.stateField] = false;
+                that.$selectItem.not(that).each(function() {
+                    that.data[$(that).data('index')][that.header.stateField] = false;
                 });
-                that.$selectItem.filter(':checked').not(this).prop('checked', false);
+                that.$selectItem.filter(':checked').not(that).prop('checked', false);
             }
+            $.each(that.eventsTable, function(index_eventsTable, event) {
+                event.$body.off(event.types, event.selector);
+            });
 
             that.updateSelected();
             that.trigger(checked ? 'check' : 'uncheck', row, $this);
         });
 
-        $.each(this.header.events, function(i, events) {
-            if (!events) {
-                return;
-            }
+        var options = that.getOptions();
+
+        if (typeof options.events !== 'undefined') {
+            var events = options.events;
+
             // fix bug, if events is defined with namespace
             if (typeof events === 'string') {
                 events = calculateObjectValue(null, events);
             }
 
-            var field = that.header.fields[i],
-                fieldIndex = $.inArray(field, that.getVisibleFields());
+            $.each(events, function(index_events, event) {
+                var $bodyEvent = typeof event.find === 'undefined' ? that.$el : that.$el.find(event.find);
 
-            if (that.options.detailView && !that.options.cardView) {
-                fieldIndex += 1;
-            }
+                switch (event.type_handler) {
+                    case 'one':
+                        $bodyEvent.one(event.types, event.selector, event.data, event.handler);
+                        break;
+                    default:
+                        $bodyEvent.on(event.types, event.selector, event.data, event.handler);
+                }
 
-            for (var key in events) {
-                that.$body.find('>tr:not(.no-records-found)').each(function() {
-                    var $tr = $(this),
-                        $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(fieldIndex),
-                        index = key.indexOf(' '),
-                        name = key.substring(0, index),
-                        el = key.substring(index + 1),
-                        func = events[key];
-
-                    $td.find(el).off(name).on(name, function(e) {
-                        var index = $tr.data('index'),
-                            row = that.data[index],
-                            value = row[field];
-
-                        func.apply(this, [e, value, row, index]);
-                    });
+                that.eventsTable.push({
+                    $body: $bodyEvent,
+                    selector: event.selector,
+                    types: event.types
                 });
-            }
-        });
+            });
+        }
 
         this.updateSelected();
         this.resetView();
@@ -2451,7 +2499,7 @@
     BootstrapTable.prototype.getCaret = function() {
         var that = this;
 
-        $.each(this.$header.find('th'), function(i, th) {
+        $.each(this.$tableHeader.find('th'), function(i, th) {
             $(th).find('.sortable').removeClass('desc asc').addClass($(th).data('field') === that.options.sortName ? that.options.sortOrder : 'both');
         });
     };
@@ -2524,13 +2572,11 @@
             fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
             getScrollBarWidth() : 0;
 
-        this.$el.css('margin-top', -this.$header.outerHeight());
-
         focused = $(':focus');
         if (focused.length > 0) {
             var $th = focused.parents('th');
             if ($th.length > 0) {
-                var dataField = $th.prop('data-field');
+                var dataField = $th.attr('data-field');
                 if (dataField !== undefined) {
                     var $headerTh = this.$header.find("[data-field='" + dataField + "']");
                     if ($headerTh.length > 0) {
@@ -2540,14 +2586,61 @@
             }
         }
 
-        this.$header_ = this.$header.clone(true, true);
-        this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
+        var $trBody = that.$tableBody.find('table>tbody>tr:not(:has([colspan])):first');
+
+        if (!$trBody.hasClass('no-records-found')) {
+            var $tdsTrFirstBody = $trBody.find('td'),
+                rowspans = [];
+
+            $.each(that.$header.find('tr'), function(index_tr, tr) {
+                var thsTrHeader_ = $(tr).find('th'),
+                    rowspansTmp = [];
+
+                $.each(rowspans, function(index_rowspans, rowspan) {
+                    if (rowspan > 1) {
+                        rowspans[index_rowspans]--;
+                    }
+                    if (rowspans[index_rowspans] !== 1) {
+                        rowspansTmp.push(rowspans[index_rowspans]);
+                    }
+                });
+                $.each(thsTrHeader_, function(index_th, th) {
+                    if (that.$header.find('tr:nth-child(' + (index_tr + 1) + ')>th:nth-child(' + (index_th + 1) + ')').prop('width_auto')) {
+                        var outerWidth = 0,
+                            index_start = index_th;
+
+                        $.each(rowspans, function(index_rowspans, rowspan) {
+                            if (rowspan > 1) {
+                                index_start++;
+                            }
+                        });
+                        $.each($tdsTrFirstBody, function(index_td, td) {
+                            if (index_td >= index_start && index_td < (index_start + $(th).prop('colspan'))) {
+                                outerWidth += $(td).outerWidth();
+                            } else if (index_td >= (index_start + $(th).prop('colspan'))) {
+                                return false;
+                            }
+                        });
+                        if ($(th).prop('rowspan') > 1) {
+                            rowspansTmp.push($(th).prop('rowspan') + 1);
+                        }
+                        if (index_start + $(th).prop('colspan') === $tdsTrFirstBody.length) {
+                            outerWidth += that.$tableBody.outerWidth() - that.$el.outerWidth();
+                        }
+                        outerWidth -= ($(th).outerWidth() - $(th).innerWidth());
+                        $(th)
+                            .outerWidth(outerWidth)
+                            .find('>div').outerWidth(outerWidth);
+                    }
+                });
+                rowspans = rowspansTmp.slice();
+            });
+        }
+        this.$selectAll_ = this.$header.find('[name="btSelectAll"]');
         this.$tableHeader.css({
                 'margin-right': scrollWidth
-            }).find('table').css('width', this.$el.outerWidth())
-            .html('').prop('class', this.$el.prop('class'))
-            .append(this.$header_);
-
+            }).find('table')
+            .prop('class', this.$el.prop('class'));
 
         focusedTemp = $('.focus-temp:visible:eq(0)');
         if (focusedTemp.length > 0) {
@@ -2555,13 +2648,8 @@
             this.$header.find('.focus-temp').removeClass('focus-temp');
         }
 
-        // fix bug: $.data() is not working as expected after $.append()
-        this.$header.find('th[data-field]').each(function(i) {
-            that.$header_.find(sprintf('th[data-field="%s"]', $(this).data('field'))).data($(this).data());
-        });
-
         var visibleFields = this.getVisibleFields(),
-            $ths = this.$header_.find('th');
+            $ths = this.$header.find('th');
 
         this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function(i) {
             var $this = $(this),
@@ -2569,12 +2657,12 @@
 
             if (that.options.detailView && !that.options.cardView) {
                 if (i === 0) {
-                    that.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth());
+                    that.$header.find('th.detail').find('.fht-cell').width($this.innerWidth());
                 }
                 index = i - 1;
             }
 
-            var $th = that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]));
+            var $th = that.$header.find(sprintf('th[data-field="%s"]', visibleFields[index]));
             if ($th.length > 1) {
                 $th = $($ths[$this[0].cellIndex]);
             }
@@ -2680,7 +2768,7 @@
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
         this.$tableBody.off('scroll').on('scroll', function() {
-            if (that.options.showHeader && that.options.height) {
+            if (that.options.showHeader) {
                 that.$tableHeader.scrollLeft($(this).scrollLeft());
             }
 
@@ -2743,7 +2831,7 @@
         this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
-        if (this.options.height) {
+        if (typeof this.options.height !== 'undefined') {
             var toolbarHeight = this.$toolbar.outerHeight(true),
                 paginationHeight = this.$pagination.outerHeight(true),
                 height = this.options.height - toolbarHeight - paginationHeight;
@@ -2759,20 +2847,19 @@
             return;
         }
 
-        if (this.options.showHeader && this.options.height) {
+        if (this.options.showHeader) {
             this.$tableHeader.show();
             this.resetHeader();
             padding += this.$header.outerHeight();
         } else {
             this.$tableHeader.hide();
-            this.trigger('post-header');
+            this.resetHeader();
+            padding += this.$header.outerHeight();
         }
 
         if (this.options.showFooter) {
             this.resetFooter();
-            if (this.options.height) {
-                padding += this.$tableFooter.outerHeight() + 1;
-            }
+            padding += this.$tableFooter.outerHeight() + 1;
         }
 
         // Assign the correct sortable arrow
@@ -2830,35 +2917,94 @@
     };
 
     BootstrapTable.prototype.remove = function(params) {
-        var len = this.options.data.length,
-            i, row;
+        function removeData(params) {
+            $.each(params, function(index_params, paramsRemove) {
+                if (typeof paramsRemove.reinit === 'undefined' || paramsRemove.reinit) {
+                    if (paramsRemove.hasOwnProperty('indexesData')) {
+                        paramsRemove.indexesData = $.isArray(paramsRemove.indexesData) ? paramsRemove.indexesData : [paramsRemove.indexesData];
+                        paramsRemove.indexesData = paramsRemove.indexesData.map(Number);
+                        if (paramsRemove.indexesData.filter(function(index_data) {
+                                return isNaN(index_data);
+                            }).length === 0) {
+                            var dataNew = [];
 
-        if (!params.hasOwnProperty('field') || !params.hasOwnProperty('values')) {
-            return;
-        }
+                            $.each(that.options.data, function(index_dataTable, dataTable) {
+                                if (paramsRemove.indexesData.indexOf(index_dataTable) === -1) {
+                                    dataNew.push(dataTable);
+                                } else {
+                                    paramsRemove.indexesData.splice(paramsRemove.indexesData.indexOf(index_dataTable), 1);
+                                }
+                            });
+                            that.options.data = dataNew;
+                        } else {
+                            throw new Error('Wrong indexesData. Array elemnt isn\'t number');
+                        }
+                    } else if (typeof paramsRemove.field !== 'undefined' && typeof paramsRemove.values !== 'undefined') {
+                        var dataNew = [];
 
-        for (i = len - 1; i >= 0; i--) {
-            row = this.options.data[i];
-
-            if (!row.hasOwnProperty(params.field)) {
-                continue;
-            }
-            if ($.inArray(row[params.field], params.values) !== -1) {
-                this.options.data.splice(i, 1);
-                if (this.options.sidePagination === 'server') {
-                    this.options.totalRows -= 1;
+                        $.each(that.options.data, function(index_row, row) {
+                            if (typeof row[paramsRemove.field] === 'undefined') {
+                                dataNew.push(row);
+                            } else {
+                                if ($.inArray(row[paramsRemove.field], paramsRemove.values) === -1) {
+                                    dataNew.push(row);
+                                } else {
+                                    if (that.options.sidePagination === 'server') {
+                                        that.options.totalRows -= 1;
+                                    }
+                                }
+                            }
+                        });
+                        that.options.data = dataNew;
+                    } else if (typeof paramsRemove.idsUnique !== 'undefined') {
+                        paramsRemove.idsUnique = $.isArray(paramsRemove.idsUnique) ? paramsRemove.idsUnique : [paramsRemove.idsUnique];
+                        paramsRemove.idsUnique = paramsRemove.idsUnique.map(Number);
+                        if (paramsRemove.idsUnique.filter(function(element) {
+                                return isNaN(element);
+                            }).length === 0) {
+                            $.each(paramsRemove.idsUnique, function(index_idsUnique, id_unique) {
+                                row = that.getRowByUniqueId(id_unique);
+                                if (row) {
+                                    that.options.data.splice(that.options.data.indexOf(row), 1);
+                                }
+                            });
+                        } else {
+                            throw new Error('Wrong idsUnique. Array elemnt isn\'t number');
+                        }
+                    } else {
+                        throw new Error('Unsupported case.');
+                    }
+                } else {
+                    delete paramsRemove.reinit;
+                    allParamsWithoutReinit.push(paramsRemove);
                 }
-            }
+            });
+        }
+        var len = this.options.data.length,
+            that = this,
+            i, row,
+            allParamsWithoutReinit = [];
+
+        try {
+            removeData(params)
+        } catch (err) {
+            throw err;
         }
 
         if (len === this.options.data.length) {
             return;
         }
-
         this.initSearch();
         this.initPagination();
         this.initSort();
         this.initBody(true);
+        if (allParamsWithoutReinit.length !== 0) {
+            try {
+                removeData(params)
+            } catch (err) {
+                throw err;
+            }
+        }
     };
 
     BootstrapTable.prototype.removeAll = function() {
@@ -2906,27 +3052,10 @@
         return dataRow;
     };
 
-    BootstrapTable.prototype.removeByUniqueId = function(id) {
-        var len = this.options.data.length,
-            row = this.getRowByUniqueId(id);
-
-        if (row) {
-            this.options.data.splice(this.options.data.indexOf(row), 1);
-        }
-
-        if (len === this.options.data.length) {
-            return;
-        }
-
-        this.initSearch();
-        this.initPagination();
-        this.initBody(true);
-    };
-
     BootstrapTable.prototype.updateByUniqueId = function(params) {
         var that = this,
             allParams = $.isArray(params) ? params : [params],
-            allParamsWithoutRefresh = [],
+            allParamsWithoutReinit = [],
             refresh_table = false;
 
 
@@ -2934,7 +3063,7 @@
             var rowId;
 
             if (params.hasOwnProperty('reinit') && !params.reinit) {
-                allParamsWithoutRefresh.push(params);
+                allParamsWithoutReinit.push(params);
             } else {
                 refresh_table = true;
                 if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
@@ -2961,7 +3090,7 @@
             this.initBody(true);
         }
 
-        $.each(allParamsWithoutRefresh, function(i, params) {
+        $.each(allParamsWithoutReinit, function(i, params) {
             var rowId;
 
             if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
@@ -2991,8 +3120,7 @@
             params.title;
 
         if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
-            var header = this.options.height !== undefined ? this.$tableHeader : this.$header;
-            header.find('th[data-field]').each(function(i) {
+            this.$tableHeader.find('th[data-field]').each(function(i) {
                 if ($(this).data('field') === params.field) {
                     $($(this).find(".th-inner")[0]).text(params.title);
                     return false;
@@ -3015,12 +3143,12 @@
     BootstrapTable.prototype.updateRow = function(params) {
         var that = this,
             allParams = $.isArray(params) ? params : [params],
-            allParamsWithoutRefresh = [],
+            allParamsWithoutReinit = [],
             refresh_table = false;
 
         $.each(allParams, function(i, params) {
             if (params.hasOwnProperty('reinit') && !params.reinit) {
-                allParamsWithoutRefresh.push(params);
+                allParamsWithoutReinit.push(params);
             } else {
                 if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
                     return;
@@ -3040,7 +3168,7 @@
             this.initBody(true);
         }
 
-        $.each(allParamsWithoutRefresh, function(i, params) {
+        $.each(allParamsWithoutReinit, function(i, params) {
             if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
                 return;
             }
@@ -3296,10 +3424,8 @@
     };
 
     BootstrapTable.prototype.resetWidth = function() {
-        if (this.options.showHeader && this.options.height) {
-            this.fitHeader();
-        }
-        if (this.options.showFooter && !that.options.cardView) {
+        this.fitHeader();
+        if (this.options.showFooter && !this.options.cardView) {
             this.fitFooter();
         }
     };
@@ -3367,6 +3493,33 @@
         }
         if (typeof value === 'undefined') {
             return this.$tableBody.scrollTop();
+        }
+    };
+
+    BootstrapTable.prototype.sort = function(data) {
+        var $sortButton = this.$header.find('th[data-field=' + data.field + ']>div.sortable')
+
+        if (data.sortOrder === 'asc' || data.sortOrder === 'desc') {
+            if (data.force) {
+                if ($sortButton.hasClass(data.sortOrder)) {
+                    if (data.sortOrder === 'asc') {
+                        this.options.sortOrder = 'desc';
+                        $sortButton.removeClass('asc').addClass('desc');
+                    } else {
+                        this.options.sortOrder = 'asc';
+                        $sortButton.removeClass('desc').addClass('asc');
+                    }
+                }
+                $sortButton.click();
+            } else if (!$sortButton.hasClass('asc') && !$sortButton.hasClass('desc')) {
+                this.options.sortOrder = data.sortOrder;
+                $sortButton.addClass(data.sortOrder);
+                $sortButton.click();
+            } else if (!$sortButton.hasClass(data.sortOrder)) {
+                $sortButton.click();
+            }
+        } else {
+            throw new Error('Unknown sortOrder: "' + data.sortOrder + '"');
         }
     };
 
@@ -3509,7 +3662,7 @@
         'getOptions',
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
-        'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
+        'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
         'mergeCells', 'refreshColumnTitle',
         'checkAll', 'uncheckAll', 'checkInvert',
@@ -3524,6 +3677,7 @@
         'showAllColumns', 'hideAllColumns',
         'filterBy',
         'scrollTo',
+        'sort',
         'getScrollPosition',
         'selectPage', 'prevPage', 'nextPage',
         'togglePagination',
@@ -3544,6 +3698,9 @@
                 options = $.extend({}, BootstrapTable.DEFAULTS, $this.data(),
                     typeof option === 'object' && option);
 
+            if (typeof options.detailFormatter === 'string') {
+                options.detailFormatter = detailFormatter;
+            }
             if (typeof option === 'string') {
                 if ($.inArray(option, allowedMethods) < 0) {
                     throw new Error("Unknown method: " + option);
