@@ -29,7 +29,7 @@
         if (this.options.showJumpto) {
             var that = this,
                 $pageGroup = this.$pagination.find('ul.pagination'),
-                $jumpto = $pageGroup.find('div.jumpto');
+                $jumpto = $pageGroup.find('li.jumpto');
 
             if (!$jumpto.length) {
                 $jumpto = $([
