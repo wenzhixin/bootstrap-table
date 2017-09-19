@@ -35,7 +35,7 @@
                 $jumpto = $([
                     '<li class="jumpto">',
                         '<input type="text" class="form-control">',
-                        '<button class="m-l-5 btn' +
+                        '<button class="btn' +
                             sprintf(' btn-%s', this.options.buttonsClass) +
                             sprintf(' btn-%s', this.options.iconSize) +
                             '" title="' + this.options.formatJumpto() + '" ' +
