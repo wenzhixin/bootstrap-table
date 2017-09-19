@@ -14,6 +14,7 @@
 * type: Boolean
 * description: Set true to enable show 'jump to page'. can be defined via `data-show-jumpto` HTML attributes.
 * default: `false`
+* button style: can be styled via bootstrap-table buttonsClass attributes.
 
 ````html
 <table id="my_table_id"
