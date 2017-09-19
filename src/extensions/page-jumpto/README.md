@@ -1,6 +1,4 @@
-# Table Editable
-
-Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
+# Table Jump-to
 
 ## Usage
 
