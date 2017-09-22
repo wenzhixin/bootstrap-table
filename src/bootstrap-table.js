@@ -1217,7 +1217,7 @@
             $(event.currentTarget).val(text);
         }
 		
-		 //修复第一次文本框空字符串刷新问题
+		 // first time search value is undefined, when focus in search input, value is '', this will not search onblur 
          if (this.searchText===undefined ) {
         	 this.searchText = text;
         	 this.options.searchText = text;
