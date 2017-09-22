@@ -1216,6 +1216,13 @@
         if (this.options.trimOnSearch && $(event.currentTarget).val() !== text) {
             $(event.currentTarget).val(text);
         }
+		
+		 //修复第一次文本框空字符串刷新问题
+         if (this.searchText===undefined ) {
+        	 this.searchText = text;
+        	 this.options.searchText = text;
+        	 return;
+         }
 
         if (text === this.searchText) {
             return;
