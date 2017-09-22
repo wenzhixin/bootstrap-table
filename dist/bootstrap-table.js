@@ -1570,7 +1570,7 @@
 	BootstrapTable.prototype.onPageSwitch = function(event) {
 		//这里需要转为数字，否则跳转之后分页控件不会高亮显示
 		var page = parseInt($(event.currentTarget).siblings()[2].value);
-		if(page > 0 && page < this.options.totalPages) {
+		if(page > 0 && page <= this.options.totalPages) {
 			this.options.pageNumber = page;
 		} else {
 			alert('请输入有效的页码');
