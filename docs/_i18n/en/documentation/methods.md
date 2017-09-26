@@ -149,7 +149,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         uniqueId: the value of the uniqueId for that row.</td>
     </tr>
     <tr>
-        <td>getRowsHidden</td>
+        <td>getHiddenRows</td>
         <td>boolean</td>
         <td>Get all rows hidden and if you pass the show parameter true the rows will be shown again, otherwise, the method
         only will return the rows hidden.</td>
