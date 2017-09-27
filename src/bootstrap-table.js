@@ -522,10 +522,10 @@
     };
 
     BootstrapTable.prototype.init = function() {
-        this.prepareOptions();
         this.initLocale();
         this.initContainer();
         this.initTable();
+        this.prepareOptions();
         this.initHeader();
         this.initData();
         this.initHiddenRows();
