@@ -37,7 +37,7 @@
             tarNode.find('select').each(function(i, td){
                 txt.push($('#'+td.id+' option:selected').val());
             });
-            $('#table').bootstrapTable('updateRow', {
+            $(table).bootstrapTable('updateRow', {
                 index: table.$data.thId,
                 row: {
                     noOld: txt[0],
@@ -53,7 +53,7 @@
         };
 
         var recoveryData = function(){
-          $('#table').bootstrapTable('updateRow', {
+          $(table).bootstrapTable('updateRow', {
                 index: table.$data.thId,
                 row: {},
             });
