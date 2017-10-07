@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.11.3 - edycja wlasna https://github.com/andig89/bootstrap-table
+ * version: 1.11.4 - edycja wlasna https://github.com/andig89/bootstrap-table
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -3150,6 +3150,7 @@
             if (params.hasOwnProperty('reinit') && !params.reinit) {
                 allParamsWithoutReinit.push(params);
             } else {
+                refresh_table = true;
                 if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
                     return;
                 }
