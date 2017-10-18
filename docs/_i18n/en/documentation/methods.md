@@ -344,5 +344,15 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>is subtable</td>
         <td>Collapse all rows if the detail view option is set to True.</td>
     </tr>
+    <tr>
+        <td>updateCellById</td>
+        <td>params</td>
+        <td>
+        update the cell specified by the id, each param contains following properties: <br>
+        id: row id where the id should be the uniqueid field assigned to the table. <br>
+        field: field name of the cell to be updated.<br>
+        value: new value of the cell.
+        </td>
+    </tr>
     </tbody>
 </table>
