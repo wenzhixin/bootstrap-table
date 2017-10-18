@@ -2698,6 +2698,33 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.updateCellById = function (params) {
+        var that = this;
+        if (!params.hasOwnProperty('id') ||
+            !params.hasOwnProperty('field') ||
+            !params.hasOwnProperty('value')) {
+            return;
+        }
+        var allParams = $.isArray(params) ? params : [ params ];
+
+        $.each(allParams, function(i, params) {
+            var rowId;
+
+            rowId = $.inArray(that.getRowByUniqueId(params.id), that.options.data);
+
+            if (rowId === -1) {
+                return;
+            }
+            that.data[rowId][params.field] = params.value
+        });
+
+        if (params.reinit === false) {
+            return;
+        }
+        this.initSort();
+        this.initBody(true);
+    };
+    
     BootstrapTable.prototype.getOptions = function () {
         //Deep copy
         return $.extend(true, {}, this.options);
@@ -3080,7 +3107,7 @@
         'refreshOptions',
         'resetSearch',
         'expandRow', 'collapseRow', 'expandAllRows', 'collapseAllRows',
-        'updateFormatText'
+        'updateFormatText', 'updateCellById'
     ];
 
     $.fn.bootstrapTable = function (option) {
