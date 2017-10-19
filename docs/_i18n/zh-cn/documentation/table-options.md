@@ -249,7 +249,7 @@
         <td>data-page-list</td>
         <td>Array</td>
         <td>[10, 25, 50, 100, All]</td>
-        <td>如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。</td>
+        <td>如果设置了分页，设置可供选择的页面数据条数。设置为 All 或者 Unlimited，则显示所有记录。</td>
     </tr>
     <tr>
         <td>selectItemName</td>
