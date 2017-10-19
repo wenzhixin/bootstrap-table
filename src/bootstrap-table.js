@@ -1382,7 +1382,7 @@
 
                 pageList = [];
                 $.each(list, function (i, value) {
-                    pageList.push(value.toUpperCase() === that.options.formatAllRows().toUpperCase() ?
+                    pageList.push((value.toUpperCase() === that.options.formatAllRows().toUpperCase() || value.toUpperCase() === "UNLIMITED") ?
                         that.options.formatAllRows() : +value);
                 });
             }
