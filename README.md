@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.svg)](https://travis-ci.org/wenzhixin/bootstrap-table) 
 [![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.svg)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
 [![Bower version](https://badge.fury.io/bo/bootstrap-table.svg)](http://badge.fury.io/bo/bootstrap-table)
+[![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/bootstrap-table/badge?style=rounded)](https://www.jsdelivr.com/package/npm/bootstrap-table)
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDHP676FQDUT6)
 
 An extended Bootstrap table with radio, checkbox, sort, pagination, extensions and other added features.
