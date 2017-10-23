@@ -279,6 +279,8 @@
         data: [],
         totalField: 'total',
         dataField: 'rows',
+        offsetField: 'pageIndex',  //zhangchi: reset this option to customization Pagination class on server
+        limitField: 'pageSize',    //zhangchi: reset this option to customization Pagination class on server
         method: 'get',
         url: undefined,
         ajax: undefined,
@@ -1997,10 +1999,17 @@
             };
 
             if (this.options.pagination) {
-                params.offset = this.options.pageSize === this.options.formatAllRows() ?
+
+                //modify by zhangchi
+                params[this.options.offsetField] = this.options.pageSize === this.options.formatAllRows() ?
                     0 : this.options.pageSize * (this.options.pageNumber - 1);
-                params.limit = this.options.pageSize === this.options.formatAllRows() ?
+                params[this.options.limitField] = this.options.pageSize === this.options.formatAllRows() ?
                     this.options.totalRows : this.options.pageSize;
+
+                // params.offset = this.options.pageSize === this.options.formatAllRows() ?
+                //     0 : this.options.pageSize * (this.options.pageNumber - 1);
+                // params.limit = this.options.pageSize === this.options.formatAllRows() ?
+                //     this.options.totalRows : this.options.pageSize;
             }
         }
 
