@@ -306,6 +306,9 @@
         paginationDetailHAlign: 'left', //right, left
         paginationPreText: '&lsaquo;',
         paginationNextText: '&rsaquo;',
+        paginationSuccessivelySize: 10, // Maximum successively number of pages in a row
+        paginationPagesBySide: 3, // Number of pages on each side (right, left) of the current page.
+        paginationUseIntermediate: true, // Calculate intermediate pages for quick access
         search: false,
         searchOnEnterKey: false,
         strictSearch: false,
@@ -1408,81 +1411,102 @@
                 '<ul class="pagination' + sprintf(' pagination-%s', this.options.iconSize) + '">',
                 '<li class="page-pre"><a href="#">' + this.options.paginationPreText + '</a></li>');
 
-            if (this.totalPages < 5) {
+            // New extended pagination by Eugene Shpartko -- BEGIN
+
+            if (this.totalPages < this.options.paginationSuccessivelySize) {
                 from = 1;
                 to = this.totalPages;
             } else {
-                from = this.options.pageNumber - 2;
-                to = from + 4;
-                if (from < 1) {
-                    from = 1;
-                    to = 5;
-                }
-                if (to > this.totalPages) {
-                    to = this.totalPages;
-                    from = to - 4;
-                }
+                from = this.options.pageNumber - this.options.paginationPagesBySide;
+                to = from + (this.options.paginationPagesBySide*2);
             }
 
-            if (this.totalPages >= 6) {
-                if (this.options.pageNumber >= 3) {
-                    html.push('<li class="page-first' + (1 === this.options.pageNumber ? ' active' : '') + '">',
-                        '<a href="#">', 1, '</a>',
+            if (this.options.pageNumber<(this.options.paginationSuccessivelySize-2)) {
+                to = this.options.paginationSuccessivelySize;
+            }
+
+            if (to > this.totalPages) {
+                to = this.totalPages;
+            }
+
+            if (this.options.paginationSuccessivelySize > this.totalPages-from) {
+                from = from - (this.options.paginationSuccessivelySize - (this.totalPages-from)) + 1;
+            }
+
+            if (from < 1) {
+                from = 1;
+            }
+
+            if (to > this.totalPages) {
+                to = this.totalPages;
+            }
+
+            if (from>1) {
+                var max = this.options.paginationPagesBySide;
+                if (max>=from) max = from-1;
+                for (i = 1; i <= max; i++) {
+                    html.push('<li data-page-number="'+i+'" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                        '<a href="javascript:void(0)">', i, '</a>',
                         '</li>');
-
-                    from++;
                 }
-
-                if (this.options.pageNumber >= 4) {
-                    if (this.options.pageNumber == 4 || this.totalPages == 6 || this.totalPages == 7) {
-                        from--;
-                    } else {
-                        html.push('<li class="page-first-separator disabled">',
-                            '<a href="#">...</a>',
-                            '</li>');
+                if ((from-1)==max+1) {
+                    i = from-1;
+                    html.push('<li data-page-number="'+i+'" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                        '<a href="javascript:void(0)">', i, '</a>',
+                        '</li>');
+                } else {
+                    if ((from-1)>max) {
+                        if (((from-10)>5)&&(this.options.paginationUseIntermediate)) {
+                            i = Math.round(((from-3)/2)+3);
+                            html.push('<li data-page-number="'+i+'" class="page-intermediate page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                                '<a href="javascript:void(0)">', i, '</a>',
+                                '</li>');
+                        } else {
+                            html.push('<li class="page-first-separator disabled">',
+                                '<a href="javascript:void(0)">&#8230;</a>',
+                                '</li>');
+                        }
                     }
-
-                    to--;
-                }
-            }
-
-            if (this.totalPages >= 7) {
-                if (this.options.pageNumber >= (this.totalPages - 2)) {
-                    from--;
-                }
-            }
-
-            if (this.totalPages == 6) {
-                if (this.options.pageNumber >= (this.totalPages - 2)) {
-                    to++;
-                }
-            } else if (this.totalPages >= 7) {
-                if (this.totalPages == 7 || this.options.pageNumber >= (this.totalPages - 3)) {
-                    to++;
                 }
             }
 
             for (i = from; i <= to; i++) {
-                html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-                    '<a href="#">', i, '</a>',
+                html.push('<li data-page-number="'+i+'" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                    '<a href="javascript:void(0)">', i, '</a>',
                     '</li>');
             }
 
-            if (this.totalPages >= 8) {
-                if (this.options.pageNumber <= (this.totalPages - 4)) {
-                    html.push('<li class="page-last-separator disabled">',
-                        '<a href="#">...</a>',
+            if (this.totalPages>to) {
+                var min = this.totalPages-(this.options.paginationPagesBySide-1);
+                if (to>=min) min=to+1;
+                if ((to+1)==min-1) {
+                    i = to+1;
+                    html.push('<li data-page-number="'+i+'" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                        '<a href="javascript:void(0)">', i, '</a>',
+                        '</li>');
+                } else {
+                    if (min>(to+1)) {
+                        if (((this.totalPages-to)>10)&&(this.options.paginationUseIntermediate)) {
+                            i = Math.round(((this.totalPages-3-to)/2)+to);
+                            html.push('<li data-page-number="'+i+'" class="page-intermediate page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                                '<a href="javascript:void(0)">', i, '</a>',
+                                '</li>');
+                        } else {
+                            html.push('<li class="page-first-separator disabled">',
+                                '<a href="javascript:void(0)">&#8230;</a>',
+                                '</li>');
+                        }
+                    }
+                }
+
+                for (i = min; i <= this.totalPages; i++) {
+                    html.push('<li data-page-number="'+i+'" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
+                        '<a href="javascript:void(0)">', i, '</a>',
                         '</li>');
                 }
             }
 
-            if (this.totalPages >= 6) {
-                if (this.options.pageNumber <= (this.totalPages - 3)) {
-                    html.push('<li class="page-last' + (this.totalPages === this.options.pageNumber ? ' active' : '') + '">',
-                        '<a href="#">', this.totalPages, '</a>',
-                        '</li>');
-                }
-            }
+            // New extended pagination -- END
 
             html.push(
                 '<li class="page-next"><a href="#">' + this.options.paginationNextText + '</a></li>',
