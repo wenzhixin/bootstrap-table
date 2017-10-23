@@ -752,7 +752,7 @@
                     halign = '', // header align style
                     align = '', // body align style
                     style = '',
-                    class_ = sprintf(' class="%s"', column['class']),
+                    class_ = sprintf(' class="%s"', calculateObjectValue(null, that.options.rowStyle, [null, j, column['field']])['classes'] || column['class']),
                     order = that.options.sortOrder || column.order,
                     unitWidth = 'px',
                     width = column.width;
@@ -770,6 +770,12 @@
 
                 halign = sprintf('text-align: %s; ', column.halign ? column.halign : column.align);
                 align = sprintf('text-align: %s; ', column.align);
+								//create tmp variable, storage css style through rowStyle function   rowStyle  function  argument list  :    data index field
+								var _style= calculateObjectValue(null, that.options.rowStyle, [null, j, column['field']])['css'] || {};
+                for(var key in _style){
+                    style += key+ ': ' + _style[key] + '; ';
+                }
+                style += sprintf('vertical-align: %s; ', column.valign);
                 style = sprintf('vertical-align: %s; ', column.valign);
                 style += sprintf('width: %s; ', (column.checkbox || column.radio) && !width ?
                     '36px' : (width ? width + unitWidth : undefined));
