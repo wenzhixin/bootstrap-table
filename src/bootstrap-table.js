@@ -2214,7 +2214,7 @@
         var visibleFields = this.getVisibleFields(),
             $ths = this.$header_.find('th');
 
-        this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i) {
+        this.$body.find('>tr::nth-child(2):not(.no-records-found) > *').each(function (i) {
             var $this = $(this),
                 index = i;
 
@@ -2231,6 +2231,7 @@
             }
 
             $th.find('.fht-cell').width($this.innerWidth());
+            $th.css("width", $this.innerWidth());
         });
 
         this.horizontalScroll();
