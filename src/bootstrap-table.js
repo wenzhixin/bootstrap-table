@@ -2230,7 +2230,8 @@
                 $th = $($ths[$this[0].cellIndex]);
             }
 
-            $th.find('.fht-cell').width($this.innerWidth());
+            var zoomWidth = $th.width() - $th.find('.fht-cell').width();
+            $th.find('.fht-cell').width($this.innerWidth() - zoomWidth);
         });
 
         this.horizontalScroll();
