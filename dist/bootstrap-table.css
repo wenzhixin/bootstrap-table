@@ -79,6 +79,10 @@
     -moz-border-radius-topleft: 4px;
 }
 
+.fixed-table-container thead tr:nth-child(2) th:first-child {
+    border-left: 1px solid #ddd;
+}
+
 .fixed-table-container thead th .th-inner,
 .fixed-table-container tbody td .th-inner {
     padding: 8px;
