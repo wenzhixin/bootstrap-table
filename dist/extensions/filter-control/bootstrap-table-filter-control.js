@@ -428,6 +428,7 @@
             return false;
         },
         filterShowClear: false,
+        filterGenerateClear: true,
         alignmentSelectControlOptions: undefined,
         filterTemplate: {
             input: function (that, field, isVisible, placeholder) {
@@ -520,18 +521,25 @@
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.filterControl && this.options.filterShowClear) {
-            var $btnGroup = this.$toolbar.find('>.btn-group'),
-                $btnClear = $btnGroup.find('.filter-show-clear');
+            if(this.options.filterGenerateClear) {
+                var $btnGroup = this.$toolbar.find('>.btn-group'),
+                    $btnClear = $btnGroup.find('.filter-show-clear');
 
-            if (!$btnClear.length) {
-                $btnClear = $([
-                    '<button class="btn btn-default filter-show-clear" ',
-                    sprintf('type="button" title="%s">', this.options.formatClearFilters()),
-                    sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
-                    '</button>'
-                ].join('')).appendTo($btnGroup);
+                if (!$btnClear.length) {
+                    $btnClear = $([
+                        '<button class="btn btn-default filter-show-clear" ',
+                        sprintf('type="button" title="%s">', this.options.formatClearFilters()),
+                        sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
+                        '</button>'
+                    ].join('')).appendTo($btnGroup);
 
-                $btnClear.off('click').on('click', $.proxy(this.clearFilterControl, this));
+                    $btnClear.off('click').on('click', $.proxy(this.clearFilterControl, this));
+                }
+            } else {
+                var $btnClear = $('.filter-clear');
+                if($btnClear.length) {
+                    $btnClear.off('click').on('click', $.proxy(this.clearFilterControl, this));
+                }
             }
         }
     };
