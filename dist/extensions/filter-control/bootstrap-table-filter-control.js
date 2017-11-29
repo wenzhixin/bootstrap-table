@@ -689,6 +689,9 @@
             // which ones are going to be present.
             if (controls.length > 0) {
                 this.filterColumnsPartial = {};
+                controls.each(function(k, control) {
+                    $(control).val('');
+                });
                 $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
             } else {
                 return;
