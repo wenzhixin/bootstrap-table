@@ -24,6 +24,11 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set true to add a button to clear all the controls added by this plugin.
 * default: `false`
 
+### filterGenerateClear
+* type: Boolean
+* description: If `filterShowClear` is `true` then this flag can be used to suppress the generation of a clear button. When set to `false` the clear functionality will be bound to DOM elements with class `.filter-clear` 
+* default: `true`
+
 ### alignmentSelectControlOptions
 
 * type: String
