@@ -376,6 +376,13 @@
                     }
                 });
             }
+
+            if (that.options.sidePagination !== 'server') {
+                header.find("[class*='bootstrap-table-filter-control']").each(function(k, input) {
+                    $(input).trigger('change');
+                });
+            }
+
         } else {
             header.find('.filterControl').hide();
         }
