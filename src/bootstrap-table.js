@@ -2917,7 +2917,7 @@
         if (this.options.showHeader && this.options.height) {
             this.fitHeader();
         }
-        if (this.options.showFooter && !that.options.cardView) {
+        if (this.options.showFooter && !this.options.cardView) {
             this.fitFooter();
         }
     };
