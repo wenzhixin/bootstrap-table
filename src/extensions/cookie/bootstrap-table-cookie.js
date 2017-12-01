@@ -101,7 +101,9 @@
 
         switch(that.options.cookieStorage) {
             case 'cookieStorage':
-                return decodeURIComponent(document.cookie.replace(new RegExp('(?:(?:^|.*;)\\s*' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=\\s*([^;]*).*$)|^.*$'), '$1')) || null;
+                var value = '; ' + document.cookie;
+                var parts = value.split('; ' + cookieName + '=');
+                return parts.length === 2 ? parts.pop().split(';').shift() : null;
             case 'localStorage':
                 return localStorage.getItem(cookieName);
             case 'sessionStorage':
@@ -113,7 +115,7 @@
 
     var deleteCookie = function (that, tableName, cookieName) {
         cookieName = tableName + '.' + cookieName;
-        
+
         switch(that.options.cookieStorage) {
             case 'cookieStorage':
                 document.cookie = [
