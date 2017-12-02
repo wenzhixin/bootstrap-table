@@ -2383,7 +2383,8 @@
         var fixedScroll = false;
 
         // #431: support pagination
-        if (this.options.sidePagination === 'server') {
+        // #2508: server pagination mode
+        if (this.options.pagination && this.options.sidePagination === 'server') {
             this.options.totalRows = data[this.options.totalField];
             fixedScroll = data.fixedScroll;
             data = data[this.options.dataField];
