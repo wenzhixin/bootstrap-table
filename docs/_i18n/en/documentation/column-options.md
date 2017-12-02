@@ -212,7 +212,9 @@ function formatter(value, row, index, field) {
         <td>
         The custom field sort function that used to do local sorting, take two parameters: <br>
         a: the first field value.<br>
-        b: the second field value.
+        b: the second field value.<br>
+        rowA: the first row.<br>
+        rowB: the second row.
         </td>
     </tr>
     <tr>

@@ -604,7 +604,9 @@
         if (this.options.locale) {
             var parts = this.options.locale.split(/-|_/);
             parts[0].toLowerCase();
-            if (parts[1]) parts[1].toUpperCase();
+            if (parts[1]) {
+                parts[1].toUpperCase();
+            }
             if ($.fn.bootstrapTable.locales[this.options.locale]) {
                 // locale as requested
                 $.extend(this.options, $.fn.bootstrapTable.locales[this.options.locale]);
@@ -727,9 +729,11 @@
                 var $this = $(this),
                     cspan = +$this.attr('colspan') || 1,
                     rspan = +$this.attr('rowspan') || 1,
-                    tx, ty;
+                    tx,
+                    ty;
 
-                for (; m[y] && m[y][x]; x++); //skip already occupied cells in current row
+                // skip already occupied cells in current row
+                for (; m[y] && m[y][x]; x++);
 
                 for (tx = x; tx < x + cspan; tx++) { //mark matrix elements occupied by current cell with true
                     for (ty = y; ty < y + rspan; ty++) {
@@ -976,7 +980,7 @@
                 }
                 var aa = getItemField(a, name, that.options.escape),
                     bb = getItemField(b, name, that.options.escape),
-                    value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb]);
+                    value = calculateObjectValue(that.header, that.header.sorters[index], [aa, bb, a, b]);
 
                 if (value !== undefined) {
                     if (that.options.sortStable && value === 0) {
@@ -2603,9 +2607,8 @@
             return;
         }
 
-        this.columns[this.fieldsColumnsIndex[params.field]].title = this.options.escape
-                                                                    ? escapeHTML(params.title)
-                                                                    : params.title;
+        this.columns[this.fieldsColumnsIndex[params.field]].title =
+            this.options.escape ? escapeHTML(params.title) : params.title;
 
         if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
             var header = this.options.height !== undefined ? this.$tableHeader : this.$header;
@@ -2755,7 +2758,7 @@
             if (rowId === -1) {
                 return;
             }
-            that.data[rowId][params.field] = params.value
+            that.data[rowId][params.field] = params.value;
         });
 
         if (params.reinit === false) {
