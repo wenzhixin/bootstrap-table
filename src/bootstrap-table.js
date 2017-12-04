@@ -2079,6 +2079,13 @@
                 if (!silent) that.$tableLoading.hide();
             },
             error: function (res) {
+                var data = [];
+                if (this.options.sidePagination === 'server') {
+                    data = {};
+                    data[this.options.totalField] = 0;
+                    data[this.options.dataField] = [];
+                }
+                that.load(data);
                 that.trigger('load-error', res.status, res);
                 if (!silent) that.$tableLoading.hide();
             }
