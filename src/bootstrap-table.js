@@ -876,14 +876,15 @@
             $(this).data(visibleColumns[$(this).data('field')]);
         });
         this.$container.off('click', '.th-inner').on('click', '.th-inner', function (event) {
-            var target = $(this);
+            var $this = $(this);
 
-            if (that.options.detailView) {
-                if (target.closest('.bootstrap-table')[0] !== that.$container[0])
+            if (that.options.detailView && !$this.parent().hasClass('bs-checkbox')) {
+                if ($this.closest('.bootstrap-table')[0] !== that.$container[0]) {
                     return false;
+                }
             }
 
-            if (that.options.sortable && target.parent().data().sortable) {
+            if (that.options.sortable && $this.parent().data().sortable) {
                 that.onSort(event);
             }
         });
