@@ -179,8 +179,10 @@
 
                     applyCookieFilters = function (element, filteredCookies) {
                         $(filteredCookies).each(function (i, cookie) {
-                            $(element).val(cookie.text);
-                            cachedFilters[cookie.field] = cookie.text;
+                            if (cookie.text !== '') {
+                                $(element).val(cookie.text);
+                                cachedFilters[cookie.field] = cookie.text;
+                            }                                
                         });
                     };
 
