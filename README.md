@@ -6,6 +6,8 @@
 [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/bootstrap-table/badge?style=rounded)](https://www.jsdelivr.com/package/npm/bootstrap-table)
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDHP676FQDUT6)
 
+[![](https://graphs.waffle.io/wenzhixin/bootstrap-table/throughput.svg)](https://graphs.waffle.io/wenzhixin/bootstrap-table/throughput.svg)
+
 An extended Bootstrap table with radio, checkbox, sort, pagination, extensions and other added features.
 
 To get started, check out:
