@@ -1952,7 +1952,7 @@
                 checked = $this.prop('checked'),
                 row = that.data[$this.data('index')];
 
-            if ($(this).is(':radio')) {
+            if ($(this).is(':radio') || that.options.singleSelect) {
                 $.each(that.options.data, function (i, row) {
                     row[that.header.stateField] = false;
                 });
