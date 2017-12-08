@@ -1983,6 +1983,10 @@
             var field = that.header.fields[i],
                 fieldIndex = $.inArray(field, that.getVisibleFields());
 
+            if (fieldIndex === -1) {
+                return;
+            }
+
             if (that.options.detailView && !that.options.cardView) {
                 fieldIndex += 1;
             }
