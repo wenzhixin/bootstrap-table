@@ -1982,28 +1982,31 @@
 
             var field = that.header.fields[i],
                 fieldIndex = $.inArray(field, that.getVisibleFields());
+            
+            if(fieldIndex != -1)
+            {
+                if (that.options.detailView && !that.options.cardView) {
+                    fieldIndex += 1;
+                }
+                
+                for (var key in events) {
+                    that.$body.find('>tr:not(.no-records-found)').each(function () {
+                        var $tr = $(this),
+                            $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(fieldIndex),
+                            index = key.indexOf(' '),
+                            name = key.substring(0, index),
+                            el = key.substring(index + 1),
+                            func = events[key];
 
-            if (that.options.detailView && !that.options.cardView) {
-                fieldIndex += 1;
-            }
+                        $td.find(el).off(name).on(name, function (e) {
+                            var index = $tr.data('index'),
+                                row = that.data[index],
+                                value = row[field];
 
-            for (var key in events) {
-                that.$body.find('>tr:not(.no-records-found)').each(function () {
-                    var $tr = $(this),
-                        $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(fieldIndex),
-                        index = key.indexOf(' '),
-                        name = key.substring(0, index),
-                        el = key.substring(index + 1),
-                        func = events[key];
-
-                    $td.find(el).off(name).on(name, function (e) {
-                        var index = $tr.data('index'),
-                            row = that.data[index],
-                            value = row[field];
-
-                        func.apply(this, [e, value, row, index]);
+                            func.apply(this, [e, value, row, index]);
+                        });
                     });
-                });
+                }
             }
         });
 
