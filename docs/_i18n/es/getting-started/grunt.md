@@ -10,26 +10,17 @@ Para instalar Grunt, se debe **primero** [descargar e instalar node.js](http://n
 
 Entonces, en la linea de comandos:
 
-1. Instalar `grunt-cli` globalmente con `npm install -g grunt-cli`.
-2. Navegue hasta la ruta del folder `/bootstrap-table/`, entonces ejecute `npm install`. npm buscará el archivo `package.json` y automaticamente instalará las dependencias locales necesarias listadas aquí.
+1. Navegue hasta la ruta del folder `/bootstrap-table/`, entonces ejecute `npm install`. npm buscará el archivo `package.json` y automaticamente instalará las dependencias locales necesarias listadas aquí.
 
 Cuando esté completo, ya se podrá ejecutar varios comandos de Grunt en la linea de comandos.
 
 ## Available Grunt commands
 
-### `grunt dist` (Just compile CSS and JavaScript)
-
-Regenerando el folder `/dist/` con el CSS y JavaScript compilado. Como un usuario de Bootstrap, este es el comando.
-
-### `grunt test` (Run tests)
-
-Ejecute [JSHint](http://jshint.com/) para probar nuestras pruebas.
-
-### `grunt docs` (Compila y prueba la documentación)
+### `npm run grunt docs` (Compila y prueba la documentación)
 
 Compila y purueba el CSS, JavaScript, y otros artchivos cuando se esta ejecutando la documentación localmente con `jekyll serve`.
 
-### `grunt` (Compila absolutamente todo y ejecuta pruebas)
+### `npm run grunt` (Compila absolutamente todo y ejecuta pruebas)
 
 Compila y minifica el CSS y JavaScript, compila la documentación, ejecuta el validador de HTML5 contra la documentación, regenera los archivos customizables, y más. Se requiere [Jekyll](http://jekyllrb.com/docs/installation/).
 
