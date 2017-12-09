@@ -525,6 +525,17 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to select checkbox or radiobox when clicking rows.</td>
     </tr>
     <tr>
+        <td>ignoreClickToSelectOn</td>
+        <td>data-ignore-click-to-select-on</td>
+        <td>Function</td>
+        <td><code>{ return $.inArray(element.tagName, ['A', 'BUTTON']); }</code></td>
+        <td>
+        Takes one parameters:<br>
+        element: the element clicked on.<br>
+        Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if clickToSelect is true.
+        </td>
+    </tr>
+    <tr>
         <td>singleSelect</td>
         <td>data-single-select</td>
         <td>Boolean</td>
