@@ -124,6 +124,10 @@
     border-left: none;
 }
 
+.fixed-table-container thead tr:nth-child(2) th:first-child {
+    border-left: 1px solid #ddd;
+}
+
 /* the same color with .active */
 .fixed-table-container tbody .selected td {
     background-color: #f5f5f5;
