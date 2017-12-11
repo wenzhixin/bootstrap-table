@@ -843,6 +843,7 @@
                     sprintf(' rowspan="%s"', column.rowspan),
                     sprintf(' colspan="%s"', column.colspan),
                     sprintf(' data-field="%s"', column.field),
+                    j === 0 && column.fieldIndex ? ' data-not-first-th' : '',
                     '>');
 
                 html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
@@ -2242,6 +2243,10 @@
                     that.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth());
                 }
                 index = i - 1;
+            }
+
+            if (index === -1) {
+                return;
             }
 
             var $th = that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]));
