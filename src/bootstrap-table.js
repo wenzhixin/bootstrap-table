@@ -1596,6 +1596,7 @@
     };
 
     BootstrapTable.prototype.onPageListChange = function (event) {
+        event.preventDefault();
         var $this = $(event.currentTarget);
 
         $this.parent().addClass('active').siblings().removeClass('active');
@@ -1607,14 +1608,8 @@
         return false;
     };
 
-    // TODO: remove
-    BootstrapTable.prototype.onPageFirst = function (event) {
-        this.options.pageNumber = 1;
-        this.updatePagination(event);
-        return false;
-    };
-
     BootstrapTable.prototype.onPagePre = function (event) {
+        event.preventDefault();
         if ((this.options.pageNumber - 1) === 0) {
             this.options.pageNumber = this.options.totalPages;
         } else {
@@ -1625,6 +1620,7 @@
     };
 
     BootstrapTable.prototype.onPageNext = function (event) {
+        event.preventDefault();
         if ((this.options.pageNumber + 1) > this.options.totalPages) {
             this.options.pageNumber = 1;
         } else {
@@ -1634,14 +1630,8 @@
         return false;
     };
 
-    // TODO: remove
-    BootstrapTable.prototype.onPageLast = function (event) {
-        this.options.pageNumber = this.totalPages;
-        this.updatePagination(event);
-        return false;
-    };
-
     BootstrapTable.prototype.onPageNumber = function (event) {
+        event.preventDefault();
         if (this.options.pageNumber === +$(event.currentTarget).text()) {
             return;
         }
@@ -1709,7 +1699,7 @@
             html.push('<td>');
 
             if (calculateObjectValue(null, this.options.detailFilter, [i, item])) {
-                html.push('<a class="detail-icon" href="javascript:">',
+                html.push('<a class="detail-icon" href="#">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.detailOpen),
                 '</a>');
             }
@@ -1920,7 +1910,9 @@
             }
         });
 
-        this.$body.find('> tr[data-index] > td > .detail-icon').off('click').on('click', function () {
+        this.$body.find('> tr[data-index] > td > .detail-icon').off('click').on('click', function (e) {
+            e.preventDefault();
+
             var $this = $(this),
                 $tr = $this.parent().parent(),
                 index = $tr.data('index'),
