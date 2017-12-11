@@ -1647,6 +1647,7 @@
         }
         this.options.pageNumber = +$(event.currentTarget).text();
         this.updatePagination(event);
+        $('li.page-number.active a').attr("href","javascript:void(0);");
         return false;
     };
 
