@@ -1271,7 +1271,13 @@
 
         this.options.pageNumber = 1;
         this.initSearch();
-        this.updatePagination();
+        if (event.firedByInitSearchText) {
+            if (this.options.sidePagination === "client") {
+                this.updatePagination();
+            }
+        } else {
+            this.updatePagination();
+        }
         this.trigger('search', text);
     };
 
@@ -2087,10 +2093,10 @@
             },
             error: function (res) {
                 var data = [];
-                if (this.options.sidePagination === 'server') {
+                if (that.options.sidePagination === 'server') {
                     data = {};
-                    data[this.options.totalField] = 0;
-                    data[this.options.dataField] = [];
+                    data[that.options.totalField] = 0;
+                    data[that.options.dataField] = [];
                 }
                 that.load(data);
                 that.trigger('load-error', res.status, res);
@@ -2114,7 +2120,7 @@
             if (this.options.searchText !== '') {
                 var $search = this.$toolbar.find('.search input');
                 $search.val(this.options.searchText);
-                this.onSearch({currentTarget: $search});
+                this.onSearch({currentTarget: $search, firedByInitSearchText: true});
             }
         }
     };
