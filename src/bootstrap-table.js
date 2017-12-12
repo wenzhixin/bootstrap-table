@@ -2593,7 +2593,8 @@
     BootstrapTable.prototype.updateByUniqueId = function (params) {
         var that = this;
         var allParams = $.isArray(params) ? params : [ params ];
-
+        var data = [];
+        
         $.each(allParams, function(i, params) {
             var rowId;
 
@@ -2604,11 +2605,12 @@
             rowId = $.inArray(that.getRowByUniqueId(params.id), that.options.data);
 
             if (rowId === -1) {
-                return;
+                data.push(params.row);
             }
             $.extend(that.options.data[rowId], params.row);
         });
-
+        
+        if (data.length) this.initData(data, 'append');
         this.initSearch();
         this.initPagination();
         this.initSort();
