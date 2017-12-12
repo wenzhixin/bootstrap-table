@@ -22,6 +22,9 @@
         formatNoMatches: function () {
             return 'Aucun résultat trouvé';
         },
+        formatPaginationSwitch: function () {
+            return 'Montrer/Masquer pagination';
+        },
         formatRefresh: function () {
             return 'Rafraîchir';
         },

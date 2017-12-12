@@ -131,7 +131,7 @@
 
     $.each(that.columns, function (idx, column) {
       if (column.filter && column.filter.type === 'select') {
-        var $selectEle = $header.find('select[data-filter-field=' + column.field + ']');
+        var $selectEle = $header.find('select[data-filter-field="' + column.field + '"]');
 
         if ($selectEle.length > 0 && !$selectEle.data().select2) {
           column.filter.data.unshift("");

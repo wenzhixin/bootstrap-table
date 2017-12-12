@@ -101,7 +101,9 @@
 
         switch(that.options.cookieStorage) {
             case 'cookieStorage':
-                return decodeURIComponent(document.cookie.replace(new RegExp('(?:(?:^|.*;)\\s*' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=\\s*([^;]*).*$)|^.*$'), '$1')) || null;
+                var value = '; ' + document.cookie;
+                var parts = value.split('; ' + cookieName + '=');
+                return parts.length === 2 ? parts.pop().split(';').shift() : null;
             case 'localStorage':
                 return localStorage.getItem(cookieName);
             case 'sessionStorage':
@@ -113,7 +115,7 @@
 
     var deleteCookie = function (that, tableName, cookieName) {
         cookieName = tableName + '.' + cookieName;
-        
+
         switch(that.options.cookieStorage) {
             case 'cookieStorage':
                 document.cookie = [
@@ -177,8 +179,10 @@
 
                     applyCookieFilters = function (element, filteredCookies) {
                         $(filteredCookies).each(function (i, cookie) {
-                            $(element).val(cookie.text);
-                            cachedFilters[cookie.field] = cookie.text;
+                            if (cookie.text !== '') {
+                                $(element).val(cookie.text);
+                                cachedFilters[cookie.field] = cookie.text;
+                            }
                         });
                     };
 
@@ -232,10 +236,8 @@
         _onSort = BootstrapTable.prototype.onSort,
         _onPageNumber = BootstrapTable.prototype.onPageNumber,
         _onPageListChange = BootstrapTable.prototype.onPageListChange,
-        _onPageFirst = BootstrapTable.prototype.onPageFirst,
         _onPagePre = BootstrapTable.prototype.onPagePre,
         _onPageNext = BootstrapTable.prototype.onPageNext,
-        _onPageLast = BootstrapTable.prototype.onPageLast,
         _toggleColumn = BootstrapTable.prototype.toggleColumn,
         _selectPage = BootstrapTable.prototype.selectPage,
         _onSearch = BootstrapTable.prototype.onSearch;
@@ -344,12 +346,6 @@
         return false;
     };
 
-    BootstrapTable.prototype.onPageFirst = function () {
-        _onPageFirst.apply(this, Array.prototype.slice.apply(arguments));
-        setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
-        return false;
-    };
-
     BootstrapTable.prototype.onPagePre = function () {
         _onPagePre.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
@@ -358,12 +354,6 @@
 
     BootstrapTable.prototype.onPageNext = function () {
         _onPageNext.apply(this, Array.prototype.slice.apply(arguments));
-        setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
-        return false;
-    };
-
-    BootstrapTable.prototype.onPageLast = function () {
-        _onPageLast.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
         return false;
     };

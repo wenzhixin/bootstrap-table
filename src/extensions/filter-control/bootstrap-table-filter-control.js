@@ -93,7 +93,7 @@
 
     var getCursorPosition = function(el) {
         if ($.fn.bootstrapTable.utils.isIEBrowser()) {
-            if ($(el).is('input')) {
+            if ($(el).is('input[type=text]')) {
                 var pos = 0;
                 if ('selectionStart' in el) {
                     pos = el.selectionStart;
@@ -113,14 +113,8 @@
         }
     };
 
-    var setCursorPosition = function (el, index) {
-        if ($.fn.bootstrapTable.utils.isIEBrowser()) {
-            if(el.setSelectionRange !== undefined) {
-                el.setSelectionRange(index, index);
-            } else {
-                $(el).val(el.value);
-            }
-        }
+    var setCursorPosition = function (el) {
+        $(el).val(el.value);
     };
 
     var copyValues = function (that) {
