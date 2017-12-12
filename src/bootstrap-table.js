@@ -1256,6 +1256,13 @@
         if (this.options.trimOnSearch && $(event.currentTarget).val() !== text) {
             $(event.currentTarget).val(text);
         }
+		
+		 // first time search value is undefined, when focus in search input, value is '', this will not search onblur 
+         if (this.searchText===undefined ) {
+        	 this.searchText = text;
+        	 this.options.searchText = text;
+        	 return;
+         }
 
         if (text === this.searchText) {
             return;
