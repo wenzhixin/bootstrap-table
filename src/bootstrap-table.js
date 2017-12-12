@@ -2104,6 +2104,7 @@
 
     BootstrapTable.prototype.initSearchText = function () {
         if (this.options.search) {
+            this.searchText = '';
             if (this.options.searchText !== '') {
                 var $search = this.$toolbar.find('.search input');
                 $search.val(this.options.searchText);
