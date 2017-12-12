@@ -1392,7 +1392,7 @@
                     } else {
                         active = page === that.options.pageSize ? ' class="active"' : '';
                     }
-                    pageNumber.push(sprintf('<li role="menuitem"%s><a href="#">%s</a></li>', active, page));
+                    pageNumber.push(sprintf('<li role="menuitem"%s><a>%s</a></li>', active, page));
                 }
             });
             pageNumber.push('</ul></span>');
@@ -1403,7 +1403,7 @@
             html.push('</div>',
                 '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
                 '<ul class="pagination' + sprintf(' pagination-%s', this.options.iconSize) + '">',
-                '<li class="page-pre"><a href="#">' + this.options.paginationPreText + '</a></li>');
+                '<li class="page-pre"><a>' + this.options.paginationPreText + '</a></li>');
 
             if (this.totalPages < 5) {
                 from = 1;
@@ -1424,7 +1424,7 @@
             if (this.totalPages >= 6) {
                 if (this.options.pageNumber >= 3) {
                     html.push('<li class="page-first' + (1 === this.options.pageNumber ? ' active' : '') + '">',
-                        '<a href="#">', 1, '</a>',
+                        '<a>', 1, '</a>',
                         '</li>');
 
                     from++;
@@ -1435,7 +1435,7 @@
                         from--;
                     } else {
                         html.push('<li class="page-first-separator disabled">',
-                            '<a href="#">...</a>',
+                            '<a>...</a>',
                             '</li>');
                     }
 
@@ -1461,14 +1461,14 @@
 
             for (i = from; i <= to; i++) {
                 html.push('<li class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-                    '<a href="#">', i, '</a>',
+                    '<a>', i, '</a>',
                     '</li>');
             }
 
             if (this.totalPages >= 8) {
                 if (this.options.pageNumber <= (this.totalPages - 4)) {
                     html.push('<li class="page-last-separator disabled">',
-                        '<a href="#">...</a>',
+                        '<a>...</a>',
                         '</li>');
                 }
             }
@@ -1476,13 +1476,13 @@
             if (this.totalPages >= 6) {
                 if (this.options.pageNumber <= (this.totalPages - 3)) {
                     html.push('<li class="page-last' + (this.totalPages === this.options.pageNumber ? ' active' : '') + '">',
-                        '<a href="#">', this.totalPages, '</a>',
+                        '<a>', this.totalPages, '</a>',
                         '</li>');
                 }
             }
 
             html.push(
-                '<li class="page-next"><a href="#">' + this.options.paginationNextText + '</a></li>',
+                '<li class="page-next"><a>' + this.options.paginationNextText + '</a></li>',
                 '</ul>',
                 '</div>');
         }
