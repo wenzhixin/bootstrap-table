@@ -2081,10 +2081,10 @@
             },
             error: function (res) {
                 var data = [];
-                if (this.options.sidePagination === 'server') {
+                if (that.options.sidePagination === 'server') {
                     data = {};
-                    data[this.options.totalField] = 0;
-                    data[this.options.dataField] = [];
+                    data[that.options.totalField] = 0;
+                    data[that.options.dataField] = [];
                 }
                 that.load(data);
                 that.trigger('load-error', res.status, res);
