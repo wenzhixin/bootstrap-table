@@ -78,9 +78,9 @@
         <td>sort.bs.table</td>
         <td>name, order</td>
         <td>
-        Fires when user sort a column, the parameters contains: <br>
-        name: the sort column field name<br>
-        order: the sort column order.
+        当用户对某列进行排序时触发，参数包括：<br>
+        name：排序列的 filed 名称，<br>
+        order：排序顺序。
         </td>
     </tr>
     <tr>
@@ -88,9 +88,9 @@
         <td>check.bs.table</td>
         <td>row</td>
         <td>
-        Fires when user check a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row.
-        $element: the DOM element checked.
+        当用户选择某一行时触发，参数包含：<br>
+        row：与点击行对应的记录，<br>
+        $element：选择的DOM元素。
         </td>
     </tr>
     <tr>
@@ -223,7 +223,13 @@
        <td>onRefresh</td>
        <td>refresh.bs.table</td>
        <td>params</td>
-       <td>Fires after the click the refresh button.</td>
+       <td>点击刷新按钮后触发。</td>
+    </tr>
+    <tr>
+       <td>onScrollBody</td>
+       <td>scroll-body.bs.table</td>
+       <td></td>
+       <td>表格 body 滚动时触发。</td>
     </tr>
     </tbody>
 </table>
