@@ -394,6 +394,10 @@
 
         customSort: $.noop,
 
+        ignoreClickToSelectOn: function (element) {
+            return $.inArray(element.tagName, ['A', 'BUTTON']);
+        },
+
         rowStyle: function (row, index) {
             return {};
         },
@@ -1902,7 +1906,7 @@
             that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
 
             // if click to select - then trigger the checkbox/radio click
-            if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
+            if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect && that.options.ignoreClickToSelectOn(e.target)) {
                 var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
                 if ($selectItem.length) {
                     $selectItem[0].click(); // #144: .trigger('click') bug
