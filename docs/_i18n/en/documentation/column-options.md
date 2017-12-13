@@ -264,7 +264,7 @@ function cellStyle(value, row, index, field) {
         <td>Boolean</td>
         <td>true</td>
         <td>
-        True to search use formated data.
+        True to search use formatted data.
         </td>
     </tr>
     <tr>

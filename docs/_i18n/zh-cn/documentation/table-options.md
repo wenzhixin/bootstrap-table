@@ -470,6 +470,17 @@
         <td>设置 true 将在点击行时，自动选择 rediobox 和 checkbox。</td>
     </tr>
     <tr>
+        <td>ignoreClickToSelectOn</td>
+        <td>data-ignore-click-to-select-on</td>
+        <td>Function</td>
+        <td><code>{ return $.inArray(element.tagName, ['A', 'BUTTON']); }</code></td>
+        <td>
+        包含一个参数：<br>
+        element: 点击的元素。<br>
+        返回 true 是点击事件会被忽略，返回 false 将会自动选中。该选项只有在 clickToSelect 为 true 时才生效。
+        </td>
+    </tr>
+    <tr>
         <td>singleSelect</td>
         <td>data-single-select</td>
         <td>Boolean</td>
