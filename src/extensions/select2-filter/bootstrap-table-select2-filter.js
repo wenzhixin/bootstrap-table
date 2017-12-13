@@ -256,10 +256,10 @@
     if (that.options.sidePagination === 'client') {
       this.data = $.grep(this.data, function (row, idx) {
         for (var field in filterValues) {
-          var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
+          var column = that.columns[that.fieldsColumnsIndex[field]],
             filterValue = filterValues[field].toLowerCase(),
             rowValue = row[field];
-          
+
           rowValue = $.fn.bootstrapTable.utils.calculateObjectValue(
             that.header,
             that.header.formatters[$.inArray(field, that.header.fields)], [rowValue, row, idx], rowValue);
