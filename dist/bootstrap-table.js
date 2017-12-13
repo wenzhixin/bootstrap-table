@@ -363,6 +363,7 @@
             detailOpen: 'glyphicon-plus icon-plus',
             detailClose: 'glyphicon-minus icon-minus'
         },
+        searchHtmlStrip: false,
 
         customSearch: $.noop,
 
@@ -1276,6 +1277,11 @@
                     } else {
                         value = item[key];
                     }
+
+                    if(that.options.searchHtmlStrip){
+                        value = value.replace(/<[^>]*>/gi, '');    
+                    }
+                    
 
                     if (typeof value === 'string' || typeof value === 'number') {
                         if (that.options.strictSearch) {
