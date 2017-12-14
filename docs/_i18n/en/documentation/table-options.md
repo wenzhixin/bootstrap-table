@@ -301,7 +301,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-page-list</td>
         <td>Array</td>
         <td>[10, 25, 50, 100]</td>
-        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table.</td>
+        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' or 'Unlimited' option, all the records will be shown in your table.</td>
     </tr>
     <tr>
         <td>selectItemName</td>
@@ -523,6 +523,17 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Boolean</td>
         <td>false</td>
         <td>True to select checkbox or radiobox when clicking rows.</td>
+    </tr>
+    <tr>
+        <td>ignoreClickToSelectOn</td>
+        <td>data-ignore-click-to-select-on</td>
+        <td>Function</td>
+        <td><code>{ return $.inArray(element.tagName, ['A', 'BUTTON']); }</code></td>
+        <td>
+        Takes one parameters:<br>
+        element: the element clicked on.<br>
+        Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if clickToSelect is true.
+        </td>
     </tr>
     <tr>
         <td>singleSelect</td>

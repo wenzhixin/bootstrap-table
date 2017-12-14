@@ -245,5 +245,11 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
        <td>params</td>
        <td>Fires after the click the refresh button.</td>
     </tr>
+    <tr>
+       <td>onScrollBody</td>
+       <td>scroll-body.bs.table</td>
+       <td></td>
+       <td>Fires when table body scroll.</td>
+    </tr>
     </tbody>
 </table>

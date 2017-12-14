@@ -72,7 +72,7 @@
     outline: 0 solid transparent;
 }
 
-.fixed-table-container thead th:first-child {
+.fixed-table-container thead th:first-child:not([data-not-first-th]) {
     border-left: none;
     border-top-left-radius: 4px;
     -webkit-border-top-left-radius: 4px;

@@ -141,7 +141,7 @@
                     }
                 }
 
-                for (var i = 0; i < ths.length; i++ ) {
+                for (var i = 0; i < this.length; i++ ) {
                     columnIndex = that.fieldsColumnsIndex[ths[i]];
                     if (columnIndex !== -1) {
                         that.columns[columnIndex].fieldIndex = i;

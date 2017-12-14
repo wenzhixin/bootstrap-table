@@ -176,7 +176,7 @@
 
                 originalRowAttr = this.options.rowAttributes;
                 this.options.rowAttributes = rowAttr;
-                this.$el.on('post-body.bs.table', function () {
+                this.$el.off('post-body.bs.table').on('post-body.bs.table', function () {
                     that.$el.treetable({
                         expandable: true,
                         onNodeExpand: function () {
