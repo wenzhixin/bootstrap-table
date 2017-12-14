@@ -231,8 +231,7 @@
     var createControls = function (that, header) {
         var addedFilterControl = false,
             isVisible,
-            html,
-            timeoutId = 0;
+            html;
 
         $.each(that.columns, function (i, column) {
             isVisible = 'hidden';
@@ -319,8 +318,8 @@
                     return;
                 }
 
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
+                clearTimeout(event.currentTarget.timeoutId || 0);
+                event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
@@ -334,8 +333,8 @@
                     return;
                 }
                 
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(function () {
+                clearTimeout(event.currentTarget.timeoutId || 0);
+                event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
             });
@@ -352,8 +351,8 @@
                     var newValue = $input.val();
 
                     if (newValue === "") {
-                        clearTimeout(timeoutId);
-                        timeoutId = setTimeout(function () {
+                        clearTimeout(event.currentTarget.timeoutId || 0);
+                        event.currentTarget.timeoutId = setTimeout(function () {
                             that.onColumnSearch(event);
                         }, that.options.searchTimeOut);
                     }
