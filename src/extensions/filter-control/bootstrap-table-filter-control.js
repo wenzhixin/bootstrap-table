@@ -318,7 +318,7 @@
                     return;
                 }
 
-                clearTimeout(event.currentTarget.timeoutId);
+                clearTimeout(event.currentTarget.timeoutId || 0);
                 event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
@@ -333,7 +333,7 @@
                     return;
                 }
                 
-                clearTimeout(event.currentTarget.timeoutId);
+                clearTimeout(event.currentTarget.timeoutId || 0);
                 event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
@@ -351,7 +351,7 @@
                     var newValue = $input.val();
 
                     if (newValue === "") {
-                        clearTimeout(event.currentTarget.timeoutId);
+                        clearTimeout(event.currentTarget.timeoutId || 0);
                         event.currentTarget.timeoutId = setTimeout(function () {
                             that.onColumnSearch(event);
                         }, that.options.searchTimeOut);
