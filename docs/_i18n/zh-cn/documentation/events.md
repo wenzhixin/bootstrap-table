@@ -98,9 +98,9 @@
         <td>uncheck.bs.table</td>
         <td>row</td>
         <td>
-        Fires when user uncheck a row, the parameters contains: <br>
-        row: the record corresponding to the clicked row.
-        $element: the DOM element unchecked.
+        当用户反选某一行时触发，参数包含：<br>
+        row：与点击行对应的记录，<br>
+        $element：选择的DOM元素。
         </td>
     </tr>
     <tr>
@@ -108,8 +108,8 @@
         <td>check-all.bs.table</td>
         <td>rows</td>
         <td>
-        Fires when user check all rows, the parameters contains: <br>
-        rows: array of records corresponding to newly checked rows.
+        当用户全选所有的行时触发，参数包含：<br>
+        rows：最新选择的所有行的数组。
         </td>
     </tr>
     <tr>
@@ -117,8 +117,8 @@
         <td>uncheck-all.bs.table</td>
         <td>rows</td>
         <td>
-        Fires when user uncheck all rows, the parameters contains: <br>
-        rows: array of records corresponding to previously checked rows.
+        当用户反选所有的行时触发，参数包含：<br>
+        rows：最新选择的所有行的数组。
         </td>
     </tr>
     <tr>
@@ -126,8 +126,8 @@
         <td>check-some.bs.table</td>
         <td>rows</td>
         <td>
-        Fires when user check some rows, the parameters contains: <br>
-        rows: array of records corresponding to previously checked rows.
+        当用户选择某些行时触发，参数包含：<br>
+        rows：相对于之前选择的行的数组。
         </td>
     </tr>
     <tr>
@@ -135,71 +135,89 @@
         <td>uncheck-some.bs.table</td>
         <td>rows</td>
         <td>
-        Fires when user uncheck some rows, the parameters contains: <br>
-        rows: array of records corresponding to previously checked rows.
+        当用户反选某些行时触发，参数包含：<br>
+        rows：相对于之前选择的行的数组。
         </td>
     </tr>
     <tr>
         <td>onLoadSuccess</td>
         <td>load-success.bs.table</td>
         <td>data</td>
-        <td>Fires when remote data is loaded
-            successfully.
+        <td>
+        远程数据加载成功时触发成功。
         </td>
     </tr>
     <tr>
         <td>onLoadError</td>
         <td>load-error.bs.table</td>
         <td>status</td>
-        <td>Fires when some errors occur to load remote data.</td>
+        <td>
+        远程数据加载失败时触发成功。
+        </td>
     </tr>
     <tr>
         <td>onColumnSwitch</td>
         <td>column-switch.bs.table</td>
         <td>field, checked</td>
-        <td>Fires when switch the column visible.</td>
+        <td>
+        当切换列的时候触发。
+        </td>
     </tr>
     <tr>
         <td>onColumnSearch</td>
         <td>column-search.bs.table</td>
         <td>field, text</td>
-        <td>Fires when search by column.</td>
+        <td>
+        当搜索列时触发。
+        </td>
     </tr>
     <tr>
         <td>onPageChange</td>
         <td>page-change.bs.table</td>
         <td>number, size</td>
-        <td>Fires when change the page number or page size.</td>
+        <td>
+        当页面更改页码或页面大小时触发。
+        </td>
     </tr>
     <tr>
         <td>onSearch</td>
         <td>search.bs.table</td>
         <td>text</td>
-        <td>Fires when search the table.</td>
+        <td>
+        当搜索表格时触发。
+        </td>
     </tr>
     <tr>
         <td>onToggle</td>
         <td>toggle.bs.table</td>
         <td>cardView</td>
-        <td>Fires when toggle the view of table.</td>
+        <td>
+        切换表格视图时触发。
+        </td>
     </tr>
     <tr>
         <td>onPreBody</td>
         <td>pre-body.bs.table</td>
         <td>data</td>
-        <td>Fires before the table body is rendered</td>
+        <td>
+        在表格 body 渲染之前触发。
+        </td>
     </tr>
     <tr>
         <td>onPostBody</td>
         <td>post-body.bs.table</td>
         <td>none</td>
-        <td>Fires after the table body is rendered and available in the DOM</td>
+        <td>
+        在表格 body 渲染完成后触发。
+        </td>
     </tr>
     <tr>
        <td>onPostHeader</td>
        <td>post-header.bs.table</td>
        <td>none</td>
-       <td>Fires after the table header is rendered and availble in the DOM</td>
+       <td>
+       在表格 header 渲染完成后触发。
+       </td>
     </tr>
     <tr>
         <td>onExpandRow</td>
@@ -217,7 +235,9 @@
        <td>onRefreshOptions</td>
        <td>refresh-options.bs.table</td>
        <td>options</td>
-       <td>Fires after refresh the options and before destroy and init the table.</td>
+       <td>
+       刷新选项之后并在销毁和初始化表之前触发。
+       </td>
     </tr>
     <tr>
        <td>onRefresh</td>
