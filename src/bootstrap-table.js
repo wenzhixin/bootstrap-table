@@ -893,7 +893,6 @@
      * @param type: append / prepend
      */
     BootstrapTable.prototype.initData = function (data, type) {
-        
         if (type === 'append') {
             this.options.data = this.options.data.concat(data);
         } else if (type === 'prepend') {
