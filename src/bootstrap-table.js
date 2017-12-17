@@ -388,6 +388,7 @@
         singleSelect: false,
         toolbar: undefined,
         toolbarAlign: 'left',
+        customToolbar: undefined,
         checkboxHeader: true,
         sortable: true,
         silentSort: true,
@@ -402,6 +403,10 @@
         customSearch: $.noop,
 
         customSort: $.noop,
+
+        ignoreClickToSelectOn: function (element) {
+            return $.inArray(element.tagName, ['A', 'BUTTON']);
+        },
 
         rowStyle: function (row, index) {
             return {};
@@ -491,6 +496,9 @@
           return false;
         },
         onResetView: function () {
+            return false;
+        },
+        onScrollBody: function () {
             return false;
         }
     };
@@ -594,7 +602,8 @@
         'collapse-row.bs.table': 'onCollapseRow',
         'refresh-options.bs.table': 'onRefreshOptions',
         'reset-view.bs.table': 'onResetView',
-        'refresh.bs.table': 'onRefresh'
+        'refresh.bs.table': 'onRefresh',
+        'scroll-body.bs.table': 'onScrollBody'
     };
 
     BootstrapTable.prototype.init = function () {
@@ -660,7 +669,12 @@
         this.$tableBody = this.$container.find('.fixed-table-body');
         this.$tableLoading = this.$container.find('.fixed-table-loading');
         this.$tableFooter = this.$container.find('.fixed-table-footer');
-        this.$toolbar = this.$container.find('.fixed-table-toolbar');
+        // checking if custom table-toolbar exists or not
+        if (this.options.customToolbar) {
+            this.$toolbar = $('body').find(this.options.customToolbar);
+        } else {
+            this.$toolbar = this.$container.find('.fixed-table-toolbar');
+        }
         this.$pagination = this.$container.find('.fixed-table-pagination');
 
         this.$tableBody.append(this.$el);
@@ -947,21 +961,14 @@
      */
     BootstrapTable.prototype.initData = function (data, type) {
         if (type === 'append') {
-            this.data = this.data.concat(data);
-        } else if (type === 'prepend') {
-            this.data = [].concat(data).concat(this.data);
-        } else {
-            this.data = data || this.options.data;
-        }
-
-        // Fix #839 Records deleted when adding new row on filtered table
-        if (type === 'append') {
             this.options.data = this.options.data.concat(data);
         } else if (type === 'prepend') {
             this.options.data = [].concat(data).concat(this.options.data);
         } else {
-            this.options.data = this.data;
+            this.options.data = data || this.options.data;
         }
+        
+        this.data = this.options.data;
 
         if (this.options.sidePagination === 'server') {
             return;
@@ -1935,7 +1942,7 @@
             that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
 
             // if click to select - then trigger the checkbox/radio click
-            if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect) {
+            if (e.type === 'click' && that.options.clickToSelect && column.clickToSelect && that.options.ignoreClickToSelectOn(e.target)) {
                 var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
                 if ($selectItem.length) {
                     $selectItem[0].click(); // #144: .trigger('click') bug
@@ -2381,6 +2388,8 @@
         var that = this;
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
+
+        that.trigger('scroll-body');
         this.$tableBody.off('scroll').on('scroll', function () {
             if (that.options.showHeader && that.options.height) {
               that.$tableHeader.scrollLeft($(this).scrollLeft());
