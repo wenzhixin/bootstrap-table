@@ -1300,7 +1300,7 @@
         this.options.pageNumber = 1;
         this.initSearch();
         if (event.firedByInitSearchText) {
-            if (this.options.sidePagination === "client") {
+            if (this.options.sidePagination === 'client') {
                 this.updatePagination();
             }
         } else {
@@ -2957,8 +2957,7 @@
     };
 
     BootstrapTable.prototype.toggleFullscreen = function () {
-        var bootstraptablediv = $(".bootstrap-table");
-        bootstraptablediv.toggleClass("fullscreen");
+        this.$el.closest('.bootstrap-table').toggleClass('fullscreen');
     };
 
     BootstrapTable.prototype.refresh = function (params) {
