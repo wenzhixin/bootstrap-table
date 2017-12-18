@@ -337,6 +337,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>false</td>
         <td>True para mostrar el botón de mostrar/ocultar la paginación.</td>
     </tr>
+        <tr>
+        <td>showFullscreen</td>
+        <td>data-show-fullscreen</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True para mostrar el botón de fullscreen.</td>
+    </tr>
     <tr>
         <td>minimumCountColumns</td>
         <td>data-minimum-count-columns</td>

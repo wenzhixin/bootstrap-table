@@ -225,7 +225,7 @@
     };
 
     var escapeID = function(id) {
-       return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+       return String(id).replace( /(!|"|#|\$|%|\'|\(|\)|\*|\+|\,|\.|\/|\:|\;|\?|@)/g, "\\$1" );
     };
 
     var createControls = function (that, header) {

@@ -66,5 +66,10 @@
         <td>--/td>
         <td>'All'</td>
     </tr>
+    <tr>
+        <td>formatFullscreen</td>
+        <td>-</td>
+        <td>'Fullscreen'</td>
+    </tr>
     </tbody>
 </table>

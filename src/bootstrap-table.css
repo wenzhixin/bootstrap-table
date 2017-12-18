@@ -311,3 +311,12 @@ div.fixed-table-scroll-outer {
     display: block;
     clear: both;
 }
+
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 100%!important;
+    background: #FFF;
+}
