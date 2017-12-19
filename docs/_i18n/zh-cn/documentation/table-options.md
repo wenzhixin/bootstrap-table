@@ -367,7 +367,7 @@
         <td>data-show-fullscreen</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>True to show the fullscreen button.</td>
+        <td>是否显示全屏按钮。</td>
     </tr>
     <tr>
         <td>minimumCountColumns</td>
