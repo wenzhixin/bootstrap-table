@@ -412,6 +412,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to show the pagination switch button.</td>
     </tr>
     <tr>
+        <td>showFullscreen</td>
+        <td>data-show-fullscreen</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show the fullscreen button.</td>
+    </tr>
+    <tr>
         <td>minimumCountColumns</td>
         <td>data-minimum-count-columns</td>
         <td>Number</td>
