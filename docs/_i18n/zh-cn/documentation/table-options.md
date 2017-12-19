@@ -363,6 +363,13 @@
         <td>是否显示切换分页按钮。</td>
     </tr>
     <tr>
+        <td>showFullscreen</td>
+        <td>data-show-fullscreen</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>是否显示全屏按钮。</td>
+    </tr>
+    <tr>
         <td>minimumCountColumns</td>
         <td>data-minimum-count-columns</td>
         <td>Number</td>

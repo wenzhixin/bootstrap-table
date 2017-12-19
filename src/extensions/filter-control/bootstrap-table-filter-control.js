@@ -40,7 +40,9 @@
     };
 
     var sortSelectControl = function (selectControl) {
+            selectControl = $(selectControl.get(selectControl.length - 1));
             var $opts = selectControl.find('option:gt(0)');
+            
             $opts.sort(function (a, b) {
                 a = $(a).text().toLowerCase();
                 b = $(b).text().toLowerCase();

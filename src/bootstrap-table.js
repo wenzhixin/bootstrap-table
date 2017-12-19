@@ -25,7 +25,8 @@
                 toggle: 'glyphicon-list-alt icon-list-alt',
                 columns: 'glyphicon-th icon-th',
                 detailOpen: 'glyphicon-plus icon-plus',
-                detailClose: 'glyphicon-minus icon-minus'
+                detailClose: 'glyphicon-minus icon-minus',
+                fullscreen: 'glyphicon-fullscreen'
             },
             pullClass: 'pull',
             toobarDropdowHtml: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
@@ -43,7 +44,8 @@
                 toggle: 'fa-toggle-on',
                 columns: 'fa-th-list',
                 detailOpen: 'fa-plus',
-                detailClose: 'fa-minus'
+                detailClose: 'fa-minus',
+                fullscreen: 'fa-arrows-alt'
             },
             pullClass: 'float',
             toobarDropdowHtml: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
@@ -360,6 +362,7 @@
         showPaginationSwitch: false,
         showRefresh: false,
         showToggle: false,
+        showFullscreen: false,
         buttonsAlign: 'right',
         smartDisplay: true,
         escape: false,
@@ -524,6 +527,9 @@
         formatToggle: function () {
             return 'Toggle';
         },
+        formatFullscreen: function () {
+            return 'Fullscreen';
+        },            
         formatColumns: function () {
             return 'Columns';
         },
@@ -1123,6 +1129,11 @@
                 '</button>');
         }
 
+        if (this.options.showFullscreen) {
+            this.$toolbar.find('button[name="fullscreen"]')
+                .off('click').on('click', $.proxy(this.toggleFullscreen, this));
+        }
+
         if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn' +
                     sprintf(' btn-%s', this.options.buttonsClass) +
@@ -1141,6 +1152,16 @@
                     this.options.formatToggle()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
+        }
+
+        if (this.options.showFullscreen) {
+            html.push(sprintf('<button class="btn' +
+                    sprintf(' btn-%s', this.options.buttonsClass) +
+                    sprintf(' btn-%s', this.options.iconSize) +
+                    '" type="button" name="fullscreen" aria-label="fullscreen" title="%s">',
+                    this.options.formatFullscreen()),
+                    sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.fullscreen),
+                    '</button>');
         }
 
         if (this.options.showColumns) {
@@ -1272,7 +1293,13 @@
 
         this.options.pageNumber = 1;
         this.initSearch();
-        this.updatePagination();
+        if (event.firedByInitSearchText) {
+            if (this.options.sidePagination === 'client') {
+                this.updatePagination();
+            }
+        } else {
+            this.updatePagination();
+        }
         this.trigger('search', text);
     };
 
@@ -2115,7 +2142,7 @@
             if (this.options.searchText !== '') {
                 var $search = this.$toolbar.find('.search input');
                 $search.val(this.options.searchText);
-                this.onSearch({currentTarget: $search});
+                this.onSearch({currentTarget: $search, firedByInitSearchText: true});
             }
         }
     };
@@ -2921,6 +2948,10 @@
             button.attr("class", this.options.iconsPrefix + " " + this.options.icons.paginationSwitchUp);
         }
         this.updatePagination();
+    };
+
+    BootstrapTable.prototype.toggleFullscreen = function () {
+        this.$el.closest('.bootstrap-table').toggleClass('fullscreen');
     };
 
     BootstrapTable.prototype.refresh = function (params) {
