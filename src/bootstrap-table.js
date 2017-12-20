@@ -182,8 +182,16 @@
 
     var compareObjects = function (objectA, objectB, compareLength) {
         // Create arrays of property names
-        var objectAProperties = Object.getOwnPropertyNames(objectA),
-            objectBProperties = Object.getOwnPropertyNames(objectB),
+        var getOwnPropertyNames = Object.getOwnPropertyNames || function (obj) {
+            var arr = [];
+            for (var k in obj) {
+            if (obj.hasOwnProperty(k)) {
+                arr.push(k);
+            }
+            return arr;
+        };
+        var objectAProperties = getOwnPropertyNames(objectA),
+            objectBProperties = getOwnPropertyNames(objectB),
             propName = '';
 
         if (compareLength) {
@@ -529,7 +537,7 @@
         },
         formatFullscreen: function () {
             return 'Fullscreen';
-        },            
+        },
         formatColumns: function () {
             return 'Columns';
         },
@@ -961,7 +969,7 @@
         } else {
             this.options.data = data || this.options.data;
         }
-        
+
         this.data = this.options.data;
 
         if (this.options.sidePagination === 'server') {
