@@ -1,7 +1,7 @@
 # Table Resizable
 
 Use Plugin: [bootstrap-table-resizable](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/resizable) </br>
-Dependence: [colResizable](https://github.com/alvaro-prieto/colResizable) v1.5
+Dependence: [colResizable](https://github.com/alvaro-prieto/colResizable) v1.6
 
 ## Usage
 
