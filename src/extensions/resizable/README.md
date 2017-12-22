@@ -1,7 +1,7 @@
 # Table Resizable
 
 Use Plugin: [bootstrap-table-resizable](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/resizable) </br>
-Dependence: [colResizable](https://github.com/alvaro-prieto/colResizable) v1.5
+Dependence: [colResizable](https://github.com/alvaro-prieto/colResizable) v1.6
 
 ## Usage
 
@@ -64,3 +64,14 @@ Dependence: [colResizable](https://github.com/alvaro-prieto/colResizable) v1.5
 * type: Function
 * description: This event is fired while dragging a column anchor if liveDrag is enabled. It can be useful if the table is being used as a multiple range slider. The callback function can obtain a reference to the updated table through the currentTarget attribute of the event retrieved by parameters
 * default: `empty function`
+
+
+### resizeMode
+
+* type: String
+* description: It is used to set how the resize method works. Those are the possible values:
+  * 'fit': this is default resizing model, in which resizing a column does not alter table width, which means that when a column is expanded the next one shrinks.
+  * 'flex': in this mode the table can change its width and each column can shrink or expand independently if there is enough space in the parent container. If there is not enough space, columns will share its width as they are resized. Table will never get bigger than its parent.
+  * 'overflow': allows to resize columns with overflow of parent container.
+* default: `fit`
+
