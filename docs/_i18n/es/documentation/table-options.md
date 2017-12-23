@@ -475,6 +475,16 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>Un selector jQuery que indica la barra de herramientas, por ejemplo:<br> #toolbar, .toolbar.</td>
     </tr>
     <tr>
+        <td>buttonsToolbar</td>
+        <td>data-buttons-toolbar</td>
+        <td>String | Node</td>
+        <td>undefined</td>
+        <td>
+        Un selector jQuery que indica la barra de herramientas de botones, por ejemplo: <br>
+        #buttons-toolbar, .buttons-toolbar, o un nodo DOM.
+        </td>
+    </tr>
+    <tr>
         <td>checkboxHeader</td>
         <td>data-checkbox-header</td>
         <td>Boolean</td>

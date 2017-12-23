@@ -505,6 +505,16 @@
         </td>
     </tr>
     <tr>
+        <td>buttonsToolbar</td>
+        <td>data-buttons-toolbar</td>
+        <td>String | Node</td>
+        <td>undefined</td>
+        <td>
+        一个jQuery 选择器，指明自定义的 buttons toolbar。例如:<br>
+        #buttons-toolbar, .buttons-toolbar 或 DOM 节点。
+        </td>
+    </tr>
+    <tr>
         <td>checkboxHeader</td>
         <td>data-checkbox-header</td>
         <td>Boolean</td>

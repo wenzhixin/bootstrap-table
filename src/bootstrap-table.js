@@ -372,7 +372,6 @@
         showRefresh: false,
         showToggle: false,
         showFullscreen: false,
-        buttonsAlign: 'right',
         smartDisplay: true,
         escape: false,
         minimumCountColumns: 1,
@@ -391,7 +390,8 @@
         singleSelect: false,
         toolbar: undefined,
         toolbarAlign: 'left',
-        customToolbar: undefined,
+        buttonsToolbar: undefined,
+        buttonsAlign: 'right',
         checkboxHeader: true,
         sortable: true,
         silentSort: true,
@@ -673,8 +673,8 @@
         this.$tableLoading = this.$container.find('.fixed-table-loading');
         this.$tableFooter = this.$container.find('.fixed-table-footer');
         // checking if custom table-toolbar exists or not
-        if (this.options.customToolbar) {
-            this.$toolbar = $('body').find(this.options.customToolbar);
+        if (this.options.buttonsToolbar) {
+            this.$toolbar = $('body').find(this.options.buttonsToolbar);
         } else {
             this.$toolbar = this.$container.find('.fixed-table-toolbar');
         }

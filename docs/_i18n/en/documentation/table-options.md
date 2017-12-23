@@ -560,6 +560,16 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         </td>
     </tr>
     <tr>
+        <td>buttonsToolbar</td>
+        <td>data-buttons-toolbar</td>
+        <td>String | Node</td>
+        <td>undefined</td>
+        <td>
+        A jQuery selector that indicates the buttons toolbar, for example:<br>
+        #buttons-toolbar, .buttons-toolbar, or a DOM node.
+        </td>
+    </tr>
+    <tr>
         <td>checkboxHeader</td>
         <td>data-checkbox-header</td>
         <td>Boolean</td>
