@@ -343,6 +343,7 @@
     BootstrapTable.prototype.onPageListChange = function () {
         _onPageListChange.apply(this, Array.prototype.slice.apply(arguments));
         setCookie(this, cookieIds.pageList, this.options.pageSize);
+        setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
         return false;
     };
 
@@ -384,6 +385,7 @@
         if ($(target[0].currentTarget).parent().hasClass('search')) {
           setCookie(this, cookieIds.searchText, this.searchText);
         }
+        setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
     };
 
     BootstrapTable.prototype.getCookies = function () {
