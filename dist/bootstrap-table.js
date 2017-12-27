@@ -918,7 +918,7 @@
         }
 
         if (this.options.sidePagination === 'server') {
-            return;
+            //return;
         }
         this.initSort();
     };
@@ -2428,7 +2428,8 @@
             if (!row.hasOwnProperty(params.field)) {
                 continue;
             }
-            if ($.inArray(row[params.field], params.values) !== -1) {
+            //if ($.inArray(row[params.field], params.values) !== -1) {
+            if (row[params.field]==params.values) {
                 this.options.data.splice(i, 1);
                 if (this.options.sidePagination === 'server') {
                     this.options.totalRows -= 1;
@@ -2655,6 +2656,12 @@
 
     BootstrapTable.prototype.getOptions = function () {
         return this.options;
+    };
+
+    BootstrapTable.prototype.setOptions = function (option, data) {
+        if(this.options.hasOwnProperty(option)){
+            this.options[option]=data;
+        }
     };
 
     BootstrapTable.prototype.getSelections = function () {
@@ -3008,7 +3015,7 @@
     // =======================
 
     var allowedMethods = [
-        'getOptions',
+        'getOptions', 'setOptions',
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
