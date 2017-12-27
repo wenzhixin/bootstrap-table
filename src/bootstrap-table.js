@@ -576,7 +576,8 @@
         searchable: true,
         searchFormatter: true,
         cardVisible: true,
-        escape : false
+        escape: false,
+        showSelectTitle: false
     };
 
     BootstrapTable.EVENTS = {
@@ -840,7 +841,8 @@
                 align = sprintf('text-align: %s; ', column.align);
                 style = sprintf('vertical-align: %s; ', column.valign);
                 style += sprintf('width: %s; ', (column.checkbox || column.radio) && !width ?
-                    '36px' : (width ? width + unitWidth : undefined));
+                    (!column.showSelectTitle ? '36px' : undefined) :
+                    (width ? width + unitWidth : undefined));
 
                 if (typeof column.fieldIndex !== 'undefined') {
                     that.header.fields[column.fieldIndex] = column.field;
@@ -880,7 +882,9 @@
 
                 text = that.options.escape ? escapeHTML(column.title) : column.title;
 
+                var title = text;
                 if (column.checkbox) {
+                    text = '';
                     if (!that.options.singleSelect && that.options.checkboxHeader) {
                         text = '<input name="btSelectAll" type="checkbox" />';
                     }
@@ -890,6 +894,9 @@
                     text = '';
                     that.header.stateField = column.field;
                     that.options.singleSelect = true;
+                }
+                if (!text && column.showSelectTitle) {
+                    text += title;
                 }
 
                 html.push(text);

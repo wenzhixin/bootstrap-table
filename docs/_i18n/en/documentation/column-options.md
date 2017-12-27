@@ -273,7 +273,16 @@ function cellStyle(value, row, index, field) {
         <td>Boolean</td>
         <td>false</td>
         <td>
-        Escapes a string for insertion into HTML, replacing &, <, >, ", `, and ' characters.
+        Escapes a string for insertion into HTML, replacing &, <, >, ", \`, and ' characters.
+        </td>
+    </tr>
+    <tr>
+        <td>showSelectTitle</td>
+        <td>data-show-select-title</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>
+        True to show the title of column with `radio` or `singleSelect` `checkbox` option.
         </td>
     </tr>
 </tbody>

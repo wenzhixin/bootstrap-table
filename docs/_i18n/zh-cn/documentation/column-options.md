@@ -246,5 +246,23 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         True to search use formated data.
         </td>
     </tr>
+    <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>
+        Escapes a string for insertion into HTML, replacing &, <, >, ", \`, and ' characters.
+        </td>
+    </tr>
+    <tr>
+        <td>showSelectTitle</td>
+        <td>data-show-select-title</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>
+        True to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
+        </td>
+    </tr>
 </tbody>
 </table>
