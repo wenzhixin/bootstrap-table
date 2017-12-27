@@ -133,10 +133,6 @@
     text-align: center;
 }
 
-.fixed-table-container .bs-checkbox .th-inner {
-    padding: 8px 0;
-}
-
 .fixed-table-container input[type="radio"],
 .fixed-table-container input[type="checkbox"] {
     margin: 0 auto !important;

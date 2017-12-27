@@ -257,7 +257,7 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>Boolean</td>
         <td>false</td>
         <td>
-        Show the title of column with radio or singleSelect checkbox.
+        True to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
         </td>
     </tr>
     </tbody>

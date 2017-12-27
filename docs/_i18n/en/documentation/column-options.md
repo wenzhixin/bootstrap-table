@@ -282,7 +282,7 @@ function cellStyle(value, row, index, field) {
         <td>Boolean</td>
         <td>false</td>
         <td>
-        True to show the title of column with `radio` or `singleSelect` `checkbox` option.
+        True to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
         </td>
     </tr>
 </tbody>
