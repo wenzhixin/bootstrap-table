@@ -1087,9 +1087,7 @@
             if (this.options.rememberOrder) {
                 this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc';
             } else {
-                this.options.sortOrder = this.options.columns[0].filter(function(option) {
-                    return option.field === $this.data('field');
-                })[0].order;
+                this.options.sortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].order;
             }
         }
         this.trigger('sort', this.options.sortName, this.options.sortOrder);
@@ -2063,12 +2061,17 @@
     BootstrapTable.prototype.initServer = function (silent, query, url) {
         var that = this,
             data = {},
+            index = $.inArray(this.options.sortName, this.header.fields),
             params = {
                 searchText: this.searchText,
                 sortName: this.options.sortName,
                 sortOrder: this.options.sortOrder
             },
             request;
+
+        if (this.header.sortNames[index]) {
+            params.sortName = this.header.sortNames[index];
+        }
 
         if (this.options.pagination) {
             params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
