@@ -43,7 +43,7 @@
         _initToolbar = BootstrapTable.prototype.initToolbar;
 
     BootstrapTable.prototype.initToolbar = function () {
-        this.showToolbar = this.options.showPrint;
+        this.showToolbar = this.showToolbar || this.options.showPrint;
 
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
@@ -68,7 +68,7 @@
                             return  value || "-";
                         }
                     }
-                  
+
                     function buildTable(data,columns) {
                         var out = "<table><thead><tr>";
                         for(var h = 0; h < columns.length; h++) {

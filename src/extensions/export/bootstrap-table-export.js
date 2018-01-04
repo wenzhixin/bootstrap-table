@@ -44,7 +44,7 @@
         _initToolbar = BootstrapTable.prototype.initToolbar;
 
     BootstrapTable.prototype.initToolbar = function () {
-        this.showToolbar = this.options.showExport;
+        this.showToolbar = this.showToolbar || this.options.showExport;
 
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
@@ -93,7 +93,7 @@
                 $menu.find('li').click(function () {
                     var type = $(this).data('type'),
                         doExport = function () {
-                            
+
                             if (!!that.options.exportFooter) {
                                 var data = that.getData();
                                 var $footerRow = that.$tableFooter.find("tr").first();
@@ -102,7 +102,7 @@
                                 var footerHtml = [];
 
                                 $.each($footerRow.children(), function (index, footerCell) {
-                                    
+
                                     var footerCellHtml = $(footerCell).children(".th-inner").first().html();
                                     footerData[that.columns[index].field] = footerCellHtml == '&nbsp;' ? null : footerCellHtml;
 
@@ -119,12 +119,12 @@
                                     $(lastTableRowCell).html(footerHtml[index]);
                                 });
                             }
-                            
+
                             that.$el.tableExport($.extend({}, that.options.exportOptions, {
                                 type: type,
                                 escape: false
                             }));
-                            
+
                             if (!!that.options.exportFooter) {
                                 that.load(data);
                             }
