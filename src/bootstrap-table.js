@@ -2073,7 +2073,7 @@
             params.sortName = this.header.sortNames[index];
         }
 
-        if (this.options.pagination) {
+        if (this.options.pagination && this.options.sidePagination === 'server') {
             params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
                 this.options.totalRows : this.options.pageSize;
             params.pageNumber = this.options.pageNumber;
@@ -2090,7 +2090,7 @@
                 order: params.sortOrder
             };
 
-            if (this.options.pagination) {
+            if (this.options.pagination && this.options.sidePagination === 'server') {
                 params.offset = this.options.pageSize === this.options.formatAllRows() ?
                     0 : this.options.pageSize * (this.options.pageNumber - 1);
                 params.limit = this.options.pageSize === this.options.formatAllRows() ?
