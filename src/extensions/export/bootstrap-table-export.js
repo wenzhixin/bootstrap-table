@@ -129,12 +129,12 @@
                                 that.load(data);
                             }
                         };
-                    
+
                     var stateField = that.header.stateField;
 
                     if (that.options.exportDataType === 'all' && that.options.pagination) {
                         that.$el.one(that.options.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table', function () {
-                            if (stateField){
+                            if (stateField) {
                                 that.hideColumn(stateField);
                             }
                             doExport();
@@ -144,8 +144,9 @@
                     } else if (that.options.exportDataType === 'selected') {
                         var data = that.getData(),
                             selectedData = that.getSelections();
-                        if (!selectedData.length)
+                        if (!selectedData.length) {
                             return;
+                        }
 
                         if (that.options.sidePagination === 'server') {
                             var dataServer = {total: that.options.totalRows};
@@ -157,18 +158,18 @@
                         }
 
                         that.load(selectedData);
-                        if (stateField){
+                        if (stateField) {
                             that.hideColumn(stateField);
                         }
                         doExport();
                         that.load(data);
                     } else {
-                        if (stateField){
+                        if (stateField) {
                             that.hideColumn(stateField);
                         }
                         doExport();
                     }
-                    if (stateField){
+                    if (stateField) {
                         that.showColumn(stateField);
                     }
                 });
