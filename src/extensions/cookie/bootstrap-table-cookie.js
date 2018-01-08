@@ -68,19 +68,18 @@
         switch(that.options.cookieStorage) {
             case 'cookieStorage':
                 document.cookie = [
-                        cookieName, '=', cookieValue,
-                        '; expires=' + that.options.cookieExpire,
-                        that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
-                        that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
-                        that.options.cookieSecure ? '; secure' : ''
-                    ].join('');
-            break;
+                    cookieName, '=', cookieValue,
+                    '; expires=' + calculateExpiration(that.options.cookieExpire),
+                    that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
+                    that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
+                    that.options.cookieSecure ? '; secure' : ''
+                ].join('');
             case 'localStorage':
                 localStorage.setItem(cookieName, cookieValue);
-            break;
+                break;
             case 'sessionStorage':
                 sessionStorage.setItem(cookieName, cookieValue);
-            break;
+                break;
             default:
                 return false;
         }
@@ -119,18 +118,18 @@
         switch(that.options.cookieStorage) {
             case 'cookieStorage':
                 document.cookie = [
-                        encodeURIComponent(cookieName), '=',
-                        '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
-                        that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
-                        that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
-                    ].join('');
+                    encodeURIComponent(cookieName), '=',
+                    '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
+                    that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
+                    that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
+                ].join('');
                 break;
             case 'localStorage':
                 localStorage.removeItem(cookieName);
-            break;
+                break;
             case 'sessionStorage':
                 sessionStorage.removeItem(cookieName);
-            break;
+                break;
 
         }
         return true;
@@ -138,7 +137,7 @@
 
     var calculateExpiration = function(cookieExpire) {
         var time = cookieExpire.replace(/[0-9]*/, ''); //s,mi,h,d,m,y
-        cookieExpire = cookieExpire.replace(/[A-Za-z]{1,2}}/, ''); //number
+        cookieExpire = cookieExpire.replace(/[A-Za-z]{1,2}/, ''); //number
 
         switch (time.toLowerCase()) {
             case 's':
@@ -163,8 +162,12 @@
                 cookieExpire = undefined;
                 break;
         }
-
-        return cookieExpire === undefined ? '' : '; max-age=' + cookieExpire;
+        if (!cookieExpire) {
+            return '';
+        }
+        var d = new Date();
+        d.setTime(d.getTime() + cookieExpire * 1000);
+        return d.toGMTString();
     };
 
     var initCookieFilters = function (bootstrapTable) {
@@ -249,7 +252,7 @@
         this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
             this.options.cookiesEnabled.replace('[', '').replace(']', '')
                 .replace(/ /g, '').toLowerCase().split(',') :
-                this.options.cookiesEnabled;
+            this.options.cookiesEnabled;
 
         if (this.options.filterControl) {
             var that = this;
@@ -383,7 +386,7 @@
         _onSearch.apply(this, target);
 
         if ($(target[0].currentTarget).parent().hasClass('search')) {
-          setCookie(this, cookieIds.searchText, this.searchText);
+            setCookie(this, cookieIds.searchText, this.searchText);
         }
         setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
     };
