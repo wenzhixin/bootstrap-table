@@ -160,11 +160,11 @@
                 cookieExpire = undefined;
                 break;
         }
-        if(!cookieExpire){
+        if (!cookieExpire) {
             return '';
         }
         var d = new Date();
-        d.setTime(d.getTime() + cookieExpire*1000);
+        d.setTime(d.getTime() + cookieExpire * 1000);
         return d.toGMTString();
     };
 
