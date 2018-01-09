@@ -229,7 +229,7 @@
         _initToolbar = BootstrapTable.prototype.initToolbar;
 
     BootstrapTable.prototype.initToolbar = function() {
-        this.showToolbar = true;
+        this.showToolbar = this.showToolbar || this.options.showMultiSort;
         var that = this,
             sortModalSelector = 'sortModal_' + this.$el.attr('id'),
             sortModalId = '#' + sortModalSelector;
@@ -237,7 +237,7 @@
         this.sortModalSelector = sortModalSelector;
 
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
-        
+
         if (that.options.sidePagination === 'server' && !isSingleSort && that.options.sortPriority !== null){
             var t = that.options.queryParams;
             that.options.queryParams = function(params) {

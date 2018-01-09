@@ -1969,14 +1969,14 @@
             // remove and update
             if ($tr.next().is('tr.detail-view')) {
                 $this.find('i').attr('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailOpen));
-                that.trigger('collapse-row', index, row);
+                that.trigger('collapse-row', index, row, $tr.next());
                 $tr.next().remove();
             } else {
                 $this.find('i').attr('class', sprintf('%s %s', that.options.iconsPrefix, that.options.icons.detailClose));
                 $tr.after(sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.find('td').length));
                 var $element = $tr.next().find('td');
                 var content = calculateObjectValue(that.options, that.options.detailFormatter, [index, row, $element], '');
-                if($element.length === 1) {
+                if ($element.length === 1) {
                     $element.append(content);
                 }
                 that.trigger('expand-row', index, row, $element);
@@ -2073,7 +2073,7 @@
             params.sortName = this.header.sortNames[index];
         }
 
-        if (this.options.pagination) {
+        if (this.options.pagination && this.options.sidePagination === 'server') {
             params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
                 this.options.totalRows : this.options.pageSize;
             params.pageNumber = this.options.pageNumber;
@@ -2090,7 +2090,7 @@
                 order: params.sortOrder
             };
 
-            if (this.options.pagination) {
+            if (this.options.pagination && this.options.sidePagination === 'server') {
                 params.offset = this.options.pageSize === this.options.formatAllRows() ?
                     0 : this.options.pageSize * (this.options.pageNumber - 1);
                 params.limit = this.options.pageSize === this.options.formatAllRows() ?

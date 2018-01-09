@@ -42,7 +42,7 @@
     var sortSelectControl = function (selectControl) {
             selectControl = $(selectControl.get(selectControl.length - 1));
             var $opts = selectControl.find('option:gt(0)');
-            
+
             $opts.sort(function (a, b) {
                 a = $(a).text().toLowerCase();
                 b = $(b).text().toLowerCase();
@@ -334,7 +334,7 @@
                 if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
                     return;
                 }
-                
+
                 clearTimeout(event.currentTarget.timeoutId || 0);
                 event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
@@ -535,7 +535,7 @@
     };
 
     BootstrapTable.prototype.initToolbar = function () {
-        this.showToolbar = this.options.filterControl && this.options.filterShowClear;
+        this.showToolbar = this.showToolbar || this.options.filterControl && this.options.filterShowClear;
 
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 

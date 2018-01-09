@@ -22,8 +22,6 @@
         _initPagination = BootstrapTable.prototype.initPagination;
 
     BootstrapTable.prototype.initPagination = function () {
-        this.showToolbar = this.options.showExport;
-
         _initPagination.apply(this, Array.prototype.slice.apply(arguments));
 
         if (this.options.showJumpto) {
