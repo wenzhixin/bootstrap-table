@@ -70,39 +70,37 @@
                     }
 
                     function buildTable(data, columnsArray) {
-                        var out = "<table><thead>";
-                        for(var k = 0; k < columnsArray.length; k++) {
+                        var html = ['<table><thead>'];
+                        for (var k = 0; k < columnsArray.length; k++) {
                             var columns = columnsArray[k];
-                            out += "<tr>";
-                            for(var h = 0; h < columns.length; h++) {
+                            html.push('<tr>');
+                            for (var h = 0; h < columns.length; h++) {
                                 if (!columns[h].printIgnore) {
-                                    out += "<th ";
-                                    if (columns[h].rowspan) {
-                                        out += (" rowspan='" + columns[h].rowspan + "'");
-                                    }
-                                    if (columns[h].colspan) {
-                                        out += (" colspan='" + columns[h].colspan + "'");
-                                    }
-                                    out += (">" + columns[h].title + "</>");
+                                    html.push(
+                                        '<th',
+                                        sprintf(' rowspan="%s"', columns[h].rowspan),
+                                        sprintf(' colspan="%s"', columns[h].colspan),
+                                        sprintf('>%s</th>', columns[h].title)
+                                    );
                                 }
                             }
-                            out += "</tr>";
+                            html.push('</tr>');
                         }
-                        out += "</thead><tbody>";
-                        for(var i = 0; i < data.length; i++) {
-                            out += "<tr>";
+                        html.push('</thead><tbody>');
+                        for (var i = 0; i < data.length; i++) {
+                            html.push('<tr>');
                             for(var l = 0; l < columnsArray.length; l++) {
                                 var columns = columnsArray[l];
                                 for(var j = 0; j < columns.length; j++) {
                                     if (!columns[j].printIgnore && columns[j].field) {
-                                        out += ("<td>" + formatValue(data[i], i, columns[j]) + "</td>");
+                                        html.push('<td>', formatValue(data[i], i, columns[j]), '</td>');
                                     }
                                 }
                             }
-                            out += "</tr>";
+                            html.push('</tr>');
                         }
-                        out += "</tbody></table>";
-                        return out;
+                        html.push('</tbody></table>');
+                        return html.join('');
                     }
                     function sortRows(data,colName,sortOrder) {
                         if(!colName){
