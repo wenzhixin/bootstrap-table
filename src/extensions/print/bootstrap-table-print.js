@@ -69,25 +69,38 @@
                         }
                     }
 
-                    function buildTable(data,columns) {
-                        var out = "<table><thead><tr>";
-                        for(var h = 0; h < columns.length; h++) {
-                            if(!columns[h].printIgnore) {
-                                out += ("<th>"+columns[h].title+"</th>");
-                            }
-                        }
-                        out += "</tr></thead><tbody>";
-                        for(var i = 0; i < data.length; i++) {
-                            out += "<tr>";
-                            for(var j = 0; j < columns.length; j++) {
-                                if(!columns[j].printIgnore) {
-                                    out += ("<td>"+ formatValue(data[i], i, columns[j])+"</td>");
+                    function buildTable(data, columnsArray) {
+                        var html = ['<table><thead>'];
+                        for (var k = 0; k < columnsArray.length; k++) {
+                            var columns = columnsArray[k];
+                            html.push('<tr>');
+                            for (var h = 0; h < columns.length; h++) {
+                                if (!columns[h].printIgnore) {
+                                    html.push(
+                                        '<th',
+                                        sprintf(' rowspan="%s"', columns[h].rowspan),
+                                        sprintf(' colspan="%s"', columns[h].colspan),
+                                        sprintf('>%s</th>', columns[h].title)
+                                    );
                                 }
                             }
-                            out += "</tr>";
+                            html.push('</tr>');
                         }
-                        out += "</tbody></table>";
-                        return out;
+                        html.push('</thead><tbody>');
+                        for (var i = 0; i < data.length; i++) {
+                            html.push('<tr>');
+                            for(var l = 0; l < columnsArray.length; l++) {
+                                var columns = columnsArray[l];
+                                for(var j = 0; j < columns.length; j++) {
+                                    if (!columns[j].printIgnore && columns[j].field) {
+                                        html.push('<td>', formatValue(data[i], i, columns[j]), '</td>');
+                                    }
+                                }
+                            }
+                            html.push('</tr>');
+                        }
+                        html.push('</tbody></table>');
+                        return html.join('');
                     }
                     function sortRows(data,colName,sortOrder) {
                         if(!colName){
@@ -122,7 +135,7 @@
                     var doPrint = function (data) {
                         data=filterRows(data,getColumnFilters(that.options.columns));
                         data=sortRows(data,that.options.printSortColumn,that.options.printSortOrder);
-                        var table=buildTable(data,that.options.columns[0]);
+                        var table=buildTable(data,that.options.columns);
                         var newWin = window.open("");
                         newWin.document.write(that.options.printPageBuilder.call(this, table));
                         newWin.print();
