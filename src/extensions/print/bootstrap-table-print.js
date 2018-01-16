@@ -92,7 +92,7 @@
                             for(var l = 0; l < columnsArray.length; l++) {
                                 var columns = columnsArray[l];
                                 for(var j = 0; j < columns.length; j++) {
-                                    if (!columns[j].printIgnore && columns[j].field && columns[h].visible) {
+                                    if (!columns[j].printIgnore && columns[j].field && columns[j].visible) {
                                         html.push('<td>', formatValue(data[i], i, columns[j]), '</td>');
                                     }
                                 }
