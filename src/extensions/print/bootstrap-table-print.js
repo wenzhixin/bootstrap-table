@@ -75,7 +75,7 @@
                             var columns = columnsArray[k];
                             html.push('<tr>');
                             for (var h = 0; h < columns.length; h++) {
-                                if (!columns[h].printIgnore) {
+                                if (!columns[h].printIgnore && columns[h].visible) {
                                     html.push(
                                         '<th',
                                         sprintf(' rowspan="%s"', columns[h].rowspan),
@@ -92,7 +92,7 @@
                             for(var l = 0; l < columnsArray.length; l++) {
                                 var columns = columnsArray[l];
                                 for(var j = 0; j < columns.length; j++) {
-                                    if (!columns[j].printIgnore && columns[j].field) {
+                                    if (!columns[j].printIgnore && columns[j].field && columns[h].visible) {
                                         html.push('<td>', formatValue(data[i], i, columns[j]), '</td>');
                                     }
                                 }
