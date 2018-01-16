@@ -65,7 +65,7 @@
                             return  column.printFormatter.apply(column, [value, row, i]);
                         }
                         else {
-                            return  value || "-";
+                            return  typeof value === 'undefined' ? "-" : value;
                         }
                     }
 
