@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>DEMO</title>
+  <meta charset="utf-8">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../../../dist/bootstrap-table.min.css" rel="stylesheet">
+  <link href="bootstrap-table-pagejump.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+  <table id="table"></table>
+
+
+
+  <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script src="../../../dist//bootstrap-table.min.js"></script>
+
+  <script src="bootstrap-table-pagejump.js"></script>
+
+  <!-- <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script> -->
+  <script src="../../locale/bootstrap-table-zh-CN.js"></script>
+
+
+  <script>
+    $(function() {
+
+      $("#table").bootstrapTable({
+        // url: 'http://localhost:8899/data.json',
+        // sidePagination: 'server', //设置为服务器端分页
+        data:[{
+            name: "aaa",
+            age: 1
+        },{
+            name: "bbb",
+            age: 0
+        },{
+            name: "ccc",
+            age: 2
+        }],
+        sidePagination: 'client', //设置为服务器端分页
+        pagination: true,
+        paginationShowPageGo: true,
+        showJumpto: true,
+        pageList: [10, 20],
+        pageSize: 1,
+        pageNumber: 1,
+        sortName: 'id',
+        sortOrder: 'desc',
+        clickToSelect: true,
+
+        showExport: true,
+
+        columns: [{
+            checkbox: true,
+            align: 'center'
+          },
+          {
+            field: 'name',
+            title: '姓名',
+            align: 'center',
+            valign: 'middle'
+          },
+          {
+            field: 'age',
+            title: '性别',
+            align: 'center',
+            valign: 'middle',
+            formatter: function(value, row, index) {
+              var text = '-';
+              if (value == 1) {
+                text = "男";
+              } else if (value == 0) {
+                text = "女";
+              }
+              return text;
+            }
+          },
+          {
+            field: 'id',
+            title: '操作',
+            align: 'center',
+            valign: 'middle',
+            formatter: function(value, row, index) {
+              return '<button class="btn btn-primary btn-sm">编辑</button>';
+            }
+          }
+        ],
+        onLoadSuccess: function() { //加载成功时执行
+          console.info("加载成功");
+        },
+        onLoadError: function() { //加载失败时执行
+          console.info("加载数据失败");
+        }
+
+      });
+
+
+
+
+    });
+  </script>
+</body>
+
+</html>
