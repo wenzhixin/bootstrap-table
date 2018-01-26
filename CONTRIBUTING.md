@@ -211,3 +211,41 @@ includes code changes) and under the terms of the
 
 By contributing your code, you agree to license your contribution under the [MIT License](LICENSE).
 By contributing to the documentation, you agree to license your contribution under the [Creative Commons Attribution 3.0 Unported License](docs/LICENSE).
+
+
+## Financial contributions
+
+We also welcome financial contributions in full transparency on our [open collective](https://opencollective.com/bootstrap-table).
+Anyone can file an expense. If the expense makes sense for the development of the community, it will be "merged" in the ledger of our open collective by the core contributors and the person who filed the expense will be reimbursed.
+
+
+## Credits
+
+
+### Contributors
+
+Thank you to all the people who have already contributed to bootstrap-table!
+<a href="graphs/contributors"><img src="https://opencollective.com/bootstrap-table/contributors.svg?width=890" /></a>
+
+
+### Backers
+
+Thank you to all our backers! [[Become a backer](https://opencollective.com/bootstrap-table#backer)]
+
+<a href="https://opencollective.com/bootstrap-table#backers" target="_blank"><img src="https://opencollective.com/bootstrap-table/backers.svg?width=890"></a>
+
+
+### Sponsors
+
+Thank you to all our sponsors! (please ask your company to also support this open source project by [becoming a sponsor](https://opencollective.com/bootstrap-table#sponsor))
+
+<a href="https://opencollective.com/bootstrap-table/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/2/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/3/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/4/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/5/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/6/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/7/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/8/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/9/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/9/avatar.svg"></a>
