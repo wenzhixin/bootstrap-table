@@ -19,7 +19,8 @@
     "grunt-release": "^0.13.0"
   },
   "scripts": {
-    "grunt": "grunt"
+    "grunt": "grunt",
+    "postinstall": "opencollective postinstall"
   },
   "repository": {
     "type": "git",
@@ -45,5 +46,13 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "types": "./index.d.ts"
+  "types": "./index.d.ts",
+  "dependencies": {
+    "opencollective": "^1.0.3"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/bootstrap-table",
+    "logo": "https://opencollective.com/bootstrap-table/logo.txt"
+  }
 }
