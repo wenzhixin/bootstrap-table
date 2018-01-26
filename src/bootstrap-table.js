@@ -2299,9 +2299,31 @@
             if ($th.length > 1) {
                 $th = $($ths[$this[0].cellIndex]);
             }
+        });
 
-            var zoomWidth = $th.width() - $th.find('.fht-cell').width();
-            $th.find('.fht-cell').width($this.innerWidth() - zoomWidth);
+        // fix bug #3558 by Frebla
+        this.$tableBody.find('div.fht-cell').each(function (i) {
+
+            var $this = $(this),
+                index = i;
+
+            if (that.options.detailView && !that.options.cardView) {
+                if (i === 0) {
+                    that.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth());
+                }
+                index = i - 1;
+            }
+
+            if (index === -1) {
+                return;
+            }
+
+            var $th = that.$header_.find(sprintf('th[data-field="%s"]', visibleFields[index]));
+            if ($th.length > 1) {
+                $th = $($ths[$this[0].cellIndex]);
+            }
+
+            $th.find('.fht-cell').width($this[0].getBoundingClientRect().width);
         });
 
         this.horizontalScroll();
