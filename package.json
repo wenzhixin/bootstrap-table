@@ -16,10 +16,12 @@
     "grunt-contrib-cssmin": "^0.12.2",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-uglify": "^0.8.0",
-    "grunt-release": "^0.13.0"
+    "grunt-release": "^0.13.0",
+    "opencollective": "^1.0.3"
   },
   "scripts": {
-    "grunt": "grunt"
+    "grunt": "grunt",
+    "postinstall": "opencollective postinstall"
   },
   "repository": {
     "type": "git",
@@ -45,5 +47,10 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "types": "./index.d.ts"
+  "types": "./index.d.ts",
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/bootstrap-table",
+    "logo": "https://opencollective.com/bootstrap-table/logo.txt"
+  }
 }

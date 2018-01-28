@@ -92,6 +92,8 @@ Your feedback is very appreciated!
 ## Acknowledgements
 
 Thanks to everyone who have given feedback and submitted pull requests. A list of all the contributors can be found [here](https://github.com/wenzhixin/bootstrap-table/graphs/contributors).
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/bootstrap-table/contributors.svg?width=890" /></a>
 
 ## Release History
 
@@ -116,3 +118,9 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 ## Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/bootstrap-table#sponsor)]
+
+<a href="https://opencollective.com/bootstrap-table/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/2/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/3/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/4/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/4/avatar.svg"></a>
