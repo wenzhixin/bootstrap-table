@@ -6,6 +6,6 @@
 
 }
 
-.bootstrap-table .table > tbody > tr.groupBy + tr.hidden + tr.detail-view {
+tr.hidden + tr.detail-view {
     display: none;
 }
