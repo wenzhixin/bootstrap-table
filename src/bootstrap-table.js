@@ -1356,7 +1356,9 @@
                         value = item;
                         var props = key.split('.');
                         for (var prop_index = 0; prop_index < props.length; prop_index++) {
-                            value = value[props[prop_index]];
+                            if (value[props[prop_index]] != null) { 
+                                value = value[props[prop_index]];
+                            }
                         }
 
                         // Fix #142: respect searchForamtter boolean
