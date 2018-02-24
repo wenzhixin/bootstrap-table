@@ -16,7 +16,6 @@
         }
       });
     });
-
     this.initHeader();
     this.initBody();
     this.initToolbar();
@@ -26,6 +25,8 @@
     this.options.locale = localeId;
     this.initLocale();
     this.initPagination();
+    this.initBody();
+    this.initToolbar();
   };
 
   $.fn.bootstrapTable.methods.push('changeTitle');
