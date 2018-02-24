@@ -23,6 +23,7 @@
                 paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
                 refresh: 'glyphicon-refresh icon-refresh',
                 toggle: 'glyphicon-list-alt icon-list-alt',
+                toggleOn: 'glyphicon-list-alt icon-list-alt',
                 columns: 'glyphicon-th icon-th',
                 detailOpen: 'glyphicon-plus icon-plus',
                 detailClose: 'glyphicon-minus icon-minus',
@@ -41,7 +42,8 @@
                 paginationSwitchDown: 'fa-toggle-down',
                 paginationSwitchUp: 'fa-toggle-up',
                 refresh: 'fa-refresh',
-                toggle: 'fa-toggle-on',
+                toggle: 'fa-toggle-off',
+                toggleOn: 'fa-toggle-on',
                 columns: 'fa-th-list',
                 detailOpen: 'fa-plus',
                 detailClose: 'fa-minus',
@@ -3095,6 +3097,14 @@
         //that.initToolbar();
         this.initBody();
         this.trigger('toggle', this.options.cardView);
+        var button = this.$el.closest('div.bootstrap-table').find('button[name="toggle"] i');
+        if (this.options.cardView) {
+            $(button).removeClass(this.options.icons.toggle);
+            $(button).addClass(this.options.icons.toggleOn);
+        } else {
+            $(button).removeClass(this.options.icons.toggleOn);
+            $(button).addClass(this.options.icons.toggle);
+        }
     };
 
     BootstrapTable.prototype.refreshOptions = function (options) {
