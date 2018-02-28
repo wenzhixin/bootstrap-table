@@ -86,8 +86,8 @@
                 column.formatter = function (value, row, index) {
                     
                     var result = _formatter ? _formatter(value, row, index) : value;
-                    var optionDatas = column.cellInputSelectOptinons.data;
-                    var defaultselect = column.cellInputSelectOptinons.defaultselect;
+                    var optionDatas = column.cellInputSelectOptinons!= null ? column.cellInputSelectOptinons.data : [];
+                    var defaultselect = column.cellInputSelectOptinons!= null ? column.cellInputSelectOptinons.defaultselect : '';
                     var selectoptions = [];
 
                     var arrAllowedValues = [];
