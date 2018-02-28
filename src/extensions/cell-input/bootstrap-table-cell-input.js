@@ -13,7 +13,7 @@
         cellInputEnabled: true,
         cellInputType: "text", // text or select or textarea
         cellInputUniqueId: "",
-        cellInputSelect: false,
+        cellInputSelectOptinons: {}, // {data: [{text: '', value: '', disabled: false},{}], defaultselect: ''}
         cellInputIsDeciaml: false,
         onCellInputInit: function () {
             return false;
@@ -27,7 +27,7 @@
         onCellInputKeyup: function (field, row, oldValue, $el) {
             return false;
         },
-        onTdTextboxKeydown: function (field, row, oldValue, $el) {
+        onCellInputKeydown: function (field, row, oldValue, $el) {
                 return false;
         },
         onCellInputSelectChange: function (field, row, oldValue, $el) {
@@ -86,8 +86,8 @@
                 column.formatter = function (value, row, index) {
                     
                     var result = _formatter ? _formatter(value, row, index) : value;
-                    var optionDatas = column.tdtexboxSelect.data;
-                    var defaultselect = column.tdtexboxSelect.defaultselect;
+                    var optionDatas = column.cellInputSelectOptinons.data;
+                    var defaultselect = column.cellInputSelectOptinons.defaultselect;
                     var selectoptions = [];
 
                     var arrAllowedValues = [];
