@@ -97,7 +97,7 @@
 
                     for (var j = 0; j < optionDatas.length; j++) {
                         var optionData = optionDatas[j];
-                        var allowedVal = isInArray(arrAllowedValues, value);
+                        var allowedVal = $.inArray(value, arrAllowedValues) >= 0;
                         var isSelected = optionData.value === value;
                         if (!allowedVal && optionData.disabled) {
                             isSelected = true;
