@@ -10,10 +10,10 @@
     'use strict';
 
     $.extend($.fn.bootstrapTable.defaults, {
-        cellInputEnabled: true,
+        cellInputEnabled: false,
         cellInputType: "text", // text or select or textarea
         cellInputUniqueId: "",
-        cellInputSelectOptinons: {}, // {data: [{text: '', value: '', disabled: false},{}], defaultselect: ''}
+        cellInputSelectOptinons: [], // [{ text: '', value: '', disabled: false, default: true },{}]
         cellInputIsDeciaml: false,
         onCellInputInit: function () {
             return false;
@@ -52,13 +52,18 @@
         var that = this;
         _initTable.apply(this, Array.prototype.slice.apply(arguments));
 
-        // exit if cellInputEnabled = false
+        // exit if table.options.cellInputEnabled = false
         if (!this.options.cellInputEnabled) {
             return;
         }
 
         $.each(this.columns, function (i, column) {
             
+            // exit if column.cellInputEnabled = false
+            if(!column.cellInputEnabled){
+                return;
+            }
+
             if (column.cellInputType === "text") {
                 var _formatter = column.formatter;
                 column.formatter = function (value, row, index) {
@@ -86,23 +91,23 @@
                 column.formatter = function (value, row, index) {
                     
                     var result = _formatter ? _formatter(value, row, index) : value;
-                    var optionDatas = column.cellInputSelectOptinons!= null ? column.cellInputSelectOptinons.data : [];
-                    var defaultselect = column.cellInputSelectOptinons!= null ? column.cellInputSelectOptinons.defaultselect : '';
+                    var optionDatas = column.cellInputSelectOptinons!= null ? column.cellInputSelectOptinons : [];
                     var selectoptions = [];
 
                     var arrAllowedValues = [];
                     for (var k = 0; k < optionDatas.length; k++) {
                         arrAllowedValues.push(optionDatas[k].value);
                     }
-
+                    var allowedVal = $.inArray(value, arrAllowedValues) >= 0;
+                    
                     for (var j = 0; j < optionDatas.length; j++) {
                         var optionData = optionDatas[j];
-                        var allowedVal = $.inArray(value, arrAllowedValues) >= 0;
                         var isSelected = optionData.value === value;
                         if (!allowedVal && optionData.disabled) {
                             isSelected = true;
                             result = optionData.value;
                         }
+
                         selectoptions.push('<option value="' + optionData.value + '" ' + (isSelected ? ' selected="selected" ' : '') + (optionData.disabled ? ' disabled' : '') + '>' + optionData.text + '</option>');
                     }
 
@@ -205,9 +210,6 @@
                 
             }
 
-
-
-            
         });
         this.trigger('cellinput-init');
     };
