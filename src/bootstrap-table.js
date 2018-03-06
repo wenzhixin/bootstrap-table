@@ -22,7 +22,7 @@
                 paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
                 paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
                 refresh: 'glyphicon-refresh icon-refresh',
-                toggle: 'glyphicon-list-alt icon-list-alt',
+                toggleOff: 'glyphicon-list-alt icon-list-alt',
                 toggleOn: 'glyphicon-list-alt icon-list-alt',
                 columns: 'glyphicon-th icon-th',
                 detailOpen: 'glyphicon-plus icon-plus',
@@ -42,7 +42,7 @@
                 paginationSwitchDown: 'fa-toggle-down',
                 paginationSwitchUp: 'fa-toggle-up',
                 refresh: 'fa-refresh',
-                toggle: 'fa-toggle-off',
+                toggleOff: 'fa-toggle-off',
                 toggleOn: 'fa-toggle-on',
                 columns: 'fa-th-list',
                 detailOpen: 'fa-plus',
@@ -3095,16 +3095,16 @@
         this.initHeader();
         // Fixed remove toolbar when click cardView button.
         //that.initToolbar();
+        var $icon = this.$toolbar.find('button[name="toggle"] i');
+        if (this.options.cardView) {
+            $icon.removeClass(this.options.icons.toggleOff);
+            $icon.addClass(this.options.icons.toggleOn);
+        } else {
+            $icon.removeClass(this.options.icons.toggleOn);
+            $icon.addClass(this.options.icons.toggleOff);
+        }
         this.initBody();
         this.trigger('toggle', this.options.cardView);
-        var button = this.$el.closest('div.bootstrap-table').find('button[name="toggle"] i');
-        if (this.options.cardView) {
-            $(button).removeClass(this.options.icons.toggle);
-            $(button).addClass(this.options.icons.toggleOn);
-        } else {
-            $(button).removeClass(this.options.icons.toggleOn);
-            $(button).addClass(this.options.icons.toggle);
-        }
     };
 
     BootstrapTable.prototype.refreshOptions = function (options) {
