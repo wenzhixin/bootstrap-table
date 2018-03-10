@@ -983,8 +983,12 @@
         this.data = this.options.data;
 
         if (this.options.sidePagination === 'server') {
+            if (type === 'append' || type === 'prepend'){
+		this.options.totalRows += data ? (data.length || 1) : 0;
+            }
             return;
         }
+		
         this.initSort();
     };
 
@@ -1267,28 +1271,37 @@
 
             this.$toolbar.append(html.join(''));
             $search = this.$toolbar.find('.search input');
-            $search.off('keyup drop blur').on('keyup drop blur', function (event) {
-                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
-                    return;
-                }
-
-                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
-                    return;
-                }
-
-                clearTimeout(timeoutId); // doesn't matter if it's 0
-                timeoutId = setTimeout(function () {
+            
+            if (that.options.sidePagination === 'server') {
+                $search.off('change').on('change', function (event) {
                     that.onSearch(event);
-                }, that.options.searchTimeOut);
-            });
-
-            if (isIEBrowser()) {
-                $search.off('mouseup').on('mouseup', function (event) {
+                });
+            }
+            else {
+            
+                $search.off('keyup drop blur').on('keyup drop blur', function (event) {
+                    if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                        return;
+                    }
+    
+                    if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                        return;
+                    }
+    
                     clearTimeout(timeoutId); // doesn't matter if it's 0
                     timeoutId = setTimeout(function () {
                         that.onSearch(event);
                     }, that.options.searchTimeOut);
                 });
+    
+                if (isIEBrowser()) {
+                    $search.off('mouseup').on('mouseup', function (event) {
+                        clearTimeout(timeoutId); // doesn't matter if it's 0
+                        timeoutId = setTimeout(function () {
+                            that.onSearch(event);
+                        }, that.options.searchTimeOut);
+                    });
+                }
             }
         }
     };
@@ -1437,7 +1450,7 @@
         }
 
         this.pageFrom = (this.options.pageNumber - 1) * this.options.pageSize + 1;
-        this.pageTo = this.options.pageNumber * this.options.pageSize;
+        this.pageTo = (this.options.pageNumber-1) * this.options.pageSize + data.length;
         if (this.pageTo > this.options.totalRows) {
             this.pageTo = this.options.totalRows;
         }
@@ -2106,7 +2119,8 @@
         }
 
         if (!($.isEmptyObject(this.filterColumnsPartial))) {
-            params.filter = JSON.stringify(this.filterColumnsPartial, null);
+            params.filter = this.options.method === "post" ? this.filterColumnsPartial
+		: JSON.stringify(this.filterColumnsPartial);
         }
 
         data = calculateObjectValue(this.options, this.options.queryParams, [params], data);
@@ -2643,7 +2657,11 @@
         if (len === this.options.data.length) {
             return;
         }
-
+        
+        if (this.options.sidePagination === 'server') {
+            this.options.totalRows --;
+        }
+		
         this.initSearch();
         this.initPagination();
         this.initBody(true);
