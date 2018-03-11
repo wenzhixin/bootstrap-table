@@ -2,34 +2,53 @@
 
 * Richard C Jordan - $35
 * Janet Moery - $5
-* Rene Halskov - $10
-* Angel Arambula Garcia - $5
-* David Graham - $5
-* Paul Abbott - $20
-* Philip Tepfer - $10
-* Marcus Eddy - $5
-* Keith Rockhold - $50
-* Ramon Sosa Diaz - $10
-* Goncalo Cordeiro - $25
-* Marzena Wspanialy - $10
-* Nicolas Pascual - $10
-* Hassan Ejaz - $10
-* Frank Hines - $100
-* Luis Triana Vega - $10
-* PROMOTUX DI FRANCESCO MELONI E C. S.N.C. - $15
-* Emmanuel Kielichowski - $15
-* 우공이산 우공이산 - $50
-* Empirica srl - $15
-* Hassan Gareballa - $10
-* 지황 이 - $10
-* Onur Kose - $15
-* Александр Вейсов - $30
-* Anton Blinov - $30
-* THARAKESH PULIKONDA - $10
-* Linear Design Group, LLC - $20
-* Alon Feldman - $100
-* Fabian de Rosa - $5
-* Zhe Wang - $35
+* Halskov Rene - $10.00
+* Arambula Garcia Angel - $5.00
+* Graham David - $5.00
+* Abbott Paul - $20.00
+* Philip Tepfer - $10.00
+* Eddy Marcus - $5.00
+* Rockhold Keith - $50.00
+* Sosa Diaz Ramon - $10.00
+* Cordeiro Goncalo - $25.00
+* Wspanialy Marzena - $10.00
+* Pascual Nicolas - $10.00
+* Ejaz Hassan - $10.00
+* Hines Frank - $100.00
+* Triana Vega Luis - $10.00
+* PROMOTUX DI FRANCESCO MELONI E C. S.N.C. - $15.00
+* Emmanuel Kielichowski - $15.00
+* 우공이산​우공이산 - $50.00
+* Empirica srl - $15.00
+* Gareballa Hassan - $10.00
+* Yi Jihwang - $10.00
+* Kose Onur - $15.00
+* Вейсов​Александр - $30.00
+* Blinov Anton - $30.00
+* Pulikonda Tharakesh - $10.00
+* Linear Design Group, LLC - $20.00
+* Feldman Alon - $100.00
+* De Rosa Fabian - $5.00
+* Wang Zhe - $35.00
+* Schaefer Daniel - $10.00
+* Burch Martin - $25.00
+* Макогон​Виталий - $10.00
+* avappstore - $2.50
+* Burch Martin - $10.00
+* Mazdrashki Kamen - $20.00
+* Hilker Daniel - $3.00
+* Grokability, Inc. - $100.00
+* Zweimüller Boris - $10.00
+* Chen Qiurong - $5.00
+* Mirkarimov Dmitriy - $10.00
+* Cruz Ambrocio Jose - $5.00
+* Brinkmeier Dirk - $20.00
+* Kennelly James - $100.00
+* Barreiro Lionel - $25.00
+* Toh Alvin - $10.00
+* ERIKAUSKAS - $100.00
+* Miqueles Pino Jonatan - $100.00
+* Wacker Jonathan - $1.00
 
 ## 支付宝
 
@@ -44,6 +63,8 @@
 * IO芒果：7元
 * 醉、千秋：18.88元
 * 路人甲：5.27元
+* 小阿吉：20元
+* FastAdmin - F4NNIU：88.88元
 
 ## 微信
 
@@ -58,3 +79,5 @@
 * 无心向你：9.9元
 * 指间沙：9.9元
 * 董琛：9.9元
+
+注：由于支付宝和微信使用匿名的方式，导致无法查询捐助者，麻烦发送邮件告知捐助信息，谢谢。

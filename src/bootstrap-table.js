@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.11.1
+ * version: 1.12.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -1358,7 +1358,7 @@
                         value = item;
                         var props = key.split('.');
                         for (var prop_index = 0; prop_index < props.length; prop_index++) {
-                            if (value[props[prop_index]] != null) { 
+                            if (value[props[prop_index]] != null) {
                                 value = value[props[prop_index]];
                             }
                         }

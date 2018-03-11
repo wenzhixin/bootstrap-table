@@ -149,7 +149,7 @@
                 for (var key in item) {
                     key = $.isNumeric(key) ? parseInt(key, 10) : key;
                     var value = item[key],
-                        column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, key)],
+                        column = that.columns[that.fieldsColumnsIndex[key]],
                         j = $.inArray(key, that.header.fields);
 
                     if (column && column.searchFormatter) {

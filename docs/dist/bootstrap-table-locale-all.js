@@ -219,19 +219,22 @@
       return 'Lade, bitte warten...';
     },
     formatRecordsPerPage: function (pageNumber) {
-      return pageNumber + ' Einträge pro Seite.';
+      return pageNumber + ' Zeilen pro Seite.';
     },
     formatShowingRows: function (pageFrom, pageTo, totalRows) {
-      return 'Zeige Zeile ' + pageFrom + ' bis ' + pageTo + ' von ' + totalRows + ' Zeile' + ((totalRows > 1) ? "n" : "")+".";
+      return 'Zeige Zeile ' + pageFrom + ' bis ' + pageTo + ' von ' + totalRows + ' Zeilen' + ((totalRows > 1) ? "n" : "")+".";
     },
     formatDetailPagination: function (totalRows) {
       return 'Zeige ' + totalRows + ' Zeile' + ((totalRows > 1) ? "n" : "")+".";
     },
     formatSearch: function () {
-      return 'Suchen ...';
+      return 'Suchen';
     },
     formatNoMatches: function () {
-      return 'Keine passenden Ergebnisse gefunden.';
+      return 'Keine passenden Ergebnisse gefunden';
+    },
+    formatPaginationSwitch: function () {
+      return 'Verstecke/Zeige Nummerierung';
     },
     formatRefresh: function () {
       return 'Neu laden';
@@ -244,7 +247,13 @@
     },
     formatAllRows: function () {
       return 'Alle';
-    }
+    },
+    formatExport: function () {
+      return 'Datenexport';
+    },
+    formatClearFilters: function () {
+      return 'Lösche Filter';
+     }
   };
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['de-DE']);
@@ -495,6 +504,7 @@
  * Bootstrap Table Spanish (México) translation (Obtenido de traducción de Argentina)
  * Author: Felix Vera (felix.vera@gmail.com) 
  * Copiado: Mauricio Vera (mauricioa.vera@gmail.com)
+ * Revisión: J Manuel Corona (jmcg92@gmail.com) (13/Feb/2018).
  */
 (function ($) {
     'use strict';
@@ -509,11 +519,29 @@
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return 'Mostrando ' + pageFrom + ' a ' + pageTo + ' de ' + totalRows + ' filas';
         },
+        formatDetailPagination: function (totalRows) {
+            return 'Mostrando ' + totalRows + ' filas';
+        },
         formatSearch: function () {
             return 'Buscar';
         },
         formatNoMatches: function () {
-            return 'No se encontraron registros';
+            return 'No se encontraron registros que coincidan';
+        },
+        formatPaginationSwitch: function () {
+            return 'Mostrar/ocultar paginación';
+        },
+        formatRefresh: function () {
+            return 'Actualizar';
+        },
+        formatToggle: function () {
+            return 'Cambiar vista';
+        },
+        formatFullscreen: function () {
+            return 'Pantalla completa';
+        },
+        formatColumns: function () {
+            return 'Columnas';
         },
         formatAllRows: function () {
             return 'Todo';
@@ -649,6 +677,50 @@
 
 })(jQuery);
 /**
+ * Bootstrap Table Basque (Basque Country) translation
+ * Author: Iker Ibarguren Berasaluze<ikerib@gmail.com>
+ */
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['eu-EU'] = {
+        formatLoadingMessage: function () {
+            return 'Itxaron mesedez...';
+        },
+        formatRecordsPerPage: function (pageNumber) {
+            return pageNumber + ' emaitza orriko.';
+        },
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            return totalRows + ' erregistroetatik ' + pageFrom + 'etik ' + pageTo +'erakoak erakusten.';
+        },
+        formatSearch: function () {
+            return 'Bilatu';
+        },
+        formatNoMatches: function () {
+            return 'Ez da emaitzarik aurkitu';
+        },
+        formatPaginationSwitch: function () {
+            return 'Ezkutatu/Erakutsi orrikatzea';
+        },
+        formatRefresh: function () {
+            return 'Eguneratu';
+        },
+        formatToggle: function () {
+            return 'Ezkutatu/Erakutsi';
+        },
+        formatColumns: function () {
+            return 'Zutabeak';
+        },
+        formatAllRows: function () {
+            return 'Guztiak';
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['eu-EU']);
+
+})(jQuery);
+
+/**
  * Bootstrap Table Persian translation
  * Author: MJ Vakili <mjv.1989@Gmail.com>
  */
@@ -744,6 +816,9 @@
         formatNoMatches: function () {
             return 'Aucun résultat trouvé';
         },
+        formatPaginationSwitch: function () {
+            return 'Montrer/Masquer pagination';
+        },
         formatRefresh: function () {
             return 'Rafraîchir';
         },
@@ -755,6 +830,57 @@
         },
         formatAllRows: function () {
             return 'Tous';
+        },
+        formatExport: function () {
+            return 'Exporter les données';
+        },
+        formatClearFilters: function () {
+            return 'Vider les filtres';
+        },
+        formatMultipleSort: function() {
+            return 'Tri avancé';
+        },
+        formatAddLevel: function() {
+            return 'Ajouter un niveau';
+        },
+        formatDeleteLevel: function() {
+            return 'Supprimer un niveau';
+        },
+        formatColumn: function() {
+            return 'Colonne';
+        },
+        formatOrder: function() {
+            return 'Ordre';
+        },
+        formatSortBy: function() {
+            return 'Trier par';
+        },
+        formatThenBy: function() {
+            return 'Puis par';
+        },
+        formatSort: function() {
+            return 'Trier';
+        },
+        formatCancel: function() {
+            return 'Annuler';
+        },
+        formatDuplicateAlertTitle: function() {
+            return 'Doublon(s) détecté(s)!';
+        },
+        formatDuplicateAlertDescription: function() {
+            return 'Supprimez ou changez les colonnes dupliquées.';
+        },
+        formatSortOrders: function() {
+            return {
+                asc: 'Croissant',
+                desc: 'Décroissant'
+            };
+        },
+        formatAdvancedSearch: function() {
+            return 'Recherche avancée';
+        },
+        formatAdvancedCloseButton: function() {
+            return "Fermer";
         }
     };
 
@@ -1516,6 +1642,9 @@
         formatNoMatches: function () {
             return 'Nenájdená žiadna vyhovujúca položka';
         },
+        formatPaginationSwitch: function () {
+            return 'Skry/Zobraz stránkovanie';
+        },
         formatRefresh: function () {
             return 'Obnoviť';
         },
@@ -1524,6 +1653,15 @@
         },
         formatColumns: function () {
             return 'Stĺpce';
+        },
+        formatAllRows: function () {
+            return 'Všetky';
+        },
+        formatExport: function () {
+            return 'Exportuj dáta';
+        },
+        formatClearFilters: function () {
+            return 'Odstráň filtre';
         }
     };
 
