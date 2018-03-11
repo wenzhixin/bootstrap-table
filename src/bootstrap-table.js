@@ -2757,17 +2757,21 @@
     };
 
     BootstrapTable.prototype.getHiddenRows = function (show) {
-        var that = this,
-            data = this.getData(),
-            rows = [];
+    	if (show) {
+    		this.hiddenRows = [];
+		} else {
+			var that = this,
+				data = this.getData(),
+				rows = [];
 
-        $.each(data, function (i, row) {
-            if ($.inArray(row, that.hiddenRows) > -1) {
-                rows.push(row);
-            }
-        });
-        this.hiddenRows = rows;
-        return rows;
+			$.each(data, function (i, row) {
+				if ($.inArray(row, that.hiddenRows) > -1) {
+					rows.push(row);
+				}
+			});
+			this.hiddenRows = rows;
+			return rows;
+		}
     };
 
     BootstrapTable.prototype.mergeCells = function (options) {
