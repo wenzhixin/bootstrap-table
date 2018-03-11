@@ -197,7 +197,10 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>
         La función sort es usada para hacer el ordenamiendo customizable, toma dos parámetros: <br>
         a: el primer valor del campo.<br>
-        b: el segundo valor del campo.</td>
+        b: el segundo valor del campo.<br>
+        rowA: la primera fila.<br>
+        rowB: la segunda fila.
+        </td>
     </tr>
     <tr>
         <td>sortName</td>
@@ -237,6 +240,24 @@ Las propiedades de la columna están definidas en `jQuery.fn.bootstrapTable.colu
         <td>true</td>
         <td>
         True to search use formated data.
+        </td>
+    </tr>
+    <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>
+        Escapes a string for insertion into HTML, replacing &, <, >, ", \`, and ' characters.
+        </td>
+    </tr>
+    <tr>
+        <td>showSelectTitle</td>
+        <td>data-show-select-title</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>
+        True to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
         </td>
     </tr>
     </tbody>

@@ -1,35 +1,41 @@
-### Latest release (2017-02-22)
+### Latest release (2018-03-11)
 
-#### v1.11.1
+### 1.12.0
 
-- fix(js): fix #2439, `filterBy` cannot filter array keys
-- fix(js): fix #2424, from html with checkbox bug
-- fix(js): fix #2385, checkbox render bug with formatter
-- fix(js): fix #750, showRow and hideRow bug
-- fix(js): fix #2387, page list bug
-- fix(js): decrement totalRows on remove if using server side pagination
-- fix(js): bug in the calculation of toolbar and pagination heights
-- feat(js): fix #2414, add `paginationLoop` option
-- feat(js): update method `getRowsHidden` to `getHiddenRows`
-- feat(js): add `sortClass` option
-- feat(js): add `totalField` Option
-- feat(js): add 'pageNumber' and 'pageSize' to 'refresh' method
-- feat(js): add `escape` column option
-- fix(js): fix #2461, adding the initPagination call to updateByUniqueId and updateRow methods
-- fix(js): fix #2879, IE8 bug
-- fix(js): fix #2719, remove `tabindex`
-- fix(css): fix #2208, dropdown-menu style bug
-- fix(filter-control extension): fix #2418, `height` cause datepicker not display the selected date
-- fix(export extension): fix #2220, selected rows does not work when data-pagination-side is server
-- fix(reorder-row extension): fix #1343, reorder rows bug with pagination
-- fix(cookie extension): correction regex to match 'mi'
-- feat(locale): fix #2759, add es-CL and uz-UZ locales
-- feat(cookie extension): fix #2386, add `getCookies` method
-- feat(cookie extension): fix #2371, add `cookieStorage` option
-- feat(multiple-selection-row extension): add multiple-selection-row extension
-- feat(filter-control extension): fix #1540, disable unnecessary/unused values from select options
-- feat(filter-control extension): fix #2448, create a css file which contains the style for this extension
-- feat(filter-control extension): fix #2189, set placeholder of the filter-control input
-- feat(print extension): add print extension
-- feat(auto-refresh extension): add auto refresh extension
-- feat(tree-column extension): add tree column extension
+- fix(js): fix zoom header width bug
+- fix(js): fix #3452, reset the table data when url loaded error
+- fix(js): fix #3380, check-all was wrong with the sub-table
+- fix(js): fix #2963, singleSelect, maintainSelected and pagination bug
+- fix(js): fix #3342, remove limit when it is 0
+- fix(js): fix #3472, group header style bug
+- fix(js): fix #3310, searchText causes two requests
+- fix(js): fix #3029, IE8 does not support getOwnPropertyNames
+- fix(js): fix #3204, sortName cannot work in server side pagination
+- fix(js): fix #3163, `showToolbar` bug when using extensions
+- fix(js): fix #3087, only send pagination parameters when `sidePagination` is `server`
+- fix(export extension): fix #3477, server pagination mode cannot export all data
+- fix(filter-control extension): fix #3271, duplicate select option with fixed header and client pagination
+- feat(js): add `detailFilter` option
+- feat(js): add `rememberOrder` option
+- feat(js): improve pageList `All` option locale independent
+- feat(js): add `Bootstrap v4.0` support
+- feat(js): add `row` data to sorter function
+- feat(js): add `ignoreClickToSelectOn` option
+- feat(js): add `onScrollBody` / `scroll-body.bs.table` event
+- feat(js): add `showFullscreen` option
+- feat(js): add `showSelectTitle` column option
+- feat(js): add `$el` to collapse-row
+- feat(locale): add `eu-EU` locale
+- feat(export extension): add `exportFooter` option
+- feat(multiple-sort extension): add `showMultiSortButton` option
+- feat(filter-control extension): add `searchOnEnterKey` option
+- feat(page-jumpto extension): add `page-jumpto` extension
+- feat(resizable extension): add `resizeMode` option
+- feat(sticky-header extension): add `Bootstrap v4.0` support
+- feat(treegrid extension): add `treegrid` extension
+- feat(print extension): add support to print complex table
+- feat(extension): add cookie in combination with filter-control and strict search
+
+#### Breaking changes in 1.12.0
+
+- feat(js): add `toggleOn` and `toggleOff` icons instead `toggle` icon

@@ -13,7 +13,7 @@
             $.each(that.columns, function (i, column) {
                 if (that.options.columnsHidden.indexOf(column.field) !== -1) {
                     if (column.visible !== checked) {
-                        that.toggleColumn($.fn.bootstrapTable.utils.getFieldIndex(that.columns, column.field), checked, true);
+                        that.toggleColumn(that.fieldsColumnsIndex[column.field], checked, true);
                     }
                 }
             });

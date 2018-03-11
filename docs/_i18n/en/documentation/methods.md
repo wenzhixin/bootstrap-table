@@ -149,7 +149,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         uniqueId: the value of the uniqueId for that row.</td>
     </tr>
     <tr>
-        <td>getRowsHidden</td>
+        <td>getHiddenRows</td>
         <td>boolean</td>
         <td>Get all rows hidden and if you pass the show parameter true the rows will be shown again, otherwise, the method
         only will return the rows hidden.</td>
@@ -343,6 +343,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter);`.
         <td>collapseAllRows</td>
         <td>is subtable</td>
         <td>Collapse all rows if the detail view option is set to True.</td>
+    </tr>
+    <tr>
+        <td>updateCellById</td>
+        <td>params</td>
+        <td>
+        update the cell specified by the id, each param contains following properties: <br>
+        id: row id where the id should be the uniqueid field assigned to the table. <br>
+        field: field name of the cell to be updated.<br>
+        value: new value of the cell.
+        </td>
     </tr>
     </tbody>
 </table>

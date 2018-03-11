@@ -60,13 +60,13 @@
     <tr>
         <td>showAllColumns</td>
         <td>none</td>
-        <td>Show All the columns.</td>
+        <td>显示所有列。</td>
         <td>showAllColumns</td>
     </tr>
     <tr>
         <td>hideAllColumns</td>
         <td>none</td>
-        <td>Hide All the columns.</td>
+        <td>隐藏所有列。</td>
         <td>hidAllColumns</td>
     </tr>
     <tr>
@@ -86,7 +86,7 @@
         <td>params</td>
         <td>
         从表格中删除数据，包括两个参数：
-        field: 需要删除的行的 field 名称。<br>
+        field: 需要删除的行的 field 名称，<br>
         values: 需要删除的行的值，类型为数组。<br>
         </td>
         <td>remove</td>
@@ -108,7 +108,7 @@
         <td>params</td>
         <td>
         插入新行，参数包括：<br>
-        index: 要插入的行的 index。<br>
+        index: 要插入的行的 index，<br>
         row: 行的数据，Object 对象。
         </td>
         <td>insertRow</td>
@@ -118,7 +118,7 @@
         <td>params</td>
         <td>
         更新指定的行，参数包括：<br>
-        index: 要更新的行的 index。<br>
+        index: 要更新的行的 index，<br>
         row: 行的数据，Object 对象。
         </td>
         <td>updateRow</td>
@@ -127,7 +127,7 @@
         <td>showRow</td>
         <td>params</td>
         <td>显示指定的行，参数包括：<br>
-        index: 要更新的行的 index 或者 uniqueId。<br>
+        index: 要更新的行的 index 或者 uniqueId，<br>
         isIdField: 指定 index 是否为 uniqueid。</td>
         <td>showRow-hideRow</td>
     </tr>
@@ -135,90 +135,89 @@
         <td>hideRow</td>
         <td>params</td>
         <td>显示指定的行，参数包括：<br>
-        index: 要更新的行的 index。<br>
+        index: 要更新的行的 index，<br>
         uniqueId: 或者要更新的行的 uniqueid。
         <td>showRow-hideRow</td>
     </tr>
     <tr>
-        <td>getRowsHidden</td>
+        <td>getHiddenRows</td>
         <td>show</td>
-        <td>Get all rows hidden and if you pass the show parameter true the rows will be shown again, otherwise, the method
-        only will return the rows hidden.</td>
+        <td>获取所有隐藏的行，如果show参数为true，行将再次显示，否则，只返回隐藏的行。</td>
     </tr>
     <tr>
         <td>mergeCells</td>
         <td>options</td>
         <td>
-        Merge some cells to one cell, the options contains following properties: <br>
-        index: the row index. <br>
-        field: the field name.<br>
-        rowspan: the rowspan count to be merged. <br>
-        colspan: the colspan count to be merged.
+        将某些单元格合并到一个单元格，选项包含以下属性： <br>
+        index: 行索引，<br>
+        field: 字段名称，<br>
+        rowspan: 要合并的rowspan数量，<br>
+        colspan: 要合并的colspan数量。
         </td>
     </tr>
     <tr>
         <td>updateCell</td>
         <td>params</td>
         <td>
-        Update one cell, the params contains following properties: <br>
-        index: the row index. <br>
-        field: the field name.<br>
-        value: the new field value.
+        更新一个单元格，params包含以下属性：<br>
+        index: 行索引。<br>
+        field: 字段名称。<br>
+        value: 新字段值。
         </td>
     </tr>
     <tr>
         <td>refresh</td>
         <td>params</td>
-        <td>Refresh the remote server data, you can set <code>{silent: true}</code> to refresh the data silently, and set <code>{url: newUrl}</code> to change the url. To supply query params specific to this request, set <code>{query: {foo: 'bar'}}</code></td>
+        <td>刷新远程服务器数据，可以设置<code>{silent: true}</code>以静默方式刷新数据，并设置<code>{url: newUrl}</code>更改URL。 要提供特定于此请求的查询参数，请设置<code>{query: {foo: 'bar'}}</code>。</td>
     </tr>
     <tr>
         <td>refreshOptions</td>
         <td>options</td>
-        <td>Refresh the options</td>
+        <td>刷新选项。</td>
     </tr>
     <tr>
         <td>resetSearch</td>
         <td>text</td>
-        <td>Set the search text</td>
+        <td>设置搜索文本。</td>
     </tr>
     <tr>
         <td>showLoading</td>
         <td>none</td>
-        <td>Show loading status.</td>
+        <td>显示加载状态。</td>
     </tr>
     <tr>
         <td>hideLoading</td>
         <td>none</td>
-        <td>Hide loading status.</td>
+        <td>隐藏加载状态。</td>
     </tr>
     <tr>
         <td>checkAll</td>
         <td>none</td>
-        <td>Check all current page rows.</td>
+        <td>选中当前页面所有行。</td>
     </tr>
     <tr>
         <td>uncheckAll</td>
         <td>none</td>
-        <td>Uncheck all current page rows.</td>
+        <td>取消选中当前页面所有行。</td>
     </tr>
     <tr>
         <td>check</td>
         <td>index</td>
-        <td>Check a row, the row index start with 0.</td>
+        <td>选中某一行，行索引从0开始。</td>
     </tr>
     <tr>
         <td>uncheck</td>
         <td>index</td>
-        <td>Uncheck a row, the row index start with 0.</td>
+        <td>取消选中某一行，行索引从0开始。</td>
     </tr>
     <tr>
         <td>checkBy</td>
         <td>params</td>
         <td>
-        Check a row by array of values, the params contains:<br>
-        field: name of the field used to find records<br>
-        values: array of values for rows to check<br>
-        Example: <br>
+        按值或数组选中某行，参数包含：<br>
+        field: 用于查找记录的字段的名称，<br>
+        values: 要检查的行的值数组。<br>
+        例子: <br>
         $("#table").bootstrapTable("checkBy", {field:"field_name", values:["value1","value2","value3"]})
         </td>
     </tr>
@@ -226,37 +225,37 @@
         <td>uncheckBy</td>
         <td>params</td>
         <td>
-        Uncheck a row by array of values, the params contains:<br>
-        field: name of the field used to find records<br>
-        values: array of values for rows to uncheck<br>
-        Example: <br>
+        按值数组取消选中某行，参数包含：<br>
+        field: 用于查找记录的字段的名称，<br>
+        values: 要检查的行的值数组。<br>
+        例子: <br>
         $("#table").bootstrapTable("uncheckBy", {field:"field_name", values:["value1","value2","value3"]})
         </td>
     </tr>
     <tr>
         <td>resetView</td>
         <td>params</td>
-        <td>Reset the bootstrap table view, for example reset the table height.</td>
+        <td>重置引导表视图，例如重置表高度。</td>
     </tr>
     <tr>
         <td>resetWidth</td>
         <td>none</td>
-        <td>Resizes header and footer to fit current columns width</td>
+        <td>调整页眉和页脚的大小以适合当前列宽度。</td>
     </tr>
     <tr>
         <td>destroy</td>
         <td>none</td>
-        <td>Destroy the bootstrap table.</td>
+        <td>销毁表。</td>
     </tr>
     <tr>
         <td>showColumn</td>
         <td>field</td>
-        <td>Show the specified column.</td>
+        <td>显示指定的列。</td>
     </tr>
     <tr>
         <td>hideColumn</td>
         <td>field</td>
-        <td>Hide the specified column.</td>
+        <td>隐藏指定的列。</td>
     </tr>
     <tr>
         <td>getHiddenColumns</td>
@@ -311,22 +310,22 @@
     <tr>
         <td>expandRow</td>
         <td>index</td>
-        <td>Expand the row that has the index passed by parameter if the detail view option is set to True.</td>
+        <td>如果详细视图选项设置为True，可展开索引为 index 的行。</td>
     </tr>
     <tr>
         <td>collapseRow</td>
         <td>index</td>
-        <td>Collapse the row that has the index passed by parameter if the detail view option is set to True.</td>
+        <td>如果详细视图选项设置为True，可收起索引为 index 的行。.</td>
     </tr>
     <tr>
         <td>expandAllRows</td>
-        <td>is subtable</td>
-        <td>Expand all rows if the detail view option is set to True.</td>
+        <td>none</td>
+        <td>如果详细视图选项设置为True，可展开所有行。</td>
     </tr>
     <tr>
         <td>collapseAllRows</td>
-        <td>is subtable</td>
-        <td>Collapse all rows if the detail view option is set to True.</td>
+        <td>none</td>
+        <td>如果详细视图选项设置为True，可收起开所有行。</td>
     </tr>
     </tbody>
 </table>

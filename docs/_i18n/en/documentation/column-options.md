@@ -164,7 +164,18 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         The cell formatter function, take three parameters: <br>
         value: the field value. <br>
         row: the row record data.<br>
-        index: the row index.</td>
+        index: the row index.<br>
+        field: the row field.<br>
+        Example usage:<br>
+<pre>
+function formatter(value, row, index, field) {
+  if (value === 'foo') {
+    return '<strong>' + value + '</strong>';
+  }
+  return value;
+}
+</pre>
+        </td>
     </tr>
     <tr>
         <td>footerFormatter</td>
@@ -201,7 +212,9 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>
         The custom field sort function that used to do local sorting, take two parameters: <br>
         a: the first field value.<br>
-        b: the second field value.
+        b: the second field value.<br>
+        rowA: the first row.<br>
+        rowB: the second row.
         </td>
     </tr>
     <tr>
@@ -251,7 +264,7 @@ function cellStyle(value, row, index, field) {
         <td>Boolean</td>
         <td>true</td>
         <td>
-        True to search use formated data.
+        True to search use formatted data.
         </td>
     </tr>
     <tr>
@@ -260,7 +273,16 @@ function cellStyle(value, row, index, field) {
         <td>Boolean</td>
         <td>false</td>
         <td>
-        Escapes a string for insertion into HTML, replacing &, <, >, ", `, and ' characters.
+        Escapes a string for insertion into HTML, replacing &, <, >, ", \`, and ' characters.
+        </td>
+    </tr>
+    <tr>
+        <td>showSelectTitle</td>
+        <td>data-show-select-title</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>
+        True to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
         </td>
     </tr>
 </tbody>

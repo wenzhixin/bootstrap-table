@@ -1,8 +1,9 @@
 /**
  * @author vincent loh <vincent.ml@gmail.com>
- * @version: v1.0.0
+ * @version: v1.1.0
  * https://github.com/vinzloh/bootstrap-table/
  * Sticky header for bootstrap-table
+ * @update J Manuel Corona <jmcg92@gmail.com>
  */
 
 (function ($) {
@@ -12,6 +13,12 @@
     $.extend($.fn.bootstrapTable.defaults, {
         stickyHeader: false
     });
+    
+    var bootstrapVersion = 3;
+    try {
+        bootstrapVersion = parseInt($.fn.dropdown.Constructor.VERSION, 10);
+    } catch (e) { }
+    var hidden_class = bootstrapVersion > 3 ? 'd-none' : 'hidden';
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initHeader = BootstrapTable.prototype.initHeader;
@@ -32,7 +39,7 @@
             anchor_end_id = header_id +'_sticky_anchor_end';
         // add begin and end anchors to track table position
 
-        table.before(sprintf('<div id="%s" class="hidden"></div>', sticky_header_container_id));
+        table.before(sprintf('<div id="%s" class="%s"></div>', sticky_header_container_id, hidden_class));
         table.before(sprintf('<div id="%s"></div>', anchor_begin_id));
         table.after(sprintf('<div id="%s"></div>', anchor_end_id));
 
@@ -82,7 +89,7 @@
                     $(item).css('min-width', $('#'+table_header_id+' tr').eq(0).find('th').eq(index).css('width'));
                 });
                 // match bootstrap table style
-                $("#"+sticky_header_container_id).removeClass('hidden').addClass("fix-sticky fixed-table-container") ;
+                $("#"+sticky_header_container_id).removeClass(hidden_class).addClass("fix-sticky fixed-table-container") ;
                 // stick it in position
                 $("#"+sticky_header_container_id).css('top', header_height + 'px');
                 // create scrollable container for header
@@ -93,7 +100,7 @@
                 match_position_x(event);
             } else {
                 // hide sticky
-                $("#"+sticky_header_container_id).removeClass("fix-sticky").addClass('hidden');
+                $("#"+sticky_header_container_id).removeClass("fix-sticky").addClass(hidden_class);
             }
 
         }

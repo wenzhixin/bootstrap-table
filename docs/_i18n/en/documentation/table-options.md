@@ -84,6 +84,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to get a stable sorting. We will add <code>_position</code> property to the row.</td>
     </tr>
     <tr>
+        <td>rememberOrder</td>
+        <td>data-remember-order</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>Set <code>true</code> remember the order for each column.</td>
+    </tr>
+    <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
@@ -294,7 +301,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-page-list</td>
         <td>Array</td>
         <td>[10, 25, 50, 100]</td>
-        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table.</td>
+        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' or 'Unlimited' option, all the records will be shown in your table.</td>
     </tr>
     <tr>
         <td>selectItemName</td>
@@ -405,6 +412,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to show the pagination switch button.</td>
     </tr>
     <tr>
+        <td>showFullscreen</td>
+        <td>data-show-fullscreen</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show the fullscreen button.</td>
+    </tr>
+    <tr>
         <td>minimumCountColumns</td>
         <td>data-minimum-count-columns</td>
         <td>Number</td>
@@ -446,6 +460,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Function</td>
         <td>function(index, row, element) {<br>return '';<br>}</td>
         <td>Format your detail view when <code>detailView</code> is set to <code>true</code>. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</td>
+    </tr>
+    <tr>
+        <td>detailFilter</td>
+        <td>data-detail-filter</td>
+        <td>Function</td>
+        <td>function(index, row) {<br>return true;<br>}</td>
+        <td>Enable expansion per row when <code>detailView</code> is set to <code>true</code>. Return <code>true</code> and the row will be enabled for expansion, return <code>false</code> and expansion for the row will be disabled. Default function returns <code>true</code> to enable expansion for all rows.</td>
     </tr>
     <tr>
         <td>searchAlign</td>
@@ -511,6 +532,17 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to select checkbox or radiobox when clicking rows.</td>
     </tr>
     <tr>
+        <td>ignoreClickToSelectOn</td>
+        <td>data-ignore-click-to-select-on</td>
+        <td>Function</td>
+        <td><code>{ return $.inArray(element.tagName, ['A', 'BUTTON']); }</code></td>
+        <td>
+        Takes one parameters:<br>
+        element: the element clicked on.<br>
+        Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if clickToSelect is true.
+        </td>
+    </tr>
+    <tr>
         <td>singleSelect</td>
         <td>data-single-select</td>
         <td>Boolean</td>
@@ -525,6 +557,16 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>
         A jQuery selector that indicates the toolbar, for example:<br>
         #toolbar, .toolbar, or a DOM node.
+        </td>
+    </tr>
+    <tr>
+        <td>buttonsToolbar</td>
+        <td>data-buttons-toolbar</td>
+        <td>String | Node</td>
+        <td>undefined</td>
+        <td>
+        A jQuery selector that indicates the buttons toolbar, for example:<br>
+        #buttons-toolbar, .buttons-toolbar, or a DOM node.
         </td>
     </tr>
     <tr>

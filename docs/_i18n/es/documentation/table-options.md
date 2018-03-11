@@ -338,6 +338,13 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>True para mostrar el botón de mostrar/ocultar la paginación.</td>
     </tr>
     <tr>
+        <td>showFullscreen</td>
+        <td>data-show-fullscreen</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True para mostrar botón de fullscreen.</td>
+    </tr>
+    <tr>
         <td>minimumCountColumns</td>
         <td>data-minimum-count-columns</td>
         <td>Number</td>
@@ -443,6 +450,17 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>True para seleccionar el checkbox o el radiobox cuando se da click sobre las filas.</td>
     </tr>
     <tr>
+        <td>ignoreClickToSelectOn</td>
+        <td>data-ignore-click-to-select-on</td>
+        <td>Function</td>
+        <td><code>{ return $.inArray(element.tagName, ['A', 'BUTTON']); }</code></td>
+        <td>
+        Takes one parameters:<br>
+        element: the element clicked on.<br>
+        Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if clickToSelect is true.
+        </td>
+    </tr>
+    <tr>
         <td>singleSelect</td>
         <td>data-single-select</td>
         <td>Boolean</td>
@@ -455,6 +473,16 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
         <td>String</td>
         <td>undefined</td>
         <td>Un selector jQuery que indica la barra de herramientas, por ejemplo:<br> #toolbar, .toolbar.</td>
+    </tr>
+    <tr>
+        <td>buttonsToolbar</td>
+        <td>data-buttons-toolbar</td>
+        <td>String | Node</td>
+        <td>undefined</td>
+        <td>
+        Un selector jQuery que indica la barra de herramientas de botones, por ejemplo: <br>
+        #buttons-toolbar, .buttons-toolbar, o un nodo DOM.
+        </td>
     </tr>
     <tr>
         <td>checkboxHeader</td>

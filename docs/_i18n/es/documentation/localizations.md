@@ -66,5 +66,43 @@
         <td>--/td>
         <td>'All'</td>
     </tr>
+    <tr>
+        <td>formatFullscreen</td>
+        <td>-</td>
+        <td>'Fullscreen'</td>
+    </tr>
     </tbody>
 </table>
+
+---
+
+**PS:**
+
+Podemos importar  [all locale files](https://github.com/wenzhixin/bootstrap-table/tree/master/src/locale) lo que necesita:
+
+```html
+<script src="bootstrap-table-en-US.js"></script>
+<script src="bootstrap-table-zh-CN.js"></script>
+...
+```
+
+Y luego utilice este código JavaScript para cambiar el lenguaje:
+
+```js
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
+// $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+// ...
+```
+
+O utilice los data attributes para configurar el lenguaje:
+
+```html
+<table data-toggle="table" data-locale="en-US">
+</table>
+```
+
+O utilice este JavaScript para configurar el lenguaje:
+
+```js
+$('table').bootstrapTable({locale:'en-US'});
+```

@@ -212,5 +212,11 @@
        <td>params</td>
        <td>Se ejecuta cuando se cliquea el botón de refresh.</td>
     </tr>
+    <tr>
+       <td>onScrollBody</td>
+       <td>scroll-body.bs.table</td>
+       <td></td>
+       <td>Incendios cuando desplazamiento del cuerpo de la tabla.</td>
+    </tr>
     </tbody>
 </table>

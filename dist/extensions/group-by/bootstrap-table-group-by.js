@@ -32,7 +32,7 @@
             if (!row.IsParent) {
                 for (var prop in row) {
                     if (!isNaN(parseFloat(row[prop]))) {
-                        if (that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, prop)].groupBySumGroup) {
+                        if (that.columns[that.fieldsColumnsIndex[prop]].groupBySumGroup) {
                             if (sumRow[prop] === undefined) {
                                 sumRow[prop] = 0;
                             }
@@ -176,7 +176,7 @@
 
                 originalRowAttr = this.options.rowAttributes;
                 this.options.rowAttributes = rowAttr;
-                this.$el.on('post-body.bs.table', function () {
+                this.$el.off('post-body.bs.table').on('post-body.bs.table', function () {
                     that.$el.treetable({
                         expandable: true,
                         onNodeExpand: function () {
