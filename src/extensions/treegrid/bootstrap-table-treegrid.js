@@ -25,8 +25,15 @@
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
+        _init = BootstrapTable.prototype.init,
         _initRow = BootstrapTable.prototype.initRow,
-        _initHeader = BootstrapTable.prototype.initHeader;
+        _initHeader = BootstrapTable.prototype.initHeader,
+        _rowStyle = null;
+
+    BootstrapTable.prototype.init = function () {
+        _rowStyle = this.options.rowStyle;
+        _init.apply(this, Array.prototype.slice.apply(arguments));
+    };
 
     // td
     BootstrapTable.prototype.initHeader = function () {
@@ -59,11 +66,15 @@
                 node._last = 1;
             // jquery.treegrid.js
             that.options.rowStyle = function (item, idx) {
+                var res = _rowStyle.apply(that, Array.prototype.slice.apply(arguments));
                 var id = item[that.options.idField] ? item[that.options.idField] : 0;
                 var pid = item[that.options.parentIdField] ? item[that.options.parentIdField] : 0;
-                return {
-                    classes: 'treegrid-' + id + ' treegrid-parent-' + pid
-                };
+                res.classes = [
+                    res.classes || '',
+                    'treegrid-' + id,
+                    'treegrid-parent-' + pid
+                ].join(' ');
+                return res;
             };
             initTr.apply(that, [node, $.inArray(node, data), data, parentDom]);
         }
@@ -80,10 +91,13 @@
                 }
                 // jquery.treegrid.js
                 that.options.rowStyle = function (item, idx) {
+                    var res = _rowStyle.apply(that, Array.prototype.slice.apply(arguments));
                     var x = item[that.options.idField] ? item[that.options.idField] : 0;
-                    return {
-                        classes: 'treegrid-' + x
-                    };
+                    res.classes = [
+                        res.classes || '',
+                        'treegrid-' + x
+                    ].join(' ');
+                    return res;
                 };
                 initTr.apply(that, [item, idx, data, parentDom]);
                 return true;

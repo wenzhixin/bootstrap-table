@@ -1,6 +1,13 @@
 ChangeLog
 ---------
 
+### 1.12.1
+
+- fix(js): fix #3656, toggle icon typo
+- fix(js): fix #3657, opencollective postinstall error
+- fix(group-by-v2 extension): fix #3598, detailView display bug
+- feat(tree-grid extension): fix #3607, add `rowStyle` support
+
 ### 1.12.0
 
 - fix(js): fix zoom header width bug
