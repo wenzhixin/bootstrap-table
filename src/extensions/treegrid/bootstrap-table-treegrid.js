@@ -1,6 +1,6 @@
 /**
  * @author: YL
- * @version: v1.0.0
+ * @version: v1.1.0
  */
 !function ($) {
     'use strict';
@@ -8,6 +8,7 @@
         treeShowField: null,
         idField: 'id',
         parentIdField: 'pid',
+        afterTreeRowStyle: function (row) { },
         onGetNodes: function (row, data) {
             var that = this;
             var nodes = [];
@@ -62,7 +63,7 @@
                 var id = item[that.options.idField] ? item[that.options.idField] : 0;
                 var pid = item[that.options.parentIdField] ? item[that.options.parentIdField] : 0;
                 return {
-                    classes: 'treegrid-' + id + ' treegrid-parent-' + pid
+                    classes: 'treegrid-' + id + ' treegrid-parent-' + pid + ' ' + that.options.afterTreeRowStyle(item).classes
                 };
             };
             initTr.apply(that, [node, $.inArray(node, data), data, parentDom]);
@@ -82,7 +83,7 @@
                 that.options.rowStyle = function (item, idx) {
                     var x = item[that.options.idField] ? item[that.options.idField] : 0;
                     return {
-                        classes: 'treegrid-' + x
+                        classes: 'treegrid-' + x + ' ' + that.options.afterTreeRowStyle(item).classes
                     };
                 };
                 initTr.apply(that, [item, idx, data, parentDom]);
