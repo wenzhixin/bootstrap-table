@@ -21,7 +21,7 @@
   },
   "scripts": {
     "grunt": "grunt",
-    "postinstall": "opencollective postinstall"
+    "postinstall": "opencollective postinstall || exit 0"
   },
   "repository": {
     "type": "git",
