@@ -141,7 +141,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
         <td>rows</td>
         <td>
         Fires when user check some rows, the parameters contain: <br>
-        rows: array of records corresponding to previously checked rows.
+        rows: array of records corresponding to newly checked rows.
         </td>
     </tr>
     <tr>
