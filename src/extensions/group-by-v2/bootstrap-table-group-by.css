@@ -6,6 +6,6 @@
 
 }
 
-tr.hidden + tr.detail-view {
+.bootstrap-table .table > tbody > tr.hidden + tr.detail-view {
     display: none;
 }
