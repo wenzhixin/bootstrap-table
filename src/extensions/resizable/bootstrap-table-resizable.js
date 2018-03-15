@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.0.0
+ * @version: v1.1.1
  */
 
 (function ($) {
