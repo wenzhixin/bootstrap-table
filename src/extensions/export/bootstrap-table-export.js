@@ -67,7 +67,7 @@
                         '</button>',
                         '<ul class="dropdown-menu" role="menu">',
                         '</ul>',
-                    '</div>'].join('')).appendTo($btnGroup);
+                    '</div>'].join('')).appendTo($btnGroup[0]);
 
                 var $menu = $export.find('.dropdown-menu'),
                     exportTypes = this.options.exportTypes;
