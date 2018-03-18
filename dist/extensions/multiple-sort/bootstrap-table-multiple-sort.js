@@ -11,16 +11,16 @@
     var isSingleSort = false;
 
     var showSortModal = function(that) {
-        var _selector = that.$sortModal.selector,
-            _id = _selector.substr(1);
+        var _selector = that.sortModalSelector,
+            _id = '#' + _selector;
 
         if (!$(_id).hasClass("modal")) {
-            var sModal = '  <div class="modal fade" id="' + _id + '" tabindex="-1" role="dialog" aria-labelledby="' + _id + 'Label" aria-hidden="true">';
+            var sModal = '  <div class="modal fade" id="' + _selector + '" tabindex="-1" role="dialog" aria-labelledby="' + _selector + 'Label" aria-hidden="true">';
             sModal += '         <div class="modal-dialog">';
             sModal += '             <div class="modal-content">';
             sModal += '                 <div class="modal-header">';
             sModal += '                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-            sModal += '                     <h4 class="modal-title" id="' + _id + 'Label">' + that.options.formatMultipleSort() + '</h4>';
+            sModal += '                     <h4 class="modal-title" id="' + _selector + 'Label">' + that.options.formatMultipleSort() + '</h4>';
             sModal += '                 </div>';
             sModal += '                 <div class="modal-body">';
             sModal += '                     <div class="bootstrap-table">';
@@ -56,7 +56,7 @@
 
             $('body').append($(sModal));
 
-            that.$sortModal = $(_selector);
+            that.$sortModal = $(_id);
             var $rows = that.$sortModal.find('tbody > tr');
 
             that.$sortModal.off('click', '#add').on('click', '#add', function() {
@@ -123,16 +123,15 @@
                     that.options.sortName = '';
 
                     if (that.options.sidePagination === 'server') {
-
+                        var t = that.options.queryParams;
                         that.options.queryParams = function(params) {
                             params.multiSort = that.options.sortPriority;
-                            return params;
+                            return t(params);
                         };
-
+                        isSingleSort=false;
                         that.initServer(that.options.silentSort);
                         return;
                     }
-
                     that.onMultipleSort();
 
                 }
@@ -161,8 +160,11 @@
         }
     };
 
+    $.fn.bootstrapTable.methods.push('multipleSort');
+
     $.extend($.fn.bootstrapTable.defaults, {
         showMultiSort: false,
+        showMultiSortButton: true,
         sortPriority: null,
         onMultipleSort: function() {
             return false;
@@ -227,18 +229,28 @@
         _initToolbar = BootstrapTable.prototype.initToolbar;
 
     BootstrapTable.prototype.initToolbar = function() {
-        this.showToolbar = true;
+        this.showToolbar = this.showToolbar || this.options.showMultiSort;
         var that = this,
-            sortModalId = '#sortModal_' + this.$el.attr('id');
+            sortModalSelector = 'sortModal_' + this.$el.attr('id'),
+            sortModalId = '#' + sortModalSelector;
         this.$sortModal = $(sortModalId);
+        this.sortModalSelector = sortModalSelector;
 
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (that.options.sidePagination === 'server' && !isSingleSort && that.options.sortPriority !== null){
+            var t = that.options.queryParams;
+            that.options.queryParams = function(params) {
+                params.multiSort = that.options.sortPriority;
+                return t(params);
+            };
+        }
 
         if (this.options.showMultiSort) {
             var $btnGroup = this.$toolbar.find('>.btn-group').first(),
                 $multiSortBtn = this.$toolbar.find('div.multi-sort');
 
-            if (!$multiSortBtn.length) {
+            if (!$multiSortBtn.length && this.options.showMultiSortButton) {
                 $multiSortBtn = '  <button class="multi-sort btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" data-toggle="modal" data-target="' + sortModalId + '" title="' + this.options.formatMultipleSort() + '">';
                 $multiSortBtn += '     <i class="' + this.options.iconsPrefix + ' ' + this.options.icons.sort + '"></i>';
                 $multiSortBtn += '</button>';
@@ -279,6 +291,13 @@
                     that.assignSortableArrows();
                 }
             });
+        }
+    };
+
+    BootstrapTable.prototype.multipleSort = function() {
+        var that = this;
+        if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
+            that.onMultipleSort();
         }
     };
 

@@ -1,9 +1,9 @@
 /**
  * @author: Jewway
- * @version: v1.0.0
+ * @version: v1.1.1
  */
 
-!function ($) {
+! function ($) {
   'use strict';
 
   function getCurrentHeader(that) {
@@ -15,23 +15,26 @@
     return header;
   }
 
-  function getFilterFields(that) {
-    return getCurrentHeader(that).find('[data-filter-field]');
-  }
-
-  function setFilterValues(that) {
-    var $filterElms = getFilterFields(that);
+  function initFilterValues(that) {
     if (!$.isEmptyObject(that.filterColumnsPartial)) {
-      $filterElms.each(function (index, ele) {
-        var $ele = $(ele),
-            field = $ele.attr('data-filter-field'),
-            value = that.filterColumnsPartial[field];
+      var $header = getCurrentHeader(that);
 
-        if ($ele.is("select")) {
-          $ele.val(value).trigger('change');
-        }
-        else {
-          $ele.val(value);
+      $.each(that.columns, function (idx, column) {
+        var value = that.filterColumnsPartial[column.field];
+
+        if (column.filter) {
+          if (column.filter.setFilterValue) {
+            var $filter = $header.find('[data-field=' + column.field + '] .filter');
+            column.filter.setFilterValue($filter, column.field, value);
+          } else {
+            var $ele = $header.find('[data-filter-field=' + column.field + ']');
+            switch (column.filter.type) {
+              case 'input':
+                $ele.val(value);
+              case 'select':
+                $ele.val(value).trigger('change');
+            }
+          }
         }
       });
     }
@@ -39,89 +42,109 @@
 
   function createFilter(that, header) {
     var enableFilter = false,
-        isVisible,
-        html,
-        timeoutId = 0;
+      isVisible,
+      html,
+      timeoutId = 0;
 
     $.each(that.columns, function (i, column) {
       isVisible = 'hidden';
-      html = [];
+      html = null;
 
       if (!column.visible) {
         return;
       }
 
       if (!column.filter) {
-        html.push('<div class="no-filter"></div>');
+        html = $('<div class="no-filter"></div>');
       } else {
         var filterClass = column.filter.class ? ' ' + column.filter.class : '';
-        html.push('<div style="margin: 0px 2px 2px 2px;" class="filter' + filterClass + '">');
+        html = $('<div style="margin: 0px 2px 2px 2px;" class="filter' + filterClass + '">');
 
         if (column.searchable) {
           enableFilter = true;
           isVisible = 'visible'
         }
 
-        switch (column.filter.type.toLowerCase()) {
-          case 'input' :
-            html.push('<input type="text" data-filter-field="' + column.field + '" style="width: 100%; visibility:' + isVisible + '">');
-            break;
-          case 'select':
-            html.push('<select data-filter-field="' + column.field + '" style="width: 100%; visibility:' + isVisible + '"></select>');
-            break;
+        if (column.filter.template) {
+          html.append(column.filter.template(that, column, isVisible));
+        } else {
+          var $filter = $(that.options.filterTemplate[column.filter.type.toLowerCase()](that, column, isVisible));
+
+          switch (column.filter.type) {
+            case 'input':
+              var cpLock = true;
+              $filter.off('compositionstart').on('compositionstart', function (event) {
+                cpLock = false;
+              });
+
+              $filter.off('compositionend').on('compositionend', function (event) {
+                cpLock = true;
+                var $input = $(this);
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function () {
+                  that.onColumnSearch(event, column.field, $input.val());
+                }, that.options.searchTimeOut);
+              });
+
+              $filter.off('keyup').on('keyup', function (event) {
+                if (cpLock) {
+                  var $input = $(this);
+                  clearTimeout(timeoutId);
+                  timeoutId = setTimeout(function () {
+                    that.onColumnSearch(event, column.field, $input.val());
+                  }, that.options.searchTimeOut);
+                }
+              });
+
+              $filter.off('mouseup').on('mouseup', function (event) {
+                var $input = $(this),
+                  oldValue = $input.val();
+
+                if (oldValue === "") {
+                  return;
+                }
+
+                setTimeout(function () {
+                  var newValue = $input.val();
+
+                  if (newValue === "") {
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(function () {
+                      that.onColumnSearch(event, column.field, newValue);
+                    }, that.options.searchTimeOut);
+                  }
+                }, 1);
+              });
+              break;
+            case 'select':
+              $filter.on('select2:select', function (event) {
+                that.onColumnSearch(event, column.field, $(this).val());
+              });
+
+              $filter.on("select2:unselecting", function (event) {
+                var $select2 = $(this);
+                event.preventDefault();
+                $select2.val(null).trigger('change');
+                that.searchText = undefined;
+                that.onColumnSearch(event, column.field, $select2.val());
+              });
+              break;
+          }
+
+          html.append($filter);
         }
       }
 
       $.each(header.children().children(), function (i, tr) {
         tr = $(tr);
         if (tr.data('field') === column.field) {
-          tr.find('.fht-cell').append(html.join(''));
+          tr.find('.fht-cell').append(html);
           return false;
         }
       });
     });
 
-    if (enableFilter) {
-      var $inputs = header.find('input'),
-          $selects = header.find('select');
-
-
-      if ($inputs.length > 0) {
-        $inputs.off('keyup').on('keyup', function (event) {
-          clearTimeout(timeoutId);
-          timeoutId = setTimeout(function () {
-            that.onColumnSearch(event);
-          }, that.options.searchTimeOut);
-        });
-
-
-        $inputs.off('mouseup').on('mouseup', function (event) {
-          var $input = $(this),
-              oldValue = $input.val();
-
-          if (oldValue === "") {
-            return;
-          }
-
-          setTimeout(function () {
-            var newValue = $input.val();
-
-            if (newValue === "") {
-              clearTimeout(timeoutId);
-              timeoutId = setTimeout(function () {
-                that.onColumnSearch(event);
-              }, that.options.searchTimeOut);
-            }
-          }, 1);
-        });
-      }
-
-      if ($selects.length > 0) {
-        $selects.on('select2:select', function (event) {
-          that.onColumnSearch(event);
-        });
-      }
-    } else {
+    if (!enableFilter) {
       header.find('.filter').hide();
     }
   }
@@ -131,11 +154,9 @@
 
     $.each(that.columns, function (idx, column) {
       if (column.filter && column.filter.type === 'select') {
-        var $selectEle = $header.find('select[data-filter-field=' + column.field + ']');
+        var $selectEle = $header.find('select[data-filter-field="' + column.field + '"]');
 
         if ($selectEle.length > 0 && !$selectEle.data().select2) {
-          column.filter.data.unshift("");
-
           var select2Opts = {
             placeholder: "",
             allowClear: true,
@@ -144,12 +165,6 @@
           };
 
           $selectEle.select2(select2Opts);
-          $selectEle.on("select2:unselecting", function (event) {
-            event.preventDefault();
-            $selectEle.val(null).trigger('change');
-            that.searchText = undefined;
-            that.onColumnSearch(event);
-          });
         }
       }
     });
@@ -157,22 +172,41 @@
 
   $.extend($.fn.bootstrapTable.defaults, {
     filter: false,
-    filterValues: {}
+    filterValues: {},
+    filterTemplate: {
+      input: function (instance, column, isVisible) {
+        return '<input type="text" class="form-control" data-filter-field="' + column.field + '" style="width: 100%; visibility:' + isVisible + '">';
+      },
+      select: function (instance, column, isVisible) {
+        return '<select data-filter-field="' + column.field + '" style="width: 100%; visibility:' + isVisible + '"></select>';
+      }
+    },
+    onColumnSearch: function (field, text) {
+      return false;
+    }
   });
 
   $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
     filter: undefined
   });
 
+  $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+    'column-search.bs.table': 'onColumnSearch'
+  });
+
   var BootstrapTable = $.fn.bootstrapTable.Constructor,
-      _init = BootstrapTable.prototype.init,
-      _initHeader = BootstrapTable.prototype.initHeader,
-      _initSearch = BootstrapTable.prototype.initSearch;
+    _init = BootstrapTable.prototype.init,
+    _initHeader = BootstrapTable.prototype.initHeader,
+    _initSearch = BootstrapTable.prototype.initSearch;
 
   BootstrapTable.prototype.init = function () {
     //Make sure that the filtercontrol option is set
     if (this.options.filter) {
       var that = this;
+
+      if (that.options.filterTemplate) {
+        that.options.filterTemplate = $.extend({}, $.fn.bootstrapTable.defaults.filterTemplate, that.options.filterTemplate);
+      }
 
       if (!$.isEmptyObject(that.options.filterValues)) {
         that.filterColumnsPartial = that.options.filterValues;
@@ -197,10 +231,10 @@
         initSelect2(that);
         clearTimeout(timeoutId);
         timeoutId = setTimeout(function () {
-          setFilterValues(that);
+          initFilterValues(that);
         }, that.options.searchTimeOut - 1000);
       }).on('column-switch.bs.table', function (field, checked) {
-        setFilterValues(that);
+        initFilterValues(that);
       });
     }
 
@@ -215,23 +249,20 @@
   };
 
   BootstrapTable.prototype.initSearch = function () {
-    _initSearch.apply(this, Array.prototype.slice.apply(arguments));
-
     var that = this,
-        filterValues = that.filterColumnsPartial;
+      filterValues = that.filterColumnsPartial;
 
     // Filter for client
     if (that.options.sidePagination === 'client') {
       this.data = $.grep(this.data, function (row, idx) {
         for (var field in filterValues) {
-          var column = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, field)],
-              filterValue = filterValues[field].toLowerCase(),
-              rowValue = row[field];
+          var column = that.columns[that.fieldsColumnsIndex[field]],
+            filterValue = filterValues[field].toLowerCase(),
+            rowValue = row[field];
 
           rowValue = $.fn.bootstrapTable.utils.calculateObjectValue(
-              that.header,
-              that.header.formatters[$.inArray(field, that.header.fields)],
-              [rowValue, row, idx], rowValue);
+            that.header,
+            that.header.formatters[$.inArray(field, that.header.fields)], [rowValue, row, idx], rowValue);
 
           if (column.filterStrictSearch) {
             if (!($.inArray(field, that.header.fields) !== -1 &&
@@ -251,12 +282,11 @@
         return true;
       });
     }
+
+    _initSearch.apply(this, Array.prototype.slice.apply(arguments));
   };
 
-  BootstrapTable.prototype.onColumnSearch = function (event) {
-    var field = $(event.currentTarget).attr('data-filter-field'),
-        value = $.trim($(event.currentTarget).val());
-
+  BootstrapTable.prototype.onColumnSearch = function (event, field, value) {
     if ($.isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {};
     }
@@ -269,14 +299,13 @@
 
     this.options.pageNumber = 1;
     this.onSearch(event);
+    this.trigger('column-search', field, value);
   };
 
-  BootstrapTable.prototype.setFilterData = function (field, data) {
+  BootstrapTable.prototype.setSelect2Data = function (field, data) {
     var that = this,
-        $header = getCurrentHeader(that),
-        $selectEle = $header.find('select[data-filter-field=\"' + field + '\"]');
-
-    data.unshift("");
+      $header = getCurrentHeader(that),
+      $selectEle = $header.find('select[data-filter-field=\"' + field + '\"]');
     $selectEle.empty();
     $selectEle.select2({
       data: data,
@@ -297,7 +326,7 @@
     this.filterColumnsPartial = values;
   };
 
-  $.fn.bootstrapTable.methods.push('setFilterData');
+  $.fn.bootstrapTable.methods.push('setSelect2Data');
   $.fn.bootstrapTable.methods.push('setFilterValues');
 
 }(jQuery);

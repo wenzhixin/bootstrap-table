@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.11.1
+ * version: 1.12.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -22,7 +22,8 @@
                 paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
                 paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
                 refresh: 'glyphicon-refresh icon-refresh',
-                toggle: 'glyphicon-list-alt icon-list-alt',
+                toggleOff: 'glyphicon-list-alt icon-list-alt',
+                toggleOn: 'glyphicon-list-alt icon-list-alt',
                 columns: 'glyphicon-th icon-th',
                 detailOpen: 'glyphicon-plus icon-plus',
                 detailClose: 'glyphicon-minus icon-minus',
@@ -41,7 +42,8 @@
                 paginationSwitchDown: 'fa-toggle-down',
                 paginationSwitchUp: 'fa-toggle-up',
                 refresh: 'fa-refresh',
-                toggle: 'fa-toggle-on',
+                toggleOff: 'fa-toggle-off',
+                toggleOn: 'fa-toggle-on',
                 columns: 'fa-th-list',
                 detailOpen: 'fa-plus',
                 detailClose: 'fa-minus',
@@ -1164,7 +1166,7 @@
                     sprintf(' btn-%s', this.options.iconSize) +
                     '" type="button" name="toggle" aria-label="toggle" title="%s">',
                     this.options.formatToggle()),
-                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
+                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggleOff),
                 '</button>');
         }
 
@@ -1356,7 +1358,9 @@
                         value = item;
                         var props = key.split('.');
                         for (var prop_index = 0; prop_index < props.length; prop_index++) {
-                            value = value[props[prop_index]];
+                            if (value[props[prop_index]] != null) {
+                                value = value[props[prop_index]];
+                            }
                         }
 
                         // Fix #142: respect searchForamtter boolean
@@ -3093,6 +3097,14 @@
         this.initHeader();
         // Fixed remove toolbar when click cardView button.
         //that.initToolbar();
+        var $icon = this.$toolbar.find('button[name="toggle"] i');
+        if (this.options.cardView) {
+            $icon.removeClass(this.options.icons.toggleOff);
+            $icon.addClass(this.options.icons.toggleOn);
+        } else {
+            $icon.removeClass(this.options.icons.toggleOn);
+            $icon.addClass(this.options.icons.toggleOff);
+        }
         this.initBody();
         this.trigger('toggle', this.options.cardView);
     };

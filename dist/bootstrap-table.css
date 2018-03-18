@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.11.1
+ * version: 1.12.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -72,7 +72,7 @@
     outline: 0 solid transparent;
 }
 
-.fixed-table-container thead th:first-child {
+.fixed-table-container thead th:first-child:not([data-not-first-th]) {
     border-left: none;
     border-top-left-radius: 4px;
     -webkit-border-top-left-radius: 4px;
@@ -131,10 +131,6 @@
 
 .fixed-table-container .bs-checkbox {
     text-align: center;
-}
-
-.fixed-table-container .bs-checkbox .th-inner {
-    padding: 8px 0;
 }
 
 .fixed-table-container input[type="radio"],
@@ -310,4 +306,13 @@ div.fixed-table-scroll-outer {
     content: "";
     display: block;
     clear: both;
+}
+
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 100%!important;
+    background: #FFF;
 }
