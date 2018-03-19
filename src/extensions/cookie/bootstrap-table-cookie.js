@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.2.3
+ * @version: v1.2.4
  *
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
@@ -74,6 +74,7 @@
                     that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
                     that.options.cookieSecure ? '; secure' : ''
                 ].join('');
+                break;
             case 'localStorage':
                 localStorage.setItem(cookieName, cookieValue);
                 break;
@@ -382,13 +383,13 @@
     };
 
     BootstrapTable.prototype.onSearch = function () {
-        var target = Array.prototype.slice.apply(arguments);
+        var target = Array.prototype.slice.apply(arguments);        
         _onSearch.apply(this, target);
 
         if ($(target[0].currentTarget).parent().hasClass('search')) {
             setCookie(this, cookieIds.searchText, this.searchText);
         }
-        setCookie(this, cookieIds.pageNumber, this.options.pageNumber);
+        //getCookie(this, cookieIds.pageNumber, this.options.pageNumber);
     };
 
     BootstrapTable.prototype.getCookies = function () {
