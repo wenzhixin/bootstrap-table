@@ -1307,7 +1307,7 @@
         this.searchText = text;
         this.options.searchText = text;
 
-        this.options.pageNumber = 1;
+        this.options.pageNumber = this.options.cookie ? this.options.pageNumber : 1;
         this.initSearch();
         if (event.firedByInitSearchText) {
             if (this.options.sidePagination === 'client') {
@@ -1992,28 +1992,8 @@
         this.$selectItem = this.$body.find(sprintf('[name="%s"]', this.options.selectItemName));
         this.$selectItem.off('click').on('click', function (event) {
             event.stopImmediatePropagation();
-
-            var $this = $(this),
-                checked = $this.prop('checked'),
-                row = that.data[$this.data('index')];
-
-            if ($(this).is(':radio') || that.options.singleSelect) {
-                $.each(that.options.data, function (i, row) {
-                    row[that.header.stateField] = false;
-                });
-            }
-
-            row[that.header.stateField] = checked;
-
-            if (that.options.singleSelect) {
-                that.$selectItem.not(this).each(function () {
-                    that.data[$(this).data('index')][that.header.stateField] = false;
-                });
-                that.$selectItem.filter(':checked').not(this).prop('checked', false);
-            }
-
-            that.updateSelected();
-            that.trigger(checked ? 'check' : 'uncheck', row, $this);
+            var $this = $(this);
+            that.check_($this.prop('checked'), $this.data('index'));
         });
 
         $.each(this.header.events, function (i, events) {
@@ -2907,10 +2887,27 @@
     };
 
     BootstrapTable.prototype.check_ = function (checked, index) {
-        var $el = this.$selectItem.filter(sprintf('[data-index="%s"]', index)).prop('checked', checked);
-        this.data[index][this.header.stateField] = checked;
+        var row = this.data[index], 
+            that = this,
+            $el = this.$selectItem.filter(sprintf('[data-index="%s"]', index));
+
+         if ($el.is(':radio') || this.options.singleSelect) {
+            $.each(this.options.data, function (i, row) {
+                row[that.header.stateField] = false;
+            });
+        }
+
+        if (this.options.singleSelect) {
+            this.$selectItem.not($el).each(function () {
+                that.data[$($el).data('index')][that.header.stateField] = false;
+            });
+            this.$selectItem.filter(':checked').not($el).prop('checked', false);
+        }
+
+        row[this.header.stateField] = checked;
+        $el.prop('checked', checked);
         this.updateSelected();
-        this.trigger(checked ? 'check' : 'uncheck', this.data[index], $el);
+        this.trigger(checked ? 'check' : 'uncheck', row, $el);
     };
 
     BootstrapTable.prototype.checkBy = function (obj) {

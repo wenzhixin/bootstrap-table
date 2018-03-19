@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.1.2
+ * @version: v2.1.3
  */
 
 (function ($) {
@@ -582,7 +582,7 @@
         var fp = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial;
 
         //Check partial column filter
-        that.data = fp ? $.grep(that.data, function (item, i) {
+        that.data = fp ? $.grep(that.options.data, function (item, i) {
             for (var key in fp) {
                 var thisColumn = that.columns[that.fieldsColumnsIndex[key]];
                 var fval = fp[key].toLowerCase();
