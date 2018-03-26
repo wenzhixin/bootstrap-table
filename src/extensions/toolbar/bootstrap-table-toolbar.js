@@ -36,7 +36,7 @@
 
             $('#avdSearchModalContent' + "_" + that.options.idTable).append(vFormAvd.join(''));
 
-            $('#' + that.options.idForm).off('keyup blur', 'input').on('keyup blur', 'input', function (event) {
+            $('#' + that.options.idForm).off('keyup blur change', 'input,select').on('keyup blur change', 'input,select', function (event) {
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnAdvancedSearch(event);
@@ -62,7 +62,16 @@
                 htmlForm.push('<div class="form-group">');
                 htmlForm.push(sprintf('<label class="col-sm-4 control-label">%s</label>', vObjCol.title));
                 htmlForm.push('<div class="col-sm-6">');
-                htmlForm.push(sprintf('<input type="text" class="form-control input-md" name="%s" placeholder="%s" id="%s">', vObjCol.field, vObjCol.title, vObjCol.field));
+                if (vObjCol.collection_select && vObjCol.collection_select_options) {
+                    htmlForm.push(sprintf('<select class="form-control input-md" name="%s" id="%s">', vObjCol.field, vObjCol.field));
+                    htmlForm.push('<option value=""></option>');
+                    collection_select_options.split(',').forEach(function(el){
+                        htmlForm.push('<option value="' + el + '">' + el + '</option>');
+                    });
+                    htmlForm.push('</select>');
+                } else {
+                    htmlForm.push(sprintf('<input type="text" class="form-control input-md" name="%s" placeholder="%s" id="%s">', vObjCol.field, vObjCol.title, vObjCol.field));
+                }
                 htmlForm.push('</div>');
                 htmlForm.push('</div>');
             }
