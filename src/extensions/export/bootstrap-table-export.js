@@ -37,7 +37,7 @@
   })
 
   $.extend($.fn.bootstrapTable.locales, {
-    formatExport() {
+    formatExport () {
       return 'Export data'
     }
   })
@@ -82,10 +82,10 @@
         const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
         exportTypes = types.map(t => t.slice(1, -1))
       }
-      for (type of exportTypes) {
+      for (let type of exportTypes) {
         if (TYPE_NAME.hasOwnProperty(type)) {
-          const item = utils.bootstrapVersion === 4 ?
-            TYPE_NAME[type] : `<a href="javascript:void(0)">${TYPE_NAME[type]}</a>`
+          const item = utils.bootstrapVersion === 4
+            ? TYPE_NAME[type] : `<a href="javascript:void(0)">${TYPE_NAME[type]}</a>`
           const $item = $(utils.sprintf(utils.bs.toobarDropdowItemHtml, item))
           $item.attr('data-type', type)
           $menu.append($item)
@@ -95,17 +95,15 @@
       $menu.find('>li, >label').click(e => {
         const type = $(e.currentTarget).data('type')
         const doExport = () => {
+          const data = this.getData()
           if (o.exportFooter) {
-            const data = this.getData()
             const $footerRow = this.$tableFooter.find('tr').first()
-
             const footerData = {}
             const footerHtml = []
 
-            $.each($footerRow.children(), function(index, footerCell) {
-
-              var footerCellHtml = $(footerCell).children(".th-inner").first().html()
-              footerData[this.columns[index].field] = footerCellHtml == '&nbsp;' ? null : footerCellHtml
+            $.each($footerRow.children(), function (index, footerCell) {
+              var footerCellHtml = $(footerCell).children('.th-inner').first().html()
+              footerData[this.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
 
               // grab footer cell text into cell index-based array
               footerHtml.push(footerCellHtml)
@@ -115,8 +113,7 @@
 
             var $lastTableRow = this.$body.children().last()
 
-            $.each($lastTableRow.children(), function(index, lastTableRowCell) {
-
+            $.each($lastTableRow.children(), function (index, lastTableRowCell) {
               $(lastTableRowCell).html(footerHtml[index])
             })
           }
@@ -143,8 +140,8 @@
           })
           this.togglePagination()
         } else if (o.exportDataType === 'selected') {
-          const data = this.getData()
-          const selectedData = this.getSelections()
+          let data = this.getData()
+          let selectedData = this.getSelections()
           if (!selectedData.length) {
             return
           }
@@ -178,5 +175,4 @@
       })
     }
   }
-
 })(jQuery)
