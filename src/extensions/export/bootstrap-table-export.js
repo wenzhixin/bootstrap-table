@@ -3,177 +3,180 @@
  * extensions: https://github.com/kayalshri/tableExport.jquery.plugin
  */
 
-(function ($) {
-    'use strict';
-    var sprintf = $.fn.bootstrapTable.utils.sprintf;
+($ => {
+  const utils = $.fn.bootstrapTable.utils
+  const BootstrapTable = $.fn.bootstrapTable.Constructor
 
-    var TYPE_NAME = {
-        json: 'JSON',
-        xml: 'XML',
-        png: 'PNG',
-        csv: 'CSV',
-        txt: 'TXT',
-        sql: 'SQL',
-        doc: 'MS-Word',
-        excel: 'MS-Excel',
-        xlsx: 'MS-Excel (OpenXML)',
-        powerpoint: 'MS-Powerpoint',
-        pdf: 'PDF'
-    };
+  const TYPE_NAME = {
+    json: 'JSON',
+    xml: 'XML',
+    png: 'PNG',
+    csv: 'CSV',
+    txt: 'TXT',
+    sql: 'SQL',
+    doc: 'MS-Word',
+    excel: 'MS-Excel',
+    xlsx: 'MS-Excel (OpenXML)',
+    powerpoint: 'MS-Powerpoint',
+    pdf: 'PDF'
+  }
 
-    $.extend($.fn.bootstrapTable.defaults, {
-        showExport: false,
-        exportDataType: 'basic', // basic, all, selected
-        // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
-        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
-        exportOptions: {}
-    });
+  $.extend($.fn.bootstrapTable.defaults, {
+    showExport: false,
+    exportDataType: 'basic', // basic, all, selected
+    exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
+    exportOptions: {},
+    exportFooter: false
+  })
 
-    $.extend($.fn.bootstrapTable.defaults.icons, {
-        export: 'glyphicon-export icon-share'
-    });
+  $.extend($.fn.bootstrapTable.defaults.icons, {
+    export: {
+      3: 'glyphicon-export icon-share',
+      4: 'fa-download'
+    }[utils.bootstrapVersion]
+  })
 
-    $.extend($.fn.bootstrapTable.locales, {
-        formatExport: function () {
-            return 'Export data';
+  $.extend($.fn.bootstrapTable.locales, {
+    formatExport() {
+      return 'Export data'
+    }
+  })
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+
+  $.fn.bootstrapTable.Constructor = class extends BootstrapTable {
+    initToolbar () {
+      const o = this.options
+
+      this.showToolbar = this.showToolbar || o.showExport
+
+      super.initToolbar()
+
+      if (!this.options.showExport) {
+        return
+      }
+      const $btnGroup = this.$toolbar.find('>.btn-group')
+      let $export = $btnGroup.find('div.export')
+
+      if ($export.length) {
+        return
+      }
+      $export = $(`
+        <div class="export btn-group">
+        <button class="btn btn-${o.buttonsClass} btn-${o.iconSize} dropdown-toggle"
+          aria-label="export type"
+          title="${o.formatExport()}"
+          data-toggle="dropdown"
+          type="button">
+          <i class="${o.iconsPrefix} ${o.icons.export}"></i>
+          <span class="caret"></span>
+        </button>
+        ${utils.bs.toobarDropdowHtml[0]}
+        ${utils.bs.toobarDropdowHtml[1]}
+        </div>
+      `).appendTo($btnGroup)
+
+      const $menu = $export.find('.dropdown-menu')
+      let exportTypes = o.exportTypes
+
+      if (typeof exportTypes === 'string') {
+        const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
+        exportTypes = types.map(t => t.slice(1, -1))
+      }
+      for (type of exportTypes) {
+        if (TYPE_NAME.hasOwnProperty(type)) {
+          const item = utils.bootstrapVersion === 4 ?
+            TYPE_NAME[type] : `<a href="javascript:void(0)">${TYPE_NAME[type]}</a>`
+          const $item = $(utils.sprintf(utils.bs.toobarDropdowItemHtml, item))
+          $item.attr('data-type', type)
+          $menu.append($item)
         }
-    });
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+      }
 
-    var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initToolbar = BootstrapTable.prototype.initToolbar;
+      $menu.find('>li, >label').click(e => {
+        const type = $(e.currentTarget).data('type')
+        const doExport = () => {
+          if (o.exportFooter) {
+            const data = this.getData()
+            const $footerRow = this.$tableFooter.find('tr').first()
 
-    BootstrapTable.prototype.initToolbar = function () {
-        this.showToolbar = this.showToolbar || this.options.showExport;
+            const footerData = {}
+            const footerHtml = []
 
-        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+            $.each($footerRow.children(), function(index, footerCell) {
 
-        if (this.options.showExport) {
-            var that = this,
-                $btnGroup = this.$toolbar.find('>.btn-group'),
-                $export = $btnGroup.find('div.export');
+              var footerCellHtml = $(footerCell).children(".th-inner").first().html()
+              footerData[this.columns[index].field] = footerCellHtml == '&nbsp;' ? null : footerCellHtml
 
-            if (!$export.length) {
-                $export = $([
-                    '<div class="export btn-group">',
-                        '<button class="btn' +
-                            sprintf(' btn-%s', this.options.buttonsClass) +
-                            sprintf(' btn-%s', this.options.iconSize) +
-                            ' dropdown-toggle" aria-label="export type" ' +
-                            'title="' + this.options.formatExport() + '" ' +
-                            'data-toggle="dropdown" type="button">',
-                            sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.export),
-                            '<span class="caret"></span>',
-                        '</button>',
-                        '<ul class="dropdown-menu" role="menu">',
-                        '</ul>',
-                    '</div>'].join('')).appendTo($btnGroup);
+              // grab footer cell text into cell index-based array
+              footerHtml.push(footerCellHtml)
+            })
 
-                var $menu = $export.find('.dropdown-menu'),
-                    exportTypes = this.options.exportTypes;
+            this.append(footerData)
 
-                if (typeof this.options.exportTypes === 'string') {
-                    var types = this.options.exportTypes.slice(1, -1).replace(/ /g, '').split(',');
+            var $lastTableRow = this.$body.children().last()
 
-                    exportTypes = [];
-                    $.each(types, function (i, value) {
-                        exportTypes.push(value.slice(1, -1));
-                    });
-                }
-                $.each(exportTypes, function (i, type) {
-                    if (TYPE_NAME.hasOwnProperty(type)) {
-                        $menu.append(['<li role="menuitem" data-type="' + type + '">',
-                                '<a href="javascript:void(0)">',
-                                    TYPE_NAME[type],
-                                '</a>',
-                            '</li>'].join(''));
-                    }
-                });
+            $.each($lastTableRow.children(), function(index, lastTableRowCell) {
 
-                $menu.find('li').click(function () {
-                    var type = $(this).data('type'),
-                        doExport = function () {
+              $(lastTableRowCell).html(footerHtml[index])
+            })
+          }
 
-                            if (!!that.options.exportFooter) {
-                                var data = that.getData();
-                                var $footerRow = that.$tableFooter.find("tr").first();
+          this.$el.tableExport($.extend({}, o.exportOptions, {
+            type: type,
+            escape: false
+          }))
 
-                                var footerData = { };
-                                var footerHtml = [];
+          if (o.exportFooter) {
+            this.load(data)
+          }
+        }
 
-                                $.each($footerRow.children(), function (index, footerCell) {
+        const stateField = this.header.stateField
 
-                                    var footerCellHtml = $(footerCell).children(".th-inner").first().html();
-                                    footerData[that.columns[index].field] = footerCellHtml == '&nbsp;' ? null : footerCellHtml;
-
-                                    // grab footer cell text into cell index-based array
-                                    footerHtml.push(footerCellHtml);
-                                });
-
-                                that.append(footerData);
-
-                                var $lastTableRow = that.$body.children().last();
-
-                                $.each($lastTableRow.children(), function (index, lastTableRowCell) {
-
-                                    $(lastTableRowCell).html(footerHtml[index]);
-                                });
-                            }
-
-                            that.$el.tableExport($.extend({}, that.options.exportOptions, {
-                                type: type,
-                                escape: false
-                            }));
-
-                            if (!!that.options.exportFooter) {
-                                that.load(data);
-                            }
-                        };
-
-                    var stateField = that.header.stateField;
-
-                    if (that.options.exportDataType === 'all' && that.options.pagination) {
-                        that.$el.one(that.options.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table', function () {
-                            if (stateField) {
-                                that.hideColumn(stateField);
-                            }
-                            doExport();
-                            that.togglePagination();
-                        });
-                        that.togglePagination();
-                    } else if (that.options.exportDataType === 'selected') {
-                        var data = that.getData(),
-                            selectedData = that.getSelections();
-                        if (!selectedData.length) {
-                            return;
-                        }
-
-                        if (that.options.sidePagination === 'server') {
-                            var dataServer = {total: that.options.totalRows};
-                            dataServer[that.options.dataField] = data;
-                            data = dataServer;
-                            var selectedDataServer = {total: selectedData.length};
-                            selectedDataServer[that.options.dataField] = selectedData;
-                            selectedData = selectedDataServer;
-                        }
-
-                        that.load(selectedData);
-                        if (stateField) {
-                            that.hideColumn(stateField);
-                        }
-                        doExport();
-                        that.load(data);
-                    } else {
-                        if (stateField) {
-                            that.hideColumn(stateField);
-                        }
-                        doExport();
-                    }
-                    if (stateField) {
-                        that.showColumn(stateField);
-                    }
-                });
+        if (o.exportDataType === 'all' && o.pagination) {
+          this.$el.one(o.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table', () => {
+            if (stateField) {
+              this.hideColumn(stateField)
             }
+            doExport()
+            this.togglePagination()
+          })
+          this.togglePagination()
+        } else if (o.exportDataType === 'selected') {
+          const data = this.getData()
+          const selectedData = this.getSelections()
+          if (!selectedData.length) {
+            return
+          }
+
+          if (o.sidePagination === 'server') {
+            data = {
+              total: o.totalRows,
+              [this.options.dataField]: data
+            }
+            selectedData = {
+              total: selectedData.length,
+              [this.options.dataField]: selectedData
+            }
+          }
+
+          this.load(selectedData)
+          if (stateField) {
+            this.hideColumn(stateField)
+          }
+          doExport()
+          this.load(data)
+        } else {
+          if (stateField) {
+            this.hideColumn(stateField)
+          }
+          doExport()
         }
-    };
-})(jQuery);
+        if (stateField) {
+          this.showColumn(stateField)
+        }
+      })
+    }
+  }
+
+})(jQuery)
