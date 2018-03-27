@@ -3158,6 +3158,7 @@
     'updateFormatText', 'updateCellById'
   ]
 
+  $.BootstrapTable = BootstrapTable
   $.fn.bootstrapTable = function (option, ...args) {
     let value
 
@@ -3183,14 +3184,12 @@
       }
 
       if (!data) {
-        $(el).data('bootstrap.table', (data = new BootstrapTable(el, options)))
+        $(el).data('bootstrap.table', (data = new $.BootstrapTable(el, options)))
       }
     })
 
     return typeof value === 'undefined' ? this : value
   }
-
-  $.fn.bootstrapTable.Constructor = BootstrapTable
   $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS
   $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS
   $.fn.bootstrapTable.locales = BootstrapTable.LOCALES

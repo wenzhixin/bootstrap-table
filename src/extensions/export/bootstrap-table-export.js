@@ -4,8 +4,7 @@
  */
 
 ($ => {
-  const utils = $.fn.bootstrapTable.utils
-  const BootstrapTable = $.fn.bootstrapTable.Constructor
+  const Utils = $.fn.bootstrapTable.utils
 
   const TYPE_NAME = {
     json: 'JSON',
@@ -33,7 +32,7 @@
     export: {
       3: 'glyphicon-export icon-share',
       4: 'fa-download'
-    }[utils.bootstrapVersion]
+    }[Utils.bootstrapVersion]
   })
 
   $.extend($.fn.bootstrapTable.locales, {
@@ -43,7 +42,7 @@
   })
   $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-  $.fn.bootstrapTable.Constructor = class extends BootstrapTable {
+  $.BootstrapTable = class extends $.BootstrapTable {
     initToolbar () {
       const o = this.options
 
@@ -70,8 +69,8 @@
           <i class="${o.iconsPrefix} ${o.icons.export}"></i>
           <span class="caret"></span>
         </button>
-        ${utils.bs.toobarDropdowHtml[0]}
-        ${utils.bs.toobarDropdowHtml[1]}
+        ${Utils.bs.toobarDropdowHtml[0]}
+        ${Utils.bs.toobarDropdowHtml[1]}
         </div>
       `).appendTo($btnGroup)
 
@@ -84,9 +83,9 @@
       }
       for (let type of exportTypes) {
         if (TYPE_NAME.hasOwnProperty(type)) {
-          const item = utils.bootstrapVersion === 4
+          const item = Utils.bootstrapVersion === 4
             ? TYPE_NAME[type] : `<a href="javascript:void(0)">${TYPE_NAME[type]}</a>`
-          const $item = $(utils.sprintf(utils.bs.toobarDropdowItemHtml, item))
+          const $item = $(Utils.sprintf(Utils.bs.toobarDropdowItemHtml, item))
           $item.attr('data-type', type)
           $menu.append($item)
         }
