@@ -74,10 +74,10 @@
       return flag ? str : ''
     },
 
-    getPropertyFromOther (list, from, to, value) {
-      for (let item in list) {
-        if (item[from] === value) {
-          return item[to]
+    getFieldTitle (list, value) {
+      for (let item of list) {
+        if (item.field === value) {
+          return item.title
         }
       }
       return ''
@@ -1638,7 +1638,7 @@
 
       if (attributes) {
         for (key in attributes) {
-          htmlAttributes.push(Utils.sprintf('%s="%s"', key, Utils.escapeHTML(attributes[key])))
+          htmlAttributes.push(`${key}="${Utils.escapeHTML(attributes[key])}"`)
         }
       }
 
@@ -1648,7 +1648,7 @@
           if (k === 'index') {
             return
           }
-          data_ += Utils.sprintf(' data-%s="%s"', k, v)
+          data_ += ` data-${k}="${v}"`
         })
       }
 
@@ -1656,7 +1656,7 @@
         Utils.sprintf(' %s', htmlAttributes.length ? htmlAttributes.join(' ') : undefined),
         Utils.sprintf(' id="%s"', $.isArray(item) ? undefined : item._id),
         Utils.sprintf(' class="%s"', style.classes || ($.isArray(item) ? undefined : item._class)),
-        Utils.sprintf(' data-index="%s"', i),
+        ` data-index="${i}"`,
         Utils.sprintf(' data-uniqueid="%s"', item[this.options.uniqueId]),
         Utils.sprintf('%s', data_),
         '>'
@@ -1672,7 +1672,7 @@
         if (Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) {
           html.push(`
             <a class="detail-icon" href="#">
-            <i class="${this.options.iconsPrefix} ${this.options.icons.detailOpen}"></i>,
+            <i class="${this.options.iconsPrefix} ${this.options.icons.detailOpen}"></i>
             </a>
           `)
         }
@@ -1688,6 +1688,7 @@
         let cellStyle = {}
         let id_ = ''
         let class_ = this.header.classes[j]
+        let style_ = ''
         let data_ = ''
         let rowspan_ = ''
         let colspan_ = ''
@@ -1712,8 +1713,9 @@
           value_ = Utils.escapeHTML(value_)
         }
 
-        style = Utils.sprintf('style="%s"', csses.concat(this.header.styles[j]).join('; '))
-
+        if (csses.concat([this.header.styles[j]]).length) {
+          style_ = ` style="${csses.concat([this.header.styles[j]]).join('; ')}"`
+        }
         // handle td's id and class
         if (item[`_${field}_id`]) {
           id_ = Utils.sprintf(' id="%s"', item[`_${field}_id`])
@@ -1733,14 +1735,14 @@
         cellStyle = Utils.calculateObjectValue(this.header,
           this.header.cellStyles[j], [value_, item, i, field], cellStyle)
         if (cellStyle.classes) {
-          class_ = Utils.sprintf(' class="%s"', cellStyle.classes)
+          class_ = ` class="${cellStyle.classes}"`
         }
         if (cellStyle.css) {
           const csses_ = []
           for (const key in cellStyle.css) {
             csses_.push(`${key}: ${cellStyle.css[key]}`)
           }
-          style = Utils.sprintf('style="%s"', csses_.concat(this.header.styles[j]).join('; '))
+          style_ = ` style="${csses_.concat(this.header.styles[j]).join('; ')}"`
         }
 
         value = Utils.calculateObjectValue(column,
@@ -1752,7 +1754,7 @@
             if (k === 'index') {
               return
             }
-            data_ += Utils.sprintf(' data-%s="%s"', k, v)
+            data_ += ` data-${k}="${v}"`
           })
         }
 
@@ -1760,43 +1762,38 @@
           type = column.checkbox ? 'checkbox' : type
           type = column.radio ? 'radio' : type
 
+          const c = column['class'] || ''
           text = [
-            Utils.sprintf(
-              this.options.cardView ? '<div class="card-view %s">' : '<td class="bs-checkbox %s">',
-              column['class'] || '')
-          ]
-          text.push(`
-            <input
-            ${Utils.sprintf(' data-index="%s"', i)}
-            ${Utils.sprintf(' name="%s"', this.options.selectItemName)}
-            ${Utils.sprintf(' type="%s"', type)}
-            ${Utils.sprintf(' value="%s"', item[this.options.idField])}
-            ${Utils.sprintf(' checked="%s"', value === true || (value_ || (value && value.checked)) ? 'checked' : undefined)}
-            ${Utils.sprintf(' disabled="%s"', !column.checkboxEnabled || (value && value.disabled) ? 'disabled' : undefined)} />
-          `)
-          text.push(this.header.formatters[j] && typeof value === 'string' ? value : '')
-          text.push(this.options.cardView ? '</div>' : '</td>')
+            this.options.cardView
+              ? `<div class="card-view ${c}">`
+              : `<td class="bs-checkbox ${c}">`,
+            `<input
+              data-index="${i}"
+              name="${this.options.selectItemName}"
+              type="${type}"
+              value="${item[this.options.idField]}"
+              ${value === true || (value_ || (value && value.checked)) ? 'checked="checked"' : ''}
+              ${!column.checkboxEnabled || (value && value.disabled) ? 'disabled="disabled"' : ''} />`,
+            this.header.formatters[j] && typeof value === 'string' ? value : '',
+            this.options.cardView ? '</div>' : '</td>'
+          ].join('')
 
           item[this.header.stateField] = value === true || (!!value_ || (value && value.checked))
         } else {
           value = typeof value === 'undefined' || value === null
             ? this.options.undefinedText : value
 
-          text = this.options.cardView ? [
-            '<div class="card-view">',
-            this.options.showHeader ? Utils.sprintf('<span class="title" %s>%s</span>', style, Utils.getPropertyFromOther(this.columns, 'field', 'title', field)) : '',
-            Utils.sprintf('<span class="value">%s</span>', value),
-            '</div>'
-          ].join('') : [Utils.sprintf('<td%s %s %s %s %s %s %s>',
-            id_, class_, style, data_, rowspan_, colspan_, title_),
-          value,
-          '</td>'
-          ].join('')
+          if (this.options.cardView) {
+            const cardTitle = this.options.showHeader
+              ? `<span class="title"${style}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
 
-          // Hide empty data on Card view when smartDisplay is set to true.
-          if (this.options.cardView && this.options.smartDisplay && value === '') {
-            // Should set a placeholder for event binding correct fieldIndex
-            text = '<div class="card-view"></div>'
+            text = `<div class="card-view">${cardTitle}<span class="value">${value}</span></div>`
+
+            if (this.options.smartDisplay && value === '') {
+              text = '<div class="card-view"></div>'
+            }
+          } else {
+            text = `<td${id_}${class_}${style_}${data_}${rowspan_}${colspan_}${title_}>${value}</td>`
           }
         }
 
@@ -1952,8 +1949,8 @@
         }
 
         for (const key in events) {
-          this.$body.find('>tr:not(.no-records-found)').each(function () {
-            const $tr = $(this)
+          this.$body.find('>tr:not(.no-records-found)').each(e => {
+            const $tr = $(e.currentTarget)
             const $td = $tr.find(this.options.cardView ? '.card-view' : 'td').eq(fieldIndex)
             const index = key.indexOf(' ')
             const name = key.substring(0, index)
@@ -2309,8 +2306,8 @@
 
       $footerTd = this.$tableFooter.find('td')
 
-      this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i) {
-        const $this = $(this)
+      this.$body.find('>tr:first-child:not(.no-records-found) > *').each((i, el) => {
+        const $this = $(el)
 
         $footerTd.eq(i).find('.fht-cell').width($this.innerWidth())
       })
