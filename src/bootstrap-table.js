@@ -687,7 +687,7 @@
         // save tr's id, class and data-* attributes
         row._id = $(el).attr('id')
         row._class = $(el).attr('class')
-        row._data = Utils.getRealDataAttr($(this).data())
+        row._data = Utils.getRealDataAttr($(el).data())
 
         $(el).find('>td').each((x, el) => {
           const cspan = +$(el).attr('colspan') || 1
@@ -846,11 +846,11 @@
       })
 
       this.$header.html(html.join(''))
-      this.$header.find('th[data-field]').each(function (i) {
-        $(this).data(visibleColumns[$(this).data('field')])
+      this.$header.find('th[data-field]').each((i, el) => {
+        $(el).data(visibleColumns[$(el).data('field')])
       })
-      this.$container.off('click', '.th-inner').on('click', '.th-inner', function (event) {
-        const $this = $(this)
+      this.$container.off('click', '.th-inner').on('click', '.th-inner', e => {
+        const $this = $(e.currentTarget)
 
         if (this.options.detailView && !$this.parent().hasClass('bs-checkbox')) {
           if ($this.closest('.bootstrap-table')[0] !== this.$container[0]) {
@@ -859,15 +859,15 @@
         }
 
         if (this.options.sortable && $this.parent().data().sortable) {
-          this.onSort(event)
+          this.onSort(e)
         }
       })
 
-      this.$header.children().children().off('keypress').on('keypress', function (event) {
-        if (this.options.sortable && $(this).data().sortable) {
-          const code = event.keyCode || event.which
+      this.$header.children().children().off('keypress').on('keypress', e => {
+        if (this.options.sortable && $(e.currentTarget).data().sortable) {
+          const code = e.keyCode || e.which
           if (code === 13) { // Enter keycode
-            this.onSort(event)
+            this.onSort(e)
           }
         }
       })
@@ -887,8 +887,8 @@
       }
 
       this.$selectAll = this.$header.find('[name="btSelectAll"]')
-      this.$selectAll.off('click').on('click', function () {
-        const checked = $(this).prop('checked')
+      this.$selectAll.off('click').on('click', e => {
+        const checked = $(e.currentTarget).prop('checked')
         this[checked ? 'checkAll' : 'uncheckAll']()
         this.updateSelected()
       })
@@ -924,7 +924,6 @@
     }
 
     initSort () {
-      const that = this
       let name = this.options.sortName
       const order = this.options.sortOrder === 'desc' ? -1 : 1
       const index = $.inArray(this.options.sortName, this.header.fields)
@@ -943,15 +942,15 @@
         }
 
         this.data.sort((a, b) => {
-          if (that.header.sortNames[index]) {
-            name = that.header.sortNames[index]
+          if (this.header.sortNames[index]) {
+            name = this.header.sortNames[index]
           }
-          let aa = Utils.getItemField(a, name, that.options.escape)
-          let bb = Utils.getItemField(b, name, that.options.escape)
-          const value = Utils.calculateObjectValue(that.header, that.header.sorters[index], [aa, bb, a, b])
+          let aa = Utils.getItemField(a, name, this.options.escape)
+          let bb = Utils.getItemField(b, name, this.options.escape)
+          const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
 
           if (value !== undefined) {
-            if (that.options.sortStable && value === 0) {
+            if (this.options.sortStable && value === 0) {
               return a._position - b._position
             }
             return order * value
@@ -965,7 +964,7 @@
             bb = ''
           }
 
-          if (that.options.sortStable && aa === bb) {
+          if (this.options.sortStable && aa === bb) {
             aa = a._position
             bb = b._position
             return a._position - b._position
@@ -1001,11 +1000,11 @@
         if (this.options.sortClass !== undefined) {
           clearTimeout(timeoutId)
           timeoutId = setTimeout(() => {
-            that.$el.removeClass(that.options.sortClass)
-            const index = that.$header.find(Utils.sprintf('[data-field="%s"]',
-              that.options.sortName).index() + 1)
-            that.$el.find(Utils.sprintf('tr td:nth-child(%s)', index))
-              .addClass(that.options.sortClass)
+            this.$el.removeClass(this.options.sortClass)
+            const index = this.$header.find(Utils.sprintf('[data-field="%s"]',
+              this.options.sortName).index() + 1)
+            this.$el.find(Utils.sprintf('tr td:nth-child(%s)', index))
+              .addClass(this.options.sortClass)
           }, 250)
         }
       }
@@ -1044,7 +1043,6 @@
     }
 
     initToolbar () {
-      const that = this
       let html = []
       let timeoutId = 0
       let $keepOpen
@@ -1117,7 +1115,7 @@
             return
           }
 
-          if (that.options.cardView && !column.cardVisible) {
+          if (this.options.cardView && !column.cardVisible) {
             return
           }
 
@@ -1153,7 +1151,7 @@
       if (this.options.showToggle) {
         this.$toolbar.find('button[name="toggle"]')
           .off('click').on('click', () => {
-            that.toggleView()
+            this.toggleView()
           })
       }
 
@@ -1164,14 +1162,14 @@
           $keepOpen.find('input').prop('disabled', true)
         }
 
-        $keepOpen.find('li').off('click').on('click', event => {
-          event.stopImmediatePropagation()
+        $keepOpen.find('li').off('click').on('click', e => {
+          e.stopImmediatePropagation()
         })
-        $keepOpen.find('input').off('click').on('click', function () {
-          const $this = $(this)
+        $keepOpen.find('input').off('click').on('click', e => {
+          const $this = $(e.currentTarget)
 
-          that.toggleColumn($(this).val(), $this.prop('checked'), false)
-          that.trigger('column-switch', $(this).data('field'), $this.prop('checked'))
+          this.toggleColumn($this.val(), $this.prop('checked'), false)
+          this.trigger('column-switch', $this.data('field'), $this.prop('checked'))
         })
       }
 
@@ -1186,7 +1184,7 @@
         this.$toolbar.append(html.join(''))
         $search = this.$toolbar.find('.search input')
         $search.off('keyup drop blur').on('keyup drop blur', event => {
-          if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+          if (this.options.searchOnEnterKey && event.keyCode !== 13) {
             return
           }
 
@@ -1196,16 +1194,16 @@
 
           clearTimeout(timeoutId) // doesn't matter if it's 0
           timeoutId = setTimeout(() => {
-            that.onSearch(event)
-          }, that.options.searchTimeOut)
+            this.onSearch(event)
+          }, this.options.searchTimeOut)
         })
 
         if (Utils.isIEBrowser()) {
           $search.off('mouseup').on('mouseup', event => {
             clearTimeout(timeoutId) // doesn't matter if it's 0
             timeoutId = setTimeout(() => {
-              that.onSearch(event)
-            }, that.options.searchTimeOut)
+              this.onSearch(event)
+            }, this.options.searchTimeOut)
           })
         }
       }
@@ -1238,8 +1236,6 @@
     }
 
     initSearch () {
-      const that = this
-
       if (this.options.sidePagination !== 'server') {
         if (this.options.customSearch !== $.noop) {
           window[this.options.customSearch].apply(this, [this.searchText])
@@ -1266,13 +1262,13 @@
         }) : this.options.data
 
         this.data = s ? $.grep(this.data, (item, i) => {
-          for (let j = 0; j < that.header.fields.length; j++) {
-            if (!that.header.searchables[j]) {
+          for (let j = 0; j < this.header.fields.length; j++) {
+            if (!this.header.searchables[j]) {
               continue
             }
 
-            const key = $.isNumeric(that.header.fields[j]) ? parseInt(that.header.fields[j], 10) : that.header.fields[j]
-            const column = that.columns[that.fieldsColumnsIndex[key]]
+            const key = $.isNumeric(this.header.fields[j]) ? parseInt(this.header.fields[j], 10) : this.header.fields[j]
+            const column = this.columns[this.fieldsColumnsIndex[key]]
             let value
 
             if (typeof key === 'string') {
@@ -1287,14 +1283,14 @@
               // Fix #142: respect searchForamtter boolean
               if (column && column.searchFormatter) {
                 value = Utils.calculateObjectValue(column,
-                  that.header.formatters[j], [value, item, i], value)
+                  this.header.formatters[j], [value, item, i], value)
               }
             } else {
               value = item[key]
             }
 
             if (typeof value === 'string' || typeof value === 'number') {
-              if (that.options.strictSearch) {
+              if (this.options.strictSearch) {
                 if ((`${value}`).toLowerCase() === s) {
                   return true
                 }
@@ -1318,7 +1314,6 @@
         this.$pagination.show()
       }
 
-      const that = this
       const html = []
       let $allSelected = false
       let i
@@ -1342,7 +1337,7 @@
           $allSelected = true
         } else if (this.options.pageSize === this.options.totalRows) {
           // Fix #667 Table with pagination,
-          // multiple pages and a search that matches to one page throws exception
+          // multiple pages and a search this matches to one page throws exception
           const pageLst = typeof this.options.pageList === 'string'
             ? this.options.pageList.replace('[', '').replace(']', '')
               .replace(/ /g, '').toLowerCase().split(',') : this.options.pageList
@@ -1394,18 +1389,18 @@
 
           pageList = []
           $.each(list, (i, value) => {
-            pageList.push((value.toUpperCase() === that.options.formatAllRows().toUpperCase() || value.toUpperCase() === 'UNLIMITED')
-              ? that.options.formatAllRows() : +value)
+            pageList.push((value.toUpperCase() === this.options.formatAllRows().toUpperCase() || value.toUpperCase() === 'UNLIMITED')
+              ? this.options.formatAllRows() : +value)
           })
         }
 
         $.each(pageList, (i, page) => {
-          if (!that.options.smartDisplay || i === 0 || pageList[i - 1] < that.options.totalRows) {
+          if (!this.options.smartDisplay || i === 0 || pageList[i - 1] < this.options.totalRows) {
             let active
             if ($allSelected) {
-              active = page === that.options.formatAllRows() ? 'active' : ''
+              active = page === this.options.formatAllRows() ? 'active' : ''
             } else {
-              active = page === that.options.pageSize ? 'active' : ''
+              active = page === this.options.pageSize ? 'active' : ''
             }
             pageNumber.push(Utils.sprintf(Utils.bs.pageDropdownItemHtml, active, page))
           }
@@ -1909,7 +1904,7 @@
         const checked = $this.prop('checked')
         const row = this.data[$this.data('index')]
 
-        if ($(this).is(':radio') || this.options.singleSelect) {
+        if ($(e.currentTarget).is(':radio') || this.options.singleSelect) {
           $.each(this.options.data, (i, row) => {
             row[this.header.stateField] = false
           })
@@ -1918,8 +1913,8 @@
         row[this.header.stateField] = checked
 
         if (this.options.singleSelect) {
-          this.$selectItem.not(this).each(function () {
-            this.data[$(this).data('index')][this.header.stateField] = false
+          this.$selectItem.not(this).each(e => {
+            this.data[$(e.currentTarget).data('index')][this.header.stateField] = false
           })
           this.$selectItem.filter(':checked').not(this).prop('checked', false)
         }
@@ -1957,7 +1952,7 @@
             const el = key.substring(index + 1)
             const func = events[key]
 
-            $td.find(el).off(name).on(name, function (e) {
+            $td.find(el).off(name).on(name, e => {
               const index = $tr.data('index')
               const row = this.data[index]
               const value = row[field]
@@ -1975,7 +1970,6 @@
     }
 
     initServer (silent, query, url) {
-      const that = this
       let data = {}
       const index = $.inArray(this.options.sortName, this.header.fields)
 
@@ -2043,23 +2037,23 @@
         cache: this.options.cache,
         contentType: this.options.contentType,
         dataType: this.options.dataType,
-        success (res) {
-          res = Utils.calculateObjectValue(that.options, that.options.responseHandler, [res], res)
+        success: res => {
+          res = Utils.calculateObjectValue(this.options, this.options.responseHandler, [res], res)
 
-          that.load(res)
-          that.trigger('load-success', res)
-          if (!silent) that.$tableLoading.hide()
+          this.load(res)
+          this.trigger('load-success', res)
+          if (!silent) this.$tableLoading.hide()
         },
-        error (res) {
+        error: res => {
           let data = []
-          if (that.options.sidePagination === 'server') {
+          if (this.options.sidePagination === 'server') {
             data = {}
-            data[that.options.totalField] = 0
-            data[that.options.dataField] = []
+            data[this.options.totalField] = 0
+            data[this.options.dataField] = []
           }
-          that.load(data)
-          that.trigger('load-error', res.status, res)
-          if (!silent) that.$tableLoading.hide()
+          this.load(data)
+          this.trigger('load-error', res.status, res)
+          if (!silent) this.$tableLoading.hide()
         }
       })
 
@@ -2085,10 +2079,8 @@
     }
 
     getCaret () {
-      const that = this
-
       $.each(this.$header.find('th'), (i, th) => {
-        $(th).find('.sortable').removeClass('desc asc').addClass($(th).data('field') === that.options.sortName ? that.options.sortOrder : 'both')
+        $(th).find('.sortable').removeClass('desc asc').addClass($(th).data('field') === this.options.sortName ? this.options.sortOrder : 'both')
       })
     }
 
@@ -2099,27 +2091,23 @@
 
       this.$selectAll.add(this.$selectAll_).prop('checked', checkAll)
 
-      this.$selectItem.each(function () {
-        $(this).closest('tr')[$(this).prop('checked') ? 'addClass' : 'removeClass']('selected')
+      this.$selectItem.each((i, el) => {
+        $(el).closest('tr')[$(el).prop('checked') ? 'addClass' : 'removeClass']('selected')
       })
     }
 
     updateRows () {
-      const that = this
-
-      this.$selectItem.each(function () {
-        that.data[$(this).data('index')][that.header.stateField] = $(this).prop('checked')
+      this.$selectItem.each((i, el) => {
+        this.data[$(el).data('index')][this.header.stateField] = $(el).prop('checked')
       })
     }
 
     resetRows () {
-      const that = this
-
       $.each(this.data, (i, row) => {
-        that.$selectAll.prop('checked', false)
-        that.$selectItem.prop('checked', false)
-        if (that.header.stateField) {
-          row[that.header.stateField] = false
+        this.$selectAll.prop('checked', false)
+        this.$selectItem.prop('checked', false)
+        if (this.header.stateField) {
+          row[this.header.stateField] = false
         }
       })
       this.initHiddenRows()
@@ -2142,14 +2130,13 @@
     }
 
     fitHeader () {
-      const that = this
       let fixedBody
       let scrollWidth
       let focused
       let focusedTemp
 
-      if (that.$el.is(':hidden')) {
-        that.timeoutId_ = setTimeout($.proxy(that.fitHeader, that), 100)
+      if (this.$el.is(':hidden')) {
+        this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), 100)
         return
       }
       fixedBody = this.$tableBody.get(0)
@@ -2189,20 +2176,20 @@
       }
 
       // fix bug: $.data() is not working as expected after $.append()
-      this.$header.find('th[data-field]').each(function (i) {
-        that.$header_.find(Utils.sprintf('th[data-field="%s"]', $(this).data('field'))).data($(this).data())
+      this.$header.find('th[data-field]').each((i, el) => {
+        this.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data())
       })
 
       const visibleFields = this.getVisibleFields()
       const $ths = this.$header_.find('th')
 
-      this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i) {
-        const $this = $(this)
+      this.$body.find('>tr:first-child:not(.no-records-found) > *').each((i, el) => {
+        const $this = $(el)
         let index = i
 
-        if (that.options.detailView && !that.options.cardView) {
+        if (this.options.detailView && !this.options.cardView) {
           if (i === 0) {
-            that.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth())
+            this.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth())
           }
           index = i - 1
         }
@@ -2211,7 +2198,7 @@
           return
         }
 
-        let $th = that.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]))
+        let $th = this.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]))
         if ($th.length > 1) {
           $th = $($ths[$this[0].cellIndex])
         }
@@ -2225,8 +2212,7 @@
     }
 
     resetFooter () {
-      const that = this
-      const data = that.getData()
+      const data = this.getData()
       const html = []
 
       if (!this.options.showFooter || this.options.cardView) { // do nothing
@@ -2252,14 +2238,14 @@
           return
         }
 
-        if (that.options.cardView && (!column.cardVisible)) {
+        if (this.options.cardView && (!column.cardVisible)) {
           return
         }
 
         falign = Utils.sprintf('text-align: %s; ', column.falign ? column.falign : column.align)
         valign = Utils.sprintf('vertical-align: %s; ', column.valign)
 
-        style = Utils.calculateObjectValue(null, that.options.footerStyle)
+        style = Utils.calculateObjectValue(null, this.options.footerStyle)
 
         if (style && style.css) {
           for (key in style.css) {
@@ -2316,18 +2302,17 @@
     }
 
     horizontalScroll () {
-      const that = this
       // horizontal scroll event
       // TODO: it's probably better improving the layout than binding to scroll event
 
-      that.trigger('scroll-body')
-      this.$tableBody.off('scroll').on('scroll', function () {
-        if (that.options.showHeader && that.options.height) {
-          that.$tableHeader.scrollLeft($(this).scrollLeft())
+      this.trigger('scroll-body')
+      this.$tableBody.off('scroll').on('scroll', e => {
+        if (this.options.showHeader && this.options.height) {
+          this.$tableHeader.scrollLeft($(e.currentTarget).scrollLeft())
         }
 
-        if (that.options.showFooter && !that.options.cardView) {
-          that.$tableFooter.scrollLeft($(this).scrollLeft())
+        if (this.options.showFooter && !this.options.cardView) {
+          this.$tableFooter.scrollLeft($(e.currentTarget).scrollLeft())
         }
       })
     }
@@ -2356,11 +2341,10 @@
     }
 
     getVisibleFields () {
-      const that = this
       const visibleFields = []
 
       $.each(this.header.fields, (j, field) => {
-        const column = that.columns[that.fieldsColumnsIndex[field]]
+        const column = this.columns[this.fieldsColumnsIndex[field]]
 
         if (!column.visible) {
           return
@@ -2567,7 +2551,6 @@
     }
 
     updateByUniqueId (params) {
-      const that = this
       const allParams = $.isArray(params) ? params : [ params ]
 
       $.each(allParams, (i, params) => {
@@ -2577,12 +2560,12 @@
           return
         }
 
-        rowId = $.inArray(that.getRowByUniqueId(params.id), that.options.data)
+        rowId = $.inArray(this.getRowByUniqueId(params.id), this.options.data)
 
         if (rowId === -1) {
           return
         }
-        $.extend(that.options.data[rowId], params.row)
+        $.extend(this.options.data[rowId], params.row)
       })
 
       this.initSearch()
@@ -2601,9 +2584,9 @@
 
       if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
         const header = this.options.height !== undefined ? this.$tableHeader : this.$header
-        header.find('th[data-field]').each(function (i) {
-          if ($(this).data('field') === params.field) {
-            $($(this).find('.th-inner')[0]).text(params.title)
+        header.find('th[data-field]').each((i, el) => {
+          if ($(el).data('field') === params.field) {
+            $($(el).find('.th-inner')[0]).text(params.title)
             return false
           }
         })
@@ -2622,14 +2605,13 @@
     }
 
     updateRow (params) {
-      const that = this
       const allParams = $.isArray(params) ? params : [ params ]
 
       $.each(allParams, (i, params) => {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
           return
         }
-        $.extend(that.options.data[params.index], params.row)
+        $.extend(this.options.data[params.index], params.row)
       })
 
       this.initSearch()
@@ -2675,12 +2657,11 @@
     }
 
     getHiddenRows (show) {
-      const that = this
       const data = this.getData()
       const rows = []
 
       $.each(data, (i, row) => {
-        if ($.inArray(row, that.hiddenRows) > -1) {
+        if ($.inArray(row, this.hiddenRows) > -1) {
           rows.push(row)
         }
       })
@@ -2733,7 +2714,6 @@
     }
 
     updateCellById (params) {
-      const that = this
       if (!params.hasOwnProperty('id') ||
         !params.hasOwnProperty('field') ||
         !params.hasOwnProperty('value')) {
@@ -2744,12 +2724,12 @@
       $.each(allParams, (i, {id, field, value}) => {
         let rowId
 
-        rowId = $.inArray(that.getRowByUniqueId(id), that.options.data)
+        rowId = $.inArray(this.getRowByUniqueId(id), this.options.data)
 
         if (rowId === -1) {
           return
         }
-        that.data[rowId][field] = value
+        this.data[rowId][field] = value
       })
 
       if (params.reinit === false) {
@@ -2765,16 +2745,12 @@
     }
 
     getSelections () {
-      const that = this
-
       return $.grep(this.options.data, row => // fix #2424: from html with checkbox
-        row[that.header.stateField] === true)
+        row[this.header.stateField] === true)
     }
 
     getAllSelections () {
-      const that = this
-
-      return $.grep(this.options.data, row => row[that.header.stateField])
+      return $.grep(this.options.data, row => row[this.header.stateField])
     }
 
     checkAll () {
@@ -2786,17 +2762,16 @@
     }
 
     checkInvert () {
-      const that = this
-      const rows = that.$selectItem.filter(':enabled')
+      const rows = this.$selectItem.filter(':enabled')
       let checked = rows.filter(':checked')
-      rows.each(function () {
-        $(this).prop('checked', !$(this).prop('checked'))
+      rows.each((i, el) => {
+        $(el).prop('checked', !$(el).prop('checked'))
       })
-      that.updateRows()
-      that.updateSelected()
-      that.trigger('uncheck-some', checked)
-      checked = that.getSelections()
-      that.trigger('check-some', checked)
+      this.updateRows()
+      this.updateSelected()
+      this.trigger('uncheck-some', checked)
+      checked = this.getSelections()
+      this.trigger('check-some', checked)
     }
 
     checkAll_ (checked) {
@@ -2841,18 +2816,17 @@
         return
       }
 
-      const that = this
       const rows = []
       $.each(this.options.data, (index, row) => {
         if (!row.hasOwnProperty(obj.field)) {
           return false
         }
         if ($.inArray(row[obj.field], obj.values) !== -1) {
-          const $el = that.$selectItem.filter(':enabled')
+          const $el = this.$selectItem.filter(':enabled')
             .filter(Utils.sprintf('[data-index="%s"]', index)).prop('checked', checked)
-          row[that.header.stateField] = checked
+          row[this.header.stateField] = checked
           rows.push(row)
-          that.trigger(checked ? 'check' : 'uncheck', row, $el)
+          this.trigger(checked ? 'check' : 'uncheck', row, $el)
         }
       })
       this.updateSelected()
@@ -2933,9 +2907,8 @@
     }
 
     toggleAllColumns (visible) {
-      const that = this
       $.each(this.columns, (i, column) => {
-        that.columns[i].visible = visible
+        this.columns[i].visible = visible
       })
 
       this.initHeader()
@@ -3007,7 +2980,7 @@
       this.options.cardView = !this.options.cardView
       this.initHeader()
       // Fixed remove toolbar when click cardView button.
-      // that.initToolbar();
+      // this.initToolbar();
       const $icon = this.$toolbar.find('button[name="toggle"] i')
       if (this.options.cardView) {
         $icon.removeClass(this.options.icons.toggleOff)
@@ -3055,7 +3028,6 @@
     expandAllRows (isSubTable) {
       if (isSubTable) {
         const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"]', 0))
-        const that = this
         let detailIcon = null
         let executeInterval = false
         let idInterval = -1
@@ -3071,7 +3043,7 @@
         if (executeInterval) {
           try {
             idInterval = setInterval(() => {
-              detailIcon = that.$body.find('tr.detail-view').last().find('.detail-icon')
+              detailIcon = this.$body.find('tr.detail-view').last().find('.detail-icon')
               if (detailIcon.length > 0) {
                 detailIcon.click()
               } else {
@@ -3187,6 +3159,8 @@
 
     return typeof value === 'undefined' ? this : value
   }
+
+  $.fn.bootstrapTable.Constructor = BootstrapTable
   $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS
   $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS
   $.fn.bootstrapTable.locales = BootstrapTable.LOCALES
