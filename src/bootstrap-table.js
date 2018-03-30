@@ -13,49 +13,59 @@
     bootstrapVersion = parseInt($.fn.dropdown.Constructor.VERSION, 10)
   } catch (e) {}
 
-  const Utils = {
-    bs: {
-      3: {
-        buttonsClass: 'default',
-        iconsPrefix: 'glyphicon',
-        icons: {
-          paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
-          paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
-          refresh: 'glyphicon-refresh icon-refresh',
-          toggleOff: 'glyphicon-list-alt icon-list-alt',
-          toggleOn: 'glyphicon-list-alt icon-list-alt',
-          columns: 'glyphicon-th icon-th',
-          detailOpen: 'glyphicon-plus icon-plus',
-          detailClose: 'glyphicon-minus icon-minus',
-          fullscreen: 'glyphicon-fullscreen'
-        },
-        pullClass: 'pull',
-        toobarDropdowHtml: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-        toobarDropdowItemHtml: '<li role="menuitem"><label>%s</label></li>',
-        pageDropdownHtml: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-        pageDropdownItemHtml: '<li role="menuitem" class="%s"><a href="#">%s</a></li>'
+  const bootstrap = {
+    3: {
+      iconsPrefix: 'glyphicon',
+      icons: {
+        paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+        paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
+        refresh: 'glyphicon-refresh icon-refresh',
+        toggleOff: 'glyphicon-list-alt icon-list-alt',
+        toggleOn: 'glyphicon-list-alt icon-list-alt',
+        columns: 'glyphicon-th icon-th',
+        detailOpen: 'glyphicon-plus icon-plus',
+        detailClose: 'glyphicon-minus icon-minus',
+        fullscreen: 'glyphicon-fullscreen'
       },
-      4: {
-        buttonsClass: 'secondary',
-        iconsPrefix: 'fa',
-        icons: {
-          paginationSwitchDown: 'fa-toggle-down',
-          paginationSwitchUp: 'fa-toggle-up',
-          refresh: 'fa-refresh',
-          toggleOff: 'fa-toggle-off',
-          toggleOn: 'fa-toggle-on',
-          columns: 'fa-th-list',
-          detailOpen: 'fa-plus',
-          detailClose: 'fa-minus',
-          fullscreen: 'fa-arrows-alt'
-        },
-        pullClass: 'float',
-        toobarDropdowHtml: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
-        toobarDropdowItemHtml: '<label class="dropdown-item">%s</label>',
-        pageDropdownHtml: ['<div class="dropdown-menu">', '</div>'],
-        pageDropdownItemHtml: '<a class="dropdown-item %s" href="#">%s</a>'
+      classes: {
+        buttons: 'default',
+        pull: 'pull'
+      },
+      html: {
+        toobarDropdow: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
+        toobarDropdowItem: '<li role="menuitem"><label>%s</label></li>',
+        pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
+        pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>'
       }
-    }[bootstrapVersion],
+    },
+    4: {
+      iconsPrefix: 'fa',
+      icons: {
+        paginationSwitchDown: 'fa-toggle-down',
+        paginationSwitchUp: 'fa-toggle-up',
+        refresh: 'fa-refresh',
+        toggleOff: 'fa-toggle-off',
+        toggleOn: 'fa-toggle-on',
+        columns: 'fa-th-list',
+        detailOpen: 'fa-plus',
+        detailClose: 'fa-minus',
+        fullscreen: 'fa-arrows-alt'
+      },
+      classes: {
+        buttons: 'secondary',
+        pull: 'float'
+      },
+      html: {
+        toobarDropdow: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
+        toobarDropdowItem: '<label class="dropdown-item">%s</label>',
+        pageDropdown: ['<div class="dropdown-menu">', '</div>'],
+        pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>'
+      }
+    }
+  }[bootstrapVersion]
+
+  const Utils = {
+    bootstrapVersion,
 
     // it only does '%s', and return '' when arguments are undefined
     sprintf (str, ...args) {
@@ -92,10 +102,10 @@
       }
 
       for (let i = 0; i < columns.length; i++) {
-          flag[i] = [];
-          for (let j = 0; j < totalCol; j++) {
-              flag[i][j] = false;
-          }
+        flag[i] = []
+        for (let j = 0; j < totalCol; j++) {
+          flag[i][j] = false
+        }
       }
 
       for (let i = 0; i < columns.length; i++) {
@@ -332,9 +342,9 @@
     searchTimeOut: 500,
     searchText: '',
     iconSize: undefined,
-    buttonsClass: Utils.bs.buttonsClass,
-    iconsPrefix: Utils.bs.iconsPrefix, // glyphicon or fa(font-awesome)
-    icons: Utils.bs.icons,
+    buttonsClass: bootstrap.classes.buttons,
+    iconsPrefix: bootstrap.iconsPrefix, // glyphicon or fa(font-awesome)
+    icons: bootstrap.icons,
     customSearch: $.noop,
     customSort: $.noop,
     ignoreClickToSelectOn (element) {
@@ -942,7 +952,7 @@
 
       if (index !== -1) {
         if (this.options.sortStable) {
-          this.data.forEach(row => {
+          this.data.forEach((row, i) => {
             row._position = i
           })
         }
@@ -1061,14 +1071,14 @@
       this.$toolbar.html('')
 
       if (typeof this.options.toolbar === 'string' || typeof this.options.toolbar === 'object') {
-        $(Utils.sprintf('<div class="bs-bars %s-%s"></div>', Utils.bs.pullClass, this.options.toolbarAlign))
+        $(Utils.sprintf('<div class="bs-bars %s-%s"></div>', bootstrap.classes.pull, this.options.toolbarAlign))
           .appendTo(this.$toolbar)
           .append($(this.options.toolbar))
       }
 
       // showColumns, showToggle, showRefresh
       html = [Utils.sprintf('<div class="columns columns-%s btn-group %s-%s">',
-        this.options.buttonsAlign, Utils.bs.pullClass, this.options.buttonsAlign)]
+        this.options.buttonsAlign, bootstrap.classes.pull, this.options.buttonsAlign)]
 
       if (typeof this.options.icons === 'string') {
         this.options.icons = Utils.calculateObjectValue(null, this.options.icons)
@@ -1114,7 +1124,7 @@
         Utils.sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
         ' <span class="caret"></span>',
         '</button>',
-        Utils.bs.toobarDropdowHtml[0])
+        bootstrap.html.toobarDropdow[0])
 
         $.each(this.columns, (i, column) => {
           if (column.radio || column.checkbox) {
@@ -1128,13 +1138,13 @@
           const checked = column.visible ? ' checked="checked"' : ''
 
           if (column.switchable) {
-            html.push(Utils.sprintf(Utils.bs.toobarDropdowItemHtml,
+            html.push(Utils.sprintf(bootstrap.html.toobarDropdowItem,
               Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s> %s',
                 column.field, i, checked, column.title)))
             switchableCount++
           }
         })
-        html.push(Utils.bs.toobarDropdowHtml[1], '</div>')
+        html.push(bootstrap.html.toobarDropdow[1], '</div>')
       }
 
       html.push('</div>')
@@ -1182,7 +1192,7 @@
       if (this.options.search) {
         html = []
         html.push(
-          Utils.sprintf('<div class="%s-%s search">', Utils.bs.pullClass, this.options.searchAlign),
+          Utils.sprintf('<div class="%s-%s search">', bootstrap.classes.pull, this.options.searchAlign),
           Utils.sprintf(`<input class="form-control${Utils.sprintf(' input-%s', this.options.iconSize)}" type="text" placeholder="%s">`,
             this.options.formatSearch()),
           '</div>')
@@ -1367,7 +1377,7 @@
       }
 
       html.push(
-        Utils.sprintf('<div class="%s-%s pagination-detail">', Utils.bs.pullClass, this.options.paginationDetailHAlign),
+        Utils.sprintf('<div class="%s-%s pagination-detail">', bootstrap.classes.pull, this.options.paginationDetailHAlign),
         '<span class="pagination-info">',
         this.options.onlyInfoPagination ? this.options.formatDetailPagination(this.options.totalRows)
           : this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
@@ -1386,7 +1396,7 @@
           '</span>',
           ' <span class="caret"></span>',
           '</button>',
-          Utils.bs.pageDropdownHtml[0]
+          bootstrap.html.pageDropdown[0]
         ]
 
         if (typeof this.options.pageList === 'string') {
@@ -1408,16 +1418,16 @@
             } else {
               active = page === this.options.pageSize ? 'active' : ''
             }
-            pageNumber.push(Utils.sprintf(Utils.bs.pageDropdownItemHtml, active, page))
+            pageNumber.push(Utils.sprintf(bootstrap.html.pageDropdownItem, active, page))
           }
         })
-        pageNumber.push(`${Utils.bs.pageDropdownHtml[1]}</span>`)
+        pageNumber.push(`${bootstrap.html.pageDropdown[1]}</span>`)
 
         html.push(this.options.formatRecordsPerPage(pageNumber.join('')))
         html.push('</span>')
 
         html.push('</div>',
-          Utils.sprintf('<div class="%s-%s pagination">', Utils.bs.pullClass, this.options.paginationHAlign),
+          Utils.sprintf('<div class="%s-%s pagination">', bootstrap.classes.pull, this.options.paginationHAlign),
           `<ul class="pagination${Utils.sprintf(' pagination-%s', this.options.iconSize)}">`,
           Utils.sprintf('<li class="page-item page-pre"><a class="page-link" href="#">%s</a></li>',
             this.options.paginationPreText))

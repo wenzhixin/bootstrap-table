@@ -28,7 +28,7 @@
   "scripts": {
     "grunt": "grunt",
     "postinstall": "opencollective postinstall || exit 0",
-    "lint": "eslint src/bootstrap-table.js"
+    "lint": "eslint src/bootstrap-table.js src/extensions/export/bootstrap-table-export.js"
   },
   "repository": {
     "type": "git",

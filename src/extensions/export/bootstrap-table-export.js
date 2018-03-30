@@ -6,6 +6,27 @@
 ($ => {
   const Utils = $.fn.bootstrapTable.utils
 
+  const bootstrap = {
+    3: {
+      icons: {
+        export: 'glyphicon-export icon-share'
+      },
+      html: {
+        dropmenu: '<ul class="dropdown-menu" role="menu"></ul>',
+        dropitem: '<li role="menuitem" data-type="%s"><a href="javascript:">%s</a></li>'
+      }
+    },
+    4: {
+      icons: {
+        export: 'fa-download'
+      },
+      html: {
+        dropmenu: '<div class="dropdown-menu dropdown-menu-right"></div>',
+        dropitem: '<a class="dropdown-item" data-type="%s" href="javascript:">%s</a>'
+      }
+    }
+  }[Utils.bootstrapVersion]
+
   const TYPE_NAME = {
     json: 'JSON',
     xml: 'XML',
@@ -29,10 +50,7 @@
   })
 
   $.extend($.fn.bootstrapTable.defaults.icons, {
-    export: {
-      3: 'glyphicon-export icon-share',
-      4: 'fa-download'
-    }[Utils.bootstrapVersion]
+    export: bootstrap.icons.export
   })
 
   $.extend($.fn.bootstrapTable.locales, {
@@ -69,8 +87,7 @@
           <i class="${o.iconsPrefix} ${o.icons.export}"></i>
           <span class="caret"></span>
         </button>
-        ${Utils.bs.toobarDropdowHtml[0]}
-        ${Utils.bs.toobarDropdowHtml[1]}
+        ${bootstrap.html.dropmenu}
         </div>
       `).appendTo($btnGroup)
 
@@ -83,15 +100,11 @@
       }
       for (let type of exportTypes) {
         if (TYPE_NAME.hasOwnProperty(type)) {
-          const item = Utils.bootstrapVersion === 4
-            ? TYPE_NAME[type] : `<a href="javascript:void(0)">${TYPE_NAME[type]}</a>`
-          const $item = $(Utils.sprintf(Utils.bs.toobarDropdowItemHtml, item))
-          $item.attr('data-type', type)
-          $menu.append($item)
+          $menu.append(Utils.sprintf(bootstrap.html.dropitem, type, TYPE_NAME[type]))
         }
       }
 
-      $menu.find('>li, >label').click(e => {
+      $menu.find('>li, >a').click(e => {
         const type = $(e.currentTarget).data('type')
         const doExport = () => {
           const data = this.getData()
@@ -130,7 +143,9 @@
         const stateField = this.header.stateField
 
         if (o.exportDataType === 'all' && o.pagination) {
-          this.$el.one(o.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table', () => {
+          const eventName = o.sidePagination === 'server'
+            ? 'post-body.bs.table' : 'page-change.bs.table'
+          this.$el.one(eventName, () => {
             if (stateField) {
               this.hideColumn(stateField)
             }
