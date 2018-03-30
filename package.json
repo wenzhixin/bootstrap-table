@@ -8,6 +8,12 @@
   },
   "devDependencies": {
     "cz-conventional-changelog": "^1.1.5",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
     "grunt": "^0.4.5",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^0.6.0",
@@ -21,7 +27,8 @@
   },
   "scripts": {
     "grunt": "grunt",
-    "postinstall": "opencollective postinstall || exit 0"
+    "postinstall": "opencollective postinstall || exit 0",
+    "lint": "eslint src/bootstrap-table.js src/extensions/export/bootstrap-table-export.js"
   },
   "repository": {
     "type": "git",
