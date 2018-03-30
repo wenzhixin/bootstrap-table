@@ -85,12 +85,18 @@
 
     setFieldIndex (columns) {
       let totalCol = 0
+      const flag = []
 
       for (const column of columns[0]) {
         totalCol += column.colspan || 1
       }
 
-      const flag = Array(columns.length).fill(Array(totalCol).fill(false))
+      for (let i = 0; i < columns.length; i++) {
+          flag[i] = [];
+          for (let j = 0; j < totalCol; j++) {
+              flag[i][j] = false;
+          }
+      }
 
       for (let i = 0; i < columns.length; i++) {
         for (let j = 0; j < columns[i].length; j++) {
@@ -936,7 +942,7 @@
 
       if (index !== -1) {
         if (this.options.sortStable) {
-          $.each(this.data, (i, row) => {
+          this.data.forEach(row => {
             row._position = i
           })
         }
