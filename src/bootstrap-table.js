@@ -942,7 +942,7 @@
     initSort () {
       let name = this.options.sortName
       const order = this.options.sortOrder === 'desc' ? -1 : 1
-      const index = $.inArray(this.options.sortName, this.header.fields)
+      const index = this.header.fields.indexOf(this.options.sortName)
       let timeoutId = 0
 
       if (this.options.customSort !== $.noop) {
@@ -1126,7 +1126,7 @@
         '</button>',
         bootstrap.html.toobarDropdow[0])
 
-        $.each(this.columns, (i, column) => {
+        this.columns.forEach((column, i) => {
           if (column.radio || column.checkbox) {
             return
           }
@@ -1204,7 +1204,7 @@
             return
           }
 
-          if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+          if ([37, 38, 39, 40].includes(event.keyCode)) {
             return
           }
 
@@ -1263,12 +1263,12 @@
         const f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
         // Check filter
-        this.data = f ? $.grep(this.options.data, (item, i) => {
+        this.data = f ? this.options.data.filter((item, i) => {
           for (const key in f) {
             if (
-              ($.isArray(f[key]) &&
-              $.inArray(item[key], f[key]) === -1) ||
-              (!$.isArray(f[key]) &&
+              (Array.isArray(f[key]) &&
+              !f[key].includes(item[key])) ||
+              (!Array.isArray(f[key]) &&
               item[key] !== f[key])
             ) {
               return false
@@ -1277,7 +1277,7 @@
           return true
         }) : this.options.data
 
-        this.data = s ? $.grep(this.data, (item, i) => {
+        this.data = s ? this.data.filter((item, i) => {
           for (let j = 0; j < this.header.fields.length; j++) {
             if (!this.header.searchables[j]) {
               continue
@@ -1357,7 +1357,7 @@
           const pageLst = typeof this.options.pageList === 'string'
             ? this.options.pageList.replace('[', '').replace(']', '')
               .replace(/ /g, '').toLowerCase().split(',') : this.options.pageList
-          if ($.inArray(this.options.formatAllRows().toLowerCase(), pageLst) > -1) {
+          if (pageLst.includes(this.options.formatAllRows().toLowerCase())) {
             $allSelected = true
           }
         }
@@ -1404,13 +1404,15 @@
             .replace(/ /g, '').split(',')
 
           pageList = []
-          $.each(list, (i, value) => {
-            pageList.push((value.toUpperCase() === this.options.formatAllRows().toUpperCase() || value.toUpperCase() === 'UNLIMITED')
-              ? this.options.formatAllRows() : +value)
-          })
+          for (let value of list) {
+            pageList.push(
+              (value.toUpperCase() === this.options.formatAllRows().toUpperCase() ||
+              value.toUpperCase() === 'UNLIMITED')
+                ? this.options.formatAllRows() : +value)
+          }
         }
 
-        $.each(pageList, (i, page) => {
+        pageList.forEach((page, i) => {
           if (!this.options.smartDisplay || i === 0 || pageList[i - 1] < this.options.totalRows) {
             let active
             if ($allSelected) {
@@ -1654,7 +1656,7 @@
       }
 
       if (item._data && !$.isEmptyObject(item._data)) {
-        $.each(item._data, (k, v) => {
+        item._data.forEach((v, k) => {
           // ignore data-index
           if (k === 'index') {
             return
@@ -1665,8 +1667,8 @@
 
       html.push('<tr',
         Utils.sprintf(' %s', htmlAttributes.length ? htmlAttributes.join(' ') : undefined),
-        Utils.sprintf(' id="%s"', $.isArray(item) ? undefined : item._id),
-        Utils.sprintf(' class="%s"', style.classes || ($.isArray(item) ? undefined : item._class)),
+        Utils.sprintf(' id="%s"', Array.isArray(item) ? undefined : item._id),
+        Utils.sprintf(' class="%s"', style.classes || (Array.isArray(item) ? undefined : item._class)),
         ` data-index="${i}"`,
         Utils.sprintf(' data-uniqueid="%s"', item[this.options.uniqueId]),
         Utils.sprintf('%s', data_),
@@ -1760,7 +1762,7 @@
           this.header.formatters[j], [value_, item, i, field], value_)
 
         if (item[`_${field}_data`] && !$.isEmptyObject(item[`_${field}_data`])) {
-          $.each(item[`_${field}_data`], (k, v) => {
+          item[`_${field}_data`].forEach((v, k) => {
             // ignore data-index
             if (k === 'index') {
               return
@@ -1921,16 +1923,16 @@
         const row = this.data[$this.data('index')]
 
         if ($(e.currentTarget).is(':radio') || this.options.singleSelect) {
-          $.each(this.options.data, (i, row) => {
+          for (let row of this.options.data) {
             row[this.header.stateField] = false
-          })
+          }
         }
 
         row[this.header.stateField] = checked
 
         if (this.options.singleSelect) {
-          this.$selectItem.not(this).each(e => {
-            this.data[$(e.currentTarget).data('index')][this.header.stateField] = false
+          this.$selectItem.not(this).each((i, el) => {
+            this.data[$(el).data('index')][this.header.stateField] = false
           })
           this.$selectItem.filter(':checked').not(this).prop('checked', false)
         }
@@ -1939,7 +1941,7 @@
         this.trigger(checked ? 'check' : 'uncheck', row, $this)
       })
 
-      $.each(this.header.events, (i, events) => {
+      this.header.events.forEach((events, i) => {
         if (!events) {
           return
         }
@@ -1949,7 +1951,7 @@
         }
 
         const field = this.header.fields[i]
-        let fieldIndex = $.inArray(field, this.getVisibleFields())
+        let fieldIndex = this.getVisibleFields().indexOf(field)
 
         if (fieldIndex === -1) {
           return
@@ -1960,8 +1962,8 @@
         }
 
         for (const key in events) {
-          this.$body.find('>tr:not(.no-records-found)').each(e => {
-            const $tr = $(e.currentTarget)
+          this.$body.find('>tr:not(.no-records-found)').each((i, tr) => {
+            const $tr = $(tr)
             const $td = $tr.find(this.options.cardView ? '.card-view' : 'td').eq(fieldIndex)
             const index = key.indexOf(' ')
             const name = key.substring(0, index)
@@ -1987,7 +1989,7 @@
 
     initServer (silent, query, url) {
       let data = {}
-      const index = $.inArray(this.options.sortName, this.header.fields)
+      const index = this.header.fields.indexOf(this.options.sortName)
 
       let params = {
         searchText: this.searchText,
@@ -2095,8 +2097,10 @@
     }
 
     getCaret () {
-      $.each(this.$header.find('th'), (i, th) => {
-        $(th).find('.sortable').removeClass('desc asc').addClass($(th).data('field') === this.options.sortName ? this.options.sortOrder : 'both')
+      this.$header.find('th').each((i, th) => {
+        $(th).find('.sortable').removeClass('desc asc')
+          .addClass($(th).data('field') === this.options.sortName
+            ? this.options.sortOrder : 'both')
       })
     }
 
@@ -2119,13 +2123,13 @@
     }
 
     resetRows () {
-      $.each(this.data, (i, row) => {
+      for (let row of this.data) {
         this.$selectAll.prop('checked', false)
         this.$selectItem.prop('checked', false)
         if (this.header.stateField) {
           row[this.header.stateField] = false
         }
-      })
+      }
       this.initHiddenRows()
     }
 
@@ -2239,7 +2243,7 @@
         html.push('<td><div class="th-inner">&nbsp;</div><div class="fht-cell"></div></td>')
       }
 
-      $.each(this.columns, (i, column) => {
+      for (let column of this.columns) {
         let key
 
         let // footer align style
@@ -2278,7 +2282,7 @@
         html.push('<div class="fht-cell"></div>')
         html.push('</div>')
         html.push('</td>')
-      })
+      }
 
       this.$tableFooter.find('tr').html(html.join(''))
       this.$tableFooter.show()
@@ -2359,14 +2363,14 @@
     getVisibleFields () {
       const visibleFields = []
 
-      $.each(this.header.fields, (j, field) => {
+      for (let field of this.header.fields) {
         const column = this.columns[this.fieldsColumnsIndex[field]]
 
         if (!column.visible) {
-          return
+          continue
         }
         visibleFields.push(field)
-      })
+      }
       return visibleFields
     }
 
@@ -2442,7 +2446,7 @@
         this.options.totalRows = data[this.options.totalField]
         fixedScroll = data.fixedScroll
         data = data[this.options.dataField]
-      } else if (!$.isArray(data)) { // support fixedScroll
+      } else if (!Array.isArray(data)) { // support fixedScroll
         fixedScroll = data.fixedScroll
         data = data.data
       }
@@ -2484,7 +2488,7 @@
         if (!row.hasOwnProperty(params.field)) {
           continue
         }
-        if ($.inArray(row[params.field], params.values) !== -1) {
+        if (params.values.includes(row[params.field])) {
           this.options.data.splice(i, 1)
           if (this.options.sidePagination === 'server') {
             this.options.totalRows -= 1
@@ -2567,22 +2571,22 @@
     }
 
     updateByUniqueId (params) {
-      const allParams = $.isArray(params) ? params : [ params ]
+      const allParams = Array.isArray(params) ? params : [ params ]
 
-      $.each(allParams, (i, params) => {
+      for (let params of allParams) {
         let rowId
 
         if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
-          return
+          continue
         }
 
-        rowId = $.inArray(this.getRowByUniqueId(params.id), this.options.data)
+        rowId = this.options.data.indexOf(this.getRowByUniqueId(params.id))
 
         if (rowId === -1) {
-          return
+          continue
         }
         $.extend(this.options.data[rowId], params.row)
-      })
+      }
 
       this.initSearch()
       this.initPagination()
@@ -2621,14 +2625,14 @@
     }
 
     updateRow (params) {
-      const allParams = $.isArray(params) ? params : [ params ]
+      const allParams = Array.isArray(params) ? params : [ params ]
 
-      $.each(allParams, (i, params) => {
+      for (let params of allParams) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
-          return
+          continue
         }
         $.extend(this.options.data[params.index], params.row)
-      })
+      }
 
       this.initSearch()
       this.initPagination()
@@ -2662,7 +2666,7 @@
         return
       }
 
-      index = $.inArray(row, this.hiddenRows)
+      index = this.hiddenRows.indexOf(row)
 
       if (!visible && index === -1) {
         this.hiddenRows.push(row)
@@ -2676,18 +2680,18 @@
       const data = this.getData()
       const rows = []
 
-      $.each(data, (i, row) => {
-        if ($.inArray(row, this.hiddenRows) > -1) {
+      for (let row of data) {
+        if (this.hiddenRows.includes(row)) {
           rows.push(row)
         }
-      })
+      }
       this.hiddenRows = rows
       return rows
     }
 
     mergeCells (options) {
       const row = options.index
-      let col = $.inArray(options.field, this.getVisibleFields())
+      let col = this.getVisibleFields().indexOf(options.field)
       const rowspan = options.rowspan || 1
       const colspan = options.colspan || 1
       let i
@@ -2735,12 +2739,12 @@
         !params.hasOwnProperty('value')) {
         return
       }
-      const allParams = $.isArray(params) ? params : [ params ]
+      const allParams = Array.isArray(params) ? params : [ params ]
 
-      $.each(allParams, (i, {id, field, value}) => {
+      allParams.forEach(({id, field, value}) => {
         let rowId
 
-        rowId = $.inArray(this.getRowByUniqueId(id), this.options.data)
+        rowId = this.options.data.indexOf(this.getRowByUniqueId(id))
 
         if (rowId === -1) {
           return
@@ -2761,12 +2765,12 @@
     }
 
     getSelections () {
-      return $.grep(this.options.data, row => // fix #2424: from html with checkbox
+      return (this.options.data, row => // fix #2424: from html with checkbox
         row[this.header.stateField] === true)
     }
 
     getAllSelections () {
-      return $.grep(this.options.data, row => row[this.header.stateField])
+      return this.options.data.filter(row => row[this.header.stateField])
     }
 
     checkAll () {
@@ -2778,9 +2782,9 @@
     }
 
     checkInvert () {
-      const rows = this.$selectItem.filter(':enabled')
-      let checked = rows.filter(':checked')
-      rows.each((i, el) => {
+      const $items = this.$selectItem.filter(':enabled')
+      let checked = $items.filter(':checked')
+      $items.each((i, el) => {
         $(el).prop('checked', !$(el).prop('checked'))
       })
       this.updateRows()
@@ -2833,13 +2837,13 @@
       }
 
       const rows = []
-      $.each(this.options.data, (index, row) => {
+      this.options.data.forEach((row, i) => {
         if (!row.hasOwnProperty(obj.field)) {
           return false
         }
-        if ($.inArray(row[obj.field], obj.values) !== -1) {
+        if (obj.values.includes(row[obj.field])) {
           const $el = this.$selectItem.filter(':enabled')
-            .filter(Utils.sprintf('[data-index="%s"]', index)).prop('checked', checked)
+            .filter(Utils.sprintf('[data-index="%s"]', i)).prop('checked', checked)
           row[this.header.stateField] = checked
           rows.push(row)
           this.trigger(checked ? 'check' : 'uncheck', row, $el)
@@ -2915,17 +2919,17 @@
     }
 
     getHiddenColumns () {
-      return $.grep(this.columns, ({visible}) => !visible)
+      return this.columns.filter(({visible}) => !visible)
     }
 
     getVisibleColumns () {
-      return $.grep(this.columns, ({visible}) => visible)
+      return this.columns.filter(({visible}) => visible)
     }
 
     toggleAllColumns (visible) {
-      $.each(this.columns, (i, column) => {
-        this.columns[i].visible = visible
-      })
+      for (let column of this.columns) {
+        column.visible = visible
+      }
 
       this.initHeader()
       this.initSearch()
@@ -3153,7 +3157,7 @@
         typeof option === 'object' && option)
 
       if (typeof option === 'string') {
-        if ($.inArray(option, allowedMethods) < 0) {
+        if (!allowedMethods.includes(option)) {
           throw new Error('Unknown method: ' + option)
         }
 
