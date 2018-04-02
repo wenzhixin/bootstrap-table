@@ -9,6 +9,39 @@
 ($ => {
   const Utils = $.fn.bootstrapTable.utils
 
+  const bootstrap = {
+    3: {
+      icons: {
+        advancedSearchIcon: 'glyphicon-chevron-down'
+      },
+      html: {
+        modalHeader: `
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">%s</h4>
+          </div>
+        `
+      }
+    },
+    4: {
+      icons: {
+        advancedSearchIcon: 'fa-chevron-down'
+      },
+      html: {
+        modalHeader: `
+          <div class="modal-header">
+            <h4 class="modal-title">%s</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        `
+      }
+    }
+  }[Utils.bootstrapVersion]
+
   $.extend($.fn.bootstrapTable.defaults, {
     advancedSearch: false,
     idForm: 'advancedSearch',
@@ -20,7 +53,7 @@
   })
 
   $.extend($.fn.bootstrapTable.defaults.icons, {
-    advancedSearchIcon: 'glyphicon-chevron-down'
+    advancedSearchIcon: bootstrap.icons.advancedSearchIcon
   })
 
   $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -69,13 +102,16 @@
           <div id="avdSearchModal_${o.idTable}"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xs">
               <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-                  <h4 class="modal-title">${o.formatAdvancedSearch()}</h4>
-                </div>
+                ${Utils.sprintf(bootstrap.html.modalHeader, o.formatAdvancedSearch())}
                 <div class="modal-body modal-body-custom">
-                  <div class="container-fluid" id="avdSearchModalContent_${o.idTable}" style="padding-right: 0px; padding-left: 0px;" >
+                  <div class="container-fluid" id="avdSearchModalContent_${o.idTable}"
+                    style="padding-right: 0px; padding-left: 0px;" >
                   </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="btnCloseAvd_${o.idTable}" class="btn btn-${o.buttonsClass}">
+                    ${o.formatAdvancedCloseButton()}
+                  </button>
                 </div>
               </div>
             </div>
@@ -110,7 +146,7 @@
       for (let column of this.columns) {
         if (!column.checkbox && column.visible && column.searchable) {
           html.push(`
-            <div class="form-group">
+            <div class="form-group row">
               <label class="col-sm-4 control-label">${column.title}</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control input-md" name="${column.field}" placeholder="${column.title}" id="${column.field}">
@@ -120,13 +156,6 @@
         }
       }
 
-      html.push(`
-        <div class="form-group">
-          <div class="col-sm-offset-9 col-sm-3">
-            <button type="button" id="btnCloseAvd_${o.idTable}" class="btn btn-default">${o.formatAdvancedCloseButton()}</button>
-          </div>
-        </div>
-      `)
       html.push('</form>')
 
       return html
