@@ -242,7 +242,7 @@
       }
 
       const props = field.split('.')
-      for (const p in props) {
+      for (const p of props) {
         if (props.hasOwnProperty(p)) {
           value = value && value[props[p]]
         }
