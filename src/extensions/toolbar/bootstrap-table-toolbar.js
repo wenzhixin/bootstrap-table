@@ -73,22 +73,24 @@
 
   $.BootstrapTable = class extends $.BootstrapTable {
     initToolbar () {
+      const o = this.options
+
+      this.showToolbar = this.showToolbar || o.search && o.advancedSearch && o.idTable
+
       super.initToolbar()
 
-      const o = this.options
       if (!o.search || !o.advancedSearch || !o.idTable) {
         return
       }
 
-      this.$toolbar.prepend(`
-        <div class="columns columns-${o.buttonsAlign} btn-group pull-${o.buttonsAlign}" role="group">
+      this.$toolbar.find('>.btn-group').append(`
         <button class="btn btn-default${Utils.sprintf(' btn-%s', o.buttonsClass)}${Utils.sprintf(' btn-%s', o.iconSize)}"
           type="button"
           name="advancedSearch"
           aria-label="advanced search"
           title="${o.formatAdvancedSearch()}">
         <i class="${o.iconsPrefix} ${o.icons.advancedSearchIcon}"></i>
-        </button></div>
+        </button>
       `)
 
       this.$toolbar.find('button[name="advancedSearch"]').off('click').on('click', () => this.showAvdSearch())
