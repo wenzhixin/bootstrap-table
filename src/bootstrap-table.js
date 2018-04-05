@@ -1920,20 +1920,7 @@
         e.stopImmediatePropagation()
 
         const $this = $(e.currentTarget)
-        const checked = $this.prop('checked')
-        const row = this.data[$this.data('index')]
-
-        if ($(e.currentTarget).is(':radio') || this.options.singleSelect) {
-          for (let r of this.options.data) {
-            r[this.header.stateField] = false
-          }
-          this.$selectItem.filter(':checked').not($this).prop('checked', false)
-        }
-
-        row[this.header.stateField] = checked
-
-        this.updateSelected()
-        this.trigger(checked ? 'check' : 'uncheck', row, $this)
+        this.check_($this.prop('checked'), $this.data('index'))
       })
 
       this.header.events.forEach((events, i) => {
@@ -2813,8 +2800,18 @@
     }
 
     check_ (checked, index) {
-      const $el = this.$selectItem.filter(Utils.sprintf('[data-index="%s"]', index)).prop('checked', checked)
-      this.data[index][this.header.stateField] = checked
+      const $el = this.$selectItem.filter(`[data-index="${index}"]`)
+      const row = this.data[index]
+
+      if ($el.is(':radio') || this.options.singleSelect) {
+        for (let r of this.options.data) {
+          r[this.header.stateField] = false
+        }
+        this.$selectItem.filter(':checked').not($this).prop('checked', false)
+      }
+
+      row[this.header.stateField] = checked
+      $el.prop('checked', checked)
       this.updateSelected()
       this.trigger(checked ? 'check' : 'uncheck', this.data[index], $el)
     }
