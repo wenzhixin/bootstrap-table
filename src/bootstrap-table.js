@@ -243,9 +243,7 @@
 
       const props = field.split('.')
       for (const p of props) {
-        if (props.hasOwnProperty(p)) {
-          value = value && value[props[p]]
-        }
+        value = value && value[p]
       }
       return escape ? this.escapeHTML(value) : value
     },
@@ -1776,6 +1774,9 @@
           type = column.radio ? 'radio' : type
 
           const c = column['class'] || ''
+          const isChecked = value === true || (value_ || value && value.checked)
+          const isDisabled = !column.checkboxEnabled || (value && value.disabled)
+
           text = [
             this.options.cardView
               ? `<div class="card-view ${c}">`
@@ -1784,9 +1785,9 @@
               data-index="${i}"
               name="${this.options.selectItemName}"
               type="${type}"
-              value="${item[this.options.idField]}"
-              ${value === true || (value_ || (value && value.checked)) ? 'checked="checked"' : ''}
-              ${!column.checkboxEnabled || (value && value.disabled) ? 'disabled="disabled"' : ''} />`,
+              ${Utils.sprintf('value="%s"', item[this.options.idField])}
+              ${Utils.sprintf('checked="%s"', isChecked ? 'checked' : undefined)}
+              ${Utils.sprintf('disabled="%s"', isDisabled ? 'disabled' : undefined)} />`,
             this.header.formatters[j] && typeof value === 'string' ? value : '',
             this.options.cardView ? '</div>' : '</td>'
           ].join('')
@@ -1878,7 +1879,7 @@
           e.type === 'click' &&
           this.options.clickToSelect &&
           column.clickToSelect &&
-          this.options.ignoreClickToSelectOn(e.target)
+          !this.options.ignoreClickToSelectOn(e.target)
         ) {
           const $selectItem = $tr.find(Utils.sprintf('[name="%s"]', this.options.selectItemName))
           if ($selectItem.length) {
@@ -1923,19 +1924,13 @@
         const row = this.data[$this.data('index')]
 
         if ($(e.currentTarget).is(':radio') || this.options.singleSelect) {
-          for (let row of this.options.data) {
-            row[this.header.stateField] = false
+          for (let r of this.options.data) {
+            r[this.header.stateField] = false
           }
+          this.$selectItem.filter(':checked').not($this).prop('checked', false)
         }
 
         row[this.header.stateField] = checked
-
-        if (this.options.singleSelect) {
-          this.$selectItem.not(this).each((i, el) => {
-            this.data[$(el).data('index')][this.header.stateField] = false
-          })
-          this.$selectItem.filter(':checked').not(this).prop('checked', false)
-        }
 
         this.updateSelected()
         this.trigger(checked ? 'check' : 'uncheck', row, $this)
@@ -2765,7 +2760,8 @@
     }
 
     getSelections () {
-      return (this.options.data, row => // fix #2424: from html with checkbox
+      // fix #2424: from html with checkbox
+      return this.options.data.filter(row =>
         row[this.header.stateField] === true)
     }
 
