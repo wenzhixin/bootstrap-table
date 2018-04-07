@@ -1237,7 +1237,9 @@
       this.searchText = text
       this.options.searchText = text
 
-      this.options.pageNumber = 1
+      if (!firedByInitSearchText) {
+        this.options.pageNumber = 1
+      }
       this.initSearch()
       if (firedByInitSearchText) {
         if (this.options.sidePagination === 'client') {
