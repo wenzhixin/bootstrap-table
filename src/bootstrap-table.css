@@ -307,7 +307,7 @@ div.fixed-table-scroll-outer {
     clear: both;
 }
 
-.fullscreen {
+.bootstrap-table.fullscreen {
     position: fixed;
     top: 0;
     left: 0;
