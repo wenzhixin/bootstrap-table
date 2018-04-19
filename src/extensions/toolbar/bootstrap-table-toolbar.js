@@ -125,14 +125,23 @@
         $(`#avdSearchModalContent_${o.idTable}`).append(this.createFormAvd().join(''))
 
         $(`#${o.idForm}`).off('keyup blur', 'input').on('keyup blur', 'input', e => {
-          clearTimeout(timeoutId)
-          timeoutId = setTimeout(() => {
+          if (o.sidePagination === 'server') {
             this.onColumnAdvancedSearch(e)
-          }, o.searchTimeOut)
+          } else {
+            clearTimeout(timeoutId)
+            timeoutId = setTimeout(() => {
+              this.onColumnAdvancedSearch(e)
+            }, o.searchTimeOut)
+          }
         })
 
         $(`#btnCloseAvd_${o.idTable}`).click(() => {
           $(`#avdSearchModal_${o.idTable}`).modal('hide')
+          if (o.sidePagination === 'server') {
+            this.options.pageNumber = 1
+            this.updatePagination()
+            this.trigger('column-advanced-search', this.filterColumnsPartial)
+          }
         })
 
         $(`#avdSearchModal_${o.idTable}`).modal()
@@ -166,7 +175,7 @@
     initSearch () {
       super.initSearch()
 
-      if (!this.options.advancedSearch) {
+      if (!this.options.advancedSearch || this.options.sidePagination === 'server') {
         return
       }
 
@@ -204,10 +213,12 @@
         delete this.filterColumnsPartial[$field]
       }
 
-      this.options.pageNumber = 1
-      this.onSearch(e)
-      this.updatePagination()
-      this.trigger('column-advanced-search', $field, text)
+      if (this.options.sidePagination !== 'server') {
+        this.options.pageNumber = 1
+        this.onSearch(e)
+        this.updatePagination()
+        this.trigger('column-advanced-search', $field, text)
+      }
     }
   }
 })(jQuery)
