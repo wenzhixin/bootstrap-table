@@ -379,6 +379,8 @@
         minimumCountColumns: 1,
         idField: undefined,
         uniqueId: undefined,
+        crossPageCheck: false,
+        crossPageData: {},
         cardView: false,
         detailView: false,
         detailFormatter: function (index, row) {
@@ -1638,6 +1640,20 @@
         }
 
         this.initPagination();
+        
+        if(this.options.uniqueId && this.options.crossPageCheck){
+        	var uniqueId = this.options.uniqueId,
+        		checks = this.getSelections(),
+        		crossPageData = this.options.crossPageData;
+        	if(checks){
+        		$.each(checks, function(i, item){
+        			if(item){
+        				crossPageData[item[uniqueId]] = item;
+        			}
+        		});
+            }
+        }
+        
         if (this.options.sidePagination === 'server') {
             this.initServer();
         } else {
@@ -2135,6 +2151,20 @@
                 that.load(res);
                 that.trigger('load-success', res);
                 if (!silent) that.$tableLoading.hide();
+                
+                var uniqueId = that.options.uniqueId,
+        			tempData = that.options.crossPageData;
+                if(uniqueId && that.options.crossPageCheck && tempData){
+                	var currRows = that.getData();
+                	if(currRows){
+                		$.each(currRows, function(i, row){
+                			if(tempData[row[uniqueId]]){
+                				that.check(i);
+                				delete tempData[row[uniqueId]];
+                			}
+                		});
+                	}
+                }
             },
             error: function (res) {
                 var data = [];
@@ -2853,7 +2883,21 @@
             return row[that.header.stateField] === true;
         });
     };
-
+    
+    BootstrapTable.prototype.getCrossPageData = function () {
+        var that = this,
+        	data = that.options.data || [],
+        	crossPageData = that.options.crossPageData;
+        if(crossPageData){
+        	for(var k in crossPageData){
+        		data.push(crossPageData[k]);
+        	}
+        }
+        return $.grep(data, function (row) {
+            return row[that.header.stateField];
+        });
+    };
+    
     BootstrapTable.prototype.getAllSelections = function () {
         var that = this;
 
@@ -3210,7 +3254,7 @@
 
     var allowedMethods = [
         'getOptions',
-        'getSelections', 'getAllSelections', 'getData',
+        'getSelections', 'getAllSelections', 'getData', 'getCrossPageData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
         'insertRow', 'updateRow', 'updateCell', 'updateByUniqueId', 'removeByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
