@@ -69,7 +69,7 @@
             };
             column._formatter = column._formatter ? column._formatter : column.formatter;
             column.formatter = function(value, row, index) {
-                var result = column._formatter ? column._formatter(value, row, index) : value;
+                var result = $.fn.bootstrapTable.utils.calculateObjectValue(column, column._formatter, [value, row, index], value);
 
                 $.each(column, processDataOptions);
 
