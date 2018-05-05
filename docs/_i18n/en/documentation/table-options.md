@@ -233,7 +233,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-query-params-type</td>
         <td>String</td>
         <td>'limit'</td>
-        <td>Set 'limit' to send query params width RESTFul type.</td>
+        <td>Set 'limit' to send query params with RESTFul type.</td>
     </tr>
     <tr>
         <td>responseHandler</td>
