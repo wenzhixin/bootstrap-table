@@ -29,7 +29,7 @@
       },
       classes: {
         buttons: 'default',
-        pull: 'pull'
+        pull: 'float'
       },
       html: {
         toobarDropdow: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
