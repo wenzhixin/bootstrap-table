@@ -280,7 +280,7 @@
     padding: 0 !important;
 }
 
-.bootstrap-table .pull-right .dropdown-menu {
+.bootstrap-table .float-right .dropdown-menu {
     right: 0;
     left: auto;
 }
