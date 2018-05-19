@@ -1,0 +1,8 @@
+.selected td {
+  color: white !important;
+  background-color: #08C !important;
+}
+
+.selected td a {
+  color: white !important;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Multiple Selection Row v2",
+  "version": "1.0.0",
+  "description": "Plugin to enable the multiple selection row. You can use the ctrl+click to select one row or use shift+click to select a range of rows.",
+  "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/multiple-selection-row-v2",
+  "example": "http://issues.wenzhixin.net.cn/bootstrap-table/#extensions/bootstrap-table-multiple-selection-row-v2.html",
+
+  "plugins": [{
+    "name": "bootstrap-table-multiple-selection-row-v2",
+    "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/multiple-selection-row-v2"
+  }],
+
+  "author": {
+    "name": "Bighamster",
+    "image": "https://avatars1.githubusercontent.com/u/524100?s=400&u=f0458bb37e37f7fefa9a44bc6eead3b850f7d9ef&v=4"
+  }
+}
