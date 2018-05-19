@@ -1,0 +1,17 @@
+{
+  "name": "Group by v3",
+  "version": "1.0.0",
+  "description": "Group the data by field(s) + aggregate functions: sum, count, avg",
+  "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/group-by-v3",
+  "example": "http://issues.wenzhixin.net.cn/bootstrap-table/#extensions/bootstrap-table-group-by-v3.html",
+
+  "plugins": [{
+    "name": "bootstrap-table-group-by-v3",
+    "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/group-by-v3"
+  }],
+
+  "author": {
+    "name": "Bighamster",
+    "image": "https://avatars1.githubusercontent.com/u/524100?s=400&u=f0458bb37e37f7fefa9a44bc6eead3b850f7d9ef&v=4"
+  }
+}
