@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.1.1
+ * @version: v1.0.0
  */
 
 (function ($) {
@@ -14,6 +14,7 @@
         //Creates the plugin
         that.$el.colResizable({
             liveDrag: that.options.liveDrag,
+            fixed: that.options.fixed,
             headerOnly: that.options.headerOnly,
             minWidth: that.options.minWidth,
             hoverCursor: that.options.hoverCursor,
@@ -27,6 +28,7 @@
     $.extend($.fn.bootstrapTable.defaults, {
         resizable: false,
         liveDrag: false,
+        fixed: true,
         headerOnly: false,
         minWidth: 15,
         hoverCursor: 'e-resize',
