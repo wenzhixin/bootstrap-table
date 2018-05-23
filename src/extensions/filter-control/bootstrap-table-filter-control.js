@@ -595,9 +595,12 @@
         //Check partial column filter
         that.data = fp ? $.grep(that.data, function (item, i) {
             for (var key in fp) {
-                var thisColumn = that.columns[that.fieldsColumnsIndex[key]];
+
+                //var thisColumn = that.columns[that.fieldsColumnsIndex[key]];
+                var thisColumn = that.columns[$.fn.bootstrapTable.utils.getFieldIndex(that.columns, key)];
                 var fval = fp[key].toLowerCase();
                 var value = item[key];
+
 
                 // Fix #142: search use formated data
                 if (thisColumn && thisColumn.searchFormatter) {
