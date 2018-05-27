@@ -2187,7 +2187,7 @@
       const visibleFields = this.getVisibleFields()
       const $ths = this.$header_.find('th')
 
-      this.$body.find('>tr:first-child:not(.no-records-found) > *').each((i, el) => {
+      this.$header.find('>tr:first-child:not(.no-records-found) > *').each((i, el) => {
         const $this = $(el)
         let index = i
 
