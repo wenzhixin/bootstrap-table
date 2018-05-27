@@ -1,0 +1,12 @@
+{
+  "name": "scroll2loading",
+  "version": "1.0.0",
+  "description": "just use infinite Scroll to loading next page",
+  "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/scroll2loading",
+  "example": "",
+  "plugins": [],
+  "author": {
+    "name": "chinarma",
+    "image": "https://avatars3.githubusercontent.com/u/11072464"
+  }
+}
