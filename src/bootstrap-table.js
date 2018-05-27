@@ -43,7 +43,7 @@
       icons: {
         paginationSwitchDown: 'fa-toggle-down',
         paginationSwitchUp: 'fa-toggle-up',
-        refresh: 'fa-refresh',
+        refresh: 'fa-sync',
         toggleOff: 'fa-toggle-off',
         toggleOn: 'fa-toggle-on',
         columns: 'fa-th-list',
