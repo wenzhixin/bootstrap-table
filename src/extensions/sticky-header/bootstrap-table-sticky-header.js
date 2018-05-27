@@ -95,7 +95,7 @@
                 // create scrollable container for header
                 var scrollable_div = $('<div style="position:absolute;width:100%;overflow-x:hidden;" />');
                 // append cloned header to dom
-                $("#"+sticky_header_container_id).html(scrollable_div.append(that.$stickyHeader));
+                $("#"+sticky_header_container_id).html(scrollable_div.append($('<table>').addClass('table').append(that.$stickyHeader)));
                 // match clone and source header positions when left-right scroll
                 match_position_x(event);
             } else {
