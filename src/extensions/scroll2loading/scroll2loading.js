@@ -12,6 +12,7 @@
     });
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initBody = BootstrapTable.prototype.initBody,
+        _initPagination = BootstrapTable.prototype.initPagination,
         _load = BootstrapTable.prototype.load;
     BootstrapTable.prototype.load = function(data) {
         if (scrollLoad) {
@@ -26,6 +27,25 @@
         };
         _load.apply(this, Array.prototype.slice.apply(arguments));
     }
+    BootstrapTable.prototype.initPagination = function() {
+        if (this.options.infiniteScrolling && this.options.url !== '' && this.options.sidePagination == 'server') {
+            var html = [];
+            this.pageFrom = 1;
+            this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
+            this.options.totalPages = this.totalPages;
+            this.pageTo = this.options.pageNumber * this.options.pageSize;
+            if (this.pageTo > this.options.totalRows) {
+                this.pageTo = this.options.totalRows;
+            }
+            html.push(sprintf('<div class="%s-%s pagination-detail">', 'pull', this.options.paginationDetailHAlign), this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows), '</span></div>');
+            html.push('<div class="pull-right">*滚动加载</div>');
+
+
+            this.$pagination.html(html.join(''));
+            return;
+        }
+        _initPagination.apply(this, Array.prototype.slice.apply(arguments));
+    }
     BootstrapTable.prototype.initBody = function() {
         scrollLoad = 0;
         _initBody.apply(this, Array.prototype.slice.apply(arguments));
@@ -35,6 +55,8 @@
         }
         $(that.$el).find(".fixed-table-scrollLoading").remove('');
         if (typeof(this.options.totalPages) == 'undefined' || this.options.pageNumber == this.options.totalPages) {
+            console.log(this.options);
+            console.log('xxxx');
             this.$tableBody.off('wheel');
             $(this).off('touchend');
             $(this).off('touchstart');
