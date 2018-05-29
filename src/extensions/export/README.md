@@ -2,6 +2,8 @@
 
 Use Plugin: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
 
+This is an important link to check out as some file types may require extra steps.
+
 ## Usage
 
 ```html
