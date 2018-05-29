@@ -27,7 +27,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### alignmentSelectControlOptions
 
 * type: String
-* description: Set the alignemnt of the select control options. Use Use `left`, `right` or `auto`.
+* description: Set the alignment of the select control options. Use Use `left`, `right` or `auto`.
 * default: `undefined`
 
 ### hideUnusedSelectOptions
