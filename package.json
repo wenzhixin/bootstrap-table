@@ -6,6 +6,9 @@
   "directories": {
     "doc": "docs"
   },
+  "dependencies": {
+    "opencollective-postinstall": "^2.0.0"
+  },
   "devDependencies": {
     "cz-conventional-changelog": "^1.1.5",
     "eslint": "^4.19.1",
@@ -27,7 +30,7 @@
   },
   "scripts": {
     "grunt": "grunt",
-    "postinstall": "opencollective postinstall || exit 0",
+    "postinstall": "opencollective-postinstall",
     "lint": "eslint src/bootstrap-table.js src/extensions/export/bootstrap-table-export.js src/extensions/toolbar/bootstrap-table-toolbar.js"
   },
   "repository": {
