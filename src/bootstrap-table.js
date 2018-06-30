@@ -1254,7 +1254,11 @@
     initSearch () {
       if (this.options.sidePagination !== 'server') {
         if (this.options.customSearch !== $.noop) {
-          window[this.options.customSearch].apply(this, [this.searchText])
+          if (typeof this.options.customSearch === 'string') {
+            window[this.options.customSearch].apply(this, [this.searchText])
+          } else {
+            this.options.customSearch.apply(this, [this.searchText])
+          }
           return
         }
 
