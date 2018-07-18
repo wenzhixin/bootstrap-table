@@ -13,7 +13,7 @@
       return pageNumber + ' Zeilen pro Seite.';
     },
     formatShowingRows: function (pageFrom, pageTo, totalRows) {
-      return 'Zeige Zeile ' + pageFrom + ' bis ' + pageTo + ' von ' + totalRows + ' Zeilen' + ((totalRows > 1) ? "n" : "")+".";
+      return 'Zeige Zeile ' + pageFrom + ' bis ' + pageTo + ' von ' + totalRows + ' Zeile' + ((totalRows > 1) ? "n" : "")+".";
     },
     formatDetailPagination: function (totalRows) {
       return 'Zeige ' + totalRows + ' Zeile' + ((totalRows > 1) ? "n" : "")+".";
