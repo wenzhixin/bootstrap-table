@@ -876,7 +876,8 @@
                     sprintf(' rowspan="%s"', column.rowspan),
                     sprintf(' colspan="%s"', column.colspan),
                     sprintf(' data-field="%s"', column.field),
-                    j === 0 && column.fieldIndex ? ' data-not-first-th' : '',
+                    // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
+                    j === 0 && i > 0 ? ' data-not-first-th' : '',
                     '>');
 
                 html.push(sprintf('<div class="th-inner %s">', that.options.sortable && column.sortable ?
