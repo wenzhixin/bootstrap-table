@@ -1255,7 +1255,11 @@
     initSearch () {
       if (this.options.sidePagination !== 'server') {
         if (this.options.customSearch !== $.noop) {
-          window[this.options.customSearch].apply(this, [this.searchText])
+          if (typeof this.options.customSearch === 'string') {
+            window[this.options.customSearch].apply(this, [this.searchText])
+          } else {
+            this.options.customSearch.apply(this, [this.searchText])
+          }
           return
         }
 
@@ -1296,16 +1300,16 @@
                   value = value[props[i]]
                 }
               }
-
-              // Fix #142: respect searchForamtter boolean
-              if (column && column.searchFormatter) {
-                value = Utils.calculateObjectValue(column,
-                  this.header.formatters[j], [value, item, i], value)
-              }
             } else {
               value = item[key]
             }
 
+            // Fix #142: respect searchForamtter boolean
+            if (column && column.searchFormatter) {
+              value = Utils.calculateObjectValue(column,
+                this.header.formatters[j], [value, item, i], value)
+            }
+            
             if (typeof value === 'string' || typeof value === 'number') {
               if (this.options.strictSearch) {
                 if ((`${value}`).toLowerCase() === s) {
