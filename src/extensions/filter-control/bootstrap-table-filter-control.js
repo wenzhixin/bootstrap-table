@@ -312,11 +312,11 @@
 
         if (addedFilterControl) {
             header.off('keyup', 'input').on('keyup', 'input', function (event) {
-                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                if (that.options.searchOnEnterKey && event.keyCode && event.keyCode !== 13) {
                     return;
                 }
 
-                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                if (event.keyCode && $.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
                     return;
                 }
 
@@ -327,11 +327,11 @@
             });
 
             header.off('change', 'select').on('change', 'select', function (event) {
-                if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+                if (that.options.searchOnEnterKey && event.keyCode && event.keyCode !== 13) {
                     return;
                 }
 
-                if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+                if (event.keyCode && $.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
                     return;
                 }
 
@@ -339,7 +339,7 @@
                 event.currentTarget.timeoutId = setTimeout(function () {
                     that.onColumnSearch(event);
                 }, that.options.searchTimeOut);
-            });
+});
 
             header.off('mouseup', 'input').on('mouseup', 'input', function (event) {
                 var $input = $(this),
