@@ -14,8 +14,8 @@
 
     // Only try to parse VERSION if is is defined.
     // It is undefined in older versions of Bootstrap (tested with 3.1.1).
-    if(rawVersion !== undefined){
-      bootstrapVersion = parseInt(rawVersion, 10);
+    if (rawVersion !== undefined) {
+      bootstrapVersion = parseInt(rawVersion, 10)
     }
   } catch (e) {}
 
