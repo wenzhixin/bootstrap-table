@@ -118,7 +118,7 @@
     }
 
     exportTable(options) {
-      const o =  $.extend({}, this.options, options)
+      const o = this.options
 
       const doExport = () => {
         const that = this
@@ -145,10 +145,7 @@
           })
         }
 
-        this.$el.tableExport($.extend({}, o.exportOptions, {
-          type: type,
-          escape: false
-        }))
+        this.$el.tableExport($.extend({}, o.exportOptions, options))
 
         if (o.exportFooter) {
           this.load(data)
