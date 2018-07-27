@@ -60,7 +60,7 @@
   })
   $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-  $.fn.bootstrapTable.methods.push('exportTable');
+  $.fn.bootstrapTable.methods.push('exportTable')
 
   $.BootstrapTable = class extends $.BootstrapTable {
     initToolbar () {
