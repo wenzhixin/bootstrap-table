@@ -121,6 +121,7 @@
       const o =  $.extend({}, this.options, options)
 
       const doExport = () => {
+        const that = this
         const data = this.getData()
         if (o.exportFooter) {
           const $footerRow = this.$tableFooter.find('tr').first()
@@ -129,7 +130,7 @@
 
           $.each($footerRow.children(), function (index, footerCell) {
             var footerCellHtml = $(footerCell).children('.th-inner').first().html()
-            footerData[this.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
+            footerData[that.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
 
             // grab footer cell text into cell index-based array
             footerHtml.push(footerCellHtml)
