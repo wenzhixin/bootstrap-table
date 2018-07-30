@@ -172,7 +172,7 @@
 
         if (names.length > 1) {
           func = window
-          for (const f of name) {
+          for (const f of names) {
             func = func[f]
           }
         } else {
