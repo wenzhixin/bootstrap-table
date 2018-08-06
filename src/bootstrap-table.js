@@ -877,14 +877,14 @@
         }
       })
 
-      this.$header.children().children().off('keypress').on('keypress', e => {
+      /*this.$header.children().children().off('keypress').on('keypress', e => {
         if (this.options.sortable && $(e.currentTarget).data().sortable) {
           const code = e.keyCode || e.which
           if (code === 13) { // Enter keycode
             this.onSort(e)
           }
         }
-      })
+      })*/
 
       $(window).off('resize.bootstrap-table')
       if (!this.options.showHeader || this.options.cardView) {
