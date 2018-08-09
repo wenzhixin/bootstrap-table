@@ -111,6 +111,20 @@
                 return;
             }
 
+            var data = that.getData();
+
+            that.$body.find('a[data-name="' + column.field + '"]').each(function(i, element){
+                var $element = $(element);
+                var $tr = $element.closest('tr');
+                var index = $tr.data('index');
+                var row = data[index];
+
+                var editableOpts = $.fn.bootstrapTable.utils.calculateObjectValue(column, column.editable, [index, row, $element], {});
+
+                $element.editable(editableOpts);
+            });
+
+
             that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
                 .off('save').on('save', function(e, params) {
                     var data = that.getData(),
