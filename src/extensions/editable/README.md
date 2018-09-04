@@ -20,8 +20,10 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 
 ### editable
 
-* type: Object
+* type: Object or Function
 * description: Configuration of x-editable. Full list of options: http://vitalets.github.io/x-editable/docs.html#editable
+* If it is type of Function, it is called with params: index, row, element for
+  each row of the table. It should return Object of the x-editable configuration.
 * default: `undefined`
 
 All options can be defined via `data-editable-*` HTML attributes. Table wide options are used for every column but can be overridden:

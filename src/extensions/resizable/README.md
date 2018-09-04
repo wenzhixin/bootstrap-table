@@ -6,7 +6,7 @@ Dependence: [colResizable](https://github.com/alvaro-prieto/colResizable) v1.6
 ## Usage
 
 ```html
-<script src="extensions/cookie/bootstrap-table-resizable.js"></script>
+<script src="extensions/resizable/bootstrap-table-resizable.js"></script>
 ```
 
 ## Options
