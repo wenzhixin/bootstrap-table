@@ -10,7 +10,13 @@
 
   let bootstrapVersion = 3
   try {
-    bootstrapVersion = parseInt($.fn.dropdown.Constructor.VERSION, 10)
+    var rawVersion = $.fn.dropdown.Constructor.VERSION
+
+    // Only try to parse VERSION if is is defined.
+    // It is undefined in older versions of Bootstrap (tested with 3.1.1).
+    if (rawVersion !== undefined) {
+      bootstrapVersion = parseInt(rawVersion, 10)
+    }
   } catch (e) {}
 
   const bootstrap = {
@@ -166,7 +172,7 @@
 
         if (names.length > 1) {
           func = window
-          for (const f of name) {
+          for (const f of names) {
             func = func[f]
           }
         } else {
@@ -825,7 +831,8 @@
             Utils.sprintf(' rowspan="%s"', column.rowspan),
             Utils.sprintf(' colspan="%s"', column.colspan),
             Utils.sprintf(' data-field="%s"', column.field),
-            j === 0 && column.fieldIndex ? ' data-not-first-th' : '',
+            // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
+            j === 0 && i > 0 ? ' data-not-first-th' : '',
             '>')
 
           html.push(Utils.sprintf('<div class="th-inner %s">', this.options.sortable && column.sortable
@@ -1254,7 +1261,11 @@
     initSearch () {
       if (this.options.sidePagination !== 'server') {
         if (this.options.customSearch !== $.noop) {
-          window[this.options.customSearch].apply(this, [this.searchText])
+          if (typeof this.options.customSearch === 'string') {
+            window[this.options.customSearch].apply(this, [this.searchText])
+          } else {
+            this.options.customSearch.apply(this, [this.searchText])
+          }
           return
         }
 
@@ -1295,16 +1306,16 @@
                   value = value[props[i]]
                 }
               }
-
-              // Fix #142: respect searchForamtter boolean
-              if (column && column.searchFormatter) {
-                value = Utils.calculateObjectValue(column,
-                  this.header.formatters[j], [value, item, i], value)
-              }
             } else {
               value = item[key]
             }
 
+            // Fix #142: respect searchForamtter boolean
+            if (column && column.searchFormatter) {
+              value = Utils.calculateObjectValue(column,
+                this.header.formatters[j], [value, item, i], value)
+            }
+            
             if (typeof value === 'string' || typeof value === 'number') {
               if (this.options.strictSearch) {
                 if ((`${value}`).toLowerCase() === s) {

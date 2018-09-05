@@ -60,6 +60,8 @@
   })
   $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
+  $.fn.bootstrapTable.methods.push('exportTable')
+
   $.BootstrapTable = class extends $.BootstrapTable {
     initToolbar () {
       const o = this.options
@@ -106,87 +108,96 @@
 
       $menu.find('>li, >a').click(e => {
         const type = $(e.currentTarget).data('type')
-        const doExport = () => {
-          const data = this.getData()
-          if (o.exportFooter) {
-            const $footerRow = this.$tableFooter.find('tr').first()
-            const footerData = {}
-            const footerHtml = []
-
-            $.each($footerRow.children(), function (index, footerCell) {
-              var footerCellHtml = $(footerCell).children('.th-inner').first().html()
-              footerData[this.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
-
-              // grab footer cell text into cell index-based array
-              footerHtml.push(footerCellHtml)
-            })
-
-            this.append(footerData)
-
-            var $lastTableRow = this.$body.children().last()
-
-            $.each($lastTableRow.children(), function (index, lastTableRowCell) {
-              $(lastTableRowCell).html(footerHtml[index])
-            })
-          }
-
-          this.$el.tableExport($.extend({}, o.exportOptions, {
+        const exportOptions = {
             type: type,
             escape: false
-          }))
-
-          if (o.exportFooter) {
-            this.load(data)
-          }
         }
 
-        const stateField = this.header.stateField
-
-        if (o.exportDataType === 'all' && o.pagination) {
-          const eventName = o.sidePagination === 'server'
-            ? 'post-body.bs.table' : 'page-change.bs.table'
-          this.$el.one(eventName, () => {
-            if (stateField) {
-              this.hideColumn(stateField)
-            }
-            doExport()
-            this.togglePagination()
-          })
-          this.togglePagination()
-        } else if (o.exportDataType === 'selected') {
-          let data = this.getData()
-          let selectedData = this.getSelections()
-          if (!selectedData.length) {
-            return
-          }
-
-          if (o.sidePagination === 'server') {
-            data = {
-              total: o.totalRows,
-              [this.options.dataField]: data
-            }
-            selectedData = {
-              total: selectedData.length,
-              [this.options.dataField]: selectedData
-            }
-          }
-
-          this.load(selectedData)
-          if (stateField) {
-            this.hideColumn(stateField)
-          }
-          doExport()
-          this.load(data)
-        } else {
-          if (stateField) {
-            this.hideColumn(stateField)
-          }
-          doExport()
-        }
-        if (stateField) {
-          this.showColumn(stateField)
-        }
+        this.exportTable(exportOptions)
       })
+    }
+
+    exportTable(options) {
+      const o = this.options
+
+      const doExport = () => {
+        const that = this
+        const data = this.getData()
+        if (o.exportFooter) {
+          const $footerRow = this.$tableFooter.find('tr').first()
+          const footerData = {}
+          const footerHtml = []
+
+          $.each($footerRow.children(), function (index, footerCell) {
+            var footerCellHtml = $(footerCell).children('.th-inner').first().html()
+            footerData[that.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
+
+            // grab footer cell text into cell index-based array
+            footerHtml.push(footerCellHtml)
+          })
+
+          this.append(footerData)
+
+          var $lastTableRow = this.$body.children().last()
+
+          $.each($lastTableRow.children(), function (index, lastTableRowCell) {
+            $(lastTableRowCell).html(footerHtml[index])
+          })
+        }
+
+        this.$el.tableExport($.extend({}, o.exportOptions, options))
+
+        if (o.exportFooter) {
+          this.load(data)
+        }
+      }
+
+      const stateField = this.header.stateField
+
+      if (o.exportDataType === 'all' && o.pagination) {
+        const eventName = o.sidePagination === 'server'
+          ? 'post-body.bs.table' : 'page-change.bs.table'
+        this.$el.one(eventName, () => {
+          if (stateField) {
+            this.hideColumn(stateField)
+          }
+          doExport()
+          this.togglePagination()
+        })
+        this.togglePagination()
+      } else if (o.exportDataType === 'selected') {
+        let data = this.getData()
+        let selectedData = this.getSelections()
+        if (!selectedData.length) {
+          return
+        }
+
+        if (o.sidePagination === 'server') {
+          data = {
+            total: o.totalRows,
+            [this.options.dataField]: data
+          }
+          selectedData = {
+            total: selectedData.length,
+            [this.options.dataField]: selectedData
+          }
+        }
+
+        this.load(selectedData)
+        if (stateField) {
+          this.hideColumn(stateField)
+        }
+        doExport()
+        this.load(data)
+      } else {
+        if (stateField) {
+          this.hideColumn(stateField)
+        }
+        doExport()
+      }
+      if (stateField) {
+        this.showColumn(stateField)
+      }
     }
   }
 })(jQuery)

@@ -206,7 +206,7 @@
     <tr>
         <td>onPostBody</td>
         <td>post-body.bs.table</td>
-        <td>none</td>
+        <td>data</td>
         <td>
         在表格 body 渲染完成后触发。
         </td>
