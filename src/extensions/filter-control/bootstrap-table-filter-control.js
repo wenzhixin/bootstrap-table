@@ -377,7 +377,7 @@
             header.find('.filterControl').hide();
         }
 
-        this.trigger('created-controls');
+        that.trigger('created-controls');
     };
 
     var getDirectionOfSelectOptions = function (alignment) {
