@@ -440,6 +440,9 @@
         onColumnSearch: function (field, text) {
             return false;
         },
+        onCreatedControls: function() {
+            return false;
+        },
         filterShowClear: false,
         alignmentSelectControlOptions: undefined,
         filterTemplate: {
