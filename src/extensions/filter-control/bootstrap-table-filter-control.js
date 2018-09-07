@@ -674,7 +674,7 @@
                 timeoutId = 0;
 
             $.each(that.options.valuesFilterControl, function (i, item) {
-                hasValues = hasValue ? true : item.value !== '';
+                hasValues = hasValues ? true : item.value !== '';
                 item.value = '';
             });
 
