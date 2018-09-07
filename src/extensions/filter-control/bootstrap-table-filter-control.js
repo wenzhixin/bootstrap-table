@@ -680,6 +680,18 @@
 
             setValues(that);
 
+             // clear cookies once the filters are clean
+             clearTimeout(timeoutId);
+             timeoutId = setTimeout(function () {
+                 if (cookies && cookies.length > 0) {
+                     $.each(cookies, function (i, item) {
+                         if (that.deleteCookie !== undefined) {
+                             that.deleteCookie(item);
+                         }
+                     });
+                 }
+             }, that.options.searchTimeOut);
+
             //If there is not any value in the controls exit this method
             if(!hasValues) {
                 return;
@@ -707,18 +719,6 @@
                     $(sorter).find('.sortable').trigger('click');
                 }
             }
-
-            // clear cookies once the filters are clean
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(function () {
-                if (cookies && cookies.length > 0) {
-                    $.each(cookies, function (i, item) {
-                        if (that.deleteCookie !== undefined) {
-                            that.deleteCookie(item);
-                        }
-                    });
-                }
-            }, that.options.searchTimeOut);
         }
     };
 
