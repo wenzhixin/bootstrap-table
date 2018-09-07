@@ -670,13 +670,20 @@
                 table = header.closest('table'),
                 controls = header.find(getCurrentSearchControls(that)),
                 search = that.$toolbar.find('.search input'),
+                hasValues = false,
                 timeoutId = 0;
 
             $.each(that.options.valuesFilterControl, function (i, item) {
+                hasValues = item.value !== '';
                 item.value = '';
             });
 
             setValues(that);
+
+            //If there is not any value in the controls
+            if(!hasValues) {
+                return;
+            }
 
             // Clear each type of filter if it exists.
             // Requires the body to reload each time a type of filter is found because we never know
