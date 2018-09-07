@@ -696,7 +696,7 @@
             if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
                 var sorter = header.find(sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')));
                 if (sorter.length > 0) {
-                    that.onSort(table.data('sortName'), table.data('sortName'));
+                    that.onSort({type: 'keypress', currentTarget: sorter});
                     $(sorter).find('.sortable').trigger('click');
                 }
             }
