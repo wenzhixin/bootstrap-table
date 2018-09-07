@@ -180,7 +180,7 @@
         }
       }
 
-      if (typeof func === 'object') {
+      if (func !== null && typeof func === 'object') {
         return func
       }
 
