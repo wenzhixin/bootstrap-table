@@ -171,7 +171,7 @@
     };
 
     var initCookieFilters = function (bootstrapTable) {
-        //setTimeout(function () {
+        setTimeout(function () {
             var parsedCookieFilters = JSON.parse(getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, cookieIds.filterControl));
 
             if (!bootstrapTable.options.filterControlValuesLoaded && parsedCookieFilters) {
@@ -202,7 +202,7 @@
                 bootstrapTable.options.filterControlValuesLoaded = true;
                 bootstrapTable.initServer();
             }
-        //}, 250);
+        }, 250);
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
