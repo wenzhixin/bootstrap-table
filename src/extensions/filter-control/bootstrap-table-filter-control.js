@@ -224,6 +224,8 @@
                 }
             }
         });
+
+        that.trigger('created-controls');
     };
 
     var escapeID = function(id) {
@@ -376,8 +378,6 @@
         } else {
             header.find('.filterControl').hide();
         }
-
-        that.trigger('created-controls');
     };
 
     var getDirectionOfSelectOptions = function (alignment) {
@@ -441,7 +441,7 @@
             return false;
         },
         onCreatedControls: function() {
-            return false;
+            return true;
         },
         filterShowClear: false,
         alignmentSelectControlOptions: undefined,
