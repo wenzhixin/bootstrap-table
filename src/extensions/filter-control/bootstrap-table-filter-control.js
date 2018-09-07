@@ -674,13 +674,13 @@
                 timeoutId = 0;
 
             $.each(that.options.valuesFilterControl, function (i, item) {
-                hasValues = item.value !== '';
+                hasValues = hasValue ? true : item.value !== '';
                 item.value = '';
             });
 
             setValues(that);
 
-            //If there is not any value in the controls
+            //If there is not any value in the controls exit this method
             if(!hasValues) {
                 return;
             }
