@@ -97,6 +97,10 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 * Fired when we are searching into the column data
 
+### onCreatedControls(created-controls.bs.table)
+
+* Fired when we are searching into the column data
+
 ## Methods
 
 ### triggerSearch

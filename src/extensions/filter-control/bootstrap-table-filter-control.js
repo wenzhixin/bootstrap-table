@@ -376,6 +376,8 @@
         } else {
             header.find('.filterControl').hide();
         }
+
+        this.trigger('created-controls');
     };
 
     var getDirectionOfSelectOptions = function (alignment) {
@@ -468,7 +470,8 @@
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-        'column-search.bs.table': 'onColumnSearch'
+        'column-search.bs.table': 'onColumnSearch',
+        'created-controls.bs.table': 'onCreatedControls'
     });
 
     $.extend($.fn.bootstrapTable.defaults.icons, {
