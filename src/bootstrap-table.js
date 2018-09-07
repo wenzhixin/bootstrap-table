@@ -180,7 +180,7 @@
         }
       }
 
-      if (typeof func === 'object') {
+      if (func !== null && typeof func === 'object') {
         return func
       }
 
@@ -2443,7 +2443,7 @@
         data = data[this.options.dataField]
       } else if (!Array.isArray(data)) { // support fixedScroll
         fixedScroll = data.fixedScroll
-        data = data.data
+        data = data[this.options.dataField]
       }
 
       this.initData(data)

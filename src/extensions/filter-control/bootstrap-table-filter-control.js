@@ -224,6 +224,8 @@
                 }
             }
         });
+
+        that.trigger('created-controls');
     };
 
     var escapeID = function(id) {
@@ -438,6 +440,9 @@
         onColumnSearch: function (field, text) {
             return false;
         },
+        onCreatedControls: function() {
+            return true;
+        },
         filterShowClear: false,
         alignmentSelectControlOptions: undefined,
         filterTemplate: {
@@ -468,7 +473,8 @@
     });
 
     $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-        'column-search.bs.table': 'onColumnSearch'
+        'column-search.bs.table': 'onColumnSearch',
+        'created-controls.bs.table': 'onCreatedControls'
     });
 
     $.extend($.fn.bootstrapTable.defaults.icons, {
@@ -670,13 +676,32 @@
                 table = header.closest('table'),
                 controls = header.find(getCurrentSearchControls(that)),
                 search = that.$toolbar.find('.search input'),
+                hasValues = false,
                 timeoutId = 0;
 
             $.each(that.options.valuesFilterControl, function (i, item) {
+                hasValues = hasValues ? true : item.value !== '';
                 item.value = '';
             });
 
             setValues(that);
+
+             // clear cookies once the filters are clean
+             clearTimeout(timeoutId);
+             timeoutId = setTimeout(function () {
+                 if (cookies && cookies.length > 0) {
+                     $.each(cookies, function (i, item) {
+                         if (that.deleteCookie !== undefined) {
+                             that.deleteCookie(item);
+                         }
+                     });
+                 }
+             }, that.options.searchTimeOut);
+
+            //If there is not any value in the controls exit this method
+            if(!hasValues) {
+                return;
+            }
 
             // Clear each type of filter if it exists.
             // Requires the body to reload each time a type of filter is found because we never know
@@ -696,22 +721,10 @@
             if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
                 var sorter = header.find(sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')));
                 if (sorter.length > 0) {
-                    that.onSort(table.data('sortName'), table.data('sortName'));
+                    that.onSort({type: 'keypress', currentTarget: sorter});
                     $(sorter).find('.sortable').trigger('click');
                 }
             }
-
-            // clear cookies once the filters are clean
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(function () {
-                if (cookies && cookies.length > 0) {
-                    $.each(cookies, function (i, item) {
-                        if (that.deleteCookie !== undefined) {
-                            that.deleteCookie(item);
-                        }
-                    });
-                }
-            }, that.options.searchTimeOut);
         }
     };
 
