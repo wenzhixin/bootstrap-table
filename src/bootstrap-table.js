@@ -2439,12 +2439,10 @@
       // #431: support pagination
       if (this.options.pagination && this.options.sidePagination === 'server') {
         this.options.totalRows = data[this.options.totalField]
-        fixedScroll = data.fixedScroll
-        data = data[this.options.dataField]
-      } else if (!Array.isArray(data)) { // support fixedScroll
-        fixedScroll = data.fixedScroll
-        data = data[this.options.dataField]
       }
+
+      fixedScroll = data.fixedScroll
+      data = Array.isArray(data) ? data : data[this.options.dataField]
 
       this.initData(data)
       this.initSearch()
