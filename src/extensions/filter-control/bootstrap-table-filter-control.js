@@ -130,7 +130,8 @@
                 {
                     field: $(this).closest('[data-field]').data('field'),
                     value: $(this).val(),
-                    position: getCursorPosition($(this).get(0))
+                    position: getCursorPosition($(this).get(0)),
+                    hasFocus: $(this).is(":focus")
                 });
         });
     };
@@ -142,6 +143,8 @@
             searchControls = getCurrentSearchControls(that);
 
         if (that.options.valuesFilterControl.length > 0) {
+            //  Callback to apply after settings fields values
+            var fieldToFocusCallback = null;
             header.find(searchControls).each(function (index, ele) {
                 field = $(this).closest('[data-field]').data('field');
                 result = $.grep(that.options.valuesFilterControl, function (valueObj) {
@@ -150,9 +153,24 @@
 
                 if (result.length > 0) {
                     $(this).val(result[0].value);
-                    setCursorPosition($(this).get(0), result[0].position);
+                    if(result[0].hasFocus) {
+                        // set callback if the field had the focus.
+                        fieldToFocusCallback = (function(fieldToFocus, carretPosition) {
+                            // Closure here to capture the field and cursor position 
+                            var closedCallback = function() {
+                                fieldToFocus.focus();
+                                setCursorPosition(fieldToFocus, carretPosition);
+                            };
+                            return closedCallback;
+                        })($(this).get(0), result[0].position);
+                    }
                 }
             });
+
+            // Callback call.
+            if(fieldToFocusCallback != null) {
+                fieldToFocusCallback();
+            }
         }
     };
 
