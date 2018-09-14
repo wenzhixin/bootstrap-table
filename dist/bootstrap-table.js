@@ -2387,9 +2387,10 @@
 
         this.$tableFooter.css({
             'margin-right': scrollWidth
-        }).find('table').css('width', elWidth)
-            .attr('class', this.$el.attr('class'));
-
+        }).find('table').css('width', elWidth);
+            //.attr('class', this.$el.attr('class'));
+            //cant adjust itself with table columns on fixed table layout.
+        
         $footerTd = this.$tableFooter.find('td');
 
         this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i) {
