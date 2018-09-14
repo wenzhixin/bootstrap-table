@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">    
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.10.0/bootstrap-table.min.css" rel="stylesheet">
+    <title>bootstrap-table-addrbar Demo</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <table id="bt-table1"></table>                
+            </div>
+            <div class="col-md-6">
+                <table id="bt-table2"></table>                
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.10.0/bootstrap-table.min.js"></script>
+    <script src="./bootstrap-table-addrbar.js"></script>
+    <script type="text/javascript">
+        ;(function(){
+            var tableOpts = {
+                columns: [
+                    {title: 'id', field: 'id'},
+                    {title: '名称', field: 'name'},
+                    {title: '价格', field: 'price'},
+                ],
+                classes: 'table table-hover table-no-bordered',
+                sidePagination: 'server',
+                idField: 'id',
+                uniqueId: 'id',
+                search: true,
+                pagination: true,
+                paginationVAlign: 'bottom',
+                paginationHAlign: 'left',
+                paginationDetailHAlign: 'right',
+                pageList: [20, 50, 100, 500],
+                url: 'https://note.generals.space/napi/bootstrap-table-addrbar',
+                addrbar: true,
+            };
+
+            var tableOpts1 = Object.assign({}, tableOpts, {addrPrefix: 'tbl1'});
+            var tableOpts2 = Object.assign({}, tableOpts, {addrPrefix: 'tbl2'});
+            $('#bt-table1').bootstrapTable(tableOpts1);
+            $('#bt-table2').bootstrapTable(tableOpts2);
+        })();
+    </script>
+</body>
+</html>
