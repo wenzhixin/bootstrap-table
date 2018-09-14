@@ -47,9 +47,9 @@
     4: {
       iconsPrefix: 'fa',
       icons: {
-        paginationSwitchDown: 'fa-toggle-down',
-        paginationSwitchUp: 'fa-toggle-up',
-        refresh: 'fa-refresh',
+        paginationSwitchDown: 'fa-caret-square-down',
+        paginationSwitchUp: 'fa-caret-square-up',
+        refresh: 'fa-sync-alt',
         toggleOff: 'fa-toggle-off',
         toggleOn: 'fa-toggle-on',
         columns: 'fa-th-list',
