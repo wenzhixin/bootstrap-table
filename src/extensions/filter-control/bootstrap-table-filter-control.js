@@ -569,8 +569,10 @@
 
             if (!$btnClear.length) {
                 $btnClear = $([
-                    sprintf('<button class="btn btn-%s filter-show-clear" ', this.options.buttonsClass),
-                    sprintf('type="button" title="%s">', this.options.formatClearFilters()),
+                    sprintf('<button class="btn filter-show-clear' + 
+                    		sprintf(' btn-%s', this.options.buttonsClass) +
+                            sprintf(' btn-%s', this.options.iconSize) +
+                            sprintf('" type="button" title="%s">', this.options.formatClearFilters())),
                     sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
                     '</button>'
                 ].join('')).appendTo($btnGroup);
