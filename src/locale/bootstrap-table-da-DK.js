@@ -13,13 +13,19 @@
             return pageNumber + ' poster pr side';
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Viser ' + pageFrom + ' til ' + pageTo + ' af ' + totalRows + ' rækker';
+            return 'Viser ' + pageFrom + ' til ' + pageTo + ' af ' + totalRows + ' række' + ((totalRows > 1) ? 'r' : '');
+        },
+        formatDetailPagination: function (totalRows) {
+            return 'Viser ' + totalRows + ' række' + ((totalRows > 1) ? 'r' : '');
         },
         formatSearch: function () {
             return 'Søg';
         },
         formatNoMatches: function () {
             return 'Ingen poster fundet';
+        },
+        formatPaginationSwitch: function () {
+            return 'Skjul/vis nummerering';
         },
         formatRefresh: function () {
             return 'Opdater';
@@ -29,6 +35,15 @@
         },
         formatColumns: function () {
             return 'Kolonner';
+        },
+        formatAllRows: function () {
+          return 'Alle';
+        },
+        formatExport: function () {
+          return 'Eksporter';
+        },
+        formatClearFilters: function () {
+          return 'Ryd filtre';
         }
     };
 
