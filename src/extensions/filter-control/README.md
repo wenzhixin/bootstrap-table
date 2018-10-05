@@ -24,6 +24,24 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 * description: Set true to add a button to clear all the controls added by this plugin.
 * default: `false`
 
+### customClearAll
+
+* type: String
+* description: Set a jQuery selector string to find elements that will clear all filter controls on click.
+* default: `undefined`
+
+### customClearOne
+
+* type: String
+* description: Set a jQuery selector string to find elements that will clear a single field on click.  See `customClearOneData`.
+* default: `undefined`
+
+### customClearOneData
+
+* type: String
+* description: Set a data key for data attached to `customClearOne` elements that has the field name for which to clear the filter control.
+* default: `'fieldname'`
+
 ### alignmentSelectControlOptions
 
 * type: String

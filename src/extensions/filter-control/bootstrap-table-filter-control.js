@@ -156,7 +156,7 @@
                     if(result[0].hasFocus) {
                         // set callback if the field had the focus.
                         fieldToFocusCallback = (function(fieldToFocus, carretPosition) {
-                            // Closure here to capture the field and cursor position 
+                            // Closure here to capture the field and cursor position
                             var closedCallback = function() {
                                 fieldToFocus.focus();
                                 setCursorPosition(fieldToFocus, carretPosition);
@@ -247,7 +247,7 @@
     };
 
     var escapeID = function(id) {
-       return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+        return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
     };
 
     var createControls = function (that, header) {
@@ -462,6 +462,9 @@
             return true;
         },
         filterShowClear: false,
+        customClearAll: undefined,
+        customClearOne: undefined,
+        customClearOneData: 'fieldname',
         alignmentSelectControlOptions: undefined,
         filterTemplate: {
             input: function (that, field, isVisible, placeholder) {
@@ -559,23 +562,51 @@
     };
 
     BootstrapTable.prototype.initToolbar = function () {
-        this.showToolbar = this.showToolbar || this.options.filterControl && this.options.filterShowClear;
+        var that = this;
 
-        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+        that.showToolbar = that.showToolbar || that.options.filterControl && that.options.filterShowClear;
 
-        if (this.options.filterControl && this.options.filterShowClear) {
-            var $btnGroup = this.$toolbar.find('>.btn-group'),
-                $btnClear = $btnGroup.find('.filter-show-clear');
+        _initToolbar.apply(that, Array.prototype.slice.apply(arguments));
 
-            if (!$btnClear.length) {
-                $btnClear = $([
-                    sprintf('<button class="btn btn-%s filter-show-clear" ', this.options.buttonsClass),
-                    sprintf('type="button" title="%s">', this.options.formatClearFilters()),
-                    sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.clear),
-                    '</button>'
-                ].join('')).appendTo($btnGroup);
+        if (that.options.filterControl) {
+            if (that.options.filterShowClear) {
+                var $btnGroup = that.$toolbar.find('>.btn-group'),
+                    $btnClear = $btnGroup.find('.filter-show-clear');
 
-                $btnClear.off('click').on('click', $.proxy(this.clearFilterControl, this));
+                if (!$btnClear.length) {
+                    $btnClear = $([
+                        sprintf('<button class="btn btn-%s filter-show-clear" ', that.options.buttonsClass),
+                        sprintf('type="button" title="%s">', that.options.formatClearFilters()),
+                        sprintf('<i class="%s %s"></i> ', that.options.iconsPrefix, that.options.icons.clear),
+                        '</button>'
+                    ].join('')).appendTo($btnGroup);
+
+                    $btnClear.off('click').on('click', $.proxy(that.clearFilterControl, that, null));
+                }
+            }
+
+            if (typeof that.options.customClearAll === 'string') {
+                $('body').off('click', that.options.customClearAll);
+
+                // use delegation since we don't know when or where the button(s) will be added to the page
+                $('body').on('click', that.options.customClearAll, function (e) {
+                    e.preventDefault();
+                    that.clearFilterControl.call(that);
+                });
+            }
+
+            if (typeof that.options.customClearOne === 'string') {
+                $('body').off('click', that.options.customClearOne);
+
+                // use delegation since we don't know when or where the button(s) will be added to the page
+                $('body').on('click', that.options.customClearOne, function (e) {
+                    e.preventDefault();
+                    var controls = getCurrentHeader(that).find('.bootstrap-table-filter-control-' + $(this).data(that.options.customClearOneData));
+
+                    if (controls.length) {
+                        that.clearFilterControl.call(that, controls);
+                    }
+                });
             }
         }
     };
@@ -650,7 +681,7 @@
             this.updatePagination();
 
             for (var filter in filterColumnsDefaults) {
-              this.trigger('column-search', filter, filterColumnsDefaults[filter]);
+                this.trigger('column-search', filter, filterColumnsDefaults[filter]);
             }
         }
     };
@@ -686,35 +717,40 @@
         this.trigger('column-search', $field, text);
     };
 
-    BootstrapTable.prototype.clearFilterControl = function () {
-        if (this.options.filterControl && this.options.filterShowClear) {
+    BootstrapTable.prototype.clearFilterControl = function (controlsArg) {
+        if (this.options.filterControl) {
             var that = this,
                 cookies = collectBootstrapCookies(),
-                header = getCurrentHeader(that),
-                table = header.closest('table'),
-                controls = header.find(getCurrentSearchControls(that)),
-                search = that.$toolbar.find('.search input'),
+                $header = getCurrentHeader(that),
+                $table = $header.closest('table'),
+                hasControlsArg = controlsArg ? true : false,
+                $controls = controlsArg || $header.find(getCurrentSearchControls(that)),
+                $search = that.$toolbar.find('.search input'),
                 hasValues = false,
                 timeoutId = 0;
 
             $.each(that.options.valuesFilterControl, function (i, item) {
-                hasValues = hasValues ? true : item.value !== '';
-                item.value = '';
+                var isControlRequested = ($controls.closest('th[data-field="' + item.field + '"]').length !== 0);
+                if ((hasControlsArg && isControlRequested)
+                    || !hasControlsArg) {
+                    hasValues = hasValues ? true : item.value !== '';
+                    item.value = '';
+                }
             });
 
             setValues(that);
 
-             // clear cookies once the filters are clean
-             clearTimeout(timeoutId);
-             timeoutId = setTimeout(function () {
-                 if (cookies && cookies.length > 0) {
-                     $.each(cookies, function (i, item) {
-                         if (that.deleteCookie !== undefined) {
-                             that.deleteCookie(item);
-                         }
-                     });
-                 }
-             }, that.options.searchTimeOut);
+            // clear cookies once the filters are clean
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function () {
+                if (cookies && cookies.length > 0) {
+                    $.each(cookies, function (i, item) {
+                        if (that.deleteCookie !== undefined) {
+                            that.deleteCookie(item);
+                        }
+                    });
+                }
+            }, that.options.searchTimeOut);
 
             //If there is not any value in the controls exit this method
             if(!hasValues) {
@@ -724,23 +760,23 @@
             // Clear each type of filter if it exists.
             // Requires the body to reload each time a type of filter is found because we never know
             // which ones are going to be present.
-            if (controls.length > 0) {
+            if ($controls.length > 0) {
                 this.filterColumnsPartial = {};
-                $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
+                $($controls[0]).trigger($controls[0].tagName === 'INPUT' ? 'keyup' : 'change');
             } else {
                 return;
             }
 
-            if (search.length > 0) {
+            if ($search.length > 0) {
                 that.resetSearch();
             }
 
             // use the default sort order if it exists. do nothing if it does not
-            if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
-                var sorter = header.find(sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')));
-                if (sorter.length > 0) {
-                    that.onSort({type: 'keypress', currentTarget: sorter});
-                    $(sorter).find('.sortable').trigger('click');
+            if (that.options.sortName !== $table.data('sortName') || that.options.sortOrder !== $table.data('sortOrder')) {
+                var $sorter = $header.find(sprintf('[data-field="%s"]', $($controls[0]).closest('table').data('sortName')));
+                if ($sorter.length > 0) {
+                    that.onSort({type: 'keypress', currentTarget: $sorter});
+                    $($sorter).find('.sortable').trigger('click');
                 }
             }
         }
