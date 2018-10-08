@@ -1,6 +1,13 @@
 ChangeLog
 ---------
 
+### 1.13.0
+
+- feat(js): rewrite bootstrap-table, locales and extensions to ES6
+- feat(js): extensions add `Bootstrap v4.0` support
+- fix(css): fix #1848, remove toolbar line-height
+- fix(resizable extension): remove `fixed` option from resizable extension
+
 ### 1.12.1
 
 - fix(js): fix #3656, toggle icon typo

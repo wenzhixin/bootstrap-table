@@ -19,6 +19,7 @@ check.js
 # Common IDE files
 nbproject
 .~lock.*
+package-lock.json
 .buildpath
 .idea
 .project
