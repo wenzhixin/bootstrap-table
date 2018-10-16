@@ -1327,6 +1327,22 @@
                 }
               }
             }
+
+            if (Array.isArray(value)) {
+              if (this.options.strictSearch) {
+                for (let v = 0; i < value.length; v++) {
+                  if ((`${value[v]}`).toLowerCase() === s) {
+                    return true
+                  }
+                }
+              } else {
+                for (let v = 0; i < value.length; v++) {
+                  if ((`${value[v]}`).toLowerCase().includes(s)) {
+                    return true
+                  }
+                }
+              }
+            }
           }
           return false
         }) : this.data
