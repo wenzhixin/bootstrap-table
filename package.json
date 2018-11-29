@@ -7,7 +7,6 @@
     "doc": "docs"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^1.1.5",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.9.0",

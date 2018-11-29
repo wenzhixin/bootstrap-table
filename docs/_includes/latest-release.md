@@ -1,4 +1,8 @@
-### Latest release (2018-03-12)
+### Latest release (2018-11-29)
+
+### 1.12.2
+
+- fix(js): fix #3656, toggle icon typo release error
 
 ### 1.12.1
 

@@ -7,9 +7,6 @@ _gh_pages
 # build the extensions
 extensions.js
 
-# deploy the docs
-deploy.sh
-
 # old docs
 docs_
 
