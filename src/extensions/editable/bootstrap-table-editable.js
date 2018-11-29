@@ -119,7 +119,11 @@
                         oldValue = row[column.field];
 
                     $(this).data('value', params.submitValue);
-                    row[column.field] = params.submitValue;
+                    if (column.field.indexOf('.') < 0) {
+                        row[column.field] = params.submitValue;
+                    } else {
+                        eval('row.' + column.field + '=' + params.submitValue);
+                    }
                     that.trigger('editable-save', column.field, row, oldValue, $(this));
                     that.resetFooter();
                 });
