@@ -11,7 +11,7 @@
 
 <title>
   
-    例子 &middot; Bootstrap Table
+    Bootstrap Table
   
 </title>
 
@@ -20,8 +20,8 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css" rel="stylesheet">
 <link href="../assets/css/docs.min.css" rel="stylesheet">
-<link href="../assets/css/sidenav.css" rel="stylesheet">
-<link href="../assets/css/style.css" rel="stylesheet">
+<link href="../assets/css/sidenav.css?v=1.12.1" rel="stylesheet">
+<link href="../assets/css/style.css?v=1.12.1" rel="stylesheet">
 
 <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="../assets/js/ie-emulation-modes-warning.js"></script>
@@ -56,7 +56,7 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   </head>
-  <body>
+  <body class="bs-docs-home">
     <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <!-- Docs master nav -->
@@ -70,34 +70,34 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/zh-cn/" class="navbar-brand">Bootstrap Table</a>
+            <a href="../home/" class="navbar-brand">Bootstrap Table</a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li >
-                    <a href="/zh-cn/getting-started/">开始使用</a>
+                    <a href="../getting-started/">开始使用</a>
                 </li>
                 <li >
-                    <a href="/zh-cn/documentation/">文档</a>
+                    <a href="../documentation/">文档</a>
                 </li>
-                <li class="dropdown"  class="active">
+                <li class="dropdown" >
                     <a href="javascript:" data-toggle="dropdown">
                         例子
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">例子</a></li>
-                        <li><a href="/zh-cn/examples/">jsFiddle Examples</a></li>
+                        <li><a href="https://github.com/wenzhixin/bootstrap-table/issues/1765">jsFiddle Examples</a></li>
                     </ul>
                 </li>
                 <li >
-                    <a href="/zh-cn/extensions/">扩展</a>
+                    <a href="../extensions/">扩展</a>
                 </li>
                 <li >
-                    <a href="/zh-cn/donate/">捐助</a>
+                    <a href="../donate/">捐助</a>
                 </li>
                 <li >
-                    <a href="/zh-cn/faq/">常见问题</a>
+                    <a href="../faq/">常见问题</a>
                 </li>
                 <li>
                     <a href="https://github.com/wenzhixin/bootstrap-table" target="_blank">GitHub</a>
@@ -137,77 +137,115 @@
 </header>
 
 
-    <!-- Docs page layout -->
-    <div class="bs-docs-header" id="content">
-      <div class="container">
-        <h1>例子</h1>
-        <p>使用Bootstrap Table的例子。</p>
+    <!-- Page content of course! -->
+    <p><main class="bs-docs-masthead" id="content" role="main">
+  <div class="container">
+    <span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline">BT</span>
+    <p class="lead">基于 Bootstrap 的 jQuery 表格插件，通过简单的设置，就可以拥有强大的单选、多选、排序、分页，以及编辑、导出、过滤（扩展）等等的功能。</p>
+    <p class="lead">
+      <a href="https://github.com/wenzhixin/bootstrap-table" class="btn btn-outline-inverse btn-lg">
+        下载
+      </a>
+      <a href="getting-started" class="btn btn-outline-inverse btn-lg">
+        开始使用
+      </a>
+    </p>
+    <p class="version">当前版本： v1.12.1</p>
+  </div>
+</main></p>
+
+<div class="bs-docs-featurette">
+  <div class="container">
+    <h2 class="bs-docs-featurette-title">专为 Twitter Bootstrap 设计</h2>
+    <p class="lead">Bootstrap table 通过简单的设置，就可以拥有强大的功能，大大提高工作效率，减少开发时间。</p>
+
+    <hr class="half-rule">
+
+    <div class="row">
+      <div class="col-md-5">
+        <h3>主要功能</h3>
+
+<ul>
+<li>支持 Bootstrap 3 和 Bootstrap 2</li>
+<li>自适应界面</li>
+<li>固定表头</li>
+<li>非常丰富的配置参数</li>
+<li>直接通过标签使用</li>
+<li>显示/隐藏列</li>
+<li>显示/隐藏表头</li>
+<li>通过 AJAX 获取 JSON 格式的数据</li>
+<li>支持排序</li>
+<li>格式化表格</li>
+<li>支持单选或者多选</li>
+<li>强大的分页功能</li>
+<li>支持卡片视图</li>
+<li>支持多语言</li>
+<li>支持插件</li>
+</ul>
+
+      </div>
+      <div class="col-md-7">
+        
+        <h3>Latest release (2018-03-12)</h3>
+
+<h3>1.12.1</h3>
+
+<ul>
+<li>fix(js): fix #3656, toggle icon typo</li>
+<li>fix(js): fix #3657, opencollective postinstall error</li>
+<li>fix(group-by-v2 extension): fix #3598, detailView display bug</li>
+<li>feat(tree-grid extension): fix #3607, add <code>rowStyle</code> support</li>
+</ul>
+
+<h3>1.12.0</h3>
+
+<ul>
+<li>fix(js): fix zoom header width bug</li>
+<li>fix(js): fix #3452, reset the table data when url loaded error</li>
+<li>fix(js): fix #3380, check-all was wrong with the sub-table</li>
+<li>fix(js): fix #2963, singleSelect, maintainSelected and pagination bug</li>
+<li>fix(js): fix #3342, remove limit when it is 0</li>
+<li>fix(js): fix #3472, group header style bug</li>
+<li>fix(js): fix #3310, searchText causes two requests</li>
+<li>fix(js): fix #3029, IE8 does not support getOwnPropertyNames</li>
+<li>fix(js): fix #3204, sortName cannot work in server side pagination</li>
+<li>fix(js): fix #3163, <code>showToolbar</code> bug when using extensions</li>
+<li>fix(js): fix #3087, only send pagination parameters when <code>sidePagination</code> is <code>server</code></li>
+<li>fix(export extension): fix #3477, server pagination mode cannot export all data</li>
+<li>fix(filter-control extension): fix #3271, duplicate select option with fixed header and client pagination</li>
+<li>feat(js): add <code>detailFilter</code> option</li>
+<li>feat(js): add <code>rememberOrder</code> option</li>
+<li>feat(js): improve pageList <code>All</code> option locale independent</li>
+<li>feat(js): add <code>Bootstrap v4.0</code> support</li>
+<li>feat(js): add <code>row</code> data to sorter function</li>
+<li>feat(js): add <code>ignoreClickToSelectOn</code> option</li>
+<li>feat(js): add <code>onScrollBody</code> / <code>scroll-body.bs.table</code> event</li>
+<li>feat(js): add <code>showFullscreen</code> option</li>
+<li>feat(js): add <code>showSelectTitle</code> column option</li>
+<li>feat(js): add <code>$el</code> to collapse-row</li>
+<li>feat(locale): add <code>eu-EU</code> locale</li>
+<li>feat(export extension): add <code>exportFooter</code> option</li>
+<li>feat(multiple-sort extension): add <code>showMultiSortButton</code> option</li>
+<li>feat(filter-control extension): add <code>searchOnEnterKey</code> option</li>
+<li>feat(page-jumpto extension): add <code>page-jumpto</code> extension</li>
+<li>feat(resizable extension): add <code>resizeMode</code> option</li>
+<li>feat(sticky-header extension): add <code>Bootstrap v4.0</code> support</li>
+<li>feat(treegrid extension): add <code>treegrid</code> extension</li>
+<li>feat(print extension): add support to print complex table</li>
+<li>feat(extension): add cookie in combination with filter-control and strict search</li>
+</ul>
+
+<h4>Breaking changes in 1.12.0</h4>
+
+<ul>
+<li>feat(js): add <code>toggleOn</code> and <code>toggleOff</code> icons instead <code>toggle</code> icon</li>
+</ul>
+
       </div>
     </div>
-
-    <div class="bs-docs-social">
-    假如您喜欢 Bootstrap Table：
-    <ul class="bs-docs-social-buttons">
-        <li>
-            <iframe class="github-btn"
-                    src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=watch&count=true"
-                    width="100" height="20" title="Star on GitHub"></iframe>
-        </li>
-        <li>
-            <iframe class="github-btn"
-                    src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=fork&count=true"
-                    width="102" height="20" title="Fork on GitHub"></iframe>
-        </li>
-        <li>
-            <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=wenzhixin&type=follow&count=true"
-                    width="175" height="20" title="Follow on GitHub"></iframe>
-        </li>
-        <!--<li>-->
-            <!-- https://about.twitter.com/resources/buttons#tweet -->
-            <!--<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wenzhixin.net.cn/p/bootstrap-table" data-via="BootstrapTable" data-related="BootstrapTable">Tweet</a>-->
-        <!--</li>-->
-        <!--<li>-->
-             <!--将此标记放置在你希望显示+1 按钮的位置。 -->
-            <!--<div class="g-plusone" data-annotation="inline" data-width="120"></div>-->
-        <!--</li>-->
-        <!--<li>-->
-            <!--<div>QQ群： 103558783</div>-->
-        <!--</li>-->
-    </ul>
-    问题/帮助：
-    <ul class="bs-docs-social-buttons">
-        <li>
-            <a class="help-btn" href="http://stackoverflow.com/questions/tagged/bootstrap-table">StackOverflow</a>
-        </li>
-        <li>
-            <a class="help-btn" href="http://segmentfault.com/t/bootstrap-table">SegmentFault</a>
-        </li>
-    </ul>
+  </div>
 </div>
 
-
-    <hr>
-
-    <div class="container bs-docs-container">
-
-      <div class="row">
-        <div class="col-md-9"
-             role="main"
-             
-             data-container="#sidenav"
-             data-hs="h1,h2"
-             data-smart-id="true"
-             data-bottom=".bs-docs-footer">
-          <div id="examples">Loading...</div>
-
-        </div>
-        
-        <div class="col-md-3">
-          <div id="sidenav">
-        </div>
-        
-      </div>
-    </div>
 
     <!-- Footer
 ================================================== -->
@@ -289,8 +327,8 @@
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
 
-<script src="../assets/js/sidenav.js"></script>
-<script src="../assets/js/common.js"></script>
+<script src="../assets/js/sidenav.js?v=1.12.1"></script>
+<script src="../assets/js/common.js?v=1.12.1"></script>
 
   </body>
 </html>

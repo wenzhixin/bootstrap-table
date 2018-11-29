@@ -11,7 +11,7 @@
 
 <title>
   
-    Ejemplos &middot; Bootstrap Table
+    Bootstrap Table
   
 </title>
 
@@ -20,8 +20,8 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css" rel="stylesheet">
 <link href="../assets/css/docs.min.css" rel="stylesheet">
-<link href="../assets/css/sidenav.css" rel="stylesheet">
-<link href="../assets/css/style.css" rel="stylesheet">
+<link href="../assets/css/sidenav.css?v=1.12.1" rel="stylesheet">
+<link href="../assets/css/style.css?v=1.12.1" rel="stylesheet">
 
 <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="../assets/js/ie-emulation-modes-warning.js"></script>
@@ -56,7 +56,7 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   </head>
-  <body>
+  <body class="bs-docs-home">
     <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <!-- Docs master nav -->
@@ -70,34 +70,34 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/es/" class="navbar-brand">Bootstrap Table</a>
+            <a href="../home/" class="navbar-brand">Bootstrap Table</a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li >
-                    <a href="/es/getting-started/">Iniciar con Bootstrap-table</a>
+                    <a href="../getting-started/">Getting started</a>
                 </li>
                 <li >
-                    <a href="/es/documentation/">Documentación</a>
+                    <a href="../documentation/">Documentation</a>
                 </li>
-                <li class="dropdown"  class="active">
+                <li class="dropdown" >
                     <a href="javascript:" data-toggle="dropdown">
-                        Ejemplos
+                        Examples
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">Ejemplos</a></li>
-                        <li><a href="/es/examples/">jsFiddle Examples</a></li>
+                        <li><a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">Examples</a></li>
+                        <li><a href="https://github.com/wenzhixin/bootstrap-table/issues/1765">jsFiddle Examples</a></li>
                     </ul>
                 </li>
                 <li >
-                    <a href="/es/extensions/">Extensiones</a>
+                    <a href="../extensions/">Extensions</a>
                 </li>
                 <li >
-                    <a href="/es/donate/">Donate</a>
+                    <a href="../donate/">Donate</a>
                 </li>
                 <li >
-                    <a href="/es/faq/">FAQ</a>
+                    <a href="../faq/">FAQ</a>
                 </li>
                 <li>
                     <a href="https://github.com/wenzhixin/bootstrap-table" target="_blank">GitHub</a>
@@ -137,77 +137,115 @@
 </header>
 
 
-    <!-- Docs page layout -->
-    <div class="bs-docs-header" id="content">
-      <div class="container">
-        <h1>Ejemplos</h1>
-        <p>Ejemplos de bootstrap table.</p>
+    <!-- Page content of course! -->
+    <p><main class="bs-docs-masthead" id="content" role="main">
+  <div class="container">
+    <span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline">BT</span>
+    <p class="lead">An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.</p>
+    <p class="lead">
+      <a href="https://github.com/wenzhixin/bootstrap-table" class="btn btn-outline-inverse btn-lg">
+        Download
+      </a>
+      <a href="getting-started" class="btn btn-outline-inverse btn-lg">
+        Getting started
+      </a>
+    </p>
+    <p class="version">Current version: v1.12.1</p>
+  </div>
+</main></p>
+
+<div class="bs-docs-featurette">
+  <div class="container">
+    <h2 class="bs-docs-featurette-title">Designed for Twitter Bootstrap</h2>
+    <p class="lead">Bootstrap table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.</p>
+
+    <hr class="half-rule">
+
+    <div class="row">
+      <div class="col-md-5">
+        <h3>Features</h3>
+
+<ul>
+<li>Created for Bootstrap 3 (Bootstrap 2 supported)</li>
+<li>Responsive web design</li>
+<li>Scrollable Table with fixed headers</li>
+<li>Fully configurable</li>
+<li>Via data attributes</li>
+<li>Show/Hide columns</li>
+<li>Show/Hide headers</li>
+<li>Get data in JSON format using AJAX</li>
+<li>Simple column sorting with a click</li>
+<li>Format column</li>
+<li>Single or multiple row selection</li>
+<li>Powerful pagination</li>
+<li>Card view</li>
+<li>Localization</li>
+<li>Extensions</li>
+</ul>
+
+      </div>
+      <div class="col-md-7">
+        
+        <h3>Latest release (2018-03-12)</h3>
+
+<h3>1.12.1</h3>
+
+<ul>
+<li>fix(js): fix #3656, toggle icon typo</li>
+<li>fix(js): fix #3657, opencollective postinstall error</li>
+<li>fix(group-by-v2 extension): fix #3598, detailView display bug</li>
+<li>feat(tree-grid extension): fix #3607, add <code>rowStyle</code> support</li>
+</ul>
+
+<h3>1.12.0</h3>
+
+<ul>
+<li>fix(js): fix zoom header width bug</li>
+<li>fix(js): fix #3452, reset the table data when url loaded error</li>
+<li>fix(js): fix #3380, check-all was wrong with the sub-table</li>
+<li>fix(js): fix #2963, singleSelect, maintainSelected and pagination bug</li>
+<li>fix(js): fix #3342, remove limit when it is 0</li>
+<li>fix(js): fix #3472, group header style bug</li>
+<li>fix(js): fix #3310, searchText causes two requests</li>
+<li>fix(js): fix #3029, IE8 does not support getOwnPropertyNames</li>
+<li>fix(js): fix #3204, sortName cannot work in server side pagination</li>
+<li>fix(js): fix #3163, <code>showToolbar</code> bug when using extensions</li>
+<li>fix(js): fix #3087, only send pagination parameters when <code>sidePagination</code> is <code>server</code></li>
+<li>fix(export extension): fix #3477, server pagination mode cannot export all data</li>
+<li>fix(filter-control extension): fix #3271, duplicate select option with fixed header and client pagination</li>
+<li>feat(js): add <code>detailFilter</code> option</li>
+<li>feat(js): add <code>rememberOrder</code> option</li>
+<li>feat(js): improve pageList <code>All</code> option locale independent</li>
+<li>feat(js): add <code>Bootstrap v4.0</code> support</li>
+<li>feat(js): add <code>row</code> data to sorter function</li>
+<li>feat(js): add <code>ignoreClickToSelectOn</code> option</li>
+<li>feat(js): add <code>onScrollBody</code> / <code>scroll-body.bs.table</code> event</li>
+<li>feat(js): add <code>showFullscreen</code> option</li>
+<li>feat(js): add <code>showSelectTitle</code> column option</li>
+<li>feat(js): add <code>$el</code> to collapse-row</li>
+<li>feat(locale): add <code>eu-EU</code> locale</li>
+<li>feat(export extension): add <code>exportFooter</code> option</li>
+<li>feat(multiple-sort extension): add <code>showMultiSortButton</code> option</li>
+<li>feat(filter-control extension): add <code>searchOnEnterKey</code> option</li>
+<li>feat(page-jumpto extension): add <code>page-jumpto</code> extension</li>
+<li>feat(resizable extension): add <code>resizeMode</code> option</li>
+<li>feat(sticky-header extension): add <code>Bootstrap v4.0</code> support</li>
+<li>feat(treegrid extension): add <code>treegrid</code> extension</li>
+<li>feat(print extension): add support to print complex table</li>
+<li>feat(extension): add cookie in combination with filter-control and strict search</li>
+</ul>
+
+<h4>Breaking changes in 1.12.0</h4>
+
+<ul>
+<li>feat(js): add <code>toggleOn</code> and <code>toggleOff</code> icons instead <code>toggle</code> icon</li>
+</ul>
+
       </div>
     </div>
-
-    <div class="bs-docs-social">
-    If you like bootstrap table: 
-    <ul class="bs-docs-social-buttons">
-        <li>
-            <iframe class="github-btn"
-                    src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=watch&count=true"
-                    width="100" height="20" title="Star on GitHub"></iframe>
-        </li>
-        <li>
-            <iframe class="github-btn"
-                    src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=fork&count=true"
-                    width="102" height="20" title="Fork on GitHub"></iframe>
-        </li>
-        <li>
-            <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=wenzhixin&type=follow&count=true"
-                    width="175" height="20" title="Follow on GitHub"></iframe>
-        </li>
-        <!--<li>-->
-            <!-- https://about.twitter.com/resources/buttons#tweet -->
-            <!--<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wenzhixin.net.cn/p/bootstrap-table" data-via="BootstrapTable" data-related="BootstrapTable">Tweet</a>-->
-        <!--</li>-->
-        <!--<li>-->
-             <!--将此标记放置在你希望显示+1 按钮的位置。 -->
-            <!--<div class="g-plusone" data-annotation="inline" data-width="120"></div>-->
-        <!--</li>-->
-        <!--<li>-->
-            <!--<div>QQ group:  103558783</div>-->
-        <!--</li>-->
-    </ul>
-    Questions/Helps: 
-    <ul class="bs-docs-social-buttons">
-        <li>
-            <a class="help-btn" href="http://stackoverflow.com/questions/tagged/bootstrap-table">StackOverflow</a>
-        </li>
-        <li>
-            <a class="help-btn" href="http://segmentfault.com/t/bootstrap-table">SegmentFault</a>
-        </li>
-    </ul>
+  </div>
 </div>
 
-
-    <hr>
-
-    <div class="container bs-docs-container">
-
-      <div class="row">
-        <div class="col-md-9"
-             role="main"
-             
-             data-container="#sidenav"
-             data-hs="h1,h2"
-             data-smart-id="true"
-             data-bottom=".bs-docs-footer">
-          <div id="examples">Loading...</div>
-
-        </div>
-        
-        <div class="col-md-3">
-          <div id="sidenav">
-        </div>
-        
-      </div>
-    </div>
 
     <!-- Footer
 ================================================== -->
@@ -277,6 +315,7 @@
   </div>
 </footer>
 
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -288,8 +327,8 @@
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
 
-<script src="../assets/js/sidenav.js"></script>
-<script src="../assets/js/common.js"></script>
+<script src="../assets/js/sidenav.js?v=1.12.1"></script>
+<script src="../assets/js/common.js?v=1.12.1"></script>
 
   </body>
 </html>
