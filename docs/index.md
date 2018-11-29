@@ -31,7 +31,8 @@ title: pages.home.title
         {% tf home/feature.md %}
       </div>
       <div class="col-md-7">
-        {% markdown latest-release.md %}
+        {% capture my_include %}{% include latest-release.md %}{% endcapture %}
+        {{ my_include | markdownify }}
       </div>
     </div>
   </div>
