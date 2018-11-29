@@ -7,7 +7,6 @@ script: bash ./deploy.sh
 branches:
   only:
   - master
-  - hotfix/docs
 
 env:
   global:
