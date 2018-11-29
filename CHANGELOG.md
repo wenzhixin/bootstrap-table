@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### 1.12.2
+
+- fix(js): fix #3656, toggle icon typo release error
+
 ### 1.12.1
 
 - fix(js): fix #3656, toggle icon typo
