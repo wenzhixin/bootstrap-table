@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.">
+<meta name="keywords" content="table, bootstrap, bootstrap plugin, bootstrap resources, bootstrap table, jQuery plugin">
+<meta name="author" content="Zhixin Wen, and Bootstrap table contributors">
+
+<title>
+  
+    常见问题 &middot; Bootstrap Table
+  
+</title>
+
+<!-- Bootstrap CSS -->
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css" rel="stylesheet">
+<link href="../assets/css/docs.min.css" rel="stylesheet">
+<link href="../assets/css/sidenav.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+
+<!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<script src="../assets/js/ie-emulation-modes-warning.js"></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!-- Favicons -->
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-36708951-1', 'wenzhixin.net.cn');
+  ga('send', 'pageview');
+</script>
+
+<script type="text/javascript">
+    if (window!=top) // 判断当前的window对象是否是top对象
+        top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+</script>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- 将此标记放置在 head 中，或放置在结束 body 标记之前，并使其紧邻此标记。 -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  </head>
+  <body>
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <!-- Docs master nav -->
+    <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                    data-target=".bs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/zh-cn/" class="navbar-brand">Bootstrap Table</a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li >
+                    <a href="/zh-cn/getting-started/">开始使用</a>
+                </li>
+                <li >
+                    <a href="/zh-cn/documentation/">文档</a>
+                </li>
+                <li class="dropdown" >
+                    <a href="javascript:" data-toggle="dropdown">
+                        例子
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://issues.wenzhixin.net.cn/bootstrap-table/" target="_blank">例子</a></li>
+                        <li><a href="/zh-cn/examples/">jsFiddle Examples</a></li>
+                    </ul>
+                </li>
+                <li >
+                    <a href="/zh-cn/extensions/">扩展</a>
+                </li>
+                <li >
+                    <a href="/zh-cn/donate/">捐助</a>
+                </li>
+                <li  class="active">
+                    <a href="/zh-cn/faq/">常见问题</a>
+                </li>
+                <li>
+                    <a href="https://github.com/wenzhixin/bootstrap-table" target="_blank">GitHub</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Localization -->
+                <li>
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="language">English</span> <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        <li data-language="en">
+                            <a href="javascript:void(0)">
+                                English
+                            </a>
+                        </li>
+                        
+                        <li data-language="zh-cn">
+                            <a href="javascript:void(0)">
+                                简体中文
+                            </a>
+                        </li>
+                        
+                        <li data-language="es">
+                            <a href="javascript:void(0)">
+                                Español
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+    <!-- Docs page layout -->
+    <div class="bs-docs-header" id="content">
+      <div class="container">
+        <h1>常见问题</h1>
+        <p>常见问题。</p>
+      </div>
+    </div>
+
+    <div class="bs-docs-social">
+    假如您喜欢 Bootstrap Table：
+    <ul class="bs-docs-social-buttons">
+        <li>
+            <iframe class="github-btn"
+                    src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=watch&count=true"
+                    width="100" height="20" title="Star on GitHub"></iframe>
+        </li>
+        <li>
+            <iframe class="github-btn"
+                    src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=fork&count=true"
+                    width="102" height="20" title="Fork on GitHub"></iframe>
+        </li>
+        <li>
+            <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=wenzhixin&type=follow&count=true"
+                    width="175" height="20" title="Follow on GitHub"></iframe>
+        </li>
+        <!--<li>-->
+            <!-- https://about.twitter.com/resources/buttons#tweet -->
+            <!--<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wenzhixin.net.cn/p/bootstrap-table" data-via="BootstrapTable" data-related="BootstrapTable">Tweet</a>-->
+        <!--</li>-->
+        <!--<li>-->
+             <!--将此标记放置在你希望显示+1 按钮的位置。 -->
+            <!--<div class="g-plusone" data-annotation="inline" data-width="120"></div>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<div>QQ群： 103558783</div>-->
+        <!--</li>-->
+    </ul>
+    问题/帮助：
+    <ul class="bs-docs-social-buttons">
+        <li>
+            <a class="help-btn" href="http://stackoverflow.com/questions/tagged/bootstrap-table">StackOverflow</a>
+        </li>
+        <li>
+            <a class="help-btn" href="http://segmentfault.com/t/bootstrap-table">SegmentFault</a>
+        </li>
+    </ul>
+</div>
+
+
+    <hr>
+
+    <div class="container bs-docs-container">
+
+      <div class="row">
+        <div class="col-md-9"
+             role="main"
+             data-toggle="sidenav"
+             data-container="#sidenav"
+             data-hs="h1,h2"
+             data-smart-id="true"
+             data-bottom=".bs-docs-footer">
+          <h1>常见问题 <a href="https://github.com/wenzhixin/bootstrap-table/blob/develop/docs/_i18n/zh-cn/faq/faq.md"></a></h1>
+
+<p><hr></p>
+
+<h3>当浏览器窗口变化是，表头与表格不对齐，应该怎么办？</h3>
+
+<p>当你使用 <code>height</code> 参数的时候，会启用 <code>固定表头</code> 的功能，这个功能会导致不对齐的问题，你可以通过监听 <code>resize</code> 事件来解决问题，代码如下：</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'#tableId'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">();</span> <span class="c1">// init via javascript</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">resize</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'#tableId'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">(</span><span class="s1">'resetView'</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p><hr></p>
+
+<h3>如何更好的合并表格列？</h3>
+
+<p>对于合并的表格，当你使用刷新，点击下一页或者切换列的显示，合并的表格会变回去，我们可以监听一下的事件来解决这个问题，代码如下：</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$table</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'load-success.bs.table column-switch.bs.table page-change.bs.table search.bs.table'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$table</span><span class="p">.</span><span class="nx">bootstrapTable</span><span class="p">(</span><span class="s1">'mergeCells'</span><span class="p">,</span> <span class="p">{...});</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p><hr></p>
+
+<h3>事件参数位置错误？</h3>
+
+<p>当你使用：</p>
+
+<div class="highlight"><pre><code class="language-" data-lang="">$('#eventsTable').on('click-row.bs.table', function (event, row, $element) {
+
+});
+</code></pre></div>
+
+<p>的时候，第一个参数总是 <code>event</code>：<a href="http://jsfiddle.net/wenyi/e3nk137y/11688/">http://jsfiddle.net/wenyi/e3nk137y/11688/</a></p>
+
+<p>而使用 <code>onClickRow</code> 就正常:</p>
+
+<div class="highlight"><pre><code class="language-" data-lang="">onClickRow: function (row, $element) {
+
+}
+</code></pre></div>
+
+<h3>我要如何支持 Bootstrap Table 的开发？</h3>
+
+<p>非常感谢你的想法和建议，你可以到 GitHub 上提 issue 或者发邮件给我。</p>
+
+<p>当然，假如你也可以 <a href="/donate">捐助</a> 我们的项目。</p>
+
+        </div>
+        
+        <div class="col-md-3">
+          <div id="sidenav">
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Footer
+================================================== -->
+<footer class="bs-docs-footer" role="contentinfo">
+  <div class="container">
+    <div class="bs-docs-social">
+    假如您喜欢 Bootstrap Table：
+    <ul class="bs-docs-social-buttons">
+        <li>
+            <iframe class="github-btn"
+                    src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=watch&count=true"
+                    width="100" height="20" title="Star on GitHub"></iframe>
+        </li>
+        <li>
+            <iframe class="github-btn"
+                    src="http://ghbtns.com/github-btn.html?user=wenzhixin&repo=bootstrap-table&type=fork&count=true"
+                    width="102" height="20" title="Fork on GitHub"></iframe>
+        </li>
+        <li>
+            <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=wenzhixin&type=follow&count=true"
+                    width="175" height="20" title="Follow on GitHub"></iframe>
+        </li>
+        <!--<li>-->
+            <!-- https://about.twitter.com/resources/buttons#tweet -->
+            <!--<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wenzhixin.net.cn/p/bootstrap-table" data-via="BootstrapTable" data-related="BootstrapTable">Tweet</a>-->
+        <!--</li>-->
+        <!--<li>-->
+             <!--将此标记放置在你希望显示+1 按钮的位置。 -->
+            <!--<div class="g-plusone" data-annotation="inline" data-width="120"></div>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<div>QQ群： 103558783</div>-->
+        <!--</li>-->
+    </ul>
+    问题/帮助：
+    <ul class="bs-docs-social-buttons">
+        <li>
+            <a class="help-btn" href="http://stackoverflow.com/questions/tagged/bootstrap-table">StackOverflow</a>
+        </li>
+        <li>
+            <a class="help-btn" href="http://segmentfault.com/t/bootstrap-table">SegmentFault</a>
+        </li>
+    </ul>
+</div>
+
+
+    <p>该文档由 <a href="https://github.com/wenzhixin" target="_blank">@wenzhixin</a> 设计和建设。</p>
+    <p>由 <a href="https://github.com/wenzhixin" target="_blank">@wenzhixin</a> 开发维护，以及其他 <a href="https://github.com/wenzhixin/bootstrap-table/graphs/contributors" target="_blank">贡献者</a>帮忙维护。</p>
+    <p>代码许可：<a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>，文档许可：<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>。</p>
+    <ul class="bs-docs-footer-links muted">
+      <li>当前版本： v1.12.1</li>
+      <li>&middot;</li>
+      <li><a href="https://github.com/wenzhixin/bootstrap-table">GitHub</a></li>
+      <li>&middot;</li>
+      <li><a href="http://wenzhixin.net.cn">我的网站</a></li>
+      <li>&middot;</li>
+      <li><a href="http://repos.wenzhixin.net.cn">我的开源项目</a></li>
+      <li>&middot;</li>
+      <li><a href="http://stackoverflow.com/questions/tagged/bootstrap-table">帮助</a></li>
+      <li>&middot;</li>
+      <li><a href="https://github.com/wenzhixin/bootstrap-table/issues">问题</a></li>
+      <li>&middot;</li>
+      <li><a href="https://github.com/wenzhixin/bootstrap-table/releases">发布版本</a></li>
+      <li>&middot;</li>
+      <li><a href="mailto:wenzhixin2010@gmail.com">邮件</a></li>
+    </ul>
+  </div>
+</footer>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/extensions/mobile/bootstrap-table-mobile.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="../assets/js/sidenav.js"></script>
+<script src="../assets/js/common.js"></script>
+
+  </body>
+</html>
