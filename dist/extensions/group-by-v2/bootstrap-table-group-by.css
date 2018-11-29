@@ -5,3 +5,7 @@
 .bootstrap-table .table > tbody > tr.groupBy.expanded {
 
 }
+
+.bootstrap-table .table > tbody > tr.hidden + tr.detail-view {
+    display: none;
+}

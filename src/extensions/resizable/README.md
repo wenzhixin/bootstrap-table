@@ -20,4 +20,3 @@ Dependence: [jquery-resizable-columns](https://github.com/dobtco/jquery-resizabl
 ## Known issues
 
 ### This plugin does not work when data-height is set.
-
