@@ -122,7 +122,7 @@
                     if (column.field.indexOf('.') < 0) {
                         row[column.field] = params.submitValue;
                     } else {
-                        eval('row.' + column.field + '=' + params.submitValue);
+                        eval('row.' + column.field + '="' + params.submitValue.replace(/"/g, '\\"') + '"');
                     }
                     that.trigger('editable-save', column.field, row, oldValue, $(this));
                     that.resetFooter();
