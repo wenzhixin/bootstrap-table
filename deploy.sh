@@ -4,8 +4,26 @@ set -e # Exit with nonzero exit code if anything fails
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
+function beforeCompile {
+    out='./docs/data/extensions.json'
+    first=1
+    echo '[' > $out
+    for file in `find src/extensions -name "extension.json" | sort`
+    do
+        if [ $first -eq 0 ]
+        then
+            echo ',' >> $out
+        else
+            first=0
+        fi
+        cat $file >> $out
+    done
+    echo ']' >> $out
+}
+
 function doCompile {
-  bundle exec jekyll build
+    beforeCompile
+    bundle exec jekyll build
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
