@@ -11,7 +11,7 @@ title: pages.home.title
       <a href="https://github.com/wenzhixin/bootstrap-table" class="btn btn-outline-inverse btn-lg">
         {% t pages.home.download %}
       </a>
-      <a href="getting-started" class="btn btn-outline-inverse btn-lg">
+      <a href="../getting-started" class="btn btn-outline-inverse btn-lg">
         {% t pages.getting_started.title %}
       </a>
     </p>
