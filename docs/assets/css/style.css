@@ -4,6 +4,16 @@
 .bs-docs-nav + p {
     margin-bottom: 0;
 }
+.bs-docs-header {
+    padding: 10px 0 0;
+}
+.bs-docs-header .col-md-9 {
+    padding: 20px 0 40px;
+}
+.bs-docs-header h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .edit-page-link {
     float: right;
     font-size: 16px;

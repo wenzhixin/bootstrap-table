@@ -11,7 +11,7 @@ title: pages.home.title
       <a href="https://github.com/wenzhixin/bootstrap-table" class="btn btn-outline-inverse btn-lg">
         {% t pages.home.download %}
       </a>
-      <a href="getting-started" class="btn btn-outline-inverse btn-lg">
+      <a href="../getting-started" class="btn btn-outline-inverse btn-lg">
         {% t pages.getting_started.title %}
       </a>
     </p>
@@ -19,10 +19,18 @@ title: pages.home.title
   </div>
 </main>
 
-<div class="bs-docs-featurette">
+<div>
   <div class="container">
-    <h2 class="bs-docs-featurette-title">{% t pages.home.sub_title %}</h2>
-    <p class="lead">{% t pages.home.sub_lead %}</p>
+    <div class="row">
+      <div class="col-md-9">
+        <h2 class="bs-docs-featurette-title">{% t pages.home.sub_title %}</h2>
+        <p class="lead">{% t pages.home.sub_lead %}</p>
+      </div>
+
+      <div class="col-md-3">
+        {% include ads.html %}
+      </div>
+    </div>
 
     <hr class="half-rule">
 
