@@ -13,8 +13,15 @@
     <!-- Docs page layout -->
     <div class="bs-docs-header" id="content">
       <div class="container">
-        <h1>{% t page.title %}</h1>
-        <p>{% t page.lead %}</p>
+        <div class="row">
+          <div class="col-md-9">
+            <h1>{% t page.title %}</h1>
+            <div>{% t page.lead %}</div>
+          </div>
+          <div class="col-md-3">
+            {% include ads.html %}
+          </div>
+        </div>
       </div>
     </div>
 
@@ -36,7 +43,7 @@
         </div>
         {% unless page.fullwidth == true %}
         <div class="col-md-3">
-          <div id="sidenav">
+          <div id="sidenav"></div>
         </div>
         {% endunless %}
       </div>
