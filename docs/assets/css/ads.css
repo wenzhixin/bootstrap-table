@@ -18,7 +18,8 @@
 }
 
 #carbonads a {
-    color: inherit;
+    color: #222 !important;
+    text-shadow: 0 1px hsla(0, 0%, 100%, .8);
     text-decoration: none;
 }
 
