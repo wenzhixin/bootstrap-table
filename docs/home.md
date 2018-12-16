@@ -22,12 +22,12 @@ title: pages.home.title
 <div>
   <div class="container">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-8">
         <h2 class="bs-docs-featurette-title">{% t pages.home.sub_title %}</h2>
         <p class="lead">{% t pages.home.sub_lead %}</p>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-4">
         {% include ads.html %}
       </div>
     </div>
