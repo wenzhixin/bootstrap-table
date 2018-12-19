@@ -1261,11 +1261,7 @@
     initSearch () {
       if (this.options.sidePagination !== 'server') {
         if (this.options.customSearch !== $.noop) {
-          if (typeof this.options.customSearch === 'string') {
-            window[this.options.customSearch].apply(this, [this.searchText])
-          } else {
-            this.options.customSearch.apply(this, [this.searchText])
-          }
+          Utils.calculateObjectValue(this.options, this.options.customSearch, [this.searchText])
           return
         }
 
