@@ -181,7 +181,7 @@
 
       const fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial
 
-      this.data = fp ? $.grep(this.data, function (item, i) {
+      this.data = fp ? $.grep(this.data, (item, i) => {
         for (const key in fp) {
           const fval = fp[key].toLowerCase()
           let value = item[key]
