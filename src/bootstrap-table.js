@@ -10,7 +10,7 @@
 
   let bootstrapVersion = 3
   try {
-    var rawVersion = $.fn.dropdown.Constructor.VERSION
+    const rawVersion = $.fn.dropdown.Constructor.VERSION
 
     // Only try to parse VERSION if is is defined.
     // It is undefined in older versions of Bootstrap (tested with 3.1.1).
