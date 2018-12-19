@@ -1632,7 +1632,7 @@
       return false
     }
 
-    initRow (item, i, data) {
+    initRow (item, i, data, parentDom) {
       let key
       const html = []
       let style = {}
@@ -1847,19 +1847,26 @@
         this.pageTo = data.length
       }
 
-      const html = []
+      const trFragments = $(document.createDocumentFragment())
+      let hasTr = false
+
       for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
-        html.push(this.initRow(data[i], i, data))
+        const item = data[i]
+        const tr = this.initRow(item, i, data, trFragments)
+        hasTr = hasTr || !!tr
+        if (tr && typeof tr === 'string') {
+            trFragments.append(tr)
+        }
       }
 
       // show no records
-      if (!html.length) {
+      if (!hasTr) {
         this.$body.html(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
           this.$header.find('th').length,
           this.options.formatNoMatches())}</tr>`)
       }
 
-      this.$body.html(html.join(''))
+      this.$body.html(trFragments)
 
       if (!fixedScroll) {
         this.scrollTo(0)
