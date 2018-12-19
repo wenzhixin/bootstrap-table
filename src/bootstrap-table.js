@@ -1315,7 +1315,7 @@
               value = Utils.calculateObjectValue(column,
                 this.header.formatters[j], [value, item, i], value)
             }
-            
+
             if (typeof value === 'string' || typeof value === 'number') {
               if (this.options.strictSearch) {
                 if ((`${value}`).toLowerCase() === s) {
