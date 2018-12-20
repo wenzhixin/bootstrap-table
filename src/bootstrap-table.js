@@ -2524,7 +2524,7 @@
 
         if (row.hasOwnProperty(uniqueId)) { // uniqueId is a column
           rowUniqueId = row[uniqueId]
-        } else if (row._data.hasOwnProperty(uniqueId)) { // uniqueId is a row data property
+        } else if (row._data && row._data.hasOwnProperty(uniqueId)) { // uniqueId is a row data property
           rowUniqueId = row._data[uniqueId]
         } else {
           continue

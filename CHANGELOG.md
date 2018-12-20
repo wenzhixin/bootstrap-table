@@ -17,10 +17,11 @@ ChangeLog
 - feat(addrbar extension): add addrbar extension
 
 - fix(js): fix #1769, improve check/uncheck methods
-- fix(js): fix #2485, selections bugs
 - fix(js): fix #1983, cookie with pageNumber and searchText bug
-- fix(js): fix #3696, can't search data with formatter
+- fix(js): fix #2485, selections bugs
 - fix(js): fix #2545, customSearch support data attribute
+- fix(js): fix #3696, can't search data with formatter
+- fix(js): fix #4081, getRowByUniqueId error when row unique id is undefined
 - fix(js): fix older bootstrap version bug
 - fix(css): fix #1848, remove toolbar line-height
 - fix(css): limit fullscreen CSS rule scope
