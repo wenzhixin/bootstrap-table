@@ -8,7 +8,7 @@ Bootstrap table (currently v{{ site.current_version }}) has a few easy ways to q
 
 ## Source code
 
-Source css, JavaScript, locales, and extensions, along with our docs.
+Source CSS, JavaScript, locales, and extensions, along with our docs.
 
 <a href="{{ site.master_zip }}" class="btn btn-lg btn-outline" role="button">Download source</a>
 
