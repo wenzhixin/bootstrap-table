@@ -1,6 +1,6 @@
 ### Latest release (2018-12-27)
 
-### 1.12.3
+### 1.13.0
 
 - feat(js): rewrite bootstrap-table to ES6
 - feat(locale): add fi-FI.js locale
@@ -15,7 +15,6 @@
 - feat(resizable extension): new resizable extension version 2.0.0
 - feat(editable extension): allow different x-editable configuration per table row
 - feat(addrbar extension): add addrbar extension
-
 - fix(js): fix #1769, improve check/uncheck methods
 - fix(js): fix #1983, cookie with pageNumber and searchText bug
 - fix(js): fix #2485, selections bugs
