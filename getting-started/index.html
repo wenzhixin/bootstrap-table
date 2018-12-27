@@ -18,10 +18,10 @@
 <!-- Bootstrap CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="https://unpkg.com/bootstrap-table@1.12.2/dist/bootstrap-table.min.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
 <link href="../assets/css/docs.min.css" rel="stylesheet">
-<link href="../assets/css/sidenav.css?v=1.12.2" rel="stylesheet">
-<link href="../assets/css/style.css?v=1.12.2&m=2" rel="stylesheet">
+<link href="../assets/css/sidenav.css?v=1.13.0" rel="stylesheet">
+<link href="../assets/css/style.css?v=1.13.0&m=2" rel="stylesheet">
 <link href="../assets/css/ads.css?m=3" rel="stylesheet">
 
 <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -34,8 +34,8 @@
 <![endif]-->
 
 <!-- Favicons -->
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="../favicon.png">
+<link rel="icon" href="../favicon.png">
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,8 +47,8 @@
 </script>
 
 <script type="text/javascript">
-    if (window!=top) // 判断当前的window对象是否是top对象
-        top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+  if (window!=top) // 判断当前的window对象是否是top对象
+    top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
 </script>
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -212,12 +212,12 @@
 <p><hr></p>
 
 <p class="lead">
-Bootstrap table (currently v1.12.2) has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.
+Bootstrap table (currently v1.13.0) has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.
 </p>
 
 <h2>Source code</h2>
 
-<p>Source css, JavaScript, locales, and extensions, along with our docs.</p>
+<p>Source CSS, JavaScript, locales, and extensions, along with our docs.</p>
 
 <p><a href="https://github.com/wenzhixin/bootstrap-table/archive/master.zip" class="btn btn-lg btn-outline" role="button">Download source</a></p>
 
@@ -230,13 +230,13 @@ Bootstrap table (currently v1.12.2) has a few easy ways to quickly get started, 
 <p>The folks over at <a href="http://www.cdnjs.com/libraries/bootstrap-table">CDNJS</a> and <a href="http://open.bootcss.com/bootstrap-table/">bootcss</a> graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these CDN links.</p>
 
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
-<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.2/bootstrap-table.min.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.css"</span><span class="nt">&gt;</span>
 
 <span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.2/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 
 <span class="c">&lt;!-- Latest compiled and minified Locales --&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.2/locale/bootstrap-table-zh-CN.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/locale/bootstrap-table-zh-CN.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 </code></pre></div>
 
 <h2>Bower</h2>
@@ -250,7 +250,7 @@ Bootstrap table (currently v1.12.2) has a few easy ways to quickly get started, 
 
 <p><hr></p>
 
-<p>The Bootstrap table source code download includes the precompiled CSS, JavaScript, locales, extensions, and provides both compiled and minified variations, along with documentation. More specifically, it includes the following and more:</p>
+<p>The Bootstrap table source code download includes the pre-compiled CSS, JavaScript, locales, extensions, and provides both compiled and minified variations, along with documentation. More specifically, it includes the following and more:</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">bootstrap-table/
 ├── dist/
@@ -268,43 +268,11 @@ Bootstrap table (currently v1.12.2) has a few easy ways to quickly get started, 
 
 <p>The <code>src/</code>, <code>locale/</code>, and <code>extensions/</code> are the source code for our CSS, JS. The <code>dist/</code> folder includes everything compiled and minified with <code>src/</code>. The <code>docs/</code> folder includes the source code for our documentation. Beyond that, any other included file provides support for packages, license information, and development.</p>
 
-<h1>Compiling CSS and JavaScript <a href="https://github.com/wenzhixin/bootstrap-table/blob/develop/docs/_i18n/en/getting-started/grunt.md"></a></h1>
-
-<p><hr></p>
-
-<p>Bootstrap table uses <a href="http://gruntjs.com/">Grunt</a> for its build system, with convenient methods for working with the framework. It&#39;s how we compile our code, run tests, and more.</p>
-
-<h2>Installing Grunt</h2>
-
-<p>To install Grunt, you must <strong>first</strong> <a href="http://nodejs.org/download/">download and install node.js</a> (which includes npm). npm stands for <a href="http://npmjs.org/">node packaged modules</a> and is a way to manage development dependencies through node.js.</p>
-
-<p>Then, from the command line:</p>
-
-<ol>
-<li>Navigate to the root <code>/bootstrap-table/</code> directory, then run <code>npm install</code>. npm will look at the <code>package.json</code> file and automatically install the necessary local dependencies listed there.</li>
-</ol>
-
-<p>When completed, you&#39;ll be able to run the various Grunt commands provided from the command line.</p>
-
-<h2>Available Grunt commands</h2>
-
-<h3><code>npm run grunt docs</code> (Build &amp; test the docs assets)</h3>
-
-<p>Builds and tests CSS, JavaScript, and other assets which are used when running the documentation locally via <code>jekyll serve</code>.</p>
-
-<h3><code>npm run grunt</code> (Build absolutely everything and run tests)</h3>
-
-<p>Compiles and minifies CSS and JavaScript, builds the documentation website, runs the HTML5 validator against the docs, regenerates the Customizer assets, and more. Requires <a href="http://jekyllrb.com/docs/installation/">Jekyll</a>.</p>
-
-<h2>Troubleshooting</h2>
-
-<p>Should you encounter problems with installing dependencies or running Grunt commands, first delete the <code>/node_modules/</code> directory generated by npm. Then, rerun <code>npm install</code>.</p>
-
 <h1>Usage <a href="https://github.com/wenzhixin/bootstrap-table/blob/develop/docs/_i18n/en/getting-started/usage.md"></a></h1>
 
 <p><hr></p>
 
-<p>Include Bootstrap library (if your project doesn&#39;t use it already) and <code>bootstrap-table.css</code> in the head tag your html document.</p>
+<p>Include Bootstrap library (if your project doesn&#39;t use it already) and <code>bootstrap-table.css</code> in the head tag your HTML document.</p>
 
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"bootstrap.min.css"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"bootstrap-table.css"</span><span class="nt">&gt;</span>
@@ -350,7 +318,7 @@ Bootstrap table (currently v1.12.2) has a few easy ways to quickly get started, 
 <span class="nt">&lt;/table&gt;</span>
 </code></pre></div>
 
-<p>We can also use remote url data by setting <code>data-url=&quot;data1.json&quot;</code> on a normal table.</p>
+<p>We can also use remote URL data by setting <code>data-url=&quot;data1.json&quot;</code> on a normal table.</p>
 
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;table</span> <span class="na">data-toggle=</span><span class="s">"table"</span> <span class="na">data-url=</span><span class="s">"data1.json"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;thead&gt;</span>
@@ -404,7 +372,7 @@ Bootstrap table (currently v1.12.2) has a few easy ways to quickly get started, 
 <span class="p">});</span>
 </code></pre></div>
 
-<p>We can also use remote url data by setting <code>url: &#39;data1.json&#39;</code>.</p>
+<p>We can also use remote URL data by setting <code>url: &#39;data1.json&#39;</code>.</p>
 
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'#table'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
     <span class="na">url</span><span class="p">:</span> <span class="s1">'data1.json'</span><span class="p">,</span>
@@ -479,7 +447,7 @@ Bootstrap table (currently v1.12.2) has a few easy ways to quickly get started, 
     <p>Maintained by <a href="https://github.com/wenzhixin" target="_blank">@wenzhixin</a> with the help of <a href="https://github.com/wenzhixin/bootstrap-table/graphs/contributors" target="_blank">our contributors</a>.</p>
     <p>Code licensed under <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
     <ul class="bs-docs-footer-links muted">
-      <li>Currently v1.12.2</li>
+      <li>Currently v1.13.0</li>
       <li>&middot;</li>
       <li><a href="https://github.com/wenzhixin/bootstrap-table">GitHub</a></li>
       <li>&middot;</li>
@@ -504,14 +472,14 @@ Bootstrap table (currently v1.12.2) has a few easy ways to quickly get started, 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.12.2/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.12.2/dist/extensions/mobile/bootstrap-table-mobile.js"></script>
+<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
 
-<script src="../assets/js/sidenav.js?v=1.12.2"></script>
-<script src="../assets/js/common.js?v=1.12.2"></script>
+<script src="../assets/js/sidenav.js?v=1.13.0"></script>
+<script src="../assets/js/common.js?v=1.13.0"></script>
 
   </body>
 </html>

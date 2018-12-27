@@ -18,10 +18,10 @@
 <!-- Bootstrap CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="https://unpkg.com/bootstrap-table@1.12.2/dist/bootstrap-table.min.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
 <link href="../assets/css/docs.min.css" rel="stylesheet">
-<link href="../assets/css/sidenav.css?v=1.12.2" rel="stylesheet">
-<link href="../assets/css/style.css?v=1.12.2&m=2" rel="stylesheet">
+<link href="../assets/css/sidenav.css?v=1.13.0" rel="stylesheet">
+<link href="../assets/css/style.css?v=1.13.0&m=2" rel="stylesheet">
 <link href="../assets/css/ads.css?m=3" rel="stylesheet">
 
 <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -34,8 +34,8 @@
 <![endif]-->
 
 <!-- Favicons -->
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="../favicon.png">
+<link rel="icon" href="../favicon.png">
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,8 +47,8 @@
 </script>
 
 <script type="text/javascript">
-    if (window!=top) // 判断当前的window对象是否是top对象
-        top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+  if (window!=top) // 判断当前的window对象是否是top对象
+    top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
 </script>
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -481,10 +481,9 @@
         <td>String</td>
         <td>'client'</td>
         <td>
-            Defines the side pagination of table, can only be 'client' or 'server'.
+            Defines the side pagination of the table, can only be 'client' or 'server'.
             Using 'server' side requires either setting the 'url' or 'ajax' option.
-            <br/>Note that the required server response format is different depending on whether
-            the 'client' or 'server' option is specified. See the following examples:
+            <br/>Note that the required server response format is different depending on whether the 'client' or 'server' option is specified. See the following examples:
             <ul>
                 <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
                 <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
@@ -1981,7 +1980,7 @@ function cellStyle(value, row, index, field) {
     <p>Maintained by <a href="https://github.com/wenzhixin" target="_blank">@wenzhixin</a> with the help of <a href="https://github.com/wenzhixin/bootstrap-table/graphs/contributors" target="_blank">our contributors</a>.</p>
     <p>Code licensed under <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
     <ul class="bs-docs-footer-links muted">
-      <li>Currently v1.12.2</li>
+      <li>Currently v1.13.0</li>
       <li>&middot;</li>
       <li><a href="https://github.com/wenzhixin/bootstrap-table">GitHub</a></li>
       <li>&middot;</li>
@@ -2006,14 +2005,14 @@ function cellStyle(value, row, index, field) {
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.12.2/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.12.2/dist/extensions/mobile/bootstrap-table-mobile.js"></script>
+<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
 
-<script src="../assets/js/sidenav.js?v=1.12.2"></script>
-<script src="../assets/js/common.js?v=1.12.2"></script>
+<script src="../assets/js/sidenav.js?v=1.13.0"></script>
+<script src="../assets/js/common.js?v=1.13.0"></script>
 
   </body>
 </html>

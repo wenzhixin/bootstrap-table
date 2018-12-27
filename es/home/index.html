@@ -18,10 +18,10 @@
 <!-- Bootstrap CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="https://unpkg.com/bootstrap-table@1.12.2/dist/bootstrap-table.min.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
 <link href="../assets/css/docs.min.css" rel="stylesheet">
-<link href="../assets/css/sidenav.css?v=1.12.2" rel="stylesheet">
-<link href="../assets/css/style.css?v=1.12.2&m=2" rel="stylesheet">
+<link href="../assets/css/sidenav.css?v=1.13.0" rel="stylesheet">
+<link href="../assets/css/style.css?v=1.13.0&m=2" rel="stylesheet">
 <link href="../assets/css/ads.css?m=3" rel="stylesheet">
 
 <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -34,8 +34,8 @@
 <![endif]-->
 
 <!-- Favicons -->
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="../favicon.png">
+<link rel="icon" href="../favicon.png">
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,8 +47,8 @@
 </script>
 
 <script type="text/javascript">
-    if (window!=top) // 判断当前的window对象是否是top对象
-        top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+  if (window!=top) // 判断当前的window对象是否是top对象
+    top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
 </script>
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -151,7 +151,7 @@
         Iniciar con Bootstrap-table
       </a>
     </p>
-    <p class="version">Current version: v1.12.2</p>
+    <p class="version">Current version: v1.13.0</p>
   </div>
 </main></p>
 
@@ -196,65 +196,36 @@
       </div>
       <div class="col-md-7">
         
-        <h3>Latest release (2018-11-29)</h3>
+        <h3>Latest release (2018-12-27)</h3>
 
-<h3>1.12.2</h3>
-
-<ul>
-<li>fix(js): fix #3656, toggle icon typo release error</li>
-</ul>
-
-<h3>1.12.1</h3>
+<h3>1.13.0</h3>
 
 <ul>
-<li>fix(js): fix #3656, toggle icon typo</li>
-<li>fix(js): fix #3657, opencollective postinstall error</li>
-<li>fix(group-by-v2 extension): fix #3598, detailView display bug</li>
-<li>feat(tree-grid extension): fix #3607, add <code>rowStyle</code> support</li>
-</ul>
-
-<h3>1.12.0</h3>
-
-<ul>
-<li>fix(js): fix zoom header width bug</li>
-<li>fix(js): fix #3452, reset the table data when url loaded error</li>
-<li>fix(js): fix #3380, check-all was wrong with the sub-table</li>
-<li>fix(js): fix #2963, singleSelect, maintainSelected and pagination bug</li>
-<li>fix(js): fix #3342, remove limit when it is 0</li>
-<li>fix(js): fix #3472, group header style bug</li>
-<li>fix(js): fix #3310, searchText causes two requests</li>
-<li>fix(js): fix #3029, IE8 does not support getOwnPropertyNames</li>
-<li>fix(js): fix #3204, sortName cannot work in server side pagination</li>
-<li>fix(js): fix #3163, <code>showToolbar</code> bug when using extensions</li>
-<li>fix(js): fix #3087, only send pagination parameters when <code>sidePagination</code> is <code>server</code></li>
-<li>fix(export extension): fix #3477, server pagination mode cannot export all data</li>
-<li>fix(filter-control extension): fix #3271, duplicate select option with fixed header and client pagination</li>
-<li>feat(js): add <code>detailFilter</code> option</li>
-<li>feat(js): add <code>rememberOrder</code> option</li>
-<li>feat(js): improve pageList <code>All</code> option locale independent</li>
-<li>feat(js): add <code>Bootstrap v4.0</code> support</li>
-<li>feat(js): add <code>row</code> data to sorter function</li>
-<li>feat(js): add <code>ignoreClickToSelectOn</code> option</li>
-<li>feat(js): add <code>onScrollBody</code> / <code>scroll-body.bs.table</code> event</li>
-<li>feat(js): add <code>showFullscreen</code> option</li>
-<li>feat(js): add <code>showSelectTitle</code> column option</li>
-<li>feat(js): add <code>$el</code> to collapse-row</li>
-<li>feat(locale): add <code>eu-EU</code> locale</li>
-<li>feat(export extension): add <code>exportFooter</code> option</li>
-<li>feat(multiple-sort extension): add <code>showMultiSortButton</code> option</li>
-<li>feat(filter-control extension): add <code>searchOnEnterKey</code> option</li>
-<li>feat(page-jumpto extension): add <code>page-jumpto</code> extension</li>
-<li>feat(resizable extension): add <code>resizeMode</code> option</li>
-<li>feat(sticky-header extension): add <code>Bootstrap v4.0</code> support</li>
-<li>feat(treegrid extension): add <code>treegrid</code> extension</li>
-<li>feat(print extension): add support to print complex table</li>
-<li>feat(extension): add cookie in combination with filter-control and strict search</li>
-</ul>
-
-<h4>Breaking changes in 1.12.0</h4>
-
-<ul>
-<li>feat(js): add <code>toggleOn</code> and <code>toggleOff</code> icons instead <code>toggle</code> icon</li>
+<li>feat(js): rewrite bootstrap-table to ES6</li>
+<li>feat(locale): add fi-FI.js locale</li>
+<li>feat(build): use babel instead grunt</li>
+<li>feat(filter-control): add <code>created-controls.bs.table</code> event to filter-control</li>
+<li>feat(export extension): rewrite export extension to ES6</li>
+<li>feat(export extension): export extension support bootstrap v4</li>
+<li>feat(export extension): add <code>exportTable</code> method</li>
+<li>feat(toolbar extension): rewrite toolbar extension to ES6</li>
+<li>feat(toolbar extension): toolbar extension supports bootstrap v4</li>
+<li>feat(toolbar extension): add server sidePagination support</li>
+<li>feat(resizable extension): new resizable extension version 2.0.0</li>
+<li>feat(editable extension): allow different x-editable configuration per table row</li>
+<li>feat(addrbar extension): add addrbar extension</li>
+<li>fix(js): fix #1769, improve check/uncheck methods</li>
+<li>fix(js): fix #1983, cookie with pageNumber and searchText bug</li>
+<li>fix(js): fix #2485, selections bugs</li>
+<li>fix(js): fix #2545, customSearch support data attribute</li>
+<li>fix(js): fix #3696, can&#39;t search data with formatter</li>
+<li>fix(js): fix #4081, getRowByUniqueId error when row unique id is undefined</li>
+<li>fix(js): fix older bootstrap version bug</li>
+<li>fix(css): fix #1848, remove toolbar line-height</li>
+<li>fix(css): limit fullscreen CSS rule scope</li>
+<li>fix(editable extension): fix #1819, #2072, editable formatter bug</li>
+<li>fix(extension): fix #3720, fix #3682, bug with export extension together</li>
+<li>fix(extension): remove lick-edit-row and flat-json extensions</li>
 </ul>
 
       </div>
@@ -312,7 +283,7 @@
     <p>Maintained by <a href="https://github.com/wenzhixin" target="_blank">@wenzhixin</a> with the help of <a href="https://github.com/wenzhixin/bootstrap-table/graphs/contributors" target="_blank">our contributors</a>.</p>
     <p>Code licensed under <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
     <ul class="bs-docs-footer-links muted">
-      <li>Currently v1.12.2</li>
+      <li>Currently v1.13.0</li>
       <li>&middot;</li>
       <li><a href="https://github.com/wenzhixin/bootstrap-table">GitHub</a></li>
       <li>&middot;</li>
@@ -336,14 +307,14 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.12.2/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.12.2/dist/extensions/mobile/bootstrap-table-mobile.js"></script>
+<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
 
-<script src="../assets/js/sidenav.js?v=1.12.2"></script>
-<script src="../assets/js/common.js?v=1.12.2"></script>
+<script src="../assets/js/sidenav.js?v=1.13.0"></script>
+<script src="../assets/js/common.js?v=1.13.0"></script>
 
   </body>
 </html>
