@@ -1783,7 +1783,7 @@
           type = column.radio ? 'radio' : type
 
           const c = column['class'] || ''
-          const isChecked = value === true || (value_ || value && value.checked)
+          const isChecked = value === true || (value_ || (value && value.checked))
           const isDisabled = !column.checkboxEnabled || (value && value.disabled)
 
           text = [
@@ -1855,7 +1855,7 @@
         const tr = this.initRow(item, i, data, trFragments)
         hasTr = hasTr || !!tr
         if (tr && typeof tr === 'string') {
-            trFragments.append(tr)
+          trFragments.append(tr)
         }
       }
 

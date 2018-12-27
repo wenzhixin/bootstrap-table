@@ -109,15 +109,15 @@
       $menu.find('>li, >a').click(e => {
         const type = $(e.currentTarget).data('type')
         const exportOptions = {
-            type: type,
-            escape: false
+          type: type,
+          escape: false
         }
 
         this.exportTable(exportOptions)
       })
     }
 
-    exportTable(options) {
+    exportTable (options) {
       const o = this.options
 
       const doExport = () => {

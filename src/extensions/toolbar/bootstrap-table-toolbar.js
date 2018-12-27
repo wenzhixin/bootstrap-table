@@ -75,7 +75,10 @@
     initToolbar () {
       const o = this.options
 
-      this.showToolbar = this.showToolbar || o.search && o.advancedSearch && o.idTable
+      this.showToolbar = this.showToolbar ||
+        (o.search &&
+        o.advancedSearch &&
+        o.idTable)
 
       super.initToolbar()
 
