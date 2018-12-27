@@ -5,6 +5,7 @@ ChangeLog
 
 - feat(js): rewrite bootstrap-table to ES6
 - feat(locale): add fi-FI.js locale
+- feat(build): use babel instead grunt
 - feat(filter-control): add `created-controls.bs.table` event to filter-control
 - feat(export extension): rewrite export extension to ES6
 - feat(export extension): export extension support bootstrap v4

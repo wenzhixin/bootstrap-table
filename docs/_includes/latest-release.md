@@ -1,52 +1,30 @@
-### Latest release (2018-11-29)
+### Latest release (2018-12-27)
 
-### 1.12.2
+### 1.12.3
 
-- fix(js): fix #3656, toggle icon typo release error
+- feat(js): rewrite bootstrap-table to ES6
+- feat(locale): add fi-FI.js locale
+- feat(build): use babel instead grunt
+- feat(filter-control): add `created-controls.bs.table` event to filter-control
+- feat(export extension): rewrite export extension to ES6
+- feat(export extension): export extension support bootstrap v4
+- feat(export extension): add `exportTable` method
+- feat(toolbar extension): rewrite toolbar extension to ES6
+- feat(toolbar extension): toolbar extension supports bootstrap v4
+- feat(toolbar extension): add server sidePagination support
+- feat(resizable extension): new resizable extension version 2.0.0
+- feat(editable extension): allow different x-editable configuration per table row
+- feat(addrbar extension): add addrbar extension
 
-### 1.12.1
-
-- fix(js): fix #3656, toggle icon typo
-- fix(js): fix #3657, opencollective postinstall error
-- fix(group-by-v2 extension): fix #3598, detailView display bug
-- feat(tree-grid extension): fix #3607, add `rowStyle` support
-
-### 1.12.0
-
-- fix(js): fix zoom header width bug
-- fix(js): fix #3452, reset the table data when url loaded error
-- fix(js): fix #3380, check-all was wrong with the sub-table
-- fix(js): fix #2963, singleSelect, maintainSelected and pagination bug
-- fix(js): fix #3342, remove limit when it is 0
-- fix(js): fix #3472, group header style bug
-- fix(js): fix #3310, searchText causes two requests
-- fix(js): fix #3029, IE8 does not support getOwnPropertyNames
-- fix(js): fix #3204, sortName cannot work in server side pagination
-- fix(js): fix #3163, `showToolbar` bug when using extensions
-- fix(js): fix #3087, only send pagination parameters when `sidePagination` is `server`
-- fix(export extension): fix #3477, server pagination mode cannot export all data
-- fix(filter-control extension): fix #3271, duplicate select option with fixed header and client pagination
-- feat(js): add `detailFilter` option
-- feat(js): add `rememberOrder` option
-- feat(js): improve pageList `All` option locale independent
-- feat(js): add `Bootstrap v4.0` support
-- feat(js): add `row` data to sorter function
-- feat(js): add `ignoreClickToSelectOn` option
-- feat(js): add `onScrollBody` / `scroll-body.bs.table` event
-- feat(js): add `showFullscreen` option
-- feat(js): add `showSelectTitle` column option
-- feat(js): add `$el` to collapse-row
-- feat(locale): add `eu-EU` locale
-- feat(export extension): add `exportFooter` option
-- feat(multiple-sort extension): add `showMultiSortButton` option
-- feat(filter-control extension): add `searchOnEnterKey` option
-- feat(page-jumpto extension): add `page-jumpto` extension
-- feat(resizable extension): add `resizeMode` option
-- feat(sticky-header extension): add `Bootstrap v4.0` support
-- feat(treegrid extension): add `treegrid` extension
-- feat(print extension): add support to print complex table
-- feat(extension): add cookie in combination with filter-control and strict search
-
-#### Breaking changes in 1.12.0
-
-- feat(js): add `toggleOn` and `toggleOff` icons instead `toggle` icon
+- fix(js): fix #1769, improve check/uncheck methods
+- fix(js): fix #1983, cookie with pageNumber and searchText bug
+- fix(js): fix #2485, selections bugs
+- fix(js): fix #2545, customSearch support data attribute
+- fix(js): fix #3696, can't search data with formatter
+- fix(js): fix #4081, getRowByUniqueId error when row unique id is undefined
+- fix(js): fix older bootstrap version bug
+- fix(css): fix #1848, remove toolbar line-height
+- fix(css): limit fullscreen CSS rule scope
+- fix(editable extension): fix #1819, #2072, editable formatter bug
+- fix(extension): fix #3720, fix #3682, bug with export extension together
+- fix(extension): remove lick-edit-row and flat-json extensions
