@@ -1663,13 +1663,13 @@
       }
 
       if (item._data && !$.isEmptyObject(item._data)) {
-        item._data.forEach((v, k) => {
+        for (const [k, v] of Object.entries(item._data)) {
           // ignore data-index
           if (k === 'index') {
             return
           }
           data_ += ` data-${k}="${v}"`
-        })
+        }
       }
 
       html.push('<tr',
@@ -1769,13 +1769,13 @@
           this.header.formatters[j], [value_, item, i, field], value_)
 
         if (item[`_${field}_data`] && !$.isEmptyObject(item[`_${field}_data`])) {
-          item[`_${field}_data`].forEach((v, k) => {
+          for (const [k, v] of Object.entries(item[`_${field}_data`])) {
             // ignore data-index
             if (k === 'index') {
               return
             }
             data_ += ` data-${k}="${v}"`
-          })
+          }
         }
 
         if (column.checkbox || column.radio) {
