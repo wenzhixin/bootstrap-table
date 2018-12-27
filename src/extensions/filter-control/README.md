@@ -59,7 +59,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### filterData
 
 * type: String
-* description: Set custom select filter values, use `var:variable` to load from a variable or `url:http://www.example.com/data.json` to load from a remote json file or `jso:{key:data}` to load from a json string.
+* description: Set custom select filter values, use `var:variable` to load from a variable or `url:http://www.example.com/data.json` to load from a remote json file or `json:{key:data}` to load from a json string.
 * default: `undefined`
 
 ### filterDatepickerOptions
@@ -94,6 +94,10 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ## Events
 
 ### onColumnSearch(column-search.bs.table)
+
+* Fired when we are searching into the column data
+
+### onCreatedControls(created-controls.bs.table)
 
 * Fired when we are searching into the column data
 

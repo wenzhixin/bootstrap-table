@@ -158,7 +158,7 @@
                     }
 
                     var index = $.inArray(key, that.header.fields);
-                    if (index !== -1 && that.header.searchables[index] && (typeof value === 'string' || typeof value === 'number')) {
+                    if (index !== -1 && that.header.searchables[index] && typeof value === 'string') {
                         if (that.options.searchAccentNeutralise) {
                             value = removeDiacritics(value);
                             s = removeDiacritics(s);

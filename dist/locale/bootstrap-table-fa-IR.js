@@ -1,43 +1,58 @@
-/**
- * Bootstrap Table Persian translation
- * Author: MJ Vakili <mjv.1989@Gmail.com>
- */
-(function ($) {
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define([], factory);
+    } else if (typeof exports !== "undefined") {
+        factory();
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory();
+        global.bootstrapTableFaIR = mod.exports;
+    }
+})(this, function () {
     'use strict';
 
-    $.fn.bootstrapTable.locales['fa-IR'] = {
-        formatLoadingMessage: function () {
-            return 'در حال بارگذاری, لطفا صبر کنید...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' رکورد در صفحه';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'نمایش ' + pageFrom + ' تا ' + pageTo + ' از ' + totalRows + ' ردیف';
-        },
-        formatSearch: function () {
-            return 'جستجو';
-        },
-        formatNoMatches: function () {
-            return 'رکوردی یافت نشد.';
-        },
-        formatPaginationSwitch: function () {
-            return 'نمایش/مخفی صفحه بندی';
-        },
-        formatRefresh: function () {
-            return 'به روز رسانی';
-        },
-        formatToggle: function () {
-            return 'تغییر نمایش';
-        },
-        formatColumns: function () {
-            return 'سطر ها';
-        },
-        formatAllRows: function () {
-            return 'همه';
-        }
-    };
+    /**
+     * Bootstrap Table Persian translation
+     * Author: MJ Vakili <mjv.1989@Gmail.com>
+     */
+    (function ($) {
+        'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fa-IR']);
+        $.fn.bootstrapTable.locales['fa-IR'] = {
+            formatLoadingMessage: function formatLoadingMessage() {
+                return 'در حال بارگذاری, لطفا صبر کنید...';
+            },
+            formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+                return pageNumber + ' رکورد در صفحه';
+            },
+            formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
+                return 'نمایش ' + pageFrom + ' تا ' + pageTo + ' از ' + totalRows + ' ردیف';
+            },
+            formatSearch: function formatSearch() {
+                return 'جستجو';
+            },
+            formatNoMatches: function formatNoMatches() {
+                return 'رکوردی یافت نشد.';
+            },
+            formatPaginationSwitch: function formatPaginationSwitch() {
+                return 'نمایش/مخفی صفحه بندی';
+            },
+            formatRefresh: function formatRefresh() {
+                return 'به روز رسانی';
+            },
+            formatToggle: function formatToggle() {
+                return 'تغییر نمایش';
+            },
+            formatColumns: function formatColumns() {
+                return 'سطر ها';
+            },
+            formatAllRows: function formatAllRows() {
+                return 'همه';
+            }
+        };
 
-})(jQuery);
+        $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fa-IR']);
+    })(jQuery);
+});

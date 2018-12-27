@@ -2,9 +2,9 @@
 
 ---
 
-### When resize the window, the table header does not adjust automatically, how to solve it?
+### When resizing the window, the table header does not adjust automatically, how to solve it?
 
-When you set the `height` of bootstrap table, the `fixed header` feature is automatically enabled, that is what cause the problem, you need to listen the `resize` event of window and use the `resetView` method to solve this problem, code example:
+When you set the `height` of the bootstrap table, the `fixed header` feature is automatically enabled, that is what causes the problem, you need to listen to the `resize` event of the window and use the `resetView` method to solve this problem, code example:
 
 ```js
 $(function () {
@@ -52,8 +52,8 @@ onClickRow: function (row, $element) {
 
 ---
 
-### How can I support development of bootstrap-table?
+### How can I support the development of bootstrap-table?
 
-All your ideas and feedback are very appreciated! Please feel free to open issues on GitHub or send me email.
+All your ideas and feedback are very appreciated! Please feel free to open issues on GitHub or send me an email.
 
 I'm also grateful for your donations: <a href="/donate">{% t pages.donate.title %}</a>

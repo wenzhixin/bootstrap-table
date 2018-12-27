@@ -2,7 +2,7 @@
 
 ---
 
-The Bootstrap table source code download includes the precompiled CSS, JavaScript, locales, extensions, and provides both compiled and minified variations, along with documentation. More specifically, it includes the following and more:
+The Bootstrap table source code download includes the pre-compiled CSS, JavaScript, locales, extensions, and provides both compiled and minified variations, along with documentation. More specifically, it includes the following and more:
 
 ```bash
 bootstrap-table/

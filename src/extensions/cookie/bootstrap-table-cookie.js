@@ -274,7 +274,7 @@
                 }
 
                 setCookie(that, cookieIds.filterControl, JSON.stringify(that.options.filterControls));
-            }).on('post-body.bs.table', initCookieFilters(that));
+            }).on('created-controls.bs.table', initCookieFilters(that));
         }
         _init.apply(this, Array.prototype.slice.apply(arguments));
     };

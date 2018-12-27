@@ -177,13 +177,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>String</td>
         <td>undefined</td>
         <td>
-        	A URL to request data from remote site.
-        	<br/>Note that the required server response format is different depending on whether the 'sidePagination'
-        	option is specified. See the following examples:
-        	<ul>
-        		<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
-        		<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
-        	</ul>
+            A URL to request data from remote site.
+            <br/>Note that the required server response format is different depending on whether the 'sidePagination'
+            option is specified. See the following examples:
+            <ul>
+                <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
+                <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
+            </ul>
         </td>
     </tr>
     <tr>
@@ -272,14 +272,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>String</td>
         <td>'client'</td>
         <td>
-        	Defines the side pagination of table, can only be 'client' or 'server'.
-        	Using 'server' side requires either setting the 'url' or 'ajax' option.
-        	<br/>Note that the required server response format is different depending on whether
-        	the 'client' or 'server' option is specified. See the following examples:
-        	<ul>
-        		<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
-        		<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
-        	</ul>
+            Defines the side pagination of the table, can only be 'client' or 'server'.
+            Using 'server' side requires either setting the 'url' or 'ajax' option.
+            <br/>Note that the required server response format is different depending on whether the 'client' or 'server' option is specified. See the following examples:
+            <ul>
+                <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
+                <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
+            </ul>
         </td>
     </tr>
     <tr>
@@ -347,7 +346,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>false</td>
         <td>Enable the strict search.</td>
     </tr>
-	<tr>
+    <tr>
         <td>searchText</td>
         <td>data-search-text</td>
         <td>String</td>
@@ -684,23 +683,23 @@ function rowStyle(row, index) {
         </td>
     </tr>
     <tr>
-	<td>footerStyle</td>
-	<td>data-footer-style</td>
-	<td>Function</td>
-	<td>{}</td>
-	<td>
-	        The footer style formatter function, takes two parameters: <br>
-	        row: the row record data.<br>
-	        index: the row index.<br>
-	        Support classes or css. Example usage:<br>
-		<pre>
-		function footerStyle(value, row, index) {
-		  return {
-		    css: { "font-weight": "bold" }
-		  };
-		}
-		</pre>
-	</td>
+    <td>footerStyle</td>
+    <td>data-footer-style</td>
+    <td>Function</td>
+    <td>{}</td>
+    <td>
+            The footer style formatter function, takes two parameters: <br>
+            row: the row record data.<br>
+            index: the row index.<br>
+            Support classes or css. Example usage:<br>
+        <pre>
+        function footerStyle(value, row, index) {
+          return {
+            css: { "font-weight": "bold" }
+          };
+        }
+        </pre>
+    </td>
     </tr>
    </tbody>
 </table>

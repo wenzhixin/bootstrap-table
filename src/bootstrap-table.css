@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.12.2
+ * version: 1.13.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -198,7 +198,6 @@
     position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
-    line-height: 34px;
 }
 
 .fixed-table-pagination li.disabled a {
@@ -308,7 +307,7 @@ div.fixed-table-scroll-outer {
     clear: both;
 }
 
-.fullscreen {
+.bootstrap-table.fullscreen {
     position: fixed;
     top: 0;
     left: 0;
