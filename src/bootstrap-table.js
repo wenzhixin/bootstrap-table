@@ -2756,8 +2756,10 @@
     }
 
     getOptions () {
-      // Deep copy
-      return $.extend(true, {}, this.options)
+      // Deep copy: remove data
+      const options = $.extend({}, this.options)
+      delete options.data
+      return $.extend(true, {}, options)
     }
 
     getSelections () {
