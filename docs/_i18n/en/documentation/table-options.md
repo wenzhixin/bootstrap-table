@@ -35,6 +35,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>The class name of table. By default, the table is bordered, you can add 'table-no-bordered' to remove table-bordered style.</td>
     </tr>
     <tr>
+        <td>theadClasses</td>
+        <td>data-thead-classes</td>
+        <td>String</td>
+        <td>''</td>
+        <td>The class name of table thead. Bootstrap V4, use the modifier classes `.thead-light` or `.thead-dark` to make `<thead>`s appear light or dark gray.</td>
+    </tr>
+    <tr>
         <td>sortClass</td>
         <td>data-sort-class</td>
         <td>String</td>

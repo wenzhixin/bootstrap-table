@@ -265,13 +265,14 @@
 
   const DEFAULTS = {
     classes: 'table table-hover',
+    theadClasses: '',
+    sortClass: undefined,
     locale: undefined,
     height: undefined,
     undefinedText: '-',
     sortName: undefined,
     sortOrder: 'asc',
     sortStable: false,
-    sortClass: undefined,
     rememberOrder: false,
     striped: false,
     columns: [
@@ -651,7 +652,7 @@
 
       this.$header = this.$el.find('>thead')
       if (!this.$header.length) {
-        this.$header = $('<thead></thead>').appendTo(this.$el)
+        this.$header = $(`<thead class="${this.options.theadClasses}"></thead>`).appendTo(this.$el)
       }
       this.$header.find('tr').each((i, el) => {
         const column = []
