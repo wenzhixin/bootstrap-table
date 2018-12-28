@@ -1864,9 +1864,9 @@
         this.$body.html(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
           this.$header.find('th').length,
           this.options.formatNoMatches())}</tr>`)
+      } else {
+        this.$body.html(trFragments)
       }
-
-      this.$body.html(trFragments)
 
       if (!fixedScroll) {
         this.scrollTo(0)
