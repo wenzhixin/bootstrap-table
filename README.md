@@ -104,7 +104,7 @@ Look at the [Change Log](https://github.com/wenzhixin/bootstrap-table/blob/maste
 To build bootstrap-table locally please run:
 
 ```
-npm run grunt
+npm run build
 ```
 
 Result will appear in `dist` directory.
