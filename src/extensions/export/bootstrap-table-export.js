@@ -100,7 +100,7 @@
         const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
         exportTypes = types.map(t => t.slice(1, -1))
       }
-      for (let type of exportTypes) {
+      for (const type of exportTypes) {
         if (TYPE_NAME.hasOwnProperty(type)) {
           $menu.append(Utils.sprintf(bootstrap.html.dropitem, type, TYPE_NAME[type]))
         }

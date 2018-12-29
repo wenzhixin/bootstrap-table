@@ -157,7 +157,7 @@
       const o = this.options
       const html = [`<form class="form-horizontal" id="${o.idForm}" action="${o.actionForm}">`]
 
-      for (let column of this.columns) {
+      for (const column of this.columns) {
         if (!column.checkbox && column.visible && column.searchable) {
           html.push(`
             <div class="form-group row">
@@ -185,11 +185,12 @@
       const fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial
 
       this.data = fp ? $.grep(this.data, (item, i) => {
-        for (const key in fp) {
-          const fval = fp[key].toLowerCase()
+        for (const [key, v] of Object.entries(fp)) {
+          const fval = v.toLowerCase()
           let value = item[key]
           const index = this.header.fields.indexOf(key)
-          value = Utils.calculateObjectValue(this.header, this.header.formatters[index], [value, item, i], value)
+          value = Utils.calculateObjectValue(this.header,
+            this.header.formatters[index], [value, item, i], value)
 
           if (
             !(index !== -1 &&
