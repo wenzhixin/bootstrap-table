@@ -1,6 +1,15 @@
 ChangeLog
 ---------
 
+### 1.13.1
+
+- feat(js): add `theadClasses` option to supoort bootstrap v4
+- feat(editable extension): rewrite bootstrap-table-editable to ES6
+- fix(js): fix #4066, `getOptions` method remove data property
+- fix(js): fix #4088, no matches display error
+- fix(js): fix eslint warning and error
+- fix(export extension): fix #4086, export in cardView display error
+
 ### 1.13.0
 
 - feat(js): rewrite bootstrap-table to ES6
