@@ -1,37 +1,52 @@
-/**
- * Bootstrap Table norwegian translation
- * Author: Jim Nordbø, jim@nordb.no
- */
-(function ($) {
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define([], factory);
+    } else if (typeof exports !== "undefined") {
+        factory();
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory();
+        global.bootstrapTableNbNO = mod.exports;
+    }
+})(this, function () {
     'use strict';
 
-    $.fn.bootstrapTable.locales['nb-NO'] = {
-        formatLoadingMessage: function () {
-            return 'Oppdaterer, vennligst vent...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' poster pr side';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Viser ' + pageFrom + ' til ' + pageTo + ' av ' + totalRows + ' rekker';
-        },
-        formatSearch: function () {
-            return 'Søk';
-        },
-        formatNoMatches: function () {
-            return 'Ingen poster funnet';
-        },
-        formatRefresh: function () {
-            return 'Oppdater';
-        },
-        formatToggle: function () {
-            return 'Endre';
-        },
-        formatColumns: function () {
-            return 'Kolonner';
-        }
-    };
+    /**
+     * Bootstrap Table norwegian translation
+     * Author: Jim Nordbø, jim@nordb.no
+     */
+    (function ($) {
+        'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nb-NO']);
+        $.fn.bootstrapTable.locales['nb-NO'] = {
+            formatLoadingMessage: function formatLoadingMessage() {
+                return 'Oppdaterer, vennligst vent...';
+            },
+            formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+                return pageNumber + ' poster pr side';
+            },
+            formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
+                return 'Viser ' + pageFrom + ' til ' + pageTo + ' av ' + totalRows + ' rekker';
+            },
+            formatSearch: function formatSearch() {
+                return 'Søk';
+            },
+            formatNoMatches: function formatNoMatches() {
+                return 'Ingen poster funnet';
+            },
+            formatRefresh: function formatRefresh() {
+                return 'Oppdater';
+            },
+            formatToggle: function formatToggle() {
+                return 'Endre';
+            },
+            formatColumns: function formatColumns() {
+                return 'Kolonner';
+            }
+        };
 
-})(jQuery);
+        $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nb-NO']);
+    })(jQuery);
+});

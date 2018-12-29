@@ -2,7 +2,7 @@
 
 ---
 
-Include Bootstrap library (if your project doesn't use it already) and `bootstrap-table.css` in the head tag your html document.
+Include Bootstrap library (if your project doesn't use it already) and `bootstrap-table.css` in the head tag your HTML document.
 
 ```html
 <link rel="stylesheet" href="bootstrap.min.css">
@@ -51,7 +51,7 @@ Activate bootstrap table without writing JavaScript. Set `data-toggle="table"` o
 </table>
 ```
 
-We can also use remote url data by setting `data-url="data1.json"` on a normal table.
+We can also use remote URL data by setting `data-url="data1.json"` on a normal table.
 
 ```html
 <table data-toggle="table" data-url="data1.json">
@@ -110,7 +110,7 @@ $('#table').bootstrapTable({
 });
 ```
 
-We can also use remote url data by setting `url: 'data1.json'`.
+We can also use remote URL data by setting `url: 'data1.json'`.
 
 ```js
 $('#table').bootstrapTable({

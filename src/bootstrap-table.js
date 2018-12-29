@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.12.1
+ * version: 1.13.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -10,14 +10,16 @@
 
   let bootstrapVersion = 3
   try {
-    var rawVersion = $.fn.dropdown.Constructor.VERSION
+    const rawVersion = $.fn.dropdown.Constructor.VERSION
 
     // Only try to parse VERSION if is is defined.
     // It is undefined in older versions of Bootstrap (tested with 3.1.1).
     if (rawVersion !== undefined) {
       bootstrapVersion = parseInt(rawVersion, 10)
     }
-  } catch (e) {}
+  } catch (e) {
+    // ignore
+  }
 
   const bootstrap = {
     3: {
@@ -47,8 +49,8 @@
     4: {
       iconsPrefix: 'fa',
       icons: {
-        paginationSwitchDown: 'fa-toggle-down',
-        paginationSwitchUp: 'fa-toggle-up',
+        paginationSwitchDown: 'fa-caret-square-o-down',
+        paginationSwitchUp: 'fa-caret-square-o-up',
         refresh: 'fa-refresh',
         toggleOff: 'fa-toggle-off',
         toggleOn: 'fa-toggle-on',
@@ -74,11 +76,11 @@
     bootstrapVersion,
 
     // it only does '%s', and return '' when arguments are undefined
-    sprintf (str, ...args) {
+    sprintf (_str, ...args) {
       let flag = true
       let i = 0
 
-      str = str.replace(/%s/g, () => {
+      const str = _str.replace(/%s/g, () => {
         const arg = args[i++]
 
         if (typeof arg === 'undefined') {
@@ -91,7 +93,7 @@
     },
 
     getFieldTitle (list, value) {
-      for (let item of list) {
+      for (const item of list) {
         if (item.field === value) {
           return item.title
         }
@@ -143,15 +145,13 @@
       if (this.cachedWidth === null) {
         const $inner = $('<div/>').addClass('fixed-table-scroll-inner')
         const $outer = $('<div/>').addClass('fixed-table-scroll-outer')
-        let w1
-        let w2
 
         $outer.append($inner)
         $('body').append($outer)
 
-        w1 = $inner[0].offsetWidth
+        const w1 = $inner[0].offsetWidth
         $outer.css('overflow', 'scroll')
-        w2 = $inner[0].offsetWidth
+        let w2 = $inner[0].offsetWidth
 
         if (w1 === w2) {
           w2 = $outer[0].clientWidth
@@ -230,10 +230,10 @@
     },
 
     getRealDataAttr (dataAttr) {
-      for (const attr in dataAttr) {
+      for (const [attr, value] of Object.entries(dataAttr)) {
         const auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase()
         if (auxAttr !== attr) {
-          dataAttr[auxAttr] = dataAttr[attr]
+          dataAttr[auxAttr] = value
           delete dataAttr[attr]
         }
       }
@@ -265,13 +265,14 @@
 
   const DEFAULTS = {
     classes: 'table table-hover',
+    theadClasses: '',
+    sortClass: undefined,
     locale: undefined,
     height: undefined,
     undefinedText: '-',
     sortName: undefined,
     sortOrder: 'asc',
     sortStable: false,
-    sortClass: undefined,
     rememberOrder: false,
     striped: false,
     columns: [
@@ -651,7 +652,7 @@
 
       this.$header = this.$el.find('>thead')
       if (!this.$header.length) {
-        this.$header = $('<thead></thead>').appendTo(this.$el)
+        this.$header = $(`<thead class="${this.options.theadClasses}"></thead>`).appendTo(this.$el)
       }
       this.$header.find('tr').each((i, el) => {
         const column = []
@@ -683,8 +684,8 @@
       Utils.setFieldIndex(this.options.columns)
 
       this.options.columns.forEach((columns, i) => {
-        columns.forEach((column, j) => {
-          column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column)
+        columns.forEach((_column, j) => {
+          const column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column)
 
           if (typeof column.fieldIndex !== 'undefined') {
             this.columns[column.fieldIndex] = column
@@ -709,12 +710,15 @@
         row._class = $(el).attr('class')
         row._data = Utils.getRealDataAttr($(el).data())
 
-        $(el).find('>td').each((x, el) => {
+        $(el).find('>td').each((_x, el) => {
           const cspan = +$(el).attr('colspan') || 1
           const rspan = +$(el).attr('rowspan') || 1
+          let x = _x
 
           // skip already occupied cells in current row
-          for (; m[y] && m[y][x]; x++) {}
+          for (; m[y] && m[y][x]; x++) {
+            // ignore
+          }
 
           // mark matrix elements occupied by current cell with true
           for (let tx = x; tx < x + cspan; tx++) {
@@ -923,10 +927,6 @@
       }
     }
 
-    /**
-     * @param data
-     * @param type: append / prepend
-     */
     initData (data, type) {
       if (type === 'append') {
         this.options.data = this.options.data.concat(data)
@@ -1261,11 +1261,7 @@
     initSearch () {
       if (this.options.sidePagination !== 'server') {
         if (this.options.customSearch !== $.noop) {
-          if (typeof this.options.customSearch === 'string') {
-            window[this.options.customSearch].apply(this, [this.searchText])
-          } else {
-            this.options.customSearch.apply(this, [this.searchText])
-          }
+          Utils.calculateObjectValue(this.options, this.options.customSearch, [this.searchText])
           return
         }
 
@@ -1302,7 +1298,7 @@
               value = item
               const props = key.split('.')
               for (let i = 0; i < props.length; i++) {
-                if (value[props[i]] != null) {
+                if (value[props[i]] !== null) {
                   value = value[props[i]]
                 }
               }
@@ -1315,7 +1311,7 @@
               value = Utils.calculateObjectValue(column,
                 this.header.formatters[j], [value, item, i], value)
             }
-            
+
             if (typeof value === 'string' || typeof value === 'number') {
               if (this.options.strictSearch) {
                 if ((`${value}`).toLowerCase() === s) {
@@ -1337,9 +1333,9 @@
       if (!this.options.pagination) {
         this.$pagination.hide()
         return
-      } else {
-        this.$pagination.show()
       }
+      this.$pagination.show()
+
 
       const html = []
       let $allSelected = false
@@ -1415,7 +1411,7 @@
             .replace(/ /g, '').split(',')
 
           pageList = []
-          for (let value of list) {
+          for (const value of list) {
             pageList.push(
               (value.toUpperCase() === this.options.formatAllRows().toUpperCase() ||
               value.toUpperCase() === 'UNLIMITED')
@@ -1636,8 +1632,7 @@
       return false
     }
 
-    initRow (item, i, data) {
-      let key
+    initRow (item, i, data, parentDom) {
       const html = []
       let style = {}
       const csses = []
@@ -1652,8 +1647,8 @@
       style = Utils.calculateObjectValue(this.options, this.options.rowStyle, [item, i], style)
 
       if (style && style.css) {
-        for (key in style.css) {
-          csses.push(`${key}: ${style.css[key]}`)
+        for (const [key, value] of Object.entries(style.css)) {
+          csses.push(`${key}: ${value}`)
         }
       }
 
@@ -1661,19 +1656,19 @@
         this.options.rowAttributes, [item, i], attributes)
 
       if (attributes) {
-        for (key in attributes) {
-          htmlAttributes.push(`${key}="${Utils.escapeHTML(attributes[key])}"`)
+        for (const [key, value] of Object.entries(attributes)) {
+          htmlAttributes.push(`${key}="${Utils.escapeHTML(value)}"`)
         }
       }
 
       if (item._data && !$.isEmptyObject(item._data)) {
-        item._data.forEach((v, k) => {
+        for (const [k, v] of Object.entries(item._data)) {
           // ignore data-index
           if (k === 'index') {
             return
           }
           data_ += ` data-${k}="${v}"`
-        })
+        }
       }
 
       html.push('<tr',
@@ -1763,8 +1758,8 @@
         }
         if (cellStyle.css) {
           const csses_ = []
-          for (const key in cellStyle.css) {
-            csses_.push(`${key}: ${cellStyle.css[key]}`)
+          for (const [key, value] of Object.entries(cellStyle.css)) {
+            csses_.push(`${key}: ${value}`)
           }
           style_ = ` style="${csses_.concat(this.header.styles[j]).join('; ')}"`
         }
@@ -1773,13 +1768,13 @@
           this.header.formatters[j], [value_, item, i, field], value_)
 
         if (item[`_${field}_data`] && !$.isEmptyObject(item[`_${field}_data`])) {
-          item[`_${field}_data`].forEach((v, k) => {
+          for (const [k, v] of Object.entries(item[`_${field}_data`])) {
             // ignore data-index
             if (k === 'index') {
               return
             }
             data_ += ` data-${k}="${v}"`
-          })
+          }
         }
 
         if (column.checkbox || column.radio) {
@@ -1787,7 +1782,7 @@
           type = column.radio ? 'radio' : type
 
           const c = column['class'] || ''
-          const isChecked = value === true || (value_ || value && value.checked)
+          const isChecked = value === true || (value_ || (value && value.checked))
           const isDisabled = !column.checkboxEnabled || (value && value.disabled)
 
           text = [
@@ -1851,19 +1846,26 @@
         this.pageTo = data.length
       }
 
-      const html = []
+      const trFragments = $(document.createDocumentFragment())
+      let hasTr = false
+
       for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
-        html.push(this.initRow(data[i], i, data))
+        const item = data[i]
+        const tr = this.initRow(item, i, data, trFragments)
+        hasTr = hasTr || !!tr
+        if (tr && typeof tr === 'string') {
+          trFragments.append(tr)
+        }
       }
 
       // show no records
-      if (!html.length) {
+      if (!hasTr) {
         this.$body.html(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
           this.$header.find('th').length,
           this.options.formatNoMatches())}</tr>`)
+      } else {
+        this.$body.html(trFragments)
       }
-
-      this.$body.html(html.join(''))
 
       if (!fixedScroll) {
         this.scrollTo(0)
@@ -1936,7 +1938,8 @@
         this.check_($this.prop('checked'), $this.data('index'))
       })
 
-      this.header.events.forEach((events, i) => {
+      this.header.events.forEach((_events, i) => {
+        let events = _events
         if (!events) {
           return
         }
@@ -1956,21 +1959,20 @@
           fieldIndex += 1
         }
 
-        for (const key in events) {
+        for (const [key, event] of Object.entries(events)) {
           this.$body.find('>tr:not(.no-records-found)').each((i, tr) => {
             const $tr = $(tr)
             const $td = $tr.find(this.options.cardView ? '.card-view' : 'td').eq(fieldIndex)
             const index = key.indexOf(' ')
             const name = key.substring(0, index)
             const el = key.substring(index + 1)
-            const func = events[key]
 
             $td.find(el).off(name).on(name, e => {
               const index = $tr.data('index')
               const row = this.data[index]
               const value = row[field]
 
-              func.apply(this, [e, value, row, index])
+              event.apply(this, [e, value, row, index])
             })
           })
         }
@@ -1991,8 +1993,6 @@
         sortName: this.options.sortName,
         sortOrder: this.options.sortOrder
       }
-
-      let request
 
       if (this.header.sortNames[index]) {
         params.sortName = this.header.sortNames[index]
@@ -2042,7 +2042,7 @@
       if (!silent) {
         this.$tableLoading.show()
       }
-      request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
+      const request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
         type: this.options.method,
         url: url || this.options.url,
         data: this.options.contentType === 'application/json' && this.options.method === 'post'
@@ -2050,8 +2050,9 @@
         cache: this.options.cache,
         contentType: this.options.contentType,
         dataType: this.options.dataType,
-        success: res => {
-          res = Utils.calculateObjectValue(this.options, this.options.responseHandler, [res], res)
+        success: _res => {
+          const res = Utils.calculateObjectValue(this.options,
+            this.options.responseHandler, [_res], _res)
 
           this.load(res)
           this.trigger('load-success', res)
@@ -2118,7 +2119,7 @@
     }
 
     resetRows () {
-      for (let row of this.data) {
+      for (const row of this.data) {
         this.$selectAll.prop('checked', false)
         this.$selectItem.prop('checked', false)
         if (this.header.stateField) {
@@ -2128,8 +2129,8 @@
       this.initHiddenRows()
     }
 
-    trigger (name, ...args) {
-      name += '.bs.table'
+    trigger (_name, ...args) {
+      const name = `${_name}.bs.table`
       this.options[BootstrapTable.EVENTS[name]].apply(this.options, args)
       this.$el.trigger($.Event(name), args)
 
@@ -2145,24 +2146,19 @@
     }
 
     fitHeader () {
-      let fixedBody
-      let scrollWidth
-      let focused
-      let focusedTemp
-
       if (this.$el.is(':hidden')) {
         this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), 100)
         return
       }
-      fixedBody = this.$tableBody.get(0)
+      const fixedBody = this.$tableBody.get(0)
 
-      scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
+      const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
       fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
         ? Utils.getScrollBarWidth() : 0
 
       this.$el.css('margin-top', -this.$header.outerHeight())
 
-      focused = $(':focus')
+      const focused = $(':focus')
       if (focused.length > 0) {
         const $th = focused.parents('th')
         if ($th.length > 0) {
@@ -2184,7 +2180,7 @@
         .html('').attr('class', this.$el.attr('class'))
         .append(this.$header_)
 
-      focusedTemp = $('.focus-temp:visible:eq(0)')
+      const focusedTemp = $('.focus-temp:visible:eq(0)')
       if (focusedTemp.length > 0) {
         focusedTemp.focus()
         this.$header.find('.focus-temp').removeClass('focus-temp')
@@ -2238,11 +2234,8 @@
         html.push('<td><div class="th-inner">&nbsp;</div><div class="fht-cell"></div></td>')
       }
 
-      for (let column of this.columns) {
-        let key
-
-        let // footer align style
-          falign = ''
+      for (const column of this.columns) {
+        let falign = ''
 
         let valign = ''
         const csses = []
@@ -2263,8 +2256,8 @@
         style = Utils.calculateObjectValue(null, this.options.footerStyle)
 
         if (style && style.css) {
-          for (key in style.css) {
-            csses.push(`${key}: ${style.css[key]}`)
+          for (const [key, value] of Object.keys(style.css)) {
+            csses.push(`${key}: ${value}`)
           }
         }
 
@@ -2287,25 +2280,21 @@
     }
 
     fitFooter () {
-      let $footerTd
-      let elWidth
-      let scrollWidth
-
       clearTimeout(this.timeoutFooter_)
       if (this.$el.is(':hidden')) {
         this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), 100)
         return
       }
 
-      elWidth = this.$el.css('width')
-      scrollWidth = elWidth > this.$tableBody.width() ? Utils.getScrollBarWidth() : 0
+      const elWidth = this.$el.css('width')
+      const scrollWidth = elWidth > this.$tableBody.width() ? Utils.getScrollBarWidth() : 0
 
       this.$tableFooter.css({
         'margin-right': scrollWidth
       }).find('table').css('width', elWidth)
         .attr('class', this.$el.attr('class'))
 
-      $footerTd = this.$tableFooter.find('td')
+      const $footerTd = this.$tableFooter.find('td')
 
       this.$body.find('>tr:first-child:not(.no-records-found) > *').each((i, el) => {
         const $this = $(el)
@@ -2358,7 +2347,7 @@
     getVisibleFields () {
       const visibleFields = []
 
-      for (let field of this.header.fields) {
+      for (const field of this.header.fields) {
         const column = this.columns[this.fieldsColumnsIndex[field]]
 
         if (!column.visible) {
@@ -2433,8 +2422,9 @@
       return data
     }
 
-    load (data) {
+    load (_data) {
       let fixedScroll = false
+      let data = _data
 
       // #431: support pagination
       if (this.options.pagination && this.options.sidePagination === 'server') {
@@ -2508,9 +2498,10 @@
       }
     }
 
-    getRowByUniqueId (id) {
+    getRowByUniqueId (_id) {
       const uniqueId = this.options.uniqueId
       const len = this.options.data.length
+      let id = _id
       let dataRow = null
       let i
       let row
@@ -2521,7 +2512,7 @@
 
         if (row.hasOwnProperty(uniqueId)) { // uniqueId is a column
           rowUniqueId = row[uniqueId]
-        } else if (row._data.hasOwnProperty(uniqueId)) { // uniqueId is a row data property
+        } else if (row._data && row._data.hasOwnProperty(uniqueId)) { // uniqueId is a row data property
           rowUniqueId = row._data[uniqueId]
         } else {
           continue
@@ -2564,16 +2555,14 @@
     }
 
     updateByUniqueId (params) {
-      const allParams = Array.isArray(params) ? params : [ params ]
+      const allParams = Array.isArray(params) ? params : [params]
 
-      for (let params of allParams) {
-        let rowId
-
+      for (const params of allParams) {
         if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
           continue
         }
 
-        rowId = this.options.data.indexOf(this.getRowByUniqueId(params.id))
+        const rowId = this.options.data.indexOf(this.getRowByUniqueId(params.id))
 
         if (rowId === -1) {
           continue
@@ -2618,9 +2607,9 @@
     }
 
     updateRow (params) {
-      const allParams = Array.isArray(params) ? params : [ params ]
+      const allParams = Array.isArray(params) ? params : [params]
 
-      for (let params of allParams) {
+      for (const params of allParams) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
           continue
         }
@@ -2647,7 +2636,6 @@
 
     toggleRow (params, visible) {
       let row
-      let index
 
       if (params.hasOwnProperty('index')) {
         row = this.getData()[params.index]
@@ -2659,7 +2647,7 @@
         return
       }
 
-      index = this.hiddenRows.indexOf(row)
+      const index = this.hiddenRows.indexOf(row)
 
       if (!visible && index === -1) {
         this.hiddenRows.push(row)
@@ -2673,7 +2661,7 @@
       const data = this.getData()
       const rows = []
 
-      for (let row of data) {
+      for (const row of data) {
         if (this.hiddenRows.includes(row)) {
           rows.push(row)
         }
@@ -2690,13 +2678,12 @@
       let i
       let j
       const $tr = this.$body.find('>tr')
-      let $td
 
       if (this.options.detailView && !this.options.cardView) {
         col += 1
       }
 
-      $td = $tr.eq(row).find('>td').eq(col)
+      const $td = $tr.eq(row).find('>td').eq(col)
 
       if (row < 0 || col < 0 || row >= this.data.length) {
         return
@@ -2732,12 +2719,10 @@
         !params.hasOwnProperty('value')) {
         return
       }
-      const allParams = Array.isArray(params) ? params : [ params ]
+      const allParams = Array.isArray(params) ? params : [params]
 
       allParams.forEach(({id, field, value}) => {
-        let rowId
-
-        rowId = this.options.data.indexOf(this.getRowByUniqueId(id))
+        const rowId = this.options.data.indexOf(this.getRowByUniqueId(id))
 
         if (rowId === -1) {
           return
@@ -2753,8 +2738,10 @@
     }
 
     getOptions () {
-      // Deep copy
-      return $.extend(true, {}, this.options)
+      // Deep copy: remove data
+      const options = $.extend({}, this.options)
+      delete options.data
+      return $.extend(true, {}, options)
     }
 
     getSelections () {
@@ -2815,7 +2802,7 @@
       const row = this.data[index]
 
       if ($el.is(':radio') || this.options.singleSelect) {
-        for (let r of this.options.data) {
+        for (const r of this.options.data) {
           r[this.header.stateField] = false
         }
         this.$selectItem.filter(':checked').not($el).prop('checked', false)
@@ -2931,7 +2918,7 @@
     }
 
     toggleAllColumns (visible) {
-      for (let column of this.columns) {
+      for (const column of this.columns) {
         column.visible = visible
       }
 
@@ -2963,16 +2950,16 @@
       this.updatePagination()
     }
 
-    scrollTo (value) {
-      if (typeof value === 'string') {
-        value = value === 'bottom' ? this.$tableBody[0].scrollHeight : 0
-      }
-      if (typeof value === 'number') {
-        this.$tableBody.scrollTop(value)
-      }
-      if (typeof value === 'undefined') {
+    scrollTo (_value) {
+      if (typeof _value === 'undefined') {
         return this.$tableBody.scrollTop()
       }
+
+      let value = 0
+      if (typeof _value === 'string' && _value === 'bottom') {
+        value = this.$tableBody[0].scrollHeight
+      }
+      this.$tableBody.scrollTop(value)
     }
 
     getScrollPosition () {

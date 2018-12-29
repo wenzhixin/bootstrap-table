@@ -76,7 +76,7 @@
                     if (that.header.classes[i]) {
                         _class.push(that.header.classes[i].split('"')[1] || '');
                     }
-                    that.header.classes[i] = 'class="' + _class.join(' ') + '"';
+                    that.header.classes[i] = ' class="' + _class.join(' ') + '"';
                     that.header.formatters[i] = function (value, row, index) {
                         var colTree = [that.options.onTreeFormatter.apply(that, [row])];
                         colTree.push('<span class="' + that.options.treeTextcls + '">');

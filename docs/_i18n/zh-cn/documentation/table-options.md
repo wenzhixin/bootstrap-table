@@ -35,6 +35,13 @@
         <td>表格的类名称。默认情况下，表格是有边框的，你可以添加 'table-no-bordered' 来删除表格的边框样式。</td>
     </tr>
     <tr>
+        <td>theadClasses</td>
+        <td>data-thead-classes</td>
+        <td>String</td>
+        <td>''</td>
+        <td>表格 thead 的类名称。Bootstrap V4，使用 `.thead-light` 或者 `.thead-dark` 可以设置 `<thead>` 的样式。</td>
+    </tr>
+    <tr>
         <td>sortClass</td>
         <td>data-sort-class</td>
         <td>String</td>

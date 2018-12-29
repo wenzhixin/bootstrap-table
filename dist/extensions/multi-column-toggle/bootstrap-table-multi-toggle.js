@@ -1,88 +1,105 @@
-/**
- * @author Homer Glascock <HopGlascock@gmail.com>
- * @version: v1.0.0
- */
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define([], factory);
+    } else if (typeof exports !== "undefined") {
+        factory();
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory();
+        global.bootstrapTableMultiToggle = mod.exports;
+    }
+})(this, function () {
+    'use strict';
 
- !function ($) {
-    "use strict";
+    /**
+     * @author Homer Glascock <HopGlascock@gmail.com>
+     * @version: v1.0.0
+     */
 
-    var sprintf = $.fn.bootstrapTable.utils.sprintf;
+    !function ($) {
+        "use strict";
 
-    var reInit = function (self) {
-        self.initHeader();
-        self.initSearch();
-        self.initPagination();
-        self.initBody();
-    };
+        var sprintf = $.fn.bootstrapTable.utils.sprintf;
 
-    $.extend($.fn.bootstrapTable.defaults, {
-        showToggleBtn: false,
-        multiToggleDefaults: [], //column names go here
-    });
+        var reInit = function reInit(self) {
+            self.initHeader();
+            self.initSearch();
+            self.initPagination();
+            self.initBody();
+        };
 
-    $.fn.bootstrapTable.methods.push('hideAllColumns', 'showAllColumns');
+        $.extend($.fn.bootstrapTable.defaults, {
+            showToggleBtn: false,
+            multiToggleDefaults: [] //column names go here
+        });
 
-    var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initToolbar = BootstrapTable.prototype.initToolbar;
+        $.fn.bootstrapTable.methods.push('hideAllColumns', 'showAllColumns');
 
-    BootstrapTable.prototype.initToolbar = function () {
+        var BootstrapTable = $.fn.bootstrapTable.Constructor,
+            _initToolbar = BootstrapTable.prototype.initToolbar;
 
-        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+        BootstrapTable.prototype.initToolbar = function () {
 
-        var that = this,
-            $btnGroup = this.$toolbar.find('>.btn-group');
+            _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (typeof this.options.multiToggleDefaults === 'string') {
-            this.options.multiToggleDefaults = JSON.parse(this.options.multiToggleDefaults);
-        }
+            var that = this,
+                $btnGroup = this.$toolbar.find('>.btn-group');
 
-        if (this.options.showToggleBtn && this.options.showColumns) {
-            var showbtn = "<button class='btn btn-default hidden' id='showAllBtn'><span class='glyphicon glyphicon-resize-full icon-zoom-in'></span></button>",
-                hidebtn = "<button class='btn btn-default' id='hideAllBtn'><span class='glyphicon glyphicon-resize-small icon-zoom-out'></span></button>";
+            if (typeof this.options.multiToggleDefaults === 'string') {
+                this.options.multiToggleDefaults = JSON.parse(this.options.multiToggleDefaults);
+            }
 
-            $btnGroup.append(showbtn + hidebtn);
+            if (this.options.showToggleBtn && this.options.showColumns) {
+                var showbtn = "<button class='btn btn-default hidden' id='showAllBtn'><span class='glyphicon glyphicon-resize-full icon-zoom-in'></span></button>",
+                    hidebtn = "<button class='btn btn-default' id='hideAllBtn'><span class='glyphicon glyphicon-resize-small icon-zoom-out'></span></button>";
 
-            $btnGroup.find('#showAllBtn').click(function () { that.showAllColumns(); 
-                $btnGroup.find('#hideAllBtn').toggleClass('hidden');
-                $btnGroup.find('#showAllBtn').toggleClass('hidden');  
+                $btnGroup.append(showbtn + hidebtn);
+
+                $btnGroup.find('#showAllBtn').click(function () {
+                    that.showAllColumns();
+                    $btnGroup.find('#hideAllBtn').toggleClass('hidden');
+                    $btnGroup.find('#showAllBtn').toggleClass('hidden');
+                });
+                $btnGroup.find('#hideAllBtn').click(function () {
+                    that.hideAllColumns();
+                    $btnGroup.find('#hideAllBtn').toggleClass('hidden');
+                    $btnGroup.find('#showAllBtn').toggleClass('hidden');
+                });
+            }
+        };
+
+        BootstrapTable.prototype.hideAllColumns = function () {
+            var that = this,
+                defaults = that.options.multiToggleDefaults;
+
+            $.each(this.columns, function (index, column) {
+                //if its one of the defaults dont touch it
+                if (defaults.indexOf(column.field) == -1 && column.switchable) {
+                    column.visible = false;
+                    var $items = that.$toolbar.find('.keep-open input').prop('disabled', false);
+                    $items.filter(sprintf('[value="%s"]', index)).prop('checked', false);
+                }
             });
-            $btnGroup.find('#hideAllBtn').click(function () { that.hideAllColumns(); 
-                $btnGroup.find('#hideAllBtn').toggleClass('hidden');
-                $btnGroup.find('#showAllBtn').toggleClass('hidden');  
-            });
-        }
-    };
 
-    BootstrapTable.prototype.hideAllColumns = function () {
-        var that = this,
-            defaults = that.options.multiToggleDefaults;
+            reInit(that);
+        };
 
-        $.each(this.columns, function (index, column) {
-            //if its one of the defaults dont touch it
-            if (defaults.indexOf(column.field) == -1 && column.switchable) {
-                column.visible = false;
+        BootstrapTable.prototype.showAllColumns = function () {
+            var that = this;
+            $.each(this.columns, function (index, column) {
+                if (column.switchable) {
+                    column.visible = true;
+                }
+
                 var $items = that.$toolbar.find('.keep-open input').prop('disabled', false);
-                $items.filter(sprintf('[value="%s"]', index)).prop('checked', false);
-            }
-        });
+                $items.filter(sprintf('[value="%s"]', index)).prop('checked', true);
+            });
 
-        reInit(that);
-    };
+            reInit(that);
 
-    BootstrapTable.prototype.showAllColumns = function () {
-        var that = this;
-        $.each(this.columns, function (index, column) {
-            if (column.switchable) {
-                column.visible = true;
-            }
-
-            var $items = that.$toolbar.find('.keep-open input').prop('disabled', false);
-            $items.filter(sprintf('[value="%s"]', index)).prop('checked', true);
-        });
-
-        reInit(that);
-
-        that.toggleColumn(0, that.columns[0].visible, false);
-    };
-    
-}(jQuery);
+            that.toggleColumn(0, that.columns[0].visible, false);
+        };
+    }(jQuery);
+});

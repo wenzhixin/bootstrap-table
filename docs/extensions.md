@@ -21,7 +21,7 @@ lead: pages.extensions.lead
 <div class="row">
   <div class="col-md-6">
     <table data-toggle="table"
-           data-url="../data/extensions.json"
+           data-url="../data/extensions.json?v={{ site.current_version }}"
            data-card-view="true"
            data-response-handler="responseHandler0">
       <thead>
@@ -37,7 +37,7 @@ lead: pages.extensions.lead
   </div>
   <div class="col-md-6">
     <table data-toggle="table"
-           data-url="../data/extensions.json"
+           data-url="../data/extensions.json?v={{ site.current_version }}"
            data-card-view="true"
            data-response-handler="responseHandler1">
       <thead>

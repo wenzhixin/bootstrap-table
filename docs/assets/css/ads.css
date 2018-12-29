@@ -1,0 +1,33 @@
+#carbonads {
+  border: none!important;
+  border-radius: 4px;
+  width: 330px!important;
+  height: auto!important;
+  padding: 15px!important;
+  overflow: hidden;
+  margin-bottom: 10px
+}
+
+.carbon-text,.carbon-poweredby {
+  display: block!important;
+  margin-left: 145px!important;
+  font-size: 13px!important;
+  line-height: 16px!important;
+  color: #333 !important;
+}
+
+.bs-docs-header .carbon-text,
+.bs-docs-header .carbon-poweredby {
+  color: #cdbfe3 !important;
+}
+
+.carbon-poweredby {
+  margin-top: 10px;
+}
+
+.carbon-img>img {
+  float: left;
+  display: block;
+  width: 130px;
+  height: 100px
+}

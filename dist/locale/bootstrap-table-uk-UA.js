@@ -1,73 +1,88 @@
-/**
- * Bootstrap Table Ukrainian translation
- * Author: Vitaliy Timchenko <vitaliy.timchenko@gmail.com>
- */
- (function ($) {
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define([], factory);
+    } else if (typeof exports !== "undefined") {
+        factory();
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory();
+        global.bootstrapTableUkUA = mod.exports;
+    }
+})(this, function () {
     'use strict';
-    
-    $.fn.bootstrapTable.locales['uk-UA'] = {
-        formatLoadingMessage: function () {
-            return 'Завантаження, будь ласка, зачекайте...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' записів на сторінку';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Показано з ' + pageFrom + ' по ' + pageTo + '. Всього: ' + totalRows;
-        },
-        formatSearch: function () {
-            return 'Пошук';
-        },
-        formatNoMatches: function () {
-            return 'Не знайдено жодного запису';
-        },
-        formatRefresh: function () {
-            return 'Оновити';
-        },
-        formatToggle: function () {
-            return 'Змінити';
-        },
-        formatColumns: function () {
-            return 'Стовпці';
-        },
-        formatClearFilters: function () {
-            return 'Очистити фільтри';
-        },
-        formatMultipleSort: function () {
-            return 'Сортування за кількома стовпцями';
-        },
-        formatAddLevel: function () {
-            return 'Додати рівень';
-        },
-        formatDeleteLevel: function () {
-            return 'Видалити рівень';
-        },
-        formatColumn: function () {
-            return 'Стовпець';
-        },
-        formatOrder: function () {
-            return 'Порядок';
-        },
-        formatSortBy: function () {
-            return 'Сортувати за';
-        },
-        formatThenBy: function () {
-            return 'потім за';
-        },
-        formatSort: function () {
-            return 'Сортувати';
-        },
-        formatCancel: function () {
-            return 'Скасувати';
-        },
-        formatDuplicateAlertTitle: function () {
-            return 'Дублювання стовпців!';
-        },
-        formatDuplicateAlertDescription: function () {
-            return 'Видаліть, будь ласка, дублюючий стовпець, або замініть його на інший.';
-        }
-    };
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['uk-UA']);
+    /**
+     * Bootstrap Table Ukrainian translation
+     * Author: Vitaliy Timchenko <vitaliy.timchenko@gmail.com>
+     */
+    (function ($) {
+        'use strict';
 
-})(jQuery);
+        $.fn.bootstrapTable.locales['uk-UA'] = {
+            formatLoadingMessage: function formatLoadingMessage() {
+                return 'Завантаження, будь ласка, зачекайте...';
+            },
+            formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+                return pageNumber + ' записів на сторінку';
+            },
+            formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
+                return 'Показано з ' + pageFrom + ' по ' + pageTo + '. Всього: ' + totalRows;
+            },
+            formatSearch: function formatSearch() {
+                return 'Пошук';
+            },
+            formatNoMatches: function formatNoMatches() {
+                return 'Не знайдено жодного запису';
+            },
+            formatRefresh: function formatRefresh() {
+                return 'Оновити';
+            },
+            formatToggle: function formatToggle() {
+                return 'Змінити';
+            },
+            formatColumns: function formatColumns() {
+                return 'Стовпці';
+            },
+            formatClearFilters: function formatClearFilters() {
+                return 'Очистити фільтри';
+            },
+            formatMultipleSort: function formatMultipleSort() {
+                return 'Сортування за кількома стовпцями';
+            },
+            formatAddLevel: function formatAddLevel() {
+                return 'Додати рівень';
+            },
+            formatDeleteLevel: function formatDeleteLevel() {
+                return 'Видалити рівень';
+            },
+            formatColumn: function formatColumn() {
+                return 'Стовпець';
+            },
+            formatOrder: function formatOrder() {
+                return 'Порядок';
+            },
+            formatSortBy: function formatSortBy() {
+                return 'Сортувати за';
+            },
+            formatThenBy: function formatThenBy() {
+                return 'потім за';
+            },
+            formatSort: function formatSort() {
+                return 'Сортувати';
+            },
+            formatCancel: function formatCancel() {
+                return 'Скасувати';
+            },
+            formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+                return 'Дублювання стовпців!';
+            },
+            formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+                return 'Видаліть, будь ласка, дублюючий стовпець, або замініть його на інший.';
+            }
+        };
+
+        $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['uk-UA']);
+    })(jQuery);
+});

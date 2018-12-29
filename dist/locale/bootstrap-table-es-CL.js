@@ -1,44 +1,59 @@
-/**
- * Traducción de librería Bootstrap Table a Español (Chile)
- * @author Brian Álvarez Azócar
- * email brianalvarezazocar@gmail.com
- */
-(function($) {
+(function (global, factory) {
+  if (typeof define === "function" && define.amd) {
+    define([], factory);
+  } else if (typeof exports !== "undefined") {
+    factory();
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory();
+    global.bootstrapTableEsCL = mod.exports;
+  }
+})(this, function () {
   'use strict';
 
-  $.fn.bootstrapTable.locales['es-CL'] = {
-    formatLoadingMessage: function() {
-      return 'Cargando, espere por favor...';
-    },
-    formatRecordsPerPage: function(pageNumber) {
-      return pageNumber + ' filas por p\u00E1gina';
-    },
-    formatShowingRows: function(pageFrom, pageTo, totalRows) {
-      return 'Mostrando ' + pageFrom + ' a ' + pageTo + ' de ' + totalRows + ' filas';
-    },
-    formatSearch: function() {
-      return 'Buscar';
-    },
-    formatNoMatches: function() {
-      return 'No se encontraron registros';
-    },
-    formatPaginationSwitch: function() {
-      return 'Ocultar/Mostrar paginaci\u00F3n';
-    },
-    formatRefresh: function() {
-      return 'Refrescar';
-    },
-    formatToggle: function() {
-      return 'Cambiar';
-    },
-    formatColumns: function() {
-      return 'Columnas';
-    },
-    formatAllRows: function() {
-      return 'Todo';
-    }
-  };
+  /**
+   * Traducción de librería Bootstrap Table a Español (Chile)
+   * @author Brian Álvarez Azócar
+   * email brianalvarezazocar@gmail.com
+   */
+  (function ($) {
+    'use strict';
 
-  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-CL']);
+    $.fn.bootstrapTable.locales['es-CL'] = {
+      formatLoadingMessage: function formatLoadingMessage() {
+        return 'Cargando, espere por favor...';
+      },
+      formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+        return pageNumber + ' filas por p\xE1gina';
+      },
+      formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
+        return 'Mostrando ' + pageFrom + ' a ' + pageTo + ' de ' + totalRows + ' filas';
+      },
+      formatSearch: function formatSearch() {
+        return 'Buscar';
+      },
+      formatNoMatches: function formatNoMatches() {
+        return 'No se encontraron registros';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Ocultar/Mostrar paginaci\xF3n';
+      },
+      formatRefresh: function formatRefresh() {
+        return 'Refrescar';
+      },
+      formatToggle: function formatToggle() {
+        return 'Cambiar';
+      },
+      formatColumns: function formatColumns() {
+        return 'Columnas';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'Todo';
+      }
+    };
 
-})(jQuery);
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-CL']);
+  })(jQuery);
+});

@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * extensions: https://github.com/kayalshri/tableExport.jquery.plugin
+ * extensions: https://github.com/hhurz/tableExport.jquery.plugin
  */
 
 ($ => {
@@ -100,7 +100,7 @@
         const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
         exportTypes = types.map(t => t.slice(1, -1))
       }
-      for (let type of exportTypes) {
+      for (const type of exportTypes) {
         if (TYPE_NAME.hasOwnProperty(type)) {
           $menu.append(Utils.sprintf(bootstrap.html.dropitem, type, TYPE_NAME[type]))
         }
@@ -109,15 +109,15 @@
       $menu.find('>li, >a').click(e => {
         const type = $(e.currentTarget).data('type')
         const exportOptions = {
-            type: type,
-            escape: false
+          type: type,
+          escape: false
         }
 
         this.exportTable(exportOptions)
       })
     }
 
-    exportTable(options) {
+    exportTable (options) {
       const o = this.options
 
       const doExport = () => {
@@ -153,14 +153,18 @@
       }
 
       const stateField = this.header.stateField
+      const isCardView = o.cardView
 
+      if (stateField) {
+        this.hideColumn(stateField)
+      }
+      if (isCardView) {
+        this.toggleView()
+      }
       if (o.exportDataType === 'all' && o.pagination) {
         const eventName = o.sidePagination === 'server'
           ? 'post-body.bs.table' : 'page-change.bs.table'
         this.$el.one(eventName, () => {
-          if (stateField) {
-            this.hideColumn(stateField)
-          }
           doExport()
           this.togglePagination()
         })
@@ -184,19 +188,16 @@
         }
 
         this.load(selectedData)
-        if (stateField) {
-          this.hideColumn(stateField)
-        }
         doExport()
         this.load(data)
       } else {
-        if (stateField) {
-          this.hideColumn(stateField)
-        }
         doExport()
       }
       if (stateField) {
         this.showColumn(stateField)
+      }
+      if (isCardView) {
+        this.toggleView()
       }
     }
   }

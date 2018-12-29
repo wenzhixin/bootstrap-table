@@ -7,9 +7,6 @@ _gh_pages
 # build the extensions
 extensions.js
 
-# deploy the docs
-deploy.sh
-
 # old docs
 docs_
 
@@ -19,6 +16,8 @@ check.js
 # Common IDE files
 nbproject
 .~lock.*
+package-lock.json
+*.lock
 .buildpath
 .idea
 .project
