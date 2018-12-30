@@ -384,7 +384,10 @@
       })
 
       if (addedFilterControl) {
-        header.off('keyup', 'input').on('keyup', 'input', function (event) {
+        header.off('keyup', 'input').on('keyup', 'input', function (event, obj) {
+          // Simulate enter key action from clear button
+          event.keyCode = obj ? obj.keyCode : event.keyCode
+
           if (that.options.searchOnEnterKey && event.keyCode !== 13) {
             return
           }
@@ -685,59 +688,72 @@
     }
 
     initSearch() {
-      super.initSearch()
-
-      if (this.options.sidePagination === 'server') {
-        return
-      }
-
       var that = this
       var fp = $.isEmptyObject(that.filterColumnsPartial)
         ? null
         : that.filterColumnsPartial
 
+      if (fp === null || Object.keys(fp).length <= 1) {
+        super.initSearch()
+      }
+
+      if (this.options.sidePagination === 'server') {
+        return
+      }
+
+      if (fp === null) {
+        return
+      }
+
       // Check partial column filter
       that.data = fp
-        ? $.grep(that.data, function (item, i) {
-          // eslint-disable-next-line guard-for-in
-          for (var key in fp) {
+        ? that.options.data.filter(function (item, i) {
+          var itemIsExpected = []
+          Object.keys(item).forEach(function (key, index) {
             var thisColumn = that.columns[that.fieldsColumnsIndex[key]]
-            var fval = fp[key].toLowerCase()
+            var fval = (fp[key] || '').toLowerCase()
             var value = item[key]
 
-            // Fix #142: search use formated data
-            if (thisColumn && thisColumn.searchFormatter) {
-              value = $.fn.bootstrapTable.utils.calculateObjectValue(
-                that.header,
-                that.header.formatters[$.inArray(key, that.header.fields)],
-                [value, item, i],
-                value
-              )
-            }
+            if (fval === '') {
+              itemIsExpected.push(true)
+            } else {
+              // Fix #142: search use formated data
+              if (thisColumn && thisColumn.searchFormatter) {
+                value = $.fn.bootstrapTable.utils.calculateObjectValue(
+                  that.header,
+                  that.header.formatters[$.inArray(key, that.header.fields)],
+                  [value, item, i],
+                  value
+                )
+              }
 
-            if ($.inArray(key, that.header.fields) !== -1) {
-              if (typeof value === 'string' || typeof value === 'number') {
-                if (thisColumn.filterStrictSearch) {
-                  if (
-                    value.toString().toLowerCase() ===
-                    fval.toString().toLowerCase()
-                  ) {
-                    return true
-                  }
-                } else if (thisColumn.filterStartsWithSearch) {
-                  if ((value + '').toLowerCase().indexOf(fval) === 0) {
-                    return true
-                  }
-                } else {
-                  if ((value + '').toLowerCase().indexOf(fval) !== -1) {
-                    return true
+              if ($.inArray(key, that.header.fields) !== -1) {
+                if (typeof value === 'string' || typeof value === 'number') {
+                  if (thisColumn.filterStrictSearch) {
+                    if (value.toString().toLowerCase() === fval.toString().toLowerCase()) {
+                      itemIsExpected.push(true)
+                    } else {
+                      itemIsExpected.push(false)
+                    }
+                  } else if (thisColumn.filterStartsWithSearch) {
+                    if ((value + '').toLowerCase().indexOf(fval) === 0) {
+                      itemIsExpected.push(true)
+                    } else {
+                      itemIsExpected.push(false)
+                    }
+                  } else {
+                    if ((value + '').toLowerCase().indexOf(fval) !== -1) {
+                      itemIsExpected.push(true)
+                    } else {
+                      itemIsExpected.push(false)
+                    }
                   }
                 }
               }
             }
-          }
+          })
 
-          return false
+          return itemIsExpected.indexOf(false) === -1
         })
         : that.data
     }
@@ -830,7 +846,7 @@
         if (controls.length > 0) {
           this.filterColumnsPartial = {}
           $(controls[0]).trigger(
-            controls[0].tagName === 'INPUT' ? 'keyup' : 'change'
+            controls[0].tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 }
           )
         } else {
           return
