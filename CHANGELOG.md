@@ -4,6 +4,7 @@ ChangeLog
 ### 1.13.1
 
 - feat(js): add `theadClasses` option to supoort bootstrap v4
+- feat(js): fix #3727, icons update to font-awesome 5
 - feat(locale): rewrite all locales to ES6
 - feat(editable extension): rewrite bootstrap-table-editable to ES6
 - feat(filter-control extension): rewrite bootstrap-table-filter-control to ES6
