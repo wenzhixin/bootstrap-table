@@ -3,39 +3,36 @@
  * Author: Emin Şen
  * Author: Sercan Cakir <srcnckr@gmail.com>
  */
-(function ($) {
-    'use strict';
+($ => {
+  $.fn.bootstrapTable.locales['tr-TR'] = {
+    formatLoadingMessage () {
+      return 'Yükleniyor, lütfen bekleyin...'
+    },
+    formatRecordsPerPage (pageNumber) {
+      return `Sayfa başına ${pageNumber} kayıt.`
+    },
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor.`
+    },
+    formatSearch () {
+      return 'Ara'
+    },
+    formatNoMatches () {
+      return 'Eşleşen kayıt bulunamadı.'
+    },
+    formatRefresh () {
+      return 'Yenile'
+    },
+    formatToggle () {
+      return 'Değiştir'
+    },
+    formatColumns () {
+      return 'Sütunlar'
+    },
+    formatAllRows () {
+      return 'Tüm Satırlar'
+    }
+  }
 
-    $.fn.bootstrapTable.locales['tr-TR'] = {
-        formatLoadingMessage: function () {
-            return 'Yükleniyor, lütfen bekleyin...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return 'Sayfa başına ' + pageNumber + ' kayıt.';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return totalRows + ' kayıttan ' + pageFrom + '-' + pageTo + ' arası gösteriliyor.';
-        },
-        formatSearch: function () {
-            return 'Ara';
-        },
-        formatNoMatches: function () {
-            return 'Eşleşen kayıt bulunamadı.';
-        },
-        formatRefresh: function () {
-            return 'Yenile';
-        },
-        formatToggle: function () {
-            return 'Değiştir';
-        },
-        formatColumns: function () {
-            return 'Sütunlar';
-        },
-        formatAllRows: function () {
-            return 'Tüm Satırlar';
-        }
-    };
-
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['tr-TR']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['tr-TR'])
+})(jQuery)
