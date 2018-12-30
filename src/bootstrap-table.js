@@ -117,8 +117,7 @@
       }
 
       for (let i = 0; i < columns.length; i++) {
-        for (let j = 0; j < columns[i].length; j++) {
-          const r = columns[i][j]
+        for (const r of columns[i]) {
           const rowspan = r.rowspan || 1
           const colspan = r.colspan || 1
           const index = flag[i].indexOf(false)
@@ -352,8 +351,8 @@
     icons: bootstrap.icons,
     customSearch: $.noop,
     customSort: $.noop,
-    ignoreClickToSelectOn (element) {
-      return ['A', 'BUTTON'].includes(element.tagName)
+    ignoreClickToSelectOn ({tagName}) {
+      return ['A', 'BUTTON'].includes(tagName)
     },
     rowStyle (row, index) {
       return {}
@@ -912,8 +911,8 @@
       }
 
       this.$selectAll = this.$header.find('[name="btSelectAll"]')
-      this.$selectAll.off('click').on('click', e => {
-        const checked = $(e.currentTarget).prop('checked')
+      this.$selectAll.off('click').on('click', ({currentTarget}) => {
+        const checked = $(currentTarget).prop('checked')
         this[checked ? 'checkAll' : 'uncheckAll']()
         this.updateSelected()
       })
@@ -1186,8 +1185,8 @@
         $keepOpen.find('li').off('click').on('click', e => {
           e.stopImmediatePropagation()
         })
-        $keepOpen.find('input').off('click').on('click', e => {
-          const $this = $(e.currentTarget)
+        $keepOpen.find('input').off('click').on('click', ({currentTarget}) => {
+          const $this = $(currentTarget)
 
           this.toggleColumn($this.val(), $this.prop('checked'), false)
           this.trigger('column-switch', $this.data('field'), $this.prop('checked'))
@@ -1872,8 +1871,8 @@
       }
 
       // click to select by column
-      this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', (e) => {
-        const $td = $(e.currentTarget)
+      this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', ({currentTarget, type, target}) => {
+        const $td = $(currentTarget)
         const $tr = $td.parent()
         const item = this.data[$tr.data('index')]
         const index = $td[0].cellIndex
@@ -1886,15 +1885,15 @@
           return
         }
 
-        this.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td)
-        this.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field)
+        this.trigger(type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td)
+        this.trigger(type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field)
 
         // if click to select - then trigger the checkbox/radio click
         if (
-          e.type === 'click' &&
+          type === 'click' &&
           this.options.clickToSelect &&
           column.clickToSelect &&
-          !this.options.ignoreClickToSelectOn(e.target)
+          !this.options.ignoreClickToSelectOn(target)
         ) {
           const $selectItem = $tr.find(Utils.sprintf('[name="%s"]', this.options.selectItemName))
           if ($selectItem.length) {
@@ -2131,7 +2130,7 @@
 
     trigger (_name, ...args) {
       const name = `${_name}.bs.table`
-      this.options[BootstrapTable.EVENTS[name]].apply(this.options, args)
+      this.options[BootstrapTable.EVENTS[name]](...args)
       this.$el.trigger($.Event(name), args)
 
       this.options.onAll(name, args)
@@ -2310,13 +2309,13 @@
       // TODO: it's probably better improving the layout than binding to scroll event
 
       this.trigger('scroll-body')
-      this.$tableBody.off('scroll').on('scroll', e => {
+      this.$tableBody.off('scroll').on('scroll', ({currentTarget}) => {
         if (this.options.showHeader && this.options.height) {
-          this.$tableHeader.scrollLeft($(e.currentTarget).scrollLeft())
+          this.$tableHeader.scrollLeft($(currentTarget).scrollLeft())
         }
 
         if (this.options.showFooter && !this.options.cardView) {
-          this.$tableFooter.scrollLeft($(e.currentTarget).scrollLeft())
+          this.$tableFooter.scrollLeft($(currentTarget).scrollLeft())
         }
       })
     }
@@ -3149,14 +3148,14 @@
 
       if (typeof option === 'string') {
         if (!allowedMethods.includes(option)) {
-          throw new Error('Unknown method: ' + option)
+          throw new Error(`Unknown method: ${option}`)
         }
 
         if (!data) {
           return
         }
 
-        value = data[option].apply(data, args)
+        value = data[option](...args)
 
         if (option === 'destroy') {
           $(el).removeData('bootstrap.table')

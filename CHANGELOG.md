@@ -4,6 +4,7 @@ ChangeLog
 ### 1.13.1
 
 - feat(js): add `theadClasses` option to supoort bootstrap v4
+- feat(locale): rewrite all locale to ES6
 - feat(editable extension): rewrite bootstrap-table-editable to ES6
 - feat(filter-control extension): rewrite bootstrap-table-filter-control to ES6
 - fix(js): fix #4066, `getOptions` method remove data property

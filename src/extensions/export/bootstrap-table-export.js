@@ -106,10 +106,10 @@
         }
       }
 
-      $menu.find('>li, >a').click(e => {
-        const type = $(e.currentTarget).data('type')
+      $menu.find('>li, >a').click(({currentTarget}) => {
+        const type = $(currentTarget).data('type')
         const exportOptions = {
-          type: type,
+          type,
           escape: false
         }
 
@@ -128,8 +128,8 @@
           const footerData = {}
           const footerHtml = []
 
-          $.each($footerRow.children(), function (index, footerCell) {
-            var footerCellHtml = $(footerCell).children('.th-inner').first().html()
+          $.each($footerRow.children(), (index, footerCell) => {
+            const footerCellHtml = $(footerCell).children('.th-inner').first().html()
             footerData[that.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
 
             // grab footer cell text into cell index-based array
@@ -138,9 +138,9 @@
 
           this.append(footerData)
 
-          var $lastTableRow = this.$body.children().last()
+          const $lastTableRow = this.$body.children().last()
 
-          $.each($lastTableRow.children(), function (index, lastTableRowCell) {
+          $.each($lastTableRow.children(), (index, lastTableRowCell) => {
             $(lastTableRowCell).html(footerHtml[index])
           })
         }

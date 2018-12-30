@@ -47,9 +47,7 @@
         const editableDataPrefix = 'editable-'
         const processDataOptions = (key, value) => {
           // Replace camel case with dashes.
-          const dashKey = key.replace(/([A-Z])/g, $1 => {
-            return '-' + $1.toLowerCase()
-          })
+          const dashKey = key.replace(/([A-Z])/g, $1 => `-${$1.toLowerCase()}`)
           if (dashKey.indexOf(editableDataPrefix) === 0) {
             editableOptions[dashKey.replace(editableDataPrefix, 'data-')] = value
           }
@@ -113,21 +111,21 @@
           $element.editable(editableOpts)
         })
 
-        $field.off('save').on('save', (e, params) => {
-          const $this = $(e.currentTarget)
+        $field.off('save').on('save', ({currentTarget}, {submitValue}) => {
+          const $this = $(currentTarget)
           const data = this.getData()
           const index = $this.parents('tr[data-index]').data('index')
           const row = data[index]
           const oldValue = row[column.field]
 
-          $this.data('value', params.submitValue)
-          row[column.field] = params.submitValue
+          $this.data('value', submitValue)
+          row[column.field] = submitValue
           this.trigger('editable-save', column.field, row, oldValue, $this)
           this.resetFooter()
         })
 
-        $field.off('shown').on('shown', (e, editable) => {
-          const $this = $(e.currentTarget)
+        $field.off('shown').on('shown', ({currentTarget}, editable) => {
+          const $this = $(currentTarget)
           const data = this.getData()
           const index = $this.parents('tr[data-index]').data('index')
           const row = data[index]
@@ -135,8 +133,8 @@
           this.trigger('editable-shown', column.field, row, $this, editable)
         })
 
-        $field.off('hidden').on('hidden', (e, reason) => {
-          const $this = $(e.currentTarget)
+        $field.off('hidden').on('hidden', ({currentTarget}, reason) => {
+          const $this = $(currentTarget)
           const data = this.getData()
           const index = $this.parents('tr[data-index]').data('index')
           const row = data[index]
