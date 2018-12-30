@@ -393,6 +393,12 @@
             return
           }
 
+          const $currentTarget = $(event.currentTarget)
+
+          if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio')) {
+            return
+          }
+
           clearTimeout(event.currentTarget.timeoutId || 0)
           event.currentTarget.timeoutId = setTimeout(function () {
             that.onColumnSearch(event)
