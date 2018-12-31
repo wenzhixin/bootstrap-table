@@ -447,7 +447,7 @@
                 )
                 .datepicker(filterDatepickerOptions)
                 .on('changeDate', ({currentTarget}) => {
-                  $(Utils.sprintf('#%s', currentTarget.id)).val(
+                  $(currentTarget).val(
                     currentTarget.value
                   )
                   // Fired the keyup event
