@@ -1,17 +1,25 @@
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define([], factory);
+        define(['jquery'], factory);
     } else if (typeof exports !== "undefined") {
-        factory();
+        factory(require('jquery'));
     } else {
         var mod = {
             exports: {}
         };
-        factory();
+        factory(global.jquery);
         global.bootstrapTableMultipleSort = mod.exports;
     }
-})(this, function () {
+})(this, function (_jquery) {
     'use strict';
+
+    var _jquery2 = _interopRequireDefault(_jquery);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
 
     var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
         return typeof obj;
@@ -19,407 +27,396 @@
         return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
 
-    /**
-     * @author Nadim Basalamah <dimbslmh@gmail.com>
-     * @version: v1.1.0
-     * https://github.com/dimbslmh/bootstrap-table/tree/master/src/extensions/multiple-sort/bootstrap-table-multiple-sort.js
-     * Modification: ErwannNevou <https://github.com/ErwannNevou>
-     */
+    var isSingleSort = false;
 
-    (function ($) {
-        'use strict';
+    var showSortModal = function showSortModal(that) {
+        var _selector = that.sortModalSelector,
+            _id = '#' + _selector;
 
-        var isSingleSort = false;
+        if (!(0, _jquery2.default)(_id).hasClass("modal")) {
+            var sModal = '  <div class="modal fade" id="' + _selector + '" tabindex="-1" role="dialog" aria-labelledby="' + _selector + 'Label" aria-hidden="true">';
+            sModal += '         <div class="modal-dialog">';
+            sModal += '             <div class="modal-content">';
+            sModal += '                 <div class="modal-header">';
+            sModal += '                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+            sModal += '                     <h4 class="modal-title" id="' + _selector + 'Label">' + that.options.formatMultipleSort() + '</h4>';
+            sModal += '                 </div>';
+            sModal += '                 <div class="modal-body">';
+            sModal += '                     <div class="bootstrap-table">';
+            sModal += '                         <div class="fixed-table-toolbar">';
+            sModal += '                             <div class="bars">';
+            sModal += '                                 <div id="toolbar">';
+            sModal += '                                     <button id="add" type="button" class="btn btn-default"><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.plus + '"></i> ' + that.options.formatAddLevel() + '</button>';
+            sModal += '                                     <button id="delete" type="button" class="btn btn-default" disabled><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.minus + '"></i> ' + that.options.formatDeleteLevel() + '</button>';
+            sModal += '                                 </div>';
+            sModal += '                             </div>';
+            sModal += '                         </div>';
+            sModal += '                         <div class="fixed-table-container">';
+            sModal += '                             <table id="multi-sort" class="table">';
+            sModal += '                                 <thead>';
+            sModal += '                                     <tr>';
+            sModal += '                                         <th></th>';
+            sModal += '                                         <th><div class="th-inner">' + that.options.formatColumn() + '</div></th>';
+            sModal += '                                         <th><div class="th-inner">' + that.options.formatOrder() + '</div></th>';
+            sModal += '                                     </tr>';
+            sModal += '                                 </thead>';
+            sModal += '                                 <tbody></tbody>';
+            sModal += '                             </table>';
+            sModal += '                         </div>';
+            sModal += '                     </div>';
+            sModal += '                 </div>';
+            sModal += '                 <div class="modal-footer">';
+            sModal += '                     <button type="button" class="btn btn-default" data-dismiss="modal">' + that.options.formatCancel() + '</button>';
+            sModal += '                     <button type="button" class="btn btn-primary">' + that.options.formatSort() + '</button>';
+            sModal += '                 </div>';
+            sModal += '             </div>';
+            sModal += '         </div>';
+            sModal += '     </div>';
 
-        var showSortModal = function showSortModal(that) {
-            var _selector = that.sortModalSelector,
-                _id = '#' + _selector;
+            (0, _jquery2.default)('body').append((0, _jquery2.default)(sModal));
 
-            if (!$(_id).hasClass("modal")) {
-                var sModal = '  <div class="modal fade" id="' + _selector + '" tabindex="-1" role="dialog" aria-labelledby="' + _selector + 'Label" aria-hidden="true">';
-                sModal += '         <div class="modal-dialog">';
-                sModal += '             <div class="modal-content">';
-                sModal += '                 <div class="modal-header">';
-                sModal += '                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-                sModal += '                     <h4 class="modal-title" id="' + _selector + 'Label">' + that.options.formatMultipleSort() + '</h4>';
-                sModal += '                 </div>';
-                sModal += '                 <div class="modal-body">';
-                sModal += '                     <div class="bootstrap-table">';
-                sModal += '                         <div class="fixed-table-toolbar">';
-                sModal += '                             <div class="bars">';
-                sModal += '                                 <div id="toolbar">';
-                sModal += '                                     <button id="add" type="button" class="btn btn-default"><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.plus + '"></i> ' + that.options.formatAddLevel() + '</button>';
-                sModal += '                                     <button id="delete" type="button" class="btn btn-default" disabled><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.minus + '"></i> ' + that.options.formatDeleteLevel() + '</button>';
-                sModal += '                                 </div>';
-                sModal += '                             </div>';
-                sModal += '                         </div>';
-                sModal += '                         <div class="fixed-table-container">';
-                sModal += '                             <table id="multi-sort" class="table">';
-                sModal += '                                 <thead>';
-                sModal += '                                     <tr>';
-                sModal += '                                         <th></th>';
-                sModal += '                                         <th><div class="th-inner">' + that.options.formatColumn() + '</div></th>';
-                sModal += '                                         <th><div class="th-inner">' + that.options.formatOrder() + '</div></th>';
-                sModal += '                                     </tr>';
-                sModal += '                                 </thead>';
-                sModal += '                                 <tbody></tbody>';
-                sModal += '                             </table>';
-                sModal += '                         </div>';
-                sModal += '                     </div>';
-                sModal += '                 </div>';
-                sModal += '                 <div class="modal-footer">';
-                sModal += '                     <button type="button" class="btn btn-default" data-dismiss="modal">' + that.options.formatCancel() + '</button>';
-                sModal += '                     <button type="button" class="btn btn-primary">' + that.options.formatSort() + '</button>';
-                sModal += '                 </div>';
-                sModal += '             </div>';
-                sModal += '         </div>';
-                sModal += '     </div>';
+            that.$sortModal = (0, _jquery2.default)(_id);
+            var $rows = that.$sortModal.find('tbody > tr');
 
-                $('body').append($(sModal));
+            that.$sortModal.off('click', '#add').on('click', '#add', function () {
+                var total = that.$sortModal.find('.multi-sort-name:first option').length,
+                    current = that.$sortModal.find('tbody tr').length;
 
-                that.$sortModal = $(_id);
-                var $rows = that.$sortModal.find('tbody > tr');
+                if (current < total) {
+                    current++;
+                    that.addLevel();
+                    that.setButtonStates();
+                }
+            });
 
-                that.$sortModal.off('click', '#add').on('click', '#add', function () {
-                    var total = that.$sortModal.find('.multi-sort-name:first option').length,
-                        current = that.$sortModal.find('tbody tr').length;
+            that.$sortModal.off('click', '#delete').on('click', '#delete', function () {
+                var total = that.$sortModal.find('.multi-sort-name:first option').length,
+                    current = that.$sortModal.find('tbody tr').length;
 
-                    if (current < total) {
-                        current++;
-                        that.addLevel();
-                        that.setButtonStates();
-                    }
+                if (current > 1 && current <= total) {
+                    current--;
+                    that.$sortModal.find('tbody tr:last').remove();
+                    that.setButtonStates();
+                }
+            });
+
+            that.$sortModal.off('click', '.btn-primary').on('click', '.btn-primary', function () {
+                var $rows = that.$sortModal.find('tbody > tr'),
+                    $alert = that.$sortModal.find('div.alert'),
+                    fields = [],
+                    results = [];
+
+                that.options.sortPriority = _jquery2.default.map($rows, function (row) {
+                    var $row = (0, _jquery2.default)(row),
+                        name = $row.find('.multi-sort-name').val(),
+                        order = $row.find('.multi-sort-order').val();
+
+                    fields.push(name);
+
+                    return {
+                        sortName: name,
+                        sortOrder: order
+                    };
                 });
 
-                that.$sortModal.off('click', '#delete').on('click', '#delete', function () {
-                    var total = that.$sortModal.find('.multi-sort-name:first option').length,
-                        current = that.$sortModal.find('tbody tr').length;
+                var sorted_fields = fields.sort();
 
-                    if (current > 1 && current <= total) {
-                        current--;
-                        that.$sortModal.find('tbody tr:last').remove();
-                        that.setButtonStates();
-                    }
-                });
-
-                that.$sortModal.off('click', '.btn-primary').on('click', '.btn-primary', function () {
-                    var $rows = that.$sortModal.find('tbody > tr'),
-                        $alert = that.$sortModal.find('div.alert'),
-                        fields = [],
-                        results = [];
-
-                    that.options.sortPriority = $.map($rows, function (row) {
-                        var $row = $(row),
-                            name = $row.find('.multi-sort-name').val(),
-                            order = $row.find('.multi-sort-order').val();
-
-                        fields.push(name);
-
-                        return {
-                            sortName: name,
-                            sortOrder: order
-                        };
-                    });
-
-                    var sorted_fields = fields.sort();
-
-                    for (var i = 0; i < fields.length - 1; i++) {
-                        if (sorted_fields[i + 1] == sorted_fields[i]) {
-                            results.push(sorted_fields[i]);
-                        }
-                    }
-
-                    if (results.length > 0) {
-                        if ($alert.length === 0) {
-                            $alert = '<div class="alert alert-danger" role="alert"><strong>' + that.options.formatDuplicateAlertTitle() + '</strong> ' + that.options.formatDuplicateAlertDescription() + '</div>';
-                            $($alert).insertBefore(that.$sortModal.find('.bars'));
-                        }
-                    } else {
-                        if ($alert.length === 1) {
-                            $($alert).remove();
-                        }
-
-                        that.$sortModal.modal('hide');
-                        that.options.sortName = '';
-
-                        if (that.options.sidePagination === 'server') {
-                            var t = that.options.queryParams;
-                            that.options.queryParams = function (params) {
-                                params.multiSort = that.options.sortPriority;
-                                return t(params);
-                            };
-                            isSingleSort = false;
-                            that.initServer(that.options.silentSort);
-                            return;
-                        }
-                        that.onMultipleSort();
-                    }
-                });
-
-                if (that.options.sortPriority === null || that.options.sortPriority.length === 0) {
-                    if (that.options.sortName) {
-                        that.options.sortPriority = [{
-                            sortName: that.options.sortName,
-                            sortOrder: that.options.sortOrder
-                        }];
+                for (var i = 0; i < fields.length - 1; i++) {
+                    if (sorted_fields[i + 1] == sorted_fields[i]) {
+                        results.push(sorted_fields[i]);
                     }
                 }
 
-                if (that.options.sortPriority !== null && that.options.sortPriority.length > 0) {
-                    if ($rows.length < that.options.sortPriority.length && _typeof(that.options.sortPriority) === 'object') {
-                        for (var i = 0; i < that.options.sortPriority.length; i++) {
-                            that.addLevel(i, that.options.sortPriority[i]);
-                        }
+                if (results.length > 0) {
+                    if ($alert.length === 0) {
+                        $alert = '<div class="alert alert-danger" role="alert"><strong>' + that.options.formatDuplicateAlertTitle() + '</strong> ' + that.options.formatDuplicateAlertDescription() + '</div>';
+                        (0, _jquery2.default)($alert).insertBefore(that.$sortModal.find('.bars'));
                     }
                 } else {
-                    that.addLevel(0);
-                }
-
-                that.setButtonStates();
-            }
-        };
-
-        $.fn.bootstrapTable.methods.push('multipleSort');
-
-        $.extend($.fn.bootstrapTable.defaults, {
-            showMultiSort: false,
-            showMultiSortButton: true,
-            sortPriority: null,
-            onMultipleSort: function onMultipleSort() {
-                return false;
-            }
-        });
-
-        $.extend($.fn.bootstrapTable.defaults.icons, {
-            sort: 'glyphicon-sort',
-            plus: 'glyphicon-plus',
-            minus: 'glyphicon-minus'
-        });
-
-        $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-            'multiple-sort.bs.table': 'onMultipleSort'
-        });
-
-        $.extend($.fn.bootstrapTable.locales, {
-            formatMultipleSort: function formatMultipleSort() {
-                return 'Multiple Sort';
-            },
-            formatAddLevel: function formatAddLevel() {
-                return 'Add Level';
-            },
-            formatDeleteLevel: function formatDeleteLevel() {
-                return 'Delete Level';
-            },
-            formatColumn: function formatColumn() {
-                return 'Column';
-            },
-            formatOrder: function formatOrder() {
-                return 'Order';
-            },
-            formatSortBy: function formatSortBy() {
-                return 'Sort by';
-            },
-            formatThenBy: function formatThenBy() {
-                return 'Then by';
-            },
-            formatSort: function formatSort() {
-                return 'Sort';
-            },
-            formatCancel: function formatCancel() {
-                return 'Cancel';
-            },
-            formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-                return 'Duplicate(s) detected!';
-            },
-            formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-                return 'Please remove or change any duplicate column.';
-            },
-            formatSortOrders: function formatSortOrders() {
-                return {
-                    asc: 'Ascending',
-                    desc: 'Descending'
-                };
-            }
-        });
-
-        $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-
-        var BootstrapTable = $.fn.bootstrapTable.Constructor,
-            _initToolbar = BootstrapTable.prototype.initToolbar;
-
-        BootstrapTable.prototype.initToolbar = function () {
-            this.showToolbar = this.showToolbar || this.options.showMultiSort;
-            var that = this,
-                sortModalSelector = 'sortModal_' + this.$el.attr('id'),
-                sortModalId = '#' + sortModalSelector;
-            this.$sortModal = $(sortModalId);
-            this.sortModalSelector = sortModalSelector;
-
-            _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
-
-            if (that.options.sidePagination === 'server' && !isSingleSort && that.options.sortPriority !== null) {
-                var t = that.options.queryParams;
-                that.options.queryParams = function (params) {
-                    params.multiSort = that.options.sortPriority;
-                    return t(params);
-                };
-            }
-
-            if (this.options.showMultiSort) {
-                var $btnGroup = this.$toolbar.find('>.btn-group').first(),
-                    $multiSortBtn = this.$toolbar.find('div.multi-sort');
-
-                if (!$multiSortBtn.length && this.options.showMultiSortButton) {
-                    $multiSortBtn = '  <button class="multi-sort btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" data-toggle="modal" data-target="' + sortModalId + '" title="' + this.options.formatMultipleSort() + '">';
-                    $multiSortBtn += '     <i class="' + this.options.iconsPrefix + ' ' + this.options.icons.sort + '"></i>';
-                    $multiSortBtn += '</button>';
-
-                    $btnGroup.append($multiSortBtn);
-
-                    showSortModal(that);
-                }
-
-                this.$el.on('sort.bs.table', function () {
-                    isSingleSort = true;
-                });
-
-                this.$el.on('multiple-sort.bs.table', function () {
-                    isSingleSort = false;
-                });
-
-                this.$el.on('load-success.bs.table', function () {
-                    if (!isSingleSort && that.options.sortPriority !== null && _typeof(that.options.sortPriority) === 'object' && that.options.sidePagination !== 'server') {
-                        that.onMultipleSort();
+                    if ($alert.length === 1) {
+                        (0, _jquery2.default)($alert).remove();
                     }
-                });
 
-                this.$el.on('column-switch.bs.table', function (field, checked) {
+                    that.$sortModal.modal('hide');
+                    that.options.sortName = '';
+
+                    if (that.options.sidePagination === 'server') {
+                        var t = that.options.queryParams;
+                        that.options.queryParams = function (params) {
+                            params.multiSort = that.options.sortPriority;
+                            return t(params);
+                        };
+                        isSingleSort = false;
+                        that.initServer(that.options.silentSort);
+                        return;
+                    }
+                    that.onMultipleSort();
+                }
+            });
+
+            if (that.options.sortPriority === null || that.options.sortPriority.length === 0) {
+                if (that.options.sortName) {
+                    that.options.sortPriority = [{
+                        sortName: that.options.sortName,
+                        sortOrder: that.options.sortOrder
+                    }];
+                }
+            }
+
+            if (that.options.sortPriority !== null && that.options.sortPriority.length > 0) {
+                if ($rows.length < that.options.sortPriority.length && _typeof(that.options.sortPriority) === 'object') {
                     for (var i = 0; i < that.options.sortPriority.length; i++) {
-                        if (that.options.sortPriority[i].sortName === checked) {
-                            that.options.sortPriority.splice(i, 1);
-                        }
+                        that.addLevel(i, that.options.sortPriority[i]);
                     }
-
-                    that.assignSortableArrows();
-                    that.$sortModal.remove();
-                    showSortModal(that);
-                });
-
-                this.$el.on('reset-view.bs.table', function () {
-                    if (!isSingleSort && that.options.sortPriority !== null && _typeof(that.options.sortPriority) === 'object') {
-                        that.assignSortableArrows();
-                    }
-                });
+                }
+            } else {
+                that.addLevel(0);
             }
-        };
 
-        BootstrapTable.prototype.multipleSort = function () {
-            var that = this;
-            if (!isSingleSort && that.options.sortPriority !== null && _typeof(that.options.sortPriority) === 'object' && that.options.sidePagination !== 'server') {
-                that.onMultipleSort();
-            }
-        };
+            that.setButtonStates();
+        }
+    };
 
-        BootstrapTable.prototype.onMultipleSort = function () {
-            var that = this;
+    _jquery2.default.fn.bootstrapTable.methods.push('multipleSort');
 
-            var cmp = function cmp(x, y) {
-                return x > y ? 1 : x < y ? -1 : 0;
+    _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.defaults, {
+        showMultiSort: false,
+        showMultiSortButton: true,
+        sortPriority: null,
+        onMultipleSort: function onMultipleSort() {
+            return false;
+        }
+    });
+
+    _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.defaults.icons, {
+        sort: 'glyphicon-sort',
+        plus: 'glyphicon-plus',
+        minus: 'glyphicon-minus'
+    });
+
+    _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.Constructor.EVENTS, {
+        'multiple-sort.bs.table': 'onMultipleSort'
+    });
+
+    _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.locales, {
+        formatMultipleSort: function formatMultipleSort() {
+            return 'Multiple Sort';
+        },
+        formatAddLevel: function formatAddLevel() {
+            return 'Add Level';
+        },
+        formatDeleteLevel: function formatDeleteLevel() {
+            return 'Delete Level';
+        },
+        formatColumn: function formatColumn() {
+            return 'Column';
+        },
+        formatOrder: function formatOrder() {
+            return 'Order';
+        },
+        formatSortBy: function formatSortBy() {
+            return 'Sort by';
+        },
+        formatThenBy: function formatThenBy() {
+            return 'Then by';
+        },
+        formatSort: function formatSort() {
+            return 'Sort';
+        },
+        formatCancel: function formatCancel() {
+            return 'Cancel';
+        },
+        formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+            return 'Duplicate(s) detected!';
+        },
+        formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+            return 'Please remove or change any duplicate column.';
+        },
+        formatSortOrders: function formatSortOrders() {
+            return {
+                asc: 'Ascending',
+                desc: 'Descending'
             };
+        }
+    });
 
-            var arrayCmp = function arrayCmp(a, b) {
-                var arr1 = [],
-                    arr2 = [];
+    _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.defaults, _jquery2.default.fn.bootstrapTable.locales);
 
+    var BootstrapTable = _jquery2.default.fn.bootstrapTable.Constructor,
+        _initToolbar = BootstrapTable.prototype.initToolbar;
+
+    BootstrapTable.prototype.initToolbar = function () {
+        this.showToolbar = this.showToolbar || this.options.showMultiSort;
+        var that = this,
+            sortModalSelector = 'sortModal_' + this.$el.attr('id'),
+            sortModalId = '#' + sortModalSelector;
+        this.$sortModal = (0, _jquery2.default)(sortModalId);
+        this.sortModalSelector = sortModalSelector;
+
+        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+
+        if (that.options.sidePagination === 'server' && !isSingleSort && that.options.sortPriority !== null) {
+            var t = that.options.queryParams;
+            that.options.queryParams = function (params) {
+                params.multiSort = that.options.sortPriority;
+                return t(params);
+            };
+        }
+
+        if (this.options.showMultiSort) {
+            var $btnGroup = this.$toolbar.find('>.btn-group').first(),
+                $multiSortBtn = this.$toolbar.find('div.multi-sort');
+
+            if (!$multiSortBtn.length && this.options.showMultiSortButton) {
+                $multiSortBtn = '  <button class="multi-sort btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" data-toggle="modal" data-target="' + sortModalId + '" title="' + this.options.formatMultipleSort() + '">';
+                $multiSortBtn += '     <i class="' + this.options.iconsPrefix + ' ' + this.options.icons.sort + '"></i>';
+                $multiSortBtn += '</button>';
+
+                $btnGroup.append($multiSortBtn);
+
+                showSortModal(that);
+            }
+
+            this.$el.on('sort.bs.table', function () {
+                isSingleSort = true;
+            });
+
+            this.$el.on('multiple-sort.bs.table', function () {
+                isSingleSort = false;
+            });
+
+            this.$el.on('load-success.bs.table', function () {
+                if (!isSingleSort && that.options.sortPriority !== null && _typeof(that.options.sortPriority) === 'object' && that.options.sidePagination !== 'server') {
+                    that.onMultipleSort();
+                }
+            });
+
+            this.$el.on('column-switch.bs.table', function (field, checked) {
                 for (var i = 0; i < that.options.sortPriority.length; i++) {
-                    var order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1,
-                        aa = a[that.options.sortPriority[i].sortName],
-                        bb = b[that.options.sortPriority[i].sortName];
-
-                    if (aa === undefined || aa === null) {
-                        aa = '';
-                    }
-                    if (bb === undefined || bb === null) {
-                        bb = '';
-                    }
-                    if ($.isNumeric(aa) && $.isNumeric(bb)) {
-                        aa = parseFloat(aa);
-                        bb = parseFloat(bb);
-                    }
-                    if (typeof aa !== 'string') {
-                        aa = aa.toString();
-                    }
-
-                    arr1.push(order * cmp(aa, bb));
-                    arr2.push(order * cmp(bb, aa));
-                }
-
-                return cmp(arr1, arr2);
-            };
-
-            this.data.sort(function (a, b) {
-                return arrayCmp(a, b);
-            });
-
-            this.initBody();
-            this.assignSortableArrows();
-            this.trigger('multiple-sort');
-        };
-
-        BootstrapTable.prototype.addLevel = function (index, sortPriority) {
-            var text = index === 0 ? this.options.formatSortBy() : this.options.formatThenBy();
-
-            this.$sortModal.find('tbody').append($('<tr>').append($('<td>').text(text)).append($('<td>').append($('<select class="form-control multi-sort-name">'))).append($('<td>').append($('<select class="form-control multi-sort-order">'))));
-
-            var $multiSortName = this.$sortModal.find('.multi-sort-name').last(),
-                $multiSortOrder = this.$sortModal.find('.multi-sort-order').last();
-
-            $.each(this.columns, function (i, column) {
-                if (column.sortable === false || column.visible === false) {
-                    return true;
-                }
-                $multiSortName.append('<option value="' + column.field + '">' + column.title + '</option>');
-            });
-
-            $.each(this.options.formatSortOrders(), function (value, order) {
-                $multiSortOrder.append('<option value="' + value + '">' + order + '</option>');
-            });
-
-            if (sortPriority !== undefined) {
-                $multiSortName.find('option[value="' + sortPriority.sortName + '"]').attr("selected", true);
-                $multiSortOrder.find('option[value="' + sortPriority.sortOrder + '"]').attr("selected", true);
-            }
-        };
-
-        BootstrapTable.prototype.assignSortableArrows = function () {
-            var that = this,
-                headers = that.$header.find('th');
-
-            for (var i = 0; i < headers.length; i++) {
-                for (var c = 0; c < that.options.sortPriority.length; c++) {
-                    if ($(headers[i]).data('field') === that.options.sortPriority[c].sortName) {
-                        $(headers[i]).find('.sortable').removeClass('desc asc').addClass(that.options.sortPriority[c].sortOrder);
+                    if (that.options.sortPriority[i].sortName === checked) {
+                        that.options.sortPriority.splice(i, 1);
                     }
                 }
-            }
+
+                that.assignSortableArrows();
+                that.$sortModal.remove();
+                showSortModal(that);
+            });
+
+            this.$el.on('reset-view.bs.table', function () {
+                if (!isSingleSort && that.options.sortPriority !== null && _typeof(that.options.sortPriority) === 'object') {
+                    that.assignSortableArrows();
+                }
+            });
+        }
+    };
+
+    BootstrapTable.prototype.multipleSort = function () {
+        var that = this;
+        if (!isSingleSort && that.options.sortPriority !== null && _typeof(that.options.sortPriority) === 'object' && that.options.sidePagination !== 'server') {
+            that.onMultipleSort();
+        }
+    };
+
+    BootstrapTable.prototype.onMultipleSort = function () {
+        var that = this;
+
+        var cmp = function cmp(x, y) {
+            return x > y ? 1 : x < y ? -1 : 0;
         };
 
-        BootstrapTable.prototype.setButtonStates = function () {
-            var total = this.$sortModal.find('.multi-sort-name:first option').length,
-                current = this.$sortModal.find('tbody tr').length;
+        var arrayCmp = function arrayCmp(a, b) {
+            var arr1 = [],
+                arr2 = [];
 
-            if (current == total) {
-                this.$sortModal.find('#add').attr('disabled', 'disabled');
+            for (var i = 0; i < that.options.sortPriority.length; i++) {
+                var order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1,
+                    aa = a[that.options.sortPriority[i].sortName],
+                    bb = b[that.options.sortPriority[i].sortName];
+
+                if (aa === undefined || aa === null) {
+                    aa = '';
+                }
+                if (bb === undefined || bb === null) {
+                    bb = '';
+                }
+                if (_jquery2.default.isNumeric(aa) && _jquery2.default.isNumeric(bb)) {
+                    aa = parseFloat(aa);
+                    bb = parseFloat(bb);
+                }
+                if (typeof aa !== 'string') {
+                    aa = aa.toString();
+                }
+
+                arr1.push(order * cmp(aa, bb));
+                arr2.push(order * cmp(bb, aa));
             }
-            if (current > 1) {
-                this.$sortModal.find('#delete').removeAttr('disabled');
-            }
-            if (current < total) {
-                this.$sortModal.find('#add').removeAttr('disabled');
-            }
-            if (current == 1) {
-                this.$sortModal.find('#delete').attr('disabled', 'disabled');
-            }
+
+            return cmp(arr1, arr2);
         };
-    })(jQuery);
+
+        this.data.sort(function (a, b) {
+            return arrayCmp(a, b);
+        });
+
+        this.initBody();
+        this.assignSortableArrows();
+        this.trigger('multiple-sort');
+    };
+
+    BootstrapTable.prototype.addLevel = function (index, sortPriority) {
+        var text = index === 0 ? this.options.formatSortBy() : this.options.formatThenBy();
+
+        this.$sortModal.find('tbody').append((0, _jquery2.default)('<tr>').append((0, _jquery2.default)('<td>').text(text)).append((0, _jquery2.default)('<td>').append((0, _jquery2.default)('<select class="form-control multi-sort-name">'))).append((0, _jquery2.default)('<td>').append((0, _jquery2.default)('<select class="form-control multi-sort-order">'))));
+
+        var $multiSortName = this.$sortModal.find('.multi-sort-name').last(),
+            $multiSortOrder = this.$sortModal.find('.multi-sort-order').last();
+
+        _jquery2.default.each(this.columns, function (i, column) {
+            if (column.sortable === false || column.visible === false) {
+                return true;
+            }
+            $multiSortName.append('<option value="' + column.field + '">' + column.title + '</option>');
+        });
+
+        _jquery2.default.each(this.options.formatSortOrders(), function (value, order) {
+            $multiSortOrder.append('<option value="' + value + '">' + order + '</option>');
+        });
+
+        if (sortPriority !== undefined) {
+            $multiSortName.find('option[value="' + sortPriority.sortName + '"]').attr("selected", true);
+            $multiSortOrder.find('option[value="' + sortPriority.sortOrder + '"]').attr("selected", true);
+        }
+    };
+
+    BootstrapTable.prototype.assignSortableArrows = function () {
+        var that = this,
+            headers = that.$header.find('th');
+
+        for (var i = 0; i < headers.length; i++) {
+            for (var c = 0; c < that.options.sortPriority.length; c++) {
+                if ((0, _jquery2.default)(headers[i]).data('field') === that.options.sortPriority[c].sortName) {
+                    (0, _jquery2.default)(headers[i]).find('.sortable').removeClass('desc asc').addClass(that.options.sortPriority[c].sortOrder);
+                }
+            }
+        }
+    };
+
+    BootstrapTable.prototype.setButtonStates = function () {
+        var total = this.$sortModal.find('.multi-sort-name:first option').length,
+            current = this.$sortModal.find('tbody tr').length;
+
+        if (current == total) {
+            this.$sortModal.find('#add').attr('disabled', 'disabled');
+        }
+        if (current > 1) {
+            this.$sortModal.find('#delete').removeAttr('disabled');
+        }
+        if (current < total) {
+            this.$sortModal.find('#add').removeAttr('disabled');
+        }
+        if (current == 1) {
+            this.$sortModal.find('#delete').attr('disabled', 'disabled');
+        }
+    };
 });

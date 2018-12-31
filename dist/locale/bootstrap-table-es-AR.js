@@ -1,46 +1,50 @@
 (function (global, factory) {
-    if (typeof define === "function" && define.amd) {
-        define([], factory);
-    } else if (typeof exports !== "undefined") {
-        factory();
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory();
-        global.bootstrapTableEsAR = mod.exports;
+  if (typeof define === "function" && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof exports !== "undefined") {
+    factory(require('jquery'));
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory(global.jquery);
+    global.bootstrapTableEsAR = mod.exports;
+  }
+})(this, function (_jquery) {
+  'use strict';
+
+  var _jquery2 = _interopRequireDefault(_jquery);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  _jquery2.default.fn.bootstrapTable.locales['es-AR'] = {
+    formatLoadingMessage: function formatLoadingMessage() {
+      return 'Cargando, espere por favor...';
+    },
+    formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+      return pageNumber + ' registros por p\xE1gina';
+    },
+    formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
+      return 'Mostrando ' + pageFrom + ' a ' + pageTo + ' de ' + totalRows + ' filas';
+    },
+    formatSearch: function formatSearch() {
+      return 'Buscar';
+    },
+    formatNoMatches: function formatNoMatches() {
+      return 'No se encontraron registros';
+    },
+    formatAllRows: function formatAllRows() {
+      return 'Todo';
     }
-})(this, function () {
-    'use strict';
+  }; /**
+      * Bootstrap Table Spanish (Argentina) translation
+      * Author: Felix Vera (felix.vera@gmail.com)
+      */
 
-    /**
-     * Bootstrap Table Spanish (Argentina) translation
-     * Author: Felix Vera (felix.vera@gmail.com)
-     */
-    (function ($) {
-        'use strict';
 
-        $.fn.bootstrapTable.locales['es-AR'] = {
-            formatLoadingMessage: function formatLoadingMessage() {
-                return 'Cargando, espere por favor...';
-            },
-            formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-                return pageNumber + ' registros por página';
-            },
-            formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
-                return 'Mostrando ' + pageFrom + ' a ' + pageTo + ' de ' + totalRows + ' filas';
-            },
-            formatSearch: function formatSearch() {
-                return 'Buscar';
-            },
-            formatNoMatches: function formatNoMatches() {
-                return 'No se encontraron registros';
-            },
-            formatAllRows: function formatAllRows() {
-                return 'Todo';
-            }
-        };
-
-        $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-AR']);
-    })(jQuery);
+  _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.defaults, _jquery2.default.fn.bootstrapTable.locales['es-AR']);
 });

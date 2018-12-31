@@ -5,9 +5,7 @@
  *
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
-
-(function ($) {
-    'use strict';
+import $ from 'jquery';
 
     var cookieIds = {
         sortOrder: 'bs.table.sortOrder',
@@ -410,4 +408,3 @@
 
         deleteCookie(this, this.options.cookieIdTable, cookieIds[cookieName]);
     };
-})(jQuery);

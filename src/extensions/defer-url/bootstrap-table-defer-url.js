@@ -13,8 +13,7 @@
  * @version: v1.0.0
  */
 
-(function($) {
-    'use strict';
+import $ from 'jquery';
 
     $.extend($.fn.bootstrapTable.defaults, {
         deferUrl : undefined
@@ -29,4 +28,3 @@
             this.options.url = this.options.deferUrl;
         }
     }
-})(jQuery);

@@ -264,6 +264,10 @@
     border-bottom: 1px solid #ddd;
 }
 
+.bootstrap-table .table > thead.thead-dark > tr > th {
+    border-bottom: 1px solid #212529;
+}
+
 /* support bootstrap 3 */
 .bootstrap-table .table thead > tr > th {
     padding: 0;

@@ -1,17 +1,25 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define([], factory);
+    define(['jquery'], factory);
   } else if (typeof exports !== "undefined") {
-    factory();
+    factory(require('jquery'));
   } else {
     var mod = {
       exports: {}
     };
-    factory();
+    factory(global.jquery);
     global.bootstrapTableExport = mod.exports;
   }
-})(this, function () {
+})(this, function (_jquery) {
   'use strict';
+
+  var _jquery2 = _interopRequireDefault(_jquery);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
 
   function _defineProperty(obj, key, value) {
     if (key in obj) {
@@ -101,233 +109,229 @@
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
   }
 
-  /**
-   * @author zhixin wen <wenzhixin2010@gmail.com>
-   * extensions: https://github.com/hhurz/tableExport.jquery.plugin
-   */
+  var Utils = _jquery2.default.fn.bootstrapTable.utils;
 
-  (function ($) {
-    var Utils = $.fn.bootstrapTable.utils;
-
-    var bootstrap = {
-      3: {
-        icons: {
-          export: 'glyphicon-export icon-share'
-        },
-        html: {
-          dropmenu: '<ul class="dropdown-menu" role="menu"></ul>',
-          dropitem: '<li role="menuitem" data-type="%s"><a href="javascript:">%s</a></li>'
-        }
+  var bootstrap = {
+    3: {
+      icons: {
+        export: 'glyphicon-export icon-share'
       },
-      4: {
-        icons: {
-          export: 'fa-download'
-        },
-        html: {
-          dropmenu: '<div class="dropdown-menu dropdown-menu-right"></div>',
-          dropitem: '<a class="dropdown-item" data-type="%s" href="javascript:">%s</a>'
+      html: {
+        dropmenu: '<ul class="dropdown-menu" role="menu"></ul>',
+        dropitem: '<li role="menuitem" data-type="%s"><a href="javascript:">%s</a></li>'
+      }
+    },
+    4: {
+      icons: {
+        export: 'fa-download'
+      },
+      html: {
+        dropmenu: '<div class="dropdown-menu dropdown-menu-right"></div>',
+        dropitem: '<a class="dropdown-item" data-type="%s" href="javascript:">%s</a>'
+      }
+    }
+  }[Utils.bootstrapVersion];
+
+  var TYPE_NAME = {
+    json: 'JSON',
+    xml: 'XML',
+    png: 'PNG',
+    csv: 'CSV',
+    txt: 'TXT',
+    sql: 'SQL',
+    doc: 'MS-Word',
+    excel: 'MS-Excel',
+    xlsx: 'MS-Excel (OpenXML)',
+    powerpoint: 'MS-Powerpoint',
+    pdf: 'PDF'
+  };
+
+  _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.defaults, {
+    showExport: false,
+    exportDataType: 'basic', // basic, all, selected
+    exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
+    exportOptions: {},
+    exportFooter: false
+  });
+
+  _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.defaults.icons, {
+    export: bootstrap.icons.export
+  });
+
+  _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.locales, {
+    formatExport: function formatExport() {
+      return 'Export data';
+    }
+  });
+  _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.defaults, _jquery2.default.fn.bootstrapTable.locales);
+
+  _jquery2.default.fn.bootstrapTable.methods.push('exportTable');
+
+  _jquery2.default.BootstrapTable = function (_$$BootstrapTable) {
+    _inherits(_class, _$$BootstrapTable);
+
+    function _class() {
+      _classCallCheck(this, _class);
+
+      return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+    }
+
+    _createClass(_class, [{
+      key: 'initToolbar',
+      value: function initToolbar() {
+        var _this2 = this;
+
+        var o = this.options;
+
+        this.showToolbar = this.showToolbar || o.showExport;
+
+        _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'initToolbar', this).call(this);
+
+        if (!this.options.showExport) {
+          return;
         }
-      }
-    }[Utils.bootstrapVersion];
+        var $btnGroup = this.$toolbar.find('>.btn-group');
+        var $export = $btnGroup.find('div.export');
 
-    var TYPE_NAME = {
-      json: 'JSON',
-      xml: 'XML',
-      png: 'PNG',
-      csv: 'CSV',
-      txt: 'TXT',
-      sql: 'SQL',
-      doc: 'MS-Word',
-      excel: 'MS-Excel',
-      xlsx: 'MS-Excel (OpenXML)',
-      powerpoint: 'MS-Powerpoint',
-      pdf: 'PDF'
-    };
+        if ($export.length) {
+          return;
+        }
+        $export = (0, _jquery2.default)('\n        <div class="export btn-group">\n        <button class="btn btn-' + o.buttonsClass + ' btn-' + o.iconSize + ' dropdown-toggle"\n          aria-label="export type"\n          title="' + o.formatExport() + '"\n          data-toggle="dropdown"\n          type="button">\n          <i class="' + o.iconsPrefix + ' ' + o.icons.export + '"></i>\n          <span class="caret"></span>\n        </button>\n        ' + bootstrap.html.dropmenu + '\n        </div>\n      ').appendTo($btnGroup);
 
-    $.extend($.fn.bootstrapTable.defaults, {
-      showExport: false,
-      exportDataType: 'basic', // basic, all, selected
-      exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
-      exportOptions: {},
-      exportFooter: false
-    });
+        var $menu = $export.find('.dropdown-menu');
+        var exportTypes = o.exportTypes;
 
-    $.extend($.fn.bootstrapTable.defaults.icons, {
-      export: bootstrap.icons.export
-    });
-
-    $.extend($.fn.bootstrapTable.locales, {
-      formatExport: function formatExport() {
-        return 'Export data';
-      }
-    });
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-
-    $.fn.bootstrapTable.methods.push('exportTable');
-
-    $.BootstrapTable = function (_$$BootstrapTable) {
-      _inherits(_class, _$$BootstrapTable);
-
-      function _class() {
-        _classCallCheck(this, _class);
-
-        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-      }
-
-      _createClass(_class, [{
-        key: 'initToolbar',
-        value: function initToolbar() {
-          var _this2 = this;
-
-          var o = this.options;
-
-          this.showToolbar = this.showToolbar || o.showExport;
-
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'initToolbar', this).call(this);
-
-          if (!this.options.showExport) {
-            return;
-          }
-          var $btnGroup = this.$toolbar.find('>.btn-group');
-          var $export = $btnGroup.find('div.export');
-
-          if ($export.length) {
-            return;
-          }
-          $export = $('\n        <div class="export btn-group">\n        <button class="btn btn-' + o.buttonsClass + ' btn-' + o.iconSize + ' dropdown-toggle"\n          aria-label="export type"\n          title="' + o.formatExport() + '"\n          data-toggle="dropdown"\n          type="button">\n          <i class="' + o.iconsPrefix + ' ' + o.icons.export + '"></i>\n          <span class="caret"></span>\n        </button>\n        ' + bootstrap.html.dropmenu + '\n        </div>\n      ').appendTo($btnGroup);
-
-          var $menu = $export.find('.dropdown-menu');
-          var exportTypes = o.exportTypes;
-
-          if (typeof exportTypes === 'string') {
-            var types = exportTypes.slice(1, -1).replace(/ /g, '').split(',');
-            exportTypes = types.map(function (t) {
-              return t.slice(1, -1);
-            });
-          }
-          var _iteratorNormalCompletion = true;
-          var _didIteratorError = false;
-          var _iteratorError = undefined;
-
-          try {
-            for (var _iterator = exportTypes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              var type = _step.value;
-
-              if (TYPE_NAME.hasOwnProperty(type)) {
-                $menu.append(Utils.sprintf(bootstrap.html.dropitem, type, TYPE_NAME[type]));
-              }
-            }
-          } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion && _iterator.return) {
-                _iterator.return();
-              }
-            } finally {
-              if (_didIteratorError) {
-                throw _iteratorError;
-              }
-            }
-          }
-
-          $menu.find('>li, >a').click(function (e) {
-            var type = $(e.currentTarget).data('type');
-            var exportOptions = {
-              type: type,
-              escape: false
-            };
-
-            _this2.exportTable(exportOptions);
+        if (typeof exportTypes === 'string') {
+          var types = exportTypes.slice(1, -1).replace(/ /g, '').split(',');
+          exportTypes = types.map(function (t) {
+            return t.slice(1, -1);
           });
         }
-      }, {
-        key: 'exportTable',
-        value: function exportTable(options) {
-          var _this3 = this;
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-          var o = this.options;
+        try {
+          for (var _iterator = exportTypes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var type = _step.value;
 
-          var doExport = function doExport() {
-            var that = _this3;
-            var data = _this3.getData();
-            if (o.exportFooter) {
-              var $footerRow = _this3.$tableFooter.find('tr').first();
-              var footerData = {};
-              var footerHtml = [];
-
-              $.each($footerRow.children(), function (index, footerCell) {
-                var footerCellHtml = $(footerCell).children('.th-inner').first().html();
-                footerData[that.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml;
-
-                // grab footer cell text into cell index-based array
-                footerHtml.push(footerCellHtml);
-              });
-
-              _this3.append(footerData);
-
-              var $lastTableRow = _this3.$body.children().last();
-
-              $.each($lastTableRow.children(), function (index, lastTableRowCell) {
-                $(lastTableRowCell).html(footerHtml[index]);
-              });
+            if (TYPE_NAME.hasOwnProperty(type)) {
+              $menu.append(Utils.sprintf(bootstrap.html.dropitem, type, TYPE_NAME[type]));
             }
-
-            _this3.$el.tableExport($.extend({}, o.exportOptions, options));
-
-            if (o.exportFooter) {
-              _this3.load(data);
-            }
-          };
-
-          var stateField = this.header.stateField;
-
-          if (o.exportDataType === 'all' && o.pagination) {
-            var eventName = o.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table';
-            this.$el.one(eventName, function () {
-              if (stateField) {
-                _this3.hideColumn(stateField);
-              }
-              doExport();
-              _this3.togglePagination();
-            });
-            this.togglePagination();
-          } else if (o.exportDataType === 'selected') {
-            var data = this.getData();
-            var selectedData = this.getSelections();
-            if (!selectedData.length) {
-              return;
-            }
-
-            if (o.sidePagination === 'server') {
-              data = _defineProperty({
-                total: o.totalRows
-              }, this.options.dataField, data);
-              selectedData = _defineProperty({
-                total: selectedData.length
-              }, this.options.dataField, selectedData);
-            }
-
-            this.load(selectedData);
-            if (stateField) {
-              this.hideColumn(stateField);
-            }
-            doExport();
-            this.load(data);
-          } else {
-            if (stateField) {
-              this.hideColumn(stateField);
-            }
-            doExport();
           }
-          if (stateField) {
-            this.showColumn(stateField);
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
           }
         }
-      }]);
 
-      return _class;
-    }($.BootstrapTable);
-  })(jQuery);
+        $menu.find('>li, >a').click(function (_ref) {
+          var currentTarget = _ref.currentTarget;
+
+          var type = (0, _jquery2.default)(currentTarget).data('type');
+          var exportOptions = {
+            type: type,
+            escape: false
+          };
+
+          _this2.exportTable(exportOptions);
+        });
+      }
+    }, {
+      key: 'exportTable',
+      value: function exportTable(options) {
+        var _this3 = this;
+
+        var o = this.options;
+
+        var doExport = function doExport() {
+          var that = _this3;
+          var data = _this3.getData();
+          if (o.exportFooter) {
+            var $footerRow = _this3.$tableFooter.find('tr').first();
+            var footerData = {};
+            var footerHtml = [];
+
+            _jquery2.default.each($footerRow.children(), function (index, footerCell) {
+              var footerCellHtml = (0, _jquery2.default)(footerCell).children('.th-inner').first().html();
+              footerData[that.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml;
+
+              // grab footer cell text into cell index-based array
+              footerHtml.push(footerCellHtml);
+            });
+
+            _this3.append(footerData);
+
+            var $lastTableRow = _this3.$body.children().last();
+
+            _jquery2.default.each($lastTableRow.children(), function (index, lastTableRowCell) {
+              (0, _jquery2.default)(lastTableRowCell).html(footerHtml[index]);
+            });
+          }
+
+          _this3.$el.tableExport(_jquery2.default.extend({}, o.exportOptions, options));
+
+          if (o.exportFooter) {
+            _this3.load(data);
+          }
+        };
+
+        var stateField = this.header.stateField;
+        var isCardView = o.cardView;
+
+        if (stateField) {
+          this.hideColumn(stateField);
+        }
+        if (isCardView) {
+          this.toggleView();
+        }
+        if (o.exportDataType === 'all' && o.pagination) {
+          var eventName = o.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table';
+          this.$el.one(eventName, function () {
+            doExport();
+            _this3.togglePagination();
+          });
+          this.togglePagination();
+        } else if (o.exportDataType === 'selected') {
+          var data = this.getData();
+          var selectedData = this.getSelections();
+          if (!selectedData.length) {
+            return;
+          }
+
+          if (o.sidePagination === 'server') {
+            data = _defineProperty({
+              total: o.totalRows
+            }, this.options.dataField, data);
+            selectedData = _defineProperty({
+              total: selectedData.length
+            }, this.options.dataField, selectedData);
+          }
+
+          this.load(selectedData);
+          doExport();
+          this.load(data);
+        } else {
+          doExport();
+        }
+        if (stateField) {
+          this.showColumn(stateField);
+        }
+        if (isCardView) {
+          this.toggleView();
+        }
+      }
+    }]);
+
+    return _class;
+  }(_jquery2.default.BootstrapTable);
 });

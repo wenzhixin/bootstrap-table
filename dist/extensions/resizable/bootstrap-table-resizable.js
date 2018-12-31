@@ -1,86 +1,89 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define([], factory);
+    define(["jquery"], factory);
   } else if (typeof exports !== "undefined") {
-    factory();
+    factory(require("jquery"));
   } else {
     var mod = {
       exports: {}
     };
-    factory();
+    factory(global.jquery);
     global.bootstrapTableResizable = mod.exports;
   }
-})(this, function () {
+})(this, function (_jquery) {
   "use strict";
 
-  /**
-   * @author: Dennis Hernández
-   * @webSite: http://djhvscf.github.io/Blog
-   * @version: v2.0.0
-   */
+  var _jquery2 = _interopRequireDefault(_jquery);
 
-  (function ($) {
-    "use strict";
-
-    var initResizable = function initResizable(that) {
-      if (that.options.resizable && !that.options.cardView && !isInit(that)) {
-        that.$el.resizableColumns();
-      }
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
     };
+  }
 
-    var reInitResizable = function reInitResizable(that) {
-      destroy(that);
-      initResizable(that);
-    };
+  var initResizable = function initResizable(that) {
+    if (that.options.resizable && !that.options.cardView && !isInit(that)) {
+      that.$el.resizableColumns();
+    }
+  }; /**
+      * @author: Dennis Hernández
+      * @webSite: http://djhvscf.github.io/Blog
+      * @version: v2.0.0
+      */
 
-    var destroy = function destroy(that) {
-      if (isInit(that)) {
-        that.$el.data("resizableColumns").destroy();
-      }
-    };
 
-    var isInit = function isInit(that) {
-      return that.$el.data("resizableColumns") !== undefined;
-    };
+  var reInitResizable = function reInitResizable(that) {
+    destroy(that);
+    initResizable(that);
+  };
 
-    $.extend($.fn.bootstrapTable.defaults, {
-      resizable: false
+  var destroy = function destroy(that) {
+    if (isInit(that)) {
+      that.$el.data("resizableColumns").destroy();
+    }
+  };
+
+  var isInit = function isInit(that) {
+    return that.$el.data("resizableColumns") !== undefined;
+  };
+
+  _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.defaults, {
+    resizable: false
+  });
+
+  var BootstrapTable = _jquery2.default.fn.bootstrapTable.Constructor,
+      _initBody = BootstrapTable.prototype.initBody,
+      _toggleView = BootstrapTable.prototype.toggleView,
+      _resetView = BootstrapTable.prototype.resetView;
+
+  BootstrapTable.prototype.initBody = function () {
+    var that = this;
+    _initBody.apply(this, Array.prototype.slice.apply(arguments));
+
+    that.$el.off("column-switch.bs.table, page-change.bs.table").on("column-switch.bs.table, page-change.bs.table", function () {
+      reInitResizable(that);
     });
+  };
 
-    var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initBody = BootstrapTable.prototype.initBody,
-        _toggleView = BootstrapTable.prototype.toggleView,
-        _resetView = BootstrapTable.prototype.resetView;
+  BootstrapTable.prototype.toggleView = function () {
+    _toggleView.apply(this, Array.prototype.slice.apply(arguments));
 
-    BootstrapTable.prototype.initBody = function () {
-      var that = this;
-      _initBody.apply(this, Array.prototype.slice.apply(arguments));
+    if (this.options.resizable && this.options.cardView) {
+      //Destroy the plugin
+      destroy(this);
+    }
+  };
 
-      that.$el.off("column-switch.bs.table, page-change.bs.table").on("column-switch.bs.table, page-change.bs.table", function () {
-        reInitResizable(that);
-      });
-    };
+  BootstrapTable.prototype.resetView = function () {
+    var that = this;
 
-    BootstrapTable.prototype.toggleView = function () {
-      _toggleView.apply(this, Array.prototype.slice.apply(arguments));
+    _resetView.apply(this, Array.prototype.slice.apply(arguments));
 
-      if (this.options.resizable && this.options.cardView) {
-        //Destroy the plugin
-        destroy(this);
-      }
-    };
-
-    BootstrapTable.prototype.resetView = function () {
-      var that = this;
-
-      _resetView.apply(this, Array.prototype.slice.apply(arguments));
-
-      if (this.options.resizable) {
-        // because in fitHeader function, we use setTimeout(func, 100);
-        setTimeout(function () {
-          initResizable(that);
-        }, 100);
-      }
-    };
-  })(jQuery);
+    if (this.options.resizable) {
+      // because in fitHeader function, we use setTimeout(func, 100);
+      setTimeout(function () {
+        initResizable(that);
+      }, 100);
+    }
+  };
 });

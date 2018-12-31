@@ -1,80 +1,82 @@
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define([], factory);
+        define(['jquery'], factory);
     } else if (typeof exports !== "undefined") {
-        factory();
+        factory(require('jquery'));
     } else {
         var mod = {
             exports: {}
         };
-        factory();
+        factory(global.jquery);
         global.bootstrapTableFilter = mod.exports;
     }
-})(this, function () {
+})(this, function (_jquery) {
     'use strict';
 
-    /**
-     * @author zhixin wen <wenzhixin2010@gmail.com>
-     * extensions: https://github.com/lukaskral/bootstrap-table-filter
-     */
+    var _jquery2 = _interopRequireDefault(_jquery);
 
-    !function ($) {
-
-        'use strict';
-
-        $.extend($.fn.bootstrapTable.defaults, {
-            showFilter: false
-        });
-
-        var BootstrapTable = $.fn.bootstrapTable.Constructor,
-            _init = BootstrapTable.prototype.init,
-            _initSearch = BootstrapTable.prototype.initSearch;
-
-        BootstrapTable.prototype.init = function () {
-            _init.apply(this, Array.prototype.slice.apply(arguments));
-
-            var that = this;
-            this.$el.on('load-success.bs.table', function () {
-                if (that.options.showFilter) {
-                    $(that.options.toolbar).bootstrapTableFilter({
-                        connectTo: that.$el
-                    });
-                }
-            });
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
         };
+    }
 
-        BootstrapTable.prototype.initSearch = function () {
-            _initSearch.apply(this, Array.prototype.slice.apply(arguments));
+    _jquery2.default.extend(_jquery2.default.fn.bootstrapTable.defaults, {
+        showFilter: false
+    }); /**
+         * @author zhixin wen <wenzhixin2010@gmail.com>
+         * extensions: https://github.com/lukaskral/bootstrap-table-filter
+         */
 
-            if (this.options.sidePagination !== 'server') {
-                if (typeof this.searchCallback === 'function') {
-                    this.data = $.grep(this.options.data, this.searchCallback);
-                }
+
+    var BootstrapTable = _jquery2.default.fn.bootstrapTable.Constructor,
+        _init = BootstrapTable.prototype.init,
+        _initSearch = BootstrapTable.prototype.initSearch;
+
+    BootstrapTable.prototype.init = function () {
+        _init.apply(this, Array.prototype.slice.apply(arguments));
+
+        var that = this;
+        this.$el.on('load-success.bs.table', function () {
+            if (that.options.showFilter) {
+                (0, _jquery2.default)(that.options.toolbar).bootstrapTableFilter({
+                    connectTo: that.$el
+                });
             }
-        };
+        });
+    };
 
-        BootstrapTable.prototype.getData = function () {
-            return this.searchText || this.searchCallback ? this.data : this.options.data;
-        };
+    BootstrapTable.prototype.initSearch = function () {
+        _initSearch.apply(this, Array.prototype.slice.apply(arguments));
 
-        BootstrapTable.prototype.getColumns = function () {
-            return this.columns;
-        };
+        if (this.options.sidePagination !== 'server') {
+            if (typeof this.searchCallback === 'function') {
+                this.data = _jquery2.default.grep(this.options.data, this.searchCallback);
+            }
+        }
+    };
 
-        BootstrapTable.prototype.registerSearchCallback = function (callback) {
-            this.searchCallback = callback;
-        };
+    BootstrapTable.prototype.getData = function () {
+        return this.searchText || this.searchCallback ? this.data : this.options.data;
+    };
 
-        BootstrapTable.prototype.updateSearch = function () {
-            this.options.pageNumber = 1;
-            this.initSearch();
-            this.updatePagination();
-        };
+    BootstrapTable.prototype.getColumns = function () {
+        return this.columns;
+    };
 
-        BootstrapTable.prototype.getServerUrl = function () {
-            return this.options.sidePagination === 'server' ? this.options.url : false;
-        };
+    BootstrapTable.prototype.registerSearchCallback = function (callback) {
+        this.searchCallback = callback;
+    };
 
-        $.fn.bootstrapTable.methods.push('getColumns', 'registerSearchCallback', 'updateSearch', 'getServerUrl');
-    }(jQuery);
+    BootstrapTable.prototype.updateSearch = function () {
+        this.options.pageNumber = 1;
+        this.initSearch();
+        this.updatePagination();
+    };
+
+    BootstrapTable.prototype.getServerUrl = function () {
+        return this.options.sidePagination === 'server' ? this.options.url : false;
+    };
+
+    _jquery2.default.fn.bootstrapTable.methods.push('getColumns', 'registerSearchCallback', 'updateSearch', 'getServerUrl');
 });
