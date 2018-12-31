@@ -2658,7 +2658,8 @@
 
     getHiddenRows (show) {
       if (show) {
-        this.hiddenRows = []
+        this.initHiddenRows()
+        this.initBody(true)
         return
       }
       const data = this.getData()
