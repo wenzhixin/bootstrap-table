@@ -8,12 +8,12 @@
 
 ```js
 $(function () {
-    $('#tableId').bootstrapTable(); // init via javascript
+  $('#tableId').bootstrapTable() // init via javascript
 
-    $(window).resize(function () {
-        $('#tableId').bootstrapTable('resetView');
-    });
-});
+  $(window).resize(function () {
+    $('#tableId').bootstrapTable('resetView')
+  })
+})
 ```
 
 ---
@@ -24,8 +24,8 @@ $(function () {
 
 ```js
 $table.on('load-success.bs.table column-switch.bs.table page-change.bs.table search.bs.table', function () {
-    $table.bootstrapTable('mergeCells', {...});
-});
+  $table.bootstrapTable('mergeCells', {...})
+})
 ```
 
 ---
@@ -37,7 +37,7 @@ $table.on('load-success.bs.table column-switch.bs.table page-change.bs.table sea
 ```
 $('#eventsTable').on('click-row.bs.table', function (event, row, $element) {
 
-});
+})
 ```
 
 的时候，第一个参数总是 `event`：http://jsfiddle.net/wenyi/e3nk137y/11688/

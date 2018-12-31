@@ -29,25 +29,25 @@
 
 ```html
 <table data-toggle="table">
-    <thead>
-        <tr>
-            <th>Item ID</th>
-            <th>Item Name</th>
-            <th>Item Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Item 1</td>
-            <td>$1</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Item 2</td>
-            <td>$2</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Item ID</th>
+      <th>Item Name</th>
+      <th>Item Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Item 1</td>
+      <td>$1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Item 2</td>
+      <td>$2</td>
+    </tr>
+  </tbody>
 </table>
 ```
 
@@ -55,13 +55,13 @@
 
 ```html
 <table data-toggle="table" data-url="data1.json">
-    <thead>
-        <tr>
-            <th data-field="id">Item ID</th>
-            <th data-field="name">Item Name</th>
-            <th data-field="price">Item Price</th>
-        </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th data-field="id">Item ID</th>
+      <th data-field="name">Item Name</th>
+      <th data-field="price">Item Price</th>
+    </tr>
+  </thead>
 </table>
 ```
 
@@ -75,42 +75,42 @@
 
 ```js
 $('#table').bootstrapTable({
-    columns: [{
-        field: 'id',
-        title: 'Item ID'
-    }, {
-        field: 'name',
-        title: 'Item Name'
-    }, {
-        field: 'price',
-        title: 'Item Price'
-    }],
-    data: [{
-        id: 1,
-        name: 'Item 1',
-        price: '$1'
-    }, {
-        id: 2,
-        name: 'Item 2',
-        price: '$2'
-    }]
-});
+  columns: [{
+    field: 'id',
+    title: 'Item ID'
+  }, {
+    field: 'name',
+    title: 'Item Name'
+  }, {
+    field: 'price',
+    title: 'Item Price'
+  }],
+  data: [{
+    id: 1,
+    name: 'Item 1',
+    price: '$1'
+  }, {
+    id: 2,
+    name: 'Item 2',
+    price: '$2'
+  }]
+})
 ```
 
 我们也可以通过设置远程的 url 如  `url: 'data1.json'` 来加载数据。
 
 ```js
 $('#table').bootstrapTable({
-    url: 'data1.json',
-    columns: [{
-        field: 'id',
-        title: 'Item ID'
-    }, {
-        field: 'name',
-        title: 'Item Name'
-    }, {
-        field: 'price',
-        title: 'Item Price'
-    }, ]
-});
+  url: 'data1.json',
+  columns: [{
+    field: 'id',
+    title: 'Item ID'
+  }, {
+    field: 'name',
+    title: 'Item Name'
+  }, {
+    field: 'price',
+    title: 'Item Price'
+  }, ]
+})
 ```
