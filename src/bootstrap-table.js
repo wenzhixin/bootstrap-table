@@ -2657,6 +2657,10 @@
     }
 
     getHiddenRows (show) {
+      if (show) {
+        this.hiddenRows = []
+        return
+      }
       const data = this.getData()
       const rows = []
 
