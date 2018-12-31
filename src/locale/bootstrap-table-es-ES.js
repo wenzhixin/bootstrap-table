@@ -33,6 +33,57 @@
     },
     formatAllRows () {
       return 'Todos'
+    },
+    formatExport: function () {
+      return 'Exportar los datos'
+    },
+    formatClearFilters: function () {
+      return 'Borrar los filtros'
+    },
+    formatMultipleSort: function () {
+      return 'Orden avanzado'
+    },
+    formatAddLevel: function () {
+      return 'Añadir un nivel'
+    },
+    formatDeleteLevel: function () {
+      return 'Eliminar un nivel'
+    },
+    formatColumn: function () {
+      return 'Columna'
+    },
+    formatOrder: function () {
+      return 'Orden'
+    },
+    formatSortBy: function () {
+      return 'Ordenar por'
+    },
+    formatThenBy: function () {
+      return 'Y por'
+    },
+    formatSort: function () {
+      return 'Ordenar'
+    },
+    formatCancel: function () {
+      return 'Cancelar'
+    },
+    formatDuplicateAlertTitle: function () {
+      return 'Duplicado(s) detectado(s)!'
+    },
+    formatDuplicateAlertDescription: function () {
+      return 'Eliminar o cambiar columnas duplicadas.'
+    },
+    formatSortOrders: function () {
+      return {
+        asc: 'Ascendente',
+        desc: 'Descendente'
+      }
+    },
+    formatAdvancedSearch: function () {
+      return 'Búsqueda avanzada'
+    },
+    formatAdvancedCloseButton: function () {
+      return 'Cerrar'
     }
   }
 
