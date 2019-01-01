@@ -8,6 +8,7 @@ ChangeLog
 - feat(locale): rewrite all locales to ES6
 - feat(editable extension): rewrite bootstrap-table-editable to ES6
 - feat(filter-control extension): rewrite bootstrap-table-filter-control to ES6
+- feat(treegrid extension): add `rootParentId` option
 - fix(js): fix #3653, getHiddenRows method bug
 - fix(js): fix #4066, `getOptions` method remove data property
 - fix(js): fix #4088, no matches display error

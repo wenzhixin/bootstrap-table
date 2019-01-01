@@ -10,14 +10,26 @@ Use Plugin: [bootstrap-table-treegrid](https://github.com/wenzhixin/bootstrap-ta
 
 ## Options
 
+### idField
+
+* type: String
+* description: overwrite the default idField to `'id'`
+* default: `'id'`
+
 ### treeShowField
 
 * type: String
-* description: 
+* description:
 * default: ``
 
 ### parentIdField
 
 * type: String
-* description: 
-* default: `pid`
+* description:
+* default: `'pid'`
+
+### rootParentId
+
+* type: String
+* description:
+* default: `null`
