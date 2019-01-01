@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### 1.13.2
+
+- fix(js): fix #1959, sort column shows hidden rows in `server` side pagination
+
 ### 1.13.1
 
 - feat(js): add `theadClasses` option to supoort bootstrap v4

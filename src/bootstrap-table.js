@@ -256,6 +256,15 @@
     isIEBrowser () {
       return navigator.userAgent.includes('MSIE ') ||
         /Trident.*rv:11\./.test(navigator.userAgent)
+    },
+
+    findIndex (items, item) {
+      for (const [i, it] of items.entries()) {
+        if (JSON.stringify(it) === JSON.stringify(item)) {
+          return i
+        }
+      }
+      return -1
     }
   }
 
@@ -1639,7 +1648,7 @@
       let attributes = {}
       const htmlAttributes = []
 
-      if (this.hiddenRows.includes(item)) {
+      if (Utils.findIndex(this.hiddenRows, item) > -1) {
         return
       }
 
@@ -2646,7 +2655,7 @@
         return
       }
 
-      const index = this.hiddenRows.indexOf(row)
+      const index = Utils.findIndex(this.hiddenRows, row)
 
       if (!visible && index === -1) {
         this.hiddenRows.push(row)
