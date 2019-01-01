@@ -7,11 +7,11 @@
 ($ => {
   const Utils = $.fn.bootstrapTable.utils
   const UtilsFilterControl = {
-    getOptionsFromSelectControl(selectControl) {
+    getOptionsFromSelectControl (selectControl) {
       return selectControl.get(selectControl.length - 1).options
     },
 
-    hideUnusedSelectOptions(selectControl, uniqueValues) {
+    hideUnusedSelectOptions (selectControl, uniqueValues) {
       const options = UtilsFilterControl.getOptionsFromSelectControl(
         selectControl
       )
@@ -30,7 +30,7 @@
         }
       }
     },
-    addOptionToSelectControl(selectControl, _value, text) {
+    addOptionToSelectControl (selectControl, _value, text) {
       const value = $.trim(_value)
       const $selectControl = $(selectControl.get(selectControl.length - 1))
       if (
@@ -47,7 +47,7 @@
         )
       }
     },
-    sortSelectControl(selectControl) {
+    sortSelectControl (selectControl) {
       const $selectControl = $(selectControl.get(selectControl.length - 1))
       const $opts = $selectControl.find('option:gt(0)')
 
@@ -65,7 +65,7 @@
       $selectControl.find('option:gt(0)').remove()
       $selectControl.append($opts)
     },
-    existOptionInSelectControl(selectControl, value) {
+    existOptionInSelectControl (selectControl, value) {
       const options = UtilsFilterControl.getOptionsFromSelectControl(
         selectControl
       )
@@ -79,10 +79,10 @@
       // If we get here, the value is valid to add
       return false
     },
-    fixHeaderCSS({ $tableHeader }) {
+    fixHeaderCSS ({ $tableHeader }) {
       $tableHeader.css('height', '77px')
     },
-    getCurrentHeader({ $header, options, $tableHeader }) {
+    getCurrentHeader ({ $header, options, $tableHeader }) {
       let header = $header
       if (options.height) {
         header = $tableHeader
@@ -90,7 +90,7 @@
 
       return header
     },
-    getCurrentSearchControls({ options }) {
+    getCurrentSearchControls ({ options }) {
       let searchControls = 'select, input'
       if (options.height) {
         searchControls = 'table select, table input'
@@ -98,7 +98,7 @@
 
       return searchControls
     },
-    getCursorPosition(el) {
+    getCursorPosition (el) {
       if (Utils.isIEBrowser()) {
         if ($(el).is('input[type=text]')) {
           let pos = 0
@@ -118,10 +118,10 @@
       }
       return -1
     },
-    setCursorPosition(el) {
+    setCursorPosition (el) {
       $(el).val(el.value)
     },
-    copyValues(that) {
+    copyValues (that) {
       const header = UtilsFilterControl.getCurrentHeader(that)
       const searchControls = UtilsFilterControl.getCurrentSearchControls(that)
 
@@ -138,7 +138,7 @@
         })
       })
     },
-    setValues(that) {
+    setValues (that) {
       let field = null
       let result = []
       const header = UtilsFilterControl.getCurrentHeader(that)
@@ -175,7 +175,7 @@
         }
       }
     },
-    collectBootstrapCookies() {
+    collectBootstrapCookies () {
       const cookies = []
       const foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g)
 
@@ -193,22 +193,22 @@
         return cookies
       }
     },
-    escapeID(id) {
+    escapeID (id) {
       return String(id).replace(/(:|\.|\[|\]|,)/g, '\\$1')
     },
-    isColumnSearchableViaSelect({ filterControl, searchable }) {
+    isColumnSearchableViaSelect ({ filterControl, searchable }) {
       return filterControl &&
         filterControl.toLowerCase() === 'select' &&
         searchable
     },
-    isFilterDataNotGiven({ filterData }) {
+    isFilterDataNotGiven ({ filterData }) {
       return filterData === undefined ||
         filterData.toLowerCase() === 'column'
     },
-    hasSelectControlElement(selectControl) {
+    hasSelectControlElement (selectControl) {
       return selectControl && selectControl.length > 0
     },
-    initFilterSelectControls(that) {
+    initFilterSelectControls (that) {
       const data = that.data
       const itemsPerPage = that.pageTo < that.options.data.length ? that.options.data.length : that.pageTo
       const z = that.options.pagination
@@ -255,7 +255,7 @@
 
       that.trigger('created-controls')
     },
-    getFilterDataMethod(objFilterDataMethod, searchTerm) {
+    getFilterDataMethod (objFilterDataMethod, searchTerm) {
       const keys = Object.keys(objFilterDataMethod)
       for (let i = 0; i < keys.length; i++) {
         if (keys[i] === searchTerm) {
@@ -264,7 +264,7 @@
       }
       return null
     },
-    createControls(that, header) {
+    createControls (that, header) {
       let addedFilterControl = false
       let isVisible
       let html
@@ -346,7 +346,7 @@
               $.ajax({
                 url: filterDataSource,
                 dataType: 'json',
-                success(data) {
+                success (data) {
                   // eslint-disable-next-line guard-for-in
                   for (const key in data) {
                     UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key])
@@ -460,7 +460,7 @@
         header.find('.filterControl').hide()
       }
     },
-    getDirectionOfSelectOptions(_alignment) {
+    getDirectionOfSelectOptions (_alignment) {
       const alignment = _alignment === undefined ? 'left' : _alignment.toLowerCase()
 
       switch (alignment) {
@@ -476,7 +476,7 @@
     }
   }
   const filterDataMethods = {
-    var(filterDataSource, selectControl) {
+    var (filterDataSource, selectControl) {
       const variableValues = window[filterDataSource]
       // eslint-disable-next-line guard-for-in
       for (const key in variableValues) {
@@ -484,11 +484,11 @@
       }
       UtilsFilterControl.sortSelectControl(selectControl)
     },
-    url(filterDataSource, selectControl) {
+    url (filterDataSource, selectControl) {
       $.ajax({
         url: filterDataSource,
         dataType: 'json',
-        success(data) {
+        success (data) {
           // eslint-disable-next-line guard-for-in
           for (const key in data) {
             UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key])
@@ -497,7 +497,7 @@
         }
       })
     },
-    json(filterDataSource, selectControl) {
+    json (filterDataSource, selectControl) {
       const variableValues = JSON.parse(filterDataSource)
       // eslint-disable-next-line guard-for-in
       for (const key in variableValues) {
@@ -509,16 +509,16 @@
 
   $.extend($.fn.bootstrapTable.defaults, {
     filterControl: false,
-    onColumnSearch(field, text) {
+    onColumnSearch (field, text) {
       return false
     },
-    onCreatedControls() {
+    onCreatedControls () {
       return true
     },
     filterShowClear: false,
     alignmentSelectControlOptions: undefined,
     filterTemplate: {
-      input(that, field, isVisible, placeholder) {
+      input (that, field, isVisible, placeholder) {
         return Utils.sprintf(
           '<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" placeholder="%s">',
           field,
@@ -526,7 +526,7 @@
           placeholder
         )
       },
-      select({ options }, field, isVisible) {
+      select ({ options }, field, isVisible) {
         return Utils.sprintf(
           '<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" dir="%s"></select>',
           field,
@@ -536,7 +536,7 @@
           )
         )
       },
-      datepicker(that, field, isVisible) {
+      datepicker (that, field, isVisible) {
         return Utils.sprintf(
           '<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">',
           field,
@@ -569,7 +569,7 @@
   })
 
   $.extend($.fn.bootstrapTable.locales, {
-    formatClearFilters() {
+    formatClearFilters () {
       return 'Clear Filters'
     }
   })
@@ -579,7 +579,7 @@
   $.fn.bootstrapTable.methods.push('triggerSearch')
 
   $.BootstrapTable = class extends $.BootstrapTable {
-    init() {
+    init () {
       // Make sure that the filterControl option is set
       if (this.options.filterControl) {
         const that = this
@@ -626,7 +626,7 @@
       super.init()
     }
 
-    initToolbar() {
+    initToolbar () {
       this.showToolbar =
         this.showToolbar ||
         (this.options.filterControl && this.options.filterShowClear)
@@ -664,7 +664,7 @@
       }
     }
 
-    initHeader() {
+    initHeader () {
       super.initHeader()
 
       if (!this.options.filterControl) {
@@ -672,13 +672,13 @@
       }
       UtilsFilterControl.createControls(this, this.$header)
     }
-    initBody() {
+    initBody () {
       super.initBody()
 
       UtilsFilterControl.initFilterSelectControls(this)
     }
 
-    initSearch() {
+    initSearch () {
       const that = this
       const fp = $.isEmptyObject(that.filterColumnsPartial)
         ? null
@@ -749,7 +749,7 @@
         : that.data
     }
 
-    initColumnSearch(filterColumnsDefaults) {
+    initColumnSearch (filterColumnsDefaults) {
       UtilsFilterControl.copyValues(this)
 
       if (filterColumnsDefaults) {
@@ -763,7 +763,7 @@
       }
     }
 
-    onColumnSearch(event) {
+    onColumnSearch (event) {
       if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
         return
       }
@@ -796,7 +796,7 @@
       this.trigger('column-search', $field, text)
     }
 
-    clearFilterControl() {
+    clearFilterControl () {
       if (this.options.filterControl && this.options.filterShowClear) {
         const that = this
         const cookies = UtilsFilterControl.collectBootstrapCookies()
@@ -870,7 +870,7 @@
       }
     }
 
-    triggerSearch() {
+    triggerSearch () {
       const header = UtilsFilterControl.getCurrentHeader(this)
       const searchControls = UtilsFilterControl.getCurrentSearchControls(this)
 
@@ -884,7 +884,7 @@
       })
     }
 
-    EnableControls(enable) {
+    EnableControls (enable) {
       if (
         this.options.disableControlWhenSearch &&
         this.options.sidePagination === 'server'
