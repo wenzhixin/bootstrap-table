@@ -1,29 +1,18 @@
-### Latest release (2018-12-27)
+### Latest release (2019-01-01)
 
-### 1.13.0
+### 1.13.1
 
-- feat(js): rewrite bootstrap-table to ES6
-- feat(locale): add fi-FI.js locale
-- feat(build): use babel instead grunt
-- feat(filter-control): add `created-controls.bs.table` event to filter-control
-- feat(export extension): rewrite export extension to ES6
-- feat(export extension): export extension support bootstrap v4
-- feat(export extension): add `exportTable` method
-- feat(toolbar extension): rewrite toolbar extension to ES6
-- feat(toolbar extension): toolbar extension supports bootstrap v4
-- feat(toolbar extension): add server sidePagination support
-- feat(resizable extension): new resizable extension version 2.0.0
-- feat(editable extension): allow different x-editable configuration per table row
-- feat(addrbar extension): add addrbar extension
-- fix(js): fix #1769, improve check/uncheck methods
-- fix(js): fix #1983, cookie with pageNumber and searchText bug
-- fix(js): fix #2485, selections bugs
-- fix(js): fix #2545, customSearch support data attribute
-- fix(js): fix #3696, can't search data with formatter
-- fix(js): fix #4081, getRowByUniqueId error when row unique id is undefined
-- fix(js): fix older bootstrap version bug
-- fix(css): fix #1848, remove toolbar line-height
-- fix(css): limit fullscreen CSS rule scope
-- fix(editable extension): fix #1819, #2072, editable formatter bug
-- fix(extension): fix #3720, fix #3682, bug with export extension together
-- fix(extension): remove lick-edit-row and flat-json extensions
+- feat(js): add `theadClasses` option to supoort bootstrap v4
+- feat(js): fix #3727, icons update to font-awesome 5
+- feat(locale): rewrite all locales to ES6
+- feat(editable extension): rewrite bootstrap-table-editable to ES6
+- feat(filter-control extension): rewrite bootstrap-table-filter-control to ES6
+- feat(treegrid extension): add `rootParentId` option
+- fix(js): fix #3653, getHiddenRows method bug
+- fix(js): fix #4066, `getOptions` method remove data property
+- fix(js): fix #4088, no matches display error
+- fix(js): fix eslint warning and error
+- fix(locale): fix #3999, improve es-ES locale
+- fix(filter-control extension): fix #3474, multiple choice bug
+- fix(filter-control extension): fix #4008, select all rows and `keyup` event error
+- fix(export extension): fix #4086, export in cardView display error

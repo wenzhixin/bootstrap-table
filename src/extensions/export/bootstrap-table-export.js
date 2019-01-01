@@ -100,16 +100,16 @@
         const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
         exportTypes = types.map(t => t.slice(1, -1))
       }
-      for (let type of exportTypes) {
+      for (const type of exportTypes) {
         if (TYPE_NAME.hasOwnProperty(type)) {
           $menu.append(Utils.sprintf(bootstrap.html.dropitem, type, TYPE_NAME[type]))
         }
       }
 
-      $menu.find('>li, >a').click(e => {
-        const type = $(e.currentTarget).data('type')
+      $menu.find('>li, >a').click(({currentTarget}) => {
+        const type = $(currentTarget).data('type')
         const exportOptions = {
-          type: type,
+          type,
           escape: false
         }
 
@@ -128,8 +128,8 @@
           const footerData = {}
           const footerHtml = []
 
-          $.each($footerRow.children(), function (index, footerCell) {
-            var footerCellHtml = $(footerCell).children('.th-inner').first().html()
+          $.each($footerRow.children(), (index, footerCell) => {
+            const footerCellHtml = $(footerCell).children('.th-inner').first().html()
             footerData[that.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
 
             // grab footer cell text into cell index-based array
@@ -138,9 +138,9 @@
 
           this.append(footerData)
 
-          var $lastTableRow = this.$body.children().last()
+          const $lastTableRow = this.$body.children().last()
 
-          $.each($lastTableRow.children(), function (index, lastTableRowCell) {
+          $.each($lastTableRow.children(), (index, lastTableRowCell) => {
             $(lastTableRowCell).html(footerHtml[index])
           })
         }
@@ -153,14 +153,18 @@
       }
 
       const stateField = this.header.stateField
+      const isCardView = o.cardView
 
+      if (stateField) {
+        this.hideColumn(stateField)
+      }
+      if (isCardView) {
+        this.toggleView()
+      }
       if (o.exportDataType === 'all' && o.pagination) {
         const eventName = o.sidePagination === 'server'
           ? 'post-body.bs.table' : 'page-change.bs.table'
         this.$el.one(eventName, () => {
-          if (stateField) {
-            this.hideColumn(stateField)
-          }
           doExport()
           this.togglePagination()
         })
@@ -184,19 +188,16 @@
         }
 
         this.load(selectedData)
-        if (stateField) {
-          this.hideColumn(stateField)
-        }
         doExport()
         this.load(data)
       } else {
-        if (stateField) {
-          this.hideColumn(stateField)
-        }
         doExport()
       }
       if (stateField) {
         this.showColumn(stateField)
+      }
+      if (isCardView) {
+        this.toggleView()
       }
     }
   }

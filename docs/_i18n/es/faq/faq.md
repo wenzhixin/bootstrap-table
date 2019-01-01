@@ -8,12 +8,12 @@ Cuando setee la propiedad `height` de bootstrap table, automáticamente la propi
 
 ```js
 $(function () {
-    $('#tableId').bootstrapTable(); // init via javascript
+  $('#tableId').bootstrapTable() // init via javascript
 
-    $(window).resize(function () {
-        $('#tableId').bootstrapTable('resetView');
-    });
-});
+  $(window).resize(function () {
+    $('#tableId').bootstrapTable('resetView')
+  })
+})
 ```
 
 ---
@@ -24,8 +24,8 @@ Para unir celdas, cuando se haga el refresh, se pase a la siguiente página o se
 
 ```js
 $table.on('load-success.bs.table column-switch.bs.table page-change.bs.table search.bs.table', function () {
-    $table.bootstrapTable('mergeCells', {...});
-});
+  $table.bootstrapTable('mergeCells', {...})
+})
 ```
 
 ---
@@ -37,7 +37,7 @@ When you use like this:
 ```
 $('#eventsTable').on('click-row.bs.table', function (event, row, $element) {
 
-});
+})
 ```
 
 the first parameter is always `event`: http://jsfiddle.net/wenyi/e3nk137y/11688/

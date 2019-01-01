@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.13.0
+ * version: 1.13.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -262,6 +262,10 @@
 .bootstrap-table .table > thead > tr > th {
     vertical-align: bottom;
     border-bottom: 1px solid #ddd;
+}
+
+.bootstrap-table .table > thead.thead-dark > tr > th {
+    border-bottom: 1px solid #212529;
 }
 
 /* support bootstrap 3 */

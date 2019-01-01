@@ -1,52 +1,50 @@
 (function (global, factory) {
-    if (typeof define === "function" && define.amd) {
-        define([], factory);
-    } else if (typeof exports !== "undefined") {
-        factory();
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory();
-        global.bootstrapTableThTH = mod.exports;
-    }
+  if (typeof define === "function" && define.amd) {
+    define([], factory);
+  } else if (typeof exports !== "undefined") {
+    factory();
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory();
+    global.bootstrapTableThTH = mod.exports;
+  }
 })(this, function () {
-    'use strict';
+  'use strict';
 
-    /**
-     * Bootstrap Table Thai translation
-     * Author: Monchai S.<monchais@gmail.com>
-     */
-    (function ($) {
-        'use strict';
+  /**
+   * Bootstrap Table Thai translation
+   * Author: Monchai S.<monchais@gmail.com>
+   */
+  (function ($) {
+    $.fn.bootstrapTable.locales['th-TH'] = {
+      formatLoadingMessage: function formatLoadingMessage() {
+        return 'กำลังโหลดข้อมูล, กรุณารอสักครู่...';
+      },
+      formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+        return pageNumber + ' \u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E15\u0E48\u0E2D\u0E2B\u0E19\u0E49\u0E32';
+      },
+      formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
+        return '\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E17\u0E35\u0E48 ' + pageFrom + ' \u0E16\u0E36\u0E07 ' + pageTo + ' \u0E08\u0E32\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14 ' + totalRows + ' \u0E23\u0E32\u0E22\u0E01\u0E32\u0E23';
+      },
+      formatSearch: function formatSearch() {
+        return 'ค้นหา';
+      },
+      formatNoMatches: function formatNoMatches() {
+        return 'ไม่พบรายการที่ค้นหา !';
+      },
+      formatRefresh: function formatRefresh() {
+        return 'รีเฟรส';
+      },
+      formatToggle: function formatToggle() {
+        return 'สลับมุมมอง';
+      },
+      formatColumns: function formatColumns() {
+        return 'คอลัมน์';
+      }
+    };
 
-        $.fn.bootstrapTable.locales['th-TH'] = {
-            formatLoadingMessage: function formatLoadingMessage() {
-                return 'กำลังโหลดข้อมูล, กรุณารอสักครู่...';
-            },
-            formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-                return pageNumber + ' รายการต่อหน้า';
-            },
-            formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
-                return 'รายการที่ ' + pageFrom + ' ถึง ' + pageTo + ' จากทั้งหมด ' + totalRows + ' รายการ';
-            },
-            formatSearch: function formatSearch() {
-                return 'ค้นหา';
-            },
-            formatNoMatches: function formatNoMatches() {
-                return 'ไม่พบรายการที่ค้นหา !';
-            },
-            formatRefresh: function formatRefresh() {
-                return 'รีเฟรส';
-            },
-            formatToggle: function formatToggle() {
-                return 'สลับมุมมอง';
-            },
-            formatColumns: function formatColumns() {
-                return 'คอลัมน์';
-            }
-        };
-
-        $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['th-TH']);
-    })(jQuery);
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['th-TH']);
+  })(jQuery);
 });
