@@ -1,52 +1,50 @@
 (function (global, factory) {
-    if (typeof define === "function" && define.amd) {
-        define([], factory);
-    } else if (typeof exports !== "undefined") {
-        factory();
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory();
-        global.bootstrapTableUrPK = mod.exports;
-    }
+  if (typeof define === "function" && define.amd) {
+    define([], factory);
+  } else if (typeof exports !== "undefined") {
+    factory();
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory();
+    global.bootstrapTableUrPK = mod.exports;
+  }
 })(this, function () {
-    'use strict';
+  'use strict';
 
-    /**
-     * Bootstrap Table Urdu translation
-     * Author: Malik <me@malikrizwan.com>
-     */
-    (function ($) {
-        'use strict';
+  /**
+   * Bootstrap Table Urdu translation
+   * Author: Malik <me@malikrizwan.com>
+   */
+  (function ($) {
+    $.fn.bootstrapTable.locales['ur-PK'] = {
+      formatLoadingMessage: function formatLoadingMessage() {
+        return 'براۓ مہربانی انتظار کیجئے';
+      },
+      formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+        return pageNumber + ' \u0631\u06CC\u06A9\u0627\u0631\u0688\u0632 \u0641\u06CC \u0635\u0641\u06C1 ';
+      },
+      formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
+        return '\u062F\u06CC\u06A9\u06BE\u06CC\u06BA ' + pageFrom + ' \u0633\u06D2 ' + pageTo + ' \u06A9\u06D2 ' + totalRows + '\u0631\u06CC\u06A9\u0627\u0631\u0688\u0632';
+      },
+      formatSearch: function formatSearch() {
+        return 'تلاش';
+      },
+      formatNoMatches: function formatNoMatches() {
+        return 'کوئی ریکارڈ نہیں ملا';
+      },
+      formatRefresh: function formatRefresh() {
+        return 'تازہ کریں';
+      },
+      formatToggle: function formatToggle() {
+        return 'تبدیل کریں';
+      },
+      formatColumns: function formatColumns() {
+        return 'کالم';
+      }
+    };
 
-        $.fn.bootstrapTable.locales['ur-PK'] = {
-            formatLoadingMessage: function formatLoadingMessage() {
-                return 'براۓ مہربانی انتظار کیجئے';
-            },
-            formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-                return pageNumber + ' ریکارڈز فی صفہ ';
-            },
-            formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
-                return 'دیکھیں ' + pageFrom + ' سے ' + pageTo + ' کے ' + totalRows + 'ریکارڈز';
-            },
-            formatSearch: function formatSearch() {
-                return 'تلاش';
-            },
-            formatNoMatches: function formatNoMatches() {
-                return 'کوئی ریکارڈ نہیں ملا';
-            },
-            formatRefresh: function formatRefresh() {
-                return 'تازہ کریں';
-            },
-            formatToggle: function formatToggle() {
-                return 'تبدیل کریں';
-            },
-            formatColumns: function formatColumns() {
-                return 'کالم';
-            }
-        };
-
-        $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ur-PK']);
-    })(jQuery);
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ur-PK']);
+  })(jQuery);
 });

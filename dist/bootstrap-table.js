@@ -13,6 +13,30 @@
 })(this, function () {
   'use strict';
 
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
   var _slicedToArray = function () {
     function sliceIterator(arr, i) {
       var _arr = [];
@@ -51,30 +75,6 @@
     };
   }();
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  var _createClass = function () {
-    function defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-
-    return function (Constructor, protoProps, staticProps) {
-      if (protoProps) defineProperties(Constructor.prototype, protoProps);
-      if (staticProps) defineProperties(Constructor, staticProps);
-      return Constructor;
-    };
-  }();
-
   function _toConsumableArray(arr) {
     if (Array.isArray(arr)) {
       for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
@@ -95,7 +95,7 @@
 
   /**
    * @author zhixin wen <wenzhixin2010@gmail.com>
-   * version: 1.13.0
+   * version: 1.13.1
    * https://github.com/wenzhixin/bootstrap-table/
    */
 
@@ -112,7 +112,9 @@
       if (rawVersion !== undefined) {
         bootstrapVersion = parseInt(rawVersion, 10);
       }
-    } catch (e) {}
+    } catch (e) {
+      // ignore
+    }
 
     var bootstrap = {
       3: {
@@ -142,9 +144,9 @@
       4: {
         iconsPrefix: 'fa',
         icons: {
-          paginationSwitchDown: 'fa-caret-square-o-down',
-          paginationSwitchUp: 'fa-caret-square-o-up',
-          refresh: 'fa-refresh',
+          paginationSwitchDown: 'fa-caret-square-down',
+          paginationSwitchUp: 'fa-caret-square-up',
+          refresh: 'fa-sync',
           toggleOff: 'fa-toggle-off',
           toggleOn: 'fa-toggle-on',
           columns: 'fa-th-list',
@@ -168,7 +170,7 @@
     var Utils = {
       bootstrapVersion: bootstrapVersion,
 
-      sprintf: function sprintf(str) {
+      sprintf: function sprintf(_str) {
         for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
           args[_key - 1] = arguments[_key];
         }
@@ -176,7 +178,7 @@
         var flag = true;
         var i = 0;
 
-        str = str.replace(/%s/g, function () {
+        var str = _str.replace(/%s/g, function () {
           var arg = args[i++];
 
           if (typeof arg === 'undefined') {
@@ -254,25 +256,45 @@
         }
 
         for (var _i = 0; _i < columns.length; _i++) {
-          for (var _j = 0; _j < columns[_i].length; _j++) {
-            var r = columns[_i][_j];
-            var rowspan = r.rowspan || 1;
-            var colspan = r.colspan || 1;
-            var index = flag[_i].indexOf(false);
+          var _iteratorNormalCompletion3 = true;
+          var _didIteratorError3 = false;
+          var _iteratorError3 = undefined;
 
-            if (colspan === 1) {
-              r.fieldIndex = index;
-              // when field is undefined, use index instead
-              if (typeof r.field === 'undefined') {
-                r.field = index;
+          try {
+            for (var _iterator3 = columns[_i][Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+              var r = _step3.value;
+
+              var rowspan = r.rowspan || 1;
+              var colspan = r.colspan || 1;
+              var index = flag[_i].indexOf(false);
+
+              if (colspan === 1) {
+                r.fieldIndex = index;
+                // when field is undefined, use index instead
+                if (typeof r.field === 'undefined') {
+                  r.field = index;
+                }
+              }
+
+              for (var k = 0; k < rowspan; k++) {
+                flag[_i + k][index] = true;
+              }
+              for (var _k = 0; _k < colspan; _k++) {
+                flag[_i][index + _k] = true;
               }
             }
-
-            for (var k = 0; k < rowspan; k++) {
-              flag[_i + k][index] = true;
-            }
-            for (var _k = 0; _k < colspan; _k++) {
-              flag[_i][index + _k] = true;
+          } catch (err) {
+            _didIteratorError3 = true;
+            _iteratorError3 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                _iterator3.return();
+              }
+            } finally {
+              if (_didIteratorError3) {
+                throw _iteratorError3;
+              }
             }
           }
         }
@@ -281,15 +303,13 @@
         if (this.cachedWidth === null) {
           var $inner = $('<div/>').addClass('fixed-table-scroll-inner');
           var $outer = $('<div/>').addClass('fixed-table-scroll-outer');
-          var w1 = void 0;
-          var w2 = void 0;
 
           $outer.append($inner);
           $('body').append($outer);
 
-          w1 = $inner[0].offsetWidth;
+          var w1 = $inner[0].offsetWidth;
           $outer.css('overflow', 'scroll');
-          w2 = $inner[0].offsetWidth;
+          var w2 = $inner[0].offsetWidth;
 
           if (w1 === w2) {
             w2 = $outer[0].clientWidth;
@@ -309,27 +329,27 @@
 
           if (names.length > 1) {
             func = window;
-            var _iteratorNormalCompletion3 = true;
-            var _didIteratorError3 = false;
-            var _iteratorError3 = undefined;
+            var _iteratorNormalCompletion4 = true;
+            var _didIteratorError4 = false;
+            var _iteratorError4 = undefined;
 
             try {
-              for (var _iterator3 = names[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                var f = _step3.value;
+              for (var _iterator4 = names[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                var f = _step4.value;
 
                 func = func[f];
               }
             } catch (err) {
-              _didIteratorError3 = true;
-              _iteratorError3 = err;
+              _didIteratorError4 = true;
+              _iteratorError4 = err;
             } finally {
               try {
-                if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                  _iterator3.return();
+                if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                  _iterator4.return();
                 }
               } finally {
-                if (_didIteratorError3) {
-                  throw _iteratorError3;
+                if (_didIteratorError4) {
+                  throw _iteratorError4;
                 }
               }
             }
@@ -360,68 +380,17 @@
           return false;
         }
 
-        var _iteratorNormalCompletion4 = true;
-        var _didIteratorError4 = false;
-        var _iteratorError4 = undefined;
-
-        try {
-          for (var _iterator4 = aKeys[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-            var key = _step4.value;
-
-            if (bKeys.includes(key) && objectA[key] !== objectB[key]) {
-              return false;
-            }
-          }
-        } catch (err) {
-          _didIteratorError4 = true;
-          _iteratorError4 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion4 && _iterator4.return) {
-              _iterator4.return();
-            }
-          } finally {
-            if (_didIteratorError4) {
-              throw _iteratorError4;
-            }
-          }
-        }
-
-        return true;
-      },
-      escapeHTML: function escapeHTML(text) {
-        if (typeof text === 'string') {
-          return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;').replace(/`/g, '&#x60;');
-        }
-        return text;
-      },
-      getRealDataAttr: function getRealDataAttr(dataAttr) {
-        for (var attr in dataAttr) {
-          var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
-          if (auxAttr !== attr) {
-            dataAttr[auxAttr] = dataAttr[attr];
-            delete dataAttr[attr];
-          }
-        }
-        return dataAttr;
-      },
-      getItemField: function getItemField(item, field, escape) {
-        var value = item;
-
-        if (typeof field !== 'string' || item.hasOwnProperty(field)) {
-          return escape ? this.escapeHTML(item[field]) : item[field];
-        }
-
-        var props = field.split('.');
         var _iteratorNormalCompletion5 = true;
         var _didIteratorError5 = false;
         var _iteratorError5 = undefined;
 
         try {
-          for (var _iterator5 = props[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-            var p = _step5.value;
+          for (var _iterator5 = aKeys[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            var key = _step5.value;
 
-            value = value && value[p];
+            if (bKeys.includes(key) && objectA[key] !== objectB[key]) {
+              return false;
+            }
           }
         } catch (err) {
           _didIteratorError5 = true;
@@ -438,6 +407,84 @@
           }
         }
 
+        return true;
+      },
+      escapeHTML: function escapeHTML(text) {
+        if (typeof text === 'string') {
+          return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;').replace(/`/g, '&#x60;');
+        }
+        return text;
+      },
+      getRealDataAttr: function getRealDataAttr(dataAttr) {
+        var _iteratorNormalCompletion6 = true;
+        var _didIteratorError6 = false;
+        var _iteratorError6 = undefined;
+
+        try {
+          for (var _iterator6 = Object.entries(dataAttr)[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+            var _ref = _step6.value;
+
+            var _ref2 = _slicedToArray(_ref, 2);
+
+            var attr = _ref2[0];
+            var value = _ref2[1];
+
+            var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
+            if (auxAttr !== attr) {
+              dataAttr[auxAttr] = value;
+              delete dataAttr[attr];
+            }
+          }
+        } catch (err) {
+          _didIteratorError6 = true;
+          _iteratorError6 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion6 && _iterator6.return) {
+              _iterator6.return();
+            }
+          } finally {
+            if (_didIteratorError6) {
+              throw _iteratorError6;
+            }
+          }
+        }
+
+        return dataAttr;
+      },
+      getItemField: function getItemField(item, field, escape) {
+        var value = item;
+
+        if (typeof field !== 'string' || item.hasOwnProperty(field)) {
+          return escape ? this.escapeHTML(item[field]) : item[field];
+        }
+
+        var props = field.split('.');
+        var _iteratorNormalCompletion7 = true;
+        var _didIteratorError7 = false;
+        var _iteratorError7 = undefined;
+
+        try {
+          for (var _iterator7 = props[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+            var p = _step7.value;
+
+            value = value && value[p];
+          }
+        } catch (err) {
+          _didIteratorError7 = true;
+          _iteratorError7 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion7 && _iterator7.return) {
+              _iterator7.return();
+            }
+          } finally {
+            if (_didIteratorError7) {
+              throw _iteratorError7;
+            }
+          }
+        }
+
         return escape ? this.escapeHTML(value) : value;
       },
       isIEBrowser: function isIEBrowser() {
@@ -450,13 +497,14 @@
 
     var DEFAULTS = {
       classes: 'table table-hover',
+      theadClasses: '',
+      sortClass: undefined,
       locale: undefined,
       height: undefined,
       undefinedText: '-',
       sortName: undefined,
       sortOrder: 'asc',
       sortStable: false,
-      sortClass: undefined,
       rememberOrder: false,
       striped: false,
       columns: [[]],
@@ -536,8 +584,10 @@
       icons: bootstrap.icons,
       customSearch: $.noop,
       customSort: $.noop,
-      ignoreClickToSelectOn: function ignoreClickToSelectOn(element) {
-        return ['A', 'BUTTON'].includes(element.tagName);
+      ignoreClickToSelectOn: function ignoreClickToSelectOn(_ref3) {
+        var tagName = _ref3.tagName;
+
+        return ['A', 'BUTTON'].includes(tagName);
       },
       rowStyle: function rowStyle(row, index) {
         return {};
@@ -828,7 +878,7 @@
 
           this.$header = this.$el.find('>thead');
           if (!this.$header.length) {
-            this.$header = $('<thead></thead>').appendTo(this.$el);
+            this.$header = $('<thead class="' + this.options.theadClasses + '"></thead>').appendTo(this.$el);
           }
           this.$header.find('tr').each(function (i, el) {
             var column = [];
@@ -860,8 +910,8 @@
           Utils.setFieldIndex(this.options.columns);
 
           this.options.columns.forEach(function (columns, i) {
-            columns.forEach(function (column, j) {
-              column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, column);
+            columns.forEach(function (_column, j) {
+              var column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column);
 
               if (typeof column.fieldIndex !== 'undefined') {
                 _this.columns[column.fieldIndex] = column;
@@ -886,12 +936,15 @@
             row._class = $(el).attr('class');
             row._data = Utils.getRealDataAttr($(el).data());
 
-            $(el).find('>td').each(function (x, el) {
+            $(el).find('>td').each(function (_x, el) {
               var cspan = +$(el).attr('colspan') || 1;
               var rspan = +$(el).attr('rowspan') || 1;
+              var x = _x;
 
               // skip already occupied cells in current row
               for (; m[y] && m[y][x]; x++) {}
+              // ignore
+
 
               // mark matrix elements occupied by current cell with true
               for (var tx = x; tx < x + cspan; tx++) {
@@ -1076,8 +1129,10 @@
           }
 
           this.$selectAll = this.$header.find('[name="btSelectAll"]');
-          this.$selectAll.off('click').on('click', function (e) {
-            var checked = $(e.currentTarget).prop('checked');
+          this.$selectAll.off('click').on('click', function (_ref4) {
+            var currentTarget = _ref4.currentTarget;
+
+            var checked = $(currentTarget).prop('checked');
             _this2[checked ? 'checkAll' : 'uncheckAll']();
             _this2.updateSelected();
           });
@@ -1199,9 +1254,9 @@
         }
       }, {
         key: 'onSort',
-        value: function onSort(_ref) {
-          var type = _ref.type,
-              currentTarget = _ref.currentTarget;
+        value: function onSort(_ref5) {
+          var type = _ref5.type,
+              currentTarget = _ref5.currentTarget;
 
           var $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent();
           var $this_ = this.$header.find('th').eq($this.index());
@@ -1333,8 +1388,10 @@
             $keepOpen.find('li').off('click').on('click', function (e) {
               e.stopImmediatePropagation();
             });
-            $keepOpen.find('input').off('click').on('click', function (e) {
-              var $this = $(e.currentTarget);
+            $keepOpen.find('input').off('click').on('click', function (_ref6) {
+              var currentTarget = _ref6.currentTarget;
+
+              var $this = $(currentTarget);
 
               _this4.toggleColumn($this.val(), $this.prop('checked'), false);
               _this4.trigger('column-switch', $this.data('field'), $this.prop('checked'));
@@ -1374,9 +1431,9 @@
         }
       }, {
         key: 'onSearch',
-        value: function onSearch(_ref2) {
-          var currentTarget = _ref2.currentTarget,
-              firedByInitSearchText = _ref2.firedByInitSearchText;
+        value: function onSearch(_ref7) {
+          var currentTarget = _ref7.currentTarget,
+              firedByInitSearchText = _ref7.firedByInitSearchText;
 
           var text = $.trim($(currentTarget).val());
 
@@ -1442,7 +1499,7 @@
                   value = item;
                   var props = key.split('.');
                   for (var _i2 = 0; _i2 < props.length; _i2++) {
-                    if (value[props[_i2]] != null) {
+                    if (value[props[_i2]] !== null) {
                       value = value[props[_i2]];
                     }
                   }
@@ -1479,9 +1536,8 @@
           if (!this.options.pagination) {
             this.$pagination.hide();
             return;
-          } else {
-            this.$pagination.show();
           }
+          this.$pagination.show();
 
           var html = [];
           var $allSelected = false;
@@ -1538,27 +1594,27 @@
               var list = this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').split(',');
 
               pageList = [];
-              var _iteratorNormalCompletion6 = true;
-              var _didIteratorError6 = false;
-              var _iteratorError6 = undefined;
+              var _iteratorNormalCompletion8 = true;
+              var _didIteratorError8 = false;
+              var _iteratorError8 = undefined;
 
               try {
-                for (var _iterator6 = list[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                  var value = _step6.value;
+                for (var _iterator8 = list[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+                  var value = _step8.value;
 
                   pageList.push(value.toUpperCase() === this.options.formatAllRows().toUpperCase() || value.toUpperCase() === 'UNLIMITED' ? this.options.formatAllRows() : +value);
                 }
               } catch (err) {
-                _didIteratorError6 = true;
-                _iteratorError6 = err;
+                _didIteratorError8 = true;
+                _iteratorError8 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion6 && _iterator6.return) {
-                    _iterator6.return();
+                  if (!_iteratorNormalCompletion8 && _iterator8.return) {
+                    _iterator8.return();
                   }
                 } finally {
-                  if (_didIteratorError6) {
-                    throw _iteratorError6;
+                  if (_didIteratorError8) {
+                    throw _iteratorError8;
                   }
                 }
               }
@@ -1763,7 +1819,6 @@
         value: function initRow(item, i, data, parentDom) {
           var _this7 = this;
 
-          var key = void 0;
           var html = [];
           var style = {};
           var csses = [];
@@ -1778,32 +1833,84 @@
           style = Utils.calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
           if (style && style.css) {
-            for (key in style.css) {
-              csses.push(key + ': ' + style.css[key]);
+            var _iteratorNormalCompletion9 = true;
+            var _didIteratorError9 = false;
+            var _iteratorError9 = undefined;
+
+            try {
+              for (var _iterator9 = Object.entries(style.css)[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+                var _ref8 = _step9.value;
+
+                var _ref9 = _slicedToArray(_ref8, 2);
+
+                var key = _ref9[0];
+                var value = _ref9[1];
+
+                csses.push(key + ': ' + value);
+              }
+            } catch (err) {
+              _didIteratorError9 = true;
+              _iteratorError9 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion9 && _iterator9.return) {
+                  _iterator9.return();
+                }
+              } finally {
+                if (_didIteratorError9) {
+                  throw _iteratorError9;
+                }
+              }
             }
           }
 
           attributes = Utils.calculateObjectValue(this.options, this.options.rowAttributes, [item, i], attributes);
 
           if (attributes) {
-            for (key in attributes) {
-              htmlAttributes.push(key + '="' + Utils.escapeHTML(attributes[key]) + '"');
+            var _iteratorNormalCompletion10 = true;
+            var _didIteratorError10 = false;
+            var _iteratorError10 = undefined;
+
+            try {
+              for (var _iterator10 = Object.entries(attributes)[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+                var _ref10 = _step10.value;
+
+                var _ref11 = _slicedToArray(_ref10, 2);
+
+                var _key2 = _ref11[0];
+                var _value2 = _ref11[1];
+
+                htmlAttributes.push(_key2 + '="' + Utils.escapeHTML(_value2) + '"');
+              }
+            } catch (err) {
+              _didIteratorError10 = true;
+              _iteratorError10 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion10 && _iterator10.return) {
+                  _iterator10.return();
+                }
+              } finally {
+                if (_didIteratorError10) {
+                  throw _iteratorError10;
+                }
+              }
             }
           }
 
           if (item._data && !$.isEmptyObject(item._data)) {
-            var _iteratorNormalCompletion7 = true;
-            var _didIteratorError7 = false;
-            var _iteratorError7 = undefined;
+            var _iteratorNormalCompletion11 = true;
+            var _didIteratorError11 = false;
+            var _iteratorError11 = undefined;
 
             try {
-              for (var _iterator7 = Object.entries(item._data)[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                var _ref3 = _step7.value;
+              for (var _iterator11 = Object.entries(item._data)[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
+                var _ref12 = _step11.value;
 
-                var _ref4 = _slicedToArray(_ref3, 2);
+                var _ref13 = _slicedToArray(_ref12, 2);
 
-                var k = _ref4[0];
-                var v = _ref4[1];
+                var k = _ref13[0];
+                var v = _ref13[1];
 
                 // ignore data-index
                 if (k === 'index') {
@@ -1812,16 +1919,16 @@
                 data_ += ' data-' + k + '="' + v + '"';
               }
             } catch (err) {
-              _didIteratorError7 = true;
-              _iteratorError7 = err;
+              _didIteratorError11 = true;
+              _iteratorError11 = err;
             } finally {
               try {
-                if (!_iteratorNormalCompletion7 && _iterator7.return) {
-                  _iterator7.return();
+                if (!_iteratorNormalCompletion11 && _iterator11.return) {
+                  _iterator11.return();
                 }
               } finally {
-                if (_didIteratorError7) {
-                  throw _iteratorError7;
+                if (_didIteratorError11) {
+                  throw _iteratorError11;
                 }
               }
             }
@@ -1901,27 +2008,54 @@
             }
             if (cellStyle.css) {
               var csses_ = [];
-              for (var _key2 in cellStyle.css) {
-                csses_.push(_key2 + ': ' + cellStyle.css[_key2]);
+              var _iteratorNormalCompletion12 = true;
+              var _didIteratorError12 = false;
+              var _iteratorError12 = undefined;
+
+              try {
+                for (var _iterator12 = Object.entries(cellStyle.css)[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
+                  var _ref14 = _step12.value;
+
+                  var _ref15 = _slicedToArray(_ref14, 2);
+
+                  var _key3 = _ref15[0];
+                  var _value3 = _ref15[1];
+
+                  csses_.push(_key3 + ': ' + _value3);
+                }
+              } catch (err) {
+                _didIteratorError12 = true;
+                _iteratorError12 = err;
+              } finally {
+                try {
+                  if (!_iteratorNormalCompletion12 && _iterator12.return) {
+                    _iterator12.return();
+                  }
+                } finally {
+                  if (_didIteratorError12) {
+                    throw _iteratorError12;
+                  }
+                }
               }
+
               style_ = ' style="' + csses_.concat(_this7.header.styles[j]).join('; ') + '"';
             }
 
             value = Utils.calculateObjectValue(column, _this7.header.formatters[j], [value_, item, i, field], value_);
 
             if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
-              var _iteratorNormalCompletion8 = true;
-              var _didIteratorError8 = false;
-              var _iteratorError8 = undefined;
+              var _iteratorNormalCompletion13 = true;
+              var _didIteratorError13 = false;
+              var _iteratorError13 = undefined;
 
               try {
-                for (var _iterator8 = Object.entries(item['_' + field + '_data'])[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-                  var _ref5 = _step8.value;
+                for (var _iterator13 = Object.entries(item['_' + field + '_data'])[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
+                  var _ref16 = _step13.value;
 
-                  var _ref6 = _slicedToArray(_ref5, 2);
+                  var _ref17 = _slicedToArray(_ref16, 2);
 
-                  var _k2 = _ref6[0];
-                  var _v = _ref6[1];
+                  var _k2 = _ref17[0];
+                  var _v = _ref17[1];
 
                   // ignore data-index
                   if (_k2 === 'index') {
@@ -1930,16 +2064,16 @@
                   data_ += ' data-' + _k2 + '="' + _v + '"';
                 }
               } catch (err) {
-                _didIteratorError8 = true;
-                _iteratorError8 = err;
+                _didIteratorError13 = true;
+                _iteratorError13 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion8 && _iterator8.return) {
-                    _iterator8.return();
+                  if (!_iteratorNormalCompletion13 && _iterator13.return) {
+                    _iterator13.return();
                   }
                 } finally {
-                  if (_didIteratorError8) {
-                    throw _iteratorError8;
+                  if (_didIteratorError13) {
+                    throw _iteratorError13;
                   }
                 }
               }
@@ -2017,17 +2151,21 @@
           // show no records
           if (!hasTr) {
             this.$body.html('<tr class="no-records-found">' + Utils.sprintf('<td colspan="%s">%s</td>', this.$header.find('th').length, this.options.formatNoMatches()) + '</tr>');
+          } else {
+            this.$body.html(trFragments);
           }
-
-          this.$body.html(trFragments);
 
           if (!fixedScroll) {
             this.scrollTo(0);
           }
 
           // click to select by column
-          this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', function (e) {
-            var $td = $(e.currentTarget);
+          this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', function (_ref18) {
+            var currentTarget = _ref18.currentTarget,
+                type = _ref18.type,
+                target = _ref18.target;
+
+            var $td = $(currentTarget);
             var $tr = $td.parent();
             var item = _this8.data[$tr.data('index')];
             var index = $td[0].cellIndex;
@@ -2040,11 +2178,11 @@
               return;
             }
 
-            _this8.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
-            _this8.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
+            _this8.trigger(type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
+            _this8.trigger(type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
 
             // if click to select - then trigger the checkbox/radio click
-            if (e.type === 'click' && _this8.options.clickToSelect && column.clickToSelect && !_this8.options.ignoreClickToSelectOn(e.target)) {
+            if (type === 'click' && _this8.options.clickToSelect && column.clickToSelect && !_this8.options.ignoreClickToSelectOn(target)) {
               var $selectItem = $tr.find(Utils.sprintf('[name="%s"]', _this8.options.selectItemName));
               if ($selectItem.length) {
                 $selectItem[0].click(); // #144: .trigger('click') bug
@@ -2087,7 +2225,8 @@
             _this8.check_($this.prop('checked'), $this.data('index'));
           });
 
-          this.header.events.forEach(function (events, i) {
+          this.header.events.forEach(function (_events, i) {
+            var events = _events;
             if (!events) {
               return;
             }
@@ -2107,27 +2246,52 @@
               fieldIndex += 1;
             }
 
-            var _loop = function _loop(key) {
+            var _loop = function _loop(key, event) {
               _this8.$body.find('>tr:not(.no-records-found)').each(function (i, tr) {
                 var $tr = $(tr);
                 var $td = $tr.find(_this8.options.cardView ? '.card-view' : 'td').eq(fieldIndex);
                 var index = key.indexOf(' ');
                 var name = key.substring(0, index);
                 var el = key.substring(index + 1);
-                var func = events[key];
 
                 $td.find(el).off(name).on(name, function (e) {
                   var index = $tr.data('index');
                   var row = _this8.data[index];
                   var value = row[field];
 
-                  func.apply(_this8, [e, value, row, index]);
+                  event.apply(_this8, [e, value, row, index]);
                 });
               });
             };
 
-            for (var key in events) {
-              _loop(key);
+            var _iteratorNormalCompletion14 = true;
+            var _didIteratorError14 = false;
+            var _iteratorError14 = undefined;
+
+            try {
+              for (var _iterator14 = Object.entries(events)[Symbol.iterator](), _step14; !(_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done); _iteratorNormalCompletion14 = true) {
+                var _ref19 = _step14.value;
+
+                var _ref20 = _slicedToArray(_ref19, 2);
+
+                var key = _ref20[0];
+                var event = _ref20[1];
+
+                _loop(key, event);
+              }
+            } catch (err) {
+              _didIteratorError14 = true;
+              _iteratorError14 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion14 && _iterator14.return) {
+                  _iterator14.return();
+                }
+              } finally {
+                if (_didIteratorError14) {
+                  throw _iteratorError14;
+                }
+              }
             }
           });
 
@@ -2149,8 +2313,6 @@
             sortName: this.options.sortName,
             sortOrder: this.options.sortOrder
           };
-
-          var request = void 0;
 
           if (this.header.sortNames[index]) {
             params.sortName = this.header.sortNames[index];
@@ -2197,15 +2359,15 @@
           if (!silent) {
             this.$tableLoading.show();
           }
-          request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
+          var request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
             url: url || this.options.url,
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ? JSON.stringify(data) : data,
             cache: this.options.cache,
             contentType: this.options.contentType,
             dataType: this.options.dataType,
-            success: function success(res) {
-              res = Utils.calculateObjectValue(_this9.options, _this9.options.responseHandler, [res], res);
+            success: function success(_res) {
+              var res = Utils.calculateObjectValue(_this9.options, _this9.options.responseHandler, [_res], _res);
 
               _this9.load(res);
               _this9.trigger('load-success', res);
@@ -2277,13 +2439,13 @@
       }, {
         key: 'resetRows',
         value: function resetRows() {
-          var _iteratorNormalCompletion9 = true;
-          var _didIteratorError9 = false;
-          var _iteratorError9 = undefined;
+          var _iteratorNormalCompletion15 = true;
+          var _didIteratorError15 = false;
+          var _iteratorError15 = undefined;
 
           try {
-            for (var _iterator9 = this.data[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
-              var row = _step9.value;
+            for (var _iterator15 = this.data[Symbol.iterator](), _step15; !(_iteratorNormalCompletion15 = (_step15 = _iterator15.next()).done); _iteratorNormalCompletion15 = true) {
+              var row = _step15.value;
 
               this.$selectAll.prop('checked', false);
               this.$selectItem.prop('checked', false);
@@ -2292,16 +2454,16 @@
               }
             }
           } catch (err) {
-            _didIteratorError9 = true;
-            _iteratorError9 = err;
+            _didIteratorError15 = true;
+            _iteratorError15 = err;
           } finally {
             try {
-              if (!_iteratorNormalCompletion9 && _iterator9.return) {
-                _iterator9.return();
+              if (!_iteratorNormalCompletion15 && _iterator15.return) {
+                _iterator15.return();
               }
             } finally {
-              if (_didIteratorError9) {
-                throw _iteratorError9;
+              if (_didIteratorError15) {
+                throw _iteratorError15;
               }
             }
           }
@@ -2310,14 +2472,16 @@
         }
       }, {
         key: 'trigger',
-        value: function trigger(name) {
-          name += '.bs.table';
+        value: function trigger(_name) {
+          var _options;
 
-          for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key3 = 1; _key3 < _len2; _key3++) {
-            args[_key3 - 1] = arguments[_key3];
+          var name = _name + '.bs.table';
+
+          for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key4 = 1; _key4 < _len2; _key4++) {
+            args[_key4 - 1] = arguments[_key4];
           }
 
-          this.options[BootstrapTable.EVENTS[name]].apply(this.options, args);
+          (_options = this.options)[BootstrapTable.EVENTS[name]].apply(_options, args);
           this.$el.trigger($.Event(name), args);
 
           this.options.onAll(name, args);
@@ -2336,22 +2500,17 @@
         value: function fitHeader() {
           var _this12 = this;
 
-          var fixedBody = void 0;
-          var scrollWidth = void 0;
-          var focused = void 0;
-          var focusedTemp = void 0;
-
           if (this.$el.is(':hidden')) {
             this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), 100);
             return;
           }
-          fixedBody = this.$tableBody.get(0);
+          var fixedBody = this.$tableBody.get(0);
 
-          scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth && fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ? Utils.getScrollBarWidth() : 0;
+          var scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth && fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ? Utils.getScrollBarWidth() : 0;
 
           this.$el.css('margin-top', -this.$header.outerHeight());
 
-          focused = $(':focus');
+          var focused = $(':focus');
           if (focused.length > 0) {
             var $th = focused.parents('th');
             if ($th.length > 0) {
@@ -2371,7 +2530,7 @@
             'margin-right': scrollWidth
           }).find('table').css('width', this.$el.outerWidth()).html('').attr('class', this.$el.attr('class')).append(this.$header_);
 
-          focusedTemp = $('.focus-temp:visible:eq(0)');
+          var focusedTemp = $('.focus-temp:visible:eq(0)');
           if (focusedTemp.length > 0) {
             focusedTemp.focus();
             this.$header.find('.focus-temp').removeClass('focus-temp');
@@ -2427,18 +2586,15 @@
             html.push('<td><div class="th-inner">&nbsp;</div><div class="fht-cell"></div></td>');
           }
 
-          var _iteratorNormalCompletion10 = true;
-          var _didIteratorError10 = false;
-          var _iteratorError10 = undefined;
+          var _iteratorNormalCompletion16 = true;
+          var _didIteratorError16 = false;
+          var _iteratorError16 = undefined;
 
           try {
-            for (var _iterator10 = this.columns[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
-              var column = _step10.value;
+            for (var _iterator16 = this.columns[Symbol.iterator](), _step16; !(_iteratorNormalCompletion16 = (_step16 = _iterator16.next()).done); _iteratorNormalCompletion16 = true) {
+              var column = _step16.value;
 
-              var key = void 0;
-
-              var // footer align style
-              falign = '';
+              var falign = '';
 
               var valign = '';
               var csses = [];
@@ -2459,8 +2615,34 @@
               style = Utils.calculateObjectValue(null, this.options.footerStyle);
 
               if (style && style.css) {
-                for (key in style.css) {
-                  csses.push(key + ': ' + style.css[key]);
+                var _iteratorNormalCompletion17 = true;
+                var _didIteratorError17 = false;
+                var _iteratorError17 = undefined;
+
+                try {
+                  for (var _iterator17 = Object.keys(style.css)[Symbol.iterator](), _step17; !(_iteratorNormalCompletion17 = (_step17 = _iterator17.next()).done); _iteratorNormalCompletion17 = true) {
+                    var _ref21 = _step17.value;
+
+                    var _ref22 = _slicedToArray(_ref21, 2);
+
+                    var key = _ref22[0];
+                    var value = _ref22[1];
+
+                    csses.push(key + ': ' + value);
+                  }
+                } catch (err) {
+                  _didIteratorError17 = true;
+                  _iteratorError17 = err;
+                } finally {
+                  try {
+                    if (!_iteratorNormalCompletion17 && _iterator17.return) {
+                      _iterator17.return();
+                    }
+                  } finally {
+                    if (_didIteratorError17) {
+                      throw _iteratorError17;
+                    }
+                  }
                 }
               }
 
@@ -2475,16 +2657,16 @@
               html.push('</td>');
             }
           } catch (err) {
-            _didIteratorError10 = true;
-            _iteratorError10 = err;
+            _didIteratorError16 = true;
+            _iteratorError16 = err;
           } finally {
             try {
-              if (!_iteratorNormalCompletion10 && _iterator10.return) {
-                _iterator10.return();
+              if (!_iteratorNormalCompletion16 && _iterator16.return) {
+                _iterator16.return();
               }
             } finally {
-              if (_didIteratorError10) {
-                throw _iteratorError10;
+              if (_didIteratorError16) {
+                throw _iteratorError16;
               }
             }
           }
@@ -2497,24 +2679,20 @@
       }, {
         key: 'fitFooter',
         value: function fitFooter() {
-          var $footerTd = void 0;
-          var elWidth = void 0;
-          var scrollWidth = void 0;
-
           clearTimeout(this.timeoutFooter_);
           if (this.$el.is(':hidden')) {
             this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), 100);
             return;
           }
 
-          elWidth = this.$el.css('width');
-          scrollWidth = elWidth > this.$tableBody.width() ? Utils.getScrollBarWidth() : 0;
+          var elWidth = this.$el.css('width');
+          var scrollWidth = elWidth > this.$tableBody.width() ? Utils.getScrollBarWidth() : 0;
 
           this.$tableFooter.css({
             'margin-right': scrollWidth
           }).find('table').css('width', elWidth).attr('class', this.$el.attr('class'));
 
-          $footerTd = this.$tableFooter.find('td');
+          var $footerTd = this.$tableFooter.find('td');
 
           this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i, el) {
             var $this = $(el);
@@ -2533,13 +2711,15 @@
           // TODO: it's probably better improving the layout than binding to scroll event
 
           this.trigger('scroll-body');
-          this.$tableBody.off('scroll').on('scroll', function (e) {
+          this.$tableBody.off('scroll').on('scroll', function (_ref23) {
+            var currentTarget = _ref23.currentTarget;
+
             if (_this13.options.showHeader && _this13.options.height) {
-              _this13.$tableHeader.scrollLeft($(e.currentTarget).scrollLeft());
+              _this13.$tableHeader.scrollLeft($(currentTarget).scrollLeft());
             }
 
             if (_this13.options.showFooter && !_this13.options.cardView) {
-              _this13.$tableFooter.scrollLeft($(e.currentTarget).scrollLeft());
+              _this13.$tableFooter.scrollLeft($(currentTarget).scrollLeft());
             }
           });
         }
@@ -2572,13 +2752,13 @@
         value: function getVisibleFields() {
           var visibleFields = [];
 
-          var _iteratorNormalCompletion11 = true;
-          var _didIteratorError11 = false;
-          var _iteratorError11 = undefined;
+          var _iteratorNormalCompletion18 = true;
+          var _didIteratorError18 = false;
+          var _iteratorError18 = undefined;
 
           try {
-            for (var _iterator11 = this.header.fields[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
-              var field = _step11.value;
+            for (var _iterator18 = this.header.fields[Symbol.iterator](), _step18; !(_iteratorNormalCompletion18 = (_step18 = _iterator18.next()).done); _iteratorNormalCompletion18 = true) {
+              var field = _step18.value;
 
               var column = this.columns[this.fieldsColumnsIndex[field]];
 
@@ -2588,16 +2768,16 @@
               visibleFields.push(field);
             }
           } catch (err) {
-            _didIteratorError11 = true;
-            _iteratorError11 = err;
+            _didIteratorError18 = true;
+            _iteratorError18 = err;
           } finally {
             try {
-              if (!_iteratorNormalCompletion11 && _iterator11.return) {
-                _iterator11.return();
+              if (!_iteratorNormalCompletion18 && _iterator18.return) {
+                _iterator18.return();
               }
             } finally {
-              if (_didIteratorError11) {
-                throw _iteratorError11;
+              if (_didIteratorError18) {
+                throw _iteratorError18;
               }
             }
           }
@@ -2668,8 +2848,9 @@
         }
       }, {
         key: 'load',
-        value: function load(data) {
+        value: function load(_data) {
           var fixedScroll = false;
+          var data = _data;
 
           // #431: support pagination
           if (this.options.pagination && this.options.sidePagination === 'server') {
@@ -2748,9 +2929,10 @@
         }
       }, {
         key: 'getRowByUniqueId',
-        value: function getRowByUniqueId(id) {
+        value: function getRowByUniqueId(_id) {
           var uniqueId = this.options.uniqueId;
           var len = this.options.data.length;
+          var id = _id;
           var dataRow = null;
           var i = void 0;
           var row = void 0;
@@ -2810,21 +2992,19 @@
         value: function updateByUniqueId(params) {
           var allParams = Array.isArray(params) ? params : [params];
 
-          var _iteratorNormalCompletion12 = true;
-          var _didIteratorError12 = false;
-          var _iteratorError12 = undefined;
+          var _iteratorNormalCompletion19 = true;
+          var _didIteratorError19 = false;
+          var _iteratorError19 = undefined;
 
           try {
-            for (var _iterator12 = allParams[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
-              var _params = _step12.value;
-
-              var rowId = void 0;
+            for (var _iterator19 = allParams[Symbol.iterator](), _step19; !(_iteratorNormalCompletion19 = (_step19 = _iterator19.next()).done); _iteratorNormalCompletion19 = true) {
+              var _params = _step19.value;
 
               if (!_params.hasOwnProperty('id') || !_params.hasOwnProperty('row')) {
                 continue;
               }
 
-              rowId = this.options.data.indexOf(this.getRowByUniqueId(_params.id));
+              var rowId = this.options.data.indexOf(this.getRowByUniqueId(_params.id));
 
               if (rowId === -1) {
                 continue;
@@ -2832,16 +3012,16 @@
               $.extend(this.options.data[rowId], _params.row);
             }
           } catch (err) {
-            _didIteratorError12 = true;
-            _iteratorError12 = err;
+            _didIteratorError19 = true;
+            _iteratorError19 = err;
           } finally {
             try {
-              if (!_iteratorNormalCompletion12 && _iterator12.return) {
-                _iterator12.return();
+              if (!_iteratorNormalCompletion19 && _iterator19.return) {
+                _iterator19.return();
               }
             } finally {
-              if (_didIteratorError12) {
-                throw _iteratorError12;
+              if (_didIteratorError19) {
+                throw _iteratorError19;
               }
             }
           }
@@ -2887,13 +3067,13 @@
         value: function updateRow(params) {
           var allParams = Array.isArray(params) ? params : [params];
 
-          var _iteratorNormalCompletion13 = true;
-          var _didIteratorError13 = false;
-          var _iteratorError13 = undefined;
+          var _iteratorNormalCompletion20 = true;
+          var _didIteratorError20 = false;
+          var _iteratorError20 = undefined;
 
           try {
-            for (var _iterator13 = allParams[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
-              var _params2 = _step13.value;
+            for (var _iterator20 = allParams[Symbol.iterator](), _step20; !(_iteratorNormalCompletion20 = (_step20 = _iterator20.next()).done); _iteratorNormalCompletion20 = true) {
+              var _params2 = _step20.value;
 
               if (!_params2.hasOwnProperty('index') || !_params2.hasOwnProperty('row')) {
                 continue;
@@ -2901,16 +3081,16 @@
               $.extend(this.options.data[_params2.index], _params2.row);
             }
           } catch (err) {
-            _didIteratorError13 = true;
-            _iteratorError13 = err;
+            _didIteratorError20 = true;
+            _iteratorError20 = err;
           } finally {
             try {
-              if (!_iteratorNormalCompletion13 && _iterator13.return) {
-                _iterator13.return();
+              if (!_iteratorNormalCompletion20 && _iterator20.return) {
+                _iterator20.return();
               }
             } finally {
-              if (_didIteratorError13) {
-                throw _iteratorError13;
+              if (_didIteratorError20) {
+                throw _iteratorError20;
               }
             }
           }
@@ -2939,7 +3119,6 @@
         key: 'toggleRow',
         value: function toggleRow(params, visible) {
           var row = void 0;
-          var index = void 0;
 
           if (params.hasOwnProperty('index')) {
             row = this.getData()[params.index];
@@ -2951,7 +3130,7 @@
             return;
           }
 
-          index = this.hiddenRows.indexOf(row);
+          var index = this.hiddenRows.indexOf(row);
 
           if (!visible && index === -1) {
             this.hiddenRows.push(row);
@@ -2963,32 +3142,37 @@
       }, {
         key: 'getHiddenRows',
         value: function getHiddenRows(show) {
+          if (show) {
+            this.initHiddenRows();
+            this.initBody(true);
+            return;
+          }
           var data = this.getData();
           var rows = [];
 
-          var _iteratorNormalCompletion14 = true;
-          var _didIteratorError14 = false;
-          var _iteratorError14 = undefined;
+          var _iteratorNormalCompletion21 = true;
+          var _didIteratorError21 = false;
+          var _iteratorError21 = undefined;
 
           try {
-            for (var _iterator14 = data[Symbol.iterator](), _step14; !(_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done); _iteratorNormalCompletion14 = true) {
-              var row = _step14.value;
+            for (var _iterator21 = data[Symbol.iterator](), _step21; !(_iteratorNormalCompletion21 = (_step21 = _iterator21.next()).done); _iteratorNormalCompletion21 = true) {
+              var row = _step21.value;
 
               if (this.hiddenRows.includes(row)) {
                 rows.push(row);
               }
             }
           } catch (err) {
-            _didIteratorError14 = true;
-            _iteratorError14 = err;
+            _didIteratorError21 = true;
+            _iteratorError21 = err;
           } finally {
             try {
-              if (!_iteratorNormalCompletion14 && _iterator14.return) {
-                _iterator14.return();
+              if (!_iteratorNormalCompletion21 && _iterator21.return) {
+                _iterator21.return();
               }
             } finally {
-              if (_didIteratorError14) {
-                throw _iteratorError14;
+              if (_didIteratorError21) {
+                throw _iteratorError21;
               }
             }
           }
@@ -3006,13 +3190,12 @@
           var i = void 0;
           var j = void 0;
           var $tr = this.$body.find('>tr');
-          var $td = void 0;
 
           if (this.options.detailView && !this.options.cardView) {
             col += 1;
           }
 
-          $td = $tr.eq(row).find('>td').eq(col);
+          var $td = $tr.eq(row).find('>td').eq(col);
 
           if (row < 0 || col < 0 || row >= this.data.length) {
             return;
@@ -3050,14 +3233,12 @@
           }
           var allParams = Array.isArray(params) ? params : [params];
 
-          allParams.forEach(function (_ref7) {
-            var id = _ref7.id,
-                field = _ref7.field,
-                value = _ref7.value;
+          allParams.forEach(function (_ref24) {
+            var id = _ref24.id,
+                field = _ref24.field,
+                value = _ref24.value;
 
-            var rowId = void 0;
-
-            rowId = _this14.options.data.indexOf(_this14.getRowByUniqueId(id));
+            var rowId = _this14.options.data.indexOf(_this14.getRowByUniqueId(id));
 
             if (rowId === -1) {
               return;
@@ -3074,8 +3255,10 @@
       }, {
         key: 'getOptions',
         value: function getOptions() {
-          // Deep copy
-          return $.extend(true, {}, this.options);
+          // Deep copy: remove data
+          var options = $.extend({}, this.options);
+          delete options.data;
+          return $.extend(true, {}, options);
         }
       }, {
         key: 'getSelections',
@@ -3152,27 +3335,27 @@
           var row = this.data[index];
 
           if ($el.is(':radio') || this.options.singleSelect) {
-            var _iteratorNormalCompletion15 = true;
-            var _didIteratorError15 = false;
-            var _iteratorError15 = undefined;
+            var _iteratorNormalCompletion22 = true;
+            var _didIteratorError22 = false;
+            var _iteratorError22 = undefined;
 
             try {
-              for (var _iterator15 = this.options.data[Symbol.iterator](), _step15; !(_iteratorNormalCompletion15 = (_step15 = _iterator15.next()).done); _iteratorNormalCompletion15 = true) {
-                var r = _step15.value;
+              for (var _iterator22 = this.options.data[Symbol.iterator](), _step22; !(_iteratorNormalCompletion22 = (_step22 = _iterator22.next()).done); _iteratorNormalCompletion22 = true) {
+                var r = _step22.value;
 
                 r[this.header.stateField] = false;
               }
             } catch (err) {
-              _didIteratorError15 = true;
-              _iteratorError15 = err;
+              _didIteratorError22 = true;
+              _iteratorError22 = err;
             } finally {
               try {
-                if (!_iteratorNormalCompletion15 && _iterator15.return) {
-                  _iterator15.return();
+                if (!_iteratorNormalCompletion22 && _iterator22.return) {
+                  _iterator22.return();
                 }
               } finally {
-                if (_didIteratorError15) {
-                  throw _iteratorError15;
+                if (_didIteratorError22) {
+                  throw _iteratorError22;
                 }
               }
             }
@@ -3293,43 +3476,43 @@
       }, {
         key: 'getHiddenColumns',
         value: function getHiddenColumns() {
-          return this.columns.filter(function (_ref8) {
-            var visible = _ref8.visible;
+          return this.columns.filter(function (_ref25) {
+            var visible = _ref25.visible;
             return !visible;
           });
         }
       }, {
         key: 'getVisibleColumns',
         value: function getVisibleColumns() {
-          return this.columns.filter(function (_ref9) {
-            var visible = _ref9.visible;
+          return this.columns.filter(function (_ref26) {
+            var visible = _ref26.visible;
             return visible;
           });
         }
       }, {
         key: 'toggleAllColumns',
         value: function toggleAllColumns(visible) {
-          var _iteratorNormalCompletion16 = true;
-          var _didIteratorError16 = false;
-          var _iteratorError16 = undefined;
+          var _iteratorNormalCompletion23 = true;
+          var _didIteratorError23 = false;
+          var _iteratorError23 = undefined;
 
           try {
-            for (var _iterator16 = this.columns[Symbol.iterator](), _step16; !(_iteratorNormalCompletion16 = (_step16 = _iterator16.next()).done); _iteratorNormalCompletion16 = true) {
-              var column = _step16.value;
+            for (var _iterator23 = this.columns[Symbol.iterator](), _step23; !(_iteratorNormalCompletion23 = (_step23 = _iterator23.next()).done); _iteratorNormalCompletion23 = true) {
+              var column = _step23.value;
 
               column.visible = visible;
             }
           } catch (err) {
-            _didIteratorError16 = true;
-            _iteratorError16 = err;
+            _didIteratorError23 = true;
+            _iteratorError23 = err;
           } finally {
             try {
-              if (!_iteratorNormalCompletion16 && _iterator16.return) {
-                _iterator16.return();
+              if (!_iteratorNormalCompletion23 && _iterator23.return) {
+                _iterator23.return();
               }
             } finally {
-              if (_didIteratorError16) {
-                throw _iteratorError16;
+              if (_didIteratorError23) {
+                throw _iteratorError23;
               }
             }
           }
@@ -3366,16 +3549,16 @@
         }
       }, {
         key: 'scrollTo',
-        value: function scrollTo(value) {
-          if (typeof value === 'string') {
-            value = value === 'bottom' ? this.$tableBody[0].scrollHeight : 0;
-          }
-          if (typeof value === 'number') {
-            this.$tableBody.scrollTop(value);
-          }
-          if (typeof value === 'undefined') {
+        value: function scrollTo(_value) {
+          if (typeof _value === 'undefined') {
             return this.$tableBody.scrollTop();
           }
+
+          var value = 0;
+          if (typeof _value === 'string' && _value === 'bottom') {
+            value = this.$tableBody[0].scrollHeight;
+          }
+          this.$tableBody.scrollTop(value);
         }
       }, {
         key: 'getScrollPosition',
@@ -3546,8 +3729,8 @@
 
     $.BootstrapTable = BootstrapTable;
     $.fn.bootstrapTable = function (option) {
-      for (var _len3 = arguments.length, args = Array(_len3 > 1 ? _len3 - 1 : 0), _key4 = 1; _key4 < _len3; _key4++) {
-        args[_key4 - 1] = arguments[_key4];
+      for (var _len3 = arguments.length, args = Array(_len3 > 1 ? _len3 - 1 : 0), _key5 = 1; _key5 < _len3; _key5++) {
+        args[_key5 - 1] = arguments[_key5];
       }
 
       var value = void 0;
@@ -3557,6 +3740,8 @@
         var options = $.extend({}, BootstrapTable.DEFAULTS, $(el).data(), (typeof option === 'undefined' ? 'undefined' : _typeof(option)) === 'object' && option);
 
         if (typeof option === 'string') {
+          var _data2;
+
           if (!allowedMethods.includes(option)) {
             throw new Error('Unknown method: ' + option);
           }
@@ -3565,7 +3750,7 @@
             return;
           }
 
-          value = data[option].apply(data, args);
+          value = (_data2 = data)[option].apply(_data2, args);
 
           if (option === 'destroy') {
             $(el).removeData('bootstrap.table');

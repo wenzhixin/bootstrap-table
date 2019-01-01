@@ -19,8 +19,6 @@
    * email brianalvarezazocar@gmail.com
    */
   (function ($) {
-    'use strict';
-
     $.fn.bootstrapTable.locales['es-CL'] = {
       formatLoadingMessage: function formatLoadingMessage() {
         return 'Cargando, espere por favor...';

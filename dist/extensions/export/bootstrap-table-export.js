@@ -232,8 +232,10 @@
             }
           }
 
-          $menu.find('>li, >a').click(function (e) {
-            var type = $(e.currentTarget).data('type');
+          $menu.find('>li, >a').click(function (_ref) {
+            var currentTarget = _ref.currentTarget;
+
+            var type = $(currentTarget).data('type');
             var exportOptions = {
               type: type,
               escape: false
@@ -282,13 +284,17 @@
           };
 
           var stateField = this.header.stateField;
+          var isCardView = o.cardView;
 
+          if (stateField) {
+            this.hideColumn(stateField);
+          }
+          if (isCardView) {
+            this.toggleView();
+          }
           if (o.exportDataType === 'all' && o.pagination) {
             var eventName = o.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table';
             this.$el.one(eventName, function () {
-              if (stateField) {
-                _this3.hideColumn(stateField);
-              }
               doExport();
               _this3.togglePagination();
             });
@@ -310,19 +316,16 @@
             }
 
             this.load(selectedData);
-            if (stateField) {
-              this.hideColumn(stateField);
-            }
             doExport();
             this.load(data);
           } else {
-            if (stateField) {
-              this.hideColumn(stateField);
-            }
             doExport();
           }
           if (stateField) {
             this.showColumn(stateField);
+          }
+          if (isCardView) {
+            this.toggleView();
           }
         }
       }]);

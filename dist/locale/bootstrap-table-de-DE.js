@@ -18,8 +18,6 @@
   * Author: Paul Mohr - Sopamo<p.mohr@sopamo.de>
   */
   (function ($) {
-    'use strict';
-
     $.fn.bootstrapTable.locales['de-DE'] = {
       formatLoadingMessage: function formatLoadingMessage() {
         return 'Lade, bitte warten...';
@@ -28,10 +26,10 @@
         return pageNumber + ' Zeilen pro Seite.';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
-        return 'Zeige Zeile ' + pageFrom + ' bis ' + pageTo + ' von ' + totalRows + ' Zeile' + (totalRows > 1 ? "n" : "") + ".";
+        return 'Zeige Zeile ' + pageFrom + ' bis ' + pageTo + ' von ' + totalRows + ' Zeile' + (totalRows > 1 ? 'n' : '') + '.';
       },
       formatDetailPagination: function formatDetailPagination(totalRows) {
-        return 'Zeige ' + totalRows + ' Zeile' + (totalRows > 1 ? "n" : "") + ".";
+        return 'Zeige ' + totalRows + ' Zeile' + (totalRows > 1 ? 'n' : '') + '.';
       },
       formatSearch: function formatSearch() {
         return 'Suchen';
