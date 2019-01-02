@@ -8,6 +8,7 @@
 
 .bs-docs-header {
   padding: 10px 0 0;
+  background-image: none !important;
 }
 
 .bs-docs-header .col-md-8 {
