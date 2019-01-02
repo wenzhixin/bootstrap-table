@@ -68,6 +68,7 @@ module.exports = {
   },
   'globals': {
     '$': true,
-    'jQuery': true
+    'jQuery': true,
+    'adsbygoogle': true
   }
 }
