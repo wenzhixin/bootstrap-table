@@ -577,6 +577,7 @@
   $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
   $.fn.bootstrapTable.methods.push('triggerSearch')
+  $.fn.bootstrapTable.methods.push('clearFilterControl')
 
   $.BootstrapTable = class extends $.BootstrapTable {
     init () {
