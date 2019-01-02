@@ -39,7 +39,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     <td>data-thead-classes</td>
     <td>String</td>
     <td>''</td>
-    <td>The class name of table thead. Bootstrap V4, use the modifier classes `.thead-light` or `.thead-dark` to make `<thead>`s appear light or dark gray.</td>
+    <td>The class name of table thead. Bootstrap V4, use the modifier classes <code>.thead-light</code> or <code>.thead-dark</code> to make <code>thead</code>s appear light or dark gray.</td>
   </tr>
   <tr>
     <td>sortClass</td>
