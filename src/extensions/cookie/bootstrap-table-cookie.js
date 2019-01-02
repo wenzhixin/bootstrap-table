@@ -283,32 +283,37 @@
     }
 
     onSort () {
-      super.onSort()
+      const event = arguments[0]
+      super.onSort(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName)
     }
 
     onPageNumber () {
-      super.onPageNumber()
+      const event = arguments[0]
+      super.onPageNumber(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
       return false
     }
 
     onPageListChange () {
-      super.onPageListChange()
+      const event = arguments[0]
+      super.onPageListChange(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList, this.options.pageSize)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
       return false
     }
 
     onPagePre () {
-      super.onPagePre()
+      const event = arguments[0]
+      super.onPagePre(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
       return false
     }
 
     onPageNext () {
-      super.onPageNext()
+      const event = arguments[0]
+      super.onPageNext(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
       return false
     }
