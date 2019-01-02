@@ -39,7 +39,7 @@
     <td>data-thead-classes</td>
     <td>String</td>
     <td>''</td>
-    <td>表格 thead 的类名称。Bootstrap V4，使用 `.thead-light` 或者 `.thead-dark` 可以设置 `<thead>` 的样式。</td>
+    <td>表格 thead 的类名称。Bootstrap V4，使用 <code>.thead-light</code> 或者 <code>.thead-dark</code> 可以设置 <code>thead</code> 的样式。</td>
   </tr>
   <tr>
     <td>sortClass</td>
