@@ -449,6 +449,27 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
     <td>'&gt;'</td>
     <td>Indica el icono o el texto a mostrar en la paginación, el botón next del detalle de la paginación.</td>
   </tr>
+    <tr>
+      <td>paginationSuccessivelySize</td>
+      <td>data-pagination-successively-size</td>
+      <td>Number</td>
+      <td>5</td>
+      <td>Número máximo sucesivo de páginas en una fila.</td>
+  </tr>
+  <tr>
+      <td>paginationPagesBySide</td>
+      <td>data-pagination-pages-by-side</td>
+      <td>Number</td>
+      <td>1</td>
+      <td>Número de páginas en cada lado (derecha, izquierda) de la página actual.</td>
+  </tr>
+   <tr>
+      <td>paginationUseIntermediate</td>
+      <td>data-pagination-use-intermediate</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Calcula y muestra páginas intermedias para un acceso rápido.</td>
+  </tr>
   <tr>
     <td>clickToSelect</td>
     <td>data-click-to-select</td>

@@ -157,6 +157,18 @@
     line-height: 1.428571429;
 }
 
+.fixed-table-pagination ul.pagination li.page-intermediate a {
+    color:#c8c8c8;
+}
+
+.fixed-table-pagination ul.pagination li.page-intermediate a:before {
+    content: '\2B05';
+}
+
+.fixed-table-pagination ul.pagination li.page-intermediate a:after {
+    content: '\27A1';
+}
+
 .fixed-table-pagination .pagination-info {
     line-height: 34px;
     margin-right: 5px;
