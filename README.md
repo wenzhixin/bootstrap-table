@@ -28,7 +28,7 @@ To get started, check out:
 
 ## Features
 
-* Created for Bootstrap 3 (Bootstrap 2 supported)
+* Created for Twitter Bootstrap (All versions supported)
 * Responsive web design
 * Scrollable Table with fixed headers
 * Fully configurable
@@ -42,7 +42,6 @@ To get started, check out:
 * Single or multiple row selection
 * Powerful pagination
 * Card view
-* Detail view
 * Localization
 * Extensions
 
