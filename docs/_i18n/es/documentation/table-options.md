@@ -453,7 +453,7 @@ Las opciones de la tabla están definidas en `jQuery.fn.bootstrapTable.defaults`
       <td>paginationSuccessivelySize</td>
       <td>data-pagination-successively-size</td>
       <td>Number</td>
-      <td>3</td>
+      <td>5</td>
       <td>Número máximo sucesivo de páginas en una fila.</td>
   </tr>
   <tr>

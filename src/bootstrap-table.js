@@ -307,7 +307,7 @@
     paginationDetailHAlign: 'left', // right, left
     paginationPreText: '&lsaquo;',
     paginationNextText: '&rsaquo;',
-    paginationSuccessivelySize: 3, // Maximum successively number of pages in a row
+    paginationSuccessivelySize: 5, // Maximum successively number of pages in a row
     paginationPagesBySide: 1, // Number of pages on each side (right, left) of the current page.
     paginationUseIntermediate: false, // Calculate intermediate pages for quick access
     search: false,
@@ -1451,7 +1451,7 @@
           to = from + (this.options.paginationPagesBySide * 2)
         }
 
-        if (this.options.pageNumber < (this.options.paginationSuccessivelySize - 2)) {
+        if (this.options.pageNumber < (this.options.paginationSuccessivelySize - 1)) {
           to = this.options.paginationSuccessivelySize
         }
 

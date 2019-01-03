@@ -63,7 +63,7 @@ module.exports = {
     'arrow-spacing': ['error', { 'before': true, 'after': true }],
     'no-useless-constructor': 'warn',
     'comma-dangle': ['error', 'never'],
-    'no-param-reassign': 'warn',
+    'no-param-reassign': 'off',
     "space-before-function-paren": ["error", "always"]
   },
   'globals': {

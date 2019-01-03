@@ -534,15 +534,15 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
       <td>paginationSuccessivelySize</td>
       <td>data-pagination-successively-size</td>
       <td>Number</td>
-      <td>3</td>
-      <td>Maximum successively number of pages in a row.</td>
+      <td>5</td>
+      <td>Maximum successive number of pages in a row.</td>
   </tr>
   <tr>
       <td>paginationPagesBySide</td>
       <td>data-pagination-pages-by-side</td>
       <td>Number</td>
       <td>1</td>
-      <td>Number of pages on each side (right, left) of the current page.</td>
+      <td>The number of pages on each side (right, left) of the current page.</td>
   </tr>
    <tr>
       <td>paginationUseIntermediate</td>
