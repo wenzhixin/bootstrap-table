@@ -272,17 +272,26 @@
   // ======================
 
   const DEFAULTS = {
-    classes: 'table table-hover',
-    theadClasses: '',
-    sortClass: undefined,
     locale: undefined,
     height: undefined,
     undefinedText: '-',
+    classes: 'table table-hover',
+    theadClasses: '',
+    sortClass: undefined,
+    striped: false,
+    rowStyle (row, index) {
+      return {}
+    },
+    rowAttributes (row, index) {
+      return {}
+    },
+    sortable: true,
+    silentSort: true,
     sortName: undefined,
     sortOrder: 'asc',
     sortStable: false,
     rememberOrder: false,
-    striped: false,
+    customSort: $.noop,
     columns: [
       []
     ],
@@ -322,18 +331,24 @@
     search: false,
     searchOnEnterKey: false,
     strictSearch: false,
+    trimOnSearch: true,
     searchAlign: 'right',
-    selectItemName: 'btSelectItem',
+    searchTimeOut: 500,
+    searchText: '',
+    customSearch: $.noop,
     showHeader: true,
     showFooter: false,
+    footerStyle (row, index) {
+      return {}
+    },
     showColumns: false,
+    minimumCountColumns: 1,
     showPaginationSwitch: false,
     showRefresh: false,
     showToggle: false,
     showFullscreen: false,
     smartDisplay: true,
     escape: false,
-    minimumCountColumns: 1,
     idField: undefined,
     uniqueId: undefined,
     cardView: false,
@@ -344,37 +359,22 @@
     detailFilter (index, row) {
       return true
     },
-    trimOnSearch: true,
+    selectItemName: 'btSelectItem',
     clickToSelect: false,
+    ignoreClickToSelectOn ({tagName}) {
+      return ['A', 'BUTTON'].includes(tagName)
+    },
     singleSelect: false,
+    checkboxHeader: true,
+    maintainSelected: false,
     toolbar: undefined,
     toolbarAlign: 'left',
     buttonsToolbar: undefined,
     buttonsAlign: 'right',
-    checkboxHeader: true,
-    sortable: true,
-    silentSort: true,
-    maintainSelected: false,
-    searchTimeOut: 500,
-    searchText: '',
-    iconSize: undefined,
     buttonsClass: bootstrap.classes.buttons,
-    iconsPrefix: bootstrap.iconsPrefix, // glyphicon or fa(font-awesome)
     icons: bootstrap.icons,
-    customSearch: $.noop,
-    customSort: $.noop,
-    ignoreClickToSelectOn ({tagName}) {
-      return ['A', 'BUTTON'].includes(tagName)
-    },
-    rowStyle (row, index) {
-      return {}
-    },
-    rowAttributes (row, index) {
-      return {}
-    },
-    footerStyle (row, index) {
-      return {}
-    },
+    iconSize: undefined,
+    iconsPrefix: bootstrap.iconsPrefix, // glyphicon or fa(font-awesome)
     onAll (name, args) {
       return false
     },
