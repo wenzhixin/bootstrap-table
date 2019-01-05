@@ -14,7 +14,7 @@ An extended Bootstrap table with radio, checkbox, sort, pagination, extensions a
 
 To get started, check out:
 
-* [Docs](http://bootstrap-table.wenzhixin.net.cn)
+* [Docs](https://bootstrap-table.wenzhixin.net.cn)
 * [Examples](https://github.com/wenzhixin/bootstrap-table-examples)
 * [Questions/Helps](http://stackoverflow.com/questions/tagged/bootstrap-table)
 * [问题/帮助](http://segmentfault.com/t/bootstrap-table)
