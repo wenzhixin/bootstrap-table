@@ -3,7 +3,11 @@
     ["env", {
       "modules": "umd",
       "targets": {
-        "browsers": ["last 2 versions"]
+        "browsers": [
+          "> 1%",
+          "last 2 versions",
+          "not ie <= 8"
+        ]
       }
     }],
     "stage-0",

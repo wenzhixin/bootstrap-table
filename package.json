@@ -19,7 +19,7 @@
   },
   "scripts": {
     "postinstall": "opencollective postinstall || exit 0",
-    "lint": "eslint src/bootstrap-table.js src/locale src/extensions/export src/extensions/editable src/extensions/toolbar src/extension/filter-control src/extensions/cookie",
+    "lint": "eslint src/bootstrap-table.js src/locale src/extensions/export src/extensions/editable src/extensions/toolbar src/extensions/filter-control src/extensions/cookie",
     "js:build:min": "NODE_ENV=production babel src -d dist -q && find dist -name '*.js' | sed -e 'p;s/.js/.min.js/' | xargs -n2 mv",
     "js:build:base": "babel src -d dist -q",
     "js:build:concat": "babel src/locale -o dist/bootstrap-table-locale-all.js && NODE_ENV=production babel src/locale -o dist/bootstrap-table-locale-all.min.js",
