@@ -28,7 +28,9 @@
     "css:build:banner": "find dist -name '*.min.css' -exec headr {} -o {} --version --homepage --author --license \\;",
     "css:build": "run-s css:build:*",
     "clean": "rm -rf dist",
-    "build": "run-s lint clean *:build"
+    "build": "run-s lint clean *:build",
+    "docs": "bundle exec jekyll build",
+    "docs-serve": "bundle exec jekyll serve"
   },
   "repository": {
     "type": "git",
