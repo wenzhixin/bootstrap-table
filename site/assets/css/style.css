@@ -1,0 +1,29 @@
+.api h2 {
+  margin-top: 4rem !important;
+  margin-bottom: 2rem;
+}
+
+.extensions h3 {
+  margin-bottom: 2rem;
+}
+
+.donate img {
+  max-height: 200px;
+}
+
+.donate td {
+  text-align: center;
+}
+
+.donate .paypal {
+  margin-top: 70px;
+  display: block;
+}
+
+.donate svg {
+  width: 96px;
+}
+
+.donate .btn-primary {
+  margin-top: 75px;
+}

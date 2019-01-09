@@ -1,0 +1,30 @@
+- title: Getting started
+  pages:
+    - title: Introduction
+    - title: Download
+    - title: Contents
+    - title: Usage
+    - title: Browsers & devices
+    - title: Build tools
+
+- title: API
+  pages:
+    - title: Table Options
+    - title: Column Options
+    - title: Events
+    - title: Methods
+    - title: Localizations
+
+- title: Extensions
+  pages:
+    - title: Accent Neutralise
+    - title: Addrbar
+
+- title: FAQ
+
+- title: About
+  pages:
+    - title: Overview
+    - title: Team
+    - title: License
+    - title: Translations
