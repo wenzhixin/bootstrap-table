@@ -2082,7 +2082,7 @@
           this.trigger('load-success', res)
           if (!silent) this.$tableLoading.hide()
         },
-        error: res => {
+        error: jqXHR => {
           let data = []
           if (this.options.sidePagination === 'server') {
             data = {}
@@ -2090,7 +2090,7 @@
             data[this.options.dataField] = []
           }
           this.load(data)
-          this.trigger('load-error', res.status, res)
+          this.trigger('load-error', jqXHR.status, jqXHR)
           if (!silent) this.$tableLoading.hide()
         }
       })
