@@ -63,7 +63,7 @@
       switch (that.options.cookieStorage) {
         case 'cookieStorage':
           document.cookie = [
-            cookieName, '=', cookieValue,
+            cookieName, '=', encodeURIComponent(cookieValue),
             '; expires=' + UtilsCookie.calculateExpiration(that.options.cookieExpire),
             that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
             that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
@@ -97,7 +97,7 @@
         case 'cookieStorage':
           const value = '; ' + document.cookie
           const parts = value.split('; ' + cookieName + '=')
-          return parts.length === 2 ? parts.pop().split(';').shift() : null
+          return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null
         case 'localStorage':
           return localStorage.getItem(cookieName)
         case 'sessionStorage':
@@ -341,7 +341,7 @@
       const target = Array.prototype.slice.apply(arguments)
       super.onSearch(this, target)
 
-      if ($(target[0].currentTarget).parent().hasClass('search')) {
+      if ($(target[0].currentTarget).parent().parent().hasClass('search')) {
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText)
       }
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
