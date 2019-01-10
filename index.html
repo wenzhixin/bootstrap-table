@@ -1,12 +1,231 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Boostrap Table</title>
-</head>
-<body>
-  <script>location.href = 'home'</script>
-</body>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="An extended Bootstrap Table with radio, checkbox, sort, pagination, and other added features.">
+<meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
+<meta name="generator" content="Jekyll v3.8.5">
+<meta name="keywords" content="table, bootstrap, bootstrap plugin, bootstrap resources, bootstrap table, jQuery plugin">
+
+<meta name="docsearch:language" content="en">
+
+<title>Bootstrap Table · An extended Bootstrap Table with radio, checkbox, sort, pagination, and other added features.</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><!-- Documentation extras -->
+
+
+<link href="/assets/css/docs.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.png">
+
+<script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-36708951-1', 'wenzhixin.net.cn');
+  ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script type="text/javascript">
+  if (window !== top) // 判断当前的window对象是否是top对象
+    top.location.href = window.location.href // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+</script>
+
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+  <span class="skippy-text">Skip to main content</span>
+</a>
+
+
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+  <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Bootstrap">
+    <img src="/favicon.png" width="36" height="36">
+  </a>
+
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link active"
+          href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link "
+          href="/docs/getting-started/introduction/">
+          Documentation
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link "
+          href="https://bootstrap-table-examples.wenzhixin.net.cn" target="_blank">
+          Examples
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/donate">
+          Donate
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/news">
+          News
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        For Bootstrap v4
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
+        <a class="dropdown-item active" href="">For Bootstrap v4</a>
+        <a class="dropdown-item" href="http://bootstrap-table-docs3.wenzhixin.net.cn">For Bootstrap v3</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><title>GitHub</title><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 416.32" focusable="false" role="img"><title>Twitter</title><path d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92" fill="currentColor"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 40 41" focusable="false" role="img" fill="currentColor" fill-rule="evenodd"><title>Open Collective</title><path d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z" fill-opacity=".4"/><path d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"/></svg>
+</a>
+    </li>
+  </ul>
+
+  <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="/docs/getting-started/download/">Download</a>
+</header>
+
+
+    <main class="bd-masthead" id="content" role="main">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-4 mx-auto col-md-4 order-md-2">
+        <img class="img-fluid mb-3 mb-md-0" src="favicon.png">
+      </div>
+      <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
+        <h1 class="mb-3 bd-text-purple-bright">
+          Bootstrap Table
+        </h1>
+        <p class="lead">
+          An extended Bootstrap Table with radio, checkbox, sort, pagination, and other added features.
+        </p>
+        <p class="lead mb-4">
+          Bootstrap Table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
+        </p>
+        <div class="row mx-n2">
+          <div class="col-md px-2">
+            <a href="/docs/getting-started/introduction/"
+              class="btn btn-lg btn-bd-primary w-100 mb-3">
+              Getting Started
+            </a>
+          </div>
+          <div class="col-md px-2">
+            <a href="/docs/getting-started/download/"
+              class="btn btn-lg btn-outline-secondary w-100 mb-3">
+              Download
+            </a>
+          </div>
+        </div>
+        <p class="text-muted mb-0">
+            Currently1.13.1
+        </p>
+      </div>
+    </div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CK7DE27Y&placement=bootstrap-tablewenzhixinnetcn" id="_carbonads_js"></script>
+
+  </div>
+</main>
+
+<div class="masthead-followup row m-0 border border-white">
+  <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+    <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
+    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="32" height="32" fill="none" stroke="currentcolor" stroke-width="2" class="text-primary mb-2" viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Import</title><path d="M28 22v8H4v-8M16 4v20m-8-8l8 8 8-8"/></svg>
+
+    <h3>Installation</h3>
+    <p>Include Bootstrap Table source CSS and JavaScript files via npm or Bower.</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm <span class="nb">install </span>bootstrap-table</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">bower <span class="nb">install </span>bootstrap-table</code></pre></figure>
+
+    <hr class="half-rule">
+    <a class="btn btn-outline-primary"
+      href="/docs/getting-started/download/">
+      Read installation docs
+    </a>
+  </div>
+
+  <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+    <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
+    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="32" height="32" fill="none" stroke="currentcolor" stroke-width="2" class="text-primary mb-2" viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Download</title><path d="M9 22c-9 1-8-10 0-9C6 2 23 2 22 10c10-3 10 13 1 12m-12 4l5 4 5-4m-5-10v14"/></svg>
+
+    <h3>CDN</h3>
+    <p>When you only need to include Bootstrap Table’s compiled CSS or JS, you can use <a href="http://www.cdnjs.com/libraries/bootstrap-table">CDNJS</a></p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/bootstrap-table.min.css"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="c">&lt;!-- Latest compiled and minified Locales --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/locale/bootstrap-table-zh-CN.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+
+    <hr class="half-rule">
+    <a href="/docs/api" class="btn btn-outline-primary">
+      Explore the docs
+    </a>
+  </div>
+
+  <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+    <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
+    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="32" height="32" fill="none" stroke="currentcolor" stroke-width="2" class="text-primary mb-2" viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Lightning</title><path d="M18 13l8-11L8 13l6 6-8 11 18-11z"/></svg>
+
+    <h3>Examples</h3>
+    <p>
+      The examples of bootstrap table.
+    </p>
+
+    <hr class="half-rule">
+    <a href="https://bootstrap-table-examples.wenzhixin.net.cn" target="_blank" class="btn btn-outline-primary">
+      Browse Examples
+    </a>
+  </div>
+</div>
+
+
+    <footer class="bd-footer text-muted">
+  <div class="container-fluid p-3 p-md-5">
+    <ul class="bd-footer-links">
+      <li><a href="https://github.com/wenzhixin/bootstrap-table">GitHub</a></li>
+      <li><a href="https://twitter.com/wenzhixin2010">Twitter</a></li>
+      <li><a href="http://wenzhixin.net.cn">My website</a></li>
+      <li><a href="http://repos.wenzhixin.net.cn">My repos</a></li>
+      <li><a href="http://stackoverflow.com/questions/tagged/bootstrap-table">Questions / Helps</a></li>
+      <li><a href="mailto:wenzhixin2010@gmail.com">Email</a></li>
+    </ul>
+    <p>
+      Bootstrap Table Website is a fork of <a href="http://getbootstrap.com/">Bootstrap</a>.
+      This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
+    </p>
+    <p>
+      Currently v1.13.1, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script><script src="/assets/js/docs.min.js"></script>
+
+  </body>
 </html>

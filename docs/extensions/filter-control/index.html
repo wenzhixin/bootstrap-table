@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Table Filter Control extension of Bootstrap Table.">
+<meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
+<meta name="generator" content="Jekyll v3.8.5">
+<meta name="keywords" content="table, bootstrap, bootstrap plugin, bootstrap resources, bootstrap table, jQuery plugin">
+
+<meta name="docsearch:language" content="en">
+
+<title>Table Filter Control · Bootstrap Table</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><!-- Documentation extras -->
+
+<link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+
+
+<link href="/assets/css/docs.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.png">
+
+<script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-36708951-1', 'wenzhixin.net.cn');
+  ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script type="text/javascript">
+  if (window !== top) // 判断当前的window对象是否是top对象
+    top.location.href = window.location.href // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+</script>
+
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+  <span class="skippy-text">Skip to main content</span>
+</a>
+
+
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+  <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Bootstrap">
+    <img src="/favicon.png" width="36" height="36">
+  </a>
+
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link "
+          href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active"
+          href="/docs/getting-started/introduction/">
+          Documentation
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link "
+          href="https://bootstrap-table-examples.wenzhixin.net.cn" target="_blank">
+          Examples
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/donate">
+          Donate
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/news">
+          News
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        For Bootstrap v4
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
+        <a class="dropdown-item active" href="">For Bootstrap v4</a>
+        <a class="dropdown-item" href="http://bootstrap-table-docs3.wenzhixin.net.cn">For Bootstrap v3</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><title>GitHub</title><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 416.32" focusable="false" role="img"><title>Twitter</title><path d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92" fill="currentColor"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 40 41" focusable="false" role="img" fill="currentColor" fill-rule="evenodd"><title>Open Collective</title><path d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z" fill-opacity=".4"/><path d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"/></svg>
+</a>
+    </li>
+  </ul>
+
+  <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="/docs/getting-started/download/">Download</a>
+</header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+          <form class="bd-search d-flex align-items-center">
+  <input type="search" class="form-control" style="display: none !important"
+    id="search-input" placeholder="Search..."
+    aria-label="Search for..." autocomplete="off">
+  <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3"
+    type="button" data-toggle="collapse" data-target="#bd-docs-nav"
+    aria-controls="bd-docs-nav" aria-expanded="false"
+    aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 30 30" width="30" height="30" focusable="false" role="img"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/></svg>
+</button>
+</form>
+
+<nav class="collapse bd-links" id="bd-docs-nav"><div class="bd-toc-item">
+      <a class="bd-toc-link" href="/docs/getting-started/introduction/">
+        Getting started
+      </a>
+
+      <ul class="nav bd-sidenav"><li>
+            <a href="/docs/getting-started/introduction/">
+              Introduction
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/download/">
+              Download
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/contents/">
+              Contents
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/usage/">
+              Usage
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/browsers-devices/">
+              Browsers & devices
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/build-tools/">
+              Build tools
+            </a>
+          </li></ul>
+    </div><div class="bd-toc-item">
+      <a class="bd-toc-link" href="/docs/api/table-options/">
+        API
+      </a>
+
+      <ul class="nav bd-sidenav"><li>
+            <a href="/docs/api/table-options/">
+              Table Options
+            </a>
+          </li><li>
+            <a href="/docs/api/column-options/">
+              Column Options
+            </a>
+          </li><li>
+            <a href="/docs/api/events/">
+              Events
+            </a>
+          </li><li>
+            <a href="/docs/api/methods/">
+              Methods
+            </a>
+          </li><li>
+            <a href="/docs/api/localizations/">
+              Localizations
+            </a>
+          </li></ul>
+    </div><div class="bd-toc-item active">
+      <a class="bd-toc-link" href="/docs/extensions/accent-neutralise/">
+        Extensions
+      </a>
+
+      <ul class="nav bd-sidenav"><li>
+            <a href="/docs/extensions/accent-neutralise/">
+              Accent Neutralise
+            </a>
+          </li><li>
+            <a href="/docs/extensions/addrbar/">
+              Addrbar
+            </a>
+          </li><li>
+            <a href="/docs/extensions/auto-refresh/">
+              Auto Refresh
+            </a>
+          </li><li>
+            <a href="/docs/extensions/cookie/">
+              Cookie
+            </a>
+          </li><li>
+            <a href="/docs/extensions/copy-rows/">
+              Copy Rows
+            </a>
+          </li><li>
+            <a href="/docs/extensions/defer-url/">
+              Defer URL
+            </a>
+          </li><li>
+            <a href="/docs/extensions/editable/">
+              Editable
+            </a>
+          </li><li>
+            <a href="/docs/extensions/export/">
+              Export
+            </a>
+          </li><li class="active bd-sidenav-active">
+            <a href="/docs/extensions/filter-control/">
+              Filter Control
+            </a>
+          </li><li>
+            <a href="/docs/extensions/group-by-v2/">
+              Group By v2
+            </a>
+          </li><li>
+            <a href="/docs/extensions/group-by/">
+              Group By
+            </a>
+          </li><li>
+            <a href="/docs/extensions/i18n-enhance/">
+              i18n Enhance
+            </a>
+          </li><li>
+            <a href="/docs/extensions/key-events/">
+              Key Events
+            </a>
+          </li><li>
+            <a href="/docs/extensions/mobile/">
+              Mobile
+            </a>
+          </li><li>
+            <a href="/docs/extensions/multi-column-toggle/">
+              Multi Column Toggle
+            </a>
+          </li><li>
+            <a href="/docs/extensions/multiple-search/">
+              Multiple Search
+            </a>
+          </li><li>
+            <a href="/docs/extensions/multiple-selection-row/">
+              Multiple Selection Row
+            </a>
+          </li><li>
+            <a href="/docs/extensions/multiple-sort/">
+              Multiple Sort
+            </a>
+          </li><li>
+            <a href="/docs/extensions/natural-sorting/">
+              Natural Sorting
+            </a>
+          </li><li>
+            <a href="/docs/extensions/page-jump-to/">
+              Page Jump To
+            </a>
+          </li><li>
+            <a href="/docs/extensions/print/">
+              Print
+            </a>
+          </li><li>
+            <a href="/docs/extensions/reorder-columns/">
+              Reorder Columns
+            </a>
+          </li><li>
+            <a href="/docs/extensions/reorder-rows/">
+              Reorder Rows
+            </a>
+          </li><li>
+            <a href="/docs/extensions/resizable/">
+              Resizable
+            </a>
+          </li><li>
+            <a href="/docs/extensions/select2-filter/">
+              Select2 Filter
+            </a>
+          </li><li>
+            <a href="/docs/extensions/sticky-header/">
+              Sticky Header
+            </a>
+          </li><li>
+            <a href="/docs/extensions/toolbar/">
+              Toolbar
+            </a>
+          </li><li>
+            <a href="/docs/extensions/treegrid/">
+              Treegrid
+            </a>
+          </li></ul>
+    </div><div class="bd-toc-item">
+      <a class="bd-toc-link" href="/docs/faq/">
+        FAQ
+      </a>
+
+      <ul class="nav bd-sidenav"></ul>
+    </div><div class="bd-toc-item">
+      <a class="bd-toc-link" href="/docs/about/overview/">
+        About
+      </a>
+
+      <ul class="nav bd-sidenav"><li>
+            <a href="/docs/about/overview/">
+              Overview
+            </a>
+          </li><li>
+            <a href="/docs/about/team/">
+              Team
+            </a>
+          </li><li>
+            <a href="/docs/about/license/">
+              License
+            </a>
+          </li><li>
+            <a href="/docs/about/translations/">
+              Translations
+            </a>
+          </li></ul>
+    </div></nav>
+
+        </div>
+
+        
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#filtercontrol">filterControl</a></li>
+<li class="toc-entry toc-h3"><a href="#filtershowclear">filterShowClear</a></li>
+<li class="toc-entry toc-h3"><a href="#alignmentselectcontroloptions">alignmentSelectControlOptions</a></li>
+<li class="toc-entry toc-h3"><a href="#hideunusedselectoptions">hideUnusedSelectOptions</a></li>
+<li class="toc-entry toc-h3"><a href="#disablecontrolwhensearch">disableControlWhenSearch</a></li>
+<li class="toc-entry toc-h3"><a href="#searchonenterkey">searchOnEnterKey</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#filtercontrol-1">filterControl</a></li>
+<li class="toc-entry toc-h3"><a href="#filterdata">filterData</a></li>
+<li class="toc-entry toc-h3"><a href="#filterdatepickeroptions">filterDatepickerOptions</a></li>
+<li class="toc-entry toc-h3"><a href="#filterstrictsearch">filterStrictSearch</a></li>
+<li class="toc-entry toc-h3"><a href="#filterstartswithsearch">filterStartsWithSearch</a></li>
+<li class="toc-entry toc-h3"><a href="#filtercontrolplaceholder">filterControlPlaceholder</a></li>
+<li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#locale">Locale</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#formatclearfilters">formatClearFilters</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#oncolumnsearchcolumn-searchbstable">onColumnSearch(column-search.bs.table)</a></li>
+<li class="toc-entry toc-h3"><a href="#oncreatedcontrolscreated-controlsbstable">onCreatedControls(created-controls.bs.table)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#methods">Methods</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#triggersearch">triggerSearch</a></li>
+</ul>
+</li>
+</ul>
+          </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content extensions" role="main">
+          <h1 class="bd-title" id="content">Table Filter Control</h1>
+          <p class="bd-lead">Table Filter Control extension of Bootstrap Table.</p>
+          <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CK7DE27Y&placement=bootstrap-tablewenzhixinnetcn" id="_carbonads_js"></script>
+
+          <p>Use Plugin: <a href="https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/filter-control">bootstrap-table-filter-control</a></p>
+
+<p>Dependence if you use the datepicker option: <a href="https://github.com/eternicode/bootstrap-datepicker">bootstrap-datepicker</a> v1.4.0</p>
+
+<h2 id="usage">Usage</h2>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"extensions/filter-control/bootstrap-table-filter-control.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/filter-control/bootstrap-table-filter-control.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+
+<h2 id="options">Options</h2>
+
+<h3 id="filtercontrol">filterControl</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set true to add an <code class="highlighter-rouge">input</code> or <code class="highlighter-rouge">select</code> into the column.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="filtershowclear">filterShowClear</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set true to add a button to clear all the controls added by this plugin.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="alignmentselectcontroloptions">alignmentSelectControlOptions</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set the alignemnt of the select control options. Use Use <code class="highlighter-rouge">left</code>, <code class="highlighter-rouge">right</code> or <code class="highlighter-rouge">auto</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="hideunusedselectoptions">hideUnusedSelectOptions</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to true in order to hide the options that are not in the table. This option does not work on server-side pagination.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="disablecontrolwhensearch">disableControlWhenSearch</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to true if you want to disable the control while the server is responding the data. This options will work if the sidePagination is ‘server’.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="searchonenterkey">searchOnEnterKey</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to true to fire the search action when the user press the enter key.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="column-options">Column options</h2>
+
+<h3 id="filtercontrol-1">filterControl</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">input</code>: show an input control, <code class="highlighter-rouge">select</code>: show a select control, <code class="highlighter-rouge">datepicker</code>: show a datepicker control.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="filterdata">filterData</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set custom select filter values, use <code class="highlighter-rouge">var:variable</code> to load from a variable or <code class="highlighter-rouge">url:http://www.example.com/data.json</code> to load from a remote json file or <code class="highlighter-rouge">json:{key:data}</code> to load from a json string.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="filterdatepickeroptions">filterDatepickerOptions</h3>
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Object</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: <code class="highlighter-rouge">data-filter-datepicker-options='{"autoclose":true, "clearBtn": true, "todayHighlight": true}'</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="filterstrictsearch">filterStrictSearch</h3>
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to true if you want to use the strict search mode.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="filterstartswithsearch">filterStartsWithSearch</h3>
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to true if you want to use the starts with search mode.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="filtercontrolplaceholder">filterControlPlaceholder</h3>
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set this in order to show a placeholder only in the input filter control.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
+  </li>
+</ul>
+
+<h3 id="icons">Icons</h3>
+<ul>
+  <li>clear: ‘glyphicon-trash icon-clear’</li>
+</ul>
+
+<h2 id="locale">Locale</h2>
+
+<h3 id="formatclearfilters">formatClearFilters</h3>
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Clear Filters";}</code></p>
+  </li>
+</ul>
+
+<h2 id="events">Events</h2>
+
+<h3 id="oncolumnsearchcolumn-searchbstable">onColumnSearch(column-search.bs.table)</h3>
+
+<ul>
+  <li>Fired when we are searching into the column data</li>
+</ul>
+
+<h3 id="oncreatedcontrolscreated-controlsbstable">onCreatedControls(created-controls.bs.table)</h3>
+
+<ul>
+  <li>Fired when we are searching into the column data</li>
+</ul>
+
+<h2 id="methods">Methods</h2>
+
+<h3 id="triggersearch">triggerSearch</h3>
+
+<ul>
+  <li>Trigger manually the search action</li>
+</ul>
+
+        </main>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script src="/assets/js/docs.min.js"></script>
+
+  </body>
+</html>

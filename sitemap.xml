@@ -1,57 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>http://bootstrap-table.wenzhixin.net.cn/</loc>
-        <lastmod>2019-01-05T07:29:30+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-    </url>
-    
-    
-    <url>
-        <loc>http://bootstrap-table.wenzhixin.net.cn/documentation/</loc>
-        <lastmod>2019-01-05T07:29:30+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>http://bootstrap-table.wenzhixin.net.cn/donate/</loc>
-        <lastmod>2019-01-05T07:29:30+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>http://bootstrap-table.wenzhixin.net.cn/extensions/</loc>
-        <lastmod>2019-01-05T07:29:30+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>http://bootstrap-table.wenzhixin.net.cn/faq/</loc>
-        <lastmod>2019-01-05T07:29:30+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>http://bootstrap-table.wenzhixin.net.cn/getting-started/</loc>
-        <lastmod>2019-01-05T07:29:30+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    
-    
-    
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/accent-neutralise/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/addrbar/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/auto-refresh/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/getting-started/browsers-devices/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/getting-started/build-tools/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/api/column-options/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/getting-started/contents/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/cookie/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/copy-rows/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/defer-url/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/donate/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/getting-started/download/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/editable/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/api/events/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/export/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/faq/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/filter-control/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/group-by-v2/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/group-by/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/i18n-enhance/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/getting-started/introduction/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/key-events/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/about/license/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/api/localizations/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/api/methods/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/mobile/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/multi-column-toggle/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/multiple-search/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/multiple-selection-row/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/multiple-sort/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/natural-sorting/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/news/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/about/overview/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/page-jump-to/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/print/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/reorder-columns/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/reorder-rows/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/resizable/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/select2-filter/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/sticky-header/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/api/table-options/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/about/team/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/toolbar/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/about/translations/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/extensions/treegrid/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.wenzhixin.net.cn/docs/getting-started/usage/</loc>
+</url>
 </urlset>

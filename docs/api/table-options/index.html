@@ -1,0 +1,2193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="The table options API of Bootstrap Table.">
+<meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
+<meta name="generator" content="Jekyll v3.8.5">
+<meta name="keywords" content="table, bootstrap, bootstrap plugin, bootstrap resources, bootstrap table, jQuery plugin">
+
+<meta name="docsearch:language" content="en">
+
+<title>Table Options · Bootstrap Table</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><!-- Documentation extras -->
+
+<link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+
+
+<link href="/assets/css/docs.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.png">
+
+<script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-36708951-1', 'wenzhixin.net.cn');
+  ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script type="text/javascript">
+  if (window !== top) // 判断当前的window对象是否是top对象
+    top.location.href = window.location.href // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+</script>
+
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+  <span class="skippy-text">Skip to main content</span>
+</a>
+
+
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+  <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Bootstrap">
+    <img src="/favicon.png" width="36" height="36">
+  </a>
+
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link "
+          href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active"
+          href="/docs/getting-started/introduction/">
+          Documentation
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link "
+          href="https://bootstrap-table-examples.wenzhixin.net.cn" target="_blank">
+          Examples
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/donate">
+          Donate
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/news">
+          News
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        For Bootstrap v4
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
+        <a class="dropdown-item active" href="">For Bootstrap v4</a>
+        <a class="dropdown-item" href="http://bootstrap-table-docs3.wenzhixin.net.cn">For Bootstrap v3</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><title>GitHub</title><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 416.32" focusable="false" role="img"><title>Twitter</title><path d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92" fill="currentColor"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 40 41" focusable="false" role="img" fill="currentColor" fill-rule="evenodd"><title>Open Collective</title><path d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z" fill-opacity=".4"/><path d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"/></svg>
+</a>
+    </li>
+  </ul>
+
+  <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="/docs/getting-started/download/">Download</a>
+</header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+          <form class="bd-search d-flex align-items-center">
+  <input type="search" class="form-control" style="display: none !important"
+    id="search-input" placeholder="Search..."
+    aria-label="Search for..." autocomplete="off">
+  <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3"
+    type="button" data-toggle="collapse" data-target="#bd-docs-nav"
+    aria-controls="bd-docs-nav" aria-expanded="false"
+    aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 30 30" width="30" height="30" focusable="false" role="img"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/></svg>
+</button>
+</form>
+
+<nav class="collapse bd-links" id="bd-docs-nav"><div class="bd-toc-item">
+      <a class="bd-toc-link" href="/docs/getting-started/introduction/">
+        Getting started
+      </a>
+
+      <ul class="nav bd-sidenav"><li>
+            <a href="/docs/getting-started/introduction/">
+              Introduction
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/download/">
+              Download
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/contents/">
+              Contents
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/usage/">
+              Usage
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/browsers-devices/">
+              Browsers & devices
+            </a>
+          </li><li>
+            <a href="/docs/getting-started/build-tools/">
+              Build tools
+            </a>
+          </li></ul>
+    </div><div class="bd-toc-item active">
+      <a class="bd-toc-link" href="/docs/api/table-options/">
+        API
+      </a>
+
+      <ul class="nav bd-sidenav"><li class="active bd-sidenav-active">
+            <a href="/docs/api/table-options/">
+              Table Options
+            </a>
+          </li><li>
+            <a href="/docs/api/column-options/">
+              Column Options
+            </a>
+          </li><li>
+            <a href="/docs/api/events/">
+              Events
+            </a>
+          </li><li>
+            <a href="/docs/api/methods/">
+              Methods
+            </a>
+          </li><li>
+            <a href="/docs/api/localizations/">
+              Localizations
+            </a>
+          </li></ul>
+    </div><div class="bd-toc-item">
+      <a class="bd-toc-link" href="/docs/extensions/accent-neutralise/">
+        Extensions
+      </a>
+
+      <ul class="nav bd-sidenav"><li>
+            <a href="/docs/extensions/accent-neutralise/">
+              Accent Neutralise
+            </a>
+          </li><li>
+            <a href="/docs/extensions/addrbar/">
+              Addrbar
+            </a>
+          </li><li>
+            <a href="/docs/extensions/auto-refresh/">
+              Auto Refresh
+            </a>
+          </li><li>
+            <a href="/docs/extensions/cookie/">
+              Cookie
+            </a>
+          </li><li>
+            <a href="/docs/extensions/copy-rows/">
+              Copy Rows
+            </a>
+          </li><li>
+            <a href="/docs/extensions/defer-url/">
+              Defer URL
+            </a>
+          </li><li>
+            <a href="/docs/extensions/editable/">
+              Editable
+            </a>
+          </li><li>
+            <a href="/docs/extensions/export/">
+              Export
+            </a>
+          </li><li>
+            <a href="/docs/extensions/filter-control/">
+              Filter Control
+            </a>
+          </li><li>
+            <a href="/docs/extensions/group-by-v2/">
+              Group By v2
+            </a>
+          </li><li>
+            <a href="/docs/extensions/group-by/">
+              Group By
+            </a>
+          </li><li>
+            <a href="/docs/extensions/i18n-enhance/">
+              i18n Enhance
+            </a>
+          </li><li>
+            <a href="/docs/extensions/key-events/">
+              Key Events
+            </a>
+          </li><li>
+            <a href="/docs/extensions/mobile/">
+              Mobile
+            </a>
+          </li><li>
+            <a href="/docs/extensions/multi-column-toggle/">
+              Multi Column Toggle
+            </a>
+          </li><li>
+            <a href="/docs/extensions/multiple-search/">
+              Multiple Search
+            </a>
+          </li><li>
+            <a href="/docs/extensions/multiple-selection-row/">
+              Multiple Selection Row
+            </a>
+          </li><li>
+            <a href="/docs/extensions/multiple-sort/">
+              Multiple Sort
+            </a>
+          </li><li>
+            <a href="/docs/extensions/natural-sorting/">
+              Natural Sorting
+            </a>
+          </li><li>
+            <a href="/docs/extensions/page-jump-to/">
+              Page Jump To
+            </a>
+          </li><li>
+            <a href="/docs/extensions/print/">
+              Print
+            </a>
+          </li><li>
+            <a href="/docs/extensions/reorder-columns/">
+              Reorder Columns
+            </a>
+          </li><li>
+            <a href="/docs/extensions/reorder-rows/">
+              Reorder Rows
+            </a>
+          </li><li>
+            <a href="/docs/extensions/resizable/">
+              Resizable
+            </a>
+          </li><li>
+            <a href="/docs/extensions/select2-filter/">
+              Select2 Filter
+            </a>
+          </li><li>
+            <a href="/docs/extensions/sticky-header/">
+              Sticky Header
+            </a>
+          </li><li>
+            <a href="/docs/extensions/toolbar/">
+              Toolbar
+            </a>
+          </li><li>
+            <a href="/docs/extensions/treegrid/">
+              Treegrid
+            </a>
+          </li></ul>
+    </div><div class="bd-toc-item">
+      <a class="bd-toc-link" href="/docs/faq/">
+        FAQ
+      </a>
+
+      <ul class="nav bd-sidenav"></ul>
+    </div><div class="bd-toc-item">
+      <a class="bd-toc-link" href="/docs/about/overview/">
+        About
+      </a>
+
+      <ul class="nav bd-sidenav"><li>
+            <a href="/docs/about/overview/">
+              Overview
+            </a>
+          </li><li>
+            <a href="/docs/about/team/">
+              Team
+            </a>
+          </li><li>
+            <a href="/docs/about/license/">
+              License
+            </a>
+          </li><li>
+            <a href="/docs/about/translations/">
+              Translations
+            </a>
+          </li></ul>
+    </div></nav>
+
+        </div>
+
+        
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#-">-</a></li>
+<li class="toc-entry toc-h2"><a href="#locale">locale</a></li>
+<li class="toc-entry toc-h2"><a href="#height">height</a></li>
+<li class="toc-entry toc-h2"><a href="#undefinedtext">undefinedText</a></li>
+<li class="toc-entry toc-h2"><a href="#classes">classes</a></li>
+<li class="toc-entry toc-h2"><a href="#theadclasses">theadClasses</a></li>
+<li class="toc-entry toc-h2"><a href="#sortclass">sortClass</a></li>
+<li class="toc-entry toc-h2"><a href="#striped">striped</a></li>
+<li class="toc-entry toc-h2"><a href="#rowstyle">rowStyle</a></li>
+<li class="toc-entry toc-h2"><a href="#rowattributes">rowAttributes</a></li>
+<li class="toc-entry toc-h2"><a href="#sortable">sortable</a></li>
+<li class="toc-entry toc-h2"><a href="#silentsort">silentSort</a></li>
+<li class="toc-entry toc-h2"><a href="#sortname">sortName</a></li>
+<li class="toc-entry toc-h2"><a href="#sortorder">sortOrder</a></li>
+<li class="toc-entry toc-h2"><a href="#sortstable">sortStable</a></li>
+<li class="toc-entry toc-h2"><a href="#rememberorder">rememberOrder</a></li>
+<li class="toc-entry toc-h2"><a href="#customsort">customSort</a></li>
+<li class="toc-entry toc-h2"><a href="#columns">columns</a></li>
+<li class="toc-entry toc-h2"><a href="#data">data</a></li>
+<li class="toc-entry toc-h2"><a href="#totalfield">totalField</a></li>
+<li class="toc-entry toc-h2"><a href="#datafield">dataField</a></li>
+<li class="toc-entry toc-h2"><a href="#method">method</a></li>
+<li class="toc-entry toc-h2"><a href="#url">url</a></li>
+<li class="toc-entry toc-h2"><a href="#ajax">ajax</a></li>
+<li class="toc-entry toc-h2"><a href="#cache">cache</a></li>
+<li class="toc-entry toc-h2"><a href="#contenttype">contentType</a></li>
+<li class="toc-entry toc-h2"><a href="#datatype">dataType</a></li>
+<li class="toc-entry toc-h2"><a href="#ajaxoptions">ajaxOptions</a></li>
+<li class="toc-entry toc-h2"><a href="#queryparams">queryParams</a></li>
+<li class="toc-entry toc-h2"><a href="#queryparamstype">queryParamsType</a></li>
+<li class="toc-entry toc-h2"><a href="#responsehandler">responseHandler</a></li>
+<li class="toc-entry toc-h2"><a href="#pagination">pagination</a></li>
+<li class="toc-entry toc-h2"><a href="#onlyinfopagination">onlyInfoPagination</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationloop">paginationLoop</a></li>
+<li class="toc-entry toc-h2"><a href="#sidepagination">sidePagination</a></li>
+<li class="toc-entry toc-h2"><a href="#totalrows">totalRows</a></li>
+<li class="toc-entry toc-h2"><a href="#pagenumber">pageNumber</a></li>
+<li class="toc-entry toc-h2"><a href="#pagesize">pageSize</a></li>
+<li class="toc-entry toc-h2"><a href="#pagelist">pageList</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationhalign">paginationHAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationvalign">paginationVAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationdetailhalign">paginationDetailHAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationpretext">paginationPreText</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationnexttext">paginationNextText</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationsuccessivelysize">paginationSuccessivelySize</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationpagesbyside">paginationPagesBySide</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationuseintermediate">paginationUseIntermediate</a></li>
+<li class="toc-entry toc-h2"><a href="#search">search</a></li>
+<li class="toc-entry toc-h2"><a href="#searchonenterkey">searchOnEnterKey</a></li>
+<li class="toc-entry toc-h2"><a href="#strictsearch">strictSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#trimonsearch">trimOnSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#searchalign">searchAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#searchtimeout">searchTimeOut</a></li>
+<li class="toc-entry toc-h2"><a href="#searchtext">searchText</a></li>
+<li class="toc-entry toc-h2"><a href="#customsearch">customSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#showheader">showHeader</a></li>
+<li class="toc-entry toc-h2"><a href="#showfooter">showFooter</a></li>
+<li class="toc-entry toc-h2"><a href="#footerstyle">footerStyle</a></li>
+<li class="toc-entry toc-h2"><a href="#showcolumns">showColumns</a></li>
+<li class="toc-entry toc-h2"><a href="#minimumcountcolumns">minimumCountColumns</a></li>
+<li class="toc-entry toc-h2"><a href="#showpaginationswitch">showPaginationSwitch</a></li>
+<li class="toc-entry toc-h2"><a href="#showrefresh">showRefresh</a></li>
+<li class="toc-entry toc-h2"><a href="#showtoggle">showToggle</a></li>
+<li class="toc-entry toc-h2"><a href="#showfullscreen">showFullscreen</a></li>
+<li class="toc-entry toc-h2"><a href="#smartdisplay">smartDisplay</a></li>
+<li class="toc-entry toc-h2"><a href="#escape">escape</a></li>
+<li class="toc-entry toc-h2"><a href="#idfield">idField</a></li>
+<li class="toc-entry toc-h2"><a href="#uniqueid">uniqueId</a></li>
+<li class="toc-entry toc-h2"><a href="#cardview">cardView</a></li>
+<li class="toc-entry toc-h2"><a href="#detailview">detailView</a></li>
+<li class="toc-entry toc-h2"><a href="#detailformatter">detailFormatter</a></li>
+<li class="toc-entry toc-h2"><a href="#detailfilter">detailFilter</a></li>
+<li class="toc-entry toc-h2"><a href="#selectitemname">selectItemName</a></li>
+<li class="toc-entry toc-h2"><a href="#clicktoselect">clickToSelect</a></li>
+<li class="toc-entry toc-h2"><a href="#ignoreclicktoselecton">ignoreClickToSelectOn</a></li>
+<li class="toc-entry toc-h2"><a href="#singleselect">singleSelect</a></li>
+<li class="toc-entry toc-h2"><a href="#checkboxheader">checkboxHeader</a></li>
+<li class="toc-entry toc-h2"><a href="#maintainselected">maintainSelected</a></li>
+<li class="toc-entry toc-h2"><a href="#toolbar">toolbar</a></li>
+<li class="toc-entry toc-h2"><a href="#toolbaralign">toolbarAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#buttonstoolbar">buttonsToolbar</a></li>
+<li class="toc-entry toc-h2"><a href="#buttonsalign">buttonsAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#buttonsclass">buttonsClass</a></li>
+<li class="toc-entry toc-h2"><a href="#icons">icons</a></li>
+<li class="toc-entry toc-h2"><a href="#iconsize">iconSize</a></li>
+<li class="toc-entry toc-h2"><a href="#iconsprefix">iconsPrefix</a></li>
+</ul>
+          </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content api" role="main">
+          <h1 class="bd-title" id="content">Table Options</h1>
+          <p class="bd-lead">The table options API of Bootstrap Table.</p>
+          <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CK7DE27Y&placement=bootstrap-tablewenzhixinnetcn" id="_carbonads_js"></script>
+
+          <p>The table options are defined in <code class="highlighter-rouge">jQuery.fn.bootstrapTable.defaults</code>.</p>
+
+<h2 id="-">-</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-toggle</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Activate bootstrap table without writing JavaScript.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'table'</code></p>
+  </li>
+</ul>
+
+<h2 id="locale">locale</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-locale</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Sets the locale to use (i.e. <code class="highlighter-rouge">'zh-CN'</code>). Locale files must be pre-loaded.
+Allows for fallback locales, if loaded, in the following order:</p>
+
+    <ul>
+      <li>First tries for the locale as specified,</li>
+      <li>Then tries the locale with ‘_’ translated to ‘-‘ and the region code upper cased,</li>
+      <li>Then tries the the short locale code (i.e. <code class="highlighter-rouge">'zh'</code> instead of <code class="highlighter-rouge">'fr-CA'</code>),</li>
+      <li>And finally will use the last locale file loaded (or the default locale if no locales loaded).</li>
+    </ul>
+
+    <p>If left <code class="highlighter-rouge">undfined</code> or an empty string, uses the last locale loaded (or <code class="highlighter-rouge">'en-US'</code> if no locale files loaded).</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="height">height</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-height</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The height of table, enable fixed header of table.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="undefinedtext">undefinedText</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-undefined-text</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines the default <code class="highlighter-rouge">undefined</code> text.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'-'</code></p>
+  </li>
+</ul>
+
+<h2 id="classes">classes</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-classes</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The class name of table. By default, the table is bordered, you can add <code class="highlighter-rouge">'table-no-bordered'</code> to remove table-bordered style.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'table table-hover'</code></p>
+  </li>
+</ul>
+
+<h2 id="theadclasses">theadClasses</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-thead-classes</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The class name of table thead. Bootstrap V4, use the modifier classes <code class="highlighter-rouge">.thead-light</code> or <code class="highlighter-rouge">.thead-dark</code> to make <code class="highlighter-rouge">thead</code>s appear light or dark gray.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
+  </li>
+</ul>
+
+<h2 id="sortclass">sortClass</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-class</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The class name of the <code class="highlighter-rouge">td</code> elements which are sorted.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="striped">striped</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-striped</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to stripe the rows.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="rowstyle">rowStyle</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-row-style</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The row style formatter function, takes two parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">row</code>: the row record data.</li>
+      <li><code class="highlighter-rouge">index</code>: the row index.</li>
+    </ul>
+
+    <p>Support classes or css. Example usage:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">rowStyle</span><span class="p">(</span><span class="nx">row</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">classes</span><span class="p">:</span> <span class="s1">'text-nowrap another-class'</span><span class="p">,</span>
+      <span class="na">css</span><span class="p">:</span> <span class="p">{</span><span class="na">color</span><span class="p">:</span> <span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'font-size'</span><span class="p">:</span> <span class="s1">'50px'</span><span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  </code></pre></figure>
+
+<ul>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">{}</code></li>
+</ul>
+
+<h2 id="rowattributes">rowAttributes</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-row-attributes</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The row attribute formatter function, takes two parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">row</code>: the row record data.</li>
+      <li><code class="highlighter-rouge">index</code>: the row index.</li>
+    </ul>
+
+    <p>Support all custom attributes.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+</ul>
+
+<h2 id="sortable">sortable</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sortable</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">false</code> to disable sortable of all columns.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h2 id="silentsort">silentSort</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-silent-sort</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">false</code> to sort the data silently. This options works when the sidePagination option is set to <code class="highlighter-rouge">'server'</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h2 id="sortname">sortName</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-name</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines which column will be sorted.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="sortorder">sortOrder</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-order</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines the column sort order, can only be <code class="highlighter-rouge">'asc'</code> or <code class="highlighter-rouge">'desc'</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'asc'</code></p>
+  </li>
+</ul>
+
+<h2 id="sortstable">sortStable</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-stable</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to get a stable sorting. We will add <code class="highlighter-rouge">'_position'</code> property to the row.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="rememberorder">rememberOrder</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-remember-order</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set true remember the order for each column.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="customsort">customSort</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-custom-sort</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The custom sort function is executed instead of built-in sort function, takes two parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">sortName</code>: the sort name.</li>
+      <li><code class="highlighter-rouge">sortOrder</code>: the sort order.</li>
+    </ul>
+
+    <p>Example usage:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">customSort</span><span class="p">(</span><span class="nx">sortName</span><span class="p">,</span> <span class="nx">sortOrder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//Sort logic here.</span>
+    <span class="c1">//You must use `this.data` array in order to sort the data. NO use `this.options.data`.</span>
+  <span class="p">}</span>
+  </code></pre></figure>
+
+<ul>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">$.noop</code></li>
+</ul>
+
+<h2 id="columns">columns</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">-</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Array</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The table columns config object, see column properties for more details.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
+  </li>
+</ul>
+
+<h2 id="data">data</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">-</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Array | Object</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The data to be loaded.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
+  </li>
+</ul>
+
+<h2 id="totalfield">totalField</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-total-field</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Key in incoming json containing <code class="highlighter-rouge">'total'</code> data .</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'total'</code></p>
+  </li>
+</ul>
+
+<h2 id="datafield">dataField</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-data-field</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Key in incoming json containing <code class="highlighter-rouge">'rows'</code> data list.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'rows'</code></p>
+  </li>
+</ul>
+
+<h2 id="method">method</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-method</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The method type to request remote data.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'get'</code></p>
+  </li>
+</ul>
+
+<h2 id="url">url</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-url</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>A URL to request data from remote site.</p>
+
+    <p>Note that the required server response format is different depending on whether the <code class="highlighter-rouge">'sidePagination'</code> option is specified. See the following examples:</p>
+
+    <ul>
+      <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
+      <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="ajax">ajax</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-ajax</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>A method to replace ajax call. Should implement the same API as jQuery ajax method.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="cache">cache</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cache</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">false</code> to disable caching of AJAX requests.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h2 id="contenttype">contentType</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-content-type</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The contentType of request remote data.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'application/json'</code></p>
+  </li>
+</ul>
+
+<h2 id="datatype">dataType</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-data-type</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The type of data that you are expecting back from the server.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'json'</code></p>
+  </li>
+</ul>
+
+<h2 id="ajaxoptions">ajaxOptions</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-ajax-options</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Object</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Additional options for submit ajax request. List of values: <a href="http://api.jquery.com/jQuery.ajax">jQuery.ajax</a>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+</ul>
+
+<h2 id="queryparams">queryParams</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-query-params</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>When requesting remote data, you can send additional parameters by modifying queryParams.</p>
+
+    <p>If <code class="highlighter-rouge">queryParamsType = 'limit'</code>, the params object contains: <code class="highlighter-rouge">limit</code>, <code class="highlighter-rouge">offset</code>, <code class="highlighter-rouge">search</code>, <code class="highlighter-rouge">sort</code>, <code class="highlighter-rouge">order</code>.</p>
+
+    <p>Else, it contains: <code class="highlighter-rouge">pageSize</code>, <code class="highlighter-rouge">pageNumber</code>, <code class="highlighter-rouge">searchText</code>, <code class="highlighter-rouge">sortName</code>, <code class="highlighter-rouge">sortOrder</code>.</p>
+
+    <p>Return <code class="highlighter-rouge">false</code> to stop request.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function(params) { return params }</code></p>
+  </li>
+</ul>
+
+<h2 id="queryparamstype">queryParamsType</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-query-params-type</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">'limit'</code> to send query params with RESTFul type.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'limit'</code></p>
+  </li>
+</ul>
+
+<h2 id="responsehandler">responseHandler</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-response-handler</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Before load remote data, handler the response data format, the parameters object contains:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">res</code>: the response data.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function(res) { return res }</code></p>
+  </li>
+</ul>
+
+<h2 id="pagination">pagination</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show a pagination toolbar on table bottom.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="onlyinfopagination">onlyInfoPagination</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-only-info-pagination</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show only the quantity of the data that is showing in the table. It needs the pagination table options is set to true.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="paginationloop">paginationLoop</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-loop</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to enable pagination continuous loop mode.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h2 id="sidepagination">sidePagination</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-side-pagination</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines the side pagination of the table, can only be <code class="highlighter-rouge">'client'</code> or <code class="highlighter-rouge">'server'</code>.
+Using <code class="highlighter-rouge">'server'</code> side requires either setting the <code class="highlighter-rouge">'url'</code> or <code class="highlighter-rouge">'ajax'</code> option.</p>
+
+    <p>Note that the required server response format is different depending on whether the <code class="highlighter-rouge">'client'</code> or <code class="highlighter-rouge">'server'</code> option is specified. See the following examples:</p>
+
+    <ul>
+      <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
+      <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'client'</code></p>
+  </li>
+</ul>
+
+<h2 id="totalrows">totalRows</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-total-rows</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>This property is mainly passed in by server side pagination, which is easy to use. It can be set with custom pagination.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">0</code></p>
+  </li>
+</ul>
+
+<h2 id="pagenumber">pageNumber</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-page-number</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>When set pagination property, initialize the page number.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">1</code></p>
+  </li>
+</ul>
+
+<h2 id="pagesize">pageSize</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-page-size</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>When set pagination property, initialize the page size.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">10</code></p>
+  </li>
+</ul>
+
+<h2 id="pagelist">pageList</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-page-list</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Array</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>When set pagination property, initialize the page size selecting list. If you include the <code class="highlighter-rouge">'All'</code> or <code class="highlighter-rouge">'Unlimited'</code> option, all the records will be shown in your table.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">[10, 25, 50, 100]</code></p>
+  </li>
+</ul>
+
+<h2 id="paginationhalign">paginationHAlign</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-h-align</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate how to align the pagination. <code class="highlighter-rouge">'left'</code>, <code class="highlighter-rouge">'right'</code> can be used.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'right'</code></p>
+  </li>
+</ul>
+
+<h2 id="paginationvalign">paginationVAlign</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-v-align</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate how to align the pagination. <code class="highlighter-rouge">'top'</code>, <code class="highlighter-rouge">'bottom'</code>, <code class="highlighter-rouge">'both'</code> (put the pagination on top and bottom)  can be used.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'bottom'</code></p>
+  </li>
+</ul>
+
+<h2 id="paginationdetailhalign">paginationDetailHAlign</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-detail-h-align</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate how to align the pagination detail. <code class="highlighter-rouge">'left'</code>, <code class="highlighter-rouge">'right'</code> can be used.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'left'</code></p>
+  </li>
+</ul>
+
+<h2 id="paginationpretext">paginationPreText</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-pre-text</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate the icon or text to be shown in the pagination detail, the previous button.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'‹'</code></p>
+  </li>
+</ul>
+
+<h2 id="paginationnexttext">paginationNextText</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-next-text</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate the icon or text to be shown in the pagination detail, the next button.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'›'</code></p>
+  </li>
+</ul>
+
+<h2 id="paginationsuccessivelysize">paginationSuccessivelySize</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-successively-size</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Maximum successive number of pages in a row.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">5</code></p>
+  </li>
+</ul>
+
+<h2 id="paginationpagesbyside">paginationPagesBySide</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-pages-by-side</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The number of pages on each side (right, left) of the current page.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">1</code></p>
+  </li>
+</ul>
+
+<h2 id="paginationuseintermediate">paginationUseIntermediate</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-use-intermediate</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Calculate and show intermediate pages for quick access</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="search">search</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Enable the search input.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="searchonenterkey">searchOnEnterKey</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-on-enter-key</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The search method will be executed until the Enter key is pressed.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="strictsearch">strictSearch</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-strict-search</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Enable the strict search.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="trimonsearch">trimOnSearch</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-trim-on-search</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to trim spaces in search field.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h2 id="searchalign">searchAlign</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-align</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate how to align the search input. <code class="highlighter-rouge">'left'</code>, <code class="highlighter-rouge">'right'</code> can be used.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'right'</code></p>
+  </li>
+</ul>
+
+<h2 id="searchtimeout">searchTimeOut</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-time-out</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set timeout for search fire.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">500</code></p>
+  </li>
+</ul>
+
+<h2 id="searchtext">searchText</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-text</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>When set search property, initialize the search text.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
+  </li>
+</ul>
+
+<h2 id="customsearch">customSearch</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-custom-search</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The custom search function is executed instead of built-in search function, takes one parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">text</code>: the search text.</li>
+    </ul>
+
+    <p>Example usage:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">customSearch</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//Search logic here.</span>
+    <span class="c1">//You must use `this.data` array in order to filter the data. NO use `this.options.data`.</span>
+  <span class="p">}</span>
+  </code></pre></figure>
+
+<ul>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">$.noop</code></li>
+</ul>
+
+<h2 id="showheader">showHeader</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-header</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">false</code> to hide the table header.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h2 id="showfooter">showFooter</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-footer</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show the summary footer row.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="footerstyle">footerStyle</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-footer-style</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The footer style formatter function, takes two parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">row</code>: the row record data.</li>
+      <li><code class="highlighter-rouge">index</code>: the row index.</li>
+    </ul>
+
+    <p>Support classes or css. Example usage:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">footerStyle</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">row</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">css</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"font-weight"</span><span class="p">:</span> <span class="s2">"bold"</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  </code></pre></figure>
+
+<ul>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">{}</code></li>
+</ul>
+
+<h2 id="showcolumns">showColumns</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-columns</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show the columns drop down list.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="minimumcountcolumns">minimumCountColumns</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-minimum-count-columns</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The minimum number of columns to hide from the columns drop down list.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">1</code></p>
+  </li>
+</ul>
+
+<h2 id="showpaginationswitch">showPaginationSwitch</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-pagination-switch</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show the pagination switch button.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="showrefresh">showRefresh</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-refresh</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show the refresh button.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="showtoggle">showToggle</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-toggle</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show the toggle button to toggle table / card view.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="showfullscreen">showFullscreen</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-fullscreen</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show the fullscreen button.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="smartdisplay">smartDisplay</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-smart-display</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to display pagination or card view smartly.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h2 id="escape">escape</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-escape</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Escapes a string for insertion into HTML, replacing &amp;, &lt;, &gt;, “, `, and ‘ characters.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="idfield">idField</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-id-field</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate which field is an identity field.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="uniqueid">uniqueId</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-unique-id</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate an unique identifier for each row.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="cardview">cardView</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-card-view</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show card view table, for example mobile view.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="detailview">detailView</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-detail-view</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show detail view table.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="detailformatter">detailFormatter</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-detail-formatter</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Format your detail view when detailView is set to true. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function(index, row, element) { return '' }</code></p>
+  </li>
+</ul>
+
+<h2 id="detailfilter">detailFilter</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-detail-filter</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Enable expansion per row when detailView is set to true. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function(index, row) { return true }</code></p>
+  </li>
+</ul>
+
+<h2 id="selectitemname">selectItemName</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-select-item-name</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The name of radio or checkbox input.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'btSelectItem'</code></p>
+  </li>
+</ul>
+
+<h2 id="clicktoselect">clickToSelect</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-click-to-select</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to select checkbox or radiobox when clicking rows.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="ignoreclicktoselecton">ignoreClickToSelectOn</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-ignore-click-to-select-on</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Takes one parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">element</code>: the element clicked on.</li>
+    </ul>
+
+    <p>Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if clickToSelect is true.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{ return $.inArray(element.tagName, ['A', 'BUTTON']) }</code></p>
+  </li>
+</ul>
+
+<h2 id="singleselect">singleSelect</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-single-select</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to allow checkbox selecting only one row.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="checkboxheader">checkboxHeader</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-checkbox-header</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">false</code> to hide check-all checkbox in header row.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h2 id="maintainselected">maintainSelected</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-maintain-selected</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to maintain selected rows on change page and search.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="toolbar">toolbar</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-toolbar</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String/Node</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>A jQuery selector that indicates the toolbar, for example: <code class="highlighter-rouge">#toolbar</code>, <code class="highlighter-rouge">.toolbar</code>, or a DOM node.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="toolbaralign">toolbarAlign</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-toolbar-align</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate how to align the custom toolbar. <code class="highlighter-rouge">'left'</code>, <code class="highlighter-rouge">'right'</code> can be used.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'left'</code></p>
+  </li>
+</ul>
+
+<h2 id="buttonstoolbar">buttonsToolbar</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-buttons-toolbar</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String/Node</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>A jQuery selector that indicates the buttons toolbar, for example: <code class="highlighter-rouge">#buttons-toolbar</code>, <code class="highlighter-rouge">.buttons-toolbar</code>, or a DOM node.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="buttonsalign">buttonsAlign</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-buttons-align</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate how to align the toolbar buttons. <code class="highlighter-rouge">'left'</code>, <code class="highlighter-rouge">'right'</code> can be used.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'right'</code></p>
+  </li>
+</ul>
+
+<h2 id="buttonsclass">buttonsClass</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-buttons-class</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines the Bootstrap class (added after <code class="highlighter-rouge">'btn-'</code>) of table buttons.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'secondary'</code></p>
+  </li>
+</ul>
+
+<h2 id="icons">icons</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-icons</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Object</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines icons used in the toolbar, pagination, and details view.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong></p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">  {
+    paginationSwitchDown: 'fa-caret-square-down',
+    paginationSwitchUp: 'fa-caret-square-up',
+    refresh: 'fa-sync',
+    toggleOff: 'fa-toggle-off',
+    toggleOn: 'fa-toggle-on',
+    columns: 'fa-th-list',
+    detailOpen: 'fa-plus',
+    detailClose: 'fa-minus',
+    fullscreen: 'fa-arrows-alt'
+  }
+  </code></pre></figure>
+
+<h2 id="iconsize">iconSize</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-icon-size</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines icon size: <code class="highlighter-rouge">undefined</code> =&gt; <code class="highlighter-rouge">btnxs</code> =&gt; <code class="highlighter-rouge">btn-xssm</code> =&gt; <code class="highlighter-rouge">btn-smlg</code> =&gt; <code class="highlighter-rouge">btn-lg</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h2 id="iconsprefix">iconsPrefix</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-icons-prefix</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines icon set name (<code class="highlighter-rouge">'glyphicon'</code> or <code class="highlighter-rouge">'fa'</code> for FontAwesome). By default <code class="highlighter-rouge">'fa'</code> is used for Bootstrap V4.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'fa'</code></p>
+  </li>
+</ul>
+
+        </main>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script src="/assets/js/docs.min.js"></script>
+
+  </body>
+</html>
