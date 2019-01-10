@@ -89,7 +89,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The class name of table thead. Bootstrap V4, use the modifier classes `.thead-light` or `.thead-dark` to make `thead`s appear light or dark gray.
+  The class name of table thead. Bootstrap v4, use the modifier classes `.thead-light` or `.thead-dark` to make `thead`s appear light or dark gray.
 
 - **Default:** `''`
 
@@ -1141,6 +1141,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines icon set name (`'glyphicon'` or `'fa'` for FontAwesome). By default `'fa'` is used for Bootstrap V4.
+  Defines icon set name (`'glyphicon'` or `'fa'` for FontAwesome). By default `'fa'` is used for Bootstrap v4.
 
 - **Default:** `'fa'`

@@ -33,7 +33,7 @@ Place the following `<script>`s near the end of your pages, right before the clo
 
 Be sure to have your pages set up with the latest design and development standards. That means using an HTML5 doctype and including a viewport meta tag for proper responsive behaviors.
 
-For Bootstrap V4, we use [Font Awesome](https://fontawesome.com/icons) as the default icons, so need to import Font Awesome link.
+For Bootstrap v4, we use [Font Awesome](https://fontawesome.com/icons) as the default icons, so need to import Font Awesome link.
 
 Put it all together and your pages should look like this:
 
