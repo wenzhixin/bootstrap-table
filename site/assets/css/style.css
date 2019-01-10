@@ -27,3 +27,10 @@
 .donate .btn-primary {
   margin-top: 75px;
 }
+
+.post-date {
+  display: block;
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
+  color: #767676;
+}

@@ -100,6 +100,6 @@ Bootstrap Table requires the use of the HTML5 doctype. Without it, you'll see so
 
 Stay up to date on the development of Bootstrap Table and reach out to the community with these helpful resources.
 
-- Follow [@wenzhixin2010 on Twitter](https://twitter.com/wenzhixin2010).
+- Follow [@{{ site.twitter }} on Twitter](https://twitter.com/{{ site.twitter }}).
 - Read [The Official Bootstrap Table News]({{ site.news }}/).
 - Implementation help may be found at Stack Overflow (tagged [`bootstrap-table`](https://stackoverflow.com/questions/tagged/bootstrap-table)).
