@@ -1,4 +1,10 @@
-# Table sticky-header
+---
+layout: docs
+title: Table Sticky Header
+description: Table Sticky Header extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 This is an extension for [Bootstrap table](http://github.com/wenzhixin/bootstrap-table) module which provides a sticky header for the table when scrolling. </br>
 You must include the bootstrap-table-sticky-header.css file in order to get the appropriate style

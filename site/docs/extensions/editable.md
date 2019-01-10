@@ -1,4 +1,10 @@
-# Editable
+---
+layout: docs
+title: Table Editable
+description: Table Editable extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 

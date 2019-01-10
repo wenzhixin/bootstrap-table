@@ -1,4 +1,10 @@
-# Auto Refresh
+---
+layout: docs
+title: Table Auto Refresh
+description: Table Auto Refresh extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-auto-refresh](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/auto-refresh)
 

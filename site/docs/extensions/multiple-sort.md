@@ -1,4 +1,10 @@
-# Table Multiple Sort
+---
+layout: docs
+title: Table Multiple Sort
+description: Table Multiple Sort extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-multiple-sort](https://github.com/dimbslmh/bootstrap-table/tree/master/src/extensions/multiple-sort)
 

@@ -1,4 +1,10 @@
-# Table Mobile
+---
+layout: docs
+title: Table Mobile
+description: Table Mobile extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-mobile](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/mobile)
 

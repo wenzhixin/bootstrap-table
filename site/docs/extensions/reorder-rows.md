@@ -1,4 +1,10 @@
-# Table Reorder Rows
+---
+layout: docs
+title: Table Reorder Rows
+description: Table Reorder Rows extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-reorder-rows](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/reorder-rows) </br>
 Dependence: [tablednd](https://github.com/isocra/TableDnD) v0.9, </br>

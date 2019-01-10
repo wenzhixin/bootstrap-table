@@ -1,4 +1,10 @@
-# Table Select2 Filter
+---
+layout: docs
+title: Table Select2 Filter
+description: Table Select2 Filter extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-select2-filter](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/select2-filter) </br>
 Dependence if you use the select2 option: [Select2](https://select2.github.io/) v4.0.0 upper

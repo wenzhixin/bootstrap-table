@@ -1,4 +1,10 @@
-# Multi Column Toggle
+---
+layout: docs
+title: Table Multi Column Toggle
+description: Table Multi Column Toggle extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [multi-column-toggle](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions/multi-column-toggle)
 
@@ -21,7 +27,7 @@ Adds a button to the toolbar that hides and shows all columns that are 'switchab
 ### multiToggleDefaults
 
 * type: Array of Strings
-* description: Defines 'default' columns that will never be hidden with this extension. These are different from 
+* description: Defines 'default' columns that will never be hidden with this extension. These are different from
 * default: `[]`
 * example html: `data-multi-toggle-defaults='["column1", "column2"]'`
 

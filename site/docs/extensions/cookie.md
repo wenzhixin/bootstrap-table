@@ -1,4 +1,10 @@
-# Cookie
+---
+layout: docs
+title: Table Cookie
+description: Table Cookie extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-cookie](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/cookie)
 

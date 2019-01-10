@@ -1,4 +1,10 @@
-# Group By
+---
+layout: docs
+title: Table Group By
+description: Table Group By extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-group-by](https://github.com/djhvscf/bootstrap-table-group-by) </br>
 Dependence: [jquery-treetable](https://github.com/ludo/jquery-treetable/) v3.2.0 </br>

@@ -1,4 +1,10 @@
-# Table Treegrid
+---
+layout: docs
+title: Table Treegrid
+description: Table Treegrid extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-treegrid](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/treegrid)
 

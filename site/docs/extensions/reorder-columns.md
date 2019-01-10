@@ -1,4 +1,10 @@
-# Table Reorder Columns
+---
+layout: docs
+title: Table Reorder Columns
+description: Table Reorder Columns extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-reorder-columns](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/reorder-columns) </br>
 Dependence: [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must include the css file), </br>

@@ -1,4 +1,10 @@
-# Export
+---
+layout: docs
+title: Table Export
+description: Table Export extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
 

@@ -1,4 +1,10 @@
-# Table Key Events
+---
+layout: docs
+title: Table Key Events
+description: Table Key Events extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-key-events](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/key-events)
 

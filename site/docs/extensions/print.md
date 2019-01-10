@@ -1,4 +1,10 @@
-# Print
+---
+layout: docs
+title: Table Print
+description: Table Print extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Adds a button to the toolbar for printing the table in a predefined configurable format.
 
@@ -25,13 +31,13 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 ### printSortColumn
 
 * type: String
-* description: set column field name to sort by for the printed table 
+* description: set column field name to sort by for the printed table
 * default: `undefined`
 
 ### printSortOrder
 
 * type: String
-* description: Valid values: 'asc', 'desc'. Relevant only if printSortColumn is set 
+* description: Valid values: 'asc', 'desc'. Relevant only if printSortColumn is set
 * default: `'asc'`
 
 ### printPageBuilder
@@ -45,13 +51,13 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 ### printFilter
 
 * type: String
-* description: set value to filter the printed data by this column. 
+* description: set value to filter the printed data by this column.
 * default: `undefined`
 
 ### printIgnore
 
 * type: Boolean
-* description: set true to hide this column in the printed page. 
+* description: set true to hide this column in the printed page.
 * default: `false`
 
 ### printFormatter

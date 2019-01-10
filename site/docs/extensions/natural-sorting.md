@@ -1,4 +1,10 @@
-# Table Natural Sorting
+---
+layout: docs
+title: Table Natural Sorting
+description: Table Natural Sorting extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-natural-sorting](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/natural-sorting)
 

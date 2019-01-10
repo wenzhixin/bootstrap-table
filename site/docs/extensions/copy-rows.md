@@ -1,4 +1,10 @@
-# Copy Rows
+---
+layout: docs
+title: Table Copy Rows
+description: Table Copy Rows extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [copy-rows](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions/copy-rows)
 

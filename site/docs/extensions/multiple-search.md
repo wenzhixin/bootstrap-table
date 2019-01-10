@@ -1,4 +1,10 @@
-# Table Multiple Search
+---
+layout: docs
+title: Table Multiple Search
+description: Table Multiple Search extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-multiple-search](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/multiple-search)
 

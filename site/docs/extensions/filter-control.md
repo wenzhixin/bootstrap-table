@@ -1,4 +1,10 @@
-# Filter Control
+---
+layout: docs
+title: Table Filter Control
+description: Table Filter Control extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-filter-control](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/filter-control) </br>
 Dependence if you use the datepicker option: [bootstrap-datepicker](https://github.com/eternicode/bootstrap-datepicker) v1.4.0

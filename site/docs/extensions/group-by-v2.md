@@ -1,4 +1,10 @@
-# Group By v2
+---
+layout: docs
+title: Table Group By v2
+description: Table Group By v2 extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-group-by-v2](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/group-by-v2) </br>
 You must include the bootstrap-table-group-by.css file in order to get the appropriate style

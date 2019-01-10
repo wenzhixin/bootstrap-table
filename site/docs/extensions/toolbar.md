@@ -1,4 +1,10 @@
-# Table Toolbar
+---
+layout: docs
+title: Table Toolbar
+description: Table Toolbar extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-toolbar](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/toolbar)
 

@@ -1,4 +1,10 @@
-# i18n Enhance
+---
+layout: docs
+title: Table i18n Enhance
+description: Table i18n Enhance extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-i18n-enhance](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/select2-filter)
 

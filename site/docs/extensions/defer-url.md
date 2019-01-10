@@ -1,4 +1,10 @@
-# Defer URL
+---
+layout: docs
+title: Table Defer URL
+description: Table Defer URL extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-defer-url](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/defer-url)
 

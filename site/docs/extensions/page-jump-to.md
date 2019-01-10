@@ -1,4 +1,10 @@
-# Table Jump-to
+---
+layout: docs
+title: Table Page Jump To
+description: Table Page Jump To extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 ## Usage
 

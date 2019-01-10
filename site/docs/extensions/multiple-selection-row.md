@@ -1,4 +1,10 @@
-# Table Multiple Selection Row
+---
+layout: docs
+title: Table Multiple Selection Row
+description: Table Multiple Selection Row extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 Use Plugin: [bootstrap-table-multiple-selection-row](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/multiple-selection-row)
 
