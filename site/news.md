@@ -4,6 +4,25 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## New Website for Bootstrap v4
+
+<span class="post-date">10 Jan 2019</span>
+
+Bootstrap has released the latest version v4.2.1. Since Bootstrap Table has been mainly used for Bootstrap v3, We have rebuilt the official documentation of Bootstrap Table while upgrading the code to Bootstrap v4.
+
+Bootstrap Table Website is a fork of [Bootstrap](http://getbootstrap.com/).
+
+### What’s new
+
+Here are the highlights of what’s new and updated in new website.
+
+- **New:** More detailed documentation.
+- **New:** Added Extensions documentation.
+- **New:** Support for searching documentation.
+- **New:** Added News Menu.
+- **Update:** Used new API display style instead table.
+- **Remove:** Remove Translation Documentations.
+
 ## Bootstrap Table 1.13.1
 
 <span class="post-date">01 Jan 2019</span>

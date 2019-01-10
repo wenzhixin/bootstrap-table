@@ -10,24 +10,32 @@ Use Plugin: [bootstrap-table-multiple-selection-row](https://github.com/wenzhixi
 
 ## Usage
 
-```html
+{% highlight html %}
 <link rel="stylesheet" type="text/css" href="extensions/multiple-selection-row/bootstrap-table-multiple-selection-row.css">
 <script src="extensions/multiple-selection-row/bootstrap-table-multiple-selection-row.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### multipleSelectRow
 
-* type: Boolean
-* description: Set true to enable the multiple selection row.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to enable the multiple selection row.
+
+- **Default:** `false`
 
 ### multipleSelectRowCssClass
 
-* type: String
-* description: The class that will be applied in the rows selected.
-* default: `multiple-select-row-selected`
+- **type:** `String`
+
+- **Detail:**
+
+   The class that will be applied in the rows selected.
+
+- **Default:** `multiple-select-row-selected`
 
 ## Methods
 

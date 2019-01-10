@@ -5,6 +5,9 @@ description: Table Accent Neutralise extension of Bootstrap Table.
 group: extensions
 redirect_from:
   - "/docs/extensions/"
+  - "/extensions/"
+  - "/zh-cn/extensions/"
+  - "/es/extensions/"
 toc: true
 ---
 

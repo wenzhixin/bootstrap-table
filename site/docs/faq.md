@@ -3,6 +3,10 @@ layout: docs
 title: FAQ
 description: Frequently Asked Questions.
 group: faq
+redirect_from:
+  - "/faq/"
+  - "/zh-cn/faq/"
+  - "/es/faq/"
 toc: false
 ---
 

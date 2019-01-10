@@ -12,35 +12,52 @@ This is an important link to check out as some file types may require extra step
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/export/bootstrap-table-export.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### showExport
 
-* type: Boolean
-* description: set `true` to show export button.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   set `true` to show export button.
+
+- **Default:** `false`
 
 ### exportDataType
 
-* type: String
-* description: export data type, support: 'basic', 'all', 'selected'.
-* default: `basic`
+- **type:** `String`
+
+- **Detail:**
+
+   export data type, support: 'basic', 'all', 'selected'.
+
+- **Default:** `basic`
 
 ### exportTypes
 
-* type: Array
-* description: export types, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'.
-* default: `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
+- **type:** `Array`
+
+- **Detail:**
+
+   export types, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'.
+
+- **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
 
 ### exportOptions
 
-* type: Object
-* description: export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
-* default: `{}`
+- **type:** `Object`
+
+- **Detail:**
+
+   export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
+
+- **Default:** `{}`
 
 ### Icons
-* export: 'glyphicon-export icon-share'
+
+- export: `'glyphicon-export icon-share'`

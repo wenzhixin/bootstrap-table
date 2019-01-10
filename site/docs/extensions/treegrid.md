@@ -10,32 +10,48 @@ Use Plugin: [bootstrap-table-treegrid](https://github.com/wenzhixin/bootstrap-ta
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/treegrid/bootstrap-table-treegrid.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### idField
 
-* type: String
-* description: overwrite the default idField to `'id'`
-* default: `'id'`
+- **type:** `String`
+
+- **Detail:**
+
+   overwrite the default idField to `'id'`
+
+- **Default:** `'id'`
 
 ### treeShowField
 
-* type: String
-* description:
-* default: ``
+- **type:** `String`
+
+- **Detail:**
+
+
+
+- **Default:** `''`
 
 ### parentIdField
 
-* type: String
-* description:
-* default: `'pid'`
+- **type:** `String`
+
+- **Detail:**
+
+
+
+- **Default:** `'pid'`
 
 ### rootParentId
 
-* type: String
-* description:
-* default: `null`
+- **type:** `String`
+
+- **Detail:**
+
+
+
+- **Default:** `null`

@@ -13,32 +13,44 @@ Dependence: [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must incl
 
 ## Usage
 
-```html
+{% highlight html %}
 <link rel="stylesheet" href=".../dragtable.css">
 <script src=".../jquery-ui.js"></script>
 <script src=".../jquery.dragtable.js"></script>
 <script src="extensions/reorder-columns/bootstrap-table-reorder-columns.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### reorderableColumns
 
-* type: Boolean
-* description: Set true to allow the reorder feature.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to allow the reorder feature.
+
+- **Default:** `false`
 
 ### maxMovingRows
 
-* type: Integer
-* description: Moving only the header. Recommended for very large tables (cells > 1000)
-* default: `10`
+- **type:** `Integer`
+
+- **Detail:**
+
+   Moving only the header. Recommended for very large tables (cells > 1000)
+
+- **Default:** `10`
 
 ### dragaccept
 
-* type: String
-* description: Allow to drag only the rows that have the css class as attribute.
-* default: `null`
+- **type:** `String`
+
+- **Detail:**
+
+   Allow to drag only the rows that have the css class as attribute.
+
+- **Default:** `null`
 
 ## Events
 

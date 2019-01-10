@@ -10,29 +10,41 @@ Use Plugin: [bootstrap-table-multiple-sort](https://github.com/dimbslmh/bootstra
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### showMultiSort
 
-* type: Boolean
-* description: Set true to allow the multiple sort.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to allow the multiple sort.
+
+- **Default:** `false`
 
 ### showMultiSortButton
 
-* type: Boolean
-* description: Set false to hide multiple sort UI button.
-* default: `true`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set false to hide multiple sort UI button.
+
+- **Default:** `true`
 
 ### sortPriority
 
-* type: Object
-* description: Set one or multiple sort priority. Example: '[{"sortName": "forks_count","sortOrder":"desc"},{"sortName":"stargazers_count","sortOrder":"desc"}]'
-* default: null
+- **type:** `Object`
+
+- **Detail:**
+
+   Set one or multiple sort priority. Example: '[{"sortName": "forks_count","sortOrder":"desc"},{"sortName":"stargazers_count","sortOrder":"desc"}]'
+
+- **Default:**null
 
 ### Icons
 * sort: `glyphicon-sort`
@@ -43,70 +55,121 @@ Use Plugin: [bootstrap-table-multiple-sort](https://github.com/dimbslmh/bootstra
 
 ### multipleSort
 
-* parameters: none
-* description: Force mutltiple sort table (usable after manual data changes).
+- **parameters:** none
+
+- **Detail:**
+
+   Force mutltiple sort table (usable after manual data changes).
 
 ## Locales
 
 ### formatMultipleSort
 
-* description: Title of the advanced search modal
-* default: `Multiple Sort`
+
+- **Detail:**
+
+   Title of the advanced search modal
+
+- **Default:** `Multiple Sort`
 
 ### formatAddLevel
 
-* description: Text of the add level button
-* default: `Add Level`
+
+- **Detail:**
+
+   Text of the add level button
+
+- **Default:** `Add Level`
 
 ### formatDeleteLevel
 
-* description: Text of the delete level button
-* default: `Delete Level`
+
+- **Detail:**
+
+   Text of the delete level button
+
+- **Default:** `Delete Level`
 
 ### formatColumn
 
-* description: Text of Column header
-* default: `Column`
+
+- **Detail:**
+
+   Text of Column header
+
+- **Default:** `Column`
 
 ### formatOrder
 
-* description: Text of the delete level button
-* default: `Order`
+
+- **Detail:**
+
+   Text of the delete level button
+
+- **Default:** `Order`
 
 ### formatSortBy
 
-* description: Text of the delete level button
-* default: `Sort by`
+
+- **Detail:**
+
+   Text of the delete level button
+
+- **Default:** `Sort by`
 
 ### formatThenBy
 
-* description: Text of the delete level button
-* default: `Then by`
+
+- **Detail:**
+
+   Text of the delete level button
+
+- **Default:** `Then by`
 
 ### formatSort
 
-* description: Text of the delete level button
-* default: `Sort`
+
+- **Detail:**
+
+   Text of the delete level button
+
+- **Default:** `Sort`
 
 ### formatCancel
 
-* description: Text of the delete level button
-* default: `Cancel`
+
+- **Detail:**
+
+   Text of the delete level button
+
+- **Default:** `Cancel`
 
 ### formatDuplicateAlertTitle
 
-* description: Title of the duplicate alert
-* default: `Duplicate(s) detected!`
+
+- **Detail:**
+
+   Title of the duplicate alert
+
+- **Default:** `Duplicate(s) detected!`
 
 ### formatDuplicateAlertDescription
 
-* description: Text of the duplicate alert
-* default: `Please remove or change any duplicate column.`
+
+- **Detail:**
+
+   Text of the duplicate alert
+
+- **Default:** `Please remove or change any duplicate column.`
 
 ### formatSortOrders
 
-* description: Text of the sort orders
-* default: asc : `Ascending` and desc : `Descending`
+
+- **Detail:**
+
+   Text of the sort orders
+
+- **Default:**asc : `Ascending` and desc : `Descending`
 
 ## Events
 

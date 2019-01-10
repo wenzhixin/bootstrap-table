@@ -11,20 +11,28 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/group-by-v2/bootstrap-table-group-by.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### groupBy
 
-* type: Boolean
-* description: Set true to group the data by the field passed.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to group the data by the field passed.
+
+- **Default:** `false`
 
 ### groupByField
 
-* type: String
-* description: Set the fields name that you want to group the data.
-* default: ``
+- **type:** `String`
+
+- **Detail:**
+
+   Set the fields name that you want to group the data.
+
+- **Default:** `''`

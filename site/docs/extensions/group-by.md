@@ -12,35 +12,51 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/group-by/bootstrap-table-group-by.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### groupBy
 
-* type: Boolean
-* description: Set true to group the data by the field passed.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to group the data by the field passed.
+
+- **Default:** `false`
 
 ### groupByField
 
-* type: Array
-* description: Set the array fields that you want to group the data.
-* default: `[]`
+- **type:** `Array`
+
+- **Detail:**
+
+   Set the array fields that you want to group the data.
+
+- **Default:** `[]`
 
 ### groupBySumGroup
 
-* type: Boolean
-* description: Set to True to include a sum per column.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set to True to include a sum per column.
+
+- **Default:** `false`
 
 ### groupByInitExpanded
 
-* type: Boolean
-* description: You can use the node number (parent row index) or you can use the `all` option in order to expand all nodes of the table.
-* default: `undefined`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   You can use the node number (parent row index) or you can use the `all` option in order to expand all nodes of the table.
+
+- **Default:** `undefined`
 
 ## Methods
 
@@ -56,9 +72,13 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 
 ### groupBySumGroup
 
-* type: Boolean
-* description: Set to True to sum the column values.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set to True to sum the column values.
+
+- **Default:** `false`
 
 
 ## Known issues

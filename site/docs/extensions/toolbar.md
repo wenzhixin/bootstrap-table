@@ -10,47 +10,71 @@ Use Plugin: [bootstrap-table-toolbar](https://github.com/wenzhixin/bootstrap-tab
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/toolbar/bootstrap-table-toolbar.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### advancedSearch
 
-* type: Boolean
-* description: Set true to allow the advanced search.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to allow the advanced search.
+
+- **Default:** `false`
 
 ### idForm
 
-* type: String
-* description: Must be set to know the idform.
-* default: `advancedSearch`
+- **type:** `String`
+
+- **Detail:**
+
+   Must be set to know the idform.
+
+- **Default:** `advancedSearch`
 
 ### actionForm
 
-* type: String
-* description: Set the action of the form (pop-up).
-* default: ``
+- **type:** `String`
+
+- **Detail:**
+
+   Set the action of the form (pop-up).
+
+- **Default:** `''`
 
 ### idTable
 
-* type: String
-* description: Set the id of the table to create the pop-up form. Required.
-* default: ``
+- **type:** `String`
+
+- **Detail:**
+
+   Set the id of the table to create the pop-up form. Required.
+
+- **Default:** `''`
 
 ## Locales
 
 ### formatAdvancedSearch
 
-* description: Title of the advanced search modal
-* default: `Advanced search`
+
+- **Detail:**
+
+   Title of the advanced search modal
+
+- **Default:** `Advanced search`
 
 ### formatAdvancedCloseButton
 
-* description: Text of the close button
-* default: `Close`
+
+- **Detail:**
+
+   Text of the close button
+
+- **Default:** `Close`
 
 ## Events
 

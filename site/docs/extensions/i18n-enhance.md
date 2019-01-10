@@ -10,9 +10,9 @@ Use Plugin: [bootstrap-table-i18n-enhance](https://github.com/wenzhixin/bootstra
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/select2-filter/bootstrap-table-i18n-enhance.js"></script>
-```
+{% endhighlight %}
 
 ## Methods
 

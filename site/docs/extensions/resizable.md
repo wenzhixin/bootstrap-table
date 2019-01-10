@@ -11,17 +11,21 @@ Dependence: [jquery-resizable-columns](https://github.com/dobtco/jquery-resizabl
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/resizable/bootstrap-table-resizable.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### resizable
 
-* type: Boolean
-* description: Set true to allow the resize in each column.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to allow the resize in each column.
+
+- **Default:** `false`
 
 ## Known issues
 

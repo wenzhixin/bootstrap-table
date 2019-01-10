@@ -12,23 +12,31 @@ Adds a button to the toolbar that hides and shows all columns that are 'switchab
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/multi-column-toggle/bootstrap-table-multi-toggle.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### showToggleBtn
 
-* type: Boolean
-* description: Set true to show the toggle button. This button toggles hiding and showing of multiple columns at once.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to show the toggle button. This button toggles hiding and showing of multiple columns at once.
+
+- **Default:** `false`
 
 ### multiToggleDefaults
 
-* type: Array of Strings
-* description: Defines 'default' columns that will never be hidden with this extension. These are different from
-* default: `[]`
+- **type:** `Array`
+
+- **Detail:**
+
+   Defines 'default' columns that will never be hidden with this extension. These are different from
+
+- **Default:** `[]`
 * example html: `data-multi-toggle-defaults='["column1", "column2"]'`
 
 ## Methods

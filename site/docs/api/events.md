@@ -330,9 +330,11 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **jQuery Event:** `reset-view.bs.table`
 
-**Parameter:** `undefined`
+- **Parameter:** `undefined`
 
-Fires when reset view of the table.
+- **Detail:**
+
+  Fires when reset view of the table.
 
 ## onRefresh
 
@@ -350,6 +352,8 @@ Fires when reset view of the table.
 
 - **jQuery Event:** `scroll-body.bs.table`
 
-**Parameter:**: `undefined`
+- **Parameter:**: `undefined`
 
-Fires when table body scroll.
+- **Detail:**
+
+  Fires when table body scroll.

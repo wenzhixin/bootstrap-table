@@ -6,6 +6,8 @@ group: api
 redirect_from:
   - "/docs/api/"
   - "/documentation/"
+  - "/zh-cn/documentation/"
+  - "/es/documentation/"
 toc: true
 ---
 

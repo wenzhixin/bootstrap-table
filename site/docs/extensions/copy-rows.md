@@ -6,35 +6,45 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [copy-rows](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions/copy-rows)
-
 This extension adds functionality for copying selected rows to the clipboard. Currently works on all desktop browsers except safari.
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/copy-rows/bootstrap-table-copy-rows.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### copyBtn
 
-* type: Boolean
-* description: Set true to show the copy button. This button copys the contents of the selected rows to the clipboard.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to show the copy button. This button copys the contents of the selected rows to the clipboard.
+
+- **Default:** `false`
 
 ### copyWHiddenBtn
 
-* type: Boolean
-* description: Set true to show the copy with hidden button. This button copys the contents of the selected rows to the clipboard, *including hidden rows*.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to show the copy with hidden button. This button copys the contents of the selected rows to the clipboard, *including hidden rows*.
+
+- **Default:** `false`
 
 ### copyDelemeter
 
-* type: String
-* description: This string will be inserted in-between the column values when copying
-* default: ` `
+- **type:** `String`
+
+- **Detail:**
+
+   This string will be inserted in-between the column values when copying
+
+- **Default:** `''`
 
 ## Methods
 
@@ -44,4 +54,4 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 ### copyColumnsToClipboardWithHidden
 
-* copys the contents of the selected rows to the clipboard, *including hidden rows*.
+* copys the contents of the selected rows to the clipboard, **including hidden rows**.

@@ -11,20 +11,28 @@ You must include the bootstrap-table-sticky-header.css file in order to get the 
 
 ## Usage
 
-```html
+{% highlight html %}
 <script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
 ### stickyHeader
 
-* type: Boolean
-* description: Set true to use sticky header.
-* default: `false`
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to use sticky header.
+
+- **Default:** `false`
 
 ### stickyHeaderOffsetY
 
-* type: String
-* description: Set the Y offset from the top of the window to pin the sticky header. If there is a fixed navigation bar with a height of 60px, this value would be `60px`.
-* default: `undefined`
+- **type:** `String`
+
+- **Detail:**
+
+   Set the Y offset from the top of the window to pin the sticky header. If there is a fixed navigation bar with a height of 60px, this value would be `60px`.
+
+- **Default:** `undefined`
