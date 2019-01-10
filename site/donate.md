@@ -2,6 +2,9 @@
 layout: simple
 title: Donate
 description: If you like Bootstrap Table, if your project uses Bootstrap Table, if you want Bootstrap Table do better...
+redirect_from:
+  - "/zh-cn/donate/"
+  - "/es/donate/"
 ---
 
 Bootstrap Table is a free plug-in which is made in my spare time.
