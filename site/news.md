@@ -18,10 +18,10 @@ Here are the highlights of what’s new and updated in new website.
 
 - **New:** More detailed documentation.
 - **New:** Added Extensions documentation.
-- **New:** Support for searching documentation.
+- **New:** Supported for searching documentation.
 - **New:** Added News Menu.
 - **Update:** Used new API display style instead table.
-- **Remove:** Remove Translation Documentations.
+- **Remove:** Removed Translation Documentations.
 
 ## Bootstrap Table 1.13.1
 

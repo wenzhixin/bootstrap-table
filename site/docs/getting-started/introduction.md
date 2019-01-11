@@ -35,6 +35,12 @@ Be sure to have your pages set up with the latest design and development standar
 
 For Bootstrap v4, we use [Font Awesome](https://fontawesome.com/icons) as the default icons, so need to import Font Awesome link.
 
+**PS:** Because we use [babel-cli](https://github.com/babel/babel) to compile the ES6 source code, we don't support `import babel-polyfill` to solve [the problem on IE](https://github.com/wenzhixin/bootstrap-table/issues/4098), So we need to use [core.js](https://github.com/zloirock/core-js) to solve this problem now, we will use [webpack](https://github.com/webpack/webpack) to compile in the future.
+
+{% highlight html %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.2/core.min.js"></script>
+{% endhighlight %}
+
 Put it all together and your pages should look like this:
 
 {% highlight html %}
@@ -79,6 +85,7 @@ Put it all together and your pages should look like this:
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.2/core.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/{{ site.current_version }}/bootstrap-table.min.js"></script>
   </body>
 </html>
