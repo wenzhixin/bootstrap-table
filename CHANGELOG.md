@@ -3,12 +3,12 @@ ChangeLog
 
 ### 1.13.2
 
-- feat(js): add `paginationSuccessivelySize`, `paginationPagesBySide` and `paginationUseIntermediate` pagination options
-- feat(cookie extension): rewrite boostrap-table-cookie to ES6
-- feat(cookie extension): save filterBy method
-- feat(filter-control extension): add `placeholder` as a empty option to the select controls
-- feat(filter-control extension): add `clearFilterControl` method in order to clear all filter controls
-- fix(js): fix #1959, sort column shows hidden rows in `server` side pagination
+- **New(js):** Added `paginationSuccessivelySize`, `paginationPagesBySide` and `paginationUseIntermediate` pagination options.
+- **New(cookie extension):** Rewrited cookie extension to ES6.
+- **New(cookie extension):** Saved `filterBy` method.
+- **New(filter-control extension):** Added `placeholder` as a empty option to the select controls.
+- **New(filter-control extension):** Added `clearFilterControl` method in order to clear all filter controls.
+- **Update(js):** Fixed sort column shows hidden rows in `server` side pagination bug.
 
 ### 1.13.1
 
