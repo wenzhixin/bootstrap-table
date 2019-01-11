@@ -13,7 +13,7 @@
       return `${pageNumber} elementi per pagina`
     },
     formatShowingRows (pageFrom, pageTo, totalRows) {
-      return `Elementi mostrati da ${pageFrom} a ${pageTo} (Numero totali di elementi ${totalRows})`
+      return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi`
     },
     formatSearch () {
       return 'Cerca'
