@@ -75,8 +75,7 @@ Put it all together and your pages should look like this:
       </tbody>
     </table>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS, and then Bootstrap Table JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
@@ -101,5 +100,5 @@ Bootstrap Table requires the use of the HTML5 doctype. Without it, you'll see so
 Stay up to date on the development of Bootstrap Table and reach out to the community with these helpful resources.
 
 - Follow [@{{ site.twitter }} on Twitter](https://twitter.com/{{ site.twitter }}).
-- Read [The Official Bootstrap Table News]({{ site.news }}/).
+- Read [The Official Bootstrap Table News]({{ site.base_url }}/news).
 - Implementation help may be found at Stack Overflow (tagged [`bootstrap-table`](https://stackoverflow.com/questions/tagged/bootstrap-table)).

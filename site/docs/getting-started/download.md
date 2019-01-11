@@ -37,7 +37,7 @@ The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) and [b
 Install and manage Bootstrap table's CSS, JavaScript, locales, and extensions using [npm](https://www.npmjs.com/package/bootstrap-table).
 
 {% highlight sh %}
-bower install bootstrap-table
+npm install bootstrap-table
 {% endhighlight %}
 
 ### bower

@@ -23,7 +23,7 @@ bootstrap-table/
     └── bootstrap-table.min.js
 {% endhighlight %}
 
-The `dist/` folder includes everything compiled and minified with `src/`. For ease of use, we also compile all locale files into one file `bootstrap-table-locale-all`.
+The `dist/` folder includes everything compiled and minified with `src/`. For ease of use, we also compile all locale files into one file `bootstrap-table-locale-all.js`.
 
 ## Source Code
 

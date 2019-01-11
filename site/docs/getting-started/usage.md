@@ -68,7 +68,7 @@ You can also add `pagination`, `search`, and `sorting` to a table like the follo
 
 ## Via JavaScript
 
-Call a bootstrap table with id table with JavaScript.
+Call a bootstrap table with id table via JavaScript.
 
 {% highlight html %}
 <table id="table"></table>
