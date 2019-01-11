@@ -1480,39 +1480,45 @@
           to = this.totalPages
         }
 
+        const middleSize = Math.round(this.options.paginationPagesBySide / 2)
+        const pageItem = (i, classes = '') => {
+          return `
+            <li class="page-item${classes}${i === this.options.pageNumber ? ' active' : ''}">
+              <a class="page-link" href="#">${i}</a>
+            </li>
+          `
+        }
+
         if (from > 1) {
-          var max = this.options.paginationPagesBySide
+          let max = this.options.paginationPagesBySide
           if (max >= from) max = from - 1
           for (i = 1; i <= max; i++) {
-            html.push('<li data-page-number="' + i + '" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-              '<a href="javascript:void(0)">', i, '</a>',
-              '</li>')
+            html.push(pageItem(i))
           }
           if ((from - 1) === max + 1) {
             i = from - 1
-            html.push('<li data-page-number="' + i + '" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-              '<a href="javascript:void(0)">', i, '</a>',
-              '</li>')
+            html.push(pageItem(i))
           } else {
             if ((from - 1) > max) {
-              if (((from - 10) > 5) && (this.options.paginationUseIntermediate)) {
-                i = Math.round(((from - 3) / 2) + 3)
-                html.push('<li data-page-number="' + i + '" class="page-intermediate page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-                  '<a href="javascript:void(0)">', i, '</a>',
-                  '</li>')
+              if (
+                (from - this.options.paginationPagesBySide * 2) > this.options.paginationPagesBySide &&
+                this.options.paginationUseIntermediate
+              ) {
+                i = Math.round(((from - middleSize) / 2) + middleSize)
+                html.push(pageItem(i, ' page-intermediate'))
               } else {
-                html.push('<li class="page-first-separator disabled">',
-                  '<a href="javascript:void(0)">&#8230;</a>',
-                  '</li>')
+                html.push(`
+                  <li class="page-item page-first-separator disabled">
+                    <a class="page-link" href="#">...</a>
+                  </li>`
+                )
               }
             }
           }
         }
 
         for (i = from; i <= to; i++) {
-          html.push('<li data-page-number="' + i + '" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-            '<a href="javascript:void(0)">', i, '</a>',
-            '</li>')
+          html.push(pageItem(i))
         }
 
         if (this.totalPages > to) {
@@ -1520,36 +1526,37 @@
           if (to >= min) min = to + 1
           if ((to + 1) === min - 1) {
             i = to + 1
-            html.push('<li data-page-number="' + i + '" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-              '<a href="javascript:void(0)">', i, '</a>',
-              '</li>')
+            html.push(pageItem(i))
           } else {
             if (min > (to + 1)) {
-              if (((this.totalPages - to) > 10) && (this.options.paginationUseIntermediate)) {
-                i = Math.round(((this.totalPages - 3 - to) / 2) + to)
-                html.push('<li data-page-number="' + i + '" class="page-intermediate page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-                  '<a href="javascript:void(0)">', i, '</a>',
-                  '</li>')
+              if (
+                (this.totalPages - to) > this.options.paginationPagesBySide * 2 &&
+                this.options.paginationUseIntermediate
+              ) {
+                i = Math.round(((this.totalPages - middleSize - to) / 2) + to)
+                html.push(pageItem(i, ' page-intermediate'))
               } else {
-                html.push('<li class="page-first-separator disabled">',
-                  '<a href="javascript:void(0)">&#8230;</a>',
-                  '</li>')
+                html.push(`
+                  <li class="page-item page-last-separator disabled">
+                    <a class="page-link" href="#">...</a>
+                  </li>`
+                )
               }
             }
           }
 
           for (i = min; i <= this.totalPages; i++) {
-            html.push('<li data-page-number="' + i + '" class="page-number' + (i === this.options.pageNumber ? ' active' : '') + '">',
-              '<a href="javascript:void(0)">', i, '</a>',
-              '</li>')
+            html.push(pageItem(i))
           }
         }
 
-        html.push(
-          Utils.sprintf('<li class="page-item page-next"><a class="page-link" href="#">%s</a></li>',
-            this.options.paginationNextText),
-          '</ul>',
-          '</div>')
+        html.push(`
+          <li class="page-item page-next">
+          <a class="page-link" href="#">${this.options.paginationNextText}</a>
+          </li>
+          </ul>
+          </div>
+        `)
       }
       this.$pagination.html(html.join(''))
 
@@ -1557,7 +1564,7 @@
         $pageList = this.$pagination.find('.page-list a')
         $pre = this.$pagination.find('.page-pre')
         $next = this.$pagination.find('.page-next')
-        $number = this.$pagination.find('.page-number, .page-item').not('.page-next, .page-pre')
+        $number = this.$pagination.find('.page-item').not('.page-next, .page-pre')
 
         if (this.options.smartDisplay) {
           if (this.totalPages <= 1) {
