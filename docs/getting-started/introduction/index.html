@@ -376,9 +376,7 @@
 
 <p><strong>PS:</strong> Because we use <a href="https://github.com/babel/babel">babel-cli</a> to compile the ES6 source code, we don’t support <code class="highlighter-rouge">import babel-polyfill</code> to solve <a href="https://github.com/wenzhixin/bootstrap-table/issues/4098">the problem on IE</a>, So we need to use <a href="https://github.com/zloirock/core-js">core.js</a> to solve this problem now, we will use <a href="https://github.com/webpack/webpack">webpack</a> to compile in the future.</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!--[if IE]&gt;
-&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.2/core.min.js"&gt;&lt;/script&gt;
-&lt;![endif]--&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.2/core.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
 <p>Put it all together and your pages should look like this:</p>
 
@@ -423,9 +421,7 @@
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://code.jquery.com/jquery-3.3.1.slim.min.js"</span> <span class="na">integrity=</span><span class="s">"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"</span> <span class="na">integrity=</span><span class="s">"sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"</span> <span class="na">integrity=</span><span class="s">"sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="c">&lt;!--[if IE]&gt;
-    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.2/core.min.js"&gt;&lt;/script&gt;
-    &lt;![endif]--&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.2/core.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span></code></pre></figure>
