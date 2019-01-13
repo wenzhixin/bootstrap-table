@@ -3,7 +3,7 @@
  * @version: v1.0.0
  */
 
-!function ($) {
+(function ($) {
 
     'use strict';
 
@@ -28,6 +28,7 @@
         return flag ? str : '';
     };
 
+    
     var groupBy = function (array , f) {
         var groups = {};
         array.forEach(function(o) {
@@ -39,17 +40,26 @@
         return groups;
     };
 
+
+
     $.extend($.fn.bootstrapTable.defaults, {
         groupBy: false,
-        groupByField: ''
+        groupByField: '',
+        groupByFormatter: undefined
     });
+
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initSort = BootstrapTable.prototype.initSort,
         _initBody = BootstrapTable.prototype.initBody,
         _updateSelected = BootstrapTable.prototype.updateSelected;
 
+
+
+
     BootstrapTable.prototype.initSort = function () {
+
+
         _initSort.apply(this, Array.prototype.slice.apply(arguments));
 
         var that = this;
@@ -59,7 +69,8 @@
 
             if ((this.options.sortName != this.options.groupByField)) {
                 this.data.sort(function(a, b) {
-                    return a[that.options.groupByField].localeCompare(b[that.options.groupByField]);
+                    if (a[that.options.groupByField] == b[that.options.groupByField]) return String(a[that.options.sortName]).localeCompare(String(b[that.options.sortName])); //sortable by byron 16 april 2018
+                    return String(a[that.options.groupByField]).localeCompare(String(b[that.options.groupByField]));
                 });
             }
 
@@ -72,7 +83,8 @@
             $.each(groups, function(key, value) {
                 tableGroups.push({
                     id: index,
-                    name: key
+                    name: key,
+                    data: value
                 });
 
                 value.forEach(function(item) {
@@ -87,6 +99,9 @@
             });
         }
     }
+
+
+
 
     BootstrapTable.prototype.initBody = function () {
         initBodyCaller = true;
@@ -127,10 +142,13 @@
                         '</td>'
                     );
                 }
-
+                var formattedValue = item.name;
+                if (typeof(that.options.groupByFormatter) == "function") {
+                    formattedValue = that.options.groupByFormatter(item.name, item.id, item.data);
+                }
                 html.push('<td',
                     sprintf(' colspan="%s"', visibleColumns),
-                    '>', item.name, '</td>'
+                    '>', formattedValue, '</td>'
                 );
 
                 html.push('</tr>');
@@ -171,6 +189,7 @@
         this.updateSelected();
     };
 
+
     BootstrapTable.prototype.updateSelected = function () {
         if (!initBodyCaller) {
             _updateSelected.apply(this, Array.prototype.slice.apply(arguments));
@@ -186,6 +205,7 @@
         }
     };
 
+
     BootstrapTable.prototype.getGroupSelections = function (index) {
         var that = this;
 
@@ -194,13 +214,16 @@
         });
     };
 
+
     BootstrapTable.prototype.checkGroup = function (index) {
         this.checkGroup_(index, true);
     };
 
+
     BootstrapTable.prototype.uncheckGroup = function (index) {
         this.checkGroup_(index, false);
     };
+
 
     BootstrapTable.prototype.checkGroup_ = function (index, checked) {
         var rows;
@@ -223,4 +246,4 @@
         this.trigger(checked ? 'check-all' : 'uncheck-all', rows);
     };
 
-}(jQuery);
+})(jQuery);
