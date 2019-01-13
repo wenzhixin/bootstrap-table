@@ -1,6 +1,6 @@
 /**
  * @author: Yura Knoxville
- * @version: v1.0.0
+ * @version: v1.1.0
  */
 
 (function ($) {
@@ -27,7 +27,6 @@
         });
         return flag ? str : '';
     };
-
     
     var groupBy = function (array , f) {
         var groups = {};
@@ -40,26 +39,18 @@
         return groups;
     };
 
-
-
     $.extend($.fn.bootstrapTable.defaults, {
         groupBy: false,
         groupByField: '',
         groupByFormatter: undefined
     });
 
-
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initSort = BootstrapTable.prototype.initSort,
         _initBody = BootstrapTable.prototype.initBody,
         _updateSelected = BootstrapTable.prototype.updateSelected;
 
-
-
-
     BootstrapTable.prototype.initSort = function () {
-
-
         _initSort.apply(this, Array.prototype.slice.apply(arguments));
 
         var that = this;
@@ -69,8 +60,7 @@
 
             if ((this.options.sortName != this.options.groupByField)) {
                 this.data.sort(function(a, b) {
-                    if (a[that.options.groupByField] == b[that.options.groupByField]) return String(a[that.options.sortName]).localeCompare(String(b[that.options.sortName])); //sortable by byron 16 april 2018
-                    return String(a[that.options.groupByField]).localeCompare(String(b[that.options.groupByField]));
+                    return a[that.options.groupByField].localeCompare(b[that.options.groupByField]);
                 });
             }
 
@@ -99,9 +89,6 @@
             });
         }
     }
-
-
-
 
     BootstrapTable.prototype.initBody = function () {
         initBodyCaller = true;
@@ -189,7 +176,6 @@
         this.updateSelected();
     };
 
-
     BootstrapTable.prototype.updateSelected = function () {
         if (!initBodyCaller) {
             _updateSelected.apply(this, Array.prototype.slice.apply(arguments));
@@ -205,7 +191,6 @@
         }
     };
 
-
     BootstrapTable.prototype.getGroupSelections = function (index) {
         var that = this;
 
@@ -214,16 +199,13 @@
         });
     };
 
-
     BootstrapTable.prototype.checkGroup = function (index) {
         this.checkGroup_(index, true);
     };
 
-
     BootstrapTable.prototype.uncheckGroup = function (index) {
         this.checkGroup_(index, false);
     };
-
 
     BootstrapTable.prototype.checkGroup_ = function (index, checked) {
         var rows;
@@ -236,7 +218,6 @@
         }
 
         this.$selectItem.filter(filter).prop('checked', checked);
-
 
         this.updateRows();
         this.updateSelected();
