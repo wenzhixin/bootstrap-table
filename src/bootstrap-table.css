@@ -20,6 +20,10 @@
     padding: 8px;
 }
 
+.bootstrap-table .table.table-no-bordered > thead > tr > th {
+    border-top: none;
+}
+
 .bootstrap-table .table.table-no-bordered > thead > tr > th,
 .bootstrap-table .table.table-no-bordered > tbody > tr > td {
     border-right: 2px solid transparent;
