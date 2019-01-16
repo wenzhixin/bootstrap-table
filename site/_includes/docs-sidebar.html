@@ -23,26 +23,26 @@
   {%- endif -%}
 
   <div class="bd-toc-item{% unless active == nil %} {{ active }}{% endunless %}">
-      <a class="bd-toc-link" href="{{ site.baseurl }}/docs/{{ group_slug }}/{{ link_slug }}{% if link_slug %}/{% endif %}">
-        {{ group.title }}
-      </a>
+    <a class="bd-toc-link" href="{{ site.baseurl }}/docs/{{ group_slug }}/{{ link_slug }}{% if link_slug %}/{% endif %}">
+      {{ group.title }}
+    </a>
 
-      <ul class="nav bd-sidenav">
-        {%- for doc in group.pages -%}
-          {%- assign doc_slug = doc.title | slugify -%}
-          {%- assign active = nil -%}
+    <ul class="nav bd-sidenav">
+      {%- for doc in group.pages -%}
+        {%- assign doc_slug = doc.title | slugify -%}
+        {%- assign active = nil -%}
 
-          {%- if page.group == group_slug and page_slug == doc_slug -%}
-            {%- assign active = 'active bd-sidenav-active' -%}
-          {%- endif -%}
+        {%- if page.group == group_slug and page_slug == doc_slug -%}
+          {%- assign active = 'active bd-sidenav-active' -%}
+        {%- endif -%}
 
-          <li{% unless active == nil %} class="{{ active }}"{% endunless %}>
-            <a href="{{ site.baseurl }}/docs/{{ group_slug }}/{{ doc_slug }}/">
-              {{ doc.title }}
-            </a>
-          </li>
-        {%- endfor -%}
-      </ul>
-    </div>
+        <li{% unless active == nil %} class="{{ active }}"{% endunless %}>
+          <a href="{{ site.baseurl }}/docs/{{ group_slug }}/{{ doc_slug }}/">
+            {{ doc.title }}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
   {%- endfor -%}
 </nav>
