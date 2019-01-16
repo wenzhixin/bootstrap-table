@@ -507,6 +507,19 @@
     }
   }
 
+  const bootstrap = {
+    3: {
+      icons: {
+        clear: 'glyphicon-trash icon-clear'
+      }
+    },
+    4: {
+      icons: {
+        clear: 'fa-trash icon-clear'
+      }
+    }
+  }[Utils.bootstrapVersion]
+
   $.extend($.fn.bootstrapTable.defaults, {
     filterControl: false,
     onColumnSearch (field, text) {
@@ -565,7 +578,7 @@
   })
 
   $.extend($.fn.bootstrapTable.defaults.icons, {
-    clear: 'glyphicon-trash icon-clear'
+    clear: bootstrap.icons.clear
   })
 
   $.extend($.fn.bootstrapTable.locales, {
