@@ -21,7 +21,7 @@
     "bootstrap.table"
   ],
   "homepage": "https://github.com/wenzhixin/bootstrap-table",
-  "demo": "http://bootstrap-table.wenzhixin.net.cn",
+  "demo": "http://examples.bootstrap-table.com",
   "bugs": {
     "url": "https://github.com/wenzhixin/bootstrap-table/issues"
   },

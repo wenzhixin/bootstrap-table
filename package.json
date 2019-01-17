@@ -50,7 +50,7 @@
   "bugs": {
     "url": "https://github.com/wenzhixin/bootstrap-table/issues"
   },
-  "homepage": "http://bootstrap-table.wenzhixin.net.cn",
+  "homepage": "https://bootstrap-table.com",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

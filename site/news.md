@@ -20,6 +20,7 @@ Here are the highlights of what’s new and updated in new website.
 - **New:** Added Extensions documentation.
 - **New:** Supported for searching documentation.
 - **New:** Added News Menu.
+- **New:** Added New Examples for Bootstrap v4 instead v3.
 - **Update:** Used new API display style instead table.
 - **Remove:** Removed Translation Documentations.
 

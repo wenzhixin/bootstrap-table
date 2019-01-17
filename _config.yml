@@ -14,7 +14,7 @@ destination:    ./_gh_pages
 host:           "localhost"
 port:           9001
 baseurl:        ""
-url:            "https://bootstrap-table.wenzhixin.net.cn"
+url:            "https://bootstrap-table.com"
 encoding:       UTF-8
 
 plugins:

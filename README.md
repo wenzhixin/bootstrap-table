@@ -1,4 +1,4 @@
-# [Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn)
+# [Bootstrap Table](https://bootstrap-table.com)
 
 [![Build Status](https://travis-ci.org/wenzhixin/bootstrap-table.svg)](https://travis-ci.org/wenzhixin/bootstrap-table)
 [![GitHub version](https://badge.fury.io/gh/wenzhixin%2Fbootstrap-table.svg)](http://badge.fury.io/gh/wenzhixin%2Fbootstrap-table)
@@ -14,7 +14,7 @@ An extended Bootstrap table with radio, checkbox, sort, pagination, extensions a
 
 To get started, check out:
 
-* [Docs](https://bootstrap-table.wenzhixin.net.cn)
+* [Docs](https://bootstrap-table.com)
 * [Examples](https://github.com/wenzhixin/bootstrap-table-examples)
 * [Questions/Helps](http://stackoverflow.com/questions/tagged/bootstrap-table)
 * [问题/帮助](http://segmentfault.com/t/bootstrap-table)
@@ -83,7 +83,7 @@ It's really saves much time.
 
 You can also use these for templates:
 
-[jsFiddle Bootstrap Table](http://bootstrap-table.wenzhixin.net.cn/examples/#basic)
+[jsFiddle Bootstrap Table](https://bootstrap-table.com/examples/#basic)
 
 Your feedback is very appreciated!
 
