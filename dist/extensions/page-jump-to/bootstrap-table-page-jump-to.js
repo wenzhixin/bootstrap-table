@@ -8,7 +8,7 @@
             exports: {}
         };
         factory();
-        global.bootstrapTableJumpto = mod.exports;
+        global.bootstrapTablePageJumpTo = mod.exports;
     }
 })(this, function () {
     'use strict';

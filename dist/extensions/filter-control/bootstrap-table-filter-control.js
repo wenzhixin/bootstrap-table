@@ -296,7 +296,7 @@
           if (UtilsFilterControl.isColumnSearchableViaSelect(column) && UtilsFilterControl.isFilterDataNotGiven(column) && UtilsFilterControl.hasSelectControlElement(selectControl)) {
             if (selectControl.get(selectControl.length - 1).options.length === 0) {
               // Added the default option
-              UtilsFilterControl.addOptionToSelectControl(selectControl, '', '');
+              UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder);
             }
 
             var uniqueValues = {};
@@ -377,7 +377,7 @@
               filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length);
               selectControl = $('.bootstrap-table-filter-control-' + UtilsFilterControl.escapeID(column.field));
 
-              UtilsFilterControl.addOptionToSelectControl(selectControl, '', '');
+              UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder);
               filterDataType(filterDataSource, selectControl);
             } else {
               throw new SyntaxError('Error. You should use any of these allowed filter data methods: var, json, url.' + ' Use like this: var: {key: "value"}');
@@ -490,7 +490,7 @@
                 header.find('.date-filter-control.bootstrap-table-filter-control-' + field).datepicker(filterDatepickerOptions).on('changeDate', function (_ref7) {
                   var currentTarget = _ref7.currentTarget;
 
-                  $(Utils.sprintf('#%s', currentTarget.id)).val(currentTarget.value);
+                  $(currentTarget).val(currentTarget.value);
                   // Fired the keyup event
                   $(currentTarget).keyup();
                 });
@@ -548,6 +548,19 @@
       }
     };
 
+    var bootstrap = {
+      3: {
+        icons: {
+          clear: 'glyphicon-trash icon-clear'
+        }
+      },
+      4: {
+        icons: {
+          clear: 'fa-trash icon-clear'
+        }
+      }
+    }[Utils.bootstrapVersion];
+
     $.extend($.fn.bootstrapTable.defaults, {
       filterControl: false,
       onColumnSearch: function onColumnSearch(field, text) {
@@ -593,7 +606,7 @@
     });
 
     $.extend($.fn.bootstrapTable.defaults.icons, {
-      clear: 'glyphicon-trash icon-clear'
+      clear: bootstrap.icons.clear
     });
 
     $.extend($.fn.bootstrapTable.locales, {
@@ -605,6 +618,7 @@
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     $.fn.bootstrapTable.methods.push('triggerSearch');
+    $.fn.bootstrapTable.methods.push('clearFilterControl');
 
     $.BootstrapTable = function (_$$BootstrapTable) {
       _inherits(_class, _$$BootstrapTable);
