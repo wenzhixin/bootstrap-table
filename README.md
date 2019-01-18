@@ -42,6 +42,7 @@ To get started, check out:
 * Single or multiple row selection
 * Powerful pagination
 * Card view
+* Detail view
 * Localization
 * Extensions
 
