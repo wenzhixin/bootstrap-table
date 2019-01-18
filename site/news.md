@@ -4,6 +4,22 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.13.2
+
+<span class="post-date">18 Jan 2019</span>
+
+- **New(js):** Added `paginationSuccessivelySize`, `paginationPagesBySide` and `paginationUseIntermediate` pagination options.
+- **New(cookie extension):** Rewrited cookie extension to ES6.
+- **New(cookie extension):** Saved `filterBy` method.
+- **New(filter-control extension):** Added `placeholder` as a empty option to the select controls.
+- **New(filter-control extension):** Added `clearFilterControl` method in order to clear all filter controls.
+- **New(docs)** Added algolia search.
+- **Update(js):** Fixed sort column shows hidden rows in `server` side pagination bug.
+- **Update(js):** Fixed `scrollTo` bug.
+- **Update(css):** Fixed no-bordered problem of bootstrap v4.
+- **Update(filter-control extension):** Added bootstrap v4 icon support.
+
+
 ## New Website for Bootstrap v4
 
 <span class="post-date">10 Jan 2019</span>

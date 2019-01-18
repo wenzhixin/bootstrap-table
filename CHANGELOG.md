@@ -10,6 +10,7 @@ ChangeLog
 - **New(filter-control extension):** Added `clearFilterControl` method in order to clear all filter controls.
 - **New(docs)** Added algolia search.
 - **Update(js):** Fixed sort column shows hidden rows in `server` side pagination bug.
+- **Update(js):** Fixed `scrollTo` bug.
 - **Update(css):** Fixed no-bordered problem of bootstrap v4.
 - **Update(filter-control extension):** Added bootstrap v4 icon support.
 

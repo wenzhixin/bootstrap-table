@@ -7,7 +7,6 @@ script: bash ./deploy.sh
 branches:
   only:
   - master
-  - develop
 
 env:
   global:
