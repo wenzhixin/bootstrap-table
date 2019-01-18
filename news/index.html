@@ -21,12 +21,14 @@
 <!-- Favicons -->
 <link rel="icon" href="/favicon.png">
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script>
 <script>
-  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-  ga('create', 'UA-36708951-1', 'wenzhixin.net.cn');
-  ga('send', 'pageview');
+  window.dataLayer = window.dataLayer || []
+  function gtag() {window.dataLayer.push(arguments)}
+  gtag('js', new Date())
+  gtag('config', 'UA-132747866-1')
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 <script type="text/javascript">
@@ -117,7 +119,24 @@
 </header>
 
 <main class="bd-content p-5" id="content" role="main">
-  <h2 id="new-website-for-bootstrap-v4">New Website for Bootstrap v4</h2>
+  <h2 id="bootstrap-table-1132">Bootstrap Table 1.13.2</h2>
+
+<p><span class="post-date">18 Jan 2019</span></p>
+
+<ul>
+  <li><strong>New(js):</strong> Added <code class="highlighter-rouge">paginationSuccessivelySize</code>, <code class="highlighter-rouge">paginationPagesBySide</code> and <code class="highlighter-rouge">paginationUseIntermediate</code> pagination options.</li>
+  <li><strong>New(cookie extension):</strong> Rewrited cookie extension to ES6.</li>
+  <li><strong>New(cookie extension):</strong> Saved <code class="highlighter-rouge">filterBy</code> method.</li>
+  <li><strong>New(filter-control extension):</strong> Added <code class="highlighter-rouge">placeholder</code> as a empty option to the select controls.</li>
+  <li><strong>New(filter-control extension):</strong> Added <code class="highlighter-rouge">clearFilterControl</code> method in order to clear all filter controls.</li>
+  <li><strong>New(docs)</strong> Added algolia search.</li>
+  <li><strong>Update(js):</strong> Fixed sort column shows hidden rows in <code class="highlighter-rouge">server</code> side pagination bug.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">scrollTo</code> bug.</li>
+  <li><strong>Update(css):</strong> Fixed no-bordered problem of bootstrap v4.</li>
+  <li><strong>Update(filter-control extension):</strong> Added bootstrap v4 icon support.</li>
+</ul>
+
+<h2 id="new-website-for-bootstrap-v4">New Website for Bootstrap v4</h2>
 
 <p><span class="post-date">10 Jan 2019</span></p>
 
@@ -211,7 +230,7 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.13.1, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.13.2, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>
