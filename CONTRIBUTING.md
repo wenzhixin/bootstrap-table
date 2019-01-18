@@ -1,6 +1,6 @@
 # Contributing to Bootstrap Table
 
-Looking to contribute something to Bootstrap Table? 
+Looking to contribute something to Bootstrap Table?
 
 **Here's how you can help.**
 
@@ -77,12 +77,11 @@ Guidelines for bug reports:
 2. **Check if the issue has been fixed** &mdash; try to reproduce it using the
    latest `master` or development branch in the repository.
 
-3. **Isolate the problem** &mdash; ideally create a live example. 
+3. **Isolate the problem** &mdash; ideally create a live example.
     The web tool [jsfiddle](http://jsfiddle.net/) is a very helpful for this. Consider to use these templates:
     * [Table from html](http://jsfiddle.net/wenyi/e3nk137y/11/light/)
     * [Table from data](http://jsfiddle.net/wenyi/e3nk137y/13/light/)
     * [Table from url](http://jsfiddle.net/wenyi/e3nk137y/14/light/)
-    * Other templates can also be found at [jsFiddle Bootstrap](http://bootstrap-table.wenzhixin.net.cn/examples/#basic)
 
 
 A good bug report shouldn't leave others needing to chase you up for more

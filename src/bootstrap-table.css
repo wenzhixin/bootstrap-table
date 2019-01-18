@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.13.1
+ * version: 1.13.2
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -18,6 +18,10 @@
 .bootstrap-table .table:not(.table-condensed) > tbody > tr > td,
 .bootstrap-table .table:not(.table-condensed) > tfoot > tr > td {
     padding: 8px;
+}
+
+.bootstrap-table .table.table-no-bordered > thead > tr > th {
+    border-top: none;
 }
 
 .bootstrap-table .table.table-no-bordered > thead > tr > th,
@@ -155,6 +159,18 @@
 .fixed-table-pagination .pagination a {
     padding: 6px 12px;
     line-height: 1.428571429;
+}
+
+.fixed-table-pagination ul.pagination li.page-intermediate a {
+    color:#c8c8c8;
+}
+
+.fixed-table-pagination ul.pagination li.page-intermediate a:before {
+    content: '\2B05';
+}
+
+.fixed-table-pagination ul.pagination li.page-intermediate a:after {
+    content: '\27A1';
 }
 
 .fixed-table-pagination .pagination-info {

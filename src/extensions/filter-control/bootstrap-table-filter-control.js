@@ -79,10 +79,10 @@
       // If we get here, the value is valid to add
       return false
     },
-    fixHeaderCSS ({$tableHeader}) {
+    fixHeaderCSS ({ $tableHeader }) {
       $tableHeader.css('height', '77px')
     },
-    getCurrentHeader ({$header, options, $tableHeader}) {
+    getCurrentHeader ({ $header, options, $tableHeader }) {
       let header = $header
       if (options.height) {
         header = $tableHeader
@@ -90,7 +90,7 @@
 
       return header
     },
-    getCurrentSearchControls ({options}) {
+    getCurrentSearchControls ({ options }) {
       let searchControls = 'select, input'
       if (options.height) {
         searchControls = 'table select, table input'
@@ -196,14 +196,14 @@
     escapeID (id) {
       return String(id).replace(/(:|\.|\[|\]|,)/g, '\\$1')
     },
-    isColumnSearchableViaSelect ({filterControl, searchable}) {
+    isColumnSearchableViaSelect ({ filterControl, searchable }) {
       return filterControl &&
-      filterControl.toLowerCase() === 'select' &&
-      searchable
+        filterControl.toLowerCase() === 'select' &&
+        searchable
     },
-    isFilterDataNotGiven ({filterData}) {
+    isFilterDataNotGiven ({ filterData }) {
       return filterData === undefined ||
-      filterData.toLowerCase() === 'column'
+        filterData.toLowerCase() === 'column'
     },
     hasSelectControlElement (selectControl) {
       return selectControl && selectControl.length > 0
@@ -228,7 +228,7 @@
         ) {
           if (selectControl.get(selectControl.length - 1).options.length === 0) {
             // Added the default option
-            UtilsFilterControl.addOptionToSelectControl(selectControl, '', '')
+            UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder)
           }
 
           const uniqueValues = {}
@@ -329,7 +329,7 @@
               `.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`
             )
 
-            UtilsFilterControl.addOptionToSelectControl(selectControl, '', '')
+            UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder)
             filterDataType(filterDataSource, selectControl)
           } else {
             throw new SyntaxError(
@@ -436,7 +436,7 @@
         })
 
         if (header.find('.date-filter-control').length > 0) {
-          $.each(that.columns, (i, {filterControl, field, filterDatepickerOptions}) => {
+          $.each(that.columns, (i, { filterControl, field, filterDatepickerOptions }) => {
             if (
               filterControl !== undefined &&
               filterControl.toLowerCase() === 'datepicker'
@@ -446,8 +446,8 @@
                   `.date-filter-control.bootstrap-table-filter-control-${field}`
                 )
                 .datepicker(filterDatepickerOptions)
-                .on('changeDate', ({currentTarget}) => {
-                  $(Utils.sprintf('#%s', currentTarget.id)).val(
+                .on('changeDate', ({ currentTarget }) => {
+                  $(currentTarget).val(
                     currentTarget.value
                   )
                   // Fired the keyup event
@@ -507,6 +507,19 @@
     }
   }
 
+  const bootstrap = {
+    3: {
+      icons: {
+        clear: 'glyphicon-trash icon-clear'
+      }
+    },
+    4: {
+      icons: {
+        clear: 'fa-trash icon-clear'
+      }
+    }
+  }[Utils.bootstrapVersion]
+
   $.extend($.fn.bootstrapTable.defaults, {
     filterControl: false,
     onColumnSearch (field, text) {
@@ -526,7 +539,7 @@
           placeholder
         )
       },
-      select ({options}, field, isVisible) {
+      select ({ options }, field, isVisible) {
         return Utils.sprintf(
           '<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" dir="%s"></select>',
           field,
@@ -565,7 +578,7 @@
   })
 
   $.extend($.fn.bootstrapTable.defaults.icons, {
-    clear: 'glyphicon-trash icon-clear'
+    clear: bootstrap.icons.clear
   })
 
   $.extend($.fn.bootstrapTable.locales, {
@@ -577,6 +590,7 @@
   $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
   $.fn.bootstrapTable.methods.push('triggerSearch')
+  $.fn.bootstrapTable.methods.push('clearFilterControl')
 
   $.BootstrapTable = class extends $.BootstrapTable {
     init () {

@@ -1,0 +1,56 @@
+- title: Getting started
+  pages:
+    - title: Introduction
+    - title: Download
+    - title: Contents
+    - title: Usage
+    - title: Browsers & devices
+    - title: Build tools
+
+- title: API
+  pages:
+    - title: Table Options
+    - title: Column Options
+    - title: Events
+    - title: Methods
+    - title: Localizations
+
+- title: Extensions
+  pages:
+    - title: Accent Neutralise
+    - title: Addrbar
+    - title: Auto Refresh
+    - title: Cookie
+    - title: Copy Rows
+    - title: Defer URL
+    - title: Editable
+    - title: Export
+    - title: Filter Control
+    - title: Group By v2
+    - title: Group By
+    - title: i18n Enhance
+    - title: Key Events
+    - title: Mobile
+    - title: Multi Column Toggle
+    - title: Multiple Search
+    - title: Multiple Selection Row
+    - title: Multiple Sort
+    - title: Natural Sorting
+    - title: Page Jump To
+    - title: Print
+    - title: Reorder Columns
+    - title: Reorder Rows
+    - title: Resizable
+    - title: Select2 Filter
+    - title: Sticky Header
+    - title: Toolbar
+    - title: Treegrid
+
+- title: FAQ
+
+- title: About
+  pages:
+    - title: Overview
+    - title: Team
+    - title: License
+    - title: Translations

@@ -1,10 +1,7 @@
 {
   "presets": [
     ["env", {
-      "modules": "umd",
-      "targets": {
-        "browsers": ["last 2 versions"]
-      }
+      "modules": "umd"
     }],
     "stage-0",
   ],

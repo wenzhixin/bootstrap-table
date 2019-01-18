@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.13.1
+ * version: 1.13.2
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -256,6 +256,15 @@
     isIEBrowser () {
       return navigator.userAgent.includes('MSIE ') ||
         /Trident.*rv:11\./.test(navigator.userAgent)
+    },
+
+    findIndex (items, item) {
+      for (const [i, it] of items.entries()) {
+        if (JSON.stringify(it) === JSON.stringify(item)) {
+          return i
+        }
+      }
+      return -1
     }
   }
 
@@ -263,17 +272,26 @@
   // ======================
 
   const DEFAULTS = {
-    classes: 'table table-hover',
-    theadClasses: '',
-    sortClass: undefined,
     locale: undefined,
     height: undefined,
     undefinedText: '-',
+    classes: 'table table-hover',
+    theadClasses: '',
+    sortClass: undefined,
+    striped: false,
+    rowStyle (row, index) {
+      return {}
+    },
+    rowAttributes (row, index) {
+      return {}
+    },
+    sortable: true,
+    silentSort: true,
     sortName: undefined,
     sortOrder: 'asc',
     sortStable: false,
     rememberOrder: false,
-    striped: false,
+    customSort: $.noop,
     columns: [
       []
     ],
@@ -307,21 +325,30 @@
     paginationDetailHAlign: 'left', // right, left
     paginationPreText: '&lsaquo;',
     paginationNextText: '&rsaquo;',
+    paginationSuccessivelySize: 5, // Maximum successively number of pages in a row
+    paginationPagesBySide: 1, // Number of pages on each side (right, left) of the current page.
+    paginationUseIntermediate: false, // Calculate intermediate pages for quick access
     search: false,
     searchOnEnterKey: false,
     strictSearch: false,
+    trimOnSearch: true,
     searchAlign: 'right',
-    selectItemName: 'btSelectItem',
+    searchTimeOut: 500,
+    searchText: '',
+    customSearch: $.noop,
     showHeader: true,
     showFooter: false,
+    footerStyle (row, index) {
+      return {}
+    },
     showColumns: false,
+    minimumCountColumns: 1,
     showPaginationSwitch: false,
     showRefresh: false,
     showToggle: false,
     showFullscreen: false,
     smartDisplay: true,
     escape: false,
-    minimumCountColumns: 1,
     idField: undefined,
     uniqueId: undefined,
     cardView: false,
@@ -332,37 +359,22 @@
     detailFilter (index, row) {
       return true
     },
-    trimOnSearch: true,
+    selectItemName: 'btSelectItem',
     clickToSelect: false,
+    ignoreClickToSelectOn ({tagName}) {
+      return ['A', 'BUTTON'].includes(tagName)
+    },
     singleSelect: false,
+    checkboxHeader: true,
+    maintainSelected: false,
     toolbar: undefined,
     toolbarAlign: 'left',
     buttonsToolbar: undefined,
     buttonsAlign: 'right',
-    checkboxHeader: true,
-    sortable: true,
-    silentSort: true,
-    maintainSelected: false,
-    searchTimeOut: 500,
-    searchText: '',
-    iconSize: undefined,
     buttonsClass: bootstrap.classes.buttons,
-    iconsPrefix: bootstrap.iconsPrefix, // glyphicon or fa(font-awesome)
     icons: bootstrap.icons,
-    customSearch: $.noop,
-    customSort: $.noop,
-    ignoreClickToSelectOn ({tagName}) {
-      return ['A', 'BUTTON'].includes(tagName)
-    },
-    rowStyle (row, index) {
-      return {}
-    },
-    rowAttributes (row, index) {
-      return {}
-    },
-    footerStyle (row, index) {
-      return {}
-    },
+    iconSize: undefined,
+    iconsPrefix: bootstrap.iconsPrefix, // glyphicon or fa(font-awesome)
     onAll (name, args) {
       return false
     },
@@ -1440,91 +1452,111 @@
           Utils.sprintf('<li class="page-item page-pre"><a class="page-link" href="#">%s</a></li>',
             this.options.paginationPreText))
 
-        if (this.totalPages < 5) {
+        if (this.totalPages < this.options.paginationSuccessivelySize) {
           from = 1
           to = this.totalPages
         } else {
-          from = this.options.pageNumber - 2
-          to = from + 4
-          if (from < 1) {
-            from = 1
-            to = 5
-          }
-          if (to > this.totalPages) {
-            to = this.totalPages
-            from = to - 4
-          }
+          from = this.options.pageNumber - this.options.paginationPagesBySide
+          to = from + (this.options.paginationPagesBySide * 2)
         }
 
-        if (this.totalPages >= 6) {
-          if (this.options.pageNumber >= 3) {
-            html.push(
-              Utils.sprintf('<li class="page-item page-first%s">',
-                this.options.pageNumber === 1 ? ' active' : ''),
-              '<a class="page-link" href="#">', 1, '</a>',
-              '</li>')
+        if (this.options.pageNumber < (this.options.paginationSuccessivelySize - 1)) {
+          to = this.options.paginationSuccessivelySize
+        }
 
-            from++
+        if (to > this.totalPages) {
+          to = this.totalPages
+        }
+
+        if (this.options.paginationSuccessivelySize > this.totalPages - from) {
+          from = from - (this.options.paginationSuccessivelySize - (this.totalPages - from)) + 1
+        }
+
+        if (from < 1) {
+          from = 1
+        }
+
+        if (to > this.totalPages) {
+          to = this.totalPages
+        }
+
+        const middleSize = Math.round(this.options.paginationPagesBySide / 2)
+        const pageItem = (i, classes = '') => {
+          return `
+            <li class="page-item${classes}${i === this.options.pageNumber ? ' active' : ''}">
+              <a class="page-link" href="#">${i}</a>
+            </li>
+          `
+        }
+
+        if (from > 1) {
+          let max = this.options.paginationPagesBySide
+          if (max >= from) max = from - 1
+          for (i = 1; i <= max; i++) {
+            html.push(pageItem(i))
           }
-
-          if (this.options.pageNumber >= 4) {
-            if (this.options.pageNumber === 4 || this.totalPages === 6 || this.totalPages === 7) {
-              from--
-            } else {
-              html.push('<li class="page-item page-first-separator disabled">',
-                '<a class="page-link" href="#">...</a>',
-                '</li>')
+          if ((from - 1) === max + 1) {
+            i = from - 1
+            html.push(pageItem(i))
+          } else {
+            if ((from - 1) > max) {
+              if (
+                (from - this.options.paginationPagesBySide * 2) > this.options.paginationPagesBySide &&
+                this.options.paginationUseIntermediate
+              ) {
+                i = Math.round(((from - middleSize) / 2) + middleSize)
+                html.push(pageItem(i, ' page-intermediate'))
+              } else {
+                html.push(`
+                  <li class="page-item page-first-separator disabled">
+                    <a class="page-link" href="#">...</a>
+                  </li>`
+                )
+              }
             }
-
-            to--
-          }
-        }
-
-        if (this.totalPages >= 7) {
-          if (this.options.pageNumber >= (this.totalPages - 2)) {
-            from--
-          }
-        }
-
-        if (this.totalPages === 6) {
-          if (this.options.pageNumber >= (this.totalPages - 2)) {
-            to++
-          }
-        } else if (this.totalPages >= 7) {
-          if (this.totalPages === 7 || this.options.pageNumber >= (this.totalPages - 3)) {
-            to++
           }
         }
 
         for (i = from; i <= to; i++) {
-          html.push(Utils.sprintf('<li class="page-item%s">',
-            i === this.options.pageNumber ? ' active' : ''),
-          '<a class="page-link" href="#">', i, '</a>',
-          '</li>')
+          html.push(pageItem(i))
         }
 
-        if (this.totalPages >= 8) {
-          if (this.options.pageNumber <= (this.totalPages - 4)) {
-            html.push('<li class="page-item page-last-separator disabled">',
-              '<a class="page-link" href="#">...</a>',
-              '</li>')
+        if (this.totalPages > to) {
+          var min = this.totalPages - (this.options.paginationPagesBySide - 1)
+          if (to >= min) min = to + 1
+          if ((to + 1) === min - 1) {
+            i = to + 1
+            html.push(pageItem(i))
+          } else {
+            if (min > (to + 1)) {
+              if (
+                (this.totalPages - to) > this.options.paginationPagesBySide * 2 &&
+                this.options.paginationUseIntermediate
+              ) {
+                i = Math.round(((this.totalPages - middleSize - to) / 2) + to)
+                html.push(pageItem(i, ' page-intermediate'))
+              } else {
+                html.push(`
+                  <li class="page-item page-last-separator disabled">
+                    <a class="page-link" href="#">...</a>
+                  </li>`
+                )
+              }
+            }
+          }
+
+          for (i = min; i <= this.totalPages; i++) {
+            html.push(pageItem(i))
           }
         }
 
-        if (this.totalPages >= 6) {
-          if (this.options.pageNumber <= (this.totalPages - 3)) {
-            html.push(Utils.sprintf('<li class="page-item page-last%s">',
-              this.totalPages === this.options.pageNumber ? ' active' : ''),
-            '<a class="page-link" href="#">', this.totalPages, '</a>',
-            '</li>')
-          }
-        }
-
-        html.push(
-          Utils.sprintf('<li class="page-item page-next"><a class="page-link" href="#">%s</a></li>',
-            this.options.paginationNextText),
-          '</ul>',
-          '</div>')
+        html.push(`
+          <li class="page-item page-next">
+          <a class="page-link" href="#">${this.options.paginationNextText}</a>
+          </li>
+          </ul>
+          </div>
+        `)
       }
       this.$pagination.html(html.join(''))
 
@@ -1639,7 +1671,7 @@
       let attributes = {}
       const htmlAttributes = []
 
-      if (this.hiddenRows.includes(item)) {
+      if (Utils.findIndex(this.hiddenRows, item) > -1) {
         return
       }
 
@@ -2057,7 +2089,7 @@
           this.trigger('load-success', res)
           if (!silent) this.$tableLoading.hide()
         },
-        error: res => {
+        error: jqXHR => {
           let data = []
           if (this.options.sidePagination === 'server') {
             data = {}
@@ -2065,7 +2097,7 @@
             data[this.options.dataField] = []
           }
           this.load(data)
-          this.trigger('load-error', res.status, res)
+          this.trigger('load-error', jqXHR.status, jqXHR)
           if (!silent) this.$tableLoading.hide()
         }
       })
@@ -2646,7 +2678,7 @@
         return
       }
 
-      const index = this.hiddenRows.indexOf(row)
+      const index = Utils.findIndex(this.hiddenRows, row)
 
       if (!visible && index === -1) {
         this.hiddenRows.push(row)
@@ -2959,7 +2991,7 @@
         return this.$tableBody.scrollTop()
       }
 
-      let value = 0
+      let value = _value
       if (typeof _value === 'string' && _value === 'bottom') {
         value = this.$tableBody[0].scrollHeight
       }
