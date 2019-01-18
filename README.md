@@ -84,7 +84,7 @@ It's really saves much time.
 
 You can also use these for templates:
 
-[jsFiddle Bootstrap Table](https://bootstrap-table.com/examples/#basic)
+[jsFiddle Bootstrap Table](https://github.com/wenzhixin/bootstrap-table/issues/1765)
 
 Your feedback is very appreciated!
 
