@@ -141,7 +141,7 @@
     },
 
     getScrollBarWidth () {
-      if (this.cachedWidth === null) {
+      if (this.cachedWidth === undefined) {
         const $inner = $('<div/>').addClass('fixed-table-scroll-inner')
         const $outer = $('<div/>').addClass('fixed-table-scroll-outer')
 

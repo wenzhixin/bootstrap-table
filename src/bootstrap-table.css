@@ -306,7 +306,7 @@
 }
 
 /* calculate scrollbar width */
-p.fixed-table-scroll-inner {
+div.fixed-table-scroll-inner {
     width: 100%;
     height: 200px;
 }
