@@ -2991,7 +2991,7 @@
         return this.$tableBody.scrollTop()
       }
 
-      let value = 0
+      let value = _value
       if (typeof _value === 'string' && _value === 'bottom') {
         value = this.$tableBody[0].scrollHeight
       }
