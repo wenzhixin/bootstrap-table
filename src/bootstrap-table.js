@@ -956,11 +956,6 @@
       const index = this.header.fields.indexOf(this.options.sortName)
       let timeoutId = 0
 
-      if (this.options.customSort) {
-        this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder])
-        return
-      }
-
       if (index !== -1) {
         if (this.options.sortStable) {
           this.data.forEach((row, i) => {
@@ -970,60 +965,71 @@
           })
         }
 
-        this.data.sort((a, b) => {
-          if (this.header.sortNames[index]) {
-            name = this.header.sortNames[index]
-          }
-          let aa = Utils.getItemField(a, name, this.options.escape)
-          let bb = Utils.getItemField(b, name, this.options.escape)
-          const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
-
-          if (value !== undefined) {
-            if (this.options.sortStable && value === 0) {
-              return order * (a._position - b._position)
+        if (this.options.customSort) {
+          Utils.calculateObjectValue(this.options, this.options.customSort, [
+            this.options.sortName,
+            this.options.sortOrder,
+            this.data
+          ])
+        } else {
+          this.data.sort((a, b) => {
+            if (this.header.sortNames[index]) {
+              name = this.header.sortNames[index]
             }
-            return order * value
-          }
+            let aa = Utils.getItemField(a, name, this.options.escape)
+            let bb = Utils.getItemField(b, name, this.options.escape)
+            const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
 
-          // Fix #161: undefined or null string sort bug.
-          if (aa === undefined || aa === null) {
-            aa = ''
-          }
-          if (bb === undefined || bb === null) {
-            bb = ''
-          }
+            if (value !== undefined) {
+              if (this.options.sortStable && value === 0) {
+                return order * (a._position - b._position)
+              }
+              return order * value
+            }
 
-          if (this.options.sortStable && aa === bb) {
-            aa = a._position
-            bb = b._position
-          }
+            // Fix #161: undefined or null string sort bug.
+            if (aa === undefined || aa === null) {
+              aa = ''
+            }
+            if (bb === undefined || bb === null) {
+              bb = ''
+            }
 
-          // IF both values are numeric, do a numeric comparison
-          if ($.isNumeric(aa) && $.isNumeric(bb)) {
-            // Convert numerical values form string to float.
-            aa = parseFloat(aa)
-            bb = parseFloat(bb)
-            if (aa < bb) {
+            if (this.options.sortStable && aa === bb) {
+              aa = a._position
+              bb = b._position
+            }
+
+            // IF both values are numeric, do a numeric comparison
+            if ($.isNumeric(aa) && $.isNumeric(bb)) {
+              // Convert numerical values form string to float.
+              aa = parseFloat(aa)
+              bb = parseFloat(bb)
+              if (aa < bb) {
+                return order * -1
+              }
+              if (aa > bb) {
+                return order
+              }
+              return 0
+            }
+
+            if (aa === bb) {
+              return 0
+            }
+
+            // If value is not a string, convert to string
+            if (typeof aa !== 'string') {
+              aa = aa.toString()
+            }
+
+            if (aa.localeCompare(bb) === -1) {
               return order * -1
             }
+
             return order
-          }
-
-          if (aa === bb) {
-            return 0
-          }
-
-          // If value is not a string, convert to string
-          if (typeof aa !== 'string') {
-            aa = aa.toString()
-          }
-
-          if (aa.localeCompare(bb) === -1) {
-            return order * -1
-          }
-
-          return order
-        })
+          })
+        }
 
         if (this.options.sortClass !== undefined) {
           clearTimeout(timeoutId)
