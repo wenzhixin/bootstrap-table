@@ -1,6 +1,11 @@
 ChangeLog
 ---------
 
+### 1.13.3
+- **New(js):** Added `pageNumber` parameter to the server side pagination.
+- **New(group-by-v2 extension):** New `groupByFormatter` option.
+- **New(pipeline extension):** New pipeline extension `bootstrap-table-pipeline`.
+
 ### 1.13.2
 
 - **New(js):** Added `paginationSuccessivelySize`, `paginationPagesBySide` and `paginationUseIntermediate` pagination options.
