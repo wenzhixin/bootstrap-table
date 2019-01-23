@@ -2020,8 +2020,7 @@
       let params = {
         searchText: this.searchText,
         sortName: this.options.sortName,
-        sortOrder: this.options.sortOrder,
-        pageNumber: this.options.pageNumber
+        sortOrder: this.options.sortOrder
       }
 
       if (this.header.sortNames[index]) {
@@ -2042,8 +2041,7 @@
         params = {
           search: params.searchText,
           sort: params.sortName,
-          order: params.sortOrder,
-          pageNumber: params.pageNumber
+          order: params.sortOrder
         }
 
         if (this.options.pagination && this.options.sidePagination === 'server') {
