@@ -2078,7 +2078,9 @@
 
           this.load(res)
           this.trigger('load-success', res)
-          if (!silent) this.$tableLoading.hide()
+          if (!silent) {
+            this.$tableLoading.hide()
+          }
         },
         error: jqXHR => {
           let data = []
