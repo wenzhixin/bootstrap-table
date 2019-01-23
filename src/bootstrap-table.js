@@ -964,7 +964,9 @@
       if (index !== -1) {
         if (this.options.sortStable) {
           this.data.forEach((row, i) => {
-            row._position = i
+            if (!row.hasOwnProperty('_position')) {
+              row._position = i
+            }
           })
         }
 
@@ -978,7 +980,7 @@
 
           if (value !== undefined) {
             if (this.options.sortStable && value === 0) {
-              return a._position - b._position
+              return order * (a._position - b._position)
             }
             return order * value
           }
@@ -994,7 +996,6 @@
           if (this.options.sortStable && aa === bb) {
             aa = a._position
             bb = b._position
-            return a._position - b._position
           }
 
           // IF both values are numeric, do a numeric comparison
