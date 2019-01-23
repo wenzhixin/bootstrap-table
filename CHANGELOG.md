@@ -3,10 +3,16 @@ ChangeLog
 
 ### 1.13.3
 
+- **New(js):** Supported full table classes of bootstrap v4.
+- **New(js):** Added `pageNumber` parameter to the server side pagination.
+- **New(css):** Rewrited bootstrap-table.css to scss.
 - **New(accent-neutralise extension):** Rewrited accent-neutralise extension to ES6.
 - **New(addrbar extension):** Rewrited addrbar extension to ES6 and supported attribute option.
 - **New(group-by-v2 extension):** New `groupByFormatter` option.
 - **New(pipeline extension):** New pipeline extension `bootstrap-table-pipeline`.
+- **Remove(js):** Removed `striped` option and use classes instead.
+- **Update:** Fixed `locale` option bug.
+- **Update:** Fixed `sortClass` option bug.
 - **Update(cookie extension):** Improved cookie extension code.
 
 ### 1.13.2
