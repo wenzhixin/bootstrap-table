@@ -272,26 +272,25 @@
   // ======================
 
   const DEFAULTS = {
-    locale: undefined,
     height: undefined,
-    undefinedText: '-',
-    classes: 'table table-hover',
+    classes: 'table table-bordered table-hover',
     theadClasses: '',
-    sortClass: undefined,
-    striped: false,
     rowStyle (row, index) {
       return {}
     },
     rowAttributes (row, index) {
       return {}
     },
+    undefinedText: '-',
+    locale: undefined,
     sortable: true,
+    sortClass: undefined,
     silentSort: true,
     sortName: undefined,
     sortOrder: 'asc',
     sortStable: false,
     rememberOrder: false,
-    customSort: $.noop,
+    customSort: undefined,
     columns: [
       []
     ],
@@ -335,7 +334,7 @@
     searchAlign: 'right',
     searchTimeOut: 500,
     searchText: '',
-    customSearch: $.noop,
+    customSearch: undefined,
     showHeader: true,
     showFooter: false,
     footerStyle (row, index) {
@@ -591,18 +590,17 @@
       if (this.options.locale) {
         const locales = $.fn.bootstrapTable.locales
         const parts = this.options.locale.split(/-|_/)
-        parts[0].toLowerCase()
+
+        parts[0] = parts[0].toLowerCase()
         if (parts[1]) {
-          parts[1].toUpperCase()
+          parts[1] = parts[1].toUpperCase()
         }
+
         if (locales[this.options.locale]) {
-          // locale as requested
           $.extend(this.options, locales[this.options.locale])
-        } else if ($.fn.bootstrapTable.locales[parts.join('-')]) {
-          // locale with sep set to - (in case original was specified with _)
+        } else if (locales[parts.join('-')]) {
           $.extend(this.options, locales[parts.join('-')])
-        } else if ($.fn.bootstrapTable.locales[parts[0]]) {
-          // short locale language code (i.e. 'en')
+        } else if (locales[parts[0]]) {
           $.extend(this.options, locales[parts[0]])
         }
       }
@@ -649,9 +647,6 @@
       this.$container.after('<div class="clearfix"></div>')
 
       this.$el.addClass(this.options.classes)
-      if (this.options.striped) {
-        this.$el.addClass('table-striped')
-      }
       if (this.options.classes.split(' ').includes('table-no-bordered')) {
         this.$tableContainer.addClass('table-no-bordered')
       }
@@ -961,7 +956,7 @@
       const index = this.header.fields.indexOf(this.options.sortName)
       let timeoutId = 0
 
-      if (this.options.customSort !== $.noop) {
+      if (this.options.customSort) {
         this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder])
         return
       }
@@ -1033,10 +1028,8 @@
           clearTimeout(timeoutId)
           timeoutId = setTimeout(() => {
             this.$el.removeClass(this.options.sortClass)
-            const index = this.$header.find(Utils.sprintf('[data-field="%s"]',
-              this.options.sortName).index() + 1)
-            this.$el.find(Utils.sprintf('tr td:nth-child(%s)', index))
-              .addClass(this.options.sortClass)
+            const index = this.$header.find(`[data-field="${this.options.sortName}"]`).index()
+            this.$el.find(`tr td:nth-child(${index + 1})`).addClass(this.options.sortClass)
           }, 250)
         }
       }
@@ -1271,7 +1264,7 @@
 
     initSearch () {
       if (this.options.sidePagination !== 'server') {
-        if (this.options.customSearch !== $.noop) {
+        if (this.options.customSearch) {
           Utils.calculateObjectValue(this.options, this.options.customSearch, [this.searchText])
           return
         }
@@ -2405,7 +2398,7 @@
         const paginationHeight = this.$pagination.outerHeight(true)
         const height = this.options.height - toolbarHeight - paginationHeight
 
-        this.$tableContainer.css('height', `${height}px`)
+        this.$tableContainer.addClass('fixed-height').css('height', `${height}px`)
       }
 
       if (this.options.cardView) {
