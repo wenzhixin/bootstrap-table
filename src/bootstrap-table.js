@@ -295,14 +295,12 @@
       []
     ],
     data: [],
-    totalField: 'total',
-    dataField: 'rows',
-    method: 'get',
     url: undefined,
-    ajax: undefined,
+    method: 'get',
     cache: true,
     contentType: 'application/json',
     dataType: 'json',
+    ajax: undefined,
     ajaxOptions: {},
     queryParams (params) {
       return params
@@ -311,11 +309,13 @@
     responseHandler (res) {
       return res
     },
+    totalField: 'total',
+    dataField: 'rows',
     pagination: false,
     onlyInfoPagination: false,
     paginationLoop: true,
     sidePagination: 'client', // client or server
-    totalRows: 0, // server side need to set
+    totalRows: 0,
     pageNumber: 1,
     pageSize: 10,
     pageList: [10, 25, 50, 100],
@@ -647,8 +647,15 @@
       this.$container.after('<div class="clearfix"></div>')
 
       this.$el.addClass(this.options.classes)
-      if (this.options.classes.split(' ').includes('table-no-bordered')) {
-        this.$tableContainer.addClass('table-no-bordered')
+
+      if (this.options.height) {
+        this.$tableContainer.addClass('fixed-height')
+
+        if (this.options.classes.split(' ').includes('table-bordered')) {
+          this.$tableBody.append('<div class="fixed-table-border"></div>')
+          this.$tableBorder = this.$tableBody.find('.fixed-table-border')
+          this.$tableLoading.addClass('fixed-table-border')
+        }
       }
     }
 
@@ -2402,14 +2409,6 @@
       this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
         this.$selectItem.length === this.$selectItem.filter(':checked').length)
 
-      if (this.options.height) {
-        const toolbarHeight = this.$toolbar.outerHeight(true)
-        const paginationHeight = this.$pagination.outerHeight(true)
-        const height = this.options.height - toolbarHeight - paginationHeight
-
-        this.$tableContainer.addClass('fixed-height').css('height', `${height}px`)
-      }
-
       if (this.options.cardView) {
         // remove the element css
         this.$el.css('margin-top', '0')
@@ -2432,6 +2431,15 @@
         if (this.options.height) {
           padding += this.$tableFooter.outerHeight() + 1
         }
+      }
+
+      if (this.options.height) {
+        const toolbarHeight = this.$toolbar.outerHeight(true)
+        const paginationHeight = this.$pagination.outerHeight(true)
+        const height = this.options.height - toolbarHeight - paginationHeight
+        const tableHeight = this.$tableBody.find('table').outerHeight(true)
+        this.$tableContainer.css('height', `${height}px`)
+        this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
       }
 
       // Assign the correct sortable arrow
