@@ -58,15 +58,15 @@
         return
       }
 
-      cookieName = that.options.cookieIdTable + '.' + cookieName
+      cookieName = `${that.options.cookieIdTable}.${cookieName}`
 
       switch (that.options.cookieStorage) {
         case 'cookieStorage':
           document.cookie = [
             cookieName, '=', cookieValue,
-            '; expires=' + UtilsCookie.calculateExpiration(that.options.cookieExpire),
-            that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
-            that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
+            `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
+            that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
+            that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
             that.options.cookieSecure ? '; secure' : ''
           ].join('')
           break
@@ -91,12 +91,12 @@
         return null
       }
 
-      cookieName = tableName + '.' + cookieName
+      cookieName = `${tableName}.${cookieName}`
 
       switch (that.options.cookieStorage) {
         case 'cookieStorage':
-          const value = '; ' + document.cookie
-          const parts = value.split('; ' + cookieName + '=')
+          const value = `; ${document.cookie}`
+          const parts = value.split(`; ${cookieName}=`)
           return parts.length === 2 ? parts.pop().split(';').shift() : null
         case 'localStorage':
           return localStorage.getItem(cookieName)
@@ -107,15 +107,15 @@
       }
     },
     deleteCookie (that, tableName, cookieName) {
-      cookieName = tableName + '.' + cookieName
+      cookieName = `${tableName}.${cookieName}`
 
       switch (that.options.cookieStorage) {
         case 'cookieStorage':
           document.cookie = [
             encodeURIComponent(cookieName), '=',
             '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
-            that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
-            that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : ''
+            that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
+            that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : ''
           ].join('')
           break
         case 'localStorage':
@@ -164,7 +164,7 @@
       return d.toGMTString()
     },
     initCookieFilters (bootstrapTable) {
-      setTimeout(function () {
+      setTimeout(() => {
         const parsedCookieFilters = JSON.parse(UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
 
         if (!bootstrapTable.options.filterControlValuesLoaded && parsedCookieFilters) {
@@ -173,8 +173,8 @@
           const header = UtilsCookie.getCurrentHeader(bootstrapTable)
           const searchControls = UtilsCookie.getCurrentSearchControls(bootstrapTable)
 
-          const applyCookieFilters = function (element, filteredCookies) {
-            $(filteredCookies).each(function (i, cookie) {
+          const applyCookieFilters = (element, filteredCookies) => {
+            $(filteredCookies).each((i, cookie) => {
               if (cookie.text !== '') {
                 $(element).val(cookie.text)
                 cachedFilters[cookie.field] = cookie.text
@@ -184,9 +184,7 @@
 
           header.find(searchControls).each(function () {
             const field = $(this).closest('[data-field]').data('field')
-            const filteredCookies = $.grep(parsedCookieFilters, function (cookie) {
-              return cookie.field === field
-            })
+            const filteredCookies = parsedCookieFilters.filter(cookie => cookie.field === field)
 
             applyCookieFilters(this, filteredCookies)
           })
@@ -243,7 +241,7 @@
 
       if (this.options.filterControl) {
         const that = this
-        this.$el.on('column-search.bs.table', function (e, field, text) {
+        this.$el.on('column-search.bs.table', (e, field, text) => {
           let isNewField = true
 
           for (let i = 0; i < that.options.filterControls.length; i++) {
@@ -255,8 +253,8 @@
           }
           if (isNewField) {
             that.options.filterControls.push({
-              field: field,
-              text: text
+              field,
+              text
             })
           }
 
@@ -282,37 +280,37 @@
       this.initCookie()
     }
 
-    onSort () {
-      const event = arguments[0]
+    onSort (...args) {
+      const event = args[0]
       super.onSort(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName)
     }
 
-    onPageNumber () {
-      const event = arguments[0]
+    onPageNumber (...args) {
+      const event = args[0]
       super.onPageNumber(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
       return false
     }
 
-    onPageListChange () {
-      const event = arguments[0]
+    onPageListChange (...args) {
+      const event = args[0]
       super.onPageListChange(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList, this.options.pageSize)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
       return false
     }
 
-    onPagePre () {
-      const event = arguments[0]
+    onPagePre (...args) {
+      const event = args[0]
       super.onPagePre(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
       return false
     }
 
-    onPageNext () {
-      const event = arguments[0]
+    onPageNext (...args) {
+      const event = args[0]
       super.onPageNext(event)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
       return false
@@ -323,7 +321,7 @@
 
       const visibleColumns = []
 
-      $.each(this.columns, function (i, column) {
+      $.each(this.columns, (i, column) => {
         if (column.visible) {
           visibleColumns.push(column.field)
         }
@@ -337,8 +335,8 @@
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, page)
     }
 
-    onSearch () {
-      const target = Array.prototype.slice.apply(arguments)
+    onSearch (...args) {
+      const target = Array.prototype.slice.apply(args)
       super.onSearch(this, target)
 
       if ($(target[0].currentTarget).parent().hasClass('search')) {
@@ -382,7 +380,7 @@
       this.options.searchText = searchTextCookie ? searchTextCookie : ''
 
       if (columnsCookie) {
-        $.each(this.columns, function (i, column) {
+        $.each(this.columns, (i, column) => {
           column.visible = $.inArray(column.field, columnsCookie) !== -1
         })
       }
@@ -391,7 +389,7 @@
     getCookies () {
       const bootstrapTable = this
       const cookies = {}
-      $.each(UtilsCookie.cookieIds, function (key, value) {
+      $.each(UtilsCookie.cookieIds, (key, value) => {
         cookies[key] = UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, value)
         if (key === 'columns') {
           cookies[key] = JSON.parse(cookies[key])
