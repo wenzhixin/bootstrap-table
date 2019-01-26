@@ -1481,13 +1481,11 @@
         }
 
         const middleSize = Math.round(this.options.paginationPagesBySide / 2)
-        const pageItem = (i, classes = '') => {
-          return `
-            <li class="page-item${classes}${i === this.options.pageNumber ? ' active' : ''}">
-              <a class="page-link" href="#">${i}</a>
-            </li>
-          `
-        }
+        const pageItem = (i, classes = '') => `
+          <li class="page-item${classes}${i === this.options.pageNumber ? ' active' : ''}">
+            <a class="page-link" href="#">${i}</a>
+          </li>
+        `
 
         if (from > 1) {
           let max = this.options.paginationPagesBySide
@@ -1522,7 +1520,7 @@
         }
 
         if (this.totalPages > to) {
-          var min = this.totalPages - (this.options.paginationPagesBySide - 1)
+          let min = this.totalPages - (this.options.paginationPagesBySide - 1)
           if (to >= min) min = to + 1
           if ((to + 1) === min - 1) {
             i = to + 1
