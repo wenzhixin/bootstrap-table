@@ -151,7 +151,7 @@
           field = $(this)
             .closest('[data-field]')
             .data('field')
-          result = $.grep(that.options.valuesFilterControl, valueObj => valueObj.field === field)
+          result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
 
           if (result.length > 0) {
             $(this).val(result[0].value)
