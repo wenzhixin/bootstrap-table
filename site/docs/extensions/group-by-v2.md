@@ -10,9 +10,10 @@ Use Plugin: [bootstrap-table-group-by-v2](https://github.com/wenzhixin/bootstrap
 You must include the bootstrap-table-group-by.css file in order to get the appropriate style
 
 ## Usage
-```
+
+{% highlight html %}
 <script src="extensions/group-by-v2/bootstrap-table-group-by.js"></script>
-```
+{% endhighlight %}
 
 ## Options
 
@@ -48,4 +49,4 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
    * `idx`: the index of the group.
    * `data`: an array of rows in the group.
 
-- **Default:** `Undefined`
+- **Default:** `undefined`
