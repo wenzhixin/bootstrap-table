@@ -223,7 +223,7 @@
           var fieldToFocusCallback = null;
           header.find(searchControls).each(function (index, ele) {
             field = $(this).closest('[data-field]').data('field');
-            result = $.grep(that.options.valuesFilterControl, function (valueObj) {
+            result = that.options.valuesFilterControl.filter(function (valueObj) {
               return valueObj.field === field;
             });
 

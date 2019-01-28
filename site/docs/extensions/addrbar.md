@@ -14,6 +14,10 @@ Every time when changing page, sorting and searching operation, it will change t
 <script src="extensions/addrbar/bootstrap-table-addrbar.js"></script>
 {% endhighlight %}
 
+## Example
+
+[Addrbar](https://examples.bootstrap-table.com/#extensions/addrbar.html)
+
 ## Options
 
 ### addrbar

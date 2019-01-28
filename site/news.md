@@ -4,6 +4,24 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.13.3
+
+<span class="post-date">28 Jan 2019</span>
+
+- **New(js):** Supported full table classes of bootstrap v4.
+- **New(css):** Rewrited bootstrap-table.css to scss.
+- **New(accent-neutralise extension):** Rewrited accent-neutralise extension to ES6.
+- **New(addrbar extension):** Rewrited addrbar extension to ES6 and supported attribute option.
+- **New(group-by-v2 extension):** New `groupByFormatter` option.
+- **New(pipeline extension):** New pipeline extension `bootstrap-table-pipeline`.
+- **Remove(js):** Removed `striped` option and use classes instead.
+- **Update(js):** Fixed `locale` option bug.
+- **Update(js):** Fixed `sortClass` option bug.
+- **Update(js):** Fixed `sortStable` option cannot work bug.
+- **Update(js):** Improved built-in sort function and `customSort` logic.
+- **Update(js):** Fixed horizontal scrollbar bug.
+- **Update(cookie extension):** Improved cookie extension code.
+
 ## Bootstrap Table 1.13.2
 
 <span class="post-date">18 Jan 2019</span>

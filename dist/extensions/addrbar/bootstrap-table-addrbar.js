@@ -1,139 +1,271 @@
 (function (global, factory) {
-    if (typeof define === "function" && define.amd) {
-        define([], factory);
-    } else if (typeof exports !== "undefined") {
-        factory();
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory();
-        global.bootstrapTableAddrbar = mod.exports;
-    }
-})(this, function () {
-    'use strict';
-
-    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-        return typeof obj;
-    } : function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  if (typeof define === "function" && define.amd) {
+    define([], factory);
+  } else if (typeof exports !== "undefined") {
+    factory();
+  } else {
+    var mod = {
+      exports: {}
     };
+    factory();
+    global.bootstrapTableAddrbar = mod.exports;
+  }
+})(this, function () {
+  'use strict';
 
-    /**
-     * @author: general
-     * @version: 1.0.0
-     * @website: note.generals.space
-     * @email: generals.space@gmail.com
-     * @github: https://github.com/generals-space/bootstrap-table-addrbar
-     */
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
 
-    (function ($) {
-        'use strict';
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
 
-        /*
-         * function: 获取浏览器地址栏中的指定参数.
-         * key: 参数名
-         * url: 默认为当前地址栏
-         */
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
 
-        function _GET(key, url) {
-            var url = url ? url : window.location.search;
-            /* 
-            * 注意这里正则表达式的书写方法
-            * (^|&)key匹配: 直接以key开始或以&key开始的字符串
-            * 同理(&|$)表示以&结束或是直接结束的字符串
-            * ...当然, 我并不知道这种用法.
-            */
-            var reg = new RegExp('(^|&)' + key + '=([^&]*)(&|$)');
-            var result = url.substr(1).match(reg);
+  function _possibleConstructorReturn(self, call) {
+    if (!self) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
 
-            // if(result != null) return unescape(result[2]);
-            if (result != null) return decodeURIComponent(result[2]);
-            return null;
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+  }
+
+  var _get = function get(object, property, receiver) {
+    if (object === null) object = Function.prototype;
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+
+    if (desc === undefined) {
+      var parent = Object.getPrototypeOf(object);
+
+      if (parent === null) {
+        return undefined;
+      } else {
+        return get(parent, property, receiver);
+      }
+    } else if ("value" in desc) {
+      return desc.value;
+    } else {
+      var getter = desc.get;
+
+      if (getter === undefined) {
+        return undefined;
+      }
+
+      return getter.call(receiver);
+    }
+  };
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  }
+
+  var _slicedToArray = function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];
+      var _n = true;
+      var _d = false;
+      var _e = undefined;
+
+      try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);
+
+          if (i && _arr.length === i) break;
         }
-
-        /*
-        * function: 根据给定参数生成url地址
-        * var dic = {name: 'genreal', age: 24}
-        * var url = 'https://www.baidu.com?age=22';
-        * _buildUrl(dic, url);
-        * 将得到"https://www.baidu.com?age=24&name=genreal"
-        * 哦, 忽略先后顺序吧...
-        * 
-        * 补充: 可以参考浏览器URLSearchParams对象, 更加方便和强大. 
-        * 考虑到兼容性, 暂时不使用这个工具.
-        */
-
-        function _buildUrl(dict, url) {
-            var url = url ? url : window.location.search;
-
-            for (var key in dict) {
-                var val = dict[key];
-
-                // 搜索name=general这种形式的字符串(&是分隔符)
-                var pattern = key + '=([^&]*)';
-                var targetStr = key + '=' + val;
-
-                /*
-                * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
-                * 不然就直接添加好了.
-                */
-                if (url.match(pattern)) {
-                    var tmp = new RegExp('(' + key + '=)([^&]*)', 'gi');
-                    url = url.replace(tmp, targetStr);
-                } else {
-                    var seperator = url.match('[\?]') ? '&' : '?';
-                    url = url + seperator + targetStr;
-                }
-            }
-            return url;
+      } catch (err) {
+        _d = true;
+        _e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"]) _i["return"]();
+        } finally {
+          if (_d) throw _e;
         }
+      }
 
-        /*
-         * 实例化bootstrapTable对象时, 合并用户选项
-         */
-        var _bootstrapTable = $.fn.bootstrapTable;
-        $.fn.bootstrapTable = function (option) {
-            if (!((typeof option === 'undefined' ? 'undefined' : _typeof(option)) === 'object')) {
-                // 直接传入arguments不行, 因为它是一个类数组的对象, 
-                // 而bt对参数的处理是面向原生参数列表的.
-                // 目前来看, bt还没有超过2个参数的方法, 暂时先这么用着
-                return _bootstrapTable.call(this, arguments[0], arguments[1]);
-            }
+      return _arr;
+    }
 
-            // 拥有addrbar选项并且其值为true的才会继续执行
-            if (!(option.hasOwnProperty('addrbar') && option.addrbar == true)) return _bootstrapTable.call(this, option);
+    return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError("Invalid attempt to destructure non-iterable instance");
+      }
+    };
+  }();
+
+  /**
+   * @author: general
+   * @version: 1.0.0
+   * @website: note.generals.space
+   * @email: generals.space@gmail.com
+   * @github: https://github.com/generals-space/bootstrap-table-addrbar
+   */
+
+  (function ($) {
+    /*
+       * function: 获取浏览器地址栏中的指定参数.
+       * key: 参数名
+       * url: 默认为当前地址栏
+       */
+    function _GET(key) {
+      var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : window.location.search;
+
+      /*
+       * 注意这里正则表达式的书写方法
+       * (^|&)key匹配: 直接以key开始或以&key开始的字符串
+       * 同理(&|$)表示以&结束或是直接结束的字符串
+       * ...当然, 我并不知道这种用法.
+       */
+      var reg = new RegExp('(^|&)' + key + '=([^&]*)(&|$)');
+      var result = url.substr(1).match(reg);
+
+      if (result) {
+        return decodeURIComponent(result[2]);
+      }
+      return null;
+    }
+
+    /*
+      * function: 根据给定参数生成url地址
+      * var dic = {name: 'genreal', age: 24}
+      * var url = 'https://www.baidu.com?age=22';
+      * _buildUrl(dic, url);
+      * 将得到"https://www.baidu.com?age=24&name=genreal"
+      * 哦, 忽略先后顺序吧...
+      *
+      * 补充: 可以参考浏览器URLSearchParams对象, 更加方便和强大.
+      * 考虑到兼容性, 暂时不使用这个工具.
+      */
+
+    function _buildUrl(dict) {
+      var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : window.location.search;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.entries(dict)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var _ref = _step.value;
+
+          var _ref2 = _slicedToArray(_ref, 2);
+
+          var key = _ref2[0];
+          var val = _ref2[1];
+
+          // 搜索name=general这种形式的字符串(&是分隔符)
+          var pattern = key + '=([^&]*)';
+          var targetStr = key + '=' + val;
+
+          /*
+           * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
+           * 不然就直接添加好了.
+           */
+          if (url.match(pattern)) {
+            var tmp = new RegExp('(' + key + '=)([^&]*)', 'gi');
+            url = url.replace(tmp, targetStr);
+          } else {
+            var seperator = url.match('[?]') ? '&' : '?';
+            url = url + seperator + targetStr;
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      return url;
+    }
+
+    $.BootstrapTable = function (_$$BootstrapTable) {
+      _inherits(_class, _$$BootstrapTable);
+
+      function _class() {
+        _classCallCheck(this, _class);
+
+        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+      }
+
+      _createClass(_class, [{
+        key: 'init',
+        value: function init() {
+          var _this2 = this;
+
+          // 拥有addrbar选项并且其值为true的才会继续执行
+          if (this.options.addrbar) {
             // 标志位, 初始加载后关闭
-            option._addrbarInit = true;
-            var _prefix = option.addrPrefix || '';
-            var _defaults = _bootstrapTable.defaults;
+            this.addrbarInit = true;
+            var _prefix = this.options.addrPrefix || '';
 
             // 优先级排序: 用户指定值最优先, 未指定时从地址栏获取, 未获取到时采用默认值
+            this.options.pageSize = this.options.pageSize || (_GET(_prefix + 'limit') ? parseInt(_GET(_prefix + 'limit')) : $.BootstrapTable.DEFAULTS.pageSize);
+            this.options.pageNumber = this.options.pageNumber || (_GET(_prefix + 'page') ? parseInt(_GET(_prefix + 'page')) : $.BootstrapTable.DEFAULTS.pageNumber);
+            this.options.sortOrder = this.options.sortOrder || (_GET(_prefix + 'order') ? _GET(_prefix + 'order') : $.BootstrapTable.DEFAULTS.sortOrder);
+            this.options.sortName = this.options.sortName || (_GET(_prefix + 'sort') ? _GET(_prefix + 'sort') : 'id');
+            this.options.searchText = this.options.searchText || (_GET(_prefix + 'search') ? _GET(_prefix + 'search') : $.BootstrapTable.DEFAULTS.searchText);
 
-            option.pageSize = option.pageSize || (_GET(_prefix + 'limit') ? parseInt(_GET(_prefix + 'limit')) : _defaults.pageSize);
-            option.pageNumber = option.pageNumber || (_GET(_prefix + 'page') ? parseInt(_GET(_prefix + 'page')) : _defaults.pageNumber);
-            option.sortOrder = option.sortOrder || (_GET(_prefix + 'order') ? _GET(_prefix + 'order') : _defaults.sortOrder);
-            option.sortName = option.sortName || (_GET(_prefix + 'sort') ? _GET(_prefix + 'sort') : 'id');
-            option.searchText = option.searchText || (_GET(_prefix + 'search') ? _GET(_prefix + 'search') : _defaults.searchText);
+            var _onLoadSuccess = this.options.onLoadSuccess;
 
-            option._onLoadSuccess = option.onLoadSuccess;
-            option.onLoadSuccess = function (data) {
-                // md, 这里的this是option是什么鬼(好像貌似就是option...ok, 当我没说)
-                var opts = this;
-                // 页面初始加载不必改写url
-                if (opts._addrbarInit) {
-                    opts._addrbarInit = false;
-                } else {
-                    var params = {};
-                    params[_prefix + 'page'] = opts.pageNumber, params[_prefix + 'limit'] = opts.pageSize, params[_prefix + 'order'] = opts.sortOrder, params[_prefix + 'sort'] = opts.sortName, params[_prefix + 'search'] = opts.searchText;
-                    // h5提供的修改浏览器地址栏的方法
-                    window.history.pushState({}, '', _buildUrl(params));
-                }
+            this.options.onLoadSuccess = function (data) {
+              if (_this2.addrbarInit) {
+                _this2.addrbarInit = false;
+              } else {
+                var params = {};
+                params[_prefix + 'page'] = _this2.options.pageNumber, params[_prefix + 'limit'] = _this2.options.pageSize, params[_prefix + 'order'] = _this2.options.sortOrder, params[_prefix + 'sort'] = _this2.options.sortName, params[_prefix + 'search'] = _this2.options.searchText;
+                // h5提供的修改浏览器地址栏的方法
+                window.history.pushState({}, '', _buildUrl(params));
+              }
 
-                if (option._onLoadSuccess) option._onLoadSuccess.call(this, data);
+              if (_onLoadSuccess) {
+                _onLoadSuccess.call(_this2, data);
+              }
             };
+          }
+          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'init', this).call(this);
+        }
+      }]);
 
-            return _bootstrapTable.call(this, option);
-        };
-    })(jQuery);
+      return _class;
+    }($.BootstrapTable);
+  })(jQuery);
 });

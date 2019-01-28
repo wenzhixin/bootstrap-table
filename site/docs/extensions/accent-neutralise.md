@@ -17,6 +17,10 @@ toc: true
 <script src="extensions/accent-neutralise/bootstrap-table-accent-neutralise.js"></script>
 {% endhighlight %}
 
+## Example
+
+[Accent Neutralise](https://examples.bootstrap-table.com/#extensions/accent-neutralise.html)
+
 ## Options
 
 ### searchAccentNeutralise

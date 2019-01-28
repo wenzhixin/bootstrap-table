@@ -95,7 +95,7 @@
 
   /**
    * @author zhixin wen <wenzhixin2010@gmail.com>
-   * version: 1.13.2
+   * version: 1.13.3
    * https://github.com/wenzhixin/bootstrap-table/
    */
 
@@ -300,7 +300,7 @@
         }
       },
       getScrollBarWidth: function getScrollBarWidth() {
-        if (this.cachedWidth === null) {
+        if (this.cachedWidth === undefined) {
           var $inner = $('<div/>').addClass('fixed-table-scroll-inner');
           var $outer = $('<div/>').addClass('fixed-table-scroll-outer');
 
@@ -531,13 +531,9 @@
     // ======================
 
     var DEFAULTS = {
-      locale: undefined,
       height: undefined,
-      undefinedText: '-',
-      classes: 'table table-hover',
+      classes: 'table table-bordered table-hover',
       theadClasses: '',
-      sortClass: undefined,
-      striped: false,
       rowStyle: function rowStyle(row, index) {
         return {};
       },
@@ -545,23 +541,24 @@
         return {};
       },
 
+      undefinedText: '-',
+      locale: undefined,
       sortable: true,
+      sortClass: undefined,
       silentSort: true,
       sortName: undefined,
       sortOrder: 'asc',
       sortStable: false,
       rememberOrder: false,
-      customSort: $.noop,
+      customSort: undefined,
       columns: [[]],
       data: [],
-      totalField: 'total',
-      dataField: 'rows',
-      method: 'get',
       url: undefined,
-      ajax: undefined,
+      method: 'get',
       cache: true,
       contentType: 'application/json',
       dataType: 'json',
+      ajax: undefined,
       ajaxOptions: {},
       queryParams: function queryParams(params) {
         return params;
@@ -571,11 +568,13 @@
         return res;
       },
 
+      totalField: 'total',
+      dataField: 'rows',
       pagination: false,
       onlyInfoPagination: false,
       paginationLoop: true,
       sidePagination: 'client', // client or server
-      totalRows: 0, // server side need to set
+      totalRows: 0,
       pageNumber: 1,
       pageSize: 10,
       pageList: [10, 25, 50, 100],
@@ -594,7 +593,7 @@
       searchAlign: 'right',
       searchTimeOut: 500,
       searchText: '',
-      customSearch: $.noop,
+      customSearch: undefined,
       showHeader: true,
       showFooter: false,
       footerStyle: function footerStyle(row, index) {
@@ -859,18 +858,17 @@
           if (this.options.locale) {
             var locales = $.fn.bootstrapTable.locales;
             var parts = this.options.locale.split(/-|_/);
-            parts[0].toLowerCase();
+
+            parts[0] = parts[0].toLowerCase();
             if (parts[1]) {
-              parts[1].toUpperCase();
+              parts[1] = parts[1].toUpperCase();
             }
+
             if (locales[this.options.locale]) {
-              // locale as requested
               $.extend(this.options, locales[this.options.locale]);
-            } else if ($.fn.bootstrapTable.locales[parts.join('-')]) {
-              // locale with sep set to - (in case original was specified with _)
+            } else if (locales[parts.join('-')]) {
               $.extend(this.options, locales[parts.join('-')]);
-            } else if ($.fn.bootstrapTable.locales[parts[0]]) {
-              // short locale language code (i.e. 'en')
+            } else if (locales[parts[0]]) {
               $.extend(this.options, locales[parts[0]]);
             }
           }
@@ -901,11 +899,15 @@
           this.$container.after('<div class="clearfix"></div>');
 
           this.$el.addClass(this.options.classes);
-          if (this.options.striped) {
-            this.$el.addClass('table-striped');
-          }
-          if (this.options.classes.split(' ').includes('table-no-bordered')) {
-            this.$tableContainer.addClass('table-no-bordered');
+
+          if (this.options.height) {
+            this.$tableContainer.addClass('fixed-height');
+
+            if (this.options.classes.split(' ').includes('table-bordered')) {
+              this.$tableBody.append('<div class="fixed-table-border"></div>');
+              this.$tableBorder = this.$tableBody.find('.fixed-table-border');
+              this.$tableLoading.addClass('fixed-table-border');
+            }
           }
         }
       }, {
@@ -1214,80 +1216,83 @@
           var index = this.header.fields.indexOf(this.options.sortName);
           var timeoutId = 0;
 
-          if (this.options.customSort !== $.noop) {
-            this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder]);
-            return;
-          }
-
           if (index !== -1) {
             if (this.options.sortStable) {
               this.data.forEach(function (row, i) {
-                row._position = i;
+                if (!row.hasOwnProperty('_position')) {
+                  row._position = i;
+                }
               });
             }
 
-            this.data.sort(function (a, b) {
-              if (_this3.header.sortNames[index]) {
-                name = _this3.header.sortNames[index];
-              }
-              var aa = Utils.getItemField(a, name, _this3.options.escape);
-              var bb = Utils.getItemField(b, name, _this3.options.escape);
-              var value = Utils.calculateObjectValue(_this3.header, _this3.header.sorters[index], [aa, bb, a, b]);
-
-              if (value !== undefined) {
-                if (_this3.options.sortStable && value === 0) {
-                  return a._position - b._position;
+            if (this.options.customSort) {
+              Utils.calculateObjectValue(this.options, this.options.customSort, [this.options.sortName, this.options.sortOrder, this.data]);
+            } else {
+              this.data.sort(function (a, b) {
+                if (_this3.header.sortNames[index]) {
+                  name = _this3.header.sortNames[index];
                 }
-                return order * value;
-              }
+                var aa = Utils.getItemField(a, name, _this3.options.escape);
+                var bb = Utils.getItemField(b, name, _this3.options.escape);
+                var value = Utils.calculateObjectValue(_this3.header, _this3.header.sorters[index], [aa, bb, a, b]);
 
-              // Fix #161: undefined or null string sort bug.
-              if (aa === undefined || aa === null) {
-                aa = '';
-              }
-              if (bb === undefined || bb === null) {
-                bb = '';
-              }
+                if (value !== undefined) {
+                  if (_this3.options.sortStable && value === 0) {
+                    return order * (a._position - b._position);
+                  }
+                  return order * value;
+                }
 
-              if (_this3.options.sortStable && aa === bb) {
-                aa = a._position;
-                bb = b._position;
-                return a._position - b._position;
-              }
+                // Fix #161: undefined or null string sort bug.
+                if (aa === undefined || aa === null) {
+                  aa = '';
+                }
+                if (bb === undefined || bb === null) {
+                  bb = '';
+                }
 
-              // IF both values are numeric, do a numeric comparison
-              if ($.isNumeric(aa) && $.isNumeric(bb)) {
-                // Convert numerical values form string to float.
-                aa = parseFloat(aa);
-                bb = parseFloat(bb);
-                if (aa < bb) {
+                if (_this3.options.sortStable && aa === bb) {
+                  aa = a._position;
+                  bb = b._position;
+                }
+
+                // IF both values are numeric, do a numeric comparison
+                if ($.isNumeric(aa) && $.isNumeric(bb)) {
+                  // Convert numerical values form string to float.
+                  aa = parseFloat(aa);
+                  bb = parseFloat(bb);
+                  if (aa < bb) {
+                    return order * -1;
+                  }
+                  if (aa > bb) {
+                    return order;
+                  }
+                  return 0;
+                }
+
+                if (aa === bb) {
+                  return 0;
+                }
+
+                // If value is not a string, convert to string
+                if (typeof aa !== 'string') {
+                  aa = aa.toString();
+                }
+
+                if (aa.localeCompare(bb) === -1) {
                   return order * -1;
                 }
+
                 return order;
-              }
-
-              if (aa === bb) {
-                return 0;
-              }
-
-              // If value is not a string, convert to string
-              if (typeof aa !== 'string') {
-                aa = aa.toString();
-              }
-
-              if (aa.localeCompare(bb) === -1) {
-                return order * -1;
-              }
-
-              return order;
-            });
+              });
+            }
 
             if (this.options.sortClass !== undefined) {
               clearTimeout(timeoutId);
               timeoutId = setTimeout(function () {
                 _this3.$el.removeClass(_this3.options.sortClass);
-                var index = _this3.$header.find(Utils.sprintf('[data-field="%s"]', _this3.options.sortName).index() + 1);
-                _this3.$el.find(Utils.sprintf('tr td:nth-child(%s)', index)).addClass(_this3.options.sortClass);
+                var index = _this3.$header.find('[data-field="' + _this3.options.sortName + '"]').index();
+                _this3.$el.find('tr td:nth-child(' + (index + 1) + ')').addClass(_this3.options.sortClass);
               }, 250);
             }
           }
@@ -1507,7 +1512,7 @@
           var _this5 = this;
 
           if (this.options.sidePagination !== 'server') {
-            if (this.options.customSearch !== $.noop) {
+            if (this.options.customSearch) {
               Utils.calculateObjectValue(this.options, this.options.customSearch, [this.searchText]);
               return;
             }
@@ -1709,8 +1714,7 @@
             var middleSize = Math.round(this.options.paginationPagesBySide / 2);
             var pageItem = function pageItem(i) {
               var classes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-              return '\n            <li class="page-item' + classes + (i === _this6.options.pageNumber ? ' active' : '') + '">\n              <a class="page-link" href="#">' + i + '</a>\n            </li>\n          ';
+              return '\n          <li class="page-item' + classes + (i === _this6.options.pageNumber ? ' active' : '') + '">\n            <a class="page-link" href="#">' + i + '</a>\n          </li>\n        ';
             };
 
             if (from > 1) {
@@ -2427,7 +2431,9 @@
 
               _this9.load(res);
               _this9.trigger('load-success', res);
-              if (!silent) _this9.$tableLoading.hide();
+              if (!silent) {
+                _this9.$tableLoading.hide();
+              }
             },
             error: function error(jqXHR) {
               var data = [];
@@ -2606,7 +2612,9 @@
 
             if (_this12.options.detailView && !_this12.options.cardView) {
               if (i === 0) {
-                _this12.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth());
+                var $thDetail = $ths.filter('.detail');
+                var _zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width();
+                $thDetail.find('.fht-cell').width($this.innerWidth() - _zoomWidth);
               }
               index = i - 1;
             }
@@ -2851,14 +2859,6 @@
 
           this.$selectAll.prop('checked', this.$selectItem.length > 0 && this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
-          if (this.options.height) {
-            var toolbarHeight = this.$toolbar.outerHeight(true);
-            var paginationHeight = this.$pagination.outerHeight(true);
-            var height = this.options.height - toolbarHeight - paginationHeight;
-
-            this.$tableContainer.css('height', height + 'px');
-          }
-
           if (this.options.cardView) {
             // remove the element css
             this.$el.css('margin-top', '0');
@@ -2881,6 +2881,15 @@
             if (this.options.height) {
               padding += this.$tableFooter.outerHeight() + 1;
             }
+          }
+
+          if (this.options.height) {
+            var toolbarHeight = this.$toolbar.outerHeight(true);
+            var paginationHeight = this.$pagination.outerHeight(true);
+            var height = this.options.height - toolbarHeight - paginationHeight;
+            var tableHeight = this.$tableBody.find('table').outerHeight(true);
+            this.$tableContainer.css('height', height + 'px');
+            this.$tableBorder && this.$tableBorder.css('height', height - tableHeight - padding - 1 + 'px');
           }
 
           // Assign the correct sortable arrow

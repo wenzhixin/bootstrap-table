@@ -36,3 +36,17 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
    Set the fields name that you want to group the data.
 
 - **Default:** `''`
+
+### groupByFormatter
+
+- **type:** `Function`
+
+- **Detail:**
+
+   The group row formatter function, takes three parameters:
+
+   * `value`: the group by value.
+   * `idx`: the index of the group.
+   * `data`: an array of rows in the group.
+
+- **Default:** `undefined`

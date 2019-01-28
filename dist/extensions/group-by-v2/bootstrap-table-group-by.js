@@ -15,10 +15,10 @@
 
     /**
      * @author: Yura Knoxville
-     * @version: v1.0.0
+     * @version: v1.1.0
      */
 
-    !function ($) {
+    (function ($) {
 
         'use strict';
 
@@ -55,7 +55,8 @@
 
         $.extend($.fn.bootstrapTable.defaults, {
             groupBy: false,
-            groupByField: ''
+            groupByField: '',
+            groupByFormatter: undefined
         });
 
         var BootstrapTable = $.fn.bootstrapTable.Constructor,
@@ -86,7 +87,8 @@
                 $.each(groups, function (key, value) {
                     tableGroups.push({
                         id: index,
-                        name: key
+                        name: key,
+                        data: value
                     });
 
                     value.forEach(function (item) {
@@ -138,8 +140,11 @@
                     if (checkBox) {
                         html.push('<td class="bs-checkbox">', '<input name="btSelectGroup" type="checkbox" />', '</td>');
                     }
-
-                    html.push('<td', sprintf(' colspan="%s"', visibleColumns), '>', item.name, '</td>');
+                    var formattedValue = item.name;
+                    if (typeof that.options.groupByFormatter == "function") {
+                        formattedValue = that.options.groupByFormatter(item.name, item.id, item.data);
+                    }
+                    html.push('<td', sprintf(' colspan="%s"', visibleColumns), '>', formattedValue, '</td>');
 
                     html.push('</tr>');
 
@@ -225,5 +230,5 @@
             }
             this.trigger(checked ? 'check-all' : 'uncheck-all', rows);
         };
-    }(jQuery);
+    })(jQuery);
 });

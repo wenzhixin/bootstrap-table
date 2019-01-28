@@ -25,6 +25,102 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'table'`
 
+- **Example:** [From HTML](https://examples.bootstrap-table.com/#options/from-html.html)
+
+## height
+
+- **Attribute:** `data-height`
+
+- **Type:** `Number`
+
+- **Detail:**
+
+  The height of table, enable fixed header of table.
+
+- **Default:** `undefined`
+
+- **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
+
+## classes
+
+- **Attribute:** `data-classes`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  The class name of table. `'table'`, `'table-bordered'`, `'table-hover'`, `'table-striped'`, `'table-dark'`, `'table-sm'` and `'table-borderless'` can be used. By default, the table is bordered.
+
+- **Default:** `'table table-bordered table-hover'`
+
+- **Example:** [Table Classes](https://examples.bootstrap-table.com/#options/table-classes.html)
+
+## theadClasses
+
+- **Attribute:** `data-thead-classes`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  The class name of table thead. Bootstrap v4, use the modifier classes `.thead-light` or `.thead-dark` to make `thead`s appear light or dark gray.
+
+- **Default:** `''`
+
+- **Example:** [Thead Classes](https://examples.bootstrap-table.com/#options/thead-classes.html)
+
+## rowStyle
+
+- **Attribute:** `data-row-style`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  The row style formatter function, takes two parameters:
+
+  * `row`: the row record data.
+  * `index`: the row index.
+
+  Support classes or css.
+
+- **Default:** `{}`
+
+- **Example:** [Row Style](https://examples.bootstrap-table.com/#options/row-style.html)
+
+## rowAttributes
+
+- **Attribute:** `data-row-attributes`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  The row attribute formatter function, takes two parameters:
+
+  * `row`: the row record data.
+  * `index`: the row index.
+
+  Support all custom attributes.
+
+- **Default:** `{}`
+
+- **Example:** [Row Attributes](https://examples.bootstrap-table.com/#options/row-attributes.html)
+
+## undefinedText
+
+- **Attribute:** `data-undefined-text`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines the default `undefined` text.
+
+- **Default:** `'-'`
+
+- **Example:** [Undefined Text](https://examples.bootstrap-table.com/#options/undefined-text.html)
+
 ## locale
 
 - **Attribute:** `data-locale`
@@ -45,120 +141,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
-## height
-
-- **Attribute:** `data-height`
-
-- **Type:** `Number`
-
-- **Detail:**
-
-  The height of table, enable fixed header of table.
-
-- **Default:** `undefined`
-
-## undefinedText
-
-- **Attribute:** `data-undefined-text`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Defines the default `undefined` text.
-
-- **Default:** `'-'`
-
-## classes
-
-- **Attribute:** `data-classes`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  The class name of table. By default, the table is bordered, you can add `'table-no-bordered'` to remove table-bordered style.
-
-- **Default:** `'table table-hover'`
-
-## theadClasses
-
-- **Attribute:** `data-thead-classes`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  The class name of table thead. Bootstrap v4, use the modifier classes `.thead-light` or `.thead-dark` to make `thead`s appear light or dark gray.
-
-- **Default:** `''`
-
-## sortClass
-
-- **Attribute:** `data-sort-class`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  The class name of the `td` elements which are sorted.
-
-- **Default:** `undefined`
-
-## striped
-
-- **Attribute:** `data-striped`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to stripe the rows.
-
-- **Default:** `false`
-
-## rowStyle
-
-- **Attribute:** `data-row-style`
-
-- **Type:** `Function`
-
-- **Detail:**
-
-  The row style formatter function, takes two parameters:
-
-  * `row`: the row record data.
-  * `index`: the row index.
-
-  Support classes or css. Example usage:
-
-  {% highlight javascript %}
-  function rowStyle(row, index) {
-    return {
-      classes: 'text-nowrap another-class',
-      css: {color: 'blue', 'font-size': '50px'}
-    }
-  }
-  {% endhighlight %}
-
-- **Default:** `{}`
-
-## rowAttributes
-
-- **Attribute:** `data-row-attributes`
-
-- **Type:** `Function`
-
-- **Detail:**
-
-  The row attribute formatter function, takes two parameters:
-
-  * `row`: the row record data.
-  * `index`: the row index.
-
-  Support all custom attributes.
-
-- **Default:** `{}`
+- **Example:** [Table Locale](https://examples.bootstrap-table.com/#options/table-locale.html)
 
 ## sortable
 
@@ -172,6 +155,22 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `true`
 
+- **Example:** [Table Sortable](https://examples.bootstrap-table.com/#options/table-sortable.html)
+
+## sortClass
+
+- **Attribute:** `data-sort-class`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  The class name of the `td` elements which are sorted.
+
+- **Default:** `undefined`
+
+- **Example:** [Sort Class](https://examples.bootstrap-table.com/#options/sort-class.html)
+
 ## silentSort
 
 - **Attribute:** `data-silent-sort`
@@ -180,9 +179,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `false` to sort the data silently. This options works when the sidePagination option is set to `'server'`.
+  Set `false` to sort the data with loading message. This options works when the sidePagination option is set to `'server'`.
 
 - **Default:** `true`
+
+- **Example:** [Silent Sort](https://examples.bootstrap-table.com/#options/silent-sort.html)
 
 ## sortName
 
@@ -196,6 +197,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#options/sort-name-order.html)
+
 ## sortOrder
 
 - **Attribute:** `data-sort-order`
@@ -207,6 +210,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Defines the column sort order, can only be `'asc'` or `'desc'`.
 
 - **Default:** `'asc'`
+
+- **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#options/sort-name-order.html)
 
 ## sortStable
 
@@ -220,6 +225,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Sort Stable](https://examples.bootstrap-table.com/#options/sort-stable.html)
+
 ## rememberOrder
 
 - **Attribute:** `data-remember-order`
@@ -228,9 +235,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set true remember the order for each column.
+  Set `true` to remember the order for each column.
 
 - **Default:** `false`
+
+- **Example:** [Remember Order](https://examples.bootstrap-table.com/#options/remember-order.html)
 
 ## customSort
 
@@ -240,21 +249,15 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The custom sort function is executed instead of built-in sort function, takes two parameters:
+  The custom sort function is executed instead of built-in sort function, takes three parameters:
 
   * `sortName`: the sort name.
   * `sortOrder`: the sort order.
+  * `data`: the rows data.
 
-  Example usage:
+- **Default:** `undefined`
 
-  {% highlight javascript %}
-  function customSort(sortName, sortOrder) {
-    //Sort logic here.
-    //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
-  }
-  {% endhighlight %}
-
-- **Default:** `$.noop`
+- **Example:** [Custom Order](https://examples.bootstrap-table.com/#options/custom-order.html)
 
 ## columns
 
@@ -268,6 +271,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `[]`
 
+- **Example:** [Table Columns](https://examples.bootstrap-table.com/#options/table-columns.html)
+
 ## data
 
 - **Attribute:** `-`
@@ -280,41 +285,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `[]`
 
-## totalField
-
-- **Attribute:** `data-total-field`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Key in incoming json containing `'total'` data .
-
-- **Default:** `'total'`
-
-## dataField
-
-- **Attribute:** `data-data-field`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Key in incoming json containing `'rows'` data list.
-
-- **Default:** `'rows'`
-
-## method
-
-- **Attribute:** `data-method`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  The method type to request remote data.
-
-- **Default:** `'get'`
+- **Example:** [From Data](https://examples.bootstrap-table.com/#options/from-data.html)
 
 ## url
 
@@ -333,17 +304,21 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
-## ajax
+- **Example:** [From URL](https://examples.bootstrap-table.com/#options/from-url.html)
 
-- **Attribute:** `data-ajax`
+## method
 
-- **Type:** `Function`
+- **Attribute:** `data-method`
+
+- **Type:** `String`
 
 - **Detail:**
 
-  A method to replace ajax call. Should implement the same API as jQuery ajax method.
+  The method type to request remote data.
 
-- **Default:** `undefined`
+- **Default:** `'get'`
+
+- **Example:** [Table Method](https://examples.bootstrap-table.com/#options/table-method.html)
 
 ## cache
 
@@ -357,6 +332,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `true`
 
+- **Example:** [Table Cache](https://examples.bootstrap-table.com/#options/table-cache.html)
+
 ## contentType
 
 - **Attribute:** `data-content-type`
@@ -365,9 +342,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The contentType of request remote data.
+  The contentType of request remote data, for example: `application/x-www-form-urlencoded`.
 
 - **Default:** `'application/json'`
+
+- **Example:** [Content Type](https://examples.bootstrap-table.com/#options/content-type.html)
 
 ## dataType
 
@@ -381,6 +360,22 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'json'`
 
+- **Example:** [Data Type](https://examples.bootstrap-table.com/#options/data-type.html)
+
+## ajax
+
+- **Attribute:** `data-ajax`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  A method to replace ajax call. Should implement the same API as jQuery ajax method.
+
+- **Default:** `undefined`
+
+- **Example:** [Table AJAX](https://examples.bootstrap-table.com/#options/table-ajax.html)
+
 ## ajaxOptions
 
 - **Attribute:** `data-ajax-options`
@@ -392,6 +387,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Additional options for submit ajax request. List of values: [jQuery.ajax](http://api.jquery.com/jQuery.ajax).
 
 - **Default:** `{}`
+
+- **Example:** [AJAX Options](https://examples.bootstrap-table.com/#options/ajax-options.html)
 
 ## queryParams
 
@@ -436,6 +433,30 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   * `res`: the response data.
 
 - **Default:** `function(res) { return res }`
+
+## totalField
+
+- **Attribute:** `data-total-field`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Key in incoming json containing `'total'` data .
+
+- **Default:** `'total'`
+
+## dataField
+
+- **Attribute:** `data-data-field`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Key in incoming json containing `'rows'` data list.
+
+- **Default:** `'rows'`
 
 ## pagination
 
@@ -740,7 +761,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   }
   {% endhighlight %}
 
-- **Default:** `$.noop`
+- **Default:** `undefined`
 
 ## showHeader
 

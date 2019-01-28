@@ -261,7 +261,7 @@
 
             header.find(searchControls).each(function () {
               var field = $(this).closest('[data-field]').data('field');
-              var filteredCookies = $.grep(parsedCookieFilters, function (cookie) {
+              var filteredCookies = parsedCookieFilters.filter(function (cookie) {
                 return cookie.field === field;
               });
 
@@ -365,7 +365,7 @@
       }, {
         key: 'onSort',
         value: function onSort() {
-          var event = arguments[0];
+          var event = arguments.length <= 0 ? undefined : arguments[0];
           _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onSort', this).call(this, event);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName);
@@ -373,7 +373,7 @@
       }, {
         key: 'onPageNumber',
         value: function onPageNumber() {
-          var event = arguments[0];
+          var event = arguments.length <= 0 ? undefined : arguments[0];
           _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPageNumber', this).call(this, event);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
           return false;
@@ -381,7 +381,7 @@
       }, {
         key: 'onPageListChange',
         value: function onPageListChange() {
-          var event = arguments[0];
+          var event = arguments.length <= 0 ? undefined : arguments[0];
           _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPageListChange', this).call(this, event);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList, this.options.pageSize);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
@@ -390,7 +390,7 @@
       }, {
         key: 'onPagePre',
         value: function onPagePre() {
-          var event = arguments[0];
+          var event = arguments.length <= 0 ? undefined : arguments[0];
           _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPagePre', this).call(this, event);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
           return false;
@@ -398,7 +398,7 @@
       }, {
         key: 'onPageNext',
         value: function onPageNext() {
-          var event = arguments[0];
+          var event = arguments.length <= 0 ? undefined : arguments[0];
           _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPageNext', this).call(this, event);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
           return false;
@@ -427,7 +427,11 @@
       }, {
         key: 'onSearch',
         value: function onSearch() {
-          var target = Array.prototype.slice.apply(arguments);
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+
+          var target = Array.prototype.slice.apply(args);
           _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onSearch', this).call(this, this, target);
 
           if ($(target[0].currentTarget).parent().hasClass('search')) {
