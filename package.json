@@ -23,6 +23,7 @@
     "js:build:concat": "babel src/locale -o dist/bootstrap-table-locale-all.js && NODE_ENV=production babel src/locale -o dist/bootstrap-table-locale-all.min.js",
     "js:build:banner": "find dist -name '*.min.js' -exec headr {} -o {} --version --homepage --author --license \\;",
     "js:build": "run-s js:build:*",
+    "css:build:scss": "sass src/bootstrap-table.scss src/bootstrap-table.css",
     "css:build:base": "find src -name '*.css' | sed -e 'p;s/src/dist/' | xargs -n2 cp",
     "css:build:min": "find dist -name '*.css' | sed -e 'p;s/.css/.min.css/' | xargs -n2 cssmin",
     "css:build:banner": "find dist -name '*.min.css' -exec headr {} -o {} --version --homepage --author --license \\;",

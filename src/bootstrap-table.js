@@ -272,38 +272,35 @@
   // ======================
 
   const DEFAULTS = {
-    locale: undefined,
     height: undefined,
-    undefinedText: '-',
-    classes: 'table table-hover',
+    classes: 'table table-bordered table-hover',
     theadClasses: '',
-    sortClass: undefined,
-    striped: false,
     rowStyle (row, index) {
       return {}
     },
     rowAttributes (row, index) {
       return {}
     },
+    undefinedText: '-',
+    locale: undefined,
     sortable: true,
+    sortClass: undefined,
     silentSort: true,
     sortName: undefined,
     sortOrder: 'asc',
     sortStable: false,
     rememberOrder: false,
-    customSort: $.noop,
+    customSort: undefined,
     columns: [
       []
     ],
     data: [],
-    totalField: 'total',
-    dataField: 'rows',
-    method: 'get',
     url: undefined,
-    ajax: undefined,
+    method: 'get',
     cache: true,
     contentType: 'application/json',
     dataType: 'json',
+    ajax: undefined,
     ajaxOptions: {},
     queryParams (params) {
       return params
@@ -312,11 +309,13 @@
     responseHandler (res) {
       return res
     },
+    totalField: 'total',
+    dataField: 'rows',
     pagination: false,
     onlyInfoPagination: false,
     paginationLoop: true,
     sidePagination: 'client', // client or server
-    totalRows: 0, // server side need to set
+    totalRows: 0,
     pageNumber: 1,
     pageSize: 10,
     pageList: [10, 25, 50, 100],
@@ -335,7 +334,7 @@
     searchAlign: 'right',
     searchTimeOut: 500,
     searchText: '',
-    customSearch: $.noop,
+    customSearch: undefined,
     showHeader: true,
     showFooter: false,
     footerStyle (row, index) {
@@ -591,18 +590,17 @@
       if (this.options.locale) {
         const locales = $.fn.bootstrapTable.locales
         const parts = this.options.locale.split(/-|_/)
-        parts[0].toLowerCase()
+
+        parts[0] = parts[0].toLowerCase()
         if (parts[1]) {
-          parts[1].toUpperCase()
+          parts[1] = parts[1].toUpperCase()
         }
+
         if (locales[this.options.locale]) {
-          // locale as requested
           $.extend(this.options, locales[this.options.locale])
-        } else if ($.fn.bootstrapTable.locales[parts.join('-')]) {
-          // locale with sep set to - (in case original was specified with _)
+        } else if (locales[parts.join('-')]) {
           $.extend(this.options, locales[parts.join('-')])
-        } else if ($.fn.bootstrapTable.locales[parts[0]]) {
-          // short locale language code (i.e. 'en')
+        } else if (locales[parts[0]]) {
           $.extend(this.options, locales[parts[0]])
         }
       }
@@ -649,11 +647,15 @@
       this.$container.after('<div class="clearfix"></div>')
 
       this.$el.addClass(this.options.classes)
-      if (this.options.striped) {
-        this.$el.addClass('table-striped')
-      }
-      if (this.options.classes.split(' ').includes('table-no-bordered')) {
-        this.$tableContainer.addClass('table-no-bordered')
+
+      if (this.options.height) {
+        this.$tableContainer.addClass('fixed-height')
+
+        if (this.options.classes.split(' ').includes('table-bordered')) {
+          this.$tableBody.append('<div class="fixed-table-border"></div>')
+          this.$tableBorder = this.$tableBody.find('.fixed-table-border')
+          this.$tableLoading.addClass('fixed-table-border')
+        }
       }
     }
 
@@ -961,82 +963,87 @@
       const index = this.header.fields.indexOf(this.options.sortName)
       let timeoutId = 0
 
-      if (this.options.customSort !== $.noop) {
-        this.options.customSort.apply(this, [this.options.sortName, this.options.sortOrder])
-        return
-      }
-
       if (index !== -1) {
         if (this.options.sortStable) {
           this.data.forEach((row, i) => {
-            row._position = i
+            if (!row.hasOwnProperty('_position')) {
+              row._position = i
+            }
           })
         }
 
-        this.data.sort((a, b) => {
-          if (this.header.sortNames[index]) {
-            name = this.header.sortNames[index]
-          }
-          let aa = Utils.getItemField(a, name, this.options.escape)
-          let bb = Utils.getItemField(b, name, this.options.escape)
-          const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
-
-          if (value !== undefined) {
-            if (this.options.sortStable && value === 0) {
-              return a._position - b._position
+        if (this.options.customSort) {
+          Utils.calculateObjectValue(this.options, this.options.customSort, [
+            this.options.sortName,
+            this.options.sortOrder,
+            this.data
+          ])
+        } else {
+          this.data.sort((a, b) => {
+            if (this.header.sortNames[index]) {
+              name = this.header.sortNames[index]
             }
-            return order * value
-          }
+            let aa = Utils.getItemField(a, name, this.options.escape)
+            let bb = Utils.getItemField(b, name, this.options.escape)
+            const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
 
-          // Fix #161: undefined or null string sort bug.
-          if (aa === undefined || aa === null) {
-            aa = ''
-          }
-          if (bb === undefined || bb === null) {
-            bb = ''
-          }
+            if (value !== undefined) {
+              if (this.options.sortStable && value === 0) {
+                return order * (a._position - b._position)
+              }
+              return order * value
+            }
 
-          if (this.options.sortStable && aa === bb) {
-            aa = a._position
-            bb = b._position
-            return a._position - b._position
-          }
+            // Fix #161: undefined or null string sort bug.
+            if (aa === undefined || aa === null) {
+              aa = ''
+            }
+            if (bb === undefined || bb === null) {
+              bb = ''
+            }
 
-          // IF both values are numeric, do a numeric comparison
-          if ($.isNumeric(aa) && $.isNumeric(bb)) {
-            // Convert numerical values form string to float.
-            aa = parseFloat(aa)
-            bb = parseFloat(bb)
-            if (aa < bb) {
+            if (this.options.sortStable && aa === bb) {
+              aa = a._position
+              bb = b._position
+            }
+
+            // IF both values are numeric, do a numeric comparison
+            if ($.isNumeric(aa) && $.isNumeric(bb)) {
+              // Convert numerical values form string to float.
+              aa = parseFloat(aa)
+              bb = parseFloat(bb)
+              if (aa < bb) {
+                return order * -1
+              }
+              if (aa > bb) {
+                return order
+              }
+              return 0
+            }
+
+            if (aa === bb) {
+              return 0
+            }
+
+            // If value is not a string, convert to string
+            if (typeof aa !== 'string') {
+              aa = aa.toString()
+            }
+
+            if (aa.localeCompare(bb) === -1) {
               return order * -1
             }
+
             return order
-          }
-
-          if (aa === bb) {
-            return 0
-          }
-
-          // If value is not a string, convert to string
-          if (typeof aa !== 'string') {
-            aa = aa.toString()
-          }
-
-          if (aa.localeCompare(bb) === -1) {
-            return order * -1
-          }
-
-          return order
-        })
+          })
+        }
 
         if (this.options.sortClass !== undefined) {
           clearTimeout(timeoutId)
           timeoutId = setTimeout(() => {
             this.$el.removeClass(this.options.sortClass)
-            const index = this.$header.find(Utils.sprintf('[data-field="%s"]',
-              this.options.sortName).index() + 1)
-            this.$el.find(Utils.sprintf('tr td:nth-child(%s)', index))
-              .addClass(this.options.sortClass)
+            const index = this.$header.find(`[data-field="${this.options.sortName}"]`).index()
+            this.$el.find(`tr td:nth-child(${index + 1})`).addClass(this.options.sortClass)
           }, 250)
         }
       }
@@ -1271,7 +1278,7 @@
 
     initSearch () {
       if (this.options.sidePagination !== 'server') {
-        if (this.options.customSearch !== $.noop) {
+        if (this.options.customSearch) {
           Utils.calculateObjectValue(this.options, this.options.customSearch, [this.searchText])
           return
         }
@@ -2085,7 +2092,9 @@
 
           this.load(res)
           this.trigger('load-success', res)
-          if (!silent) this.$tableLoading.hide()
+          if (!silent) {
+            this.$tableLoading.hide()
+          }
         },
         error: jqXHR => {
           let data = []
@@ -2229,7 +2238,9 @@
 
         if (this.options.detailView && !this.options.cardView) {
           if (i === 0) {
-            this.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth())
+            const $thDetail = $ths.filter('.detail')
+            const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()
+            $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
           }
           index = i - 1
         }
@@ -2400,14 +2411,6 @@
       this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
         this.$selectItem.length === this.$selectItem.filter(':checked').length)
 
-      if (this.options.height) {
-        const toolbarHeight = this.$toolbar.outerHeight(true)
-        const paginationHeight = this.$pagination.outerHeight(true)
-        const height = this.options.height - toolbarHeight - paginationHeight
-
-        this.$tableContainer.css('height', `${height}px`)
-      }
-
       if (this.options.cardView) {
         // remove the element css
         this.$el.css('margin-top', '0')
@@ -2430,6 +2433,15 @@
         if (this.options.height) {
           padding += this.$tableFooter.outerHeight() + 1
         }
+      }
+
+      if (this.options.height) {
+        const toolbarHeight = this.$toolbar.outerHeight(true)
+        const paginationHeight = this.$pagination.outerHeight(true)
+        const height = this.options.height - toolbarHeight - paginationHeight
+        const tableHeight = this.$tableBody.find('table').outerHeight(true)
+        this.$tableContainer.css('height', `${height}px`)
+        this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
       }
 
       // Assign the correct sortable arrow
