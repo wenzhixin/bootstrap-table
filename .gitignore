@@ -4,8 +4,10 @@ bower_components
 # docs site
 _gh_pages
 
-# build the extensions
-extensions.js
+# use scss instead
+src/bootstrap-table.css
+src/bootstrap-table.css.map
+.sass-cache
 
 # old docs
 docs_
