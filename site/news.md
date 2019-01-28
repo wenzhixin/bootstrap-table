@@ -19,6 +19,7 @@ description: News and announcements for all things Bootstrap Table, including ne
 - **Update(js):** Fixed `sortClass` option bug.
 - **Update(js):** Fixed `sortStable` option cannot work bug.
 - **Update(js):** Improved built-in sort function and `customSort` logic.
+- **Update(js):** Fixed horizontal scrollbar bug.
 - **Update(cookie extension):** Improved cookie extension code.
 
 ## Bootstrap Table 1.13.2
