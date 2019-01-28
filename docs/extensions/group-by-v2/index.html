@@ -338,6 +338,7 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#groupby">groupBy</a></li>
 <li class="toc-entry toc-h3"><a href="#groupbyfield">groupByField</a></li>
+<li class="toc-entry toc-h3"><a href="#groupbyformatter">groupByFormatter</a></li>
 </ul>
 </li>
 </ul>
@@ -387,6 +388,28 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
+  </li>
+</ul>
+
+<h3 id="groupbyformatter">groupByFormatter</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The group row formatter function, takes three parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">value</code>: the group by value.</li>
+      <li><code class="highlighter-rouge">idx</code>: the index of the group.</li>
+      <li><code class="highlighter-rouge">data</code>: an array of rows in the group.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
 </ul>
 

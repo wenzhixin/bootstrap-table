@@ -334,16 +334,15 @@
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#-">-</a></li>
-<li class="toc-entry toc-h2"><a href="#locale">locale</a></li>
 <li class="toc-entry toc-h2"><a href="#height">height</a></li>
-<li class="toc-entry toc-h2"><a href="#undefinedtext">undefinedText</a></li>
 <li class="toc-entry toc-h2"><a href="#classes">classes</a></li>
 <li class="toc-entry toc-h2"><a href="#theadclasses">theadClasses</a></li>
-<li class="toc-entry toc-h2"><a href="#sortclass">sortClass</a></li>
-<li class="toc-entry toc-h2"><a href="#striped">striped</a></li>
 <li class="toc-entry toc-h2"><a href="#rowstyle">rowStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#rowattributes">rowAttributes</a></li>
+<li class="toc-entry toc-h2"><a href="#undefinedtext">undefinedText</a></li>
+<li class="toc-entry toc-h2"><a href="#locale">locale</a></li>
 <li class="toc-entry toc-h2"><a href="#sortable">sortable</a></li>
+<li class="toc-entry toc-h2"><a href="#sortclass">sortClass</a></li>
 <li class="toc-entry toc-h2"><a href="#silentsort">silentSort</a></li>
 <li class="toc-entry toc-h2"><a href="#sortname">sortName</a></li>
 <li class="toc-entry toc-h2"><a href="#sortorder">sortOrder</a></li>
@@ -352,18 +351,18 @@
 <li class="toc-entry toc-h2"><a href="#customsort">customSort</a></li>
 <li class="toc-entry toc-h2"><a href="#columns">columns</a></li>
 <li class="toc-entry toc-h2"><a href="#data">data</a></li>
-<li class="toc-entry toc-h2"><a href="#totalfield">totalField</a></li>
-<li class="toc-entry toc-h2"><a href="#datafield">dataField</a></li>
-<li class="toc-entry toc-h2"><a href="#method">method</a></li>
 <li class="toc-entry toc-h2"><a href="#url">url</a></li>
-<li class="toc-entry toc-h2"><a href="#ajax">ajax</a></li>
+<li class="toc-entry toc-h2"><a href="#method">method</a></li>
 <li class="toc-entry toc-h2"><a href="#cache">cache</a></li>
 <li class="toc-entry toc-h2"><a href="#contenttype">contentType</a></li>
 <li class="toc-entry toc-h2"><a href="#datatype">dataType</a></li>
+<li class="toc-entry toc-h2"><a href="#ajax">ajax</a></li>
 <li class="toc-entry toc-h2"><a href="#ajaxoptions">ajaxOptions</a></li>
 <li class="toc-entry toc-h2"><a href="#queryparams">queryParams</a></li>
 <li class="toc-entry toc-h2"><a href="#queryparamstype">queryParamsType</a></li>
 <li class="toc-entry toc-h2"><a href="#responsehandler">responseHandler</a></li>
+<li class="toc-entry toc-h2"><a href="#totalfield">totalField</a></li>
+<li class="toc-entry toc-h2"><a href="#datafield">dataField</a></li>
 <li class="toc-entry toc-h2"><a href="#pagination">pagination</a></li>
 <li class="toc-entry toc-h2"><a href="#onlyinfopagination">onlyInfoPagination</a></li>
 <li class="toc-entry toc-h2"><a href="#paginationloop">paginationLoop</a></li>
@@ -447,6 +446,155 @@
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'table'</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/from-html.html">From HTML</a></p>
+  </li>
+</ul>
+
+<h2 id="height">height</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-height</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The height of table, enable fixed header of table.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-height.html">Table Height</a></p>
+  </li>
+</ul>
+
+<h2 id="classes">classes</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-classes</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The class name of table. <code class="highlighter-rouge">'table'</code>, <code class="highlighter-rouge">'table-bordered'</code>, <code class="highlighter-rouge">'table-hover'</code>, <code class="highlighter-rouge">'table-striped'</code>, <code class="highlighter-rouge">'table-dark'</code>, <code class="highlighter-rouge">'table-sm'</code> and <code class="highlighter-rouge">'table-borderless'</code> can be used. By default, the table is bordered.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'table table-bordered table-hover'</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-classes.html">Table Classes</a></p>
+  </li>
+</ul>
+
+<h2 id="theadclasses">theadClasses</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-thead-classes</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The class name of table thead. Bootstrap v4, use the modifier classes <code class="highlighter-rouge">.thead-light</code> or <code class="highlighter-rouge">.thead-dark</code> to make <code class="highlighter-rouge">thead</code>s appear light or dark gray.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/thead-classes.html">Thead Classes</a></p>
+  </li>
+</ul>
+
+<h2 id="rowstyle">rowStyle</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-row-style</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The row style formatter function, takes two parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">row</code>: the row record data.</li>
+      <li><code class="highlighter-rouge">index</code>: the row index.</li>
+    </ul>
+
+    <p>Support classes or css.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/row-style.html">Row Style</a></p>
+  </li>
+</ul>
+
+<h2 id="rowattributes">rowAttributes</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-row-attributes</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The row attribute formatter function, takes two parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">row</code>: the row record data.</li>
+      <li><code class="highlighter-rouge">index</code>: the row index.</li>
+    </ul>
+
+    <p>Support all custom attributes.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/row-attributes.html">Row Attributes</a></p>
+  </li>
+</ul>
+
+<h2 id="undefinedtext">undefinedText</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-undefined-text</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines the default <code class="highlighter-rouge">undefined</code> text.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'-'</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/undefined-text.html">Undefined Text</a></p>
+  </li>
 </ul>
 
 <h2 id="locale">locale</h2>
@@ -476,180 +624,8 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
-</ul>
-
-<h2 id="height">height</h2>
-
-<ul>
   <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-height</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>The height of table, enable fixed header of table.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-</ul>
-
-<h2 id="undefinedtext">undefinedText</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-undefined-text</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Defines the default <code class="highlighter-rouge">undefined</code> text.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'-'</code></p>
-  </li>
-</ul>
-
-<h2 id="classes">classes</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-classes</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>The class name of table. By default, the table is bordered, you can add <code class="highlighter-rouge">'table-no-bordered'</code> to remove table-bordered style.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'table table-hover'</code></p>
-  </li>
-</ul>
-
-<h2 id="theadclasses">theadClasses</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-thead-classes</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>The class name of table thead. Bootstrap v4, use the modifier classes <code class="highlighter-rouge">.thead-light</code> or <code class="highlighter-rouge">.thead-dark</code> to make <code class="highlighter-rouge">thead</code>s appear light or dark gray.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
-  </li>
-</ul>
-
-<h2 id="sortclass">sortClass</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-class</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>The class name of the <code class="highlighter-rouge">td</code> elements which are sorted.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-</ul>
-
-<h2 id="striped">striped</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-striped</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set <code class="highlighter-rouge">true</code> to stripe the rows.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h2 id="rowstyle">rowStyle</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-row-style</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>The row style formatter function, takes two parameters:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">row</code>: the row record data.</li>
-      <li><code class="highlighter-rouge">index</code>: the row index.</li>
-    </ul>
-
-    <p>Support classes or css. Example usage:</p>
-  </li>
-</ul>
-
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">rowStyle</span><span class="p">(</span><span class="nx">row</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">{</span>
-      <span class="na">classes</span><span class="p">:</span> <span class="s1">'text-nowrap another-class'</span><span class="p">,</span>
-      <span class="na">css</span><span class="p">:</span> <span class="p">{</span><span class="na">color</span><span class="p">:</span> <span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'font-size'</span><span class="p">:</span> <span class="s1">'50px'</span><span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  </code></pre></figure>
-
-<ul>
-  <li><strong>Default:</strong> <code class="highlighter-rouge">{}</code></li>
-</ul>
-
-<h2 id="rowattributes">rowAttributes</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-row-attributes</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>The row attribute formatter function, takes two parameters:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">row</code>: the row record data.</li>
-      <li><code class="highlighter-rouge">index</code>: the row index.</li>
-    </ul>
-
-    <p>Support all custom attributes.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-locale.html">Table Locale</a></p>
   </li>
 </ul>
 
@@ -670,6 +646,31 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-sortable.html">Table Sortable</a></p>
+  </li>
+</ul>
+
+<h2 id="sortclass">sortClass</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-class</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The class name of the <code class="highlighter-rouge">td</code> elements which are sorted.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-class.html">Sort Class</a></p>
+  </li>
 </ul>
 
 <h2 id="silentsort">silentSort</h2>
@@ -684,10 +685,13 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">false</code> to sort the data silently. This options works when the sidePagination option is set to <code class="highlighter-rouge">'server'</code>.</p>
+    <p>Set <code class="highlighter-rouge">false</code> to sort the data with loading message. This options works when the sidePagination option is set to <code class="highlighter-rouge">'server'</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/silent-sort.html">Silent Sort</a></p>
   </li>
 </ul>
 
@@ -708,6 +712,9 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-name-order.html">Sort Name Order</a></p>
+  </li>
 </ul>
 
 <h2 id="sortorder">sortOrder</h2>
@@ -726,6 +733,9 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'asc'</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-name-order.html">Sort Name Order</a></p>
   </li>
 </ul>
 
@@ -746,6 +756,9 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-stable.html">Sort Stable</a></p>
+  </li>
 </ul>
 
 <h2 id="rememberorder">rememberOrder</h2>
@@ -760,10 +773,13 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set true remember the order for each column.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to remember the order for each column.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/remember-order.html">Remember Order</a></p>
   </li>
 </ul>
 
@@ -779,25 +795,20 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The custom sort function is executed instead of built-in sort function, takes two parameters:</p>
+    <p>The custom sort function is executed instead of built-in sort function, takes three parameters:</p>
 
     <ul>
       <li><code class="highlighter-rouge">sortName</code>: the sort name.</li>
       <li><code class="highlighter-rouge">sortOrder</code>: the sort order.</li>
+      <li><code class="highlighter-rouge">data</code>: the rows data.</li>
     </ul>
-
-    <p>Example usage:</p>
   </li>
-</ul>
-
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">customSort</span><span class="p">(</span><span class="nx">sortName</span><span class="p">,</span> <span class="nx">sortOrder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//Sort logic here.</span>
-    <span class="c1">//You must use `this.data` array in order to sort the data. NO use `this.options.data`.</span>
-  <span class="p">}</span>
-  </code></pre></figure>
-
-<ul>
-  <li><strong>Default:</strong> <code class="highlighter-rouge">$.noop</code></li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-order.html">Custom Order</a></p>
+  </li>
 </ul>
 
 <h2 id="columns">columns</h2>
@@ -816,6 +827,9 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-columns.html">Table Columns</a></p>
   </li>
 </ul>
 
@@ -836,62 +850,8 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
   </li>
-</ul>
-
-<h2 id="totalfield">totalField</h2>
-
-<ul>
   <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-total-field</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Key in incoming json containing <code class="highlighter-rouge">'total'</code> data .</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'total'</code></p>
-  </li>
-</ul>
-
-<h2 id="datafield">dataField</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-data-field</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Key in incoming json containing <code class="highlighter-rouge">'rows'</code> data list.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'rows'</code></p>
-  </li>
-</ul>
-
-<h2 id="method">method</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-method</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>The method type to request remote data.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'get'</code></p>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/from-data.html">From Data</a></p>
   </li>
 </ul>
 
@@ -919,24 +879,30 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/from-url.html">From URL</a></p>
+  </li>
 </ul>
 
-<h2 id="ajax">ajax</h2>
+<h2 id="method">method</h2>
 
 <ul>
   <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-ajax</code></p>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-method</code></p>
   </li>
   <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>A method to replace ajax call. Should implement the same API as jQuery ajax method.</p>
+    <p>The method type to request remote data.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'get'</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-method.html">Table Method</a></p>
   </li>
 </ul>
 
@@ -957,6 +923,9 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-cache.html">Table Cache</a></p>
+  </li>
 </ul>
 
 <h2 id="contenttype">contentType</h2>
@@ -971,10 +940,13 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The contentType of request remote data.</p>
+    <p>The contentType of request remote data, for example: <code class="highlighter-rouge">application/x-www-form-urlencoded</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'application/json'</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/content-type.html">Content Type</a></p>
   </li>
 </ul>
 
@@ -995,6 +967,31 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'json'</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/data-type.html">Data Type</a></p>
+  </li>
+</ul>
+
+<h2 id="ajax">ajax</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-ajax</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>A method to replace ajax call. Should implement the same API as jQuery ajax method.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-ajax.html">Table AJAX</a></p>
+  </li>
 </ul>
 
 <h2 id="ajaxoptions">ajaxOptions</h2>
@@ -1013,6 +1010,9 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/ajax-options.html">AJAX Options</a></p>
   </li>
 </ul>
 
@@ -1080,6 +1080,44 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">function(res) { return res }</code></p>
+  </li>
+</ul>
+
+<h2 id="totalfield">totalField</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-total-field</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Key in incoming json containing <code class="highlighter-rouge">'total'</code> data .</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'total'</code></p>
+  </li>
+</ul>
+
+<h2 id="datafield">dataField</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-data-field</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Key in incoming json containing <code class="highlighter-rouge">'rows'</code> data list.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'rows'</code></p>
   </li>
 </ul>
 
@@ -1557,7 +1595,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </code></pre></figure>
 
 <ul>
-  <li><strong>Default:</strong> <code class="highlighter-rouge">$.noop</code></li>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></li>
 </ul>
 
 <h2 id="showheader">showHeader</h2>
