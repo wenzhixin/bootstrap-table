@@ -2238,7 +2238,9 @@
 
         if (this.options.detailView && !this.options.cardView) {
           if (i === 0) {
-            this.$header_.find('th.detail').find('.fht-cell').width($this.innerWidth())
+            const $thDetail = $ths.filter('.detail')
+            const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()
+            $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
           }
           index = i - 1
         }
