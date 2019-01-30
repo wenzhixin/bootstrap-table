@@ -15,7 +15,7 @@
         autoRefreshStatus: true,
         autoRefreshFunction: null
     });
-    
+
     $.extend($.fn.bootstrapTable.defaults.icons, {
         autoRefresh: $.fn.bootstrapTable.utils.bootstrapVersion === 4 ? 'fa-clock' : 'glyphicon-time icon-time'
     });
