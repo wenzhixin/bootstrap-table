@@ -16,30 +16,9 @@
         autoRefreshFunction: null
     });
     
-    var bootstrapVersion = 3;
-    try {
-      var rawVersion = $.fn.dropdown.Constructor.VERSION;
-
-      // Only try to parse VERSION if is is defined.
-      // It is undefined in older versions of Bootstrap (tested with 3.1.1).
-      if (rawVersion !== undefined) {
-        bootstrapVersion = parseInt(rawVersion, 10);
-      }
-    } catch (e) {
-      // ignore
-    }
-    
-    switch(bootstrapVersion){
-        case 4:
-            $.extend($.fn.bootstrapTable.defaults.icons, {
-                autoRefresh: 'fa-clock'
-            });
-            break;
-        default:
-            $.extend($.fn.bootstrapTable.defaults.icons, {
-                autoRefresh: 'glyphicon-time icon-time'
-            });
-    }
+    $.extend($.fn.bootstrapTable.defaults.icons, {
+        autoRefresh: $.fn.bootstrapTable.utils.bootstrapVersion === 4 ? 'fa-clock' : 'glyphicon-time icon-time'
+    });
 
     $.extend($.fn.bootstrapTable.locales, {
         formatAutoRefresh: function() {
