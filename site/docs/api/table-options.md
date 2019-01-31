@@ -408,6 +408,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `function(params) { return params }`
 
+- **Example:** [Query Params](https://examples.bootstrap-table.com/#options/query-params.html)
+
 ## queryParamsType
 
 - **Attribute:** `data-query-params-type`
@@ -419,6 +421,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `'limit'` to send query params with RESTFul type.
 
 - **Default:** `'limit'`
+
+- **Example:** [Query Params Type](https://examples.bootstrap-table.com/#options/query-params-type.html)
 
 ## responseHandler
 
