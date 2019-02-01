@@ -666,6 +666,8 @@
       this.$header = this.$el.find('>thead')
       if (!this.$header.length) {
         this.$header = $(`<thead class="${this.options.theadClasses}"></thead>`).appendTo(this.$el)
+      } else if (this.options.theadClasses) {
+        this.$header.addClass(this.options.theadClasses)
       }
       this.$header.find('tr').each((i, el) => {
         const column = []
