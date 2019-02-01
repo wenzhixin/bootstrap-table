@@ -1,9 +1,9 @@
 /**
  * @author: general
- * @version: 1.0.0
  * @website: note.generals.space
  * @email: generals.space@gmail.com
  * @github: https://github.com/generals-space/bootstrap-table-addrbar
+ * @update: zhixin wen <wenzhixin2010@gmail.com>
  */
 
 ($ => {
