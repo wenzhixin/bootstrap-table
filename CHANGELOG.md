@@ -5,7 +5,8 @@ ChangeLog
 
 - **New(auto-refresh extension):** Icons update to font-awesome 5.
 - **Update(js):** Fixed `theadClasses` is not set when a `thead` exists.
-- **Update(cookie extension):**  Fixed cookie extension broken bug.
+- **Update(cookie extension):** Fixed cookie extension broken bug.
+- **Update(cookie extension):** Fixed cookie extension unicode encode bug.
 - **Update(package):** Added `sass` devDependencies.
 
 ### 1.13.3
