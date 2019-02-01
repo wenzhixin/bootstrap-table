@@ -3,7 +3,7 @@ ChangeLog
 
 ### 1.13.4
 
-- **New(sticky-header extension):** Rewrited sticky-header extension to ES6.
+- **New(sticky-header extension):** Rewrote sticky-header extension to ES6.
 - **New(sticky-header extension):** Added to support bootstrap v4 and `theadClasses` option.
 - **New(auto-refresh extension):** Icons update to font-awesome 5.
 - **Update(js):** Fixed `theadClasses` is not set when a `thead` exists.
@@ -14,9 +14,9 @@ ChangeLog
 ### 1.13.3
 
 - **New(js):** Supported full table classes of bootstrap v4.
-- **New(css):** Rewrited bootstrap-table.css to scss.
-- **New(accent-neutralise extension):** Rewrited accent-neutralise extension to ES6.
-- **New(addrbar extension):** Rewrited addrbar extension to ES6 and supported attribute option.
+- **New(css):** Rewrote bootstrap-table.css to scss.
+- **New(accent-neutralise extension):** Rewrote accent-neutralise extension to ES6.
+- **New(addrbar extension):** Rewrote addrbar extension to ES6 and supported attribute option.
 - **New(group-by-v2 extension):** New `groupByFormatter` option.
 - **New(pipeline extension):** New pipeline extension `bootstrap-table-pipeline`.
 - **Remove(js):** Removed `striped` option and use classes instead.
@@ -30,7 +30,7 @@ ChangeLog
 ### 1.13.2
 
 - **New(js):** Added `paginationSuccessivelySize`, `paginationPagesBySide` and `paginationUseIntermediate` pagination options.
-- **New(cookie extension):** Rewrited cookie extension to ES6.
+- **New(cookie extension):** Rewrote cookie extension to ES6.
 - **New(cookie extension):** Saved `filterBy` method.
 - **New(filter-control extension):** Added `placeholder` as a empty option to the select controls.
 - **New(filter-control extension):** Added `clearFilterControl` method in order to clear all filter controls.
