@@ -3,6 +3,8 @@ ChangeLog
 
 ### 1.13.4
 
+- **New(sticky-header extension):** Rewrited sticky-header extension to ES6.
+- **New(sticky-header extension):** Added to support bootstrap v4 and `theadClasses` option.
 - **New(auto-refresh extension):** Icons update to font-awesome 5.
 - **Update(js):** Fixed `theadClasses` is not set when a `thead` exists.
 - **Update(cookie extension):** Fixed cookie extension broken bug.
