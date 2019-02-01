@@ -1,6 +1,13 @@
 ChangeLog
 ---------
 
+### 1.13.4
+
+- **New(auto-refresh extension):** Icons update to font-awesome 5.
+- **Update(js):** Fixed `theadClasses` is not set when a `thead` exists.
+- **Update(cookie extension):**  Fixed cookie extension broken bug.
+- **Update(package):** Added `sass` devDependencies.
+
 ### 1.13.3
 
 - **New(js):** Supported full table classes of bootstrap v4.
