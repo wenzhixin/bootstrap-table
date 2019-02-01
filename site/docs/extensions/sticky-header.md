@@ -14,6 +14,10 @@ This is an extension which provides a sticky header for the table when scrolling
 <script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
 {% endhighlight %}
 
+## Example
+
+[Sticky Header](https://examples.bootstrap-table.com/#extensions/sticky-header.html)
+
 ## Options
 
 ### stickyHeader
