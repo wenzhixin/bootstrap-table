@@ -6,6 +6,7 @@ ChangeLog
 - **New(sticky-header extension):** Rewrote sticky-header extension to ES6.
 - **New(sticky-header extension):** Added to support bootstrap v4 and `theadClasses` option.
 - **New(auto-refresh extension):** Icons update to font-awesome 5.
+- **New(examples):** Added examples Algolia search.
 - **Update(js):** Fixed `theadClasses` is not set when a `thead` exists.
 - **Update(cookie extension):** Fixed cookie extension broken bug.
 - **Update(cookie extension):** Fixed cookie extension unicode encode bug.
