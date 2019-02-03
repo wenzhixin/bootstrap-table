@@ -2233,8 +2233,13 @@
 
       const visibleFields = this.getVisibleFields()
       const $ths = this.$header_.find('th')
+      let $tr = this.$body.find('>tr:first-child:not(.no-records-found)')
 
-      this.$body.find('>tr:first-child:not(.no-records-found) > *').each((i, el) => {
+      while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
+        $tr = $tr.next()
+      }
+
+      $tr.find('> *').each((i, el) => {
         const $this = $(el)
         let index = i
 
