@@ -16,18 +16,18 @@ Source CSS, JavaScript, locales, and extensions, along with our docs.
 
 <a href="{{ site.repo }}" class="btn btn-bd-primary" role="button">Via GitHub</a>
 
-## CDN
+## UNPKG
 
-The folks over at [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) and [bootcss](http://open.bootcss.com/bootstrap-table/) graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these CDN links.
+The folks over at [UNPKG](https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/) graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these links.
 
 {% highlight html %}
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/{{ site.current_version }}/bootstrap-table.min.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/{{ site.current_version }}/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
 <!-- Latest compiled and minified Locales -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/{{ site.current_version }}/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/locale/bootstrap-table-zh-CN.min.js"></script>
 {% endhighlight %}
 
 ## Package managers

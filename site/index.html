@@ -73,11 +73,11 @@ bower install bootstrap-table
     <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
     {% include icons/download.svg width="32" height="32" class="text-primary mb-2" %}
     <h3>CDN</h3>
-    <p>When you only need to include Bootstrap Table’s compiled CSS or JS, you can use <a href="http://www.cdnjs.com/libraries/bootstrap-table">CDNJS</a>.</p>
+    <p>When you only need to include Bootstrap Table’s compiled CSS or JS, you can use <a href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/">UNPKG</a>.</p>
 
 {% highlight html %}
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/{{ site.current_version }}/bootstrap-table.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/{{ site.current_version }}/bootstrap-table.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.css">
+<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
 {% endhighlight %}
 
     <hr class="half-rule">
@@ -99,4 +99,6 @@ bower install bootstrap-table
       Browse Examples
     </a>
   </div>
+
+  {% include opencollective.html %}
 </div>
