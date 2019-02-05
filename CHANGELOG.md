@@ -8,6 +8,7 @@ ChangeLog
 - **New(auto-refresh extension):** Icons update to font-awesome 5.
 - **New(examples):** Added examples Algolia search.
 - **Update(js):** Fixed `theadClasses` is not set when a `thead` exists.
+- **Update(js):** Fixed table resize after mergeCell the first row.
 - **Update(cookie extension):** Fixed cookie extension broken bug.
 - **Update(cookie extension):** Fixed cookie extension unicode encode bug.
 - **Update(package):** Added `sass` devDependencies.
