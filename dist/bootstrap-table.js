@@ -95,7 +95,7 @@
 
   /**
    * @author zhixin wen <wenzhixin2010@gmail.com>
-   * version: 1.13.3
+   * version: 1.13.4
    * https://github.com/wenzhixin/bootstrap-table/
    */
 
@@ -921,6 +921,8 @@
           this.$header = this.$el.find('>thead');
           if (!this.$header.length) {
             this.$header = $('<thead class="' + this.options.theadClasses + '"></thead>').appendTo(this.$el);
+          } else if (this.options.theadClasses) {
+            this.$header.addClass(this.options.theadClasses);
           }
           this.$header.find('tr').each(function (i, el) {
             var column = [];
@@ -2605,8 +2607,13 @@
 
           var visibleFields = this.getVisibleFields();
           var $ths = this.$header_.find('th');
+          var $tr = this.$body.find('>tr:first-child:not(.no-records-found)');
 
-          this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i, el) {
+          while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
+            $tr = $tr.next();
+          }
+
+          $tr.find('> *').each(function (i, el) {
             var $this = $(el);
             var index = i;
 

@@ -89,8 +89,6 @@
   /**
    * @author: Dennis Hernández
    * @webSite: http://djhvscf.github.io/Blog
-   * @version: v1.2.4
-   *
    * @update zhixin wen <wenzhixin2010@gmail.com>
    */
 
@@ -150,7 +148,7 @@
 
         switch (that.options.cookieStorage) {
           case 'cookieStorage':
-            document.cookie = [cookieName, '=', cookieValue, '; expires=' + UtilsCookie.calculateExpiration(that.options.cookieExpire), that.options.cookiePath ? '; path=' + that.options.cookiePath : '', that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '', that.options.cookieSecure ? '; secure' : ''].join('');
+            document.cookie = [cookieName, '=', encodeURIComponent(cookieValue), '; expires=' + UtilsCookie.calculateExpiration(that.options.cookieExpire), that.options.cookiePath ? '; path=' + that.options.cookiePath : '', that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '', that.options.cookieSecure ? '; secure' : ''].join('');
             break;
           case 'localStorage':
             localStorage.setItem(cookieName, cookieValue);
@@ -179,7 +177,7 @@
           case 'cookieStorage':
             var value = '; ' + document.cookie;
             var parts = value.split('; ' + cookieName + '=');
-            return parts.length === 2 ? parts.pop().split(';').shift() : null;
+            return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null;
           case 'localStorage':
             return localStorage.getItem(cookieName);
           case 'sessionStorage':
@@ -347,66 +345,105 @@
       }, {
         key: 'initServer',
         value: function initServer() {
-          var bootstrapTable = this;
-          if (bootstrapTable.options.cookie && bootstrapTable.options.filterControl && !bootstrapTable.options.filterControlValuesLoaded) {
-            var cookie = JSON.parse(UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, UtilsCookie.cookieIds.filterControl));
+          var _get2;
+
+          if (this.options.cookie && this.options.filterControl && !this.options.filterControlValuesLoaded) {
+            var cookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterControl));
             if (cookie) {
               return;
             }
           }
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'initServer', this).call(this);
+
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+
+          (_get2 = _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'initServer', this)).call.apply(_get2, [this].concat(args));
         }
       }, {
         key: 'initTable',
         value: function initTable() {
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'initTable', this).call(this);
+          var _get3;
+
+          for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+            args[_key2] = arguments[_key2];
+          }
+
+          (_get3 = _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'initTable', this)).call.apply(_get3, [this].concat(args));
           this.initCookie();
         }
       }, {
         key: 'onSort',
         value: function onSort() {
-          var event = arguments.length <= 0 ? undefined : arguments[0];
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onSort', this).call(this, event);
+          var _get4;
+
+          for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+            args[_key3] = arguments[_key3];
+          }
+
+          (_get4 = _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onSort', this)).call.apply(_get4, [this].concat(args));
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName);
         }
       }, {
         key: 'onPageNumber',
         value: function onPageNumber() {
-          var event = arguments.length <= 0 ? undefined : arguments[0];
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPageNumber', this).call(this, event);
+          var _get5;
+
+          for (var _len4 = arguments.length, args = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+            args[_key4] = arguments[_key4];
+          }
+
+          (_get5 = _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPageNumber', this)).call.apply(_get5, [this].concat(args));
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
-          return false;
         }
       }, {
         key: 'onPageListChange',
         value: function onPageListChange() {
-          var event = arguments.length <= 0 ? undefined : arguments[0];
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPageListChange', this).call(this, event);
+          var _get6;
+
+          for (var _len5 = arguments.length, args = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+            args[_key5] = arguments[_key5];
+          }
+
+          (_get6 = _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPageListChange', this)).call.apply(_get6, [this].concat(args));
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList, this.options.pageSize);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
-          return false;
         }
       }, {
         key: 'onPagePre',
         value: function onPagePre() {
-          var event = arguments.length <= 0 ? undefined : arguments[0];
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPagePre', this).call(this, event);
+          var _get7;
+
+          for (var _len6 = arguments.length, args = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+            args[_key6] = arguments[_key6];
+          }
+
+          (_get7 = _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPagePre', this)).call.apply(_get7, [this].concat(args));
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
-          return false;
         }
       }, {
         key: 'onPageNext',
         value: function onPageNext() {
-          var event = arguments.length <= 0 ? undefined : arguments[0];
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPageNext', this).call(this, event);
+          var _get8;
+
+          for (var _len7 = arguments.length, args = Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+            args[_key7] = arguments[_key7];
+          }
+
+          (_get8 = _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onPageNext', this)).call.apply(_get8, [this].concat(args));
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
-          return false;
         }
       }, {
         key: 'toggleColumn',
         value: function toggleColumn() {
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'toggleColumn', this).call(this);
+          var _get9;
+
+          for (var _len8 = arguments.length, args = Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
+            args[_key8] = arguments[_key8];
+          }
+
+          (_get9 = _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'toggleColumn', this)).call.apply(_get9, [this].concat(args));
 
           var visibleColumns = [];
 
@@ -421,20 +458,15 @@
       }, {
         key: 'selectPage',
         value: function selectPage(page) {
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'selectPage', this).call(this);
+          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'selectPage', this).call(this, page);
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, page);
         }
       }, {
         key: 'onSearch',
-        value: function onSearch() {
-          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-          }
+        value: function onSearch(event) {
+          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onSearch', this).call(this, event);
 
-          var target = Array.prototype.slice.apply(args);
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'onSearch', this).call(this, this, target);
-
-          if ($(target[0].currentTarget).parent().hasClass('search')) {
+          if ($(event.currentTarget).parent().hasClass('search')) {
             UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText);
           }
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
@@ -442,7 +474,13 @@
       }, {
         key: 'filterBy',
         value: function filterBy() {
-          _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'filterBy', this).call(this);
+          var _get10;
+
+          for (var _len9 = arguments.length, args = Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
+            args[_key9] = arguments[_key9];
+          }
+
+          (_get10 = _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'filterBy', this)).call.apply(_get10, [this].concat(args));
           UtilsCookie.setCookie(this, UtilsCookie.cookieIds.filterBy, JSON.stringify(this.filterColumns));
         }
       }, {

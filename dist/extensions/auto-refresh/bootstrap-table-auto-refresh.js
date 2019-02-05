@@ -32,7 +32,7 @@
         });
 
         $.extend($.fn.bootstrapTable.defaults.icons, {
-            autoRefresh: 'glyphicon-time icon-time'
+            autoRefresh: $.fn.bootstrapTable.utils.bootstrapVersion === 4 ? 'fa-clock' : 'glyphicon-time icon-time'
         });
 
         $.extend($.fn.bootstrapTable.locales, {
