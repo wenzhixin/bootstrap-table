@@ -4,6 +4,20 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.13.4
+
+<span class="post-date">05 Feb 2019</span>
+
+- **New(sticky-header extension):** Rewrote sticky-header extension to ES6.
+- **New(sticky-header extension):** Added to support bootstrap v4 and `theadClasses` option.
+- **New(auto-refresh extension):** Icons update to font-awesome 5.
+- **New(examples):** Added examples Algolia search.
+- **Update(js):** Fixed `theadClasses` is not set when a `thead` exists.
+- **Update(js):** Fixed table resize after mergeCell the first row.
+- **Update(cookie extension):** Fixed cookie extension broken bug.
+- **Update(cookie extension):** Fixed cookie extension unicode encode bug.
+- **Update(package):** Added `sass` devDependencies.
+
 ## Bootstrap Table 1.13.3
 
 <span class="post-date">28 Jan 2019</span>

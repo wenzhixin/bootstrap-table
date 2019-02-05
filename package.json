@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-table",
   "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3).",
-  "version": "1.13.3",
+  "version": "1.13.4",
   "main": "./dist/bootstrap-table.js",
   "directories": {
     "doc": "docs"
@@ -14,7 +14,8 @@
     "cssmin-cli": "^0.0.5",
     "eslint": "^4.19.1",
     "headr": "^0.0.4",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.16.1"
   },
   "scripts": {
     "lint": "eslint src/bootstrap-table.js src/locale src/extensions/export src/extensions/editable src/extensions/toolbar src/extensions/filter-control src/extensions/cookie",

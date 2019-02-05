@@ -1,8 +1,6 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.2.4
- *
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
@@ -63,7 +61,7 @@
       switch (that.options.cookieStorage) {
         case 'cookieStorage':
           document.cookie = [
-            cookieName, '=', cookieValue,
+            cookieName, '=', encodeURIComponent(cookieValue),
             `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
             that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
             that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
@@ -97,7 +95,7 @@
         case 'cookieStorage':
           const value = `; ${document.cookie}`
           const parts = value.split(`; ${cookieName}=`)
-          return parts.length === 2 ? parts.pop().split(';').shift() : null
+          return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null
         case 'localStorage':
           return localStorage.getItem(cookieName)
         case 'sessionStorage':
@@ -264,60 +262,54 @@
       super.init()
     }
 
-    initServer () {
-      const bootstrapTable = this
-      if (bootstrapTable.options.cookie && bootstrapTable.options.filterControl && !bootstrapTable.options.filterControlValuesLoaded) {
-        const cookie = JSON.parse(UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
+    initServer (...args) {
+      if (
+        this.options.cookie &&
+        this.options.filterControl &&
+        !this.options.filterControlValuesLoaded
+      ) {
+        const cookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
         if (cookie) {
           return
         }
       }
-      super.initServer()
+      super.initServer(...args)
     }
 
-    initTable () {
-      super.initTable()
+    initTable (...args) {
+      super.initTable(...args)
       this.initCookie()
     }
 
     onSort (...args) {
-      const event = args[0]
-      super.onSort(event)
+      super.onSort(...args)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName)
     }
 
     onPageNumber (...args) {
-      const event = args[0]
-      super.onPageNumber(event)
+      super.onPageNumber(...args)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
-      return false
     }
 
     onPageListChange (...args) {
-      const event = args[0]
-      super.onPageListChange(event)
+      super.onPageListChange(...args)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList, this.options.pageSize)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
-      return false
     }
 
     onPagePre (...args) {
-      const event = args[0]
-      super.onPagePre(event)
+      super.onPagePre(...args)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
-      return false
     }
 
     onPageNext (...args) {
-      const event = args[0]
-      super.onPageNext(event)
+      super.onPageNext(...args)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
-      return false
     }
 
-    toggleColumn () {
-      super.toggleColumn()
+    toggleColumn (...args) {
+      super.toggleColumn(...args)
 
       const visibleColumns = []
 
@@ -331,22 +323,21 @@
     }
 
     selectPage (page) {
-      super.selectPage()
+      super.selectPage(page)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, page)
     }
 
-    onSearch (...args) {
-      const target = Array.prototype.slice.apply(args)
-      super.onSearch(this, target)
+    onSearch (event) {
+      super.onSearch(event)
 
-      if ($(target[0].currentTarget).parent().hasClass('search')) {
+      if ($(event.currentTarget).parent().hasClass('search')) {
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText)
       }
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
     }
 
-    filterBy () {
-      super.filterBy()
+    filterBy (...args) {
+      super.filterBy(...args)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.filterBy, JSON.stringify(this.filterColumns))
     }
 
