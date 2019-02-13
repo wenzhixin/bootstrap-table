@@ -438,6 +438,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `function(res) { return res }`
 
+- **Example:** [Response Handler](https://examples.bootstrap-table.com/#options/response-handler.html)
+
 ## totalField
 
 - **Attribute:** `data-total-field`
@@ -446,9 +448,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Key in incoming json containing `'total'` data .
+  Key in incoming json containing `'total'` data.
 
 - **Default:** `'total'`
+
+- **Example:** [Total/Data Field](https://examples.bootstrap-table.com/#options/total-data-field.html)
 
 ## dataField
 
@@ -462,6 +466,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'rows'`
 
+- **Example:** [Total/Data Field](https://examples.bootstrap-table.com/#options/total-data-field.html)
+
 ## pagination
 
 - **Attribute:** `data-pagination`
@@ -473,6 +479,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `true` to show a pagination toolbar on table bottom.
 
 - **Default:** `false`
+
+- **Example:** [Table Pagination](https://examples.bootstrap-table.com/#options/table-pagination.html)
 
 ## onlyInfoPagination
 
@@ -486,6 +494,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Only Info Pagination](https://examples.bootstrap-table.com/#options/only-info-pagination.html)
+
 ## paginationLoop
 
 - **Attribute:** `data-pagination-loop`
@@ -497,6 +507,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `true` to enable pagination continuous loop mode.
 
 - **Default:** `true`
+
+- **Example:** [Pagination Loop](https://examples.bootstrap-table.com/#options/pagination-loop.html)
 
 ## sidePagination
 
@@ -516,6 +528,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'client'`
 
+- **Example:** [Side Pagination](https://examples.bootstrap-table.com/#options/side-pagination.html)
+
 ## totalRows
 
 - **Attribute:** `data-total-rows`
@@ -524,7 +538,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  This property is mainly passed in by server side pagination, which is easy to use. It can be set with custom pagination.
+  This property is mainly passed in by pagination server, which is easy to use.
 
 - **Default:** `0`
 
@@ -540,6 +554,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `1`
 
+- **Example:** [Page Number](https://examples.bootstrap-table.com/#options/page-number.html)
+
 ## pageSize
 
 - **Attribute:** `data-page-size`
@@ -551,6 +567,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   When set pagination property, initialize the page size.
 
 - **Default:** `10`
+
+- **Example:** [Page Size](https://examples.bootstrap-table.com/#options/page-size.html)
 
 ## pageList
 
