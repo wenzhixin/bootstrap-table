@@ -1116,11 +1116,6 @@
         '</button>')
       }
 
-      if (this.options.showFullscreen) {
-        this.$toolbar.find('button[name="fullscreen"]')
-          .off('click').on('click', $.proxy(this.toggleFullscreen, this))
-      }
-
       if (this.options.showRefresh) {
         html.push(Utils.sprintf(`<button class="btn${Utils.sprintf(' btn-%s', this.options.buttonsClass)}${Utils.sprintf(' btn-%s', this.options.iconSize)}" type="button" name="refresh" aria-label="refresh" title="%s">`,
           this.options.formatRefresh()),
@@ -1182,6 +1177,11 @@
       if (this.options.showPaginationSwitch) {
         this.$toolbar.find('button[name="paginationSwitch"]')
           .off('click').on('click', $.proxy(this.togglePagination, this))
+      }
+
+      if (this.options.showFullscreen) {
+        this.$toolbar.find('button[name="fullscreen"]')
+          .off('click').on('click', $.proxy(this.toggleFullscreen, this))
       }
 
       if (this.options.showRefresh) {
