@@ -528,7 +528,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'client'`
 
-- **Example:** [Side Pagination](https://examples.bootstrap-table.com/#options/side-pagination.html)
+- **Example:** [Client Side Pagination](https://examples.bootstrap-table.com/#options/client-side-pagination.html) and [Server Side Pagination](https://examples.bootstrap-table.com/#options/server-side-pagination.html)
 
 ## totalRows
 
@@ -582,6 +582,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `[10, 25, 50, 100]`
 
+- **Example:** [Page List](https://examples.bootstrap-table.com/#options/page-list.html)
+
 ## paginationHAlign
 
 - **Attribute:** `data-pagination-h-align`
@@ -594,6 +596,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'right'`
 
+- **Example:** [Pagination H Align](https://examples.bootstrap-table.com/#options/pagination-h-align.html)
+
 ## paginationVAlign
 
 - **Attribute:** `data-pagination-v-align`
@@ -602,9 +606,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate how to align the pagination. `'top'`, `'bottom'`, `'both'` (put the pagination on top and bottom)  can be used.
+  Indicate how to vertical align the pagination. `'top'`, `'bottom'`, `'both'` (put the pagination on top and bottom)  can be used.
 
 - **Default:** `'bottom'`
+
+- **Example:** [Pagination V Align](https://examples.bootstrap-table.com/#options/pagination-v-align.html)
 
 ## paginationDetailHAlign
 
@@ -618,6 +624,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'left'`
 
+- **Example:** [Pagination H Align](https://examples.bootstrap-table.com/#options/pagination-h-align.html)
+
 ## paginationPreText
 
 - **Attribute:** `data-pagination-pre-text`
@@ -629,6 +637,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Indicate the icon or text to be shown in the pagination detail, the previous button.
 
 - **Default:** `'‹'`
+
+- **Example:** [Pagination Text](https://examples.bootstrap-table.com/#options/pagination-text.html)
 
 ## paginationNextText
 
@@ -642,6 +652,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'›'`
 
+- **Example:** [Pagination Text](https://examples.bootstrap-table.com/#options/pagination-text.html)
+
 ## paginationSuccessivelySize
 
 - **Attribute:** `data-pagination-successively-size`
@@ -653,6 +665,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Maximum successive number of pages in a row.
 
 - **Default:** `5`
+
+- **Example:** [Pagination Index Number](https://examples.bootstrap-table.com/#options/pagination-index-number.html)
 
 ## paginationPagesBySide
 
@@ -666,6 +680,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `1`
 
+- **Example:** [Pagination Index Number](https://examples.bootstrap-table.com/#options/pagination-index-number.html)
+
 ## paginationUseIntermediate
 
 - **Attribute:** `data-pagination-use-intermediate`
@@ -677,6 +693,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Calculate and show intermediate pages for quick access
 
 - **Default:** `false`
+
+- **Example:** [Pagination Index Number](https://examples.bootstrap-table.com/#options/pagination-index-number.html)
 
 ## search
 
