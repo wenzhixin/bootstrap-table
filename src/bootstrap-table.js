@@ -1356,7 +1356,6 @@
       }
       this.$pagination.show()
 
-
       const html = []
       let $allSelected = false
       let i
