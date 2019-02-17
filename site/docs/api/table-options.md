@@ -708,6 +708,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Table Search](https://examples.bootstrap-table.com/#options/table-search.html)
+
 ## searchOnEnterKey
 
 - **Attribute:** `data-search-on-enter-key`
@@ -719,6 +721,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   The search method will be executed until the Enter key is pressed.
 
 - **Default:** `false`
+
+- **Example:** [Search On Enter Key](https://examples.bootstrap-table.com/#options/search-on-enter-key.html)
 
 ## strictSearch
 
@@ -732,6 +736,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Strict Search](https://examples.bootstrap-table.com/#options/strict-search.html)
+
 ## trimOnSearch
 
 - **Attribute:** `data-trim-on-search`
@@ -743,6 +749,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `true` to trim spaces in search field.
 
 - **Default:** `true`
+
+- **Example:** [Trim On Search](https://examples.bootstrap-table.com/#options/trim-on-search.html)
 
 ## searchAlign
 
@@ -756,6 +764,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'right'`
 
+- **Example:** [Search Align](https://examples.bootstrap-table.com/#options/search-align.html)
+
 ## searchTimeOut
 
 - **Attribute:** `data-search-time-out`
@@ -768,6 +778,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `500`
 
+- **Example:** [Search Time Out](https://examples.bootstrap-table.com/#options/search-time-out.html)
+
 ## searchText
 
 - **Attribute:** `data-search-text`
@@ -779,6 +791,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   When set search property, initialize the search text.
 
 - **Default:** `''`
+
+- **Example:** [Search Text](https://examples.bootstrap-table.com/#options/search-text.html)
 
 ## customSearch
 
