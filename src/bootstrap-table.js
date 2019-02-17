@@ -1281,7 +1281,8 @@
     initSearch () {
       if (this.options.sidePagination !== 'server') {
         if (this.options.customSearch) {
-          Utils.calculateObjectValue(this.options, this.options.customSearch, [this.searchText])
+          this.data = Utils.calculateObjectValue(this.options, this.options.customSearch,
+            [this.options.data, this.searchText])
           return
         }
 
