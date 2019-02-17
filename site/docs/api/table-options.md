@@ -819,6 +819,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Custom Search](https://examples.bootstrap-table.com/#options/custom-search.html)
+
 ## showHeader
 
 - **Attribute:** `data-show-header`
