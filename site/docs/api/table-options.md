@@ -833,6 +833,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `true`
 
+- **Example:** [Show Header](https://examples.bootstrap-table.com/#options/show-header.html)
+
 ## showFooter
 
 - **Attribute:** `data-show-footer`
@@ -844,6 +846,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `true` to show the summary footer row.
 
 - **Default:** `false`
+
+- **Example:** [Show Footer](https://examples.bootstrap-table.com/#options/show-footer.html)
 
 ## footerStyle
 

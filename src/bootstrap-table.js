@@ -623,7 +623,7 @@
         ${this.options.formatLoadingMessage()}
         </div>
         </div>
-        <div class="fixed-table-footer"><table><tr></tr></table></div>
+        <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
         </div>
         ${bottomPagination}
         </div>
@@ -650,6 +650,10 @@
 
       if (this.options.height) {
         this.$tableContainer.addClass('fixed-height')
+
+        if (this.options.showFooter) {
+          this.$tableContainer.addClass('has-footer')
+        }
 
         if (this.options.classes.split(' ').includes('table-bordered')) {
           this.$tableBody.append('<div class="fixed-table-border"></div>')
@@ -2190,10 +2194,10 @@
         this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), 100)
         return
       }
-      const fixedBody = this.$tableBody.get(0)
 
+      const fixedBody = this.$tableBody.get(0)
       const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-      fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
+        fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
         ? Utils.getScrollBarWidth() : 0
 
       this.$el.css('margin-top', -this.$header.outerHeight())
@@ -2214,9 +2218,9 @@
 
       this.$header_ = this.$header.clone(true, true)
       this.$selectAll_ = this.$header_.find('[name="btSelectAll"]')
-      this.$tableHeader.css({
-        'margin-right': scrollWidth
-      }).find('table').css('width', this.$el.outerWidth())
+      this.$tableHeader
+        .css('margin-right', scrollWidth)
+        .find('table').css('width', this.$el.outerWidth())
         .html('').attr('class', this.$el.attr('class'))
         .append(this.$header_)
 
@@ -2278,7 +2282,7 @@
       }
 
       if (!this.options.cardView && this.options.detailView) {
-        html.push('<td><div class="th-inner">&nbsp;</div><div class="fht-cell"></div></td>')
+        html.push('<th class="detail"><div class="th-inner"></div><div class="fht-cell"></div></th>')
       }
 
       for (const column of this.columns) {
@@ -2308,45 +2312,66 @@
           }
         }
 
-        html.push('<td', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>')
+        html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>')
         html.push('<div class="th-inner">')
 
-        html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;')
+        html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], '') || '')
 
         html.push('</div>')
         html.push('<div class="fht-cell"></div>')
         html.push('</div>')
-        html.push('</td>')
+        html.push('</th>')
       }
 
       this.$tableFooter.find('tr').html(html.join(''))
       this.$tableFooter.show()
-      clearTimeout(this.timeoutFooter_)
-      this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this),
-        this.$el.is(':hidden') ? 100 : 0)
+      this.fitFooter()
     }
 
     fitFooter () {
-      clearTimeout(this.timeoutFooter_)
       if (this.$el.is(':hidden')) {
-        this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), 100)
+        setTimeout($.proxy(this.fitFooter, this), 100)
         return
       }
 
-      const elWidth = this.$el.css('width')
-      const scrollWidth = elWidth > this.$tableBody.width() ? Utils.getScrollBarWidth() : 0
+      const fixedBody = this.$tableBody.get(0)
+      const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
+        fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
+        ? Utils.getScrollBarWidth() : 0
 
-      this.$tableFooter.css({
-        'margin-right': scrollWidth
-      }).find('table').css('width', elWidth)
+      this.$tableFooter
+        .css('margin-right', scrollWidth)
+        .find('table').css('width', this.$el.outerWidth())
         .attr('class', this.$el.attr('class'))
 
-      const $footerTd = this.$tableFooter.find('td')
+      const visibleFields = this.getVisibleFields()
+      const $ths = this.$tableFooter.find('th')
+      let $tr = this.$body.find('>tr:first-child:not(.no-records-found)')
 
-      this.$body.find('>tr:first-child:not(.no-records-found) > *').each((i, el) => {
+      while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
+        $tr = $tr.next()
+      }
+
+      $tr.find('> *').each((i, el) => {
         const $this = $(el)
+        let index = i
 
-        $footerTd.eq(i).find('.fht-cell').width($this.innerWidth())
+        if (this.options.detailView && !this.options.cardView) {
+          if (i === 0) {
+            const $thDetail = $ths.filter('.detail')
+            const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()
+            $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
+          }
+          index = i - 1
+        }
+
+        if (index === -1) {
+          return
+        }
+
+        const $th = $ths.eq(i)
+        const zoomWidth = $th.width() - $th.find('.fht-cell').width()
+        $th.find('.fht-cell').width($this.innerWidth() - zoomWidth)
       })
 
       this.horizontalScroll()
@@ -2438,7 +2463,7 @@
       if (this.options.showFooter) {
         this.resetFooter()
         if (this.options.height) {
-          padding += this.$tableFooter.outerHeight() + 1
+          padding += this.$tableFooter.outerHeight()
         }
       }
 
