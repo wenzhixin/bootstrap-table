@@ -6,6 +6,7 @@ ChangeLog
 - **Update(js):** Fixed showFullscreen cannot work bug.
 - **Update(js):** Redefined customSearch option.
 - **Update(js):** Fixed show footer cannot work bug.
+- **Update(js):** Fixed IE11 transform bug.
 
 ### 1.13.4
 
