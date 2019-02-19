@@ -259,9 +259,9 @@
     },
 
     findIndex (items, item) {
-      for (const [i, it] of items.entries()) {
+      for (const it of items) {
         if (JSON.stringify(it) === JSON.stringify(item)) {
-          return i
+          return items.indexOf(it)
         }
       }
       return -1

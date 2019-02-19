@@ -8,6 +8,9 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-array-includes": "^2.0.3",
+    "babel-plugin-object-entries-and-values-to-object-keys": "^1.0.1",
+    "babel-plugin-transform-es2015-for-of": "^6.23.0",
     "babel-preset-babili": "^0.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
