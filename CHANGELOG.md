@@ -3,6 +3,7 @@ ChangeLog
 
 ### 1.13.5
 
+- **New(auto-refresh extension):** Rewrote auto-refresh extension to ES6.
 - **Update(js):** Fixed showFullscreen cannot work bug.
 - **Update(js):** Redefined customSearch option.
 - **Update(js):** Fixed show footer cannot work bug.
