@@ -79,9 +79,9 @@ Guidelines for bug reports:
 
 3. **Isolate the problem** &mdash; ideally create a live example.
     The web tool [jsfiddle](http://jsfiddle.net/) is a very helpful for this. Consider to use these templates:
-    * [Table from html](http://jsfiddle.net/wenyi/e3nk137y/11/light/)
-    * [Table from data](http://jsfiddle.net/wenyi/e3nk137y/13/light/)
-    * [Table from url](http://jsfiddle.net/wenyi/e3nk137y/14/light/)
+    * [Table from html](http://jsfiddle.net/wenyi/e3nk137y/44345/)
+    * [Table from data](http://jsfiddle.net/wenyi/e3nk137y/44346/)
+    * [Table from url](http://jsfiddle.net/wenyi/e3nk137y/44348/)
 
 
 A good bug report shouldn't leave others needing to chase you up for more

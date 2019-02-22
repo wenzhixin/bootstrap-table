@@ -9,9 +9,12 @@ toc: true
 ## Usage
 
 {% highlight html %}
-<link rel="stylesheet" href="extensions/auto-refresh/bootstrap-table-auto-refresh.css">
 <script src="extensions/auto-refresh/bootstrap-table-auto-refresh.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Addrbar](https://examples.bootstrap-table.com/#extensions/auto-refresh.html)
 
 ## Options
 
@@ -57,4 +60,4 @@ toc: true
 
 ### Icons
 
-- autoRefresh: 'glyphicon-time icon-time'
+- autoRefresh: 'fa-clock'
