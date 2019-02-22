@@ -8,6 +8,7 @@ ChangeLog
 - **Update(js):** Redefined customSearch option.
 - **Update(js):** Fixed show footer cannot work bug.
 - **Update(js):** Fixed IE11 transform bug.
+- **Update(js):** Removed beginning and end whitespace from td.
 - **Update(export extension):** Fixed export selected bug.
 
 ### 1.13.4

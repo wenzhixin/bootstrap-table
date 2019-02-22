@@ -751,7 +751,7 @@
 
           const field = this.columns[x].field
 
-          row[field] = $(el).html()
+          row[field] = $(el).html().trim()
           // save td's id, class and data-* attributes
           row[`_${field}_id`] = $(el).attr('id')
           row[`_${field}_class`] = $(el).attr('class')
