@@ -857,22 +857,24 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The footer style formatter function, takes two parameters:
+  The footer style formatter function, takes one parameter:
 
-  * `row`: the row record data.
-  * `index`: the row index.
+  * `column`: the column object.
 
   Support classes or css. Example usage:
 
   {% highlight javascript %}
-  function footerStyle(value, row, index) {
+  function footerStyle(column) {
     return {
-      css: { "font-weight": "bold" }
+      css: { 'font-weight': 'normal' },
+      classes: 'my-class'
     }
   }
   {% endhighlight %}
 
 - **Default:** `{}`
+
+- **Example:** [Footer Style](https://examples.bootstrap-table.com/#options/footer-style.html)
 
 ## showColumns
 

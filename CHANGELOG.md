@@ -9,6 +9,7 @@ ChangeLog
 - **Update(js):** Fixed show footer cannot work bug.
 - **Update(js):** Fixed IE11 transform bug.
 - **Update(js):** Removed beginning and end whitespace from td.
+- **Update(js):** Updated the parameter of `footerStyle` and supported css/classes.
 - **Update(export extension):** Fixed export selected bug.
 
 ### 1.13.4

@@ -2291,7 +2291,7 @@
         let valign = ''
         const csses = []
         let style = {}
-        const class_ = Utils.sprintf(' class="%s"', column['class'])
+        let class_ = Utils.sprintf(' class="%s"', column['class'])
 
         if (!column.visible) {
           return
@@ -2304,12 +2304,16 @@
         falign = Utils.sprintf('text-align: %s; ', column.falign ? column.falign : column.align)
         valign = Utils.sprintf('vertical-align: %s; ', column.valign)
 
-        style = Utils.calculateObjectValue(null, this.options.footerStyle)
+        style = Utils.calculateObjectValue(null, this.options.footerStyle, [column])
 
         if (style && style.css) {
-          for (const [key, value] of Object.keys(style.css)) {
+          for (const [key, value] of Object.entries(style.css)) {
             csses.push(`${key}: ${value}`)
           }
+        }
+        if (style && style.classes) {
+          class_ = Utils.sprintf(' class="%s"', column['class'] ?
+            [column['class'], style.classes].join(' ') : style.classes)
         }
 
         html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>')
