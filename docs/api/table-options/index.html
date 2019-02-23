@@ -1659,9 +1659,10 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The custom search function is executed instead of built-in search function, takes one parameters:</p>
+    <p>The custom search function is executed instead of built-in search function, takes two parameters:</p>
 
     <ul>
+      <li><code class="highlighter-rouge">data</code>: the table data.</li>
       <li><code class="highlighter-rouge">text</code>: the search text.</li>
     </ul>
 
@@ -1669,14 +1670,20 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">customSearch</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//Search logic here.</span>
-    <span class="c1">//You must use `this.data` array in order to filter the data. NO use `this.options.data`.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">customSearch</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">row</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">row</span><span class="p">.</span><span class="nx">field</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="p">})</span>
   <span class="p">}</span>
   </code></pre></figure>
 
 <ul>
-  <li><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-search.html">Custom Search</a></p>
+  </li>
 </ul>
 
 <h2 id="showheader">showHeader</h2>
@@ -1695,6 +1702,9 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-header.html">Show Header</a></p>
   </li>
 </ul>
 
@@ -1715,6 +1725,9 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-footer.html">Show Footer</a></p>
+  </li>
 </ul>
 
 <h2 id="footerstyle">footerStyle</h2>
@@ -1729,26 +1742,31 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The footer style formatter function, takes two parameters:</p>
+    <p>The footer style formatter function, takes one parameter:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">row</code>: the row record data.</li>
-      <li><code class="highlighter-rouge">index</code>: the row index.</li>
+      <li><code class="highlighter-rouge">column</code>: the column object.</li>
     </ul>
 
     <p>Support classes or css. Example usage:</p>
   </li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">footerStyle</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">row</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">footerStyle</span><span class="p">(</span><span class="nx">column</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span>
-      <span class="na">css</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"font-weight"</span><span class="p">:</span> <span class="s2">"bold"</span> <span class="p">}</span>
+      <span class="na">css</span><span class="p">:</span> <span class="p">{</span> <span class="s1">'font-weight'</span><span class="p">:</span> <span class="s1">'normal'</span> <span class="p">},</span>
+      <span class="na">classes</span><span class="p">:</span> <span class="s1">'my-class'</span>
     <span class="p">}</span>
   <span class="p">}</span>
   </code></pre></figure>
 
 <ul>
-  <li><strong>Default:</strong> <code class="highlighter-rouge">{}</code></li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/footer-style.html">Footer Style</a></p>
+  </li>
 </ul>
 
 <h2 id="showcolumns">showColumns</h2>
@@ -2308,7 +2326,8 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
 $(function () {
   $('.bd-content.api a').attr('target', '_blank')
