@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.13.4
+ * version: 1.13.5
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -77,7 +77,9 @@ $dark-border-color: #32383e;
     clear: both;
 
     &.fixed-height {
-      border-bottom: 1px solid $border-color;
+      &:not(.has-footer) {
+        border-bottom: 1px solid $border-color;
+      }
 
       .fixed-table-border {
         border-left: 1px solid $border-color;
@@ -203,17 +205,6 @@ $dark-border-color: #32383e;
 
     .fixed-table-footer {
       overflow: hidden;
-      border-top: 1px solid $border-color;
-
-      .table {
-        border-bottom: none;
-        border-radius: 0;
-        padding: 0 !important;
-
-        tbody > tr > td {
-          padding: 0 !important;
-        }
-      }
     }
   }
 

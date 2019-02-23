@@ -802,20 +802,24 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The custom search function is executed instead of built-in search function, takes one parameters:
+  The custom search function is executed instead of built-in search function, takes two parameters:
 
+  * `data`: the table data.
   * `text`: the search text.
 
   Example usage:
 
   {% highlight javascript %}
-  function customSearch(text) {
-    //Search logic here.
-    //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
+  function customSearch(data, text) {
+    return data.filter(function (row) {
+      return row.field.indexOf(text) > -1
+    })
   }
   {% endhighlight %}
 
 - **Default:** `undefined`
+
+- **Example:** [Custom Search](https://examples.bootstrap-table.com/#options/custom-search.html)
 
 ## showHeader
 
@@ -829,6 +833,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `true`
 
+- **Example:** [Show Header](https://examples.bootstrap-table.com/#options/show-header.html)
+
 ## showFooter
 
 - **Attribute:** `data-show-footer`
@@ -841,6 +847,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Show Footer](https://examples.bootstrap-table.com/#options/show-footer.html)
+
 ## footerStyle
 
 - **Attribute:** `data-footer-style`
@@ -849,22 +857,24 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The footer style formatter function, takes two parameters:
+  The footer style formatter function, takes one parameter:
 
-  * `row`: the row record data.
-  * `index`: the row index.
+  * `column`: the column object.
 
   Support classes or css. Example usage:
 
   {% highlight javascript %}
-  function footerStyle(value, row, index) {
+  function footerStyle(column) {
     return {
-      css: { "font-weight": "bold" }
+      css: { 'font-weight': 'normal' },
+      classes: 'my-class'
     }
   }
   {% endhighlight %}
 
 - **Default:** `{}`
+
+- **Example:** [Footer Style](https://examples.bootstrap-table.com/#options/footer-style.html)
 
 ## showColumns
 

@@ -752,7 +752,7 @@
                         itemIsExpected.push(false);
                       }
                     } else {
-                      if (('' + value).toLowerCase().includes(fval)) {
+                      if (('' + value).toLowerCase().indexOf(fval) !== -1) {
                         itemIsExpected.push(true);
                       } else {
                         itemIsExpected.push(false);
@@ -763,7 +763,7 @@
               }
             });
 
-            return !itemIsExpected.includes(false);
+            return !(itemIsExpected.indexOf(false) !== -1);
           }) : that.data;
         }
       }, {

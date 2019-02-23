@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.13.4
+ * version: 1.13.5
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -259,9 +259,9 @@
     },
 
     findIndex (items, item) {
-      for (const [i, it] of items.entries()) {
+      for (const it of items) {
         if (JSON.stringify(it) === JSON.stringify(item)) {
-          return i
+          return items.indexOf(it)
         }
       }
       return -1
@@ -623,7 +623,7 @@
         ${this.options.formatLoadingMessage()}
         </div>
         </div>
-        <div class="fixed-table-footer"><table><tr></tr></table></div>
+        <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
         </div>
         ${bottomPagination}
         </div>
@@ -650,6 +650,10 @@
 
       if (this.options.height) {
         this.$tableContainer.addClass('fixed-height')
+
+        if (this.options.showFooter) {
+          this.$tableContainer.addClass('has-footer')
+        }
 
         if (this.options.classes.split(' ').includes('table-bordered')) {
           this.$tableBody.append('<div class="fixed-table-border"></div>')
@@ -747,7 +751,7 @@
 
           const field = this.columns[x].field
 
-          row[field] = $(el).html()
+          row[field] = $(el).html().trim()
           // save td's id, class and data-* attributes
           row[`_${field}_id`] = $(el).attr('id')
           row[`_${field}_class`] = $(el).attr('class')
@@ -1116,11 +1120,6 @@
         '</button>')
       }
 
-      if (this.options.showFullscreen) {
-        this.$toolbar.find('button[name="fullscreen"]')
-          .off('click').on('click', $.proxy(this.toggleFullscreen, this))
-      }
-
       if (this.options.showRefresh) {
         html.push(Utils.sprintf(`<button class="btn${Utils.sprintf(' btn-%s', this.options.buttonsClass)}${Utils.sprintf(' btn-%s', this.options.iconSize)}" type="button" name="refresh" aria-label="refresh" title="%s">`,
           this.options.formatRefresh()),
@@ -1182,6 +1181,11 @@
       if (this.options.showPaginationSwitch) {
         this.$toolbar.find('button[name="paginationSwitch"]')
           .off('click').on('click', $.proxy(this.togglePagination, this))
+      }
+
+      if (this.options.showFullscreen) {
+        this.$toolbar.find('button[name="fullscreen"]')
+          .off('click').on('click', $.proxy(this.toggleFullscreen, this))
       }
 
       if (this.options.showRefresh) {
@@ -1281,7 +1285,8 @@
     initSearch () {
       if (this.options.sidePagination !== 'server') {
         if (this.options.customSearch) {
-          Utils.calculateObjectValue(this.options, this.options.customSearch, [this.searchText])
+          this.data = Utils.calculateObjectValue(this.options, this.options.customSearch,
+            [this.options.data, this.searchText])
           return
         }
 
@@ -2189,10 +2194,10 @@
         this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), 100)
         return
       }
-      const fixedBody = this.$tableBody.get(0)
 
+      const fixedBody = this.$tableBody.get(0)
       const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-      fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
+        fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
         ? Utils.getScrollBarWidth() : 0
 
       this.$el.css('margin-top', -this.$header.outerHeight())
@@ -2213,9 +2218,9 @@
 
       this.$header_ = this.$header.clone(true, true)
       this.$selectAll_ = this.$header_.find('[name="btSelectAll"]')
-      this.$tableHeader.css({
-        'margin-right': scrollWidth
-      }).find('table').css('width', this.$el.outerWidth())
+      this.$tableHeader
+        .css('margin-right', scrollWidth)
+        .find('table').css('width', this.$el.outerWidth())
         .html('').attr('class', this.$el.attr('class'))
         .append(this.$header_)
 
@@ -2277,7 +2282,7 @@
       }
 
       if (!this.options.cardView && this.options.detailView) {
-        html.push('<td><div class="th-inner">&nbsp;</div><div class="fht-cell"></div></td>')
+        html.push('<th class="detail"><div class="th-inner"></div><div class="fht-cell"></div></th>')
       }
 
       for (const column of this.columns) {
@@ -2286,10 +2291,10 @@
         let valign = ''
         const csses = []
         let style = {}
-        const class_ = Utils.sprintf(' class="%s"', column['class'])
+        let class_ = Utils.sprintf(' class="%s"', column['class'])
 
         if (!column.visible) {
-          return
+          continue
         }
 
         if (this.options.cardView && (!column.cardVisible)) {
@@ -2299,53 +2304,78 @@
         falign = Utils.sprintf('text-align: %s; ', column.falign ? column.falign : column.align)
         valign = Utils.sprintf('vertical-align: %s; ', column.valign)
 
-        style = Utils.calculateObjectValue(null, this.options.footerStyle)
+        style = Utils.calculateObjectValue(null, this.options.footerStyle, [column])
 
         if (style && style.css) {
-          for (const [key, value] of Object.keys(style.css)) {
+          for (const [key, value] of Object.entries(style.css)) {
             csses.push(`${key}: ${value}`)
           }
         }
+        if (style && style.classes) {
+          class_ = Utils.sprintf(' class="%s"', column['class'] ?
+            [column['class'], style.classes].join(' ') : style.classes)
+        }
 
-        html.push('<td', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>')
+        html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>')
         html.push('<div class="th-inner">')
 
-        html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;')
+        html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], ''))
 
         html.push('</div>')
         html.push('<div class="fht-cell"></div>')
         html.push('</div>')
-        html.push('</td>')
+        html.push('</th>')
       }
 
       this.$tableFooter.find('tr').html(html.join(''))
       this.$tableFooter.show()
-      clearTimeout(this.timeoutFooter_)
-      this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this),
-        this.$el.is(':hidden') ? 100 : 0)
+      this.fitFooter()
     }
 
     fitFooter () {
-      clearTimeout(this.timeoutFooter_)
       if (this.$el.is(':hidden')) {
-        this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), 100)
+        setTimeout($.proxy(this.fitFooter, this), 100)
         return
       }
 
-      const elWidth = this.$el.css('width')
-      const scrollWidth = elWidth > this.$tableBody.width() ? Utils.getScrollBarWidth() : 0
+      const fixedBody = this.$tableBody.get(0)
+      const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
+        fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
+        ? Utils.getScrollBarWidth() : 0
 
-      this.$tableFooter.css({
-        'margin-right': scrollWidth
-      }).find('table').css('width', elWidth)
+      this.$tableFooter
+        .css('margin-right', scrollWidth)
+        .find('table').css('width', this.$el.outerWidth())
         .attr('class', this.$el.attr('class'))
 
-      const $footerTd = this.$tableFooter.find('td')
+      const visibleFields = this.getVisibleFields()
+      const $ths = this.$tableFooter.find('th')
+      let $tr = this.$body.find('>tr:first-child:not(.no-records-found)')
 
-      this.$body.find('>tr:first-child:not(.no-records-found) > *').each((i, el) => {
+      while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
+        $tr = $tr.next()
+      }
+
+      $tr.find('> *').each((i, el) => {
         const $this = $(el)
+        let index = i
 
-        $footerTd.eq(i).find('.fht-cell').width($this.innerWidth())
+        if (this.options.detailView && !this.options.cardView) {
+          if (i === 0) {
+            const $thDetail = $ths.filter('.detail')
+            const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()
+            $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
+          }
+          index = i - 1
+        }
+
+        if (index === -1) {
+          return
+        }
+
+        const $th = $ths.eq(i)
+        const zoomWidth = $th.width() - $th.find('.fht-cell').width()
+        $th.find('.fht-cell').width($this.innerWidth() - zoomWidth)
       })
 
       this.horizontalScroll()
@@ -2437,7 +2467,7 @@
       if (this.options.showFooter) {
         this.resetFooter()
         if (this.options.height) {
-          padding += this.$tableFooter.outerHeight() + 1
+          padding += this.$tableFooter.outerHeight()
         }
       }
 

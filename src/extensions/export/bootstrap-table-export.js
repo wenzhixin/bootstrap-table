@@ -119,9 +119,17 @@
 
     exportTable (options) {
       const o = this.options
+      const stateField = this.header.stateField
+      const isCardView = o.cardView
 
       const doExport = () => {
-        const that = this
+        if (stateField) {
+          this.hideColumn(stateField)
+        }
+        if (isCardView) {
+          this.toggleView()
+        }
+
         const data = this.getData()
         if (o.exportFooter) {
           const $footerRow = this.$tableFooter.find('tr').first()
@@ -130,7 +138,7 @@
 
           $.each($footerRow.children(), (index, footerCell) => {
             const footerCellHtml = $(footerCell).children('.th-inner').first().html()
-            footerData[that.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
+            footerData[this.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
 
             // grab footer cell text into cell index-based array
             footerHtml.push(footerCellHtml)
@@ -150,17 +158,15 @@
         if (o.exportFooter) {
           this.load(data)
         }
+
+        if (stateField) {
+          this.showColumn(stateField)
+        }
+        if (isCardView) {
+          this.toggleView()
+        }
       }
 
-      const stateField = this.header.stateField
-      const isCardView = o.cardView
-
-      if (stateField) {
-        this.hideColumn(stateField)
-      }
-      if (isCardView) {
-        this.toggleView()
-      }
       if (o.exportDataType === 'all' && o.pagination) {
         const eventName = o.sidePagination === 'server'
           ? 'post-body.bs.table' : 'page-change.bs.table'
@@ -192,12 +198,6 @@
         this.load(data)
       } else {
         doExport()
-      }
-      if (stateField) {
-        this.showColumn(stateField)
-      }
-      if (isCardView) {
-        this.toggleView()
       }
     }
   }

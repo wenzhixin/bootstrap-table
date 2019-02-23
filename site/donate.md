@@ -12,19 +12,26 @@ Bootstrap Table is an MIT licensed open source project and completely free to us
 <table class="table donate">
 <tbody>
   <tr>
-    <td><h2>Share The Love</h2></td>
+    <td width="200"><h3>Give us a Star<br>⭐️⭐️⭐️</h3></td>
     <td><img src="{{ site.base_url }}/assets/images/paypalLogo.png"></td>
     <td><img src="{{ site.base_url }}/assets/images/alipayLogo.png"></td>
     <td><img src="{{ site.base_url }}/assets/images/weixinLogo.png"></td>
+    <td><h3>Share The Love</h3></td>
   </tr>
   <tr>
     <td>
+      <a class="github-button" href="https://github.com/wenzhixin/bootstrap-table" data-size="large" data-show-count="true" aria-label="Star wenzhixin/bootstrap-table on GitHub">Star</a>
+    </td>
+    <td>
+      <a class="paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDHP676FQDUT6">
+        <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif">
+      </a>
+    </td>
+    <td><img src="{{ site.base_url }}/assets/images/alipay.jpg"></td>
+    <td><img src="{{ site.base_url }}/assets/images/weixin.png"></td>
+    <td>
       <span style="color: silver;">Share on: </span>
       <div id="share-buttons">
-        <a class="github" href="{{ site.repo }}" target="_blank" title="Star this on GitHub">
-          {% include icons/github.svg %}
-        </a>
-
         <a class="twitter" href="http://twitter.com/home?status={{ site.url }}" target="_blank" title="Share this on Twitter">
           {% include icons/twitter.svg %}
         </a>
@@ -46,13 +53,6 @@ Bootstrap Table is an MIT licensed open source project and completely free to us
       If you like Bootstrap Table, but you do not have any money to spare, please share the love by posting something about this website on social media. You can use the buttons above. They will share the homepage. Thank you, you are the best!
       </p>
     </td>
-    <td>
-      <a class="paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDHP676FQDUT6">
-        <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif">
-      </a>
-    </td>
-    <td><img src="{{ site.base_url }}/assets/images/alipay.jpg"></td>
-    <td><img src="{{ site.base_url }}/assets/images/weixin.png"></td>
   </tr>
 </tbody>
 </table>

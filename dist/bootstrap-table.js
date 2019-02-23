@@ -95,7 +95,7 @@
 
   /**
    * @author zhixin wen <wenzhixin2010@gmail.com>
-   * version: 1.13.4
+   * version: 1.13.5
    * https://github.com/wenzhixin/bootstrap-table/
    */
 
@@ -190,62 +190,45 @@
         return flag ? str : '';
       },
       getFieldTitle: function getFieldTitle(list, value) {
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+        for (var _iterator = list, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+          var _ref;
 
-        try {
-          for (var _iterator = list[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var item = _step.value;
-
-            if (item.field === value) {
-              return item.title;
-            }
+          if (_isArray) {
+            if (_i >= _iterator.length) break;
+            _ref = _iterator[_i++];
+          } else {
+            _i = _iterator.next();
+            if (_i.done) break;
+            _ref = _i.value;
           }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
+
+          var item = _ref;
+
+          if (item.field === value) {
+            return item.title;
           }
         }
-
         return '';
       },
       setFieldIndex: function setFieldIndex(columns) {
         var totalCol = 0;
         var flag = [];
 
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
+        for (var _iterator2 = columns[0], _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+          var _ref2;
 
-        try {
-          for (var _iterator2 = columns[0][Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var column = _step2.value;
+          if (_isArray2) {
+            if (_i2 >= _iterator2.length) break;
+            _ref2 = _iterator2[_i2++];
+          } else {
+            _i2 = _iterator2.next();
+            if (_i2.done) break;
+            _ref2 = _i2.value;
+          }
 
-            totalCol += column.colspan || 1;
-          }
-        } catch (err) {
-          _didIteratorError2 = true;
-          _iteratorError2 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-              _iterator2.return();
-            }
-          } finally {
-            if (_didIteratorError2) {
-              throw _iteratorError2;
-            }
-          }
+          var column = _ref2;
+
+          totalCol += column.colspan || 1;
         }
 
         for (var i = 0; i < columns.length; i++) {
@@ -255,46 +238,38 @@
           }
         }
 
-        for (var _i = 0; _i < columns.length; _i++) {
-          var _iteratorNormalCompletion3 = true;
-          var _didIteratorError3 = false;
-          var _iteratorError3 = undefined;
+        for (var _i3 = 0; _i3 < columns.length; _i3++) {
+          for (var _iterator3 = columns[_i3], _isArray3 = Array.isArray(_iterator3), _i4 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+            var _ref3;
 
-          try {
-            for (var _iterator3 = columns[_i][Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-              var r = _step3.value;
+            if (_isArray3) {
+              if (_i4 >= _iterator3.length) break;
+              _ref3 = _iterator3[_i4++];
+            } else {
+              _i4 = _iterator3.next();
+              if (_i4.done) break;
+              _ref3 = _i4.value;
+            }
 
-              var rowspan = r.rowspan || 1;
-              var colspan = r.colspan || 1;
-              var index = flag[_i].indexOf(false);
+            var r = _ref3;
 
-              if (colspan === 1) {
-                r.fieldIndex = index;
-                // when field is undefined, use index instead
-                if (typeof r.field === 'undefined') {
-                  r.field = index;
-                }
-              }
+            var rowspan = r.rowspan || 1;
+            var colspan = r.colspan || 1;
+            var index = flag[_i3].indexOf(false);
 
-              for (var k = 0; k < rowspan; k++) {
-                flag[_i + k][index] = true;
-              }
-              for (var _k = 0; _k < colspan; _k++) {
-                flag[_i][index + _k] = true;
+            if (colspan === 1) {
+              r.fieldIndex = index;
+              // when field is undefined, use index instead
+              if (typeof r.field === 'undefined') {
+                r.field = index;
               }
             }
-          } catch (err) {
-            _didIteratorError3 = true;
-            _iteratorError3 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                _iterator3.return();
-              }
-            } finally {
-              if (_didIteratorError3) {
-                throw _iteratorError3;
-              }
+
+            for (var k = 0; k < rowspan; k++) {
+              flag[_i3 + k][index] = true;
+            }
+            for (var _k = 0; _k < colspan; _k++) {
+              flag[_i3][index + _k] = true;
             }
           }
         }
@@ -329,29 +304,21 @@
 
           if (names.length > 1) {
             func = window;
-            var _iteratorNormalCompletion4 = true;
-            var _didIteratorError4 = false;
-            var _iteratorError4 = undefined;
+            for (var _iterator4 = names, _isArray4 = Array.isArray(_iterator4), _i5 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
+              var _ref4;
 
-            try {
-              for (var _iterator4 = names[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-                var f = _step4.value;
+              if (_isArray4) {
+                if (_i5 >= _iterator4.length) break;
+                _ref4 = _iterator4[_i5++];
+              } else {
+                _i5 = _iterator4.next();
+                if (_i5.done) break;
+                _ref4 = _i5.value;
+              }
 
-                func = func[f];
-              }
-            } catch (err) {
-              _didIteratorError4 = true;
-              _iteratorError4 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion4 && _iterator4.return) {
-                  _iterator4.return();
-                }
-              } finally {
-                if (_didIteratorError4) {
-                  throw _iteratorError4;
-                }
-              }
+              var f = _ref4;
+
+              func = func[f];
             }
           } else {
             func = window[name];
@@ -380,30 +347,22 @@
           return false;
         }
 
-        var _iteratorNormalCompletion5 = true;
-        var _didIteratorError5 = false;
-        var _iteratorError5 = undefined;
+        for (var _iterator5 = aKeys, _isArray5 = Array.isArray(_iterator5), _i6 = 0, _iterator5 = _isArray5 ? _iterator5 : _iterator5[Symbol.iterator]();;) {
+          var _ref5;
 
-        try {
-          for (var _iterator5 = aKeys[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-            var key = _step5.value;
-
-            if (bKeys.includes(key) && objectA[key] !== objectB[key]) {
-              return false;
-            }
+          if (_isArray5) {
+            if (_i6 >= _iterator5.length) break;
+            _ref5 = _iterator5[_i6++];
+          } else {
+            _i6 = _iterator5.next();
+            if (_i6.done) break;
+            _ref5 = _i6.value;
           }
-        } catch (err) {
-          _didIteratorError5 = true;
-          _iteratorError5 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion5 && _iterator5.return) {
-              _iterator5.return();
-            }
-          } finally {
-            if (_didIteratorError5) {
-              throw _iteratorError5;
-            }
+
+          var key = _ref5;
+
+          if (bKeys.indexOf(key) !== -1 && objectA[key] !== objectB[key]) {
+            return false;
           }
         }
 
@@ -416,40 +375,33 @@
         return text;
       },
       getRealDataAttr: function getRealDataAttr(dataAttr) {
-        var _iteratorNormalCompletion6 = true;
-        var _didIteratorError6 = false;
-        var _iteratorError6 = undefined;
+        for (var _iterator6 = function (target) {
+          return Object.keys(target).map(function (key) {
+            return [key, target[key]];
+          });
+        }(dataAttr), _isArray6 = Array.isArray(_iterator6), _i7 = 0, _iterator6 = _isArray6 ? _iterator6 : _iterator6[Symbol.iterator]();;) {
+          var _ref6;
 
-        try {
-          for (var _iterator6 = Object.entries(dataAttr)[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-            var _ref = _step6.value;
-
-            var _ref2 = _slicedToArray(_ref, 2);
-
-            var attr = _ref2[0];
-            var value = _ref2[1];
-
-            var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
-            if (auxAttr !== attr) {
-              dataAttr[auxAttr] = value;
-              delete dataAttr[attr];
-            }
+          if (_isArray6) {
+            if (_i7 >= _iterator6.length) break;
+            _ref6 = _iterator6[_i7++];
+          } else {
+            _i7 = _iterator6.next();
+            if (_i7.done) break;
+            _ref6 = _i7.value;
           }
-        } catch (err) {
-          _didIteratorError6 = true;
-          _iteratorError6 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion6 && _iterator6.return) {
-              _iterator6.return();
-            }
-          } finally {
-            if (_didIteratorError6) {
-              throw _iteratorError6;
-            }
+
+          var _ref7 = _ref6,
+              _ref8 = _slicedToArray(_ref7, 2),
+              attr = _ref8[0],
+              value = _ref8[1];
+
+          var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
+          if (auxAttr !== attr) {
+            dataAttr[auxAttr] = value;
+            delete dataAttr[attr];
           }
         }
-
         return dataAttr;
       },
       getItemField: function getItemField(item, field, escape) {
@@ -460,69 +412,46 @@
         }
 
         var props = field.split('.');
-        var _iteratorNormalCompletion7 = true;
-        var _didIteratorError7 = false;
-        var _iteratorError7 = undefined;
+        for (var _iterator7 = props, _isArray7 = Array.isArray(_iterator7), _i8 = 0, _iterator7 = _isArray7 ? _iterator7 : _iterator7[Symbol.iterator]();;) {
+          var _ref9;
 
-        try {
-          for (var _iterator7 = props[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-            var p = _step7.value;
+          if (_isArray7) {
+            if (_i8 >= _iterator7.length) break;
+            _ref9 = _iterator7[_i8++];
+          } else {
+            _i8 = _iterator7.next();
+            if (_i8.done) break;
+            _ref9 = _i8.value;
+          }
 
-            value = value && value[p];
-          }
-        } catch (err) {
-          _didIteratorError7 = true;
-          _iteratorError7 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion7 && _iterator7.return) {
-              _iterator7.return();
-            }
-          } finally {
-            if (_didIteratorError7) {
-              throw _iteratorError7;
-            }
-          }
+          var p = _ref9;
+
+          value = value && value[p];
         }
-
         return escape ? this.escapeHTML(value) : value;
       },
       isIEBrowser: function isIEBrowser() {
-        return navigator.userAgent.includes('MSIE ') || /Trident.*rv:11\./.test(navigator.userAgent);
+        return navigator.userAgent.indexOf('MSIE ') !== -1 || /Trident.*rv:11\./.test(navigator.userAgent);
       },
       findIndex: function findIndex(items, item) {
-        var _iteratorNormalCompletion8 = true;
-        var _didIteratorError8 = false;
-        var _iteratorError8 = undefined;
+        for (var _iterator8 = items, _isArray8 = Array.isArray(_iterator8), _i9 = 0, _iterator8 = _isArray8 ? _iterator8 : _iterator8[Symbol.iterator]();;) {
+          var _ref10;
 
-        try {
-          for (var _iterator8 = items.entries()[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-            var _ref3 = _step8.value;
-
-            var _ref4 = _slicedToArray(_ref3, 2);
-
-            var i = _ref4[0];
-            var it = _ref4[1];
-
-            if (JSON.stringify(it) === JSON.stringify(item)) {
-              return i;
-            }
+          if (_isArray8) {
+            if (_i9 >= _iterator8.length) break;
+            _ref10 = _iterator8[_i9++];
+          } else {
+            _i9 = _iterator8.next();
+            if (_i9.done) break;
+            _ref10 = _i9.value;
           }
-        } catch (err) {
-          _didIteratorError8 = true;
-          _iteratorError8 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion8 && _iterator8.return) {
-              _iterator8.return();
-            }
-          } finally {
-            if (_didIteratorError8) {
-              throw _iteratorError8;
-            }
+
+          var it = _ref10;
+
+          if (JSON.stringify(it) === JSON.stringify(item)) {
+            return items.indexOf(it);
           }
         }
-
         return -1;
       }
     };
@@ -621,10 +550,10 @@
 
       selectItemName: 'btSelectItem',
       clickToSelect: false,
-      ignoreClickToSelectOn: function ignoreClickToSelectOn(_ref5) {
-        var tagName = _ref5.tagName;
+      ignoreClickToSelectOn: function ignoreClickToSelectOn(_ref11) {
+        var tagName = _ref11.tagName;
 
-        return ['A', 'BUTTON'].includes(tagName);
+        return ['A', 'BUTTON'].indexOf(tagName) !== -1;
       },
 
       singleSelect: false,
@@ -876,10 +805,10 @@
       }, {
         key: 'initContainer',
         value: function initContainer() {
-          var topPagination = ['top', 'both'].includes(this.options.paginationVAlign) ? '<div class="fixed-table-pagination clearfix"></div>' : '';
-          var bottomPagination = ['bottom', 'both'].includes(this.options.paginationVAlign) ? '<div class="fixed-table-pagination"></div>' : '';
+          var topPagination = ['top', 'both'].indexOf(this.options.paginationVAlign) !== -1 ? '<div class="fixed-table-pagination clearfix"></div>' : '';
+          var bottomPagination = ['bottom', 'both'].indexOf(this.options.paginationVAlign) !== -1 ? '<div class="fixed-table-pagination"></div>' : '';
 
-          this.$container = $('\n        <div class="bootstrap-table">\n        <div class="fixed-table-toolbar"></div>\n        ' + topPagination + '\n        <div class="fixed-table-container">\n        <div class="fixed-table-header"><table></table></div>\n        <div class="fixed-table-body">\n        <div class="fixed-table-loading">\n        ' + this.options.formatLoadingMessage() + '\n        </div>\n        </div>\n        <div class="fixed-table-footer"><table><tr></tr></table></div>\n        </div>\n        ' + bottomPagination + '\n        </div>\n      ');
+          this.$container = $('\n        <div class="bootstrap-table">\n        <div class="fixed-table-toolbar"></div>\n        ' + topPagination + '\n        <div class="fixed-table-container">\n        <div class="fixed-table-header"><table></table></div>\n        <div class="fixed-table-body">\n        <div class="fixed-table-loading">\n        ' + this.options.formatLoadingMessage() + '\n        </div>\n        </div>\n        <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>\n        </div>\n        ' + bottomPagination + '\n        </div>\n      ');
 
           this.$container.insertAfter(this.$el);
           this.$tableContainer = this.$container.find('.fixed-table-container');
@@ -903,7 +832,11 @@
           if (this.options.height) {
             this.$tableContainer.addClass('fixed-height');
 
-            if (this.options.classes.split(' ').includes('table-bordered')) {
+            if (this.options.showFooter) {
+              this.$tableContainer.addClass('has-footer');
+            }
+
+            if (this.options.classes.split(' ').indexOf('table-bordered') !== -1) {
               this.$tableBody.append('<div class="fixed-table-border"></div>');
               this.$tableBorder = this.$tableBody.find('.fixed-table-border');
               this.$tableLoading.addClass('fixed-table-border');
@@ -1003,7 +936,7 @@
 
               var field = _this.columns[x].field;
 
-              row[field] = $(el).html();
+              row[field] = $(el).html().trim();
               // save td's id, class and data-* attributes
               row['_' + field + '_id'] = $(el).attr('id');
               row['_' + field + '_class'] = $(el).attr('class');
@@ -1060,7 +993,7 @@
 
               if (column.width !== undefined && !_this2.options.cardView) {
                 if (typeof column.width === 'string') {
-                  if (column.width.includes('%')) {
+                  if (column.width.indexOf('%') !== -1) {
                     unitWidth = '%';
                   }
                 }
@@ -1173,8 +1106,8 @@
           }
 
           this.$selectAll = this.$header.find('[name="btSelectAll"]');
-          this.$selectAll.off('click').on('click', function (_ref6) {
-            var currentTarget = _ref6.currentTarget;
+          this.$selectAll.off('click').on('click', function (_ref12) {
+            var currentTarget = _ref12.currentTarget;
 
             var checked = $(currentTarget).prop('checked');
             _this2[checked ? 'checkAll' : 'uncheckAll']();
@@ -1301,9 +1234,9 @@
         }
       }, {
         key: 'onSort',
-        value: function onSort(_ref7) {
-          var type = _ref7.type,
-              currentTarget = _ref7.currentTarget;
+        value: function onSort(_ref13) {
+          var type = _ref13.type,
+              currentTarget = _ref13.currentTarget;
 
           var $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent();
           var $this_ = this.$header.find('th').eq($this.index());
@@ -1366,10 +1299,6 @@
             html.push(Utils.sprintf('<button class="btn' + Utils.sprintf(' btn-%s', this.options.buttonsClass) + Utils.sprintf(' btn-%s', this.options.iconSize) + '" type="button" name="paginationSwitch" aria-label="pagination Switch" title="%s">', this.options.formatPaginationSwitch()), Utils.sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown), '</button>');
           }
 
-          if (this.options.showFullscreen) {
-            this.$toolbar.find('button[name="fullscreen"]').off('click').on('click', $.proxy(this.toggleFullscreen, this));
-          }
-
           if (this.options.showRefresh) {
             html.push(Utils.sprintf('<button class="btn' + Utils.sprintf(' btn-%s', this.options.buttonsClass) + Utils.sprintf(' btn-%s', this.options.iconSize) + '" type="button" name="refresh" aria-label="refresh" title="%s">', this.options.formatRefresh()), Utils.sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh), '</button>');
           }
@@ -1415,6 +1344,10 @@
             this.$toolbar.find('button[name="paginationSwitch"]').off('click').on('click', $.proxy(this.togglePagination, this));
           }
 
+          if (this.options.showFullscreen) {
+            this.$toolbar.find('button[name="fullscreen"]').off('click').on('click', $.proxy(this.toggleFullscreen, this));
+          }
+
           if (this.options.showRefresh) {
             this.$toolbar.find('button[name="refresh"]').off('click').on('click', $.proxy(this.refresh, this));
           }
@@ -1435,8 +1368,8 @@
             $keepOpen.find('li').off('click').on('click', function (e) {
               e.stopImmediatePropagation();
             });
-            $keepOpen.find('input').off('click').on('click', function (_ref8) {
-              var currentTarget = _ref8.currentTarget;
+            $keepOpen.find('input').off('click').on('click', function (_ref14) {
+              var currentTarget = _ref14.currentTarget;
 
               var $this = $(currentTarget);
 
@@ -1456,7 +1389,7 @@
                 return;
               }
 
-              if ([37, 38, 39, 40].includes(event.keyCode)) {
+              if ([37, 38, 39, 40].indexOf(event.keyCode) !== -1) {
                 return;
               }
 
@@ -1478,9 +1411,9 @@
         }
       }, {
         key: 'onSearch',
-        value: function onSearch(_ref9) {
-          var currentTarget = _ref9.currentTarget,
-              firedByInitSearchText = _ref9.firedByInitSearchText;
+        value: function onSearch(_ref15) {
+          var currentTarget = _ref15.currentTarget,
+              firedByInitSearchText = _ref15.firedByInitSearchText;
 
           var text = $.trim($(currentTarget).val());
 
@@ -1515,7 +1448,7 @@
 
           if (this.options.sidePagination !== 'server') {
             if (this.options.customSearch) {
-              Utils.calculateObjectValue(this.options, this.options.customSearch, [this.searchText]);
+              this.data = Utils.calculateObjectValue(this.options, this.options.customSearch, [this.options.data, this.searchText]);
               return;
             }
 
@@ -1525,7 +1458,7 @@
             // Check filter
             this.data = f ? this.options.data.filter(function (item, i) {
               for (var key in f) {
-                if (Array.isArray(f[key]) && !f[key].includes(item[key]) || !Array.isArray(f[key]) && item[key] !== f[key]) {
+                if (Array.isArray(f[key]) && !(f[key].indexOf(item[key]) !== -1) || !Array.isArray(f[key]) && item[key] !== f[key]) {
                   return false;
                 }
               }
@@ -1545,9 +1478,9 @@
                 if (typeof key === 'string') {
                   value = item;
                   var props = key.split('.');
-                  for (var _i2 = 0; _i2 < props.length; _i2++) {
-                    if (value[props[_i2]] !== null) {
-                      value = value[props[_i2]];
+                  for (var _i10 = 0; _i10 < props.length; _i10++) {
+                    if (value[props[_i10]] !== null) {
+                      value = value[props[_i10]];
                     }
                   }
                 } else {
@@ -1565,7 +1498,7 @@
                       return true;
                     }
                   } else {
-                    if (('' + value).toLowerCase().includes(s)) {
+                    if (('' + value).toLowerCase().indexOf(s) !== -1) {
                       return true;
                     }
                   }
@@ -1611,7 +1544,7 @@
               // Fix #667 Table with pagination,
               // multiple pages and a search this matches to one page throws exception
               var pageLst = typeof this.options.pageList === 'string' ? this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').toLowerCase().split(',') : this.options.pageList;
-              if (pageLst.includes(this.options.formatAllRows().toLowerCase())) {
+              if (pageLst.indexOf(this.options.formatAllRows().toLowerCase()) !== -1) {
                 $allSelected = true;
               }
             }
@@ -1641,29 +1574,21 @@
               var list = this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').split(',');
 
               pageList = [];
-              var _iteratorNormalCompletion9 = true;
-              var _didIteratorError9 = false;
-              var _iteratorError9 = undefined;
+              for (var _iterator9 = list, _isArray9 = Array.isArray(_iterator9), _i11 = 0, _iterator9 = _isArray9 ? _iterator9 : _iterator9[Symbol.iterator]();;) {
+                var _ref16;
 
-              try {
-                for (var _iterator9 = list[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
-                  var value = _step9.value;
+                if (_isArray9) {
+                  if (_i11 >= _iterator9.length) break;
+                  _ref16 = _iterator9[_i11++];
+                } else {
+                  _i11 = _iterator9.next();
+                  if (_i11.done) break;
+                  _ref16 = _i11.value;
+                }
 
-                  pageList.push(value.toUpperCase() === this.options.formatAllRows().toUpperCase() || value.toUpperCase() === 'UNLIMITED' ? this.options.formatAllRows() : +value);
-                }
-              } catch (err) {
-                _didIteratorError9 = true;
-                _iteratorError9 = err;
-              } finally {
-                try {
-                  if (!_iteratorNormalCompletion9 && _iterator9.return) {
-                    _iterator9.return();
-                  }
-                } finally {
-                  if (_didIteratorError9) {
-                    throw _iteratorError9;
-                  }
-                }
+                var value = _ref16;
+
+                pageList.push(value.toUpperCase() === this.options.formatAllRows().toUpperCase() || value.toUpperCase() === 'UNLIMITED' ? this.options.formatAllRows() : +value);
               }
             }
 
@@ -1895,104 +1820,86 @@
           style = Utils.calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
           if (style && style.css) {
-            var _iteratorNormalCompletion10 = true;
-            var _didIteratorError10 = false;
-            var _iteratorError10 = undefined;
+            for (var _iterator10 = function (target) {
+              return Object.keys(target).map(function (key) {
+                return [key, target[key]];
+              });
+            }(style.css), _isArray10 = Array.isArray(_iterator10), _i12 = 0, _iterator10 = _isArray10 ? _iterator10 : _iterator10[Symbol.iterator]();;) {
+              var _ref17;
 
-            try {
-              for (var _iterator10 = Object.entries(style.css)[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
-                var _ref10 = _step10.value;
-
-                var _ref11 = _slicedToArray(_ref10, 2);
-
-                var key = _ref11[0];
-                var value = _ref11[1];
-
-                csses.push(key + ': ' + value);
+              if (_isArray10) {
+                if (_i12 >= _iterator10.length) break;
+                _ref17 = _iterator10[_i12++];
+              } else {
+                _i12 = _iterator10.next();
+                if (_i12.done) break;
+                _ref17 = _i12.value;
               }
-            } catch (err) {
-              _didIteratorError10 = true;
-              _iteratorError10 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion10 && _iterator10.return) {
-                  _iterator10.return();
-                }
-              } finally {
-                if (_didIteratorError10) {
-                  throw _iteratorError10;
-                }
-              }
+
+              var _ref18 = _ref17,
+                  _ref19 = _slicedToArray(_ref18, 2),
+                  key = _ref19[0],
+                  value = _ref19[1];
+
+              csses.push(key + ': ' + value);
             }
           }
 
           attributes = Utils.calculateObjectValue(this.options, this.options.rowAttributes, [item, i], attributes);
 
           if (attributes) {
-            var _iteratorNormalCompletion11 = true;
-            var _didIteratorError11 = false;
-            var _iteratorError11 = undefined;
+            for (var _iterator11 = function (target) {
+              return Object.keys(target).map(function (key) {
+                return [key, target[key]];
+              });
+            }(attributes), _isArray11 = Array.isArray(_iterator11), _i13 = 0, _iterator11 = _isArray11 ? _iterator11 : _iterator11[Symbol.iterator]();;) {
+              var _ref20;
 
-            try {
-              for (var _iterator11 = Object.entries(attributes)[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
-                var _ref12 = _step11.value;
-
-                var _ref13 = _slicedToArray(_ref12, 2);
-
-                var _key2 = _ref13[0];
-                var _value2 = _ref13[1];
-
-                htmlAttributes.push(_key2 + '="' + Utils.escapeHTML(_value2) + '"');
+              if (_isArray11) {
+                if (_i13 >= _iterator11.length) break;
+                _ref20 = _iterator11[_i13++];
+              } else {
+                _i13 = _iterator11.next();
+                if (_i13.done) break;
+                _ref20 = _i13.value;
               }
-            } catch (err) {
-              _didIteratorError11 = true;
-              _iteratorError11 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion11 && _iterator11.return) {
-                  _iterator11.return();
-                }
-              } finally {
-                if (_didIteratorError11) {
-                  throw _iteratorError11;
-                }
-              }
+
+              var _ref21 = _ref20,
+                  _ref22 = _slicedToArray(_ref21, 2),
+                  _key2 = _ref22[0],
+                  _value2 = _ref22[1];
+
+              htmlAttributes.push(_key2 + '="' + Utils.escapeHTML(_value2) + '"');
             }
           }
 
           if (item._data && !$.isEmptyObject(item._data)) {
-            var _iteratorNormalCompletion12 = true;
-            var _didIteratorError12 = false;
-            var _iteratorError12 = undefined;
+            for (var _iterator12 = function (target) {
+              return Object.keys(target).map(function (key) {
+                return [key, target[key]];
+              });
+            }(item._data), _isArray12 = Array.isArray(_iterator12), _i14 = 0, _iterator12 = _isArray12 ? _iterator12 : _iterator12[Symbol.iterator]();;) {
+              var _ref23;
 
-            try {
-              for (var _iterator12 = Object.entries(item._data)[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
-                var _ref14 = _step12.value;
-
-                var _ref15 = _slicedToArray(_ref14, 2);
-
-                var k = _ref15[0];
-                var v = _ref15[1];
-
-                // ignore data-index
-                if (k === 'index') {
-                  return;
-                }
-                data_ += ' data-' + k + '="' + v + '"';
+              if (_isArray12) {
+                if (_i14 >= _iterator12.length) break;
+                _ref23 = _iterator12[_i14++];
+              } else {
+                _i14 = _iterator12.next();
+                if (_i14.done) break;
+                _ref23 = _i14.value;
               }
-            } catch (err) {
-              _didIteratorError12 = true;
-              _iteratorError12 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion12 && _iterator12.return) {
-                  _iterator12.return();
-                }
-              } finally {
-                if (_didIteratorError12) {
-                  throw _iteratorError12;
-                }
+
+              var _ref24 = _ref23,
+                  _ref25 = _slicedToArray(_ref24, 2),
+                  k = _ref25[0],
+                  v = _ref25[1];
+
+              // ignore data-index
+              if (k === 'index') {
+                return;
               }
+              data_ += ' data-' + k + '="' + v + '"';
             }
           }
 
@@ -2070,74 +1977,61 @@
             }
             if (cellStyle.css) {
               var csses_ = [];
-              var _iteratorNormalCompletion13 = true;
-              var _didIteratorError13 = false;
-              var _iteratorError13 = undefined;
+              for (var _iterator13 = function (target) {
+                return Object.keys(target).map(function (key) {
+                  return [key, target[key]];
+                });
+              }(cellStyle.css), _isArray13 = Array.isArray(_iterator13), _i15 = 0, _iterator13 = _isArray13 ? _iterator13 : _iterator13[Symbol.iterator]();;) {
+                var _ref26;
 
-              try {
-                for (var _iterator13 = Object.entries(cellStyle.css)[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
-                  var _ref16 = _step13.value;
-
-                  var _ref17 = _slicedToArray(_ref16, 2);
-
-                  var _key3 = _ref17[0];
-                  var _value3 = _ref17[1];
-
-                  csses_.push(_key3 + ': ' + _value3);
+                if (_isArray13) {
+                  if (_i15 >= _iterator13.length) break;
+                  _ref26 = _iterator13[_i15++];
+                } else {
+                  _i15 = _iterator13.next();
+                  if (_i15.done) break;
+                  _ref26 = _i15.value;
                 }
-              } catch (err) {
-                _didIteratorError13 = true;
-                _iteratorError13 = err;
-              } finally {
-                try {
-                  if (!_iteratorNormalCompletion13 && _iterator13.return) {
-                    _iterator13.return();
-                  }
-                } finally {
-                  if (_didIteratorError13) {
-                    throw _iteratorError13;
-                  }
-                }
+
+                var _ref27 = _ref26,
+                    _ref28 = _slicedToArray(_ref27, 2),
+                    _key3 = _ref28[0],
+                    _value3 = _ref28[1];
+
+                csses_.push(_key3 + ': ' + _value3);
               }
-
               style_ = ' style="' + csses_.concat(_this7.header.styles[j]).join('; ') + '"';
             }
 
             value = Utils.calculateObjectValue(column, _this7.header.formatters[j], [value_, item, i, field], value_);
 
             if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
-              var _iteratorNormalCompletion14 = true;
-              var _didIteratorError14 = false;
-              var _iteratorError14 = undefined;
+              for (var _iterator14 = function (target) {
+                return Object.keys(target).map(function (key) {
+                  return [key, target[key]];
+                });
+              }(item['_' + field + '_data']), _isArray14 = Array.isArray(_iterator14), _i16 = 0, _iterator14 = _isArray14 ? _iterator14 : _iterator14[Symbol.iterator]();;) {
+                var _ref29;
 
-              try {
-                for (var _iterator14 = Object.entries(item['_' + field + '_data'])[Symbol.iterator](), _step14; !(_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done); _iteratorNormalCompletion14 = true) {
-                  var _ref18 = _step14.value;
-
-                  var _ref19 = _slicedToArray(_ref18, 2);
-
-                  var _k2 = _ref19[0];
-                  var _v = _ref19[1];
-
-                  // ignore data-index
-                  if (_k2 === 'index') {
-                    return;
-                  }
-                  data_ += ' data-' + _k2 + '="' + _v + '"';
+                if (_isArray14) {
+                  if (_i16 >= _iterator14.length) break;
+                  _ref29 = _iterator14[_i16++];
+                } else {
+                  _i16 = _iterator14.next();
+                  if (_i16.done) break;
+                  _ref29 = _i16.value;
                 }
-              } catch (err) {
-                _didIteratorError14 = true;
-                _iteratorError14 = err;
-              } finally {
-                try {
-                  if (!_iteratorNormalCompletion14 && _iterator14.return) {
-                    _iterator14.return();
-                  }
-                } finally {
-                  if (_didIteratorError14) {
-                    throw _iteratorError14;
-                  }
+
+                var _ref30 = _ref29,
+                    _ref31 = _slicedToArray(_ref30, 2),
+                    _k2 = _ref31[0],
+                    _v = _ref31[1];
+
+                // ignore data-index
+                if (_k2 === 'index') {
+                  return;
                 }
+                data_ += ' data-' + _k2 + '="' + _v + '"';
               }
             }
 
@@ -2222,10 +2116,10 @@
           }
 
           // click to select by column
-          this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', function (_ref20) {
-            var currentTarget = _ref20.currentTarget,
-                type = _ref20.type,
-                target = _ref20.target;
+          this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', function (_ref32) {
+            var currentTarget = _ref32.currentTarget,
+                type = _ref32.type,
+                target = _ref32.target;
 
             var $td = $(currentTarget);
             var $tr = $td.parent();
@@ -2308,7 +2202,21 @@
               fieldIndex += 1;
             }
 
-            var _loop = function _loop(key, event) {
+            var _loop = function _loop() {
+              if (_isArray15) {
+                if (_i17 >= _iterator15.length) return 'break';
+                _ref33 = _iterator15[_i17++];
+              } else {
+                _i17 = _iterator15.next();
+                if (_i17.done) return 'break';
+                _ref33 = _i17.value;
+              }
+
+              var _ref34 = _ref33,
+                  _ref35 = _slicedToArray(_ref34, 2),
+                  key = _ref35[0],
+                  event = _ref35[1];
+
               _this8.$body.find('>tr:not(.no-records-found)').each(function (i, tr) {
                 var $tr = $(tr);
                 var $td = $tr.find(_this8.options.cardView ? '.card-view' : 'td').eq(fieldIndex);
@@ -2326,34 +2234,16 @@
               });
             };
 
-            var _iteratorNormalCompletion15 = true;
-            var _didIteratorError15 = false;
-            var _iteratorError15 = undefined;
+            for (var _iterator15 = function (target) {
+              return Object.keys(target).map(function (key) {
+                return [key, target[key]];
+              });
+            }(events), _isArray15 = Array.isArray(_iterator15), _i17 = 0, _iterator15 = _isArray15 ? _iterator15 : _iterator15[Symbol.iterator]();;) {
+              var _ref33;
 
-            try {
-              for (var _iterator15 = Object.entries(events)[Symbol.iterator](), _step15; !(_iteratorNormalCompletion15 = (_step15 = _iterator15.next()).done); _iteratorNormalCompletion15 = true) {
-                var _ref21 = _step15.value;
+              var _ret = _loop();
 
-                var _ref22 = _slicedToArray(_ref21, 2);
-
-                var key = _ref22[0];
-                var event = _ref22[1];
-
-                _loop(key, event);
-              }
-            } catch (err) {
-              _didIteratorError15 = true;
-              _iteratorError15 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion15 && _iterator15.return) {
-                  _iterator15.return();
-                }
-              } finally {
-                if (_didIteratorError15) {
-                  throw _iteratorError15;
-                }
-              }
+              if (_ret === 'break') break;
             }
           });
 
@@ -2503,35 +2393,26 @@
       }, {
         key: 'resetRows',
         value: function resetRows() {
-          var _iteratorNormalCompletion16 = true;
-          var _didIteratorError16 = false;
-          var _iteratorError16 = undefined;
+          for (var _iterator16 = this.data, _isArray16 = Array.isArray(_iterator16), _i18 = 0, _iterator16 = _isArray16 ? _iterator16 : _iterator16[Symbol.iterator]();;) {
+            var _ref36;
 
-          try {
-            for (var _iterator16 = this.data[Symbol.iterator](), _step16; !(_iteratorNormalCompletion16 = (_step16 = _iterator16.next()).done); _iteratorNormalCompletion16 = true) {
-              var row = _step16.value;
-
-              this.$selectAll.prop('checked', false);
-              this.$selectItem.prop('checked', false);
-              if (this.header.stateField) {
-                row[this.header.stateField] = false;
-              }
+            if (_isArray16) {
+              if (_i18 >= _iterator16.length) break;
+              _ref36 = _iterator16[_i18++];
+            } else {
+              _i18 = _iterator16.next();
+              if (_i18.done) break;
+              _ref36 = _i18.value;
             }
-          } catch (err) {
-            _didIteratorError16 = true;
-            _iteratorError16 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion16 && _iterator16.return) {
-                _iterator16.return();
-              }
-            } finally {
-              if (_didIteratorError16) {
-                throw _iteratorError16;
-              }
+
+            var row = _ref36;
+
+            this.$selectAll.prop('checked', false);
+            this.$selectItem.prop('checked', false);
+            if (this.header.stateField) {
+              row[this.header.stateField] = false;
             }
           }
-
           this.initHiddenRows();
         }
       }, {
@@ -2568,8 +2449,8 @@
             this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), 100);
             return;
           }
-          var fixedBody = this.$tableBody.get(0);
 
+          var fixedBody = this.$tableBody.get(0);
           var scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth && fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ? Utils.getScrollBarWidth() : 0;
 
           this.$el.css('margin-top', -this.$header.outerHeight());
@@ -2590,9 +2471,7 @@
 
           this.$header_ = this.$header.clone(true, true);
           this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
-          this.$tableHeader.css({
-            'margin-right': scrollWidth
-          }).find('table').css('width', this.$el.outerWidth()).html('').attr('class', this.$el.attr('class')).append(this.$header_);
+          this.$tableHeader.css('margin-right', scrollWidth).find('table').css('width', this.$el.outerWidth()).html('').attr('class', this.$el.attr('class')).append(this.$header_);
 
           var focusedTemp = $('.focus-temp:visible:eq(0)');
           if (focusedTemp.length > 0) {
@@ -2654,121 +2533,130 @@
           }
 
           if (!this.options.cardView && this.options.detailView) {
-            html.push('<td><div class="th-inner">&nbsp;</div><div class="fht-cell"></div></td>');
+            html.push('<th class="detail"><div class="th-inner"></div><div class="fht-cell"></div></th>');
           }
 
-          var _iteratorNormalCompletion17 = true;
-          var _didIteratorError17 = false;
-          var _iteratorError17 = undefined;
+          for (var _iterator17 = this.columns, _isArray17 = Array.isArray(_iterator17), _i19 = 0, _iterator17 = _isArray17 ? _iterator17 : _iterator17[Symbol.iterator]();;) {
+            var _ref37;
 
-          try {
-            for (var _iterator17 = this.columns[Symbol.iterator](), _step17; !(_iteratorNormalCompletion17 = (_step17 = _iterator17.next()).done); _iteratorNormalCompletion17 = true) {
-              var column = _step17.value;
+            if (_isArray17) {
+              if (_i19 >= _iterator17.length) break;
+              _ref37 = _iterator17[_i19++];
+            } else {
+              _i19 = _iterator17.next();
+              if (_i19.done) break;
+              _ref37 = _i19.value;
+            }
 
-              var falign = '';
+            var column = _ref37;
 
-              var valign = '';
-              var csses = [];
-              var style = {};
-              var class_ = Utils.sprintf(' class="%s"', column['class']);
+            var falign = '';
 
-              if (!column.visible) {
-                return;
-              }
+            var valign = '';
+            var csses = [];
+            var style = {};
+            var class_ = Utils.sprintf(' class="%s"', column['class']);
 
-              if (this.options.cardView && !column.cardVisible) {
-                return;
-              }
+            if (!column.visible) {
+              continue;
+            }
 
-              falign = Utils.sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
-              valign = Utils.sprintf('vertical-align: %s; ', column.valign);
+            if (this.options.cardView && !column.cardVisible) {
+              return;
+            }
 
-              style = Utils.calculateObjectValue(null, this.options.footerStyle);
+            falign = Utils.sprintf('text-align: %s; ', column.falign ? column.falign : column.align);
+            valign = Utils.sprintf('vertical-align: %s; ', column.valign);
 
-              if (style && style.css) {
-                var _iteratorNormalCompletion18 = true;
-                var _didIteratorError18 = false;
-                var _iteratorError18 = undefined;
+            style = Utils.calculateObjectValue(null, this.options.footerStyle, [column]);
 
-                try {
-                  for (var _iterator18 = Object.keys(style.css)[Symbol.iterator](), _step18; !(_iteratorNormalCompletion18 = (_step18 = _iterator18.next()).done); _iteratorNormalCompletion18 = true) {
-                    var _ref23 = _step18.value;
+            if (style && style.css) {
+              for (var _iterator18 = function (target) {
+                return Object.keys(target).map(function (key) {
+                  return [key, target[key]];
+                });
+              }(style.css), _isArray18 = Array.isArray(_iterator18), _i20 = 0, _iterator18 = _isArray18 ? _iterator18 : _iterator18[Symbol.iterator]();;) {
+                var _ref38;
 
-                    var _ref24 = _slicedToArray(_ref23, 2);
-
-                    var key = _ref24[0];
-                    var value = _ref24[1];
-
-                    csses.push(key + ': ' + value);
-                  }
-                } catch (err) {
-                  _didIteratorError18 = true;
-                  _iteratorError18 = err;
-                } finally {
-                  try {
-                    if (!_iteratorNormalCompletion18 && _iterator18.return) {
-                      _iterator18.return();
-                    }
-                  } finally {
-                    if (_didIteratorError18) {
-                      throw _iteratorError18;
-                    }
-                  }
+                if (_isArray18) {
+                  if (_i20 >= _iterator18.length) break;
+                  _ref38 = _iterator18[_i20++];
+                } else {
+                  _i20 = _iterator18.next();
+                  if (_i20.done) break;
+                  _ref38 = _i20.value;
                 }
-              }
 
-              html.push('<td', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>');
-              html.push('<div class="th-inner">');
+                var _ref39 = _ref38,
+                    _ref40 = _slicedToArray(_ref39, 2),
+                    _key5 = _ref40[0],
+                    value = _ref40[1];
 
-              html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
-
-              html.push('</div>');
-              html.push('<div class="fht-cell"></div>');
-              html.push('</div>');
-              html.push('</td>');
-            }
-          } catch (err) {
-            _didIteratorError17 = true;
-            _iteratorError17 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion17 && _iterator17.return) {
-                _iterator17.return();
-              }
-            } finally {
-              if (_didIteratorError17) {
-                throw _iteratorError17;
+                csses.push(_key5 + ': ' + value);
               }
             }
+            if (style && style.classes) {
+              class_ = Utils.sprintf(' class="%s"', column['class'] ? [column['class'], style.classes].join(' ') : style.classes);
+            }
+
+            html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>');
+            html.push('<div class="th-inner">');
+
+            html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], ''));
+
+            html.push('</div>');
+            html.push('<div class="fht-cell"></div>');
+            html.push('</div>');
+            html.push('</th>');
           }
 
           this.$tableFooter.find('tr').html(html.join(''));
           this.$tableFooter.show();
-          clearTimeout(this.timeoutFooter_);
-          this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), this.$el.is(':hidden') ? 100 : 0);
+          this.fitFooter();
         }
       }, {
         key: 'fitFooter',
         value: function fitFooter() {
-          clearTimeout(this.timeoutFooter_);
+          var _this13 = this;
+
           if (this.$el.is(':hidden')) {
-            this.timeoutFooter_ = setTimeout($.proxy(this.fitFooter, this), 100);
+            setTimeout($.proxy(this.fitFooter, this), 100);
             return;
           }
 
-          var elWidth = this.$el.css('width');
-          var scrollWidth = elWidth > this.$tableBody.width() ? Utils.getScrollBarWidth() : 0;
+          var fixedBody = this.$tableBody.get(0);
+          var scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth && fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ? Utils.getScrollBarWidth() : 0;
 
-          this.$tableFooter.css({
-            'margin-right': scrollWidth
-          }).find('table').css('width', elWidth).attr('class', this.$el.attr('class'));
+          this.$tableFooter.css('margin-right', scrollWidth).find('table').css('width', this.$el.outerWidth()).attr('class', this.$el.attr('class'));
 
-          var $footerTd = this.$tableFooter.find('td');
+          var visibleFields = this.getVisibleFields();
+          var $ths = this.$tableFooter.find('th');
+          var $tr = this.$body.find('>tr:first-child:not(.no-records-found)');
 
-          this.$body.find('>tr:first-child:not(.no-records-found) > *').each(function (i, el) {
+          while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
+            $tr = $tr.next();
+          }
+
+          $tr.find('> *').each(function (i, el) {
             var $this = $(el);
+            var index = i;
 
-            $footerTd.eq(i).find('.fht-cell').width($this.innerWidth());
+            if (_this13.options.detailView && !_this13.options.cardView) {
+              if (i === 0) {
+                var $thDetail = $ths.filter('.detail');
+                var _zoomWidth2 = $thDetail.width() - $thDetail.find('.fht-cell').width();
+                $thDetail.find('.fht-cell').width($this.innerWidth() - _zoomWidth2);
+              }
+              index = i - 1;
+            }
+
+            if (index === -1) {
+              return;
+            }
+
+            var $th = $ths.eq(i);
+            var zoomWidth = $th.width() - $th.find('.fht-cell').width();
+            $th.find('.fht-cell').width($this.innerWidth() - zoomWidth);
           });
 
           this.horizontalScroll();
@@ -2776,21 +2664,21 @@
       }, {
         key: 'horizontalScroll',
         value: function horizontalScroll() {
-          var _this13 = this;
+          var _this14 = this;
 
           // horizontal scroll event
           // TODO: it's probably better improving the layout than binding to scroll event
 
           this.trigger('scroll-body');
-          this.$tableBody.off('scroll').on('scroll', function (_ref25) {
-            var currentTarget = _ref25.currentTarget;
+          this.$tableBody.off('scroll').on('scroll', function (_ref41) {
+            var currentTarget = _ref41.currentTarget;
 
-            if (_this13.options.showHeader && _this13.options.height) {
-              _this13.$tableHeader.scrollLeft($(currentTarget).scrollLeft());
+            if (_this14.options.showHeader && _this14.options.height) {
+              _this14.$tableHeader.scrollLeft($(currentTarget).scrollLeft());
             }
 
-            if (_this13.options.showFooter && !_this13.options.cardView) {
-              _this13.$tableFooter.scrollLeft($(currentTarget).scrollLeft());
+            if (_this14.options.showFooter && !_this14.options.cardView) {
+              _this14.$tableFooter.scrollLeft($(currentTarget).scrollLeft());
             }
           });
         }
@@ -2823,36 +2711,27 @@
         value: function getVisibleFields() {
           var visibleFields = [];
 
-          var _iteratorNormalCompletion19 = true;
-          var _didIteratorError19 = false;
-          var _iteratorError19 = undefined;
+          for (var _iterator19 = this.header.fields, _isArray19 = Array.isArray(_iterator19), _i21 = 0, _iterator19 = _isArray19 ? _iterator19 : _iterator19[Symbol.iterator]();;) {
+            var _ref42;
 
-          try {
-            for (var _iterator19 = this.header.fields[Symbol.iterator](), _step19; !(_iteratorNormalCompletion19 = (_step19 = _iterator19.next()).done); _iteratorNormalCompletion19 = true) {
-              var field = _step19.value;
-
-              var column = this.columns[this.fieldsColumnsIndex[field]];
-
-              if (!column.visible) {
-                continue;
-              }
-              visibleFields.push(field);
+            if (_isArray19) {
+              if (_i21 >= _iterator19.length) break;
+              _ref42 = _iterator19[_i21++];
+            } else {
+              _i21 = _iterator19.next();
+              if (_i21.done) break;
+              _ref42 = _i21.value;
             }
-          } catch (err) {
-            _didIteratorError19 = true;
-            _iteratorError19 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion19 && _iterator19.return) {
-                _iterator19.return();
-              }
-            } finally {
-              if (_didIteratorError19) {
-                throw _iteratorError19;
-              }
+
+            var field = _ref42;
+
+            var column = this.columns[this.fieldsColumnsIndex[field]];
+
+            if (!column.visible) {
+              continue;
             }
+            visibleFields.push(field);
           }
-
           return visibleFields;
         }
       }, {
@@ -2886,7 +2765,7 @@
           if (this.options.showFooter) {
             this.resetFooter();
             if (this.options.height) {
-              padding += this.$tableFooter.outerHeight() + 1;
+              padding += this.$tableFooter.outerHeight();
             }
           }
 
@@ -2972,7 +2851,7 @@
             if (!row.hasOwnProperty(params.field)) {
               continue;
             }
-            if (params.values.includes(row[params.field])) {
+            if (params.values.indexOf(row[params.field]) !== -1) {
               this.options.data.splice(i, 1);
               if (this.options.sidePagination === 'server') {
                 this.options.totalRows -= 1;
@@ -3064,38 +2943,30 @@
         value: function updateByUniqueId(params) {
           var allParams = Array.isArray(params) ? params : [params];
 
-          var _iteratorNormalCompletion20 = true;
-          var _didIteratorError20 = false;
-          var _iteratorError20 = undefined;
+          for (var _iterator20 = allParams, _isArray20 = Array.isArray(_iterator20), _i22 = 0, _iterator20 = _isArray20 ? _iterator20 : _iterator20[Symbol.iterator]();;) {
+            var _ref43;
 
-          try {
-            for (var _iterator20 = allParams[Symbol.iterator](), _step20; !(_iteratorNormalCompletion20 = (_step20 = _iterator20.next()).done); _iteratorNormalCompletion20 = true) {
-              var _params = _step20.value;
-
-              if (!_params.hasOwnProperty('id') || !_params.hasOwnProperty('row')) {
-                continue;
-              }
-
-              var rowId = this.options.data.indexOf(this.getRowByUniqueId(_params.id));
-
-              if (rowId === -1) {
-                continue;
-              }
-              $.extend(this.options.data[rowId], _params.row);
+            if (_isArray20) {
+              if (_i22 >= _iterator20.length) break;
+              _ref43 = _iterator20[_i22++];
+            } else {
+              _i22 = _iterator20.next();
+              if (_i22.done) break;
+              _ref43 = _i22.value;
             }
-          } catch (err) {
-            _didIteratorError20 = true;
-            _iteratorError20 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion20 && _iterator20.return) {
-                _iterator20.return();
-              }
-            } finally {
-              if (_didIteratorError20) {
-                throw _iteratorError20;
-              }
+
+            var _params = _ref43;
+
+            if (!_params.hasOwnProperty('id') || !_params.hasOwnProperty('row')) {
+              continue;
             }
+
+            var rowId = this.options.data.indexOf(this.getRowByUniqueId(_params.id));
+
+            if (rowId === -1) {
+              continue;
+            }
+            $.extend(this.options.data[rowId], _params.row);
           }
 
           this.initSearch();
@@ -3139,32 +3010,24 @@
         value: function updateRow(params) {
           var allParams = Array.isArray(params) ? params : [params];
 
-          var _iteratorNormalCompletion21 = true;
-          var _didIteratorError21 = false;
-          var _iteratorError21 = undefined;
+          for (var _iterator21 = allParams, _isArray21 = Array.isArray(_iterator21), _i23 = 0, _iterator21 = _isArray21 ? _iterator21 : _iterator21[Symbol.iterator]();;) {
+            var _ref44;
 
-          try {
-            for (var _iterator21 = allParams[Symbol.iterator](), _step21; !(_iteratorNormalCompletion21 = (_step21 = _iterator21.next()).done); _iteratorNormalCompletion21 = true) {
-              var _params2 = _step21.value;
+            if (_isArray21) {
+              if (_i23 >= _iterator21.length) break;
+              _ref44 = _iterator21[_i23++];
+            } else {
+              _i23 = _iterator21.next();
+              if (_i23.done) break;
+              _ref44 = _i23.value;
+            }
 
-              if (!_params2.hasOwnProperty('index') || !_params2.hasOwnProperty('row')) {
-                continue;
-              }
-              $.extend(this.options.data[_params2.index], _params2.row);
+            var _params2 = _ref44;
+
+            if (!_params2.hasOwnProperty('index') || !_params2.hasOwnProperty('row')) {
+              continue;
             }
-          } catch (err) {
-            _didIteratorError21 = true;
-            _iteratorError21 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion21 && _iterator21.return) {
-                _iterator21.return();
-              }
-            } finally {
-              if (_didIteratorError21) {
-                throw _iteratorError21;
-              }
-            }
+            $.extend(this.options.data[_params2.index], _params2.row);
           }
 
           this.initSearch();
@@ -3222,33 +3085,24 @@
           var data = this.getData();
           var rows = [];
 
-          var _iteratorNormalCompletion22 = true;
-          var _didIteratorError22 = false;
-          var _iteratorError22 = undefined;
+          for (var _iterator22 = data, _isArray22 = Array.isArray(_iterator22), _i24 = 0, _iterator22 = _isArray22 ? _iterator22 : _iterator22[Symbol.iterator]();;) {
+            var _ref45;
 
-          try {
-            for (var _iterator22 = data[Symbol.iterator](), _step22; !(_iteratorNormalCompletion22 = (_step22 = _iterator22.next()).done); _iteratorNormalCompletion22 = true) {
-              var row = _step22.value;
-
-              if (this.hiddenRows.includes(row)) {
-                rows.push(row);
-              }
+            if (_isArray22) {
+              if (_i24 >= _iterator22.length) break;
+              _ref45 = _iterator22[_i24++];
+            } else {
+              _i24 = _iterator22.next();
+              if (_i24.done) break;
+              _ref45 = _i24.value;
             }
-          } catch (err) {
-            _didIteratorError22 = true;
-            _iteratorError22 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion22 && _iterator22.return) {
-                _iterator22.return();
-              }
-            } finally {
-              if (_didIteratorError22) {
-                throw _iteratorError22;
-              }
+
+            var row = _ref45;
+
+            if (this.hiddenRows.indexOf(row) !== -1) {
+              rows.push(row);
             }
           }
-
           this.hiddenRows = rows;
           return rows;
         }
@@ -3298,24 +3152,24 @@
       }, {
         key: 'updateCellById',
         value: function updateCellById(params) {
-          var _this14 = this;
+          var _this15 = this;
 
           if (!params.hasOwnProperty('id') || !params.hasOwnProperty('field') || !params.hasOwnProperty('value')) {
             return;
           }
           var allParams = Array.isArray(params) ? params : [params];
 
-          allParams.forEach(function (_ref26) {
-            var id = _ref26.id,
-                field = _ref26.field,
-                value = _ref26.value;
+          allParams.forEach(function (_ref46) {
+            var id = _ref46.id,
+                field = _ref46.field,
+                value = _ref46.value;
 
-            var rowId = _this14.options.data.indexOf(_this14.getRowByUniqueId(id));
+            var rowId = _this15.options.data.indexOf(_this15.getRowByUniqueId(id));
 
             if (rowId === -1) {
               return;
             }
-            _this14.data[rowId][field] = value;
+            _this15.data[rowId][field] = value;
           });
 
           if (params.reinit === false) {
@@ -3335,20 +3189,20 @@
       }, {
         key: 'getSelections',
         value: function getSelections() {
-          var _this15 = this;
+          var _this16 = this;
 
           // fix #2424: from html with checkbox
           return this.options.data.filter(function (row) {
-            return row[_this15.header.stateField] === true;
+            return row[_this16.header.stateField] === true;
           });
         }
       }, {
         key: 'getAllSelections',
         value: function getAllSelections() {
-          var _this16 = this;
+          var _this17 = this;
 
           return this.options.data.filter(function (row) {
-            return row[_this16.header.stateField];
+            return row[_this17.header.stateField];
           });
         }
       }, {
@@ -3407,31 +3261,22 @@
           var row = this.data[index];
 
           if ($el.is(':radio') || this.options.singleSelect) {
-            var _iteratorNormalCompletion23 = true;
-            var _didIteratorError23 = false;
-            var _iteratorError23 = undefined;
+            for (var _iterator23 = this.options.data, _isArray23 = Array.isArray(_iterator23), _i25 = 0, _iterator23 = _isArray23 ? _iterator23 : _iterator23[Symbol.iterator]();;) {
+              var _ref47;
 
-            try {
-              for (var _iterator23 = this.options.data[Symbol.iterator](), _step23; !(_iteratorNormalCompletion23 = (_step23 = _iterator23.next()).done); _iteratorNormalCompletion23 = true) {
-                var r = _step23.value;
+              if (_isArray23) {
+                if (_i25 >= _iterator23.length) break;
+                _ref47 = _iterator23[_i25++];
+              } else {
+                _i25 = _iterator23.next();
+                if (_i25.done) break;
+                _ref47 = _i25.value;
+              }
 
-                r[this.header.stateField] = false;
-              }
-            } catch (err) {
-              _didIteratorError23 = true;
-              _iteratorError23 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion23 && _iterator23.return) {
-                  _iterator23.return();
-                }
-              } finally {
-                if (_didIteratorError23) {
-                  throw _iteratorError23;
-                }
-              }
+              var r = _ref47;
+
+              r[this.header.stateField] = false;
             }
-
             this.$selectItem.filter(':checked').not($el).prop('checked', false);
           }
 
@@ -3453,7 +3298,7 @@
       }, {
         key: 'checkBy_',
         value: function checkBy_(checked, obj) {
-          var _this17 = this;
+          var _this18 = this;
 
           if (!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
             return;
@@ -3464,11 +3309,11 @@
             if (!row.hasOwnProperty(obj.field)) {
               return false;
             }
-            if (obj.values.includes(row[obj.field])) {
-              var $el = _this17.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i)).prop('checked', checked);
-              row[_this17.header.stateField] = checked;
+            if (obj.values.indexOf(row[obj.field]) !== -1) {
+              var $el = _this18.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i)).prop('checked', checked);
+              row[_this18.header.stateField] = checked;
               rows.push(row);
-              _this17.trigger(checked ? 'check' : 'uncheck', row, $el);
+              _this18.trigger(checked ? 'check' : 'uncheck', row, $el);
             }
           });
           this.updateSelected();
@@ -3548,45 +3393,37 @@
       }, {
         key: 'getHiddenColumns',
         value: function getHiddenColumns() {
-          return this.columns.filter(function (_ref27) {
-            var visible = _ref27.visible;
+          return this.columns.filter(function (_ref48) {
+            var visible = _ref48.visible;
             return !visible;
           });
         }
       }, {
         key: 'getVisibleColumns',
         value: function getVisibleColumns() {
-          return this.columns.filter(function (_ref28) {
-            var visible = _ref28.visible;
+          return this.columns.filter(function (_ref49) {
+            var visible = _ref49.visible;
             return visible;
           });
         }
       }, {
         key: 'toggleAllColumns',
         value: function toggleAllColumns(visible) {
-          var _iteratorNormalCompletion24 = true;
-          var _didIteratorError24 = false;
-          var _iteratorError24 = undefined;
+          for (var _iterator24 = this.columns, _isArray24 = Array.isArray(_iterator24), _i26 = 0, _iterator24 = _isArray24 ? _iterator24 : _iterator24[Symbol.iterator]();;) {
+            var _ref50;
 
-          try {
-            for (var _iterator24 = this.columns[Symbol.iterator](), _step24; !(_iteratorNormalCompletion24 = (_step24 = _iterator24.next()).done); _iteratorNormalCompletion24 = true) {
-              var column = _step24.value;
+            if (_isArray24) {
+              if (_i26 >= _iterator24.length) break;
+              _ref50 = _iterator24[_i26++];
+            } else {
+              _i26 = _iterator24.next();
+              if (_i26.done) break;
+              _ref50 = _i26.value;
+            }
 
-              column.visible = visible;
-            }
-          } catch (err) {
-            _didIteratorError24 = true;
-            _iteratorError24 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion24 && _iterator24.return) {
-                _iterator24.return();
-              }
-            } finally {
-              if (_didIteratorError24) {
-                throw _iteratorError24;
-              }
-            }
+            var column = _ref50;
+
+            column.visible = visible;
           }
 
           this.initHeader();
@@ -3719,7 +3556,7 @@
       }, {
         key: 'expandAllRows',
         value: function expandAllRows(isSubTable) {
-          var _this18 = this;
+          var _this19 = this;
 
           if (isSubTable) {
             var $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"]', 0));
@@ -3738,7 +3575,7 @@
             if (executeInterval) {
               try {
                 idInterval = setInterval(function () {
-                  detailIcon = _this18.$body.find('tr.detail-view').last().find('.detail-icon');
+                  detailIcon = _this19.$body.find('tr.detail-view').last().find('.detail-icon');
                   if (detailIcon.length > 0) {
                     detailIcon.click();
                   } else {
@@ -3801,8 +3638,8 @@
 
     $.BootstrapTable = BootstrapTable;
     $.fn.bootstrapTable = function (option) {
-      for (var _len3 = arguments.length, args = Array(_len3 > 1 ? _len3 - 1 : 0), _key5 = 1; _key5 < _len3; _key5++) {
-        args[_key5 - 1] = arguments[_key5];
+      for (var _len3 = arguments.length, args = Array(_len3 > 1 ? _len3 - 1 : 0), _key6 = 1; _key6 < _len3; _key6++) {
+        args[_key6 - 1] = arguments[_key6];
       }
 
       var value = void 0;
@@ -3814,7 +3651,7 @@
         if (typeof option === 'string') {
           var _data2;
 
-          if (!allowedMethods.includes(option)) {
+          if (!(allowedMethods.indexOf(option) !== -1)) {
             throw new Error('Unknown method: ' + option);
           }
 
