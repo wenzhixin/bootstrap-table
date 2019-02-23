@@ -2294,7 +2294,7 @@
         let class_ = Utils.sprintf(' class="%s"', column['class'])
 
         if (!column.visible) {
-          return
+          continue
         }
 
         if (this.options.cardView && (!column.cardVisible)) {
