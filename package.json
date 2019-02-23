@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-table",
   "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3).",
-  "version": "1.13.4",
+  "version": "1.13.5",
   "main": "./dist/bootstrap-table.js",
   "directories": {
     "doc": "docs"

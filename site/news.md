@@ -4,6 +4,20 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.13.5
+
+<span class="post-date">23 Feb 2019</span>
+
+- **New(auto-refresh extension):** Rewrote auto-refresh extension to ES6.
+- **Update(js):** Fixed showFullscreen cannot work bug.
+- **Update(js):** Redefined customSearch option.
+- **Update(js):** Fixed show footer cannot work bug.
+- **Update(js):** Updated the parameter of `footerStyle`.
+- **Update(js):** Added classes supported for `footerStyle`.
+- **Update(js):** Fixed IE11 transform bug.
+- **Update(js):** Removed beginning and end whitespace from td.
+- **Update(export extension):** Fixed export selected bug.
+
 ## Bootstrap Table 1.13.4
 
 <span class="post-date">05 Feb 2019</span>
