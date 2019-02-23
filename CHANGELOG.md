@@ -7,9 +7,10 @@ ChangeLog
 - **Update(js):** Fixed showFullscreen cannot work bug.
 - **Update(js):** Redefined customSearch option.
 - **Update(js):** Fixed show footer cannot work bug.
+- **Update(js):** Updated the parameter of `footerStyle`.
+- **Update(js):** Added classes supported for `footerStyle`.
 - **Update(js):** Fixed IE11 transform bug.
 - **Update(js):** Removed beginning and end whitespace from td.
-- **Update(js):** Updated the parameter of `footerStyle` and supported css/classes.
 - **Update(export extension):** Fixed export selected bug.
 
 ### 1.13.4

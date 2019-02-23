@@ -2319,7 +2319,7 @@
         html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>')
         html.push('<div class="th-inner">')
 
-        html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], '') || '')
+        html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], ''))
 
         html.push('</div>')
         html.push('<div class="fht-cell"></div>')
