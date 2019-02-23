@@ -258,30 +258,22 @@
           var o = this.options;
           var html = ['<form class="form-horizontal" id="' + o.idForm + '" action="' + o.actionForm + '">'];
 
-          var _iteratorNormalCompletion = true;
-          var _didIteratorError = false;
-          var _iteratorError = undefined;
+          for (var _iterator = this.columns, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+            var _ref;
 
-          try {
-            for (var _iterator = this.columns[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              var column = _step.value;
-
-              if (!column.checkbox && column.visible && column.searchable) {
-                html.push('\n            <div class="form-group row">\n              <label class="col-sm-4 control-label">' + column.title + '</label>\n              <div class="col-sm-6">\n                <input type="text" class="form-control input-md" name="' + column.field + '" placeholder="' + column.title + '" id="' + column.field + '">\n              </div>\n            </div>\n          ');
-              }
+            if (_isArray) {
+              if (_i >= _iterator.length) break;
+              _ref = _iterator[_i++];
+            } else {
+              _i = _iterator.next();
+              if (_i.done) break;
+              _ref = _i.value;
             }
-          } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion && _iterator.return) {
-                _iterator.return();
-              }
-            } finally {
-              if (_didIteratorError) {
-                throw _iteratorError;
-              }
+
+            var column = _ref;
+
+            if (!column.checkbox && column.visible && column.searchable) {
+              html.push('\n            <div class="form-group row">\n              <label class="col-sm-4 control-label">' + column.title + '</label>\n              <div class="col-sm-6">\n                <input type="text" class="form-control input-md" name="' + column.field + '" placeholder="' + column.title + '" id="' + column.field + '">\n              </div>\n            </div>\n          ');
             }
           }
 
@@ -303,43 +295,36 @@
           var fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial;
 
           this.data = fp ? $.grep(this.data, function (item, i) {
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
+            for (var _iterator2 = function (target) {
+              return Object.keys(target).map(function (key) {
+                return [key, target[key]];
+              });
+            }(fp), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+              var _ref2;
 
-            try {
-              for (var _iterator2 = Object.entries(fp)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                var _ref = _step2.value;
-
-                var _ref2 = _slicedToArray(_ref, 2);
-
-                var key = _ref2[0];
-                var v = _ref2[1];
-
-                var fval = v.toLowerCase();
-                var value = item[key];
-                var index = _this4.header.fields.indexOf(key);
-                value = Utils.calculateObjectValue(_this4.header, _this4.header.formatters[index], [value, item, i], value);
-
-                if (!(index !== -1 && (typeof value === 'string' || typeof value === 'number') && ('' + value).toLowerCase().includes(fval))) {
-                  return false;
-                }
+              if (_isArray2) {
+                if (_i2 >= _iterator2.length) break;
+                _ref2 = _iterator2[_i2++];
+              } else {
+                _i2 = _iterator2.next();
+                if (_i2.done) break;
+                _ref2 = _i2.value;
               }
-            } catch (err) {
-              _didIteratorError2 = true;
-              _iteratorError2 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                  _iterator2.return();
-                }
-              } finally {
-                if (_didIteratorError2) {
-                  throw _iteratorError2;
-                }
+
+              var _ref3 = _ref2,
+                  _ref4 = _slicedToArray(_ref3, 2),
+                  key = _ref4[0],
+                  v = _ref4[1];
+
+              var fval = v.toLowerCase();
+              var value = item[key];
+              var index = _this4.header.fields.indexOf(key);
+              value = Utils.calculateObjectValue(_this4.header, _this4.header.formatters[index], [value, item, i], value);
+
+              if (!(index !== -1 && (typeof value === 'string' || typeof value === 'number') && ('' + value).toLowerCase().indexOf(fval) !== -1)) {
+                return false;
               }
             }
-
             return true;
           }) : this.data;
         }

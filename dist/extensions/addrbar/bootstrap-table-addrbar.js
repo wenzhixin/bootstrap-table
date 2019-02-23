@@ -170,50 +170,44 @@
 
     function _buildUrl(dict) {
       var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : window.location.search;
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
 
-      try {
-        for (var _iterator = Object.entries(dict)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var _ref = _step.value;
+      for (var _iterator = function (target) {
+        return Object.keys(target).map(function (key) {
+          return [key, target[key]];
+        });
+      }(dict), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+        var _ref;
 
-          var _ref2 = _slicedToArray(_ref, 2);
-
-          var key = _ref2[0];
-          var val = _ref2[1];
-
-          // 搜索name=general这种形式的字符串(&是分隔符)
-          var pattern = key + '=([^&]*)';
-          var targetStr = key + '=' + val;
-
-          /*
-           * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
-           * 不然就直接添加好了.
-           */
-          if (url.match(pattern)) {
-            var tmp = new RegExp('(' + key + '=)([^&]*)', 'gi');
-            url = url.replace(tmp, targetStr);
-          } else {
-            var seperator = url.match('[?]') ? '&' : '?';
-            url = url + seperator + targetStr;
-          }
+        if (_isArray) {
+          if (_i >= _iterator.length) break;
+          _ref = _iterator[_i++];
+        } else {
+          _i = _iterator.next();
+          if (_i.done) break;
+          _ref = _i.value;
         }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
+
+        var _ref2 = _ref,
+            _ref3 = _slicedToArray(_ref2, 2),
+            key = _ref3[0],
+            val = _ref3[1];
+
+        // 搜索name=general这种形式的字符串(&是分隔符)
+        var pattern = key + '=([^&]*)';
+        var targetStr = key + '=' + val;
+
+        /*
+         * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
+         * 不然就直接添加好了.
+         */
+        if (url.match(pattern)) {
+          var tmp = new RegExp('(' + key + '=)([^&]*)', 'gi');
+          url = url.replace(tmp, targetStr);
+        } else {
+          var seperator = url.match('[?]') ? '&' : '?';
+          url = url + seperator + targetStr;
         }
       }
-
       return url;
     }
 

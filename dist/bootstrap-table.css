@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.13.4
+ * version: 1.13.5
  * https://github.com/wenzhixin/bootstrap-table/
  */
 .bootstrap-table .fixed-table-toolbar:after {
@@ -57,7 +57,7 @@
   position: relative;
   clear: both;
 }
-.bootstrap-table .fixed-table-container.fixed-height {
+.bootstrap-table .fixed-table-container.fixed-height:not(.has-footer) {
   border-bottom: 1px solid #dee2e6;
 }
 .bootstrap-table .fixed-table-container.fixed-height .fixed-table-border {
@@ -155,15 +155,6 @@
 }
 .bootstrap-table .fixed-table-container .fixed-table-footer {
   overflow: hidden;
-  border-top: 1px solid #dee2e6;
-}
-.bootstrap-table .fixed-table-container .fixed-table-footer .table {
-  border-bottom: none;
-  border-radius: 0;
-  padding: 0 !important;
-}
-.bootstrap-table .fixed-table-container .fixed-table-footer .table tbody > tr > td {
-  padding: 0 !important;
 }
 .bootstrap-table .fixed-table-pagination:after {
   content: "";
