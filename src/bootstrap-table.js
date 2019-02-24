@@ -1960,7 +1960,7 @@
           $tr.next().remove()
         } else {
           $this.find('i').attr('class', Utils.sprintf('%s %s', this.options.iconsPrefix, this.options.icons.detailClose))
-          $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.find('td').length))
+          $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.children('td').length))
           const $element = $tr.next().find('td')
           const content = Utils.calculateObjectValue(this.options, this.options.detailFormatter, [index, row, $element], '')
           if ($element.length === 1) {
