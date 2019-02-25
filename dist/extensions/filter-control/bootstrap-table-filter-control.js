@@ -249,23 +249,40 @@
           }
         }
       },
-      collectBootstrapCookies: function collectBootstrapCookies() {
-        var cookies = [];
-        var foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g);
+      collectBootstrapCookies: function collectBootstrapCookies () {
+        var cookies = []
+        var foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g)
+        var foundLocalStorage = localStorage
 
         if (foundCookies) {
           $.each(foundCookies, function (i, _cookie) {
-            var cookie = _cookie;
+
+            var cookie = _cookie
             if (/./.test(cookie)) {
-              cookie = cookie.split('.').pop();
+              cookie = cookie.split('.').pop()
             }
 
             if ($.inArray(cookie, cookies) === -1) {
-              cookies.push(cookie);
+              cookies.push(cookie)
             }
-          });
-          return cookies;
+          })
+        } else if (foundLocalStorage.length > 0) {
+          $.each(foundLocalStorage, function (key, value) {
+            var cookie = key
+
+            if (cookie.match(/(?:bs.table.)(\w*)/g)) {
+              if (/./.test(cookie)) {
+                cookie = cookie.split('.').pop()
+              }
+
+              if ($.inArray(cookie, cookies) === -1) {
+                cookies.push(cookie)
+              }
+            }
+          })
         }
+
+        return cookies
       },
       escapeID: function escapeID(id) {
         return String(id).replace(/(:|\.|\[|\]|,)/g, '\\$1');
@@ -825,6 +842,8 @@
             var search = that.$toolbar.find('.search input');
             var hasValues = false;
             var timeoutId = 0;
+            
+            that.options.filterControls = [];
 
             $.each(that.options.valuesFilterControl, function (i, item) {
               hasValues = hasValues ? true : item.value !== '';
@@ -844,6 +863,10 @@
                 });
               }
             }, that.options.searchTimeOut);
+            
+            if (search.length > 0) {
+              that.resetSearch();
+            }
 
             // If there is not any value in the controls exit this method
             if (!hasValues) {
@@ -858,10 +881,6 @@
               $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 });
             } else {
               return;
-            }
-
-            if (search.length > 0) {
-              that.resetSearch();
             }
 
             // use the default sort order if it exists. do nothing if it does not
