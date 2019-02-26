@@ -888,6 +888,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Basic Columns](https://examples.bootstrap-table.com/#options/basic-columns.html) and [Large Columns](https://examples.bootstrap-table.com/#options/large-columns.html)
+
 ## minimumCountColumns
 
 - **Attribute:** `data-minimum-count-columns`
@@ -899,6 +901,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   The minimum number of columns to hide from the columns drop down list.
 
 - **Default:** `1`
+
+- **Example:** [Minimum Count Columns](https://examples.bootstrap-table.com/#options/minimum-count-columns.html)
 
 ## showPaginationSwitch
 
@@ -912,6 +916,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Show Pagination Switch](https://examples.bootstrap-table.com/#options/show-pagination-switch.html)
+
 ## showRefresh
 
 - **Attribute:** `data-show-refresh`
@@ -923,6 +929,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `true` to show the refresh button.
 
 - **Default:** `false`
+
+- **Example:** [Show Refresh](https://examples.bootstrap-table.com/#options/show-refresh.html)
 
 ## showToggle
 
@@ -936,6 +944,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Show Toggle](https://examples.bootstrap-table.com/#options/show-toggle.html)
+
 ## showFullscreen
 
 - **Attribute:** `data-show-fullscreen`
@@ -947,6 +957,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `true` to show the fullscreen button.
 
 - **Default:** `false`
+
+- **Example:** [Show Fullscreen](https://examples.bootstrap-table.com/#options/show-fullscreen.html)
 
 ## smartDisplay
 
