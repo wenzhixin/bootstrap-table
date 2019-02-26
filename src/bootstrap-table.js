@@ -1207,7 +1207,7 @@
           $keepOpen.find('input').prop('disabled', true)
         }
 
-        $keepOpen.find('li').off('click').on('click', e => {
+        $keepOpen.find('li, label').off('click').on('click', e => {
           e.stopImmediatePropagation()
         })
         $keepOpen.find('input').off('click').on('click', ({currentTarget}) => {
