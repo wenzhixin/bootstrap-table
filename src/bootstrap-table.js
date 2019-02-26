@@ -2957,6 +2957,7 @@
 
     toggleFullscreen () {
       this.$el.closest('.bootstrap-table').toggleClass('fullscreen')
+      this.resetView()
     }
 
     refresh (params) {
