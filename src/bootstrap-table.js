@@ -1936,7 +1936,7 @@
           type === 'click' &&
           this.options.clickToSelect &&
           column.clickToSelect &&
-          !this.options.ignoreClickToSelectOn(target)
+          !Utils.calculateObjectValue(this.options, this.options.ignoreClickToSelectOn, [target])
         ) {
           const $selectItem = $tr.find(Utils.sprintf('[name="%s"]', this.options.selectItemName))
           if ($selectItem.length) {
