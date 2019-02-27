@@ -399,17 +399,17 @@
 <li class="toc-entry toc-h2"><a href="#smartdisplay">smartDisplay</a></li>
 <li class="toc-entry toc-h2"><a href="#escape">escape</a></li>
 <li class="toc-entry toc-h2"><a href="#idfield">idField</a></li>
-<li class="toc-entry toc-h2"><a href="#uniqueid">uniqueId</a></li>
-<li class="toc-entry toc-h2"><a href="#cardview">cardView</a></li>
-<li class="toc-entry toc-h2"><a href="#detailview">detailView</a></li>
-<li class="toc-entry toc-h2"><a href="#detailformatter">detailFormatter</a></li>
-<li class="toc-entry toc-h2"><a href="#detailfilter">detailFilter</a></li>
 <li class="toc-entry toc-h2"><a href="#selectitemname">selectItemName</a></li>
 <li class="toc-entry toc-h2"><a href="#clicktoselect">clickToSelect</a></li>
 <li class="toc-entry toc-h2"><a href="#ignoreclicktoselecton">ignoreClickToSelectOn</a></li>
 <li class="toc-entry toc-h2"><a href="#singleselect">singleSelect</a></li>
 <li class="toc-entry toc-h2"><a href="#checkboxheader">checkboxHeader</a></li>
 <li class="toc-entry toc-h2"><a href="#maintainselected">maintainSelected</a></li>
+<li class="toc-entry toc-h2"><a href="#uniqueid">uniqueId</a></li>
+<li class="toc-entry toc-h2"><a href="#cardview">cardView</a></li>
+<li class="toc-entry toc-h2"><a href="#detailview">detailView</a></li>
+<li class="toc-entry toc-h2"><a href="#detailformatter">detailFormatter</a></li>
+<li class="toc-entry toc-h2"><a href="#detailfilter">detailFilter</a></li>
 <li class="toc-entry toc-h2"><a href="#toolbar">toolbar</a></li>
 <li class="toc-entry toc-h2"><a href="#toolbaralign">toolbarAlign</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonstoolbar">buttonsToolbar</a></li>
@@ -1918,6 +1918,9 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/smart-display.html">Smart Display</a></p>
+  </li>
 </ul>
 
 <h2 id="escape">escape</h2>
@@ -1936,6 +1939,9 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-escape.html">Table Escape</a></p>
   </li>
 </ul>
 
@@ -1956,6 +1962,147 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/id-field.html">Id Field</a></p>
+  </li>
+</ul>
+
+<h2 id="selectitemname">selectItemName</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-select-item-name</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The name of radio or checkbox input.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'btSelectItem'</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/id-field.html">Id Field</a></p>
+  </li>
+</ul>
+
+<h2 id="clicktoselect">clickToSelect</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-click-to-select</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to select checkbox or radiobox when clicking rows.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/click-to-select.html">Click To Select</a></p>
+  </li>
+</ul>
+
+<h2 id="ignoreclicktoselecton">ignoreClickToSelectOn</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-ignore-click-to-select-on</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set the ignore elements <code class="highlighter-rouge">clickToSelect</code> on. Takes one parameter:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">element</code>: the element clicked on.</li>
+    </ul>
+
+    <p>Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if <code class="highlighter-rouge">clickToSelect</code> is true.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{ return ['A', 'BUTTON'].includes(tagName) }</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/ignore-click-to-select-on.html">Ignore Click To Select On</a></p>
+  </li>
+</ul>
+
+<h2 id="singleselect">singleSelect</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-single-select</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to allow checkbox selecting only one row.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/single-select.html">Single Select</a></p>
+  </li>
+</ul>
+
+<h2 id="checkboxheader">checkboxHeader</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-checkbox-header</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">false</code> to hide check-all checkbox in header row.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/checkbox-header.html">Checkbox Header</a></p>
+  </li>
+</ul>
+
+<h2 id="maintainselected">maintainSelected</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-maintain-selected</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to maintain selected rows on change page and search.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/maintain-selected.html">Maintain Selected</a></p>
+  </li>
 </ul>
 
 <h2 id="uniqueid">uniqueId</h2>
@@ -1974,6 +2121,9 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/getRowByUniqueId.html">getRowByUniqueId</a></p>
   </li>
 </ul>
 
@@ -2050,126 +2200,6 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">function(index, row) { return true }</code></p>
-  </li>
-</ul>
-
-<h2 id="selectitemname">selectItemName</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-select-item-name</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>The name of radio or checkbox input.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'btSelectItem'</code></p>
-  </li>
-</ul>
-
-<h2 id="clicktoselect">clickToSelect</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-click-to-select</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set <code class="highlighter-rouge">true</code> to select checkbox or radiobox when clicking rows.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h2 id="ignoreclicktoselecton">ignoreClickToSelectOn</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-ignore-click-to-select-on</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Takes one parameters:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">element</code>: the element clicked on.</li>
-    </ul>
-
-    <p>Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if clickToSelect is true.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">{ return $.inArray(element.tagName, ['A', 'BUTTON']) }</code></p>
-  </li>
-</ul>
-
-<h2 id="singleselect">singleSelect</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-single-select</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set <code class="highlighter-rouge">true</code> to allow checkbox selecting only one row.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h2 id="checkboxheader">checkboxHeader</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-checkbox-header</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set <code class="highlighter-rouge">false</code> to hide check-all checkbox in header row.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
-  </li>
-</ul>
-
-<h2 id="maintainselected">maintainSelected</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-maintain-selected</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set <code class="highlighter-rouge">true</code> to maintain selected rows on change page and search.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
 </ul>
 
