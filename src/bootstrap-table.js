@@ -42,8 +42,12 @@
         buttonsGroup: 'btn-group',
         buttonsDropdown: 'btn-group',
         pull: 'pull',
-        input: '',
-        paginationDropdown: 'btn-group'
+        inputGroup: '',
+        input: 'form-control',
+        paginationDropdown: 'btn-group dropdown',
+        dropup: 'dropup',
+        dropdownActive: 'active',
+        paginationActive: 'active'
       },
       html: {
         toobarDropdow: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
@@ -75,8 +79,12 @@
         buttonsGroup: 'btn-group',
         buttonsDropdown: 'btn-group',
         pull: 'float',
-        input: '',
-        paginationDropdown: 'btn-group'
+        inputGroup: '',
+        input: 'form-control',
+        paginationDropdown: 'btn-group dropdown',
+        dropup: 'dropup',
+        dropdownActive: 'active',
+        paginationActive: 'active'
       },
       html: {
         toobarDropdow: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
@@ -1257,8 +1265,8 @@
 
       if (o.search) {
         html = []
-        html.push(`<div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.input}">
-          <input class="form-control${Utils.sprintf(' input-%s', o.iconSize)}"
+        html.push(`<div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.inputGroup}">
+          <input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)}"
           type="text" placeholder="${o.formatSearch()}">
           </div>`)
 
@@ -1457,7 +1465,7 @@
         html.push('<span class="page-list">')
 
         const pageNumber = [
-          `<span class="${this.constants.classes.paginationDropdown} ['top', 'both'].includes(o.paginationVAlign) ? 'dropdown' : 'dropup')">
+          `<span class="${this.constants.classes.paginationDropdown}">
           <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown">
           <span class="page-size">
           ${$allSelected ? o.formatAllRows() : o.pageSize}
@@ -1483,9 +1491,9 @@
           if (!o.smartDisplay || i === 0 || pageList[i - 1] < o.totalRows) {
             let active
             if ($allSelected) {
-              active = page === o.formatAllRows() ? 'active' : ''
+              active = page === o.formatAllRows() ? this.constants.classes.dropdownActive : ''
             } else {
-              active = page === o.pageSize ? 'active' : ''
+              active = page === o.pageSize ? this.constants.classes.dropdownActive : ''
             }
             pageNumber.push(Utils.sprintf(this.constants.html.pageDropdownItem, active, page))
           }
@@ -1530,7 +1538,7 @@
         const middleSize = Math.round(o.paginationPagesBySide / 2)
         const pageItem = (i, classes = '') => {
           return Utils.sprintf(this.constants.html.paginationItem,
-            classes + (i === o.pageNumber ? ' active' : ''), i)
+            classes + (i === o.pageNumber ? ` ${this.constants.classes.paginationActive}` : ''), i)
         }
 
         if (from > 1) {
@@ -1592,6 +1600,10 @@
         html.push(this.constants.html.pagination[1], '</div>')
       }
       this.$pagination.html(html.join(''))
+
+      const dropupClass = ['bottom', 'both'].includes(o.paginationVAlign) ?
+        ` ${this.constants.classes.dropup}` : ''
+      this.$pagination.last().find('.page-list > span').addClass(dropupClass)
 
       if (!o.onlyInfoPagination) {
         $pageList = this.$pagination.find('.page-list a')
@@ -1655,7 +1667,8 @@
       event.preventDefault()
       const $this = $(event.currentTarget)
 
-      $this.parent().addClass('active').siblings().removeClass('active')
+      $this.parent().addClass(this.constants.classes.dropdownActive)
+        .siblings().removeClass(this.constants.classes.dropdownActive)
       this.options.pageSize = $this.text().toUpperCase() === this.options.formatAllRows().toUpperCase()
         ? this.options.formatAllRows() : +$this.text()
       this.$toolbar.find('.page-size').text(this.options.pageSize)
@@ -1871,9 +1884,9 @@
 
           if (this.options.cardView) {
             const cardTitle = this.options.showHeader
-              ? `<span class="title"${style}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
+              ? `<span class="card-view-title"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
 
-            text = `<div class="card-view">${cardTitle}<span class="value">${value}</span></div>`
+            text = `<div class="card-view">${cardTitle}<span class="card-view-value">${value}</span></div>`
 
             if (this.options.smartDisplay && value === '') {
               text = '<div class="card-view"></div>'

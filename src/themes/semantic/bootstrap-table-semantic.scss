@@ -55,4 +55,8 @@
       border-left: 1px solid $border-color!important;
     }
   }
+
+  .dropup i.icon.dropdown:before {
+    content: "\f0d8";
+  }
 }

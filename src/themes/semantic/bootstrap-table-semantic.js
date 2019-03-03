@@ -18,7 +18,7 @@
 
       this.constants.classes.buttonsGroup = 'ui buttons'
       this.constants.classes.buttonsDropdown = 'ui button dropdown'
-      this.constants.classes.input = 'ui input'
+      this.constants.classes.inputGroup = 'ui input'
       this.constants.classes.paginationDropdown = 'ui dropdown'
 
       this.constants.html.toobarDropdow = ['<div class="menu">', '</div>']
