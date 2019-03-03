@@ -8,7 +8,7 @@ toc: true
 
 ## Quick start
 
-Looking to quickly add Bootstrap Table to your <a href="http://bulma.io" target="_blank">Bulma</a> project? Use CDN, provided for free by the folks at CDNJS. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
+Looking to quickly add Bootstrap Table to your <a href="http://bulma.io" target="_blank">Bulma</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
 
 ### CSS
 
