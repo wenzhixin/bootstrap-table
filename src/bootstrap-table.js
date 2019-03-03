@@ -349,6 +349,14 @@
     smartDisplay: true,
     escape: false,
     idField: undefined,
+    selectItemName: 'btSelectItem',
+    clickToSelect: false,
+    ignoreClickToSelectOn ({tagName}) {
+      return ['A', 'BUTTON'].includes(tagName)
+    },
+    singleSelect: false,
+    checkboxHeader: true,
+    maintainSelected: false,
     uniqueId: undefined,
     cardView: false,
     detailView: false,
@@ -358,14 +366,6 @@
     detailFilter (index, row) {
       return true
     },
-    selectItemName: 'btSelectItem',
-    clickToSelect: false,
-    ignoreClickToSelectOn ({tagName}) {
-      return ['A', 'BUTTON'].includes(tagName)
-    },
-    singleSelect: false,
-    checkboxHeader: true,
-    maintainSelected: false,
     toolbar: undefined,
     toolbarAlign: 'left',
     buttonsToolbar: undefined,
