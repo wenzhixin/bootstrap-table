@@ -888,6 +888,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Basic Columns](https://examples.bootstrap-table.com/#options/basic-columns.html) and [Large Columns](https://examples.bootstrap-table.com/#options/large-columns.html)
+
 ## minimumCountColumns
 
 - **Attribute:** `data-minimum-count-columns`
@@ -899,6 +901,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   The minimum number of columns to hide from the columns drop down list.
 
 - **Default:** `1`
+
+- **Example:** [Minimum Count Columns](https://examples.bootstrap-table.com/#options/minimum-count-columns.html)
 
 ## showPaginationSwitch
 
@@ -912,6 +916,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Show Pagination Switch](https://examples.bootstrap-table.com/#options/show-pagination-switch.html)
+
 ## showRefresh
 
 - **Attribute:** `data-show-refresh`
@@ -923,6 +929,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `true` to show the refresh button.
 
 - **Default:** `false`
+
+- **Example:** [Show Refresh](https://examples.bootstrap-table.com/#options/show-refresh.html)
 
 ## showToggle
 
@@ -936,6 +944,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Show Toggle](https://examples.bootstrap-table.com/#options/show-toggle.html)
+
 ## showFullscreen
 
 - **Attribute:** `data-show-fullscreen`
@@ -947,6 +957,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `true` to show the fullscreen button.
 
 - **Default:** `false`
+
+- **Example:** [Show Fullscreen](https://examples.bootstrap-table.com/#options/show-fullscreen.html)
 
 ## smartDisplay
 
@@ -960,6 +972,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `true`
 
+- **Example:** [Smart Display](https://examples.bootstrap-table.com/#options/smart-display.html)
+
 ## escape
 
 - **Attribute:** `data-escape`
@@ -971,6 +985,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Escapes a string for insertion into HTML, replacing &, <, >, ", `, and ' characters.
 
 - **Default:** `false`
+
+- **Example:** [Table Escape](https://examples.bootstrap-table.com/#options/table-escape.html)
 
 ## idField
 
@@ -984,6 +1000,96 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Id Field](https://examples.bootstrap-table.com/#options/id-field.html)
+
+## selectItemName
+
+- **Attribute:** `data-select-item-name`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  The name of radio or checkbox input.
+
+- **Default:** `'btSelectItem'`
+
+- **Example:** [Id Field](https://examples.bootstrap-table.com/#options/id-field.html)
+
+## clickToSelect
+
+- **Attribute:** `data-click-to-select`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to select checkbox or radiobox when clicking rows.
+
+- **Default:** `false`
+
+- **Example:** [Click To Select](https://examples.bootstrap-table.com/#options/click-to-select.html)
+
+## ignoreClickToSelectOn
+
+- **Attribute:** `data-ignore-click-to-select-on`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  Set the ignore elements `clickToSelect` on. Takes one parameter:
+
+  * `element`: the element clicked on.
+
+  Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if `clickToSelect` is true.
+
+- **Default:** `{ return ['A', 'BUTTON'].includes(tagName) }`
+
+- **Example:** [Ignore Click To Select On](https://examples.bootstrap-table.com/#options/ignore-click-to-select-on.html)
+
+## singleSelect
+
+- **Attribute:** `data-single-select`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to allow checkbox selecting only one row.
+
+- **Default:** `false`
+
+- **Example:** [Single Select](https://examples.bootstrap-table.com/#options/single-select.html)
+
+## checkboxHeader
+
+- **Attribute:** `data-checkbox-header`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to hide check-all checkbox in header row.
+
+- **Default:** `true`
+
+- **Example:** [Checkbox Header](https://examples.bootstrap-table.com/#options/checkbox-header.html)
+
+## maintainSelected
+
+- **Attribute:** `data-maintain-selected`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to maintain selected rows on change page and search.
+
+- **Default:** `false`
+
+- **Example:** [Maintain Selected](https://examples.bootstrap-table.com/#options/maintain-selected.html)
+
 ## uniqueId
 
 - **Attribute:** `data-unique-id`
@@ -995,6 +1101,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Indicate an unique identifier for each row.
 
 - **Default:** `undefined`
+
+- **Example:** [getRowByUniqueId](https://examples.bootstrap-table.com/#methods/getRowByUniqueId.html)
 
 ## cardView
 
@@ -1043,82 +1151,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Enable expansion per row when detailView is set to true. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.
 
 - **Default:** `function(index, row) { return true }`
-
-## selectItemName
-
-- **Attribute:** `data-select-item-name`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  The name of radio or checkbox input.
-
-- **Default:** `'btSelectItem'`
-
-## clickToSelect
-
-- **Attribute:** `data-click-to-select`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to select checkbox or radiobox when clicking rows.
-
-- **Default:** `false`
-
-## ignoreClickToSelectOn
-
-- **Attribute:** `data-ignore-click-to-select-on`
-
-- **Type:** `Function`
-
-- **Detail:**
-
-  Takes one parameters:
-
-  * `element`: the element clicked on.
-
-  Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if clickToSelect is true.
-
-- **Default:** `{ return $.inArray(element.tagName, ['A', 'BUTTON']) }`
-
-## singleSelect
-
-- **Attribute:** `data-single-select`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to allow checkbox selecting only one row.
-
-- **Default:** `false`
-
-## checkboxHeader
-
-- **Attribute:** `data-checkbox-header`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `false` to hide check-all checkbox in header row.
-
-- **Default:** `true`
-
-## maintainSelected
-
-- **Attribute:** `data-maintain-selected`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to maintain selected rows on change page and search.
-
-- **Default:** `false`
 
 ## toolbar
 
