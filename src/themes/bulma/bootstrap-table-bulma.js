@@ -1,5 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
+ * https://github.com/wenzhixin/bootstrap-table/
  * theme: https://github.com/jgthms/bulma/
  */
 
