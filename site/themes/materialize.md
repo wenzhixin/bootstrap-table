@@ -1,21 +1,21 @@
 ---
 layout: simple
-title: Bulma
-description: A getting started of add Bootstrap Table to Bulma, how to download and use, basic templates, and more.
+title: Materialize
+description: A getting started of add Bootstrap Table to Materialize, how to download and use, basic templates, and more.
 group: themes
 toc: true
 ---
 
 ## Quick start
 
-Looking to quickly add Bootstrap Table to your <a href="http://bulma.io" target="_blank">Bulma</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
+Looking to quickly add Bootstrap Table to your <a href="https://materializecss.com/" target="_blank">Materialize</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
 
 ### CSS
 
 Copy-paste the stylesheet `<link>` into your `<head>` before all other stylesheets to load our CSS.
 
 {% highlight html %}
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-bulma.min.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-materialize.min.css">
 {% endhighlight %}
 
 ### JS
@@ -24,14 +24,14 @@ Place the following `<script>`s near the end of your pages, right before the clo
 
 {% highlight html %}
 <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-bulma.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-materialize.min.js"></script>
 {% endhighlight %}
 
 ## Starter template
 
 Be sure to have your pages set up with the latest design and development standards. That means using an HTML5 doctype and including a viewport meta tag for proper responsive behaviors.
 
-For Bulma, we use [Font Awesome](https://fontawesome.com/icons) as the default icons, so need to import Font Awesome link.
+For Materialize, we use [Material Design Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web) as the default icons, so need to import Material Icons link.
 
 Put it all together and your pages should look like this:
 
@@ -43,9 +43,9 @@ Put it all together and your pages should look like this:
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-materialize.min.css">
 
     <title>Hello, Bootstrap Table!</title>
   </head>
@@ -73,8 +73,9 @@ Put it all together and your pages should look like this:
     </table>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-bulma.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-materialize.min.js"></script>
   </body>
 </html>
 {% endhighlight %}

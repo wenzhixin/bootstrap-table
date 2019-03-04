@@ -17,3 +17,8 @@
   title: Bulma
   description: Modern CSS framework based on Flexbox.
   url: http://bulma.io
+
+- name: materialize
+  title: Materialize
+  description: A modern responsive front-end framework based on Material Design.
+  url: https://materializecss.com/
