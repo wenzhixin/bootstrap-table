@@ -56,7 +56,8 @@
         pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
         dropdownCaret: '<span class="caret"></span>',
         pagination: ['<ul class="pagination%s">', '</ul>'],
-        paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>'
+        paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
+        icon: '<i class="%s %s"></i>'
       }
     },
     4: {
@@ -93,7 +94,8 @@
         pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
         dropdownCaret: '<span class="caret"></span>',
         pagination: ['<ul class="pagination%s">', '</ul>'],
-        paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>'
+        paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
+        icon: '<i class="%s %s"></i>'
       }
     }
   }[bootstrapVersion]
@@ -907,7 +909,7 @@
           if (column.checkbox) {
             text = ''
             if (!this.options.singleSelect && this.options.checkboxHeader) {
-              text = '<input name="btSelectAll" type="checkbox" />'
+              text = '<label><input name="btSelectAll" type="checkbox" /><span></span></label>'
             }
             this.header.stateField = column.field
           }
@@ -1161,28 +1163,28 @@
       if (o.showPaginationSwitch) {
         html.push(`<button class="${this.constants.buttonsClass}" type="button" name="paginationSwitch"
           aria-label="Pagination Switch" title="${o.formatPaginationSwitch()}">
-          <i class="${o.iconsPrefix} ${o.icons.paginationSwitchDown}"></i>
+          ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.paginationSwitchDown)}
           </button>`)
       }
 
       if (o.showRefresh) {
         html.push(`<button class="${this.constants.buttonsClass}" type="button" name="refresh"
           aria-label="Refresh" title="${o.formatRefresh()}">
-          <i class="${o.iconsPrefix} ${o.icons.refresh}"></i>
+          ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.refresh)}
           </button>`)
       }
 
       if (o.showToggle) {
         html.push(`<button class="${this.constants.buttonsClass}" type="button" name="toggle"
           aria-label="Toggle" title="${o.formatToggle()}">
-          <i class="${o.iconsPrefix} ${o.icons.toggleOff}"></i>
+          ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.toggleOff)}
           </button>`)
       }
 
       if (o.showFullscreen) {
         html.push(`<button class="${this.constants.buttonsClass}" type="button" name="fullscreen"
           aria-label="Fullscreen" title="${o.formatFullscreen()}">
-          <i class="${o.iconsPrefix} ${o.icons.fullscreen}"></i>
+          ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.fullscreen)}
           </button>`)
       }
 
@@ -1190,7 +1192,7 @@
         html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${o.formatColumns()}">
           <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
           aria-label="Columns" title="${o.formatFullscreen()}">
-          <i class="${o.iconsPrefix} ${o.icons.columns}"></i>
+          ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.columns)}
           ${this.constants.html.dropdownCaret}
           </button>
           ${this.constants.html.toobarDropdow[0]}`)
@@ -1208,7 +1210,7 @@
 
           if (column.switchable) {
             html.push(Utils.sprintf(this.constants.html.toobarDropdowItem,
-              Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s> %s',
+              Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s> <span>%s</span>',
                 column.field, i, checked, column.title)))
             switchableCount++
           }
@@ -1768,7 +1770,7 @@
         if (Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) {
           html.push(`
             <a class="detail-icon" href="#">
-            <i class="${this.options.iconsPrefix} ${this.options.icons.detailOpen}"></i>
+            ${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen)}
             </a>
           `)
         }
@@ -1866,13 +1868,16 @@
             this.options.cardView
               ? `<div class="card-view ${c}">`
               : `<td class="bs-checkbox ${c}">`,
-            `<input
+            `<label>
+              <input
               data-index="${i}"
               name="${this.options.selectItemName}"
               type="${type}"
               ${Utils.sprintf('value="%s"', item[this.options.idField])}
               ${Utils.sprintf('checked="%s"', isChecked ? 'checked' : undefined)}
-              ${Utils.sprintf('disabled="%s"', isDisabled ? 'disabled' : undefined)} />`,
+              ${Utils.sprintf('disabled="%s"', isDisabled ? 'disabled' : undefined)} />
+              <span></span>
+              </label>`,
             this.header.formatters[j] && typeof value === 'string' ? value : '',
             this.options.cardView ? '</div>' : '</td>'
           ].join('')
@@ -1992,11 +1997,11 @@
 
         // remove and update
         if ($tr.next().is('tr.detail-view')) {
-          $this.find('i').attr('class', Utils.sprintf('%s %s', this.options.iconsPrefix, this.options.icons.detailOpen))
+          $this.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen))
           this.trigger('collapse-row', index, row, $tr.next())
           $tr.next().remove()
         } else {
-          $this.find('i').attr('class', Utils.sprintf('%s %s', this.options.iconsPrefix, this.options.icons.detailClose))
+          $this.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailClose))
           $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.children('td').length))
           const $element = $tr.next().find('td')
           const content = Utils.calculateObjectValue(this.options, this.options.detailFormatter, [index, row, $element], '')
@@ -2983,12 +2988,9 @@
 
     togglePagination () {
       this.options.pagination = !this.options.pagination
-      const button = this.$toolbar.find('button[name="paginationSwitch"] i')
-      if (this.options.pagination) {
-        button.attr('class', `${this.options.iconsPrefix} ${this.options.icons.paginationSwitchDown}`)
-      } else {
-        button.attr('class', `${this.options.iconsPrefix} ${this.options.icons.paginationSwitchUp}`)
-      }
+      this.$toolbar.find('button[name="paginationSwitch"]')
+        .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix,
+          this.options.pagination ? this.options.icons.paginationSwitchDown : this.options.icons.paginationSwitchUp))
       this.updatePagination()
     }
 
@@ -3112,14 +3114,9 @@
       this.initHeader()
       // Fixed remove toolbar when click cardView button.
       // this.initToolbar();
-      const $icon = this.$toolbar.find('button[name="toggle"] i')
-      if (this.options.cardView) {
-        $icon.removeClass(this.options.icons.toggleOff)
-        $icon.addClass(this.options.icons.toggleOn)
-      } else {
-        $icon.removeClass(this.options.icons.toggleOn)
-        $icon.addClass(this.options.icons.toggleOff)
-      }
+      this.$toolbar.find('button[name="toggle"]')
+        .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix,
+          this.options.cardView ? this.options.icons.toggleOn : this.options.icons.toggleOff))
       this.initBody()
       this.trigger('toggle', this.options.cardView)
     }
