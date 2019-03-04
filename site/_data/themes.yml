@@ -22,3 +22,8 @@
   title: Materialize
   description: A modern responsive front-end framework based on Material Design.
   url: https://materializecss.com/
+
+- name: foundation
+  title: Foundation
+  description: The most advanced responsive front-end framework in the world.
+  url: https://foundation.zurb.com/
