@@ -1,40 +1,37 @@
 ---
-layout: docs
-title: Introduction
-description: An overview of Bootstrap Table, how to download and use, basic templates, and more.
-group: getting-started
-redirect_from:
-  - "/docs/"
-  - "/getting-started/"
-  - "/themes/bootstrap4"
+layout: simple
+title: Bulma
+description: A getting started of add Bootstrap Table to Bulma, how to download and use, basic templates, and more.
+group: themes
 toc: true
 ---
 
 ## Quick start
 
-Looking to quickly add Bootstrap Table to your <a href="https://getbootstrap.com/" target="_blank">Bootstrap v4</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
+Looking to quickly add Bootstrap Table to your <a href="http://bulma.io" target="_blank">Bulma</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
 
 ### CSS
 
 Copy-paste the stylesheet `<link>` into your `<head>` before all other stylesheets to load our CSS.
 
 {% highlight html %}
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-bulma.min.css">
 {% endhighlight %}
 
 ### JS
 
-Place the following `<script>`s near the end of your pages, right before the closing `</body>` tag, to enable them. jQuery must come first, then Bootstrap.js, and then our JavaScript plugins.
+Place the following `<script>`s near the end of your pages, right before the closing `</body>` tag, to enable them. jQuery must come first, then our JavaScript plugins.
 
 {% highlight html %}
 <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-bulma.min.js"></script>
 {% endhighlight %}
 
 ## Starter template
 
 Be sure to have your pages set up with the latest design and development standards. That means using an HTML5 doctype and including a viewport meta tag for proper responsive behaviors.
 
-For Bootstrap v4, we use [Font Awesome](https://fontawesome.com/icons) as the default icons, so need to import Font Awesome link.
+For Bulma, we use [Font Awesome](https://fontawesome.com/icons) as the default icons, so need to import Font Awesome link.
 
 Put it all together and your pages should look like this:
 
@@ -46,9 +43,9 @@ Put it all together and your pages should look like this:
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-bulma.min.css">
 
     <title>Hello, Bootstrap Table!</title>
   </head>
@@ -76,9 +73,8 @@ Put it all together and your pages should look like this:
     </table>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-bulma.min.js"></script>
   </body>
 </html>
 {% endhighlight %}
