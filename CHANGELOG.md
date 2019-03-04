@@ -8,10 +8,10 @@ ChangeLog
 - **New(css):** Added [Bulma](http://bulma.io) theme.
 - **New(css):** Added [Materialize](https://materializecss.com/) theme.
 - **New(css):** Added [Foundation](https://foundation.zurb.com/) theme.
-- **Update(js):** Fixed detailView find td elements bug.
-- **Update(js):** Fixed showColumns close dropdown bug when item label clicking.
+- **New(js):** Added data attribute support for `ignoreClickToSelectOn` option.
+- **Update(js):** Fixed `detailView` find td elements bug.
+- **Update(js):** Fixed `showColumns` close dropdown bug when item label clicking.
 - **Update(js):** Fixed reset width error after `toggleFullscreen`.
-- **Update(js):** Added data attribute support for `ignoreClickToSelectOn` option.
 - **Update(js):** Fixed `cardview` click event bug.
 
 ### 1.13.5
