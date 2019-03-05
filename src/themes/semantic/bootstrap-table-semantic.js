@@ -33,12 +33,16 @@
 
     initToolbar () {
       super.initToolbar()
-      this.$toolbar.find('.button.dropdown').dropdown()
+      if (this.options.showColumns) {
+        this.$toolbar.find('.button.dropdown').dropdown()
+      }
     }
 
     initPagination () {
       super.initPagination()
-      this.$pagination.find('.dropdown').dropdown()
+      if (this.options.pagination && !this.options.onlyInfoPagination) {
+        this.$pagination.find('.dropdown').dropdown()
+      }
     }
   }
 })(jQuery)

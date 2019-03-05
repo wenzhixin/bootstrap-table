@@ -36,12 +36,16 @@
 
     initToolbar () {
       super.initToolbar()
-      this._initDropdown()
+      if (this.options.showColumns) {
+        this._initDropdown()
+      }
     }
 
     initPagination () {
       super.initPagination()
-      this._initDropdown()
+      if (this.options.pagination && !this.options.onlyInfoPagination) {
+        this._initDropdown()
+      }
     }
 
     _initDropdown ($el) {

@@ -35,24 +35,28 @@
     initToolbar () {
       super.initToolbar()
 
-      this.$toolbar.find('.keep-open')
-        .attr('data-toggle', 'toolbar-dropdown')
-      const $pane = this.$toolbar.find('.dropdown-pane')
-        .attr('data-position', 'bottom')
-        .attr('data-alignment', 'right')
-      new window.Foundation.Dropdown($pane)
-      this._initDropdown()
+      if (this.options.showColumns) {
+        this.$toolbar.find('.keep-open')
+          .attr('data-toggle', 'toolbar-dropdown')
+        const $pane = this.$toolbar.find('.dropdown-pane')
+          .attr('data-position', 'bottom')
+          .attr('data-alignment', 'right')
+        new window.Foundation.Dropdown($pane)
+        this._initDropdown()
+      }
     }
 
     initPagination () {
       super.initPagination()
 
-      this.$pagination.find('.dropdown-toggle')
-        .attr('data-toggle', 'page-list-dropdown')
-      const $pane = this.$pagination.find('.dropdown-pane')
-        .attr('data-position', 'top')
-        .attr('data-alignment', 'left')
-      new window.Foundation.Dropdown($pane)
+      if (this.options.pagination && !this.options.onlyInfoPagination) {
+        this.$pagination.find('.dropdown-toggle')
+          .attr('data-toggle', 'page-list-dropdown')
+        const $pane = this.$pagination.find('.dropdown-pane')
+          .attr('data-position', 'top')
+          .attr('data-alignment', 'left')
+        new window.Foundation.Dropdown($pane)
+      }
     }
 
     _initDropdown ($el) {

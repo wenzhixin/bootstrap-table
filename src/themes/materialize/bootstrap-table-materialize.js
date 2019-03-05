@@ -47,20 +47,26 @@
 
     initToolbar () {
       super.initToolbar()
-      this.$toolbar.find('.dropdown-toggle')
-        .attr('data-target', 'toolbar-dropdown')
-        .dropdown({
-          alignment: 'right',
-          constrainWidth: false,
-          closeOnClick: false
-        })
+
+      if (this.options.showColumns) {
+        this.$toolbar.find('.dropdown-toggle')
+          .attr('data-target', 'toolbar-dropdown')
+          .dropdown({
+            alignment: 'right',
+            constrainWidth: false,
+            closeOnClick: false
+          })
+      }
     }
 
     initPagination () {
       super.initPagination()
-      this.$pagination.find('.dropdown-toggle')
-        .attr('data-target', 'page-list-dropdown')
-        .dropdown()
+
+      if (this.pagination && !this.options.onlyInfoPagination) {
+        this.$pagination.find('.dropdown-toggle')
+          .attr('data-target', 'page-list-dropdown')
+          .dropdown()
+      }
     }
   }
 })(jQuery)
