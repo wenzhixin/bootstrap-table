@@ -95,7 +95,7 @@
 
   /**
    * @author zhixin wen <wenzhixin2010@gmail.com>
-   * version: 1.13.5
+   * version: 1.14.1
    * https://github.com/wenzhixin/bootstrap-table/
    */
 
@@ -103,7 +103,7 @@
     // TOOLS DEFINITION
     // ======================
 
-    var bootstrapVersion = 3;
+    var bootstrapVersion = 4;
     try {
       var rawVersion = $.fn.dropdown.Constructor.VERSION;
 
@@ -116,8 +116,9 @@
       // ignore
     }
 
-    var bootstrap = {
+    var constants = {
       3: {
+        theme: 'bootstrap3',
         iconsPrefix: 'glyphicon',
         icons: {
           paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
@@ -131,17 +132,31 @@
           fullscreen: 'glyphicon-fullscreen'
         },
         classes: {
+          buttonsPrefix: 'btn',
           buttons: 'default',
-          pull: 'pull'
+          buttonsGroup: 'btn-group',
+          buttonsDropdown: 'btn-group',
+          pull: 'pull',
+          inputGroup: '',
+          input: 'form-control',
+          paginationDropdown: 'btn-group dropdown',
+          dropup: 'dropup',
+          dropdownActive: 'active',
+          paginationActive: 'active'
         },
         html: {
           toobarDropdow: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
           toobarDropdowItem: '<li role="menuitem"><label>%s</label></li>',
           pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-          pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>'
+          pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
+          dropdownCaret: '<span class="caret"></span>',
+          pagination: ['<ul class="pagination%s">', '</ul>'],
+          paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
+          icon: '<i class="%s %s"></i>'
         }
       },
       4: {
+        theme: 'bootstrap4',
         iconsPrefix: 'fa',
         icons: {
           paginationSwitchDown: 'fa-caret-square-down',
@@ -155,14 +170,27 @@
           fullscreen: 'fa-arrows-alt'
         },
         classes: {
+          buttonsPrefix: 'btn',
           buttons: 'secondary',
-          pull: 'float'
+          buttonsGroup: 'btn-group',
+          buttonsDropdown: 'btn-group',
+          pull: 'float',
+          inputGroup: '',
+          input: 'form-control',
+          paginationDropdown: 'btn-group dropdown',
+          dropup: 'dropup',
+          dropdownActive: 'active',
+          paginationActive: 'active'
         },
         html: {
           toobarDropdow: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
           toobarDropdowItem: '<label class="dropdown-item">%s</label>',
           pageDropdown: ['<div class="dropdown-menu">', '</div>'],
-          pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>'
+          pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
+          dropdownCaret: '<span class="caret"></span>',
+          pagination: ['<ul class="pagination%s">', '</ul>'],
+          paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
+          icon: '<i class="%s %s"></i>'
         }
       }
     }[bootstrapVersion];
@@ -538,16 +566,6 @@
       smartDisplay: true,
       escape: false,
       idField: undefined,
-      uniqueId: undefined,
-      cardView: false,
-      detailView: false,
-      detailFormatter: function detailFormatter(index, row) {
-        return '';
-      },
-      detailFilter: function detailFilter(index, row) {
-        return true;
-      },
-
       selectItemName: 'btSelectItem',
       clickToSelect: false,
       ignoreClickToSelectOn: function ignoreClickToSelectOn(_ref11) {
@@ -559,14 +577,25 @@
       singleSelect: false,
       checkboxHeader: true,
       maintainSelected: false,
+      uniqueId: undefined,
+      cardView: false,
+      detailView: false,
+      detailFormatter: function detailFormatter(index, row) {
+        return '';
+      },
+      detailFilter: function detailFilter(index, row) {
+        return true;
+      },
+
       toolbar: undefined,
       toolbarAlign: 'left',
       buttonsToolbar: undefined,
       buttonsAlign: 'right',
-      buttonsClass: bootstrap.classes.buttons,
-      icons: bootstrap.icons,
+      buttonsPrefix: constants.classes.buttonsPrefix,
+      buttonsClass: constants.classes.buttons,
+      icons: constants.icons,
       iconSize: undefined,
-      iconsPrefix: bootstrap.iconsPrefix, onAll: function onAll(name, args) {
+      iconsPrefix: constants.iconsPrefix, onAll: function onAll(name, args) {
         return false;
       },
       onClickCell: function onClickCell(field, value, row, $element) {
@@ -768,6 +797,7 @@
       _createClass(BootstrapTable, [{
         key: 'init',
         value: function init() {
+          this.initConstants();
           this.initLocale();
           this.initContainer();
           this.initTable();
@@ -780,6 +810,15 @@
           this.initBody();
           this.initSearchText();
           this.initServer();
+        }
+      }, {
+        key: 'initConstants',
+        value: function initConstants() {
+          var o = this.options;
+          this.constants = constants;
+
+          var buttonsPrefix = o.buttonsPrefix ? o.buttonsPrefix + '-' : '';
+          this.constants.buttonsClass = [o.buttonsPrefix, buttonsPrefix + o.buttonsClass, Utils.sprintf(buttonsPrefix + '%s', o.iconSize)].join(' ').trim();
         }
       }, {
         key: 'initLocale',
@@ -1041,7 +1080,7 @@
               if (column.checkbox) {
                 text = '';
                 if (!_this2.options.singleSelect && _this2.options.checkboxHeader) {
-                  text = '<input name="btSelectAll" type="checkbox" />';
+                  text = '<label><input name="btSelectAll" type="checkbox" /><span></span></label>';
                 }
                 _this2.header.stateField = column.field;
               }
@@ -1273,6 +1312,7 @@
         value: function initToolbar() {
           var _this4 = this;
 
+          var o = this.options;
           var html = [];
           var timeoutId = 0;
           var $keepOpen = void 0;
@@ -1280,57 +1320,57 @@
           var switchableCount = 0;
 
           if (this.$toolbar.find('.bs-bars').children().length) {
-            $('body').append($(this.options.toolbar));
+            $('body').append($(o.toolbar));
           }
           this.$toolbar.html('');
 
-          if (typeof this.options.toolbar === 'string' || _typeof(this.options.toolbar) === 'object') {
-            $(Utils.sprintf('<div class="bs-bars %s-%s"></div>', bootstrap.classes.pull, this.options.toolbarAlign)).appendTo(this.$toolbar).append($(this.options.toolbar));
+          if (typeof o.toolbar === 'string' || _typeof(o.toolbar) === 'object') {
+            $(Utils.sprintf('<div class="bs-bars %s-%s"></div>', this.constants.classes.pull, o.toolbarAlign)).appendTo(this.$toolbar).append($(o.toolbar));
           }
 
           // showColumns, showToggle, showRefresh
-          html = [Utils.sprintf('<div class="columns columns-%s btn-group %s-%s">', this.options.buttonsAlign, bootstrap.classes.pull, this.options.buttonsAlign)];
+          html = ['<div class="' + ['columns', 'columns-' + o.buttonsAlign, this.constants.classes.buttonsGroup, this.constants.classes.pull + '-' + o.buttonsAlign].join(' ') + '">'];
 
-          if (typeof this.options.icons === 'string') {
-            this.options.icons = Utils.calculateObjectValue(null, this.options.icons);
+          if (typeof o.icons === 'string') {
+            o.icons = Utils.calculateObjectValue(null, o.icons);
           }
 
-          if (this.options.showPaginationSwitch) {
-            html.push(Utils.sprintf('<button class="btn' + Utils.sprintf(' btn-%s', this.options.buttonsClass) + Utils.sprintf(' btn-%s', this.options.iconSize) + '" type="button" name="paginationSwitch" aria-label="pagination Switch" title="%s">', this.options.formatPaginationSwitch()), Utils.sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown), '</button>');
+          if (o.showPaginationSwitch) {
+            html.push('<button class="' + this.constants.buttonsClass + '" type="button" name="paginationSwitch"\n          aria-label="Pagination Switch" title="' + o.formatPaginationSwitch() + '">\n          ' + Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.paginationSwitchDown) + '\n          </button>');
           }
 
-          if (this.options.showRefresh) {
-            html.push(Utils.sprintf('<button class="btn' + Utils.sprintf(' btn-%s', this.options.buttonsClass) + Utils.sprintf(' btn-%s', this.options.iconSize) + '" type="button" name="refresh" aria-label="refresh" title="%s">', this.options.formatRefresh()), Utils.sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh), '</button>');
+          if (o.showRefresh) {
+            html.push('<button class="' + this.constants.buttonsClass + '" type="button" name="refresh"\n          aria-label="Refresh" title="' + o.formatRefresh() + '">\n          ' + Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.refresh) + '\n          </button>');
           }
 
-          if (this.options.showToggle) {
-            html.push(Utils.sprintf('<button class="btn' + Utils.sprintf(' btn-%s', this.options.buttonsClass) + Utils.sprintf(' btn-%s', this.options.iconSize) + '" type="button" name="toggle" aria-label="toggle" title="%s">', this.options.formatToggle()), Utils.sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggleOff), '</button>');
+          if (o.showToggle) {
+            html.push('<button class="' + this.constants.buttonsClass + '" type="button" name="toggle"\n          aria-label="Toggle" title="' + o.formatToggle() + '">\n          ' + Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.toggleOff) + '\n          </button>');
           }
 
-          if (this.options.showFullscreen) {
-            html.push(Utils.sprintf('<button class="btn' + Utils.sprintf(' btn-%s', this.options.buttonsClass) + Utils.sprintf(' btn-%s', this.options.iconSize) + '" type="button" name="fullscreen" aria-label="fullscreen" title="%s">', this.options.formatFullscreen()), Utils.sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.fullscreen), '</button>');
+          if (o.showFullscreen) {
+            html.push('<button class="' + this.constants.buttonsClass + '" type="button" name="fullscreen"\n          aria-label="Fullscreen" title="' + o.formatFullscreen() + '">\n          ' + Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.fullscreen) + '\n          </button>');
           }
 
-          if (this.options.showColumns) {
-            html.push(Utils.sprintf('<div class="keep-open btn-group" title="%s">', this.options.formatColumns()), '<button type="button" aria-label="columns" class="btn' + Utils.sprintf(' btn-%s', this.options.buttonsClass) + Utils.sprintf(' btn-%s', this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">', Utils.sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns), ' <span class="caret"></span>', '</button>', bootstrap.html.toobarDropdow[0]);
+          if (o.showColumns) {
+            html.push('<div class="keep-open ' + this.constants.classes.buttonsDropdown + '" title="' + o.formatColumns() + '">\n          <button class="' + this.constants.buttonsClass + ' dropdown-toggle" type="button" data-toggle="dropdown"\n          aria-label="Columns" title="' + o.formatFullscreen() + '">\n          ' + Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.columns) + '\n          ' + this.constants.html.dropdownCaret + '\n          </button>\n          ' + this.constants.html.toobarDropdow[0]);
 
             this.columns.forEach(function (column, i) {
               if (column.radio || column.checkbox) {
                 return;
               }
 
-              if (_this4.options.cardView && !column.cardVisible) {
+              if (o.cardView && !column.cardVisible) {
                 return;
               }
 
               var checked = column.visible ? ' checked="checked"' : '';
 
               if (column.switchable) {
-                html.push(Utils.sprintf(bootstrap.html.toobarDropdowItem, Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s> %s', column.field, i, checked, column.title)));
+                html.push(Utils.sprintf(_this4.constants.html.toobarDropdowItem, Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s> <span>%s</span>', column.field, i, checked, column.title)));
                 switchableCount++;
               }
             });
-            html.push(bootstrap.html.toobarDropdow[1], '</div>');
+            html.push(this.constants.html.toobarDropdow[1], '</div>');
           }
 
           html.push('</div>');
@@ -1340,32 +1380,32 @@
             this.$toolbar.append(html.join(''));
           }
 
-          if (this.options.showPaginationSwitch) {
+          if (o.showPaginationSwitch) {
             this.$toolbar.find('button[name="paginationSwitch"]').off('click').on('click', $.proxy(this.togglePagination, this));
           }
 
-          if (this.options.showFullscreen) {
+          if (o.showFullscreen) {
             this.$toolbar.find('button[name="fullscreen"]').off('click').on('click', $.proxy(this.toggleFullscreen, this));
           }
 
-          if (this.options.showRefresh) {
+          if (o.showRefresh) {
             this.$toolbar.find('button[name="refresh"]').off('click').on('click', $.proxy(this.refresh, this));
           }
 
-          if (this.options.showToggle) {
+          if (o.showToggle) {
             this.$toolbar.find('button[name="toggle"]').off('click').on('click', function () {
               _this4.toggleView();
             });
           }
 
-          if (this.options.showColumns) {
+          if (o.showColumns) {
             $keepOpen = this.$toolbar.find('.keep-open');
 
-            if (switchableCount <= this.options.minimumCountColumns) {
+            if (switchableCount <= o.minimumCountColumns) {
               $keepOpen.find('input').prop('disabled', true);
             }
 
-            $keepOpen.find('li').off('click').on('click', function (e) {
+            $keepOpen.find('li, label').off('click').on('click', function (e) {
               e.stopImmediatePropagation();
             });
             $keepOpen.find('input').off('click').on('click', function (_ref14) {
@@ -1378,14 +1418,14 @@
             });
           }
 
-          if (this.options.search) {
+          if (o.search) {
             html = [];
-            html.push(Utils.sprintf('<div class="%s-%s search">', bootstrap.classes.pull, this.options.searchAlign), Utils.sprintf('<input class="form-control' + Utils.sprintf(' input-%s', this.options.iconSize) + '" type="text" placeholder="%s">', this.options.formatSearch()), '</div>');
+            html.push('<div class="' + this.constants.classes.pull + '-' + o.searchAlign + ' search ' + this.constants.classes.inputGroup + '">\n          <input class="' + this.constants.classes.input + Utils.sprintf(' input-%s', o.iconSize) + '"\n          type="text" placeholder="' + o.formatSearch() + '">\n          </div>');
 
             this.$toolbar.append(html.join(''));
             $search = this.$toolbar.find('.search input');
             $search.off('keyup drop blur').on('keyup drop blur', function (event) {
-              if (_this4.options.searchOnEnterKey && event.keyCode !== 13) {
+              if (o.searchOnEnterKey && event.keyCode !== 13) {
                 return;
               }
 
@@ -1396,7 +1436,7 @@
               clearTimeout(timeoutId); // doesn't matter if it's 0
               timeoutId = setTimeout(function () {
                 _this4.onSearch(event);
-              }, _this4.options.searchTimeOut);
+              }, o.searchTimeOut);
             });
 
             if (Utils.isIEBrowser()) {
@@ -1404,7 +1444,7 @@
                 clearTimeout(timeoutId); // doesn't matter if it's 0
                 timeoutId = setTimeout(function () {
                   _this4.onSearch(event);
-                }, _this4.options.searchTimeOut);
+                }, o.searchTimeOut);
               });
             }
           }
@@ -1513,7 +1553,8 @@
         value: function initPagination() {
           var _this6 = this;
 
-          if (!this.options.pagination) {
+          var o = this.options;
+          if (!o.pagination) {
             this.$pagination.hide();
             return;
           }
@@ -1529,49 +1570,51 @@
           var $next = void 0;
           var $number = void 0;
           var data = this.getData();
-          var pageList = this.options.pageList;
+          var pageList = o.pageList;
 
-          if (this.options.sidePagination !== 'server') {
-            this.options.totalRows = data.length;
+          if (o.sidePagination !== 'server') {
+            o.totalRows = data.length;
           }
 
           this.totalPages = 0;
-          if (this.options.totalRows) {
-            if (this.options.pageSize === this.options.formatAllRows()) {
-              this.options.pageSize = this.options.totalRows;
+          if (o.totalRows) {
+            if (o.pageSize === o.formatAllRows()) {
+              o.pageSize = o.totalRows;
               $allSelected = true;
-            } else if (this.options.pageSize === this.options.totalRows) {
+            } else if (o.pageSize === o.totalRows) {
               // Fix #667 Table with pagination,
               // multiple pages and a search this matches to one page throws exception
-              var pageLst = typeof this.options.pageList === 'string' ? this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').toLowerCase().split(',') : this.options.pageList;
-              if (pageLst.indexOf(this.options.formatAllRows().toLowerCase()) !== -1) {
+              var pageLst = typeof o.pageList === 'string' ? o.pageList.replace('[', '').replace(']', '').replace(/ /g, '').toLowerCase().split(',') : o.pageList;
+              if (pageLst.indexOf(o.formatAllRows().toLowerCase()) !== -1) {
                 $allSelected = true;
               }
             }
 
-            this.totalPages = ~~((this.options.totalRows - 1) / this.options.pageSize) + 1;
+            this.totalPages = ~~((o.totalRows - 1) / o.pageSize) + 1;
 
-            this.options.totalPages = this.totalPages;
+            o.totalPages = this.totalPages;
           }
-          if (this.totalPages > 0 && this.options.pageNumber > this.totalPages) {
-            this.options.pageNumber = this.totalPages;
-          }
-
-          this.pageFrom = (this.options.pageNumber - 1) * this.options.pageSize + 1;
-          this.pageTo = this.options.pageNumber * this.options.pageSize;
-          if (this.pageTo > this.options.totalRows) {
-            this.pageTo = this.options.totalRows;
+          if (this.totalPages > 0 && o.pageNumber > this.totalPages) {
+            o.pageNumber = this.totalPages;
           }
 
-          html.push(Utils.sprintf('<div class="%s-%s pagination-detail">', bootstrap.classes.pull, this.options.paginationDetailHAlign), '<span class="pagination-info">', this.options.onlyInfoPagination ? this.options.formatDetailPagination(this.options.totalRows) : this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows), '</span>');
+          this.pageFrom = (o.pageNumber - 1) * o.pageSize + 1;
+          this.pageTo = o.pageNumber * o.pageSize;
+          if (this.pageTo > o.totalRows) {
+            this.pageTo = o.totalRows;
+          }
 
-          if (!this.options.onlyInfoPagination) {
+          var paginationInfo = o.onlyInfoPagination ? o.formatDetailPagination(o.totalRows) : o.formatShowingRows(this.pageFrom, this.pageTo, o.totalRows);
+
+          html.push('<div class="' + this.constants.classes.pull + '-' + o.paginationDetailHAlign + ' pagination-detail">\n        <span class="pagination-info">\n        ' + paginationInfo + '\n        </span>');
+
+          if (!o.onlyInfoPagination) {
             html.push('<span class="page-list">');
 
-            var pageNumber = [Utils.sprintf('<span class="btn-group %s">', this.options.paginationVAlign === 'top' || this.options.paginationVAlign === 'both' ? 'dropdown' : 'dropup'), '<button type="button" class="btn' + Utils.sprintf(' btn-%s', this.options.buttonsClass) + Utils.sprintf(' btn-%s', this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">', '<span class="page-size">', $allSelected ? this.options.formatAllRows() : this.options.pageSize, '</span>', ' <span class="caret"></span>', '</button>', bootstrap.html.pageDropdown[0]];
+            var pageNumber = ['<span class="' + this.constants.classes.paginationDropdown + '">\n          <button class="' + this.constants.buttonsClass + ' dropdown-toggle" type="button" data-toggle="dropdown">\n          <span class="page-size">\n          ' + ($allSelected ? o.formatAllRows() : o.pageSize) + '\n          </span>\n          ' + this.constants.html.dropdownCaret + '\n          </button>\n          ' + this.constants.html.pageDropdown[0]];
 
-            if (typeof this.options.pageList === 'string') {
-              var list = this.options.pageList.replace('[', '').replace(']', '').replace(/ /g, '').split(',');
+            if (typeof o.pageList === 'string') {
+              var list = o.pageList.replace('[', '').replace(']', '').replace(/ /g, '').split(',');
 
               pageList = [];
               for (var _iterator9 = list, _isArray9 = Array.isArray(_iterator9), _i11 = 0, _iterator9 = _isArray9 ? _iterator9 : _iterator9[Symbol.iterator]();;) {
@@ -1588,46 +1631,46 @@
 
                 var value = _ref16;
 
-                pageList.push(value.toUpperCase() === this.options.formatAllRows().toUpperCase() || value.toUpperCase() === 'UNLIMITED' ? this.options.formatAllRows() : +value);
+                pageList.push(value.toUpperCase() === o.formatAllRows().toUpperCase() || value.toUpperCase() === 'UNLIMITED' ? o.formatAllRows() : +value);
               }
             }
 
             pageList.forEach(function (page, i) {
-              if (!_this6.options.smartDisplay || i === 0 || pageList[i - 1] < _this6.options.totalRows) {
+              if (!o.smartDisplay || i === 0 || pageList[i - 1] < o.totalRows) {
                 var active = void 0;
                 if ($allSelected) {
-                  active = page === _this6.options.formatAllRows() ? 'active' : '';
+                  active = page === o.formatAllRows() ? _this6.constants.classes.dropdownActive : '';
                 } else {
-                  active = page === _this6.options.pageSize ? 'active' : '';
+                  active = page === o.pageSize ? _this6.constants.classes.dropdownActive : '';
                 }
-                pageNumber.push(Utils.sprintf(bootstrap.html.pageDropdownItem, active, page));
+                pageNumber.push(Utils.sprintf(_this6.constants.html.pageDropdownItem, active, page));
               }
             });
-            pageNumber.push(bootstrap.html.pageDropdown[1] + '</span>');
+            pageNumber.push(this.constants.html.pageDropdown[1] + '</span>');
 
-            html.push(this.options.formatRecordsPerPage(pageNumber.join('')));
-            html.push('</span>');
+            html.push(o.formatRecordsPerPage(pageNumber.join('')));
+            html.push('</span></div>');
 
-            html.push('</div>', Utils.sprintf('<div class="%s-%s pagination">', bootstrap.classes.pull, this.options.paginationHAlign), '<ul class="pagination' + Utils.sprintf(' pagination-%s', this.options.iconSize) + '">', Utils.sprintf('<li class="page-item page-pre"><a class="page-link" href="#">%s</a></li>', this.options.paginationPreText));
+            html.push('<div class="' + this.constants.classes.pull + '-' + o.paginationHAlign + ' pagination">', Utils.sprintf(this.constants.html.pagination[0], Utils.sprintf(' pagination-%s', o.iconSize)), Utils.sprintf(this.constants.html.paginationItem, ' page-pre', o.paginationPreText));
 
-            if (this.totalPages < this.options.paginationSuccessivelySize) {
+            if (this.totalPages < o.paginationSuccessivelySize) {
               from = 1;
               to = this.totalPages;
             } else {
-              from = this.options.pageNumber - this.options.paginationPagesBySide;
-              to = from + this.options.paginationPagesBySide * 2;
+              from = o.pageNumber - o.paginationPagesBySide;
+              to = from + o.paginationPagesBySide * 2;
             }
 
-            if (this.options.pageNumber < this.options.paginationSuccessivelySize - 1) {
-              to = this.options.paginationSuccessivelySize;
+            if (o.pageNumber < o.paginationSuccessivelySize - 1) {
+              to = o.paginationSuccessivelySize;
             }
 
             if (to > this.totalPages) {
               to = this.totalPages;
             }
 
-            if (this.options.paginationSuccessivelySize > this.totalPages - from) {
-              from = from - (this.options.paginationSuccessivelySize - (this.totalPages - from)) + 1;
+            if (o.paginationSuccessivelySize > this.totalPages - from) {
+              from = from - (o.paginationSuccessivelySize - (this.totalPages - from)) + 1;
             }
 
             if (from < 1) {
@@ -1638,14 +1681,15 @@
               to = this.totalPages;
             }
 
-            var middleSize = Math.round(this.options.paginationPagesBySide / 2);
+            var middleSize = Math.round(o.paginationPagesBySide / 2);
             var pageItem = function pageItem(i) {
               var classes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-              return '\n          <li class="page-item' + classes + (i === _this6.options.pageNumber ? ' active' : '') + '">\n            <a class="page-link" href="#">' + i + '</a>\n          </li>\n        ';
+
+              return Utils.sprintf(_this6.constants.html.paginationItem, classes + (i === o.pageNumber ? ' ' + _this6.constants.classes.paginationActive : ''), i);
             };
 
             if (from > 1) {
-              var max = this.options.paginationPagesBySide;
+              var max = o.paginationPagesBySide;
               if (max >= from) max = from - 1;
               for (i = 1; i <= max; i++) {
                 html.push(pageItem(i));
@@ -1655,11 +1699,11 @@
                 html.push(pageItem(i));
               } else {
                 if (from - 1 > max) {
-                  if (from - this.options.paginationPagesBySide * 2 > this.options.paginationPagesBySide && this.options.paginationUseIntermediate) {
+                  if (from - o.paginationPagesBySide * 2 > o.paginationPagesBySide && o.paginationUseIntermediate) {
                     i = Math.round((from - middleSize) / 2 + middleSize);
                     html.push(pageItem(i, ' page-intermediate'));
                   } else {
-                    html.push('\n                  <li class="page-item page-first-separator disabled">\n                    <a class="page-link" href="#">...</a>\n                  </li>');
+                    html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-first-separator disabled', '...'));
                   }
                 }
               }
@@ -1670,18 +1714,18 @@
             }
 
             if (this.totalPages > to) {
-              var min = this.totalPages - (this.options.paginationPagesBySide - 1);
+              var min = this.totalPages - (o.paginationPagesBySide - 1);
               if (to >= min) min = to + 1;
               if (to + 1 === min - 1) {
                 i = to + 1;
                 html.push(pageItem(i));
               } else {
                 if (min > to + 1) {
-                  if (this.totalPages - to > this.options.paginationPagesBySide * 2 && this.options.paginationUseIntermediate) {
+                  if (this.totalPages - to > o.paginationPagesBySide * 2 && o.paginationUseIntermediate) {
                     i = Math.round((this.totalPages - middleSize - to) / 2 + to);
                     html.push(pageItem(i, ' page-intermediate'));
                   } else {
-                    html.push('\n                  <li class="page-item page-last-separator disabled">\n                    <a class="page-link" href="#">...</a>\n                  </li>');
+                    html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-last-separator disabled', '...'));
                   }
                 }
               }
@@ -1691,21 +1735,25 @@
               }
             }
 
-            html.push('\n          <li class="page-item page-next">\n          <a class="page-link" href="#">' + this.options.paginationNextText + '</a>\n          </li>\n          </ul>\n          </div>\n        ');
+            html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-next', o.paginationNextText));
+            html.push(this.constants.html.pagination[1], '</div>');
           }
           this.$pagination.html(html.join(''));
 
-          if (!this.options.onlyInfoPagination) {
+          var dropupClass = ['bottom', 'both'].indexOf(o.paginationVAlign) !== -1 ? ' ' + this.constants.classes.dropup : '';
+          this.$pagination.last().find('.page-list > span').addClass(dropupClass);
+
+          if (!o.onlyInfoPagination) {
             $pageList = this.$pagination.find('.page-list a');
             $pre = this.$pagination.find('.page-pre');
             $next = this.$pagination.find('.page-next');
             $number = this.$pagination.find('.page-item').not('.page-next, .page-pre');
 
-            if (this.options.smartDisplay) {
+            if (o.smartDisplay) {
               if (this.totalPages <= 1) {
                 this.$pagination.find('div.pagination').hide();
               }
-              if (pageList.length < 2 || this.options.totalRows <= pageList[0]) {
+              if (pageList.length < 2 || o.totalRows <= pageList[0]) {
                 this.$pagination.find('span.page-list').hide();
               }
 
@@ -1713,17 +1761,17 @@
               this.$pagination[this.getData().length ? 'show' : 'hide']();
             }
 
-            if (!this.options.paginationLoop) {
-              if (this.options.pageNumber === 1) {
+            if (!o.paginationLoop) {
+              if (o.pageNumber === 1) {
                 $pre.addClass('disabled');
               }
-              if (this.options.pageNumber === this.totalPages) {
+              if (o.pageNumber === this.totalPages) {
                 $next.addClass('disabled');
               }
             }
 
             if ($allSelected) {
-              this.options.pageSize = this.options.formatAllRows();
+              o.pageSize = o.formatAllRows();
             }
             // removed the events for last and first, onPageNumber executeds the same logic
             $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
@@ -1759,7 +1807,7 @@
           event.preventDefault();
           var $this = $(event.currentTarget);
 
-          $this.parent().addClass('active').siblings().removeClass('active');
+          $this.parent().addClass(this.constants.classes.dropdownActive).siblings().removeClass(this.constants.classes.dropdownActive);
           this.options.pageSize = $this.text().toUpperCase() === this.options.formatAllRows().toUpperCase() ? this.options.formatAllRows() : +$this.text();
           this.$toolbar.find('.page-size').text(this.options.pageSize);
 
@@ -1913,7 +1961,7 @@
             html.push('<td>');
 
             if (Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) {
-              html.push('\n            <a class="detail-icon" href="#">\n            <i class="' + this.options.iconsPrefix + ' ' + this.options.icons.detailOpen + '"></i>\n            </a>\n          ');
+              html.push('\n            <a class="detail-icon" href="#">\n            ' + Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen) + '\n            </a>\n          ');
             }
 
             html.push('</td>');
@@ -2043,16 +2091,16 @@
               var isChecked = value === true || value_ || value && value.checked;
               var isDisabled = !column.checkboxEnabled || value && value.disabled;
 
-              text = [_this7.options.cardView ? '<div class="card-view ' + c + '">' : '<td class="bs-checkbox ' + c + '">', '<input\n              data-index="' + i + '"\n              name="' + _this7.options.selectItemName + '"\n              type="' + type + '"\n              ' + Utils.sprintf('value="%s"', item[_this7.options.idField]) + '\n              ' + Utils.sprintf('checked="%s"', isChecked ? 'checked' : undefined) + '\n              ' + Utils.sprintf('disabled="%s"', isDisabled ? 'disabled' : undefined) + ' />', _this7.header.formatters[j] && typeof value === 'string' ? value : '', _this7.options.cardView ? '</div>' : '</td>'].join('');
+              text = [_this7.options.cardView ? '<div class="card-view ' + c + '">' : '<td class="bs-checkbox ' + c + '">', '<label>\n              <input\n              data-index="' + i + '"\n              name="' + _this7.options.selectItemName + '"\n              type="' + type + '"\n              ' + Utils.sprintf('value="%s"', item[_this7.options.idField]) + '\n              ' + Utils.sprintf('checked="%s"', isChecked ? 'checked' : undefined) + '\n              ' + Utils.sprintf('disabled="%s"', isDisabled ? 'disabled' : undefined) + ' />\n              <span></span>\n              </label>', _this7.header.formatters[j] && typeof value === 'string' ? value : '', _this7.options.cardView ? '</div>' : '</td>'].join('');
 
               item[_this7.header.stateField] = value === true || !!value_ || value && value.checked;
             } else {
               value = typeof value === 'undefined' || value === null ? _this7.options.undefinedText : value;
 
               if (_this7.options.cardView) {
-                var cardTitle = _this7.options.showHeader ? '<span class="title"' + style + '>' + Utils.getFieldTitle(_this7.columns, field) + '</span>' : '';
+                var cardTitle = _this7.options.showHeader ? '<span class="card-view-title"' + style_ + '>' + Utils.getFieldTitle(_this7.columns, field) + '</span>' : '';
 
-                text = '<div class="card-view">' + cardTitle + '<span class="value">' + value + '</span></div>';
+                text = '<div class="card-view">' + cardTitle + '<span class="card-view-value">' + value + '</span></div>';
 
                 if (_this7.options.smartDisplay && value === '') {
                   text = '<div class="card-view"></div>';
@@ -2123,8 +2171,10 @@
 
             var $td = $(currentTarget);
             var $tr = $td.parent();
+            var $cardviewArr = $(target).parents('.card-views').children();
+            var $cardviewTarget = $(target).parents('.card-view');
             var item = _this8.data[$tr.data('index')];
-            var index = $td[0].cellIndex;
+            var index = _this8.options.cardView ? $cardviewArr.index($cardviewTarget) : $td[0].cellIndex;
             var fields = _this8.getVisibleFields();
             var field = fields[_this8.options.detailView && !_this8.options.cardView ? index - 1 : index];
             var column = _this8.columns[_this8.fieldsColumnsIndex[field]];
@@ -2138,7 +2188,7 @@
             _this8.trigger(type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field);
 
             // if click to select - then trigger the checkbox/radio click
-            if (type === 'click' && _this8.options.clickToSelect && column.clickToSelect && !_this8.options.ignoreClickToSelectOn(target)) {
+            if (type === 'click' && _this8.options.clickToSelect && column.clickToSelect && !Utils.calculateObjectValue(_this8.options, _this8.options.ignoreClickToSelectOn, [target])) {
               var $selectItem = $tr.find(Utils.sprintf('[name="%s"]', _this8.options.selectItemName));
               if ($selectItem.length) {
                 $selectItem[0].click(); // #144: .trigger('click') bug
@@ -2156,12 +2206,12 @@
 
             // remove and update
             if ($tr.next().is('tr.detail-view')) {
-              $this.find('i').attr('class', Utils.sprintf('%s %s', _this8.options.iconsPrefix, _this8.options.icons.detailOpen));
+              $this.html(Utils.sprintf(_this8.constants.html.icon, _this8.options.iconsPrefix, _this8.options.icons.detailOpen));
               _this8.trigger('collapse-row', index, row, $tr.next());
               $tr.next().remove();
             } else {
-              $this.find('i').attr('class', Utils.sprintf('%s %s', _this8.options.iconsPrefix, _this8.options.icons.detailClose));
-              $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.find('td').length));
+              $this.html(Utils.sprintf(_this8.constants.html.icon, _this8.options.iconsPrefix, _this8.options.icons.detailClose));
+              $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.children('td').length));
               var $element = $tr.next().find('td');
               var content = Utils.calculateObjectValue(_this8.options, _this8.options.detailFormatter, [index, row, $element], '');
               if ($element.length === 1) {
@@ -2756,7 +2806,7 @@
           if (this.options.showHeader && this.options.height) {
             this.$tableHeader.show();
             this.resetHeader();
-            padding += this.$header.outerHeight();
+            padding += this.$header.outerHeight(true);
           } else {
             this.$tableHeader.hide();
             this.trigger('post-header');
@@ -2765,7 +2815,7 @@
           if (this.options.showFooter) {
             this.resetFooter();
             if (this.options.height) {
-              padding += this.$tableFooter.outerHeight();
+              padding += this.$tableFooter.outerHeight(true);
             }
           }
 
@@ -3342,18 +3392,14 @@
         key: 'togglePagination',
         value: function togglePagination() {
           this.options.pagination = !this.options.pagination;
-          var button = this.$toolbar.find('button[name="paginationSwitch"] i');
-          if (this.options.pagination) {
-            button.attr('class', this.options.iconsPrefix + ' ' + this.options.icons.paginationSwitchDown);
-          } else {
-            button.attr('class', this.options.iconsPrefix + ' ' + this.options.icons.paginationSwitchUp);
-          }
+          this.$toolbar.find('button[name="paginationSwitch"]').html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.pagination ? this.options.icons.paginationSwitchDown : this.options.icons.paginationSwitchUp));
           this.updatePagination();
         }
       }, {
         key: 'toggleFullscreen',
         value: function toggleFullscreen() {
           this.$el.closest('.bootstrap-table').toggleClass('fullscreen');
+          this.resetView();
         }
       }, {
         key: 'refresh',
@@ -3505,14 +3551,7 @@
           this.initHeader();
           // Fixed remove toolbar when click cardView button.
           // this.initToolbar();
-          var $icon = this.$toolbar.find('button[name="toggle"] i');
-          if (this.options.cardView) {
-            $icon.removeClass(this.options.icons.toggleOff);
-            $icon.addClass(this.options.icons.toggleOn);
-          } else {
-            $icon.removeClass(this.options.icons.toggleOn);
-            $icon.addClass(this.options.icons.toggleOff);
-          }
+          this.$toolbar.find('button[name="toggle"]').html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.cardView ? this.options.icons.toggleOn : this.options.icons.toggleOff));
           this.initBody();
           this.trigger('toggle', this.options.cardView);
         }

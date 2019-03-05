@@ -4,6 +4,21 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.14.1
+
+<span class="post-date">5 Mar 2019</span>
+
+- **New(css):** Added CSS Frameworks supported.
+- **New(css):** Added [Semantic UI](http://semantic-ui.com) theme.
+- **New(css):** Added [Bulma](http://bulma.io) theme.
+- **New(css):** Added [Materialize](https://materializecss.com/) theme.
+- **New(css):** Added [Foundation](https://foundation.zurb.com/) theme.
+- **New(js):** Added data attribute support for `ignoreClickToSelectOn` option.
+- **Update(js):** Fixed `detailView` find td elements bug.
+- **Update(js):** Fixed `showColumns` close dropdown bug when item label clicking.
+- **Update(js):** Fixed reset width error after `toggleFullscreen`.
+- **Update(js):** Fixed `cardview` click event bug.
+
 ## Bootstrap Table 1.13.5
 
 <span class="post-date">23 Feb 2019</span>

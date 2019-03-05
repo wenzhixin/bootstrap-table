@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-table",
   "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3).",
-  "version": "1.13.5",
+  "version": "1.14.1",
   "main": "./dist/bootstrap-table.js",
   "directories": {
     "doc": "docs"
@@ -27,7 +27,7 @@
     "js:build:concat": "babel src/locale -o dist/bootstrap-table-locale-all.js && NODE_ENV=production babel src/locale -o dist/bootstrap-table-locale-all.min.js",
     "js:build:banner": "find dist -name '*.min.js' -exec headr {} -o {} --version --homepage --author --license \\;",
     "js:build": "run-s js:build:*",
-    "css:build:scss": "sass src/bootstrap-table.scss src/bootstrap-table.css",
+    "css:build:scss": "find src -name 'bootstrap-table*.scss' | sed -e 'p;s/scss/css/' | xargs -n2 sass",
     "css:build:base": "find src -name '*.css' | sed -e 'p;s/src/dist/' | xargs -n2 cp",
     "css:build:min": "find dist -name '*.css' | sed -e 'p;s/.css/.min.css/' | xargs -n2 cssmin",
     "css:build:banner": "find dist -name '*.min.css' -exec headr {} -o {} --version --homepage --author --license \\;",

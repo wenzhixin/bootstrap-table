@@ -15,6 +15,12 @@
           Documentation
         </a>
       </li>
+      <li class="nav-item {% if page.group == "themes" %}active{% endif %}">
+        <a class="nav-link" href="{{ site.baseurl }}/themes">
+          CSS Frameworks
+          <span class="badge badge-warning">New</span>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link {% if page.title == "Examples" %}active{% endif %}"
           href="https://examples.bootstrap-table.com">
@@ -35,15 +41,6 @@
   </div>
 
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-    <li class="nav-item dropdown">
-      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        For Bootstrap v4
-      </a>
-      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="{{ site.base_url }}">For Bootstrap v4</a>
-        <a class="dropdown-item" href="http://bootstrap-table-docs3.wenzhixin.net.cn">For Bootstrap v3</a>
-      </div>
-    </li>
     <li class="nav-item">
       <a class="nav-link p-2" href="{{ site.repo }}" target="_blank" rel="noopener" aria-label="GitHub">
         {%- include icons/github.svg class="navbar-nav-svg" -%}
