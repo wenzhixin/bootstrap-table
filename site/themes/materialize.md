@@ -15,7 +15,7 @@ Looking to quickly add Bootstrap Table to your <a href="https://materializecss.c
 Copy-paste the stylesheet `<link>` into your `<head>` before all other stylesheets to load our CSS.
 
 {% highlight html %}
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-materialize.min.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.css">
 {% endhighlight %}
 
 ### JS
@@ -24,7 +24,7 @@ Place the following `<script>`s near the end of your pages, right before the clo
 
 {% highlight html %}
 <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-materialize.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.js"></script>
 {% endhighlight %}
 
 ## Starter template
@@ -45,7 +45,7 @@ Put it all together and your pages should look like this:
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-materialize.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.css">
 
     <title>Hello, Bootstrap Table!</title>
   </head>
@@ -75,7 +75,7 @@ Put it all together and your pages should look like this:
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-materialize.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.js"></script>
   </body>
 </html>
 {% endhighlight %}
