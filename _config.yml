@@ -27,7 +27,7 @@ algolia:
   index_name:     bootstrap-table
 
 # Custom variables
-current_version:  1.14.0
+current_version:  1.14.1
 title:            "Bootstrap Table"
 description:      "An extended Bootstrap Table with radio, checkbox, sort, pagination, and other added features."
 authors:          "Zhixin Wen, and Bootstrap Table contributors"

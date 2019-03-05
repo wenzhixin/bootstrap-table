@@ -1,7 +1,7 @@
 ChangeLog
 ---------
 
-### 1.14.0
+### 1.14.1
 
 - **New(css):** Added CSS Frameworks supported.
 - **New(css):** Added [Semantic UI](http://semantic-ui.com) theme.
