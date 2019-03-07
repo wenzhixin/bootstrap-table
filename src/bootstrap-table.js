@@ -2165,6 +2165,8 @@
         }
         this._xhr = $.ajax(request)
       }
+
+      return data
     }
 
     initSearchText () {
@@ -3009,9 +3011,8 @@
       if (params && params.pageSize) {
         this.options.pageSize = params.pageSize
       }
-      this.initServer(params && params.silent,
-        params && params.query, params && params.url)
-      this.trigger('refresh', params)
+      this.trigger('refresh', this.initServer(params && params.silent,
+        params && params.query, params && params.url))
     }
 
     resetWidth () {
