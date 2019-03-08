@@ -120,6 +120,14 @@
       return flag ? str : ''
     },
 
+    isEmptyObject (obj = {}) {
+      return Object.entries(obj).length === 0 && obj.constructor === Object
+    },
+
+    isNumeric (n) {
+      return !isNaN(parseFloat(n)) && isFinite(n)
+    },
+
     getFieldTitle (list, value) {
       for (const item of list) {
         if (item.field === value) {
@@ -969,7 +977,7 @@
         this.$tableLoading.css('top', this.$header.outerHeight() + 1)
         // Assign the correct sortable arrow
         this.getCaret()
-        $(window).on('resize.bootstrap-table', $.proxy(this.resetWidth, this))
+        $(window).on('resize.bootstrap-table', e => this.resetWidth(e))
       }
 
       this.$selectAll = this.$header.find('[name="btSelectAll"]')
@@ -1056,7 +1064,7 @@
             }
 
             // IF both values are numeric, do a numeric comparison
-            if ($.isNumeric(aa) && $.isNumeric(bb)) {
+            if (Utils.isNumeric(aa) && Utils.isNumeric(bb)) {
               // Convert numerical values form string to float.
               aa = parseFloat(aa)
               bb = parseFloat(bb)
@@ -1227,17 +1235,17 @@
 
       if (o.showPaginationSwitch) {
         this.$toolbar.find('button[name="paginationSwitch"]')
-          .off('click').on('click', $.proxy(this.togglePagination, this))
+          .off('click').on('click', () => this.togglePagination())
       }
 
       if (o.showFullscreen) {
         this.$toolbar.find('button[name="fullscreen"]')
-          .off('click').on('click', $.proxy(this.toggleFullscreen, this))
+          .off('click').on('click', () => this.toggleFullscreen())
       }
 
       if (o.showRefresh) {
         this.$toolbar.find('button[name="refresh"]')
-          .off('click').on('click', $.proxy(this.refresh, this))
+          .off('click').on('click', () => this.refresh())
       }
 
       if (o.showToggle) {
@@ -1301,7 +1309,7 @@
     }
 
     onSearch ({currentTarget, firedByInitSearchText}) {
-      const text = $.trim($(currentTarget).val())
+      const text = $(currentTarget).val().trim()
 
       // trim search input
       if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
@@ -1338,7 +1346,7 @@
 
         const s = this.searchText && (this.options.escape
           ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
-        const f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns
+        const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
         // Check filter
         this.data = f ? this.options.data.filter((item, i) => {
@@ -1361,7 +1369,7 @@
               continue
             }
 
-            const key = $.isNumeric(this.header.fields[j]) ? parseInt(this.header.fields[j], 10) : this.header.fields[j]
+            const key = Utils.isNumeric(this.header.fields[j]) ? parseInt(this.header.fields[j], 10) : this.header.fields[j]
             const column = this.columns[this.fieldsColumnsIndex[key]]
             let value
 
@@ -1638,10 +1646,10 @@
           o.pageSize = o.formatAllRows()
         }
         // removed the events for last and first, onPageNumber executeds the same logic
-        $pageList.off('click').on('click', $.proxy(this.onPageListChange, this))
-        $pre.off('click').on('click', $.proxy(this.onPagePre, this))
-        $next.off('click').on('click', $.proxy(this.onPageNext, this))
-        $number.off('click').on('click', $.proxy(this.onPageNumber, this))
+        $pageList.off('click').on('click', e => this.onPageListChange(e))
+        $pre.off('click').on('click', e => this.onPagePre(e))
+        $next.off('click').on('click', e => this.onPageNext(e))
+        $number.off('click').on('click', e => this.onPageNumber(e))
       }
     }
 
@@ -1740,7 +1748,7 @@
         }
       }
 
-      if (item._data && !$.isEmptyObject(item._data)) {
+      if (item._data && !Utils.isEmptyObject(item._data)) {
         for (const [k, v] of Object.entries(item._data)) {
           // ignore data-index
           if (k === 'index') {
@@ -1846,7 +1854,7 @@
         value = Utils.calculateObjectValue(column,
           this.header.formatters[j], [value_, item, i, field], value_)
 
-        if (item[`_${field}_data`] && !$.isEmptyObject(item[`_${field}_data`])) {
+        if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
           for (const [k, v] of Object.entries(item[`_${field}_data`])) {
             // ignore data-index
             if (k === 'index') {
@@ -2110,7 +2118,7 @@
         }
       }
 
-      if (!($.isEmptyObject(this.filterColumnsPartial))) {
+      if (!(Utils.isEmptyObject(this.filterColumnsPartial))) {
         params.filter = JSON.stringify(this.filterColumnsPartial, null)
       }
 
@@ -2230,12 +2238,12 @@
       // fix #61: the hidden table reset header bug.
       // fix bug: get $el.css('width') error sometime (height = 500)
       clearTimeout(this.timeoutId_)
-      this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), this.$el.is(':hidden') ? 100 : 0)
+      this.timeoutId_ = setTimeout(() => this.fitHeader(), this.$el.is(':hidden') ? 100 : 0)
     }
 
     fitHeader () {
       if (this.$el.is(':hidden')) {
-        this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), 100)
+        this.timeoutId_ = setTimeout(() => this.fitHeader(), 100)
         return
       }
 
@@ -2378,7 +2386,7 @@
 
     fitFooter () {
       if (this.$el.is(':hidden')) {
-        setTimeout($.proxy(this.fitFooter, this), 100)
+        setTimeout(() => this.fitFooter(), 100)
         return
       }
 
@@ -2532,7 +2540,7 @@
 
     getData (useCurrentPage) {
       let data = this.options.data
-      if (this.searchText || this.options.sortName || !$.isEmptyObject(this.filterColumns) || !$.isEmptyObject(this.filterColumnsPartial)) {
+      if (this.searchText || this.options.sortName || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) {
         data = this.data
       }
 
@@ -2864,10 +2872,10 @@
     }
 
     getOptions () {
-      // Deep copy: remove data
-      const options = $.extend({}, this.options)
+      // deep copy and remove data
+      const options = JSON.parse(JSON.stringify(this.options))
       delete options.data
-      return $.extend(true, {}, options)
+      return options
     }
 
     getSelections () {
@@ -3067,7 +3075,7 @@
     }
 
     filterBy (columns) {
-      this.filterColumns = $.isEmptyObject(columns) ? {} : columns
+      this.filterColumns = Utils.isEmptyObject(columns) ? {} : columns
       this.options.pageNumber = 1
       this.initSearch()
       this.updatePagination()
