@@ -122,7 +122,7 @@
       const stateField = this.header.stateField
       const isCardView = o.cardView
 
-      const doExport = () => {
+      const doExport = callback => {
         if (stateField) {
           this.hideColumn(stateField)
         }
@@ -153,26 +153,31 @@
           })
         }
 
-        this.$el.tableExport($.extend({}, o.exportOptions, options))
+        this.$el.tableExport($.extend({
+          onAfterSaveToFile: () => {
+            if (o.exportFooter) {
+              this.load(data)
+            }
 
-        if (o.exportFooter) {
-          this.load(data)
-        }
+            if (stateField) {
+              this.showColumn(stateField)
+            }
+            if (isCardView) {
+              this.toggleView()
+            }
 
-        if (stateField) {
-          this.showColumn(stateField)
-        }
-        if (isCardView) {
-          this.toggleView()
-        }
+            callback()
+          }
+        }, o.exportOptions, options))
       }
 
       if (o.exportDataType === 'all' && o.pagination) {
         const eventName = o.sidePagination === 'server'
           ? 'post-body.bs.table' : 'page-change.bs.table'
         this.$el.one(eventName, () => {
-          doExport()
-          this.togglePagination()
+          doExport(() => {
+            this.togglePagination()
+          })
         })
         this.togglePagination()
       } else if (o.exportDataType === 'selected') {
@@ -194,8 +199,9 @@
         }
 
         this.load(selectedData)
-        doExport()
-        this.load(data)
+        doExport(() => {
+          this.load(data)
+        })
       } else {
         doExport()
       }
