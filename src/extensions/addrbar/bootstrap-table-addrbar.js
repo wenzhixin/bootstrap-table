@@ -58,6 +58,9 @@
         url = url + seperator + targetStr
       }
     }
+    if (location.hash) {
+      url += location.hash
+    }
     return url
   }
 
