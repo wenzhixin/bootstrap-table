@@ -826,6 +826,10 @@
           item.value = ''
         })
 
+        $.each(that.options.filterControls, (i, item) => {
+          item.text = ''
+        })
+
         UtilsFilterControl.setValues(that)
 
         // clear cookies once the filters are clean
