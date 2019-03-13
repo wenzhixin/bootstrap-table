@@ -285,7 +285,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **Detail:**
 
-  Fires after the table header is rendered and availble in the DOM.
+  Fires after the table header is rendered and available in the DOM.
 
 ## onExpandRow
 
