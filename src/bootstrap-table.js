@@ -70,9 +70,9 @@
         toggleOff: 'fa-toggle-off',
         toggleOn: 'fa-toggle-on',
         columns: 'fa-th-list',
+        fullscreen: 'fa-arrows-alt',
         detailOpen: 'fa-plus',
-        detailClose: 'fa-minus',
-        fullscreen: 'fa-arrows-alt'
+        detailClose: 'fa-minus'
       },
       classes: {
         buttonsPrefix: 'btn',
