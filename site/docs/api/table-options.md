@@ -1232,11 +1232,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     toggleOff: 'fa-toggle-off',
     toggleOn: 'fa-toggle-on',
     columns: 'fa-th-list',
+    fullscreen: 'fa-arrows-alt',
     detailOpen: 'fa-plus',
-    detailClose: 'fa-minus',
-    fullscreen: 'fa-arrows-alt'
+    detailClose: 'fa-minus'
   }
   {% endhighlight %}
+
+- **Example:** [Table Icons](https://examples.bootstrap-table.com/#options/table-icons.html)
 
 ## iconSize
 
