@@ -8,7 +8,7 @@ toc: true
 
 ## Tooling setup
 
-Bootstrap Table uses [NPM scripts](https://docs.npmjs.com/misc/scripts) for its build system. Our [package.json]({{ site.repo }}/blob/{{ site.current_version }}/package.json) includes convenient methods for working with the framework, including linting coude, compiling code, and more.
+Bootstrap Table uses [NPM scripts](https://docs.npmjs.com/misc/scripts) for its build system. Our [package.json]({{ site.repo }}/blob/{{ site.current_version }}/package.json) includes convenient methods for working with the framework, including linting code, compiling code, and more.
 
 To use our build system and run our documentation locally, you'll need a copy of Bootstrap Table's source files and Node. Follow these steps and you should be ready to rock:
 

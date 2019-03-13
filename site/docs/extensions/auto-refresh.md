@@ -14,7 +14,7 @@ toc: true
 
 ## Example
 
-[Addrbar](https://examples.bootstrap-table.com/#extensions/auto-refresh.html)
+[Auto Refresh](https://examples.bootstrap-table.com/#extensions/auto-refresh.html)
 
 ## Options
 

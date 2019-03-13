@@ -137,7 +137,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   * Then tries the the short locale code (i.e. `'zh'` instead of `'fr-CA'`),
   * And finally will use the last locale file loaded (or the default locale if no locales loaded).
 
-  If left `undfined` or an empty string, uses the last locale loaded (or `'en-US'` if no locale files loaded).
+  If left `undefined` or an empty string, uses the last locale loaded (or `'en-US'` if no locale files loaded).
 
 - **Default:** `undefined`
 
