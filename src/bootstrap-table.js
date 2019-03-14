@@ -500,13 +500,13 @@
       return 'Loading, please wait...'
     },
     formatRecordsPerPage (pageNumber) {
-      return Utils.sprintf('%s rows per page', pageNumber)
+      return `${pageNumber} rows per page`
     },
     formatShowingRows (pageFrom, pageTo, totalRows) {
-      return Utils.sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows)
+      return `Showing ${pageFrom} to ${pageTo} of ${totalRows} rows`
     },
     formatDetailPagination (totalRows) {
-      return Utils.sprintf('Showing %s rows', totalRows)
+      return `Showing ${totalRows} rows`
     },
     formatSearch () {
       return 'Search'
@@ -523,11 +523,11 @@
     formatToggle () {
       return 'Toggle'
     },
-    formatFullscreen () {
-      return 'Fullscreen'
-    },
     formatColumns () {
       return 'Columns'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
     },
     formatAllRows () {
       return 'All'
