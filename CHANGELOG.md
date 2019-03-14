@@ -1,6 +1,14 @@
 ChangeLog
 ---------
 
+### 1.14.2
+
+- **New(fixed-columns extension):** Added new version fixed-columns extension.
+- **Update(js):** Updated refresh event params.
+- **Update(export extension):** Fixed export all rows to pdf bug.
+- **Update(export extension):** Disabled export button when exportDataType is 'selected' and selection empty.
+- **Update(addrbar extension):** Fixed addrbar extension remove hash from url bug.
+
 ### 1.14.1
 
 - **New(css):** Added CSS Frameworks supported.
