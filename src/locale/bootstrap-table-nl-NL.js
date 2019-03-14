@@ -22,6 +22,9 @@
     formatNoMatches () {
       return 'Geen resultaten gevonden'
     },
+    formatPaginationSwitch () {
+      return 'Verberg/Toon paginatie'
+    },
     formatRefresh () {
       return 'Vernieuwen'
     },
@@ -31,17 +34,29 @@
     formatColumns () {
       return 'Kolommen'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Alle'
     },
-    formatPaginationSwitch () {
-      return 'Verberg/Toon paginatie'
+    formatAutoRefresh () {
+      return 'Auto Refresh'
     },
     formatExport () {
       return 'Exporteer data'
     },
     formatClearFilters () {
       return 'Verwijder filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

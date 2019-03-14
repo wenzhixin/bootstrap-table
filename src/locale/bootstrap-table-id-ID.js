@@ -13,6 +13,9 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris`
     },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
     formatSearch () {
       return 'Pencarian'
     },
@@ -31,14 +34,29 @@
     formatColumns () {
       return 'kolom'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Semua'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
     },
     formatExport () {
       return 'Ekspor data'
     },
     formatClearFilters () {
       return 'Bersihkan filter'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

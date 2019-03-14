@@ -15,6 +15,9 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi`
     },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
     formatSearch () {
       return 'Cerca'
     },
@@ -33,14 +36,29 @@
     formatColumns () {
       return 'Colonne'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Tutto'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
     },
     formatExport () {
       return 'Esporta dati'
     },
     formatClearFilters () {
       return 'Pulisci filtri'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
 
   }

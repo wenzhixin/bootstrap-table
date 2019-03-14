@@ -13,11 +13,17 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Записи с ${pageFrom} по ${pageTo} из ${totalRows}`
     },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
     formatSearch () {
       return 'Поиск'
     },
     formatNoMatches () {
       return 'Ничего не найдено'
+    },
+    formatPaginationSwitch () {
+      return 'Hide/Show pagination'
     },
     formatRefresh () {
       return 'Обновить'
@@ -28,41 +34,29 @@
     formatColumns () {
       return 'Колонки'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'All'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
     formatClearFilters () {
       return 'Очистить фильтры'
     },
-    formatMultipleSort () {
-      return 'Множественная сортировка'
+    formatJumpto () {
+      return 'GO'
     },
-    formatAddLevel () {
-      return 'Добавить уровень'
+    formatAdvancedSearch () {
+      return 'Advanced search'
     },
-    formatDeleteLevel () {
-      return 'Удалить уровень'
-    },
-    formatColumn () {
-      return 'Колонка'
-    },
-    formatOrder () {
-      return 'Порядок'
-    },
-    formatSortBy () {
-      return 'Сортировать по'
-    },
-    formatThenBy () {
-      return 'затем по'
-    },
-    formatSort () {
-      return 'Сортировать'
-    },
-    formatCancel () {
-      return 'Отмена'
-    },
-    formatDuplicateAlertTitle () {
-      return 'Дублирование колонок!'
-    },
-    formatDuplicateAlertDescription () {
-      return 'Удалите, пожалуйста, дублирующую колонку, или замените ее на другую.'
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

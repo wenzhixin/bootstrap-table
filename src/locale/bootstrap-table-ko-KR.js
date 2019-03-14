@@ -13,11 +13,17 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력,`
     },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
     formatSearch () {
       return '검색'
     },
     formatNoMatches () {
       return '조회된 데이터가 없습니다.'
+    },
+    formatPaginationSwitch () {
+      return 'Hide/Show pagination'
     },
     formatRefresh () {
       return '새로 고침'
@@ -27,6 +33,30 @@
     },
     formatColumns () {
       return '컬럼 필터링'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'All'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

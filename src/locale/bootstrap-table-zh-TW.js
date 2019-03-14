@@ -13,6 +13,9 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `顯示第 ${pageFrom} 到第 ${pageTo} 項記錄，總共 ${totalRows} 項記錄`
     },
+    formatDetailPagination (totalRows) {
+      return `總共 ${totalRows} 項記錄`
+    },
     formatSearch () {
       return '搜尋'
     },
@@ -30,6 +33,30 @@
     },
     formatColumns () {
       return '列'
+    },
+    formatFullscreen () {
+      return '全屏'
+    },
+    formatAllRows () {
+      return '所有'
+    },
+    formatAutoRefresh () {
+      return '自動刷新'
+    },
+    formatExport () {
+      return '導出數據'
+    },
+    formatClearFilters () {
+      return '清空過濾'
+    },
+    formatJumpto () {
+      return '跳轉'
+    },
+    formatAdvancedSearch () {
+      return '高級搜尋'
+    },
+    formatAdvancedCloseButton () {
+      return '關閉'
     }
   }
 

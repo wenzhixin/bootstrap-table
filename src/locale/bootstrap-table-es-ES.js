@@ -13,6 +13,9 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Mostrando desde ${pageFrom} hasta ${pageTo} - En total ${totalRows} resultados`
     },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
     formatSearch () {
       return 'Buscar'
     },
@@ -31,8 +34,14 @@
     formatColumns () {
       return 'Columnas'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Todos'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
     },
     formatExport: function () {
       return 'Exportar los datos'
@@ -40,44 +49,8 @@
     formatClearFilters: function () {
       return 'Borrar los filtros'
     },
-    formatMultipleSort: function () {
-      return 'Orden avanzado'
-    },
-    formatAddLevel: function () {
-      return 'Añadir un nivel'
-    },
-    formatDeleteLevel: function () {
-      return 'Eliminar un nivel'
-    },
-    formatColumn: function () {
-      return 'Columna'
-    },
-    formatOrder: function () {
-      return 'Orden'
-    },
-    formatSortBy: function () {
-      return 'Ordenar por'
-    },
-    formatThenBy: function () {
-      return 'Y por'
-    },
-    formatSort: function () {
-      return 'Ordenar'
-    },
-    formatCancel: function () {
-      return 'Cancelar'
-    },
-    formatDuplicateAlertTitle: function () {
-      return 'Duplicado(s) detectado(s)!'
-    },
-    formatDuplicateAlertDescription: function () {
-      return 'Eliminar o cambiar columnas duplicadas.'
-    },
-    formatSortOrders: function () {
-      return {
-        asc: 'Ascendente',
-        desc: 'Descendente'
-      }
+    formatJumpto () {
+      return 'GO'
     },
     formatAdvancedSearch: function () {
       return 'Búsqueda avanzada'

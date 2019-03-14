@@ -13,14 +13,16 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل`
     },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
     formatSearch () {
       return 'بحث'
     },
     formatNoMatches () {
       return 'لا توجد نتائج مطابقة للبحث'
     },
-    formatPaginationSwitch () {
-      /* eslint-disable no-useless-escape */
+    formatPaginationSwitch () { /* eslint-disable no-useless-escape */
       return 'إخفاء\إظهار ترقيم الصفحات'
     },
     formatRefresh () {
@@ -31,6 +33,30 @@
     },
     formatColumns () {
       return 'أعمدة'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'All'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 
