@@ -14,11 +14,17 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor.`
     },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
     formatSearch () {
       return 'Ara'
     },
     formatNoMatches () {
       return 'Eşleşen kayıt bulunamadı.'
+    },
+    formatPaginationSwitch () {
+      return 'Hide/Show pagination'
     },
     formatRefresh () {
       return 'Yenile'
@@ -29,8 +35,29 @@
     formatColumns () {
       return 'Sütunlar'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Tüm Satırlar'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

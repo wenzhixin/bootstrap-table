@@ -13,11 +13,17 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Показано з ${pageFrom} по ${pageTo}. Всього: ${totalRows}`
     },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
     formatSearch () {
       return 'Пошук'
     },
     formatNoMatches () {
       return 'Не знайдено жодного запису'
+    },
+    formatPaginationSwitch () {
+      return 'Hide/Show pagination'
     },
     formatRefresh () {
       return 'Оновити'
@@ -28,41 +34,29 @@
     formatColumns () {
       return 'Стовпці'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'All'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
     formatClearFilters () {
       return 'Очистити фільтри'
     },
-    formatMultipleSort () {
-      return 'Сортування за кількома стовпцями'
+    formatJumpto () {
+      return 'GO'
     },
-    formatAddLevel () {
-      return 'Додати рівень'
+    formatAdvancedSearch () {
+      return 'Advanced search'
     },
-    formatDeleteLevel () {
-      return 'Видалити рівень'
-    },
-    formatColumn () {
-      return 'Стовпець'
-    },
-    formatOrder () {
-      return 'Порядок'
-    },
-    formatSortBy () {
-      return 'Сортувати за'
-    },
-    formatThenBy () {
-      return 'потім за'
-    },
-    formatSort () {
-      return 'Сортувати'
-    },
-    formatCancel () {
-      return 'Скасувати'
-    },
-    formatDuplicateAlertTitle () {
-      return 'Дублювання стовпців!'
-    },
-    formatDuplicateAlertDescription () {
-      return 'Видаліть, будь ласка, дублюючий стовпець, або замініть його на інший.'
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 
