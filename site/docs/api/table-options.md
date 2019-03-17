@@ -25,7 +25,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'table'`
 
-- **Example:** [From HTML](https://examples.bootstrap-table.com/#options/from-html.html)
+- **Example:** [From HTML](https://examples.bootstrap-table.com/#welcomes/from-html.html)
 
 ## height
 
@@ -285,7 +285,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `[]`
 
-- **Example:** [From Data](https://examples.bootstrap-table.com/#options/from-data.html)
+- **Example:** [From Data](https://examples.bootstrap-table.com/#welcomes/from-data.html)
 
 ## url
 
@@ -304,7 +304,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [From URL](https://examples.bootstrap-table.com/#options/from-url.html)
+- **Example:** [From URL](https://examples.bootstrap-table.com/#welcomes/from-url.html)
 
 ## method
 
@@ -1116,6 +1116,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Card View](https://examples.bootstrap-table.com/#options/card-view.html)
+
 ## detailView
 
 - **Attribute:** `data-detail-view`
@@ -1127,6 +1129,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Set `true` to show detail view table.
 
 - **Default:** `false`
+
+- **Example:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)
 
 ## detailFormatter
 
@@ -1140,6 +1144,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `function(index, row, element) { return '' }`
 
+- **Example:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)
+
 ## detailFilter
 
 - **Attribute:** `data-detail-filter`
@@ -1151,6 +1157,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Enable expansion per row when detailView is set to true. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.
 
 - **Default:** `function(index, row) { return true }`
+
+- **Example:** [Detail Filter](https://examples.bootstrap-table.com/#options/detail-filter.html)
 
 ## toolbar
 
@@ -1164,6 +1172,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Custom Toolbar](https://examples.bootstrap-table.com/#options/custom-toolbar.html)
+
 ## toolbarAlign
 
 - **Attribute:** `data-toolbar-align`
@@ -1176,6 +1186,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'left'`
 
+- **Example:** [Toolbar Align](https://examples.bootstrap-table.com/#options/toolbar-align.html)
+
 ## buttonsToolbar
 
 - **Attribute:** `data-buttons-toolbar`
@@ -1184,9 +1196,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  A jQuery selector that indicates the buttons toolbar, for example: `#buttons-toolbar`, `.buttons-toolbar`, or a DOM node.
+  A jQuery selector that indicates the custom buttons toolbar, for example: `#buttons-toolbar`, `.buttons-toolbar`, or a DOM node.
 
 - **Default:** `undefined`
+
+- **Example:** [Buttons Toolbar](https://examples.bootstrap-table.com/#options/buttons-toolbar.html)
 
 ## buttonsAlign
 
@@ -1200,6 +1214,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `'right'`
 
+- **Example:** [Buttons Align](https://examples.bootstrap-table.com/#options/buttons-align.html)
+
 ## buttonsClass
 
 - **Attribute:** `data-buttons-class`
@@ -1208,9 +1224,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines the Bootstrap class (added after `'btn-'`) of table buttons.
+  Defines the class (added after `'btn-'`) of table buttons.
 
 - **Default:** `'secondary'`
+
+- **Example:** [Buttons Class](https://examples.bootstrap-table.com/#options/buttons-class.html)
 
 ## icons
 
@@ -1248,9 +1266,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines icon size: `undefined` => `btnxs` => `btn-xssm` => `btn-smlg` => `btn-lg`
+  Defines icon size, `undefined`, `'lg'`, `'sm'` can be used.
 
 - **Default:** `undefined`
+
+- **Example:** [Icon Size](https://examples.bootstrap-table.com/#options/icon-size.html)
 
 ## iconsPrefix
 
@@ -1263,3 +1283,5 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Defines icon set name (`'glyphicon'` or `'fa'` for FontAwesome). By default `'fa'` is used for Bootstrap v4.
 
 - **Default:** `'fa'`
+
+- **Example:** [Icons Prefix](https://examples.bootstrap-table.com/#options/icons-prefix.html)
