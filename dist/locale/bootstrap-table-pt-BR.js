@@ -21,7 +21,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['pt-BR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Carregando, aguarde...';
+        return 'Carregando, aguarde';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' registros por p\xE1gina';
@@ -29,8 +29,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Exibindo ' + pageFrom + ' at\xE9 ' + pageTo + ' de ' + totalRows + ' linhas';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Pesquisar';
+      },
+      formatNoMatches: function formatNoMatches() {
+        return 'Nenhum registro encontrado';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Ocultar/Exibir paginação';
       },
       formatRefresh: function formatRefresh() {
         return 'Recarregar';
@@ -41,11 +50,29 @@
       formatColumns: function formatColumns() {
         return 'Colunas';
       },
-      formatPaginationSwitch: function formatPaginationSwitch() {
-        return 'Ocultar/Exibir paginação';
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
       },
-      formatNoMatches: function formatNoMatches() {
-        return 'Nenhum registro encontrado';
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

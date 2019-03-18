@@ -20,13 +20,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['fi-FI'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Ladataan, ole hyvä ja odota...';
+        return 'Ladataan, ole hyvä ja odota';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rivi\xE4 sivulla';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'N\xE4ytet\xE4\xE4n rivit ' + pageFrom + ' - ' + pageTo + ' / ' + totalRows;
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Hae';
@@ -46,14 +49,29 @@
       formatColumns: function formatColumns() {
         return 'Sarakkeet';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Kaikki';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Vie tiedot';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Poista suodattimet';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

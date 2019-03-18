@@ -20,13 +20,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['af-ZA'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Besig om te laai, wag asseblief ...';
+        return 'Besig om te laai, wag asseblief';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rekords per bladsy';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Resultate ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' rye';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Soek';
@@ -45,6 +48,30 @@
       },
       formatColumns: function formatColumns() {
         return 'Kolomme';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -73,13 +100,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['ar-SA'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'جاري التحميل, يرجى الإنتظار...';
+        return 'جاري التحميل, يرجى الإنتظار';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' \u0633\u062C\u0644 \u0644\u0643\u0644 \u0635\u0641\u062D\u0629';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u0627\u0644\u0638\u0627\u0647\u0631 ' + pageFrom + ' \u0625\u0644\u0649 ' + pageTo + ' \u0645\u0646 ' + totalRows + ' \u0633\u062C\u0644';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'بحث';
@@ -99,6 +129,30 @@
       },
       formatColumns: function formatColumns() {
         return 'أعمدة';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -128,13 +182,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['ca-ES'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Espereu, si us plau...';
+        return 'Espereu, si us plau';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' resultats per p\xE0gina';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Mostrant de ' + pageFrom + ' fins ' + pageTo + ' - total ' + totalRows + ' resultats';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Cerca';
@@ -154,8 +211,29 @@
       formatColumns: function formatColumns() {
         return 'Columnes';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Tots';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -185,13 +263,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['cs-CZ'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Čekejte, prosím...';
+        return 'Čekejte, prosím';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' polo\u017Eek na str\xE1nku';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Zobrazena ' + pageFrom + '. - ' + pageTo + '. polo\u017Eka z celkov\xFDch ' + totalRows;
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Vyhledávání';
@@ -211,8 +292,29 @@
       formatColumns: function formatColumns() {
         return 'Sloupce';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Vše';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -241,7 +343,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['da-DK'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Indlæser, vent venligst...';
+        return 'Indlæser, vent venligst';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' poster pr side';
@@ -270,14 +372,29 @@
       formatColumns: function formatColumns() {
         return 'Kolonner';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Alle';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Eksporter';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Ryd filtre';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -306,7 +423,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['de-DE'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Lade, bitte warten...';
+        return 'Lade, bitte warten';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' Zeilen pro Seite.';
@@ -335,14 +452,29 @@
       formatColumns: function formatColumns() {
         return 'Spalten';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Alle';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Datenexport';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Lösche Filter';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -371,7 +503,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['el-GR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Φορτώνει, παρακαλώ περιμένετε...';
+        return 'Φορτώνει, παρακαλώ περιμένετε';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03AD\u03C3\u03BC\u03B1\u03C4\u03B1 \u03B1\u03BD\u03AC \u03C3\u03B5\u03BB\u03AF\u03B4\u03B1';
@@ -379,11 +511,50 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u0395\u03BC\u03C6\u03B1\u03BD\u03AF\u03B6\u03BF\u03BD\u03C4\u03B1\u03B9 \u03B1\u03C0\u03CC \u03C4\u03B7\u03BD ' + pageFrom + ' \u03C9\u03C2 \u03C4\u03B7\u03BD ' + pageTo + ' \u03B1\u03C0\u03CC \u03C3\u03CD\u03BD\u03BF\u03BB\u03BF ' + totalRows + ' \u03C3\u03B5\u03B9\u03C1\u03CE\u03BD';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Αναζητήστε';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Δεν βρέθηκαν αποτελέσματα';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
+      },
+      formatRefresh: function formatRefresh() {
+        return 'Refresh';
+      },
+      formatToggle: function formatToggle() {
+        return 'Toggle';
+      },
+      formatColumns: function formatColumns() {
+        return 'Columns';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -412,13 +583,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['en-US'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Loading, please wait...';
+        return 'Loading, please wait';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rows per page';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Showing ' + pageFrom + ' to ' + pageTo + ' of ' + totalRows + ' rows';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Search';
@@ -438,14 +612,29 @@
       formatColumns: function formatColumns() {
         return 'Columns';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Export data';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -474,7 +663,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['es-AR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Cargando, espere por favor...';
+        return 'Cargando, espere por favor';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' registros por p\xE1gina';
@@ -482,14 +671,50 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Mostrando ' + pageFrom + ' a ' + pageTo + ' de ' + totalRows + ' filas';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Buscar';
       },
       formatNoMatches: function formatNoMatches() {
         return 'No se encontraron registros';
       },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
+      },
+      formatRefresh: function formatRefresh() {
+        return 'Refresh';
+      },
+      formatToggle: function formatToggle() {
+        return 'Toggle';
+      },
+      formatColumns: function formatColumns() {
+        return 'Columns';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Todo';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -519,13 +744,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['es-CL'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Cargando, espere por favor...';
+        return 'Cargando, espere por favor';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' filas por p\xE1gina';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Mostrando ' + pageFrom + ' a ' + pageTo + ' de ' + totalRows + ' filas';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Buscar';
@@ -545,8 +773,29 @@
       formatColumns: function formatColumns() {
         return 'Columnas';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Todo';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -575,7 +824,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['es-CR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Cargando, por favor espere...';
+        return 'Cargando, por favor espere';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' registros por p\xE1gina';
@@ -583,11 +832,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Mostrando de ' + pageFrom + ' a ' + pageTo + ' registros de ' + totalRows + ' registros en total';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Buscar';
       },
       formatNoMatches: function formatNoMatches() {
         return 'No se encontraron registros';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Refrescar';
@@ -598,8 +853,29 @@
       formatColumns: function formatColumns() {
         return 'Columnas';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Todo';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -628,13 +904,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['es-ES'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Por favor espere...';
+        return 'Por favor espere';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' resultados por p\xE1gina';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Mostrando desde ' + pageFrom + ' hasta ' + pageTo + ' - En total ' + totalRows + ' resultados';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Buscar';
@@ -654,8 +933,14 @@
       formatColumns: function formatColumns() {
         return 'Columnas';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Todos';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
 
       formatExport: function formatExport() {
@@ -664,45 +949,10 @@
       formatClearFilters: function formatClearFilters() {
         return 'Borrar los filtros';
       },
-      formatMultipleSort: function formatMultipleSort() {
-        return 'Orden avanzado';
+      formatJumpto: function formatJumpto() {
+        return 'GO';
       },
-      formatAddLevel: function formatAddLevel() {
-        return 'Añadir un nivel';
-      },
-      formatDeleteLevel: function formatDeleteLevel() {
-        return 'Eliminar un nivel';
-      },
-      formatColumn: function formatColumn() {
-        return 'Columna';
-      },
-      formatOrder: function formatOrder() {
-        return 'Orden';
-      },
-      formatSortBy: function formatSortBy() {
-        return 'Ordenar por';
-      },
-      formatThenBy: function formatThenBy() {
-        return 'Y por';
-      },
-      formatSort: function formatSort() {
-        return 'Ordenar';
-      },
-      formatCancel: function formatCancel() {
-        return 'Cancelar';
-      },
-      formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-        return 'Duplicado(s) detectado(s)!';
-      },
-      formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-        return 'Eliminar o cambiar columnas duplicadas.';
-      },
-      formatSortOrders: function formatSortOrders() {
-        return {
-          asc: 'Ascendente',
-          desc: 'Descendente'
-        };
-      },
+
       formatAdvancedSearch: function formatAdvancedSearch() {
         return 'Búsqueda avanzada';
       },
@@ -738,7 +988,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['es-MX'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Cargando, espere por favor...';
+        return 'Cargando, espere por favor';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' registros por p\xE1gina';
@@ -764,14 +1014,32 @@
       formatToggle: function formatToggle() {
         return 'Cambiar vista';
       },
-      formatFullscreen: function formatFullscreen() {
-        return 'Pantalla completa';
-      },
       formatColumns: function formatColumns() {
         return 'Columnas';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Pantalla completa';
+      },
       formatAllRows: function formatAllRows() {
         return 'Todo';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -800,7 +1068,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['es-NI'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Cargando, por favor espere...';
+        return 'Cargando, por favor espere';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' registros por p\xE1gina';
@@ -808,11 +1076,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Mostrando de ' + pageFrom + ' a ' + pageTo + ' registros de ' + totalRows + ' registros en total';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Buscar';
       },
       formatNoMatches: function formatNoMatches() {
         return 'No se encontraron registros';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Refrescar';
@@ -823,8 +1097,29 @@
       formatColumns: function formatColumns() {
         return 'Columnas';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Todo';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -853,7 +1148,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['es-SP'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Cargando, por favor espera...';
+        return 'Cargando, por favor espera';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' registros por p&#225;gina.';
@@ -861,11 +1156,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return pageFrom + ' - ' + pageTo + ' de ' + totalRows + ' registros.';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Buscar';
       },
       formatNoMatches: function formatNoMatches() {
         return 'No se han encontrado registros.';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Actualizar';
@@ -876,8 +1177,29 @@
       formatColumns: function formatColumns() {
         return 'Columnas';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Todo';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -906,13 +1228,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['et-EE'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Päring käib, palun oota...';
+        return 'Päring käib, palun oota';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rida lehe kohta';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'N\xE4itan tulemusi ' + pageFrom + ' kuni ' + pageTo + ' - kokku ' + totalRows + ' tulemust';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Otsi';
@@ -932,8 +1257,29 @@
       formatColumns: function formatColumns() {
         return 'Veerud';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Kõik';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -962,13 +1308,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['eu-EU'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Itxaron mesedez...';
+        return 'Itxaron mesedez';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' emaitza orriko.';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return totalRows + ' erregistroetatik ' + pageFrom + 'etik ' + pageTo + 'erakoak erakusten.';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Bilatu';
@@ -988,8 +1337,29 @@
       formatColumns: function formatColumns() {
         return 'Zutabeak';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Guztiak';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1018,13 +1388,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['fa-IR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'در حال بارگذاری, لطفا صبر کنید...';
+        return 'در حال بارگذاری, لطفا صبر کنید';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' \u0631\u06A9\u0648\u0631\u062F \u062F\u0631 \u0635\u0641\u062D\u0647';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u0646\u0645\u0627\u06CC\u0634 ' + pageFrom + ' \u062A\u0627 ' + pageTo + ' \u0627\u0632 ' + totalRows + ' \u0631\u062F\u06CC\u0641';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'جستجو';
@@ -1044,8 +1417,29 @@
       formatColumns: function formatColumns() {
         return 'سطر ها';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'همه';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1074,13 +1468,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['fi-FI'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Ladataan, ole hyvä ja odota...';
+        return 'Ladataan, ole hyvä ja odota';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rivi\xE4 sivulla';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'N\xE4ytet\xE4\xE4n rivit ' + pageFrom + ' - ' + pageTo + ' / ' + totalRows;
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Hae';
@@ -1100,14 +1497,29 @@
       formatColumns: function formatColumns() {
         return 'Sarakkeet';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Kaikki';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Vie tiedot';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Poista suodattimet';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1136,7 +1548,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['fr-BE'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Chargement en cours...';
+        return 'Chargement en cours';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' entr\xE9es par page';
@@ -1144,11 +1556,50 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Affiche de' + pageFrom + ' \xE0 ' + pageTo + ' sur ' + totalRows + ' lignes';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Recherche';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Pas de fichiers trouvés';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
+      },
+      formatRefresh: function formatRefresh() {
+        return 'Refresh';
+      },
+      formatToggle: function formatToggle() {
+        return 'Toggle';
+      },
+      formatColumns: function formatColumns() {
+        return 'Columns';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1178,13 +1629,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['fr-FR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Chargement en cours, patientez, s´il vous plaît ...';
+        return 'Chargement en cours, patientez, s´il vous plaît';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' lignes par page';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Affichage des lignes ' + pageFrom + ' \xE0 ' + pageTo + ' sur ' + totalRows + ' lignes au total';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Rechercher';
@@ -1204,8 +1658,14 @@
       formatColumns: function formatColumns() {
         return 'Colonnes';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Tous';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Exporter les données';
@@ -1213,44 +1673,8 @@
       formatClearFilters: function formatClearFilters() {
         return 'Vider les filtres';
       },
-      formatMultipleSort: function formatMultipleSort() {
-        return 'Tri avancé';
-      },
-      formatAddLevel: function formatAddLevel() {
-        return 'Ajouter un niveau';
-      },
-      formatDeleteLevel: function formatDeleteLevel() {
-        return 'Supprimer un niveau';
-      },
-      formatColumn: function formatColumn() {
-        return 'Colonne';
-      },
-      formatOrder: function formatOrder() {
-        return 'Ordre';
-      },
-      formatSortBy: function formatSortBy() {
-        return 'Trier par';
-      },
-      formatThenBy: function formatThenBy() {
-        return 'Puis par';
-      },
-      formatSort: function formatSort() {
-        return 'Trier';
-      },
-      formatCancel: function formatCancel() {
-        return 'Annuler';
-      },
-      formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-        return 'Doublon(s) détecté(s)!';
-      },
-      formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-        return 'Supprimez ou changez les colonnes dupliquées.';
-      },
-      formatSortOrders: function formatSortOrders() {
-        return {
-          asc: 'Croissant',
-          desc: 'Décroissant'
-        };
+      formatJumpto: function formatJumpto() {
+        return 'GO';
       },
       formatAdvancedSearch: function formatAdvancedSearch() {
         return 'Recherche avancée';
@@ -1285,13 +1709,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['he-IL'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'טוען, נא להמתין...';
+        return 'טוען, נא להמתין';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' \u05E9\u05D5\u05E8\u05D5\u05EA \u05D1\u05E2\u05DE\u05D5\u05D3';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u05DE\u05E6\u05D9\u05D2 ' + pageFrom + ' \u05E2\u05D3 ' + pageTo + ' \u05DE-' + totalRows + ' \u05E9\u05D5\u05E8\u05D5\u05EA';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'חיפוש';
@@ -1311,8 +1738,29 @@
       formatColumns: function formatColumns() {
         return 'עמודות';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'הכל';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1342,13 +1790,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['hr-HR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Molimo pričekajte ...';
+        return 'Molimo pričekajte';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' broj zapisa po stranici';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Prikazujem ' + pageFrom + '. - ' + pageTo + '. od ukupnog broja zapisa ' + totalRows;
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Pretraži';
@@ -1368,8 +1819,29 @@
       formatColumns: function formatColumns() {
         return 'Kolone';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Sve';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1398,13 +1870,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['hu-HU'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Betöltés, kérem várjon...';
+        return 'Betöltés, kérem várjon';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rekord per oldal';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Megjelen\xEDtve ' + pageFrom + ' - ' + pageTo + ' / ' + totalRows + ' \xF6sszesen';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Keresés';
@@ -1424,8 +1899,29 @@
       formatColumns: function formatColumns() {
         return 'Oszlopok';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Összes';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1454,13 +1950,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['id-ID'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Memuat, mohon tunggu...';
+        return 'Memuat, mohon tunggu';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' baris per halaman';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Menampilkan ' + pageFrom + ' sampai ' + pageTo + ' dari ' + totalRows + ' baris';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Pencarian';
@@ -1480,14 +1979,29 @@
       formatColumns: function formatColumns() {
         return 'kolom';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Semua';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Ekspor data';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Bersihkan filter';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1518,13 +2032,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['it-IT'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Caricamento in corso...';
+        return 'Caricamento in corso';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' elementi per pagina';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Visualizzazione da ' + pageFrom + ' a ' + pageTo + ' di ' + totalRows + ' elementi';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Cerca';
@@ -1544,14 +2061,29 @@
       formatColumns: function formatColumns() {
         return 'Colonne';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Tutto';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Esporta dati';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Pulisci filtri';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1588,6 +2120,9 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u5168' + totalRows + '\u4EF6\u304B\u3089\u3001' + pageFrom + '\u304B\u3089' + pageTo + '\u4EF6\u76EE\u307E\u3067\u8868\u793A\u3057\u3066\u3044\u307E\u3059';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return '検索';
       },
@@ -1606,8 +2141,29 @@
       formatColumns: function formatColumns() {
         return '列';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'すべて';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1636,13 +2192,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['ka-GE'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'იტვირთება, გთხოვთ მოიცადოთ...';
+        return 'იტვირთება, გთხოვთ მოიცადოთ';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' \u10E9\u10D0\u10DC\u10D0\u10EC\u10D4\u10E0\u10D8 \u10D7\u10D8\u10D7\u10DD \u10D2\u10D5\u10D4\u10E0\u10D3\u10D6\u10D4';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u10DC\u10D0\u10E9\u10D5\u10D4\u10DC\u10D4\u10D1\u10D8\u10D0 ' + pageFrom + '-\u10D3\u10D0\u10DC ' + pageTo + '-\u10DB\u10D3\u10D4 \u10E9\u10D0\u10DC\u10D0\u10EC\u10D4\u10E0\u10D8 \u10EF\u10D0\u10DB\u10E3\u10E0\u10D8 ' + totalRows + '-\u10D3\u10D0\u10DC';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'ძებნა';
@@ -1661,6 +2220,30 @@
       },
       formatColumns: function formatColumns() {
         return 'სვეტები';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1689,7 +2272,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['ko-KR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return '데이터를 불러오는 중입니다...';
+        return '데이터를 불러오는 중입니다';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return '\uD398\uC774\uC9C0 \uB2F9 ' + pageNumber + '\uAC1C \uB370\uC774\uD130 \uCD9C\uB825';
@@ -1697,11 +2280,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\uC804\uCCB4 ' + totalRows + '\uAC1C \uC911 ' + pageFrom + '~' + pageTo + '\uBC88\uC9F8 \uB370\uC774\uD130 \uCD9C\uB825,';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return '검색';
       },
       formatNoMatches: function formatNoMatches() {
         return '조회된 데이터가 없습니다.';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return '새로 고침';
@@ -1711,6 +2300,30 @@
       },
       formatColumns: function formatColumns() {
         return '컬럼 필터링';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1739,13 +2352,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['ms-MY'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Permintaan sedang dimuatkan. Sila tunggu sebentar...';
+        return 'Permintaan sedang dimuatkan. Sila tunggu sebentar';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rekod setiap muka surat';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Sedang memaparkan rekod ' + pageFrom + ' hingga ' + pageTo + ' daripada jumlah ' + totalRows + ' rekod';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Cari';
@@ -1765,8 +2381,29 @@
       formatColumns: function formatColumns() {
         return 'Lajur';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Semua';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1795,7 +2432,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['nb-NO'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Oppdaterer, vennligst vent...';
+        return 'Oppdaterer, vennligst vent';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' poster pr side';
@@ -1803,11 +2440,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Viser ' + pageFrom + ' til ' + pageTo + ' av ' + totalRows + ' rekker';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Søk';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Ingen poster funnet';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Oppdater';
@@ -1817,6 +2460,30 @@
       },
       formatColumns: function formatColumns() {
         return 'Kolonner';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1845,7 +2512,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['nl-NL'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Laden, even geduld...';
+        return 'Laden, even geduld';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' records per pagina';
@@ -1862,6 +2529,9 @@
       formatNoMatches: function formatNoMatches() {
         return 'Geen resultaten gevonden';
       },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Verberg/Toon paginatie';
+      },
       formatRefresh: function formatRefresh() {
         return 'Vernieuwen';
       },
@@ -1871,17 +2541,29 @@
       formatColumns: function formatColumns() {
         return 'Kolommen';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Alle';
       },
-      formatPaginationSwitch: function formatPaginationSwitch() {
-        return 'Verberg/Toon paginatie';
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Exporteer data';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Verwijder filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1910,7 +2592,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['pl-PL'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Ładowanie, proszę czekać...';
+        return 'Ładowanie, proszę czekać';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rekord\xF3w na stron\u0119';
@@ -1918,11 +2600,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Wy\u015Bwietlanie rekord\xF3w od ' + pageFrom + ' do ' + pageTo + ' z ' + totalRows;
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Szukaj';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Niestety, nic nie znaleziono';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Odśwież';
@@ -1932,6 +2620,30 @@
       },
       formatColumns: function formatColumns() {
         return 'Kolumny';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -1961,7 +2673,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['pt-BR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Carregando, aguarde...';
+        return 'Carregando, aguarde';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' registros por p\xE1gina';
@@ -1969,8 +2681,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Exibindo ' + pageFrom + ' at\xE9 ' + pageTo + ' de ' + totalRows + ' linhas';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Pesquisar';
+      },
+      formatNoMatches: function formatNoMatches() {
+        return 'Nenhum registro encontrado';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Ocultar/Exibir paginação';
       },
       formatRefresh: function formatRefresh() {
         return 'Recarregar';
@@ -1981,11 +2702,29 @@
       formatColumns: function formatColumns() {
         return 'Colunas';
       },
-      formatPaginationSwitch: function formatPaginationSwitch() {
-        return 'Ocultar/Exibir paginação';
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
       },
-      formatNoMatches: function formatNoMatches() {
-        return 'Nenhum registro encontrado';
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2014,13 +2753,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['pt-PT'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'A carregar, por favor aguarde...';
+        return 'A carregar, por favor aguarde';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' registos por p&aacute;gina';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'A mostrar ' + pageFrom + ' at&eacute; ' + pageTo + ' de ' + totalRows + ' linhas';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Pesquisa';
@@ -2040,8 +2782,29 @@
       formatColumns: function formatColumns() {
         return 'Colunas';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Tudo';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2070,13 +2833,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['ro-RO'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Se incarca, va rugam asteptati...';
+        return 'Se incarca, va rugam asteptati';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' inregistrari pe pagina';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Arata de la ' + pageFrom + ' pana la ' + pageTo + ' din ' + totalRows + ' randuri';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Cauta';
@@ -2096,8 +2862,29 @@
       formatColumns: function formatColumns() {
         return 'Coloane';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Toate';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2126,7 +2913,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['ru-RU'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Пожалуйста, подождите, идёт загрузка...';
+        return 'Пожалуйста, подождите, идёт загрузка';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' \u0437\u0430\u043F\u0438\u0441\u0435\u0439 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443';
@@ -2134,11 +2921,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ' + pageFrom + ' \u043F\u043E ' + pageTo + ' \u0438\u0437 ' + totalRows;
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Поиск';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Ничего не найдено';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Обновить';
@@ -2149,41 +2942,29 @@
       formatColumns: function formatColumns() {
         return 'Колонки';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
       formatClearFilters: function formatClearFilters() {
         return 'Очистить фильтры';
       },
-      formatMultipleSort: function formatMultipleSort() {
-        return 'Множественная сортировка';
+      formatJumpto: function formatJumpto() {
+        return 'GO';
       },
-      formatAddLevel: function formatAddLevel() {
-        return 'Добавить уровень';
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
       },
-      formatDeleteLevel: function formatDeleteLevel() {
-        return 'Удалить уровень';
-      },
-      formatColumn: function formatColumn() {
-        return 'Колонка';
-      },
-      formatOrder: function formatOrder() {
-        return 'Порядок';
-      },
-      formatSortBy: function formatSortBy() {
-        return 'Сортировать по';
-      },
-      formatThenBy: function formatThenBy() {
-        return 'затем по';
-      },
-      formatSort: function formatSort() {
-        return 'Сортировать';
-      },
-      formatCancel: function formatCancel() {
-        return 'Отмена';
-      },
-      formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-        return 'Дублирование колонок!';
-      },
-      formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-        return 'Удалите, пожалуйста, дублирующую колонку, или замените ее на другую.';
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2212,13 +2993,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['sk-SK'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Prosím čakajte ...';
+        return 'Prosím čakajte';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' z\xE1znamov na stranu';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Zobrazen\xE1 ' + pageFrom + '. - ' + pageTo + '. polo\u017Eka z celkov\xFDch ' + totalRows;
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Vyhľadávanie';
@@ -2238,14 +3022,29 @@
       formatColumns: function formatColumns() {
         return 'Stĺpce';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Všetky';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Exportuj dáta';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Odstráň filtre';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2274,7 +3073,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['sv-SE'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Laddar, vänligen vänta...';
+        return 'Laddar, vänligen vänta';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rader per sida';
@@ -2282,11 +3081,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Visa ' + pageFrom + ' till ' + pageTo + ' av ' + totalRows + ' rader';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Sök';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Inga matchande resultat funna.';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Uppdatera';
@@ -2296,6 +3101,30 @@
       },
       formatColumns: function formatColumns() {
         return 'kolumn';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2324,7 +3153,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['th-TH'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'กำลังโหลดข้อมูล, กรุณารอสักครู่...';
+        return 'กำลังโหลดข้อมูล, กรุณารอสักครู่';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' \u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E15\u0E48\u0E2D\u0E2B\u0E19\u0E49\u0E32';
@@ -2332,11 +3161,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E17\u0E35\u0E48 ' + pageFrom + ' \u0E16\u0E36\u0E07 ' + pageTo + ' \u0E08\u0E32\u0E01\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14 ' + totalRows + ' \u0E23\u0E32\u0E22\u0E01\u0E32\u0E23';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'ค้นหา';
       },
       formatNoMatches: function formatNoMatches() {
         return 'ไม่พบรายการที่ค้นหา !';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'รีเฟรส';
@@ -2346,6 +3181,30 @@
       },
       formatColumns: function formatColumns() {
         return 'คอลัมน์';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2375,7 +3234,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['tr-TR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Yükleniyor, lütfen bekleyin...';
+        return 'Yükleniyor, lütfen bekleyin';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return 'Sayfa ba\u015F\u0131na ' + pageNumber + ' kay\u0131t.';
@@ -2383,11 +3242,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return totalRows + ' kay\u0131ttan ' + pageFrom + '-' + pageTo + ' aras\u0131 g\xF6steriliyor.';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Ara';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Eşleşen kayıt bulunamadı.';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Yenile';
@@ -2398,8 +3263,29 @@
       formatColumns: function formatColumns() {
         return 'Sütunlar';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Tüm Satırlar';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2428,7 +3314,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['uk-UA'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Завантаження, будь ласка, зачекайте...';
+        return 'Завантаження, будь ласка, зачекайте';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' \u0437\u0430\u043F\u0438\u0441\u0456\u0432 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443';
@@ -2436,11 +3322,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u041F\u043E\u043A\u0430\u0437\u0430\u043D\u043E \u0437 ' + pageFrom + ' \u043F\u043E ' + pageTo + '. \u0412\u0441\u044C\u043E\u0433\u043E: ' + totalRows;
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Пошук';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Не знайдено жодного запису';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Оновити';
@@ -2451,41 +3343,29 @@
       formatColumns: function formatColumns() {
         return 'Стовпці';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
       formatClearFilters: function formatClearFilters() {
         return 'Очистити фільтри';
       },
-      formatMultipleSort: function formatMultipleSort() {
-        return 'Сортування за кількома стовпцями';
+      formatJumpto: function formatJumpto() {
+        return 'GO';
       },
-      formatAddLevel: function formatAddLevel() {
-        return 'Додати рівень';
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
       },
-      formatDeleteLevel: function formatDeleteLevel() {
-        return 'Видалити рівень';
-      },
-      formatColumn: function formatColumn() {
-        return 'Стовпець';
-      },
-      formatOrder: function formatOrder() {
-        return 'Порядок';
-      },
-      formatSortBy: function formatSortBy() {
-        return 'Сортувати за';
-      },
-      formatThenBy: function formatThenBy() {
-        return 'потім за';
-      },
-      formatSort: function formatSort() {
-        return 'Сортувати';
-      },
-      formatCancel: function formatCancel() {
-        return 'Скасувати';
-      },
-      formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-        return 'Дублювання стовпців!';
-      },
-      formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-        return 'Видаліть, будь ласка, дублюючий стовпець, або замініть його на інший.';
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2522,11 +3402,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u062F\u06CC\u06A9\u06BE\u06CC\u06BA ' + pageFrom + ' \u0633\u06D2 ' + pageTo + ' \u06A9\u06D2 ' + totalRows + '\u0631\u06CC\u06A9\u0627\u0631\u0688\u0632';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'تلاش';
       },
       formatNoMatches: function formatNoMatches() {
         return 'کوئی ریکارڈ نہیں ملا';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'تازہ کریں';
@@ -2536,6 +3422,30 @@
       },
       formatColumns: function formatColumns() {
         return 'کالم';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2564,13 +3474,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Yuklanyapti, iltimos kuting...';
+        return 'Yuklanyapti, iltimos kuting';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' qator har sahifada';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Ko\'rsatypati ' + pageFrom + ' dan ' + pageTo + ' gacha ' + totalRows + ' qatorlarni';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Qidirish';
@@ -2590,14 +3503,29 @@
       formatColumns: function formatColumns() {
         return 'Ustunlar';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Hammasi';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Eksport';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Filtrlarni tozalash';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2626,7 +3554,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['vi-VN'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Đang tải...';
+        return 'Đang tải';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' b\u1EA3n ghi m\u1ED7i trang';
@@ -2634,11 +3562,50 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Hi\u1EC3n th\u1ECB t\u1EEB trang ' + pageFrom + ' \u0111\u1EBFn ' + pageTo + ' c\u1EE7a ' + totalRows + ' b\u1EA3ng ghi';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Tìm kiếm';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Không có dữ liệu';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
+      },
+      formatRefresh: function formatRefresh() {
+        return 'Refresh';
+      },
+      formatToggle: function formatToggle() {
+        return 'Toggle';
+      },
+      formatColumns: function formatColumns() {
+        return 'Columns';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
@@ -2667,13 +3634,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['zh-CN'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return '正在努力地加载数据中，请稍候……';
+        return '正在努力地加载数据中，请稍候';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return '\u6BCF\u9875\u663E\u793A ' + pageNumber + ' \u6761\u8BB0\u5F55';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u663E\u793A\u7B2C ' + pageFrom + ' \u5230\u7B2C ' + pageTo + ' \u6761\u8BB0\u5F55\uFF0C\u603B\u5171 ' + totalRows + ' \u6761\u8BB0\u5F55';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return '\u603B\u5171 ' + totalRows + ' \u6761\u8BB0\u5F55';
       },
       formatSearch: function formatSearch() {
         return '搜索';
@@ -2693,11 +3663,29 @@
       formatColumns: function formatColumns() {
         return '列';
       },
+      formatFullscreen: function formatFullscreen() {
+        return '全屏';
+      },
+      formatAllRows: function formatAllRows() {
+        return '所有';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return '自动刷新';
+      },
       formatExport: function formatExport() {
         return '导出数据';
       },
       formatClearFilters: function formatClearFilters() {
         return '清空过滤';
+      },
+      formatJumpto: function formatJumpto() {
+        return '跳转';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return '高级搜索';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return '关闭';
       }
     };
 
@@ -2726,13 +3714,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['zh-TW'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return '正在努力地載入資料，請稍候……';
+        return '正在努力地載入資料，請稍候';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return '\u6BCF\u9801\u986F\u793A ' + pageNumber + ' \u9805\u8A18\u9304';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u986F\u793A\u7B2C ' + pageFrom + ' \u5230\u7B2C ' + pageTo + ' \u9805\u8A18\u9304\uFF0C\u7E3D\u5171 ' + totalRows + ' \u9805\u8A18\u9304';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return '\u7E3D\u5171 ' + totalRows + ' \u9805\u8A18\u9304';
       },
       formatSearch: function formatSearch() {
         return '搜尋';
@@ -2751,6 +3742,30 @@
       },
       formatColumns: function formatColumns() {
         return '列';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return '全屏';
+      },
+      formatAllRows: function formatAllRows() {
+        return '所有';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return '自動刷新';
+      },
+      formatExport: function formatExport() {
+        return '導出數據';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return '清空過濾';
+      },
+      formatJumpto: function formatJumpto() {
+        return '跳轉';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return '高級搜尋';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return '關閉';
       }
     };
 

@@ -21,13 +21,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['fr-FR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Chargement en cours, patientez, s´il vous plaît ...';
+        return 'Chargement en cours, patientez, s´il vous plaît';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' lignes par page';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Affichage des lignes ' + pageFrom + ' \xE0 ' + pageTo + ' sur ' + totalRows + ' lignes au total';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Rechercher';
@@ -47,8 +50,14 @@
       formatColumns: function formatColumns() {
         return 'Colonnes';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Tous';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Exporter les données';
@@ -56,44 +65,8 @@
       formatClearFilters: function formatClearFilters() {
         return 'Vider les filtres';
       },
-      formatMultipleSort: function formatMultipleSort() {
-        return 'Tri avancé';
-      },
-      formatAddLevel: function formatAddLevel() {
-        return 'Ajouter un niveau';
-      },
-      formatDeleteLevel: function formatDeleteLevel() {
-        return 'Supprimer un niveau';
-      },
-      formatColumn: function formatColumn() {
-        return 'Colonne';
-      },
-      formatOrder: function formatOrder() {
-        return 'Ordre';
-      },
-      formatSortBy: function formatSortBy() {
-        return 'Trier par';
-      },
-      formatThenBy: function formatThenBy() {
-        return 'Puis par';
-      },
-      formatSort: function formatSort() {
-        return 'Trier';
-      },
-      formatCancel: function formatCancel() {
-        return 'Annuler';
-      },
-      formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-        return 'Doublon(s) détecté(s)!';
-      },
-      formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-        return 'Supprimez ou changez les colonnes dupliquées.';
-      },
-      formatSortOrders: function formatSortOrders() {
-        return {
-          asc: 'Croissant',
-          desc: 'Décroissant'
-        };
+      formatJumpto: function formatJumpto() {
+        return 'GO';
       },
       formatAdvancedSearch: function formatAdvancedSearch() {
         return 'Recherche avancée';

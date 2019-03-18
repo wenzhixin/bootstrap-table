@@ -20,13 +20,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['sk-SK'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Prosím čakajte ...';
+        return 'Prosím čakajte';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' z\xE1znamov na stranu';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Zobrazen\xE1 ' + pageFrom + '. - ' + pageTo + '. polo\u017Eka z celkov\xFDch ' + totalRows;
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Vyhľadávanie';
@@ -46,14 +49,29 @@
       formatColumns: function formatColumns() {
         return 'Stĺpce';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Všetky';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Exportuj dáta';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Odstráň filtre';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

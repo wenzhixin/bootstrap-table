@@ -20,7 +20,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['nl-NL'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Laden, even geduld...';
+        return 'Laden, even geduld';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' records per pagina';
@@ -37,6 +37,9 @@
       formatNoMatches: function formatNoMatches() {
         return 'Geen resultaten gevonden';
       },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Verberg/Toon paginatie';
+      },
       formatRefresh: function formatRefresh() {
         return 'Vernieuwen';
       },
@@ -46,17 +49,29 @@
       formatColumns: function formatColumns() {
         return 'Kolommen';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Alle';
       },
-      formatPaginationSwitch: function formatPaginationSwitch() {
-        return 'Verberg/Toon paginatie';
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Exporteer data';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Verwijder filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

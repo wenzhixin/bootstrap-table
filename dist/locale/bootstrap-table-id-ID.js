@@ -20,13 +20,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['id-ID'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Memuat, mohon tunggu...';
+        return 'Memuat, mohon tunggu';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' baris per halaman';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Menampilkan ' + pageFrom + ' sampai ' + pageTo + ' dari ' + totalRows + ' baris';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Pencarian';
@@ -46,14 +49,29 @@
       formatColumns: function formatColumns() {
         return 'kolom';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Semua';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Ekspor data';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Bersihkan filter';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

@@ -95,7 +95,7 @@
 
   /**
    * @author zhixin wen <wenzhixin2010@gmail.com>
-   * version: 1.14.1
+   * version: 1.14.2
    * https://github.com/wenzhixin/bootstrap-table/
    */
 
@@ -165,9 +165,9 @@
           toggleOff: 'fa-toggle-off',
           toggleOn: 'fa-toggle-on',
           columns: 'fa-th-list',
+          fullscreen: 'fa-arrows-alt',
           detailOpen: 'fa-plus',
-          detailClose: 'fa-minus',
-          fullscreen: 'fa-arrows-alt'
+          detailClose: 'fa-minus'
         },
         classes: {
           buttonsPrefix: 'btn',
@@ -216,6 +216,18 @@
           return arg;
         });
         return flag ? str : '';
+      },
+      isEmptyObject: function isEmptyObject() {
+        var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+        return function (target) {
+          return Object.keys(target).map(function (key) {
+            return [key, target[key]];
+          });
+        }(obj).length === 0 && obj.constructor === Object;
+      },
+      isNumeric: function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
       },
       getFieldTitle: function getFieldTitle(list, value) {
         for (var _iterator = list, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
@@ -681,16 +693,16 @@
     var LOCALES = {};
     LOCALES['en-US'] = LOCALES.en = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Loading, please wait...';
+        return 'Loading, please wait';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-        return Utils.sprintf('%s rows per page', pageNumber);
+        return pageNumber + ' rows per page';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
-        return Utils.sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
+        return 'Showing ' + pageFrom + ' to ' + pageTo + ' of ' + totalRows + ' rows';
       },
       formatDetailPagination: function formatDetailPagination(totalRows) {
-        return Utils.sprintf('Showing %s rows', totalRows);
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Search';
@@ -707,11 +719,11 @@
       formatToggle: function formatToggle() {
         return 'Toggle';
       },
-      formatFullscreen: function formatFullscreen() {
-        return 'Fullscreen';
-      },
       formatColumns: function formatColumns() {
         return 'Columns';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
       },
       formatAllRows: function formatAllRows() {
         return 'All';
@@ -847,7 +859,7 @@
           var topPagination = ['top', 'both'].indexOf(this.options.paginationVAlign) !== -1 ? '<div class="fixed-table-pagination clearfix"></div>' : '';
           var bottomPagination = ['bottom', 'both'].indexOf(this.options.paginationVAlign) !== -1 ? '<div class="fixed-table-pagination"></div>' : '';
 
-          this.$container = $('\n        <div class="bootstrap-table">\n        <div class="fixed-table-toolbar"></div>\n        ' + topPagination + '\n        <div class="fixed-table-container">\n        <div class="fixed-table-header"><table></table></div>\n        <div class="fixed-table-body">\n        <div class="fixed-table-loading">\n        ' + this.options.formatLoadingMessage() + '\n        </div>\n        </div>\n        <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>\n        </div>\n        ' + bottomPagination + '\n        </div>\n      ');
+          this.$container = $('\n        <div class="bootstrap-table">\n        <div class="fixed-table-toolbar"></div>\n        ' + topPagination + '\n        <div class="fixed-table-container">\n        <div class="fixed-table-header"><table></table></div>\n        <div class="fixed-table-body">\n        <div class="fixed-table-loading">\n        <span class="loading-wrap">\n        <span class="loading-text">' + this.options.formatLoadingMessage() + '</span>\n        <span class="animation-wrap"><span class="animation-dot"></span></span>\n        </span>\n        </div>\n        </div>\n        <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>\n        </div>\n        ' + bottomPagination + '\n        </div>\n      ');
 
           this.$container.insertAfter(this.$el);
           this.$tableContainer = this.$container.find('.fixed-table-container');
@@ -867,6 +879,7 @@
           this.$container.after('<div class="clearfix"></div>');
 
           this.$el.addClass(this.options.classes);
+          this.$tableLoading.addClass(this.options.classes);
 
           if (this.options.height) {
             this.$tableContainer.addClass('fixed-height');
@@ -1141,7 +1154,9 @@
             this.$tableLoading.css('top', this.$header.outerHeight() + 1);
             // Assign the correct sortable arrow
             this.getCaret();
-            $(window).on('resize.bootstrap-table', $.proxy(this.resetWidth, this));
+            $(window).on('resize.bootstrap-table', function (e) {
+              return _this2.resetWidth(e);
+            });
           }
 
           this.$selectAll = this.$header.find('[name="btSelectAll"]');
@@ -1231,7 +1246,7 @@
                 }
 
                 // IF both values are numeric, do a numeric comparison
-                if ($.isNumeric(aa) && $.isNumeric(bb)) {
+                if (Utils.isNumeric(aa) && Utils.isNumeric(bb)) {
                   // Convert numerical values form string to float.
                   aa = parseFloat(aa);
                   bb = parseFloat(bb);
@@ -1381,15 +1396,21 @@
           }
 
           if (o.showPaginationSwitch) {
-            this.$toolbar.find('button[name="paginationSwitch"]').off('click').on('click', $.proxy(this.togglePagination, this));
+            this.$toolbar.find('button[name="paginationSwitch"]').off('click').on('click', function () {
+              return _this4.togglePagination();
+            });
           }
 
           if (o.showFullscreen) {
-            this.$toolbar.find('button[name="fullscreen"]').off('click').on('click', $.proxy(this.toggleFullscreen, this));
+            this.$toolbar.find('button[name="fullscreen"]').off('click').on('click', function () {
+              return _this4.toggleFullscreen();
+            });
           }
 
           if (o.showRefresh) {
-            this.$toolbar.find('button[name="refresh"]').off('click').on('click', $.proxy(this.refresh, this));
+            this.$toolbar.find('button[name="refresh"]').off('click').on('click', function () {
+              return _this4.refresh();
+            });
           }
 
           if (o.showToggle) {
@@ -1455,7 +1476,7 @@
           var currentTarget = _ref15.currentTarget,
               firedByInitSearchText = _ref15.firedByInitSearchText;
 
-          var text = $.trim($(currentTarget).val());
+          var text = $(currentTarget).val().trim();
 
           // trim search input
           if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
@@ -1493,7 +1514,7 @@
             }
 
             var s = this.searchText && (this.options.escape ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase();
-            var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
+            var f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
 
             // Check filter
             this.data = f ? this.options.data.filter(function (item, i) {
@@ -1511,7 +1532,7 @@
                   continue;
                 }
 
-                var key = $.isNumeric(_this5.header.fields[j]) ? parseInt(_this5.header.fields[j], 10) : _this5.header.fields[j];
+                var key = Utils.isNumeric(_this5.header.fields[j]) ? parseInt(_this5.header.fields[j], 10) : _this5.header.fields[j];
                 var column = _this5.columns[_this5.fieldsColumnsIndex[key]];
                 var value = void 0;
 
@@ -1774,10 +1795,18 @@
               o.pageSize = o.formatAllRows();
             }
             // removed the events for last and first, onPageNumber executeds the same logic
-            $pageList.off('click').on('click', $.proxy(this.onPageListChange, this));
-            $pre.off('click').on('click', $.proxy(this.onPagePre, this));
-            $next.off('click').on('click', $.proxy(this.onPageNext, this));
-            $number.off('click').on('click', $.proxy(this.onPageNumber, this));
+            $pageList.off('click').on('click', function (e) {
+              return _this6.onPageListChange(e);
+            });
+            $pre.off('click').on('click', function (e) {
+              return _this6.onPagePre(e);
+            });
+            $next.off('click').on('click', function (e) {
+              return _this6.onPageNext(e);
+            });
+            $number.off('click').on('click', function (e) {
+              return _this6.onPageNumber(e);
+            });
           }
         }
       }, {
@@ -1921,7 +1950,7 @@
             }
           }
 
-          if (item._data && !$.isEmptyObject(item._data)) {
+          if (item._data && !Utils.isEmptyObject(item._data)) {
             for (var _iterator12 = function (target) {
               return Object.keys(target).map(function (key) {
                 return [key, target[key]];
@@ -2053,7 +2082,7 @@
 
             value = Utils.calculateObjectValue(column, _this7.header.formatters[j], [value_, item, i, field], value_);
 
-            if (item['_' + field + '_data'] && !$.isEmptyObject(item['_' + field + '_data'])) {
+            if (item['_' + field + '_data'] && !Utils.isEmptyObject(item['_' + field + '_data'])) {
               for (var _iterator14 = function (target) {
                 return Object.keys(target).map(function (key) {
                   return [key, target[key]];
@@ -2345,7 +2374,7 @@
             }
           }
 
-          if (!$.isEmptyObject(this.filterColumnsPartial)) {
+          if (!Utils.isEmptyObject(this.filterColumnsPartial)) {
             params.filter = JSON.stringify(this.filterColumnsPartial, null);
           }
 
@@ -2359,7 +2388,7 @@
           }
 
           if (!silent) {
-            this.$tableLoading.show();
+            this.showLoading();
           }
           var request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
@@ -2374,7 +2403,7 @@
               _this9.load(res);
               _this9.trigger('load-success', res);
               if (!silent) {
-                _this9.$tableLoading.hide();
+                _this9.hideLoading();
               }
             },
             error: function error(jqXHR) {
@@ -2398,6 +2427,8 @@
             }
             this._xhr = $.ajax(request);
           }
+
+          return data;
         }
       }, {
         key: 'initSearchText',
@@ -2485,18 +2516,24 @@
       }, {
         key: 'resetHeader',
         value: function resetHeader() {
+          var _this12 = this;
+
           // fix #61: the hidden table reset header bug.
           // fix bug: get $el.css('width') error sometime (height = 500)
           clearTimeout(this.timeoutId_);
-          this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), this.$el.is(':hidden') ? 100 : 0);
+          this.timeoutId_ = setTimeout(function () {
+            return _this12.fitHeader();
+          }, this.$el.is(':hidden') ? 100 : 0);
         }
       }, {
         key: 'fitHeader',
         value: function fitHeader() {
-          var _this12 = this;
+          var _this13 = this;
 
           if (this.$el.is(':hidden')) {
-            this.timeoutId_ = setTimeout($.proxy(this.fitHeader, this), 100);
+            this.timeoutId_ = setTimeout(function () {
+              return _this13.fitHeader();
+            }, 100);
             return;
           }
 
@@ -2523,6 +2560,8 @@
           this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
           this.$tableHeader.css('margin-right', scrollWidth).find('table').css('width', this.$el.outerWidth()).html('').attr('class', this.$el.attr('class')).append(this.$header_);
 
+          this.$tableLoading.css('width', this.$el.outerWidth());
+
           var focusedTemp = $('.focus-temp:visible:eq(0)');
           if (focusedTemp.length > 0) {
             focusedTemp.focus();
@@ -2531,7 +2570,7 @@
 
           // fix bug: $.data() is not working as expected after $.append()
           this.$header.find('th[data-field]').each(function (i, el) {
-            _this12.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data());
+            _this13.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data());
           });
 
           var visibleFields = this.getVisibleFields();
@@ -2546,7 +2585,7 @@
             var $this = $(el);
             var index = i;
 
-            if (_this12.options.detailView && !_this12.options.cardView) {
+            if (_this13.options.detailView && !_this13.options.cardView) {
               if (i === 0) {
                 var $thDetail = $ths.filter('.detail');
                 var _zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width();
@@ -2559,7 +2598,7 @@
               return;
             }
 
-            var $th = _this12.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]));
+            var $th = _this13.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]));
             if ($th.length > 1) {
               $th = $($ths[$this[0].cellIndex]);
             }
@@ -2667,10 +2706,12 @@
       }, {
         key: 'fitFooter',
         value: function fitFooter() {
-          var _this13 = this;
+          var _this14 = this;
 
           if (this.$el.is(':hidden')) {
-            setTimeout($.proxy(this.fitFooter, this), 100);
+            setTimeout(function () {
+              return _this14.fitFooter();
+            }, 100);
             return;
           }
 
@@ -2691,7 +2732,7 @@
             var $this = $(el);
             var index = i;
 
-            if (_this13.options.detailView && !_this13.options.cardView) {
+            if (_this14.options.detailView && !_this14.options.cardView) {
               if (i === 0) {
                 var $thDetail = $ths.filter('.detail');
                 var _zoomWidth2 = $thDetail.width() - $thDetail.find('.fht-cell').width();
@@ -2714,7 +2755,7 @@
       }, {
         key: 'horizontalScroll',
         value: function horizontalScroll() {
-          var _this14 = this;
+          var _this15 = this;
 
           // horizontal scroll event
           // TODO: it's probably better improving the layout than binding to scroll event
@@ -2723,12 +2764,12 @@
           this.$tableBody.off('scroll').on('scroll', function (_ref41) {
             var currentTarget = _ref41.currentTarget;
 
-            if (_this14.options.showHeader && _this14.options.height) {
-              _this14.$tableHeader.scrollLeft($(currentTarget).scrollLeft());
+            if (_this15.options.showHeader && _this15.options.height) {
+              _this15.$tableHeader.scrollLeft($(currentTarget).scrollLeft());
             }
 
-            if (_this14.options.showFooter && !_this14.options.cardView) {
-              _this14.$tableFooter.scrollLeft($(currentTarget).scrollLeft());
+            if (_this15.options.showFooter && !_this15.options.cardView) {
+              _this15.$tableFooter.scrollLeft($(currentTarget).scrollLeft());
             }
           });
         }
@@ -2837,7 +2878,7 @@
         key: 'getData',
         value: function getData(useCurrentPage) {
           var data = this.options.data;
-          if (this.searchText || this.options.sortName || !$.isEmptyObject(this.filterColumns) || !$.isEmptyObject(this.filterColumnsPartial)) {
+          if (this.searchText || this.options.sortName || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) {
             data = this.data;
           }
 
@@ -3202,7 +3243,7 @@
       }, {
         key: 'updateCellById',
         value: function updateCellById(params) {
-          var _this15 = this;
+          var _this16 = this;
 
           if (!params.hasOwnProperty('id') || !params.hasOwnProperty('field') || !params.hasOwnProperty('value')) {
             return;
@@ -3214,12 +3255,12 @@
                 field = _ref46.field,
                 value = _ref46.value;
 
-            var rowId = _this15.options.data.indexOf(_this15.getRowByUniqueId(id));
+            var rowId = _this16.options.data.indexOf(_this16.getRowByUniqueId(id));
 
             if (rowId === -1) {
               return;
             }
-            _this15.data[rowId][field] = value;
+            _this16.data[rowId][field] = value;
           });
 
           if (params.reinit === false) {
@@ -3231,28 +3272,28 @@
       }, {
         key: 'getOptions',
         value: function getOptions() {
-          // Deep copy: remove data
-          var options = $.extend({}, this.options);
+          // deep copy and remove data
+          var options = JSON.parse(JSON.stringify(this.options));
           delete options.data;
-          return $.extend(true, {}, options);
+          return options;
         }
       }, {
         key: 'getSelections',
         value: function getSelections() {
-          var _this16 = this;
+          var _this17 = this;
 
           // fix #2424: from html with checkbox
           return this.options.data.filter(function (row) {
-            return row[_this16.header.stateField] === true;
+            return row[_this17.header.stateField] === true;
           });
         }
       }, {
         key: 'getAllSelections',
         value: function getAllSelections() {
-          var _this17 = this;
+          var _this18 = this;
 
           return this.options.data.filter(function (row) {
-            return row[_this17.header.stateField];
+            return row[_this18.header.stateField];
           });
         }
       }, {
@@ -3348,7 +3389,7 @@
       }, {
         key: 'checkBy_',
         value: function checkBy_(checked, obj) {
-          var _this18 = this;
+          var _this19 = this;
 
           if (!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
             return;
@@ -3360,10 +3401,10 @@
               return false;
             }
             if (obj.values.indexOf(row[obj.field]) !== -1) {
-              var $el = _this18.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i)).prop('checked', checked);
-              row[_this18.header.stateField] = checked;
+              var $el = _this19.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i)).prop('checked', checked);
+              row[_this19.header.stateField] = checked;
               rows.push(row);
-              _this18.trigger(checked ? 'check' : 'uncheck', row, $el);
+              _this19.trigger(checked ? 'check' : 'uncheck', row, $el);
             }
           });
           this.updateSelected();
@@ -3381,12 +3422,12 @@
       }, {
         key: 'showLoading',
         value: function showLoading() {
-          this.$tableLoading.show();
+          this.$tableLoading.css('display', 'flex');
         }
       }, {
         key: 'hideLoading',
         value: function hideLoading() {
-          this.$tableLoading.hide();
+          this.$tableLoading.css('display', 'none');
         }
       }, {
         key: 'togglePagination',
@@ -3413,8 +3454,7 @@
           if (params && params.pageSize) {
             this.options.pageSize = params.pageSize;
           }
-          this.initServer(params && params.silent, params && params.query, params && params.url);
-          this.trigger('refresh', params);
+          this.trigger('refresh', this.initServer(params && params.silent, params && params.query, params && params.url));
         }
       }, {
         key: 'resetWidth',
@@ -3497,7 +3537,7 @@
       }, {
         key: 'filterBy',
         value: function filterBy(columns) {
-          this.filterColumns = $.isEmptyObject(columns) ? {} : columns;
+          this.filterColumns = Utils.isEmptyObject(columns) ? {} : columns;
           this.options.pageNumber = 1;
           this.initSearch();
           this.updatePagination();
@@ -3595,7 +3635,7 @@
       }, {
         key: 'expandAllRows',
         value: function expandAllRows(isSubTable) {
-          var _this19 = this;
+          var _this20 = this;
 
           if (isSubTable) {
             var $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"]', 0));
@@ -3614,7 +3654,7 @@
             if (executeInterval) {
               try {
                 idInterval = setInterval(function () {
-                  detailIcon = _this19.$body.find('tr.detail-view').last().find('.detail-icon');
+                  detailIcon = _this20.$body.find('tr.detail-view').last().find('.detail-icon');
                   if (detailIcon.length > 0) {
                     detailIcon.click();
                   } else {

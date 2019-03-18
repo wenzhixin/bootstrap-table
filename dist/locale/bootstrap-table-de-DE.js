@@ -20,7 +20,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['de-DE'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Lade, bitte warten...';
+        return 'Lade, bitte warten';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' Zeilen pro Seite.';
@@ -49,14 +49,29 @@
       formatColumns: function formatColumns() {
         return 'Spalten';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Alle';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Datenexport';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Lösche Filter';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

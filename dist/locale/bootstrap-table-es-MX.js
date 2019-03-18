@@ -22,7 +22,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['es-MX'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Cargando, espere por favor...';
+        return 'Cargando, espere por favor';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' registros por p\xE1gina';
@@ -48,14 +48,32 @@
       formatToggle: function formatToggle() {
         return 'Cambiar vista';
       },
-      formatFullscreen: function formatFullscreen() {
-        return 'Pantalla completa';
-      },
       formatColumns: function formatColumns() {
         return 'Columnas';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Pantalla completa';
+      },
       formatAllRows: function formatAllRows() {
         return 'Todo';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 
