@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Commonly asked questions about Bootstrap Table’s open source license.">
+<meta name="description" content="Table Fixed columns extension of Bootstrap Table.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
 <meta name="generator" content="Jekyll v3.8.5">
 <meta name="keywords" content="table, bootstrap, bootstrap plugin, bootstrap resources, bootstrap table, jQuery plugin">
 
 <meta name="docsearch:language" content="en">
 
-<title>License FAQs · Bootstrap Table</title>
+<title>Table Fixed Columns · Bootstrap Table</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><!-- Documentation extras -->
 
@@ -177,7 +177,7 @@
             Localizations
           </a>
         </li></ul>
-  </div><div class="bd-toc-item">
+  </div><div class="bd-toc-item active">
     <a class="bd-toc-link" href="/docs/extensions/accent-neutralise/">
       Extensions
     </a>
@@ -301,7 +301,7 @@
     </a>
 
     <ul class="nav bd-sidenav"></ul>
-  </div><div class="bd-toc-item active">
+  </div><div class="bd-toc-item">
     <a class="bd-toc-link" href="/docs/about/overview/">
       About
     </a>
@@ -314,7 +314,7 @@
           <a href="/docs/about/team/">
             Team
           </a>
-        </li><li class="active bd-sidenav-active">
+        </li><li>
           <a href="/docs/about/license/">
             License
           </a>
@@ -328,47 +328,62 @@
         </div>
 
         
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#fixedcolumns">fixedColumns</a></li>
+<li class="toc-entry toc-h3"><a href="#fixednumber">fixedNumber</a></li>
+</ul>
+</li>
+</ul>
+          </div>
+        
 
-        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content about" role="main">
-          <h1 class="bd-title" id="content">License FAQs</h1>
-          <p class="bd-lead">Commonly asked questions about Bootstrap Table’s open source license.</p>
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content extensions" role="main">
+          <h1 class="bd-title" id="content">Table Fixed Columns</h1>
+          <p class="bd-lead">Table Fixed columns extension of Bootstrap Table.</p>
           <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CK7DL2J7&placement=bootstrap-tablecom" id="_carbonads_js"></script>
 
-          <p>Bootstrap Table is released under the MIT license and is copyright 2019 Zhixin Wen. Boiled down to smaller chunks, it can be described with the following conditions.</p>
+          <h2 id="usage">Usage</h2>
 
-<h4 id="it-requires-you-to">It requires you to:</h4>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">src=</span><span class="s">"extensions/fixed-columns/bootstrap-table-fixed-columns.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/fixed-columns/bootstrap-table-fixed-columns.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
-<ul>
-  <li>Keep the license and copyright notice included in Bootstrap Table’s CSS and JavaScript files when you use them in your works</li>
-</ul>
+<h2 id="options">Options</h2>
 
-<h4 id="it-permits-you-to">It permits you to:</h4>
-
-<ul>
-  <li>Freely download and use Bootstrap Table, in whole or in part, for personal, private, company internal, or commercial purposes</li>
-  <li>Use Bootstrap Table in packages or distributions that you create</li>
-  <li>Modify the source code</li>
-  <li>Grant a sublicense to modify and distribute Bootstrap Table to third parties not included in the license</li>
-</ul>
-
-<h4 id="it-forbids-you-to">It forbids you to:</h4>
+<h3 id="fixedcolumns">fixedColumns</h3>
 
 <ul>
-  <li>Hold the authors and license owners liable for damages as Bootstrap Table is provided without warranty</li>
-  <li>Hold the creators or copyright holders of Bootstrap Table liable</li>
-  <li>Redistribute any piece of Bootstrap Table without proper attribution</li>
-  <li>Use any marks owned by Zhixin Wen in any way that might state or imply that Zhixin Wen endorses your distribution</li>
-  <li>Use any marks owned by Zhixin Wen in any way that might state or imply that you created the Zhixin Wen software in question</li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>set <code class="highlighter-rouge">true</code> to enable fixed columns.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
 </ul>
 
-<h4 id="it-does-not-require-you-to">It does not require you to:</h4>
+<h3 id="fixednumber">fixedNumber</h3>
 
 <ul>
-  <li>Include the source of Bootstrap Table itself, or of any modifications you may have made to it, in any redistribution you may assemble that includes it</li>
-  <li>Submit changes that you make to Bootstrap Table back to the Bootstrap Table project (though such feedback is encouraged)</li>
-</ul>
+  <li>
+    <p><strong>type:</strong> Number</p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
 
-<p>The full Bootstrap Table license is located <a href="https://github.com/wenzhixin/bootstrap-table/blob/1.14.2/LICENSE">in the project repository</a> for more information.</p>
+    <p>the number of fixed columns.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">1</code></p>
+  </li>
+</ul>
 
         </main>
       </div>
