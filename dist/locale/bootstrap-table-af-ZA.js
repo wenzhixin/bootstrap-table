@@ -20,13 +20,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['af-ZA'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Besig om te laai, wag asseblief ...';
+        return 'Besig om te laai, wag asseblief';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rekords per bladsy';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Resultate ' + pageFrom + ' tot ' + pageTo + ' van ' + totalRows + ' rye';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Soek';
@@ -45,6 +48,30 @@
       },
       formatColumns: function formatColumns() {
         return 'Kolomme';
+      },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

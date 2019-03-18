@@ -21,13 +21,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['hr-HR'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Molimo pričekajte ...';
+        return 'Molimo pričekajte';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' broj zapisa po stranici';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Prikazujem ' + pageFrom + '. - ' + pageTo + '. od ukupnog broja zapisa ' + totalRows;
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Pretraži';
@@ -47,8 +50,29 @@
       formatColumns: function formatColumns() {
         return 'Kolone';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Sve';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

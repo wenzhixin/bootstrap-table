@@ -5,13 +5,16 @@
 ($ => {
   $.fn.bootstrapTable.locales['fi-FI'] = {
     formatLoadingMessage () {
-      return 'Ladataan, ole hyvä ja odota...'
+      return 'Ladataan, ole hyvä ja odota'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} riviä sivulla`
     },
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows}`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
     },
     formatSearch () {
       return 'Hae'
@@ -31,14 +34,29 @@
     formatColumns () {
       return 'Sarakkeet'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Kaikki'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
     },
     formatExport () {
       return 'Vie tiedot'
     },
     formatClearFilters () {
       return 'Poista suodattimet'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

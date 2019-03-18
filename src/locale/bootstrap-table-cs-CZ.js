@@ -6,13 +6,16 @@
 ($ => {
   $.fn.bootstrapTable.locales['cs-CZ'] = {
     formatLoadingMessage () {
-      return 'Čekejte, prosím...'
+      return 'Čekejte, prosím'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} položek na stránku`
     },
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Zobrazena ${pageFrom}. - ${pageTo}. položka z celkových ${totalRows}`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
     },
     formatSearch () {
       return 'Vyhledávání'
@@ -32,8 +35,29 @@
     formatColumns () {
       return 'Sloupce'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Vše'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

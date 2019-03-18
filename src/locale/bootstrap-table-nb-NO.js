@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['nb-NO'] = {
     formatLoadingMessage () {
-      return 'Oppdaterer, vennligst vent...'
+      return 'Oppdaterer, vennligst vent'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} poster pr side`
@@ -13,11 +13,17 @@
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Viser ${pageFrom} til ${pageTo} av ${totalRows} rekker`
     },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
     formatSearch () {
       return 'Søk'
     },
     formatNoMatches () {
       return 'Ingen poster funnet'
+    },
+    formatPaginationSwitch () {
+      return 'Hide/Show pagination'
     },
     formatRefresh () {
       return 'Oppdater'
@@ -27,6 +33,30 @@
     },
     formatColumns () {
       return 'Kolonner'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'All'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

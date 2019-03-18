@@ -5,13 +5,16 @@
 ($ => {
   $.fn.bootstrapTable.locales['ro-RO'] = {
     formatLoadingMessage () {
-      return 'Se incarca, va rugam asteptati...'
+      return 'Se incarca, va rugam asteptati'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} inregistrari pe pagina`
     },
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Arata de la ${pageFrom} pana la ${pageTo} din ${totalRows} randuri`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
     },
     formatSearch () {
       return 'Cauta'
@@ -31,8 +34,29 @@
     formatColumns () {
       return 'Coloane'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Toate'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

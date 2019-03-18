@@ -20,13 +20,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['hu-HU'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Betöltés, kérem várjon...';
+        return 'Betöltés, kérem várjon';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' rekord per oldal';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Megjelen\xEDtve ' + pageFrom + ' - ' + pageTo + ' / ' + totalRows + ' \xF6sszesen';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Keresés';
@@ -46,8 +49,29 @@
       formatColumns: function formatColumns() {
         return 'Oszlopok';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Összes';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

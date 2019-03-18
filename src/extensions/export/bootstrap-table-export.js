@@ -74,12 +74,13 @@
         return
       }
       const $btnGroup = this.$toolbar.find('>.btn-group')
-      let $export = $btnGroup.find('div.export')
+      this.$export = $btnGroup.find('div.export')
 
-      if ($export.length) {
+      if (this.$export.length) {
+        this.updateExportButton()
         return
       }
-      $export = $(`
+      this.$export = $(`
         <div class="export btn-group">
         <button class="btn btn-${o.buttonsClass} btn-${o.iconSize} dropdown-toggle"
           aria-label="export type"
@@ -93,7 +94,9 @@
         </div>
       `).appendTo($btnGroup)
 
-      const $menu = $export.find('.dropdown-menu')
+      this.updateExportButton()
+
+      const $menu = this.$export.find('.dropdown-menu')
       let exportTypes = o.exportTypes
 
       if (typeof exportTypes === 'string') {
@@ -122,7 +125,7 @@
       const stateField = this.header.stateField
       const isCardView = o.cardView
 
-      const doExport = () => {
+      const doExport = callback => {
         if (stateField) {
           this.hideColumn(stateField)
         }
@@ -153,26 +156,31 @@
           })
         }
 
-        this.$el.tableExport($.extend({}, o.exportOptions, options))
+        this.$el.tableExport($.extend({
+          onAfterSaveToFile: () => {
+            if (o.exportFooter) {
+              this.load(data)
+            }
 
-        if (o.exportFooter) {
-          this.load(data)
-        }
+            if (stateField) {
+              this.showColumn(stateField)
+            }
+            if (isCardView) {
+              this.toggleView()
+            }
 
-        if (stateField) {
-          this.showColumn(stateField)
-        }
-        if (isCardView) {
-          this.toggleView()
-        }
+            callback()
+          }
+        }, o.exportOptions, options))
       }
 
       if (o.exportDataType === 'all' && o.pagination) {
         const eventName = o.sidePagination === 'server'
           ? 'post-body.bs.table' : 'page-change.bs.table'
         this.$el.one(eventName, () => {
-          doExport()
-          this.togglePagination()
+          doExport(() => {
+            this.togglePagination()
+          })
         })
         this.togglePagination()
       } else if (o.exportDataType === 'selected') {
@@ -194,10 +202,23 @@
         }
 
         this.load(selectedData)
-        doExport()
-        this.load(data)
+        doExport(() => {
+          this.load(data)
+        })
       } else {
         doExport()
+      }
+    }
+
+    updateSelected () {
+      super.updateSelected()
+      this.updateExportButton()
+    }
+
+    updateExportButton () {
+      if (this.options.exportDataType === 'selected') {
+        this.$export.find('> button')
+          .prop('disabled', !this.getSelections().length)
       }
     }
   }

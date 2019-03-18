@@ -28,6 +28,9 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u5168' + totalRows + '\u4EF6\u304B\u3089\u3001' + pageFrom + '\u304B\u3089' + pageTo + '\u4EF6\u76EE\u307E\u3067\u8868\u793A\u3057\u3066\u3044\u307E\u3059';
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return '検索';
       },
@@ -46,8 +49,29 @@
       formatColumns: function formatColumns() {
         return '列';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'すべて';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

@@ -20,7 +20,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['da-DK'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Indlæser, vent venligst...';
+        return 'Indlæser, vent venligst';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' poster pr side';
@@ -49,14 +49,29 @@
       formatColumns: function formatColumns() {
         return 'Kolonner';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Alle';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Eksporter';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Ryd filtre';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

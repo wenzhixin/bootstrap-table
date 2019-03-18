@@ -21,13 +21,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['ca-ES'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Espereu, si us plau...';
+        return 'Espereu, si us plau';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' resultats per p\xE0gina';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Mostrant de ' + pageFrom + ' fins ' + pageTo + ' - total ' + totalRows + ' resultats';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Cerca';
@@ -47,8 +50,29 @@
       formatColumns: function formatColumns() {
         return 'Columnes';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Tots';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
+      formatClearFilters: function formatClearFilters() {
+        return 'Clear filters';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

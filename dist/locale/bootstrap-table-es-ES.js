@@ -20,13 +20,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['es-ES'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Por favor espere...';
+        return 'Por favor espere';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' resultados por p\xE1gina';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Mostrando desde ' + pageFrom + ' hasta ' + pageTo + ' - En total ' + totalRows + ' resultados';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Buscar';
@@ -46,8 +49,14 @@
       formatColumns: function formatColumns() {
         return 'Columnas';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Todos';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
 
       formatExport: function formatExport() {
@@ -56,45 +65,10 @@
       formatClearFilters: function formatClearFilters() {
         return 'Borrar los filtros';
       },
-      formatMultipleSort: function formatMultipleSort() {
-        return 'Orden avanzado';
+      formatJumpto: function formatJumpto() {
+        return 'GO';
       },
-      formatAddLevel: function formatAddLevel() {
-        return 'Añadir un nivel';
-      },
-      formatDeleteLevel: function formatDeleteLevel() {
-        return 'Eliminar un nivel';
-      },
-      formatColumn: function formatColumn() {
-        return 'Columna';
-      },
-      formatOrder: function formatOrder() {
-        return 'Orden';
-      },
-      formatSortBy: function formatSortBy() {
-        return 'Ordenar por';
-      },
-      formatThenBy: function formatThenBy() {
-        return 'Y por';
-      },
-      formatSort: function formatSort() {
-        return 'Ordenar';
-      },
-      formatCancel: function formatCancel() {
-        return 'Cancelar';
-      },
-      formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-        return 'Duplicado(s) detectado(s)!';
-      },
-      formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-        return 'Eliminar o cambiar columnas duplicadas.';
-      },
-      formatSortOrders: function formatSortOrders() {
-        return {
-          asc: 'Ascendente',
-          desc: 'Descendente'
-        };
-      },
+
       formatAdvancedSearch: function formatAdvancedSearch() {
         return 'Búsqueda avanzada';
       },

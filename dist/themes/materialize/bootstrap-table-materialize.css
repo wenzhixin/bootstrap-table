@@ -79,15 +79,57 @@
   height: 100%;
 }
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading {
+  align-items: center;
+  background: #fefefe;
   display: none;
+  justify-content: center;
   position: absolute;
-  top: 42px;
-  right: 0;
   bottom: 0;
-  left: 0;
-  z-index: 99;
-  background-color: #fff;
-  text-align: center;
+  width: 100%;
+  z-index: 1000;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap {
+  align-items: baseline;
+  display: flex;
+  justify-content: center;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .loading-text {
+  font-size: 2rem;
+  margin-right: 6px;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-dot,
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap:after,
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap:before {
+  content: "";
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-name: LOADING;
+  background: #0a0a0a;
+  border-radius: 50%;
+  display: block;
+  height: 5px;
+  margin: 0 4px;
+  opacity: 0;
+  width: 5px;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-dot {
+  animation-delay: 0.3s;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap:after {
+  animation-delay: 0.6s;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark {
+  background: #0a0a0a;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-dot,
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-wrap:after,
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-wrap:before {
+  background: #fefefe;
 }
 .bootstrap-table .fixed-table-container .table {
   width: 100%;
@@ -225,6 +267,17 @@ div.fixed-table-scroll-outer {
   overflow: hidden;
 }
 
+@keyframes LOADING {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 .bootstrap-table .float-left {
   float: left;
 }

@@ -5,13 +5,16 @@
 ($ => {
   $.fn.bootstrapTable.locales['he-IL'] = {
     formatLoadingMessage () {
-      return 'טוען, נא להמתין...'
+      return 'טוען, נא להמתין'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} שורות בעמוד`
     },
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `מציג ${pageFrom} עד ${pageTo} מ-${totalRows} שורות`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
     },
     formatSearch () {
       return 'חיפוש'
@@ -31,8 +34,29 @@
     formatColumns () {
       return 'עמודות'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'הכל'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

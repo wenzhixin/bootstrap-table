@@ -20,7 +20,7 @@
   (function ($) {
     $.fn.bootstrapTable.locales['ru-RU'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Пожалуйста, подождите, идёт загрузка...';
+        return 'Пожалуйста, подождите, идёт загрузка';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' \u0437\u0430\u043F\u0438\u0441\u0435\u0439 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443';
@@ -28,11 +28,17 @@
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ' + pageFrom + ' \u043F\u043E ' + pageTo + ' \u0438\u0437 ' + totalRows;
       },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
+      },
       formatSearch: function formatSearch() {
         return 'Поиск';
       },
       formatNoMatches: function formatNoMatches() {
         return 'Ничего не найдено';
+      },
+      formatPaginationSwitch: function formatPaginationSwitch() {
+        return 'Hide/Show pagination';
       },
       formatRefresh: function formatRefresh() {
         return 'Обновить';
@@ -43,41 +49,29 @@
       formatColumns: function formatColumns() {
         return 'Колонки';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
+      formatAllRows: function formatAllRows() {
+        return 'All';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
+      },
+      formatExport: function formatExport() {
+        return 'Export data';
+      },
       formatClearFilters: function formatClearFilters() {
         return 'Очистить фильтры';
       },
-      formatMultipleSort: function formatMultipleSort() {
-        return 'Множественная сортировка';
+      formatJumpto: function formatJumpto() {
+        return 'GO';
       },
-      formatAddLevel: function formatAddLevel() {
-        return 'Добавить уровень';
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
       },
-      formatDeleteLevel: function formatDeleteLevel() {
-        return 'Удалить уровень';
-      },
-      formatColumn: function formatColumn() {
-        return 'Колонка';
-      },
-      formatOrder: function formatOrder() {
-        return 'Порядок';
-      },
-      formatSortBy: function formatSortBy() {
-        return 'Сортировать по';
-      },
-      formatThenBy: function formatThenBy() {
-        return 'затем по';
-      },
-      formatSort: function formatSort() {
-        return 'Сортировать';
-      },
-      formatCancel: function formatCancel() {
-        return 'Отмена';
-      },
-      formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-        return 'Дублирование колонок!';
-      },
-      formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-        return 'Удалите, пожалуйста, дублирующую колонку, или замените ее на другую.';
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

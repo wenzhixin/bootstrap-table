@@ -20,13 +20,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['zh-CN'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return '正在努力地加载数据中，请稍候……';
+        return '正在努力地加载数据中，请稍候';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return '\u6BCF\u9875\u663E\u793A ' + pageNumber + ' \u6761\u8BB0\u5F55';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return '\u663E\u793A\u7B2C ' + pageFrom + ' \u5230\u7B2C ' + pageTo + ' \u6761\u8BB0\u5F55\uFF0C\u603B\u5171 ' + totalRows + ' \u6761\u8BB0\u5F55';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return '\u603B\u5171 ' + totalRows + ' \u6761\u8BB0\u5F55';
       },
       formatSearch: function formatSearch() {
         return '搜索';
@@ -46,11 +49,29 @@
       formatColumns: function formatColumns() {
         return '列';
       },
+      formatFullscreen: function formatFullscreen() {
+        return '全屏';
+      },
+      formatAllRows: function formatAllRows() {
+        return '所有';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return '自动刷新';
+      },
       formatExport: function formatExport() {
         return '导出数据';
       },
       formatClearFilters: function formatClearFilters() {
         return '清空过滤';
+      },
+      formatJumpto: function formatJumpto() {
+        return '跳转';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return '高级搜索';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return '关闭';
       }
     };
 

@@ -5,13 +5,16 @@
 ($ => {
   $.fn.bootstrapTable.locales['hu-HU'] = {
     formatLoadingMessage () {
-      return 'Betöltés, kérem várjon...'
+      return 'Betöltés, kérem várjon'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rekord per oldal`
     },
     formatShowingRows (pageFrom, pageTo, totalRows) {
       return `Megjelenítve ${pageFrom} - ${pageTo} / ${totalRows} összesen`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
     },
     formatSearch () {
       return 'Keresés'
@@ -31,8 +34,29 @@
     formatColumns () {
       return 'Oszlopok'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Összes'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 

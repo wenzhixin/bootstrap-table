@@ -22,13 +22,16 @@
   (function ($) {
     $.fn.bootstrapTable.locales['it-IT'] = {
       formatLoadingMessage: function formatLoadingMessage() {
-        return 'Caricamento in corso...';
+        return 'Caricamento in corso';
       },
       formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
         return pageNumber + ' elementi per pagina';
       },
       formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows) {
         return 'Visualizzazione da ' + pageFrom + ' a ' + pageTo + ' di ' + totalRows + ' elementi';
+      },
+      formatDetailPagination: function formatDetailPagination(totalRows) {
+        return 'Showing ' + totalRows + ' rows';
       },
       formatSearch: function formatSearch() {
         return 'Cerca';
@@ -48,14 +51,29 @@
       formatColumns: function formatColumns() {
         return 'Colonne';
       },
+      formatFullscreen: function formatFullscreen() {
+        return 'Fullscreen';
+      },
       formatAllRows: function formatAllRows() {
         return 'Tutto';
+      },
+      formatAutoRefresh: function formatAutoRefresh() {
+        return 'Auto Refresh';
       },
       formatExport: function formatExport() {
         return 'Esporta dati';
       },
       formatClearFilters: function formatClearFilters() {
         return 'Pulisci filtri';
+      },
+      formatJumpto: function formatJumpto() {
+        return 'GO';
+      },
+      formatAdvancedSearch: function formatAdvancedSearch() {
+        return 'Advanced search';
+      },
+      formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+        return 'Close';
       }
     };
 

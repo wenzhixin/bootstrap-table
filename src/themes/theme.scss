@@ -99,15 +99,65 @@
       height: 100%;
 
       .fixed-table-loading {
+        align-items: center;
+        background: $background;
         display: none;
+        justify-content: center;
         position: absolute;
-        top: 42px;
-        right: 0;
         bottom: 0;
-        left: 0;
-        z-index: 99;
-        background-color: #fff;
-        text-align: center;
+        width: 100%;
+        z-index: 1000;
+
+        .loading-wrap {
+          align-items: baseline;
+          display: flex;
+          justify-content: center;
+
+          .loading-text {
+            font-size: 2rem;
+            margin-right: 6px;
+          }
+
+          .animation-wrap {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+          }
+
+          .animation-dot,
+          .animation-wrap:after,
+          .animation-wrap:before {
+            content: "";
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+            animation-name: LOADING;
+            background: $color;
+            border-radius: 50%;
+            display: block;
+            height: 5px;
+            margin: 0 4px;
+            opacity: 0;
+            width: 5px;
+          }
+
+          .animation-dot {
+            animation-delay: .3s;
+          }
+
+          .animation-wrap:after{
+            animation-delay:.6s;
+          }
+        }
+
+        &.table-dark {
+          background: $color;
+
+          .animation-dot,
+          .animation-wrap:after,
+          .animation-wrap:before {
+            background: $background;
+          }
+        }
       }
     }
 
@@ -286,4 +336,10 @@ div.fixed-table-scroll-outer {
   width: 200px;
   height: 150px;
   overflow: hidden;
+}
+
+@keyframes LOADING{
+  0% { opacity:0; }
+  50% { opacity:1; }
+  to { opacity:0; }
 }

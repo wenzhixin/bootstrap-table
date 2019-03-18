@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['da-DK'] = {
     formatLoadingMessage () {
-      return 'Indlæser, vent venligst...'
+      return 'Indlæser, vent venligst'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} poster pr side`
@@ -34,14 +34,29 @@
     formatColumns () {
       return 'Kolonner'
     },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
     formatAllRows () {
       return 'Alle'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
     },
     formatExport () {
       return 'Eksporter'
     },
     formatClearFilters () {
       return 'Ryd filtre'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
   }
 
