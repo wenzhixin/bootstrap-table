@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['da-DK'] = {
     formatLoadingMessage () {
-      return 'Indlæser, vent venligst...'
+      return 'Indlæser, vent venligst'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} poster pr side`

@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['ar-SA'] = {
     formatLoadingMessage () {
-      return 'جاري التحميل, يرجى الإنتظار...'
+      return 'جاري التحميل, يرجى الإنتظار'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} سجل لكل صفحة`

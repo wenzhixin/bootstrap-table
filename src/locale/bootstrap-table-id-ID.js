@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['id-ID'] = {
     formatLoadingMessage () {
-      return 'Memuat, mohon tunggu...'
+      return 'Memuat, mohon tunggu'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} baris per halaman`

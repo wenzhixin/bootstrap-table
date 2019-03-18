@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['zh-CN'] = {
     formatLoadingMessage () {
-      return '正在努力地加载数据中，请稍候……'
+      return '正在努力地加载数据中，请稍候'
     },
     formatRecordsPerPage (pageNumber) {
       return `每页显示 ${pageNumber} 条记录`

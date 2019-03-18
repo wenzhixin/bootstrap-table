@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['hu-HU'] = {
     formatLoadingMessage () {
-      return 'Betöltés, kérem várjon...'
+      return 'Betöltés, kérem várjon'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rekord per oldal`

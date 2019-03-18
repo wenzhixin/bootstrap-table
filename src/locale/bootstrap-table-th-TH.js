@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['th-TH'] = {
     formatLoadingMessage () {
-      return 'กำลังโหลดข้อมูล, กรุณารอสักครู่...'
+      return 'กำลังโหลดข้อมูล, กรุณารอสักครู่'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} รายการต่อหน้า`

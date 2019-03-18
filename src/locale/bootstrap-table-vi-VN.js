@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['vi-VN'] = {
     formatLoadingMessage () {
-      return 'Đang tải...'
+      return 'Đang tải'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} bản ghi mỗi trang`

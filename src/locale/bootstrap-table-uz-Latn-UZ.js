@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
     formatLoadingMessage () {
-      return 'Yuklanyapti, iltimos kuting...'
+      return 'Yuklanyapti, iltimos kuting'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} qator har sahifada`

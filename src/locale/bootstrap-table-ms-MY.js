@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['ms-MY'] = {
     formatLoadingMessage () {
-      return 'Permintaan sedang dimuatkan. Sila tunggu sebentar...'
+      return 'Permintaan sedang dimuatkan. Sila tunggu sebentar'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rekod setiap muka surat`

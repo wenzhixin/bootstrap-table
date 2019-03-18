@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['eu-EU'] = {
     formatLoadingMessage () {
-      return 'Itxaron mesedez...'
+      return 'Itxaron mesedez'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} emaitza orriko.`

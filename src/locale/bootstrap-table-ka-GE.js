@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['ka-GE'] = {
     formatLoadingMessage () {
-      return 'იტვირთება, გთხოვთ მოიცადოთ...'
+      return 'იტვირთება, გთხოვთ მოიცადოთ'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} ჩანაწერი თითო გვერდზე`

@@ -497,7 +497,7 @@
   const LOCALES = {}
   LOCALES['en-US'] = LOCALES.en = {
     formatLoadingMessage () {
-      return 'Loading, please wait...'
+      return 'Loading, please wait'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rows per page`
@@ -670,7 +670,10 @@
         <div class="fixed-table-header"><table></table></div>
         <div class="fixed-table-body">
         <div class="fixed-table-loading">
-        ${this.options.formatLoadingMessage()}
+        <span class="loading-wrap">
+        <span class="loading-text">${this.options.formatLoadingMessage()}</span>
+        <span class="animation-wrap"><span class="animation-dot"></span></span>
+        </span>
         </div>
         </div>
         <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
@@ -697,6 +700,7 @@
       this.$container.after('<div class="clearfix"></div>')
 
       this.$el.addClass(this.options.classes)
+      this.$tableLoading.addClass(this.options.classes)
 
       if (this.options.height) {
         this.$tableContainer.addClass('fixed-height')
@@ -2132,7 +2136,7 @@
       }
 
       if (!silent) {
-        this.$tableLoading.show()
+        this.showLoading()
       }
       const request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
         type: this.options.method,
@@ -2149,7 +2153,7 @@
           this.load(res)
           this.trigger('load-success', res)
           if (!silent) {
-            this.$tableLoading.hide()
+            this.hideLoading()
           }
         },
         error: jqXHR => {
@@ -2275,6 +2279,8 @@
         .find('table').css('width', this.$el.outerWidth())
         .html('').attr('class', this.$el.attr('class'))
         .append(this.$header_)
+
+      this.$tableLoading.css('width', this.$el.outerWidth())
 
       const focusedTemp = $('.focus-temp:visible:eq(0)')
       if (focusedTemp.length > 0) {
@@ -2989,11 +2995,11 @@
     }
 
     showLoading () {
-      this.$tableLoading.show()
+      this.$tableLoading.css('display', 'flex')
     }
 
     hideLoading () {
-      this.$tableLoading.hide()
+      this.$tableLoading.css('display', 'none')
     }
 
     togglePagination () {

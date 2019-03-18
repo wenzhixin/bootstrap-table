@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['ko-KR'] = {
     formatLoadingMessage () {
-      return '데이터를 불러오는 중입니다...'
+      return '데이터를 불러오는 중입니다'
     },
     formatRecordsPerPage (pageNumber) {
       return `페이지 당 ${pageNumber}개 데이터 출력`

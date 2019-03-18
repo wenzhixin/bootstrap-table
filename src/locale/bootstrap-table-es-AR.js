@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['es-AR'] = {
     formatLoadingMessage () {
-      return 'Cargando, espere por favor...'
+      return 'Cargando, espere por favor'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} registros por página`

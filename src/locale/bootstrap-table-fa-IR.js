@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['fa-IR'] = {
     formatLoadingMessage () {
-      return 'در حال بارگذاری, لطفا صبر کنید...'
+      return 'در حال بارگذاری, لطفا صبر کنید'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} رکورد در صفحه`

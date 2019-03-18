@@ -5,7 +5,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['sv-SE'] = {
     formatLoadingMessage () {
-      return 'Laddar, vänligen vänta...'
+      return 'Laddar, vänligen vänta'
     },
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rader per sida`

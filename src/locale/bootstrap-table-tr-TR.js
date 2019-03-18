@@ -6,7 +6,7 @@
 ($ => {
   $.fn.bootstrapTable.locales['tr-TR'] = {
     formatLoadingMessage () {
-      return 'Yükleniyor, lütfen bekleyin...'
+      return 'Yükleniyor, lütfen bekleyin'
     },
     formatRecordsPerPage (pageNumber) {
       return `Sayfa başına ${pageNumber} kayıt.`
