@@ -1,7 +1,23 @@
 {
     "name": "wenzhixin/bootstrap-table",
-    "description": "An extended Bootstrap table with radio, checkbox, sort, pagination and other features.",
-    "keywords": ["bootstrap","table","tablesort","pagination"],
+    "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
+    "keywords": [
+        "bootstrap",
+        "table",
+        "pagination",
+        "checkbox",
+        "radio",
+        "datatables",
+        "css",
+        "css-framework",
+        "semantic",
+        "semantic-ui",
+        "bulma",
+        "material",
+        "material-design",
+        "materialize",
+        "foundation"
+    ]
     "type": "component",
     "homepage": "https://github.com/wenzhixin/bootstrap-table",
     "license": "MIT",

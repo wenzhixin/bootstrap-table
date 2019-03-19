@@ -29,9 +29,9 @@ algolia:
 # Custom variables
 current_version:  1.14.2
 title:            "Bootstrap Table"
-description:      "An extended Bootstrap Table with radio, checkbox, sort, pagination, and other added features."
+description:      "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"
 authors:          "Zhixin Wen, and Bootstrap Table contributors"
-keywords:         "table, bootstrap, bootstrap plugin, bootstrap resources, bootstrap table, jQuery plugin"
+keywords:         "bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation"
 repo:             https://github.com/wenzhixin/bootstrap-table
 website:          http://wenzhixin.net.cn
 repos:            http://repos.wenzhixin.net.cn
