@@ -446,12 +446,11 @@
                   `.date-filter-control.bootstrap-table-filter-control-${field}`
                 )
                 .datepicker(filterDatepickerOptions)
-                .on('changeDate', ({ currentTarget }) => {
-                  $(currentTarget).val(
-                    currentTarget.value
-                  )
-                  // Fired the keyup event
-                  $(currentTarget).keyup()
+                .on('changeDate', (event) => {
+                  clearTimeout(event.currentTarget.timeoutId || 0)
+                  event.currentTarget.timeoutId = setTimeout(() => {
+                    that.onColumnSearch(event)
+                  }, that.options.searchTimeOut)
                 })
             }
           })
