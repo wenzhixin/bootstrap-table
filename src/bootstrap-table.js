@@ -396,6 +396,7 @@
     uniqueId: undefined,
     cardView: false,
     detailView: false,
+    detailViewByClick: false,
     detailFormatter (index, row) {
       return ''
     },
@@ -831,6 +832,7 @@
         styles: [],
         classes: [],
         formatters: [],
+        detailFormatters: [],
         events: [],
         sorters: [],
         sortNames: [],
@@ -883,6 +885,7 @@
             this.header.styles[column.fieldIndex] = align + style
             this.header.classes[column.fieldIndex] = class_
             this.header.formatters[column.fieldIndex] = column.formatter
+            this.header.detailFormatters[column.fieldIndex] = column.detailFormatter
             this.header.events[column.fieldIndex] = column.events
             this.header.sorters[column.fieldIndex] = column.sorter
             this.header.sortNames[column.fieldIndex] = column.sortName
@@ -1997,32 +2000,20 @@
             $selectItem[0].click() // #144: .trigger('click') bug
           }
         }
+
+        if(
+            type === 'click' &&
+            this.options.detailViewByClick
+        ){
+            const $detailIcon = $tr.find('.detail-icon')
+            let detailFormatter = this.header.detailFormatters[index - 1] || undefined
+            this.toggleDetailView($detailIcon, detailFormatter);
+        }
       })
 
       this.$body.find('> tr[data-index] > td > .detail-icon').off('click').on('click', e => {
         e.preventDefault()
-
-        const $this = $(e.currentTarget) // Fix #980 Detail view, when searching, returns wrong row
-        const $tr = $this.parent().parent()
-        const index = $tr.data('index')
-        const row = data[index]
-
-        // remove and update
-        if ($tr.next().is('tr.detail-view')) {
-          $this.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen))
-          this.trigger('collapse-row', index, row, $tr.next())
-          $tr.next().remove()
-        } else {
-          $this.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailClose))
-          $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.children('td').length))
-          const $element = $tr.next().find('td')
-          const content = Utils.calculateObjectValue(this.options, this.options.detailFormatter, [index, row, $element], '')
-          if ($element.length === 1) {
-            $element.append(content)
-          }
-          this.trigger('expand-row', index, row, $element)
-        }
-        this.resetView()
+        this.toggleDetailView($(e.currentTarget));
         return false
       })
 
@@ -2078,6 +2069,30 @@
       this.resetView()
 
       this.trigger('post-body', data)
+    }
+
+    toggleDetailView($iconElement, columnDetailFormatter) {
+        const $tr = $iconElement.parent().parent()
+        const index = $tr.data('index')
+        const row = this.data[index]
+
+        // remove and update
+        if ($tr.next().is('tr.detail-view')) {
+            $iconElement.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen))
+            this.trigger('collapse-row', index, row, $tr.next())
+            $tr.next().remove()
+        } else {
+            $iconElement.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailClose))
+            $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.children('td').length))
+            const $element = $tr.next().find('td')
+            let detailFormatter = columnDetailFormatter || this.options.detailFormatter
+            const content = Utils.calculateObjectValue(this.options, detailFormatter, [index, row, $element], '')
+            if ($element.length === 1) {
+                $element.append(content)
+            }
+            this.trigger('expand-row', index, row, $element)
+        }
+        this.resetView()
     }
 
     initServer (silent, query, url) {
