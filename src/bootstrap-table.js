@@ -1396,7 +1396,32 @@
             }
 
             if (typeof value === 'string' || typeof value === 'number') {
-              if (this.options.strictSearch) {
+              const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+              let matches = largerSmallerEqualsRegex.exec(s);
+
+              if (matches !== null) {
+                  let operator = matches[1] || matches[5] + 'l'
+                  let comperationValue = matches[2] || matches[3]
+
+                  switch(operator) {
+                      case '>':
+                      case '<l':
+                          return Number.parseInt(value) > Number.parseInt(comperationValue);
+                      case '<':
+                      case '>l':
+                          return Number.parseInt(value) < Number.parseInt(comperationValue);
+                      case '<=':
+                      case '=<':
+                      case '>=l':
+                      case '=>l':
+                          return Number.parseInt(value) <= Number.parseInt(comperationValue);
+                      case '>=':
+                      case '=>':
+                      case '<=l':
+                      case '=<l':
+                          return Number.parseInt(value) >= Number.parseInt(comperationValue);
+                  }
+              } else if (this.options.strictSearch) {
                 if ((`${value}`).toLowerCase() === s) {
                   return true
                 }
