@@ -394,3 +394,19 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   Set `true` to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
 
 - **Default:** `false`
+
+## detailFormatter
+
+- **Attribute:** `data-detail-formatter`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  Format your detail view when detailView and detailViewByClick is set to true. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
+  
+  Fallback is the detail-formatter of the table.
+
+- **Default:** `function(index, row, element) { return '' }`
+
+- **Example:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)

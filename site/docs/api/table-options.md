@@ -1160,6 +1160,18 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Detail Filter](https://examples.bootstrap-table.com/#options/detail-filter.html)
 
+## detailViewByClick
+
+- **Attribute:** `data-detail-view-by-click`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to toggle the detail view, when a cell is clicked.
+
+- **Example:** [Toggle detail view by click](https://examples.bootstrap-table.com/#options/detail-view-by-click.html)
+
 ## toolbar
 
 - **Attribute:** `data-toolbar`
