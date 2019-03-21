@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} poster pr side`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${(totalRows > 1) ? 'r' : ''} (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${(totalRows > 1) ? 'r' : ''}`
     },
     formatDetailPagination (totalRows) {

@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} αποτελέσματα ανά σελίδα`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `Εμφανίζονται από την ${pageFrom} ως την ${pageTo} από σύνολο ${totalRows} σειρών (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Εμφανίζονται από την ${pageFrom} ως την ${pageTo} από σύνολο ${totalRows} σειρών`
     },
     formatDetailPagination (totalRows) {

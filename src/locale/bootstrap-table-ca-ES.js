@@ -11,7 +11,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} resultats per pàgina`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `Mostrant de ${pageFrom} fins ${pageTo} - total ${totalRows} resultats (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Mostrant de ${pageFrom} fins ${pageTo} - total ${totalRows} resultats`
     },
     formatDetailPagination (totalRows) {

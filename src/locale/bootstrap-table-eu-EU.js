@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} emaitza orriko.`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `${totalRows} erregistroetatik ${pageFrom}etik ${pageTo}erakoak erakusten (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `${totalRows} erregistroetatik ${pageFrom}etik ${pageTo}erakoak erakusten.`
     },
     formatDetailPagination (totalRows) {

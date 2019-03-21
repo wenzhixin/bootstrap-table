@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} ریکارڈز فی صفہ `
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `دیکھیں ${pageFrom} سے ${pageTo} کے ${totalRows}ریکارڈز (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `دیکھیں ${pageFrom} سے ${pageTo} کے ${totalRows}ریکارڈز`
     },
     formatDetailPagination (totalRows) {

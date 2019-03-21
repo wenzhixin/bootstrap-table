@@ -11,7 +11,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} lignes par page`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `Affichage des lignes ${pageFrom} à ${pageTo} sur ${totalRows} lignes au total (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Affichage des lignes ${pageFrom} à ${pageTo} sur ${totalRows} lignes au total`
     },
     formatDetailPagination (totalRows) {

@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} записей на страницу`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `Записи с ${pageFrom} по ${pageTo} из ${totalRows} (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Записи с ${pageFrom} по ${pageTo} из ${totalRows}`
     },
     formatDetailPagination (totalRows) {

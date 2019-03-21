@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rader per sida`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `Visa ${pageFrom} till ${pageTo} av ${totalRows} rader (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Visa ${pageFrom} till ${pageTo} av ${totalRows} rader`
     },
     formatDetailPagination (totalRows) {

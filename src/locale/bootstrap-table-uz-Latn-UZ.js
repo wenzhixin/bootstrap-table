@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} qator har sahifada`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `Ko'rsatypati ${pageFrom} dan ${pageTo} gacha ${totalRows} qatorlarni (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Ko'rsatypati ${pageFrom} dan ${pageTo} gacha ${totalRows} qatorlarni`
     },
     formatDetailPagination (totalRows) {

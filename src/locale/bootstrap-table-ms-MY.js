@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rekod setiap muka surat`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+        return `Sedang memaparkan rekod ${pageFrom} hingga ${pageTo} daripada jumlah ${totalRows} rekod (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Sedang memaparkan rekod ${pageFrom} hingga ${pageTo} daripada jumlah ${totalRows} rekod`
     },
     formatDetailPagination (totalRows) {

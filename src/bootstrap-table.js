@@ -346,12 +346,14 @@
       return res
     },
     totalField: 'total',
+    totalNotFilteredField: 'totalNotFiltered',
     dataField: 'rows',
     pagination: false,
     onlyInfoPagination: false,
     paginationLoop: true,
     sidePagination: 'client', // client or server
     totalRows: 0,
+    totalNotFiltered: 0,
     pageNumber: 1,
     pageSize: 10,
     pageList: [10, 25, 50, 100],
@@ -502,7 +504,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rows per page`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+          return `Showing ${pageFrom} to ${pageTo} of ${totalRows} rows (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Showing ${pageFrom} to ${pageTo} of ${totalRows} rows`
     },
     formatDetailPagination (totalRows) {
@@ -1409,6 +1415,8 @@
           }
           return false
         }) : this.data
+
+        this.options.totalNotFiltered = this.options.data.length - this.data.length;
       }
     }
 
@@ -1468,7 +1476,7 @@
 
       const paginationInfo = o.onlyInfoPagination ?
         o.formatDetailPagination(o.totalRows) :
-        o.formatShowingRows(this.pageFrom, this.pageTo, o.totalRows)
+        o.formatShowingRows(this.pageFrom, this.pageTo, o.totalRows, o.totalNotFiltered)
 
       html.push(`<div class="${this.constants.classes.pull}-${o.paginationDetailHAlign} pagination-detail">
         <span class="pagination-info">
@@ -2564,6 +2572,10 @@
       // #431: support pagination
       if (this.options.pagination && this.options.sidePagination === 'server') {
         this.options.totalRows = data[this.options.totalField]
+      }
+
+      if (this.options.pagination && this.options.sidePagination === 'server') {
+        this.options.totalNotFiltered = data[this.options.totalNotFilteredField];
       }
 
       fixedScroll = data.fixedScroll
