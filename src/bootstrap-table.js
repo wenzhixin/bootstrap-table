@@ -1625,17 +1625,18 @@
         $next = this.$pagination.find('.page-next')
         $number = this.$pagination.find('.page-item').not('.page-next, .page-pre')
 
+        if (this.totalPages <= 1) {
+          this.$pagination.find('div.pagination').hide()
+        }
+
         if (o.smartDisplay) {
-          if (this.totalPages <= 1) {
-            this.$pagination.find('div.pagination').hide()
-          }
           if (pageList.length < 2 || o.totalRows <= pageList[0]) {
             this.$pagination.find('span.page-list').hide()
           }
-
-          // when data is empty, hide the pagination
-          this.$pagination[this.getData().length ? 'show' : 'hide']()
         }
+
+        // when data is empty, hide the pagination
+        this.$pagination[this.getData().length ? 'show' : 'hide']()
 
         if (!o.paginationLoop) {
           if (o.pageNumber === 1) {
