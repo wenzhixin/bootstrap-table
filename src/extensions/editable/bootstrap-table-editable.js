@@ -122,6 +122,7 @@
           row[column.field] = submitValue
           this.trigger('editable-save', column.field, row, oldValue, $this)
           this.resetFooter()
+          this.initBody();
         })
 
         $field.off('shown').on('shown', ({currentTarget}, editable) => {
