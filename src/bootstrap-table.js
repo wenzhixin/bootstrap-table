@@ -1415,8 +1415,6 @@
           }
           return false
         }) : this.data
-
-        this.options.totalNotFiltered = this.options.data.length - this.data.length;
       }
     }
 
@@ -1472,6 +1470,10 @@
       this.pageTo = o.pageNumber * o.pageSize
       if (this.pageTo > o.totalRows) {
         this.pageTo = o.totalRows
+      }
+
+      if (this.options.pagination && this.options.sidePagination !== 'server') {
+        this.options.totalNotFiltered = this.options.data.length;
       }
 
       const paginationInfo = o.onlyInfoPagination ?
