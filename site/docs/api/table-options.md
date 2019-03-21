@@ -578,7 +578,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  When set pagination property, initialize the page size selecting list. If you include the `'All'` or `'Unlimited'` option, all the records will be shown in your table.
+  When set pagination property, initialize the page size selecting list. If you include the `'all'` or `'unlimited'` option, all the records will be shown in your table.
 
 - **Default:** `[10, 25, 50, 100]`
 

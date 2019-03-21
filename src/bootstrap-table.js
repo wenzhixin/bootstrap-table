@@ -1495,8 +1495,8 @@
           pageList = []
           for (const value of list) {
             pageList.push(
-              (value.toUpperCase() === o.formatAllRows().toUpperCase() ||
-              value.toUpperCase() === 'UNLIMITED')
+              (value.toLowerCase() === o.formatAllRows().toLowerCase() ||
+              ['all', 'unlimited'].includes(value.toLowerCase()))
                 ? o.formatAllRows() : +value)
           }
         }
