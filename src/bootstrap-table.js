@@ -1569,10 +1569,6 @@
           to = o.paginationSuccessivelySize
         }
 
-        if (to > this.totalPages) {
-          to = this.totalPages
-        }
-
         if (o.paginationSuccessivelySize > this.totalPages - from) {
           from = from - (o.paginationSuccessivelySize - (this.totalPages - from)) + 1
         }
