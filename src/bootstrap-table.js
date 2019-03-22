@@ -1402,38 +1402,42 @@
                 }
               } else {
                 const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
-                let matches = largerSmallerEqualsRegex.exec(s);
-                let comperationCheck = false;
+                const matches = largerSmallerEqualsRegex.exec(s)
+                let comparisonCheck = false
 
-                if (matches !== null) {
-                  let operator = matches[1] || matches[5] + 'l'
-                  let comperationValue = matches[2] || matches[3]
+                if (matches) {
+                  const operator = matches[1] || matches[5] + 'l'
+                  const comparisonValue = matches[2] || matches[3]
+                  const int = parseInt(value, 10)
+                  const comparisonInt = parseInt(comparisonValue, 10)
 
-                  switch(operator) {
+                  switch (operator) {
                     case '>':
                     case '<l':
-                      comperationCheck = Number.parseInt(value) > Number.parseInt(comperationValue);
-                      break;
+                      comparisonCheck = int > comparisonInt
+                      break
                     case '<':
                     case '>l':
-                      comperationCheck = Number.parseInt(value) < Number.parseInt(comperationValue);
-                      break;
+                      comparisonCheck = int < comparisonInt
+                      break
                     case '<=':
                     case '=<':
                     case '>=l':
                     case '=>l':
-                      comperationCheck = Number.parseInt(value) <= Number.parseInt(comperationValue);
-                      break;
+                      comparisonCheck = int <= comparisonInt
+                      break
                     case '>=':
                     case '=>':
                     case '<=l':
                     case '=<l':
-                      comperationCheck = Number.parseInt(value) >= Number.parseInt(comperationValue);
-                      break;
+                      comparisonCheck = int >= comparisonInt
+                      break
+                    default:
+                      break
                   }
                 }
 
-                if (comperationCheck || (`${value}`).toLowerCase().includes(s)) {
+                if (comparisonCheck || (`${value}`).toLowerCase().includes(s)) {
                   return true
                 }
               }
