@@ -1401,7 +1401,39 @@
                   return true
                 }
               } else {
-                if ((`${value}`).toLowerCase().includes(s)) {
+                const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+                let matches = largerSmallerEqualsRegex.exec(s);
+                let comperationCheck = false;
+
+                if (matches !== null) {
+                  let operator = matches[1] || matches[5] + 'l'
+                  let comperationValue = matches[2] || matches[3]
+
+                  switch(operator) {
+                    case '>':
+                    case '<l':
+                      comperationCheck = Number.parseInt(value) > Number.parseInt(comperationValue);
+                      break;
+                    case '<':
+                    case '>l':
+                      comperationCheck = Number.parseInt(value) < Number.parseInt(comperationValue);
+                      break;
+                    case '<=':
+                    case '=<':
+                    case '>=l':
+                    case '=>l':
+                      comperationCheck = Number.parseInt(value) <= Number.parseInt(comperationValue);
+                      break;
+                    case '>=':
+                    case '=>':
+                    case '<=l':
+                    case '=<l':
+                      comperationCheck = Number.parseInt(value) >= Number.parseInt(comperationValue);
+                      break;
+                  }
+                }
+
+                if (comperationCheck || (`${value}`).toLowerCase().includes(s)) {
                   return true
                 }
               }
