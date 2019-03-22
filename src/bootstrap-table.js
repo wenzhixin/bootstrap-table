@@ -384,6 +384,9 @@
     showFullscreen: false,
     smartDisplay: true,
     escape: false,
+    filterOptions  : {
+      'filterAlgorithm': 'and' //and means all given filter must match, or means one of the given filter must match
+    },
     idField: undefined,
     selectItemName: 'btSelectItem',
     clickToSelect: false,
@@ -1353,19 +1356,43 @@
         const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
         // Check filter
-        this.data = f ? this.options.data.filter((item, i) => {
-          for (const key in f) {
-            if (
-              (Array.isArray(f[key]) &&
-              !f[key].includes(item[key])) ||
-              (!Array.isArray(f[key]) &&
-              item[key] !== f[key])
-            ) {
-              return false
+        if (typeof this.filterOptions.filterAlgorithm === 'function') {
+          this.data = this.options.data.filter((item, i) => {
+            return this.filterOptions.filterAlgorithm.apply(null, [item, f]);
+          });
+        } else if (typeof this.filterOptions.filterAlgorithm === 'string') {
+          this.data = f ? this.options.data.filter((item, i) => {
+            let filterAlgorithm = this.filterOptions.filterAlgorithm;
+            if(filterAlgorithm === 'and') {
+              for (const key in f) {
+                if (
+                    (Array.isArray(f[key]) &&
+                        !f[key].includes(item[key])) ||
+                    (!Array.isArray(f[key]) &&
+                        item[key] !== f[key])
+                ) {
+                  return false
+                }
+              }
+            } else if (filterAlgorithm === 'or') {
+              let match = false;
+              for (const key in f) {
+                if (
+                    (Array.isArray(f[key]) &&
+                        f[key].includes(item[key])) ||
+                    (!Array.isArray(f[key]) &&
+                        item[key] === f[key])
+                ) {
+                  match = true;
+                }
+              }
+
+              return match;
             }
-          }
-          return true
-        }) : this.options.data
+
+            return true
+          }) : this.options.data
+        }
 
         this.data = s ? this.data.filter((item, i) => {
           for (let j = 0; j < this.header.fields.length; j++) {
@@ -3113,7 +3140,8 @@
       this.toggleAllColumns(false)
     }
 
-    filterBy (columns) {
+    filterBy (columns, options) {
+      this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions : $.extend(this.options.filterOptions, options);
       this.filterColumns = Utils.isEmptyObject(columns) ? {} : columns
       this.options.pageNumber = 1
       this.initSearch()
