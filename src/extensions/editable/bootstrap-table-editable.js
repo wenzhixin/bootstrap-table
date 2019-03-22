@@ -11,7 +11,7 @@
     onEditableInit () {
       return false
     },
-    onEditableSave (field, row, oldValue, $el) {
+    onEditableSave (field, row, index, oldValue, $el) {
       return false
     },
     onEditableShown (field, row, $el, editable) {
@@ -120,7 +120,7 @@
 
           $this.data('value', submitValue)
           row[column.field] = submitValue
-          this.trigger('editable-save', column.field, row, oldValue, $this)
+          this.trigger('editable-save', column.field, row, index, oldValue, $this)
           this.initBody()
         })
 
