@@ -11,7 +11,7 @@
       return `${pageNumber} inregistrari pe pagina`
     },
     formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-      if(totalNotFiltered !== undefined && totalNotFiltered > 0) {
+      if(totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
         return `Arata de la ${pageFrom} pana la ${pageTo} din ${totalRows} randuri (filtered from ${totalNotFiltered} total entries)`
       }
 
