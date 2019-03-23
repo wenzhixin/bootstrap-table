@@ -126,7 +126,7 @@
                         var t = that.options.queryParams;
                         that.options.queryParams = function(params) {
                             params.multiSort = that.options.sortPriority;
-                            return t(params);
+                            return $.fn.bootstrapTable.utils.calculateObjectValue(that.options, t, [params]);
                         };
                         isSingleSort=false;
                         that.initServer(that.options.silentSort);
