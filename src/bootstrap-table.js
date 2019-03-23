@@ -1401,7 +1401,43 @@
                   return true
                 }
               } else {
-                if ((`${value}`).toLowerCase().includes(s)) {
+                const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+                const matches = largerSmallerEqualsRegex.exec(s)
+                let comparisonCheck = false
+
+                if (matches) {
+                  const operator = matches[1] || matches[5] + 'l'
+                  const comparisonValue = matches[2] || matches[3]
+                  const int = parseInt(value, 10)
+                  const comparisonInt = parseInt(comparisonValue, 10)
+
+                  switch (operator) {
+                    case '>':
+                    case '<l':
+                      comparisonCheck = int > comparisonInt
+                      break
+                    case '<':
+                    case '>l':
+                      comparisonCheck = int < comparisonInt
+                      break
+                    case '<=':
+                    case '=<':
+                    case '>=l':
+                    case '=>l':
+                      comparisonCheck = int <= comparisonInt
+                      break
+                    case '>=':
+                    case '=>':
+                    case '<=l':
+                    case '=<l':
+                      comparisonCheck = int >= comparisonInt
+                      break
+                    default:
+                      break
+                  }
+                }
+
+                if (comparisonCheck || (`${value}`).toLowerCase().includes(s)) {
                   return true
                 }
               }
@@ -1495,8 +1531,8 @@
           pageList = []
           for (const value of list) {
             pageList.push(
-              (value.toUpperCase() === o.formatAllRows().toUpperCase() ||
-              value.toUpperCase() === 'UNLIMITED')
+              (value.toLowerCase() === o.formatAllRows().toLowerCase() ||
+              ['all', 'unlimited'].includes(value.toLowerCase()))
                 ? o.formatAllRows() : +value)
           }
         }
@@ -1625,17 +1661,18 @@
         $next = this.$pagination.find('.page-next')
         $number = this.$pagination.find('.page-item').not('.page-next, .page-pre')
 
+        if (this.totalPages <= 1) {
+          this.$pagination.find('div.pagination').hide()
+        }
+
         if (o.smartDisplay) {
-          if (this.totalPages <= 1) {
-            this.$pagination.find('div.pagination').hide()
-          }
           if (pageList.length < 2 || o.totalRows <= pageList[0]) {
             this.$pagination.find('span.page-list').hide()
           }
-
-          // when data is empty, hide the pagination
-          this.$pagination[this.getData().length ? 'show' : 'hide']()
         }
+
+        // when data is empty, hide the pagination
+        this.$pagination[this.getData().length ? 'show' : 'hide']()
 
         if (!o.paginationLoop) {
           if (o.pageNumber === 1) {
@@ -2076,6 +2113,10 @@
 
       this.updateSelected()
       this.resetView()
+
+      if (this.options.sidePagination !== 'server') {
+        this.options.totalRows = data.length
+      }
 
       this.trigger('post-body', data)
     }

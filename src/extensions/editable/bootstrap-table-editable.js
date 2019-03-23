@@ -11,7 +11,7 @@
     onEditableInit () {
       return false
     },
-    onEditableSave (field, row, oldValue, $el) {
+    onEditableSave (field, row, rowIndex, oldValue, $el) {
       return false
     },
     onEditableShown (field, row, $el, editable) {
@@ -114,21 +114,21 @@
         $field.off('save').on('save', ({currentTarget}, {submitValue}) => {
           const $this = $(currentTarget)
           const data = this.getData()
-          const index = $this.parents('tr[data-index]').data('index')
-          const row = data[index]
+          const rowIndex = $this.parents('tr[data-index]').data('index')
+          const row = data[rowIndex]
           const oldValue = row[column.field]
 
           $this.data('value', submitValue)
           row[column.field] = submitValue
-          this.trigger('editable-save', column.field, row, oldValue, $this)
-          this.resetFooter()
+          this.trigger('editable-save', column.field, row, rowIndex, oldValue, $this)
+          this.initBody()
         })
 
         $field.off('shown').on('shown', ({currentTarget}, editable) => {
           const $this = $(currentTarget)
           const data = this.getData()
-          const index = $this.parents('tr[data-index]').data('index')
-          const row = data[index]
+          const rowIndex = $this.parents('tr[data-index]').data('index')
+          const row = data[rowIndex]
 
           this.trigger('editable-shown', column.field, row, $this, editable)
         })
@@ -136,8 +136,8 @@
         $field.off('hidden').on('hidden', ({currentTarget}, reason) => {
           const $this = $(currentTarget)
           const data = this.getData()
-          const index = $this.parents('tr[data-index]').data('index')
-          const row = data[index]
+          const rowIndex = $this.parents('tr[data-index]').data('index')
+          const row = data[rowIndex]
 
           this.trigger('editable-hidden', column.field, row, $this, reason)
         })

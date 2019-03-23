@@ -578,7 +578,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  When set pagination property, initialize the page size selecting list. If you include the `'All'` or `'Unlimited'` option, all the records will be shown in your table.
+  When set pagination property, initialize the page size selecting list. If you include the `'all'` or `'unlimited'` option, all the records will be shown in your table.
 
 - **Default:** `[10, 25, 50, 100]`
 
@@ -705,6 +705,14 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Enable the search input.
+  
+  There are 3 ways to search:
+  - The value contains the search query (Default).   
+    Example: Github contains git.
+  - The value must be identical to the search query.  
+    Example: Github (value) and Github (search query).
+  - Comparsions (<, >, <=, =<, >=, =>)   
+    Example: 4 is larger than 3.
 
 - **Default:** `false`
 
@@ -732,7 +740,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Enable the strict search.
+  Enable the strict search.   
+  Disables the comparison checks.
 
 - **Default:** `false`
 
@@ -996,7 +1005,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate which field is an identity field.
+  Indicate which field will be used as checkbox/radiobox value, its the counterpart to [selectItemName](https://bootstrap-table.com/docs/api/table-options/#selectitemname).
 
 - **Default:** `undefined`
 
