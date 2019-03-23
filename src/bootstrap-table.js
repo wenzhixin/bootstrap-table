@@ -2114,6 +2114,10 @@
       this.updateSelected()
       this.resetView()
 
+      if (this.options.sidePagination !== 'server') {
+        this.options.totalRows = data.length
+      }
+
       this.trigger('post-body', data)
     }
 
