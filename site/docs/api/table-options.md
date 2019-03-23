@@ -275,7 +275,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 ## data
 
-- **Attribute:** `-`
+- **Attribute:** `data-data`
 
 - **Type:** `Array | Object`
 
