@@ -396,6 +396,9 @@
     uniqueId: undefined,
     cardView: false,
     detailView: false,
+    showDetailView: function (index, row) {
+      return true
+    },
     detailFormatter (index, row) {
       return ''
     },
@@ -1816,7 +1819,7 @@
       if (!this.options.cardView && this.options.detailView) {
         html.push('<td>')
 
-        if (Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) {
+        if (Utils.calculateObjectValue(null, this.options.detailFilter, [i, item]) && Utils.calculateObjectValue(null, this.options.showDetailView, [i, item])) {
           html.push(`
             <a class="detail-icon" href="#">
             ${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen)}

@@ -1141,6 +1141,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)
 
+## showDetailView
+
+- **Attribute:** `data-show-detail-view`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  Apply a function to choose which rows should display the icons to show/hide the detail view.
+
+- **Default:** `showDetailView: function (index, row) { return true }`
+
+- **Example:** [Show Detail View](https://examples.bootstrap-table.com/#options/show-detail-view.html)
+
 ## detailFormatter
 
 - **Attribute:** `data-detail-formatter`
