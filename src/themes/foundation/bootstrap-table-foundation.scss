@@ -21,16 +21,11 @@
       height: 2.5293rem;
     }
 
-    .keep-open.button {
+    .dropdown-container {
       .button {
         &:hover .menu {
           background: #fff;
         }
-
-        padding: 0;
-        border: none;
-        margin: 0;
-        vertical-align: top;
       }
 
       .menu {
