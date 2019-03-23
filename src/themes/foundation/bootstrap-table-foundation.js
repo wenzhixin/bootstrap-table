@@ -18,7 +18,7 @@
       this.constants.theme = 'foundation'
 
       this.constants.classes.buttonsGroup = 'button-group'
-      this.constants.classes.buttonsDropdown = 'button dropdown-container'
+      this.constants.classes.buttonsDropdown = 'dropdown-container'
       this.constants.classes.paginationDropdown = ''
       this.constants.classes.dropdownActive = 'is-active'
       this.constants.classes.paginationActive = 'current'
