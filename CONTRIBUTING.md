@@ -201,8 +201,7 @@ includes code changes) and under the terms of the
 
 - Readability
 - [no semicolons](https://github.com/wenzhixin/bootstrap-table/pull/4218#issuecomment-475822706)
-- 4 spaces (no tabs)
-- strict mode
+- 2 spaces (no tabs)
 - "Attractive"
 
 
