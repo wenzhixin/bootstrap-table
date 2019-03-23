@@ -3080,11 +3080,17 @@
     }
 
     showColumn (field) {
-      this.toggleColumn(this.fieldsColumnsIndex[field], true, true)
+      const fields = Array.isArray(field) ? field : [field]
+      fields.forEach( (field) => {
+        this.toggleColumn(this.fieldsColumnsIndex[field], true, true)
+      })
     }
 
     hideColumn (field) {
-      this.toggleColumn(this.fieldsColumnsIndex[field], false, true)
+      const fields = Array.isArray(field) ? field : [field]
+      fields.forEach( (field) => {
+        this.toggleColumn(this.fieldsColumnsIndex[field], false, true)
+      })
     }
 
     getHiddenColumns () {
