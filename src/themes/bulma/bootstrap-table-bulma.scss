@@ -28,11 +28,11 @@
     .button.dropdown {
       padding: 0;
       border: 0;
-      
+
       .button {
         margin: 0;
       }
-      
+
       &:not(:first-child) .button {
         border-bottom-left-radius: 0;
         border-top-left-radius: 0;
