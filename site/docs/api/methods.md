@@ -351,7 +351,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Detail:**
 
-  Show the specified `field` column.
+  Show the specified `field` column.   
+  The parameter can be a string or a array of fields.
 
 ## hideColumn
 
@@ -359,7 +360,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Detail:**
 
-  Hide the specified `field` column.
+  Hide the specified `field` column.   
+  The parameter can be a string or a array of fields.
 
 ## getHiddenColumns
 
