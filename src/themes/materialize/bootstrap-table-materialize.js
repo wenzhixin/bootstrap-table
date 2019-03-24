@@ -62,7 +62,7 @@
     initPagination () {
       super.initPagination()
 
-      if (this.pagination && !this.options.onlyInfoPagination) {
+      if (this.options.pagination && !this.options.onlyInfoPagination) {
         this.$pagination.find('.dropdown-toggle')
           .attr('data-target', 'page-list-dropdown')
           .dropdown()
