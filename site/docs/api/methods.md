@@ -390,6 +390,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   - object
     -  Scroll to the unit (`px` or `rows (index starts by 0)`)   
     Default: `{unit: 'px', value: 0}`
+    
 ## getScrollPosition
 
 - **Parameter:** `undefined`
