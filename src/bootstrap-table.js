@@ -301,6 +301,54 @@
         }
       }
       return -1
+    },
+
+    trToData (columns, $els) {
+      const data = []
+      const m = []
+
+      $els.each((y, el) => {
+        const row = {}
+
+        // save tr's id, class and data-* attributes
+        row._id = $(el).attr('id')
+        row._class = $(el).attr('class')
+        row._data = this.getRealDataAttr($(el).data())
+
+        $(el).find('>td,>th').each((_x, el) => {
+          const cspan = +$(el).attr('colspan') || 1
+          const rspan = +$(el).attr('rowspan') || 1
+          let x = _x
+
+          // skip already occupied cells in current row
+          for (; m[y] && m[y][x]; x++) {
+            // ignore
+          }
+
+          // mark matrix elements occupied by current cell with true
+          for (let tx = x; tx < x + cspan; tx++) {
+            for (let ty = y; ty < y + rspan; ty++) {
+              if (!m[ty]) { // fill missing rows
+                m[ty] = []
+              }
+              m[ty][tx] = true
+            }
+          }
+
+          const field = columns[x].field
+
+          row[field] = $(el).html().trim()
+          // save td's id, class and data-* attributes
+          row[`_${field}_id`] = $(el).attr('id')
+          row[`_${field}_class`] = $(el).attr('class')
+          row[`_${field}_rowspan`] = $(el).attr('rowspan')
+          row[`_${field}_colspan`] = $(el).attr('colspan')
+          row[`_${field}_title`] = $(el).attr('title')
+          row[`_${field}_data`] = this.getRealDataAttr($(el).data())
+        })
+        data.push(row)
+      })
+      return data
     }
   }
 
@@ -620,7 +668,6 @@
       this.initHeader()
       this.initData()
       this.initHiddenRows()
-      this.initFooter()
       this.initToolbar()
       this.initPagination()
       this.initBody()
@@ -691,7 +738,7 @@
       this.$tableHeader = this.$container.find('.fixed-table-header')
       this.$tableBody = this.$container.find('.fixed-table-body')
       this.$tableLoading = this.$container.find('.fixed-table-loading')
-      this.$tableFooter = this.$container.find('.fixed-table-footer')
+      this.$tableFooter = this.$el.find('tfoot')
       // checking if custom table-toolbar exists or not
       if (this.options.buttonsToolbar) {
         this.$toolbar = $('body').find(this.options.buttonsToolbar)
@@ -718,6 +765,8 @@
           this.$tableBorder = this.$tableBody.find('.fixed-table-border')
           this.$tableLoading.addClass('fixed-table-border')
         }
+
+        this.$tableFooter = this.$el.find('.fixed-table-footer')
       }
     }
 
@@ -773,56 +822,23 @@
         })
       })
 
-      // if options.data is setting, do not process tbody data
-      if (this.options.data.length) {
-        return
+      // if options.data is setting, do not process tbody and tfoot data
+      if (!this.options.data.length) {
+        this.options.data = Utils.trToData(this.columns, this.$el.find('>tbody>tr'))
+        if (data.length) {
+          this.fromHtml = true
+        }
       }
 
-      const m = []
-      this.$el.find('>tbody>tr').each((y, el) => {
-        const row = {}
+      this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr'))
+      if (this.footerData) {
+        this.$el.find('tfoot').html('<tr></tr>')
+      }
 
-        // save tr's id, class and data-* attributes
-        row._id = $(el).attr('id')
-        row._class = $(el).attr('class')
-        row._data = Utils.getRealDataAttr($(el).data())
-
-        $(el).find('>td').each((_x, el) => {
-          const cspan = +$(el).attr('colspan') || 1
-          const rspan = +$(el).attr('rowspan') || 1
-          let x = _x
-
-          // skip already occupied cells in current row
-          for (; m[y] && m[y][x]; x++) {
-            // ignore
-          }
-
-          // mark matrix elements occupied by current cell with true
-          for (let tx = x; tx < x + cspan; tx++) {
-            for (let ty = y; ty < y + rspan; ty++) {
-              if (!m[ty]) { // fill missing rows
-                m[ty] = []
-              }
-              m[ty][tx] = true
-            }
-          }
-
-          const field = this.columns[x].field
-
-          row[field] = $(el).html().trim()
-          // save td's id, class and data-* attributes
-          row[`_${field}_id`] = $(el).attr('id')
-          row[`_${field}_class`] = $(el).attr('class')
-          row[`_${field}_rowspan`] = $(el).attr('rowspan')
-          row[`_${field}_colspan`] = $(el).attr('colspan')
-          row[`_${field}_title`] = $(el).attr('title')
-          row[`_${field}_data`] = Utils.getRealDataAttr($(el).data())
-        })
-        data.push(row)
-      })
-      this.options.data = data
-      if (data.length) {
-        this.fromHtml = true
+      if (!this.options.showFooter || this.options.cardView) {
+        this.$tableFooter.hide()
+      } else {
+        this.$tableFooter.show()
       }
     }
 
@@ -994,15 +1010,6 @@
         this[checked ? 'checkAll' : 'uncheckAll']()
         this.updateSelected()
       })
-    }
-
-    initFooter () {
-      if (!this.options.showFooter || this.options.cardView) {
-        this.$tableFooter.hide()
-      } else {
-        this.$tableFooter.show()
-        this.trigger('post-footer', this.$tableFooter)
-      }
     }
 
     initData (data, type) {
@@ -2124,6 +2131,8 @@
       }
 
       this.trigger('post-body', data)
+
+      this.initFooter()
     }
 
     initServer (silent, query, url) {
@@ -2377,13 +2386,13 @@
       this.trigger('post-header')
     }
 
-    resetFooter () {
-      const data = this.getData()
-      const html = []
-
+    initFooter () {
       if (!this.options.showFooter || this.options.cardView) { // do nothing
         return
       }
+
+      const data = this.getData()
+      const html = []
 
       if (!this.options.cardView && this.options.detailView) {
         html.push('<th class="detail"><div class="th-inner"></div><div class="fht-cell"></div></th>')
@@ -2423,7 +2432,8 @@
         html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>')
         html.push('<div class="th-inner">')
 
-        html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], ''))
+        html.push(Utils.calculateObjectValue(column, column.footerFormatter,
+          [data], this.footerData[0] && this.footerData[0][column.field] || ''))
 
         html.push('</div>')
         html.push('<div class="fht-cell"></div>')
@@ -2432,8 +2442,8 @@
       }
 
       this.$tableFooter.find('tr').html(html.join(''))
-      this.$tableFooter.show()
-      this.fitFooter()
+
+      this.trigger('post-footer', this.$tableFooter)
     }
 
     fitFooter () {
@@ -2569,7 +2579,8 @@
       }
 
       if (this.options.showFooter) {
-        this.resetFooter()
+        this.$tableFooter.show()
+        this.fitFooter()
         if (this.options.height) {
           padding += this.$tableFooter.outerHeight(true)
         }
