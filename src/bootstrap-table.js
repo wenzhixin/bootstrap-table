@@ -474,6 +474,9 @@
     onPostHeader () {
       return false
     },
+    onPostFooter () {
+      return false
+    },
     onExpandRow (index, row, $detail) {
       return false
     },
@@ -589,6 +592,7 @@
     'pre-body.bs.table': 'onPreBody',
     'post-body.bs.table': 'onPostBody',
     'post-header.bs.table': 'onPostHeader',
+    'post-footer.bs.table': 'onPostFooter',
     'expand-row.bs.table': 'onExpandRow',
     'collapse-row.bs.table': 'onCollapseRow',
     'refresh-options.bs.table': 'onRefreshOptions',
@@ -997,6 +1001,7 @@
         this.$tableFooter.hide()
       } else {
         this.$tableFooter.show()
+        this.trigger('post-footer', this.$tableFooter)
       }
     }
 
