@@ -3081,14 +3081,14 @@
 
     showColumn (field) {
       const fields = Array.isArray(field) ? field : [field]
-      fields.forEach( (field) => {
+      fields.forEach(field => {
         this.toggleColumn(this.fieldsColumnsIndex[field], true, true)
       })
     }
 
     hideColumn (field) {
       const fields = Array.isArray(field) ? field : [field]
-      fields.forEach( (field) => {
+      fields.forEach(field => {
         this.toggleColumn(this.fieldsColumnsIndex[field], false, true)
       })
     }
