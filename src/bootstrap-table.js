@@ -3156,18 +3156,17 @@
       }
 
       let options = {unit: 'px', value: 0}
-      let scrollTo = 0;
       if (typeof params === 'object') {
-        options = Object.assign(options, params);
+        options = Object.assign(options, params)
       } else if (typeof params === 'string' && params === 'bottom') {
         options.value = this.$tableBody[0].scrollHeight
       } else if (typeof params === 'string') {
         options.value = params
       }
 
-      scrollTo = options.value;
-      if(options.unit === 'rows') {
-        scrollTo = 0;
+      let scrollTo = options.value
+      if (options.unit === 'rows') {
+        scrollTo = 0
         this.$body.find(`> tr:lt(${options.value})`).each((i, el) => {
           scrollTo += $(el).outerHeight(true)
         })
