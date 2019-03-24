@@ -381,12 +381,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## scrollTo
 
-- **Parameter:** `value`
+- **Parameter:** `value|object`
 
 - **Detail:**
 
-  Scroll to the number `value` position, the unit is `'px'`, set `'bottom'` means scroll to the bottom.
-
+  - value
+    - Scroll to the number `value` position, the unit is `'px'`, set `'bottom'` means scroll to the bottom.
+  - object
+    -  Scroll to the unit (`px` or `rows (index starts by 0)`)   
+    Default: `{unit: 'px', value: 0}`
+    
 ## getScrollPosition
 
 - **Parameter:** `undefined`
