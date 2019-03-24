@@ -3150,16 +3150,32 @@
       this.updatePagination()
     }
 
-    scrollTo (_value) {
-      if (typeof _value === 'undefined') {
+    scrollTo (params) {
+      if (typeof params === 'undefined') {
         return this.$tableBody.scrollTop()
       }
 
-      let value = _value
-      if (typeof _value === 'string' && _value === 'bottom') {
-        value = this.$tableBody[0].scrollHeight
+      let options = {unit: 'px', value: 0};
+      let scrollTo = 0;
+      if (typeof params === 'object') {
+        options = $.extend(options, params);
+      } else if (typeof params === 'string' && params === 'bottom') {
+        options.value = this.$tableBody[0].scrollHeight
+      } else if (typeof params === 'string') {
+        options.value = params
       }
-      this.$tableBody.scrollTop(value)
+
+      scrollTo = options.value;
+      if(options.unit === "rows") {
+        scrollTo = 0;
+        this.$body.find('> tr').each(function (i) {
+          if (i < options.value) {
+            scrollTo += $(this).height();
+          }
+        });
+      }
+
+      this.$tableBody.scrollTop(scrollTo)
     }
 
     getScrollPosition () {
