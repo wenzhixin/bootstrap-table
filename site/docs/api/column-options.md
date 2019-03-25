@@ -403,7 +403,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  Format your detail view when detailView and detailViewByClick is set to true. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
+  Format your detail view when `detailView` and `detailViewByClick` is set to `true`. Return a `String` and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
   
   Fallback is the detail-formatter of the table.
 

@@ -559,6 +559,7 @@
     footerFormatter: undefined,
     events: undefined,
     sorter: undefined,
+    detailFormatters: [],
     sortName: undefined,
     cellStyle: undefined,
     searchable: true,
@@ -2001,19 +2002,19 @@
           }
         }
 
-        if(
-            type === 'click' &&
+        if (
+          type === 'click' &&
             this.options.detailViewByClick
-        ){
-            const $detailIcon = $tr.find('.detail-icon')
-            let detailFormatter = this.header.detailFormatters[index - 1] || undefined
-            this.toggleDetailView($detailIcon, detailFormatter);
+        ) {
+          const $detailIcon = $tr.find('.detail-icon')
+          const detailFormatter = this.header.detailFormatters[index - 1] || undefined
+          this.toggleDetailView($detailIcon, detailFormatter)
         }
       })
 
       this.$body.find('> tr[data-index] > td > .detail-icon').off('click').on('click', e => {
         e.preventDefault()
-        this.toggleDetailView($(e.currentTarget));
+        this.toggleDetailView($(e.currentTarget))
         return false
       })
 
@@ -2071,28 +2072,28 @@
       this.trigger('post-body', data)
     }
 
-    toggleDetailView($iconElement, columnDetailFormatter) {
-        const $tr = $iconElement.parent().parent()
-        const index = $tr.data('index')
-        const row = this.data[index]
+    toggleDetailView ($iconElement, columnDetailFormatter) {
+      const $tr = $iconElement.parent().parent()
+      const index = $tr.data('index')
+      const row = this.data[index]
 
-        // remove and update
-        if ($tr.next().is('tr.detail-view')) {
-            $iconElement.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen))
-            this.trigger('collapse-row', index, row, $tr.next())
-            $tr.next().remove()
-        } else {
-            $iconElement.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailClose))
-            $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.children('td').length))
-            const $element = $tr.next().find('td')
-            let detailFormatter = columnDetailFormatter || this.options.detailFormatter
-            const content = Utils.calculateObjectValue(this.options, detailFormatter, [index, row, $element], '')
-            if ($element.length === 1) {
-                $element.append(content)
-            }
-            this.trigger('expand-row', index, row, $element)
+      // remove and update
+      if ($tr.next().is('tr.detail-view')) {
+        $iconElement.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen))
+        this.trigger('collapse-row', index, row, $tr.next())
+        $tr.next().remove()
+      } else {
+        $iconElement.html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailClose))
+        $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.children('td').length))
+        const $element = $tr.next().find('td')
+        const detailFormatter = columnDetailFormatter || this.options.detailFormatter
+        const content = Utils.calculateObjectValue(this.options, detailFormatter, [index, row, $element], '')
+        if ($element.length === 1) {
+          $element.append(content)
         }
-        this.resetView()
+        this.trigger('expand-row', index, row, $element)
+      }
+      this.resetView()
     }
 
     initServer (silent, query, url) {
