@@ -32,6 +32,18 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `false`
 
+## checkboxEnabled
+
+- **Attribute:** `data-checkbox-enabled`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to disable the the checkboxes/radioboxes.
+
+- **Default:** `true`
+
 ## field
 
 - **Attribute:** `data-field`
