@@ -304,6 +304,10 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
+- **Error handling**
+
+  To get loading errors please use [onLoadError](https://bootstrap-table.com/docs/api/events/#onloaderror)
+
 - **Example:** [From URL](https://examples.bootstrap-table.com/#welcomes/from-url.html)
 
 ## method
