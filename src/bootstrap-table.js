@@ -1807,7 +1807,7 @@
           if (k === 'index') {
             return
           }
-          data_ += ` data-${k}="${v}"`
+          data_ += ` data-${k}='${typeof v === 'object' ? JSON.stringify(v) : v}'`
         }
       }
 
