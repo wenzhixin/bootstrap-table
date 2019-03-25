@@ -384,8 +384,8 @@
     showFullscreen: false,
     smartDisplay: true,
     escape: false,
-    filterOptions  : {
-      'filterAlgorithm': 'and' //and means all given filter must match, or means one of the given filter must match
+    filterOptions: {
+      'filterAlgorithm': 'and' // and means all given filter must match, or means one of the given filter must match
     },
     idField: undefined,
     selectItemName: 'btSelectItem',
@@ -1358,15 +1358,15 @@
         // Check filter
         if (typeof this.filterOptions.filterAlgorithm === 'function') {
           this.data = this.options.data.filter((item, i) => {
-            return this.filterOptions.filterAlgorithm.apply(null, [item, f]);
-          });
+            return this.filterOptions.filterAlgorithm.apply(null, [item, f])
+          })
         } else if (typeof this.filterOptions.filterAlgorithm === 'string') {
           this.data = f ? this.options.data.filter((item, i) => {
-            let filterAlgorithm = this.filterOptions.filterAlgorithm;
-            if(filterAlgorithm === 'and') {
+            const filterAlgorithm = this.filterOptions.filterAlgorithm
+            if (filterAlgorithm === 'and') {
               for (const key in f) {
                 if (
-                    (Array.isArray(f[key]) &&
+                  (Array.isArray(f[key]) &&
                         !f[key].includes(item[key])) ||
                     (!Array.isArray(f[key]) &&
                         item[key] !== f[key])
@@ -1375,19 +1375,19 @@
                 }
               }
             } else if (filterAlgorithm === 'or') {
-              let match = false;
+              let match = false
               for (const key in f) {
                 if (
-                    (Array.isArray(f[key]) &&
+                  (Array.isArray(f[key]) &&
                         f[key].includes(item[key])) ||
                     (!Array.isArray(f[key]) &&
                         item[key] === f[key])
                 ) {
-                  match = true;
+                  match = true
                 }
               }
 
-              return match;
+              return match
             }
 
             return true
@@ -3141,7 +3141,7 @@
     }
 
     filterBy (columns, options) {
-      this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions : $.extend(this.options.filterOptions, options);
+      this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions : $.extend(this.options.filterOptions, options)
       this.filterColumns = Utils.isEmptyObject(columns) ? {} : columns
       this.options.pageNumber = 1
       this.initSearch()
