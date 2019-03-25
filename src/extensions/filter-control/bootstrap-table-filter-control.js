@@ -733,25 +733,13 @@
               }
 
               if ($.inArray(key, that.header.fields) !== -1) {
-                if (typeof value === 'string' || typeof value === 'number') {
+                if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
                   if (thisColumn.filterStrictSearch) {
-                    if (value.toString().toLowerCase() === fval.toString().toLowerCase()) {
-                      itemIsExpected.push(true)
-                    } else {
-                      itemIsExpected.push(false)
-                    }
+                    itemIsExpected.push(value.toString().toLowerCase() === fval.toString().toLowerCase())
                   } else if (thisColumn.filterStartsWithSearch) {
-                    if ((`${value}`).toLowerCase().indexOf(fval) === 0) {
-                      itemIsExpected.push(true)
-                    } else {
-                      itemIsExpected.push(false)
-                    }
+                    itemIsExpected.push((`${value}`).toLowerCase().indexOf(fval) === 0)
                   } else {
-                    if ((`${value}`).toLowerCase().includes(fval)) {
-                      itemIsExpected.push(true)
-                    } else {
-                      itemIsExpected.push(false)
-                    }
+                    itemIsExpected.push((`${value}`).toLowerCase().includes(fval))
                   }
                 }
               }
