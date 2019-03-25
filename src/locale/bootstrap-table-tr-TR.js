@@ -12,7 +12,7 @@
       return `Sayfa başına ${pageNumber} kayıt.`
     },
     formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-      if(totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
         return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor (filtered from ${totalNotFiltered} total entries).`
       }
 

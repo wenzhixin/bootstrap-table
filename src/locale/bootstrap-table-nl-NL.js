@@ -11,7 +11,7 @@
       return `${pageNumber} records per pagina`
     },
     formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-      if(totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
         return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${(totalRows > 1) ? 's' : ''} (filtered from ${totalNotFiltered} total entries)`
       }
 

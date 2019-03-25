@@ -11,7 +11,7 @@
       return `${pageNumber} qator har sahifada`
     },
     formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-      if(totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
         return `Ko'rsatypati ${pageFrom} dan ${pageTo} gacha ${totalRows} qatorlarni (filtered from ${totalNotFiltered} total entries)`
       }
 

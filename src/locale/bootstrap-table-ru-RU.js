@@ -11,7 +11,7 @@
       return `${pageNumber} записей на страницу`
     },
     formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-      if(totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
         return `Записи с ${pageFrom} по ${pageTo} из ${totalRows} (filtered from ${totalNotFiltered} total entries)`
       }
 

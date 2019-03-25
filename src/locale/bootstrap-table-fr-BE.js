@@ -11,7 +11,7 @@
       return `${pageNumber} entrées par page`
     },
     formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-      if(totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
         return `Affiche de${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtered from ${totalNotFiltered} total entries)`
       }
 

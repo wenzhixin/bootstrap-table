@@ -11,7 +11,7 @@
       return `${pageNumber} poster pr side`
     },
     formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-      if(totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
         return `Viser ${pageFrom} til ${pageTo} av ${totalRows} rekker (filtered from ${totalNotFiltered} total entries)`
       }
 

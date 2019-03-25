@@ -506,8 +506,8 @@
       return `${pageNumber} rows per page`
     },
     formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-      if(totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-          return `Showing ${pageFrom} to ${pageTo} of ${totalRows} rows (filtered from ${totalNotFiltered} total entries)`
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `Showing ${pageFrom} to ${pageTo} of ${totalRows} rows (filtered from ${totalNotFiltered} total entries)`
       }
 
       return `Showing ${pageFrom} to ${pageTo} of ${totalRows} rows`
@@ -1474,10 +1474,10 @@
       }
 
       if (this.options.pagination && this.options.sidePagination !== 'server') {
-        this.options.totalNotFiltered = this.options.data.length;
+        this.options.totalNotFiltered = this.options.data.length
       }
 
-      if(!this.options.showExtendedPagination) {
+      if (!this.options.showExtendedPagination) {
         this.options.totalNotFiltered = undefined
       }
 
@@ -2582,7 +2582,7 @@
       }
 
       if (this.options.pagination && this.options.sidePagination === 'server') {
-        this.options.totalNotFiltered = data[this.options.totalNotFilteredField];
+        this.options.totalNotFiltered = data[this.options.totalNotFilteredField]
       }
 
       fixedScroll = data.fixedScroll
