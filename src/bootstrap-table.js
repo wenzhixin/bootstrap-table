@@ -1713,7 +1713,7 @@
         $pageList = this.$pagination.find('.page-list a')
         $pre = this.$pagination.find('.page-pre')
         $next = this.$pagination.find('.page-next')
-        $number = this.$pagination.find('.page-item').not('.page-next, .page-pre')
+        $number = this.$pagination.find('.page-item').not('.page-next, .page-pre, .page-last-separator, .page-first-separator')
 
         if (this.totalPages <= 1) {
           this.$pagination.find('div.pagination').hide()
