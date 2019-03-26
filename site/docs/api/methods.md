@@ -401,11 +401,39 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## filterBy
 
-- **Parameter:** `params`
+- **Parameter:**
+    - `filter - An Object of filter`   
+    Default: `{}`
+    - `options - An Object of options`   
+    Default:
+        ```
+        {
+            'filterAlgorithm': 'and'
+        }
+        ```
+       
 
 - **Detail:**
+  
+  (Can use only in client-side) Filter data in table.   
+  There are multiple ways to filter:
+  - Leave the options blank to use the `and` filter.
+  - Set the `filterAlgorithm` (see at parameter) to `or` to use the `or` filter.
+  - Pass a function to the `filterAlgorithm` (see at parameter) to use a `custom` filter.
+    
+  #####Filter Algorithm
+  
+  - And
+    - Filter `{age: 10}` to show the data only age is equal to 10.  You can also filter with an array of values, as in: `{age: 10, hairColor: ['blue', 'red', 'green']}` to find data where age is equal to 10 and hairColor is either blue, red, or green.
+  - Or
+    - Filter `{age: 10, name: "santa"}` to show all Data which has a age of 10 **or** the name is equals to santa.
+  - Custom
+    - Filter by your Custom algorithm
+    - Function parameters:
+        - Row
+        - Filters
+    - Return `true` to keep the row and return `false` to filter the row.
 
-  (Can use only in client-side) Filter data in table, e.g. you can filter `{age: 10}` to show the data only age is equal to 10.  You can also filter with an array of values, as in: `{age: 10, hairColor: ['blue', 'red', 'green']}` to find data where age is equal to 10 and hairColor is either blue, red, or green.
 
 ## selectPage
 
