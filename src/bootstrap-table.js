@@ -1381,13 +1381,13 @@
         const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
         // Check filter
-        if (typeof this.filterOptions.filterAlgorithm === 'function') {
+        if (typeof this.options.filterOptions.filterAlgorithm === 'function') {
           this.data = this.options.data.filter((item, i) => {
-            return this.filterOptions.filterAlgorithm.apply(null, [item, f])
+            return this.options.filterOptions.filterAlgorithm.apply(null, [item, f])
           })
-        } else if (typeof this.filterOptions.filterAlgorithm === 'string') {
+        } else if (typeof this.options.filterOptions.filterAlgorithm === 'string') {
           this.data = f ? this.options.data.filter((item, i) => {
-            const filterAlgorithm = this.filterOptions.filterAlgorithm
+            const filterAlgorithm = this.options.filterOptions.filterAlgorithm
             if (filterAlgorithm === 'and') {
               for (const key in f) {
                 if (
