@@ -559,7 +559,7 @@
     footerFormatter: undefined,
     events: undefined,
     sorter: undefined,
-    detailFormatters: [],
+    detailFormatter: undefined,
     sortName: undefined,
     cellStyle: undefined,
     searchable: true,
