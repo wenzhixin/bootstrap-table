@@ -579,7 +579,7 @@
     formatPaginationSwitch () {
       return 'Hide/Show pagination'
     },
-    formatRefresh () {
+    formatReresh () {
       return 'Refresh'
     },
     formatToggle () {
@@ -599,35 +599,37 @@
   $.extend(DEFAULTS, LOCALES['en-US'])
 
   const COLUMN_DEFAULTS = {
-    radio: false,
-    checkbox: false,
-    checkboxEnabled: true,
     field: undefined,
     title: undefined,
     titleTooltip: undefined,
     'class': undefined,
+    width: undefined,
+    rowspan: undefined,
+    colspan: undefined,
     align: undefined, // left, right, center
     halign: undefined, // left, right, center
     falign: undefined, // left, right, center
     valign: undefined, // top, middle, bottom
-    width: undefined,
+    cellStyle: undefined,
+    radio: false,
+    checkbox: false,
+    checkboxEnabled: true,
+    clickToSelect: true,
+    showSelectTitle: false,
     sortable: false,
+    sortName: undefined,
     order: 'asc', // asc, desc
+    sorter: undefined,
     visible: true,
     switchable: true,
-    clickToSelect: true,
+    cardVisible: true,
+    searchable: true,
     formatter: undefined,
     footerFormatter: undefined,
-    events: undefined,
-    sorter: undefined,
     detailFormatter: undefined,
-    sortName: undefined,
-    cellStyle: undefined,
-    searchable: true,
     searchFormatter: true,
-    cardVisible: true,
     escape: false,
-    showSelectTitle: false
+    events: undefined
   }
 
   const EVENTS = {
