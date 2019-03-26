@@ -1367,6 +1367,7 @@
     }
 
     initSearch () {
+      this.filterOptions = this.options.filterOptions || this.options.filterOptions
       if (this.options.sidePagination !== 'server') {
         if (this.options.customSearch) {
           this.data = Utils.calculateObjectValue(this.options, this.options.customSearch,
@@ -1442,7 +1443,7 @@
             // Fix #142: respect searchForamtter boolean
             if (column && column.searchFormatter) {
               value = Utils.calculateObjectValue(column,
-                this.header.formatters[j], [value, item, i], value)
+                this.header.formatters[j], [value, item, i, column.field], value)
             }
 
             if (typeof value === 'string' || typeof value === 'number') {
