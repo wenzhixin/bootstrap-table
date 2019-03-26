@@ -780,7 +780,7 @@
           this.$tableLoading.addClass('fixed-table-border')
         }
 
-        this.$tableFooter = this.$el.find('.fixed-table-footer')
+        this.$tableFooter = this.$container.find('.fixed-table-footer')
       }
     }
 
@@ -2151,6 +2151,7 @@
       })
 
       this.updateSelected()
+      this.initFooter()
       this.resetView()
 
       if (this.options.sidePagination !== 'server') {
@@ -2158,8 +2159,6 @@
       }
 
       this.trigger('post-body', data)
-
-      this.initFooter()
     }
 
     toggleDetailView ($iconElement, columnDetailFormatter) {
