@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} שורות בעמוד`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `מציג ${pageFrom} עד ${pageTo} מ-${totalRows}שורות${totalNotFiltered} total entries)`
+      }
+
       return `מציג ${pageFrom} עד ${pageTo} מ-${totalRows} שורות`
     },
     formatDetailPagination (totalRows) {

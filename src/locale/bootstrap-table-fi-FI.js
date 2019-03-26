@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} riviä sivulla`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows} (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows}`
     },
     formatDetailPagination (totalRows) {

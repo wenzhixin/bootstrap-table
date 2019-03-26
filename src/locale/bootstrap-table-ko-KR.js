@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `페이지 당 ${pageNumber}개 데이터 출력`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력, (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력,`
     },
     formatDetailPagination (totalRows) {

@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rekord per oldal`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `Megjelenítve ${pageFrom} - ${pageTo} / ${totalRows} összesen (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Megjelenítve ${pageFrom} - ${pageTo} / ${totalRows} összesen`
     },
     formatDetailPagination (totalRows) {

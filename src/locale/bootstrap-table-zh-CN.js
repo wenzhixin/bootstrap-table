@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `每页显示 ${pageNumber} 条记录`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `显示第 ${pageFrom} 到第 ${pageTo} 条记录，总共 ${totalRows} 条记录 (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `显示第 ${pageFrom} 到第 ${pageTo} 条记录，总共 ${totalRows} 条记录`
     },
     formatDetailPagination (totalRows) {

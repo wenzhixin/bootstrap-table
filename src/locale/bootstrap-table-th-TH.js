@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} รายการต่อหน้า`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `รายการที่ ${pageFrom} ถึง ${pageTo} จากทั้งหมด ${totalRows} รายการ (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `รายการที่ ${pageFrom} ถึง ${pageTo} จากทั้งหมด ${totalRows} รายการ`
     },
     formatDetailPagination (totalRows) {

@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} baris per halaman`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris`
     },
     formatDetailPagination (totalRows) {

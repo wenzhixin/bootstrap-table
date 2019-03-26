@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} inregistrari pe pagina`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `Arata de la ${pageFrom} pana la ${pageTo} din ${totalRows} randuri (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Arata de la ${pageFrom} pana la ${pageTo} din ${totalRows} randuri`
     },
     formatDetailPagination (totalRows) {

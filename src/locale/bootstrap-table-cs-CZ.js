@@ -11,8 +11,12 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} položek na stránku`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
-      return `Zobrazena ${pageFrom}. - ${pageTo}. položka z celkových ${totalRows}`
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `Zobrazena ${pageFrom}. - ${pageTo} . položka z celkových ${totalRows} (filtered from ${totalNotFiltered} total entries)`
+      }
+
+      return `Zobrazena ${pageFrom}. - ${pageTo} . položka z celkových ${totalRows}`
     },
     formatDetailPagination (totalRows) {
       return `Showing ${totalRows} rows`

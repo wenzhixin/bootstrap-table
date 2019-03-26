@@ -500,6 +500,33 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Only Info Pagination](https://examples.bootstrap-table.com/#options/only-info-pagination.html)
 
+## showExtendedPagination
+
+- **Attribute:** `data-show-extended-pagination`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a extended version of pagination (including the count of all rows with out filters).
+  If you use pagination on the server side pls use totalNotFilteredField to define the count.
+
+- **Default:** `false`
+
+- **Example:** [Only Info Pagination](https://examples.bootstrap-table.com/#options/show-extended-pagination.html)
+
+## totalNotFilteredField
+
+- **Attribute:** `data-total-not-filtered-field`
+
+- **Type:** `string`
+
+- **Detail:**
+
+  The field from the json response which will used for showExtendedPagination.
+
+- **Default:** `totalNotFiltered`
+
 ## paginationLoop
 
 - **Attribute:** `data-pagination-loop`

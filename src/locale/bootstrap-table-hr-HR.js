@@ -11,7 +11,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} broj zapisa po stranici`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `Prikazujem ${pageFrom}. - ${pageTo}. od ukupnog broja zapisa ${totalRows} (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Prikazujem ${pageFrom}. - ${pageTo}. od ukupnog broja zapisa ${totalRows}`
     },
     formatDetailPagination (totalRows) {

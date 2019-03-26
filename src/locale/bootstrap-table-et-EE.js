@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rida lehe kohta`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `Näitan tulemusi ${pageFrom} kuni ${pageTo} - kokku ${totalRows} tulemust (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Näitan tulemusi ${pageFrom} kuni ${pageTo} - kokku ${totalRows} tulemust`
     },
     formatDetailPagination (totalRows) {

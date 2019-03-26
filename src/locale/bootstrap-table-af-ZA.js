@@ -10,7 +10,11 @@
     formatRecordsPerPage (pageNumber) {
       return `${pageNumber} rekords per bladsy`
     },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
+    formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+        return `Resultate ${pageFrom} tot ${pageTo} van ${totalRows} rye (filtered from ${totalNotFiltered} total entries)`
+      }
+
       return `Resultate ${pageFrom} tot ${pageTo} van ${totalRows} rye`
     },
     formatDetailPagination (totalRows) {
