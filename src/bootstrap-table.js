@@ -2002,13 +2002,8 @@
           }
         }
 
-        if (
-          type === 'click' &&
-            this.options.detailViewByClick
-        ) {
-          const $detailIcon = $tr.find('.detail-icon')
-          const detailFormatter = this.header.detailFormatters[index - 1] || undefined
-          this.toggleDetailView($detailIcon, detailFormatter)
+        if (type === 'click' && this.options.detailViewByClick) {
+          this.toggleDetailView($tr.find('.detail-icon'), this.header.detailFormatters[index - 1])
         }
       })
 
