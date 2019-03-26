@@ -1970,7 +1970,7 @@
           text = [
             this.options.cardView
               ? `<div class="card-view ${c}">`
-              : `<td class="bs-checkbox ${c}">`,
+              : `<td class="bs-checkbox ${c}"${class_}${style_}>`,
             `<label>
               <input
               data-index="${i}"
