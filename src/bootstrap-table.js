@@ -579,7 +579,7 @@
     formatPaginationSwitch () {
       return 'Hide/Show pagination'
     },
-    formatRefresh () {
+    formatReresh () {
       return 'Refresh'
     },
     formatToggle () {
@@ -599,35 +599,37 @@
   $.extend(DEFAULTS, LOCALES['en-US'])
 
   const COLUMN_DEFAULTS = {
-    radio: false,
-    checkbox: false,
-    checkboxEnabled: true,
     field: undefined,
     title: undefined,
     titleTooltip: undefined,
     'class': undefined,
+    width: undefined,
+    rowspan: undefined,
+    colspan: undefined,
     align: undefined, // left, right, center
     halign: undefined, // left, right, center
     falign: undefined, // left, right, center
     valign: undefined, // top, middle, bottom
-    width: undefined,
+    cellStyle: undefined,
+    radio: false,
+    checkbox: false,
+    checkboxEnabled: true,
+    clickToSelect: true,
+    showSelectTitle: false,
     sortable: false,
+    sortName: undefined,
     order: 'asc', // asc, desc
+    sorter: undefined,
     visible: true,
     switchable: true,
-    clickToSelect: true,
+    cardVisible: true,
+    searchable: true,
     formatter: undefined,
     footerFormatter: undefined,
-    events: undefined,
-    sorter: undefined,
     detailFormatter: undefined,
-    sortName: undefined,
-    cellStyle: undefined,
-    searchable: true,
     searchFormatter: true,
-    cardVisible: true,
     escape: false,
-    showSelectTitle: false
+    events: undefined
   }
 
   const EVENTS = {
@@ -778,7 +780,7 @@
           this.$tableLoading.addClass('fixed-table-border')
         }
 
-        this.$tableFooter = this.$el.find('.fixed-table-footer')
+        this.$tableFooter = this.$container.find('.fixed-table-footer')
       }
     }
 
@@ -1379,13 +1381,13 @@
         const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
         // Check filter
-        if (typeof this.filterOptions.filterAlgorithm === 'function') {
+        if (typeof this.options.filterOptions.filterAlgorithm === 'function') {
           this.data = this.options.data.filter((item, i) => {
-            return this.filterOptions.filterAlgorithm.apply(null, [item, f])
+            return this.options.filterOptions.filterAlgorithm.apply(null, [item, f])
           })
-        } else if (typeof this.filterOptions.filterAlgorithm === 'string') {
+        } else if (typeof this.options.filterOptions.filterAlgorithm === 'string') {
           this.data = f ? this.options.data.filter((item, i) => {
-            const filterAlgorithm = this.filterOptions.filterAlgorithm
+            const filterAlgorithm = this.options.filterOptions.filterAlgorithm
             if (filterAlgorithm === 'and') {
               for (const key in f) {
                 if (
@@ -2149,6 +2151,7 @@
       })
 
       this.updateSelected()
+      this.initFooter()
       this.resetView()
 
       if (this.options.sidePagination !== 'server') {
@@ -2156,8 +2159,6 @@
       }
 
       this.trigger('post-body', data)
-
-      this.initFooter()
     }
 
     toggleDetailView ($iconElement, columnDetailFormatter) {
