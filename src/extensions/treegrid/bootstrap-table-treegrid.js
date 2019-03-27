@@ -62,8 +62,9 @@
         var len = nodes.length - 1;
         for (var i = 0; i <= len; i++) {
             var node = nodes[i];
-            node._level = item._level + 1;
-            node._parent = item;
+            var defaultItem = $.extend(true, {}, item);
+            node._level = defaultItem._level + 1;
+            node._parent = defaultItem;
             if (i === len)
                 node._last = 1;
             // jquery.treegrid.js
