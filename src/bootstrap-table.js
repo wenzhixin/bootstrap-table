@@ -579,7 +579,7 @@
     formatPaginationSwitch () {
       return 'Hide/Show pagination'
     },
-    formatReresh () {
+    formatRefresh () {
       return 'Refresh'
     },
     formatToggle () {
