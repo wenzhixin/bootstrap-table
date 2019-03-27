@@ -1,6 +1,30 @@
 ChangeLog
 ---------
 
+### 1.15.0
+
+- **New(js):** Added support comparisons search(<, >, <=, =<, >=, =>).
+- **New(js):** Added `detailViewByClick` table option.
+- **New(js):** Added `showExtendedPagination` table option.
+- **New(js):** Added `totalNotFilteredField` table option.
+- **New(js):** Added `detailFormatter` column option.
+- **New(js):** Improved `filterBy` method with `or` condition and custom filter algorithm.
+- **New(js):** Improved `showColumn` and `hideColumn` methods with array of fields.
+- **New(js):** Improved scrollTo function to allow `rows` units.
+- **New(js):** Added `onPostFooter`(`post-footer.bs.table`) event.
+- **New(cell-input extension):** Added cell-input extension.
+- **Update(js):** Improved `pageList` options to support localization.
+- **Update(js):** Fixed `smartDisplay` option pagination bug.
+- **Update(js):** Set the `totalRows` option always.
+- **Update(js):** Fixed toolbar dropdown button border bug.
+- **Update(js):** Improved table footer.
+- **Update(js):** Fixed data-* attribute is an object bug.
+- **Update(filter-control extension):** Fixed DatePicker of filter-control does not work bug.
+- **Update(multiple-sort extension):** Fixed multiple-sort does not work with data-query-params bug.
+- **Update(editable extension):** Updated parameters of `onEditableSave` to `field, row, rowIndex, oldValue, $el`.
+- **Update(editable extension):** Fixed editable rerender bug after saving data.
+- **Update(treegrid extension):** Fixed treegrid cannot work bug.
+
 ### 1.14.2
 
 - **New(fixed-columns extension):** Added new version fixed-columns extension.

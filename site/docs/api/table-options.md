@@ -736,13 +736,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Enable the search input.
-  
+
   There are 3 ways to search:
-  - The value contains the search query (Default).   
+  - The value contains the search query (Default).
     Example: Github contains git.
-  - The value must be identical to the search query.  
+  - The value must be identical to the search query.
     Example: Github (value) and Github (search query).
-  - Comparsions (<, >, <=, =<, >=, =>)   
+  - Comparisons (<, >, <=, =<, >=, =>)
     Example: 4 is larger than 3.
 
 - **Default:** `false`
@@ -771,7 +771,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Enable the strict search.   
+  Enable the strict search.
   Disables the comparison checks.
 
 - **Default:** `false`
