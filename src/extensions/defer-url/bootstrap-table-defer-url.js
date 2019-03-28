@@ -13,20 +13,21 @@
  * @version: v1.0.0
  */
 
-(function($) {
-    'use strict';
+(function ($) {
+  'use strict'
 
-    $.extend($.fn.bootstrapTable.defaults, {
-        deferUrl : undefined
-    });
+  $.extend($.fn.bootstrapTable.defaults, {
+    deferUrl: undefined
+  })
 
-    var BootstrapTable = $.fn.bootstrapTable.Constructor, _init = BootstrapTable.prototype.init;
+  var BootstrapTable = $.fn.bootstrapTable.Constructor
+  var _init = BootstrapTable.prototype.init
 
-    BootstrapTable.prototype.init = function() {
-        _init.apply(this, Array.prototype.slice.apply(arguments));
+  BootstrapTable.prototype.init = function () {
+    _init.apply(this, Array.prototype.slice.apply(arguments))
 
-        if (this.options.deferUrl) {
-            this.options.url = this.options.deferUrl;
-        }
+    if (this.options.deferUrl) {
+      this.options.url = this.options.deferUrl
     }
-})(jQuery);
+  }
+})(jQuery)
