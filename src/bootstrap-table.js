@@ -1395,9 +1395,9 @@
               for (const key in f) {
                 if (
                   (Array.isArray(f[key]) &&
-                        !f[key].includes(item[key])) ||
-                    (!Array.isArray(f[key]) &&
-                        item[key] !== f[key])
+                    !f[key].includes(item[key])) ||
+                  (!Array.isArray(f[key]) &&
+                    item[key] !== f[key])
                 ) {
                   return false
                 }
@@ -1407,9 +1407,9 @@
               for (const key in f) {
                 if (
                   (Array.isArray(f[key]) &&
-                        f[key].includes(item[key])) ||
-                    (!Array.isArray(f[key]) &&
-                        item[key] === f[key])
+                    f[key].includes(item[key])) ||
+                  (!Array.isArray(f[key]) &&
+                    item[key] === f[key])
                 ) {
                   match = true
                 }
@@ -1595,7 +1595,7 @@
           for (const value of list) {
             pageList.push(
               (value.toLowerCase() === o.formatAllRows().toLowerCase() ||
-              ['all', 'unlimited'].includes(value.toLowerCase()))
+                ['all', 'unlimited'].includes(value.toLowerCase()))
                 ? o.formatAllRows() : +value)
           }
         }
@@ -2355,7 +2355,7 @@
 
       const fixedBody = this.$tableBody.get(0)
       const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-        fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
+      fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
         ? Utils.getScrollBarWidth() : 0
 
       this.$el.css('margin-top', -this.$header.outerHeight())
@@ -2501,7 +2501,7 @@
 
       const fixedBody = this.$tableBody.get(0)
       const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-        fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
+      fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
         ? Utils.getScrollBarWidth() : 0
 
       this.$tableFooter
