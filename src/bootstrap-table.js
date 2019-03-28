@@ -1935,6 +1935,8 @@
         }
         if (item[`_${field}_title`]) {
           title_ = Utils.sprintf(' title="%s"', item[`_${field}_title`])
+        } else {
+          title_ = Utils.sprintf(' title="%s"', item[ field ])
         }
         cellStyle = Utils.calculateObjectValue(this.header,
           this.header.cellStyles[j], [value_, item, i, field], cellStyle)
