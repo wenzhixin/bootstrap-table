@@ -53,7 +53,7 @@
     formatClearFilters () {
       return '清空過濾'
     },
-    formatJumpto () {
+    formatJumpTo () {
       return '跳轉'
     },
     formatAdvancedSearch () {

@@ -1,50 +1,46 @@
 /**
  * @author Jay <jwang@dizsoft.com>
+ * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-(function ($) {
-    'use strict';
-    var sprintf = $.fn.bootstrapTable.utils.sprintf;
+($ => {
+  const Utils = $.fn.bootstrapTable.utils
 
-    $.extend($.fn.bootstrapTable.defaults, {
-        showJumpto: false,
-        exportOptions: {}
-    });
+  $.extend($.fn.bootstrapTable.defaults, {
+    showJumpTo: false
+  })
 
-    $.extend($.fn.bootstrapTable.locales, {
-        formatJumpto: function () {
-            return 'GO';
+  $.extend($.fn.bootstrapTable.locales, {
+    formatJumpTo () {
+      return 'GO'
+    }
+  })
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+
+  $.BootstrapTable = class extends $.BootstrapTable {
+    initPagination (...args) {
+      super.initPagination(...args)
+
+      if (this.options.showJumpTo) {
+        const that = this
+        const $pageGroup = this.$pagination.find('> .pagination')
+        let $jumpTo = $pageGroup.find('.page-jump-to')
+
+        if (!$jumpTo.length) {
+          $jumpTo = $(`
+            <div class="page-jump-to ${this.constants.classes.inputGroup}">
+            <input type="number" class="${this.constants.classes.input}${Utils.sprintf(' input-%s', this.options.iconSize)}" value="${this.options.pageNumber}">
+            <button class="${this.constants.buttonsClass}"  type="button">
+            ${this.options.formatJumpTo()}
+            </button>
+            </div>
+          `).appendTo($pageGroup)
+
+          $jumpTo.find('button').click(() => {
+            this.selectPage(+$jumpTo.find('input').val())
+          })
         }
-    });
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-
-    var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initPagination = BootstrapTable.prototype.initPagination;
-
-    BootstrapTable.prototype.initPagination = function () {
-        _initPagination.apply(this, Array.prototype.slice.apply(arguments));
-
-        if (this.options.showJumpto) {
-            var that = this,
-                $pageGroup = this.$pagination.find('ul.pagination'),
-                $jumpto = $pageGroup.find('li.jumpto');
-
-            if (!$jumpto.length) {
-                $jumpto = $([
-                    '<li class="jumpto">',
-                        '<input type="text" class="form-control">',
-                        '<button class="btn' +
-                            sprintf(' btn-%s', this.options.buttonsClass) +
-                            sprintf(' btn-%s', this.options.iconSize) +
-                            '" title="' + this.options.formatJumpto() + '" ' +
-                            ' type="button">'+this.options.formatJumpto(),
-                        '</button>',
-                    '</li>'].join('')).appendTo($pageGroup);
-
-                $jumpto.find('button').click(function () {
-                    that.selectPage(parseInt($jumpto.find('input').val()));
-                });
-            }
-        }
-    };
-})(jQuery);
+      }
+    }
+  }
+})(jQuery)

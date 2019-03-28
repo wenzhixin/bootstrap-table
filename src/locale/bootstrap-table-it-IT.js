@@ -55,7 +55,7 @@
     formatClearFilters () {
       return 'Pulisci filtri'
     },
-    formatJumpto () {
+    formatJumpTo () {
       return 'GO'
     },
     formatAdvancedSearch () {

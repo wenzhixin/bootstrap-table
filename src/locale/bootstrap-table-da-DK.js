@@ -53,7 +53,7 @@
     formatClearFilters () {
       return 'Ryd filtre'
     },
-    formatJumpto () {
+    formatJumpTo () {
       return 'GO'
     },
     formatAdvancedSearch () {

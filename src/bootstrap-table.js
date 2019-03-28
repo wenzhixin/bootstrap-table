@@ -728,7 +728,7 @@
         ? '<div class="fixed-table-pagination"></div>' : ''
 
       this.$container = $(`
-        <div class="bootstrap-table">
+        <div class="bootstrap-table ${this.constants.theme}">
         <div class="fixed-table-toolbar"></div>
         ${topPagination}
         <div class="fixed-table-container">

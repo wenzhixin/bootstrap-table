@@ -53,7 +53,7 @@
     formatClearFilters: function () {
       return 'Borrar los filtros'
     },
-    formatJumpto () {
+    formatJumpTo () {
       return 'GO'
     },
     formatAdvancedSearch: function () {

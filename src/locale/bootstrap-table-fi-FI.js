@@ -53,7 +53,7 @@
     formatClearFilters () {
       return 'Poista suodattimet'
     },
-    formatJumpto () {
+    formatJumpTo () {
       return 'GO'
     },
     formatAdvancedSearch () {
