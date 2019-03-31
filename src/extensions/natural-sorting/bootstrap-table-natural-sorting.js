@@ -1,7 +1,6 @@
 /**
  * @author: Brian Huisman
  * @webSite: http://www.greywyvern.com
- * @version: v1.0.0
  * JS functions to allow natural sorting on bootstrap-table columns
  * add data-sorter="alphanum" or data-sorter="numericOnly" to any th
  *
@@ -11,14 +10,14 @@
 
 function alphanum (a, b) {
   function chunkify (t) {
-    var tz = []
-    var y = -1
-    var n = 0
+    const tz = []
+    let y = -1
+    let n = 0
 
     for (let i = 0; i <= t.length; i++) {
-      var char = t.charAt(i)
-      var charCode = char.charCodeAt(0)
-      var m = (charCode === 46 || (charCode >= 48 && charCode <= 57))
+      const char = t.charAt(i)
+      const charCode = char.charCodeAt(0)
+      const m = (charCode === 46 || (charCode >= 48 && charCode <= 57))
       if (m !== n) {
         tz[++y] = ''
         n = m
@@ -31,7 +30,7 @@ function alphanum (a, b) {
 
   function stringfy (v) {
     if (typeof(v) === 'number') {
-      v = '' + v
+      v = `${v}`
     }
     if (!v) {
       v = ''
@@ -39,13 +38,13 @@ function alphanum (a, b) {
     return v
   }
 
-  var aa = chunkify(stringfy(a))
-  var bb = chunkify(stringfy(b))
+  const aa = chunkify(stringfy(a))
+  const bb = chunkify(stringfy(b))
 
-  for (var x = 0; aa[x] && bb[x]; x++) {
+  for (let x = 0; aa[x] && bb[x]; x++) {
     if (aa[x] !== bb[x]) {
-      var c = Number(aa[x])
-      var d = Number(bb[x])
+      const c = Number(aa[x])
+      const d = Number(bb[x])
 
       if (c === aa[x] && d === bb[x]) {
         return c - d
