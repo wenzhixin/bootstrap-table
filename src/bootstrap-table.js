@@ -447,6 +447,7 @@
     singleSelect: false,
     checkboxHeader: true,
     maintainSelected: false,
+    multipleSelectRow: false,
     uniqueId: undefined,
     cardView: false,
     detailView: false,
@@ -2060,13 +2061,13 @@
       }
 
       // click to select by column
-      this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', ({currentTarget, type, target}) => {
-        const $td = $(currentTarget)
+      this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', e => {
+        const $td = $(e.currentTarget)
         const $tr = $td.parent()
-        const $cardviewArr = $(target).parents('.card-views').children()
-        const $cardviewTarget = $(target).parents('.card-view')
+        const $cardViewArr = $(e.target).parents('.card-views').children()
+        const $cardViewTarget = $(e.target).parents('.card-view')
         const item = this.data[$tr.data('index')]
-        const index = this.options.cardView ? $cardviewArr.index($cardviewTarget) : $td[0].cellIndex
+        const index = this.options.cardView ? $cardViewArr.index($cardViewTarget) : $td[0].cellIndex
         const fields = this.getVisibleFields()
         const field = fields[this.options.detailView && !this.options.cardView ? index - 1 : index]
         const column = this.columns[this.fieldsColumnsIndex[field]]
@@ -2076,25 +2077,29 @@
           return
         }
 
-        this.trigger(type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td)
-        this.trigger(type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field)
+        this.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td)
+        this.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field)
 
         // if click to select - then trigger the checkbox/radio click
         if (
-          type === 'click' &&
+          e.type === 'click' &&
           this.options.clickToSelect &&
           column.clickToSelect &&
-          !Utils.calculateObjectValue(this.options, this.options.ignoreClickToSelectOn, [target])
+          !Utils.calculateObjectValue(this.options, this.options.ignoreClickToSelectOn, [e.target])
         ) {
           const $selectItem = $tr.find(Utils.sprintf('[name="%s"]', this.options.selectItemName))
           if ($selectItem.length) {
-            $selectItem[0].click() // #144: .trigger('click') bug
+            $selectItem[0].click()
           }
         }
 
-        if (type === 'click' && this.options.detailViewByClick) {
+        if (e.type === 'click' && this.options.detailViewByClick) {
           this.toggleDetailView($tr.find('.detail-icon'), this.header.detailFormatters[index - 1])
         }
+      }).off('mousedown').on('mousedown', e => {
+        // https://github.com/jquery/jquery/issues/1741
+        this.multipleSelectRowCtrlKey = e.ctrlKey || e.metaKey
+        this.multipleSelectRowShiftKey = e.shiftKey
       })
 
       this.$body.find('> tr[data-index] > td > .detail-icon').off('click').on('click', e => {
@@ -3053,7 +3058,13 @@
       const $el = this.$selectItem.filter(`[data-index="${index}"]`)
       const row = this.data[index]
 
-      if ($el.is(':radio') || this.options.singleSelect) {
+      if (
+        $el.is(':radio') ||
+        this.options.singleSelect ||
+        this.options.multipleSelectRow &&
+        !this.multipleSelectRowCtrlKey &&
+        !this.multipleSelectRowShiftKey
+      ) {
         for (const r of this.options.data) {
           r[this.header.stateField] = false
         }
@@ -3061,6 +3072,22 @@
       }
 
       row[this.header.stateField] = checked
+
+      if (this.options.multipleSelectRow) {
+        if (this.multipleSelectRowShiftKey && this.multipleSelectRowLastSelectedIndex >= 0) {
+          const indexes = [this.multipleSelectRowLastSelectedIndex, index].sort()
+
+          for (let i = indexes[0] + 1; i < indexes[1]; i++) {
+            this.data[i][this.header.stateField] = true
+            this.$selectItem.filter(`[data-index="${i}"]`).prop('checked', true)
+          }
+        }
+
+        this.multipleSelectRowCtrlKey = false
+        this.multipleSelectRowShiftKey = false
+        this.multipleSelectRowLastSelectedIndex = checked ? index : -1
+      }
+
       $el.prop('checked', checked)
       this.updateSelected()
       this.trigger(checked ? 'check' : 'uncheck', this.data[index], $el)

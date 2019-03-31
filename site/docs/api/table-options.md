@@ -513,8 +513,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
-- **Example:** [Only Info Pagination](https://examples.bootstrap-table.com/#options/show-extended-pagination.html)
-
 ## totalNotFilteredField
 
 - **Attribute:** `data-total-not-filtered-field`
@@ -1130,6 +1128,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Maintain Selected](https://examples.bootstrap-table.com/#options/maintain-selected.html)
 
+## multipleSelectRow
+
+- **Attribute:** `data-multiple-select-row`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to enable the multiple selection row. Can use the ctrl+click to select one row or use shift+click to select a range of rows.
+
+- **Default:** `false`
+
+- **Example:** [Multiple Select Row](https://examples.bootstrap-table.com/#options/multiple-select-row.html)
+
 ## uniqueId
 
 - **Attribute:** `data-unique-id`
@@ -1209,8 +1221,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Set `true` to toggle the detail view, when a cell is clicked.
-
-- **Example:** [Toggle detail view by click](https://examples.bootstrap-table.com/#options/detail-view-by-click.html)
 
 ## toolbar
 
