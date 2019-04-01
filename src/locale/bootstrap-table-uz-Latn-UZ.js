@@ -53,7 +53,7 @@
     formatClearFilters () {
       return 'Filtrlarni tozalash'
     },
-    formatJumpto () {
+    formatJumpTo () {
       return 'GO'
     },
     formatAdvancedSearch () {

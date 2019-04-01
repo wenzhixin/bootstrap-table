@@ -10,23 +10,22 @@
  *
  * @author: Ruben Suarez
  * @webSite: http://rubensa.eu.org
- * @version: v1.0.0
+ * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-(function($) {
-    'use strict';
+($ => {
+  $.extend($.fn.bootstrapTable.defaults, {
+    deferUrl: undefined
+  })
 
-    $.extend($.fn.bootstrapTable.defaults, {
-        deferUrl : undefined
-    });
+  $.BootstrapTable = class extends $.BootstrapTable {
 
-    var BootstrapTable = $.fn.bootstrapTable.Constructor, _init = BootstrapTable.prototype.init;
+    init (...args) {
+      super.init(...args)
 
-    BootstrapTable.prototype.init = function() {
-        _init.apply(this, Array.prototype.slice.apply(arguments));
-
-        if (this.options.deferUrl) {
-            this.options.url = this.options.deferUrl;
-        }
+      if (this.options.deferUrl) {
+        this.options.url = this.options.deferUrl
+      }
     }
-})(jQuery);
+  }
+})(jQuery)

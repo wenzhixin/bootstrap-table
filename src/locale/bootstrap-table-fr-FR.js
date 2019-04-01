@@ -54,7 +54,7 @@
     formatClearFilters () {
       return 'Vider les filtres'
     },
-    formatJumpto () {
+    formatJumpTo () {
       return 'GO'
     },
     formatAdvancedSearch () {

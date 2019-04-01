@@ -63,12 +63,12 @@
   $.fn.bootstrapTable.methods.push('exportTable')
 
   $.BootstrapTable = class extends $.BootstrapTable {
-    initToolbar () {
+    initToolbar (...args) {
       const o = this.options
 
       this.showToolbar = this.showToolbar || o.showExport
 
-      super.initToolbar()
+      super.initToolbar(...args)
 
       if (!this.options.showExport) {
         return
@@ -82,7 +82,7 @@
       }
       this.$export = $(`
         <div class="export btn-group">
-        <button class="btn btn-${o.buttonsClass} btn-${o.iconSize} dropdown-toggle"
+        <button class="${this.constants.buttonsClass} dropdown-toggle"
           aria-label="export type"
           title="${o.formatExport()}"
           data-toggle="dropdown"

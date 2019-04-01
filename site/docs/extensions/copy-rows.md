@@ -16,42 +16,48 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 ## Options
 
-### copyBtn
+### showCopyRows
 
 - **type:** `Boolean`
 
 - **Detail:**
 
-   Set true to show the copy button. This button copys the contents of the selected rows to the clipboard.
+   Set `true` to show the copy button. This button copy the contents of the selected rows to the clipboard.
 
 - **Default:** `false`
 
-### copyWHiddenBtn
+### copyWithHidden
 
 - **type:** `Boolean`
 
 - **Detail:**
 
-   Set true to show the copy with hidden button. This button copys the contents of the selected rows to the clipboard, *including hidden rows*.
+   Set `true` to copy with hidden columns.
 
 - **Default:** `false`
 
-### copyDelemeter
+### copyDelimiter
 
 - **type:** `String`
 
 - **Detail:**
 
-   This string will be inserted in-between the column values when copying
+   This delimiter will be inserted in-between the column values when copying.
 
-- **Default:** `''`
+- **Default:** `', '`
+
+### copyNewline
+
+- **type:** `String`
+
+- **Detail:**
+
+   This newline will be inserted in-between the row values when copying.
+
+- **Default:** `'\n'`
 
 ## Methods
 
 ### copyColumnsToClipboard
 
-* copys the contents of the selected rows to the clipboard.
-
-### copyColumnsToClipboardWithHidden
-
-* copys the contents of the selected rows to the clipboard, **including hidden rows**.
+* Copy the contents of the selected rows to the clipboard.
