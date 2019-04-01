@@ -2,7 +2,7 @@
  * @author doug-the-guy
  * @version v1.0.0
  *
- * Boostrap Table Pipeline
+ * Bootstrap Table Pipeline
  * -----------------------
  *
  * This plugin enables client side data caching for server side requests which will
