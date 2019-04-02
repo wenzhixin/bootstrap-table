@@ -451,7 +451,7 @@
     uniqueId: undefined,
     cardView: false,
     detailView: false,
-    showDetailView: true,
+    detailViewIcon: true,
     detailViewByClick: false,
     detailFormatter (index, row) {
       return ''
@@ -878,7 +878,7 @@
       this.options.columns.forEach((columns, i) => {
         html.push('<tr>')
 
-        if (i === 0 && !this.options.cardView && this.options.detailView && this.options.showDetailView) {
+        if (i === 0 && !this.options.cardView && this.options.detailView && this.options.detailViewIcon) {
           html.push(`<th class="detail" rowspan="${this.options.columns.length}">
             <div class="fht-cell"></div>
             </th>
@@ -1873,7 +1873,7 @@
         html.push(`<td colspan="${this.header.fields.length}"><div class="card-views">`)
       }
 
-      if (!this.options.cardView && this.options.detailView && this.options.showDetailView) {
+      if (!this.options.cardView && this.options.detailView && this.options.detailViewIcon) {
         html.push('<td>')
 
         if (Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) {
@@ -2441,7 +2441,7 @@
       const data = this.getData()
       const html = []
 
-      if (!this.options.cardView && this.options.detailView && this.options.showDetailView) {
+      if (!this.options.cardView && this.options.detailView && this.options.detailViewIcon) {
         html.push('<th class="detail"><div class="th-inner"></div><div class="fht-cell"></div></th>')
       }
 
@@ -3310,7 +3310,7 @@
         return
       }
 
-      if (this.options.showDetailView) {
+      if (this.options.detailViewIcon) {
         $tr.find('a.detail-icon').html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailClose))
       }
 
@@ -3334,7 +3334,7 @@
         return
       }
 
-      if (this.options.showDetailView) {
+      if (this.options.detailViewIcon) {
         $tr.find('a.detail-icon').html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen))
       }
 
