@@ -6,6 +6,7 @@
 
 import Constants from './constants/index.js'
 import Utils from './utils/index.js'
+import VirtualScroll from './virtual-scroll/index.js'
 
 class BootstrapTable {
   constructor (el, options) {
@@ -1161,7 +1162,7 @@ class BootstrapTable {
     return false
   }
 
-  initRow (item, i, data, parentDom) {
+  initRow (item, i) {
     const html = []
     let style = {}
     const csses = []
@@ -1379,15 +1380,15 @@ class BootstrapTable {
       this.pageTo = data.length
     }
 
-    const trFragments = $(document.createDocumentFragment())
+    const rows = []
     let hasTr = false
 
     for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
       const item = data[i]
-      const tr = this.initRow(item, i, data, trFragments)
+      const tr = this.initRow(item, i)
       hasTr = hasTr || !!tr
       if (tr && typeof tr === 'string') {
-        trFragments.append(tr)
+        rows.push(tr)
       }
     }
 
@@ -1397,7 +1398,17 @@ class BootstrapTable {
         this.$header.find('th').length,
         this.options.formatNoMatches())}</tr>`)
     } else {
-      this.$body.html(trFragments)
+      if (this.virtualScroll) {
+        this.virtualScroll.destroy()
+      }
+      this.virtualScroll = new VirtualScroll({
+        rows,
+        scrollEl: this.$tableBody[0],
+        contentEl: this.$body[0],
+        callback: () => {
+          this.fitHeader()
+        }
+      })
     }
 
     if (!fixedScroll) {
@@ -1739,7 +1750,7 @@ class BootstrapTable {
 
     const visibleFields = this.getVisibleFields()
     const $ths = this.$header_.find('th')
-    let $tr = this.$body.find('>tr:first-child:not(.no-records-found)')
+    let $tr = this.$body.find('>tr:not(.no-records-found,.virtual-scroll-top)').eq(0)
 
     while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
       $tr = $tr.next()
