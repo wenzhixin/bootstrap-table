@@ -1184,6 +1184,18 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)
 
+## detailViewIcon
+
+- **Attribute:** `data-detail-view-icon`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show the detail view column (plus/minus icon).
+
+- **Default:** `true`
+
 ## detailFormatter
 
 - **Attribute:** `data-detail-formatter`

@@ -475,6 +475,14 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Toggle the card/table view.
 
+## toggleDetailView
+
+- **Parameter:** `index`
+
+- **Detail:**
+
+  Toggle the row that has the `index` passed by parameter if the detail view option is set to `true`.
+
 ## expandRow
 
 - **Parameter:** `index`
@@ -493,15 +501,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## expandAllRows
 
-- **Parameter:** `isSubTable`
-
 - **Detail:**
 
   Expand all rows if the detail view option is set to `true`.
 
 ## collapseAllRows
-
-- **Parameter:** `isSubTable`
 
 - **Detail:**
 
