@@ -2066,8 +2066,8 @@
       this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', e => {
         const $td = $(e.currentTarget)
         const $tr = $td.parent()
-        const $cardViewArr = $(target).parents('.card-views').children()
-        const $cardViewTarget = $(target).parents('.card-view')
+        const $cardViewArr = $(e.target).parents('.card-views').children()
+        const $cardViewTarget = $(e.target).parents('.card-view')
         const rowIndex = $tr.data('index')
         const item = this.data[rowIndex]
         const index = this.options.cardView ? $cardViewArr.index($cardViewTarget) : $td[0].cellIndex
