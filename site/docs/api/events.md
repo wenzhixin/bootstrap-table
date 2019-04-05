@@ -134,25 +134,27 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **jQuery Event:** `check-all.bs.table`
 
-- **Parameter:** `rows`
+- **Parameter:** `rowsAfter, rowsBefore`
 
 - **Detail:**
 
   Fires when user check all rows, the parameters contain:
 
-  * `rows`: array of records corresponding to newly checked rows.
+  * `rowsAfter`: array of records of the now checked rows.
+  * `rowsBefore`: array of records of the checked rows before.
 
 ## onUncheckAll
 
 - **jQuery Event:** `uncheck-all.bs.table`
 
-- **Parameter:** `rows`
+- **Parameter:** `rowsAfter, rowsBefore`
 
 - **Detail:**
 
   Fires when user uncheck all rows, the parameters contain:
 
-  * `rows`: array of records corresponding to previously checked rows.
+  * `rowsAfter`: array of records of the now checked rows.
+  * `rowsBefore`: array of records of the checked rows before.
 
 ## onCheckSome
 
