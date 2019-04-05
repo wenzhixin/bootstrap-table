@@ -5,6 +5,7 @@
  */
 
 const Utils = $.fn.bootstrapTable.utils
+const Constants = $.fn.bootstrapTable.constants
 const UtilsFilterControl = {
   getOptionsFromSelectControl (selectControl) {
     return selectControl.get(selectControl.length - 1).options
@@ -516,7 +517,7 @@ const bootstrap = {
       clear: 'fa-trash icon-clear'
     }
   }
-}[Utils.bootstrapVersion]
+}[Constants.bootstrapVersion]
 
 $.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,
@@ -623,6 +624,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           if (that.options.height) {
             UtilsFilterControl.fixHeaderCSS(that)
           }
+          this.$tableLoading.css('top', this.$header.outerHeight() + 1)
         })
         .on('column-switch.bs.table', () => {
           UtilsFilterControl.setValues(that)

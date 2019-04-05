@@ -407,7 +407,7 @@ export default {
   COLUMN_DEFAULTS,
 
   EVENTS,
-
+  bootstrapVersion,
   LOCALES: {
     en: EN,
     'en-US': EN
