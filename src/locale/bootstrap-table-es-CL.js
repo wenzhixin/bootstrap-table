@@ -4,8 +4,6 @@
  * email brianalvarezazocar@gmail.com
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['es-CL'] = {
   formatLoadingMessage () {
     return 'Cargando, espere por favor'

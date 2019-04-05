@@ -3,8 +3,6 @@
  * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['es-CR'] = {
   formatLoadingMessage () {
     return 'Cargando, por favor espere'

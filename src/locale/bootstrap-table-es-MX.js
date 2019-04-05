@@ -5,8 +5,6 @@
  * Revisión: J Manuel Corona (jmcg92@gmail.com) (13/Feb/2018).
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['es-MX'] = {
   formatLoadingMessage () {
     return 'Cargando, espere por favor'

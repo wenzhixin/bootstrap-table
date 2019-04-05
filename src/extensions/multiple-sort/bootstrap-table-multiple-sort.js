@@ -5,8 +5,6 @@
  * Modification: ErwannNevou <https://github.com/ErwannNevou>
  */
 
-import $ from 'jquery'
-
 var isSingleSort = false
 
 var showSortModal = function (that) {

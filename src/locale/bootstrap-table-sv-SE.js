@@ -3,8 +3,6 @@
  * Author: C Bratt <bratt@inix.se>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['sv-SE'] = {
   formatLoadingMessage () {
     return 'Laddar, vänligen vänta'

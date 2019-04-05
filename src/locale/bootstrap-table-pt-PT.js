@@ -3,8 +3,6 @@
  * Author: Burnspirit<burnspirit@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['pt-PT'] = {
   formatLoadingMessage () {
     return 'A carregar, por favor aguarde'

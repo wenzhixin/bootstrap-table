@@ -3,8 +3,6 @@
  * Author: Nagy Gergely <info@nagygergely.eu>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['hu-HU'] = {
   formatLoadingMessage () {
     return 'Betöltés, kérem várjon'

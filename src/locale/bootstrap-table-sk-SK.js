@@ -3,8 +3,6 @@
  * Author: Jozef Dúc<jozef.d13@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['sk-SK'] = {
   formatLoadingMessage () {
     return 'Prosím čakajte'

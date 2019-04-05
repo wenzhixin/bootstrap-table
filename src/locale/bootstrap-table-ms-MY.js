@@ -3,8 +3,6 @@
  * Author: Azamshul Azizy <azamshul@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['ms-MY'] = {
   formatLoadingMessage () {
     return 'Permintaan sedang dimuatkan. Sila tunggu sebentar'

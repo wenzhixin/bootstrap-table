@@ -3,8 +3,6 @@
  * Author: kristjan@logist.it>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['et-EE'] = {
   formatLoadingMessage () {
     return 'Päring käib, palun oota'

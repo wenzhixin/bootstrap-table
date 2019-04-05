@@ -3,8 +3,6 @@
  * Author: Julien Bisconti (julien.bisconti@gmail.com)
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['fr-BE'] = {
   formatLoadingMessage () {
     return 'Chargement en cours'

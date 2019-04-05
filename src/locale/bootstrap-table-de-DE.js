@@ -3,8 +3,6 @@
 * Author: Paul Mohr - Sopamo<p.mohr@sopamo.de>
 */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['de-DE'] = {
   formatLoadingMessage () {
     return 'Lade, bitte warten'

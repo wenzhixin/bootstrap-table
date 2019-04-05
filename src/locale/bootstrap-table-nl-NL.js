@@ -3,8 +3,6 @@
  * Author: Your Name <info@a2hankes.nl>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['nl-NL'] = {
   formatLoadingMessage () {
     return 'Laden, even geduld'

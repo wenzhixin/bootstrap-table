@@ -3,8 +3,6 @@
  * Author: Zhixin Wen<wenzhixin2010@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['zh-TW'] = {
   formatLoadingMessage () {
     return '正在努力地載入資料，請稍候'

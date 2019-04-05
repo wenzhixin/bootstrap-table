@@ -3,8 +3,6 @@
  * Author: Monchai S.<monchais@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['th-TH'] = {
   formatLoadingMessage () {
     return 'กำลังโหลดข้อมูล, กรุณารอสักครู่'

@@ -13,8 +13,6 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.extend($.fn.bootstrapTable.defaults, {
   deferUrl: undefined
 })

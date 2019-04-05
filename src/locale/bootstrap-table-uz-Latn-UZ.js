@@ -3,8 +3,6 @@
  * Author: Nabijon Masharipov <mnabijonz@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
   formatLoadingMessage () {
     return 'Yuklanyapti, iltimos kuting'

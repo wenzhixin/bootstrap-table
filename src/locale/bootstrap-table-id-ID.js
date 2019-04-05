@@ -3,8 +3,6 @@
  * Author: Andre Gardiner<andre@sirdre.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['id-ID'] = {
   formatLoadingMessage () {
     return 'Memuat, mohon tunggu'

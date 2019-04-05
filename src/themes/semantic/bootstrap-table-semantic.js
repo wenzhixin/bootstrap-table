@@ -4,8 +4,6 @@
  * theme: https://github.com/Semantic-Org/Semantic-UI
  */
 
-import $ from 'jquery'
-
 $.extend($.fn.bootstrapTable.defaults, {
   classes: 'ui selectable celled table',
   buttonsPrefix: '',

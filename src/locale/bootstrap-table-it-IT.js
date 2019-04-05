@@ -5,8 +5,6 @@
  * Author: Alessio Felicioni <alessio.felicioni@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['it-IT'] = {
   formatLoadingMessage () {
     return 'Caricamento in corso'

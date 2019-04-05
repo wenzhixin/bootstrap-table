@@ -4,8 +4,6 @@
  * theme: https://github.com/jgthms/bulma/
  */
 
-import $ from 'jquery'
-
 $.extend($.fn.bootstrapTable.defaults, {
   classes: 'table highlight',
   buttonsPrefix: '',

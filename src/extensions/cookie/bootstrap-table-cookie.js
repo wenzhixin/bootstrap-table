@@ -4,8 +4,6 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-import $ from 'jquery'
-
 const UtilsCookie = {
   cookieIds: {
     sortOrder: 'bs.table.sortOrder',

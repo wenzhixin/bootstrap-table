@@ -3,8 +3,6 @@
  * Author: Azamshul Azizy <azamshul@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['ja-JP'] = {
   formatLoadingMessage () {
     return '読み込み中です。少々お待ちください。'

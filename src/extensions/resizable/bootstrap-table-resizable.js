@@ -4,8 +4,6 @@
  * @version: v2.0.0
  */
 
-import $ from 'jquery'
-
 var isInit = function (that) {
   return that.$el.data('resizableColumns') !== undefined
 }

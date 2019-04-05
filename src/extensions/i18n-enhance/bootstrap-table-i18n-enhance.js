@@ -3,8 +3,6 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.methods.push('changeTitle')
 $.fn.bootstrapTable.methods.push('changeLocale')
 

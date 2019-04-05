@@ -4,8 +4,6 @@
  * @version: v1.1.0
  */
 
-import $ from 'jquery'
-
 var originalRowAttr
 var dataTTId = 'data-tt-id'
 var dataTTParentId = 'data-tt-parent-id'

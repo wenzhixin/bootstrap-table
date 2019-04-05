@@ -3,8 +3,6 @@
  * Author: giannisdallas
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['el-GR'] = {
   formatLoadingMessage () {
     return 'Φορτώνει, παρακαλώ περιμένετε'

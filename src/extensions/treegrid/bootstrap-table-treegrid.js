@@ -3,8 +3,6 @@
  * @version: v1.0.0
  */
 
-import $ from 'jquery'
-
 $.extend($.fn.bootstrapTable.defaults, {
   treeShowField: null,
   idField: 'id',

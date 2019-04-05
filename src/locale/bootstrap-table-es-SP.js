@@ -3,8 +3,6 @@
  * Author: Antonio Pérez <anpegar@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['es-SP'] = {
   formatLoadingMessage () {
     return 'Cargando, por favor espera'

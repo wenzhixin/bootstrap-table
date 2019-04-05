@@ -4,8 +4,6 @@
  * @version: v1.1.0
  */
 
-import $ from 'jquery'
-
 // From MDN site, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 var filterFn = function () {
   if (!Array.prototype.filter) {

@@ -4,8 +4,6 @@
  * Author: Petra Štrbenac (petra.strbenac@gmail.com)
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['hr-HR'] = {
   formatLoadingMessage () {
     return 'Molimo pričekajte'

@@ -3,8 +3,6 @@
  * Author: Vitaliy Timchenko <vitaliy.timchenko@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['uk-UA'] = {
   formatLoadingMessage () {
     return 'Завантаження, будь ласка, зачекайте'

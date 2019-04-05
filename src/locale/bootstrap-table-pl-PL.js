@@ -3,8 +3,6 @@
  * Author: zergu <michal.zagdan @ gmail com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['pl-PL'] = {
   formatLoadingMessage () {
     return 'Ładowanie, proszę czekać'

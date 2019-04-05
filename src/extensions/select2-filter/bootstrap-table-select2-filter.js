@@ -3,8 +3,6 @@
  * @version: v1.1.1
  */
 
-import $ from 'jquery'
-
 function getCurrentHeader (that) {
   var header = that.$header
   if (that.options.height) {

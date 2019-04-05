@@ -4,7 +4,6 @@
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
-import $ from 'jquery'
 import Constants from './constants/index.js'
 import Utils from './utils/index.js'
 import VirtualScroll from './virtual-scroll/index.js'

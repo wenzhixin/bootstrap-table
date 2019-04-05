@@ -3,8 +3,6 @@
  * Author: MJ Vakili <mjv.1989@Gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['fa-IR'] = {
   formatLoadingMessage () {
     return 'در حال بارگذاری, لطفا صبر کنید'

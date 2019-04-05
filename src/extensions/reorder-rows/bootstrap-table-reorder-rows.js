@@ -4,8 +4,6 @@
  * @version: v1.0.1
  */
 
-import $ from 'jquery'
-
 var isSearch = false
 
 var rowAttr = function (row, index) {

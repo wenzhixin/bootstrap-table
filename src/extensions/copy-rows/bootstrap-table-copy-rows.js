@@ -3,8 +3,6 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-import $ from 'jquery'
-
 const Utils = $.fn.bootstrapTable.utils
 
 const constants = {

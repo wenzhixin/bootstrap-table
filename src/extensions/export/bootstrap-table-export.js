@@ -3,8 +3,6 @@
  * extensions: https://github.com/hhurz/tableExport.jquery.plugin
  */
 
-import $ from 'jquery'
-
 const Utils = $.fn.bootstrapTable.utils
 
 const bootstrap = {

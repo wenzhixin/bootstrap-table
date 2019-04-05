@@ -4,8 +4,6 @@
  * Author: Jakub Svestka <svestka1999@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['cs-CZ'] = {
   formatLoadingMessage () {
     return 'Čekejte, prosím'

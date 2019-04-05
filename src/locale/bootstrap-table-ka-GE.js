@@ -3,8 +3,6 @@
  * Author: Levan Lotuashvili <l.lotuashvili@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['ka-GE'] = {
   formatLoadingMessage () {
     return 'იტვირთება, გთხოვთ მოიცადოთ'

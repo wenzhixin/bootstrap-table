@@ -4,8 +4,6 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-import $ from 'jquery'
-
 const debounce = (func, wait) => {
   let timeout = 0
   return (...args) => {

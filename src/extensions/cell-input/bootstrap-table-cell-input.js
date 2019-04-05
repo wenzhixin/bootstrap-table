@@ -5,8 +5,6 @@
  * extensions:
  */
 
-import $ from 'jquery'
-
 $.extend($.fn.bootstrapTable.defaults, {
   cellInputEnabled: false,
   cellInputType: 'text', // text or select or textarea

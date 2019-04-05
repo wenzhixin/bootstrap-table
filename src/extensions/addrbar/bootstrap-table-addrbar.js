@@ -6,20 +6,18 @@
  * @update: zhixin wen <wenzhixin2010@gmail.com>
  */
 
-import $ from 'jquery'
-
 /*
-    * function: 获取浏览器地址栏中的指定参数.
-    * key: 参数名
-    * url: 默认为当前地址栏
-    */
+ * function: 获取浏览器地址栏中的指定参数.
+ * key: 参数名
+ * url: 默认为当前地址栏
+ */
 function _GET (key, url = window.location.search) {
   /*
-    * 注意这里正则表达式的书写方法
-    * (^|&)key匹配: 直接以key开始或以&key开始的字符串
-    * 同理(&|$)表示以&结束或是直接结束的字符串
-    * ...当然, 我并不知道这种用法.
-    */
+   * 注意这里正则表达式的书写方法
+   * (^|&)key匹配: 直接以key开始或以&key开始的字符串
+   * 同理(&|$)表示以&结束或是直接结束的字符串
+   * ...当然, 我并不知道这种用法.
+   */
   const reg = new RegExp(`(^|&)${key}=([^&]*)(&|$)`)
   const result = url.substr(1).match(reg)
 
@@ -30,16 +28,16 @@ function _GET (key, url = window.location.search) {
 }
 
 /*
-  * function: 根据给定参数生成url地址
-  * var dic = {name: 'genreal', age: 24}
-  * var url = 'https://www.baidu.com?age=22';
-  * _buildUrl(dic, url);
-  * 将得到"https://www.baidu.com?age=24&name=genreal"
-  * 哦, 忽略先后顺序吧...
-  *
-  * 补充: 可以参考浏览器URLSearchParams对象, 更加方便和强大.
-  * 考虑到兼容性, 暂时不使用这个工具.
-  */
+ * function: 根据给定参数生成url地址
+ * var dic = {name: 'genreal', age: 24}
+ * var url = 'https://www.baidu.com?age=22';
+ * _buildUrl(dic, url);
+ * 将得到"https://www.baidu.com?age=24&name=genreal"
+ * 哦, 忽略先后顺序吧...
+ *
+ * 补充: 可以参考浏览器URLSearchParams对象, 更加方便和强大.
+ * 考虑到兼容性, 暂时不使用这个工具.
+ */
 
 function _buildUrl (dict, url = window.location.search) {
   for (const [key, val] of Object.entries(dict)) {
@@ -48,9 +46,9 @@ function _buildUrl (dict, url = window.location.search) {
     const targetStr = `${key}=${val}`
 
     /*
-      * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
-      * 不然就直接添加好了.
-      */
+     * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
+     * 不然就直接添加好了.
+     */
     if (url.match(pattern)) {
       const tmp = new RegExp(`(${key}=)([^&]*)`, 'gi')
       url = url.replace(tmp, targetStr)

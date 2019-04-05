@@ -4,8 +4,6 @@
  * Update: João Mello<jmello@hotmail.com.br>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['pt-BR'] = {
   formatLoadingMessage () {
     return 'Carregando, aguarde'

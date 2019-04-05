@@ -4,8 +4,6 @@
  * @version: v2.2.0
  */
 
-import $ from 'jquery'
-
 const Utils = $.fn.bootstrapTable.utils
 const UtilsFilterControl = {
   getOptionsFromSelectControl (selectControl) {

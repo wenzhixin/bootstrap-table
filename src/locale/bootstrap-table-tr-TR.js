@@ -4,8 +4,6 @@
  * Author: Sercan Cakir <srcnckr@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['tr-TR'] = {
   formatLoadingMessage () {
     return 'Yükleniyor, lütfen bekleyin'

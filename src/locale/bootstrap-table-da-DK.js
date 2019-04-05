@@ -3,8 +3,6 @@
  * Author: Your Name Jan Borup Coyle, github@coyle.dk
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['da-DK'] = {
   formatLoadingMessage () {
     return 'Indlæser, vent venligst'

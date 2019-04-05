@@ -3,8 +3,6 @@
  * Author: legshooter
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['he-IL'] = {
   formatLoadingMessage () {
     return 'טוען, נא להמתין'

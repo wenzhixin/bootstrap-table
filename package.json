@@ -19,6 +19,7 @@
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-babel-minify": "^8.0.0",
     "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-inject": "^2.2.0",
     "rollup-plugin-node-resolve": "^4.0.1",
     "sass": "^1.16.1"
   },

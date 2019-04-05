@@ -4,8 +4,6 @@
  *          Claudi Martinez<claudix.kernel@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['ca-ES'] = {
   formatLoadingMessage () {
     return 'Espereu, si us plau'

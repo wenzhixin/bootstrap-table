@@ -4,8 +4,6 @@
  * Modification: Tidalf (https://github.com/TidalfFR)
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['fr-FR'] = {
   formatLoadingMessage () {
     return 'Chargement en cours, patientez, s´il vous plaît'

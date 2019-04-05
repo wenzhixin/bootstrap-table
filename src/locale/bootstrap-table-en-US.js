@@ -3,8 +3,6 @@
  * Author: Zhixin Wen<wenzhixin2010@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['en-US'] = {
   formatLoadingMessage () {
     return 'Loading, please wait'

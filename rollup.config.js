@@ -3,16 +3,23 @@ import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import minify from 'rollup-plugin-babel-minify'
+import inject from 'rollup-plugin-inject'
 
-const files = glob.sync('src/**/*.js', {
-  ignore: ['src/constants/**', 'src/utils/**', 'src/virtual-scroll/**']
-})
+// const files = glob.sync('src/**/*.js', {
+//   ignore: ['src/constants/**', 'src/utils/**', 'src/virtual-scroll/**']
+// })
+const files = ['src/bootstrap-table.js']
 const external = ['jquery']
 const globals = {
   jquery: 'jQuery'
 }
 const config = []
 const plugins = [
+  inject({
+    include: '**/*.js',
+    exclude: 'node_modules/**',
+    $: 'jquery'
+  }),
   resolve(),
   commonjs(),
   babel({

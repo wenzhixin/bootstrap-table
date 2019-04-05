@@ -3,8 +3,6 @@
  * Author: Iker Ibarguren Berasaluze<ikerib@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['eu-EU'] = {
   formatLoadingMessage () {
     return 'Itxaron mesedez'

@@ -3,8 +3,6 @@
  * Author: Malik <me@malikrizwan.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['ur-PK'] = {
   formatLoadingMessage () {
     return 'براۓ مہربانی انتظار کیجئے'

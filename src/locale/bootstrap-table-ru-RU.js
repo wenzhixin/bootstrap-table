@@ -3,8 +3,6 @@
  * Author: Dunaevsky Maxim <dunmaksim@yandex.ru>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['ru-RU'] = {
   formatLoadingMessage () {
     return 'Пожалуйста, подождите, идёт загрузка'

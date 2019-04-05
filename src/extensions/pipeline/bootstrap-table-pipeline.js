@@ -47,8 +47,6 @@
  *
  **/
 
-import $ from 'jquery'
-
 var Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {

@@ -4,8 +4,6 @@
  * theme: https://github.com/zurb/foundation-sites
  */
 
-import $ from 'jquery'
-
 $.extend($.fn.bootstrapTable.defaults, {
   classes: 'table hover',
   buttonsPrefix: '',

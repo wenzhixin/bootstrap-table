@@ -3,8 +3,6 @@
  * @version: v1.1.0
  */
 
-import $ from 'jquery'
-
 var initBodyCaller
 var tableGroups
 

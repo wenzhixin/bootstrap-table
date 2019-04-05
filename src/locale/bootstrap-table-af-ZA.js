@@ -3,8 +3,6 @@
  * Author: Phillip Kruger <phillip.kruger@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['af-ZA'] = {
   formatLoadingMessage () {
     return 'Besig om te laai, wag asseblief'

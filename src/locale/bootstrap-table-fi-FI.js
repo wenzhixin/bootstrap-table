@@ -3,8 +3,6 @@
  * Author: Minna Lehtomäki <minna.j.lehtomaki@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['fi-FI'] = {
   formatLoadingMessage () {
     return 'Ladataan, ole hyvä ja odota'

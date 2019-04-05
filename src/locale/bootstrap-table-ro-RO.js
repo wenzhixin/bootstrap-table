@@ -3,8 +3,6 @@
  * Author: cristake <cristianiosif@me.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['ro-RO'] = {
   formatLoadingMessage () {
     return 'Se incarca, va rugam asteptati'

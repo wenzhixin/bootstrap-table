@@ -3,8 +3,6 @@
  * extensions: https://github.com/vitalets/x-editable
  */
 
-import $ from 'jquery'
-
 const Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {

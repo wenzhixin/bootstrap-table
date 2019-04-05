@@ -3,8 +3,6 @@
  * Author: Duc N. PHAM <pngduc@gmail.com>
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['vi-VN'] = {
   formatLoadingMessage () {
     return 'Đang tải'

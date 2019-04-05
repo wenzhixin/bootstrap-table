@@ -3,8 +3,6 @@
  * Author: Jim Nordbø, jim@nordb.no
  */
 
-import $ from 'jquery'
-
 $.fn.bootstrapTable.locales['nb-NO'] = {
   formatLoadingMessage () {
     return 'Oppdaterer, vennligst vent'
