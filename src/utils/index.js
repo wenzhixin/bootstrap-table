@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 export default {
   // it only does '%s', and return '' when arguments are undefined
   sprintf (_str, ...args) {

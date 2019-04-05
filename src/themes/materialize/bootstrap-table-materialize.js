@@ -4,69 +4,69 @@
  * theme: https://github.com/jgthms/bulma/
  */
 
-($ => {
-  $.extend($.fn.bootstrapTable.defaults, {
-    classes: 'table highlight',
-    buttonsPrefix: '',
-    buttonsClass: 'waves-effect waves-light btn',
-    iconsPrefix: 'material-icons',
-    icons: {
-      paginationSwitchDown: 'grid_on',
-      paginationSwitchUp: 'grid_off',
-      refresh: 'refresh',
-      toggleOff: 'tablet',
-      toggleOn: 'tablet_android',
-      columns: 'view_list',
-      detailOpen: 'add',
-      detailClose: 'remove',
-      fullscreen: 'fullscreen'
-    }
-  })
+import $ from 'jquery'
 
-  $.BootstrapTable = class extends $.BootstrapTable {
-    initConstants () {
-      super.initConstants()
+$.extend($.fn.bootstrapTable.defaults, {
+  classes: 'table highlight',
+  buttonsPrefix: '',
+  buttonsClass: 'waves-effect waves-light btn',
+  iconsPrefix: 'material-icons',
+  icons: {
+    paginationSwitchDown: 'grid_on',
+    paginationSwitchUp: 'grid_off',
+    refresh: 'refresh',
+    toggleOff: 'tablet',
+    toggleOn: 'tablet_android',
+    columns: 'view_list',
+    detailOpen: 'add',
+    detailClose: 'remove',
+    fullscreen: 'fullscreen'
+  }
+})
 
-      this.constants.theme = 'materialize'
+$.BootstrapTable = class extends $.BootstrapTable {
+  initConstants () {
+    super.initConstants()
 
-      this.constants.classes.buttonsGroup = ''
-      this.constants.classes.buttonsDropdown = ''
-      this.constants.classes.input = 'input-field'
-      this.constants.classes.input = ''
-      this.constants.classes.paginationDropdown = ''
+    this.constants.theme = 'materialize'
 
-      this.constants.html.toobarDropdow = ['<ul id="toolbar-dropdown" class="dropdown-content">', '</ul>']
-      this.constants.html.toobarDropdowItem = '<li><label>%s</label></li>'
-      this.constants.html.pageDropdown = ['<ul id="page-list-dropdown" class="dropdown-content">', '</ul>']
-      this.constants.html.pageDropdownItem = '<li><a class="%s" href="#">%s</a></li>'
-      this.constants.html.dropdownCaret = '<i class="material-icons">arrow_drop_down</i>'
-      this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'],
-      this.constants.html.paginationItem = '<li class="waves-effect page-item%s"><a href="#">%s</a></li>'
-      this.constants.html.icon = '<i class="%s">%s</i>'
-    }
+    this.constants.classes.buttonsGroup = ''
+    this.constants.classes.buttonsDropdown = ''
+    this.constants.classes.input = 'input-field'
+    this.constants.classes.input = ''
+    this.constants.classes.paginationDropdown = ''
 
-    initToolbar () {
-      super.initToolbar()
+    this.constants.html.toobarDropdow = ['<ul id="toolbar-dropdown" class="dropdown-content">', '</ul>']
+    this.constants.html.toobarDropdowItem = '<li><label>%s</label></li>'
+    this.constants.html.pageDropdown = ['<ul id="page-list-dropdown" class="dropdown-content">', '</ul>']
+    this.constants.html.pageDropdownItem = '<li><a class="%s" href="#">%s</a></li>'
+    this.constants.html.dropdownCaret = '<i class="material-icons">arrow_drop_down</i>'
+    this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'],
+    this.constants.html.paginationItem = '<li class="waves-effect page-item%s"><a href="#">%s</a></li>'
+    this.constants.html.icon = '<i class="%s">%s</i>'
+  }
 
-      if (this.options.showColumns) {
-        this.$toolbar.find('.dropdown-toggle')
-          .attr('data-target', 'toolbar-dropdown')
-          .dropdown({
-            alignment: 'right',
-            constrainWidth: false,
-            closeOnClick: false
-          })
-      }
-    }
+  initToolbar () {
+    super.initToolbar()
 
-    initPagination () {
-      super.initPagination()
-
-      if (this.options.pagination && !this.options.onlyInfoPagination) {
-        this.$pagination.find('.dropdown-toggle')
-          .attr('data-target', 'page-list-dropdown')
-          .dropdown()
-      }
+    if (this.options.showColumns) {
+      this.$toolbar.find('.dropdown-toggle')
+        .attr('data-target', 'toolbar-dropdown')
+        .dropdown({
+          alignment: 'right',
+          constrainWidth: false,
+          closeOnClick: false
+        })
     }
   }
-})(jQuery)
+
+  initPagination () {
+    super.initPagination()
+
+    if (this.options.pagination && !this.options.onlyInfoPagination) {
+      this.$pagination.find('.dropdown-toggle')
+        .attr('data-target', 'page-list-dropdown')
+        .dropdown()
+    }
+  }
+}

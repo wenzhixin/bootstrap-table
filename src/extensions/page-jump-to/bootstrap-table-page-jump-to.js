@@ -3,44 +3,44 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-($ => {
-  const Utils = $.fn.bootstrapTable.utils
+import $ from 'jquery'
 
-  $.extend($.fn.bootstrapTable.defaults, {
-    showJumpTo: false
-  })
+const Utils = $.fn.bootstrapTable.utils
 
-  $.extend($.fn.bootstrapTable.locales, {
-    formatJumpTo () {
-      return 'GO'
-    }
-  })
-  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+$.extend($.fn.bootstrapTable.defaults, {
+  showJumpTo: false
+})
 
-  $.BootstrapTable = class extends $.BootstrapTable {
-    initPagination (...args) {
-      super.initPagination(...args)
+$.extend($.fn.bootstrapTable.locales, {
+  formatJumpTo () {
+    return 'GO'
+  }
+})
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-      if (this.options.showJumpTo) {
-        const that = this
-        const $pageGroup = this.$pagination.find('> .pagination')
-        let $jumpTo = $pageGroup.find('.page-jump-to')
+$.BootstrapTable = class extends $.BootstrapTable {
+  initPagination (...args) {
+    super.initPagination(...args)
 
-        if (!$jumpTo.length) {
-          $jumpTo = $(`
-            <div class="page-jump-to ${this.constants.classes.inputGroup}">
-            <input type="number" class="${this.constants.classes.input}${Utils.sprintf(' input-%s', this.options.iconSize)}" value="${this.options.pageNumber}">
-            <button class="${this.constants.buttonsClass}"  type="button">
-            ${this.options.formatJumpTo()}
-            </button>
-            </div>
-          `).appendTo($pageGroup)
+    if (this.options.showJumpTo) {
+      const that = this
+      const $pageGroup = this.$pagination.find('> .pagination')
+      let $jumpTo = $pageGroup.find('.page-jump-to')
 
-          $jumpTo.find('button').click(() => {
-            this.selectPage(+$jumpTo.find('input').val())
-          })
-        }
+      if (!$jumpTo.length) {
+        $jumpTo = $(`
+          <div class="page-jump-to ${this.constants.classes.inputGroup}">
+          <input type="number" class="${this.constants.classes.input}${Utils.sprintf(' input-%s', this.options.iconSize)}" value="${this.options.pageNumber}">
+          <button class="${this.constants.buttonsClass}"  type="button">
+          ${this.options.formatJumpTo()}
+          </button>
+          </div>
+        `).appendTo($pageGroup)
+
+        $jumpTo.find('button').click(() => {
+          this.selectPage(+$jumpTo.find('input').val())
+        })
       }
     }
   }
-})(jQuery)
+}
