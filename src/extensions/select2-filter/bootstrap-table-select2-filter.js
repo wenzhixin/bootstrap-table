@@ -4,7 +4,7 @@
  */
 
 function getCurrentHeader (that) {
-  var header = that.$header
+  let header = that.$header
   if (that.options.height) {
     header = that.$tableHeader
   }
@@ -14,17 +14,17 @@ function getCurrentHeader (that) {
 
 function initFilterValues (that) {
   if (!$.isEmptyObject(that.filterColumnsPartial)) {
-    var $header = getCurrentHeader(that)
+    const $header = getCurrentHeader(that)
 
-    $.each(that.columns, function (idx, column) {
-      var value = that.filterColumnsPartial[column.field]
+    $.each(that.columns, (idx, column) => {
+      const value = that.filterColumnsPartial[column.field]
 
       if (column.filter) {
         if (column.filter.setFilterValue) {
-          var $filter = $header.find('[data-field=' + column.field + '] .filter')
+          const $filter = $header.find(`[data-field=${column.field}] .filter`)
           column.filter.setFilterValue($filter, column.field, value)
         } else {
-          var $ele = $header.find('[data-filter-field=' + column.field + ']')
+          const $ele = $header.find(`[data-filter-field=${column.field}]`)
           switch (column.filter.type) {
             case 'input':
               $ele.val(value)
@@ -42,12 +42,12 @@ function initFilterValues (that) {
 }
 
 function createFilter (that, header) {
-  var enableFilter = false
-  var isVisible
-  var html
-  var timeoutId = 0
+  let enableFilter = false
+  let isVisible
+  let html
+  let timeoutId = 0
 
-  $.each(that.columns, function (i, column) {
+  $.each(that.columns, (i, column) => {
     isVisible = 'hidden'
     html = null
 
@@ -58,8 +58,8 @@ function createFilter (that, header) {
     if (!column.filter) {
       html = $('<div class="no-filter"></div>')
     } else {
-      var filterClass = column.filter.class ? ' ' + column.filter.class : ''
-      html = $('<div style="margin: 0px 2px 2px 2px;" class="filter' + filterClass + '">')
+      const filterClass = column.filter.class ? ` ${column.filter.class}` : ''
+      html = $(`<div style="margin: 0px 2px 2px 2px;" class="filter${filterClass}">`)
 
       if (column.searchable) {
         enableFilter = true
@@ -69,48 +69,48 @@ function createFilter (that, header) {
       if (column.filter.template) {
         html.append(column.filter.template(that, column, isVisible))
       } else {
-        var $filter = $(that.options.filterTemplate[column.filter.type.toLowerCase()](that, column, isVisible))
+        const $filter = $(that.options.filterTemplate[column.filter.type.toLowerCase()](that, column, isVisible))
 
         switch (column.filter.type) {
           case 'input':
-            var cpLock = true
-            $filter.off('compositionstart').on('compositionstart', function (event) {
+            let cpLock = true
+            $filter.off('compositionstart').on('compositionstart', event => {
               cpLock = false
             })
 
             $filter.off('compositionend').on('compositionend', function (event) {
               cpLock = true
-              var $input = $(this)
+              const $input = $(this)
               clearTimeout(timeoutId)
-              timeoutId = setTimeout(function () {
+              timeoutId = setTimeout(() => {
                 that.onColumnSearch(event, column.field, $input.val())
               }, that.options.searchTimeOut)
             })
 
             $filter.off('keyup').on('keyup', function (event) {
               if (cpLock) {
-                var $input = $(this)
+                const $input = $(this)
                 clearTimeout(timeoutId)
-                timeoutId = setTimeout(function () {
+                timeoutId = setTimeout(() => {
                   that.onColumnSearch(event, column.field, $input.val())
                 }, that.options.searchTimeOut)
               }
             })
 
             $filter.off('mouseup').on('mouseup', function (event) {
-              var $input = $(this)
-              var oldValue = $input.val()
+              const $input = $(this)
+              const oldValue = $input.val()
 
               if (oldValue === '') {
                 return
               }
 
-              setTimeout(function () {
-                var newValue = $input.val()
+              setTimeout(() => {
+                const newValue = $input.val()
 
                 if (newValue === '') {
                   clearTimeout(timeoutId)
-                  timeoutId = setTimeout(function () {
+                  timeoutId = setTimeout(() => {
                     that.onColumnSearch(event, column.field, newValue)
                   }, that.options.searchTimeOut)
                 }
@@ -123,7 +123,7 @@ function createFilter (that, header) {
             })
 
             $filter.on('select2:unselecting', function (event) {
-              var $select2 = $(this)
+              const $select2 = $(this)
               event.preventDefault()
               $select2.val(null).trigger('change')
               that.searchText = undefined
@@ -138,7 +138,7 @@ function createFilter (that, header) {
       }
     }
 
-    $.each(header.children().children(), function (i, tr) {
+    $.each(header.children().children(), (i, tr) => {
       tr = $(tr)
       if (tr.data('field') === column.field) {
         tr.find('.fht-cell').append(html)
@@ -153,14 +153,14 @@ function createFilter (that, header) {
 }
 
 function initSelect2 (that) {
-  var $header = getCurrentHeader(that)
+  const $header = getCurrentHeader(that)
 
-  $.each(that.columns, function (idx, column) {
+  $.each(that.columns, (idx, column) => {
     if (column.filter && column.filter.type === 'select') {
-      var $selectEle = $header.find('select[data-filter-field="' + column.field + '"]')
+      const $selectEle = $header.find(`select[data-filter-field="${column.field}"]`)
 
       if ($selectEle.length > 0 && !$selectEle.data().select2) {
-        var select2Opts = {
+        const select2Opts = {
           placeholder: '',
           allowClear: true,
           data: column.filter.data,
@@ -177,14 +177,14 @@ $.extend($.fn.bootstrapTable.defaults, {
   filter: false,
   filterValues: {},
   filterTemplate: {
-    input: function (instance, column, isVisible) {
-      return '<input type="text" class="form-control" data-filter-field="' + column.field + '" style="width: 100%; visibility:' + isVisible + '">'
+    input (instance, column, isVisible) {
+      return `<input type="text" class="form-control" data-filter-field="${column.field}" style="width: 100%; visibility:${isVisible}">`
     },
-    select: function (instance, column, isVisible) {
-      return '<select data-filter-field="' + column.field + '" style="width: 100%; visibility:' + isVisible + '"></select>'
+    select (instance, column, isVisible) {
+      return `<select data-filter-field="${column.field}" style="width: 100%; visibility:${isVisible}"></select>`
     }
   },
-  onColumnSearch: function (field, text) {
+  onColumnSearch (field, text) {
     return false
   }
 })
@@ -197,15 +197,15 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'column-search.bs.table': 'onColumnSearch'
 })
 
-var BootstrapTable = $.fn.bootstrapTable.Constructor
-var _init = BootstrapTable.prototype.init
-var _initHeader = BootstrapTable.prototype.initHeader
-var _initSearch = BootstrapTable.prototype.initSearch
+const BootstrapTable = $.fn.bootstrapTable.Constructor
+const _init = BootstrapTable.prototype.init
+const _initHeader = BootstrapTable.prototype.initHeader
+const _initSearch = BootstrapTable.prototype.initSearch
 
-BootstrapTable.prototype.init = function () {
+BootstrapTable.prototype.init = function (...args) {
   // Make sure that the filtercontrol option is set
   if (this.options.filter) {
-    var that = this
+    const that = this
 
     if (that.options.filterTemplate) {
       that.options.filterTemplate = $.extend({}, $.fn.bootstrapTable.defaults.filterTemplate, that.options.filterTemplate)
@@ -216,7 +216,7 @@ BootstrapTable.prototype.init = function () {
       that.options.filterValues = {}
     }
 
-    this.$el.on('reset-view.bs.table', function () {
+    this.$el.on('reset-view.bs.table', () => {
       // Create controls on $tableHeader if the height is set
       if (!that.options.height) {
         return
@@ -228,41 +228,41 @@ BootstrapTable.prototype.init = function () {
       }
 
       createFilter(that, that.$tableHeader)
-    }).on('post-header.bs.table', function () {
-      var timeoutId = 0
+    }).on('post-header.bs.table', () => {
+      let timeoutId = 0
 
       initSelect2(that)
       clearTimeout(timeoutId)
-      timeoutId = setTimeout(function () {
+      timeoutId = setTimeout(() => {
         initFilterValues(that)
       }, that.options.searchTimeOut - 1000)
-    }).on('column-switch.bs.table', function (field, checked) {
+    }).on('column-switch.bs.table', (field, checked) => {
       initFilterValues(that)
     })
   }
 
-  _init.apply(this, Array.prototype.slice.apply(arguments))
+  _init.apply(this, Array.prototype.slice.apply(args))
 }
 
-BootstrapTable.prototype.initHeader = function () {
-  _initHeader.apply(this, Array.prototype.slice.apply(arguments))
+BootstrapTable.prototype.initHeader = function (...args) {
+  _initHeader.apply(this, Array.prototype.slice.apply(args))
   if (this.options.filter) {
     createFilter(this, this.$header)
   }
 }
 
-BootstrapTable.prototype.initSearch = function () {
-  var that = this
-  var filterValues = that.filterColumnsPartial
+BootstrapTable.prototype.initSearch = function (...args) {
+  const that = this
+  const filterValues = that.filterColumnsPartial
 
   // Filter for client
   if (that.options.sidePagination === 'client') {
-    this.data = $.grep(this.data, function (row, idx) {
-      for (var field in filterValues) {
+    this.data = this.data.filter((row, idx) => {
+      for (const field in filterValues) {
         if (Object.prototype.hasOwnProperty(field, filterValues)) {
-          var column = that.columns[that.fieldsColumnsIndex[field]]
-          var filterValue = filterValues[field].toLowerCase()
-          var rowValue = row[field]
+          const column = that.columns[that.fieldsColumnsIndex[field]]
+          const filterValue = filterValues[field].toLowerCase()
+          let rowValue = row[field]
 
           rowValue = $.fn.bootstrapTable.utils.calculateObjectValue(
             that.header,
@@ -277,7 +277,7 @@ BootstrapTable.prototype.initSearch = function () {
           } else {
             if (!($.inArray(field, that.header.fields) !== -1 &&
               (typeof rowValue === 'string' || typeof rowValue === 'number') &&
-              (rowValue + '').toLowerCase().indexOf(filterValue) !== -1)) {
+              (`${rowValue}`).toLowerCase().includes(filterValue))) {
               return false
             }
           }
@@ -288,7 +288,7 @@ BootstrapTable.prototype.initSearch = function () {
     })
   }
 
-  _initSearch.apply(this, Array.prototype.slice.apply(arguments))
+  _initSearch.apply(this, Array.prototype.slice.apply(args))
 }
 
 BootstrapTable.prototype.onColumnSearch = function (event, field, value) {
@@ -308,18 +308,18 @@ BootstrapTable.prototype.onColumnSearch = function (event, field, value) {
 }
 
 BootstrapTable.prototype.setSelect2Data = function (field, data) {
-  var that = this
-  var $header = getCurrentHeader(that)
-  var $selectEle = $header.find('select[data-filter-field="' + field + '"]')
+  const that = this
+  const $header = getCurrentHeader(that)
+  const $selectEle = $header.find(`select[data-filter-field="${field}"]`)
   $selectEle.empty()
   $selectEle.select2({
-    data: data,
+    data,
     placeholder: '',
     allowClear: true,
     dropdownParent: that.$el.closest('.bootstrap-table')
   })
 
-  $.each(this.columns, function (idx, column) {
+  $.each(this.columns, (idx, column) => {
     if (column.field === field) {
       column.filter.data = data
       return false

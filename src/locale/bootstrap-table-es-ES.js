@@ -47,19 +47,19 @@ $.fn.bootstrapTable.locales['es-ES'] = {
   formatAutoRefresh () {
     return 'Auto Refresh'
   },
-  formatExport: function () {
+  formatExport () {
     return 'Exportar los datos'
   },
-  formatClearFilters: function () {
+  formatClearFilters () {
     return 'Borrar los filtros'
   },
   formatJumpTo () {
     return 'GO'
   },
-  formatAdvancedSearch: function () {
+  formatAdvancedSearch () {
     return 'Búsqueda avanzada'
   },
-  formatAdvancedCloseButton: function () {
+  formatAdvancedCloseButton () {
     return 'Cerrar'
   }
 }

@@ -38,7 +38,7 @@ class BootstrapTable {
     const o = this.options
     this.constants = Constants.CONSTANTS
 
-    const buttonsPrefix = o.buttonsPrefix ? o.buttonsPrefix + '-' : ''
+    const buttonsPrefix = o.buttonsPrefix ? `${o.buttonsPrefix}-` : ''
     this.constants.buttonsClass = [
       o.buttonsPrefix,
       buttonsPrefix + o.buttonsClass,
@@ -728,9 +728,7 @@ class BootstrapTable {
 
       // Check filter
       if (typeof this.filterOptions.filterAlgorithm === 'function') {
-        this.data = this.options.data.filter((item, i) => {
-          return this.filterOptions.filterAlgorithm.apply(null, [item, f])
-        })
+        this.data = this.options.data.filter((item, i) => this.filterOptions.filterAlgorithm.apply(null, [item, f]))
       } else if (typeof this.filterOptions.filterAlgorithm === 'string') {
         this.data = f ? this.options.data.filter((item, i) => {
           const filterAlgorithm = this.filterOptions.filterAlgorithm
@@ -804,7 +802,7 @@ class BootstrapTable {
               let comparisonCheck = false
 
               if (matches) {
-                const operator = matches[1] || matches[5] + 'l'
+                const operator = matches[1] || `${matches[5]}l`
                 const comparisonValue = matches[2] || matches[3]
                 const int = parseInt(value, 10)
                 const comparisonInt = parseInt(comparisonValue, 10)
@@ -988,10 +986,8 @@ class BootstrapTable {
       }
 
       const middleSize = Math.round(o.paginationPagesBySide / 2)
-      const pageItem = (i, classes = '') => {
-        return Utils.sprintf(this.constants.html.paginationItem,
-          classes + (i === o.pageNumber ? ` ${this.constants.classes.paginationActive}` : ''), i)
-      }
+      const pageItem = (i, classes = '') => Utils.sprintf(this.constants.html.paginationItem,
+        classes + (i === o.pageNumber ? ` ${this.constants.classes.paginationActive}` : ''), i)
 
       if (from > 1) {
         let max = o.paginationPagesBySide

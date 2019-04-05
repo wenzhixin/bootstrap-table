@@ -8,18 +8,18 @@ $.extend($.fn.bootstrapTable.defaults, {
   idField: 'id',
   parentIdField: 'pid',
   rootParentId: null,
-  onGetNodes: function (row, data) {
-    var that = this
-    var nodes = []
-    $.each(data, function (i, item) {
+  onGetNodes (row, data) {
+    const that = this
+    const nodes = []
+    $.each(data, (i, item) => {
       if (row[that.options.idField] === item[that.options.parentIdField]) {
         nodes.push(item)
       }
     })
     return nodes
   },
-  onCheckRoot: function (row, data) {
-    var that = this
+  onCheckRoot (row, data) {
+    const that = this
     return that.options.rootParentId === row[that.options.parentIdField] ||
               !row[that.options.parentIdField]
   }
@@ -31,18 +31,18 @@ const _initRow = BootstrapTable.prototype.initRow
 const _initHeader = BootstrapTable.prototype.initHeader
 let _rowStyle = null
 
-BootstrapTable.prototype.init = function () {
+BootstrapTable.prototype.init = function (...args) {
   _rowStyle = this.options.rowStyle
-  _init.apply(this, Array.prototype.slice.apply(arguments))
+  _init.apply(this, Array.prototype.slice.apply(args))
 }
 
 // td
-BootstrapTable.prototype.initHeader = function () {
+BootstrapTable.prototype.initHeader = function (...args) {
   const that = this
-  _initHeader.apply(that, Array.prototype.slice.apply(arguments))
+  _initHeader.apply(that, Array.prototype.slice.apply(args))
   const treeShowField = that.options.treeShowField
   if (treeShowField) {
-    $.each(this.header.fields, function (i, field) {
+    $.each(this.header.fields, (i, field) => {
       if (treeShowField === field) {
         that.treeEnable = true
         return false
@@ -52,29 +52,29 @@ BootstrapTable.prototype.initHeader = function () {
 }
 
 const initTr = function (item, idx, data, parentDom) {
-  var that = this
-  var nodes = that.options.onGetNodes.apply(that, [item, data])
+  const that = this
+  const nodes = that.options.onGetNodes.apply(that, [item, data])
   item._nodes = nodes
   parentDom.append(_initRow.apply(that, [item, idx, data, parentDom]))
 
   // init sub node
-  var len = nodes.length - 1
-  for (var i = 0; i <= len; i++) {
-    var node = nodes[i]
-    var defaultItem = $.extend(true, {}, item)
+  const len = nodes.length - 1
+  for (let i = 0; i <= len; i++) {
+    const node = nodes[i]
+    const defaultItem = $.extend(true, {}, item)
     node._level = defaultItem._level + 1
     node._parent = defaultItem
     if (i === len)
       node._last = 1
     // jquery.treegrid.js
     that.options.rowStyle = function (item, idx) {
-      var res = _rowStyle.apply(that, Array.prototype.slice.apply(arguments))
-      var id = item[that.options.idField] ? item[that.options.idField] : 0
-      var pid = item[that.options.parentIdField] ? item[that.options.parentIdField] : 0
+      const res = _rowStyle.apply(that, Array.prototype.slice.apply(arguments))
+      const id = item[that.options.idField] ? item[that.options.idField] : 0
+      const pid = item[that.options.parentIdField] ? item[that.options.parentIdField] : 0
       res.classes = [
         res.classes || '',
-        'treegrid-' + id,
-        'treegrid-parent-' + pid
+        `treegrid-${id}`,
+        `treegrid-parent-${pid}`
       ].join(' ')
       return res
     }
@@ -84,7 +84,7 @@ const initTr = function (item, idx, data, parentDom) {
 
 // tr
 BootstrapTable.prototype.initRow = function (item, idx, data, parentDom) {
-  var that = this
+  const that = this
   if (that.treeEnable) {
     // init root node
     if (that.options.onCheckRoot.apply(that, [item, data])) {
@@ -93,11 +93,11 @@ BootstrapTable.prototype.initRow = function (item, idx, data, parentDom) {
       }
       // jquery.treegrid.js
       that.options.rowStyle = function (item, idx) {
-        var res = _rowStyle.apply(that, Array.prototype.slice.apply(arguments))
-        var x = item[that.options.idField] ? item[that.options.idField] : 0
+        const res = _rowStyle.apply(that, Array.prototype.slice.apply(arguments))
+        const x = item[that.options.idField] ? item[that.options.idField] : 0
         res.classes = [
           res.classes || '',
-          'treegrid-' + x
+          `treegrid-${x}`
         ].join(' ')
         return res
       }

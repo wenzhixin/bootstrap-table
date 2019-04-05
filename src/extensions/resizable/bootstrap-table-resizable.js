@@ -4,23 +4,21 @@
  * @version: v2.0.0
  */
 
-var isInit = function (that) {
-  return that.$el.data('resizableColumns') !== undefined
-}
+const isInit = that => that.$el.data('resizableColumns') !== undefined
 
-var initResizable = function (that) {
+const initResizable = that => {
   if (that.options.resizable && !that.options.cardView && !isInit(that)) {
     that.$el.resizableColumns()
   }
 }
 
-var destroy = function (that) {
+const destroy = that => {
   if (isInit(that)) {
     that.$el.data('resizableColumns').destroy()
   }
 }
 
-var reInitResizable = function (that) {
+const reInitResizable = that => {
   destroy(that)
   initResizable(that)
 }
@@ -29,24 +27,24 @@ $.extend($.fn.bootstrapTable.defaults, {
   resizable: false
 })
 
-var BootstrapTable = $.fn.bootstrapTable.Constructor
-var _initBody = BootstrapTable.prototype.initBody
-var _toggleView = BootstrapTable.prototype.toggleView
-var _resetView = BootstrapTable.prototype.resetView
+const BootstrapTable = $.fn.bootstrapTable.Constructor
+const _initBody = BootstrapTable.prototype.initBody
+const _toggleView = BootstrapTable.prototype.toggleView
+const _resetView = BootstrapTable.prototype.resetView
 
-BootstrapTable.prototype.initBody = function () {
-  var that = this
-  _initBody.apply(this, Array.prototype.slice.apply(arguments))
+BootstrapTable.prototype.initBody = function (...args) {
+  const that = this
+  _initBody.apply(this, Array.prototype.slice.apply(args))
 
   that.$el
     .off('column-switch.bs.table, page-change.bs.table')
-    .on('column-switch.bs.table, page-change.bs.table', function () {
+    .on('column-switch.bs.table, page-change.bs.table', () => {
       reInitResizable(that)
     })
 }
 
-BootstrapTable.prototype.toggleView = function () {
-  _toggleView.apply(this, Array.prototype.slice.apply(arguments))
+BootstrapTable.prototype.toggleView = function (...args) {
+  _toggleView.apply(this, Array.prototype.slice.apply(args))
 
   if (this.options.resizable && this.options.cardView) {
     // Destroy the plugin
@@ -54,14 +52,14 @@ BootstrapTable.prototype.toggleView = function () {
   }
 }
 
-BootstrapTable.prototype.resetView = function () {
-  var that = this
+BootstrapTable.prototype.resetView = function (...args) {
+  const that = this
 
-  _resetView.apply(this, Array.prototype.slice.apply(arguments))
+  _resetView.apply(this, Array.prototype.slice.apply(args))
 
   if (this.options.resizable) {
     // because in fitHeader function, we use setTimeout(func, 100);
-    setTimeout(function () {
+    setTimeout(() => {
       initResizable(that)
     }, 100)
   }

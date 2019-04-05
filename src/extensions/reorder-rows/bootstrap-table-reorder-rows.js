@@ -4,13 +4,11 @@
  * @version: v1.0.1
  */
 
-var isSearch = false
+const isSearch = false
 
-var rowAttr = function (row, index) {
-  return {
-    id: 'customId_' + index
-  }
-}
+const rowAttr = (row, index) => ({
+  id: `customId_${index}`
+})
 
 $.extend($.fn.bootstrapTable.defaults, {
   reorderableRows: false,
@@ -19,13 +17,13 @@ $.extend($.fn.bootstrapTable.defaults, {
   onDragClass: 'reorder_rows_onDragClass',
   dragHandle: null,
   useRowAttrFunc: false,
-  onReorderRowsDrag: function (table, row) {
+  onReorderRowsDrag (table, row) {
     return false
   },
-  onReorderRowsDrop: function (table, row) {
+  onReorderRowsDrop (table, row) {
     return false
   },
-  onReorderRow: function (newData) {
+  onReorderRow (newData) {
     return false
   }
 })
@@ -34,35 +32,35 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'reorder-row.bs.table': 'onReorderRow'
 })
 
-var BootstrapTable = $.fn.bootstrapTable.Constructor
-var _init = BootstrapTable.prototype.init
-var _initSearch = BootstrapTable.prototype.initSearch
+const BootstrapTable = $.fn.bootstrapTable.Constructor
+const _init = BootstrapTable.prototype.init
+const _initSearch = BootstrapTable.prototype.initSearch
 
-BootstrapTable.prototype.init = function () {
+BootstrapTable.prototype.init = function (...args) {
 
   if (!this.options.reorderableRows) {
-    _init.apply(this, Array.prototype.slice.apply(arguments))
+    _init.apply(this, Array.prototype.slice.apply(args))
     return
   }
 
-  var that = this
+  const that = this
   if (this.options.useRowAttrFunc) {
     this.options.rowAttributes = rowAttr
   }
 
-  var onPostBody = this.options.onPostBody
-  this.options.onPostBody = function () {
-    setTimeout(function () {
+  const onPostBody = this.options.onPostBody
+  this.options.onPostBody = () => {
+    setTimeout(() => {
       that.makeRowsReorderable()
       onPostBody.apply()
     }, 1)
   }
 
-  _init.apply(this, Array.prototype.slice.apply(arguments))
+  _init.apply(this, Array.prototype.slice.apply(args))
 }
 
-BootstrapTable.prototype.initSearch = function () {
-  _initSearch.apply(this, Array.prototype.slice.apply(arguments))
+BootstrapTable.prototype.initSearch = function (...args) {
+  _initSearch.apply(this, Array.prototype.slice.apply(args))
 
   if (!this.options.reorderableRows) {
     return
@@ -77,7 +75,7 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
     return
   }
 
-  var that = this
+  const that = this
   this.$el.tableDnD({
     onDragStyle: that.options.onDragStyle,
     onDropStyle: that.options.onDropStyle,
@@ -88,14 +86,14 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
   })
 }
 
-BootstrapTable.prototype.onDrop = function (table, droppedRow) {
-  var tableBs = $(table)
-  var tableBsData = tableBs.data('bootstrap.table')
-  var tableBsOptions = tableBs.data('bootstrap.table').options
-  var row = null
-  var newData = []
+BootstrapTable.prototype.onDrop = (table, droppedRow) => {
+  const tableBs = $(table)
+  const tableBsData = tableBs.data('bootstrap.table')
+  const tableBsOptions = tableBs.data('bootstrap.table').options
+  let row = null
+  const newData = []
 
-  for (var i = 0; i < table.tBodies[0].rows.length; i++) {
+  for (let i = 0; i < table.tBodies[0].rows.length; i++) {
     row = $(table.tBodies[0].rows[i])
     newData.push(tableBsOptions.data[row.data('index')])
     row.data('index', i).attr('data-index', i)

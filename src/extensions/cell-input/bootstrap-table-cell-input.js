@@ -11,22 +11,22 @@ $.extend($.fn.bootstrapTable.defaults, {
   cellInputUniqueId: '',
   cellInputSelectOptinons: [], // [{ text: '', value: '', disabled: false, default: true },{}]
   cellInputIsDeciaml: false,
-  onCellInputInit: function () {
+  onCellInputInit () {
     return false
   },
-  onCellInputBlur: function (field, row, oldValue, $el) {
+  onCellInputBlur (field, row, oldValue, $el) {
     return false
   },
-  onCellInputFocus: function (field, row, oldValue, $el) {
+  onCellInputFocus (field, row, oldValue, $el) {
     return false
   },
-  onCellInputKeyup: function (field, row, oldValue, $el) {
+  onCellInputKeyup (field, row, oldValue, $el) {
     return false
   },
-  onCellInputKeydown: function (field, row, oldValue, $el) {
+  onCellInputKeydown (field, row, oldValue, $el) {
     return false
   },
-  onCellInputSelectChange: function (field, row, oldValue, $el) {
+  onCellInputSelectChange (field, row, oldValue, $el) {
     return false
   }
 })
@@ -40,76 +40,74 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'cellinput-selectchange.bs.table': 'onCellInputSelectChange'
 })
 
-var BootstrapTable = $.fn.bootstrapTable.Constructor
-var _initTable = BootstrapTable.prototype.initTable
-var _initBody = BootstrapTable.prototype.initBody
+const BootstrapTable = $.fn.bootstrapTable.Constructor
+const _initTable = BootstrapTable.prototype.initTable
+const _initBody = BootstrapTable.prototype.initBody
 
-BootstrapTable.prototype.initTable = function () {
-  _initTable.apply(this, Array.prototype.slice.apply(arguments))
+BootstrapTable.prototype.initTable = function (...args) {
+  _initTable.apply(this, Array.prototype.slice.apply(args))
 
   // exit if table.options.cellInputEnabled = false
   if (!this.options.cellInputEnabled) {
     return
   }
 
-  $.each(this.columns, function (i, column) {
+  $.each(this.columns, (i, column) => {
 
     // exit if column.cellInputEnabled = false
     if (!column.cellInputEnabled) {
       return
     }
-    var _formatter = column.formatter
+    const _formatter = column.formatter
     if (column.cellInputType === 'text') {
-      column.formatter = function (value, row, index) {
-        var result = _formatter ? _formatter(value, row, index) : value
+      column.formatter = (value, row, index) => {
+        let result = _formatter ? _formatter(value, row, index) : value
 
         // Решает проблему невозможности ввода кавычек &quot;
         result = typeof result === 'string' ? result.replace(/"/g, '&quot;') : result
 
-        var isSetDataUniqueIdAttr = column.cellInputUniqueId && column.cellInputUniqueId.length > 0
-        var disableCallbackFunc = column.cellInputDisableCallbackFunc
+        const isSetDataUniqueIdAttr = column.cellInputUniqueId && column.cellInputUniqueId.length > 0
+        const disableCallbackFunc = column.cellInputDisableCallbackFunc
         return ['<input type="text" class="table-td-textbox form-control"',
           // ' id="' + column.field + '"',
-          isSetDataUniqueIdAttr ? ' data-uniqueid="' + row[column.cellInputUniqueId] + '"' : '',
-          ' data-name="' + column.field + '"',
-          ' data-value="' + result + '"',
-          ' value="' + result + '"',
+          isSetDataUniqueIdAttr ? ` data-uniqueid="${row[column.cellInputUniqueId]}"` : '',
+          ` data-name="${column.field}"`,
+          ` data-value="${result}"`,
+          ` value="${result}"`,
           ' autofocus="autofocus"',
           typeof disableCallbackFunc !== 'undefined' && disableCallbackFunc(row) ? ' disabled="disabled"' : '',
           '>'
         ].join('')
       }
     } else if (column.cellInputType === 'select') {
-      column.formatter = function (value, row, index) {
+      column.formatter = (value, row, index) => {
+        let result = _formatter ? _formatter(value, row, index) : value
+        const optionDatas = column.cellInputSelectOptinons !== null ? column.cellInputSelectOptinons : []
+        const selectoptions = []
 
-        var result = _formatter ? _formatter(value, row, index) : value
-        var optionDatas = column.cellInputSelectOptinons !== null ? column.cellInputSelectOptinons : []
-        var selectoptions = []
-
-        var arrAllowedValues = []
-        for (var k = 0; k < optionDatas.length; k++) {
+        const arrAllowedValues = []
+        for (let k = 0; k < optionDatas.length; k++) {
           arrAllowedValues.push(optionDatas[k].value)
         }
-        var allowedVal = $.inArray(value, arrAllowedValues) >= 0
+        const allowedVal = $.inArray(value, arrAllowedValues) >= 0
 
-        for (var j = 0; j < optionDatas.length; j++) {
-          var optionData = optionDatas[j]
-          var isSelected = optionData.value === value
+        for (const optionData of optionDatas) {
+          let isSelected = optionData.value === value
           if (!allowedVal && optionData.disabled) {
             isSelected = true
             result = optionData.value
           }
 
-          selectoptions.push('<option value="' + optionData.value + '" ' + (isSelected ? ' selected="selected" ' : '') + (optionData.disabled ? ' disabled' : '') + '>' + optionData.text + '</option>')
+          selectoptions.push(`<option value="${optionData.value}" ${isSelected ? ' selected="selected" ' : ''}${optionData.disabled ? ' disabled' : ''}>${optionData.text}</option>`)
         }
 
-        var isSetDataUniqueIdAttr = column.cellInputUniqueId && column.cellInputUniqueId.length > 0
-        var disableCallbackFunc = column.disableCallbackFunc
+        const isSetDataUniqueIdAttr = column.cellInputUniqueId && column.cellInputUniqueId.length > 0
+        const disableCallbackFunc = column.disableCallbackFunc
         return [
           '<select class="form-control" style="padding: 4px;"',
-          isSetDataUniqueIdAttr ? ' data-uniqueid="' + row[column.cellInputUniqueId] + '"' : '',
-          ' data-name="' + column.field + '"',
-          ' data-value="' + result + '"',
+          isSetDataUniqueIdAttr ? ` data-uniqueid="${row[column.cellInputUniqueId]}"` : '',
+          ` data-name="${column.field}"`,
+          ` data-value="${result}"`,
           typeof disableCallbackFunc !== 'undefined' && disableCallbackFunc(row) ? ' disabled="disabled"' : '',
           '>',
           selectoptions.join(''),
@@ -121,45 +119,45 @@ BootstrapTable.prototype.initTable = function () {
 }
 
 BootstrapTable.prototype.initBody = function (fixedScroll) {
-  var that = this
+  const that = this
   _initBody.apply(this, Array.prototype.slice.apply(arguments))
 
   if (!this.options.cellInputEnabled) {
     return
   }
 
-  $.each(this.columns, function (i, column) {
+  $.each(this.columns, (i, column) => {
     if (column.cellInputType === 'text') {
-      that.$body.find('input[data-name="' + column.field + '"]')
+      that.$body.find(`input[data-name="${column.field}"]`)
         .off('blur').on('blur', function (e) {
-          var data = that.getData()
-          var index = $(this).parents('tr[data-index]').data('index')
-          var row = data[index]
-          var newValue = $(this).val()
+          const data = that.getData()
+          const index = $(this).parents('tr[data-index]').data('index')
+          const row = data[index]
+          const newValue = $(this).val()
 
           row[column.field] = newValue
           that.trigger('cellinput-blur', column.field, row, $(this))
         })
 
-      that.$body.find('input[data-name="' + column.field + '"]')
+      that.$body.find(`input[data-name="${column.field}"]`)
         .off('keyup').on('keyup', function (e) {
-          var data = that.getData()
-          var index = $(this).parents('tr[data-index]').data('index')
-          var row = data[index]
-          var oldValue = row[column.field]
-          var newValue = $(this).val()
+          const data = that.getData()
+          const index = $(this).parents('tr[data-index]').data('index')
+          const row = data[index]
+          const oldValue = row[column.field]
+          const newValue = $(this).val()
 
           row[column.field] = newValue
           that.trigger('cellinput-keyup', column.field, row, oldValue, index, $(this))
         })
 
-      that.$body.find('input[data-name="' + column.field + '"]')
+      that.$body.find(`input[data-name="${column.field}"]`)
         .off('keydown').on('keydown', function (e) {
-          var data = that.getData()
-          var index = $(this).parents('tr[data-index]').data('index')
-          var row = data[index]
-          var oldValue = row[column.field]
-          var newValue = $(this).val()
+          const data = that.getData()
+          const index = $(this).parents('tr[data-index]').data('index')
+          const row = data[index]
+          const oldValue = row[column.field]
+          const newValue = $(this).val()
 
           if (!column.tdtexboxIsDeciaml) {
             row[column.field] = newValue
@@ -168,27 +166,27 @@ BootstrapTable.prototype.initBody = function (fixedScroll) {
           that.trigger('cellinput-keydown', column.field, row, oldValue, index, $(this))
         })
 
-      that.$body.find('input[data-name="' + column.field + '"]')
+      that.$body.find(`input[data-name="${column.field}"]`)
         .off('focus').on('focus', function (e) {
-          var data = that.getData()
-          var index = $(this).parents('tr[data-index]').data('index')
-          var row = data[index]
+          const data = that.getData()
+          const index = $(this).parents('tr[data-index]').data('index')
+          const row = data[index]
 
           that.trigger('cellinput-focus', column.field, row, $(this))
         })
     } else if (column.cellInputType === 'select') {
 
-      that.$body.find('select[data-name="' + column.field + '"]')
+      that.$body.find(`select[data-name="${column.field}"]`)
         .off('change').on('change', function (e) {
 
-          var data = that.getData()
-          var index = $(this).parents('tr[data-index]').data('index')
-          var row = data[index]
-          var oldValue = row[column.field]
-          var newValue = $(this).val()
+          const data = that.getData()
+          const index = $(this).parents('tr[data-index]').data('index')
+          const row = data[index]
+          const oldValue = row[column.field]
+          const newValue = $(this).val()
 
-          var isBoolTrue = newValue.toLowerCase() === 'true'
-          var isBoolFalse = newValue.toLowerCase() === 'false'
+          const isBoolTrue = newValue.toLowerCase() === 'true'
+          const isBoolFalse = newValue.toLowerCase() === 'false'
 
           row[column.field] = isBoolTrue ? true : (isBoolFalse) ? false : newValue
           that.trigger('cellinput-selectchange', column.field, row, oldValue, index, $(this))

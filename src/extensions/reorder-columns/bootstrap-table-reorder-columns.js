@@ -5,26 +5,24 @@
  */
 
 // From MDN site, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-var filterFn = function () {
+const filterFn = () => {
   if (!Array.prototype.filter) {
     Array.prototype.filter = function (fun/* , thisArg*/) {
-      'use strict'
-
       if (this === undefined || this === null) {
         throw new TypeError()
       }
 
-      var t = Object(this)
-      var len = t.length >>> 0
+      const t = Object(this)
+      const len = t.length >>> 0
       if (typeof fun !== 'function') {
         throw new TypeError()
       }
 
-      var res = []
-      var thisArg = arguments.length >= 2 ? arguments[1] : undefined
-      for (var i = 0; i < len; i++) {
+      const res = []
+      const thisArg = arguments.length >= 2 ? arguments[1] : undefined
+      for (let i = 0; i < len; i++) {
         if (i in t) {
-          var val = t[i]
+          const val = t[i]
 
           // NOTE: Technically this should Object.defineProperty at
           //       the next index, as push can be affected by
@@ -45,7 +43,7 @@ var filterFn = function () {
 $.extend($.fn.bootstrapTable.defaults, {
   reorderableColumns: false,
   maxMovingRows: 10,
-  onReorderColumn: function (headerFields) {
+  onReorderColumn (headerFields) {
     return false
   },
   dragaccept: null
@@ -55,24 +53,14 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'reorder-column.bs.table': 'onReorderColumn'
 })
 
-var BootstrapTable = $.fn.bootstrapTable.Constructor
-var _initHeader = BootstrapTable.prototype.initHeader
-var _toggleColumn = BootstrapTable.prototype.toggleColumn
-var _toggleView = BootstrapTable.prototype.toggleView
-var _resetView = BootstrapTable.prototype.resetView
+const BootstrapTable = $.fn.bootstrapTable.Constructor
+const _initHeader = BootstrapTable.prototype.initHeader
+const _toggleColumn = BootstrapTable.prototype.toggleColumn
+const _toggleView = BootstrapTable.prototype.toggleView
+const _resetView = BootstrapTable.prototype.resetView
 
-BootstrapTable.prototype.initHeader = function () {
-  _initHeader.apply(this, Array.prototype.slice.apply(arguments))
-
-  if (!this.options.reorderableColumns) {
-    return
-  }
-
-  this.makeRowsReorderable()
-}
-
-BootstrapTable.prototype.toggleColumn = function () {
-  _toggleColumn.apply(this, Array.prototype.slice.apply(arguments))
+BootstrapTable.prototype.initHeader = function (...args) {
+  _initHeader.apply(this, Array.prototype.slice.apply(args))
 
   if (!this.options.reorderableColumns) {
     return
@@ -81,8 +69,18 @@ BootstrapTable.prototype.toggleColumn = function () {
   this.makeRowsReorderable()
 }
 
-BootstrapTable.prototype.toggleView = function () {
-  _toggleView.apply(this, Array.prototype.slice.apply(arguments))
+BootstrapTable.prototype.toggleColumn = function (...args) {
+  _toggleColumn.apply(this, Array.prototype.slice.apply(args))
+
+  if (!this.options.reorderableColumns) {
+    return
+  }
+
+  this.makeRowsReorderable()
+}
+
+BootstrapTable.prototype.toggleView = function (...args) {
+  _toggleView.apply(this, Array.prototype.slice.apply(args))
 
   if (!this.options.reorderableColumns) {
     return
@@ -95,8 +93,8 @@ BootstrapTable.prototype.toggleView = function () {
   this.makeRowsReorderable()
 }
 
-BootstrapTable.prototype.resetView = function () {
-  _resetView.apply(this, Array.prototype.slice.apply(arguments))
+BootstrapTable.prototype.resetView = function (...args) {
+  _resetView.apply(this, Array.prototype.slice.apply(args))
 
   if (!this.options.reorderableColumns) {
     return
@@ -106,7 +104,7 @@ BootstrapTable.prototype.resetView = function () {
 }
 
 BootstrapTable.prototype.makeRowsReorderable = function () {
-  var that = this
+  const that = this
   try {
     $(this.$el).dragtable('destroy')
   } catch (e) {
@@ -116,13 +114,13 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
     maxMovingRows: that.options.maxMovingRows,
     dragaccept: that.options.dragaccept,
     clickDelay: 200,
-    beforeStop: function () {
-      var ths = []
-      var formatters = []
-      var columns = []
-      var columnsHidden = []
-      var columnIndex = -1
-      var optionsColumns = []
+    beforeStop () {
+      const ths = []
+      const formatters = []
+      const columns = []
+      let columnsHidden = []
+      let columnIndex = -1
+      const optionsColumns = []
       that.$header.find('th').each(function (i) {
         ths.push($(this).data('field'))
         formatters.push($(this).data('formatter'))
@@ -130,9 +128,7 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
 
       // Exist columns not shown
       if (ths.length < that.columns.length) {
-        columnsHidden = $.grep(that.columns, function (column) {
-          return !column.visible
-        })
+        columnsHidden = that.columns.filter(column => !column.visible)
         for (var i = 0; i < columnsHidden.length; i++) {
           ths.push(columnsHidden[i].field)
           formatters.push(columnsHidden[i].formatter)
@@ -151,10 +147,10 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
       that.columns = that.columns.concat(columns)
 
       filterFn() // Support <IE9
-      $.each(that.columns, function (i, column) {
-        var found = false
-        var field = column.field
-        that.options.columns[0].filter(function (item) {
+      $.each(that.columns, (i, column) => {
+        let found = false
+        const field = column.field
+        that.options.columns[0].filter(item => {
           if (!found && item['field'] === field) {
             optionsColumns.push(item)
             found = true

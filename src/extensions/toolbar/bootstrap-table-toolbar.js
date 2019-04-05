@@ -183,7 +183,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     const fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial
 
-    this.data = fp ? $.grep(this.data, (item, i) => {
+    this.data = fp ? this.data.filter((item, i) => {
       for (const [key, v] of Object.entries(fp)) {
         const fval = v.toLowerCase()
         let value = item[key]

@@ -5,27 +5,27 @@
  * Modification: ErwannNevou <https://github.com/ErwannNevou>
  */
 
-var isSingleSort = false
+let isSingleSort = false
 
-var showSortModal = function (that) {
-  var _selector = that.sortModalSelector
-  var _id = '#' + _selector
+const showSortModal = that => {
+  const _selector = that.sortModalSelector
+  const _id = `#${_selector}`
 
   if (!$(_id).hasClass('modal')) {
-    var sModal = '  <div class="modal fade" id="' + _selector + '" tabindex="-1" role="dialog" aria-labelledby="' + _selector + 'Label" aria-hidden="true">'
+    let sModal = `  <div class="modal fade" id="${_selector}" tabindex="-1" role="dialog" aria-labelledby="${_selector}Label" aria-hidden="true">`
     sModal += '         <div class="modal-dialog">'
     sModal += '             <div class="modal-content">'
     sModal += '                 <div class="modal-header">'
     sModal += '                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-    sModal += '                     <h4 class="modal-title" id="' + _selector + 'Label">' + that.options.formatMultipleSort() + '</h4>'
+    sModal += `                     <h4 class="modal-title" id="${_selector}Label">${that.options.formatMultipleSort()}</h4>`
     sModal += '                 </div>'
     sModal += '                 <div class="modal-body">'
     sModal += '                     <div class="bootstrap-table">'
     sModal += '                         <div class="fixed-table-toolbar">'
     sModal += '                             <div class="bars">'
     sModal += '                                 <div id="toolbar">'
-    sModal += '                                     <button id="add" type="button" class="btn btn-default"><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.plus + '"></i> ' + that.options.formatAddLevel() + '</button>'
-    sModal += '                                     <button id="delete" type="button" class="btn btn-default" disabled><i class="' + that.options.iconsPrefix + ' ' + that.options.icons.minus + '"></i> ' + that.options.formatDeleteLevel() + '</button>'
+    sModal += `                                     <button id="add" type="button" class="btn btn-default"><i class="${that.options.iconsPrefix} ${that.options.icons.plus}"></i> ${that.options.formatAddLevel()}</button>`
+    sModal += `                                     <button id="delete" type="button" class="btn btn-default" disabled><i class="${that.options.iconsPrefix} ${that.options.icons.minus}"></i> ${that.options.formatDeleteLevel()}</button>`
     sModal += '                                 </div>'
     sModal += '                             </div>'
     sModal += '                         </div>'
@@ -34,8 +34,8 @@ var showSortModal = function (that) {
     sModal += '                                 <thead>'
     sModal += '                                     <tr>'
     sModal += '                                         <th></th>'
-    sModal += '                                         <th><div class="th-inner">' + that.options.formatColumn() + '</div></th>'
-    sModal += '                                         <th><div class="th-inner">' + that.options.formatOrder() + '</div></th>'
+    sModal += `                                         <th><div class="th-inner">${that.options.formatColumn()}</div></th>`
+    sModal += `                                         <th><div class="th-inner">${that.options.formatOrder()}</div></th>`
     sModal += '                                     </tr>'
     sModal += '                                 </thead>'
     sModal += '                                 <tbody></tbody>'
@@ -44,8 +44,8 @@ var showSortModal = function (that) {
     sModal += '                     </div>'
     sModal += '                 </div>'
     sModal += '                 <div class="modal-footer">'
-    sModal += '                     <button type="button" class="btn btn-default" data-dismiss="modal">' + that.options.formatCancel() + '</button>'
-    sModal += '                     <button type="button" class="btn btn-primary">' + that.options.formatSort() + '</button>'
+    sModal += `                     <button type="button" class="btn btn-default" data-dismiss="modal">${that.options.formatCancel()}</button>`
+    sModal += `                     <button type="button" class="btn btn-primary">${that.options.formatSort()}</button>`
     sModal += '                 </div>'
     sModal += '             </div>'
     sModal += '         </div>'
@@ -54,11 +54,11 @@ var showSortModal = function (that) {
     $('body').append($(sModal))
 
     that.$sortModal = $(_id)
-    var $rows = that.$sortModal.find('tbody > tr')
+    const $rows = that.$sortModal.find('tbody > tr')
 
-    that.$sortModal.off('click', '#add').on('click', '#add', function () {
-      var total = that.$sortModal.find('.multi-sort-name:first option').length
-      var current = that.$sortModal.find('tbody tr').length
+    that.$sortModal.off('click', '#add').on('click', '#add', () => {
+      const total = that.$sortModal.find('.multi-sort-name:first option').length
+      let current = that.$sortModal.find('tbody tr').length
 
       if (current < total) {
         current++
@@ -67,9 +67,9 @@ var showSortModal = function (that) {
       }
     })
 
-    that.$sortModal.off('click', '#delete').on('click', '#delete', function () {
-      var total = that.$sortModal.find('.multi-sort-name:first option').length
-      var current = that.$sortModal.find('tbody tr').length
+    that.$sortModal.off('click', '#delete').on('click', '#delete', () => {
+      const total = that.$sortModal.find('.multi-sort-name:first option').length
+      let current = that.$sortModal.find('tbody tr').length
 
       if (current > 1 && current <= total) {
         current--
@@ -78,17 +78,17 @@ var showSortModal = function (that) {
       }
     })
 
-    that.$sortModal.off('click', '.btn-primary').on('click', '.btn-primary', function () {
-      var $rows = that.$sortModal.find('tbody > tr')
-      var $alert = that.$sortModal.find('div.alert')
-      var fields = []
-      var results = []
+    that.$sortModal.off('click', '.btn-primary').on('click', '.btn-primary', () => {
+      const $rows = that.$sortModal.find('tbody > tr')
+      let $alert = that.$sortModal.find('div.alert')
+      const fields = []
+      const results = []
 
 
-      that.options.sortPriority = $.map($rows, function (row) {
-        var $row = $(row)
-        var name = $row.find('.multi-sort-name').val()
-        var order = $row.find('.multi-sort-order').val()
+      that.options.sortPriority = $.map($rows, row => {
+        const $row = $(row)
+        const name = $row.find('.multi-sort-name').val()
+        const order = $row.find('.multi-sort-order').val()
 
         fields.push(name)
 
@@ -98,9 +98,9 @@ var showSortModal = function (that) {
         }
       })
 
-      var sorted_fields = fields.sort()
+      const sorted_fields = fields.sort()
 
-      for (var i = 0; i < fields.length - 1; i++) {
+      for (let i = 0; i < fields.length - 1; i++) {
         if (sorted_fields[i + 1] === sorted_fields[i]) {
           results.push(sorted_fields[i])
         }
@@ -108,7 +108,7 @@ var showSortModal = function (that) {
 
       if (results.length > 0) {
         if ($alert.length === 0) {
-          $alert = '<div class="alert alert-danger" role="alert"><strong>' + that.options.formatDuplicateAlertTitle() + '</strong> ' + that.options.formatDuplicateAlertDescription() + '</div>'
+          $alert = `<div class="alert alert-danger" role="alert"><strong>${that.options.formatDuplicateAlertTitle()}</strong> ${that.options.formatDuplicateAlertDescription()}</div>`
           $($alert).insertBefore(that.$sortModal.find('.bars'))
         }
       } else {
@@ -120,8 +120,8 @@ var showSortModal = function (that) {
         that.options.sortName = ''
 
         if (that.options.sidePagination === 'server') {
-          var t = that.options.queryParams
-          that.options.queryParams = function (params) {
+          const t = that.options.queryParams
+          that.options.queryParams = params => {
             params.multiSort = that.options.sortPriority
             return $.fn.bootstrapTable.utils.calculateObjectValue(that.options, t, [params])
           }
@@ -145,7 +145,7 @@ var showSortModal = function (that) {
 
     if (that.options.sortPriority !== null && that.options.sortPriority.length > 0) {
       if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
-        for (var i = 0; i < that.options.sortPriority.length; i++) {
+        for (let i = 0; i < that.options.sortPriority.length; i++) {
           that.addLevel(i, that.options.sortPriority[i])
         }
       }
@@ -163,7 +163,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   showMultiSort: false,
   showMultiSortButton: true,
   sortPriority: null,
-  onMultipleSort: function () {
+  onMultipleSort () {
     return false
   }
 })
@@ -179,40 +179,40 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 })
 
 $.extend($.fn.bootstrapTable.locales, {
-  formatMultipleSort: function () {
+  formatMultipleSort () {
     return 'Multiple Sort'
   },
-  formatAddLevel: function () {
+  formatAddLevel () {
     return 'Add Level'
   },
-  formatDeleteLevel: function () {
+  formatDeleteLevel () {
     return 'Delete Level'
   },
-  formatColumn: function () {
+  formatColumn () {
     return 'Column'
   },
-  formatOrder: function () {
+  formatOrder () {
     return 'Order'
   },
-  formatSortBy: function () {
+  formatSortBy () {
     return 'Sort by'
   },
-  formatThenBy: function () {
+  formatThenBy () {
     return 'Then by'
   },
-  formatSort: function () {
+  formatSort () {
     return 'Sort'
   },
-  formatCancel: function () {
+  formatCancel () {
     return 'Cancel'
   },
-  formatDuplicateAlertTitle: function () {
+  formatDuplicateAlertTitle () {
     return 'Duplicate(s) detected!'
   },
-  formatDuplicateAlertDescription: function () {
+  formatDuplicateAlertDescription () {
     return 'Please remove or change any duplicate column.'
   },
-  formatSortOrders: function () {
+  formatSortOrders () {
     return {
       asc: 'Ascending',
       desc: 'Descending'
@@ -222,34 +222,34 @@ $.extend($.fn.bootstrapTable.locales, {
 
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-var BootstrapTable = $.fn.bootstrapTable.Constructor
-var _initToolbar = BootstrapTable.prototype.initToolbar
+const BootstrapTable = $.fn.bootstrapTable.Constructor
+const _initToolbar = BootstrapTable.prototype.initToolbar
 
-BootstrapTable.prototype.initToolbar = function () {
+BootstrapTable.prototype.initToolbar = function (...args) {
   this.showToolbar = this.showToolbar || this.options.showMultiSort
-  var that = this
-  var sortModalSelector = 'sortModal_' + this.$el.attr('id')
-  var sortModalId = '#' + sortModalSelector
+  const that = this
+  const sortModalSelector = `sortModal_${this.$el.attr('id')}`
+  const sortModalId = `#${sortModalSelector}`
   this.$sortModal = $(sortModalId)
   this.sortModalSelector = sortModalSelector
 
-  _initToolbar.apply(this, Array.prototype.slice.apply(arguments))
+  _initToolbar.apply(this, Array.prototype.slice.apply(args))
 
   if (that.options.sidePagination === 'server' && !isSingleSort && that.options.sortPriority !== null) {
-    var t = that.options.queryParams
-    that.options.queryParams = function (params) {
+    const t = that.options.queryParams
+    that.options.queryParams = params => {
       params.multiSort = that.options.sortPriority
       return t(params)
     }
   }
 
   if (this.options.showMultiSort) {
-    var $btnGroup = this.$toolbar.find('>.btn-group').first()
-    var $multiSortBtn = this.$toolbar.find('div.multi-sort')
+    const $btnGroup = this.$toolbar.find('>.btn-group').first()
+    let $multiSortBtn = this.$toolbar.find('div.multi-sort')
 
     if (!$multiSortBtn.length && this.options.showMultiSortButton) {
-      $multiSortBtn = '  <button class="multi-sort btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" data-toggle="modal" data-target="' + sortModalId + '" title="' + this.options.formatMultipleSort() + '">'
-      $multiSortBtn += '     <i class="' + this.options.iconsPrefix + ' ' + this.options.icons.sort + '"></i>'
+      $multiSortBtn = `  <button class="multi-sort btn btn-default${this.options.iconSize === undefined ? '' : ` btn-${this.options.iconSize}`}" type="button" data-toggle="modal" data-target="${sortModalId}" title="${this.options.formatMultipleSort()}">`
+      $multiSortBtn += `     <i class="${this.options.iconsPrefix} ${this.options.icons.sort}"></i>`
       $multiSortBtn += '</button>'
 
       $btnGroup.append($multiSortBtn)
@@ -257,22 +257,22 @@ BootstrapTable.prototype.initToolbar = function () {
       showSortModal(that)
     }
 
-    this.$el.on('sort.bs.table', function () {
+    this.$el.on('sort.bs.table', () => {
       isSingleSort = true
     })
 
-    this.$el.on('multiple-sort.bs.table', function () {
+    this.$el.on('multiple-sort.bs.table', () => {
       isSingleSort = false
     })
 
-    this.$el.on('load-success.bs.table', function () {
+    this.$el.on('load-success.bs.table', () => {
       if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
         that.onMultipleSort()
       }
     })
 
-    this.$el.on('column-switch.bs.table', function (field, checked) {
-      for (var i = 0; i < that.options.sortPriority.length; i++) {
+    this.$el.on('column-switch.bs.table', (field, checked) => {
+      for (let i = 0; i < that.options.sortPriority.length; i++) {
         if (that.options.sortPriority[i].sortName === checked) {
           that.options.sortPriority.splice(i, 1)
         }
@@ -283,7 +283,7 @@ BootstrapTable.prototype.initToolbar = function () {
       showSortModal(that)
     })
 
-    this.$el.on('reset-view.bs.table', function () {
+    this.$el.on('reset-view.bs.table', () => {
       if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object') {
         that.assignSortableArrows()
       }
@@ -292,27 +292,25 @@ BootstrapTable.prototype.initToolbar = function () {
 }
 
 BootstrapTable.prototype.multipleSort = function () {
-  var that = this
+  const that = this
   if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
     that.onMultipleSort()
   }
 }
 
 BootstrapTable.prototype.onMultipleSort = function () {
-  var that = this
+  const that = this
 
-  var cmp = function (x, y) {
-    return x > y ? 1 : x < y ? -1 : 0
-  }
+  const cmp = (x, y) => x > y ? 1 : x < y ? -1 : 0
 
-  var arrayCmp = function (a, b) {
-    var arr1 = []
-    var arr2 = []
+  const arrayCmp = (a, b) => {
+    const arr1 = []
+    const arr2 = []
 
-    for (var i = 0; i < that.options.sortPriority.length; i++) {
-      var order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1
-      var aa = a[that.options.sortPriority[i].sortName]
-      var bb = b[that.options.sortPriority[i].sortName]
+    for (let i = 0; i < that.options.sortPriority.length; i++) {
+      const order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1
+      let aa = a[that.options.sortPriority[i].sortName]
+      let bb = b[that.options.sortPriority[i].sortName]
 
       if (aa === undefined || aa === null) {
         aa = ''
@@ -337,9 +335,7 @@ BootstrapTable.prototype.onMultipleSort = function () {
     return cmp(arr1, arr2)
   }
 
-  this.data.sort(function (a, b) {
-    return arrayCmp(a, b)
-  })
+  this.data.sort((a, b) => arrayCmp(a, b))
 
   this.initBody()
   this.assignSortableArrows()
@@ -347,7 +343,7 @@ BootstrapTable.prototype.onMultipleSort = function () {
 }
 
 BootstrapTable.prototype.addLevel = function (index, sortPriority) {
-  var text = index === 0 ? this.options.formatSortBy() : this.options.formatThenBy()
+  const text = index === 0 ? this.options.formatSortBy() : this.options.formatThenBy()
 
   this.$sortModal.find('tbody')
     .append($('<tr>')
@@ -356,32 +352,32 @@ BootstrapTable.prototype.addLevel = function (index, sortPriority) {
       .append($('<td>').append($('<select class="form-control multi-sort-order">')))
     )
 
-  var $multiSortName = this.$sortModal.find('.multi-sort-name').last()
-  var $multiSortOrder = this.$sortModal.find('.multi-sort-order').last()
+  const $multiSortName = this.$sortModal.find('.multi-sort-name').last()
+  const $multiSortOrder = this.$sortModal.find('.multi-sort-order').last()
 
-  $.each(this.columns, function (i, column) {
+  $.each(this.columns, (i, column) => {
     if (column.sortable === false || column.visible === false) {
       return true
     }
-    $multiSortName.append('<option value="' + column.field + '">' + column.title + '</option>')
+    $multiSortName.append(`<option value="${column.field}">${column.title}</option>`)
   })
 
-  $.each(this.options.formatSortOrders(), function (value, order) {
-    $multiSortOrder.append('<option value="' + value + '">' + order + '</option>')
+  $.each(this.options.formatSortOrders(), (value, order) => {
+    $multiSortOrder.append(`<option value="${value}">${order}</option>`)
   })
 
   if (sortPriority !== undefined) {
-    $multiSortName.find('option[value="' + sortPriority.sortName + '"]').attr('selected', true)
-    $multiSortOrder.find('option[value="' + sortPriority.sortOrder + '"]').attr('selected', true)
+    $multiSortName.find(`option[value="${sortPriority.sortName}"]`).attr('selected', true)
+    $multiSortOrder.find(`option[value="${sortPriority.sortOrder}"]`).attr('selected', true)
   }
 }
 
 BootstrapTable.prototype.assignSortableArrows = function () {
-  var that = this
-  var headers = that.$header.find('th')
+  const that = this
+  const headers = that.$header.find('th')
 
-  for (var i = 0; i < headers.length; i++) {
-    for (var c = 0; c < that.options.sortPriority.length; c++) {
+  for (let i = 0; i < headers.length; i++) {
+    for (let c = 0; c < that.options.sortPriority.length; c++) {
       if ($(headers[i]).data('field') === that.options.sortPriority[c].sortName) {
         $(headers[i]).find('.sortable').removeClass('desc asc').addClass(that.options.sortPriority[c].sortOrder)
       }
@@ -390,8 +386,8 @@ BootstrapTable.prototype.assignSortableArrows = function () {
 }
 
 BootstrapTable.prototype.setButtonStates = function () {
-  var total = this.$sortModal.find('.multi-sort-name:first option').length
-  var current = this.$sortModal.find('tbody tr').length
+  const total = this.$sortModal.find('.multi-sort-name:first option').length
+  const current = this.$sortModal.find('tbody tr').length
 
   if (current === total) {
     this.$sortModal.find('#add').attr('disabled', 'disabled')

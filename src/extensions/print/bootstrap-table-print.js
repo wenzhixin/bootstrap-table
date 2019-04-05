@@ -119,8 +119,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     const buildTable = (data, columnsArray) => {
       const html = ['<table><thead>']
-      for (let k = 0; k < columnsArray.length; k++) {
-        const columns = columnsArray[k]
+
+      for (const columns of columnsArray) {
         html.push('<tr>')
         for (let h = 0; h < columns.length; h++) {
           if (!columns[h].printIgnore) {
@@ -133,18 +133,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
         html.push('</tr>')
       }
+
       html.push('</thead><tbody>')
 
       for (let i = 0; i < data.length; i++) {
         html.push('<tr>')
-        for (let l = 0; l < columnsArray.length; l++) {
-          const columns = columnsArray[l]
+
+        for (const columns of columnsArray) {
           for (let j = 0; j < columns.length; j++) {
             if (!columns[j].printIgnore && columns[j].field) {
               html.push('<td>', formatValue(data[i], i, columns[j]), '</td>')
             }
           }
         }
+
         html.push('</tr>')
       }
       html.push('</tbody></table>')
@@ -169,16 +171,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return true
     }
 
-    const filterRows = (data, filters) => {
-      return data.filter(row => filterRow(row,filters))
-    }
+    const filterRows = (data, filters) => data.filter(row => filterRow(row,filters))
 
-    const getColumnFilters = columns => {
-      return !columns || !columns[0] ? [] : columns[0].filter(col => col.printFilter).map(col => ({
-        colName: col.field,
-        value: col.printFilter
-      }))
-    }
+    const getColumnFilters = columns => !columns || !columns[0] ? [] : columns[0].filter(col => col.printFilter).map(col => ({
+      colName: col.field,
+      value: col.printFilter
+    }))
 
     data = filterRows(data,getColumnFilters(this.options.columns))
     data = sortRows(data, this.options.printSortColumn, this.options.printSortOrder)

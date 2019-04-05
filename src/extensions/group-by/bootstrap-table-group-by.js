@@ -4,16 +4,16 @@
  * @version: v1.1.0
  */
 
-var originalRowAttr
-var dataTTId = 'data-tt-id'
-var dataTTParentId = 'data-tt-parent-id'
-var obj = {}
-var parentId
+let originalRowAttr
+const dataTTId = 'data-tt-id'
+const dataTTParentId = 'data-tt-parent-id'
+const obj = {}
+let parentId
 
-var getParentRowId = function (that, id) {
-  var parentRows = that.$body.find('tr').not('[' + 'data-tt-parent-id]')
+const getParentRowId = (that, id) => {
+  const parentRows = that.$body.find('tr').not('[' + 'data-tt-parent-id]')
 
-  for (var i = 0; i < parentRows.length; i++) {
+  for (let i = 0; i < parentRows.length; i++) {
     if (i === id) {
       return $(parentRows[i]).attr('data-tt-id')
     }
@@ -22,11 +22,11 @@ var getParentRowId = function (that, id) {
   return undefined
 }
 
-var sumData = function (that, data) {
-  var sumRow = {}
-  $.each(data, function (i, row) {
+const sumData = (that, data) => {
+  const sumRow = {}
+  $.each(data, (i, row) => {
     if (!row.IsParent) {
-      for (var prop in row) {
+      for (const prop in row) {
         if (!isNaN(parseFloat(row[prop]))) {
           if (that.columns[that.fieldsColumnsIndex[prop]].groupBySumGroup) {
             if (sumRow[prop] === undefined) {
@@ -41,7 +41,7 @@ var sumData = function (that, data) {
   return sumRow
 }
 
-const rowAttr = function (row, index) {
+const rowAttr = (row, index) => {
   // Call the User Defined Function
   originalRowAttr.apply([row, index])
 
@@ -57,14 +57,14 @@ const rowAttr = function (row, index) {
   return obj
 }
 
-var setObjectKeys = function () {
+const setObjectKeys = () => {
   // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-  Object.keys = function (o) {
+  Object.keys = o => {
     if (o !== Object(o)) {
       throw new TypeError('Object.keys called on a non-object')
     }
-    var k = []
-    var p
+    const k = []
+    let p
     for (p in o) {
       if (Object.prototype.hasOwnProperty.call(o, p)) {
         k.push(p)
@@ -74,18 +74,18 @@ var setObjectKeys = function () {
   }
 }
 
-var getDataArrayFromItem = function (that, item) {
-  var itemDataArray = []
-  for (var i = 0; i < that.options.groupByField.length; i++) {
+const getDataArrayFromItem = (that, item) => {
+  const itemDataArray = []
+  for (let i = 0; i < that.options.groupByField.length; i++) {
     itemDataArray.push(item[that.options.groupByField[i]])
   }
 
   return itemDataArray
 }
 
-var getNewRow = function (that, result, index) {
-  var newRow = {}
-  for (var i = 0; i < that.options.groupByField.length; i++) {
+const getNewRow = (that, result, index) => {
+  const newRow = {}
+  for (let i = 0; i < that.options.groupByField.length; i++) {
     newRow[that.options.groupByField[i].toString()] = result[index][0][that.options.groupByField[i]]
   }
 
@@ -94,27 +94,23 @@ var getNewRow = function (that, result, index) {
   return newRow
 }
 
-const groupBy = function (array, f) {
-  var groups = {}
-  $.each(array, function (i, o) {
-    var group = JSON.stringify(f(o))
+const groupBy = (array, f) => {
+  const groups = {}
+  $.each(array, (i, o) => {
+    const group = JSON.stringify(f(o))
     groups[group] = groups[group] || []
     groups[group].push(o)
   })
-  return Object.keys(groups).map(function (group) {
-    return groups[group]
-  })
+  return Object.keys(groups).map(group => groups[group])
 }
 
-var makeGrouped = function (that, data) {
-  var newData = []
-  var sumRow = {}
+const makeGrouped = (that, data) => {
+  let newData = []
+  let sumRow = {}
 
-  var result = groupBy(data, function (item) {
-    return getDataArrayFromItem(that, item)
-  })
+  const result = groupBy(data, item => getDataArrayFromItem(that, item))
 
-  for (var i = 0; i < result.length; i++) {
+  for (let i = 0; i < result.length; i++) {
     result[i].unshift(getNewRow(that, result, i))
     if (that.options.groupBySumGroup) {
       sumRow = sumData(that, result[i])
@@ -124,7 +120,7 @@ var makeGrouped = function (that, data) {
     }
   }
 
-  newData = newData.concat.apply(newData, result)
+  newData = newData.concat(...result)
 
   if (!that.options.loaded && newData.length > 0) {
     that.options.loaded = true
@@ -151,15 +147,15 @@ $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
   groupBySumGroup: false
 })
 
-var BootstrapTable = $.fn.bootstrapTable.Constructor
-var _init = BootstrapTable.prototype.init
-var _initData = BootstrapTable.prototype.initData
+const BootstrapTable = $.fn.bootstrapTable.Constructor
+const _init = BootstrapTable.prototype.init
+const _initData = BootstrapTable.prototype.initData
 
-BootstrapTable.prototype.init = function () {
+BootstrapTable.prototype.init = function (...args) {
   // Temporal validation
   if (!this.options.sortName) {
     if ((this.options.groupBy) && (this.options.groupByField.length > 0)) {
-      var that = this
+      const that = this
 
       // Compatibility: IE < 9 and old browsers
       if (!Object.keys) {
@@ -172,15 +168,15 @@ BootstrapTable.prototype.init = function () {
 
       originalRowAttr = this.options.rowAttributes
       this.options.rowAttributes = rowAttr
-      this.$el.off('post-body.bs.table').on('post-body.bs.table', function () {
+      this.$el.off('post-body.bs.table').on('post-body.bs.table', () => {
         that.$el.treetable({
           expandable: true,
-          onNodeExpand: function () {
+          onNodeExpand () {
             if (that.options.height) {
               that.resetHeader()
             }
           },
-          onNodeCollapse: function () {
+          onNodeCollapse () {
             if (that.options.height) {
               that.resetHeader()
             }
@@ -197,7 +193,7 @@ BootstrapTable.prototype.init = function () {
       })
     }
   }
-  _init.apply(this, Array.prototype.slice.apply(arguments))
+  _init.apply(this, Array.prototype.slice.apply(args))
 }
 
 BootstrapTable.prototype.initData = function (data, type) {
