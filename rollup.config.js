@@ -5,10 +5,9 @@ import commonjs from 'rollup-plugin-commonjs'
 import minify from 'rollup-plugin-babel-minify'
 import inject from 'rollup-plugin-inject'
 
-// const files = glob.sync('src/**/*.js', {
-//   ignore: ['src/constants/**', 'src/utils/**', 'src/virtual-scroll/**']
-// })
-const files = ['src/bootstrap-table.js']
+const files = glob.sync('src/**/*.js', {
+  ignore: ['src/constants/**', 'src/utils/**', 'src/virtual-scroll/**']
+})
 const external = ['jquery']
 const globals = {
   jquery: 'jQuery'
