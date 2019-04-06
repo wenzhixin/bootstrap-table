@@ -4,6 +4,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import minify from 'rollup-plugin-babel-minify'
 import inject from 'rollup-plugin-inject'
+import multiEntry from 'rollup-plugin-multi-entry'
 
 const files = glob.sync('src/**/*.js', {
   ignore: ['src/constants/**', 'src/utils/**', 'src/virtual-scroll/**']
@@ -49,5 +50,24 @@ for (const file of files) {
     plugins
   })
 }
+
+let out = 'dist/bootstrap-table-locale-all.js'
+if (process.env.NODE_ENV === 'production') {
+  out = out.replace(/.js$/, '.min.js')
+}
+config.push({
+  input: 'src/locale/**/*.js',
+  output: {
+    name: 'BootstrapTable',
+    file: out,
+    format: 'umd',
+    globals
+  },
+  external,
+  plugins: [
+    multiEntry(),
+    ...plugins
+  ]
+})
 
 export default config
