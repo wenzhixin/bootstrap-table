@@ -5,7 +5,6 @@
  */
 
 const Utils = $.fn.bootstrapTable.utils
-const Constants = $.fn.bootstrapTable.constants
 const UtilsFilterControl = {
   getOptionsFromSelectControl (selectControl) {
     return selectControl.get(selectControl.length - 1).options
@@ -517,7 +516,7 @@ const bootstrap = {
       clear: 'fa-trash icon-clear'
     }
   }
-}[Constants.bootstrapVersion]
+}[Utils.bootstrapVersion]
 
 $.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,

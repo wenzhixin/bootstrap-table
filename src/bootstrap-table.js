@@ -2799,7 +2799,7 @@ $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS
 $.fn.bootstrapTable.locales = BootstrapTable.LOCALES
 $.fn.bootstrapTable.methods = allowedMethods
 $.fn.bootstrapTable.utils = Utils
-$.fn.bootstrapTable.constants = Constants
+
 // BOOTSTRAP TABLE INIT
 // =======================
 
