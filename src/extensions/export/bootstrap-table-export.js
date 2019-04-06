@@ -44,7 +44,15 @@ $.extend($.fn.bootstrapTable.defaults, {
   showExport: false,
   exportDataType: 'basic', // basic, all, selected
   exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
-  exportOptions: {},
+  exportOptions: {
+    onCellHtmlData: function (cell, rowIndex, colIndex, htmlData) {
+      if (cell.is('th')) {
+        return cell.find('.th-inner').text()
+      }
+
+      return htmlData;
+    }
+  },
   exportFooter: false
 })
 
