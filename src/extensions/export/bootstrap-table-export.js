@@ -61,6 +61,16 @@ $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.fn.bootstrapTable.methods.push('exportTable')
 
+$.extend($.fn.bootstrapTable.defaults, {
+  onExportSaved (exportedRows) {
+    return false
+  }
+})
+
+$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+  'export-saved.bs.table': 'onExportSaved'
+})
+
 $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar (...args) {
     const o = this.options
@@ -182,6 +192,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         })
       })
       this.togglePagination()
+      this.trigger('export-saved', this.getData())
     } else if (o.exportDataType === 'selected') {
       let data = this.getData()
       let selectedData = this.getSelections()
@@ -204,8 +215,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
       doExport(() => {
         this.load(data)
       })
+      this.trigger('export-saved', selectedData)
     } else {
       doExport()
+      this.trigger('export-saved', this.getData(true))
     }
   }
 
