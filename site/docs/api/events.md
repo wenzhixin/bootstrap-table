@@ -319,7 +319,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **jQuery Event:** `collapse-row.bs.table`
 
-- **Parameter:** `index, row`
+- **Parameter:** `index, row, detailView`
 
 - **Detail:**
 
@@ -327,6 +327,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   * `index`: the index of the collapsed row.
   * `row`: the record corresponding to the collapsed row.
+  * `detailView`: the collapsed detailView.
 
 ## onRefreshOptions
 
