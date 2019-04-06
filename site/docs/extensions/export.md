@@ -58,6 +58,20 @@ This is an important link to check out as some file types may require extra step
 
 - **Default:** `{}`
 
+## Events
+
+### onExportSaved
+
+- **jQuery Event:** `export-saved.bs.table`
+
+- **Parameter:** `exportedRows`
+
+- **Detail:**
+
+  Fired when the data is exported, the parameter contain:
+
+  * `exportedRows`: The exported rows (depends on exportDataType)
+
 ### Icons
 
 - export: `'glyphicon-export icon-share'`
