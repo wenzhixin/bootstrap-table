@@ -229,31 +229,13 @@ class BootstrapTable {
       }
 
       columns.forEach((column, j) => {
-        let text = ''
-
-        let halign = '' // header align style
-
-        let align = '' // body align style
-
-        let style = ''
         const class_ = Utils.sprintf(' class="%s"', column['class'])
-        let unitWidth = 'px'
-        let width = column.width
+        const unitWidth = column.widthUnit
+        const width = Number.parseFloat(column.width)
 
-        if (column.width !== undefined && (!this.options.cardView)) {
-          if (typeof column.width === 'string') {
-            if (column.width.includes('%')) {
-              unitWidth = '%'
-            }
-          }
-        }
-        if (column.width && typeof column.width === 'string') {
-          width = column.width.replace('%', '').replace('px', '')
-        }
-
-        halign = Utils.sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
-        align = Utils.sprintf('text-align: %s; ', column.align)
-        style = Utils.sprintf('vertical-align: %s; ', column.valign)
+        const halign = Utils.sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
+        const align = Utils.sprintf('text-align: %s; ', column.align)
+        let style = Utils.sprintf('vertical-align: %s; ', column.valign)
         style += Utils.sprintf('width: %s; ', (column.checkbox || column.radio) && !width
           ? (!column.showSelectTitle ? '36px' : undefined)
           : (width ? width + unitWidth : undefined))
@@ -296,7 +278,7 @@ class BootstrapTable {
         html.push(Utils.sprintf('<div class="th-inner %s">', this.options.sortable && column.sortable
           ? 'sortable both' : ''))
 
-        text = this.options.escape ? Utils.escapeHTML(column.title) : column.title
+        let text = this.options.escape ? Utils.escapeHTML(column.title) : column.title
 
         const title = text
         if (column.checkbox) {
