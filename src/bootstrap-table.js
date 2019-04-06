@@ -2373,17 +2373,18 @@ class BootstrapTable {
   }
 
   checkAll_ (checked) {
-    let rows
-    if (!checked) {
-      rows = this.getSelections()
-    }
+    const rowsBefore = this.getSelections()
     this.$selectAll.add(this.$selectAll_).prop('checked', checked)
     this.$selectItem.filter(':enabled').prop('checked', checked)
     this.updateRows()
+
+    const rowsAfter = this.getSelections()
     if (checked) {
-      rows = this.getSelections()
+      this.trigger('check-all', rowsAfter, rowsBefore)
+      return
     }
-    this.trigger(checked ? 'check-all' : 'uncheck-all', rows)
+
+    this.trigger('uncheck-all', rowsAfter, rowsBefore)
   }
 
   check (index) {
