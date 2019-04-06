@@ -7,24 +7,27 @@
     "doc": "site"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-array-includes": "^2.0.3",
-    "babel-plugin-object-entries-and-values-to-object-keys": "^1.0.1",
-    "babel-plugin-transform-es2015-for-of": "^6.23.0",
-    "babel-preset-babili": "^0.1.4",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-0": "^6.24.1",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "core-js": "^3.0.0",
     "cssmin-cli": "^0.0.5",
     "eslint": "^4.19.1",
+    "glob": "^7.1.3",
     "headr": "^0.0.4",
     "npm-run-all": "^4.1.5",
+    "rollup": "^1.8.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-babel-minify": "^8.0.0",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-inject": "^2.2.0",
+    "rollup-plugin-multi-entry": "^2.1.0",
+    "rollup-plugin-node-resolve": "^4.0.1",
     "sass": "^1.16.1"
   },
   "scripts": {
     "lint": "eslint src",
-    "js:build:min": "NODE_ENV=production babel src -d dist -q && find dist -name '*.js' | sed -e 'p;s/.js/.min.js/' | xargs -n2 mv",
-    "js:build:base": "babel src -d dist -q",
-    "js:build:concat": "babel src/locale -o dist/bootstrap-table-locale-all.js && NODE_ENV=production babel src/locale -o dist/bootstrap-table-locale-all.min.js",
+    "js:build:base": "rollup -c",
+    "js:build:min": "NODE_ENV=production rollup -c",
     "js:build:banner": "find dist -name '*.min.js' -exec headr {} -o {} --version --homepage --author --license \\;",
     "js:build": "run-s js:build:*",
     "css:build:scss": "find src -name 'bootstrap-table*.scss' | sed -e 'p;s/scss/css/' | xargs -n2 sass",
@@ -36,6 +39,9 @@
     "build": "run-s lint clean *:build",
     "docs": "bundle exec jekyll build",
     "docs-serve": "bundle exec jekyll serve"
+  },
+  "peerDependencies": {
+    "jquery": "1.9.1 - 3"
   },
   "repository": {
     "type": "git",

@@ -47,283 +47,274 @@
  *
  **/
 
-(function ($) {
-  'use strict'
+const Utils = $.fn.bootstrapTable.utils
 
-  var Utils = $.fn.bootstrapTable.utils
-
-  $.extend($.fn.bootstrapTable.defaults, {
-    usePipeline: false,
-    pipelineSize: 1000,
-    onCachedDataHit: function (data) {
-      return false
-    },
-    onCachedDataReset: function (data) {
-      return false
-    }
-  })
-
-  $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-    'cached-data-hit.bs.table': 'onCachedDataHit',
-    'cached-data-reset.bs.table': 'onCachedDataReset'
-  })
-
-  var BootstrapTable = $.fn.bootstrapTable.Constructor
-  var _init = BootstrapTable.prototype.init
-  var _initServer = BootstrapTable.prototype.initServer
-  var _onSearch = BootstrapTable.prototype.onSearch
-  var _onSort = BootstrapTable.prototype.onSort
-  var _onPageListChange = BootstrapTable.prototype.onPageListChange
-
-  BootstrapTable.prototype.init = function () {
-    // needs to be called before initServer()
-    this.initPipeline()
-    _init.apply(this, Array.prototype.slice.apply(arguments))
+$.extend($.fn.bootstrapTable.defaults, {
+  usePipeline: false,
+  pipelineSize: 1000,
+  onCachedDataHit (data) {
+    return false
+  },
+  onCachedDataReset (data) {
+    return false
   }
+})
 
-  BootstrapTable.prototype.initPipeline = function () {
-    this.cacheRequestJSON = {}
-    this.cacheWindows = []
-    this.currWindow = 0
+$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+  'cached-data-hit.bs.table': 'onCachedDataHit',
+  'cached-data-reset.bs.table': 'onCachedDataReset'
+})
+
+const BootstrapTable = $.fn.bootstrapTable.Constructor
+const _init = BootstrapTable.prototype.init
+const _initServer = BootstrapTable.prototype.initServer
+const _onSearch = BootstrapTable.prototype.onSearch
+const _onSort = BootstrapTable.prototype.onSort
+const _onPageListChange = BootstrapTable.prototype.onPageListChange
+
+BootstrapTable.prototype.init = function (...args) {
+  // needs to be called before initServer()
+  this.initPipeline()
+  _init.apply(this, Array.prototype.slice.apply(args))
+}
+
+BootstrapTable.prototype.initPipeline = function () {
+  this.cacheRequestJSON = {}
+  this.cacheWindows = []
+  this.currWindow = 0
+  this.resetCache = true
+}
+
+BootstrapTable.prototype.onSearch = function (event) {
+  /* force a cache reset on search */
+  if (this.options.usePipeline) {
     this.resetCache = true
   }
+  _onSearch.apply(this, Array.prototype.slice.apply(arguments))
+}
 
-  BootstrapTable.prototype.onSearch = function (event) {
-    /* force a cache reset on search */
-    if (this.options.usePipeline) {
-      this.resetCache = true
-    }
-    _onSearch.apply(this, Array.prototype.slice.apply(arguments))
-  }
-
-  BootstrapTable.prototype.onSort = function (event) {
-    /* force a cache reset on sort */
-    if (this.options.usePipeline) {
-      this.resetCache = true
-    }
-    _onSort.apply(this, Array.prototype.slice.apply(arguments))
-  }
-
-  BootstrapTable.prototype.onPageListChange = function (event) {
-    /* rebuild cache window on page size change */
-    var target = $(event.currentTarget)
-    var newPageSize = parseInt(target.text())
-    this.options.pipelineSize = this.calculatePipelineSize(this.options.pipelineSize, newPageSize)
+BootstrapTable.prototype.onSort = function (event) {
+  /* force a cache reset on sort */
+  if (this.options.usePipeline) {
     this.resetCache = true
-    _onPageListChange.apply(this, Array.prototype.slice.apply(arguments))
   }
+  _onSort.apply(this, Array.prototype.slice.apply(arguments))
+}
 
-  BootstrapTable.prototype.calculatePipelineSize = function (pipelineSize, pageSize) {
-    /* calculate pipeline size by rounding up to the nearest value evenly divisible
-         * by the pageSize */
-    if (pageSize === 0) return 0
-    return Math.ceil(pipelineSize / pageSize) * pageSize
+BootstrapTable.prototype.onPageListChange = function (event) {
+  /* rebuild cache window on page size change */
+  const target = $(event.currentTarget)
+  const newPageSize = parseInt(target.text())
+  this.options.pipelineSize = this.calculatePipelineSize(this.options.pipelineSize, newPageSize)
+  this.resetCache = true
+  _onPageListChange.apply(this, Array.prototype.slice.apply(arguments))
+}
+
+BootstrapTable.prototype.calculatePipelineSize = (pipelineSize, pageSize) => {
+  /* calculate pipeline size by rounding up to the nearest value evenly divisible
+        * by the pageSize */
+  if (pageSize === 0) return 0
+  return Math.ceil(pipelineSize / pageSize) * pageSize
+}
+
+BootstrapTable.prototype.setCacheWindows = function () {
+  /* set cache windows based on the total number of rows returned by server side
+        * request and the pipelineSize */
+  this.cacheWindows = []
+  const numWindows = this.options.totalRows / this.options.pipelineSize
+  for (let i = 0; i <= numWindows; i++) {
+    const b = i * this.options.pipelineSize
+    this.cacheWindows[i] = {'lower': b, 'upper': b + this.options.pipelineSize - 1}
   }
+}
 
-  BootstrapTable.prototype.setCacheWindows = function () {
-    /* set cache windows based on the total number of rows returned by server side
-         * request and the pipelineSize */
-    this.cacheWindows = []
-    var numWindows = this.options.totalRows / this.options.pipelineSize
-    for (var i = 0; i <= numWindows; i++) {
-      var b = i * this.options.pipelineSize
-      this.cacheWindows[i] = {'lower': b, 'upper': b + this.options.pipelineSize - 1}
+BootstrapTable.prototype.setCurrWindow = function (offset) {
+  /* set the current cache window index, based on where the current offset falls */
+  this.currWindow = 0
+  for (let i = 0; i < this.cacheWindows.length; i++) {
+    if (this.cacheWindows[i].lower <= offset && offset <= this.cacheWindows[i].upper) {
+      this.currWindow = i
+      break
     }
   }
+}
 
-  BootstrapTable.prototype.setCurrWindow = function (offset) {
-    /* set the current cache window index, based on where the current offset falls */
-    this.currWindow = 0
-    for (var i = 0; i < this.cacheWindows.length; i++) {
-      if (this.cacheWindows[i].lower <= offset && offset <= this.cacheWindows[i].upper) {
-        this.currWindow = i
-        break
-      }
-    }
+BootstrapTable.prototype.drawFromCache = function (offset, limit) {
+  /* draw rows from the cache using offset and limit */
+  const res = $.extend(true, {}, this.cacheRequestJSON)
+  const drawStart = offset - this.cacheWindows[this.currWindow].lower
+  const drawEnd = drawStart + limit
+  res.rows = res.rows.slice(drawStart, drawEnd)
+  return res
+}
+
+BootstrapTable.prototype.initServer = function (silent, query, url) {
+  /* determine if requested data is in cache (on paging) or if
+        * a new ajax request needs to be issued (sorting, searching, paging
+        * moving outside of cached data, page size change)
+        * initial version of this extension will entirely override base initServer
+        **/
+
+  let data = {}
+  const index = this.header.fields.indexOf(this.options.sortName)
+
+  let params = {
+    searchText: this.searchText,
+    sortName: this.options.sortName,
+    sortOrder: this.options.sortOrder
   }
 
-  BootstrapTable.prototype.drawFromCache = function (offset, limit) {
-    /* draw rows from the cache using offset and limit */
-    var res = $.extend(true, {}, this.cacheRequestJSON)
-    var drawStart = offset - this.cacheWindows[this.currWindow].lower
-    var drawEnd = drawStart + limit
-    res.rows = res.rows.slice(drawStart, drawEnd)
-    return res
+  let request = null
+
+  if (this.header.sortNames[index]) {
+    params.sortName = this.header.sortNames[index]
   }
 
-  BootstrapTable.prototype.initServer = function (silent, query, url) {
-    /* determine if requested data is in cache (on paging) or if
-         * a new ajax request needs to be issued (sorting, searching, paging
-         * moving outside of cached data, page size change)
-         * initial version of this extension will entirely override base initServer
-         **/
+  if (this.options.pagination && this.options.sidePagination === 'server') {
+    params.pageSize = this.options.pageSize === this.options.formatAllRows()
+      ? this.options.totalRows : this.options.pageSize
+    params.pageNumber = this.options.pageNumber
+  }
 
-    var data = {}
-    var index = this.header.fields.indexOf(this.options.sortName)
+  if (!(url || this.options.url) && !this.options.ajax) {
+    return
+  }
 
-    var params = {
-      searchText: this.searchText,
-      sortName: this.options.sortName,
-      sortOrder: this.options.sortOrder
+  let useAjax = true
+  if (this.options.queryParamsType === 'limit') {
+    params = {
+      searchText: params.searchText,
+      sortName: params.sortName,
+      sortOrder: params.sortOrder
     }
-
-    var request = null
-
-    if (this.header.sortNames[index]) {
-      params.sortName = this.header.sortNames[index]
-    }
-
     if (this.options.pagination && this.options.sidePagination === 'server') {
-      params.pageSize = this.options.pageSize === this.options.formatAllRows()
-        ? this.options.totalRows : this.options.pageSize
-      params.pageNumber = this.options.pageNumber
-    }
-
-    if (!(url || this.options.url) && !this.options.ajax) {
-      return
-    }
-
-    var useAjax = true
-    if (this.options.queryParamsType === 'limit') {
-      params = {
-        searchText: params.searchText,
-        sortName: params.sortName,
-        sortOrder: params.sortOrder
-      }
-      if (this.options.pagination && this.options.sidePagination === 'server') {
-        params.limit = this.options.pageSize === this.options.formatAllRows() ? this.options.totalRows : this.options.pageSize
-        params.offset = (this.options.pageSize === this.options.formatAllRows() ? this.options.totalRows : this.options.pageSize) * (this.options.pageNumber - 1)
-        if (this.options.usePipeline) {
-          // if cacheWindows is empty, this is the initial request
-          if (!this.cacheWindows.length) {
-            useAjax = true
-            params.drawOffset = params.offset
-            // cache exists: determine if the page request is entirely within the current cached window
-          } else {
-            var w = this.cacheWindows[this.currWindow]
-            // case 1: reset cache but stay within current window (e.g. column sort)
-            // case 2: move outside of the current window (e.g. search or paging)
-            //  since each cache window is aligned with the current page size
-            //  checking if params.offset is outside the current window is sufficient.
-            //  need to requery for preceding or succeeding cache window
-            //  also handle case
-            if (this.resetCache || (params.offset < w.lower || params.offset > w.upper)) {
-              useAjax = true
-              this.setCurrWindow(params.offset)
-              // store the relative offset for drawing the page data afterwards
-              params.drawOffset = params.offset
-              // now set params.offset to the lower bound of the new cache window
-              // the server will return that whole cache window
-              params.offset = this.cacheWindows[this.currWindow].lower
-              // within current cache window
-            } else {
-              useAjax = false
-            }
-          }
+      params.limit = this.options.pageSize === this.options.formatAllRows() ? this.options.totalRows : this.options.pageSize
+      params.offset = (this.options.pageSize === this.options.formatAllRows() ? this.options.totalRows : this.options.pageSize) * (this.options.pageNumber - 1)
+      if (this.options.usePipeline) {
+        // if cacheWindows is empty, this is the initial request
+        if (!this.cacheWindows.length) {
+          useAjax = true
+          params.drawOffset = params.offset
+          // cache exists: determine if the page request is entirely within the current cached window
         } else {
-          if (params.limit === 0) {
-            delete params.limit
+          const w = this.cacheWindows[this.currWindow]
+          // case 1: reset cache but stay within current window (e.g. column sort)
+          // case 2: move outside of the current window (e.g. search or paging)
+          //  since each cache window is aligned with the current page size
+          //  checking if params.offset is outside the current window is sufficient.
+          //  need to requery for preceding or succeeding cache window
+          //  also handle case
+          if (this.resetCache || (params.offset < w.lower || params.offset > w.upper)) {
+            useAjax = true
+            this.setCurrWindow(params.offset)
+            // store the relative offset for drawing the page data afterwards
+            params.drawOffset = params.offset
+            // now set params.offset to the lower bound of the new cache window
+            // the server will return that whole cache window
+            params.offset = this.cacheWindows[this.currWindow].lower
+            // within current cache window
+          } else {
+            useAjax = false
           }
         }
-      }
-    }
-
-    // force an ajax call - this is on search, sort or page size change
-    if (this.resetCache) {
-      useAjax = true
-      this.resetCache = false
-    }
-
-    if (this.options.usePipeline && useAjax) {
-      /* in this scenario limit is used on the server to get the cache window
-             * and drawLimit is used to get the page data afterwards */
-      params.drawLimit = params.limit
-      params.limit = this.options.pipelineSize
-    }
-
-    // cached results can be used
-    if (!useAjax) {
-      var res = this.drawFromCache(params.offset, params.limit)
-      this.load(res)
-      this.trigger('load-success', res)
-      this.trigger('cached-data-hit', res)
-      return
-    }
-    // cached results can't be used
-    // continue base initServer code
-    if (!($.isEmptyObject(this.filterColumnsPartial))) {
-      params.filter = JSON.stringify(this.filterColumnsPartial, null)
-    }
-
-    data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
-
-    $.extend(data, query || {})
-
-    // false to stop request
-    if (data === false) {
-      return
-    }
-
-    if (!silent) {
-      this.$tableLoading.show()
-    }
-    var self = this
-
-    request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
-      type: this.options.method,
-      url: url || this.options.url,
-      data: this.options.contentType === 'application/json' && this.options.method === 'post'
-        ? JSON.stringify(data) : data,
-      cache: this.options.cache,
-      contentType: this.options.contentType,
-      dataType: this.options.dataType,
-      success: function (res) {
-        res = Utils.calculateObjectValue(self.options, self.options.responseHandler, [res], res)
-        // cache results if using pipelining
-        if (self.options.usePipeline) {
-          // store entire request in cache
-          self.cacheRequestJSON = $.extend(true, {}, res)
-          // this gets set in load() also but needs to be set before
-          // setting cacheWindows
-          self.options.totalRows = res[self.options.totalField]
-          // if this is a search, potentially less results will be returned
-          // so cache windows need to be rebuilt. Otherwise it
-          // will come out the same
-          self.setCacheWindows()
-          self.setCurrWindow(params.drawOffset)
-          // just load data for the page
-          res = self.drawFromCache(params.drawOffset, params.drawLimit)
-          self.trigger('cached-data-reset', res)
+      } else {
+        if (params.limit === 0) {
+          delete params.limit
         }
-        self.load(res)
-        self.trigger('load-success', res)
-        if (!silent) self.$tableLoading.hide()
-      },
-      error: function (res) {
-        var data = []
-        if (self.options.sidePagination === 'server') {
-          data = {}
-          data[self.options.totalField] = 0
-          data[self.options.dataField] = []
-        }
-        self.load(data)
-        self.trigger('load-error', res.status, res)
-        if (!silent) self.$tableLoading.hide()
       }
-    })
-
-    if (this.options.ajax) {
-      Utils.calculateObjectValue(this, this.options.ajax, [request], null)
-    } else {
-      if (this._xhr && this._xhr.readyState !== 4) {
-        this._xhr.abort()
-      }
-      this._xhr = $.ajax(request)
     }
   }
 
-  $.fn.bootstrapTable.methods.push()
+  // force an ajax call - this is on search, sort or page size change
+  if (this.resetCache) {
+    useAjax = true
+    this.resetCache = false
+  }
 
+  if (this.options.usePipeline && useAjax) {
+    /* in this scenario limit is used on the server to get the cache window
+            * and drawLimit is used to get the page data afterwards */
+    params.drawLimit = params.limit
+    params.limit = this.options.pipelineSize
+  }
 
+  // cached results can be used
+  if (!useAjax) {
+    const res = this.drawFromCache(params.offset, params.limit)
+    this.load(res)
+    this.trigger('load-success', res)
+    this.trigger('cached-data-hit', res)
+    return
+  }
+  // cached results can't be used
+  // continue base initServer code
+  if (!($.isEmptyObject(this.filterColumnsPartial))) {
+    params.filter = JSON.stringify(this.filterColumnsPartial, null)
+  }
 
-})(jQuery)
+  data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
+
+  $.extend(data, query || {})
+
+  // false to stop request
+  if (data === false) {
+    return
+  }
+
+  if (!silent) {
+    this.$tableLoading.show()
+  }
+  const self = this
+
+  request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
+    type: this.options.method,
+    url: url || this.options.url,
+    data: this.options.contentType === 'application/json' && this.options.method === 'post'
+      ? JSON.stringify(data) : data,
+    cache: this.options.cache,
+    contentType: this.options.contentType,
+    dataType: this.options.dataType,
+    success (res) {
+      res = Utils.calculateObjectValue(self.options, self.options.responseHandler, [res], res)
+      // cache results if using pipelining
+      if (self.options.usePipeline) {
+        // store entire request in cache
+        self.cacheRequestJSON = $.extend(true, {}, res)
+        // this gets set in load() also but needs to be set before
+        // setting cacheWindows
+        self.options.totalRows = res[self.options.totalField]
+        // if this is a search, potentially less results will be returned
+        // so cache windows need to be rebuilt. Otherwise it
+        // will come out the same
+        self.setCacheWindows()
+        self.setCurrWindow(params.drawOffset)
+        // just load data for the page
+        res = self.drawFromCache(params.drawOffset, params.drawLimit)
+        self.trigger('cached-data-reset', res)
+      }
+      self.load(res)
+      self.trigger('load-success', res)
+      if (!silent) self.$tableLoading.hide()
+    },
+    error (res) {
+      let data = []
+      if (self.options.sidePagination === 'server') {
+        data = {}
+        data[self.options.totalField] = 0
+        data[self.options.dataField] = []
+      }
+      self.load(data)
+      self.trigger('load-error', res.status, res)
+      if (!silent) self.$tableLoading.hide()
+    }
+  })
+
+  if (this.options.ajax) {
+    Utils.calculateObjectValue(this, this.options.ajax, [request], null)
+  } else {
+    if (this._xhr && this._xhr.readyState !== 4) {
+      this._xhr.abort()
+    }
+    this._xhr = $.ajax(request)
+  }
+}

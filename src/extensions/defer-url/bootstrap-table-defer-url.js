@@ -13,19 +13,17 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-($ => {
-  $.extend($.fn.bootstrapTable.defaults, {
-    deferUrl: undefined
-  })
+$.extend($.fn.bootstrapTable.defaults, {
+  deferUrl: undefined
+})
 
-  $.BootstrapTable = class extends $.BootstrapTable {
+$.BootstrapTable = class extends $.BootstrapTable {
 
-    init (...args) {
-      super.init(...args)
+  init (...args) {
+    super.init(...args)
 
-      if (this.options.deferUrl) {
-        this.options.url = this.options.deferUrl
-      }
+    if (this.options.deferUrl) {
+      this.options.url = this.options.deferUrl
     }
   }
-})(jQuery)
+}

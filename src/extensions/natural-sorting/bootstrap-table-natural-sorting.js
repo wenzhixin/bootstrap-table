@@ -64,3 +64,8 @@ function numericOnly (a, b) {
 
   return stripNonNumber(a) - stripNonNumber(b)
 }
+
+export default {
+  alphanum,
+  numericOnly
+}
