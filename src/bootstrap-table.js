@@ -1080,7 +1080,7 @@ class BootstrapTable {
       return
     }
 
-    if (!this.options.maintainSelected) {
+    if (!this.options.maintainMetaData) {
       this.resetRows()
     }
 

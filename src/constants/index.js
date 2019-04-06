@@ -181,7 +181,7 @@ const DEFAULTS = {
   },
   singleSelect: false,
   checkboxHeader: true,
-  maintainSelected: false,
+  maintainMetaData: false,
   multipleSelectRow: false,
   uniqueId: undefined,
   cardView: false,

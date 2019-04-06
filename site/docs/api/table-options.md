@@ -1114,19 +1114,21 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Checkbox Header](https://examples.bootstrap-table.com/#options/checkbox-header.html)
 
-## maintainSelected
+## maintainMetaData
 
-- **Attribute:** `data-maintain-selected`
+- **Attribute:** `data-maintain-meta-data`
 
 - **Type:** `Boolean`
 
 - **Detail:**
 
-  Set `true` to maintain selected rows on change page and search.
+  Set `true` to maintain the following meta data on change page and search
+   * selected rows
+   * hidden rows
 
 - **Default:** `false`
 
-- **Example:** [Maintain Selected](https://examples.bootstrap-table.com/#options/maintain-selected.html)
+- **Example:** [Maintain Meta Data](https://examples.bootstrap-table.com/#options/maintain-selected.html)
 
 ## multipleSelectRow
 
