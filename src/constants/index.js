@@ -338,6 +338,7 @@ const COLUMN_DEFAULTS = {
   titleTooltip: undefined,
   'class': undefined,
   width: undefined,
+  widthUnit: 'px',
   rowspan: undefined,
   colspan: undefined,
   align: undefined, // left, right, center

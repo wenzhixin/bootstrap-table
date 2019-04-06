@@ -60,13 +60,25 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Attribute:** `data-width`
 
-- **Type:** `Number | String`
+- **Type:** `Number`
 
 - **Detail:**
 
-  The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this `'width'` might be ignored (use min/max-width via class or such then). Also you can add `'%'` to your number and the Bootstrap Table will use the percentage unit, otherwise, leave as number (or add `'px'`) to make it use pixels.
+  The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this `'width'` might be ignored (use min/max-width via class or such then). The default used Unit is 'px', use `widthUnit` to change it!
 
 - **Default:** `undefined`
+
+## widthUnit
+
+- **Attribute:** `data-width-unit`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines the unit which is used for the option `width`.
+
+- **Default:** `px`
 
 ## rowspan
 
