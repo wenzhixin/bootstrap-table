@@ -1128,7 +1128,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
-- **Example:** [Maintain Meta Data](https://examples.bootstrap-table.com/#options/maintain-selected.html)
+- **Example:** [Maintain Meta Data](https://examples.bootstrap-table.com/#options/maintain-meta-data.html)
 
 ## multipleSelectRow
 
