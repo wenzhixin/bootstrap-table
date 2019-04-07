@@ -10,17 +10,18 @@ $.extend($.fn.bootstrapTable.defaults, {
   buttonsClass: 'button'
 })
 
+$.fn.bootstrapTable.theme = 'foundation'
+
 $.BootstrapTable = class extends $.BootstrapTable {
   initConstants () {
     super.initConstants()
-
-    this.constants.theme = 'foundation'
 
     this.constants.classes.buttonsGroup = 'button-group'
     this.constants.classes.buttonsDropdown = 'dropdown-container'
     this.constants.classes.paginationDropdown = ''
     this.constants.classes.dropdownActive = 'is-active'
     this.constants.classes.paginationActive = 'current'
+    this.constants.classes.buttonActive = 'success'
 
     this.constants.html.toobarDropdow = ['<ul class="dropdown-pane" id="toolbar-dropdown" data-dropdown><ul class="vertical menu">', '</ul></div>']
     this.constants.html.toobarDropdowItem = '<li><label class="dropdown-item">%s</label></li>'

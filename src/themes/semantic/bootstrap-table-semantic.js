@@ -10,11 +10,11 @@ $.extend($.fn.bootstrapTable.defaults, {
   buttonsClass: 'ui button'
 })
 
+$.fn.bootstrapTable.theme = 'semantic'
+
 $.BootstrapTable = class extends $.BootstrapTable {
   initConstants () {
     super.initConstants()
-
-    this.constants.theme = 'semantic'
 
     this.constants.classes.buttonsGroup = 'ui buttons'
     this.constants.classes.buttonsDropdown = 'ui button dropdown'

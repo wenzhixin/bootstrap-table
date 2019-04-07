@@ -22,17 +22,18 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
+$.fn.bootstrapTable.theme = 'materialize'
+
 $.BootstrapTable = class extends $.BootstrapTable {
   initConstants () {
     super.initConstants()
-
-    this.constants.theme = 'materialize'
 
     this.constants.classes.buttonsGroup = ''
     this.constants.classes.buttonsDropdown = ''
     this.constants.classes.input = 'input-field'
     this.constants.classes.input = ''
     this.constants.classes.paginationDropdown = ''
+    this.constants.classes.buttonActive = 'green'
 
     this.constants.html.toobarDropdow = ['<ul id="toolbar-dropdown" class="dropdown-content">', '</ul>']
     this.constants.html.toobarDropdowItem = '<li><label>%s</label></li>'

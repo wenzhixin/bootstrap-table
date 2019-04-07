@@ -37,6 +37,7 @@ class BootstrapTable {
   initConstants () {
     const o = this.options
     this.constants = Constants.CONSTANTS
+    this.constants.theme = $.fn.bootstrapTable.theme
 
     const buttonsPrefix = o.buttonsPrefix ? `${o.buttonsPrefix}-` : ''
     this.constants.buttonsClass = [
@@ -2776,6 +2777,7 @@ $.fn.bootstrapTable = function (option, ...args) {
 }
 
 $.fn.bootstrapTable.Constructor = BootstrapTable
+$.fn.bootstrapTable.theme = Constants.THEME
 $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS
 $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS
 $.fn.bootstrapTable.locales = BootstrapTable.LOCALES
