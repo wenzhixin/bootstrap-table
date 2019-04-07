@@ -32,9 +32,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initToolbar () {
     super.initToolbar()
-    if (this.options.showColumns) {
-      this.$toolbar.find('.button.dropdown').dropdown()
-    }
+    this.handleToolbar()
+  }
+
+  handleToolbar () {
+    this.$toolbar.find('.button.dropdown').dropdown()
   }
 
   initPagination () {

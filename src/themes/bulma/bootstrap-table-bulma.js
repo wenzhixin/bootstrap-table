@@ -36,7 +36,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initToolbar () {
     super.initToolbar()
-    if (this.options.showColumns) {
+    this.handleToolbar()
+  }
+
+  handleToolbar () {
+    if (this.$toolbar.find('.dropdown').length) {
       this._initDropdown()
     }
   }
@@ -48,12 +52,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  _initDropdown ($el) {
+  _initDropdown () {
     const $dropdowns = this.$container.find('.dropdown:not(.is-hoverable)')
 
     $dropdowns.off('click').on('click', e => {
+      const $this = $(e.currentTarget)
       e.stopPropagation()
-      $(e.currentTarget).toggleClass('is-active')
+      $dropdowns.not($this).removeClass('is-active')
+      $this.toggleClass('is-active')
     })
 
     $(document).off('click.bs.dropdown.bulma').on('click.bs.dropdown.bulma', () => {
