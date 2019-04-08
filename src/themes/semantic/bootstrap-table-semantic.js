@@ -17,7 +17,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.theme = 'semantic'
 
     this.constants.classes.buttonsGroup = 'ui buttons'
-    this.constants.classes.buttonsDropdown = 'ui button dropdown'
+    this.constants.classes.buttonsDropdown = 'ui dropdown'
     this.constants.classes.inputGroup = 'ui input'
     this.constants.classes.paginationDropdown = 'ui dropdown'
 
@@ -33,7 +33,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar () {
     super.initToolbar()
     if (this.options.showColumns) {
-      this.$toolbar.find('.button.dropdown').dropdown()
+      this.$toolbar.find('.dropdown').dropdown()
     }
   }
 
