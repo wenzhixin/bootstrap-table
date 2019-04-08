@@ -17,7 +17,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.theme = 'bulma'
 
     this.constants.classes.buttonsGroup = 'buttons has-addons'
-    this.constants.classes.buttonsDropdown = 'button dropdown is-right'
+    this.constants.classes.buttonsDropdown = 'dropdown is-right'
     this.constants.classes.input = 'input'
     this.constants.classes.paginationDropdown = 'ui dropdown'
     this.constants.classes.dropup = 'is-up'
