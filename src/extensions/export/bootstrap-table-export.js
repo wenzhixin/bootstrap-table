@@ -50,7 +50,7 @@ $.extend($.fn.bootstrapTable.defaults, {
         return cell.find('.th-inner').text()
       }
 
-      return htmlData;
+      return htmlData
     }
   },
   exportFooter: false
