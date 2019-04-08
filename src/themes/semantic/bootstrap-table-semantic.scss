@@ -28,18 +28,20 @@
       padding-bottom: 0.60714286rem;
     }
 
-    .keep-open.button.dropdown {
-      padding: 0;
-
-      .button {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+    .dropdown {
+      > .button {
+        border-radius: 0;
       }
-    }
 
-    .ui.buttons .button:last-child .button {
-      border-top-right-radius: 0.285714rem;
-      border-bottom-right-radius: .28571429rem;
+      &:first-child > .button {
+        border-top-left-radius: .28571429rem;
+        border-bottom-left-radius: .28571429rem;
+      }
+
+      &:last-child > .button {
+        border-top-right-radius: .28571429rem;
+        border-bottom-right-radius: .28571429rem;
+      }
     }
   }
 
