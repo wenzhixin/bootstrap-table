@@ -22,9 +22,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.dropdownActive = 'is-active'
     this.constants.classes.paginationActive = 'current'
 
-    this.constants.html.toobarDropdow = ['<ul class="dropdown-pane" id="toolbar-dropdown" data-dropdown><ul class="vertical menu">', '</ul></div>']
+    this.constants.html.toobarDropdow = ['<ul class="dropdown-pane" data-dropdown data-position="bottom" data-alignment="right"><ul class="vertical menu">', '</ul></div>']
     this.constants.html.toobarDropdowItem = '<li><label class="dropdown-item">%s</label></li>'
-    this.constants.html.pageDropdown = ['<ul class="dropdown-pane" id="page-list-dropdown" data-dropdown><ul class="vertical menu">', '</ul></ul>']
+    this.constants.html.pageDropdown = ['<ul class="dropdown-pane" data-dropdown data-position="top" data-alignment="left"><ul class="vertical menu">', '</ul></ul>']
     this.constants.html.pageDropdownItem = '<li class="dropdown-item %s"><a href="#">%s</a></li>'
     this.constants.html.dropdownCaret = '<i class="fa fa-angle-down"></i>'
     this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'],
@@ -35,13 +35,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initToolbar()
 
     if (this.options.showColumns) {
-      this.$toolbar.find('.keep-open')
-        .attr('data-toggle', 'toolbar-dropdown')
+      const toolbarDropdownId = 'toolbar-dropdown_' + this.$el.attr('id')
+      this.$toolbar.find('.dropdown-toggle')
+        .attr('data-toggle', toolbarDropdownId)
       const $pane = this.$toolbar.find('.dropdown-pane')
-        .attr('data-position', 'bottom')
-        .attr('data-alignment', 'right')
+        .attr('id', toolbarDropdownId)
       new window.Foundation.Dropdown($pane)
-      this._initDropdown()
     }
   }
 
@@ -49,11 +48,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initPagination()
 
     if (this.options.pagination && !this.options.onlyInfoPagination) {
+      const pageListDropdownId = 'page-list-dropdown_' + this.$el.attr('id')
       this.$pagination.find('.dropdown-toggle')
-        .attr('data-toggle', 'page-list-dropdown')
+        .attr('data-toggle', pageListDropdownId)
       const $pane = this.$pagination.find('.dropdown-pane')
-        .attr('data-position', 'top')
-        .attr('data-alignment', 'left')
+        .attr('id', pageListDropdownId)
       new window.Foundation.Dropdown($pane)
     }
   }
