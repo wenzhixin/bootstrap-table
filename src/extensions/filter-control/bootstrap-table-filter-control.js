@@ -623,6 +623,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           if (that.options.height) {
             UtilsFilterControl.fixHeaderCSS(that)
           }
+          this.$tableLoading.css('top', this.$header.outerHeight() + 1)
         })
         .on('column-switch.bs.table', () => {
           UtilsFilterControl.setValues(that)

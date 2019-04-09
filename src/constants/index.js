@@ -181,7 +181,7 @@ const DEFAULTS = {
   },
   singleSelect: false,
   checkboxHeader: true,
-  maintainSelected: false,
+  maintainMetaData: false,
   multipleSelectRow: false,
   uniqueId: undefined,
   cardView: false,
@@ -338,6 +338,7 @@ const COLUMN_DEFAULTS = {
   titleTooltip: undefined,
   'class': undefined,
   width: undefined,
+  widthUnit: 'px',
   rowspan: undefined,
   colspan: undefined,
   align: undefined, // left, right, center
