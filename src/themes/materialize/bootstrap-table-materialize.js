@@ -35,9 +35,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.input = ''
     this.constants.classes.paginationDropdown = ''
 
-    this.constants.html.toobarDropdow = ['<ul id="toolbar-dropdown" class="dropdown-content">', '</ul>']
+    this.constants.html.toobarDropdow = ['<ul class="dropdown-content">', '</ul>']
     this.constants.html.toobarDropdowItem = '<li><label>%s</label></li>'
-    this.constants.html.pageDropdown = ['<ul id="page-list-dropdown" class="dropdown-content">', '</ul>']
+    this.constants.html.pageDropdown = ['<ul class="dropdown-content">', '</ul>']
     this.constants.html.pageDropdownItem = '<li><a class="%s" href="#">%s</a></li>'
     this.constants.html.dropdownCaret = '<i class="material-icons">arrow_drop_down</i>'
     this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'],
@@ -49,8 +49,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initToolbar()
 
     if (this.options.showColumns) {
+      const toolbarDropdownId = 'toolbar-dropdown_' + this.$el.attr('id')
+      this.$toolbar.find('.dropdown-content')
+        .attr('id', toolbarDropdownId)
       this.$toolbar.find('.dropdown-toggle')
-        .attr('data-target', 'toolbar-dropdown')
+        .attr('data-target', toolbarDropdownId)
         .dropdown({
           alignment: 'right',
           constrainWidth: false,
@@ -63,8 +66,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initPagination()
 
     if (this.options.pagination && !this.options.onlyInfoPagination) {
+      const pageListDropdownId = 'page-list-dropdown_' + this.$el.attr('id')
+      this.$pagination.find('.dropdown-content')
+        .attr('id', pageListDropdownId)
       this.$pagination.find('.dropdown-toggle')
-        .attr('data-target', 'page-list-dropdown')
+        .attr('data-target', pageListDropdownId)
         .dropdown()
     }
   }
