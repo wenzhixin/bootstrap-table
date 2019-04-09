@@ -8,18 +8,19 @@ $.extend($.fn.bootstrapTable.defaults, {
   classes: 'table highlight',
   buttonsPrefix: '',
   buttonsClass: 'waves-effect waves-light btn',
-  iconsPrefix: 'material-icons',
-  icons: {
-    paginationSwitchDown: 'grid_on',
-    paginationSwitchUp: 'grid_off',
-    refresh: 'refresh',
-    toggleOff: 'tablet',
-    toggleOn: 'tablet_android',
-    columns: 'view_list',
-    detailOpen: 'add',
-    detailClose: 'remove',
-    fullscreen: 'fullscreen'
-  }
+  iconsPrefix: 'material-icons'
+})
+
+$.extend($.fn.bootstrapTable.defaults.icons, {
+  paginationSwitchDown: 'grid_on',
+  paginationSwitchUp: 'grid_off',
+  refresh: 'refresh',
+  toggleOff: 'tablet',
+  toggleOn: 'tablet_android',
+  columns: 'view_list',
+  detailOpen: 'add',
+  detailClose: 'remove',
+  fullscreen: 'fullscreen'
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
