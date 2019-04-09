@@ -505,19 +505,6 @@ const filterDataMethods = {
   }
 }
 
-const bootstrap = {
-  3: {
-    icons: {
-      clear: 'glyphicon-trash icon-clear'
-    }
-  },
-  4: {
-    icons: {
-      clear: 'fa-trash icon-clear'
-    }
-  }
-}[Utils.bootstrapVersion]
-
 $.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,
   onColumnSearch (field, text) {
@@ -576,7 +563,9 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
-  clear: bootstrap.icons.clear
+  clear: {
+    bootstrap3: 'glyphicon-trash icon-clear'
+  }[$.fn.bootstrapTable.theme] || 'fa-trash'
 })
 
 $.extend($.fn.bootstrapTable.locales, {

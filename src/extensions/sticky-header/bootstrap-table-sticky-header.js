@@ -11,7 +11,9 @@ $.extend($.fn.bootstrapTable.defaults, {
   stickyHeaderOffsetY: 0
 })
 
-const hiddenClass = Utils.bootstrapVersion === 4 ? 'd-none' : 'hidden'
+const hiddenClass = {
+  bootstrap3: 'hidden'
+}[$.fn.bootstrapTable.theme] || 'd-none'
 
 $.BootstrapTable = class extends $.BootstrapTable {
   initHeader (...args) {
