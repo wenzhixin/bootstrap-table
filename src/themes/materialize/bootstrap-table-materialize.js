@@ -30,7 +30,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.constants.classes.buttonsGroup = ''
     this.constants.classes.buttonsDropdown = ''
-    this.constants.classes.input = 'input-field'
+    this.constants.classes.inputGroup = 'input-field'
     this.constants.classes.input = ''
     this.constants.classes.paginationDropdown = ''
 
