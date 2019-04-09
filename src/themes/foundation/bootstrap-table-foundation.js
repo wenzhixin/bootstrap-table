@@ -22,9 +22,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.dropdownActive = 'is-active'
     this.constants.classes.paginationActive = 'current'
 
-    this.constants.html.toobarDropdow = ['<ul class="dropdown-pane" data-dropdown data-position="bottom" data-alignment="right"><ul class="vertical menu">', '</ul></div>']
+    this.constants.html.toobarDropdow = ['<ul class="dropdown-pane" data-dropdown data-close-on-click="true" data-position="bottom" data-alignment="right"><ul class="vertical menu">', '</ul></div>']
     this.constants.html.toobarDropdowItem = '<li><label class="dropdown-item">%s</label></li>'
-    this.constants.html.pageDropdown = ['<ul class="dropdown-pane" data-dropdown data-position="top" data-alignment="left"><ul class="vertical menu">', '</ul></ul>']
+    this.constants.html.pageDropdown = ['<ul class="dropdown-pane" data-dropdown data-close-on-click="true" data-position="top" data-alignment="left"><ul class="vertical menu">', '</ul></ul>']
     this.constants.html.pageDropdownItem = '<li class="dropdown-item %s"><a href="#">%s</a></li>'
     this.constants.html.dropdownCaret = '<i class="fa fa-angle-down"></i>'
     this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'],
@@ -55,18 +55,5 @@ $.BootstrapTable = class extends $.BootstrapTable {
         .attr('id', pageListDropdownId)
       new window.Foundation.Dropdown($pane)
     }
-  }
-
-  _initDropdown ($el) {
-    const $dropdowns = this.$container.find('.dropdown-container')
-
-    $dropdowns.off('click').on('click', e => {
-      e.stopPropagation()
-      $dropdowns.find('.dropdown-pane').foundation('toggle')
-    })
-
-    $(document).off('click.bs.dropdown.foundation').on('click.bs.dropdown.foundation', () => {
-      $dropdowns.find('.dropdown-pane').foundation('close')
-    })
   }
 }
