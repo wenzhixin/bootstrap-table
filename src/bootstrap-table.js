@@ -1940,15 +1940,9 @@ class BootstrapTable {
     this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
       this.$selectItem.length === this.$selectItem.filter(':checked').length)
 
-    if (this.options.cardView) {
-      // remove the element css
-      this.$el.css('margin-top', '0')
-      this.$tableContainer.css('padding-bottom', '0')
-      this.$tableFooter.hide()
-      return
-    }
+    this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
 
-    if (this.options.showHeader && this.options.height) {
+    if (!this.options.cardView && this.options.showHeader && this.options.height) {
       this.$tableHeader.show()
       this.resetHeader()
       padding += this.$header.outerHeight(true)
@@ -1957,7 +1951,7 @@ class BootstrapTable {
       this.trigger('post-header')
     }
 
-    if (this.options.showFooter) {
+    if (!this.options.cardView && this.options.showFooter) {
       this.$tableFooter.show()
       this.fitFooter()
       if (this.options.height) {
@@ -1974,9 +1968,17 @@ class BootstrapTable {
       this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
     }
 
-    // Assign the correct sortable arrow
-    this.getCaret()
-    this.$tableContainer.css('padding-bottom', `${padding}px`)
+    if (this.options.cardView) {
+      // remove the element css
+      this.$el.css('margin-top', '0')
+      this.$tableContainer.css('padding-bottom', '0')
+      this.$tableFooter.hide()
+    } else {
+      // Assign the correct sortable arrow
+      this.getCaret()
+      this.$tableContainer.css('padding-bottom', `${padding}px`)
+    }
+
     this.trigger('reset-view')
   }
 
