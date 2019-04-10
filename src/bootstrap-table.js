@@ -334,7 +334,8 @@ class BootstrapTable {
       }
     })
 
-    $(window).off('resize.bootstrap-table')
+    const resizeEvent = `resize.bootstrap-table${this.$el.attr('id') || ''}`
+    $(window).off(resizeEvent)
     if (!this.options.showHeader || this.options.cardView) {
       this.$header.hide()
       this.$tableHeader.hide()
@@ -345,7 +346,7 @@ class BootstrapTable {
       this.$tableLoading.css('top', this.$header.outerHeight() + 1)
       // Assign the correct sortable arrow
       this.getCaret()
-      $(window).on('resize.bootstrap-table', e => this.resetWidth(e))
+      $(window).on(resizeEvent, e => this.resetWidth(e))
     }
 
     this.$selectAll = this.$header.find('[name="btSelectAll"]')
