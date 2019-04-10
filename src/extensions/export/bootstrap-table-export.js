@@ -143,7 +143,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$export.find('.dropdown-content').attr('id', 'toolbar-export-id')
     }
 
-    super.handleToolbar()
+    if (super.handleToolbar) {
+      super.handleToolbar()
+    }
   }
 
   exportTable (options) {
