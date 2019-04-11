@@ -5,27 +5,6 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-const bootstrap = {
-  3: {
-    icons: {
-      export: 'glyphicon-export icon-share'
-    },
-    html: {
-      dropmenu: '<ul class="dropdown-menu" role="menu"></ul>',
-      dropitem: '<li role="menuitem" data-type="%s"><a href="javascript:">%s</a></li>'
-    }
-  },
-  4: {
-    icons: {
-      export: 'fa-download'
-    },
-    html: {
-      dropmenu: '<div class="dropdown-menu dropdown-menu-right"></div>',
-      dropitem: '<a class="dropdown-item" data-type="%s" href="javascript:">%s</a>'
-    }
-  }
-}[Utils.bootstrapVersion]
-
 const TYPE_NAME = {
   json: 'JSON',
   xml: 'XML',
@@ -57,7 +36,10 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
-  export: bootstrap.icons.export
+  export: {
+    bootstrap3: 'glyphicon-export icon-share',
+    materialize: 'file_download'
+  }[$.fn.bootstrapTable.theme] || 'fa-download'
 })
 
 $.extend($.fn.bootstrapTable.locales, {
@@ -90,44 +72,56 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (!this.options.showExport) {
       return
     }
-    const $btnGroup = this.$toolbar.find('>.btn-group')
+    const $btnGroup = this.$toolbar.find('>.columns')
     this.$export = $btnGroup.find('div.export')
 
     if (this.$export.length) {
       this.updateExportButton()
       return
     }
+
+    let $menu = $(this.constants.html.pageDropdown.join(''))
+
     this.$export = $(`
-      <div class="export btn-group">
+      <div class="export ${this.constants.classes.buttonsDropdown}">
       <button class="${this.constants.buttonsClass} dropdown-toggle"
-        aria-label="export type"
-        title="${o.formatExport()}"
-        data-toggle="dropdown"
-        type="button">
-        <i class="${o.iconsPrefix} ${o.icons.export}"></i>
-        <span class="caret"></span>
+      aria-label="Export"
+      data-toggle="dropdown"
+      type="button"
+      title="${o.formatExport()}">
+      ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export)}
+      ${this.constants.html.dropdownCaret}
       </button>
-      ${bootstrap.html.dropmenu}
       </div>
     `).appendTo($btnGroup)
+    this.$export.append($menu)
 
     this.updateExportButton()
 
-    const $menu = this.$export.find('.dropdown-menu')
     let exportTypes = o.exportTypes
 
     if (typeof exportTypes === 'string') {
       const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
       exportTypes = types.map(t => t.slice(1, -1))
     }
+
+    // themes support
+    if ($menu.children().length) {
+      $menu = $menu.children().eq(0)
+    }
     for (const type of exportTypes) {
       if (TYPE_NAME.hasOwnProperty(type)) {
-        $menu.append(Utils.sprintf(bootstrap.html.dropitem, type, TYPE_NAME[type]))
+        const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
+          '', TYPE_NAME[type]))
+        $item.attr('data-type', type)
+        $menu.append($item)
       }
     }
 
-    $menu.find('>li, >a').click(({currentTarget}) => {
-      const type = $(currentTarget).data('type')
+    $menu.children().click(e => {
+      e.preventDefault()
+
+      const type = $(e.currentTarget).data('type')
       const exportOptions = {
         type,
         escape: false
@@ -135,6 +129,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       this.exportTable(exportOptions)
     })
+    this.handleToolbar()
+  }
+
+  handleToolbar () {
+    if (!this.$export) {
+      return
+    }
+
+    if ($.fn.bootstrapTable.theme === 'foundation') {
+      this.$export.find('.dropdown-pane').attr('id', 'toolbar-export-id')
+    } else if ($.fn.bootstrapTable.theme === 'materialize') {
+      this.$export.find('.dropdown-content').attr('id', 'toolbar-export-id')
+    }
+
+    if (super.handleToolbar) {
+      super.handleToolbar()
+    }
   }
 
   exportTable (options) {
@@ -186,7 +197,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
             this.toggleView()
           }
 
-          callback()
+          if (callback) callback()
         }
       }, o.exportOptions, options))
     }

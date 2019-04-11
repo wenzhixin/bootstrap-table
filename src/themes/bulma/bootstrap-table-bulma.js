@@ -10,11 +10,11 @@ $.extend($.fn.bootstrapTable.defaults, {
   buttonsClass: 'button'
 })
 
+$.fn.bootstrapTable.theme = 'bulma'
+
 $.BootstrapTable = class extends $.BootstrapTable {
   initConstants () {
     super.initConstants()
-
-    this.constants.theme = 'bulma'
 
     this.constants.classes.buttonsGroup = 'buttons has-addons'
     this.constants.classes.buttonsDropdown = 'button dropdown is-right'
@@ -23,6 +23,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.dropup = 'is-up'
     this.constants.classes.dropdownActive = 'is-active'
     this.constants.classes.paginationActive = 'is-current'
+    this.constants.classes.buttonActive = 'is-active'
 
     this.constants.html.toobarDropdow = ['<div class="dropdown-menu"><div class="dropdown-content">', '</div></div>']
     this.constants.html.toobarDropdowItem = '<label class="dropdown-item">%s</label>'
@@ -35,7 +36,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initToolbar () {
     super.initToolbar()
-    if (this.options.showColumns) {
+    this.handleToolbar()
+  }
+
+  handleToolbar () {
+    if (this.$toolbar.find('.dropdown').length) {
       this._initDropdown()
     }
   }
@@ -47,12 +52,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  _initDropdown ($el) {
+  _initDropdown () {
     const $dropdowns = this.$container.find('.dropdown:not(.is-hoverable)')
 
     $dropdowns.off('click').on('click', e => {
+      const $this = $(e.currentTarget)
       e.stopPropagation()
-      $(e.currentTarget).toggleClass('is-active')
+      $dropdowns.not($this).removeClass('is-active')
+      $this.toggleClass('is-active')
     })
 
     $(document).off('click.bs.dropdown.bulma').on('click.bs.dropdown.bulma', () => {

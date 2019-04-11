@@ -13,7 +13,6 @@ try {
 
 const CONSTANTS = {
   3: {
-    theme: 'bootstrap3',
     iconsPrefix: 'glyphicon',
     icons: {
       paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
@@ -37,7 +36,8 @@ const CONSTANTS = {
       paginationDropdown: 'btn-group dropdown',
       dropup: 'dropup',
       dropdownActive: 'active',
-      paginationActive: 'active'
+      paginationActive: 'active',
+      buttonActive: 'active'
     },
     html: {
       toobarDropdow: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
@@ -51,7 +51,6 @@ const CONSTANTS = {
     }
   },
   4: {
-    theme: 'bootstrap4',
     iconsPrefix: 'fa',
     icons: {
       paginationSwitchDown: 'fa-caret-square-down',
@@ -75,7 +74,8 @@ const CONSTANTS = {
       paginationDropdown: 'btn-group dropdown',
       dropup: 'dropup',
       dropdownActive: 'active',
-      paginationActive: 'active'
+      paginationActive: 'active',
+      buttonActive: 'active'
     },
     html: {
       toobarDropdow: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
@@ -401,6 +401,8 @@ const EVENTS = {
 Object.assign(DEFAULTS, EN)
 
 export default {
+  THEME: `bootstrap${bootstrapVersion}`,
+
   CONSTANTS,
 
   DEFAULTS,

@@ -4,19 +4,6 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-const bootstrap = {
-  3: {
-    icons: {
-      print: 'glyphicon-print icon-share'
-    }
-  },
-  4: {
-    icons: {
-      print: 'fa-print'
-    }
-  }
-}[Utils.bootstrapVersion]
-
 function printPageBuilderDefault (table) {
   return `
   <html>
@@ -78,7 +65,9 @@ $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
-  print: bootstrap.icons.print
+  print: {
+    bootstrap3: 'glyphicon-print icon-share'
+  }[$.fn.bootstrapTable.theme] || 'fa-print'
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {

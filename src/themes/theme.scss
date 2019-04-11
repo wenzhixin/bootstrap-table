@@ -72,6 +72,11 @@
         border-bottom: 1px solid $border-color;
       }
 
+      &.has-card-view {
+        border-top: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+      }
+
       .fixed-table-border {
         border-left: 1px solid $border-color;
         border-right: 1px solid $border-color;

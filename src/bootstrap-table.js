@@ -37,6 +37,7 @@ class BootstrapTable {
   initConstants () {
     const o = this.options
     this.constants = Constants.CONSTANTS
+    this.constants.theme = $.fn.bootstrapTable.theme
 
     const buttonsPrefix = o.buttonsPrefix ? `${o.buttonsPrefix}-` : ''
     this.constants.buttonsClass = [
@@ -333,7 +334,8 @@ class BootstrapTable {
       }
     })
 
-    $(window).off('resize.bootstrap-table')
+    const resizeEvent = `resize.bootstrap-table${this.$el.attr('id') || ''}`
+    $(window).off(resizeEvent)
     if (!this.options.showHeader || this.options.cardView) {
       this.$header.hide()
       this.$tableHeader.hide()
@@ -344,7 +346,7 @@ class BootstrapTable {
       this.$tableLoading.css('top', this.$header.outerHeight() + 1)
       // Assign the correct sortable arrow
       this.getCaret()
-      $(window).on('resize.bootstrap-table', e => this.resetWidth(e))
+      $(window).on(resizeEvent, e => this.resetWidth(e))
     }
 
     this.$selectAll = this.$header.find('[name="btSelectAll"]')
@@ -1939,15 +1941,9 @@ class BootstrapTable {
     this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
       this.$selectItem.length === this.$selectItem.filter(':checked').length)
 
-    if (this.options.cardView) {
-      // remove the element css
-      this.$el.css('margin-top', '0')
-      this.$tableContainer.css('padding-bottom', '0')
-      this.$tableFooter.hide()
-      return
-    }
+    this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
 
-    if (this.options.showHeader && this.options.height) {
+    if (!this.options.cardView && this.options.showHeader && this.options.height) {
       this.$tableHeader.show()
       this.resetHeader()
       padding += this.$header.outerHeight(true)
@@ -1956,7 +1952,7 @@ class BootstrapTable {
       this.trigger('post-header')
     }
 
-    if (this.options.showFooter) {
+    if (!this.options.cardView && this.options.showFooter) {
       this.$tableFooter.show()
       this.fitFooter()
       if (this.options.height) {
@@ -1973,9 +1969,17 @@ class BootstrapTable {
       this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
     }
 
-    // Assign the correct sortable arrow
-    this.getCaret()
-    this.$tableContainer.css('padding-bottom', `${padding}px`)
+    if (this.options.cardView) {
+      // remove the element css
+      this.$el.css('margin-top', '0')
+      this.$tableContainer.css('padding-bottom', '0')
+      this.$tableFooter.hide()
+    } else {
+      // Assign the correct sortable arrow
+      this.getCaret()
+      this.$tableContainer.css('padding-bottom', `${padding}px`)
+    }
+
     this.trigger('reset-view')
   }
 
@@ -2776,6 +2780,7 @@ $.fn.bootstrapTable = function (option, ...args) {
 }
 
 $.fn.bootstrapTable.Constructor = BootstrapTable
+$.fn.bootstrapTable.theme = Constants.THEME
 $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS
 $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS
 $.fn.bootstrapTable.locales = BootstrapTable.LOCALES

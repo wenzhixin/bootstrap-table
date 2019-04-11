@@ -64,29 +64,22 @@ function _buildUrl (dict, url = window.location.search) {
 }
 
 $.BootstrapTable = class extends $.BootstrapTable {
-  init () {
-    // 拥有addrbar选项并且其值为true的才会继续执行
-    if (this.options.addrbar) {
+  init (...args) {
+    if (
+      this.options.pagination &&
+      this.options.sidePagination === 'server' &&
+      this.options.addrbar
+    ) {
       // 标志位, 初始加载后关闭
       this.addrbarInit = true
       const _prefix = this.options.addrPrefix || ''
 
       // 优先级排序: 用户指定值最优先, 未指定时从地址栏获取, 未获取到时采用默认值
-      this.options.pageSize = this.options.pageSize || (
-        _GET(`${_prefix}limit`) ? parseInt(_GET(`${_prefix}limit`)) : $.BootstrapTable.DEFAULTS.pageSize
-      )
-      this.options.pageNumber = this.options.pageNumber || (
-        _GET(`${_prefix}page`) ? parseInt(_GET(`${_prefix}page`)) : $.BootstrapTable.DEFAULTS.pageNumber
-      )
-      this.options.sortOrder = this.options.sortOrder || (
-        _GET(`${_prefix}order`) ? _GET(`${_prefix}order`) : $.BootstrapTable.DEFAULTS.sortOrder
-      )
-      this.options.sortName = this.options.sortName || (
-        _GET(`${_prefix}sort`) ? _GET(`${_prefix}sort`) : 'id'
-      )
-      this.options.searchText = this.options.searchText || (
-        _GET(`${_prefix}search`) ? _GET(`${_prefix}search`) : $.BootstrapTable.DEFAULTS.searchText
-      )
+      this.options.pageNumber = +_GET(`${_prefix}page`) || $.BootstrapTable.DEFAULTS.pageNumber
+      this.options.pageSize = +_GET(`${_prefix}size`) || $.BootstrapTable.DEFAULTS.pageSize
+      this.options.sortOrder = _GET(`${_prefix}order`) || $.BootstrapTable.DEFAULTS.sortOrder
+      this.options.sortName = _GET(`${_prefix}sort`) || $.BootstrapTable.DEFAULTS.sortName
+      this.options.searchText = _GET(`${_prefix}search`) || $.BootstrapTable.DEFAULTS.searchText
 
       const _onLoadSuccess = this.options.onLoadSuccess
 
@@ -96,7 +89,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         } else {
           const params = {}
           params[`${_prefix}page`] = this.options.pageNumber,
-          params[`${_prefix}limit`] = this.options.pageSize,
+          params[`${_prefix}size`] = this.options.pageSize,
           params[`${_prefix}order`] = this.options.sortOrder,
           params[`${_prefix}sort`] = this.options.sortName,
           params[`${_prefix}search`] = this.options.searchText
@@ -109,6 +102,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
       }
     }
-    super.init()
+    super.init(...args)
   }
 }
