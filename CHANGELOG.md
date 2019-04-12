@@ -1,29 +1,51 @@
 ChangeLog
 ---------
 
-### 1.15.0
+### 2.0.0
 
-- **New(js):** Added support comparisons search(<, >, <=, =<, >=, =>).
-- **New(js):** Added `detailViewByClick` table option.
-- **New(js):** Added `showExtendedPagination` table option.
-- **New(js):** Added `totalNotFilteredField` table option.
-- **New(js):** Added `detailFormatter` column option.
-- **New(js):** Improved `filterBy` method with `or` condition and custom filter algorithm.
-- **New(js):** Improved `showColumn` and `hideColumn` methods with array of fields.
-- **New(js):** Improved scrollTo function to allow `rows` units.
-- **New(js):** Added `onPostFooter`(`post-footer.bs.table`) event.
-- **New(cell-input extension):** Added cell-input extension.
-- **Update(js):** Improved `pageList` options to support localization.
-- **Update(js):** Fixed `smartDisplay` option pagination bug.
-- **Update(js):** Set the `totalRows` option always.
-- **Update(js):** Fixed toolbar dropdown button border bug.
-- **Update(js):** Improved table footer.
-- **Update(js):** Fixed data-* attribute is an object bug.
-- **Update(filter-control extension):** Fixed DatePicker of filter-control does not work bug.
-- **Update(multiple-sort extension):** Fixed multiple-sort does not work with data-query-params bug.
-- **Update(editable extension):** Updated parameters of `onEditableSave` to `field, row, rowIndex, oldValue, $el`.
-- **Update(editable extension):** Fixed editable rerender bug after saving data.
-- **Update(treegrid extension):** Fixed treegrid cannot work bug.
+#### Core
+
+- **New:** Added virtual scroll to support large data sets ([#4268](https://github.com/wenzhixin/bootstrap-table/pull/4268)).
+- **New:** Added webpack support and user rollup to build the src ([#4272](https://github.com/wenzhixin/bootstrap-table/pull/4272)).
+- **New:** Added support comparisons search(<, >, <=, =<, >=, =>) ([#4218](https://github.com/wenzhixin/bootstrap-table/pull/4218)).
+- **New:** Added `detailViewByClick` table option and `detailFormatter` column option ([#4219](https://github.com/wenzhixin/bootstrap-table/pull/4219)).
+- **New:** Added `showExtendedPagination` and `totalNotFilteredField` table options ([#4226](https://github.com/wenzhixin/bootstrap-table/pull/4226)).
+- **New:** Improved `filterBy` method with `or` condition and custom filter algorithm ([#4230](https://github.com/wenzhixin/bootstrap-table/pull/4230)).
+- **New:** Improved `showColumn` and `hideColumn` methods with array of fields ([#4238](https://github.com/wenzhixin/bootstrap-table/pull/4238)).
+- **New:** Improved `scrollTo` method to allow `rows` units ([#4240](https://github.com/wenzhixin/bootstrap-table/pull/4240)).
+- **New:** Added `onPostFooter`(`post-footer.bs.table`) event ([#4232](https://github.com/wenzhixin/bootstrap-table/pull/4232)).
+- **New:** Added `detailViewIcon` and `toggleDetailView` method to hide the show/hide icons ([#4259](https://github.com/wenzhixin/bootstrap-table/pull/4259)).
+- **New:** Added `widthUnit` option allow any unit ([#4276](https://github.com/wenzhixin/bootstrap-table/pull/4276)).
+- **New:** Added `multipleSelectRow` option to support ctrl and shift select ([4881222](https://github.com/wenzhixin/bootstrap-table/pull/4256/commits/4881222a994f7348ea9b0e08dcd110307f89d177)).
+- **New:** Supported checkbox and radio auto checked from html ([#4288](https://github.com/wenzhixin/bootstrap-table/pull/4288)).
+
+- **Update:** Rewrote all code to ES6 ([#4256](https://github.com/wenzhixin/bootstrap-table/pull/4256)).
+- **Update:** Improved `pageList` options to support localization ([a9d9722](https://github.com/wenzhixin/bootstrap-table/commit/a9d9722bcb8be0f82499aae2389309936b094268)).
+- **Update:** Fixed `smartDisplay` option pagination bug ([5dbbe8d](https://github.com/wenzhixin/bootstrap-table/commit/5dbbe8dc973bdee849c91dc1618540b38925551f)).
+- **Update:** Set the `totalRows` option always ([#4228](https://github.com/wenzhixin/bootstrap-table/pull/4228)).
+- **Update:** Improved table footer ([5814a18](https://github.com/wenzhixin/bootstrap-table/commit/5814a18a9b35b6610087dbefd275974f4dd6e45e)).
+- **Update:** Fixed data-* attribute is an object bug ([c1d834e](https://github.com/wenzhixin/bootstrap-table/commit/c1d834e5025928bb3492bb97f90a437363ec461f)).
+- **Update:** Fixed page separators click bug ([#4251](https://github.com/wenzhixin/bootstrap-table/pull/4251)).
+- **Update:** Applied `cellStyle` to checkbox field ([#4253](https://github.com/wenzhixin/bootstrap-table/pull/4253)).
+- **Update:** Fixed card view value to be aligned incorrectly bug ([#4262](https://github.com/wenzhixin/bootstrap-table/pull/4262)).
+- **Update:** Updated parameters of the (un)checkAll events to `rowsAfter, rowsBefore` ([#4273](https://github.com/wenzhixin/bootstrap-table/pull/4273)).
+- **Update:** Renamed table `maintainSelected` option to `maintainMetaData` ([#4280](https://github.com/wenzhixin/bootstrap-table/pull/4280)).
+- **Update:** Improved css frameworks themes ([#4236](https://github.com/wenzhixin/bootstrap-table/pull/4236)).
+
+#### Extensions
+
+- **New(cell-input):** Added cell-input extension ([#3647](https://github.com/wenzhixin/bootstrap-table/pull/3647)).
+- **Remove:** Removed multi-column-toggle, multiple-search, multiple-selection-row, group-by and tree-column extensions ([#4256](https://github.com/wenzhixin/bootstrap-table/pull/4256)).
+- **Update(export):** Only export table header ([#4279](https://github.com/wenzhixin/bootstrap-table/pull/4279)).
+- **Update(filter-control):** Added ability to handle boolean ([#4241](https://github.com/wenzhixin/bootstrap-table/pull/4241)).
+- **Update(filter-control):** Fixed DatePicker of filter-control does not work bug ([#4220](https://github.com/wenzhixin/bootstrap-table/pull/4220)).
+- **Update(filter-control):** Fixed clear filterControl with Cookie bug ([#4202](https://github.com/wenzhixin/bootstrap-table/pull/4202)).
+- **Update(filter-control):** Fixed loading screen with filter control ([#4274](https://github.com/wenzhixin/bootstrap-table/pull/4274)).
+- **Update(multiple-sort):** Fixed multiple-sort does not work with data-query-params bug ([#4222](https://github.com/wenzhixin/bootstrap-table/pull/4222)).
+- **New(editable):** Added `onExportSaved` event ([#4275](https://github.com/wenzhixin/bootstrap-table/pull/4275)).
+- **Update(editable):** Updated parameters of `onEditableSave` to `field, row, rowIndex, oldValue, $el` ([#4229](https://github.com/wenzhixin/bootstrap-table/pull/4229)).
+- **Update(editable):** Fixed editable rerender bug after saving data. ([#4225](https://github.com/wenzhixin/bootstrap-table/pull/4225))
+- **Update(treegrid):** Fixed treegrid cannot work bug.
 
 ### 1.14.2
 
