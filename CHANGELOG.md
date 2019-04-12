@@ -18,7 +18,6 @@ ChangeLog
 - **New:** Added `widthUnit` option allow any unit ([#4276](https://github.com/wenzhixin/bootstrap-table/pull/4276)).
 - **New:** Added `multipleSelectRow` option to support ctrl and shift select ([4881222](https://github.com/wenzhixin/bootstrap-table/pull/4256/commits/4881222a994f7348ea9b0e08dcd110307f89d177)).
 - **New:** Supported checkbox and radio auto checked from html ([#4288](https://github.com/wenzhixin/bootstrap-table/pull/4288)).
-
 - **Update:** Rewrote all code to ES6 ([#4256](https://github.com/wenzhixin/bootstrap-table/pull/4256)).
 - **Update:** Improved `pageList` options to support localization ([a9d9722](https://github.com/wenzhixin/bootstrap-table/commit/a9d9722bcb8be0f82499aae2389309936b094268)).
 - **Update:** Fixed `smartDisplay` option pagination bug ([5dbbe8d](https://github.com/wenzhixin/bootstrap-table/commit/5dbbe8dc973bdee849c91dc1618540b38925551f)).
