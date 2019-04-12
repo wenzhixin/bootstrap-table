@@ -560,7 +560,7 @@ class BootstrapTable {
     if (o.showColumns) {
       html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${o.formatColumns()}">
         <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
-        aria-label="Columns" title="${o.formatFullscreen()}">
+        aria-label="Columns" title="${o.formatColumns()}">
         ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.columns)}
         ${this.constants.html.dropdownCaret}
         </button>
