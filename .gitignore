@@ -4,11 +4,12 @@ bower_components
 # docs site
 _gh_pages
 
-# build the extensions
-extensions.js
-
-# deploy the docs
-deploy.sh
+# use scss instead
+src/bootstrap-table.css
+src/bootstrap-table.css.map
+src/themes/**/*.css
+src/themes/**/*.css.map
+.sass-cache
 
 # old docs
 docs_
@@ -19,6 +20,8 @@ check.js
 # Common IDE files
 nbproject
 .~lock.*
+package-lock.json
+*.lock
 .buildpath
 .idea
 .project

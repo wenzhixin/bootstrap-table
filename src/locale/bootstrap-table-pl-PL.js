@@ -2,36 +2,63 @@
  * Bootstrap Table Polish translation
  * Author: zergu <michal.zagdan @ gmail com>
  */
-(function ($) {
-    'use strict';
+($ => {
+  $.fn.bootstrapTable.locales['pl-PL'] = {
+    formatLoadingMessage () {
+      return 'Ładowanie, proszę czekać'
+    },
+    formatRecordsPerPage (pageNumber) {
+      return `${pageNumber} rekordów na stronę`
+    },
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `Wyświetlanie rekordów od ${pageFrom} do ${pageTo} z ${totalRows}`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
+    formatSearch () {
+      return 'Szukaj'
+    },
+    formatNoMatches () {
+      return 'Niestety, nic nie znaleziono'
+    },
+    formatPaginationSwitch () {
+      return 'Hide/Show pagination'
+    },
+    formatRefresh () {
+      return 'Odśwież'
+    },
+    formatToggle () {
+      return 'Przełącz'
+    },
+    formatColumns () {
+      return 'Kolumny'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'All'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
+    }
+  }
 
-    $.fn.bootstrapTable.locales['pl-PL'] = {
-        formatLoadingMessage: function () {
-            return 'Ładowanie, proszę czekać...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' rekordów na stronę';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Wyświetlanie rekordów od ' + pageFrom + ' do ' + pageTo + ' z ' + totalRows;
-        },
-        formatSearch: function () {
-            return 'Szukaj';
-        },
-        formatNoMatches: function () {
-            return 'Niestety, nic nie znaleziono';
-        },
-        formatRefresh: function () {
-            return 'Odśwież';
-        },
-        formatToggle: function () {
-            return 'Przełącz';
-        },
-        formatColumns: function () {
-            return 'Kolumny';
-        }
-    };
-
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pl-PL']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pl-PL'])
+})(jQuery)

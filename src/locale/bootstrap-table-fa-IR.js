@@ -2,42 +2,63 @@
  * Bootstrap Table Persian translation
  * Author: MJ Vakili <mjv.1989@Gmail.com>
  */
-(function ($) {
-    'use strict';
+($ => {
+  $.fn.bootstrapTable.locales['fa-IR'] = {
+    formatLoadingMessage () {
+      return 'در حال بارگذاری, لطفا صبر کنید'
+    },
+    formatRecordsPerPage (pageNumber) {
+      return `${pageNumber} رکورد در صفحه`
+    },
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `نمایش ${pageFrom} تا ${pageTo} از ${totalRows} ردیف`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
+    formatSearch () {
+      return 'جستجو'
+    },
+    formatNoMatches () {
+      return 'رکوردی یافت نشد.'
+    },
+    formatPaginationSwitch () {
+      return 'نمایش/مخفی صفحه بندی'
+    },
+    formatRefresh () {
+      return 'به روز رسانی'
+    },
+    formatToggle () {
+      return 'تغییر نمایش'
+    },
+    formatColumns () {
+      return 'سطر ها'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'همه'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
+    }
+  }
 
-    $.fn.bootstrapTable.locales['fa-IR'] = {
-        formatLoadingMessage: function () {
-            return 'در حال بارگذاری, لطفا صبر کنید...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' رکورد در صفحه';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'نمایش ' + pageFrom + ' تا ' + pageTo + ' از ' + totalRows + ' ردیف';
-        },
-        formatSearch: function () {
-            return 'جستجو';
-        },
-        formatNoMatches: function () {
-            return 'رکوردی یافت نشد.';
-        },
-        formatPaginationSwitch: function () {
-            return 'نمایش/مخفی صفحه بندی';
-        },
-        formatRefresh: function () {
-            return 'به روز رسانی';
-        },
-        formatToggle: function () {
-            return 'تغییر نمایش';
-        },
-        formatColumns: function () {
-            return 'سطر ها';
-        },
-        formatAllRows: function () {
-            return 'همه';
-        }
-    };
-
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fa-IR']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fa-IR'])
+})(jQuery)

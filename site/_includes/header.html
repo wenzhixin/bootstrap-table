@@ -1,0 +1,25 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="{{ page.description | default: site.description | smartify }}">
+<meta name="author" content="{{ site.authors }}">
+<meta name="generator" content="Jekyll v{{ jekyll.version }}">
+<meta name="keywords" content="{{ site.keywords }}">
+
+<meta name="docsearch:language" content="en">
+
+<title>
+  {%- if page.title -%}
+    {{ page.title | smartify }} · {{ site.title | smartify }}
+  {%- else -%}
+    {{ site.title | smartify }} · {{ site.description | smartify }}
+  {%- endif -%}
+</title>
+
+{% include stylesheet.html %}
+{% include favicons.html %}
+{% include analytics.html %}
+
+<script type="text/javascript">
+  if (window !== top) // 判断当前的 window 对象是否是 top 对象
+    top.location.href = window.location.href // 如果不是，将 top 对象的网址自动导向被嵌入网页的网址
+</script>

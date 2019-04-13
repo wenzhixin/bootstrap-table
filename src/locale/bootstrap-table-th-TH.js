@@ -2,36 +2,63 @@
  * Bootstrap Table Thai translation
  * Author: Monchai S.<monchais@gmail.com>
  */
-(function ($) {
-    'use strict';
+($ => {
+  $.fn.bootstrapTable.locales['th-TH'] = {
+    formatLoadingMessage () {
+      return 'กำลังโหลดข้อมูล, กรุณารอสักครู่'
+    },
+    formatRecordsPerPage (pageNumber) {
+      return `${pageNumber} รายการต่อหน้า`
+    },
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `รายการที่ ${pageFrom} ถึง ${pageTo} จากทั้งหมด ${totalRows} รายการ`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
+    formatSearch () {
+      return 'ค้นหา'
+    },
+    formatNoMatches () {
+      return 'ไม่พบรายการที่ค้นหา !'
+    },
+    formatPaginationSwitch () {
+      return 'Hide/Show pagination'
+    },
+    formatRefresh () {
+      return 'รีเฟรส'
+    },
+    formatToggle () {
+      return 'สลับมุมมอง'
+    },
+    formatColumns () {
+      return 'คอลัมน์'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'All'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
+    }
+  }
 
-    $.fn.bootstrapTable.locales['th-TH'] = {
-        formatLoadingMessage: function () {
-            return 'กำลังโหลดข้อมูล, กรุณารอสักครู่...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' รายการต่อหน้า';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'รายการที่ ' + pageFrom + ' ถึง ' + pageTo + ' จากทั้งหมด ' + totalRows + ' รายการ';
-        },
-        formatSearch: function () {
-            return 'ค้นหา';
-        },
-        formatNoMatches: function () {
-            return 'ไม่พบรายการที่ค้นหา !';
-        },
-        formatRefresh: function () {
-            return 'รีเฟรส';
-        },
-        formatToggle: function () {
-            return 'สลับมุมมอง';
-        },
-        formatColumns: function () {
-            return 'คอลัมน์';
-        }
-    };
-
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['th-TH']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['th-TH'])
+})(jQuery)

@@ -3,42 +3,63 @@
  * @author Brian Álvarez Azócar
  * email brianalvarezazocar@gmail.com
  */
-(function($) {
-  'use strict';
-
+($ => {
   $.fn.bootstrapTable.locales['es-CL'] = {
-    formatLoadingMessage: function() {
-      return 'Cargando, espere por favor...';
+    formatLoadingMessage () {
+      return 'Cargando, espere por favor'
     },
-    formatRecordsPerPage: function(pageNumber) {
-      return pageNumber + ' filas por p\u00E1gina';
+    formatRecordsPerPage (pageNumber) {
+      return `${pageNumber} filas por p\u00E1gina`
     },
-    formatShowingRows: function(pageFrom, pageTo, totalRows) {
-      return 'Mostrando ' + pageFrom + ' a ' + pageTo + ' de ' + totalRows + ' filas';
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas`
     },
-    formatSearch: function() {
-      return 'Buscar';
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
     },
-    formatNoMatches: function() {
-      return 'No se encontraron registros';
+    formatSearch () {
+      return 'Buscar'
     },
-    formatPaginationSwitch: function() {
-      return 'Ocultar/Mostrar paginaci\u00F3n';
+    formatNoMatches () {
+      return 'No se encontraron registros'
     },
-    formatRefresh: function() {
-      return 'Refrescar';
+    formatPaginationSwitch () {
+      return 'Ocultar/Mostrar paginaci\u00F3n'
     },
-    formatToggle: function() {
-      return 'Cambiar';
+    formatRefresh () {
+      return 'Refrescar'
     },
-    formatColumns: function() {
-      return 'Columnas';
+    formatToggle () {
+      return 'Cambiar'
     },
-    formatAllRows: function() {
-      return 'Todo';
+    formatColumns () {
+      return 'Columnas'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'Todo'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
     }
-  };
+  }
 
-  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-CL']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-CL'])
+})(jQuery)

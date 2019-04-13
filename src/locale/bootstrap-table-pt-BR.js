@@ -3,39 +3,63 @@
  * Author: Eduardo Cerqueira<egcerqueira@gmail.com>
  * Update: João Mello<jmello@hotmail.com.br>
  */
-(function ($) {
-    'use strict';
+($ => {
+  $.fn.bootstrapTable.locales['pt-BR'] = {
+    formatLoadingMessage () {
+      return 'Carregando, aguarde'
+    },
+    formatRecordsPerPage (pageNumber) {
+      return `${pageNumber} registros por página`
+    },
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linhas`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
+    formatSearch () {
+      return 'Pesquisar'
+    },
+    formatNoMatches () {
+      return 'Nenhum registro encontrado'
+    },
+    formatPaginationSwitch () {
+      return 'Ocultar/Exibir paginação'
+    },
+    formatRefresh () {
+      return 'Recarregar'
+    },
+    formatToggle () {
+      return 'Alternar'
+    },
+    formatColumns () {
+      return 'Colunas'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'All'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
+    }
+  }
 
-    $.fn.bootstrapTable.locales['pt-BR'] = {
-        formatLoadingMessage: function () {
-            return 'Carregando, aguarde...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' registros por página';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Exibindo ' + pageFrom + ' até ' + pageTo + ' de ' + totalRows + ' linhas';
-        },
-        formatSearch: function () { 
-            return 'Pesquisar';
-        },
-        formatRefresh: function () { 
-            return 'Recarregar';
-        },
-        formatToggle: function () { 
-            return 'Alternar';
-        },
-        formatColumns: function () { 
-            return 'Colunas';
-        },
-        formatPaginationSwitch: function () { 
-            return 'Ocultar/Exibir paginação';
-        },
-        formatNoMatches: function () {
-            return 'Nenhum registro encontrado';
-        }
-    };
-
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-BR']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-BR'])
+})(jQuery)

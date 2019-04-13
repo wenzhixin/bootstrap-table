@@ -2,42 +2,63 @@
  * Bootstrap Table Hebrew translation
  * Author: legshooter
  */
-(function ($) {
-    'use strict';
+($ => {
+  $.fn.bootstrapTable.locales['he-IL'] = {
+    formatLoadingMessage () {
+      return 'טוען, נא להמתין'
+    },
+    formatRecordsPerPage (pageNumber) {
+      return `${pageNumber} שורות בעמוד`
+    },
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `מציג ${pageFrom} עד ${pageTo} מ-${totalRows} שורות`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
+    formatSearch () {
+      return 'חיפוש'
+    },
+    formatNoMatches () {
+      return 'לא נמצאו רשומות תואמות'
+    },
+    formatPaginationSwitch () {
+      return 'הסתר/הצג מספור דפים'
+    },
+    formatRefresh () {
+      return 'רענן'
+    },
+    formatToggle () {
+      return 'החלף תצוגה'
+    },
+    formatColumns () {
+      return 'עמודות'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'הכל'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
+    }
+  }
 
-    $.fn.bootstrapTable.locales['he-IL'] = {
-        formatLoadingMessage: function () {
-            return 'טוען, נא להמתין...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' שורות בעמוד';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'מציג ' + pageFrom + ' עד ' + pageTo + ' מ-' + totalRows + ' שורות';
-        },
-        formatSearch: function () {
-            return 'חיפוש';
-        },
-        formatNoMatches: function () {
-            return 'לא נמצאו רשומות תואמות';
-        },
-        formatPaginationSwitch: function () {
-            return 'הסתר/הצג מספור דפים';
-        },
-        formatRefresh: function () {
-            return 'רענן';
-        },
-        formatToggle: function () {
-            return 'החלף תצוגה';
-        },
-        formatColumns: function () {
-            return 'עמודות';
-        },
-        formatAllRows: function () {
-            return 'הכל';
-        }
-    };
-
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['he-IL']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['he-IL'])
+})(jQuery)
