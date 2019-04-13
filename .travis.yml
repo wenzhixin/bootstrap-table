@@ -1,4 +1,18 @@
-language: node_js
+language: ruby
+rvm:
+  - 2.4.1
 
-node_js:
-    - "0.10"
+script: bash ./deploy.sh
+
+branches:
+  only:
+  - master
+
+env:
+  global:
+  - ENCRYPTION_LABEL: "5453d0fdf68a"
+  - COMMIT_AUTHOR_EMAIL: "wenzhixin2010@gmail.com"
+
+sudo: false
+
+cache: bundler

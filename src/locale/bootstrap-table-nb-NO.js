@@ -2,36 +2,63 @@
  * Bootstrap Table norwegian translation
  * Author: Jim Nordbø, jim@nordb.no
  */
-(function ($) {
-    'use strict';
+($ => {
+  $.fn.bootstrapTable.locales['nb-NO'] = {
+    formatLoadingMessage () {
+      return 'Oppdaterer, vennligst vent'
+    },
+    formatRecordsPerPage (pageNumber) {
+      return `${pageNumber} poster pr side`
+    },
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `Viser ${pageFrom} til ${pageTo} av ${totalRows} rekker`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
+    formatSearch () {
+      return 'Søk'
+    },
+    formatNoMatches () {
+      return 'Ingen poster funnet'
+    },
+    formatPaginationSwitch () {
+      return 'Hide/Show pagination'
+    },
+    formatRefresh () {
+      return 'Oppdater'
+    },
+    formatToggle () {
+      return 'Endre'
+    },
+    formatColumns () {
+      return 'Kolonner'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'All'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
+    }
+  }
 
-    $.fn.bootstrapTable.locales['nb-NO'] = {
-        formatLoadingMessage: function () {
-            return 'Oppdaterer, vennligst vent...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' poster pr side';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Viser ' + pageFrom + ' til ' + pageTo + ' av ' + totalRows + ' rekker';
-        },
-        formatSearch: function () {
-            return 'Søk';
-        },
-        formatNoMatches: function () {
-            return 'Ingen poster funnet';
-        },
-        formatRefresh: function () {
-            return 'Oppdater';
-        },
-        formatToggle: function () {
-            return 'Endre';
-        },
-        formatColumns: function () {
-            return 'Kolonner';
-        }
-    };
-
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nb-NO']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nb-NO'])
+})(jQuery)

@@ -2,51 +2,63 @@
 * Bootstrap Table German translation
 * Author: Paul Mohr - Sopamo<p.mohr@sopamo.de>
 */
-(function ($) {
-  'use strict';
-
+($ => {
   $.fn.bootstrapTable.locales['de-DE'] = {
-    formatLoadingMessage: function () {
-      return 'Lade, bitte warten...';
+    formatLoadingMessage () {
+      return 'Lade, bitte warten'
     },
-    formatRecordsPerPage: function (pageNumber) {
-      return pageNumber + ' Zeilen pro Seite.';
+    formatRecordsPerPage (pageNumber) {
+      return `${pageNumber} Zeilen pro Seite.`
     },
-    formatShowingRows: function (pageFrom, pageTo, totalRows) {
-      return 'Zeige Zeile ' + pageFrom + ' bis ' + pageTo + ' von ' + totalRows + ' Zeile' + ((totalRows > 1) ? "n" : "")+".";
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `Zeige Zeile ${pageFrom} bis ${pageTo} von ${totalRows} Zeile${(totalRows > 1) ? 'n' : ''}.`
     },
-    formatDetailPagination: function (totalRows) {
-      return 'Zeige ' + totalRows + ' Zeile' + ((totalRows > 1) ? "n" : "")+".";
+    formatDetailPagination (totalRows) {
+      return `Zeige ${totalRows} Zeile${(totalRows > 1) ? 'n' : ''}.`
     },
-    formatSearch: function () {
-      return 'Suchen';
+    formatSearch () {
+      return 'Suchen'
     },
-    formatNoMatches: function () {
-      return 'Keine passenden Ergebnisse gefunden';
+    formatNoMatches () {
+      return 'Keine passenden Ergebnisse gefunden'
     },
-    formatPaginationSwitch: function () {
-      return 'Verstecke/Zeige Nummerierung';
+    formatPaginationSwitch () {
+      return 'Verstecke/Zeige Nummerierung'
     },
-    formatRefresh: function () {
-      return 'Neu laden';
+    formatRefresh () {
+      return 'Neu laden'
     },
-    formatToggle: function () {
-      return 'Umschalten';
+    formatToggle () {
+      return 'Umschalten'
     },
-    formatColumns: function () {
-      return 'Spalten';
+    formatColumns () {
+      return 'Spalten'
     },
-    formatAllRows: function () {
-      return 'Alle';
+    formatFullscreen () {
+      return 'Fullscreen'
     },
-    formatExport: function () {
-      return 'Datenexport';
+    formatAllRows () {
+      return 'Alle'
     },
-    formatClearFilters: function () {
-      return 'Lösche Filter';
-     }
-  };
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Datenexport'
+    },
+    formatClearFilters () {
+      return 'Lösche Filter'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
+    }
+  }
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['de-DE']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['de-DE'])
+})(jQuery)

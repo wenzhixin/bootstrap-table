@@ -1,0 +1,18 @@
+{
+  "presets": [
+    ["env", {
+      "modules": "umd"
+    }],
+    "stage-0",
+  ],
+  "plugins": [
+    "array-includes",
+    ["transform-es2015-for-of", {"loose": true}],
+    "object-entries-and-values-to-object-keys"
+  ],
+  "env": {
+    "production": {
+      "presets": ["babili"]
+    }
+  }
+}

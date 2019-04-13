@@ -8,6 +8,7 @@
         treeShowField: null,
         idField: 'id',
         parentIdField: 'pid',
+        rootParentId: null,
         onGetNodes: function (row, data) {
             var that = this;
             var nodes = [];
@@ -20,7 +21,8 @@
         },
         onCheckRoot: function (row, data) {
             var that = this;
-            return !row[that.options.parentIdField];
+            return that.options.rootParentId === row[that.options.parentIdField] ||
+                !row[that.options.parentIdField];
         }
     });
 

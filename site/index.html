@@ -1,0 +1,104 @@
+---
+layout: home
+redirect_from:
+  - "/zh-cn/"
+  - "/es/"
+  - "/home/"
+  - "/zh-cn/home/"
+  - "/es/home/"
+---
+
+<main class="bd-masthead" id="content" role="main">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-4 mx-auto col-md-4 order-md-2">
+        <img class="img-fluid mb-3 mb-md-0" src="favicon.png">
+      </div>
+      <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
+        <h1 class="mb-3 bd-text-purple-bright">
+          {{ site.title }}
+        </h1>
+        <p class="lead">
+          {{ site.description }}
+        </p>
+        <p class="lead mb-4">
+          Bootstrap Table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
+        </p>
+        <div class="row mx-n2">
+          <div class="col-md px-2">
+            <a href="{{ site.baseurl }}/docs/getting-started/introduction/"
+              class="btn btn-lg btn-bd-primary w-100 mb-3">
+              Getting Started
+            </a>
+          </div>
+          <div class="col-md px-2">
+            <a href="{{ site.baseurl }}/docs/getting-started/download/"
+              class="btn btn-lg btn-outline-secondary w-100 mb-3">
+              Download
+            </a>
+          </div>
+        </div>
+        <p class="text-muted mb-0">
+            Currently{{ site.current_version }}
+        </p>
+      </div>
+    </div>
+    {% include ads.html %}
+  </div>
+</main>
+
+<div class="masthead-followup row m-0 border border-white">
+  <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+    <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
+    {% include icons/import.svg width="32" height="32" class="text-primary mb-2" %}
+    <h3>Installation</h3>
+    <p>Include Bootstrap Table source CSS and JavaScript files via npm or Bower.</p>
+
+{% highlight sh %}
+npm install bootstrap-table
+{% endhighlight %}
+
+{% highlight sh %}
+bower install bootstrap-table
+{% endhighlight %}
+
+    <hr class="half-rule">
+    <a class="btn btn-outline-primary"
+      href="{{ site.baseurl }}/docs/getting-started/download/">
+      Read installation docs
+    </a>
+  </div>
+
+  <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+    <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
+    {% include icons/download.svg width="32" height="32" class="text-primary mb-2" %}
+    <h3>CDN</h3>
+    <p>When you only need to include Bootstrap Table’s compiled CSS or JS, you can use <a href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/">UNPKG</a>.</p>
+
+{% highlight html %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.css">
+<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
+{% endhighlight %}
+
+    <hr class="half-rule">
+    <a href="{{ site.baseurl }}/docs/api" class="btn btn-outline-primary">
+      Explore the docs
+    </a>
+  </div>
+
+  <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+    <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
+    {% include icons/lightning.svg width="32" height="32" class="text-primary mb-2" %}
+    <h3>Examples</h3>
+    <p>
+      The examples of bootstrap table.
+    </p>
+
+    <hr class="half-rule">
+    <a href="https://examples.bootstrap-table.com" class="btn btn-outline-primary">
+      Browse Examples
+    </a>
+  </div>
+
+  {% include opencollective.html %}
+</div>

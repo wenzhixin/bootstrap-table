@@ -3,42 +3,63 @@
  * Author: Lukas Kral (monarcha@seznam.cz)
  * Author: Jakub Svestka <svestka1999@gmail.com>
  */
-(function ($) {
-    'use strict';
+($ => {
+  $.fn.bootstrapTable.locales['cs-CZ'] = {
+    formatLoadingMessage () {
+      return 'Čekejte, prosím'
+    },
+    formatRecordsPerPage (pageNumber) {
+      return `${pageNumber} položek na stránku`
+    },
+    formatShowingRows (pageFrom, pageTo, totalRows) {
+      return `Zobrazena ${pageFrom}. - ${pageTo}. položka z celkových ${totalRows}`
+    },
+    formatDetailPagination (totalRows) {
+      return `Showing ${totalRows} rows`
+    },
+    formatSearch () {
+      return 'Vyhledávání'
+    },
+    formatNoMatches () {
+      return 'Nenalezena žádná vyhovující položka'
+    },
+    formatPaginationSwitch () {
+      return 'Skrýt/Zobrazit stránkování'
+    },
+    formatRefresh () {
+      return 'Aktualizovat'
+    },
+    formatToggle () {
+      return 'Přepni'
+    },
+    formatColumns () {
+      return 'Sloupce'
+    },
+    formatFullscreen () {
+      return 'Fullscreen'
+    },
+    formatAllRows () {
+      return 'Vše'
+    },
+    formatAutoRefresh () {
+      return 'Auto Refresh'
+    },
+    formatExport () {
+      return 'Export data'
+    },
+    formatClearFilters () {
+      return 'Clear filters'
+    },
+    formatJumpto () {
+      return 'GO'
+    },
+    formatAdvancedSearch () {
+      return 'Advanced search'
+    },
+    formatAdvancedCloseButton () {
+      return 'Close'
+    }
+  }
 
-    $.fn.bootstrapTable.locales['cs-CZ'] = {
-        formatLoadingMessage: function () {
-            return 'Čekejte, prosím...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' položek na stránku';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Zobrazena ' + pageFrom + '. - ' + pageTo + '. položka z celkových ' + totalRows;
-        },
-        formatSearch: function () {
-            return 'Vyhledávání';
-        },
-        formatNoMatches: function () {
-            return 'Nenalezena žádná vyhovující položka';
-        },
-        formatPaginationSwitch: function () {
-            return 'Skrýt/Zobrazit stránkování';
-        },
-        formatRefresh: function () {
-            return 'Aktualizovat';
-        },
-        formatToggle: function () {
-            return 'Přepni';
-        },
-        formatColumns: function () {
-            return 'Sloupce';
-        },
-        formatAllRows: function () {
-            return 'Vše';
-        }
-    };
-
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['cs-CZ']);
-
-})(jQuery);
+  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['cs-CZ'])
+})(jQuery)

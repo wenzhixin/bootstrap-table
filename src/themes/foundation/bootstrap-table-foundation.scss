@@ -1,0 +1,68 @@
+/**
+ * @author zhixin wen <wenzhixin2010@gmail.com>
+ * https://github.com/wenzhixin/bootstrap-table/
+ * theme: https://github.com/jgthms/bulma/
+ */
+
+ @import './variables.scss';
+ @import '../theme.scss';
+
+.bootstrap-table {
+  .float-left {
+    float: left;
+  }
+
+  .float-right {
+    float: right;
+  }
+
+  .fixed-table-toolbar {
+    .search input {
+      height: 2.5293rem;
+    }
+
+    .keep-open.button {
+      .button {
+        &:hover .menu {
+          background: #fff;
+        }
+
+        padding: 0;
+        border: none;
+        margin: 0;
+        vertical-align: top;
+      }
+
+      .menu {
+        li {
+          padding: 5px 0;
+
+          label {
+            white-space: nowrap;
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    input,
+    .button {
+      margin-bottom: 0;
+    }
+  }
+
+  .fixed-table-pagination {
+    .button {
+      margin-bottom: 0;
+    }
+
+    .dropup .fa-angle-down:before {
+      content: "\f106";
+    }
+  }
+
+  .dropdown-pane {
+    width: auto;
+    padding: 0.5rem;
+  }
+}
