@@ -4,6 +4,8 @@
  * @version: v2.2.0
  */
 
+import {createElem, createOpt} from '../../dom.js'
+
 const Utils = $.fn.bootstrapTable.utils
 const UtilsFilterControl = {
   getOptionsFromSelectControl (selectControl) {
@@ -29,21 +31,10 @@ const UtilsFilterControl = {
       }
     }
   },
-  addOptionToSelectControl (selectControl, _value, text) {
-    const value = $.trim(_value)
+  addOptionToSelectControl (selectControl, value, text) {
     const $selectControl = $(selectControl.get(selectControl.length - 1))
-    if (
-      !UtilsFilterControl.existOptionInSelectControl(selectControl, value)
-    ) {
-      $selectControl.append(
-        $('<option></option>')
-          .attr('value', value)
-          .text(
-            $('<div />')
-              .html(text)
-              .text()
-          )
-      )
+    if (!UtilsFilterControl.existOptionInSelectControl(selectControl, value)) {
+      $selectControl.append(createOpt(text, value))
     }
   },
   sortSelectControl (selectControl) {
@@ -302,7 +293,7 @@ const UtilsFilterControl = {
       $.each(header.children().children(), (i, tr) => {
         const $tr = $(tr)
         if ($tr.data('field') === column.field) {
-          $tr.find('.fht-cell').append(html.join(''))
+          $tr.find('.fht-cell').append(html[0]).append(html.length > 1 ? html[1] : '')
           return false
         }
       })
@@ -517,29 +508,26 @@ $.extend($.fn.bootstrapTable.defaults, {
   alignmentSelectControlOptions: undefined,
   filterTemplate: {
     input (that, field, isVisible, placeholder) {
-      return Utils.sprintf(
-        '<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" placeholder="%s">',
-        field,
-        isVisible,
-        placeholder
-      )
+      return createElem('input',
+        ['type', 'text'],
+        ['class', Utils.sprintf('form-control bootstrap-table-filter-control-%s', field)],
+        ['width', '100%'],
+        ['visibility', isVisible],
+        ['placeholder', placeholder])
     },
     select ({ options }, field, isVisible) {
-      return Utils.sprintf(
-        '<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" dir="%s"></select>',
-        field,
-        isVisible,
-        UtilsFilterControl.getDirectionOfSelectOptions(
-          options.alignmentSelectControlOptions
-        )
-      )
+      return createElem('select',
+        ['class', Utils.sprintf('form-control bootstrap-table-filter-control-%s', field)],
+        ['visibility', isVisible],
+        ['width', '100%'],
+        ['dir', UtilsFilterControl.getDirectionOfSelectOptions(options.alignmentSelectControlOptions)])
     },
     datepicker (that, field, isVisible) {
-      return Utils.sprintf(
-        '<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">',
-        field,
-        isVisible
-      )
+      return createElem('input',
+        ['type', 'text'],
+        ['class', Utils.sprintf('form-control date-filter-control bootstrap-table-filter-control-%s', field)],
+        ['visibility', isVisible],
+        ['width', '100%'])
     }
   },
   disableControlWhenSearch: false,

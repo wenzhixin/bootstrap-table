@@ -16,14 +16,6 @@ export default {
     return flag ? str : ''
   },
 
-  isEmptyObject (obj = {}) {
-    return Object.entries(obj).length === 0 && obj.constructor === Object
-  },
-
-  isNumeric (n) {
-    return !isNaN(parseFloat(n)) && isFinite(n)
-  },
-
   getFieldTitle (list, value) {
     for (const item of list) {
       if (item.field === value) {

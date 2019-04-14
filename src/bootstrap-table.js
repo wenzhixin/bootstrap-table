@@ -7,6 +7,7 @@
 import Constants from './constants/index.js'
 import Utils from './utils/index.js'
 import VirtualScroll from './virtual-scroll/index.js'
+import {isNumeric, isEmptyObject} from './types.js'
 
 class BootstrapTable {
   constructor (el, options) {
@@ -425,7 +426,7 @@ class BootstrapTable {
           }
 
           // IF both values are numeric, do a numeric comparison
-          if (Utils.isNumeric(aa) && Utils.isNumeric(bb)) {
+          if (isNumeric(aa) && isNumeric(bb)) {
             // Convert numerical values form string to float.
             aa = parseFloat(aa)
             bb = parseFloat(bb)
@@ -708,7 +709,7 @@ class BootstrapTable {
 
       const s = this.searchText && (this.options.escape
         ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
-      const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
+      const f = isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
       // Check filter
       if (typeof this.filterOptions.filterAlgorithm === 'function') {
@@ -753,7 +754,7 @@ class BootstrapTable {
             continue
           }
 
-          const key = Utils.isNumeric(this.header.fields[j]) ? parseInt(this.header.fields[j], 10) : this.header.fields[j]
+          const key = isNumeric(this.header.fields[j]) ? parseInt(this.header.fields[j], 10) : this.header.fields[j]
           const column = this.columns[this.fieldsColumnsIndex[key]]
           let value
 
@@ -1171,7 +1172,7 @@ class BootstrapTable {
       }
     }
 
-    if (item._data && !Utils.isEmptyObject(item._data)) {
+    if (item._data && !isEmptyObject(item._data)) {
       for (const [k, v] of Object.entries(item._data)) {
         // ignore data-index
         if (k === 'index') {
@@ -1278,7 +1279,7 @@ class BootstrapTable {
       value = Utils.calculateObjectValue(column,
         this.header.formatters[j], [value_, item, i, field], value_)
 
-      if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
+      if (item[`_${field}_data`] && !isEmptyObject(item[`_${field}_data`])) {
         for (const [k, v] of Object.entries(item[`_${field}_data`])) {
           // ignore data-index
           if (k === 'index') {
@@ -1557,7 +1558,7 @@ class BootstrapTable {
       }
     }
 
-    if (!(Utils.isEmptyObject(this.filterColumnsPartial))) {
+    if (!(isEmptyObject(this.filterColumnsPartial))) {
       params.filter = JSON.stringify(this.filterColumnsPartial, null)
     }
 
@@ -1985,7 +1986,7 @@ class BootstrapTable {
 
   getData (useCurrentPage) {
     let data = this.options.data
-    if (this.searchText || this.options.sortName || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) {
+    if (this.searchText || this.options.sortName || !isEmptyObject(this.filterColumns) || !isEmptyObject(this.filterColumnsPartial)) {
       data = this.data
     }
 
@@ -2553,8 +2554,8 @@ class BootstrapTable {
   }
 
   filterBy (columns, options) {
-    this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions : $.extend(this.options.filterOptions, options)
-    this.filterColumns = Utils.isEmptyObject(columns) ? {} : columns
+    this.filterOptions = isEmptyObject(options) ? this.options.filterOptions : $.extend(this.options.filterOptions, options)
+    this.filterColumns = isEmptyObject(columns) ? {} : columns
     this.options.pageNumber = 1
     this.initSearch()
     this.updatePagination()
