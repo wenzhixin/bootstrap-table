@@ -38,28 +38,15 @@ const UtilsFilterControl = {
     }
   },
   sortSelectControl (selectControl, orderBy) {
-    const $opts = []
-
-    for (let i = 0; i < selectControl.options.length; i++) {
-      $opts.push({
-        value: selectControl.options[i].value,
-        textContent: selectControl.options[i].textContent
-      })
-    }
+    const $selectControl = $(selectControl)
+    const $opts = $selectControl.find('option:gt(0)')
 
     $opts.sort((a, b) => {
       return Sort(a.textContent, b.textContent, orderBy === 'desc' ? -1 : 1)
     })
 
-    selectControl.options.forEach((option, i) => {
-      if (i > 0) {
-        option.remove()
-      }
-    })
-
-    $opts.forEach((opt, i) => {
-      this.addOptionToSelectControl(selectControl, opt.value, opt.textContent)
-    })
+    $selectControl.find('option:gt(0)').remove()
+    $selectControl.append($opts)
   },
   existOptionInSelectControl (selectControl, value) {
     for (let i = 0; i < selectControl.options.length; i++) {
@@ -648,6 +635,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (!this.options.filterControl) {
       return
     }
+
     UtilsFilterControl.createControls(this, this.$header)
   }
   initBody () {

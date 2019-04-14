@@ -26,7 +26,7 @@ export const createElem = (...args) => {
   return el
 }
 
-export const removeElm = (node) => node.parentNode.removeChild(node)
+export const removeElem = (node) => node.parentNode.removeChild(node)
 
 export const hasClass = (ele, cls) => {
   if (isUndefined(ele)) {
