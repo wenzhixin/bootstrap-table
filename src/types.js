@@ -18,3 +18,5 @@ export const isUndefined = (obj) => obj === UNDEFINED
 export const isNull = (obj) => obj === null
 
 export const isEmptyObject = (obj) => isUndefined(obj) || isNull(obj) || obj.length === 0
+
+export const isPlainObject = (obj) => Object.prototype.toString.call(obj) === '[object Object]'

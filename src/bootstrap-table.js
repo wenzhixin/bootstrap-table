@@ -59,11 +59,11 @@ class BootstrapTable {
       }
 
       if (locales[this.options.locale]) {
-        $.extend(this.options, locales[this.options.locale])
+        Utils.extend(this.options, locales[this.options.locale])
       } else if (locales[parts.join('-')]) {
-        $.extend(this.options, locales[parts.join('-')])
+        Utils.extend(this.options, locales[parts.join('-')])
       } else if (locales[parts[0]]) {
-        $.extend(this.options, locales[parts[0]])
+        Utils.extend(this.options, locales[parts[0]])
       }
     }
   }
@@ -149,7 +149,7 @@ class BootstrapTable {
         if (typeof $(el).data('field') !== 'undefined') {
           $(el).data('field', `${$(el).data('field')}`)
         }
-        column.push($.extend({}, {
+        column.push(Utils.extend({}, {
           title: $(el).html(),
           'class': $(el).attr('class'),
           titleTooltip: $(el).attr('title'),
@@ -164,7 +164,7 @@ class BootstrapTable {
       this.options.columns = [this.options.columns]
     }
 
-    this.options.columns = $.extend(true, [], columns, this.options.columns)
+    this.options.columns = Utils.extend(true, [], columns, this.options.columns)
     this.columns = []
     this.fieldsColumnsIndex = []
 
@@ -172,7 +172,7 @@ class BootstrapTable {
 
     this.options.columns.forEach((columns, i) => {
       columns.forEach((_column, j) => {
-        const column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column)
+        const column = Utils.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column)
 
         if (typeof column.fieldIndex !== 'undefined') {
           this.columns[column.fieldIndex] = column
@@ -1564,7 +1564,7 @@ class BootstrapTable {
 
     data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
 
-    $.extend(data, query || {})
+    Utils.extend(data, query || {})
 
     // false to stop request
     if (data === false) {
@@ -1574,7 +1574,7 @@ class BootstrapTable {
     if (!silent) {
       this.showLoading()
     }
-    const request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
+    const request = Utils.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
       type: this.options.method,
       url: url || this.options.url,
       data: this.options.contentType === 'application/json' && this.options.method === 'post'
@@ -2146,7 +2146,7 @@ class BootstrapTable {
       if (rowId === -1) {
         continue
       }
-      $.extend(this.options.data[rowId], params.row)
+      Utils.extend(this.options.data[rowId], params.row)
     }
 
     this.initSearch()
@@ -2192,7 +2192,7 @@ class BootstrapTable {
       if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
         continue
       }
-      $.extend(this.options.data[params.index], params.row)
+      Utils.extend(this.options.data[params.index], params.row)
     }
 
     this.initSearch()
@@ -2554,7 +2554,7 @@ class BootstrapTable {
   }
 
   filterBy (columns, options) {
-    this.filterOptions = isEmptyObject(options) ? this.options.filterOptions : $.extend(this.options.filterOptions, options)
+    this.filterOptions = isEmptyObject(options) ? this.options.filterOptions : Utils.extend(this.options.filterOptions, options)
     this.filterColumns = isEmptyObject(columns) ? {} : columns
     this.options.pageNumber = 1
     this.initSearch()
@@ -2628,7 +2628,7 @@ class BootstrapTable {
     if (Utils.compareObjects(this.options, options, true)) {
       return
     }
-    this.options = $.extend(this.options, options)
+    this.options = Utils.extend(this.options, options)
     this.trigger('refresh-options', this.options)
     this.destroy()
     this.init()
@@ -2753,7 +2753,7 @@ $.fn.bootstrapTable = function (option, ...args) {
 
   this.each((i, el) => {
     let data = $(el).data('bootstrap.table')
-    const options = $.extend({}, BootstrapTable.DEFAULTS, $(el).data(),
+    const options = Utils.extend({}, BootstrapTable.DEFAULTS, $(el).data(),
       typeof option === 'object' && option)
 
     if (typeof option === 'string') {
