@@ -1,11 +1,16 @@
 import {isNumeric} from './types.js'
 
-export default function Sort (a, b, order) {
+export default function Sort (a, b, order, sortStable) {
   if (a === undefined || a === null) {
     a = ''
   }
   if (b === undefined || b === null) {
     b = ''
+  }
+
+  if (sortStable && a === b) {
+    a = a._position
+    b = b._position
   }
 
   // IF both values are numeric, do a numeric comparison
@@ -27,11 +32,11 @@ export default function Sort (a, b, order) {
   }
 
   // If value is not a string, convert to string
-  if (typeof aa !== 'string') {
+  if (typeof a !== 'string') {
     a = a.toString()
   }
 
-  if (a.localeCompare(b) < -1) {
+  if (a.localeCompare(b) === -1) {
     return order * -1
   }
 

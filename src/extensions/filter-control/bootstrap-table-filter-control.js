@@ -536,7 +536,8 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterDatepickerOptions: undefined,
   filterStrictSearch: false,
   filterStartsWithSearch: false,
-  filterControlPlaceholder: ''
+  filterControlPlaceholder: '',
+  filterOrderBy: 'asc' // asc || desc
 })
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
