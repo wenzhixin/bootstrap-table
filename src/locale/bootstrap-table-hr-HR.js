@@ -12,8 +12,8 @@ $.fn.bootstrapTable.locales['hr-HR'] = {
     return `${pageNumber} broj zapisa po stranici`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `Prikazujem ${pageFrom}. - ${pageTo}. od ukupnog broja zapisa ${totalRows} (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Prikazujem ${pageFrom}. - ${pageTo}. od ukupnog broja zapisa ${totalRows} (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Prikazujem ${pageFrom}. - ${pageTo}. od ukupnog broja zapisa ${totalRows}`

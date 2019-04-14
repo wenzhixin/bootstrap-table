@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['pt-PT'] = {
     return `${pageNumber} registos por p&aacute;gina`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `A mostrar ${pageFrom} at&eacute; ${pageTo} de ${totalRows} linhas (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `A mostrar ${pageFrom} at&eacute; ${pageTo} de ${totalRows} linhas (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `A mostrar ${pageFrom} at&eacute; ${pageTo} de ${totalRows} linhas`

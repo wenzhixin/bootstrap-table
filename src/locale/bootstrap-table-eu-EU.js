@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['eu-EU'] = {
     return `${pageNumber} emaitza orriko.`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `${totalRows} erregistroetatik ${pageFrom}etik ${pageTo}erakoak erakusten (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `${totalRows} erregistroetatik ${pageFrom}etik ${pageTo}erakoak erakusten (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `${totalRows} erregistroetatik ${pageFrom}etik ${pageTo}erakoak erakusten.`

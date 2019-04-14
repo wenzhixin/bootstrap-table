@@ -13,8 +13,8 @@ $.fn.bootstrapTable.locales['it-IT'] = {
     return `${pageNumber} elementi per pagina`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi`

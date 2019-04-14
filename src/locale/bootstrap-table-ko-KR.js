@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['ko-KR'] = {
     return `페이지 당 ${pageNumber}개 데이터 출력`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력, (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력, (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력,`
