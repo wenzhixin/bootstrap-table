@@ -142,7 +142,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   Set this in order to order the options in a select control whether ascending or descending.
+   Set this to order the options in a select control whether ascending or descending.
 
 - **Default:** `'asc'`
 
