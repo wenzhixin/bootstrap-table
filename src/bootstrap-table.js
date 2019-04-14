@@ -2783,6 +2783,7 @@ $.fn.bootstrapTable.Constructor = BootstrapTable
 $.fn.bootstrapTable.theme = Constants.THEME
 $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS
 $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS
+$.fn.bootstrapTable.events = BootstrapTable.EVENTS
 $.fn.bootstrapTable.locales = BootstrapTable.LOCALES
 $.fn.bootstrapTable.methods = allowedMethods
 $.fn.bootstrapTable.utils = Utils
