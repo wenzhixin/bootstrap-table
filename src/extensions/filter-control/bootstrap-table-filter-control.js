@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.2.0
+ * @version: v3.0.0
  */
 
 import {createElem, createOpt} from '../../dom.js'
@@ -33,28 +33,37 @@ const UtilsFilterControl = {
     }
   },
   addOptionToSelectControl (selectControl, value, text) {
-    const $selectControl = $(selectControl.get(selectControl.length - 1))
     if (!UtilsFilterControl.existOptionInSelectControl(selectControl, value)) {
-      $selectControl.append(createOpt(text, value))
+      selectControl.appendChild(createOpt(text, value))
     }
   },
   sortSelectControl (selectControl, orderBy) {
-    const $selectControl = $(selectControl.get(selectControl.length - 1))
-    const $opts = $selectControl.find('option:gt(0)')
+    const $opts = []
+
+    for (let i = 0; i < selectControl.options.length; i++) {
+      $opts.push({
+        value: selectControl.options[i].value,
+        textContent: selectControl.options[i].textContent
+      })
+    }
 
     $opts.sort((a, b) => {
       return Sort(a.textContent, b.textContent, orderBy === 'desc' ? -1 : 1)
     })
 
-    $selectControl.find('option:gt(0)').remove()
-    $selectControl.append($opts)
+    selectControl.options.forEach((option, i) => {
+      if (i > 0) {
+        option.remove()
+      }
+    })
+
+    $opts.forEach((opt, i) => {
+      this.addOptionToSelectControl(selectControl, opt.value, opt.textContent)
+    })
   },
   existOptionInSelectControl (selectControl, value) {
-    const options = UtilsFilterControl.getOptionsFromSelectControl(
-      selectControl
-    )
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].value === value.toString()) {
+    for (let i = 0; i < selectControl.options.length; i++) {
+      if (selectControl.options[i].value === value.toString()) {
         // The value is not valid to add
         return true
       }
@@ -189,9 +198,6 @@ const UtilsFilterControl = {
     return filterData === undefined ||
       filterData.toLowerCase() === 'column'
   },
-  hasSelectControlElement (selectControl) {
-    return selectControl && selectControl.length > 0
-  },
   initFilterSelectControls (that) {
     const data = that.data
     const itemsPerPage = that.pageTo < that.options.data.length ? that.options.data.length : that.pageTo
@@ -203,14 +209,14 @@ const UtilsFilterControl = {
 
     $.each(that.header.fields, (j, field) => {
       const column = that.columns[that.fieldsColumnsIndex[field]]
-      const selectControl = $(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
+      const selectControl = document.getElementsByClassName(`bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)[0]
 
       if (
+        selectControl &&
         UtilsFilterControl.isColumnSearchableViaSelect(column) &&
-        UtilsFilterControl.isFilterDataNotGiven(column) &&
-        UtilsFilterControl.hasSelectControlElement(selectControl)
+        UtilsFilterControl.isFilterDataNotGiven(column)
       ) {
-        if (selectControl.get(selectControl.length - 1).options.length === 0) {
+        if (selectControl.options.length === 0) {
           // Added the default option
           UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder)
         }
@@ -253,7 +259,7 @@ const UtilsFilterControl = {
     let isVisible
     let html
 
-    $.each(that.columns, (i, column) => {
+    that.columns.forEach((column, i) => {
       isVisible = 'hidden'
       html = []
 
@@ -262,9 +268,9 @@ const UtilsFilterControl = {
       }
 
       if (!column.filterControl) {
-        html.push('<div class="no-filter-control"></div>')
+        html.push(createElem('div', ['class', 'no-filter-control']))
       } else {
-        html.push('<div class="filter-control">')
+        html.push(createElem('div', ['class', 'filter-control']))
 
         const nameControl = column.filterControl.toLowerCase()
         if (column.searchable && that.options.filterTemplate[nameControl]) {
@@ -275,9 +281,7 @@ const UtilsFilterControl = {
               that,
               column.field,
               isVisible,
-              column.filterControlPlaceholder
-                ? column.filterControlPlaceholder
-                : '',
+              column.filterControlPlaceholder ? column.filterControlPlaceholder : '',
               `filter-control-${i}`
             )
           )
@@ -287,31 +291,20 @@ const UtilsFilterControl = {
       $.each(header.children().children(), (i, tr) => {
         const $tr = $(tr)
         if ($tr.data('field') === column.field) {
-          $tr.find('.fht-cell').append(html[0]).append(html.length > 1 ? html[1] : '')
+          $tr.find('.fht-cell').append(html)
           return false
         }
       })
 
-      if (
-        column.filterData !== undefined &&
-        column.filterData.toLowerCase() !== 'column'
-      ) {
-        const filterDataType = UtilsFilterControl.getFilterDataMethod(
-          /* eslint-disable no-use-before-define */
-          filterDataMethods,
-          column.filterData.substring(0, column.filterData.indexOf(':'))
-        )
+      if (column.filterData !== undefined && column.filterData.toLowerCase() !== 'column') {
+        // eslint-disable-next-line no-use-before-define
+        const filterDataType = UtilsFilterControl.getFilterDataMethod(filterDataMethods, column.filterData.substring(0, column.filterData.indexOf(':')))
         let filterDataSource
         let selectControl
 
         if (filterDataType !== null) {
-          filterDataSource = column.filterData.substring(
-            column.filterData.indexOf(':') + 1,
-            column.filterData.length
-          )
-          selectControl = $(
-            `.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`
-          )
+          filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length)
+          selectControl = document.getElementsByClassName(`bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)[0]
 
           UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder)
           filterDataType(filterDataSource, selectControl)
