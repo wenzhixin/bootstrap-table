@@ -3,8 +3,7 @@
 </template>
 
 <script>
-import $ from 'jquery'
-
+const $ = window.jQuery
 const deepCopy = arg => {
   return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
 }
