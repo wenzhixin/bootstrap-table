@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['uk-UA'] = {
     return `${pageNumber} записів на сторінку`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `Показано з ${pageFrom} по ${pageTo}. Всього: ${totalRows} (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Показано з ${pageFrom} по ${pageTo}. Всього: ${totalRows} (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Показано з ${pageFrom} по ${pageTo}. Всього: ${totalRows}`

@@ -11,7 +11,7 @@ $.fn.bootstrapTable.locales['de-DE'] = {
     return `${pageNumber} Zeilen pro Seite.`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Zeige Zeile ${pageFrom} bis ${pageTo} von ${totalRows} Zeile${(totalRows > 1) ? 'n' : ''} (Gefiltert von ${totalNotFiltered} Zeile${(totalNotFiltered > 1) ? 'n' : ''})`
     }
 

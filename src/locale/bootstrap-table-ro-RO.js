@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['ro-RO'] = {
     return `${pageNumber} inregistrari pe pagina`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `Arata de la ${pageFrom} pana la ${pageTo} din ${totalRows} randuri (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Arata de la ${pageFrom} pana la ${pageTo} din ${totalRows} randuri (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Arata de la ${pageFrom} pana la ${pageTo} din ${totalRows} randuri`

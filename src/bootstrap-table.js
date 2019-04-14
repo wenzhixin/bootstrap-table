@@ -1740,7 +1740,7 @@ class BootstrapTable {
       const $this = $(el)
       let index = i
 
-      if (this.options.detailView && !this.options.cardView) {
+      if (this.options.detailView && this.options.detailViewIcon && !this.options.cardView) {
         if (i === 0) {
           const $thDetail = $ths.filter('.detail')
           const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()

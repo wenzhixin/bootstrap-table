@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['et-EE'] = {
     return `${pageNumber} rida lehe kohta`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `Näitan tulemusi ${pageFrom} kuni ${pageTo} - kokku ${totalRows} tulemust (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Näitan tulemusi ${pageFrom} kuni ${pageTo} - kokku ${totalRows} tulemust (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Näitan tulemusi ${pageFrom} kuni ${pageTo} - kokku ${totalRows} tulemust`

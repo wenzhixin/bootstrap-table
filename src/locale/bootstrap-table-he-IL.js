@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['he-IL'] = {
     return `${pageNumber} שורות בעמוד`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `מציג ${pageFrom} עד ${pageTo} מ-${totalRows}שורות${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `מציג ${pageFrom} עד ${pageTo} מ-${totalRows}שורות${totalNotFiltered} total rows)`
     }
 
     return `מציג ${pageFrom} עד ${pageTo} מ-${totalRows} שורות`

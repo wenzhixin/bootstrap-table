@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['sv-SE'] = {
     return `${pageNumber} rader per sida`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `Visa ${pageFrom} till ${pageTo} av ${totalRows} rader (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Visa ${pageFrom} till ${pageTo} av ${totalRows} rader (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Visa ${pageFrom} till ${pageTo} av ${totalRows} rader`

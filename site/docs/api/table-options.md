@@ -515,6 +515,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Show Extended Pagination](https://examples.bootstrap-table.com/#options/show-extended-pagination.html)
+
 ## totalNotFilteredField
 
 - **Attribute:** `data-total-not-filtered-field`
@@ -526,6 +528,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   The field from the json response which will used for showExtendedPagination.
 
 - **Default:** `totalNotFiltered`
+
+- **Example:** [Total Not Filtered Field](https://examples.bootstrap-table.com/#options/total-not-filtered-field.html)
 
 ## paginationLoop
 
@@ -1200,6 +1204,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `true`
 
+- **Example:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
+
 ## detailFormatter
 
 - **Attribute:** `data-detail-formatter`
@@ -1237,6 +1243,10 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Set `true` to toggle the detail view, when a cell is clicked.
+
+- **Default:** `false`
+
+- **Example:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
 
 ## toolbar
 

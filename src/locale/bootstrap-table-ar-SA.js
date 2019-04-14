@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['ar-SA'] = {
     return `${pageNumber} سجل لكل صفحة`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل ${totalNotFiltered} total rows)`
     }
 
     return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل`

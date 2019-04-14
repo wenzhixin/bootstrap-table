@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['hu-HU'] = {
     return `${pageNumber} rekord per oldal`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `Megjelenítve ${pageFrom} - ${pageTo} / ${totalRows} összesen (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Megjelenítve ${pageFrom} - ${pageTo} / ${totalRows} összesen (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Megjelenítve ${pageFrom} - ${pageTo} / ${totalRows} összesen`

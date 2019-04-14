@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['fi-FI'] = {
     return `${pageNumber} riviä sivulla`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows} (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows} (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows}`

@@ -11,8 +11,8 @@ $.fn.bootstrapTable.locales['ur-PK'] = {
     return `${pageNumber} ریکارڈز فی صفہ `
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered < totalRows) {
-      return `دیکھیں ${pageFrom} سے ${pageTo} کے ${totalRows}ریکارڈز (filtered from ${totalNotFiltered} total entries)`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `دیکھیں ${pageFrom} سے ${pageTo} کے ${totalRows}ریکارڈز (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `دیکھیں ${pageFrom} سے ${pageTo} کے ${totalRows}ریکارڈز`
