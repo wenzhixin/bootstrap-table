@@ -21,8 +21,11 @@
       margin-left: 3px;
     }
 
-    .keep-open {
+    .columns > div {
       display: inline;
+    }
+
+    .keep-open {
 
       li label {
         padding-top: 13px;

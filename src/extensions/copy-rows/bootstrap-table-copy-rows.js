@@ -5,18 +5,12 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-const constants = {
-  3: {
-    icons: {
-      copy: 'glyphicon-copy icon-pencil'
-    }
-  },
-  4: {
-    icons: {
-      copy: 'fa-copy'
-    }
-  }
-}[Utils.bootstrapVersion]
+$.extend($.fn.bootstrapTable.defaults.icons, {
+  copy: {
+    bootstrap3: 'glyphicon-copy icon-pencil',
+    materialize: 'content_copy'
+  }[$.fn.bootstrapTable.theme] || 'fa-copy'
+})
 
 const copyText = text => {
   const textField = document.createElement('textarea')
@@ -49,12 +43,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar (...args) {
     super.initToolbar(...args)
 
-    const $btnGroup = this.$toolbar.find('>.btn-group')
+    const $btnGroup = this.$toolbar.find('>.columns')
 
     if (this.options.showCopyRows && this.header.stateField) {
       this.$copyButton = $(`
         <button class="${this.constants.buttonsClass}">
-        <i class="${this.options.iconsPrefix} ${constants.icons.copy}"></i>
+        ${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.copy)}
         </button>
       `)
       $btnGroup.append(this.$copyButton)

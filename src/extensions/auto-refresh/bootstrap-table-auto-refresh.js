@@ -15,7 +15,10 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
-  autoRefresh: Utils.bootstrapVersion === 4 ? 'fa-clock' : 'glyphicon-time icon-time'
+  autoRefresh: {
+    bootstrap3: 'glyphicon-time icon-time',
+    materialize: 'access_time'
+  }[$.fn.bootstrapTable.theme] || 'fa-clock'
 })
 
 $.extend($.fn.bootstrapTable.locales, {
@@ -41,16 +44,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initToolbar(...args)
 
     if (this.options.autoRefresh) {
-      const $btnGroup = this.$toolbar.find('>.btn-group')
+      const $btnGroup = this.$toolbar.find('>.columns')
       let $btnAutoRefresh = $btnGroup.find('.auto-refresh')
 
       if (!$btnAutoRefresh.length) {
         $btnAutoRefresh = $(`
-          <button class="auto-refresh btn${Utils.sprintf(' btn-%s', this.options.buttonsClass)}
-          ${Utils.sprintf(' btn-%s', this.options.iconSize)}
-          ${this.options.autoRefreshStatus ? 'active' : ''}"
+          <button class="auto-refresh ${this.constants.buttonsClass}
+          ${this.options.autoRefreshStatus ? ` ${this.constants.classes.buttonActive}` : ''}"
           type="button" title="${this.options.formatAutoRefresh()}">
-          <i class="${this.options.iconsPrefix} ${this.options.icons.autoRefresh}"></i>
+          ${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh)}
           </button>
         `).appendTo($btnGroup)
 
@@ -63,12 +65,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.autoRefresh) {
       if (this.options.autoRefreshStatus) {
         clearInterval(this.options.autoRefreshFunction)
-        this.$toolbar.find('>.btn-group').find('.auto-refresh').removeClass('active')
+        this.$toolbar.find('>.columns').find('.auto-refresh')
+          .removeClass(this.constants.classes.buttonActive)
       } else {
         this.options.autoRefreshFunction = setInterval(() => {
           this.refresh({silent: this.options.autoRefreshSilent})
         }, this.options.autoRefreshInterval * 1000)
-        this.$toolbar.find('>.btn-group').find('.auto-refresh').addClass('active')
+        this.$toolbar.find('>.columns').find('.auto-refresh')
+          .addClass(this.constants.classes.buttonActive)
       }
       this.options.autoRefreshStatus = !this.options.autoRefreshStatus
     }

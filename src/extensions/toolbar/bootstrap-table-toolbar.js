@@ -9,7 +9,7 @@
 const Utils = $.fn.bootstrapTable.utils
 
 const bootstrap = {
-  3: {
+  bootstrap3: {
     icons: {
       advancedSearchIcon: 'glyphicon-chevron-down'
     },
@@ -24,7 +24,7 @@ const bootstrap = {
       `
     }
   },
-  4: {
+  bootstrap4: {
     icons: {
       advancedSearchIcon: 'fa-chevron-down'
     },
@@ -39,7 +39,7 @@ const bootstrap = {
       `
     }
   }
-}[Utils.bootstrapVersion]
+}[$.fn.bootstrapTable.theme]
 
 $.extend($.fn.bootstrapTable.defaults, {
   advancedSearch: false,

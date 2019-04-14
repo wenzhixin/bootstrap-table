@@ -22,21 +22,22 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
+$.fn.bootstrapTable.theme = 'materialize'
+
 $.BootstrapTable = class extends $.BootstrapTable {
   initConstants () {
     super.initConstants()
-
-    this.constants.theme = 'materialize'
 
     this.constants.classes.buttonsGroup = ''
     this.constants.classes.buttonsDropdown = ''
     this.constants.classes.input = 'input-field'
     this.constants.classes.input = ''
     this.constants.classes.paginationDropdown = ''
+    this.constants.classes.buttonActive = 'green'
 
-    this.constants.html.toobarDropdow = ['<ul id="toolbar-dropdown" class="dropdown-content">', '</ul>']
+    this.constants.html.toobarDropdow = ['<ul id="toolbar-columns-id" class="dropdown-content">', '</ul>']
     this.constants.html.toobarDropdowItem = '<li><label>%s</label></li>'
-    this.constants.html.pageDropdown = ['<ul id="page-list-dropdown" class="dropdown-content">', '</ul>']
+    this.constants.html.pageDropdown = ['<ul id="pagination-list-id" class="dropdown-content">', '</ul>']
     this.constants.html.pageDropdownItem = '<li><a class="%s" href="#">%s</a></li>'
     this.constants.html.dropdownCaret = '<i class="material-icons">arrow_drop_down</i>'
     this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'],
@@ -46,15 +47,19 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initToolbar () {
     super.initToolbar()
+    this.handleToolbar()
+  }
 
-    if (this.options.showColumns) {
-      this.$toolbar.find('.dropdown-toggle')
-        .attr('data-target', 'toolbar-dropdown')
-        .dropdown({
-          alignment: 'right',
-          constrainWidth: false,
-          closeOnClick: false
-        })
+  handleToolbar () {
+    if (this.$toolbar.find('.dropdown-toggle').length) {
+      this.$toolbar.find('.dropdown-toggle').each((i, el) => {
+        $(el).attr('data-target', $(el).next().attr('id'))
+          .dropdown({
+            alignment: 'right',
+            constrainWidth: false,
+            closeOnClick: false
+          })
+      })
     }
   }
 
@@ -63,7 +68,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (this.options.pagination && !this.options.onlyInfoPagination) {
       this.$pagination.find('.dropdown-toggle')
-        .attr('data-target', 'page-list-dropdown')
+        .attr('data-target', this.$pagination.find('.dropdown-content').attr('id'))
         .dropdown()
     }
   }
