@@ -137,6 +137,15 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `''`
 
+### filterOrderBy
+- **type:** `String`
+
+- **Detail:**
+
+   Set this to order the options in a select control whether ascending or descending.
+
+- **Default:** `'asc'`
+
 ### Icons
 * clear: 'glyphicon-trash icon-clear'
 
