@@ -4,7 +4,7 @@
  * @version: v3.0.0
  */
 
-import {createElem, createOpt, is} from '../../dom.js'
+import {createElem, createOpt, is, find} from '../../dom.js'
 import Sort from '../../sort.js'
 import {isEmptyObject} from '../../types.js'
 import Utils from '../../utils/index.js'
@@ -93,23 +93,18 @@ const UtilsFilterControl = {
     }
     return -1
   },
-  setCursorPosition (el) {
-    $(el).val(el.value)
-  },
   copyValues (that) {
     const header = UtilsFilterControl.getCurrentHeader(that)
     const searchControls = UtilsFilterControl.getCurrentSearchControls(that)
 
     that.options.valuesFilterControl = []
 
-    header.find(searchControls).each(function () {
+    find(header, searchControls).forEach((elem, i) => {
       that.options.valuesFilterControl.push({
-        field: $(this)
-          .closest('[data-field]')
-          .data('field'),
-        value: $(this).val(),
-        position: UtilsFilterControl.getCursorPosition($(this).get(0)),
-        hasFocus: is(this, ':focus')
+        field: elem.closest('[data-field]').getAttribute('data-field'),
+        value: elem.value,
+        position: UtilsFilterControl.getCursorPosition(elem),
+        hasFocus: is(elem, ':focus')
       })
     })
   },
@@ -122,24 +117,22 @@ const UtilsFilterControl = {
     if (that.options.valuesFilterControl.length > 0) {
       //  Callback to apply after settings fields values
       let fieldToFocusCallback = null
-      header.find(searchControls).each(function (index, ele) {
-        field = $(this)
-          .closest('[data-field]')
-          .data('field')
+      find(header, searchControls).forEach((elem, i) => {
+        field = elem.closest('[data-field]').getAttribute('data-field')
         result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
 
         if (result.length > 0) {
-          $(this).val(result[0].value)
+          elem.value = result[0].value
           if (result[0].hasFocus) {
             // set callback if the field had the focus.
             fieldToFocusCallback = ((fieldToFocus, carretPosition) => {
               // Closure here to capture the field and cursor position
               const closedCallback = () => {
                 fieldToFocus.focus()
-                UtilsFilterControl.setCursorPosition(fieldToFocus, carretPosition)
+                fieldToFocus.value = fieldToFocus.value
               }
               return closedCallback
-            })($(this).get(0), result[0].position)
+            })(elem, result[0].position)
           }
         }
       })

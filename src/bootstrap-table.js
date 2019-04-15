@@ -9,9 +9,11 @@ import Utils from './utils/index.js'
 import VirtualScroll from './virtual-scroll/index.js'
 import {isNumeric, isEmptyObject} from './types.js'
 import Sort from './sort.js'
+import Polyfill from './polyfill.js'
 
 class BootstrapTable {
   constructor (el, options) {
+    Polyfill()
     this.options = options
     this.$el = $(el)
     this.$el_ = this.$el.clone()

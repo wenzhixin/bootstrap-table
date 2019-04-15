@@ -73,3 +73,11 @@ export const is = (ele, tag) => {
 
   ele.nodeName.toLowerCase() === tag
 }
+
+export const find = (ele, selector) => {
+  if (isJQueryObject(ele)) {
+    ele = ele[0]
+  }
+
+  return ele.querySelectorAll(selector)
+}
