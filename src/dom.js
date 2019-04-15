@@ -1,4 +1,4 @@
-import {isString, isUndefined} from './types'
+import {isString, isUndefined, isJQueryObject} from './types'
 
 export const createText = (text) => document.createTextNode(text)
 
@@ -47,4 +47,29 @@ export const createOpt = (text, value, isSel) => {
     createElem('option', ['value', value.trim()])
   opt.appendChild(createText(text.trim()))
   return opt
+}
+
+export const is = (ele, tag) => {
+  tag = tag.toLowerCase()
+  if (isJQueryObject(ele)) {
+    ele = ele[0]
+  }
+
+  if (tag === ':focus') {
+    return ele === document.activeElement
+  }
+
+  if (tag === ':checkbox') {
+    return ele.type === 'checkbox'
+  }
+
+  if (tag === ':radio') {
+    return ele.type === 'radio'
+  }
+
+  if (tag === 'input[type=text]') {
+    return ele.type === 'text' && ele.nodeName.toLowerCase() === 'input'
+  }
+
+  ele.nodeName.toLowerCase() === tag
 }

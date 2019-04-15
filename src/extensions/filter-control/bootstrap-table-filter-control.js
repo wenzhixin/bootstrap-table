@@ -4,19 +4,14 @@
  * @version: v3.0.0
  */
 
-import {createElem, createOpt} from '../../dom.js'
+import {createElem, createOpt, is} from '../../dom.js'
 import Sort from '../../sort.js'
+import {isEmptyObject} from '../../types.js'
+import Utils from '../../utils/index.js'
 
-const Utils = $.fn.bootstrapTable.utils
 const UtilsFilterControl = {
-  getOptionsFromSelectControl (selectControl) {
-    return selectControl.get(selectControl.length - 1).options
-  },
-
   hideUnusedSelectOptions (selectControl, uniqueValues) {
-    const options = UtilsFilterControl.getOptionsFromSelectControl(
-      selectControl
-    )
+    const options = selectControl.options
 
     for (let i = 0; i < options.length; i++) {
       if (options[i].value !== '') {
@@ -60,7 +55,7 @@ const UtilsFilterControl = {
     return false
   },
   fixHeaderCSS ({ $tableHeader }) {
-    $tableHeader.css('height', '77px')
+    $tableHeader[0].style.height = '77px'
   },
   getCurrentHeader ({ $header, options, $tableHeader }) {
     let header = $header
@@ -80,7 +75,7 @@ const UtilsFilterControl = {
   },
   getCursorPosition (el) {
     if (Utils.isIEBrowser()) {
-      if ($(el).is('input[type=text]')) {
+      if (is(el, 'input[type=text]')) {
         let pos = 0
         if ('selectionStart' in el) {
           pos = el.selectionStart
@@ -114,7 +109,7 @@ const UtilsFilterControl = {
           .data('field'),
         value: $(this).val(),
         position: UtilsFilterControl.getCursorPosition($(this).get(0)),
-        hasFocus: $(this).is(':focus')
+        hasFocus: is(this, ':focus')
       })
     })
   },
@@ -166,7 +161,7 @@ const UtilsFilterControl = {
           cookie = cookie.split('.').pop()
         }
 
-        if ($.inArray(cookie, cookies) === -1) {
+        if (!cookies.includes(cookie)) {
           cookies.push(cookie)
         }
       })
@@ -348,13 +343,11 @@ const UtilsFilterControl = {
           return
         }
 
-        if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+        if ([37, 38, 39, 40].includes(event.keyCode)) {
           return
         }
 
-        const $currentTarget = $(event.currentTarget)
-
-        if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio')) {
+        if (is(event.currentTarget, ':checkbox') || is(event.currentTarget, ':radio')) {
           return
         }
 
@@ -369,7 +362,7 @@ const UtilsFilterControl = {
           return
         }
 
-        if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+        if ([37, 38, 39, 40].includes(event.keyCode)) {
           return
         }
 
@@ -470,7 +463,7 @@ const filterDataMethods = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,
   onColumnSearch (field, text) {
     return false
@@ -510,7 +503,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   valuesFilterControl: []
 })
 
-$.extend($.fn.bootstrapTable.columnDefaults, {
+Utils.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined,
   filterData: undefined,
   filterDatepickerOptions: undefined,
@@ -520,24 +513,24 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterOrderBy: 'asc' // asc || desc
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Utils.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'column-search.bs.table': 'onColumnSearch',
   'created-controls.bs.table': 'onCreatedControls'
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Utils.extend($.fn.bootstrapTable.defaults.icons, {
   clear: {
     bootstrap3: 'glyphicon-trash icon-clear'
   }[$.fn.bootstrapTable.theme] || 'fa-trash'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Utils.extend($.fn.bootstrapTable.locales, {
   formatClearFilters () {
     return 'Clear Filters'
   }
 })
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.fn.bootstrapTable.methods.push('triggerSearch')
 $.fn.bootstrapTable.methods.push('clearFilterControl')
@@ -646,7 +639,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initSearch () {
     const that = this
-    const fp = $.isEmptyObject(that.filterColumnsPartial)
+    const fp = isEmptyObject(that.filterColumnsPartial)
       ? null
       : that.filterColumnsPartial
 
@@ -676,15 +669,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
           } else {
             // Fix #142: search use formated data
             if (thisColumn && thisColumn.searchFormatter) {
-              value = $.fn.bootstrapTable.utils.calculateObjectValue(
+              value = Utils.calculateObjectValue(
                 that.header,
-                that.header.formatters[$.inArray(key, that.header.fields)],
+                that.header.formatters[that.header.fields.indexOf(key)],
                 [value, item, i],
                 value
               )
             }
 
-            if ($.inArray(key, that.header.fields) !== -1) {
+            if (that.header.fields.includes(key)) {
               if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
                 if (thisColumn.filterStrictSearch) {
                   itemIsExpected.push(value.toString().toLowerCase() === fval.toString().toLowerCase())
@@ -718,17 +711,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   onColumnSearch (event) {
-    if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+    if ([37, 38, 39, 40].includes(event.keyCode)) {
       return
     }
 
     UtilsFilterControl.copyValues(this)
-    const text = $.trim($(event.currentTarget).val())
+    const text = event.currentTarget.value.trim()
     const $field = $(event.currentTarget)
       .closest('[data-field]')
       .data('field')
 
-    if ($.isEmptyObject(this.filterColumnsPartial)) {
+    if (isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {}
     }
     if (text) {
@@ -834,7 +827,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     header.find(searchControls).each(function () {
       const el = $(this)
-      if (el.is('select')) {
+      if (is(el, 'select')) {
         el.change()
       } else {
         el.keyup()
