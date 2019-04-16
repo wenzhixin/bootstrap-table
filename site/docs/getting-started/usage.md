@@ -112,7 +112,7 @@ $('#table').bootstrapTable({
   }, {
     field: 'price',
     title: 'Item Price'
-  }, ]
+  }]
 })
 {% endhighlight %}
 
@@ -132,6 +132,6 @@ $('#table').bootstrapTable({
   }, {
     field: 'price',
     title: 'Item Price'
-  }, ]
+  }]
 })
 {% endhighlight %}
