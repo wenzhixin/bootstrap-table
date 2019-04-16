@@ -1,4 +1,5 @@
 import {isString, isUndefined, isJQueryObject} from './types'
+import {showHide} from './helpers'
 
 export const createText = (text) => document.createTextNode(text)
 
@@ -81,3 +82,7 @@ export const find = (ele, selector) => {
 
   return ele.querySelectorAll(selector)
 }
+
+export const show = (elements) => showHide(elements, true)
+
+export const hide = (elements) => showHide(elements)

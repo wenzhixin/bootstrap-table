@@ -4,7 +4,7 @@
  * @version: v3.0.0
  */
 
-import {createElem, createOpt, is, find} from '../../dom.js'
+import {createElem, createOpt, is, find, hide} from '../../dom.js'
 import Sort from '../../sort.js'
 import {isEmptyObject} from '../../types.js'
 import Utils from '../../utils/index.js'
@@ -406,7 +406,7 @@ const UtilsFilterControl = {
         })
       }
     } else {
-      header.find('.filterControl').hide()
+      hide(find(header, '.filterControl'))
     }
   },
   getDirectionOfSelectOptions (_alignment) {
@@ -545,10 +545,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
 
           // Avoid recreate the controls
-          if (
-            that.$tableHeader.find('select').length > 0 ||
-            that.$tableHeader.find('input').length > 0
-          ) {
+          if (find(that.$tableHeader, 'select').length > 0 || find(that.$tableHeader, 'input').length > 0) {
             return
           }
 
@@ -578,39 +575,25 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initToolbar () {
-    this.showToolbar =
-      this.showToolbar ||
-      (this.options.filterControl && this.options.filterShowClear)
+    this.showToolbar = this.showToolbar || (this.options.filterControl && this.options.filterShowClear)
 
     super.initToolbar()
 
     if (this.options.filterControl && this.options.filterShowClear) {
-      const $btnGroup = this.$toolbar.find('>.btn-group')
-      let $btnClear = $btnGroup.find('.filter-show-clear')
+      const $btnGroup = find(this.$toolbar, '.btn-group')[0]
+      let $btnClear = find($btnGroup, '.filter-show-clear')
 
       if (!$btnClear.length) {
-        $btnClear = $(
-          [
-            Utils.sprintf(
-              '<button class="btn btn-%s filter-show-clear" ',
-              this.options.buttonsClass
-            ),
-            Utils.sprintf(
-              'type="button" title="%s">',
-              this.options.formatClearFilters()
-            ),
-            Utils.sprintf(
-              '<i class="%s %s"></i> ',
-              this.options.iconsPrefix,
-              this.options.icons.clear
-            ),
-            '</button>'
-          ].join('')
-        ).appendTo($btnGroup)
+        $btnClear = createElem('button',
+          ['class', Utils.sprintf('btn btn-%s filter-show-clear', this.options.buttonsClass)],
+          ['type', 'button'],
+          ['title', this.options.formatClearFilters()])
 
-        $btnClear
-          .off('click')
-          .on('click', $.proxy(this.clearFilterControl, this))
+        const iElem = createElem('i', ['class', Utils.sprintf('%s %s', this.options.iconsPrefix, this.options.icons.clear)])
+
+        $btnClear.appendChild(iElem)
+        $btnClear.addEventListener('click', this.clearFilterControl.bind(this))
+        $btnGroup.appendChild($btnClear)
       }
     }
   }
@@ -710,9 +693,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     UtilsFilterControl.copyValues(this)
     const text = event.currentTarget.value.trim()
-    const $field = $(event.currentTarget)
-      .closest('[data-field]')
-      .data('field')
+    const $field = event.currentTarget.closest('[data-field]').getAttribute('data-field')
 
     if (isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {}
@@ -742,19 +723,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const cookies = UtilsFilterControl.collectBootstrapCookies()
       const header = UtilsFilterControl.getCurrentHeader(that)
       const table = header.closest('table')
-      const controls = header.find(UtilsFilterControl.getCurrentSearchControls(that))
-      const search = that.$toolbar.find('.search input')
+      const controls = find(header, UtilsFilterControl.getCurrentSearchControls(that))
+      const search = find(that.$toolbar, '.search input')
       let hasValues = false
       let timeoutId = 0
 
-      $.each(that.options.valuesFilterControl, (i, item) => {
+      that.options.valuesFilterControl.forEach((item, i) => {
         hasValues = hasValues ? true : item.value !== ''
         item.value = ''
       })
 
-      $.each(that.options.filterControls, (i, item) => {
-        item.text = ''
-      })
+      if (that.options.filterControls) {
+        that.options.filterControls.forEach((item, i) => {
+          item.text = ''
+        })
+      }
 
       UtilsFilterControl.setValues(that)
 
@@ -762,7 +745,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       clearTimeout(timeoutId)
       timeoutId = setTimeout(() => {
         if (cookies && cookies.length > 0) {
-          $.each(cookies, (i, item) => {
+          cookies.forEach((item, i) => {
             if (that.deleteCookie !== undefined) {
               that.deleteCookie(item)
             }
@@ -780,9 +763,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // which ones are going to be present.
       if (controls.length > 0) {
         this.filterColumnsPartial = {}
-        $(controls[0]).trigger(
-          controls[0].tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 }
-        )
+        $(controls[0]).trigger(controls[0].tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 })
       } else {
         return
       }
@@ -792,18 +773,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       // use the default sort order if it exists. do nothing if it does not
-      if (
-        that.options.sortName !== table.data('sortName') ||
-        that.options.sortOrder !== table.data('sortOrder')
-      ) {
-        const sorter = header.find(
-          Utils.sprintf(
-            '[data-field="%s"]',
-            $(controls[0])
-              .closest('table')
-              .data('sortName')
-          )
-        )
+      if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
+        const sorter = find(header, Utils.sprintf('[data-field="%s"]', controls[0].closest('table').getAttribute('data-sort-name')))
         if (sorter.length > 0) {
           that.onSort({ type: 'keypress', currentTarget: sorter })
           $(sorter)
@@ -818,8 +789,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const header = UtilsFilterControl.getCurrentHeader(this)
     const searchControls = UtilsFilterControl.getCurrentSearchControls(this)
 
-    header.find(searchControls).each(function () {
-      const el = $(this)
+    find(header, searchControls).forEach((item, i) => {
+      const el = $(item)
       if (is(el, 'select')) {
         el.change()
       } else {
@@ -829,17 +800,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   EnableControls (enable) {
-    if (
-      this.options.disableControlWhenSearch &&
-      this.options.sidePagination === 'server'
-    ) {
+    if (this.options.disableControlWhenSearch) {
       const header = UtilsFilterControl.getCurrentHeader(this)
       const searchControls = UtilsFilterControl.getCurrentSearchControls(this)
 
       if (!enable) {
-        header.find(searchControls).prop('disabled', 'disabled')
+        find(header, searchControls).forEach((elem, i) => {
+          elem.setAttribute('disabled', 'disabled')
+        })
       } else {
-        header.find(searchControls).removeProp('disabled')
+        find(header, searchControls).forEach((elem, i) => {
+          elem.removeAttribute('disabled')
+        })
       }
     }
   }
