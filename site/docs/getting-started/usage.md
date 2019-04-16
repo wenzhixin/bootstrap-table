@@ -122,7 +122,7 @@ You can also add `pagination`, `search`, and `sorting` to a table like the follo
 $('#table').bootstrapTable({
   url: 'data1.json',
   pagination: true,
-  search: true
+  search: true,
   columns: [{
     field: 'id',
     title: 'Item ID'
