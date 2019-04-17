@@ -31,7 +31,7 @@ export const showHide = (elements, show) => {
       continue
     }
 
-    values[index] = elements.getAttribute('data-olddisplay')
+    values[index] = elem.getAttribute('data-olddisplay')
     display = elem.style.display
     computedDisplay = (window.getComputedStyle ? getComputedStyle(elem, null) : elem.currentStyle).display
 

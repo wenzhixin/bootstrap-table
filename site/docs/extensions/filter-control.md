@@ -101,15 +101,6 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `undefined`
 
-### filterDatepickerOptions
-- **type:** `Object`
-
-- **Detail:**
-
-   If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"autoclose":true, "clearBtn": true, "todayHighlight": true}'`.
-
-- **Default:** `undefined`
-
 ### filterStrictSearch
 - **type:** `Boolean`
 

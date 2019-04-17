@@ -4,9 +4,9 @@
  * @version: v3.0.0
  */
 
-import {createElem, createOpt, is, find, hide} from '../../dom.js'
+import {createElem, createOpt, is, find, hide, show} from '../../dom.js'
 import Sort from '../../sort.js'
-import {isEmptyObject} from '../../types.js'
+import {isEmptyObject, isJQueryObject} from '../../types.js'
 import Utils from '../../utils/index.js'
 
 const UtilsFilterControl = {
@@ -16,13 +16,9 @@ const UtilsFilterControl = {
     for (let i = 0; i < options.length; i++) {
       if (options[i].value !== '') {
         if (!uniqueValues.hasOwnProperty(options[i].value)) {
-          selectControl
-            .find(Utils.sprintf('option[value=\'%s\']', options[i].value))
-            .hide()
+          hide(find(selectControl, Utils.sprintf('option[value=\'%s\']', options[i].value)))
         } else {
-          selectControl
-            .find(Utils.sprintf('option[value=\'%s\']', options[i].value))
-            .show()
+          show(find(selectControl, Utils.sprintf('option[value=\'%s\']', options[i].value)))
         }
       }
     }
@@ -55,7 +51,11 @@ const UtilsFilterControl = {
     return false
   },
   fixHeaderCSS ({ $tableHeader }) {
-    $tableHeader[0].style.height = '77px'
+    if (isJQueryObject($tableHeader)) {
+      $tableHeader[0].style.height = '77px'
+    } else {
+      $tableHeader.style.height = '77px'
+    }
   },
   getCurrentHeader ({ $header, options, $tableHeader }) {
     let header = $header
@@ -148,8 +148,7 @@ const UtilsFilterControl = {
     const foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g)
 
     if (foundCookies) {
-      $.each(foundCookies, (i, _cookie) => {
-        let cookie = _cookie
+      foundCookies.forEach((cookie, i) => {
         if (/./.test(cookie)) {
           cookie = cookie.split('.').pop()
         }
@@ -158,6 +157,7 @@ const UtilsFilterControl = {
           cookies.push(cookie)
         }
       })
+
       return cookies
     }
   },
@@ -165,13 +165,10 @@ const UtilsFilterControl = {
     return String(id).replace(/(:|\.|\[|\]|,)/g, '\\$1')
   },
   isColumnSearchableViaSelect ({ filterControl, searchable }) {
-    return filterControl &&
-      filterControl.toLowerCase() === 'select' &&
-      searchable
+    return filterControl && filterControl.toLowerCase() === 'select' && searchable
   },
   isFilterDataNotGiven ({ filterData }) {
-    return filterData === undefined ||
-      filterData.toLowerCase() === 'column'
+    return filterData === undefined || filterData.toLowerCase() === 'column'
   },
   initFilterSelectControls (that) {
     const data = that.data
@@ -182,15 +179,11 @@ const UtilsFilterControl = {
         : that.options.totalRows
       : that.pageTo
 
-    $.each(that.header.fields, (j, field) => {
+    that.header.fields.forEach((field, j) => {
       const column = that.columns[that.fieldsColumnsIndex[field]]
       const selectControl = document.getElementsByClassName(`bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)[0]
 
-      if (
-        selectControl &&
-        UtilsFilterControl.isColumnSearchableViaSelect(column) &&
-        UtilsFilterControl.isFilterDataNotGiven(column)
-      ) {
+      if (selectControl && UtilsFilterControl.isColumnSearchableViaSelect(column) && UtilsFilterControl.isFilterDataNotGiven(column)) {
         if (selectControl.options.length === 0) {
           // Added the default option
           UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder)
@@ -263,10 +256,16 @@ const UtilsFilterControl = {
         }
       }
 
-      $.each(header.children().children(), (i, tr) => {
-        const $tr = $(tr)
-        if ($tr.data('field') === column.field) {
-          $tr.find('.fht-cell').append(html)
+      find(header, 'th').forEach((tr, i) => {
+        if (tr.getAttribute('data-field') === column.field) {
+          const div = find(tr, '.fht-cell')
+
+          if (div && div.length > 0) {
+            html.forEach((elem, i) => {
+              div[0].appendChild(elem)
+            })
+          }
+
           return false
         }
       })
@@ -384,27 +383,6 @@ const UtilsFilterControl = {
           }
         }, 1)
       })
-
-      if (header.find('.date-filter-control').length > 0) {
-        $.each(that.columns, (i, { filterControl, field, filterDatepickerOptions }) => {
-          if (
-            filterControl !== undefined &&
-            filterControl.toLowerCase() === 'datepicker'
-          ) {
-            header
-              .find(
-                `.date-filter-control.bootstrap-table-filter-control-${field}`
-              )
-              .datepicker(filterDatepickerOptions)
-              .on('changeDate', (event) => {
-                clearTimeout(event.currentTarget.timeoutId || 0)
-                event.currentTarget.timeoutId = setTimeout(() => {
-                  that.onColumnSearch(event)
-                }, that.options.searchTimeOut)
-              })
-          }
-        })
-      }
     } else {
       hide(find(header, '.filterControl'))
     }
@@ -481,13 +459,6 @@ Utils.extend($.fn.bootstrapTable.defaults, {
         ['visibility', isVisible],
         ['width', '100%'],
         ['dir', UtilsFilterControl.getDirectionOfSelectOptions(options.alignmentSelectControlOptions)])
-    },
-    datepicker (that, field, isVisible) {
-      return createElem('input',
-        ['type', 'text'],
-        ['class', Utils.sprintf('form-control date-filter-control bootstrap-table-filter-control-%s', field)],
-        ['visibility', isVisible],
-        ['width', '100%'])
     }
   },
   disableControlWhenSearch: false,
@@ -499,7 +470,6 @@ Utils.extend($.fn.bootstrapTable.defaults, {
 Utils.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined,
   filterData: undefined,
-  filterDatepickerOptions: undefined,
   filterStrictSearch: false,
   filterStartsWithSearch: false,
   filterControlPlaceholder: '',
