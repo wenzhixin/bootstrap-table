@@ -165,7 +165,7 @@ const UtilsFilterControl = {
     return String(id).replace(/(:|\.|\[|\]|,)/g, '\\$1')
   },
   isColumnSearchableViaSelect ({ filterControl, searchable }) {
-    return filterControl && filterControl.toLowerCase() === 'select' && searchable
+    return filterControl && (filterControl.toLowerCase() === 'select' || filterControl.toLowerCase() === 'multiple') && searchable
   },
   isFilterDataNotGiven ({ filterData }) {
     return filterData === undefined || filterData.toLowerCase() === 'column'
@@ -225,26 +225,25 @@ const UtilsFilterControl = {
   createControls (that, header) {
     let addedFilterControl = false
     let isVisible
-    let html
+    let controls
 
     that.columns.forEach((column, i) => {
       isVisible = 'hidden'
-      html = []
 
       if (!column.visible) {
         return
       }
 
       if (!column.filterControl) {
-        html.push(createElem('div', ['class', 'no-filter-control']))
+        controls = createElem('div', ['class', 'no-filter-control'])
       } else {
-        html.push(createElem('div', ['class', 'filter-control']))
+        controls = createElem('div', ['class', 'filter-control'])
 
         const nameControl = column.filterControl.toLowerCase()
         if (column.searchable && that.options.filterTemplate[nameControl]) {
           addedFilterControl = true
           isVisible = 'visible'
-          html.push(
+          controls.appendChild(
             that.options.filterTemplate[nameControl](
               that,
               column.field,
@@ -261,9 +260,7 @@ const UtilsFilterControl = {
           const div = find(tr, '.fht-cell')
 
           if (div && div.length > 0) {
-            html.forEach((elem, i) => {
-              div[0].appendChild(elem)
-            })
+            div[0].appendChild(controls)
           }
 
           return false
@@ -458,6 +455,14 @@ Utils.extend($.fn.bootstrapTable.defaults, {
         ['class', Utils.sprintf('form-control bootstrap-table-filter-control-%s', field)],
         ['visibility', isVisible],
         ['width', '100%'],
+        ['dir', UtilsFilterControl.getDirectionOfSelectOptions(options.alignmentSelectControlOptions)])
+    },
+    multiple ({ options }, field, isVisible) {
+      return createElem('select',
+        ['class', Utils.sprintf('form-control bootstrap-table-filter-control-%s', field)],
+        ['visibility', isVisible],
+        ['width', '100%'],
+        ['multiple', 'multiple'],
         ['dir', UtilsFilterControl.getDirectionOfSelectOptions(options.alignmentSelectControlOptions)])
     }
   },

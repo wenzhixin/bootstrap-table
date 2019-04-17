@@ -87,7 +87,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   Set `input`: show an input control, `select`: show a select control, `datepicker`: show a datepicker control.
+   Set `input`: show an input control, `select`: show a select control, `multiple`: show a multiple select control.
 
 - **Default:** `undefined`
 
