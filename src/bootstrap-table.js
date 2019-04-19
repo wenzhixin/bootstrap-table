@@ -650,11 +650,18 @@ class BootstrapTable {
   }
 
   onSearch ({currentTarget, firedByInitSearchText}) {
-    const text = $(currentTarget).val().trim()
+    const target = $(currentTarget)
+    const value = target.val()
+    let text = ''
+    if (Array.isArray(value)) {
+      text = value[0].trim()
+    } else {
+      text = value.trim()
+    }
 
     // trim search input
-    if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
-      $(currentTarget).val(text)
+    if (this.options.trimOnSearch && target.val() !== text) {
+      target.val(text)
     }
 
     if (text === this.searchText) {
