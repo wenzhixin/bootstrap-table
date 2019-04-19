@@ -10,6 +10,7 @@ import VirtualScroll from './virtual-scroll/index.js'
 import {isNumeric, isEmptyObject} from './utils/types.js'
 import Sort from './utils/sort.js'
 import Polyfill from './dom/polyfill.js'
+import {createElem, addClass, find, removeClass, show, hide} from './dom/dom.js'
 
 class BootstrapTable {
   constructor (el, options) {
@@ -73,29 +74,44 @@ class BootstrapTable {
 
   initContainer () {
     const topPagination = ['top', 'both'].includes(this.options.paginationVAlign)
-      ? '<div class="fixed-table-pagination clearfix"></div>' : ''
+      ? createElem('div', ['class', 'fixed-table-pagination clearfix']) : ''
     const bottomPagination = ['bottom', 'both'].includes(this.options.paginationVAlign)
-      ? '<div class="fixed-table-pagination"></div>' : ''
+      ? createElem('div', ['class', 'fixed-table-pagination']) : ''
 
-    this.$container = $(`
-      <div class="bootstrap-table ${this.constants.theme}">
-      <div class="fixed-table-toolbar"></div>
-      ${topPagination}
-      <div class="fixed-table-container">
-      <div class="fixed-table-header"><table></table></div>
-      <div class="fixed-table-body">
-      <div class="fixed-table-loading">
-      <span class="loading-wrap">
-      <span class="loading-text">${this.options.formatLoadingMessage()}</span>
-      <span class="animation-wrap"><span class="animation-dot"></span></span>
-      </span>
-      </div>
-      </div>
-      <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
-      </div>
-      ${bottomPagination}
-      </div>
-    `)
+    const mainContainer = createElem('div', ['class', `bootstrap-table ${this.constants.theme}`])
+    mainContainer.appendChild(createElem('div', ['class', 'fixed-table-toolbar']))
+    if (topPagination) {
+      mainContainer.appendChild(topPagination)
+    }
+    const tableContainer = createElem('div', ['class', 'fixed-table-container'])
+    const tableHeader = createElem('div', ['class', 'fixed-table-header'])
+    tableHeader.appendChild(createElem('table'))
+    tableContainer.appendChild(tableHeader)
+    const tableBody = createElem('div', ['class', 'fixed-table-body'])
+    const tableLoading = createElem('div', ['class', 'fixed-table-loading'])
+    const spanLoadingWrap = createElem('span', ['class', 'loading-wrap'])
+    const spanLoadingText = createElem('span', ['class', 'loading-text'])
+    spanLoadingText.textContent = this.options.formatLoadingMessage()
+    const spanAnimationWrap = createElem('span', ['class', 'animation-wrap'])
+    spanAnimationWrap.appendChild(createElem('span', ['class', 'animation-dot']))
+    spanLoadingWrap.appendChild(spanLoadingText)
+    spanLoadingWrap.appendChild(spanAnimationWrap)
+    tableLoading.appendChild(spanLoadingWrap)
+    tableBody.appendChild(tableLoading)
+    const tableFooter = createElem('div', ['class', 'fixed-table-footer'])
+    const tableTableFooter = createElem('table')
+    const tableTableHeadFooter = createElem('thead')
+    tableTableHeadFooter.appendChild(createElem('tr'))
+    tableTableFooter.appendChild(tableTableHeadFooter)
+    tableFooter.appendChild(tableTableFooter)
+    tableContainer.appendChild(tableBody)
+    tableContainer.appendChild(tableFooter)
+    if (bottomPagination) {
+      tableContainer.appendChild(bottomPagination)
+    }
+    mainContainer.appendChild(tableContainer)
+
+    this.$container = $(mainContainer)
 
     this.$container.insertAfter(this.$el)
     this.$tableContainer = this.$container.find('.fixed-table-container')
@@ -118,10 +134,10 @@ class BootstrapTable {
     this.$tableLoading.addClass(this.options.classes)
 
     if (this.options.height) {
-      this.$tableContainer.addClass('fixed-height')
+      addClass(this.$tableContainer, 'fixed-height')
 
       if (this.options.showFooter) {
-        this.$tableContainer.addClass('has-footer')
+        addClass(this.$tableContainer, 'has-footer')
       }
 
       if (this.options.classes.split(' ').includes('table-bordered')) {
@@ -200,9 +216,9 @@ class BootstrapTable {
     }
 
     if (!this.options.showFooter || this.options.cardView) {
-      this.$tableFooter.hide()
+      hide(this.$tableFooter)
     } else {
-      this.$tableFooter.show()
+      show(this.$tableFooter)
     }
   }
 
@@ -341,12 +357,12 @@ class BootstrapTable {
     const resizeEvent = `resize.bootstrap-table${this.$el.attr('id') || ''}`
     $(window).off(resizeEvent)
     if (!this.options.showHeader || this.options.cardView) {
-      this.$header.hide()
-      this.$tableHeader.hide()
+      hide(this.$header)
+      hide(this.$tableHeader)
       this.$tableLoading.css('top', 0)
     } else {
-      this.$header.show()
-      this.$tableHeader.show()
+      show(this.$header)
+      show(this.$tableHeader)
       this.$tableLoading.css('top', this.$header.outerHeight() + 1)
       // Assign the correct sortable arrow
       this.getCaret()
@@ -795,10 +811,10 @@ class BootstrapTable {
   initPagination () {
     const o = this.options
     if (!o.pagination) {
-      this.$pagination.hide()
+      hide(this.$pagination)
       return
     }
-    this.$pagination.show()
+    show(this.$pagination)
 
     const html = []
     let $allSelected = false
@@ -1008,17 +1024,21 @@ class BootstrapTable {
       $number = this.$pagination.find('.page-item').not('.page-next, .page-pre, .page-last-separator, .page-first-separator')
 
       if (this.totalPages <= 1) {
-        this.$pagination.find('div.pagination').hide()
+        hide(this.$pagination.find('div.pagination'))
       }
 
       if (o.smartDisplay) {
         if (pageList.length < 2 || o.totalRows <= pageList[0]) {
-          this.$pagination.find('span.page-list').hide()
+          hide(this.$pagination.find('span.page-list'))
         }
       }
 
       // when data is empty, hide the pagination
-      this.$pagination[this.getData().length ? 'show' : 'hide']()
+      if (this.getData().length) {
+        show(this.$pagination)
+      } else {
+        hide(this.$pagination)
+      }
 
       if (!o.paginationLoop) {
         if (o.pageNumber === 1) {
@@ -1564,7 +1584,7 @@ class BootstrapTable {
         }
         this.load(data)
         this.trigger('load-error', jqXHR.status, jqXHR)
-        if (!silent) this.$tableLoading.hide()
+        if (!silent) hide(this.$tableLoading)
       }
     })
 
@@ -1905,19 +1925,23 @@ class BootstrapTable {
     this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
       this.$selectItem.length === this.$selectItem.filter(':checked').length)
 
-    this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
+    if (this.options.cardView) {
+      addClass(this.$tableContainer, 'has-card-view')
+    } else {
+      removeClass(this.$tableContainer, 'has-card-view')
+    }
 
     if (!this.options.cardView && this.options.showHeader && this.options.height) {
-      this.$tableHeader.show()
+      show(this.$tableHeader)
       this.resetHeader()
       padding += this.$header.outerHeight(true)
     } else {
-      this.$tableHeader.hide()
+      hide(this.$tableHeader)
       this.trigger('post-header')
     }
 
     if (!this.options.cardView && this.options.showFooter) {
-      this.$tableFooter.show()
+      show(this.$tableFooter)
       this.fitFooter()
       if (this.options.height) {
         padding += this.$tableFooter.outerHeight(true)
@@ -1929,19 +1953,19 @@ class BootstrapTable {
       const paginationHeight = this.$pagination.outerHeight(true)
       const height = this.options.height - toolbarHeight - paginationHeight
       const tableHeight = this.$tableBody.find('table').outerHeight(true)
-      this.$tableContainer.css('height', `${height}px`)
+      this.$tableContainer[0].style.height = `${height}px`
       this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
     }
 
     if (this.options.cardView) {
       // remove the element css
       this.$el.css('margin-top', '0')
-      this.$tableContainer.css('padding-bottom', '0')
-      this.$tableFooter.hide()
+      this.$tableContainer[0].style.paddingBottom = '0'
+      hide(this.$tableFooter)
     } else {
       // Assign the correct sortable arrow
       this.getCaret()
-      this.$tableContainer.css('padding-bottom', `${padding}px`)
+      this.$tableContainer[0].style.paddingBottom = `${padding}px`
     }
 
     this.trigger('reset-view')
@@ -2238,11 +2262,11 @@ class BootstrapTable {
 
     for (i = row; i < row + rowspan; i++) {
       for (j = col; j < col + colspan; j++) {
-        $tr.eq(i).find('>td').eq(j).hide()
+        hide($tr.eq(i).find('>td').eq(j))
       }
     }
 
-    $td.attr('rowspan', rowspan).attr('colspan', colspan).show()
+    show($td.attr('rowspan', rowspan).attr('colspan', colspan))
   }
 
   updateCell (params) {

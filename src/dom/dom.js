@@ -37,9 +37,26 @@ export const hasClass = (ele, cls) => {
   return ele.classList.contains(cls)
 }
 
-export const addClass = (ele, cls) => ele.classList.add(cls)
+export const addClass = (ele, cls) => {
+  if (isJQueryObject(ele)) {
+    ele = ele[0]
+  }
+  ele.classList.add(cls)
+}
 
-export const removeClass = (ele, cls) => ele.classList.remove(cls)
+export const removeClass = (ele, cls) => {
+  if (isJQueryObject(ele)) {
+    ele = ele[0]
+  }
+  ele.classList.remove(cls)
+}
+
+export const toggleClass = (ele, cls) => {
+  if (isJQueryObject(ele)) {
+    ele = ele[0]
+  }
+  ele.classList.toggle(cls)
+}
 
 export const createOpt = (text, value, isSel) => {
   const isSelected = isSel ? true : false
