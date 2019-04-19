@@ -21,13 +21,25 @@ export const createElem = (...args) => {
     const arg = args[i]
 
     if (Array.isArray(arg) && arg.length === 2) {
-      el.setAttribute(arg[0], arg[1])
+      if (arg[1] !== undefined) {
+        el.setAttribute(arg[0], arg[1])
+      }
     }
   }
   return el
 }
 
-export const removeElem = (node) => node.parentNode.removeChild(node)
+export const removeElem = (node) => {
+  if (isJQueryObject(node)) {
+    node = node[0]
+  }
+  if (isUndefined(node)) {
+    return
+  }
+  if (node.parentNode) {
+    node.parentNode.removeChild(node)
+  }
+}
 
 export const hasClass = (ele, cls) => {
   if (isUndefined(ele)) {
@@ -40,7 +52,8 @@ export const hasClass = (ele, cls) => {
 export const toggleClass = (elements, cls, force) => {
   let elem
   const length = elements.length
-  const classes = cls.match(/\S+/g)
+  const classes = cls.match(/\S+/g) || []
+
   for (let index = 0; index < length; index++) {
     elem = elements[index]
     if (!elem.classList) {
@@ -89,6 +102,10 @@ export const is = (ele, tag) => {
     ele = ele[0]
   }
 
+  if (isUndefined(ele)) {
+    return
+  }
+
   if (tag === ':focus') {
     return ele === document.activeElement
   }
@@ -112,6 +129,9 @@ export const find = (ele, selector) => {
   if (isJQueryObject(ele)) {
     ele = ele[0]
   }
+  if (isUndefined(ele)) {
+    return
+  }
 
   return ele.querySelectorAll(selector)
 }
@@ -119,3 +139,19 @@ export const find = (ele, selector) => {
 export const show = (elements) => showHide(elements, true)
 
 export const hide = (elements) => showHide(elements)
+
+export const appendTo = (target, elem) => {
+  if (isJQueryObject(target)) {
+    target = target[0]
+  }
+
+  if (isJQueryObject(elem)) {
+    elem = elem[0]
+  }
+
+  if (isUndefined(target) || isUndefined(elem)) {
+    return
+  }
+
+  target.appendChild(elem)
+}

@@ -10,7 +10,8 @@ import VirtualScroll from './virtual-scroll/index.js'
 import {isNumeric, isEmptyObject} from './utils/types.js'
 import Sort from './utils/sort.js'
 import Polyfill from './dom/polyfill.js'
-import {createElem, addClass, removeClass, show, hide, find} from './dom/dom.js'
+import {createElem, removeElem, addClass, removeClass, show, hide, find, appendTo, createText} from './dom/dom.js'
+import {addEvent, removeEvent} from './events/event.js'
 
 class BootstrapTable {
   constructor (el, options) {
@@ -111,6 +112,7 @@ class BootstrapTable {
     }
     mainContainer.appendChild(tableContainer)
 
+    // Still support to jQuery
     this.$container = $(mainContainer)
 
     this.$container.insertAfter(this.$el)
@@ -154,9 +156,10 @@ class BootstrapTable {
     const columns = []
     const data = []
 
-    this.$header = this.$el.find('>thead')
+    this.$header = find(this.$el, 'thead')
     if (!this.$header.length) {
-      this.$header = $(`<thead class="${this.options.theadClasses}"></thead>`).appendTo(this.$el)
+      this.$header = createElem('thead', ['class', this.options.theadClasses])
+      appendTo(this.$el, this.$header)
     } else if (this.options.theadClasses) {
       addClass(this.$header, this.options.theadClasses)
     }
@@ -224,7 +227,7 @@ class BootstrapTable {
 
   initHeader () {
     const visibleColumns = {}
-    const html = []
+    let controls
 
     this.header = {
       fields: [],
@@ -240,13 +243,15 @@ class BootstrapTable {
     }
 
     this.options.columns.forEach((columns, i) => {
-      html.push('<tr>')
+      controls = createElem('tr')
 
       if (i === 0 && !this.options.cardView && this.options.detailView && this.options.detailViewIcon) {
-        html.push(`<th class="detail" rowspan="${this.options.columns.length}">
-          <div class="fht-cell"></div>
-          </th>
-        `)
+        const thDetail = createElem('th',
+          ['class', 'detail'],
+          ['rowspan', this.options.columns.length])
+
+        thDetail.appendChild(createElem('div', ['class', 'fht-cell']))
+        controls.appendChild(thDetail)
       }
 
       columns.forEach((column, j) => {
@@ -283,21 +288,19 @@ class BootstrapTable {
 
           visibleColumns[column.field] = column
         }
+        const th = createElem('th',
+          ['title', column.titleTooltip],
+          ['class', (column.checkbox || column.radio) ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') : class_],
+          ['style', halign + style],
+          ['rowspan', column.rowspan],
+          ['colspan', column.colspan],
+          ['data-field', column.field])
 
-        html.push(`<th${Utils.sprintf(' title="%s"', column.titleTooltip)}`,
-          column.checkbox || column.radio
-            ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '')
-            : class_,
-          Utils.sprintf(' style="%s"', halign + style),
-          Utils.sprintf(' rowspan="%s"', column.rowspan),
-          Utils.sprintf(' colspan="%s"', column.colspan),
-          Utils.sprintf(' data-field="%s"', column.field),
-          // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
-          j === 0 && i > 0 ? ' data-not-first-th' : '',
-          '>')
+        if (j === 0 && i > 0) {
+          th.setAttribute('data-not-first-th', '')
+        }
 
-        html.push(Utils.sprintf('<div class="th-inner %s">', this.options.sortable && column.sortable
-          ? 'sortable both' : ''))
+        const divThInner = createElem('div', ['class', Utils.sprintf('th-inner %s', this.options.sortable && column.sortable ? 'sortable both' : '')])
 
         let text = this.options.escape ? Utils.escapeHTML(column.title) : column.title
 
@@ -305,6 +308,9 @@ class BootstrapTable {
         if (column.checkbox) {
           text = ''
           if (!this.options.singleSelect && this.options.checkboxHeader) {
+            const label = createElem('label')
+            label.appendChild(createElem('input', ['name', 'btSelectAll'], ['type', 'checkbox']))
+            label.appendChild(createElem('span'))
             text = '<label><input name="btSelectAll" type="checkbox" /><span></span></label>'
           }
           this.header.stateField = column.field
@@ -318,44 +324,54 @@ class BootstrapTable {
           text += title
         }
 
-        html.push(text)
-        html.push('</div>')
-        html.push('<div class="fht-cell"></div>')
-        html.push('</div>')
-        html.push('</th>')
+        if (typeof text === 'string') {
+          text = createText(text)
+        }
+
+        divThInner.appendChild(text)
+        th.appendChild(divThInner)
+        th.appendChild(createElem('div', ['class', 'fht-cell']))
+        controls.appendChild(th)
       })
-      html.push('</tr>')
     })
 
-    this.$header.html(html.join(''))
-    this.$header.find('th[data-field]').each((i, el) => {
+    this.$header.appendChild(controls)
+    find(this.$header, 'th[data-field]').forEach((el, i) => {
       $(el).data(visibleColumns[$(el).data('field')])
     })
-    this.$container.off('click', '.th-inner').on('click', '.th-inner', e => {
-      const $this = $(e.currentTarget)
 
-      if (this.options.detailView && !$this.parent().hasClass('bs-checkbox')) {
-        if ($this.closest('.bootstrap-table')[0] !== this.$container[0]) {
-          return false
+    find(this.$container, '.th-inner').forEach((thInner, i) => {
+      addEvent(thInner, 'click', (e) => {
+        const $this = $(e.currentTarget)
+
+        if (this.options.detailView && !$this.parent().hasClass('bs-checkbox')) {
+          if ($this.closest('.bootstrap-table')[0] !== this.$container[0]) {
+            return false
+          }
         }
-      }
 
-      if (this.options.sortable && $this.parent().data().sortable) {
-        this.onSort(e)
-      }
-    })
-
-    this.$header.children().children().off('keypress').on('keypress', e => {
-      if (this.options.sortable && $(e.currentTarget).data().sortable) {
-        const code = e.keyCode || e.which
-        if (code === 13) { // Enter keycode
+        if (this.options.sortable && $this.parent().data().sortable) {
           this.onSort(e)
         }
-      }
+      })
+    })
+
+    // Still support to jQuery
+    this.$header = $(this.$header)
+
+    find(this.$header, 'th').forEach((th, i) => {
+      addEvent(th, 'keypress', (e) => {
+        if (this.options.sortable && $(e.currentTarget).data().sortable) {
+          const code = e.keyCode || e.which
+          if (code === 13) { // Enter keycode
+            this.onSort(e)
+          }
+        }
+      })
     })
 
     const resizeEvent = `resize.bootstrap-table${this.$el.attr('id') || ''}`
-    $(window).off(resizeEvent)
+    removeEvent(window, resizeEvent)
     if (!this.options.showHeader || this.options.cardView) {
       hide(this.$header)
       hide(this.$tableHeader)
@@ -366,11 +382,15 @@ class BootstrapTable {
       this.$tableLoading.css('top', this.$header.outerHeight() + 1)
       // Assign the correct sortable arrow
       this.getCaret()
-      $(window).on(resizeEvent, e => this.resetWidth(e))
+      addEvent(window, resizeEvent, (e) => this.resetWidth(e))
     }
 
-    this.$selectAll = this.$header.find('[name="btSelectAll"]')
-    this.$selectAll.off('click').on('click', ({currentTarget}) => {
+    this.$selectAll = find(this.$header, '[name="btSelectAll"]')
+    // Still support to jQuery
+    this.$selectAll = $(this.$selectAll)
+
+    removeEvent(this.$selectAll, 'click')
+    addEvent(this.$selectAll, 'click', ({currentTarget}) => {
       const checked = $(currentTarget).prop('checked')
       this[checked ? 'checkAll' : 'uncheckAll']()
       this.updateSelected()
@@ -439,32 +459,36 @@ class BootstrapTable {
         clearTimeout(timeoutId)
         timeoutId = setTimeout(() => {
           removeClass(this.$el, this.options.sortClass)
-          const index = this.$header.find(`[data-field="${this.options.sortName}"]`).index()
-          addClass(this.$el.find(`tr td:nth-child(${index + 1})`), this.options.sortClass)
+          const index = find(this.$header, `[data-field="${this.options.sortName}"]`)[0].cellIndex
+          addClass(find(this.$el, `tr td:nth-child(${index + 1})`), this.options.sortClass)
         }, 250)
       }
     }
   }
 
   onSort ({type, currentTarget}) {
-    const $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent()
-    const $this_ = this.$header.find('th').eq($this.index())
+    const $this = type === 'keypress' ? currentTarget : currentTarget.parentNode
+    const $this_ = find(this.$header, 'th')[$this.cellIndex]
 
-    this.$header.add(this.$header_).find('span.order').remove()
+    removeElem(find(this.$header, 'span.order'))
+    removeElem(find(this.$header_, 'span.order'))
 
-    if (this.options.sortName === $this.data('field')) {
+    if (this.options.sortName === $this.getAttribute('data-field')) {
       this.options.sortOrder = this.options.sortOrder === 'asc' ? 'desc' : 'asc'
     } else {
-      this.options.sortName = $this.data('field')
+      this.options.sortName = $this.getAttribute('data-field')
       if (this.options.rememberOrder) {
-        this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc'
+        this.options.sortOrder = $this.getAttribute('data-order') === 'asc' ? 'desc' : 'asc'
       } else {
-        this.options.sortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
+        this.options.sortOrder = this.columns[this.fieldsColumnsIndex[$this.getAttribute('data-field')]].order
       }
     }
     this.trigger('sort', this.options.sortName, this.options.sortOrder)
 
-    $this.add($this_).data('order', this.options.sortOrder)
+    $this.setAttribute('data-order', this.options.sortOrder)
+    if ($this_) {
+      $this_.setAttribute('data-order', this.options.sortOrder)
+    }
 
     // Assign the correct sortable arrow
     this.getCaret()
@@ -1619,10 +1643,10 @@ class BootstrapTable {
   }
 
   getCaret () {
-    this.$header.find('th').each((i, th) => {
-      $(th).find('.sortable').removeClass('desc asc')
-        .addClass($(th).data('field') === this.options.sortName
-          ? this.options.sortOrder : 'both')
+    find(this.$header, 'th').forEach((th, i) => {
+      const sortable = find(th, '.sortable')
+      removeClass(sortable, 'desc asc')
+      addClass(sortable, th.getAttribute('data-field') === this.options.sortName ? this.options.sortOrder : 'both')
     })
   }
 
