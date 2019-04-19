@@ -79,6 +79,16 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `false`
 
+### appendFilterControls
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set to true to append the filter controls after the column title. If false, the controls will be prepend before column title.
+
+- **Default:** `false`
+
 ## Column options
 
 ### filterControl
