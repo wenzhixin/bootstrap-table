@@ -1,4 +1,4 @@
-import {isFunction, isPlainObject} from '../types.js'
+import {isFunction, isPlainObject} from './types.js'
 
 export default {
   // it only does '%s', and return '' when arguments are undefined

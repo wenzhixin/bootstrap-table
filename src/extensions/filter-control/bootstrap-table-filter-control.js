@@ -4,9 +4,9 @@
  * @version: v3.0.0
  */
 
-import {createElem, createOpt, is, find, hide, show} from '../../dom.js'
-import Sort from '../../sort.js'
-import {isEmptyObject, isJQueryObject} from '../../types.js'
+import {createElem, createOpt, is, find, hide, show} from '../../dom/dom.js'
+import Sort from '../../utils/sort.js'
+import {isEmptyObject, isJQueryObject} from '../../utils/types.js'
 import Utils from '../../utils/index.js'
 
 const UtilsFilterControl = {
@@ -50,12 +50,22 @@ const UtilsFilterControl = {
     // If we get here, the value is valid to add
     return false
   },
-  fixHeaderCSS ({ $tableHeader }) {
+  fixHeaderCSS ({ $tableHeader, options }) {
+    let header = $tableHeader
+    let useMultipleControl = false
     if (isJQueryObject($tableHeader)) {
-      $tableHeader[0].style.height = '77px'
-    } else {
-      $tableHeader.style.height = '77px'
+      header = $tableHeader[0]
     }
+
+    options.columns.forEach((columns, i) => {
+      columns.forEach((_column, j) => {
+        if (_column.filterControl === 'multiple') {
+          useMultipleControl = true
+        }
+      })
+    })
+
+    header.style.height = useMultipleControl ? '123px' : '77px'
   },
   getCurrentHeader ({ $header, options, $tableHeader }) {
     let header = $header
@@ -255,12 +265,12 @@ const UtilsFilterControl = {
         }
       }
 
-      find(header, 'th').forEach((tr, i) => {
-        if (tr.getAttribute('data-field') === column.field) {
-          const div = find(tr, '.fht-cell')
+      find(header, 'th').forEach((th, i) => {
+        if (th.getAttribute('data-field') === column.field) {
+          const div = find(th, '.th-inner')
 
           if (div && div.length > 0) {
-            div[0].appendChild(controls)
+            div[0].parentNode.insertBefore(controls, div[0])
           }
 
           return false

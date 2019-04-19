@@ -7,9 +7,9 @@
 import Constants from './constants/index.js'
 import Utils from './utils/index.js'
 import VirtualScroll from './virtual-scroll/index.js'
-import {isNumeric, isEmptyObject} from './types.js'
-import Sort from './sort.js'
-import Polyfill from './polyfill.js'
+import {isNumeric, isEmptyObject} from './utils/types.js'
+import Sort from './utils/sort.js'
+import Polyfill from './dom/polyfill.js'
 
 class BootstrapTable {
   constructor (el, options) {
