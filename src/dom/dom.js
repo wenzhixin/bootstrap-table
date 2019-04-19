@@ -43,9 +43,10 @@ export const removeClass = (ele, cls) => ele.classList.remove(cls)
 
 export const createOpt = (text, value, isSel) => {
   const isSelected = isSel ? true : false
+  const _value = '' + value
   const opt = isSelected ?
-    createElem('option', ['value', value.trim()], ['selected', 'true']) :
-    createElem('option', ['value', value.trim()])
+    createElem('option', ['value', _value.trim()], ['selected', 'true']) :
+    createElem('option', ['value', _value.trim()])
   opt.appendChild(createText(text.trim()))
   return opt
 }
@@ -72,7 +73,7 @@ export const is = (ele, tag) => {
     return ele.type === 'text' && ele.nodeName.toLowerCase() === 'input'
   }
 
-  ele.nodeName.toLowerCase() === tag
+  return ele.nodeName.toLowerCase() === tag
 }
 
 export const find = (ele, selector) => {

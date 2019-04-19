@@ -587,12 +587,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initHeader () {
     super.initHeader()
 
-    if (!this.options.filterControl) {
+    if (!this.options.filterControl || this.options.cardView) {
       return
     }
 
     UtilsFilterControl.createControls(this, this.$header)
   }
+
   initBody () {
     super.initBody()
 
@@ -786,7 +787,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   EnableControls (enable) {
-    if (this.options.disableControlWhenSearch) {
+    if (this.options.disableControlWhenSearch && this.options.sidePagination === 'server') {
       const header = UtilsFilterControl.getCurrentHeader(this)
       const searchControls = UtilsFilterControl.getCurrentSearchControls(this)
 
