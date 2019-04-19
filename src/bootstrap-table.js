@@ -10,7 +10,7 @@ import VirtualScroll from './virtual-scroll/index.js'
 import {isNumeric, isEmptyObject} from './utils/types.js'
 import Sort from './utils/sort.js'
 import Polyfill from './dom/polyfill.js'
-import {createElem, addClass, removeClass, show, hide} from './dom/dom.js'
+import {createElem, addClass, removeClass, show, hide, find} from './dom/dom.js'
 
 class BootstrapTable {
   constructor (el, options) {
@@ -160,21 +160,21 @@ class BootstrapTable {
     } else if (this.options.theadClasses) {
       addClass(this.$header, this.options.theadClasses)
     }
-    this.$header.find('tr').each((i, el) => {
+    find(this.$header, 'tr').forEach((tr, i) => {
       const column = []
 
-      $(el).find('th').each((i, el) => {
+      find(tr, 'th').forEach((i, th) => {
         // #2014: getFieldIndex and elsewhere assume this is string, causes issues if not
-        if (typeof $(el).data('field') !== 'undefined') {
-          $(el).data('field', `${$(el).data('field')}`)
+        if (typeof th.getAttribute('data-field') !== 'undefined') {
+          th.setAttribute('data-field', th.getAttribute('data-field').toString())
         }
         column.push(Utils.extend({}, {
-          title: $(el).html(),
-          'class': $(el).attr('class'),
-          titleTooltip: $(el).attr('title'),
-          rowspan: $(el).attr('rowspan') ? +$(el).attr('rowspan') : undefined,
-          colspan: $(el).attr('colspan') ? +$(el).attr('colspan') : undefined
-        }, $(el).data()))
+          title: $(th).html(),
+          'class': th.getAttribute('class'),
+          titleTooltip: th.getAttribute('title'),
+          rowspan: $(th).attr('rowspan') ? +$(th).attr('rowspan') : undefined,
+          colspan: $(th).attr('colspan') ? +$(th).attr('colspan') : undefined
+        }, $(th).data()))
       })
       columns.push(column)
     })
