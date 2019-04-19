@@ -27,7 +27,7 @@ export const showHide = (elements, show) => {
 
   for (let index = 0; index < length; index++) {
     elem = elements[index]
-    if ( !elem.style ) {
+    if (!elem.style) {
       continue
     }
 

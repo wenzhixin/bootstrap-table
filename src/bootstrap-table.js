@@ -10,7 +10,7 @@ import VirtualScroll from './virtual-scroll/index.js'
 import {isNumeric, isEmptyObject} from './utils/types.js'
 import Sort from './utils/sort.js'
 import Polyfill from './dom/polyfill.js'
-import {createElem, addClass, find, removeClass, show, hide} from './dom/dom.js'
+import {createElem, addClass, removeClass, show, hide} from './dom/dom.js'
 
 class BootstrapTable {
   constructor (el, options) {
@@ -130,8 +130,8 @@ class BootstrapTable {
     this.$tableBody.append(this.$el)
     this.$container.after('<div class="clearfix"></div>')
 
-    this.$el.addClass(this.options.classes)
-    this.$tableLoading.addClass(this.options.classes)
+    addClass(this.$el, this.options.classes)
+    addClass(this.$tableLoading, this.options.classes)
 
     if (this.options.height) {
       addClass(this.$tableContainer, 'fixed-height')
@@ -143,7 +143,7 @@ class BootstrapTable {
       if (this.options.classes.split(' ').includes('table-bordered')) {
         this.$tableBody.append('<div class="fixed-table-border"></div>')
         this.$tableBorder = this.$tableBody.find('.fixed-table-border')
-        this.$tableLoading.addClass('fixed-table-border')
+        addClass(this.$tableLoading, 'fixed-table-border')
       }
 
       this.$tableFooter = this.$container.find('.fixed-table-footer')
@@ -158,7 +158,7 @@ class BootstrapTable {
     if (!this.$header.length) {
       this.$header = $(`<thead class="${this.options.theadClasses}"></thead>`).appendTo(this.$el)
     } else if (this.options.theadClasses) {
-      this.$header.addClass(this.options.theadClasses)
+      addClass(this.$header, this.options.theadClasses)
     }
     this.$header.find('tr').each((i, el) => {
       const column = []
@@ -438,9 +438,9 @@ class BootstrapTable {
       if (this.options.sortClass !== undefined) {
         clearTimeout(timeoutId)
         timeoutId = setTimeout(() => {
-          this.$el.removeClass(this.options.sortClass)
+          removeClass(this.$el, this.options.sortClass)
           const index = this.$header.find(`[data-field="${this.options.sortName}"]`).index()
-          this.$el.find(`tr td:nth-child(${index + 1})`).addClass(this.options.sortClass)
+          addClass(this.$el.find(`tr td:nth-child(${index + 1})`), this.options.sortClass)
         }, 250)
       }
     }
@@ -1022,7 +1022,7 @@ class BootstrapTable {
 
     const dropupClass = ['bottom', 'both'].includes(o.paginationVAlign) ?
       ` ${this.constants.classes.dropup}` : ''
-    this.$pagination.last().find('.page-list > span').addClass(dropupClass)
+    addClass(this.$pagination.last().find('.page-list > span'), dropupClass)
 
     if (!o.onlyInfoPagination) {
       $pageList = this.$pagination.find('.page-list a')
@@ -1049,10 +1049,10 @@ class BootstrapTable {
 
       if (!o.paginationLoop) {
         if (o.pageNumber === 1) {
-          $pre.addClass('disabled')
+          addClass($pre, 'disabled')
         }
         if (o.pageNumber === this.totalPages) {
-          $next.addClass('disabled')
+          addClass($next, 'disabled')
         }
       }
 
@@ -1692,7 +1692,7 @@ class BootstrapTable {
         if (dataField !== undefined) {
           const $headerTh = this.$header.find(`[data-field='${dataField}']`)
           if ($headerTh.length > 0) {
-            $headerTh.find(':input').addClass('focus-temp')
+            addClass($headerTh.find(':input'), 'focus-temp')
           }
         }
       }
@@ -1711,7 +1711,7 @@ class BootstrapTable {
     const focusedTemp = $('.focus-temp:visible:eq(0)')
     if (focusedTemp.length > 0) {
       focusedTemp.focus()
-      this.$header.find('.focus-temp').removeClass('focus-temp')
+      removeClass(this.$header.find('.focus-temp'), 'focus-temp')
     }
 
     // fix bug: $.data() is not working as expected after $.append()

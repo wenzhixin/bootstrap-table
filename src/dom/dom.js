@@ -37,26 +37,41 @@ export const hasClass = (ele, cls) => {
   return ele.classList.contains(cls)
 }
 
-export const addClass = (ele, cls) => {
-  if (isJQueryObject(ele)) {
-    ele = ele[0]
+export const toggleClass = (elements, cls, force) => {
+  let elem
+  const length = elements.length
+  const classes = cls.match(/\S+/g)
+  for (let index = 0; index < length; index++) {
+    elem = elements[index]
+    if (!elem.classList) {
+      continue
+    }
+
+    if (isJQueryObject(elem)) {
+      elem = elem[0]
+    }
+
+    for (let i = 0; i < classes.length; i++) {
+      if (force !== undefined) {
+        if (force) {
+          elem.classList.add(classes[i])
+        } else {
+          elem.classList.remove(classes[i])
+        }
+      } else {
+        if (elem.classList.contains(classes[i])) {
+          elem.classList.remove(classes[i])
+        } else {
+          elem.classList.add(classes[i])
+        }
+      }
+    }
   }
-  ele.classList.add(cls)
 }
 
-export const removeClass = (ele, cls) => {
-  if (isJQueryObject(ele)) {
-    ele = ele[0]
-  }
-  ele.classList.remove(cls)
-}
+export const addClass = (elements, cls) => toggleClass(elements, cls, true)
 
-export const toggleClass = (ele, cls) => {
-  if (isJQueryObject(ele)) {
-    ele = ele[0]
-  }
-  ele.classList.toggle(cls)
-}
+export const removeClass = (elements, cls) => toggleClass(elements, cls, false)
 
 export const createOpt = (text, value, isSel) => {
   const isSelected = isSel ? true : false
