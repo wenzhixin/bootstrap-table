@@ -270,7 +270,7 @@ const UtilsFilterControl = {
           const div = find(th, '.th-inner')
 
           if (div && div.length > 0) {
-            div[0].parentNode.insertBefore(controls, div[0])
+            div[0].parentNode.insertBefore(controls, that.options.appendFilterControls ? div[0].nextSibling : div[0])
           }
 
           return false
@@ -478,6 +478,7 @@ Utils.extend($.fn.bootstrapTable.defaults, {
   },
   disableControlWhenSearch: false,
   searchOnEnterKey: false,
+  appendFilterControls: false,
   // internal variables
   valuesFilterControl: []
 })
