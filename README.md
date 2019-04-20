@@ -89,6 +89,12 @@ You can also use these for templates:
 Your feedback is very appreciated!
 
 
+## Acknowledgements
+
+Thanks to everyone who have given feedback and submitted pull requests. A list of all the contributors can be found [here](https://github.com/wenzhixin/bootstrap-table/graphs/contributors).
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/bootstrap-table/contributors.svg?width=890" /></a>
+
 ## Release History
 
 Look at the [Change Log](https://github.com/wenzhixin/bootstrap-table/blob/master/CHANGELOG.md)
