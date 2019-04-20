@@ -10,7 +10,7 @@ import VirtualScroll from './virtual-scroll/index.js'
 import {isNumeric, isEmptyObject} from './utils/types.js'
 import Sort from './utils/sort.js'
 import Polyfill from './dom/polyfill.js'
-import {createElem, removeElem, addClass, removeClass, show, hide, find, appendTo, createText} from './dom/dom.js'
+import {createElem, removeElem, addClass, removeClass, show, hide, find, appendTo, outerHeight} from './dom/dom.js'
 import {addEvent, removeEvent} from './events/event.js'
 
 class BootstrapTable {
@@ -75,45 +75,31 @@ class BootstrapTable {
 
   initContainer () {
     const topPagination = ['top', 'both'].includes(this.options.paginationVAlign)
-      ? createElem('div', ['class', 'fixed-table-pagination clearfix']) : ''
+      ? '<div class="fixed-table-pagination clearfix"></div>' : ''
     const bottomPagination = ['bottom', 'both'].includes(this.options.paginationVAlign)
-      ? createElem('div', ['class', 'fixed-table-pagination']) : ''
+      ? '<div class="fixed-table-pagination"></div>' : ''
 
-    const mainContainer = createElem('div', ['class', `bootstrap-table ${this.constants.theme}`])
-    mainContainer.appendChild(createElem('div', ['class', 'fixed-table-toolbar']))
-    if (topPagination) {
-      mainContainer.appendChild(topPagination)
-    }
-    const tableContainer = createElem('div', ['class', 'fixed-table-container'])
-    const tableHeader = createElem('div', ['class', 'fixed-table-header'])
-    tableHeader.appendChild(createElem('table'))
-    tableContainer.appendChild(tableHeader)
-    const tableBody = createElem('div', ['class', 'fixed-table-body'])
-    const tableLoading = createElem('div', ['class', 'fixed-table-loading'])
-    const spanLoadingWrap = createElem('span', ['class', 'loading-wrap'])
-    const spanLoadingText = createElem('span', ['class', 'loading-text'])
-    spanLoadingText.textContent = this.options.formatLoadingMessage()
-    const spanAnimationWrap = createElem('span', ['class', 'animation-wrap'])
-    spanAnimationWrap.appendChild(createElem('span', ['class', 'animation-dot']))
-    spanLoadingWrap.appendChild(spanLoadingText)
-    spanLoadingWrap.appendChild(spanAnimationWrap)
-    tableLoading.appendChild(spanLoadingWrap)
-    tableBody.appendChild(tableLoading)
-    const tableFooter = createElem('div', ['class', 'fixed-table-footer'])
-    const tableTableFooter = createElem('table')
-    const tableTableHeadFooter = createElem('thead')
-    tableTableHeadFooter.appendChild(createElem('tr'))
-    tableTableFooter.appendChild(tableTableHeadFooter)
-    tableFooter.appendChild(tableTableFooter)
-    tableContainer.appendChild(tableBody)
-    tableContainer.appendChild(tableFooter)
-    if (bottomPagination) {
-      tableContainer.appendChild(bottomPagination)
-    }
-    mainContainer.appendChild(tableContainer)
+    this.$container = createElem(`<div class="bootstrap-table ${this.constants.theme}">
+      <div class="fixed-table-toolbar"></div>
+      ${topPagination}
+      <div class="fixed-table-container">
+      <div class="fixed-table-header"><table></table></div>
+      <div class="fixed-table-body">
+      <div class="fixed-table-loading">
+      <span class="loading-wrap">
+      <span class="loading-text">${this.options.formatLoadingMessage()}</span>
+      <span class="animation-wrap"><span class="animation-dot"></span></span>
+      </span>
+      </div>
+      </div>
+      <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
+      </div>
+      ${bottomPagination}
+      </div>
+    `)
 
     // Still support to jQuery
-    this.$container = $(mainContainer)
+    this.$container = $(this.$container)
 
     this.$container.insertAfter(this.$el)
     this.$tableContainer = this.$container.find('.fixed-table-container')
@@ -123,10 +109,11 @@ class BootstrapTable {
     this.$tableFooter = this.$el.find('tfoot')
     // checking if custom table-toolbar exists or not
     if (this.options.buttonsToolbar) {
-      this.$toolbar = $('body').find(this.options.buttonsToolbar)
+      this.$toolbar = find(document.getElementsByTagName('body')[0], this.options.buttonsToolbar)[0]
     } else {
-      this.$toolbar = this.$container.find('.fixed-table-toolbar')
+      this.$toolbar = find(this.$container, '.fixed-table-toolbar')[0]
     }
+
     this.$pagination = this.$container.find('.fixed-table-pagination')
 
     this.$tableBody.append(this.$el)
@@ -227,7 +214,7 @@ class BootstrapTable {
 
   initHeader () {
     const visibleColumns = {}
-    let controls
+    const html = []
 
     this.header = {
       fields: [],
@@ -243,15 +230,13 @@ class BootstrapTable {
     }
 
     this.options.columns.forEach((columns, i) => {
-      controls = createElem('tr')
+      html.push('<tr>')
 
       if (i === 0 && !this.options.cardView && this.options.detailView && this.options.detailViewIcon) {
-        const thDetail = createElem('th',
-          ['class', 'detail'],
-          ['rowspan', this.options.columns.length])
-
-        thDetail.appendChild(createElem('div', ['class', 'fht-cell']))
-        controls.appendChild(thDetail)
+        html.push(`<th class="detail" rowspan="${this.options.columns.length}">
+          <div class="fht-cell"></div>
+          </th>
+        `)
       }
 
       columns.forEach((column, j) => {
@@ -288,19 +273,21 @@ class BootstrapTable {
 
           visibleColumns[column.field] = column
         }
-        const th = createElem('th',
-          ['title', column.titleTooltip],
-          ['class', (column.checkbox || column.radio) ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') : class_],
-          ['style', halign + style],
-          ['rowspan', column.rowspan],
-          ['colspan', column.colspan],
-          ['data-field', column.field])
 
-        if (j === 0 && i > 0) {
-          th.setAttribute('data-not-first-th', '')
-        }
+        html.push(`<th${Utils.sprintf(' title="%s"', column.titleTooltip)}`,
+          column.checkbox || column.radio
+            ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '')
+            : class_,
+          Utils.sprintf(' style="%s"', halign + style),
+          Utils.sprintf(' rowspan="%s"', column.rowspan),
+          Utils.sprintf(' colspan="%s"', column.colspan),
+          Utils.sprintf(' data-field="%s"', column.field),
+          // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
+          j === 0 && i > 0 ? ' data-not-first-th' : '',
+          '>')
 
-        const divThInner = createElem('div', ['class', Utils.sprintf('th-inner %s', this.options.sortable && column.sortable ? 'sortable both' : '')])
+        html.push(Utils.sprintf('<div class="th-inner %s">', this.options.sortable && column.sortable
+          ? 'sortable both' : ''))
 
         let text = this.options.escape ? Utils.escapeHTML(column.title) : column.title
 
@@ -308,9 +295,6 @@ class BootstrapTable {
         if (column.checkbox) {
           text = ''
           if (!this.options.singleSelect && this.options.checkboxHeader) {
-            const label = createElem('label')
-            label.appendChild(createElem('input', ['name', 'btSelectAll'], ['type', 'checkbox']))
-            label.appendChild(createElem('span'))
             text = '<label><input name="btSelectAll" type="checkbox" /><span></span></label>'
           }
           this.header.stateField = column.field
@@ -324,22 +308,20 @@ class BootstrapTable {
           text += title
         }
 
-        if (typeof text === 'string') {
-          text = createText(text)
-        }
-
-        divThInner.appendChild(text)
-        th.appendChild(divThInner)
-        th.appendChild(createElem('div', ['class', 'fht-cell']))
-        controls.appendChild(th)
+        html.push(text)
+        html.push('</div>')
+        html.push('<div class="fht-cell"></div>')
+        html.push('</div>')
+        html.push('</th>')
       })
+      html.push('</tr>')
     })
 
-    this.$header.appendChild(controls)
+    this.$header.innerHTML = ''
+    this.$header.appendChild(createElem(html.join('')))
     find(this.$header, 'th[data-field]').forEach((el, i) => {
       $(el).data(visibleColumns[$(el).data('field')])
     })
-
     find(this.$container, '.th-inner').forEach((thInner, i) => {
       addEvent(thInner, 'click', (e) => {
         const $this = $(e.currentTarget)
@@ -355,9 +337,6 @@ class BootstrapTable {
         }
       })
     })
-
-    // Still support to jQuery
-    this.$header = $(this.$header)
 
     find(this.$header, 'th').forEach((th, i) => {
       addEvent(th, 'keypress', (e) => {
@@ -379,7 +358,7 @@ class BootstrapTable {
     } else {
       show(this.$header)
       show(this.$tableHeader)
-      this.$tableLoading.css('top', this.$header.outerHeight() + 1)
+      this.$tableLoading.css('top', this.$header.offsetHeight + 1)
       // Assign the correct sortable arrow
       this.getCaret()
       addEvent(window, resizeEvent, (e) => this.resetWidth(e))
@@ -510,15 +489,17 @@ class BootstrapTable {
     let $search
     let switchableCount = 0
 
-    if (this.$toolbar.find('.bs-bars').children().length) {
-      $('body').append($(o.toolbar))
+    const bsBars = find(this.$toolbar, '.bs-bars')
+    if (bsBars && bsBars[0] && bsBars[0].childNodes.length) {
+      appendTo(document.getElementsByTagName('body')[0], createElem(o.toolbar))
     }
-    this.$toolbar.html('')
+
+    this.$toolbar.innerHTML = ''
 
     if (typeof o.toolbar === 'string' || typeof o.toolbar === 'object') {
-      $(Utils.sprintf('<div class="bs-bars %s-%s"></div>', this.constants.classes.pull, o.toolbarAlign))
-        .appendTo(this.$toolbar)
-        .append($(o.toolbar))
+      const newToolbar = createElem(Utils.sprintf('<div class="bs-bars %s-%s"></div>', this.constants.classes.pull, o.toolbarAlign))
+      appendTo(this.$toolbar, newToolbar)
+      this.$toolbar.appendChild(createElem(o.toolbar))
     }
 
     // showColumns, showToggle, showRefresh
@@ -595,46 +576,57 @@ class BootstrapTable {
 
     // Fix #188: this.showToolbar is for extensions
     if (this.showToolbar || html.length > 2) {
-      this.$toolbar.append(html.join(''))
+      this.$toolbar.appendChild(createElem(html.join('')))
     }
 
     if (o.showPaginationSwitch) {
-      this.$toolbar.find('button[name="paginationSwitch"]')
-        .off('click').on('click', () => this.togglePagination())
+      const paginationSwitch = find(this.$toolbar, 'button[name="paginationSwitch"]')[0]
+      removeEvent(paginationSwitch, 'click')
+      addEvent(paginationSwitch, 'click', () => this.togglePagination())
     }
 
     if (o.showFullscreen) {
-      this.$toolbar.find('button[name="fullscreen"]')
-        .off('click').on('click', () => this.toggleFullscreen())
+      const fullscreen = find(this.$toolbar, 'button[name="fullscreen"]')[0]
+      removeEvent(fullscreen, 'click')
+      addEvent(fullscreen, 'click', () => this.toggleFullscreen())
     }
 
     if (o.showRefresh) {
-      this.$toolbar.find('button[name="refresh"]')
-        .off('click').on('click', () => this.refresh())
+      const refresh = find(this.$toolbar, 'button[name="refresh"]')[0]
+      removeEvent(refresh, 'click')
+      addEvent(refresh, 'click', () => this.refresh())
     }
 
     if (o.showToggle) {
-      this.$toolbar.find('button[name="toggle"]')
-        .off('click').on('click', () => {
-          this.toggleView()
-        })
+      const toggle = find(this.$toolbar, 'button[name="toggle"]')[0]
+      removeEvent(toggle, 'click')
+      addEvent(toggle, 'click', () => this.toggleView())
     }
 
     if (o.showColumns) {
-      $keepOpen = this.$toolbar.find('.keep-open')
+      $keepOpen = find(this.$toolbar, '.keep-open')[0]
 
       if (switchableCount <= o.minimumCountColumns) {
-        $keepOpen.find('input').prop('disabled', true)
+        find($keepOpen, 'input').forEach((input, i) => {
+          input.setAttribute('disabled', 'disabled')
+        })
       }
 
-      $keepOpen.find('li, label').off('click').on('click', e => {
-        e.stopImmediatePropagation()
+      find($keepOpen, 'li, label').forEach((elem, i) => {
+        removeEvent(elem, 'click')
+        addEvent(elem, 'click', (e) => {
+          e.stopImmediatePropagation()
+        })
       })
-      $keepOpen.find('input').off('click').on('click', ({currentTarget}) => {
-        const $this = $(currentTarget)
 
-        this.toggleColumn($this.val(), $this.prop('checked'), false)
-        this.trigger('column-switch', $this.data('field'), $this.prop('checked'))
+      find($keepOpen, 'input').forEach((input, i) => {
+        removeEvent(input, 'click')
+        addEvent(input, 'click', ({currentTarget}) => {
+          const $this = $(currentTarget)
+
+          this.toggleColumn($this.val(), $this.prop('checked'), false)
+          this.trigger('column-switch', $this.data('field'), $this.prop('checked'))
+        })
       })
     }
 
@@ -645,9 +637,10 @@ class BootstrapTable {
         type="text" placeholder="${o.formatSearch()}">
         </div>`)
 
-      this.$toolbar.append(html.join(''))
-      $search = this.$toolbar.find('.search input')
-      $search.off('keyup drop blur').on('keyup drop blur', event => {
+      this.$toolbar.appendChild(createElem(html.join('')))
+      $search = find(this.$toolbar, '.search input')[0]
+      removeEvent($search, 'keyup drop blur')
+      addEvent($search, 'keyup drop blur', (event) => {
         if (o.searchOnEnterKey && event.keyCode !== 13) {
           return
         }
@@ -663,7 +656,8 @@ class BootstrapTable {
       })
 
       if (Utils.isIEBrowser()) {
-        $search.off('mouseup').on('mouseup', event => {
+        removeEvent($search, 'mouseup')
+        addEvent($search, 'mouseup', (event) => {
           clearTimeout(timeoutId) // doesn't matter if it's 0
           timeoutId = setTimeout(() => {
             this.onSearch(event)
@@ -671,6 +665,9 @@ class BootstrapTable {
         })
       }
     }
+
+    // Still support to jQuery
+    this.$toolbar = $(this.$toolbar)
   }
 
   onSearch ({currentTarget, firedByInitSearchText}) {
@@ -1703,10 +1700,10 @@ class BootstrapTable {
 
     const fixedBody = this.$tableBody.get(0)
     const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-    fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
+    fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.offsetHeight
       ? Utils.getScrollBarWidth() : 0
 
-    this.$el.css('margin-top', -this.$header.outerHeight())
+    this.$el.css('margin-top', -this.$header.offsetHeight)
 
     const focused = $(':focus')
     if (focused.length > 0) {
@@ -1722,8 +1719,8 @@ class BootstrapTable {
       }
     }
 
-    this.$header_ = this.$header.clone(true, true)
-    this.$selectAll_ = this.$header_.find('[name="btSelectAll"]')
+    this.$header_ = this.$header.cloneNode(true)
+    this.$selectAll_ = find(this.$header_, '[name="btSelectAll"]')
     this.$tableHeader
       .css('margin-right', scrollWidth)
       .find('table').css('width', this.$el.outerWidth())
@@ -1738,28 +1735,29 @@ class BootstrapTable {
       removeClass(this.$header.find('.focus-temp'), 'focus-temp')
     }
 
-    // fix bug: $.data() is not working as expected after $.append()
-    this.$header.find('th[data-field]').each((i, el) => {
-      this.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data())
+    find(this.$header, 'th[data-field]').forEach((el, i) => {
+      find(this.$header_, Utils.sprintf('th[data-field="%s"]', el.getAttribute('data-field'))).forEach((el_, i_) => {
+        el_ = el.cloneNode(true)
+      })
     })
 
     const visibleFields = this.getVisibleFields()
-    const $ths = this.$header_.find('th')
-    let $tr = this.$body.find('>tr:not(.no-records-found,.virtual-scroll-top)').eq(0)
+    const $ths = find(this.$header_, 'th')
+    let $tr = find(this.$body, 'tr:not(.no-records-found):not(.virtual-scroll-top)')[0]
 
-    while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
-      $tr = $tr.next()
+    while ($tr && find($tr, 'td[colspan]:not([colspan="1"])').length) {
+      $tr = $tr.nextSibling
     }
 
-    $tr.find('> *').each((i, el) => {
-      const $this = $(el)
+    find($tr, 'td').forEach((el, i) => {
+      const $this = el
       let index = i
 
       if (this.options.detailView && !this.options.cardView) {
         if (i === 0) {
           const $thDetail = $ths.filter('.detail')
-          const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()
-          $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
+          const zoomWidth = $thDetail.offsetWidth - find($thDetail, '.fht-cell')[0].offsetWidth
+          find($thDetail, '.fht-cell')[0].style.width = $this.clientWidth - zoomWidth
         }
         index = i - 1
       }
@@ -1768,13 +1766,13 @@ class BootstrapTable {
         return
       }
 
-      let $th = this.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]))
+      let $th = find(this.$header_, Utils.sprintf('th[data-field="%s"]', visibleFields[index]))[0]
       if ($th.length > 1) {
-        $th = $($ths[$this[0].cellIndex])
+        $th = $ths[$this.cellIndex]
       }
 
-      const zoomWidth = $th.width() - $th.find('.fht-cell').width()
-      $th.find('.fht-cell').width($this.innerWidth() - zoomWidth)
+      const zoomWidth = $th.offsetWidth - find($th, '.fht-cell')[0].offsetWidth
+      find($th, '.fht-cell')[0].style.width = $this.clientWidth - zoomWidth
     })
 
     this.horizontalScroll()
@@ -1849,7 +1847,7 @@ class BootstrapTable {
 
     const fixedBody = this.$tableBody.get(0)
     const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-    fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight()
+    fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.offsetHeight
       ? Utils.getScrollBarWidth() : 0
 
     this.$tableFooter
@@ -1965,7 +1963,7 @@ class BootstrapTable {
     if (!this.options.cardView && this.options.showHeader && this.options.height) {
       show(this.$tableHeader)
       this.resetHeader()
-      padding += this.$header.outerHeight(true)
+      padding += outerHeight(this.$header)
     } else {
       hide(this.$tableHeader)
       this.trigger('post-header')
@@ -1975,15 +1973,15 @@ class BootstrapTable {
       show(this.$tableFooter)
       this.fitFooter()
       if (this.options.height) {
-        padding += this.$tableFooter.outerHeight(true)
+        padding += outerHeight(this.$tableFooter)
       }
     }
 
     if (this.options.height) {
-      const toolbarHeight = this.$toolbar.outerHeight(true)
-      const paginationHeight = this.$pagination.outerHeight(true)
+      const toolbarHeight = outerHeight(this.$toolbar)
+      const paginationHeight = outerHeight(this.$pagination)
       const height = this.options.height - toolbarHeight - paginationHeight
-      const tableHeight = this.$tableBody.find('table').outerHeight(true)
+      const tableHeight = outerHeight(this.$tableBody.find('table'))
       this.$tableContainer[0].style.height = `${height}px`
       this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
     }
@@ -2597,7 +2595,7 @@ class BootstrapTable {
     if (options.unit === 'rows') {
       scrollTo = 0
       this.$body.find(`> tr:lt(${options.value})`).each((i, el) => {
-        scrollTo += $(el).outerHeight(true)
+        scrollTo += outerHeight($(el))
       })
     }
 

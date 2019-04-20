@@ -26,7 +26,7 @@ class VirtualScroll {
 
     this.scrollEl.addEventListener('scroll', onScroll, false)
     this.destroy = () => {
-      this.contentEl.innerHtml = ''
+      this.contentEl.innerHTML = ''
       this.scrollEl.removeEventListener('scroll', onScroll, false)
     }
   }

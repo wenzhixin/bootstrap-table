@@ -7,13 +7,16 @@ export const addEvent = (obj, type, func, capture) => {
   if (isUndefined(obj)) {
     return
   }
-  if (obj.addEventListener) {
-    obj.addEventListener(type, func, capture)
-  }
-  else if (obj.attachEvent) {
-    obj.attachEvent('on' + type, func)
-  } else {
-    obj['on' + type] = func
+  const types = type.match(/\S+/g) || []
+  for (let i = 0; i < types.length; i++) {
+    if (obj.addEventListener) {
+      obj.addEventListener(types[i], func, capture)
+    }
+    else if (obj.attachEvent) {
+      obj.attachEvent('on' + types[i], func)
+    } else {
+      obj['on' + types[i]] = func
+    }
   }
 }
 
@@ -24,12 +27,15 @@ export const removeEvent = (obj, type, func, capture) => {
   if (isUndefined(obj)) {
     return
   }
-  if (obj.removeEventListener) {
-    obj.removeEventListener(type, func, capture)
-  } else if (obj.detachEvent) {
-    obj.detachEvent('on' + type, func)
-  } else {
-    obj['on' + type] = null
+  const types = type.match(/\S+/g) || []
+  for (let i = 0; i < types.length; i++) {
+    if (obj.removeEventListener) {
+      obj.removeEventListener(types[i], func, capture)
+    } else if (obj.detachEvent) {
+      obj.detachEvent('on' + types[i], func)
+    } else {
+      obj['on' + types[i]] = null
+    }
   }
 }
 

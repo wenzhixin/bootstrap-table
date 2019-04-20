@@ -1,3 +1,5 @@
+import {isJQueryObject, isUndefined} from '../utils/types'
+
 export const defaultDisplay = (tag) => {
   const iframe = document.createElement('iframe')
   iframe.setAttribute('frameborder', 0)
@@ -23,10 +25,19 @@ export const showHide = (elements, show) => {
   let elem
   let computedDisplay
   const values = []
+  elements = Array.isArray(elements) ? elements : [elements]
   const length = elements.length
 
   for (let index = 0; index < length; index++) {
     elem = elements[index]
+    if (isJQueryObject(elem)) {
+      elem = elem[0]
+    }
+
+    if (isUndefined(elem)) {
+      continue
+    }
+
     if (!elem.style) {
       continue
     }
@@ -47,4 +58,42 @@ export const showHide = (elements, show) => {
   }
 
   return elements
+}
+
+const htmlRegex = /^[\s]*<([a-z][^\\/\s>]+)/i
+
+const WRAP_MAP = {
+  div: ['div', '<div>', '</div>'],
+  thead: ['table', '<table>', '</table>'],
+  col: ['colgroup', '<table><colgroup>', '</colgroup></table>'],
+  tr: ['tbody', '<table><tbody>', '</tbody></table>'],
+  td: ['tr', '<table><tr>', '</tr></table>']
+}
+WRAP_MAP.caption = WRAP_MAP.colgroup = WRAP_MAP.tbody = WRAP_MAP.tfoot = WRAP_MAP.thead
+WRAP_MAP.th = WRAP_MAP.td
+
+export function createFragmentFromWrap (html) {
+  const fragment = document.createDocumentFragment()
+  const queryContainer = document.createElement('div')
+  let firstTag = null
+  const match = html.match(htmlRegex)
+  if (match) {
+    firstTag = match[1]
+  }
+
+  const wrap = WRAP_MAP[firstTag || 'div']
+
+  if (wrap[0] === 'div') {
+    return document.createRange().createContextualFragment(html).firstChild
+  }
+
+  queryContainer.insertAdjacentHTML('beforeend', `${wrap[1]}${html}${wrap[2]}`)
+
+  const query = queryContainer.querySelector(wrap[0])
+
+  while (query.firstChild) {
+    fragment.appendChild(query.firstChild)
+  }
+
+  return fragment.firstChild
 }

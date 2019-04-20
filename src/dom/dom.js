@@ -1,5 +1,5 @@
 import {isString, isUndefined, isJQueryObject} from '../utils/types'
-import {showHide} from './helpers'
+import {showHide, createFragmentFromWrap} from './helpers'
 
 export const createText = (text) => document.createTextNode(text)
 
@@ -11,12 +11,20 @@ export const getText = (node) => {
 }
 
 export const createElem = (...args) => {
-  const tag = args[0]
+  let tag = args[0]
+  if (isJQueryObject(tag)) {
+    return tag[0]
+  }
+
   if (!isString(tag)) {
     return null
   }
 
-  const el = document.createElement(tag)
+  if (!tag.includes('<')) {
+    tag = `<${tag}>`
+  }
+  const el = createFragmentFromWrap(tag)
+
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]
 
@@ -129,6 +137,11 @@ export const find = (ele, selector) => {
   if (isJQueryObject(ele)) {
     ele = ele[0]
   }
+
+  if (ele && ele.length) {
+    ele = Array.from(ele)[0]
+  }
+
   if (isUndefined(ele)) {
     return
   }
@@ -154,4 +167,19 @@ export const appendTo = (target, elem) => {
   }
 
   target.appendChild(elem)
+}
+
+export const outerHeight = (elem) => {
+  if (isJQueryObject(elem)) {
+    elem = elem[0]
+  }
+
+  if (isUndefined(elem)) {
+    return 0
+  }
+  let height = elem.offsetHeight
+  const style = getComputedStyle(elem)
+
+  height += parseInt(style.marginTop) + parseInt(style.marginBottom)
+  return height
 }
