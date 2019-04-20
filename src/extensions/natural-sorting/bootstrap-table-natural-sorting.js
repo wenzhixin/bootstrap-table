@@ -1,7 +1,6 @@
 /**
  * @author: Brian Huisman
  * @webSite: http://www.greywyvern.com
- * @version: v1.0.0
  * JS functions to allow natural sorting on bootstrap-table columns
  * add data-sorter="alphanum" or data-sorter="numericOnly" to any th
  *
@@ -9,59 +8,64 @@
  * @update Duane May
  */
 
-function alphanum(a, b) {
-  function chunkify(t) {
-    var tz = [],
-        x = 0,
-        y = -1,
-        n = 0,
-        i,
-        j;
+function alphanum (a, b) {
+  function chunkify (t) {
+    const tz = []
+    let y = -1
+    let n = 0
 
-    while (i = (j = t.charAt(x++)).charCodeAt(0)) {
-      var m = (i === 46 || (i >= 48 && i <= 57));
+    for (let i = 0; i <= t.length; i++) {
+      const char = t.charAt(i)
+      const charCode = char.charCodeAt(0)
+      const m = (charCode === 46 || (charCode >= 48 && charCode <= 57))
       if (m !== n) {
-        tz[++y] = "";
-        n = m;
+        tz[++y] = ''
+        n = m
       }
-      tz[y] += j;
+      tz[y] += char
     }
-    return tz;
+
+    return tz
   }
 
-  function stringfy(v) {
-    if (typeof(v) === "number") {
-      v = "" + v;
+  function stringfy (v) {
+    if (typeof(v) === 'number') {
+      v = `${v}`
     }
     if (!v) {
-      v = "";
+      v = ''
     }
-    return v;
+    return v
   }
 
-  var aa = chunkify(stringfy(a));
-  var bb = chunkify(stringfy(b));
+  const aa = chunkify(stringfy(a))
+  const bb = chunkify(stringfy(b))
 
-  for (x = 0; aa[x] && bb[x]; x++) {
+  for (let x = 0; aa[x] && bb[x]; x++) {
     if (aa[x] !== bb[x]) {
-      var c = Number(aa[x]),
-          d = Number(bb[x]);
+      const c = Number(aa[x])
+      const d = Number(bb[x])
 
-      if (c == aa[x] && d == bb[x]) {
-        return c - d;
-      } else {
-          return (aa[x] > bb[x]) ? 1 : -1;
+      if (c === aa[x] && d === bb[x]) {
+        return c - d
       }
+      return (aa[x] > bb[x]) ? 1 : -1
+
     }
   }
-  return aa.length - bb.length;
+  return aa.length - bb.length
 }
 
-function numericOnly(a, b) {
-    function stripNonNumber(s) {
-        s = s.replace(new RegExp(/[^0-9]/g), "");
-        return parseInt(s, 10);
-    }
+function numericOnly (a, b) {
+  function stripNonNumber (s) {
+    s = s.replace(new RegExp(/[^0-9]/g), '')
+    return parseInt(s, 10)
+  }
 
-    return stripNonNumber(a) - stripNonNumber(b);
+  return stripNonNumber(a) - stripNonNumber(b)
+}
+
+export default {
+  alphanum,
+  numericOnly
 }

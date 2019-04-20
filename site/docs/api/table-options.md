@@ -37,6 +37,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   The height of table, enable fixed header of table.
 
+  Note that if there are multiple tables on a page and the height option is set at the same time, you need to add the `id` attribute to each table, otherwise, the window resize will not work properly.
+
 - **Default:** `undefined`
 
 - **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
@@ -275,7 +277,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 ## data
 
-- **Attribute:** `-`
+- **Attribute:** `data-data`
 
 - **Type:** `Array | Object`
 
@@ -303,6 +305,10 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   * [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
 
 - **Default:** `undefined`
+
+- **Error handling**
+
+  To get loading errors please use [onLoadError](https://bootstrap-table.com/docs/api/events/#onloaderror)
 
 - **Example:** [From URL](https://examples.bootstrap-table.com/#welcomes/from-url.html)
 
@@ -496,6 +502,35 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Only Info Pagination](https://examples.bootstrap-table.com/#options/only-info-pagination.html)
 
+## showExtendedPagination
+
+- **Attribute:** `data-show-extended-pagination`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a extended version of pagination (including the count of all rows with out filters).
+  If you use pagination on the server side pls use totalNotFilteredField to define the count.
+
+- **Default:** `false`
+
+- **Example:** [Show Extended Pagination](https://examples.bootstrap-table.com/#options/show-extended-pagination.html)
+
+## totalNotFilteredField
+
+- **Attribute:** `data-total-not-filtered-field`
+
+- **Type:** `string`
+
+- **Detail:**
+
+  The field from the json response which will used for showExtendedPagination.
+
+- **Default:** `totalNotFiltered`
+
+- **Example:** [Total Not Filtered Field](https://examples.bootstrap-table.com/#options/total-not-filtered-field.html)
+
 ## paginationLoop
 
 - **Attribute:** `data-pagination-loop`
@@ -578,7 +613,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  When set pagination property, initialize the page size selecting list. If you include the `'All'` or `'Unlimited'` option, all the records will be shown in your table.
+  When set pagination property, initialize the page size selecting list. If you include the `'all'` or `'unlimited'` option, all the records will be shown in your table.
 
 - **Default:** `[10, 25, 50, 100]`
 
@@ -706,6 +741,14 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   Enable the search input.
 
+  There are 3 ways to search:
+  - The value contains the search query (Default).
+    Example: Github contains git.
+  - The value must be identical to the search query.
+    Example: Github (value) and Github (search query).
+  - Comparisons (<, >, <=, =<, >=, =>)
+    Example: 4 is larger than 3.
+
 - **Default:** `false`
 
 - **Example:** [Table Search](https://examples.bootstrap-table.com/#options/table-search.html)
@@ -733,6 +776,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Enable the strict search.
+  Disables the comparison checks.
 
 - **Default:** `false`
 
@@ -996,7 +1040,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate which field is an identity field.
+  Indicate which field will be used as checkbox/radiobox value, its the counterpart to [selectItemName](https://bootstrap-table.com/docs/api/table-options/#selectitemname).
 
 - **Default:** `undefined`
 
@@ -1076,19 +1120,35 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Checkbox Header](https://examples.bootstrap-table.com/#options/checkbox-header.html)
 
-## maintainSelected
+## maintainMetaData
 
-- **Attribute:** `data-maintain-selected`
+- **Attribute:** `data-maintain-meta-data`
 
 - **Type:** `Boolean`
 
 - **Detail:**
 
-  Set `true` to maintain selected rows on change page and search.
+  Set `true` to maintain the following meta data on change page and search
+   * selected rows
+   * hidden rows
 
 - **Default:** `false`
 
-- **Example:** [Maintain Selected](https://examples.bootstrap-table.com/#options/maintain-selected.html)
+- **Example:** [Maintain Meta Data](https://examples.bootstrap-table.com/#options/maintain-meta-data.html)
+
+## multipleSelectRow
+
+- **Attribute:** `data-multiple-select-row`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to enable the multiple selection row. Can use the ctrl+click to select one row or use shift+click to select a range of rows.
+
+- **Default:** `false`
+
+- **Example:** [Multiple Select Row](https://examples.bootstrap-table.com/#options/multiple-select-row.html)
 
 ## uniqueId
 
@@ -1132,6 +1192,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)
 
+## detailViewIcon
+
+- **Attribute:** `data-detail-view-icon`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show the detail view column (plus/minus icon).
+
+- **Default:** `true`
+
+- **Example:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
+
 ## detailFormatter
 
 - **Attribute:** `data-detail-formatter`
@@ -1159,6 +1233,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `function(index, row) { return true }`
 
 - **Example:** [Detail Filter](https://examples.bootstrap-table.com/#options/detail-filter.html)
+
+## detailViewByClick
+
+- **Attribute:** `data-detail-view-by-click`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to toggle the detail view, when a cell is clicked.
+
+- **Default:** `false`
+
+- **Example:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
 
 ## toolbar
 

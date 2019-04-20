@@ -351,7 +351,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Detail:**
 
-  Show the specified `field` column.
+  Show the specified `field` column.   
+  The parameter can be a string or a array of fields.
 
 ## hideColumn
 
@@ -359,7 +360,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Detail:**
 
-  Hide the specified `field` column.
+  Hide the specified `field` column.   
+  The parameter can be a string or a array of fields.
 
 ## getHiddenColumns
 
@@ -379,12 +381,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## scrollTo
 
-- **Parameter:** `value`
+- **Parameter:** `value|object`
 
 - **Detail:**
 
-  Scroll to the number `value` position, the unit is `'px'`, set `'bottom'` means scroll to the bottom.
-
+  - value
+    - Scroll to the number `value` position, the unit is `'px'`, set `'bottom'` means scroll to the bottom.
+  - object
+    -  Scroll to the unit (`px` or `rows (index starts by 0)`)   
+    Default: `{unit: 'px', value: 0}`
+    
 ## getScrollPosition
 
 - **Parameter:** `undefined`
@@ -395,11 +401,39 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## filterBy
 
-- **Parameter:** `params`
+- **Parameter:**
+    - `filter - An Object of filter`   
+    Default: `{}`
+    - `options - An Object of options`   
+    Default:
+        ```
+        {
+            'filterAlgorithm': 'and'
+        }
+        ```
+       
 
 - **Detail:**
+  
+  (Can use only in client-side) Filter data in table.   
+  There are multiple ways to filter:
+  - Leave the options blank to use the `and` filter.
+  - Set the `filterAlgorithm` (see at parameter) to `or` to use the `or` filter.
+  - Pass a function to the `filterAlgorithm` (see at parameter) to use a `custom` filter.
+    
+  #####Filter Algorithm
+  
+  - And
+    - Filter `{age: 10}` to show the data only age is equal to 10.  You can also filter with an array of values, as in: `{age: 10, hairColor: ['blue', 'red', 'green']}` to find data where age is equal to 10 and hairColor is either blue, red, or green.
+  - Or
+    - Filter `{age: 10, name: "santa"}` to show all Data which has a age of 10 **or** the name is equals to santa.
+  - Custom
+    - Filter by your Custom algorithm
+    - Function parameters:
+        - Row
+        - Filters
+    - Return `true` to keep the row and return `false` to filter the row.
 
-  (Can use only in client-side) Filter data in table, e.g. you can filter `{age: 10}` to show the data only age is equal to 10.  You can also filter with an array of values, as in: `{age: 10, hairColor: ['blue', 'red', 'green']}` to find data where age is equal to 10 and hairColor is either blue, red, or green.
 
 ## selectPage
 
@@ -441,6 +475,14 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Toggle the card/table view.
 
+## toggleDetailView
+
+- **Parameter:** `index`
+
+- **Detail:**
+
+  Toggle the row that has the `index` passed by parameter if the detail view option is set to `true`.
+
 ## expandRow
 
 - **Parameter:** `index`
@@ -459,15 +501,11 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## expandAllRows
 
-- **Parameter:** `isSubTable`
-
 - **Detail:**
 
   Expand all rows if the detail view option is set to `true`.
 
 ## collapseAllRows
-
-- **Parameter:** `isSubTable`
 
 - **Detail:**
 

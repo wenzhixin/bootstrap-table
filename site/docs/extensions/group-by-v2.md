@@ -33,7 +33,7 @@ You must include the bootstrap-table-group-by.css file in order to get the appro
 
 - **Detail:**
 
-   Set the fields name that you want to group the data.
+   Set the field name that you want to group the data.
 
 - **Default:** `''`
 

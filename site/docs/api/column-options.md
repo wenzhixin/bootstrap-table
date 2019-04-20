@@ -8,30 +8,6 @@ toc: true
 
 The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
-## radio
-
-- **Attribute:** `data-radio`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to show a radio. The radio column has fixed width.
-
-- **Default:** `false`
-
-## checkbox
-
-- **Attribute:** `data-checkbox`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to show a checkbox. The checkbox column has fixed width.
-
-- **Default:** `false`
-
 ## field
 
 - **Attribute:** `data-field`
@@ -79,6 +55,30 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   The column class name.
 
 - **Default:** `undefined`
+
+## width
+
+- **Attribute:** `data-width`
+
+- **Type:** `Number`
+
+- **Detail:**
+
+  The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this `'width'` might be ignored (use min/max-width via class or such then). The default used Unit is 'px', use `widthUnit` to change it!
+
+- **Default:** `undefined`
+
+## widthUnit
+
+- **Attribute:** `data-width-unit`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines the unit which is used for the option `width`.
+
+- **Default:** `px`
 
 ## rowspan
 
@@ -152,17 +152,90 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-## width
+## cellStyle
 
-- **Attribute:** `data-width`
+- **Attribute:** `data-cell-style`
 
-- **Type:** `Number | String`
+- **Type:** `Function`
 
 - **Detail:**
 
-  The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this `'width'` might be ignored (use min/max-width via class or such then). Also you can add `'%'` to your number and the Bootstrap Table will use the percentage unit, otherwise, leave as number (or add `'px'`) to make it use pixels.
+  The cell style formatter function, take four parameters:
+
+  * `value`: the field value.
+  * `row`: the row record data.
+  * `index`: the row index.
+  * `field`: the row field.
+
+  Support classes or css.
 
 - **Default:** `undefined`
+
+## radio
+
+- **Attribute:** `data-radio`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a radio. The radio column has fixed width.
+  
+  If a value is given the Checkbox is automatically checked.  
+  Its also possible to check/uncheck the radio by use an formatter (return `true` to check, return `false` to uncheck).
+
+- **Default:** `false`
+
+## checkbox
+
+- **Attribute:** `data-checkbox`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a checkbox. The checkbox column has fixed width.
+  
+  If a value is given the Checkbox is automatically checked.  
+  Its also possible to check/uncheck the checkbox by use an formatter (return `true` to check, return `false` to uncheck). 
+
+- **Default:** `false`
+
+## checkboxEnabled
+
+- **Attribute:** `data-checkbox-enabled`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to disable the the checkboxes/radioboxes.
+
+- **Default:** `true`
+
+## clickToSelect
+
+- **Attribute:** `data-click-to-select`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to select checkbox or radio when the column is clicked.
+
+- **Default:** `true`
+
+## showSelectTitle
+
+- **Attribute:** `data-show-select-title`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
+
+- **Default:** `false`
 
 ## sortable
 
@@ -176,6 +249,18 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `false`
 
+## sortName
+
+- **Attribute:** `data-sort-name`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Provide a customizable sort-name, not the default sort-name in the header, or the field name of the column. For example, a column might display the value of fieldName of 'html' such as `<b><span style="color:red">abc</span></b>`, but a fieldName to sort is 'content' with the value of `'abc'`.
+
+- **Default:** `undefined`
+
 ## order
 
 - **Attribute:** `data-order`
@@ -188,6 +273,23 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `'asc'`
 
+## sorter
+
+- **Attribute:** `data-sorter`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  The custom field sort function that used to do local sorting, take four parameters:
+
+  * `a`: the first field value.
+  * `b`: the second field value.
+  * `rowA`: the first row.
+  * `rowB`: the second row.
+
+- **Default:** `undefined`
+
 ## visible
 
 - **Attribute:** `data-visible`
@@ -197,18 +299,6 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 - **Detail:**
 
   Set `false` to hide the columns item.
-
-- **Default:** `true`
-
-## cardVisible
-
-- **Attribute:** `data-card-visible`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `false` to hide the columns item in card view state.
 
 - **Default:** `true`
 
@@ -224,15 +314,27 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
-## clickToSelect
+## cardVisible
 
-- **Attribute:** `data-click-to-select`
+- **Attribute:** `data-card-visible`
 
 - **Type:** `Boolean`
 
 - **Detail:**
 
-  Set `true` to select checkbox or radio when the column is clicked.
+  Set `false` to hide the columns item in card view state.
+
+- **Default:** `true`
+
+## searchable
+
+- **Attribute:** `data-searchable`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to search data for this column.
 
 - **Default:** `true`
 
@@ -273,91 +375,19 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-## events
+## detailFormatter
 
-- **Attribute:** `data-events`
-
-- **Type:** `Object`
-
-- **Detail:**
-
-  The cell events listener when you use formatter function, take four parameters:
-
-  * `event`: the jQuery event.
-  * `value`: the field value.
-  * `row`: the row record data.
-  * `index`: the row index.
-
-  Example code:
-
-   {% highlight html %}
-  <th .. data-events="operateEvent">
-  var operateEvents = {
-    'click .like': function (e, value, row, index) {}
-  }
-  {% endhighlight %}
-
-- **Default:** `undefined`
-
-## sorter
-
-- **Attribute:** `data-sorter`
+- **Attribute:** `data-detail-formatter`
 
 - **Type:** `Function`
 
 - **Detail:**
 
-  The custom field sort function that used to do local sorting, take four parameters:
+  Format your detail view when `detailView` and `detailViewByClick` is set to `true`. Return a `String` and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
 
-  * `a`: the first field value.
-  * `b`: the second field value.
-  * `rowA`: the first row.
-  * `rowB`: the second row.
+  Fallback is the detail-formatter of the table.
 
-- **Default:** `undefined`
-
-## sortName
-
-- **Attribute:** `data-sort-name`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Provide a customizable sort-name, not the default sort-name in the header, or the field name of the column. For example, a column might display the value of fieldName of 'html' such as `<b><span style="color:red">abc</span></b>`, but a fieldName to sort is 'content' with the value of `'abc'`.
-
-- **Default:** `undefined`
-
-## cellStyle
-
-- **Attribute:** `data-cell-style`
-
-- **Type:** `Function`
-
-- **Detail:**
-
-  The cell style formatter function, take four parameters:
-
-  * `value`: the field value.
-  * `row`: the row record data.
-  * `index`: the row index.
-  * `field`: the row field.
-
-  Support classes or css.
-
-- **Default:** `undefined`
-
-## searchable
-
-- **Attribute:** `data-searchable`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to search data for this column.
-
-- **Default:** `true`
+- **Default:** `function(index, row, element) { return '' }`
 
 ## searchFormatter
 
@@ -383,14 +413,28 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `false`
 
-## showSelectTitle
+## events
 
-- **Attribute:** `data-show-select-title`
+- **Attribute:** `data-events`
 
-- **Type:** `Boolean`
+- **Type:** `Object`
 
 - **Detail:**
 
-  Set `true` to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
+  The cell events listener when you use formatter function, take four parameters:
 
-- **Default:** `false`
+  * `event`: the jQuery event.
+  * `value`: the field value.
+  * `row`: the row record data.
+  * `index`: the row index.
+
+  Example code:
+
+   {% highlight html %}
+  <th .. data-events="operateEvent">
+  var operateEvents = {
+    'click .like': function (e, value, row, index) {}
+  }
+  {% endhighlight %}
+
+- **Default:** `undefined`
