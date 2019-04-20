@@ -114,7 +114,7 @@ class BootstrapTable {
       this.$toolbar = find(this.$container, '.fixed-table-toolbar')[0]
     }
 
-    this.$pagination = this.$container.find('.fixed-table-pagination')
+    this.$pagination = find(this.$container, '.fixed-table-pagination')[0]
 
     this.$tableBody.append(this.$el)
     this.$container.after('<div class="clearfix"></div>')
@@ -1039,25 +1039,26 @@ class BootstrapTable {
       html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-next', o.paginationNextText))
       html.push(this.constants.html.pagination[1], '</div>')
     }
-    this.$pagination.html(html.join(''))
+    this.$pagination.innerHTML = ''
+    this.$pagination.appendChild(createElem(html.join('')))
 
     const dropupClass = ['bottom', 'both'].includes(o.paginationVAlign) ?
       ` ${this.constants.classes.dropup}` : ''
-    addClass(this.$pagination.last().find('.page-list > span'), dropupClass)
+    addClass(find(this.$pagination, '.page-list > span')[0], dropupClass)
 
     if (!o.onlyInfoPagination) {
-      $pageList = this.$pagination.find('.page-list a')
-      $pre = this.$pagination.find('.page-pre')
-      $next = this.$pagination.find('.page-next')
-      $number = this.$pagination.find('.page-item').not('.page-next, .page-pre, .page-last-separator, .page-first-separator')
+      $pageList = find(this.$pagination, '.page-list a')
+      $pre = find(this.$pagination, '.page-pre')
+      $next = find(this.$pagination, '.page-next')
+      $number = find(this.$pagination, '.page-item:not(.page-next):not(.page-pre):not(.page-last-separator):not(.page-first-separator)')
 
       if (this.totalPages <= 1) {
-        hide(this.$pagination.find('div.pagination'))
+        hide(find(this.$pagination, 'div.pagination'))
       }
 
       if (o.smartDisplay) {
         if (pageList.length < 2 || o.totalRows <= pageList[0]) {
-          hide(this.$pagination.find('span.page-list'))
+          hide(find(this.$pagination, 'span.page-list'))
         }
       }
 
@@ -1081,10 +1082,17 @@ class BootstrapTable {
         o.pageSize = o.formatAllRows()
       }
       // removed the events for last and first, onPageNumber executeds the same logic
-      $pageList.off('click').on('click', e => this.onPageListChange(e))
-      $pre.off('click').on('click', e => this.onPagePre(e))
-      $next.off('click').on('click', e => this.onPageNext(e))
-      $number.off('click').on('click', e => this.onPageNumber(e))
+      removeEvent($pageList, 'click')
+      addEvent($pageList, 'click', (e) => this.onPageListChange(e))
+
+      removeEvent($pre, 'click')
+      addEvent($pre, 'click', (e) => this.onPagePre(e))
+
+      removeEvent($next, 'click')
+      addEvent($next, 'click', (e) => this.onPageNext(e))
+
+      removeEvent($number, 'click')
+      addEvent($number, 'click', (e) => this.onPageNumber(e))
     }
   }
 

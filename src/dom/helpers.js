@@ -84,7 +84,8 @@ export function createFragmentFromWrap (html) {
   const wrap = WRAP_MAP[firstTag || 'div']
 
   if (wrap[0] === 'div') {
-    return document.createRange().createContextualFragment(html).firstChild
+    const newElement = document.createRange().createContextualFragment(html)
+    return newElement.childElementCount > 1 ? newElement : newElement.firstChild
   }
 
   queryContainer.insertAdjacentHTML('beforeend', `${wrap[1]}${html}${wrap[2]}`)
@@ -95,5 +96,5 @@ export function createFragmentFromWrap (html) {
     fragment.appendChild(query.firstChild)
   }
 
-  return fragment.firstChild
+  return fragment.childElementCount > 1 ? fragment : fragment.firstChild
 }

@@ -58,6 +58,7 @@ export const hasClass = (ele, cls) => {
 }
 
 export const toggleClass = (elements, cls, force) => {
+  elements = (elements && elements.length) ? Array.from(elements) : [elements]
   let elem
   const length = elements.length
   const classes = cls.match(/\S+/g) || []
