@@ -1,4 +1,5 @@
 import {isFunction, isPlainObject} from './types.js'
+import {find} from '../dom/dom.js'
 
 export default {
   // it only does '%s', and return '' when arguments are undefined
@@ -197,17 +198,17 @@ export default {
     const data = []
     const m = []
 
-    $els.each((y, el) => {
+    $els.forEach((el, y) => {
       const row = {}
 
       // save tr's id, class and data-* attributes
-      row._id = $(el).attr('id')
-      row._class = $(el).attr('class')
+      row._id = el.getAtrribute('id')
+      row._class = el.getAtrribute('class')
       row._data = this.getRealDataAttr($(el).data())
 
-      $(el).find('>td,>th').each((_x, el) => {
-        const cspan = +$(el).attr('colspan') || 1
-        const rspan = +$(el).attr('rowspan') || 1
+      find(el, '>td,>th').forEach((el, _x) => {
+        const cspan = +el.getAtrribute('colspan') || 1
+        const rspan = +el.getAtrribute('rowspan') || 1
         let x = _x
 
         // skip already occupied cells in current row
@@ -227,17 +228,18 @@ export default {
 
         const field = columns[x].field
 
-        row[field] = $(el).html().trim()
+        row[field] = el.innerHTML.trim()
         // save td's id, class and data-* attributes
-        row[`_${field}_id`] = $(el).attr('id')
-        row[`_${field}_class`] = $(el).attr('class')
-        row[`_${field}_rowspan`] = $(el).attr('rowspan')
-        row[`_${field}_colspan`] = $(el).attr('colspan')
-        row[`_${field}_title`] = $(el).attr('title')
+        row[`_${field}_id`] = el.getAtrribute('id')
+        row[`_${field}_class`] = el.getAtrribute('class')
+        row[`_${field}_rowspan`] = el.getAtrribute('rowspan')
+        row[`_${field}_colspan`] = el.getAtrribute('colspan')
+        row[`_${field}_title`] = el.getAtrribute('title')
         row[`_${field}_data`] = this.getRealDataAttr($(el).data())
       })
       data.push(row)
     })
+
     return data
   },
 

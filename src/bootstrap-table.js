@@ -194,15 +194,15 @@ class BootstrapTable {
 
     // if options.data is setting, do not process tbody and tfoot data
     if (!this.options.data.length) {
-      this.options.data = Utils.trToData(this.columns, this.$el.find('>tbody>tr'))
+      this.options.data = Utils.trToData(this.columns, find(this.$el, 'tbody>tr'))
       if (data.length) {
         this.fromHtml = true
       }
     }
 
-    this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr'))
-    if (this.footerData) {
-      this.$el.find('tfoot').html('<tr></tr>')
+    this.footerData = Utils.trToData(this.columns, find(this.$el, 'tfoot>tr'))
+    if (this.footerData.length) {
+      find(this.$el, 'tfoot')[0].appendChild(createElem('tr'))
     }
 
     if (!this.options.showFooter || this.options.cardView) {
@@ -1369,9 +1369,12 @@ class BootstrapTable {
 
     this.trigger('pre-body', data)
 
-    this.$body = this.$el.find('>tbody')
+    this.$body = find(this.$el, 'tbody')
     if (!this.$body.length) {
-      this.$body = $('<tbody></tbody>').appendTo(this.$el)
+      this.$body = createElem('tbody')
+      appendTo(this.$el, this.$body)
+    } else {
+      this.$body = this.$body[0]
     }
 
     // Fix #389 Bootstrap-table-flatJSON is not working
@@ -1394,9 +1397,9 @@ class BootstrapTable {
 
     // show no records
     if (!hasTr) {
-      this.$body.html(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
+      this.$body.appendChild(createElem(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
         this.$header.find('th').length,
-        this.options.formatNoMatches())}</tr>`)
+        this.options.formatNoMatches())}</tr>`))
     } else {
       if (this.virtualScroll) {
         this.virtualScroll.destroy()
@@ -1404,7 +1407,7 @@ class BootstrapTable {
       this.virtualScroll = new VirtualScroll({
         rows,
         scrollEl: this.$tableBody[0],
-        contentEl: this.$body[0],
+        contentEl: this.$body,
         callback: () => {
           this.fitHeader()
         }
@@ -1416,7 +1419,9 @@ class BootstrapTable {
     }
 
     // click to select by column
-    this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', e => {
+    const tds = find(this.$body, 'tr[data-index] > td')
+    removeEvent(tds, 'click dblclick')
+    addEvent(tds, 'click dblclick', (e) => {
       const $td = $(e.currentTarget)
       const $tr = $td.parent()
       const $cardViewArr = $(e.target).parents('.card-views').children()
@@ -1452,25 +1457,34 @@ class BootstrapTable {
       if (e.type === 'click' && this.options.detailViewByClick) {
         this.toggleDetailView(rowIndex)
       }
-    }).off('mousedown').on('mousedown', e => {
+    })
+
+    removeEvent(tds, 'mousedown')
+    addEvent(tds, 'mousedown', (e) => {
       // https://github.com/jquery/jquery/issues/1741
       this.multipleSelectRowCtrlKey = e.ctrlKey || e.metaKey
       this.multipleSelectRowShiftKey = e.shiftKey
     })
 
-    this.$body.find('> tr[data-index] > td > .detail-icon').off('click').on('click', e => {
+    const detailsIcons = find(this.$body, 'tr[data-index] > td > .detail-icon')
+    removeEvent(detailsIcons, 'click')
+    addEvent(detailsIcons, 'click', (e) => {
       e.preventDefault()
       this.toggleDetailView($(e.currentTarget).parent().parent().data('index'))
       return false
     })
 
-    this.$selectItem = this.$body.find(Utils.sprintf('[name="%s"]', this.options.selectItemName))
-    this.$selectItem.off('click').on('click', e => {
+    this.$selectItem = find(this.$body, Utils.sprintf('[name="%s"]', this.options.selectItemName))
+    removeEvent(this.$selectItem, 'click')
+    addEvent(this.$selectItem, 'click', (e) => {
       e.stopImmediatePropagation()
 
       const $this = $(e.currentTarget)
       this.check_($this.prop('checked'), $this.data('index'))
     })
+
+    // Still support to jQuery
+    this.$selectItem = $(this.$selectItem)
 
     this.header.events.forEach((_events, i) => {
       let events = _events
@@ -1494,14 +1508,16 @@ class BootstrapTable {
       }
 
       for (const [key, event] of Object.entries(events)) {
-        this.$body.find('>tr:not(.no-records-found)').each((i, tr) => {
-          const $tr = $(tr)
-          const $td = $tr.find(this.options.cardView ? '.card-view' : 'td').eq(fieldIndex)
+        find(this.$body, 'tr:not(.no-records-found)').forEach((tr, i) => {
+          const $tr = tr
+          const $td = find($tr, this.options.cardView ? '.card-view' : 'td')[fieldIndex]
           const index = key.indexOf(' ')
           const name = key.substring(0, index)
           const el = key.substring(index + 1)
 
-          $td.find(el).off(name).on(name, e => {
+          const tdElems = find($td, el)
+          removeEvent(tdElems, name)
+          addEvent(tdElems, name, (e) => {
             const index = $tr.data('index')
             const row = this.data[index]
             const value = row[field]
