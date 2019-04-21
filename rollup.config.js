@@ -5,9 +5,15 @@ import commonjs from 'rollup-plugin-commonjs'
 import minify from 'rollup-plugin-babel-minify'
 import inject from 'rollup-plugin-inject'
 import multiEntry from 'rollup-plugin-multi-entry'
+import vue from 'rollup-plugin-vue'
 
 const files = glob.sync('src/**/*.js', {
-  ignore: ['src/constants/**', 'src/utils/**', 'src/virtual-scroll/**']
+  ignore: [
+    'src/constants/**',
+    'src/utils/**',
+    'src/virtual-scroll/**',
+    'src/vue/**'
+  ]
 })
 const external = ['jquery']
 const globals = {
@@ -66,6 +72,23 @@ config.push({
   external,
   plugins: [
     multiEntry(),
+    ...plugins
+  ]
+})
+
+out = 'dist/vue.js'
+if (process.env.NODE_ENV === 'production') {
+  out = out.replace(/.js$/, '.min.js')
+}
+config.push({
+  input: 'src/vue/BootstrapTable.vue',
+  output: {
+    name: 'BootstrapTable',
+    file: out,
+    format: 'esm'
+  },
+  plugins: [
+    vue(),
     ...plugins
   ]
 })

@@ -22,7 +22,9 @@
     "rollup-plugin-inject": "^2.2.0",
     "rollup-plugin-multi-entry": "^2.1.0",
     "rollup-plugin-node-resolve": "^4.0.1",
-    "sass": "^1.16.1"
+    "rollup-plugin-vue": "^5.0.0",
+    "sass": "^1.16.1",
+    "vue-template-compiler": "^2.6.10"
   },
   "scripts": {
     "lint": "eslint src",

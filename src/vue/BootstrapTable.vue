@@ -9,6 +9,7 @@ const deepCopy = arg => {
 }
 
 export default {
+  name: 'BootstrapTable',
   props: {
     options: {
       type: Object,
