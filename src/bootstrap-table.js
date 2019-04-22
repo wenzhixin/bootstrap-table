@@ -669,19 +669,20 @@ class BootstrapTable {
     }
   }
 
-  onSearch ({currentTarget, firedByInitSearchText}) {
-    const text = $(currentTarget).val().trim()
+  onSearch ({currentTarget, firedByInitSearchText} = {}) {
+    if (currentTarget !== undefined) {
+      const text = $(currentTarget).val().trim()
 
-    // trim search input
-    if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
-      $(currentTarget).val(text)
-    }
+      if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
+        $(currentTarget).val(text)
+      }
 
-    if (text === this.searchText) {
-      return
+      if (text === this.searchText) {
+        return
+      }
+      this.searchText = text
+      this.options.searchText = text
     }
-    this.searchText = text
-    this.options.searchText = text
 
     if (!firedByInitSearchText) {
       this.options.pageNumber = 1
@@ -694,7 +695,7 @@ class BootstrapTable {
     } else {
       this.updatePagination()
     }
-    this.trigger('search', text)
+    this.trigger('search', this.searchText)
   }
 
   initSearch () {

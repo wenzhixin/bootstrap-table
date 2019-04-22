@@ -773,16 +773,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       delete this.filterColumnsPartial[$field]
     }
 
-    // if the searchText is the same as the previously selected column value,
-    // bootstrapTable will not try searching again (even though the selected column
-    // may be different from the previous search).  As a work around
-    // we're manually appending some text to bootrap's searchText field
-    // to guarantee that it will perform a search again when we call this.onSearch(event)
-    this.searchText += 'randomText'
-
     this.options.pageNumber = 1
     this.EnableControls(false)
-    this.onSearch(event)
+    this.onSearch()
     this.trigger('column-search', $field, text)
   }
 
