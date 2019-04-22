@@ -1143,7 +1143,7 @@ class BootstrapTable {
     return false
   }
 
-  initRow (item, i) {
+  initRow (item, i, data, trFragments) {
     const html = []
     let style = {}
     const csses = []
@@ -1362,14 +1362,19 @@ class BootstrapTable {
     }
 
     const rows = []
+    const trFragments = $(document.createDocumentFragment())
     let hasTr = false
 
     for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
       const item = data[i]
-      const tr = this.initRow(item, i)
+      const tr = this.initRow(item, i, data, trFragments)
       hasTr = hasTr || !!tr
       if (tr && typeof tr === 'string') {
-        rows.push(tr)
+        if (this.virtualScrollDisabled) {
+          trFragments.append(tr)
+        } else {
+          rows.push(tr)
+        }
       }
     }
 
@@ -1379,17 +1384,21 @@ class BootstrapTable {
         this.$header.find('th').length,
         this.options.formatNoMatches())}</tr>`)
     } else {
-      if (this.virtualScroll) {
-        this.virtualScroll.destroy()
-      }
-      this.virtualScroll = new VirtualScroll({
-        rows,
-        scrollEl: this.$tableBody[0],
-        contentEl: this.$body[0],
-        callback: () => {
-          this.fitHeader()
+      if (this.virtualScrollDisabled) {
+        this.$body.html(trFragments)
+      } else {
+        if (this.virtualScroll) {
+          this.virtualScroll.destroy()
         }
-      })
+        this.virtualScroll = new VirtualScroll({
+          rows,
+          scrollEl: this.$tableBody[0],
+          contentEl: this.$body[0],
+          callback: () => {
+            this.fitHeader()
+          }
+        })
+      }
     }
 
     if (!fixedScroll) {
