@@ -11,13 +11,10 @@ $.extend($.fn.bootstrapTable.defaults, {
   rootParentId: null
 })
 
-
-let _rowStyle = null
-
 $.BootstrapTable = class extends $.BootstrapTable {
 
   init (...args) {
-    _rowStyle = this.options.rowStyle
+    this._rowStyle = this.options.rowStyle
     super.init(...args)
   }
 
@@ -56,7 +53,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
       // jquery.treegrid.js
       this.options.rowStyle = (item, idx) => {
-        const res = _rowStyle(item, idx)
+        const res = this._rowStyle(item, idx)
         const id = item[this.options.idField] ? item[this.options.idField] : 0
         const pid = item[this.options.parentIdField] ? item[this.options.parentIdField] : 0
         res.classes = [
@@ -78,7 +75,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
         // jquery.treegrid.js
         this.options.rowStyle = (item, idx) => {
-          const res = _rowStyle(item, idx)
+          const res = this._rowStyle(item, idx)
           const x = item[this.options.idField] ? item[this.options.idField] : 0
           res.classes = [
             res.classes || '',
