@@ -46,19 +46,12 @@ const UtilsFilterControl = {
       )
     }
   },
-  sortSelectControl (selectControl) {
+  sortSelectControl (selectControl, orderBy) {
     const $selectControl = $(selectControl.get(selectControl.length - 1))
     const $opts = $selectControl.find('option:gt(0)')
 
     $opts.sort((a, b) => {
-      let aa = $(a).text().toLowerCase()
-      let bb = $(b).text().toLowerCase()
-      if ($.isNumeric(a) && $.isNumeric(b)) {
-        // Convert numerical values from string to float.
-        aa = parseFloat(aa)
-        bb = parseFloat(bb)
-      }
-      return aa > bb ? 1 : aa < bb ? -1 : 0
+      return Utils.sort(a.textContent, b.textContent, orderBy === 'desc' ? -1 : 1)
     })
 
     $selectControl.find('option:gt(0)').remove()
@@ -244,7 +237,7 @@ const UtilsFilterControl = {
           UtilsFilterControl.addOptionToSelectControl(selectControl, uniqueValues[key], key)
         }
 
-        UtilsFilterControl.sortSelectControl(selectControl)
+        UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
 
         if (that.options.hideUnusedSelectOptions) {
           UtilsFilterControl.hideUnusedSelectOptions(selectControl, uniqueValues)
@@ -350,7 +343,7 @@ const UtilsFilterControl = {
                 for (const key in data) {
                   UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key])
                 }
-                UtilsFilterControl.sortSelectControl(selectControl)
+                UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
               }
             })
             break
@@ -360,7 +353,7 @@ const UtilsFilterControl = {
             for (key in variableValues) {
               UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key])
             }
-            UtilsFilterControl.sortSelectControl(selectControl)
+            UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
             break
           case 'jso':
             variableValues = JSON.parse(filterDataSource)
@@ -368,7 +361,7 @@ const UtilsFilterControl = {
             for (key in variableValues) {
               UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key])
             }
-            UtilsFilterControl.sortSelectControl(selectControl)
+            UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
             break
         }
       }
@@ -474,15 +467,15 @@ const UtilsFilterControl = {
   }
 }
 const filterDataMethods = {
-  var (filterDataSource, selectControl) {
+  var (filterDataSource, selectControl, filterOrderBy) {
     const variableValues = window[filterDataSource]
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key])
     }
-    UtilsFilterControl.sortSelectControl(selectControl)
+    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
   },
-  url (filterDataSource, selectControl) {
+  url (filterDataSource, selectControl, filterOrderBy) {
     $.ajax({
       url: filterDataSource,
       dataType: 'json',
@@ -491,17 +484,17 @@ const filterDataMethods = {
         for (const key in data) {
           UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key])
         }
-        UtilsFilterControl.sortSelectControl(selectControl)
+        UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
       }
     })
   },
-  json (filterDataSource, selectControl) {
+  json (filterDataSource, selectControl, filterOrderBy) {
     const variableValues = JSON.parse(filterDataSource)
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key])
     }
-    UtilsFilterControl.sortSelectControl(selectControl)
+    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
   }
 }
 
@@ -554,7 +547,8 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterDatepickerOptions: undefined,
   filterStrictSearch: false,
   filterStartsWithSearch: false,
-  filterControlPlaceholder: ''
+  filterControlPlaceholder: '',
+  filterOrderBy: 'asc' // asc || desc
 })
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
