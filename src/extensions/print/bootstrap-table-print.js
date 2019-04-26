@@ -107,7 +107,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     const buildTable = (data, columnsArray) => {
-      const html = ['<table><thead>']
+      const dir = this.$el.attr('dir') || 'ltr'
+      const html = [`<table dir="${dir}"><thead>`]
 
       for (const columns of columnsArray) {
         html.push('<tr>')
