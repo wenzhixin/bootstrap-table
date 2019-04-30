@@ -1,3 +1,5 @@
+const VERSION = '1.14.2'
+
 let bootstrapVersion = 4
 try {
   const rawVersion = $.fn.dropdown.Constructor.VERSION
@@ -401,6 +403,8 @@ const EVENTS = {
 Object.assign(DEFAULTS, EN)
 
 export default {
+  VERSION, 
+  
   THEME: `bootstrap${bootstrapVersion}`,
 
   CONSTANTS,

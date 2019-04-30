@@ -2676,6 +2676,7 @@ class BootstrapTable {
   }
 }
 
+BootstrapTable.VERSION = Constants.VERSION
 BootstrapTable.DEFAULTS = Constants.DEFAULTS
 BootstrapTable.LOCALES = Constants.LOCALES
 BootstrapTable.COLUMN_DEFAULTS = Constants.COLUMN_DEFAULTS
@@ -2751,6 +2752,7 @@ $.fn.bootstrapTable = function (option, ...args) {
 
 $.fn.bootstrapTable.Constructor = BootstrapTable
 $.fn.bootstrapTable.theme = Constants.THEME
+$.fn.bootstrapTable.VERSION = Constants.VERSION
 $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS
 $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS
 $.fn.bootstrapTable.events = BootstrapTable.EVENTS
