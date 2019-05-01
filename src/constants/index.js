@@ -403,8 +403,8 @@ const EVENTS = {
 Object.assign(DEFAULTS, EN)
 
 export default {
-  VERSION, 
-  
+  VERSION,
+
   THEME: `bootstrap${bootstrapVersion}`,
 
   CONSTANTS,
