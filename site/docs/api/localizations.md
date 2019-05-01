@@ -74,6 +74,8 @@ $('#table').bootstrapTable({
 
 - **Default:** `'No matching records found'`
 
+## formatPaginationSwitch
+
 ## formatRefresh
 
 - **Parameter:** `undefined`
@@ -92,14 +94,14 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Columns'`
 
+## formatFullscreen
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Fullscreen'`
 ## formatAllRows
 
 - **Parameter:** `undefined`
 
 - **Default:** `'All'`
 
-## formatFullscreen
-
-- **Parameter:** `undefined`
-
-- **Default:** `'Fullscreen'`

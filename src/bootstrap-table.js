@@ -2680,42 +2680,11 @@ BootstrapTable.VERSION = Constants.VERSION
 BootstrapTable.DEFAULTS = Constants.DEFAULTS
 BootstrapTable.LOCALES = Constants.LOCALES
 BootstrapTable.COLUMN_DEFAULTS = Constants.COLUMN_DEFAULTS
+BootstrapTable.METHODS = Constants.METHODS
 BootstrapTable.EVENTS = Constants.EVENTS
 
 // BOOTSTRAP TABLE PLUGIN DEFINITION
 // =======================
-
-const allowedMethods = [
-  'getOptions',
-  'getSelections', 'getAllSelections', 'getData',
-  'load', 'append', 'prepend', 'remove', 'removeAll',
-  'insertRow', 'updateRow', 'updateCell',
-  'updateByUniqueId', 'removeByUniqueId',
-  'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
-  'mergeCells', 'refreshColumnTitle',
-  'checkAll', 'uncheckAll', 'checkInvert',
-  'check', 'uncheck',
-  'checkBy', 'uncheckBy',
-  'refresh',
-  'resetView',
-  'resetWidth',
-  'destroy',
-  'showLoading', 'hideLoading',
-  'showColumn', 'hideColumn',
-  'getHiddenColumns', 'getVisibleColumns',
-  'showAllColumns', 'hideAllColumns',
-  'filterBy',
-  'scrollTo',
-  'getScrollPosition',
-  'selectPage', 'prevPage', 'nextPage',
-  'togglePagination',
-  'toggleView',
-  'refreshOptions',
-  'resetSearch',
-  'expandRow', 'collapseRow', 'toggleDetailView',
-  'expandAllRows', 'collapseAllRows',
-  'updateFormatText', 'updateCellById'
-]
 
 $.BootstrapTable = BootstrapTable
 $.fn.bootstrapTable = function (option, ...args) {
@@ -2727,7 +2696,7 @@ $.fn.bootstrapTable = function (option, ...args) {
       typeof option === 'object' && option)
 
     if (typeof option === 'string') {
-      if (!allowedMethods.includes(option)) {
+      if (!Constants.METHODS.includes(option)) {
         throw new Error(`Unknown method: ${option}`)
       }
 
@@ -2757,7 +2726,7 @@ $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS
 $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS
 $.fn.bootstrapTable.events = BootstrapTable.EVENTS
 $.fn.bootstrapTable.locales = BootstrapTable.LOCALES
-$.fn.bootstrapTable.methods = allowedMethods
+$.fn.bootstrapTable.methods = BootstrapTable.METHODS
 $.fn.bootstrapTable.utils = Utils
 
 // BOOTSTRAP TABLE INIT

@@ -306,11 +306,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [From URL](https://examples.bootstrap-table.com/#welcomes/from-url.html)
+
 - **Error handling**
 
   To get loading errors please use [onLoadError](https://bootstrap-table.com/docs/api/events/#onloaderror)
-
-- **Example:** [From URL](https://examples.bootstrap-table.com/#welcomes/from-url.html)
 
 ## method
 
@@ -460,6 +460,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Total/Data Field](https://examples.bootstrap-table.com/#options/total-data-field.html)
 
+## totalNotFilteredField
+
+- **Attribute:** `data-total-not-filtered-field`
+
+- **Type:** `string`
+
+- **Detail:**
+
+  The field from the json response which will used for showExtendedPagination.
+
+- **Default:** `totalNotFiltered`
+
+- **Example:** [Total Not Filtered Field](https://examples.bootstrap-table.com/#options/total-not-filtered-field.html)
+
 ## dataField
 
 - **Attribute:** `data-data-field`
@@ -517,20 +531,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Show Extended Pagination](https://examples.bootstrap-table.com/#options/show-extended-pagination.html)
 
-## totalNotFilteredField
-
-- **Attribute:** `data-total-not-filtered-field`
-
-- **Type:** `string`
-
-- **Detail:**
-
-  The field from the json response which will used for showExtendedPagination.
-
-- **Default:** `totalNotFiltered`
-
-- **Example:** [Total Not Filtered Field](https://examples.bootstrap-table.com/#options/total-not-filtered-field.html)
-
 ## paginationLoop
 
 - **Attribute:** `data-pagination-loop`
@@ -576,6 +576,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   This property is mainly passed in by pagination server, which is easy to use.
 
 - **Default:** `0`
+
+## totalNotFiltered
 
 ## pageNumber
 
@@ -1032,6 +1034,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Escape](https://examples.bootstrap-table.com/#options/table-escape.html)
 
+## filterOptions
+
 ## idField
 
 - **Attribute:** `data-id-field`
@@ -1206,6 +1210,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
 
+## detailViewByClick
+
+- **Attribute:** `data-detail-view-by-click`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to toggle the detail view, when a cell is clicked.
+
+- **Default:** `false`
+
+- **Example:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
+
 ## detailFormatter
 
 - **Attribute:** `data-detail-formatter`
@@ -1233,20 +1251,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `function(index, row) { return true }`
 
 - **Example:** [Detail Filter](https://examples.bootstrap-table.com/#options/detail-filter.html)
-
-## detailViewByClick
-
-- **Attribute:** `data-detail-view-by-click`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to toggle the detail view, when a cell is clicked.
-
-- **Default:** `false`
-
-- **Example:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
 
 ## toolbar
 
@@ -1303,6 +1307,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `'right'`
 
 - **Example:** [Buttons Align](https://examples.bootstrap-table.com/#options/buttons-align.html)
+
+## buttonsPrefix
 
 ## buttonsClass
 
