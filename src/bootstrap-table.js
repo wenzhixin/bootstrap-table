@@ -2662,13 +2662,14 @@ class BootstrapTable {
     }
   }
 
-  updateFormatText (name, text) {
-    if (this.options[Utils.sprintf('format%s', name)]) {
-      if (typeof text === 'string') {
-        this.options[Utils.sprintf('format%s', name)] = () => text
-      } else if (typeof text === 'function') {
-        this.options[Utils.sprintf('format%s', name)] = text
-      }
+  updateFormatText (formatName, text) {
+    if (!/^format/.test(formatName) || !this.options[formatName]) {
+      return
+    }
+    if (typeof text === 'string') {
+      this.options[formatName] = () => text
+    } else if (typeof text === 'function') {
+      this.options[formatName] = text
     }
     this.initToolbar()
     this.initPagination()

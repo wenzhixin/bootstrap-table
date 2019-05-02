@@ -191,6 +191,15 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## refreshColumnTitle
 
+- **Parameter:** `params`
+
+- **Detail:**
+
+  Refresh the field title of column, the params contain following properties:
+
+  * `field`: the field name.
+  * `title`: the field title.
+
 ## checkAll
 
 - **Parameter:** `undefined`
@@ -366,7 +375,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
         }
         ```
 
-
 - **Detail:**
 
   (Can use only in client-side) Filter data in table.
@@ -387,7 +395,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
         - Row
         - Filters
     - Return `true` to keep the row and return `false` to filter the row.
-
 
 ## scrollTo
 
@@ -491,16 +498,27 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## expandAllRows
 
+- **Parameter:** `undefined`
+
 - **Detail:**
 
   Expand all rows if the detail view option is set to `true`.
 
 ## collapseAllRows
 
+- **Parameter:** `undefined`
+
 - **Detail:**
 
   Collapse all rows if the detail view option is set to `true`.
+
 ## updateFormatText
+
+- **Parameter:** `formatName, text`
+
+- **Detail:**
+
+  Update the localizations format text.
 
 ## updateCellById
 

@@ -14,7 +14,9 @@ class API {
     const lines = content.split('## ')
     const outLines = lines.slice(0, 1)
 
+    console.log('-------------------------')
     console.log(`Checking file: ${file}`)
+    console.log('-------------------------')
 
     for (const item of lines.slice(1)) {
       md[item.split('\n')[0]] = item

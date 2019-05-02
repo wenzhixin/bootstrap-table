@@ -173,7 +173,7 @@ const DEFAULTS = {
   smartDisplay: true,
   escape: false,
   filterOptions: {
-    'filterAlgorithm': 'and' // and means all given filter must match, or means one of the given filter must match
+    filterAlgorithm: 'and'
   },
   idField: undefined,
   selectItemName: 'btSelectItem',

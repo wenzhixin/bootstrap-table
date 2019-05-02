@@ -136,10 +136,10 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   * First tries for the locale as specified,
   * Then tries the locale with '_' translated to '-' and the region code upper cased,
-  * Then tries the the short locale code (i.e. `'zh'` instead of `'fr-CA'`),
+  * Then tries the short locale code (i.e. `'zh'` instead of `'zh-CN'`),
   * And finally will use the last locale file loaded (or the default locale if no locales loaded).
 
-  If left `undefined` or an empty string, uses the last locale loaded (or `'en-US'` if no locale files loaded).
+  If left `undefined` or an empty string, use the last locale loaded (or `'en-US'` if no locale files loaded).
 
 - **Default:** `undefined`
 
@@ -181,7 +181,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `false` to sort the data with loading message. This options works when the sidePagination option is set to `'server'`.
+  Set `false` to sort the data with the loading message. This options works when the sidePagination option is set to `'server'`.
 
 - **Default:** `true`
 
@@ -251,7 +251,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The custom sort function is executed instead of built-in sort function, takes three parameters:
+  The custom sort function is executed instead of the built-in sort function, takes three parameters:
 
   * `sortName`: the sort name.
   * `sortOrder`: the sort order.
@@ -468,7 +468,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The field from the json response which will used for showExtendedPagination.
+  The field from the json response which will used for `showExtendedPagination`.
 
 - **Default:** `totalNotFiltered`
 
@@ -525,7 +525,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Set `true` to show a extended version of pagination (including the count of all rows with out filters).
-  If you use pagination on the server side pls use totalNotFilteredField to define the count.
+  If you use pagination on the server side pls use `totalNotFilteredField` to define the count.
 
 - **Default:** `false`
 
@@ -556,7 +556,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Defines the side pagination of the table, can only be `'client'` or `'server'`.
   Using `'server'` side requires either setting the `'url'` or `'ajax'` option.
 
-  Note that the required server response format is different depending on whether the `'client'` or `'server'` option is specified. See the following examples:
+  Note that the required server response format is different depending on whether the  `'sidePagination'` option is set to `'client'` or `'server'`. See the following examples:
 
   * [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
   * [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
@@ -578,6 +578,16 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `0`
 
 ## totalNotFiltered
+
+- **Attribute:** `data-total-not-filtered`
+
+- **Type:** `Number`
+
+- **Detail:**
+
+  This property is mainly passed in by pagination server, which is easy to use.
+
+- **Default:** `0`
 
 ## pageNumber
 
@@ -727,7 +737,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Calculate and show intermediate pages for quick access
+  Calculate and show intermediate pages for quick access.
 
 - **Default:** `false`
 
@@ -748,7 +758,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     Example: Github contains git.
   - The value must be identical to the search query.
     Example: Github (value) and Github (search query).
-  - Comparisons (<, >, <=, =<, >=, =>)
+  - Comparisons (<, >, <=, =<, >=, =>).
     Example: 4 is larger than 3.
 
 - **Default:** `false`
@@ -907,7 +917,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   * `column`: the column object.
 
-  Support classes or css. Example usage:
+  Support `classes` or `css`. Example usage:
 
   {% highlight javascript %}
   function footerStyle(column) {
@@ -1036,6 +1046,18 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 ## filterOptions
 
+- **Attribute:** `data-filter-options`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Define the default filter options of algorithm, `filterAlgorithm: 'and'` means all given filter must match, `filterAlgorithm: 'or'` means one of the given filter must match.
+
+- **Default:** `{ filterAlgorithm: 'and' }`
+
+- **Example:** [Filter Options](https://examples.bootstrap-table.com/#options/filter-options.html)
+
 ## idField
 
 - **Attribute:** `data-id-field`
@@ -1132,7 +1154,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to maintain the following meta data on change page and search
+  Set `true` to maintain the following meta data on change page and search:
    * selected rows
    * hidden rows
 
@@ -1232,7 +1254,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Format your detail view when detailView is set to true. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
+  Format your detail view when `detailView` is set to `true`. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
 
 - **Default:** `function(index, row, element) { return '' }`
 
@@ -1246,7 +1268,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Enable expansion per row when detailView is set to true. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.
+  Enable expansion per row when `detailView` is set to `true`. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.
 
 - **Default:** `function(index, row) { return true }`
 
@@ -1309,6 +1331,18 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Example:** [Buttons Align](https://examples.bootstrap-table.com/#options/buttons-align.html)
 
 ## buttonsPrefix
+
+- **Attribute:** `data-buttons-prefix`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines prefix of table buttons.
+
+- **Default:** `'btn'`
+
+- **Example:** [Buttons Prefix](https://examples.bootstrap-table.com/#options/buttons-prefix.html)
 
 ## buttonsClass
 
