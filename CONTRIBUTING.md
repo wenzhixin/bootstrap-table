@@ -21,7 +21,7 @@ and [submitting pull requests](#pull-requests), but please respect the following
 restrictions:
 
 * Please **do not** use the issue tracker for personal support requests.  Stack
-  Overflow ([`bootstrap-table`](http://stackoverflow.com/questions/tagged/bootstrap-table) tag is better place to get help.
+  Overflow ([`bootstrap-table`](http://stackoverflow.com/questions/tagged/bootstrap-table) tag is better place to get help).
 
 * Please **do not** derail or troll issues. Keep the discussion on topic and
   respect the opinions of others.
