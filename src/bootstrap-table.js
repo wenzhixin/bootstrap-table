@@ -730,7 +730,7 @@ class BootstrapTable {
             value = item[key]
           }
 
-          // Fix #142: respect searchForamtter boolean
+          // Fix #142: respect searchFormatter boolean
           if (column && column.searchFormatter) {
             value = Utils.calculateObjectValue(column,
               this.header.formatters[j], [value, item, i, column.field], value)
