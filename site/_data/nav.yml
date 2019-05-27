@@ -47,6 +47,13 @@
     - title: Toolbar
     - title: Treegrid
 
+- title: VueJS
+  pages:
+    - title: Introduction
+    - title: Browser
+    - title: Webpack
+    - title: Component
+
 - title: FAQ
 
 - title: About

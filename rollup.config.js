@@ -76,7 +76,24 @@ config.push({
   ]
 })
 
-out = 'dist/vue.js'
+out = 'dist/bootstrap-table-vue.js'
+if (process.env.NODE_ENV === 'production') {
+  out = out.replace(/.js$/, '.min.js')
+}
+config.push({
+  input: 'src/vue/index.js',
+  output: {
+    name: 'BootstrapTable',
+    file: out,
+    format: 'umd'
+  },
+  plugins: [
+    vue(),
+    ...plugins
+  ]
+})
+
+out = 'dist/bootstrap-table-vue.esm.js'
 if (process.env.NODE_ENV === 'production') {
   out = out.replace(/.js$/, '.min.js')
 }

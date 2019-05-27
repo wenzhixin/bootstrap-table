@@ -11,18 +11,20 @@ const deepCopy = arg => {
 export default {
   name: 'BootstrapTable',
   props: {
-    options: {
-      type: Object,
-      required: true
-    },
     columns: {
       type: Array,
       require: true
     },
     data: {
-      type: Array,
+      type: [Array, Object],
       default () {
         return undefined
+      }
+    },
+    options: {
+      type: Object,
+      default () {
+        return {}
       }
     }
   },
