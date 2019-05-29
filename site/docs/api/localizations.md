@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Localizations
-description: The Methods API of Bootstrap Table.
+description: The Localizations API of Bootstrap Table.
 group: api
 toc: true
 ---
@@ -35,6 +35,16 @@ Or use JavaScript to set locale for table:
 {% highlight javascript %}
 $('#table').bootstrapTable({
   locale: 'en-US'
+})
+{% endhighlight %}
+
+You can custom the format localizations, the calling syntax:
+
+{% highlight javascript %}
+$('#table').bootstrapTable({
+  formatName: function () {
+    return 'Format message'
+  }
 })
 {% endhighlight %}
 
@@ -74,6 +84,12 @@ $('#table').bootstrapTable({
 
 - **Default:** `'No matching records found'`
 
+## formatPaginationSwitch
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Hide/Show pagination'`
+
 ## formatRefresh
 
 - **Parameter:** `undefined`
@@ -92,14 +108,13 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Columns'`
 
-## formatAllRows
-
-- **Parameter:** `undefined`
-
-- **Default:** `'All'`
-
 ## formatFullscreen
 
 - **Parameter:** `undefined`
 
 - **Default:** `'Fullscreen'`
+## formatAllRows
+
+- **Parameter:** `undefined`
+
+- **Default:** `'All'`

@@ -173,7 +173,7 @@ const DEFAULTS = {
   smartDisplay: true,
   escape: false,
   filterOptions: {
-    'filterAlgorithm': 'and' // and means all given filter must match, or means one of the given filter must match
+    filterAlgorithm: 'and'
   },
   idField: undefined,
   selectItemName: 'btSelectItem',
@@ -369,12 +369,44 @@ const COLUMN_DEFAULTS = {
   events: undefined
 }
 
+const METHODS = [
+  'getOptions',
+  'getSelections', 'getAllSelections', 'getData',
+  'load', 'append', 'prepend', 'remove', 'removeAll',
+  'insertRow', 'updateRow', 'updateCell',
+  'updateByUniqueId', 'removeByUniqueId',
+  'getRowByUniqueId', 'showRow', 'hideRow', 'getHiddenRows',
+  'mergeCells', 'refreshColumnTitle',
+  'checkAll', 'uncheckAll', 'checkInvert',
+  'check', 'uncheck',
+  'checkBy', 'uncheckBy',
+  'refresh',
+  'resetView',
+  'resetWidth',
+  'destroy',
+  'showLoading', 'hideLoading',
+  'showColumn', 'hideColumn',
+  'getHiddenColumns', 'getVisibleColumns',
+  'showAllColumns', 'hideAllColumns',
+  'filterBy',
+  'scrollTo',
+  'getScrollPosition',
+  'selectPage', 'prevPage', 'nextPage',
+  'togglePagination',
+  'toggleView',
+  'refreshOptions',
+  'resetSearch',
+  'expandRow', 'collapseRow', 'toggleDetailView',
+  'expandAllRows', 'collapseAllRows',
+  'updateFormatText', 'updateCellById'
+]
+
 const EVENTS = {
   'all.bs.table': 'onAll',
-  'click-cell.bs.table': 'onClickCell',
-  'dbl-click-cell.bs.table': 'onDblClickCell',
   'click-row.bs.table': 'onClickRow',
   'dbl-click-row.bs.table': 'onDblClickRow',
+  'click-cell.bs.table': 'onClickCell',
+  'dbl-click-cell.bs.table': 'onDblClickCell',
   'sort.bs.table': 'onSort',
   'check.bs.table': 'onCheck',
   'uncheck.bs.table': 'onUncheck',
@@ -412,6 +444,8 @@ export default {
   DEFAULTS,
 
   COLUMN_DEFAULTS,
+
+  METHODS,
 
   EVENTS,
 
