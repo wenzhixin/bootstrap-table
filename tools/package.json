@@ -1,0 +1,15 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "esm": "^3.2.25",
+    "safe-eval": "^0.4.1"
+  },
+  "scripts": {
+    "check-api": "node check-api",
+    "check-locale": "node check-locale"
+  }
+}

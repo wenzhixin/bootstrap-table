@@ -1,5 +1,8 @@
-import fs from 'fs'
-import Constants from '../src/constants/index.js'
+// eslint-disable-next-line no-global-assign
+require = require('esm')(module)
+const fs = require('fs')
+const chalk = require('chalk')
+const Constants = require('../src/constants/index.js').default
 
 class API {
   constructor () {
@@ -34,7 +37,7 @@ class API {
             continue
           }
           if (!details[i + 1] || details[i + 1].indexOf(`**${name}:**`) === -1) {
-            console.log(`${key} missing ${name}`)
+            console.log(chalk.red(`[${key}] missing '${name}'`))
           }
         }
       } else {

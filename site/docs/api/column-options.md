@@ -180,8 +180,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 - **Detail:**
 
   Set `true` to show a radio. The radio column has fixed width.
-  
-  If a value is given the Checkbox is automatically checked.  
+
+  If a value is given the Checkbox is automatically checked.
   Its also possible to check/uncheck the radio by use an formatter (return `true` to check, return `false` to uncheck).
 
 - **Default:** `false`
@@ -195,9 +195,9 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 - **Detail:**
 
   Set `true` to show a checkbox. The checkbox column has fixed width.
-  
-  If a value is given the Checkbox is automatically checked.  
-  Its also possible to check/uncheck the checkbox by use an formatter (return `true` to check, return `false` to uncheck). 
+
+  If a value is given the Checkbox is automatically checked.
+  Its also possible to check/uncheck the checkbox by use an formatter (return `true` to check, return `false` to uncheck).
 
 - **Default:** `false`
 

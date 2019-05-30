@@ -1,7 +1,12 @@
 # Tools
 
-## check-api
+## Install
 
 ```
-node --experimental-modules --loader ./loader.mjs check-api.js
+yarn install
 ```
+
+## List
+
+* check-api: Check the docs API
+* check-locale: Check the src locale
