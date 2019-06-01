@@ -68,7 +68,7 @@ class ColumnOptions extends API {
   init () {
     this.file = 'column-options.md'
     this.options = Object.keys(Constants.COLUMN_DEFAULTS)
-    this.attributes = ['Attribute', 'Type', 'Detail', 'Default']// , 'Example']
+    this.attributes = ['Attribute', 'Type', 'Detail', 'Default' , 'Example']
   }
 }
 
