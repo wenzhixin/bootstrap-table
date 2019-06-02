@@ -439,7 +439,8 @@ class BootstrapTable {
       if (this.options.rememberOrder) {
         this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc'
       } else {
-        this.options.sortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
+        this.options.sortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder ||
+          this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
       }
     }
     this.trigger('sort', this.options.sortName, this.options.sortOrder)
@@ -1400,7 +1401,7 @@ class BootstrapTable {
       }
 
       if (e.type === 'click' && this.options.detailViewByClick) {
-        this.toggleDetailView(rowIndex)
+        this.toggleDetailView(rowIndex, this.header.detailFormatters[index])
       }
     }).off('mousedown').on('mousedown', e => {
       // https://github.com/jquery/jquery/issues/1741
@@ -1473,13 +1474,13 @@ class BootstrapTable {
     this.trigger('post-body', data)
   }
 
-  toggleDetailView (index) {
+  toggleDetailView (index, _columnDetailFormatter) {
     const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"]', index))
 
     if ($tr.next().is('tr.detail-view')) {
       this.collapseRow(index)
     } else {
-      this.expandRow(index)
+      this.expandRow(index, _columnDetailFormatter)
     }
 
     this.resetView()
@@ -2609,7 +2610,7 @@ class BootstrapTable {
     this.onSearch({currentTarget: $search})
   }
 
-  expandRow (index) {
+  expandRow (index, _columnDetailFormatter) {
     const row = this.data[index]
     const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"][data-has-detail-view]', index))
     if ($tr.next().is('tr.detail-view')) {
@@ -2624,7 +2625,7 @@ class BootstrapTable {
 
     const $element = $tr.next().find('td')
 
-    const detailFormatter = this.header.detailFormatters[index - 1] || this.options.detailFormatter
+    const detailFormatter = _columnDetailFormatter || this.options.detailFormatter
     const content = Utils.calculateObjectValue(this.options, detailFormatter, [index, row, $element], '')
     if ($element.length === 1) {
       $element.append(content)

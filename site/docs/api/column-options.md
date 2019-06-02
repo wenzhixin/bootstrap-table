@@ -20,7 +20,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [Field](https://examples.bootstrap-table.com/#column-options/field.html)
+- **Example:** [Column Field](https://examples.bootstrap-table.com/#column-options/field.html)
 
 ## title
 
@@ -34,7 +34,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [Title](https://examples.bootstrap-table.com/#column-options/title.html)
+- **Example:** [Column Title](https://examples.bootstrap-table.com/#column-options/title.html)
 
 ## titleTooltip
 
@@ -48,7 +48,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [Title (Tooltip)](https://examples.bootstrap-table.com/#column-options/title-tooltip.html)
+- **Example:** [Title Tooltip](https://examples.bootstrap-table.com/#column-options/title-tooltip.html)
 
 ## class
 
@@ -62,7 +62,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [Classes](https://examples.bootstrap-table.com/#column-options/classes.html)
+- **Example:** [Column Class](https://examples.bootstrap-table.com/#column-options/class.html)
 
 ## width
 
@@ -76,7 +76,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [Width](https://examples.bootstrap-table.com/#column-options/width.html)
+- **Example:** [Column Width](https://examples.bootstrap-table.com/#column-options/width.html)
 
 ## widthUnit
 
@@ -90,7 +90,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `px`
 
-- **Example:** [Width](https://examples.bootstrap-table.com/#column-options/width-unit.html)
+- **Example:** [Width Unit](https://examples.bootstrap-table.com/#column-options/width-unit.html)
 
 ## rowspan
 
@@ -104,7 +104,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [row span](https://examples.bootstrap-table.com/#column-options/row-span.html)
+- **Example:** [Rowspan Colspan](https://examples.bootstrap-table.com/#column-options/rowspan-colspan.html)
 
 ## colspan
 
@@ -118,7 +118,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [col span](https://examples.bootstrap-table.com/#column-options/col-span.html)
+- **Example:** [Rowspan Colspan](https://examples.bootstrap-table.com/#column-options/rowspan-colspan.html)
 
 ## align
 
@@ -132,7 +132,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [column align](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
+- **Example:** [Aligning Columns](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
 
 ## halign
 
@@ -146,7 +146,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [H Align](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
+- **Example:** [Aligning Columns](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
 
 ## falign
 
@@ -160,7 +160,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [footer align](https://examples.bootstrap-table.com/#column-options/aligning-footer.html)
+- **Example:** [Aligning Footer](https://examples.bootstrap-table.com/#column-options/aligning-footer.html)
 
 ## valign
 
@@ -174,7 +174,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [footer align](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
+- **Example:** [Aligning Columns](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
 
 ## cellStyle
 
@@ -195,7 +195,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [cell style](https://examples.bootstrap-table.com/#column-options/cell-style.html)
+- **Example:** [Cell Style](https://examples.bootstrap-table.com/#column-options/cell-style.html)
 
 ## radio
 
@@ -212,7 +212,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `false`
 
-- **Example:** [radio](https://examples.bootstrap-table.com/#column-options/radio.html)
+- **Example:** [Column Radio](https://examples.bootstrap-table.com/#column-options/radio.html)
 
 ## checkbox
 
@@ -229,7 +229,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `false`
 
-- **Example:** [checkbox](https://examples.bootstrap-table.com/#column-options/checkbox.html)
+- **Example:** [Column Checkbox](https://examples.bootstrap-table.com/#column-options/checkbox.html)
 
 ## checkboxEnabled
 
@@ -243,9 +243,21 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
-- **Example:** [checkbox enabled](https://examples.bootstrap-table.com/#column-options/checkbox-enabled.html)
+- **Example:** [Checkbox Enabled](https://examples.bootstrap-table.com/#column-options/checkbox-enabled.html)
 
 ## clickToSelect
+
+- **Attribute:** `data-click-to-select`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to select checkbox or radiobox when clicking rows.
+
+- **Default:** `false`
+
+- **Example:** [Click to Select](https://examples.bootstrap-table.com/#column-options/click-to-select.html)
 
 ## showSelectTitle
 
@@ -259,7 +271,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `false`
 
-- **Example:** [Show title](https://examples.bootstrap-table.com/#column-options/show-select-title.html)
+- **Example:** [Show Select Title](https://examples.bootstrap-table.com/#column-options/show-select-title.html)
 
 ## sortable
 
@@ -273,7 +285,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `false`
 
-- **Example:** [Sortable](https://examples.bootstrap-table.com/#column-options/sortable.html)
+- **Example:** [Column Sortable](https://examples.bootstrap-table.com/#column-options/sortable.html)
 
 ## sortName
 
@@ -287,7 +299,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [Sort name](https://examples.bootstrap-table.com/#column-options/sort-name.html)
+- **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
 
 ## order
 
@@ -301,7 +313,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `'asc'`
 
-- **Example:** [Sort order](https://examples.bootstrap-table.com/#column-options/sort-order.html)
+- **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
 
 ## sorter
 
@@ -320,6 +332,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Column Sorter](https://examples.bootstrap-table.com/#column-options/column-sorter.html)
+
 ## visible
 
 - **Attribute:** `data-visible`
@@ -333,7 +347,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 - **Default:** `true`
 
 
-- **Example:** [visible](https://examples.bootstrap-table.com/#column-options/visible.html)
+- **Example:** [Column Visible](https://examples.bootstrap-table.com/#column-options/visible.html)
 
 ## switchable
 
@@ -347,6 +361,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
+- **Example:** [Column Switchable](https://examples.bootstrap-table.com/#column-options/switchable.html)
+
 ## cardVisible
 
 - **Attribute:** `data-card-visible`
@@ -359,7 +375,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
-- **Example:** [visible](https://examples.bootstrap-table.com/#column-options/card-visible.html)
+- **Example:** [Card Visible](https://examples.bootstrap-table.com/#column-options/card-visible.html)
 
 ## searchable
 
@@ -373,7 +389,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
-- **Example:** [searchable](https://examples.bootstrap-table.com/#column-options/searchable.html)
+- **Example:** [Column Searchable](https://examples.bootstrap-table.com/#column-options/searchable.html)
 
 ## formatter
 
@@ -394,7 +410,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [formatter](https://examples.bootstrap-table.com/#column-options/format.html)
+- **Example:** [Column Formatter](https://examples.bootstrap-table.com/#column-options/format.html)
 
 ## footerFormatter
 
@@ -414,7 +430,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [footer formatter](https://examples.bootstrap-table.com/#column-options/format-footer.html)
+- **Example:** [Footer Formatter](https://examples.bootstrap-table.com/#column-options/footer-formatter.html)
 
 ## detailFormatter
 
@@ -428,7 +444,9 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
   Fallback is the detail-formatter of the table.
 
-- **Default:** `function(index, row, element) { return '' }`
+- **Default:** `function(index, row, $element) { return '' }`
+
+- **Example:** [Detail Formatter](https://examples.bootstrap-table.com/#column-options/detail-formatter.html)
 
 ## searchFormatter
 
@@ -442,7 +460,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
-- **Example:** [search formatter](https://examples.bootstrap-table.com/#column-options/format-search.html)
+- **Example:** [Search Formatter](https://examples.bootstrap-table.com/#column-options/format-search.html)
 
 ## escape
 
@@ -456,7 +474,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `false`
 
-- **Example:** [escape](https://examples.bootstrap-table.com/#column-options/escape.html)
+- **Example:** [Column Escape](https://examples.bootstrap-table.com/#column-options/escape.html)
 
 ## events
 
@@ -483,3 +501,5 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   {% endhighlight %}
 
 - **Default:** `undefined`
+
+- **Example:** [Column Events](https://examples.bootstrap-table.com/#column-options/events.html)
