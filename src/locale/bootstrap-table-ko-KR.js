@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['ko-KR'] = {
 
     return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력,`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

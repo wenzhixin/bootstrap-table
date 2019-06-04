@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['af-ZA'] = {
 
     return `Resultate ${pageFrom} tot ${pageTo} van ${totalRows} rye`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

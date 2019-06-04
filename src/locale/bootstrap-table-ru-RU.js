@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['ru-RU'] = {
 
     return `Записи с ${pageFrom} по ${pageTo} из ${totalRows}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

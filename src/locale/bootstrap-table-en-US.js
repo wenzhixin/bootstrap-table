@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['en-US'] = {
 
     return `Showing ${pageFrom} to ${pageTo} of ${totalRows} rows`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

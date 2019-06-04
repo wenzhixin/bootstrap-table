@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['ar-SA'] = {
 
     return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

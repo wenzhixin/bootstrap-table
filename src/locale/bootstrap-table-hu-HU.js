@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['hu-HU'] = {
 
     return `Megjelenítve ${pageFrom} - ${pageTo} / ${totalRows} összesen`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

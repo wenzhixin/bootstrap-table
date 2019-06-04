@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
 
     return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${(totalRows > 1) ? 's' : ''}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Toon ${totalRows} record${(totalRows > 1) ? 's' : ''}`
   },

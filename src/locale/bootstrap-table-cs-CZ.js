@@ -18,6 +18,15 @@ $.fn.bootstrapTable.locales['cs-CZ'] = {
 
     return `Zobrazena ${pageFrom}. - ${pageTo} . položka z celkových ${totalRows}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

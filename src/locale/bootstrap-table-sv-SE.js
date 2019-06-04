@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['sv-SE'] = {
 
     return `Visa ${pageFrom} till ${pageTo} av ${totalRows} rader`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

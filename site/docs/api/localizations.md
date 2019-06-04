@@ -66,6 +66,24 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Showing %s to %s of %s rows'`
 
+## formatSRPaginationPreText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'previous page'`
+
+## formatSRPaginationPageText
+
+- **Parameter:** `page`
+
+- **Default:** `'to page %s`
+
+## formatSRPaginationNextText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'next page'`
+
 ## formatDetailPagination
 
 - **Parameter:** `totalRows`

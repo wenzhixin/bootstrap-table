@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['he-IL'] = {
 
     return `מציג ${pageFrom} עד ${pageTo} מ-${totalRows} שורות`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
