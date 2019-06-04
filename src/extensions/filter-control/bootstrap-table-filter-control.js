@@ -715,7 +715,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
             }
 
             if ($.inArray(key, that.header.fields) !== -1) {
-              if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+              if (value === undefined || value === null) {
+                itemIsExpected.push(false)
+              } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
                 if (thisColumn.filterStrictSearch) {
                   itemIsExpected.push(value.toString().toLowerCase() === fval.toString().toLowerCase())
                 } else if (thisColumn.filterStartsWithSearch) {
