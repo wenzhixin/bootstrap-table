@@ -21,7 +21,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initPagination(...args)
 
     if (this.options.showJumpTo) {
-      const that = this
       const $pageGroup = this.$pagination.find('> .pagination')
       let $jumpTo = $pageGroup.find('.page-jump-to')
 
@@ -35,8 +34,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
           </div>
         `).appendTo($pageGroup)
 
-        $jumpTo.find('button').click(() => {
-          this.selectPage(+$jumpTo.find('input').val())
+        $jumpTo.on('click', 'button', (e) => {
+          this.selectPage(+$(e.target).parent('.page-jump-to').find('input').val())
         })
       }
     }
