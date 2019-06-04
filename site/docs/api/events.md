@@ -213,7 +213,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **Detail:**
 
-  Fires when switch the column visible, the parameters contain:
+  Fires when switch the column visible ([showColumns](/docs/api/table-options/#showcolumns)), the parameters contain:
 
   * `field`: the field name corresponding to the switch column.
   * `checked`: the checked state of the column.
