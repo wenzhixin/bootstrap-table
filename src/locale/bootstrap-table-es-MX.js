@@ -23,7 +23,7 @@ $.fn.bootstrapTable.locales['es-MX'] = {
     return `Mostrando ${totalRows} filas`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'Limpiar búsqueda'
   },
   formatSearch () {
     return 'Buscar'
