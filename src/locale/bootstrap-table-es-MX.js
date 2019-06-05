@@ -22,6 +22,9 @@ $.fn.bootstrapTable.locales['es-MX'] = {
   formatDetailPagination (totalRows) {
     return `Mostrando ${totalRows} filas`
   },
+  formatClearSearch () {
+    return 'Limpiar búsqueda'
+  },
   formatSearch () {
     return 'Buscar'
   },
@@ -51,9 +54,6 @@ $.fn.bootstrapTable.locales['es-MX'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
   },
   formatJumpTo () {
     return 'GO'

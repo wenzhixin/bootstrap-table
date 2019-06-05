@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
   formatDetailPagination (totalRows) {
     return `Toon ${totalRows} record${(totalRows > 1) ? 's' : ''}`
   },
+  formatClearSearch () {
+    return 'Verwijder filters'
+  },
   formatSearch () {
     return 'Zoeken'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
   },
   formatExport () {
     return 'Exporteer data'
-  },
-  formatClearFilters () {
-    return 'Verwijder filters'
   },
   formatJumpTo () {
     return 'GO'

@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['ur-PK'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
   formatSearch () {
     return 'تلاش'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['ur-PK'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
   },
   formatJumpTo () {
     return 'GO'

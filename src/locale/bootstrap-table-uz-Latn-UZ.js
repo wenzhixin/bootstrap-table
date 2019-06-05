@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Filtrlarni tozalash'
+  },
   formatSearch () {
     return 'Qidirish'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
   },
   formatExport () {
     return 'Eksport'
-  },
-  formatClearFilters () {
-    return 'Filtrlarni tozalash'
   },
   formatJumpTo () {
     return 'GO'

@@ -506,7 +506,6 @@ $.extend($.fn.bootstrapTable.defaults, {
   onCreatedControls () {
     return true
   },
-  filterShowClear: false,
   alignmentSelectControlOptions: undefined,
   filterTemplate: {
     input (that, field, isVisible, placeholder) {
@@ -562,12 +561,6 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-trash'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
-  formatClearFilters () {
-    return 'Clear Filters'
-  }
-})
-
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.fn.bootstrapTable.methods.push('triggerSearch')
@@ -620,44 +613,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     super.init()
-  }
-
-  initToolbar () {
-    this.showToolbar =
-      this.showToolbar ||
-      (this.options.filterControl && this.options.filterShowClear)
-
-    super.initToolbar()
-
-    if (this.options.filterControl && this.options.filterShowClear) {
-      const $btnGroup = this.$toolbar.find('>.btn-group')
-      let $btnClear = $btnGroup.find('.filter-show-clear')
-
-      if (!$btnClear.length) {
-        $btnClear = $(
-          [
-            Utils.sprintf(
-              '<button class="btn btn-%s filter-show-clear" ',
-              this.options.buttonsClass
-            ),
-            Utils.sprintf(
-              'type="button" title="%s">',
-              this.options.formatClearFilters()
-            ),
-            Utils.sprintf(
-              '<i class="%s %s"></i> ',
-              this.options.iconsPrefix,
-              this.options.icons.clear
-            ),
-            '</button>'
-          ].join('')
-        ).appendTo($btnGroup)
-
-        $btnClear
-          .off('click')
-          .on('click', $.proxy(this.clearFilterControl, this))
-      }
-    }
   }
 
   initHeader () {
@@ -775,8 +730,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.trigger('column-search', $field, text)
   }
 
+  resetSearch () {
+    if (this.options.filterControl && this.options.showSearchClearButton) {
+      this.clearFilterControl()
+    }
+    super.resetSearch()
+  }
+
   clearFilterControl () {
-    if (this.options.filterControl && this.options.filterShowClear) {
+    if (this.options.filterControl) {
       const that = this
       const cookies = UtilsFilterControl.collectBootstrapCookies()
       const header = UtilsFilterControl.getCurrentHeader(that)

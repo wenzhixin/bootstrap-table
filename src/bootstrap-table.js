@@ -597,14 +597,24 @@ class BootstrapTable {
 
     if (o.search) {
       html = []
-      html.push(`<div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.inputGroup}">
-        <input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)}"
-        type="text" placeholder="${o.formatSearch()}">
-        </div>`)
+
+
+      html.push(Utils.sprintf(`
+        <div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.inputGroup}">
+            %s
+        </div>
+      `,
+      Utils.sprintf(this.constants.html.inputGroup,
+        `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)}" type="text" placeholder="${o.formatSearch()}">`,
+        (o.showSearchButton ? Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), this.options.iconsPrefix, this.options.icons.search) : '') +
+        (o.showSearchClearButton ? Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), this.options.iconsPrefix, this.options.icons.clearSearch) : ''))
+      ))
 
       this.$toolbar.append(html.join(''))
-      $search = this.$toolbar.find('.search input')
-      $search.off('keyup drop blur').on('keyup drop blur', event => {
+      const $searchInput = this.$toolbar.find('.search input')
+      $search = o.showSearchButton ? this.$toolbar.find('.search button[name=search]') : $searchInput
+      const eventTriggers = o.showSearchButton ? 'click' : 'keyup drop blur'
+      $search.off(eventTriggers).on(eventTriggers, event => {
         if (o.searchOnEnterKey && event.keyCode !== 13) {
           return
         }
@@ -615,9 +625,16 @@ class BootstrapTable {
 
         clearTimeout(timeoutId) // doesn't matter if it's 0
         timeoutId = setTimeout(() => {
-          this.onSearch(event)
+          this.onSearch(o.showSearchButton ? {currentTarget: $searchInput} : event)
         }, o.searchTimeOut)
       })
+
+      if (o.showSearchClearButton) {
+        this.$toolbar.find('.search button[name=clearSearch]').click(() => {
+          this.resetSearch()
+          this.onSearch({currentTarget: this.$toolbar.find('.search input')})
+        })
+      }
 
       if (Utils.isIEBrowser()) {
         $search.off('mouseup').on('mouseup', event => {
@@ -638,9 +655,6 @@ class BootstrapTable {
         $(currentTarget).val(text)
       }
 
-      if (text === this.searchText) {
-        return
-      }
       this.searchText = text
       this.options.searchText = text
     }

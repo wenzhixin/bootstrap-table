@@ -27,27 +27,43 @@ const baseText = fs.readFileSync(DIR + 'bootstrap-table-en-US.js').toString()
 const baseObj = readString(readObj(baseText), baseText)
 
 fs.readdir(`${DIR}`, (err, files) => {
+  let errorSum = 0
   for (const file of files) {
     if (!/\.js$/.test(file) || file === 'bootstrap-table-en-US.js') {
       continue
     }
 
-    console.log('-------------------------')
-    console.log(`Checking file: ${file}`)
-    console.log('-------------------------')
+
 
     const text = fs.readFileSync(DIR + file).toString()
     const obj = readString(readObj(text), text)
     const keys = Object.keys(obj)
     let offset = 0
+    const errors = []
 
     for (const [i, key] of Object.keys(baseObj).entries()) {
       if (!keys.includes(key)) {
-        console.log(chalk.red(`Missing key: '${key}'`))
+        errors.push(chalk.red(`Missing key: '${key}'`))
         offset++
       } else if (keys[i - offset] !== key) {
-        console.log(chalk.red(`Order error: '${key}'`))
+        errors.push(chalk.red(`Order error: '${key}'`))
       }
     }
+
+    errorSum += errors.length
+    if (errors.length > 0) {
+      console.log('-------------------------')
+      console.log(`Checking file: ${file}`)
+      console.log('-------------------------')
+
+      errors.forEach((error) => {
+        console.log(error)
+      })
+    }
   }
+
+  if (errorSum === 0) {
+    console.log('Good job! Anything up to date!')
+  }
+
 })

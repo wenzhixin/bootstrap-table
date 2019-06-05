@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['zh-CN'] = {
   formatDetailPagination (totalRows) {
     return `总共 ${totalRows} 条记录`
   },
+  formatClearSearch () {
+    return '清空过滤'
+  },
   formatSearch () {
     return '搜索'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['zh-CN'] = {
   },
   formatExport () {
     return '导出数据'
-  },
-  formatClearFilters () {
-    return '清空过滤'
   },
   formatJumpTo () {
     return '跳转'

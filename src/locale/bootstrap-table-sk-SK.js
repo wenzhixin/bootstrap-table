@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['sk-SK'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Odstráň filtre'
+  },
   formatSearch () {
     return 'Vyhľadávanie'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['sk-SK'] = {
   },
   formatExport () {
     return 'Exportuj dáta'
-  },
-  formatClearFilters () {
-    return 'Odstráň filtre'
   },
   formatJumpTo () {
     return 'GO'

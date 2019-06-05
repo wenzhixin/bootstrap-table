@@ -25,7 +25,9 @@ const CONSTANTS = {
       columns: 'glyphicon-th icon-th',
       detailOpen: 'glyphicon-plus icon-plus',
       detailClose: 'glyphicon-minus icon-minus',
-      fullscreen: 'glyphicon-fullscreen'
+      fullscreen: 'glyphicon-fullscreen',
+      search: 'glyphicon-search',
+      clearSearch: 'glyphicon-trash'
     },
     classes: {
       buttonsPrefix: 'btn',
@@ -33,7 +35,7 @@ const CONSTANTS = {
       buttonsGroup: 'btn-group',
       buttonsDropdown: 'btn-group',
       pull: 'pull',
-      inputGroup: '',
+      inputGroup: 'input-group',
       input: 'form-control',
       paginationDropdown: 'btn-group dropdown',
       dropup: 'dropup',
@@ -49,7 +51,10 @@ const CONSTANTS = {
       dropdownCaret: '<span class="caret"></span>',
       pagination: ['<ul class="pagination%s">', '</ul>'],
       paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
-      icon: '<i class="%s %s"></i>'
+      icon: '<i class="%s %s"></i>',
+      inputGroup: '<div class="input-group">%s<span class="input-group-btn">%s</span></div>',
+      searchButton: '<button class="btn btn-default" type="button" name="search" title="%s"><i class="%s %s"></i></button>',
+      searchClearButton: '<button class="btn btn-default" type="button" name="clearSearch" title="%s"><i class="%s %s"></i></button>'
     }
   },
   4: {
@@ -61,9 +66,11 @@ const CONSTANTS = {
       toggleOff: 'fa-toggle-off',
       toggleOn: 'fa-toggle-on',
       columns: 'fa-th-list',
-      fullscreen: 'fa-arrows-alt',
       detailOpen: 'fa-plus',
-      detailClose: 'fa-minus'
+      detailClose: 'fa-minus',
+      fullscreen: 'fa-arrows-alt',
+      search: 'fa-search',
+      clearSearch: 'fa-trash'
     },
     classes: {
       buttonsPrefix: 'btn',
@@ -71,7 +78,7 @@ const CONSTANTS = {
       buttonsGroup: 'btn-group',
       buttonsDropdown: 'btn-group',
       pull: 'float',
-      inputGroup: '',
+      inputGroup: 'btn-group',
       input: 'form-control',
       paginationDropdown: 'btn-group dropdown',
       dropup: 'dropup',
@@ -87,7 +94,10 @@ const CONSTANTS = {
       dropdownCaret: '<span class="caret"></span>',
       pagination: ['<ul class="pagination%s">', '</ul>'],
       paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
-      icon: '<i class="%s %s"></i>'
+      icon: '<i class="%s %s"></i>',
+      inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
+      searchButton: '<button class="btn btn-secondary" type="button" name="search" title="%s"><i class="%s %s"></i></button>',
+      searchClearButton: '<button class="btn btn-secondary" type="button" name="clearSearch" title="%s"><i class="%s %s"></i></button>'
     }
   }
 }[bootstrapVersion]
@@ -154,6 +164,8 @@ const DEFAULTS = {
   search: false,
   searchOnEnterKey: false,
   strictSearch: false,
+  showSearchButton: false,
+  showSearchClearButton: false,
   trimOnSearch: true,
   searchAlign: 'right',
   searchTimeOut: 500,
@@ -310,6 +322,9 @@ const EN = {
   },
   formatSearch () {
     return 'Search'
+  },
+  formatClearSearch () {
+    return 'Clear Search'
   },
   formatNoMatches () {
     return 'No matching records found'

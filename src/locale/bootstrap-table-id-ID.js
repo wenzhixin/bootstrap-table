@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['id-ID'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Bersihkan filter'
+  },
   formatSearch () {
     return 'Pencarian'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['id-ID'] = {
   },
   formatExport () {
     return 'Ekspor data'
-  },
-  formatClearFilters () {
-    return 'Bersihkan filter'
   },
   formatJumpTo () {
     return 'GO'

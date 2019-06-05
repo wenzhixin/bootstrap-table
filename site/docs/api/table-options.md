@@ -794,6 +794,35 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Strict Search](https://examples.bootstrap-table.com/#options/strict-search.html)
 
+## showSearchButton
+
+- **Attribute:** `data-show-search-button`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a search Button behind the search input.
+  The Search will only be executed if the button is pressed (e.g. to prevent traffic or loading time).
+
+- **Default:** `false`
+
+- **Example:** [ShowSearchButton](https://examples.bootstrap-table.com/#options/show-search-button.html)
+
+## showSearchClearButton
+
+- **Attribute:** `data-show-search-clear-button`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a clear Button behind the search input which will clear the search input (also all filter from filter-control (if enabled)).
+
+- **Default:** `false`
+
+- **Example:** [ShowSearchClearButton](https://examples.bootstrap-table.com/#options/show-search-clear-button.html)
+
 ## trimOnSearch
 
 - **Attribute:** `data-trim-on-search`

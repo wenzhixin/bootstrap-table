@@ -29,16 +29,6 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `false`
 
-### filterShowClear
-
-- **type:** `Boolean`
-
-- **Detail:**
-
-   Set true to add a button to clear all the controls added by this plugin.
-
-- **Default:** `false`
-
 ### alignmentSelectControlOptions
 
 - **type:** `String`

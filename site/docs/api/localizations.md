@@ -78,6 +78,12 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Search'`
 
+## formatClearSearch
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Clear Search'`
+
 ## formatNoMatches
 
 - **Parameter:** `undefined`

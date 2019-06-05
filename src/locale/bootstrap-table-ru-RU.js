@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['ru-RU'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Очистить фильтры'
+  },
   formatSearch () {
     return 'Поиск'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['ru-RU'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Очистить фильтры'
   },
   formatJumpTo () {
     return 'GO'
