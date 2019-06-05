@@ -598,7 +598,6 @@ class BootstrapTable {
     if (o.search) {
       html = []
 
-
       html.push(Utils.sprintf(`
         <div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.inputGroup}">
             %s
