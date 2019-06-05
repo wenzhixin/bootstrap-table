@@ -590,7 +590,7 @@ class BootstrapTable {
       $keepOpen.find('input').off('click').on('click', ({currentTarget}) => {
         const $this = $(currentTarget)
 
-        this.toggleColumn($this.val(), $this.prop('checked'), false)
+        this._toggleColumn($this.val(), $this.prop('checked'), false)
         this.trigger('column-switch', $this.data('field'), $this.prop('checked'))
       })
     }
@@ -1420,7 +1420,7 @@ class BootstrapTable {
       e.stopImmediatePropagation()
 
       const $this = $(e.currentTarget)
-      this.check_($this.prop('checked'), $this.data('index'))
+      this._toggleCheck($this.prop('checked'), $this.data('index'))
     })
 
     this.header.events.forEach((_events, i) => {
@@ -1472,18 +1472,6 @@ class BootstrapTable {
     }
 
     this.trigger('post-body', data)
-  }
-
-  toggleDetailView (index, _columnDetailFormatter) {
-    const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"]', index))
-
-    if ($tr.next().is('tr.detail-view')) {
-      this.collapseRow(index)
-    } else {
-      this.expandRow(index, _columnDetailFormatter)
-    }
-
-    this.resetView()
   }
 
   initServer (silent, query, url) {
@@ -1862,29 +1850,6 @@ class BootstrapTable {
     })
   }
 
-  toggleColumn (index, checked, needUpdate) {
-    if (index === -1) {
-      return
-    }
-    this.columns[index].visible = checked
-    this.initHeader()
-    this.initSearch()
-    this.initPagination()
-    this.initBody()
-
-    if (this.options.showColumns) {
-      const $items = this.$toolbar.find('.keep-open input').prop('disabled', false)
-
-      if (needUpdate) {
-        $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked)
-      }
-
-      if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
-        $items.filter(':checked').prop('disabled', true)
-      }
-    }
-  }
-
   getVisibleFields () {
     const visibleFields = []
 
@@ -1899,59 +1864,29 @@ class BootstrapTable {
     return visibleFields
   }
 
+  initHiddenRows () {
+    this.hiddenRows = []
+  }
+
   // PUBLIC FUNCTION DEFINITION
   // =======================
 
-  resetView (params) {
-    let padding = 0
+  getOptions () {
+    // deep copy and remove data
+    const options = JSON.parse(JSON.stringify(this.options))
+    delete options.data
+    return options
+  }
 
-    if (params && params.height) {
-      this.options.height = params.height
+  refreshOptions (options) {
+    // If the objects are equivalent then avoid the call of destroy / init methods
+    if (Utils.compareObjects(this.options, options, true)) {
+      return
     }
-
-    this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
-      this.$selectItem.length === this.$selectItem.filter(':checked').length)
-
-    this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
-
-    if (!this.options.cardView && this.options.showHeader && this.options.height) {
-      this.$tableHeader.show()
-      this.resetHeader()
-      padding += this.$header.outerHeight(true)
-    } else {
-      this.$tableHeader.hide()
-      this.trigger('post-header')
-    }
-
-    if (!this.options.cardView && this.options.showFooter) {
-      this.$tableFooter.show()
-      this.fitFooter()
-      if (this.options.height) {
-        padding += this.$tableFooter.outerHeight(true)
-      }
-    }
-
-    if (this.options.height) {
-      const toolbarHeight = this.$toolbar.outerHeight(true)
-      const paginationHeight = this.$pagination.outerHeight(true)
-      const height = this.options.height - toolbarHeight - paginationHeight
-      const tableHeight = this.$tableBody.find('table').outerHeight(true)
-      this.$tableContainer.css('height', `${height}px`)
-      this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
-    }
-
-    if (this.options.cardView) {
-      // remove the element css
-      this.$el.css('margin-top', '0')
-      this.$tableContainer.css('padding-bottom', '0')
-      this.$tableFooter.hide()
-    } else {
-      // Assign the correct sortable arrow
-      this.getCaret()
-      this.$tableContainer.css('padding-bottom', `${padding}px`)
-    }
-
-    this.trigger('reset-view')
+    this.options = $.extend(this.options, options)
+    this.trigger('refresh-options', this.options)
+    this.destroy()
+    this.init()
   }
 
   getData (useCurrentPage) {
@@ -1965,6 +1900,16 @@ class BootstrapTable {
     }
 
     return data
+  }
+
+  getSelections () {
+    // fix #2424: from html with checkbox
+    return this.options.data.filter(row =>
+      row[this.header.stateField] === true)
+  }
+
+  getAllSelections () {
+    return this.options.data.filter(row => row[this.header.stateField])
   }
 
   load (_data) {
@@ -2047,6 +1992,33 @@ class BootstrapTable {
     }
   }
 
+  insertRow (params) {
+    if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
+      return
+    }
+    this.options.data.splice(params.index, 0, params.row)
+    this.initSearch()
+    this.initPagination()
+    this.initSort()
+    this.initBody(true)
+  }
+
+  updateRow (params) {
+    const allParams = Array.isArray(params) ? params : [params]
+
+    for (const params of allParams) {
+      if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
+        continue
+      }
+      $.extend(this.options.data[params.index], params.row)
+    }
+
+    this.initSearch()
+    this.initPagination()
+    this.initSort()
+    this.initBody(true)
+  }
+
   getRowByUniqueId (_id) {
     const uniqueId = this.options.uniqueId
     const len = this.options.data.length
@@ -2086,23 +2058,6 @@ class BootstrapTable {
     return dataRow
   }
 
-  removeByUniqueId (id) {
-    const len = this.options.data.length
-    const row = this.getRowByUniqueId(id)
-
-    if (row) {
-      this.options.data.splice(this.options.data.indexOf(row), 1)
-    }
-
-    if (len === this.options.data.length) {
-      return
-    }
-
-    this.initSearch()
-    this.initPagination()
-    this.initBody(true)
-  }
-
   updateByUniqueId (params) {
     const allParams = Array.isArray(params) ? params : [params]
 
@@ -2125,65 +2080,71 @@ class BootstrapTable {
     this.initBody(true)
   }
 
-  refreshColumnTitle (params) {
-    if (!params.hasOwnProperty('field') || !params.hasOwnProperty('title')) {
+  removeByUniqueId (id) {
+    const len = this.options.data.length
+    const row = this.getRowByUniqueId(id)
+
+    if (row) {
+      this.options.data.splice(this.options.data.indexOf(row), 1)
+    }
+
+    if (len === this.options.data.length) {
       return
     }
 
-    this.columns[this.fieldsColumnsIndex[params.field]].title =
-      this.options.escape ? Utils.escapeHTML(params.title) : params.title
-
-    if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
-      const header = this.options.height !== undefined ? this.$tableHeader : this.$header
-      header.find('th[data-field]').each((i, el) => {
-        if ($(el).data('field') === params.field) {
-          $($(el).find('.th-inner')[0]).text(params.title)
-          return false
-        }
-      })
-    }
-  }
-
-  insertRow (params) {
-    if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
-      return
-    }
-    this.options.data.splice(params.index, 0, params.row)
     this.initSearch()
     this.initPagination()
+    this.initBody(true)
+  }
+
+  updateCell (params) {
+    if (!params.hasOwnProperty('index') ||
+      !params.hasOwnProperty('field') ||
+      !params.hasOwnProperty('value')) {
+      return
+    }
+    this.data[params.index][params.field] = params.value
+
+    if (params.reinit === false) {
+      return
+    }
     this.initSort()
     this.initBody(true)
   }
 
-  updateRow (params) {
+  updateCellByUniqueId (params) {
+    if (!params.hasOwnProperty('id') ||
+      !params.hasOwnProperty('field') ||
+      !params.hasOwnProperty('value')) {
+      return
+    }
     const allParams = Array.isArray(params) ? params : [params]
 
-    for (const params of allParams) {
-      if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
-        continue
-      }
-      $.extend(this.options.data[params.index], params.row)
-    }
+    allParams.forEach(({id, field, value}) => {
+      const rowId = this.options.data.indexOf(this.getRowByUniqueId(id))
 
-    this.initSearch()
-    this.initPagination()
+      if (rowId === -1) {
+        return
+      }
+      this.data[rowId][field] = value
+    })
+
+    if (params.reinit === false) {
+      return
+    }
     this.initSort()
     this.initBody(true)
-  }
-
-  initHiddenRows () {
-    this.hiddenRows = []
   }
 
   showRow (params) {
-    this.toggleRow(params, true)
+    this._toggleRow(params, true)
   }
 
   hideRow (params) {
-    this.toggleRow(params, false)
+    this._toggleRow(params, false)
   }
 
-  toggleRow (params, visible) {
+  _toggleRow (params, visible) {
     let row
 
     if (params.hasOwnProperty('index')) {
@@ -2224,6 +2185,77 @@ class BootstrapTable {
     return rows
   }
 
+  showColumn (field) {
+    const fields = Array.isArray(field) ? field : [field]
+    fields.forEach(field => {
+      this._toggleColumn(this.fieldsColumnsIndex[field], true, true)
+    })
+  }
+
+  hideColumn (field) {
+    const fields = Array.isArray(field) ? field : [field]
+    fields.forEach(field => {
+      this._toggleColumn(this.fieldsColumnsIndex[field], false, true)
+    })
+  }
+
+  _toggleColumn (index, checked, needUpdate) {
+    if (index === -1) {
+      return
+    }
+    this.columns[index].visible = checked
+    this.initHeader()
+    this.initSearch()
+    this.initPagination()
+    this.initBody()
+
+    if (this.options.showColumns) {
+      const $items = this.$toolbar.find('.keep-open input').prop('disabled', false)
+
+      if (needUpdate) {
+        $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked)
+      }
+
+      if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
+        $items.filter(':checked').prop('disabled', true)
+      }
+    }
+  }
+
+  getVisibleColumns () {
+    return this.columns.filter(({visible}) => visible)
+  }
+
+  getHiddenColumns () {
+    return this.columns.filter(({visible}) => !visible)
+  }
+
+  showAllColumns () {
+    this._toggleAllColumns(true)
+  }
+
+  hideAllColumns () {
+    this._toggleAllColumns(false)
+  }
+
+  _toggleAllColumns (visible) {
+    for (const column of this.columns) {
+      column.visible = visible
+    }
+
+    this.initHeader()
+    this.initSearch()
+    this.initPagination()
+    this.initBody()
+    if (this.options.showColumns) {
+      const $items = this.$toolbar.find('.keep-open input').prop('disabled', false)
+
+      if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
+        $items.filter(':checked').prop('disabled', true)
+      }
+    }
+  }
+
   mergeCells (options) {
     const row = options.index
     let col = this.getVisibleFields().indexOf(options.field)
@@ -2252,68 +2284,27 @@ class BootstrapTable {
     $td.attr('rowspan', rowspan).attr('colspan', colspan).show()
   }
 
-  updateCell (params) {
-    if (!params.hasOwnProperty('index') ||
-      !params.hasOwnProperty('field') ||
-      !params.hasOwnProperty('value')) {
-      return
-    }
-    this.data[params.index][params.field] = params.value
-
-    if (params.reinit === false) {
-      return
-    }
-    this.initSort()
-    this.initBody(true)
-  }
-
-  updateCellById (params) {
-    if (!params.hasOwnProperty('id') ||
-      !params.hasOwnProperty('field') ||
-      !params.hasOwnProperty('value')) {
-      return
-    }
-    const allParams = Array.isArray(params) ? params : [params]
-
-    allParams.forEach(({id, field, value}) => {
-      const rowId = this.options.data.indexOf(this.getRowByUniqueId(id))
-
-      if (rowId === -1) {
-        return
-      }
-      this.data[rowId][field] = value
-    })
-
-    if (params.reinit === false) {
-      return
-    }
-    this.initSort()
-    this.initBody(true)
-  }
-
-  getOptions () {
-    // deep copy and remove data
-    const options = JSON.parse(JSON.stringify(this.options))
-    delete options.data
-    return options
-  }
-
-  getSelections () {
-    // fix #2424: from html with checkbox
-    return this.options.data.filter(row =>
-      row[this.header.stateField] === true)
-  }
-
-  getAllSelections () {
-    return this.options.data.filter(row => row[this.header.stateField])
-  }
-
   checkAll () {
-    this.checkAll_(true)
+    this._toggleCheckAll(true)
   }
 
   uncheckAll () {
-    this.checkAll_(false)
+    this._toggleCheckAll(false)
+  }
+
+  _toggleCheckAll (checked) {
+    const rowsBefore = this.getSelections()
+    this.$selectAll.add(this.$selectAll_).prop('checked', checked)
+    this.$selectItem.filter(':enabled').prop('checked', checked)
+    this.updateRows()
+
+    const rowsAfter = this.getSelections()
+    if (checked) {
+      this.trigger('check-all', rowsAfter, rowsBefore)
+      return
+    }
+
+    this.trigger('uncheck-all', rowsAfter, rowsBefore)
   }
 
   checkInvert () {
@@ -2329,30 +2320,15 @@ class BootstrapTable {
     this.trigger('check-some', checked)
   }
 
-  checkAll_ (checked) {
-    const rowsBefore = this.getSelections()
-    this.$selectAll.add(this.$selectAll_).prop('checked', checked)
-    this.$selectItem.filter(':enabled').prop('checked', checked)
-    this.updateRows()
-
-    const rowsAfter = this.getSelections()
-    if (checked) {
-      this.trigger('check-all', rowsAfter, rowsBefore)
-      return
-    }
-
-    this.trigger('uncheck-all', rowsAfter, rowsBefore)
-  }
-
   check (index) {
-    this.check_(true, index)
+    this._toggleCheck(true, index)
   }
 
   uncheck (index) {
-    this.check_(false, index)
+    this._toggleCheck(false, index)
   }
 
-  check_ (checked, index) {
+  _toggleCheck (checked, index) {
     const $el = this.$selectItem.filter(`[data-index="${index}"]`)
     const row = this.data[index]
 
@@ -2392,14 +2368,14 @@ class BootstrapTable {
   }
 
   checkBy (obj) {
-    this.checkBy_(true, obj)
+    this._toggleCheckBy(true, obj)
   }
 
   uncheckBy (obj) {
-    this.checkBy_(false, obj)
+    this._toggleCheckBy(false, obj)
   }
 
-  checkBy_ (checked, obj) {
+  _toggleCheckBy (checked, obj) {
     if (!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
       return
     }
@@ -2421,6 +2397,20 @@ class BootstrapTable {
     this.trigger(checked ? 'check-some' : 'uncheck-some', rows)
   }
 
+  refresh (params) {
+    if (params && params.url) {
+      this.options.url = params.url
+    }
+    if (params && params.pageNumber) {
+      this.options.pageNumber = params.pageNumber
+    }
+    if (params && params.pageSize) {
+      this.options.pageSize = params.pageSize
+    }
+    this.trigger('refresh', this.initServer(params && params.silent,
+      params && params.query, params && params.url))
+  }
+
   destroy () {
     this.$el.insertBefore(this.$container)
     $(this.options.toolbar).insertBefore(this.$el)
@@ -2429,6 +2419,67 @@ class BootstrapTable {
     this.$el.html(this.$el_.html())
       .css('margin-top', '0')
       .attr('class', this.$el_.attr('class') || '') // reset the class
+  }
+
+  resetView (params) {
+    let padding = 0
+
+    if (params && params.height) {
+      this.options.height = params.height
+    }
+
+    this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
+      this.$selectItem.length === this.$selectItem.filter(':checked').length)
+
+    this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
+
+    if (!this.options.cardView && this.options.showHeader && this.options.height) {
+      this.$tableHeader.show()
+      this.resetHeader()
+      padding += this.$header.outerHeight(true)
+    } else {
+      this.$tableHeader.hide()
+      this.trigger('post-header')
+    }
+
+    if (!this.options.cardView && this.options.showFooter) {
+      this.$tableFooter.show()
+      this.fitFooter()
+      if (this.options.height) {
+        padding += this.$tableFooter.outerHeight(true)
+      }
+    }
+
+    if (this.options.height) {
+      const toolbarHeight = this.$toolbar.outerHeight(true)
+      const paginationHeight = this.$pagination.outerHeight(true)
+      const height = this.options.height - toolbarHeight - paginationHeight
+      const tableHeight = this.$tableBody.find('table').outerHeight(true)
+      this.$tableContainer.css('height', `${height}px`)
+      this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
+    }
+
+    if (this.options.cardView) {
+      // remove the element css
+      this.$el.css('margin-top', '0')
+      this.$tableContainer.css('padding-bottom', '0')
+      this.$tableFooter.hide()
+    } else {
+      // Assign the correct sortable arrow
+      this.getCaret()
+      this.$tableContainer.css('padding-bottom', `${padding}px`)
+    }
+
+    this.trigger('reset-view')
+  }
+
+  resetWidth () {
+    if (this.options.showHeader && this.options.height) {
+      this.fitHeader()
+    }
+    if (this.options.showFooter && !this.options.cardView) {
+      this.fitFooter()
+    }
   }
 
   showLoading () {
@@ -2452,75 +2503,22 @@ class BootstrapTable {
     this.resetView()
   }
 
-  refresh (params) {
-    if (params && params.url) {
-      this.options.url = params.url
-    }
-    if (params && params.pageNumber) {
-      this.options.pageNumber = params.pageNumber
-    }
-    if (params && params.pageSize) {
-      this.options.pageSize = params.pageSize
-    }
-    this.trigger('refresh', this.initServer(params && params.silent,
-      params && params.query, params && params.url))
-  }
-
-  resetWidth () {
-    if (this.options.showHeader && this.options.height) {
-      this.fitHeader()
-    }
-    if (this.options.showFooter && !this.options.cardView) {
-      this.fitFooter()
-    }
-  }
-
-  showColumn (field) {
-    const fields = Array.isArray(field) ? field : [field]
-    fields.forEach(field => {
-      this.toggleColumn(this.fieldsColumnsIndex[field], true, true)
-    })
-  }
-
-  hideColumn (field) {
-    const fields = Array.isArray(field) ? field : [field]
-    fields.forEach(field => {
-      this.toggleColumn(this.fieldsColumnsIndex[field], false, true)
-    })
-  }
-
-  getHiddenColumns () {
-    return this.columns.filter(({visible}) => !visible)
-  }
-
-  getVisibleColumns () {
-    return this.columns.filter(({visible}) => visible)
-  }
-
-  toggleAllColumns (visible) {
-    for (const column of this.columns) {
-      column.visible = visible
-    }
-
+  toggleView () {
+    this.options.cardView = !this.options.cardView
     this.initHeader()
-    this.initSearch()
-    this.initPagination()
+    // Fixed remove toolbar when click cardView button.
+    // this.initToolbar();
+    this.$toolbar.find('button[name="toggle"]')
+      .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix,
+        this.options.cardView ? this.options.icons.toggleOn : this.options.icons.toggleOff))
     this.initBody()
-    if (this.options.showColumns) {
-      const $items = this.$toolbar.find('.keep-open input').prop('disabled', false)
-
-      if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
-        $items.filter(':checked').prop('disabled', true)
-      }
-    }
+    this.trigger('toggle', this.options.cardView)
   }
 
-  showAllColumns () {
-    this.toggleAllColumns(true)
-  }
-
-  hideAllColumns () {
-    this.toggleAllColumns(false)
+  resetSearch (text) {
+    const $search = this.$toolbar.find('.search input')
+    $search.val(text || '')
+    this.onSearch({currentTarget: $search})
   }
 
   filterBy (columns, options) {
@@ -2581,33 +2579,16 @@ class BootstrapTable {
     }
   }
 
-  toggleView () {
-    this.options.cardView = !this.options.cardView
-    this.initHeader()
-    // Fixed remove toolbar when click cardView button.
-    // this.initToolbar();
-    this.$toolbar.find('button[name="toggle"]')
-      .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix,
-        this.options.cardView ? this.options.icons.toggleOn : this.options.icons.toggleOff))
-    this.initBody()
-    this.trigger('toggle', this.options.cardView)
-  }
+  toggleDetailView (index, _columnDetailFormatter) {
+    const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"]', index))
 
-  refreshOptions (options) {
-    // If the objects are equivalent then avoid the call of destroy / init methods
-    if (Utils.compareObjects(this.options, options, true)) {
-      return
+    if ($tr.next().is('tr.detail-view')) {
+      this.collapseRow(index)
+    } else {
+      this.expandRow(index, _columnDetailFormatter)
     }
-    this.options = $.extend(this.options, options)
-    this.trigger('refresh-options', this.options)
-    this.destroy()
-    this.init()
-  }
 
-  resetSearch (text) {
-    const $search = this.$toolbar.find('.search input')
-    $search.val(text || '')
-    this.onSearch({currentTarget: $search})
+    this.resetView()
   }
 
   expandRow (index, _columnDetailFormatter) {
@@ -2660,6 +2641,25 @@ class BootstrapTable {
     const trs = this.$body.find('> tr[data-index][data-has-detail-view]')
     for (let i = 0; i < trs.length; i++) {
       this.collapseRow($(trs[i]).data('index'))
+    }
+  }
+
+  updateColumnTitle (params) {
+    if (!params.hasOwnProperty('field') || !params.hasOwnProperty('title')) {
+      return
+    }
+
+    this.columns[this.fieldsColumnsIndex[params.field]].title =
+      this.options.escape ? Utils.escapeHTML(params.title) : params.title
+
+    if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
+      const header = this.options.height !== undefined ? this.$tableHeader : this.$header
+      header.find('th[data-field]').each((i, el) => {
+        if ($(el).data('field') === params.field) {
+          $($(el).find('.th-inner')[0]).text(params.title)
+          return false
+        }
+      })
     }
   }
 

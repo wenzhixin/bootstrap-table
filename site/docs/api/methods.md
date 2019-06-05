@@ -16,6 +16,22 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Return the options object.
 
+## refreshOptions
+
+- **Parameter:** `options`
+
+- **Detail:**
+
+  Refresh the table `options`.
+
+## getData
+
+- **Parameter:** `useCurrentPage`
+
+- **Detail:**
+
+  Get the loaded data of table at the moment that this method is called. If you set the `useCurrentPage` to `true` the method will return the data in the current page.
+
 ## getSelections
 
 - **Parameter:** `undefined`
@@ -31,14 +47,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Return all selected rows contain search or filter, when no record selected, an empty array will return.
-
-## getData
-
-- **Parameter:** `useCurrentPage`
-
-- **Detail:**
-
-  Get the loaded data of table at the moment that this method is called. If you set the `useCurrentPage` to `true` the method will return the data in the current page.
 
 ## load
 
@@ -105,19 +113,13 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `index`: the row index to be updated.
   * `row`: the new row data.
 
-## updateCell
+## getRowByUniqueId
 
-- **Parameter:** `params`
+- **Parameter:** `id`
 
 - **Detail:**
 
-  Update one cell, the params contain following properties:
-
-  * `index`: the row index.
-  * `field`: the field name.
-  * `value`: the new field value.
-
-  To disable table re-initialization you can set `{reinit: false}`.
+  Get data from table, the row that contains the `id` passed by parameter.
 
 ## updateByUniqueId
 
@@ -138,13 +140,31 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Remove data from table, the row that contains the `id` passed by parameter.
 
-## getRowByUniqueId
+## updateCell
 
-- **Parameter:** `id`
+- **Parameter:** `params`
 
 - **Detail:**
 
-  Get data from table, the row that contains the `id` passed by parameter.
+  Update one cell, the params contain following properties:
+
+  * `index`: the row index.
+  * `field`: the field name.
+  * `value`: the new field value.
+
+  To disable table re-initialization you can set `{reinit: false}`.
+
+## updateCellByUniqueId
+
+- **Parameter:** `params`
+
+- **Detail:**
+
+  Update the cell specified by the id, each params contain following properties:
+
+  * `id`: row id where the id should be the `uniqueId` field assigned to the table.
+  * `field`: field name of the cell to be updated.
+  * `value`: new value of the cell.
 
 ## showRow
 
@@ -176,6 +196,56 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Get all rows hidden and if you pass the `show` parameter `true` the rows will be shown again, otherwise, the method only will return the rows hidden.
 
+## showColumn
+
+- **Parameter:** `field`
+
+- **Detail:**
+
+  Show the specified `field` column.
+  The parameter can be a string or a array of fields.
+
+## hideColumn
+
+- **Parameter:** `field`
+
+- **Detail:**
+
+  Hide the specified `field` column.
+  The parameter can be a string or a array of fields.
+
+## getVisibleColumns
+
+- **Parameter:** `-`
+
+- **Detail:**
+
+  Get visible columns.
+
+## getHiddenColumns
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+  Get hidden columns.
+
+## showAllColumns
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+  Show All the columns.
+
+## hideAllColumns
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+  Hide All the columns.
+
 ## mergeCells
 
 - **Parameter:** `params`
@@ -188,17 +258,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `field`: the field name.
   * `rowspan`: the rowspan count to be merged.
   * `colspan`: the colspan count to be merged.
-
-## refreshColumnTitle
-
-- **Parameter:** `params`
-
-- **Detail:**
-
-  Refresh the field title of column, the params contain following properties:
-
-  * `field`: the field name.
-  * `title`: the field title.
 
 ## checkAll
 
@@ -270,6 +329,14 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Refresh the remote server data, you can set `{silent: true}` to refresh the data silently, and set `{url: newUrl, pageNumber: pageNumber, pageSize: pageSize}` to change the url (optional), page number (optional) and page size (optional). To supply query params specific to this request, set `{query: {foo: 'bar'}}`.
 
+## destroy
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+  Destroy the Bootstrap Table.
+
 ## resetView
 
 - **Parameter:** `params`
@@ -288,14 +355,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Resizes header and footer to fit current columns width.
 
-## destroy
-
-- **Parameter:** `undefined`
-
-- **Detail:**
-
-  Destroy the Bootstrap Table.
-
 ## showLoading
 
 - **Parameter:** `undefined`
@@ -312,55 +371,37 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Hide loading status.
 
-## showColumn
-
-- **Parameter:** `field`
-
-- **Detail:**
-
-  Show the specified `field` column.
-  The parameter can be a string or a array of fields.
-
-## hideColumn
-
-- **Parameter:** `field`
-
-- **Detail:**
-
-  Hide the specified `field` column.
-  The parameter can be a string or a array of fields.
-
-## getHiddenColumns
+## togglePagination
 
 - **Parameter:** `undefined`
 
 - **Detail:**
 
-  Get hidden columns.
+  Toggle the pagination option.
 
-## getVisibleColumns
-
-- **Parameter:** `-`
-
-- **Detail:**
-
-  Get visible columns.
-
-## showAllColumns
+## toggleFullscreen
 
 - **Parameter:** `undefined`
 
 - **Detail:**
 
-  Show All the columns.
+  Toggle fullscreen.
 
-## hideAllColumns
+## toggleView
 
 - **Parameter:** `undefined`
 
 - **Detail:**
 
-  Hide All the columns.
+  Toggle the card/table view.
+
+## resetSearch
+
+- **Parameter:** `text`
+
+- **Detail:**
+
+  Set the search `text`.
 
 ## filterBy
 
@@ -440,37 +481,13 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Go to next page.
 
-## togglePagination
+## toggleDetailView
 
-- **Parameter:** `undefined`
-
-- **Detail:**
-
-  Toggle the pagination option.
-
-## toggleView
-
-- **Parameter:** `undefined`
+- **Parameter:** `index`
 
 - **Detail:**
 
-  Toggle the card/table view.
-
-## refreshOptions
-
-- **Parameter:** `options`
-
-- **Detail:**
-
-  Refresh the table `options`.
-
-## resetSearch
-
-- **Parameter:** `text`
-
-- **Detail:**
-
-  Set the search `text`.
+  Toggle the row that has the `index` passed by parameter if the detail view option is set to `true`.
 
 ## expandRow
 
@@ -488,14 +505,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Collapse the row that has the `index` passed by parameter if the detail view option is set to `true`.
 
-## toggleDetailView
-
-- **Parameter:** `index`
-
-- **Detail:**
-
-  Toggle the row that has the `index` passed by parameter if the detail view option is set to `true`.
-
 ## expandAllRows
 
 - **Parameter:** `undefined`
@@ -512,6 +521,17 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Collapse all rows if the detail view option is set to `true`.
 
+## updateColumnTitle
+
+- **Parameter:** `params`
+
+- **Detail:**
+
+  Refresh the field title of column, the params contain following properties:
+
+  * `field`: the field name.
+  * `title`: the field title.
+
 ## updateFormatText
 
 - **Parameter:** `formatName, text`
@@ -519,15 +539,3 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Update the localizations format text.
-
-## updateCellById
-
-- **Parameter:** `params`
-
-- **Detail:**
-
-  Update the cell specified by the id, each params contain following properties:
-
-  * `id`: row id where the id should be the uniqueid field assigned to the table.
-  * `field`: field name of the cell to be updated.
-  * `value`: new value of the cell.
