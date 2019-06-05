@@ -243,7 +243,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
-- **Example:** [Checkbox Enabled](https://examples.bootstrap-table.com/#column-options/checkbox-enabled.html)
+- **Example:** [Checkbox Enabled](https://examples.bootstrap-table.com/#column-options/checkbox-enabled.html) and [Checkbox Disabled](https://examples.bootstrap-table.com/#column-options/checkbox-disabled.html)
 
 ## clickToSelect
 

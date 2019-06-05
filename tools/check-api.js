@@ -68,7 +68,7 @@ class ColumnOptions extends API {
   init () {
     this.file = 'column-options.md'
     this.options = Object.keys(Constants.COLUMN_DEFAULTS)
-    this.attributes = ['Attribute', 'Type', 'Detail', 'Default' , 'Example']
+    this.attributes = ['Attribute', 'Type', 'Detail', 'Default', 'Example']
   }
 }
 
@@ -76,7 +76,10 @@ class Methods extends API {
   init () {
     this.file = 'methods.md'
     this.options = Constants.METHODS
-    this.attributes = ['Parameter', 'Detail']// , 'Example']
+    this.attributes = ['Parameter', 'Detail', 'Example']
+    this.ignore = {
+      resetWidth: ['Example']
+    }
   }
 }
 
