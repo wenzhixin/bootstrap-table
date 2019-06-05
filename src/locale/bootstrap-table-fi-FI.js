@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['fi-FI'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Poista suodattimet'
+  },
   formatSearch () {
     return 'Hae'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['fi-FI'] = {
   },
   formatExport () {
     return 'Vie tiedot'
-  },
-  formatClearFilters () {
-    return 'Poista suodattimet'
   },
   formatJumpTo () {
     return 'GO'

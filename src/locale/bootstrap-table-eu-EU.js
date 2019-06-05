@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['eu-EU'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
   formatSearch () {
     return 'Bilatu'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['eu-EU'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
   },
   formatJumpTo () {
     return 'GO'

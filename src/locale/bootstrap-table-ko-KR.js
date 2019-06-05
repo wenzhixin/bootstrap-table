@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['ko-KR'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
   formatSearch () {
     return '검색'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['ko-KR'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
   },
   formatJumpTo () {
     return 'GO'

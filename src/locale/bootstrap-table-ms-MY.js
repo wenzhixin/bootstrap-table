@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['ms-MY'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
   formatSearch () {
     return 'Cari'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['ms-MY'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
   },
   formatJumpTo () {
     return 'GO'

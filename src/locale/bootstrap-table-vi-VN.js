@@ -20,6 +20,9 @@ $.fn.bootstrapTable.locales['vi-VN'] = {
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
   formatSearch () {
     return 'Tìm kiếm'
   },
@@ -49,9 +52,6 @@ $.fn.bootstrapTable.locales['vi-VN'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
   },
   formatJumpTo () {
     return 'GO'

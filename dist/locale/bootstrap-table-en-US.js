@@ -31,6 +31,7 @@
       formatDetailPagination: function formatDetailPagination(totalRows) {
         return 'Showing ' + totalRows + ' rows';
       },
+
       formatSearch: function formatSearch() {
         return 'Search';
       },
