@@ -16,6 +16,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Return the options object.
 
+- **Example:** [Get Options](https://examples.bootstrap-table.com/#methods/get-options.html)
+
 ## refreshOptions
 
 - **Parameter:** `options`
@@ -23,6 +25,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Refresh the table `options`.
+
+- **Example:** [Refresh Options](https://examples.bootstrap-table.com/#methods/refresh-options.html)
 
 ## getData
 
@@ -32,6 +36,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Get the loaded data of table at the moment that this method is called. If you set the `useCurrentPage` to `true` the method will return the data in the current page.
 
+- **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/get-data.html)
+
 ## getSelections
 
 - **Parameter:** `undefined`
@@ -39,6 +45,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Return selected rows, when no record selected, an empty array will return.
+
+- **Example:** [Get Selections](https://examples.bootstrap-table.com/#methods/get-selections.html)
 
 ## getAllSelections
 
@@ -48,6 +56,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Return all selected rows contain search or filter, when no record selected, an empty array will return.
 
+- **Example:** [Get All Selections](https://examples.bootstrap-table.com/#methods/get-all-selections.html)
+
 ## load
 
 - **Parameter:** `data`
@@ -55,6 +65,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Load the `data` to table, the old rows will be removed.
+
+- **Example:** [Load](https://examples.bootstrap-table.com/#methods/load.html)
 
 ## append
 
@@ -64,6 +76,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Append the `data` to table.
 
+- **Example:** [Append](https://examples.bootstrap-table.com/#methods/append.html)
+
 ## prepend
 
 - **Parameter:** `data`
@@ -71,6 +85,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Prepend the `data` to table.
+
+- **Example:** [Prepend](https://examples.bootstrap-table.com/#methods/prepend.html)
 
 ## remove
 
@@ -83,6 +99,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `field`: the field name of remove rows.
   * `values`: the array of values for rows which should be removed.
 
+- **Example:** [Remove](https://examples.bootstrap-table.com/#methods/remove.html)
+
 ## removeAll
 
 - **Parameter:** `undefined`
@@ -90,6 +108,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Remove all data from table.
+
+- **Example:** [Remove All](https://examples.bootstrap-table.com/#methods/remove-all.html)
 
 ## insertRow
 
@@ -102,6 +122,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `index`: the row index to insert into.
   * `row`: the row data.
 
+- **Example:** [Insert Row](https://examples.bootstrap-table.com/#methods/insert-row.html)
+
 ## updateRow
 
 - **Parameter:** `params`
@@ -113,6 +135,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `index`: the row index to be updated.
   * `row`: the new row data.
 
+- **Example:** [Update Row](https://examples.bootstrap-table.com/#methods/update-row.html)
+
 ## getRowByUniqueId
 
 - **Parameter:** `id`
@@ -120,6 +144,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Get data from table, the row that contains the `id` passed by parameter.
+
+- **Example:** [Get Row By Unique Id](https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html)
 
 ## updateByUniqueId
 
@@ -132,6 +158,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `id`: a row id where the id should be the uniqueid field assigned to the table.
   * `row`: the new row data.
 
+- **Example:** [Update By Unique Id](https://examples.bootstrap-table.com/#methods/update-by-unique-id.html)
+
 ## removeByUniqueId
 
 - **Parameter:** `id`
@@ -139,6 +167,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Remove data from table, the row that contains the `id` passed by parameter.
+
+- **Example:** [Remove By Unique Id](https://examples.bootstrap-table.com/#methods/remove-by-unique-id.html)
 
 ## updateCell
 
@@ -154,6 +184,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   To disable table re-initialization you can set `{reinit: false}`.
 
+- **Example:** [Update Cell](https://examples.bootstrap-table.com/#methods/update-cell.html)
+
 ## updateCellByUniqueId
 
 - **Parameter:** `params`
@@ -166,6 +198,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `field`: field name of the cell to be updated.
   * `value`: new value of the cell.
 
+- **Example:** [Update Cell By Unique Id](https://examples.bootstrap-table.com/#methods/update-cell-by-unique-id.html)
+
 ## showRow
 
 - **Parameter:** `params`
@@ -176,6 +210,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   * `index`: the row index.
   * `uniqueId`: the value of the uniqueId for that row.
+
+- **Example:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
 
 ## hideRow
 
@@ -188,6 +224,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `index`: the row index.
   * `uniqueId`: the value of the uniqueId for that row.
 
+- **Example:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
+
 ## getHiddenRows
 
 - **Parameter:** `show`
@@ -195,6 +233,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Get all rows hidden and if you pass the `show` parameter `true` the rows will be shown again, otherwise, the method only will return the rows hidden.
+
+- **Example:** [Get Hidden Rows](https://examples.bootstrap-table.com/#methods/get-hidden-rows.html)
 
 ## showColumn
 
@@ -205,6 +245,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   Show the specified `field` column.
   The parameter can be a string or a array of fields.
 
+- **Example:** [Show/Hide Column](https://examples.bootstrap-table.com/#methods/show-hide-column.html)
+
 ## hideColumn
 
 - **Parameter:** `field`
@@ -214,6 +256,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   Hide the specified `field` column.
   The parameter can be a string or a array of fields.
 
+- **Example:** [Show/Hide Column](https://examples.bootstrap-table.com/#methods/show-hide-column.html)
+
 ## getVisibleColumns
 
 - **Parameter:** `-`
@@ -221,6 +265,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Get visible columns.
+
+- **Example:** [Get Visible/Hidden Columns](https://examples.bootstrap-table.com/#methods/get-visible-hidden-columns.html)
 
 ## getHiddenColumns
 
@@ -230,6 +276,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Get hidden columns.
 
+- **Example:** [Get Visible/Hidden Columns](https://examples.bootstrap-table.com/#methods/get-visible-hidden-columns.html)
+
 ## showAllColumns
 
 - **Parameter:** `undefined`
@@ -238,6 +286,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Show All the columns.
 
+- **Example:** [Show/Hide All Columns](https://examples.bootstrap-table.com/#methods/show-hide-all-columns.html)
+
 ## hideAllColumns
 
 - **Parameter:** `undefined`
@@ -245,6 +295,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Hide All the columns.
+
+- **Example:** [Show/Hide All Columns](https://examples.bootstrap-table.com/#methods/show-hide-all-columns.html)
 
 ## mergeCells
 
@@ -259,6 +311,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `rowspan`: the rowspan count to be merged.
   * `colspan`: the colspan count to be merged.
 
+- **Example:** [Merge Cells](https://examples.bootstrap-table.com/#methods/merge-cells.html)
+
 ## checkAll
 
 - **Parameter:** `undefined`
@@ -266,6 +320,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Check all current page rows.
+
+- **Example:** [Check/Uncheck All](https://examples.bootstrap-table.com/#methods/check-uncheck-all.html)
 
 ## uncheckAll
 
@@ -275,6 +331,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Uncheck all current page rows.
 
+- **Example:** [Check/Uncheck All](https://examples.bootstrap-table.com/#methods/check-uncheck-all.html)
+
 ## checkInvert
 
 - **Parameter:** `undefined`
@@ -282,6 +340,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Invert check of current page rows. Triggers `onCheckSome` and `onUncheckSome` events.
+
+- **Example:** [Check Invert](https://examples.bootstrap-table.com/#methods/check-invert.html)
 
 ## check
 
@@ -291,6 +351,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Check a row, the row `index` start with 0.
 
+- **Example:** [Check/Uncheck](https://examples.bootstrap-table.com/#methods/check-uncheck.html)
+
 ## uncheck
 
 - **Parameter:** `index`
@@ -298,6 +360,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Uncheck a row, the row `index` start with 0.
+
+- **Example:** [Check/Uncheck](https://examples.bootstrap-table.com/#methods/check-uncheck.html)
 
 ## checkBy
 
@@ -310,6 +374,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `field`: name of the field used to find records.
   * `values`: array of values for rows to check.
 
+- **Example:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
+
 ## uncheckBy
 
 - **Parameter:** `params`
@@ -321,13 +387,17 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `field`: name of the field used to find records.
   * `values`: array of values for rows to uncheck.
 
+- **Example:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
+
 ## refresh
 
 - **Parameter:** `params`
 
 - **Detail:**
 
-  Refresh the remote server data, you can set `{silent: true}` to refresh the data silently, and set `{url: newUrl, pageNumber: pageNumber, pageSize: pageSize}` to change the url (optional), page number (optional) and page size (optional). To supply query params specific to this request, set `{query: {foo: 'bar'}}`.
+  Refresh/reload the remote server data, you can set `{silent: true}` to refresh the data silently, and set `{url: newUrl, pageNumber: pageNumber, pageSize: pageSize}` to change the url (optional), page number (optional) and page size (optional). To supply query params specific to this request, set `{query: {foo: 'bar'}}`.
+
+- **Example:** [Refresh](https://examples.bootstrap-table.com/#methods/refresh.html)
 
 ## destroy
 
@@ -336,6 +406,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Destroy the Bootstrap Table.
+
+- **Example:** [Destroy](https://examples.bootstrap-table.com/#methods/destroy.html)
 
 ## resetView
 
@@ -346,6 +418,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   Reset the Bootstrap Table view, for example reset the table height, the params contain:
 
   * `height`: the height of the table.
+
+- **Example:** [Reset View](https://examples.bootstrap-table.com/#methods/reset-view.html)
 
 ## resetWidth
 
@@ -363,6 +437,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Show loading status.
 
+- **Example:** [Show/Hide Loading](https://examples.bootstrap-table.com/#methods/show-hide-loading.html)
+
 ## hideLoading
 
 - **Parameter:** `undefined`
@@ -370,6 +446,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Hide loading status.
+
+- **Example:** [Show/Hide Loading](https://examples.bootstrap-table.com/#methods/show-hide-loading.html)
 
 ## togglePagination
 
@@ -379,6 +457,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Toggle the pagination option.
 
+- **Example:** [Toggle Pagination](https://examples.bootstrap-table.com/#methods/toggle-pagination.html)
+
 ## toggleFullscreen
 
 - **Parameter:** `undefined`
@@ -386,6 +466,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Toggle fullscreen.
+
+- **Example:** [Toggle Fullscreen](https://examples.bootstrap-table.com/#methods/toggle-fullscreen.html)
 
 ## toggleView
 
@@ -395,6 +477,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Toggle the card/table view.
 
+- **Example:** [Toggle View](https://examples.bootstrap-table.com/#methods/toggle-view.html)
+
 ## resetSearch
 
 - **Parameter:** `text`
@@ -402,6 +486,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Set the search `text`.
+
+- **Example:** [Reset Search](https://examples.bootstrap-table.com/#methods/reset-search.html)
 
 ## filterBy
 
@@ -424,7 +510,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   - Set the `filterAlgorithm` (see at parameter) to `or` to use the `or` filter.
   - Pass a function to the `filterAlgorithm` (see at parameter) to use a `custom` filter.
 
-  #####Filter Algorithm
+  **Filter Algorithm**
 
   - And
     - Filter `{age: 10}` to show the data only age is equal to 10.  You can also filter with an array of values, as in: `{age: 10, hairColor: ['blue', 'red', 'green']}` to find data where age is equal to 10 and hairColor is either blue, red, or green.
@@ -436,6 +522,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
         - Row
         - Filters
     - Return `true` to keep the row and return `false` to filter the row.
+
+- **Example:** [Filter By](https://examples.bootstrap-table.com/#methods/filter-by.html)
 
 ## scrollTo
 
@@ -449,6 +537,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
     -  Scroll to the unit (`px` or `rows (index starts by 0)`)
     Default: `{unit: 'px', value: 0}`
 
+- **Example:** [Scroll To](https://examples.bootstrap-table.com/#methods/scorll-to.html)
+
 ## getScrollPosition
 
 - **Parameter:** `undefined`
@@ -456,6 +546,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Get the current scroll position, the unit is `'px'`.
+
+- **Example:** [Get Scroll Position](https://examples.bootstrap-table.com/#methods/get-scroll-position.html)
 
 ## selectPage
 
@@ -465,6 +557,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Go to the a specified `page`.
 
+- **Example:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html.html)
+
 ## prevPage
 
 - **Parameter:** `undefined`
@@ -472,6 +566,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Go to previous page.
+
+- **Example:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html.html)
 
 ## nextPage
 
@@ -481,6 +577,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Go to next page.
 
+- **Example:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html)
+
 ## toggleDetailView
 
 - **Parameter:** `index`
@@ -488,6 +586,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Toggle the row that has the `index` passed by parameter if the detail view option is set to `true`.
+
+- **Example:** [Toggle Detail View](https://examples.bootstrap-table.com/#methods/toggle-detail-view.html)
 
 ## expandRow
 
@@ -497,6 +597,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Expand the row that has the `index` passed by parameter if the detail view option is set to `true`.
 
+- **Example:** [Expand/Collapse Row](https://examples.bootstrap-table.com/#methods/expand-collapse-row.html)
+
 ## collapseRow
 
 - **Parameter:** `index`
@@ -504,6 +606,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Collapse the row that has the `index` passed by parameter if the detail view option is set to `true`.
+
+- **Example:** [Expand/Collapse Row](https://examples.bootstrap-table.com/#methods/expand-collapse-row.html)
 
 ## expandAllRows
 
@@ -513,6 +617,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Expand all rows if the detail view option is set to `true`.
 
+- **Example:** [Expand/Collapse All Rows](https://examples.bootstrap-table.com/#methods/expand-collapse-all-rows.html)
+
 ## collapseAllRows
 
 - **Parameter:** `undefined`
@@ -521,16 +627,20 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Collapse all rows if the detail view option is set to `true`.
 
+- **Example:** [Expand/Collapse All Rows](https://examples.bootstrap-table.com/#methods/expand-collapse-all-rows.html)
+
 ## updateColumnTitle
 
 - **Parameter:** `params`
 
 - **Detail:**
 
-  Refresh the field title of column, the params contain following properties:
+  Update the field title of column, the params contain following properties:
 
   * `field`: the field name.
   * `title`: the field title.
+
+- **Example:** [Update Column Title](https://examples.bootstrap-table.com/#methods/update-column-title.html)
 
 ## updateFormatText
 
@@ -539,3 +649,5 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Update the localizations format text.
+
+- **Example:** [Update Format Text](https://examples.bootstrap-table.com/#methods/update-format-text.html)

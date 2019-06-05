@@ -2240,7 +2240,9 @@ class BootstrapTable {
 
   _toggleAllColumns (visible) {
     for (const column of this.columns) {
-      column.visible = visible
+      if (column.switchable) {
+        column.visible = visible
+      }
     }
 
     this.initHeader()

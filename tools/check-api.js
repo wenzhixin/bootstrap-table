@@ -76,7 +76,10 @@ class Methods extends API {
   init () {
     this.file = 'methods.md'
     this.options = Constants.METHODS
-    this.attributes = ['Parameter', 'Detail']//, 'Example']
+    this.attributes = ['Parameter', 'Detail', 'Example']
+    this.ignore = {
+      resetWidth: ['Example']
+    }
   }
 }
 
