@@ -604,7 +604,7 @@ class BootstrapTable {
         </div>
       `,
       Utils.sprintf(this.constants.html.inputGroup,
-        `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)}" type="text" placeholder="${o.formatSearch()}">`,
+        Utils.sprintf(this.constants.html.searchInput, this.constants.classes.input, Utils.sprintf(' input-%s', o.iconSize), o.formatSearch()),
         (o.showSearchButton ? Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), this.options.iconsPrefix, this.options.icons.search) : '') +
         (o.showSearchClearButton ? Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), this.options.iconsPrefix, this.options.icons.clearSearch) : ''))
       ))
