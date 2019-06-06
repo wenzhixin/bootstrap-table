@@ -42,10 +42,10 @@ $.fn.bootstrapTable.locales['de-DE'] = {
     return 'Verstecke/Zeige Nummerierung'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Zeige Nummerierung'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Verstecke Nummerierung'
   },
   formatRefresh () {
     return 'Neu laden'
@@ -54,10 +54,10 @@ $.fn.bootstrapTable.locales['de-DE'] = {
     return 'Umschalten'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Normale Ansicht'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Kartenansicht'
   },
   formatColumns () {
     return 'Spalten'
