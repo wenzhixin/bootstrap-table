@@ -587,6 +587,12 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
 
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
+$.extend($.fn.bootstrapTable.defaults, {
+  formatClearSearch () {
+    return 'Clear filters'
+  }
+})
+
 $.fn.bootstrapTable.methods.push('triggerSearch')
 $.fn.bootstrapTable.methods.push('clearFilterControl')
 

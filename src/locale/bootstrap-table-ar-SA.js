@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['ar-SA'] = {
   formatPaginationSwitch () { /* eslint-disable no-useless-escape */
     return 'إخفاء\إظهار ترقيم الصفحات'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'تحديث'
   },
   formatToggle () {
     return 'تغيير'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'أعمدة'

@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['he-IL'] = {
   formatPaginationSwitch () {
     return 'הסתר/הצג מספור דפים'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'רענן'
   },
   formatToggle () {
     return 'החלף תצוגה'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'עמודות'

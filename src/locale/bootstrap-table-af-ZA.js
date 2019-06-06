@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['af-ZA'] = {
   formatPaginationSwitch () {
     return 'Wys/verberg bladsy nummering'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Herlaai'
   },
   formatToggle () {
     return 'Wissel'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Kolomme'

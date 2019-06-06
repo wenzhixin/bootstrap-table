@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['ka-GE'] = {
   formatPaginationSwitch () {
     return 'გვერდების გადამრთველის დამალვა/გამოჩენა'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'განახლება'
   },
   formatToggle () {
     return 'ჩართვა/გამორთვა'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'სვეტები'

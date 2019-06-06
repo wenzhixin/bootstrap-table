@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['sv-SE'] = {
   formatPaginationSwitch () {
     return 'Hide/Show pagination'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Uppdatera'
   },
   formatToggle () {
     return 'Skifta'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'kolumn'

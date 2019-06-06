@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['uk-UA'] = {
   formatPaginationSwitch () {
     return 'Hide/Show pagination'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Оновити'
   },
   formatToggle () {
     return 'Змінити'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Стовпці'

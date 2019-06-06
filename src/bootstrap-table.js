@@ -493,28 +493,32 @@ class BootstrapTable {
     if (o.showPaginationSwitch) {
       html.push(`<button class="${this.constants.buttonsClass}" type="button" name="paginationSwitch"
         aria-label="Pagination Switch" title="${o.formatPaginationSwitch()}">
-        ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.paginationSwitchDown)}
+        ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.paginationSwitchDown) : ''}
+        ${o.showButtonText ? o.formatPaginationSwitchUp() : ''}
         </button>`)
     }
 
     if (o.showRefresh) {
       html.push(`<button class="${this.constants.buttonsClass}" type="button" name="refresh"
         aria-label="Refresh" title="${o.formatRefresh()}">
-        ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.refresh)}
+        ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.refresh) : ''}
+        ${o.showButtonText ? o.formatRefresh() : ''}
         </button>`)
     }
 
     if (o.showToggle) {
       html.push(`<button class="${this.constants.buttonsClass}" type="button" name="toggle"
         aria-label="Toggle" title="${o.formatToggle()}">
-        ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.toggleOff)}
+        ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.toggleOff) : '' }
+        ${o.showButtonText ? o.formatToggleOn() : ''}
         </button>`)
     }
 
     if (o.showFullscreen) {
       html.push(`<button class="${this.constants.buttonsClass}" type="button" name="fullscreen"
         aria-label="Fullscreen" title="${o.formatFullscreen()}">
-        ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.fullscreen)}
+        ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.fullscreen) : '' }
+        ${o.showButtonText ? o.formatFullscreen() : ''}
         </button>`)
     }
 
@@ -522,7 +526,8 @@ class BootstrapTable {
       html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${o.formatColumns()}">
         <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
         aria-label="Columns" title="${o.formatColumns()}">
-        ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.columns)}
+        ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.columns) : '' }
+        ${o.showButtonText ? o.formatColumns() : ''} 
         ${this.constants.html.dropdownCaret}
         </button>
         ${this.constants.html.toobarDropdow[0]}`)
@@ -597,6 +602,8 @@ class BootstrapTable {
 
     if (o.search) {
       html = []
+      const showSearchButton = Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '', o.showButtonText ? o.formatSearch() : '')
+      const showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '', o.showButtonText ? o.formatClearSearch() : '')
 
       html.push(Utils.sprintf(`
         <div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.inputGroup}">
@@ -604,9 +611,9 @@ class BootstrapTable {
         </div>
       `,
       Utils.sprintf(this.constants.html.inputGroup,
-        Utils.sprintf(this.constants.html.searchInput, this.constants.classes.input, Utils.sprintf(' input-%s', o.iconSize), o.formatSearch()),
-        (o.showSearchButton ? Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), this.options.iconsPrefix, this.options.icons.search) : '') +
-        (o.showSearchClearButton ? Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), this.options.iconsPrefix, this.options.icons.clearSearch) : ''))
+        `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)}" type="text" placeholder="${o.formatSearch()}">`,
+        (o.showSearchButton ? showSearchButton : '') +
+        (o.showSearchClearButton ? showSearchClearButton : ''))
       ))
 
       this.$toolbar.append(html.join(''))
@@ -2519,9 +2526,11 @@ class BootstrapTable {
 
   togglePagination () {
     this.options.pagination = !this.options.pagination
+
+    const icon = this.options.showButtonIcons ? this.options.pagination ? this.options.icons.paginationSwitchDown : this.options.icons.paginationSwitchUp : ''
+    const text = this.options.showButtonText ? this.options.pagination ? this.options.formatPaginationSwitchUp() : this.options.formatPaginationSwitchDown() : ''
     this.$toolbar.find('button[name="paginationSwitch"]')
-      .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix,
-        this.options.pagination ? this.options.icons.paginationSwitchDown : this.options.icons.paginationSwitchUp))
+      .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) + ' ' + text)
     this.updatePagination()
   }
 
@@ -2533,11 +2542,11 @@ class BootstrapTable {
   toggleView () {
     this.options.cardView = !this.options.cardView
     this.initHeader()
-    // Fixed remove toolbar when click cardView button.
-    // this.initToolbar();
+
+    const icon = this.options.showButtonIcons ? this.options.cardView ? this.options.icons.toggleOn : this.options.icons.toggleOff : ''
+    const text = this.options.showButtonText ? this.options.cardView ? this.options.formatToggleOff() : this.options.formatToggleOn() : ''
     this.$toolbar.find('button[name="toggle"]')
-      .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix,
-        this.options.cardView ? this.options.icons.toggleOn : this.options.icons.toggleOff))
+      .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) + ' ' + text)
     this.initBody()
     this.trigger('toggle', this.options.cardView)
   }
