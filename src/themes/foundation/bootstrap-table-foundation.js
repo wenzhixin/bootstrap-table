@@ -28,7 +28,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.html.pageDropdown = ['<div class="dropdown-pane" id="pagination-list-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
     this.constants.html.pageDropdownItem = '<li class="dropdown-item %s"><a href="#">%s</a></li>'
     this.constants.html.dropdownCaret = '<i class="fa fa-angle-down"></i>'
-    this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'],
+    this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>']
     this.constants.html.paginationItem = '<li><a class="page-item%s" href="#">%s</a></li>'
   }
 
