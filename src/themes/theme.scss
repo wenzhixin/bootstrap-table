@@ -37,7 +37,7 @@
       .dropdown-menu {
         text-align: left;
         max-height: 300px;
-        overflow: auto;
+        overflow-y: scroll;
         z-index: 1001;
       }
 
