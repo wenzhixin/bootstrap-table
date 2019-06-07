@@ -807,7 +807,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
-- **Example:** [ShowSearchButton](https://examples.bootstrap-table.com/#options/show-search-button.html)
+- **Example:** [Show Search Button](https://examples.bootstrap-table.com/#options/show-search-button.html)
 
 ## showSearchClearButton
 
@@ -821,7 +821,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
-- **Example:** [ShowSearchClearButton](https://examples.bootstrap-table.com/#options/show-search-clear-button.html)
+- **Example:** [Show Search Clear Button](https://examples.bootstrap-table.com/#options/show-search-clear-button.html)
 
 ## trimOnSearch
 

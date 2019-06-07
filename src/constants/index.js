@@ -53,6 +53,7 @@ const CONSTANTS = {
       paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<span class="input-group-btn">%s</span></div>',
+      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
       searchButton: '<button class="btn btn-default" type="button" name="search" title="%s"><i class="%s %s"></i></button>',
       searchClearButton: '<button class="btn btn-default" type="button" name="clearSearch" title="%s"><i class="%s %s"></i></button>'
     }
@@ -96,6 +97,7 @@ const CONSTANTS = {
       paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
+      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
       searchButton: '<button class="btn btn-secondary" type="button" name="search" title="%s"><i class="%s %s"></i></button>',
       searchClearButton: '<button class="btn btn-secondary" type="button" name="clearSearch" title="%s"><i class="%s %s"></i></button>'
     }
