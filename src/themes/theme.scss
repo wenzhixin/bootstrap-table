@@ -38,6 +38,7 @@
         text-align: left;
         max-height: 300px;
         overflow: auto;
+        -ms-overflow-style: scrollbar;
         z-index: 1001;
       }
 
