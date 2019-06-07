@@ -32,6 +32,11 @@
     "lint:js": "eslint src",
     "lint:css": "stylelint src/**/*.scss",
     "lint": "run-s lint:*",
+    "docs:check:api": "cd tools/ && nodejs check-api.js",
+    "docs:check:locale": "cd tools/ && nodejs check-locale.js",
+    "docs:check": "run-s docs:check:*",
+    "docs:serve": "bundle exec jekyll serve",
+    "docs": "bundle exec jekyll build",
     "js:build:base": "rollup -c",
     "js:build:min": "NODE_ENV=production rollup -c",
     "js:build:banner": "find dist -name '*.min.js' -exec headr {} -o {} --version --homepage --author --license \\;",
@@ -43,8 +48,7 @@
     "css:build": "run-s css:build:*",
     "clean": "rm -rf dist",
     "build": "run-s lint clean *:build",
-    "docs": "bundle exec jekyll build",
-    "docs-serve": "bundle exec jekyll serve"
+    "pre-commit": "run-s lint docs:check"
   },
   "peerDependencies": {
     "jquery": "1.9.1 - 3"
