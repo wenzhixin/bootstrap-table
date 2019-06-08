@@ -91,6 +91,16 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `undefined`
 
+### filterDefault
+
+- **type:** `String`
+
+- **Detail:**
+
+   Set the default value of the filter.
+
+- **Default:** `undefined`
+
 ### filterDatepickerOptions
 - **type:** `Object`
 
