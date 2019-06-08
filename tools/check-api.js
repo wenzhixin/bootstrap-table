@@ -3,6 +3,7 @@ require = require('esm')(module)
 const fs = require('fs')
 const chalk = require('chalk')
 const Constants = require('../src/constants/index.js').default
+let errorSum = 0
 
 class API {
   constructor () {
@@ -16,10 +17,7 @@ class API {
     const content = fs.readFileSync(file).toString()
     const lines = content.split('## ')
     const outLines = lines.slice(0, 1)
-
-    console.log('-------------------------')
-    console.log(`Checking file: ${file}`)
-    console.log('-------------------------')
+    const errors = []
 
     for (const item of lines.slice(1)) {
       md[item.split('\n')[0]] = item
@@ -37,12 +35,23 @@ class API {
             continue
           }
           if (!details[i + 1] || details[i + 1].indexOf(`**${name}:**`) === -1) {
-            console.log(chalk.red(`[${key}] missing '${name}'`))
+            errors.push(chalk.red(`[${key}] missing '${name}'`))
           }
         }
       } else {
         outLines.push(key + '\n\n')
       }
+    }
+
+    errorSum += errors.length
+    if (errors.length > 0) {
+      console.log('-------------------------')
+      console.log(`Checking file: ${file}`)
+      console.log('-------------------------')
+
+      errors.forEach((error) => {
+        console.log(error)
+      })
     }
 
     fs.writeFile(file, outLines.join('## '), () => {})
@@ -104,3 +113,10 @@ new ColumnOptions()
 new Methods()
 new Events()
 new Localizations()
+
+if (errorSum === 0) {
+  console.log('Good job! Anything up to date!')
+  process.exit(0)
+}
+
+process.exit(1)

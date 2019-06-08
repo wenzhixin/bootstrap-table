@@ -651,10 +651,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     that.data = fp
       ? that.options.data.filter((item, i) => {
         const itemIsExpected = []
-        Object.keys(item).forEach((key, index) => {
+        Object.keys(item).forEach((x, index) => {
+          const key = that.header.fields[index]
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const fval = (fp[key] || '').toLowerCase()
-          let value = item[key]
+          let value = Utils.getItemField(item, key, false)
 
           if (fval === '') {
             itemIsExpected.push(true)

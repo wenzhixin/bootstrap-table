@@ -1,18 +1,26 @@
-language: ruby
-rvm:
-  - 2.4.1
+stages:
+  - test
+  - deploy
 
-script: bash ./deploy.sh
+jobs:
+  include:
+    - stage: test
+      language: node_js
+      node_js:
+        - 10
+      name: "Lint src and check docs"
+      script: npm run pre-commit
+      if: type = pull_request
 
-branches:
-  only:
-  - master
-
-env:
-  global:
-  - ENCRYPTION_LABEL: "5453d0fdf68a"
-  - COMMIT_AUTHOR_EMAIL: "wenzhixin2010@gmail.com"
-
-sudo: false
-
-cache: bundler
+    - stage: deploy
+      name: "Deploy docs"
+      language: ruby
+      rvm:
+        - 2.4.1
+      script: ./deploy.sh
+      if: branch = master AND type = push
+      env:
+        global:
+        - ENCRYPTION_LABEL: "5453d0fdf68a"
+        - COMMIT_AUTHOR_EMAIL: "wenzhixin2010@gmail.com"
+      cache: bundler

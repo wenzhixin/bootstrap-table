@@ -598,14 +598,13 @@ class BootstrapTable {
     if (o.search) {
       html = []
 
-
       html.push(Utils.sprintf(`
         <div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.inputGroup}">
             %s
         </div>
       `,
       Utils.sprintf(this.constants.html.inputGroup,
-        `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)}" type="text" placeholder="${o.formatSearch()}">`,
+        Utils.sprintf(this.constants.html.searchInput, this.constants.classes.input, Utils.sprintf(' input-%s', o.iconSize), o.formatSearch()),
         (o.showSearchButton ? Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), this.options.iconsPrefix, this.options.icons.search) : '') +
         (o.showSearchClearButton ? Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), this.options.iconsPrefix, this.options.icons.clearSearch) : ''))
       ))
@@ -1162,7 +1161,7 @@ class BootstrapTable {
       Utils.sprintf(' id="%s"', Array.isArray(item) ? undefined : item._id),
       Utils.sprintf(' class="%s"', style.classes || (Array.isArray(item) ? undefined : item._class)),
       ` data-index="${i}"`,
-      Utils.sprintf(' data-uniqueid="%s"', item[this.options.uniqueId]),
+      Utils.sprintf(' data-uniqueid="%s"', Utils.getItemField(item, this.options.uniqueId, false)),
       Utils.sprintf(' data-has-detail-view="%s"', (!this.options.cardView && this.options.detailView && Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) ? 'true' : undefined),
       Utils.sprintf('%s', data_),
       '>'

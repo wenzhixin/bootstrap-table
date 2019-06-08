@@ -33,8 +33,6 @@ fs.readdir(`${DIR}`, (err, files) => {
       continue
     }
 
-
-
     const text = fs.readFileSync(DIR + file).toString()
     const obj = readString(readObj(text), text)
     const keys = Object.keys(obj)
@@ -64,6 +62,8 @@ fs.readdir(`${DIR}`, (err, files) => {
 
   if (errorSum === 0) {
     console.log('Good job! Anything up to date!')
+    process.exit(0)
   }
 
+  process.exit(1)
 })
