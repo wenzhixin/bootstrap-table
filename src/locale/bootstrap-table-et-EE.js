@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['et-EE'] = {
 
     return `Näitan tulemusi ${pageFrom} kuni ${pageTo} - kokku ${totalRows} tulemust`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
@@ -32,11 +41,23 @@ $.fn.bootstrapTable.locales['et-EE'] = {
   formatPaginationSwitch () {
     return 'Näita/Peida lehtedeks jagamine'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Värskenda'
   },
   formatToggle () {
     return 'Lülita'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Veerud'

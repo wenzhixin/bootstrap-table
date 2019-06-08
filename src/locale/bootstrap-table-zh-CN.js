@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['zh-CN'] = {
 
     return `显示第 ${pageFrom} 到第 ${pageTo} 条记录，总共 ${totalRows} 条记录`
   },
+  formatSRPaginationPreText () {
+    return '上一页'
+  },
+  formatSRPaginationPageText (page) {
+    return `第${page}页`
+  },
+  formatSRPaginationNextText () {
+    return '下一页'
+  },
   formatDetailPagination (totalRows) {
     return `总共 ${totalRows} 条记录`
   },
@@ -32,11 +41,23 @@ $.fn.bootstrapTable.locales['zh-CN'] = {
   formatPaginationSwitch () {
     return '隐藏/显示分页'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return '刷新'
   },
   formatToggle () {
     return '切换'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return '列'

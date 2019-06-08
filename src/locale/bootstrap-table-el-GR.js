@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['el-GR'] = {
 
     return `Εμφανίζονται από την ${pageFrom} ως την ${pageTo} από σύνολο ${totalRows} σειρών`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
@@ -32,11 +41,23 @@ $.fn.bootstrapTable.locales['el-GR'] = {
   formatPaginationSwitch () {
     return 'Hide/Show pagination'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Refresh'
   },
   formatToggle () {
     return 'Toggle'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Columns'

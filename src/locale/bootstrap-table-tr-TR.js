@@ -18,6 +18,15 @@ $.fn.bootstrapTable.locales['tr-TR'] = {
 
     return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor.`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
@@ -33,11 +42,23 @@ $.fn.bootstrapTable.locales['tr-TR'] = {
   formatPaginationSwitch () {
     return 'Hide/Show pagination'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Yenile'
   },
   formatToggle () {
     return 'Değiştir'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Sütunlar'

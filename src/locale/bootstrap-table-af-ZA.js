@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['af-ZA'] = {
 
     return `Resultate ${pageFrom} tot ${pageTo} van ${totalRows} rye`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
@@ -32,11 +41,23 @@ $.fn.bootstrapTable.locales['af-ZA'] = {
   formatPaginationSwitch () {
     return 'Wys/verberg bladsy nummering'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Herlaai'
   },
   formatToggle () {
     return 'Wissel'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Kolomme'

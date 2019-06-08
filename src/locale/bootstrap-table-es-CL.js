@@ -18,6 +18,15 @@ $.fn.bootstrapTable.locales['es-CL'] = {
 
     return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
@@ -33,11 +42,23 @@ $.fn.bootstrapTable.locales['es-CL'] = {
   formatPaginationSwitch () {
     return 'Ocultar/Mostrar paginaci\u00F3n'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Refrescar'
   },
   formatToggle () {
     return 'Cambiar'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Columnas'

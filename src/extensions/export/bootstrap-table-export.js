@@ -89,7 +89,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       data-toggle="dropdown"
       type="button"
       title="${o.formatExport()}">
-      ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export)}
+      ${ o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+      ${ o.showButtonText ? o.formatExport() : ''}
       ${this.constants.html.dropdownCaret}
       </button>
       </div>

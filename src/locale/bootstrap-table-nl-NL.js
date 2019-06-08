@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
 
     return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${(totalRows > 1) ? 's' : ''}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Toon ${totalRows} record${(totalRows > 1) ? 's' : ''}`
   },
@@ -32,11 +41,23 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
   formatPaginationSwitch () {
     return 'Verberg/Toon paginatie'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Vernieuwen'
   },
   formatToggle () {
     return 'Omschakelen'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Kolommen'

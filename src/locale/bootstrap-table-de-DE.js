@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['de-DE'] = {
 
     return `Zeige Zeile ${pageFrom} bis ${pageTo} von ${totalRows} Zeile${(totalRows > 1) ? 'n' : ''}.`
   },
+  formatSRPaginationPreText () {
+    return 'Vorherige Seite'
+  },
+  formatSRPaginationPageText (page) {
+    return `Zu Seite ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'Nächste Seite'
+  },
   formatDetailPagination (totalRows) {
     return `Zeige ${totalRows} Zeile${(totalRows > 1) ? 'n' : ''}.`
   },
@@ -32,23 +41,35 @@ $.fn.bootstrapTable.locales['de-DE'] = {
   formatPaginationSwitch () {
     return 'Verstecke/Zeige Nummerierung'
   },
+  formatPaginationSwitchDown () {
+    return 'Zeige Nummerierung'
+  },
+  formatPaginationSwitchUp () {
+    return 'Verstecke Nummerierung'
+  },
   formatRefresh () {
     return 'Neu laden'
   },
   formatToggle () {
     return 'Umschalten'
   },
+  formatToggleOn () {
+    return 'Normale Ansicht'
+  },
+  formatToggleOff () {
+    return 'Kartenansicht'
+  },
   formatColumns () {
     return 'Spalten'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Vollbild'
   },
   formatAllRows () {
     return 'Alle'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Automatisches Neuladen'
   },
   formatExport () {
     return 'Datenexport'
@@ -57,10 +78,10 @@ $.fn.bootstrapTable.locales['de-DE'] = {
     return 'GO'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Erweiterte Suche'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Schließen'
   }
 }
 

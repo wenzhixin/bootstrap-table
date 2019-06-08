@@ -66,6 +66,24 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Showing %s to %s of %s rows'`
 
+## formatSRPaginationPreText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'previous page'`
+
+## formatSRPaginationPageText
+
+- **Parameter:** `page`
+
+- **Default:** `'to page %s`
+
+## formatSRPaginationNextText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'next page'`
+
 ## formatDetailPagination
 
 - **Parameter:** `totalRows`
@@ -96,6 +114,18 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Hide/Show pagination'`
 
+## formatPaginationSwitchDown
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Show pagination'`
+
+## formatPaginationSwitchUp
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Hide pagination'`
+
 ## formatRefresh
 
 - **Parameter:** `undefined`
@@ -107,6 +137,18 @@ $('#table').bootstrapTable({
 - **Parameter:** `undefined`
 
 - **Default:** `'Toggle'`
+
+## formatToggleOn
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Show card view'`
+
+## formatToggleOff
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Hide card view'`
 
 ## formatColumns
 

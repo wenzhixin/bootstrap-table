@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['id-ID'] = {
 
     return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
@@ -32,11 +41,23 @@ $.fn.bootstrapTable.locales['id-ID'] = {
   formatPaginationSwitch () {
     return 'Sembunyikan/Tampilkan halaman'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Muat ulang'
   },
   formatToggle () {
     return 'Beralih'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'kolom'

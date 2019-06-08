@@ -19,6 +19,15 @@ $.fn.bootstrapTable.locales['it-IT'] = {
 
     return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
@@ -34,11 +43,23 @@ $.fn.bootstrapTable.locales['it-IT'] = {
   formatPaginationSwitch () {
     return 'Nascondi/Mostra paginazione'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Aggiorna'
   },
   formatToggle () {
     return 'Attiva/Disattiva'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Colonne'
