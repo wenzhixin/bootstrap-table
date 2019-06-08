@@ -30,7 +30,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## getData
 
- **Parameter:** `params`
+- **Parameter:** `params`
 
 - **Detail:**
 
