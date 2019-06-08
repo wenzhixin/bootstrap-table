@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['da-DK'] = {
 
     return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${(totalRows > 1) ? 'r' : ''}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Viser ${totalRows} række${(totalRows > 1) ? 'r' : ''}`
   },

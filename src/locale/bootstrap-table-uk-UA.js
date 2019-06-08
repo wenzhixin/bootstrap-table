@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['uk-UA'] = {
 
     return `Показано з ${pageFrom} по ${pageTo}. Всього: ${totalRows}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

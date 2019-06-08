@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['pl-PL'] = {
 
     return `Wyświetlanie rekordów od ${pageFrom} do ${pageTo} z ${totalRows}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

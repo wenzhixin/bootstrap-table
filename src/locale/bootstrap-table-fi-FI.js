@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['fi-FI'] = {
 
     return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

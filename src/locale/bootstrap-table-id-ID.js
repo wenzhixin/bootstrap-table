@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['id-ID'] = {
 
     return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

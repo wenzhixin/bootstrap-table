@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['nb-NO'] = {
 
     return `Viser ${pageFrom} til ${pageTo} av ${totalRows} rekker`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

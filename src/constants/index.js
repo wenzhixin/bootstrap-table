@@ -50,7 +50,7 @@ const CONSTANTS = {
       pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
       dropdownCaret: '<span class="caret"></span>',
       pagination: ['<ul class="pagination%s">', '</ul>'],
-      paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
+      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<span class="input-group-btn">%s</span></div>',
       searchInput: '<input class="%s%s" type="text" placeholder="%s">',
@@ -94,7 +94,7 @@ const CONSTANTS = {
       pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
       dropdownCaret: '<span class="caret"></span>',
       pagination: ['<ul class="pagination%s">', '</ul>'],
-      paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
+      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
       searchInput: '<input class="%s%s" type="text" placeholder="%s">',
@@ -318,6 +318,15 @@ const EN = {
     }
 
     return `Showing ${pageFrom} to ${pageTo} of ${totalRows} rows`
+  },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
   },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`

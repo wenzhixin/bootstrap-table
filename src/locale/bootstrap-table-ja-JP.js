@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['ja-JP'] = {
 
     return `全${totalRows}件から、${pageFrom}から${pageTo}件目まで表示しています`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

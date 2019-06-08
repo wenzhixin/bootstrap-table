@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['zh-TW'] = {
 
     return `顯示第 ${pageFrom} 到第 ${pageTo} 項記錄，總共 ${totalRows} 項記錄`
   },
+  formatSRPaginationPreText () {
+    return '上一頁'
+  },
+  formatSRPaginationPageText (page) {
+    return `第${page}頁`
+  },
+  formatSRPaginationNextText () {
+    return '下一頁'
+  },
   formatDetailPagination (totalRows) {
     return `總共 ${totalRows} 項記錄`
   },

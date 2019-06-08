@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['fa-IR'] = {
 
     return `نمایش ${pageFrom} تا ${pageTo} از ${totalRows} ردیف`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },

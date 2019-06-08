@@ -918,7 +918,7 @@ class BootstrapTable {
 
       html.push(`<div class="${this.constants.classes.pull}-${o.paginationHAlign} pagination">`,
         Utils.sprintf(this.constants.html.pagination[0], Utils.sprintf(' pagination-%s', o.iconSize)),
-        Utils.sprintf(this.constants.html.paginationItem, ' page-pre', o.paginationPreText))
+        Utils.sprintf(this.constants.html.paginationItem, ' page-pre', o.formatSRPaginationPreText(), o.paginationPreText))
 
       if (this.totalPages < o.paginationSuccessivelySize) {
         from = 1
@@ -946,7 +946,7 @@ class BootstrapTable {
 
       const middleSize = Math.round(o.paginationPagesBySide / 2)
       const pageItem = (i, classes = '') => Utils.sprintf(this.constants.html.paginationItem,
-        classes + (i === o.pageNumber ? ` ${this.constants.classes.paginationActive}` : ''), i)
+        classes + (i === o.pageNumber ? ` ${this.constants.classes.paginationActive}` : ''), o.formatSRPaginationPageText(i), i)
 
       if (from > 1) {
         let max = o.paginationPagesBySide
@@ -967,7 +967,7 @@ class BootstrapTable {
               html.push(pageItem(i, ' page-intermediate'))
             } else {
               html.push(Utils.sprintf(this.constants.html.paginationItem,
-                ' page-first-separator disabled', '...'))
+                ' page-first-separator disabled', '', '...'))
             }
           }
         }
@@ -1003,7 +1003,7 @@ class BootstrapTable {
         }
       }
 
-      html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-next', o.paginationNextText))
+      html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-next', o.formatSRPaginationNextText(), o.paginationNextText))
       html.push(this.constants.html.pagination[1], '</div>')
     }
     this.$pagination.html(html.join(''))

@@ -17,6 +17,15 @@ $.fn.bootstrapTable.locales['de-DE'] = {
 
     return `Zeige Zeile ${pageFrom} bis ${pageTo} von ${totalRows} Zeile${(totalRows > 1) ? 'n' : ''}.`
   },
+  formatSRPaginationPreText () {
+    return 'Vorherige Seite'
+  },
+  formatSRPaginationPageText (page) {
+    return `Zu Seite ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'Nächste Seite'
+  },
   formatDetailPagination (totalRows) {
     return `Zeige ${totalRows} Zeile${(totalRows > 1) ? 'n' : ''}.`
   },
@@ -42,13 +51,13 @@ $.fn.bootstrapTable.locales['de-DE'] = {
     return 'Spalten'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Vollbild'
   },
   formatAllRows () {
     return 'Alle'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Automatisches Neuladen'
   },
   formatExport () {
     return 'Datenexport'
@@ -57,10 +66,10 @@ $.fn.bootstrapTable.locales['de-DE'] = {
     return 'GO'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Erweiterte Suche'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Schließen'
   }
 }
 
