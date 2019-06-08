@@ -1,6 +1,6 @@
 # Contributing to Bootstrap Table
 
-Looking to contribute something to Bootstrap Table? 
+Looking to contribute something to Bootstrap Table?
 
 **Here's how you can help.**
 
@@ -21,7 +21,7 @@ and [submitting pull requests](#pull-requests), but please respect the following
 restrictions:
 
 * Please **do not** use the issue tracker for personal support requests.  Stack
-  Overflow ([`bootstrap-table`](http://stackoverflow.com/questions/tagged/bootstrap-table) tag is better place to get help.
+  Overflow ([`bootstrap-table`](http://stackoverflow.com/questions/tagged/bootstrap-table) tag is better place to get help).
 
 * Please **do not** derail or troll issues. Keep the discussion on topic and
   respect the opinions of others.
@@ -36,26 +36,7 @@ restrictions:
 
 ## Issues and labels
 
-Our bug tracker utilizes several labels to help organize and identify issues. Here's what they represent and how we use them:
-
-- `awaiting reply` - Issues that are awaiting reply, will be closed if there is no any response in 7 days.
-- `browser bug` - Issues that are reported to us, but actually are the result of a browser-specific bug. These are diagnosed with reduced test cases and result in an issue opened on that browser's own bug tracker.
-- `confirmed` - Issues that have been confirmed with a reduced test case and identify a bug in Bootstrap Table.
-- `css` - Issues stemming from our compiled CSS or source CSS files.
-- `docs` - Issues for improving or updating our documentation.
-- `example` - Issues that contains an important example.
-- `extension` - Issues for adding or updating our extension.
-- `feature` - Issues asking for a new feature to be added, or an existing one to be extended or modified.
-- `fixed` - Issues already fixed in a pull request.
-- `grunt` - Issues with our included JavaScript-based Gruntfile, which is used to run all our tests, concatenate and compile source files, and more.
-- `help wanted` - Issues we need or would love help from the community to resolve.
-- `invalid` - Issues we can't resolve because it is not related to Bootstrap Table or the information provided is not completed.
-- `js` - Issues stemming from our compiled or source JavaScript files.
-- `locale` - Issues regarding errors in locale extensions.
-- `needs example` - Issues don't have an example but we need an example in order to confirm the issue or test the pull request.
-- `needs review` - Issues missing some important information about errors in the code, steps to reproduce the issue, etc.
-- `resource` - Issues with helpful resources to improve Bootstrap Table.
-- `update to latest version` - Issues need to update to latest version in order to be fixed.
+Our bug tracker utilizes several labels to help organize and identify issues.
 
 For a complete look at our labels, see the [project labels page](https://github.com/wenzhixin/bootstrap-table/labels).
 
@@ -77,12 +58,11 @@ Guidelines for bug reports:
 2. **Check if the issue has been fixed** &mdash; try to reproduce it using the
    latest `master` or development branch in the repository.
 
-3. **Isolate the problem** &mdash; ideally create a live example. 
+3. **Isolate the problem** &mdash; ideally create a live example.
     The web tool [jsfiddle](http://jsfiddle.net/) is a very helpful for this. Consider to use these templates:
-    * [Table from html](http://jsfiddle.net/wenyi/e3nk137y/11/light/)
-    * [Table from data](http://jsfiddle.net/wenyi/e3nk137y/13/light/)
-    * [Table from url](http://jsfiddle.net/wenyi/e3nk137y/14/light/)
-    * Other templates can also be found at [jsFiddle Bootstrap](http://bootstrap-table.wenzhixin.net.cn/examples/#basic)
+    * [Table from html](http://jsfiddle.net/wenyi/e3nk137y/44345/)
+    * [Table from data](http://jsfiddle.net/wenyi/e3nk137y/44346/)
+    * [Table from url](http://jsfiddle.net/wenyi/e3nk137y/44348/)
 
 
 A good bug report shouldn't leave others needing to chase you up for more
@@ -201,9 +181,8 @@ includes code changes) and under the terms of the
 ## Code guidelines
 
 - Readability
-- Need semicolons
-- 4 spaces (no tabs)
-- strict mode
+- [no semicolons](https://github.com/wenzhixin/bootstrap-table/pull/4218#issuecomment-475822706)
+- 2 spaces (no tabs)
 - "Attractive"
 
 

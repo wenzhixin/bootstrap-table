@@ -1,0 +1,75 @@
+/**
+ * @author zhixin wen <wenzhixin2010@gmail.com>
+ * https://github.com/wenzhixin/bootstrap-table/
+ * theme: https://github.com/jgthms/bulma/
+ */
+
+ @import './variables.scss';
+ @import '../theme.scss';
+
+.bootstrap-table {
+  .float-left {
+    float: left;
+  }
+
+  .float-right {
+    float: right;
+  }
+
+  .fixed-table-toolbar {
+    .search input {
+      width: auto;
+    }
+
+    .columns {
+      margin-right: 0;
+    }
+
+    .button.dropdown {
+      padding: 0;
+      border: 0;
+
+      .button {
+        margin: 0;
+      }
+
+      &:not(:first-child) .button {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
+
+      &:last-child .button {
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+
+      .dropdown-content {
+        box-shadow: none;
+        border: 1px solid $border-color;
+      }
+
+      label.dropdown-item {
+        padding: 5px 20px;
+      }
+    }
+  }
+
+  .fixed-table-pagination {
+    .ui.dropdown {
+      vertical-align: middle;
+    }
+
+    .is-up .fa-angle-down:before {
+      content: "\f106";
+    }
+
+    .pagination-link.disabled {
+      background-color: #dbdbdb;
+      border-color: #dbdbdb;
+      box-shadow: none;
+      color: #7a7a7a;
+      opacity: .5;
+      cursor: not-allowed;
+    }
+  }
+}

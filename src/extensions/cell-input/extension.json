@@ -1,0 +1,17 @@
+{
+  "name": "Cell Input",
+  "version": "1.0.0",
+  "description": "Plugin to edit cell value.",
+  "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/cell-input",
+  "example": "#",
+
+  "plugins": [{
+    "name": "bootstrap-table-cell-input",
+    "url": "https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/cell-input"
+  }],
+
+  "author": {
+    "name": "aamatveev",
+    "image": "https://avatars3.githubusercontent.com/u/9355888"
+  }
+}

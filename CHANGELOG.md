@@ -1,6 +1,176 @@
 ChangeLog
 ---------
 
+### 2.0.0
+
+#### Core
+
+- **New:** Added virtual scroll to support large data sets ([#4268](https://github.com/wenzhixin/bootstrap-table/pull/4268)).
+- **New:** Added webpack support and user rollup to build the src ([#4272](https://github.com/wenzhixin/bootstrap-table/pull/4272)).
+- **New:** Added support comparisons search(<, >, <=, =<, >=, =>) ([#4218](https://github.com/wenzhixin/bootstrap-table/pull/4218)).
+- **New:** Added `detailViewByClick` table option and `detailFormatter` column option ([#4219](https://github.com/wenzhixin/bootstrap-table/pull/4219)).
+- **New:** Added `showExtendedPagination` and `totalNotFilteredField` table options ([#4226](https://github.com/wenzhixin/bootstrap-table/pull/4226)).
+- **New:** Improved `filterBy` method with `or` condition and custom filter algorithm ([#4230](https://github.com/wenzhixin/bootstrap-table/pull/4230)).
+- **New:** Improved `showColumn` and `hideColumn` methods with array of fields ([#4238](https://github.com/wenzhixin/bootstrap-table/pull/4238)).
+- **New:** Improved `scrollTo` method to allow `rows` units ([#4240](https://github.com/wenzhixin/bootstrap-table/pull/4240)).
+- **New:** Added `onPostFooter`(`post-footer.bs.table`) event ([#4232](https://github.com/wenzhixin/bootstrap-table/pull/4232)).
+- **New:** Added `detailViewIcon` and `toggleDetailView` method to hide the show/hide icons ([#4259](https://github.com/wenzhixin/bootstrap-table/pull/4259)).
+- **New:** Added `widthUnit` option allow any unit ([#4276](https://github.com/wenzhixin/bootstrap-table/pull/4276)).
+- **New:** Added `multipleSelectRow` option to support ctrl and shift select ([4881222](https://github.com/wenzhixin/bootstrap-table/pull/4256/commits/4881222a994f7348ea9b0e08dcd110307f89d177)).
+- **New:** Supported checkbox and radio auto checked from html ([#4288](https://github.com/wenzhixin/bootstrap-table/pull/4288)).
+- **Update:** Rewrote all code to ES6 ([#4256](https://github.com/wenzhixin/bootstrap-table/pull/4256)).
+- **Update:** Improved `pageList` options to support localization ([a9d9722](https://github.com/wenzhixin/bootstrap-table/commit/a9d9722bcb8be0f82499aae2389309936b094268)).
+- **Update:** Fixed `smartDisplay` option pagination bug ([5dbbe8d](https://github.com/wenzhixin/bootstrap-table/commit/5dbbe8dc973bdee849c91dc1618540b38925551f)).
+- **Update:** Set the `totalRows` option always ([#4228](https://github.com/wenzhixin/bootstrap-table/pull/4228)).
+- **Update:** Improved table footer ([5814a18](https://github.com/wenzhixin/bootstrap-table/commit/5814a18a9b35b6610087dbefd275974f4dd6e45e)).
+- **Update:** Fixed data-* attribute is an object bug ([c1d834e](https://github.com/wenzhixin/bootstrap-table/commit/c1d834e5025928bb3492bb97f90a437363ec461f)).
+- **Update:** Fixed page separators click bug ([#4251](https://github.com/wenzhixin/bootstrap-table/pull/4251)).
+- **Update:** Applied `cellStyle` to checkbox field ([#4253](https://github.com/wenzhixin/bootstrap-table/pull/4253)).
+- **Update:** Fixed card view value to be aligned incorrectly bug ([#4262](https://github.com/wenzhixin/bootstrap-table/pull/4262)).
+- **Update:** Updated parameters of the (un)checkAll events to `rowsAfter, rowsBefore` ([#4273](https://github.com/wenzhixin/bootstrap-table/pull/4273)).
+- **Update:** Renamed table `maintainSelected` option to `maintainMetaData` ([#4280](https://github.com/wenzhixin/bootstrap-table/pull/4280)).
+- **Update:** Improved css frameworks themes ([#4236](https://github.com/wenzhixin/bootstrap-table/pull/4236)).
+
+#### Extensions
+
+- **New(cell-input):** Added cell-input extension ([#3647](https://github.com/wenzhixin/bootstrap-table/pull/3647)).
+- **Remove:** Removed multi-column-toggle, multiple-search, multiple-selection-row, group-by and tree-column extensions ([#4256](https://github.com/wenzhixin/bootstrap-table/pull/4256)).
+- **Update(export):** Only export table header ([#4279](https://github.com/wenzhixin/bootstrap-table/pull/4279)).
+- **Update(filter-control):** Added ability to handle boolean ([#4241](https://github.com/wenzhixin/bootstrap-table/pull/4241)).
+- **Update(filter-control):** Fixed DatePicker of filter-control does not work bug ([#4220](https://github.com/wenzhixin/bootstrap-table/pull/4220)).
+- **Update(filter-control):** Fixed clear filterControl with Cookie bug ([#4202](https://github.com/wenzhixin/bootstrap-table/pull/4202)).
+- **Update(filter-control):** Fixed loading screen with filter control ([#4274](https://github.com/wenzhixin/bootstrap-table/pull/4274)).
+- **Update(multiple-sort):** Fixed multiple-sort does not work with data-query-params bug ([#4222](https://github.com/wenzhixin/bootstrap-table/pull/4222)).
+- **New(editable):** Added `onExportSaved` event ([#4275](https://github.com/wenzhixin/bootstrap-table/pull/4275)).
+- **Update(editable):** Updated parameters of `onEditableSave` to `field, row, rowIndex, oldValue, $el` ([#4229](https://github.com/wenzhixin/bootstrap-table/pull/4229)).
+- **Update(editable):** Fixed editable rerender bug after saving data. ([#4225](https://github.com/wenzhixin/bootstrap-table/pull/4225))
+- **Update(treegrid):** Fixed treegrid cannot work bug.
+
+### 1.14.2
+
+- **New(fixed-columns extension):** Added new version fixed-columns extension.
+- **New(js):** Updated the style of loading message.
+- **Update(js):** Updated refresh event params.
+- **Update(locale):** Updated all locale translation with English as default.
+- **Update(export extension):** Fixed export all rows to pdf bug.
+- **Update(export extension):** Disabled export button when exportDataType is 'selected' and selection empty.
+- **Update(addrbar extension):** Fixed addrbar extension remove hash from url bug.
+
+### 1.14.1
+
+- **New(css):** Added CSS Frameworks supported.
+- **New(css):** Added [Semantic UI](http://semantic-ui.com) theme.
+- **New(css):** Added [Bulma](http://bulma.io) theme.
+- **New(css):** Added [Materialize](https://materializecss.com/) theme.
+- **New(css):** Added [Foundation](https://foundation.zurb.com/) theme.
+- **New(js):** Added data attribute support for `ignoreClickToSelectOn` option.
+- **Update(js):** Fixed `detailView` find td elements bug.
+- **Update(js):** Fixed `showColumns` close dropdown bug when item label clicking.
+- **Update(js):** Fixed reset width error after `toggleFullscreen`.
+- **Update(js):** Fixed `cardview` click event bug.
+
+### 1.13.5
+
+- **New(auto-refresh extension):** Rewrote auto-refresh extension to ES6.
+- **Update(js):** Fixed showFullscreen cannot work bug.
+- **Update(js):** Redefined customSearch option.
+- **Update(js):** Fixed show footer cannot work bug.
+- **Update(js):** Updated the parameter of `footerStyle`.
+- **Update(js):** Added classes supported for `footerStyle`.
+- **Update(js):** Fixed IE11 transform bug.
+- **Update(js):** Removed beginning and end whitespace from td.
+- **Update(export extension):** Fixed export selected bug.
+
+### 1.13.4
+
+- **New(sticky-header extension):** Rewrote sticky-header extension to ES6.
+- **New(sticky-header extension):** Added to support bootstrap v4 and `theadClasses` option.
+- **New(auto-refresh extension):** Icons update to font-awesome 5.
+- **New(examples):** Added examples Algolia search.
+- **Update(js):** Fixed `theadClasses` is not set when a `thead` exists.
+- **Update(js):** Fixed table resize after mergeCell the first row.
+- **Update(cookie extension):** Fixed cookie extension broken bug.
+- **Update(cookie extension):** Fixed cookie extension unicode encode bug.
+- **Update(package):** Added `sass` devDependencies.
+
+### 1.13.3
+
+- **New(js):** Supported full table classes of bootstrap v4.
+- **New(css):** Rewrote bootstrap-table.css to scss.
+- **New(accent-neutralise extension):** Rewrote accent-neutralise extension to ES6.
+- **New(addrbar extension):** Rewrote addrbar extension to ES6 and supported attribute option.
+- **New(group-by-v2 extension):** New `groupByFormatter` option.
+- **New(pipeline extension):** New pipeline extension `bootstrap-table-pipeline`.
+- **Remove(js):** Removed `striped` option and use classes instead.
+- **Update(js):** Fixed `locale` option bug.
+- **Update(js):** Fixed `sortClass` option bug.
+- **Update(js):** Fixed `sortStable` option cannot work bug.
+- **Update(js):** Improved built-in sort function and `customSort` logic.
+- **Update(js):** Fixed horizontal scrollbar bug.
+- **Update(cookie extension):** Improved cookie extension code.
+
+### 1.13.2
+
+- **New(js):** Added `paginationSuccessivelySize`, `paginationPagesBySide` and `paginationUseIntermediate` pagination options.
+- **New(cookie extension):** Rewrote cookie extension to ES6.
+- **New(cookie extension):** Saved `filterBy` method.
+- **New(filter-control extension):** Added `placeholder` as a empty option to the select controls.
+- **New(filter-control extension):** Added `clearFilterControl` method in order to clear all filter controls.
+- **New(docs)** Added algolia search.
+- **Update(js):** Fixed sort column shows hidden rows in `server` side pagination bug.
+- **Update(js):** Fixed `scrollTo` bug.
+- **Update(css):** Fixed no-bordered problem of bootstrap v4.
+- **Update(filter-control extension):** Added bootstrap v4 icon support.
+
+### 1.13.1
+
+- feat(js): add `theadClasses` option to supoort bootstrap v4
+- feat(js): fix #3727, icons update to font-awesome 5
+- feat(locale): rewrite all locales to ES6
+- feat(editable extension): rewrite bootstrap-table-editable to ES6
+- feat(filter-control extension): rewrite bootstrap-table-filter-control to ES6
+- feat(treegrid extension): add `rootParentId` option
+- fix(js): fix #3653, getHiddenRows method bug
+- fix(js): fix #4066, `getOptions` method remove data property
+- fix(js): fix #4088, no matches display error
+- fix(js): fix eslint warning and error
+- fix(locale): fix #3999, improve es-ES locale
+- fix(filter-control extension): fix #3474, multiple choice bug
+- fix(filter-control extension): fix #4008, select all rows and `keyup` event error
+- fix(export extension): fix #4086, export in cardView display error
+
+### 1.13.0
+
+- feat(js): rewrite bootstrap-table to ES6
+- feat(locale): add fi-FI.js locale
+- feat(build): use babel instead grunt
+- feat(filter-control): add `created-controls.bs.table` event to filter-control
+- feat(export extension): rewrite export extension to ES6
+- feat(export extension): export extension support bootstrap v4
+- feat(export extension): add `exportTable` method
+- feat(toolbar extension): rewrite toolbar extension to ES6
+- feat(toolbar extension): toolbar extension supports bootstrap v4
+- feat(toolbar extension): add server sidePagination support
+- feat(resizable extension): new resizable extension version 2.0.0
+- feat(editable extension): allow different x-editable configuration per table row
+- feat(addrbar extension): add addrbar extension
+- fix(js): fix #1769, improve check/uncheck methods
+- fix(js): fix #1983, cookie with pageNumber and searchText bug
+- fix(js): fix #2485, selections bugs
+- fix(js): fix #2545, customSearch support data attribute
+- fix(js): fix #3696, can't search data with formatter
+- fix(js): fix #4081, getRowByUniqueId error when row unique id is undefined
+- fix(js): fix older bootstrap version bug
+- fix(css): fix #1848, remove toolbar line-height
+- fix(css): limit fullscreen CSS rule scope
+- fix(editable extension): fix #1819, #2072, editable formatter bug
+- fix(extension): fix #3720, fix #3682, bug with export extension together
+- fix(extension): remove lick-edit-row and flat-json extensions
+
+### 1.12.2
+
+- fix(js): fix #3656, toggle icon typo release error
+
 ### 1.12.1
 
 - fix(js): fix #3656, toggle icon typo

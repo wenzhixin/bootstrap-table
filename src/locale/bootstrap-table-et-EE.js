@@ -2,42 +2,87 @@
  * Bootstrap Table Estonian translation
  * Author: kristjan@logist.it>
  */
-(function ($) {
-    'use strict';
 
-    $.fn.bootstrapTable.locales['et-EE'] = {
-        formatLoadingMessage: function () {
-            return 'Päring käib, palun oota...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' rida lehe kohta';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Näitan tulemusi ' + pageFrom + ' kuni ' + pageTo + ' - kokku ' + totalRows + ' tulemust';
-        },
-        formatSearch: function () {
-            return 'Otsi';
-        },
-        formatNoMatches: function () {
-            return 'Päringu tingimustele ei vastanud ühtegi tulemust';
-        },
-        formatPaginationSwitch: function () {
-            return 'Näita/Peida lehtedeks jagamine';
-        },
-        formatRefresh: function () {
-            return 'Värskenda';
-        },
-        formatToggle: function () {
-            return 'Lülita';
-        },
-        formatColumns: function () {
-            return 'Veerud';
-        },
-        formatAllRows: function () {
-            return 'Kõik';
-        }
-    };
+$.fn.bootstrapTable.locales['et-EE'] = {
+  formatLoadingMessage () {
+    return 'Päring käib, palun oota'
+  },
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} rida lehe kohta`
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Näitan tulemusi ${pageFrom} kuni ${pageTo} - kokku ${totalRows} tulemust (filtered from ${totalNotFiltered} total rows)`
+    }
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['et-EE']);
+    return `Näitan tulemusi ${pageFrom} kuni ${pageTo} - kokku ${totalRows} tulemust`
+  },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
+  formatSearch () {
+    return 'Otsi'
+  },
+  formatNoMatches () {
+    return 'Päringu tingimustele ei vastanud ühtegi tulemust'
+  },
+  formatPaginationSwitch () {
+    return 'Näita/Peida lehtedeks jagamine'
+  },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+  formatRefresh () {
+    return 'Värskenda'
+  },
+  formatToggle () {
+    return 'Lülita'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
+  formatColumns () {
+    return 'Veerud'
+  },
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+  formatAllRows () {
+    return 'Kõik'
+  },
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+  formatExport () {
+    return 'Export data'
+  },
+  formatJumpTo () {
+    return 'GO'
+  },
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+  formatAdvancedCloseButton () {
+    return 'Close'
+  }
+}
 
-})(jQuery);
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['et-EE'])

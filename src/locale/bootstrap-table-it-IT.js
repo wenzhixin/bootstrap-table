@@ -4,49 +4,88 @@
  * Author: Davide Borsatto <davide.borsatto@gmail.com>
  * Author: Alessio Felicioni <alessio.felicioni@gmail.com>
  */
-(function ($) {
-    'use strict';
 
-    $.fn.bootstrapTable.locales['it-IT'] = {
-        formatLoadingMessage: function () {
-            return 'Caricamento in corso...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' elementi per pagina';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Elementi mostrati da ' + pageFrom + ' a ' + pageTo + ' (Numero totali di elementi ' + totalRows + ')';
-        },
-        formatSearch: function () {
-            return 'Cerca';
-        },
-        formatNoMatches: function () {
-            return 'Nessun elemento trovato';
-        },
-        formatPaginationSwitch: function () {
-            return 'Nascondi/Mostra paginazione';
-        },
-        formatRefresh: function () {
-            return 'Aggiorna';
-        },
-        formatToggle: function () {
-            return 'Attiva/Disattiva';
-        },
-        formatColumns: function () {
-            return 'Colonne';
-        },
-        formatAllRows: function () {
-            return 'Tutto';
-        },
-        formatExport: function () {
-            return 'Esporta dati';
-        },
-        formatClearFilters: function () {
-            return 'Pulisci filtri';
-        }
-        
-    };
+$.fn.bootstrapTable.locales['it-IT'] = {
+  formatLoadingMessage () {
+    return 'Caricamento in corso'
+  },
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} elementi per pagina`
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi (filtered from ${totalNotFiltered} total rows)`
+    }
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['it-IT']);
+    return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi`
+  },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Pulisci filtri'
+  },
+  formatSearch () {
+    return 'Cerca'
+  },
+  formatNoMatches () {
+    return 'Nessun elemento trovato'
+  },
+  formatPaginationSwitch () {
+    return 'Nascondi/Mostra paginazione'
+  },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+  formatRefresh () {
+    return 'Aggiorna'
+  },
+  formatToggle () {
+    return 'Attiva/Disattiva'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
+  formatColumns () {
+    return 'Colonne'
+  },
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+  formatAllRows () {
+    return 'Tutto'
+  },
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+  formatExport () {
+    return 'Esporta dati'
+  },
+  formatJumpTo () {
+    return 'GO'
+  },
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+  formatAdvancedCloseButton () {
+    return 'Close'
+  }
 
-})(jQuery);
+}
+
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['it-IT'])

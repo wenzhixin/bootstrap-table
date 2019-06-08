@@ -2,48 +2,87 @@
  * Bootstrap Table Uzbek translation
  * Author: Nabijon Masharipov <mnabijonz@gmail.com>
  */
-(function ($) {
-    'use strict';
 
-    $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
-        formatLoadingMessage: function () {
-            return 'Yuklanyapti, iltimos kuting...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' qator har sahifada';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Ko\'rsatypati ' + pageFrom + ' dan ' + pageTo + ' gacha ' + totalRows + ' qatorlarni';
-        },
-        formatSearch: function () {
-            return 'Qidirish';
-        },
-        formatNoMatches: function () {
-            return 'Hech narsa topilmadi';
-        },
-        formatPaginationSwitch: function () {
-            return 'Sahifalashni yashirish/ko\'rsatish';
-        },
-        formatRefresh: function () {
-            return 'Yangilash';
-        },
-        formatToggle: function () {
-            return 'Ko\'rinish';
-        },
-        formatColumns: function () {
-            return 'Ustunlar';
-        },
-        formatAllRows: function () {
-            return 'Hammasi';
-        },
-        formatExport: function () {
-            return 'Eksport';
-        },
-        formatClearFilters: function () {
-            return 'Filtrlarni tozalash';
-        }
-    };
+$.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
+  formatLoadingMessage () {
+    return 'Yuklanyapti, iltimos kuting'
+  },
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} qator har sahifada`
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Ko'rsatypati ${pageFrom} dan ${pageTo} gacha ${totalRows} qatorlarni (filtered from ${totalNotFiltered} total rows)`
+    }
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['uz-Latn-UZ']);
+    return `Ko'rsatypati ${pageFrom} dan ${pageTo} gacha ${totalRows} qatorlarni`
+  },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Filtrlarni tozalash'
+  },
+  formatSearch () {
+    return 'Qidirish'
+  },
+  formatNoMatches () {
+    return 'Hech narsa topilmadi'
+  },
+  formatPaginationSwitch () {
+    return 'Sahifalashni yashirish/ko\'rsatish'
+  },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+  formatRefresh () {
+    return 'Yangilash'
+  },
+  formatToggle () {
+    return 'Ko\'rinish'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
+  formatColumns () {
+    return 'Ustunlar'
+  },
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+  formatAllRows () {
+    return 'Hammasi'
+  },
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+  formatExport () {
+    return 'Eksport'
+  },
+  formatJumpTo () {
+    return 'GO'
+  },
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+  formatAdvancedCloseButton () {
+    return 'Close'
+  }
+}
 
-})(jQuery);
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['uz-Latn-UZ'])

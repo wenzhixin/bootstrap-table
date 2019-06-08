@@ -3,42 +3,87 @@
  * Author: Petra Štrbenac (petra.strbenac@gmail.com)
  * Author: Petra Štrbenac (petra.strbenac@gmail.com)
  */
-(function ($) {
-    'use strict';
 
-    $.fn.bootstrapTable.locales['hr-HR'] = {
-        formatLoadingMessage: function () {
-            return 'Molimo pričekajte ...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' broj zapisa po stranici';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Prikazujem ' + pageFrom + '. - ' + pageTo + '. od ukupnog broja zapisa ' + totalRows;
-        },
-        formatSearch: function () {
-            return 'Pretraži';
-        },
-        formatNoMatches: function () {
-            return 'Nije pronađen niti jedan zapis';
-        },
-        formatPaginationSwitch: function () {
-            return 'Prikaži/sakrij stranice';
-        },
-        formatRefresh: function () {
-            return 'Osvježi';
-        },
-        formatToggle: function () {
-            return 'Promijeni prikaz';
-        },
-        formatColumns: function () {
-            return 'Kolone';
-        },
-        formatAllRows: function () {
-            return 'Sve';
-        }
-    };
+$.fn.bootstrapTable.locales['hr-HR'] = {
+  formatLoadingMessage () {
+    return 'Molimo pričekajte'
+  },
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} broj zapisa po stranici`
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Prikazujem ${pageFrom}. - ${pageTo}. od ukupnog broja zapisa ${totalRows} (filtered from ${totalNotFiltered} total rows)`
+    }
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['hr-HR']);
+    return `Prikazujem ${pageFrom}. - ${pageTo}. od ukupnog broja zapisa ${totalRows}`
+  },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
+  formatSearch () {
+    return 'Pretraži'
+  },
+  formatNoMatches () {
+    return 'Nije pronađen niti jedan zapis'
+  },
+  formatPaginationSwitch () {
+    return 'Prikaži/sakrij stranice'
+  },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+  formatRefresh () {
+    return 'Osvježi'
+  },
+  formatToggle () {
+    return 'Promijeni prikaz'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
+  formatColumns () {
+    return 'Kolone'
+  },
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+  formatAllRows () {
+    return 'Sve'
+  },
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+  formatExport () {
+    return 'Export data'
+  },
+  formatJumpTo () {
+    return 'GO'
+  },
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+  formatAdvancedCloseButton () {
+    return 'Close'
+  }
+}
 
-})(jQuery);
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['hr-HR'])

@@ -1,35 +1,31 @@
 /**
  * @author: Jewway
- * @version: v1.0.0
+ * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-!function ($) {
-  'use strict';
+$.fn.bootstrapTable.methods.push('changeTitle')
+$.fn.bootstrapTable.methods.push('changeLocale')
 
-  var BootstrapTable = $.fn.bootstrapTable.Constructor;
+$.BootstrapTable = class extends $.BootstrapTable {
 
-  BootstrapTable.prototype.changeTitle = function (locale) {
-    $.each(this.options.columns, function (idx, columnList) {
-      $.each(columnList, function (idx, column) {
+  changeTitle (locale) {
+    $.each(this.options.columns, (idx, columnList) => {
+      $.each(columnList, (idx, column) => {
         if (column.field) {
-          column.title = locale[column.field];
+          column.title = locale[column.field]
         }
-      });
-    });
-    this.initHeader();
-    this.initBody();
-    this.initToolbar();
-  };
+      })
+    })
+    this.initHeader()
+    this.initBody()
+    this.initToolbar()
+  }
 
-  BootstrapTable.prototype.changeLocale = function (localeId) {
-    this.options.locale = localeId;
-    this.initLocale();
-    this.initPagination();
-    this.initBody();
-    this.initToolbar();
-  };
-
-  $.fn.bootstrapTable.methods.push('changeTitle');
-  $.fn.bootstrapTable.methods.push('changeLocale');
-
-}(jQuery);
+  changeLocale (localeId) {
+    this.options.locale = localeId
+    this.initLocale()
+    this.initPagination()
+    this.initBody()
+    this.initToolbar()
+  }
+}

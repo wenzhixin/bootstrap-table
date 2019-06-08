@@ -2,42 +2,87 @@
  * Bootstrap Table Japanese translation
  * Author: Azamshul Azizy <azamshul@gmail.com>
  */
-(function ($) {
-    'use strict';
 
-    $.fn.bootstrapTable.locales['ja-JP'] = {
-        formatLoadingMessage: function () {
-            return '読み込み中です。少々お待ちください。';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return 'ページ当たり最大' + pageNumber + '件';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return '全' + totalRows + '件から、'+ pageFrom + 'から' + pageTo + '件目まで表示しています';
-        },
-        formatSearch: function () {
-            return '検索';
-        },
-        formatNoMatches: function () {
-            return '該当するレコードが見つかりません';
-        },
-        formatPaginationSwitch: function () {
-            return 'ページ数を表示・非表示';
-        },
-        formatRefresh: function () {
-            return '更新';
-        },
-        formatToggle: function () {
-            return 'トグル';
-        },
-        formatColumns: function () {
-            return '列';
-        },
-        formatAllRows: function () {
-            return 'すべて';
-        }
-    };
+$.fn.bootstrapTable.locales['ja-JP'] = {
+  formatLoadingMessage () {
+    return '読み込み中です。少々お待ちください。'
+  },
+  formatRecordsPerPage (pageNumber) {
+    return `ページ当たり最大${pageNumber}件`
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `全${totalRows}件から、${pageFrom}から${pageTo}件目まで表示しています (filtered from ${totalNotFiltered} total rows)`
+    }
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ja-JP']);
+    return `全${totalRows}件から、${pageFrom}から${pageTo}件目まで表示しています`
+  },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
+  formatSearch () {
+    return '検索'
+  },
+  formatNoMatches () {
+    return '該当するレコードが見つかりません'
+  },
+  formatPaginationSwitch () {
+    return 'ページ数を表示・非表示'
+  },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+  formatRefresh () {
+    return '更新'
+  },
+  formatToggle () {
+    return 'トグル'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
+  formatColumns () {
+    return '列'
+  },
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+  formatAllRows () {
+    return 'すべて'
+  },
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+  formatExport () {
+    return 'Export data'
+  },
+  formatJumpTo () {
+    return 'GO'
+  },
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+  formatAdvancedCloseButton () {
+    return 'Close'
+  }
+}
 
-})(jQuery);
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ja-JP'])

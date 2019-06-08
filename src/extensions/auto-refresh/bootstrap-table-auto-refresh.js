@@ -1,84 +1,81 @@
 /**
  * @author: Alec Fenichel
  * @webSite: https://fenichelar.com
- * @version: v1.0.0
+ * @update: zhixin wen <wenzhixin2010@gmail.com>
  */
 
-(function ($) {
+const Utils = $.fn.bootstrapTable.utils
 
-    'use strict';
+$.extend($.fn.bootstrapTable.defaults, {
+  autoRefresh: false,
+  autoRefreshInterval: 60,
+  autoRefreshSilent: true,
+  autoRefreshStatus: true,
+  autoRefreshFunction: null
+})
 
-    $.extend($.fn.bootstrapTable.defaults, {
-        autoRefresh: false,
-        autoRefreshInterval: 60,
-        autoRefreshSilent: true,
-        autoRefreshStatus: true,
-        autoRefreshFunction: null
-    });
+$.extend($.fn.bootstrapTable.defaults.icons, {
+  autoRefresh: {
+    bootstrap3: 'glyphicon-time icon-time',
+    materialize: 'access_time'
+  }[$.fn.bootstrapTable.theme] || 'fa-clock'
+})
 
-    $.extend($.fn.bootstrapTable.defaults.icons, {
-        autoRefresh: 'glyphicon-time icon-time'
-    });
+$.extend($.fn.bootstrapTable.locales, {
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  }
+})
 
-    $.extend($.fn.bootstrapTable.locales, {
-        formatAutoRefresh: function() {
-            return 'Auto Refresh';
-        }
-    });
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
+$.BootstrapTable = class extends $.BootstrapTable {
+  init (...args) {
+    super.init(...args)
 
-    var BootstrapTable = $.fn.bootstrapTable.Constructor;
-    var _init = BootstrapTable.prototype.init;
-    var _initToolbar = BootstrapTable.prototype.initToolbar;
-    var sprintf = $.fn.bootstrapTable.utils.sprintf;
+    if (this.options.autoRefresh && this.options.autoRefreshStatus) {
+      this.options.autoRefreshFunction = setInterval(() => {
+        this.refresh({silent: this.options.autoRefreshSilent})
+      }, this.options.autoRefreshInterval * 1000)
+    }
+  }
 
-    BootstrapTable.prototype.init = function () {
-        _init.apply(this, Array.prototype.slice.apply(arguments));
+  initToolbar (...args) {
+    super.initToolbar(...args)
 
-        if (this.options.autoRefresh && this.options.autoRefreshStatus) {
-            var that = this;
-            this.options.autoRefreshFunction = setInterval(function () {
-                that.refresh({silent: that.options.autoRefreshSilent});
-            }, this.options.autoRefreshInterval*1000);
-        }
-    };
+    if (this.options.autoRefresh) {
+      const $btnGroup = this.$toolbar.find('>.columns')
+      let $btnAutoRefresh = $btnGroup.find('.auto-refresh')
 
-    BootstrapTable.prototype.initToolbar = function() {
-        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
+      if (!$btnAutoRefresh.length) {
+        $btnAutoRefresh = $(`
+          <button class="auto-refresh ${this.constants.buttonsClass}
+          ${this.options.autoRefreshStatus ? ` ${this.constants.classes.buttonActive}` : ''}"
+          type="button" title="${this.options.formatAutoRefresh()}">
+          ${ this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : ''}
+          ${ this.options.showButtonText ? this.options.formatAutoRefresh() : ''}
+          </button>
+        `).appendTo($btnGroup)
 
-        if (this.options.autoRefresh) {
-            var $btnGroup = this.$toolbar.find('>.btn-group');
-            var $btnAutoRefresh = $btnGroup.find('.auto-refresh');
+        $btnAutoRefresh.on('click', $.proxy(this.toggleAutoRefresh, this))
+      }
+    }
+  }
 
-            if (!$btnAutoRefresh.length) {
-                $btnAutoRefresh = $([
-                    sprintf('<button class="btn btn-default auto-refresh %s" ', this.options.autoRefreshStatus ? 'enabled' : ''),
-                    'type="button" ',
-                    sprintf('title="%s">', this.options.formatAutoRefresh()),
-                    sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.autoRefresh),
-                    '</button>'
-                ].join('')).appendTo($btnGroup);
-
-                $btnAutoRefresh.on('click', $.proxy(this.toggleAutoRefresh, this));
-            }
-        }
-    };
-
-    BootstrapTable.prototype.toggleAutoRefresh = function() {
-        if (this.options.autoRefresh) {
-            if (this.options.autoRefreshStatus) {
-                clearInterval(this.options.autoRefreshFunction);
-                this.$toolbar.find('>.btn-group').find('.auto-refresh').removeClass('enabled');
-            } else {
-                var that = this;
-                this.options.autoRefreshFunction = setInterval(function () {
-                    that.refresh({silent: that.options.autoRefreshSilent});
-                }, this.options.autoRefreshInterval*1000);
-                this.$toolbar.find('>.btn-group').find('.auto-refresh').addClass('enabled');
-            }
-            this.options.autoRefreshStatus = !this.options.autoRefreshStatus;
-        }
-    };
-
-})(jQuery);
+  toggleAutoRefresh () {
+    if (this.options.autoRefresh) {
+      if (this.options.autoRefreshStatus) {
+        clearInterval(this.options.autoRefreshFunction)
+        this.$toolbar.find('>.columns').find('.auto-refresh')
+          .removeClass(this.constants.classes.buttonActive)
+      } else {
+        this.options.autoRefreshFunction = setInterval(() => {
+          this.refresh({silent: this.options.autoRefreshSilent})
+        }, this.options.autoRefreshInterval * 1000)
+        this.$toolbar.find('>.columns').find('.auto-refresh')
+          .addClass(this.constants.classes.buttonActive)
+      }
+      this.options.autoRefreshStatus = !this.options.autoRefreshStatus
+    }
+  }
+}

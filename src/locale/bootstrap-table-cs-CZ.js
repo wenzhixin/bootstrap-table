@@ -3,42 +3,87 @@
  * Author: Lukas Kral (monarcha@seznam.cz)
  * Author: Jakub Svestka <svestka1999@gmail.com>
  */
-(function ($) {
-    'use strict';
 
-    $.fn.bootstrapTable.locales['cs-CZ'] = {
-        formatLoadingMessage: function () {
-            return 'Čekejte, prosím...';
-        },
-        formatRecordsPerPage: function (pageNumber) {
-            return pageNumber + ' položek na stránku';
-        },
-        formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return 'Zobrazena ' + pageFrom + '. - ' + pageTo + '. položka z celkových ' + totalRows;
-        },
-        formatSearch: function () {
-            return 'Vyhledávání';
-        },
-        formatNoMatches: function () {
-            return 'Nenalezena žádná vyhovující položka';
-        },
-        formatPaginationSwitch: function () {
-            return 'Skrýt/Zobrazit stránkování';
-        },
-        formatRefresh: function () {
-            return 'Aktualizovat';
-        },
-        formatToggle: function () {
-            return 'Přepni';
-        },
-        formatColumns: function () {
-            return 'Sloupce';
-        },
-        formatAllRows: function () {
-            return 'Vše';
-        }
-    };
+$.fn.bootstrapTable.locales['cs-CZ'] = {
+  formatLoadingMessage () {
+    return 'Čekejte, prosím'
+  },
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} položek na stránku`
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Zobrazena ${pageFrom}. - ${pageTo} . položka z celkových ${totalRows} (filtered from ${totalNotFiltered} total rows)`
+    }
 
-    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['cs-CZ']);
+    return `Zobrazena ${pageFrom}. - ${pageTo} . položka z celkových ${totalRows}`
+  },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
+  formatSearch () {
+    return 'Vyhledávání'
+  },
+  formatNoMatches () {
+    return 'Nenalezena žádná vyhovující položka'
+  },
+  formatPaginationSwitch () {
+    return 'Skrýt/Zobrazit stránkování'
+  },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+  formatRefresh () {
+    return 'Aktualizovat'
+  },
+  formatToggle () {
+    return 'Přepni'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
+  formatColumns () {
+    return 'Sloupce'
+  },
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+  formatAllRows () {
+    return 'Vše'
+  },
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+  formatExport () {
+    return 'Export data'
+  },
+  formatJumpTo () {
+    return 'GO'
+  },
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+  formatAdvancedCloseButton () {
+    return 'Close'
+  }
+}
 
-})(jQuery);
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['cs-CZ'])

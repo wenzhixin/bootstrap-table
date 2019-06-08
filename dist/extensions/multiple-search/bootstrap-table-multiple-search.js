@@ -1,71 +1,85 @@
-/**
- * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.0.0
- */
-
-!function ($) {
-
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define([], factory);
+    } else if (typeof exports !== "undefined") {
+        factory();
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory();
+        global.bootstrapTableMultipleSearch = mod.exports;
+    }
+})(this, function () {
     'use strict';
 
-    $.extend($.fn.bootstrapTable.defaults, {
-        multipleSearch: false,
-	    delimeter: " "
-    });
+    /**
+     * @author: Dennis Hernández
+     * @webSite: http://djhvscf.github.io/Blog
+     * @version: v1.0.0
+     */
 
-    var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initSearch = BootstrapTable.prototype.initSearch;
+    !function ($) {
 
-    BootstrapTable.prototype.initSearch = function () {
-        if (this.options.multipleSearch) {
-            if (this.searchText === undefined) {
-                return;
-            }
-            var strArray = this.searchText.split(this.options.delimeter),
-                that = this,
-                f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns,
-                dataFiltered = [];
+        'use strict';
 
-            if (strArray.length === 1) {
-                _initSearch.apply(this, Array.prototype.slice.apply(arguments));
-            } else {
-                for (var i = 0; i < strArray.length; i++) {
-                    var str = strArray[i].trim();
-                    dataFiltered = str ? $.grep(dataFiltered.length === 0 ? this.options.data : dataFiltered, function (item, i) {
-                        for (var key in item) {
-                            key = $.isNumeric(key) ? parseInt(key, 10) : key;
-                            var value = item[key],
-                                column = that.columns[that.fieldsColumnsIndex[key]],
-                                j = $.inArray(key, that.header.fields);
+        $.extend($.fn.bootstrapTable.defaults, {
+            multipleSearch: false,
+            delimeter: " "
+        });
 
-                            // Fix #142: search use formated data
-                            if (column && column.searchFormatter) {
-                                value = $.fn.bootstrapTable.utils.calculateObjectValue(column,
-                                    that.header.formatters[j], [value, item, i], value);
-                            }
+        var BootstrapTable = $.fn.bootstrapTable.Constructor,
+            _initSearch = BootstrapTable.prototype.initSearch;
 
-                            var index = $.inArray(key, that.header.fields);
-                            if (index !== -1 && that.header.searchables[index] && (typeof value === 'string' || typeof value === 'number')) {
-                                if (that.options.strictSearch) {
-                                    if ((value + '').toLowerCase() === str) {
-                                        return true;
-                                    }
-                                } else {
-                                    if ((value + '').toLowerCase().indexOf(str) !== -1) {
-                                        return true;
+        BootstrapTable.prototype.initSearch = function () {
+            if (this.options.multipleSearch) {
+                if (this.searchText === undefined) {
+                    return;
+                }
+                var strArray = this.searchText.split(this.options.delimeter),
+                    that = this,
+                    f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns,
+                    dataFiltered = [];
+
+                if (strArray.length === 1) {
+                    _initSearch.apply(this, Array.prototype.slice.apply(arguments));
+                } else {
+                    for (var i = 0; i < strArray.length; i++) {
+                        var str = strArray[i].trim();
+                        dataFiltered = str ? $.grep(dataFiltered.length === 0 ? this.options.data : dataFiltered, function (item, i) {
+                            for (var key in item) {
+                                key = $.isNumeric(key) ? parseInt(key, 10) : key;
+                                var value = item[key],
+                                    column = that.columns[that.fieldsColumnsIndex[key]],
+                                    j = $.inArray(key, that.header.fields);
+
+                                // Fix #142: search use formated data
+                                if (column && column.searchFormatter) {
+                                    value = $.fn.bootstrapTable.utils.calculateObjectValue(column, that.header.formatters[j], [value, item, i], value);
+                                }
+
+                                var index = $.inArray(key, that.header.fields);
+                                if (index !== -1 && that.header.searchables[index] && (typeof value === 'string' || typeof value === 'number')) {
+                                    if (that.options.strictSearch) {
+                                        if ((value + '').toLowerCase() === str) {
+                                            return true;
+                                        }
+                                    } else {
+                                        if ((value + '').toLowerCase().indexOf(str) !== -1) {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
-                        }
-                        return false;
-                    }) : this.data;
+                            return false;
+                        }) : this.data;
+                    }
+
+                    this.data = dataFiltered;
                 }
-
-                this.data = dataFiltered;
+            } else {
+                _initSearch.apply(this, Array.prototype.slice.apply(arguments));
             }
-        } else {
-            _initSearch.apply(this, Array.prototype.slice.apply(arguments));
-        }
-    };
-
-}(jQuery);
+        };
+    }(jQuery);
+});
