@@ -29,13 +29,13 @@ const UtilsFilterControl = {
       }
     }
   },
-  addOptionToSelectControl (selectControl, _value, text) {
+  addOptionToSelectControl (selectControl, _value, text, selected) {
     const value = $.trim(_value)
     const $selectControl = $(selectControl.get(selectControl.length - 1))
     if (
       !UtilsFilterControl.existOptionInSelectControl(selectControl, value)
     ) {
-      $selectControl.append(
+      const option = $(
         $('<option></option>')
           .attr('value', value)
           .text(
@@ -44,6 +44,12 @@ const UtilsFilterControl = {
               .text()
           )
       )
+
+      if (value === selected) {
+        option.attr('selected', true)
+      }
+
+      $selectControl.append(option)
     }
   },
   sortSelectControl (selectControl, orderBy) {
@@ -220,7 +226,7 @@ const UtilsFilterControl = {
       ) {
         if (selectControl.get(selectControl.length - 1).options.length === 0) {
           // Added the default option
-          UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder)
+          UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
         }
 
         const uniqueValues = {}
@@ -234,7 +240,7 @@ const UtilsFilterControl = {
 
         // eslint-disable-next-line guard-for-in
         for (const key in uniqueValues) {
-          UtilsFilterControl.addOptionToSelectControl(selectControl, uniqueValues[key], key)
+          UtilsFilterControl.addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
         }
 
         UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
@@ -286,9 +292,17 @@ const UtilsFilterControl = {
               column.filterControlPlaceholder
                 ? column.filterControlPlaceholder
                 : '',
-              `filter-control-${i}`
+              column.filterDefault
             )
           )
+
+          if ('' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
+            if ($.isEmptyObject(that.filterColumnsPartial)) {
+              that.filterColumnsPartial = {}
+            }
+
+            that.filterColumnsPartial[column.field] = column.filterDefault
+          }
         }
       }
 
@@ -321,8 +335,8 @@ const UtilsFilterControl = {
             `.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`
           )
 
-          UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder)
-          filterDataType(filterDataSource, selectControl)
+          UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
+          filterDataType(filterDataSource, selectControl, column.filterDefault)
         } else {
           throw new SyntaxError(
             'Error. You should use any of these allowed filter data methods: var, json, url.' +
@@ -341,7 +355,7 @@ const UtilsFilterControl = {
               success (data) {
                 // eslint-disable-next-line guard-for-in
                 for (const key in data) {
-                  UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key])
+                  UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key], column.filterDefault)
                 }
                 UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
               }
@@ -351,7 +365,7 @@ const UtilsFilterControl = {
             variableValues = window[filterDataSource]
             // eslint-disable-next-line guard-for-in
             for (key in variableValues) {
-              UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key])
+              UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], column.filterDefault)
             }
             UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
             break
@@ -359,7 +373,7 @@ const UtilsFilterControl = {
             variableValues = JSON.parse(filterDataSource)
             // eslint-disable-next-line guard-for-in
             for (key in variableValues) {
-              UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key])
+              UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], column.filterDefault)
             }
             UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
             break
@@ -447,6 +461,13 @@ const UtilsFilterControl = {
           }
         })
       }
+
+      if (that.options.sidePagination !== 'server') {
+        header.find('[class*=\'bootstrap-table-filter-control\']').each((k, input) => {
+          $(input).trigger('change')
+        })
+      }
+
     } else {
       header.find('.filterControl').hide()
     }
@@ -467,32 +488,32 @@ const UtilsFilterControl = {
   }
 }
 const filterDataMethods = {
-  var (filterDataSource, selectControl, filterOrderBy) {
+  var (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource]
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
-      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key])
+      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
     UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
   },
-  url (filterDataSource, selectControl, filterOrderBy) {
+  url (filterDataSource, selectControl, filterOrderBy, selected) {
     $.ajax({
       url: filterDataSource,
       dataType: 'json',
       success (data) {
         // eslint-disable-next-line guard-for-in
         for (const key in data) {
-          UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key])
+          UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key], selected)
         }
         UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
       }
     })
   },
-  json (filterDataSource, selectControl, filterOrderBy) {
+  json (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = JSON.parse(filterDataSource)
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
-      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key])
+      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
     UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
   }
@@ -508,12 +529,13 @@ $.extend($.fn.bootstrapTable.defaults, {
   },
   alignmentSelectControlOptions: undefined,
   filterTemplate: {
-    input (that, field, isVisible, placeholder) {
+    input (that, field, isVisible, placeholder, value) {
       return Utils.sprintf(
-        '<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" placeholder="%s">',
+        '<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" placeholder="%s" value="%s">',
         field,
         isVisible,
-        placeholder
+        'undefined' === typeof placeholder ? '' : placeholder,
+        'undefined' === typeof value ? '' : value
       )
     },
     select ({ options }, field, isVisible) {
@@ -526,11 +548,12 @@ $.extend($.fn.bootstrapTable.defaults, {
         )
       )
     },
-    datepicker (that, field, isVisible) {
+    datepicker (that, field, isVisible, value) {
       return Utils.sprintf(
-        '<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s">',
+        '<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" value="%s">',
         field,
-        isVisible
+        isVisible,
+        'undefined' === typeof value ? '' : value
       )
     }
   },
@@ -547,6 +570,7 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterStrictSearch: false,
   filterStartsWithSearch: false,
   filterControlPlaceholder: '',
+  filterDefault: '',
   filterOrderBy: 'asc' // asc || desc
 })
 
