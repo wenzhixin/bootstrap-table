@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
   formatPaginationSwitch () {
     return 'Sahifalashni yashirish/ko\'rsatish'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Yangilash'
   },
   formatToggle () {
     return 'Ko\'rinish'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Ustunlar'

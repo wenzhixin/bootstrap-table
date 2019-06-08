@@ -42,11 +42,23 @@ $.fn.bootstrapTable.locales['hr-HR'] = {
   formatPaginationSwitch () {
     return 'Prikaži/sakrij stranice'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Osvježi'
   },
   formatToggle () {
     return 'Promijeni prikaz'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Kolone'

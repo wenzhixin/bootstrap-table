@@ -28,8 +28,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.html.dropdownCaret = '<i class="dropdown icon"></i>'
     this.constants.html.pagination = ['<div class="ui pagination menu%s">', '</div>']
     this.constants.html.paginationItem = '<a class="page-item item%s" aria-label="%s" href="#">%s</a>'
-    this.constants.html.searchButton = '<button class="ui button" type="button" name="search" title="%s"><i class="%s %s"></i></button>'
-    this.constants.html.searchClearButton = '<button class="ui button" type="button" name="clearSearch" title="%s"><i class="%s %s"></i></button>'
+    this.constants.html.searchButton = '<button class="ui button" type="button" name="search" title="%s">%s %s</button>'
+    this.constants.html.searchClearButton = '<button class="ui button" type="button" name="clearSearch" title="%s">%s %s</button>'
     this.constants.html.inputGroup = '<div class="ui action input">%s%s</div>'
   }
 

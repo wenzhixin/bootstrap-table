@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['ms-MY'] = {
   formatPaginationSwitch () {
     return 'Tunjuk/sembunyi muka surat'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Muatsemula'
   },
   formatToggle () {
     return 'Tukar'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Lajur'

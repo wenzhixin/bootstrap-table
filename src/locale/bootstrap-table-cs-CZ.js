@@ -42,11 +42,23 @@ $.fn.bootstrapTable.locales['cs-CZ'] = {
   formatPaginationSwitch () {
     return 'Skrýt/Zobrazit stránkování'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Aktualizovat'
   },
   formatToggle () {
     return 'Přepni'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Sloupce'

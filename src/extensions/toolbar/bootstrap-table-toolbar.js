@@ -91,7 +91,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
         name="advancedSearch"
         aria-label="advanced search"
         title="${o.formatAdvancedSearch()}">
-      <i class="${o.iconsPrefix} ${o.icons.advancedSearchIcon}"></i>
+        ${ this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.advancedSearchIcon) : ''}
+        ${ this.options.showButtonText ? this.options.formatAdvancedSearch() : ''}
       </button>
     `)
 

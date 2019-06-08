@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['eu-EU'] = {
   formatPaginationSwitch () {
     return 'Ezkutatu/Erakutsi orrikatzea'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Eguneratu'
   },
   formatToggle () {
     return 'Ezkutatu/Erakutsi'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Zutabeak'

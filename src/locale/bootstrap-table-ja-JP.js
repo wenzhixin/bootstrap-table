@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['ja-JP'] = {
   formatPaginationSwitch () {
     return 'ページ数を表示・非表示'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return '更新'
   },
   formatToggle () {
     return 'トグル'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return '列'

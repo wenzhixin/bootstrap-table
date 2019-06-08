@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['fa-IR'] = {
   formatPaginationSwitch () {
     return 'نمایش/مخفی صفحه بندی'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'به روز رسانی'
   },
   formatToggle () {
     return 'تغییر نمایش'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'سطر ها'
