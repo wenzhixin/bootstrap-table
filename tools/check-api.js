@@ -53,7 +53,7 @@ class API {
         console.log(error)
       })
     }
-    fs.writeFileSync(file, outLines.join('## '), () => {})
+    fs.writeFileSync(file, outLines.join('## '))
   }
 }
 
