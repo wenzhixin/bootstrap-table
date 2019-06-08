@@ -26,14 +26,17 @@
     "sass": "^1.16.1",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "chalk": "^2.4.2",
+    "esm": "^3.2.25",
+    "safe-eval": "^0.4.1"
   },
   "scripts": {
     "lint:js": "eslint src",
     "lint:css": "stylelint src/**/*.scss",
     "lint": "run-s lint:*",
-    "docs:check:api": "cd tools/ && nodejs check-api.js",
-    "docs:check:locale": "cd tools/ && nodejs check-locale.js",
+    "docs:check:api": "cd tools && node check-api.js",
+    "docs:check:locale": "cd tools && node check-locale.js",
     "docs:check": "run-s docs:check:*",
     "docs:serve": "bundle exec jekyll serve",
     "docs": "bundle exec jekyll build",
