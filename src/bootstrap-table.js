@@ -918,7 +918,7 @@ class BootstrapTable {
 
       html.push(`<div class="${this.constants.classes.pull}-${o.paginationHAlign} pagination">`,
         Utils.sprintf(this.constants.html.pagination[0], Utils.sprintf(' pagination-%s', o.iconSize)),
-        Utils.sprintf(this.constants.html.paginationItem, ' page-pre', o.formatSRPaginationPreText(false, 'zzzz'), o.paginationPreText))
+        Utils.sprintf(this.constants.html.paginationItem, ' page-pre', o.formatSRPaginationPreText(), o.paginationPreText))
 
       if (this.totalPages < o.paginationSuccessivelySize) {
         from = 1
