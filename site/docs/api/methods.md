@@ -30,13 +30,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 ## getData
 
-- **Parameter:** `useCurrentPage`
+ **Parameter:** `params`
 
 - **Detail:**
 
-  Get the loaded data of table at the moment that this method is called. If you set the `useCurrentPage` to `true` the method will return the data in the current page.
+  Get the loaded data of table at the moment that this method is called
 
-- **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/get-data.html)
+  * `useCurrentPage`: if set to true the method will return the data only in the current page.
+  * `includeHiddenRows`: if set to true the method will include the hidden rows.
+
+- **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/getData.html)
 
 ## getSelections
 

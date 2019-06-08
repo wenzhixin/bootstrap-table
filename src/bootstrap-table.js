@@ -821,7 +821,7 @@ class BootstrapTable {
     let $pre
     let $next
     let $number
-    const data = this.getData()
+    const data = this.getData({includeHiddenRows: false})
     let pageList = o.pageList
 
     if (o.sidePagination !== 'server') {
@@ -1903,14 +1903,21 @@ class BootstrapTable {
     this.init()
   }
 
-  getData (useCurrentPage) {
+  getData (params) {
     let data = this.options.data
     if (this.searchText || this.options.sortName || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) {
       data = this.data
     }
 
-    if (useCurrentPage) {
-      return data.slice(this.pageFrom - 1, this.pageTo)
+    if (params && params.useCurrentPage) {
+      data = data.slice(this.pageFrom - 1, this.pageTo)
+    }
+
+    if (params && !params.includeHiddenRows) {
+      const hiddenRows = this.getHiddenRows()
+      data = data.filter(function (row) {
+        return Utils.findIndex(hiddenRows, row) === -1
+      })
     }
 
     return data
@@ -2178,7 +2185,12 @@ class BootstrapTable {
     } else if (visible && index > -1) {
       this.hiddenRows.splice(index, 1)
     }
-    this.initBody(true)
+    if (visible) {
+      this.updatePagination()
+    } else {
+      this.initBody(true)
+      this.initPagination()
+    }
   }
 
   getHiddenRows (show) {
