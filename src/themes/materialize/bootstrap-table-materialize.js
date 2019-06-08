@@ -41,7 +41,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.html.pageDropdownItem = '<li><a class="%s" href="#">%s</a></li>'
     this.constants.html.dropdownCaret = '<i class="material-icons">arrow_drop_down</i>'
     this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>']
-    this.constants.html.paginationItem = '<li class="waves-effect page-item%s"><a href="#">%s</a></li>'
+    this.constants.html.paginationItem = '<li class="waves-effect page-item%s" aria-label="%s"><a href="#">%s</a></li>'
     this.constants.html.icon = '<i class="%s">%s</i>'
   }
 
