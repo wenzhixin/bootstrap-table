@@ -794,6 +794,34 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Strict Search](https://examples.bootstrap-table.com/#options/strict-search.html)
 
+## showButtonIcons
+
+- **Attribute:** `show-button-icons`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  All buttons will show icons on it
+
+- **Default:** `true`
+
+- **Example:** [show button icons](https://examples.bootstrap-table.com/#options/show-button-icons.html)
+
+## showButtonText
+
+- **Attribute:** `show-button-text`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  All buttons will show an text on it
+
+- **Default:** `false`
+
+- **Example:** [show button text](https://examples.bootstrap-table.com/#options/show-button-text.html)
+
 ## showSearchButton
 
 - **Attribute:** `data-show-search-button`

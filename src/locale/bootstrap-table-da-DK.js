@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['da-DK'] = {
   formatPaginationSwitch () {
     return 'Skjul/vis nummerering'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Opdater'
   },
   formatToggle () {
     return 'Skift'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Kolonner'

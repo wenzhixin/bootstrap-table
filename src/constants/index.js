@@ -54,8 +54,8 @@ const CONSTANTS = {
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<span class="input-group-btn">%s</span></div>',
       searchInput: '<input class="%s%s" type="text" placeholder="%s">',
-      searchButton: '<button class="btn btn-default" type="button" name="search" title="%s"><i class="%s %s"></i></button>',
-      searchClearButton: '<button class="btn btn-default" type="button" name="clearSearch" title="%s"><i class="%s %s"></i></button>'
+      searchButton: '<button class="btn btn-default" type="button" name="search" title="%s">%s %s</button>',
+      searchClearButton: '<button class="btn btn-default" type="button" name="clearSearch" title="%s">%s %s</button>'
     }
   },
   4: {
@@ -98,8 +98,8 @@ const CONSTANTS = {
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
       searchInput: '<input class="%s%s" type="text" placeholder="%s">',
-      searchButton: '<button class="btn btn-secondary" type="button" name="search" title="%s"><i class="%s %s"></i></button>',
-      searchClearButton: '<button class="btn btn-secondary" type="button" name="clearSearch" title="%s"><i class="%s %s"></i></button>'
+      searchButton: '<button class="btn btn-secondary" type="button" name="search" title="%s">%s %s</button>',
+      searchClearButton: '<button class="btn btn-secondary" type="button" name="clearSearch" title="%s">%s %s</button>'
     }
   }
 }[bootstrapVersion]
@@ -166,6 +166,8 @@ const DEFAULTS = {
   search: false,
   searchOnEnterKey: false,
   strictSearch: false,
+  showButtonIcons: true,
+  showButtonText: false,
   showSearchButton: false,
   showSearchClearButton: false,
   trimOnSearch: true,
@@ -343,11 +345,23 @@ const EN = {
   formatPaginationSwitch () {
     return 'Hide/Show pagination'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Refresh'
   },
   formatToggle () {
     return 'Toggle'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Columns'

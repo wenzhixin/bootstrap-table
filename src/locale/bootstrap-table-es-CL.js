@@ -42,11 +42,23 @@ $.fn.bootstrapTable.locales['es-CL'] = {
   formatPaginationSwitch () {
     return 'Ocultar/Mostrar paginaci\u00F3n'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Refrescar'
   },
   formatToggle () {
     return 'Cambiar'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Columnas'

@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['vi-VN'] = {
   formatPaginationSwitch () {
     return 'Hide/Show pagination'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Refresh'
   },
   formatToggle () {
     return 'Toggle'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Columns'

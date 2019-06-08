@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['hu-HU'] = {
   formatPaginationSwitch () {
     return 'Lapozó elrejtése/megjelenítése'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Frissítés'
   },
   formatToggle () {
     return 'Összecsuk/Kinyit'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'Oszlopok'

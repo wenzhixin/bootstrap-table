@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['th-TH'] = {
   formatPaginationSwitch () {
     return 'Hide/Show pagination'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'รีเฟรส'
   },
   formatToggle () {
     return 'สลับมุมมอง'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return 'คอลัมน์'

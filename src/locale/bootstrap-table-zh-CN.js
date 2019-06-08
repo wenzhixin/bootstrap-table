@@ -41,11 +41,23 @@ $.fn.bootstrapTable.locales['zh-CN'] = {
   formatPaginationSwitch () {
     return '隐藏/显示分页'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return '刷新'
   },
   formatToggle () {
     return '切换'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
   },
   formatColumns () {
     return '列'
