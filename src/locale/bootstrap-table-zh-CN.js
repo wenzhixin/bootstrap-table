@@ -18,13 +18,13 @@ $.fn.bootstrapTable.locales['zh-CN'] = {
     return `显示第 ${pageFrom} 到第 ${pageTo} 条记录，总共 ${totalRows} 条记录`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return '上一页'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `第${page}页`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return '下一页'
   },
   formatDetailPagination (totalRows) {
     return `总共 ${totalRows} 条记录`
