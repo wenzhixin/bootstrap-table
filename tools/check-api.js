@@ -116,4 +116,7 @@ new Localizations()
 
 if (errorSum === 0) {
   console.log('Good job! Anything up to date!')
+  process.exit(0)
 }
+
+process.exit(1)
