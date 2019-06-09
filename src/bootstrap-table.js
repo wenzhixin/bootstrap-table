@@ -530,12 +530,12 @@ class BootstrapTable {
         ${o.showButtonText ? o.formatColumns() : ''} 
         ${this.constants.html.dropdownCaret}
         </button>
-        ${this.constants.html.toobarDropdow[0]}`)
+        ${this.constants.html.toolbarDropdown[0]}`)
 
       if (o.showColumnsToggleAll) {
         const allFieldsVisible = this.getVisibleColumns().length === this.columns.length
         html.push(
-          Utils.sprintf(this.constants.html.toobarDropdowItem,
+          Utils.sprintf(this.constants.html.toolbarDropdownItem,
             Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>', allFieldsVisible ? 'checked="checked"' : '', o.formatColumnsToggleAll())
           )
         )
@@ -555,13 +555,13 @@ class BootstrapTable {
         const checked = column.visible ? ' checked="checked"' : ''
 
         if (column.switchable) {
-          html.push(Utils.sprintf(this.constants.html.toobarDropdowItem,
+          html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
             Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s> <span>%s</span>',
               column.field, i, checked, column.title)))
           switchableCount++
         }
       })
-      html.push(this.constants.html.toobarDropdow[1], '</div>')
+      html.push(this.constants.html.toolbarDropdown[1], '</div>')
     }
 
     html.push('</div>')

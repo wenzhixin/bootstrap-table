@@ -44,8 +44,8 @@ const CONSTANTS = {
       buttonActive: 'active'
     },
     html: {
-      toobarDropdow: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-      toobarDropdowItem: '<li role="menuitem"><label>%s</label></li>',
+      toolbarDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
+      toolbarDropdownItem: '<li role="menuitem"><label>%s</label></li>',
       toolbarDropdownSeperator: '<li class="divider"></li>',
       pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
@@ -89,8 +89,8 @@ const CONSTANTS = {
       buttonActive: 'active'
     },
     html: {
-      toobarDropdow: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
-      toobarDropdowItem: '<label class="dropdown-item">%s</label>',
+      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
+      toolbarDropdownItem: '<label class="dropdown-item">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],
       pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
       toolbarDropdownSeperator: '<div class="dropdown-divider"></div>',
