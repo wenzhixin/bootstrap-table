@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['vi-VN'] = {
   formatColumns () {
     return 'Columns'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

@@ -46,6 +46,7 @@ const CONSTANTS = {
     html: {
       toobarDropdow: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       toobarDropdowItem: '<li role="menuitem"><label>%s</label></li>',
+      toolbarDropdownSeperator: '<li class="divider"></li>',
       pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
       dropdownCaret: '<span class="caret"></span>',
@@ -181,6 +182,7 @@ const DEFAULTS = {
     return {}
   },
   showColumns: false,
+  showColumnsToggleAll: false,
   minimumCountColumns: 1,
   showPaginationSwitch: false,
   showRefresh: false,
@@ -365,6 +367,9 @@ const EN = {
   },
   formatColumns () {
     return 'Columns'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'

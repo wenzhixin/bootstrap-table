@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['he-IL'] = {
   formatColumns () {
     return 'עמודות'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['zh-TW'] = {
   formatColumns () {
     return '列'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return '全屏'
   },

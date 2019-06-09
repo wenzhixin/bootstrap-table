@@ -63,6 +63,9 @@ $.fn.bootstrapTable.locales['cs-CZ'] = {
   formatColumns () {
     return 'Sloupce'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

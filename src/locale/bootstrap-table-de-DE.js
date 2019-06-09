@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['de-DE'] = {
   formatColumns () {
     return 'Spalten'
   },
+  formatColumnsToggleAll () {
+    return 'Alle umschalten'
+  },
   formatFullscreen () {
     return 'Vollbild'
   },

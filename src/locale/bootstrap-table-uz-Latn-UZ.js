@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
   formatColumns () {
     return 'Ustunlar'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

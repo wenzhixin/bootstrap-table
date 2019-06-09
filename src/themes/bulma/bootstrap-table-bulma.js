@@ -27,6 +27,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.constants.html.toobarDropdow = ['<div class="dropdown-menu"><div class="dropdown-content">', '</div></div>']
     this.constants.html.toobarDropdowItem = '<label class="dropdown-item">%s</label>'
+    this.constants.html.toolbarDropdownSeperator = '<li class="dropdown-divider"></li>'
     this.constants.html.pageDropdown = ['<div class="dropdown-menu"><div class="dropdown-content">', '</div></div>']
     this.constants.html.pageDropdownItem = '<a class="dropdown-item %s" href="#">%s</a>'
     this.constants.html.dropdownCaret = '<span class="icon is-small"><i class="fas fa-angle-down" aria-hidden="true"></i></span>'
@@ -37,6 +38,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.html.searchButton = '<p class="control"><button class="button" type="button" name="search" title="%s">%s %s</button></p>'
     this.constants.html.searchClearButton = '<p class="control"><button class="button" type="button" name="clearSearch" title="%s">%s %s</button></p>'
   }
+
 
   initToolbar () {
     super.initToolbar()

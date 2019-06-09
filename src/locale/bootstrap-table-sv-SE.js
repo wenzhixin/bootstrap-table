@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['sv-SE'] = {
   formatColumns () {
     return 'kolumn'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },
