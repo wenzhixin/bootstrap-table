@@ -176,10 +176,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
           footerHtml.push(footerCellHtml)
         })
 
-        this.append(footerData)
-
+        this.$body.append(this.$body.children().last()[0].outerHTML)
         const $lastTableRow = this.$body.children().last()
-
         $.each($lastTableRow.children(), (index, lastTableRowCell) => {
           $(lastTableRowCell).html(footerHtml[index])
         })

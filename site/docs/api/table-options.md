@@ -794,6 +794,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Strict Search](https://examples.bootstrap-table.com/#options/strict-search.html)
 
+## visibleSearch
+
+- **Attribute:** `visible-search`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  set `true` to search only in visible column/data, if the data contains other values which are not displayed they will be ignored while searching.
+
+- **Default:** `false`
+
+- **Example:** [visible search](https://examples.bootstrap-table.com/#options/visible-search.html)
+
 ## showButtonIcons
 
 - **Attribute:** `show-button-icons`
