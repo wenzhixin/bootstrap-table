@@ -1952,12 +1952,11 @@ class BootstrapTable {
 
   getSelections () {
     // fix #2424: from html with checkbox
-    return this.options.data.filter(row =>
-      row[this.header.stateField] === true)
+    return this.data.filter(row => row[this.header.stateField] === true)
   }
 
   getAllSelections () {
-    return this.options.data.filter(row => row[this.header.stateField])
+    return this.data.filter(row => row[this.header.stateField])
   }
 
   load (_data) {
