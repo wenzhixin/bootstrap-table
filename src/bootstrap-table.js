@@ -729,9 +729,10 @@ class BootstrapTable {
         }) : this.options.data
       }
 
+      const visibleFields = this.getVisibleFields()
       this.data = s ? this.data.filter((item, i) => {
         for (let j = 0; j < this.header.fields.length; j++) {
-          if (!this.header.searchables[j]) {
+          if (!this.header.searchables[j] || (this.options.visibleSearch && visibleFields.indexOf(this.header.fields[j]) === -1)) {
             continue
           }
 
