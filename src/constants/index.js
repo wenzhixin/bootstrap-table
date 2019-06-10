@@ -168,6 +168,7 @@ const DEFAULTS = {
   search: false,
   searchOnEnterKey: false,
   strictSearch: false,
+  visibleSearch: false,
   showButtonIcons: true,
   showButtonText: false,
   showSearchButton: false,
