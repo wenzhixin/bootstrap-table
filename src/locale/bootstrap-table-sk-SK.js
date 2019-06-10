@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['sk-SK'] = {
   formatColumns () {
     return 'Stĺpce'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

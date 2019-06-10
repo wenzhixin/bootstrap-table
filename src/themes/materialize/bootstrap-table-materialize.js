@@ -35,8 +35,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.paginationDropdown = ''
     this.constants.classes.buttonActive = 'green'
 
-    this.constants.html.toobarDropdow = ['<ul id="toolbar-columns-id" class="dropdown-content">', '</ul>']
-    this.constants.html.toobarDropdowItem = '<li><label>%s</label></li>'
+    this.constants.html.toolbarDropdown = ['<ul id="toolbar-columns-id" class="dropdown-content">', '</ul>']
+    this.constants.html.toolbarDropdownItem = '<li><label>%s</label></li>'
+    this.constants.html.toolbarDropdownSeperator = '<li class="divider" tabindex="-1"></li>'
     this.constants.html.pageDropdown = ['<ul id="pagination-list-id" class="dropdown-content">', '</ul>']
     this.constants.html.pageDropdownItem = '<li><a class="%s" href="#">%s</a></li>'
     this.constants.html.dropdownCaret = '<i class="material-icons">arrow_drop_down</i>'

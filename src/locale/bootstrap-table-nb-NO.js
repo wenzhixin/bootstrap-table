@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['nb-NO'] = {
   formatColumns () {
     return 'Kolonner'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

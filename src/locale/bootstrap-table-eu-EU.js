@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['eu-EU'] = {
   formatColumns () {
     return 'Zutabeak'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

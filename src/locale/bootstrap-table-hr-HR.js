@@ -63,6 +63,9 @@ $.fn.bootstrapTable.locales['hr-HR'] = {
   formatColumns () {
     return 'Kolone'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },
