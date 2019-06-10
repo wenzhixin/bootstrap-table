@@ -63,3 +63,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
     })
   }
 }
+
+
+const $dropdownToggles = $('.dropdown-toggle')
+$(window).on('click', (e) => {
+  const $this = $(e.target)
+  if (!$this.has('.dropdown-toggle')) {
+    $dropdownToggles.parents('div').removeClass('open')
+  }
+})
+
+$(() => {
+  $dropdownToggles.on('click', (e) => {
+    const $dropdownToggle = $(e.target)
+    console.log("s")
+    $dropdownToggle.parents('div').toggleClass('open')
+  })
+})

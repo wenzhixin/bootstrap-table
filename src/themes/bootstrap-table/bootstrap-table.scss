@@ -3,6 +3,7 @@
  * https://github.com/wenzhixin/bootstrap-table/
  */
 @import './variables.scss';
+@import '../theme.scss';
 @import './font.css';
 
 .bootstrap-table {
@@ -15,19 +16,34 @@
 
   .btn {
     border-radius: 4px;
-    background-color: $btn-background;
+    background-color: $background;
     border: 1px solid $btn-border;
     padding: 6px 12px;
     outline: none;
+    cursor: pointer;
+  }
+
+  .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
   }
 
   .btn-group {
+    display: inline-block;
+
     .btn, input {
       &:not(:first-child):not(:last-child) {
         border-radius: 0;
       }
 
-      &:first-child {
+      &:first-child:not(:last-child):not(.dropdown-toggle) {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
       }
@@ -37,17 +53,36 @@
         border-bottom-left-radius: 0;
       }
     }
-  }
 
-  .input-group {
-    &:first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    &:last-child {
+    & > .btn-group:last-child:not(:first-child) > .btn:first-child {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+    }
+  }
+
+
+  .open {
+    .dropdown-menu {
+      display: block;
+    }
+  }
+
+  .dropdown-menu {
+    display: none;
+    background-color: $background;
+    position: absolute;
+    right: 0;
+    margin-top: 2px;
+    border: 1px solid $btn-border;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .175);
+
+    .dropdown-item {
+      color: $color;
+      text-decoration: none;
+      display: block;
+      padding: 4px;
     }
   }
 
@@ -82,7 +117,7 @@
 
     .page-item {
       border: 1px solid $border-color;
-      background-color: $btn-background;
+      background-color: $background;
       border-radius: 4px;
       margin: 2px;
       padding: 5px 2px 5px 2px;
@@ -95,6 +130,7 @@
 
       &.active {
         background-color: $btn-active-background;
+        border: 1px solid darken($btn-active-background, 5);
 
         .page-link {
           color: white;

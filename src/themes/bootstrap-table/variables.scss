@@ -1,8 +1,10 @@
 $border-color: #dbdbdb;
+$hover-bg: hsl(0,0%,98%);
+$background: #fff;
 $color: #363636;
+$dark-border-color: #32383e;
 
 //Buttons
-$btn-background: #fff;
 $btn-border: #ccc;
 $btn-active-background: #3679e4;
 $btn-active-background-hover: darken($btn-active-background, 10);
