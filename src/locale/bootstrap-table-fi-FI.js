@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['fi-FI'] = {
   formatColumns () {
     return 'Sarakkeet'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

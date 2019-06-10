@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['et-EE'] = {
   formatColumns () {
     return 'Veerud'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['ur-PK'] = {
   formatColumns () {
     return 'کالم'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['ar-SA'] = {
   formatColumns () {
     return 'أعمدة'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

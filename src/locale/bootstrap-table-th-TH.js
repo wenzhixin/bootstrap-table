@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['th-TH'] = {
   formatColumns () {
     return 'คอลัมน์'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

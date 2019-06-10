@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['hu-HU'] = {
   formatColumns () {
     return 'Oszlopok'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

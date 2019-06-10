@@ -1017,6 +1017,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Basic Columns](https://examples.bootstrap-table.com/#options/basic-columns.html) and [Large Columns](https://examples.bootstrap-table.com/#options/large-columns.html)
 
+## showColumnsToggleAll
+
+- **Attribute:** `data-show-columns-toggle-all`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a toogle all checkbox within the columns option/dropdown.
+
+- **Default:** `false`
+
+- **Example:** [Columns Toggle All](https://examples.bootstrap-table.com/#options/columns-toggle-all.html)
+
 ## minimumCountColumns
 
 - **Attribute:** `data-minimum-count-columns`

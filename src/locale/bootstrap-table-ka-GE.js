@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['ka-GE'] = {
   formatColumns () {
     return 'სვეტები'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },
