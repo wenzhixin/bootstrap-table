@@ -2416,7 +2416,7 @@ class BootstrapTable {
     }
 
     const rows = []
-    this.options.data.forEach((row, i) => {
+    this.data.forEach((row, i) => {
       if (!row.hasOwnProperty(obj.field)) {
         return false
       }
