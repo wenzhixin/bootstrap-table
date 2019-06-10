@@ -63,6 +63,9 @@ $.fn.bootstrapTable.locales['tr-TR'] = {
   formatColumns () {
     return 'Sütunlar'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

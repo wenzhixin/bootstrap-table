@@ -64,6 +64,9 @@ $.fn.bootstrapTable.locales['es-MX'] = {
   formatColumns () {
     return 'Columnas'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Pantalla completa'
   },

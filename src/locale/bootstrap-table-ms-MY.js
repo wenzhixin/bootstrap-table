@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['ms-MY'] = {
   formatColumns () {
     return 'Lajur'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },
