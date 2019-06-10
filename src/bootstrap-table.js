@@ -2252,7 +2252,7 @@ class BootstrapTable {
   }
 
   _toggleColumn (index, checked, needUpdate) {
-    if (index === -1) {
+    if (index === -1 || this.columns[index].visible === checked) {
       return
     }
     this.columns[index].visible = checked
