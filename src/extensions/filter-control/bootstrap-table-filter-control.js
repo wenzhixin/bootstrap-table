@@ -757,7 +757,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.options.pageNumber = 1
     this.EnableControls(false)
-    this.onSearch()
+    this.onSearch(event, false)
     this.trigger('column-search', $field, text)
   }
 

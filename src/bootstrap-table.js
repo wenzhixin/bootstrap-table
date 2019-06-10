@@ -653,8 +653,8 @@ class BootstrapTable {
     }
   }
 
-  onSearch ({currentTarget, firedByInitSearchText} = {}) {
-    if (currentTarget !== undefined) {
+  onSearch ({currentTarget, firedByInitSearchText} = {}, overwriteSearchText = true) {
+    if (currentTarget !== undefined && overwriteSearchText) {
       const text = $(currentTarget).val().trim()
 
       if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
