@@ -1,0 +1,109 @@
+/**
+ * @author Dustin Utecht
+ * https://github.com/wenzhixin/bootstrap-table/
+ */
+@import './variables.scss';
+@import './font.css';
+
+.bootstrap-table {
+  input {
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+  }
+
+  .btn {
+    border-radius: 4px;
+    background-color: $btn-background;
+    border: 1px solid $btn-border;
+    padding: 6px 12px;
+    outline: none;
+  }
+
+  .btn-group {
+    .btn, input {
+      &:not(:first-child):not(:last-child) {
+        border-radius: 0;
+      }
+
+      &:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+
+  .input-group {
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+
+    &.table-bordered {
+      thead tr th, tbody tr td {
+        border: 1px solid #ddd;
+      }
+
+      tbody tr td {
+        padding: 8px;
+      }
+    }
+  }
+
+  .float-right {
+    float: right
+  }
+
+  .pagination-detail {
+    float: left;
+  }
+
+  .pagination {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    list-style: none;
+
+    .page-item {
+      border: 1px solid $border-color;
+      background-color: $btn-background;
+      border-radius: 4px;
+      margin: 2px;
+      padding: 5px 2px 5px 2px;
+
+      .page-link {
+        color: $color;
+        text-decoration: none;
+        outline: none;
+      }
+
+      &.active {
+        background-color: $btn-active-background;
+
+        .page-link {
+          color: white;
+        }
+
+        &:hover {
+          background-color: $btn-active-background-hover;
+        }
+      }
+    }
+  }
+}
