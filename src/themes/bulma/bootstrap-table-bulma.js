@@ -39,7 +39,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.html.searchClearButton = '<p class="control"><button class="button" type="button" name="clearSearch" title="%s">%s %s</button></p>'
   }
 
-
   initToolbar () {
     super.initToolbar()
     this.handleToolbar()
