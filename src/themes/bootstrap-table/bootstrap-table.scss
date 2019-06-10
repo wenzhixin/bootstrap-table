@@ -7,11 +7,15 @@
 @import './font.css';
 
 .bootstrap-table {
-  input {
+  input, select {
     border-radius: 4px;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 6px 12px;
+  }
+
+  select {
+    height: 31px;
   }
 
   .btn {
@@ -21,6 +25,10 @@
     padding: 6px 12px;
     outline: none;
     cursor: pointer;
+
+    &.active {
+      border-color: black;
+    }
   }
 
   .caret {
@@ -35,34 +43,85 @@
     border-left: 4px solid transparent;
   }
 
-  .btn-group {
-    display: inline-block;
+  .filter-control {
+    display: flex;
+  }
 
-    .btn, input {
-      &:not(:first-child):not(:last-child) {
-        border-radius: 0;
+  .detail-icon {
+    text-decoration: none;
+    color: $btn-active-background;
+  }
+
+
+  .fixed-table-toolbar {
+    .columns > div {
+      display: inline-block;
+    }
+
+    .columns > div:not(:last-child) button {
+      border-radius: 0;
+    }
+
+    .columns > div:not(:first-child):last-child button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .columns > div:not(:last-child):first-child button {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .columns.btn-group {
+      display: inline-block;
+
+      .btn, input {
+        &:not(:first-child):not(:last-child) {
+          border-radius: 0;
+        }
+
+        &:first-child:not(:last-child):not(.dropdown-toggle) {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+        &:last-child:not(:first-child) {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
       }
 
-      &:first-child:not(:last-child):not(.dropdown-toggle) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-
-      &:last-child {
+      & > .btn-group:last-child:not(:first-child) > .btn:first-child {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
     }
 
-    & > .btn-group:last-child:not(:first-child) > .btn:first-child {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-  }
-
-  .fixed-table-toolbar {
     .columns label {
       padding: 4px 15px;
+    }
+
+    div.input-group {
+      .search-input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      button[name="search"],
+      button[name="clearSearch"]
+      {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      button[name="search"]:not(:last-child),
+      button[name="clearSearch"]:not(:last-child)
+      {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+
     }
   }
 
@@ -87,7 +146,8 @@
       color: $color;
       text-decoration: none;
       display: block;
-      padding: 4px;
+      font-size: 11pt;
+      padding: 4px 15px;
     }
   }
 
@@ -118,6 +178,12 @@
 
   .pagination-detail {
     float: left;
+  }
+
+  .page-jump-to {
+    input, .btn {
+      padding: 8px 12px;
+    }
   }
 
   .pagination {
@@ -153,5 +219,84 @@
         }
       }
     }
+
+    .btn-group {
+      display: inline-block;
+
+      .btn, input {
+        &:not(:first-child):not(:last-child) {
+          border-radius: 0;
+        }
+
+        &:first-child:not(:last-child):not(.dropdown-toggle) {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+        &:last-child:not(:first-child) {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+
+      & > .btn-group:last-child:not(:first-child) > .btn:first-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
   }
+}
+
+.modal {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  &.show {
+    display: flex;
+  }
+
+  .btn {
+    border-radius: 4px;
+    background-color: $background;
+    border: 1px solid $btn-border;
+    padding: 6px 12px;
+    outline: none;
+    cursor: pointer;
+
+    &.active {
+      border-color: black;
+    }
+  }
+
+  .modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 998;
+    background-color: rgba(10,10,10,.86);
+  }
+
+  .modal-content {
+    position: relative;
+    width: 600px;
+    margin: 30px auto;
+    z-index: 999;
+
+    .box {
+      background-color: #fff;
+      border-radius: 6px;
+      display: block;
+      padding: 1.25rem;
+    }
+  }
+}
+
+.mt-30 {
+  margin-top: 30px;
 }

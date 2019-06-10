@@ -1,6 +1,12 @@
 /**
+<<<<<<< HEAD
  * @author Dustin Utecht
  * https://github.com/wenzhixin/bootstrap-table/
+=======
+ * @author zhixin wen <wenzhixin2010@gmail.com>
+ * https://github.com/wenzhixin/bootstrap-table/
+ * theme: https://github.com/jgthms/bulma/
+>>>>>>> first (s)css for the bootrap-table theme
  */
 
 $.fn.bootstrapTable.theme = 'bootstrap-table'
