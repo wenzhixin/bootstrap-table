@@ -42,10 +42,10 @@ $.fn.bootstrapTable.locales['zh-TW'] = {
     return '隱藏/顯示分頁'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return '顯示分頁'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return '隱藏分頁'
   },
   formatRefresh () {
     return '重新整理'
@@ -54,16 +54,16 @@ $.fn.bootstrapTable.locales['zh-TW'] = {
     return '切換'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return '顯示卡片視圖'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return '隱藏卡片視圖'
   },
   formatColumns () {
     return '列'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return '切換所有'
   },
   formatFullscreen () {
     return '全屏'

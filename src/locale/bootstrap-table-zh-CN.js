@@ -42,10 +42,10 @@ $.fn.bootstrapTable.locales['zh-CN'] = {
     return '隐藏/显示分页'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return '显示分页'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return '隐藏分页'
   },
   formatRefresh () {
     return '刷新'
@@ -54,16 +54,16 @@ $.fn.bootstrapTable.locales['zh-CN'] = {
     return '切换'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return '显示卡片视图'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return '隐藏卡片视图'
   },
   formatColumns () {
     return '列'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return '切换所有'
   },
   formatFullscreen () {
     return '全屏'
