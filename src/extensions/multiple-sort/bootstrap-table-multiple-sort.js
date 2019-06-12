@@ -56,7 +56,7 @@ const bootstrap = {
     </div>
       `,
       multipleSortButton: '<button class="multi-sort btn btn-default" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
-      multipleSortSelect: '<select class="%s %s">'
+      multipleSortSelect: '<select class="%s %s form-control">'
     }
   },
   bootstrap4: {
