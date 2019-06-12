@@ -451,6 +451,7 @@ class BootstrapTable {
     this.getCaret()
 
     if (this.options.sidePagination === 'server') {
+      this.options.pageNumber = 1
       this.initServer(this.options.silentSort)
       return
     }
