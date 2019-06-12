@@ -18,7 +18,8 @@ $.extend($.fn.bootstrapTable.defaults, {
     columns: 'view_list',
     detailOpen: 'add',
     detailClose: 'remove',
-    fullscreen: 'fullscreen'
+    fullscreen: 'fullscreen',
+    sort: 'sort'
   }
 })
 
@@ -28,7 +29,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initConstants () {
     super.initConstants()
 
-    this.constants.classes.buttonsGroup = ''
+    this.constants.classes.buttonsGroup = 'button-group'
     this.constants.classes.buttonsDropdown = ''
     this.constants.classes.input = 'input-field'
     this.constants.classes.input = ''

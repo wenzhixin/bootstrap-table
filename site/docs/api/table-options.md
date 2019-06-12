@@ -1471,6 +1471,22 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Icons](https://examples.bootstrap-table.com/#options/table-icons.html)
 
+## html
+
+- **Attribute:** `data-html`
+
+- **Type:** `Object`
+
+- **Detail:**
+
+  Defines some html of the table.
+
+- **Default:**
+
+  Too much code, please checkout the source code of the `index.js`
+
+- **Example:** [Table Html](https://examples.bootstrap-table.com/#options/table-html.html)
+
 ## iconSize
 
 - **Attribute:** `data-icon-size`

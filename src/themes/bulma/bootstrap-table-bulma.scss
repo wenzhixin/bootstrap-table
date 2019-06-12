@@ -7,6 +7,14 @@
  @import './variables.scss';
  @import '../theme.scss';
 
+.box {
+  background-color: #fff;
+  border-radius: 6px;
+  color: #4a4a4a;
+  display: block;
+  padding: 1.25rem;
+}
+
 .bootstrap-table {
   .float-left {
     float: left;
