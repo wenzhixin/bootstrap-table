@@ -681,6 +681,10 @@ class BootstrapTable {
         $(currentTarget).val(text)
       }
 
+      if (this.searchText === text) {
+        return
+      }
+
       this.searchText = text
       this.options.searchText = text
     }
