@@ -233,14 +233,20 @@ const UtilsFilterControl = {
         for (let i = 0; i < z; i++) {
           // Added a new value
           const fieldValue = data[i][field]
-          const formattedValue = Utils.calculateObjectValue(that.header, that.header.formatters[j], [fieldValue, data[i], i], fieldValue)
+          let formattedValue = Utils.calculateObjectValue(that.header, that.header.formatters[j], [fieldValue, data[i], i], fieldValue)
 
-          uniqueValues[formattedValue] = fieldValue
-        }
+          if (column.filterDataCollector) {
+            formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
+          }
 
-        // eslint-disable-next-line guard-for-in
-        for (const key in uniqueValues) {
-          UtilsFilterControl.addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
+          if (typeof formattedValue === 'object') {
+            formattedValue.forEach((value) => {
+              UtilsFilterControl.addOptionToSelectControl(selectControl, value, value, column.filterDefault)
+            })
+            continue
+          }
+
+          UtilsFilterControl.addOptionToSelectControl(selectControl, fieldValue, formattedValue, column.filterDefault)
         }
 
         UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
@@ -565,6 +571,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 
 $.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined,
+  filterDataCollector: undefined,
   filterData: undefined,
   filterDatepickerOptions: undefined,
   filterStrictSearch: false,
