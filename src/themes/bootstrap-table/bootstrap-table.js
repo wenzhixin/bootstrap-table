@@ -1,7 +1,6 @@
 /**
- * @author zhixin wen <wenzhixin2010@gmail.com>
+ * @author Dustin Utecht
  * https://github.com/wenzhixin/bootstrap-table/
- * theme: https://github.com/jgthms/bulma/
  */
 
 $.fn.bootstrapTable.theme = 'bootstrap-table'
@@ -49,34 +48,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   _initDropdown () {
-    const $dropdowns = this.$container.find('.dropdown:not(.is-hoverable)')
+    const $dropdownToggles = $('.dropdown-toggle')
+    $dropdownToggles.off('click').on('click', (e) => {
+      let $target = $(e.target)
+      if ($target.parents('.dropdown-toggle').length > 0) {
+        $target = $target.parents('.dropdown-toggle')
+      }
 
-    $dropdowns.off('click').on('click', e => {
-      const $this = $(e.currentTarget)
-      e.stopPropagation()
-      $dropdowns.not($this).removeClass('is-active')
-      $this.toggleClass('is-active')
+      $target.next('.dropdown-menu').toggleClass('open')
     })
 
-    $(document).off('click.bs.dropdown.bulma').on('click.bs.dropdown.bulma', () => {
-      $dropdowns.removeClass('is-active')
+    $(window).off('click').on('click', (e) => {
+      if ($(e.target).parents('.dropdown-toggle, .dropdown-menu').length === 0 && !$(e.target).hasClass('dropdown-toggle')) {
+        $dropdownToggles.next('.dropdown-menu').removeClass('open')
+      }
     })
   }
 }
-
-
-const $dropdownToggles = $('.dropdown-toggle')
-$(window).on('click', (e) => {
-  const $this = $(e.target)
-  if (!$this.has('.dropdown-toggle')) {
-    $dropdownToggles.parents('div').removeClass('open')
-  }
-})
-
-$(() => {
-  $dropdownToggles.on('click', (e) => {
-    const $dropdownToggle = $(e.target)
-    console.log("s")
-    $dropdownToggle.parents('div').toggleClass('open')
-  })
-})

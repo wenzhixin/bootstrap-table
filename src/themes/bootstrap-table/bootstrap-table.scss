@@ -60,9 +60,14 @@
     }
   }
 
+  .fixed-table-toolbar {
+    .columns label {
+      padding: 4px 15px;
+    }
+  }
 
   .open {
-    .dropdown-menu {
+    &.dropdown-menu {
       display: block;
     }
   }
@@ -83,6 +88,13 @@
       text-decoration: none;
       display: block;
       padding: 4px;
+    }
+  }
+
+  .pagination-detail {
+    .dropdown-item {
+      min-width: 45px;
+      text-align: center;
     }
   }
 
