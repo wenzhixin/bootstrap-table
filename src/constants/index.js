@@ -223,6 +223,7 @@ const DEFAULTS = {
   buttonsPrefix: CONSTANTS.classes.buttonsPrefix,
   buttonsClass: CONSTANTS.classes.buttons,
   icons: CONSTANTS.icons,
+  html: CONSTANTS.html,
   iconSize: undefined,
   iconsPrefix: CONSTANTS.iconsPrefix, // glyphicon or fa(font-awesome)
   onAll (name, args) {
