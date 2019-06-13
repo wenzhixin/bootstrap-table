@@ -528,7 +528,7 @@ class BootstrapTable {
         <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
         aria-label="Columns" title="${o.formatColumns()}">
         ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.columns) : '' }
-        ${o.showButtonText ? o.formatColumns() : ''} 
+        ${o.showButtonText ? o.formatColumns() : ''}
         ${this.constants.html.dropdownCaret}
         </button>
         ${this.constants.html.toolbarDropdown[0]}`)
@@ -1956,7 +1956,7 @@ class BootstrapTable {
   }
 
   getAllSelections () {
-    return this.data.filter(row => row[this.header.stateField])
+    return this.options.data.filter(row => row[this.header.stateField] === true)
   }
 
   load (_data) {
