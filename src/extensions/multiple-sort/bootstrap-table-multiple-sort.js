@@ -109,7 +109,7 @@ const bootstrap = {
         </div>
       `,
       multipleSortButton: '<button class="multi-sort btn btn-secondary" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
-      multipleSortSelect: '<select class="%s %s">'
+      multipleSortSelect: '<select class="%s %s form-control">'
     }
   },
   semantic: {
@@ -383,7 +383,7 @@ const showSortModal = that => {
           $($alert).remove()
         }
 
-        if (!$.inArray($.fn.bootstrapTable.theme, ['foundation'])) {
+        if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
           that.$sortModal.modal('hide')
         }
 
