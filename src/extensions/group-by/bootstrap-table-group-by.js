@@ -112,7 +112,17 @@ const UtilsGroupBy = {
       html.push('<tr>' + hidden_tds.join('') + '</tr>')
     }
 
-    html.push('<tr class="group-by-row expanded"><td data-col-name="group-title" colspan=' + colspan + '>' + key + '</td>' + tds.join('') + '</tr>')
+    let formattedValue =
+    ['<tr class="group-by-row expanded">',
+      '<td data-col-name="group-title" colspan=' + colspan + '>' + key + '</td>',
+      tds.join(''),
+      '</tr>'].join('')
+
+    if (typeof(btable.options.groupByFormatter) === 'function') {
+      formattedValue = btable.options.groupByFormatter(colspan, key, tds)
+    }
+
+    html.push(formattedValue)
 
     return html.join('')
   }
@@ -122,7 +132,8 @@ $.extend($.fn.bootstrapTable.defaults, {
   groupBy: '',
   groupBySum: '',
   groupByCount: '',
-  groupByAvg: ''
+  groupByAvg: '',
+  groupByFormatter: undefined
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
