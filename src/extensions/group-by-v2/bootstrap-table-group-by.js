@@ -1,217 +1,259 @@
+/* eslint-disable guard-for-in */
 /**
  * @author: Yura Knoxville
  * @version: v1.1.0
  */
+const Utils = $.fn.bootstrapTable.utils
+const UtilsGroupBy = {
+  groupBy (array, f) {
+    const groups = {}
+    array.forEach(o => {
+      const group = f(o)
+      groups[group] = groups[group] || []
+      groups[group].push(o)
+    })
 
+    return groups
+  },
+
+  string2hash (s) {
+    const h = {}
+    if (typeof s === 'string') {
+      s.split(' ').forEach(function (field) {
+        h[field] = 0
+      })
+    }
+    return h
+  },
+
+  aggr_sum (rows, fields) {
+    for (const field in fields) {
+      rows.forEach(function (row) {
+        fields[field] += isNaN(row[field]) ? 0 : row[field] * 1.0
+      })
+    }
+    return fields
+  },
+
+  aggr_count (rows, fields) {
+    for (const field in fields) {
+      rows.forEach(function (row) {
+        fields[field] += row[field] ? 1 : 0
+      })
+    }
+    return fields
+  },
+
+  aggr_avg (rows, fields) {
+    let sum = 0
+    let count = 0
+    for (const field in fields) {
+      rows.forEach(function (row) {
+        if (!isNaN(row[field])) {
+          sum += row[field] * 1.0
+          count += 1
+        }
+      })
+      fields[field] = count > 0 ? sum / count : 0
+    }
+    return fields
+  },
+
+  execFunc (self, name, args, defaultValue) {
+    let func = name
+
+    if (typeof name === 'string') {
+      const names = name.split('.')
+
+      if (names.length > 1) {
+        func = window
+        $.each(names, function (i, f) { func = func[f] })
+      } else {
+        func = window[name]
+      }
+    }
+
+    return (typeof func === 'function') ? func.apply(self, args || []) : defaultValue
+  }
+}
 let initBodyCaller
 let tableGroups
-
-// it only does '%s', and return '' when arguments are undefined
-const sprintf = function (str) {
-  const args = arguments
-  let flag = true
-  let i = 1
-
-  str = str.replace(/%s/g, () => {
-    const arg = args[i++]
-
-    if (typeof arg === 'undefined') {
-      flag = false
-      return ''
-    }
-    return arg
-  })
-  return flag ? str : ''
-}
-
-const groupBy = (array, f) => {
-  const groups = {}
-  array.forEach(o => {
-    const group = f(o)
-    groups[group] = groups[group] || []
-    groups[group].push(o)
-  })
-
-  return groups
-}
 
 $.extend($.fn.bootstrapTable.defaults, {
   groupBy: false,
   groupByField: '',
-  groupByFormatter: undefined
+  groupByFormatter: undefined,
+  groupBySum: '',
+  groupByCount: '',
+  groupByAvg: ''
 })
 
-const BootstrapTable = $.fn.bootstrapTable.Constructor
-const _initSort = BootstrapTable.prototype.initSort
-const _initBody = BootstrapTable.prototype.initBody
-const _updateSelected = BootstrapTable.prototype.updateSelected
+$.BootstrapTable = class extends $.BootstrapTable {
+  initSort () {
+    super.initSort()
 
-BootstrapTable.prototype.initSort = function (...args) {
-  _initSort.apply(this, Array.prototype.slice.apply(args))
-
-  const that = this
-  tableGroups = []
-
-  if ((this.options.groupBy) && (this.options.groupByField !== '')) {
-
-    if ((this.options.sortName !== this.options.groupByField)) {
-      this.data.sort((a, b) => a[that.options.groupByField].localeCompare(b[that.options.groupByField]))
-    }
-
-    const groups = groupBy(that.data, item => [item[that.options.groupByField]])
-
-    let index = 0
-    $.each(groups, (key, value) => {
-      tableGroups.push({
-        id: index,
-        name: key,
-        data: value
-      })
-
-      value.forEach(item => {
-        if (!item._data) {
-          item._data = {}
-        }
-
-        item._data['parent-index'] = index
-      })
-
-      index++
-    })
-  }
-}
-
-BootstrapTable.prototype.initBody = function (...args) {
-  initBodyCaller = true
-
-  _initBody.apply(this, Array.prototype.slice.apply(args))
-
-  if ((this.options.groupBy) && (this.options.groupByField !== '')) {
     const that = this
-    let checkBox = false
-    let visibleColumns = 0
-
-    this.columns.forEach(column => {
-      if (column.checkbox) {
-        checkBox = true
-      } else {
-        if (column.visible) {
-          visibleColumns += 1
-        }
-      }
-    })
-
-    if (this.options.detailView && !this.options.cardView) {
-      visibleColumns += 1
-    }
-
-    tableGroups.forEach(item => {
-      const html = []
-
-      html.push(sprintf('<tr class="info groupBy expanded" data-group-index="%s">', item.id))
-
-      if (that.options.detailView && !that.options.cardView) {
-        html.push('<td class="detail"></td>')
-      }
-
-      if (checkBox) {
-        html.push('<td class="bs-checkbox">',
-          '<input name="btSelectGroup" type="checkbox" />',
-          '</td>'
-        )
-      }
-      let formattedValue = item.name
-      if (typeof(that.options.groupByFormatter) === 'function') {
-        formattedValue = that.options.groupByFormatter(item.name, item.id, item.data)
-      }
-      html.push('<td',
-        sprintf(' colspan="%s"', visibleColumns),
-        '>', formattedValue, '</td>'
-      )
-
-      html.push('</tr>')
-
-      that.$body.find(`tr[data-parent-index=${item.id}]:first`).before($(html.join('')))
-    })
-
-    this.$selectGroup = []
-    this.$body.find('[name="btSelectGroup"]').each(function () {
-      const self = $(this)
-
-      that.$selectGroup.push({
-        group: self,
-        item: that.$selectItem.filter(function () {
-          return ($(this).closest('tr').data('parent-index') ===
-                      self.closest('tr').data('group-index'))
-        })
-      })
-    })
-
-    this.$container.off('click', '.groupBy')
-      .on('click', '.groupBy', function () {
-        $(this).toggleClass('expanded')
-        that.$body.find(`tr[data-parent-index=${$(this).closest('tr').data('group-index')}]`).toggleClass('hidden')
-      })
-
-    this.$container.off('click', '[name="btSelectGroup"]')
-      .on('click', '[name="btSelectGroup"]', function (event) {
-        event.stopImmediatePropagation()
-
-        const self = $(this)
-        const checked = self.prop('checked')
-        that[checked ? 'checkGroup' : 'uncheckGroup']($(this).closest('tr').data('group-index'))
-      })
-  }
-
-  initBodyCaller = false
-  this.updateSelected()
-}
-
-BootstrapTable.prototype.updateSelected = function (...args) {
-  if (!initBodyCaller) {
-    _updateSelected.apply(this, Array.prototype.slice.apply(args))
+    tableGroups = []
 
     if ((this.options.groupBy) && (this.options.groupByField !== '')) {
-      this.$selectGroup.forEach(item => {
-        const checkGroup = item.item.filter(':enabled').length ===
-                      item.item.filter(':enabled').filter(':checked').length
 
-        item.group.prop('checked', checkGroup)
+      if ((this.options.sortName !== this.options.groupByField)) {
+        this.data.sort((a, b) => a[that.options.groupByField].localeCompare(b[that.options.groupByField]))
+      }
+
+      const groups = UtilsGroupBy.groupBy(that.data, item => [item[that.options.groupByField]])
+      const fieldsSum = UtilsGroupBy.string2hash(this.options.groupBySum)
+      const fieldsCount = UtilsGroupBy.string2hash(this.options.groupByCount)
+      const fieldsAvg = UtilsGroupBy.string2hash(this.options.groupByAvg)
+      const allFields = Object.keys($.extend({}, fieldsSum, fieldsCount, fieldsAvg))
+
+      let index = 0
+      $.each(groups, (key, value) => {
+        tableGroups.push({
+          id: index,
+          name: key,
+          data: value
+        })
+
+        value.forEach(item => {
+          if (!item._data) {
+            item._data = {}
+          }
+
+          item._data['parent-index'] = index
+        })
+
+        index++
       })
     }
   }
-}
 
-BootstrapTable.prototype.getGroupSelections = function (index) {
-  const that = this
+  initBody () {
+    initBodyCaller = true
 
-  return this.data.filter(row => row[that.header.stateField] && (row._data['parent-index'] === index))
-}
+    super.initBody()
 
-BootstrapTable.prototype.checkGroup = function (index) {
-  this.checkGroup_(index, true)
-}
+    if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+      const that = this
+      let checkBox = false
+      let visibleColumns = 0
 
-BootstrapTable.prototype.uncheckGroup = function (index) {
-  this.checkGroup_(index, false)
-}
+      this.columns.forEach(column => {
+        if (column.checkbox) {
+          checkBox = true
+        } else {
+          if (column.visible) {
+            visibleColumns += 1
+          }
+        }
+      })
 
-BootstrapTable.prototype.checkGroup_ = function (index, checked) {
-  let rows
-  const filter = function () {
-    return ($(this).closest('tr').data('parent-index') === index)
+      if (this.options.detailView && !this.options.cardView) {
+        visibleColumns += 1
+      }
+
+      tableGroups.forEach(item => {
+        const html = []
+
+        html.push(Utils.sprintf('<tr class="info groupBy expanded" data-group-index="%s">', item.id))
+
+        if (that.options.detailView && !that.options.cardView) {
+          html.push('<td class="detail"></td>')
+        }
+
+        if (checkBox) {
+          html.push('<td class="bs-checkbox">',
+            '<input name="btSelectGroup" type="checkbox" />',
+            '</td>'
+          )
+        }
+        let formattedValue = item.name
+        if (typeof(that.options.groupByFormatter) === 'function') {
+          formattedValue = that.options.groupByFormatter(item.name, item.id, item.data)
+        }
+        html.push(Utils.sprintf('<td colspan="%s">%s</td>', visibleColumns, formattedValue))
+        html.push('</tr>')
+
+        that.$body.find(`tr[data-parent-index=${item.id}]:first`).before($(html.join('')))
+      })
+
+      this.$selectGroup = []
+      this.$body.find('[name="btSelectGroup"]').each(function () {
+        const self = $(this)
+
+        that.$selectGroup.push({
+          group: self,
+          item: that.$selectItem.filter(function () {
+            return ($(this).closest('tr').data('parent-index') === self.closest('tr').data('group-index'))
+          })
+        })
+      })
+
+      this.$container.off('click', '.groupBy')
+        .on('click', '.groupBy', function () {
+          $(this).toggleClass('expanded')
+          that.$body.find(`tr[data-parent-index=${$(this).closest('tr').data('group-index')}]`).toggleClass('hidden')
+        })
+
+      this.$container.off('click', '[name="btSelectGroup"]')
+        .on('click', '[name="btSelectGroup"]', function (event) {
+          event.stopImmediatePropagation()
+
+          const self = $(this)
+          const checked = self.prop('checked')
+          that[checked ? 'checkGroup' : 'uncheckGroup']($(this).closest('tr').data('group-index'))
+        })
+    }
+
+    initBodyCaller = false
+    this.updateSelected()
   }
 
-  if (!checked) {
-    rows = this.getGroupSelections(index)
+  updateSelected () {
+    if (!initBodyCaller) {
+      super.updateSelected()
+
+      if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+        this.$selectGroup.forEach(item => {
+          const checkGroup = item.item.filter(':enabled').length === item.item.filter(':enabled').filter(':checked').length
+
+          item.group.prop('checked', checkGroup)
+        })
+      }
+    }
   }
 
-  this.$selectItem.filter(filter).prop('checked', checked)
+  getGroupSelections (index) {
+    const that = this
 
-  this.updateRows()
-  this.updateSelected()
-  if (checked) {
-    rows = this.getGroupSelections(index)
+    return this.data.filter(row => row[that.header.stateField] && (row._data['parent-index'] === index))
   }
-  this.trigger(checked ? 'check-all' : 'uncheck-all', rows)
+
+  checkGroup (index) {
+    this.checkGroup_(index, true)
+  }
+
+  uncheckGroup (index) {
+    this.checkGroup_(index, false)
+  }
+
+  checkGroup_ (index, checked) {
+    let rows
+    const filter = function () {
+      return ($(this).closest('tr').data('parent-index') === index)
+    }
+
+    if (!checked) {
+      rows = this.getGroupSelections(index)
+    }
+
+    this.$selectItem.filter(filter).prop('checked', checked)
+
+    this.updateRows()
+    this.updateSelected()
+    if (checked) {
+      rows = this.getGroupSelections(index)
+    }
+    this.trigger(checked ? 'check-all' : 'uncheck-all', rows)
+  }
 }
