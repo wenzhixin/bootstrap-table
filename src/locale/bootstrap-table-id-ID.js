@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['id-ID'] = {
   formatColumns () {
     return 'kolom'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['fa-IR'] = {
   formatColumns () {
     return 'سطر ها'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

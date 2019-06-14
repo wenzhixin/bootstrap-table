@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['ko-KR'] = {
   formatColumns () {
     return '컬럼 필터링'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

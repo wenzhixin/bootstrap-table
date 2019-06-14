@@ -156,11 +156,18 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Columns'`
 
+## formatColumnsToggleAll
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Toggle all'`
+
 ## formatFullscreen
 
 - **Parameter:** `undefined`
 
 - **Default:** `'Fullscreen'`
+
 ## formatAllRows
 
 - **Parameter:** `undefined`

@@ -794,6 +794,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Strict Search](https://examples.bootstrap-table.com/#options/strict-search.html)
 
+## visibleSearch
+
+- **Attribute:** `visible-search`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  set `true` to search only in visible column/data, if the data contains other values which are not displayed they will be ignored while searching.
+
+- **Default:** `false`
+
+- **Example:** [visible search](https://examples.bootstrap-table.com/#options/visible-search.html)
+
 ## showButtonIcons
 
 - **Attribute:** `show-button-icons`
@@ -1002,6 +1016,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Basic Columns](https://examples.bootstrap-table.com/#options/basic-columns.html) and [Large Columns](https://examples.bootstrap-table.com/#options/large-columns.html)
+
+## showColumnsToggleAll
+
+- **Attribute:** `data-show-columns-toggle-all`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a toogle all checkbox within the columns option/dropdown.
+
+- **Default:** `false`
+
+- **Example:** [Columns Toggle All](https://examples.bootstrap-table.com/#options/columns-toggle-all.html)
 
 ## minimumCountColumns
 
@@ -1442,6 +1470,22 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   {% endhighlight %}
 
 - **Example:** [Table Icons](https://examples.bootstrap-table.com/#options/table-icons.html)
+
+## html
+
+- **Attribute:** `data-html`
+
+- **Type:** `Object`
+
+- **Detail:**
+
+  Defines some html of the table.
+
+- **Default:**
+
+  Too much code, please checkout the source code of the `index.js`
+
+- **Example:** [Table Html](https://examples.bootstrap-table.com/#options/table-html.html)
 
 ## iconSize
 

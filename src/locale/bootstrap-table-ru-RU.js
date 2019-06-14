@@ -62,6 +62,9 @@ $.fn.bootstrapTable.locales['ru-RU'] = {
   formatColumns () {
     return 'Колонки'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
     return 'Fullscreen'
   },

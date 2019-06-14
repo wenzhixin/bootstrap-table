@@ -451,6 +451,7 @@ class BootstrapTable {
     this.getCaret()
 
     if (this.options.sidePagination === 'server') {
+      this.options.pageNumber = 1
       this.initServer(this.options.silentSort)
       return
     }
@@ -527,10 +528,21 @@ class BootstrapTable {
         <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
         aria-label="Columns" title="${o.formatColumns()}">
         ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.columns) : '' }
-        ${o.showButtonText ? o.formatColumns() : ''} 
+        ${o.showButtonText ? o.formatColumns() : ''}
         ${this.constants.html.dropdownCaret}
         </button>
-        ${this.constants.html.toobarDropdow[0]}`)
+        ${this.constants.html.toolbarDropdown[0]}`)
+
+      if (o.showColumnsToggleAll) {
+        const allFieldsVisible = this.getVisibleColumns().length === this.columns.length
+        html.push(
+          Utils.sprintf(this.constants.html.toolbarDropdownItem,
+            Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>', allFieldsVisible ? 'checked="checked"' : '', o.formatColumnsToggleAll())
+          )
+        )
+
+        html.push(this.constants.html.toolbarDropdownSeperator)
+      }
 
       this.columns.forEach((column, i) => {
         if (column.radio || column.checkbox) {
@@ -544,13 +556,13 @@ class BootstrapTable {
         const checked = column.visible ? ' checked="checked"' : ''
 
         if (column.switchable) {
-          html.push(Utils.sprintf(this.constants.html.toobarDropdowItem,
+          html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
             Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s> <span>%s</span>',
               column.field, i, checked, column.title)))
           switchableCount++
         }
       })
-      html.push(this.constants.html.toobarDropdow[1], '</div>')
+      html.push(this.constants.html.toolbarDropdown[1], '</div>')
     }
 
     html.push('</div>')
@@ -584,6 +596,8 @@ class BootstrapTable {
 
     if (o.showColumns) {
       $keepOpen = this.$toolbar.find('.keep-open')
+      const $checkboxes = $keepOpen.find('input:not(".toggle-all")')
+      const $toggleAll = $keepOpen.find('input.toggle-all')
 
       if (switchableCount <= o.minimumCountColumns) {
         $keepOpen.find('input').prop('disabled', true)
@@ -592,11 +606,17 @@ class BootstrapTable {
       $keepOpen.find('li, label').off('click').on('click', e => {
         e.stopImmediatePropagation()
       })
-      $keepOpen.find('input').off('click').on('click', ({currentTarget}) => {
+
+      $checkboxes.off('click').on('click', ({currentTarget}) => {
         const $this = $(currentTarget)
 
         this._toggleColumn($this.val(), $this.prop('checked'), false)
         this.trigger('column-switch', $this.data('field'), $this.prop('checked'))
+        $toggleAll.prop('checked', $checkboxes.filter(':checked').length === this.columns.length)
+      })
+
+      $toggleAll.off('click').on('click', ({currentTarget}) => {
+        this._toggleAllColumns($(currentTarget).prop('checked'))
       })
     }
 
@@ -653,12 +673,16 @@ class BootstrapTable {
     }
   }
 
-  onSearch ({currentTarget, firedByInitSearchText} = {}) {
-    if (currentTarget !== undefined) {
+  onSearch ({currentTarget, firedByInitSearchText} = {}, overwriteSearchText = true) {
+    if (currentTarget !== undefined && overwriteSearchText) {
       const text = $(currentTarget).val().trim()
 
       if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
         $(currentTarget).val(text)
+      }
+
+      if (this.searchText === text) {
+        return
       }
 
       this.searchText = text
@@ -729,9 +753,10 @@ class BootstrapTable {
         }) : this.options.data
       }
 
+      const visibleFields = this.getVisibleFields()
       this.data = s ? this.data.filter((item, i) => {
         for (let j = 0; j < this.header.fields.length; j++) {
-          if (!this.header.searchables[j]) {
+          if (!this.header.searchables[j] || (this.options.visibleSearch && visibleFields.indexOf(this.header.fields[j]) === -1)) {
             continue
           }
 
@@ -1931,12 +1956,11 @@ class BootstrapTable {
 
   getSelections () {
     // fix #2424: from html with checkbox
-    return this.options.data.filter(row =>
-      row[this.header.stateField] === true)
+    return this.data.filter(row => row[this.header.stateField] === true)
   }
 
   getAllSelections () {
-    return this.options.data.filter(row => row[this.header.stateField])
+    return this.options.data.filter(row => row[this.header.stateField] === true)
   }
 
   load (_data) {
@@ -2232,7 +2256,7 @@ class BootstrapTable {
   }
 
   _toggleColumn (index, checked, needUpdate) {
-    if (index === -1) {
+    if (index === -1 || this.columns[index].visible === checked) {
       return
     }
     this.columns[index].visible = checked
@@ -2271,8 +2295,11 @@ class BootstrapTable {
   }
 
   _toggleAllColumns (visible) {
-    for (const column of this.columns) {
+    for (const column of this.columns.slice().reverse()) {
       if (column.switchable) {
+        if (!visible && this.options.showColumns && this.getVisibleColumns().length === this.options.minimumCountColumns) {
+          continue
+        }
         column.visible = visible
       }
     }
@@ -2282,7 +2309,17 @@ class BootstrapTable {
     this.initPagination()
     this.initBody()
     if (this.options.showColumns) {
-      const $items = this.$toolbar.find('.keep-open input').prop('disabled', false)
+      const $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false)
+
+      if (visible) {
+        $items.prop('checked', visible)
+      } else {
+        $items.get().reverse().forEach((item) => {
+          if ($items.filter(':checked').length > this.options.minimumCountColumns) {
+            $(item).prop('checked', visible)
+          }
+        })
+      }
 
       if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
         $items.filter(':checked').prop('disabled', true)
@@ -2415,7 +2452,7 @@ class BootstrapTable {
     }
 
     const rows = []
-    this.options.data.forEach((row, i) => {
+    this.data.forEach((row, i) => {
       if (!row.hasOwnProperty(obj.field)) {
         return false
       }

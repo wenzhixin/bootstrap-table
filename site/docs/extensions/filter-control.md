@@ -29,6 +29,16 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `false`
 
+### filterDataCollector
+
+- **type:** `Function`
+
+- **Detail:**
+
+   Collect data which will added to the select filter, to filter through e.g. labels which are comma separated and displayed with a formatter.
+
+- **Default:** `undefined`
+
 ### alignmentSelectControlOptions
 
 - **type:** `String`
