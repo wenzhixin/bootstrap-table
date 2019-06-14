@@ -59,3 +59,17 @@ jsFiddle example: [boostrap-table-group-by](https://jsfiddle.net/Bighamster/fj8d
    Set the names of the fields by which you want to calculate averages.
 
 - **Default:** ``
+
+### groupByFormatter
+
+- **type:** `Function`
+
+- **Detail:**
+
+   The group row formatter function, takes three parameters:
+
+   * `colspan`: the colspan should be applied to the tr element.
+   * `key`: the group key name.
+   * `tds`: an array of tds elements to be added to the tr element.
+
+- **Default:** `undefined`
