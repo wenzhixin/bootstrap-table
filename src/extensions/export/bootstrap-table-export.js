@@ -35,6 +35,10 @@ $.extend($.fn.bootstrapTable.defaults, {
   exportFooter: false
 })
 
+$.extend($.fn.bootstrapTable.columnDefaults, {
+  forceExport: false
+})
+
 $.extend($.fn.bootstrapTable.defaults.icons, {
   export: {
     bootstrap3: 'glyphicon-export icon-share',
@@ -89,8 +93,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       data-toggle="dropdown"
       type="button"
       title="${o.formatExport()}">
-      ${ o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
-      ${ o.showButtonText ? o.formatExport() : ''}
+      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+      ${o.showButtonText ? o.formatExport() : ''}
       ${this.constants.html.dropdownCaret}
       </button>
       </div>
@@ -183,6 +187,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
         })
       }
 
+      const hiddenColumns = this.getHiddenColumns()
+      hiddenColumns.forEach((row) => {
+        if (row.forceExport) {
+          this.showColumn(row.field)
+        }
+      })
+
       this.$el.tableExport($.extend({
         onAfterSaveToFile: () => {
           if (o.exportFooter) {
@@ -195,6 +206,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
           if (isCardView) {
             this.toggleView()
           }
+
+          hiddenColumns.forEach((row) => {
+            if (row.forceExport) {
+              this.hideColumn(row.field)
+            }
+          })
 
           if (callback) callback()
         }

@@ -58,6 +58,18 @@ This is an important link to check out as some file types may require extra step
 
 - **Default:** `{}`
 
+## Column options
+
+### forceExport
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to force export a column e.g. hidden columns.
+
+- **Default:** `false`
+
 ## Events
 
 ### onExportSaved
