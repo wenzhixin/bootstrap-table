@@ -2124,10 +2124,10 @@ class BootstrapTable {
       }
 
       const rowId = this.options.data.indexOf(this.getRowByUniqueId(params.id))
-
       if (rowId === -1) {
         continue
       }
+
       if (params.hasOwnProperty('replace') && params.replace) {
         this.options.data[rowId] = params.row
       } else {
