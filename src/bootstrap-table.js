@@ -2061,7 +2061,13 @@ class BootstrapTable {
       if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
         continue
       }
+
       $.extend(this.options.data[params.index], params.row)
+      if (params.hasOwnProperty('replace') && params.replace) {
+        this.options.data[params.index] = params.row
+      } else {
+        $.extend(this.options.data[params.index], params.row)
+      }
     }
 
     this.initSearch()
@@ -2122,7 +2128,11 @@ class BootstrapTable {
       if (rowId === -1) {
         continue
       }
-      $.extend(this.options.data[rowId], params.row)
+      if (params.hasOwnProperty('replace') && params.replace) {
+        this.options.data[rowId] = params.row
+      } else {
+        $.extend(this.options.data[rowId], params.row)
+      }
     }
 
     this.initSearch()
