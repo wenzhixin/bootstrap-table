@@ -627,7 +627,7 @@ class BootstrapTable {
 
       html.push(Utils.sprintf(`
         <div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.inputGroup}">
-            %s
+          %s
         </div>
       `,
       Utils.sprintf(this.constants.html.inputGroup,
@@ -1025,7 +1025,7 @@ class BootstrapTable {
               html.push(pageItem(i, ' page-intermediate'))
             } else {
               html.push(Utils.sprintf(this.constants.html.paginationItem,
-                ' page-last-separator disabled', '...'))
+                ' page-last-separator disabled', '', '...'))
             }
           }
         }
