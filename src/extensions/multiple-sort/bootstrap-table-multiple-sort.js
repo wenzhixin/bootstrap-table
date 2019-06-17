@@ -497,6 +497,10 @@ BootstrapTable.prototype.initToolbar = function (...args) {
   this.$sortModal = $(sortModalId)
   this.sortModalSelector = sortModalSelector
 
+  if (that.options.sortPriority !== null) {
+    that.onMultipleSort()
+  }
+
   _initToolbar.apply(this, Array.prototype.slice.apply(args))
 
   if (that.options.sidePagination === 'server' && !isSingleSort && that.options.sortPriority !== null) {
