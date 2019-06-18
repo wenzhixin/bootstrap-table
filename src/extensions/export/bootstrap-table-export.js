@@ -194,6 +194,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
       })
 
+      if (typeof o.exportOptions.fileName === 'function') {
+        options.fileName = o.exportOptions.fileName()
+      }
+
       this.$el.tableExport($.extend({
         onAfterSaveToFile: () => {
           if (o.exportFooter) {
