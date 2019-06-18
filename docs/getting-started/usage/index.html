@@ -65,13 +65,20 @@
       <li class="nav-item ">
         <a class="nav-link" href="/themes">
           CSS Frameworks
-          <span class="badge badge-warning">New</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link "
           href="https://examples.bootstrap-table.com">
           Examples
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="https://live.bootstrap-table.com"
+          target="_blank">
+          Online Editor
+          <span class="badge badge-warning">New</span>
         </a>
       </li>
       <li class="nav-item ">
@@ -414,59 +421,59 @@
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;table</span> <span class="na">id=</span><span class="s">"table"</span><span class="nt">&gt;&lt;/table&gt;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">'#table'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
   <span class="na">columns</span><span class="p">:</span> <span class="p">[{</span>
-    <span class="na">field</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'Item ID'</span>
+    <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item ID</span><span class="dl">'</span>
   <span class="p">},</span> <span class="p">{</span>
-    <span class="na">field</span><span class="p">:</span> <span class="s1">'name'</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'Item Name'</span>
+    <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Name</span><span class="dl">'</span>
   <span class="p">},</span> <span class="p">{</span>
-    <span class="na">field</span><span class="p">:</span> <span class="s1">'price'</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'Item Price'</span>
+    <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">price</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Price</span><span class="dl">'</span>
   <span class="p">}],</span>
   <span class="na">data</span><span class="p">:</span> <span class="p">[{</span>
     <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="na">name</span><span class="p">:</span> <span class="s1">'Item 1'</span><span class="p">,</span>
-    <span class="na">price</span><span class="p">:</span> <span class="s1">'$1'</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 1</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$1</span><span class="dl">'</span>
   <span class="p">},</span> <span class="p">{</span>
     <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="na">name</span><span class="p">:</span> <span class="s1">'Item 2'</span><span class="p">,</span>
-    <span class="na">price</span><span class="p">:</span> <span class="s1">'$2'</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 2</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$2</span><span class="dl">'</span>
   <span class="p">}]</span>
 <span class="p">})</span></code></pre></figure>
 
 <p>We can also use remote URL data by setting <code class="highlighter-rouge">url: 'data1.json'</code>.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">'#table'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s1">'data1.json'</span><span class="p">,</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">data1.json</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">columns</span><span class="p">:</span> <span class="p">[{</span>
-    <span class="na">field</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'Item ID'</span>
+    <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item ID</span><span class="dl">'</span>
   <span class="p">},</span> <span class="p">{</span>
-    <span class="na">field</span><span class="p">:</span> <span class="s1">'name'</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'Item Name'</span>
+    <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Name</span><span class="dl">'</span>
   <span class="p">},</span> <span class="p">{</span>
-    <span class="na">field</span><span class="p">:</span> <span class="s1">'price'</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'Item Price'</span>
+    <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">price</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Price</span><span class="dl">'</span>
   <span class="p">}]</span>
 <span class="p">})</span></code></pre></figure>
 
 <p>You can also add <code class="highlighter-rouge">pagination</code>, <code class="highlighter-rouge">search</code>, and <code class="highlighter-rouge">sorting</code> to a table like the following table.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">'#table'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s1">'data1.json'</span><span class="p">,</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">data1.json</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">pagination</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="na">search</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="na">columns</span><span class="p">:</span> <span class="p">[{</span>
-    <span class="na">field</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'Item ID'</span>
+    <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item ID</span><span class="dl">'</span>
   <span class="p">},</span> <span class="p">{</span>
-    <span class="na">field</span><span class="p">:</span> <span class="s1">'name'</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'Item Name'</span>
+    <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Name</span><span class="dl">'</span>
   <span class="p">},</span> <span class="p">{</span>
-    <span class="na">field</span><span class="p">:</span> <span class="s1">'price'</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'Item Price'</span>
+    <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">price</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Price</span><span class="dl">'</span>
   <span class="p">}]</span>
 <span class="p">})</span></code></pre></figure>
 

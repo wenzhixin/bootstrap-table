@@ -65,13 +65,20 @@
       <li class="nav-item ">
         <a class="nav-link" href="/themes">
           CSS Frameworks
-          <span class="badge badge-warning">New</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link "
           href="https://examples.bootstrap-table.com">
           Examples
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="https://live.bootstrap-table.com"
+          target="_blank">
+          Online Editor
+          <span class="badge badge-warning">New</span>
         </a>
       </li>
       <li class="nav-item ">
@@ -372,7 +379,7 @@
 
 <p>And then use JavaScript to switch locale:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">bootstrapTable</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span> <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">bootstrapTable</span><span class="p">.</span><span class="nx">locales</span><span class="p">[</span><span class="s1">'en-US'</span><span class="p">])</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">bootstrapTable</span><span class="p">.</span><span class="nx">defaults</span><span class="p">,</span> <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">bootstrapTable</span><span class="p">.</span><span class="nx">locales</span><span class="p">[</span><span class="dl">'</span><span class="s1">en-US</span><span class="dl">'</span><span class="p">])</span>
 <span class="c1">// $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN'])</span>
 <span class="c1">// ...</span></code></pre></figure>
 
@@ -383,8 +390,8 @@
 
 <p>Or use JavaScript to set locale for table:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">'#table'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
-  <span class="na">locale</span><span class="p">:</span> <span class="s1">'en-US'</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
+  <span class="na">locale</span><span class="p">:</span> <span class="dl">'</span><span class="s1">en-US</span><span class="dl">'</span>
 <span class="p">})</span></code></pre></figure>
 
 <h2 id="formatloadingmessage">formatLoadingMessage</h2>
