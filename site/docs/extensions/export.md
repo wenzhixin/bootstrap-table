@@ -56,6 +56,16 @@ This is an important link to check out as some file types may require extra step
 
    export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
 
+   `exportOptions.fileName` can be a string or a function, for example:
+
+   ```js
+   exportOptions: {
+      fileName: function () {
+         return 'exportName'
+      }
+   }
+   ```
+
 - **Default:** `{}`
 
 ## Column options
