@@ -631,7 +631,7 @@ class BootstrapTable {
         </div>
       `,
       Utils.sprintf(this.constants.html.inputGroup,
-        `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)}" type="text" placeholder="${o.formatSearch()}">`,
+        `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`,
         (o.showSearchButton ? showSearchButton : '') +
         (o.showSearchClearButton ? showSearchClearButton : ''))
       ))
@@ -685,8 +685,10 @@ class BootstrapTable {
         return
       }
 
-      this.searchText = text
-      this.options.searchText = text
+      if ($(currentTarget).hasClass('search-input')) {
+        this.searchText = text
+        this.options.searchText = text
+      }
     }
 
     if (!firedByInitSearchText) {
