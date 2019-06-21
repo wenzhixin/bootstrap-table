@@ -144,7 +144,7 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
         }
       }
 
-      that.columns = that.columns.concat(columns)
+      // that.columns = that.columns.concat(columns)
 
       filterFn() // Support <IE9
       $.each(that.columns, (i, column) => {
