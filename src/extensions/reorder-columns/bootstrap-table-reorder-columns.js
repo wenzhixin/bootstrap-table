@@ -114,6 +114,7 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
     maxMovingRows: that.options.maxMovingRows,
     dragaccept: that.options.dragaccept,
     clickDelay: 200,
+    dragHandle: '.th-inner',
     beforeStop () {
       const ths = []
       const formatters = []
