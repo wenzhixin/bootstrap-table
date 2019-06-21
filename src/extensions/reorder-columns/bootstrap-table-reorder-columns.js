@@ -158,7 +158,8 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
             optionsColumns.push(item)
             found = true
             return false
-          } return true
+          }
+          return true
         })
       })
 
@@ -167,7 +168,6 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
       that.header.fields = ths
       that.header.formatters = formatters
       that.initHeader()
-      that.initToolbar()
       that.initBody()
       that.resetView()
       that.trigger('reorder-column', ths)
