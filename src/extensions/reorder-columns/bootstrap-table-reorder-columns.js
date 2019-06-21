@@ -135,7 +135,7 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
         }
       }
 
-      for (let i = 0; i < this.length; i++ ) {
+      for (let i = 0; i < ths.length; i++ ) {
         columnIndex = that.fieldsColumnsIndex[ths[i]]
         if (columnIndex !== -1) {
           that.columns[columnIndex].fieldIndex = i
