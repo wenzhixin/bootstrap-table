@@ -32,7 +32,7 @@ class VirtualScroll {
   }
 
   initDOM (rows) {
-    if (!this.clusterHeight) {
+    if (typeof this.clusterHeight === 'undefined') {
       this.cache.data = this.contentEl.innerHTML = rows[0] + rows[0] + rows[0]
       this.getRowsHeight(rows)
     }
