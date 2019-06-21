@@ -329,7 +329,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   onSearch (event) {
     super.onSearch(event)
 
-    if ($(event.currentTarget).parent().hasClass('search')) {
+    if (this.options.search) {
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText)
     }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)

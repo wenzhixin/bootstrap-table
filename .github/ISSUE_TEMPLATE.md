@@ -9,7 +9,7 @@ This is the first step
 This is the second step
 Further steps, etc.
 
-[jsfiddle]() - a link to the reduced test case([fiddle template](https://github.com/wenzhixin/bootstrap-table/issues/1765)).
+Please provide an [Online Example](https://live.bootstrap-table.com) to show your problem, thanks!
 
 Any other information you want to share that is relevant to the issue being reported. This might include the lines of code that you have identified as causing the bug, and potential solutions (and your opinions on their merits).
 
