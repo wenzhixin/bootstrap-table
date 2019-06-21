@@ -140,7 +140,7 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
         if (columnIndex !== -1) {
           that.columns[columnIndex].fieldIndex = i
           columns.push(that.columns[columnIndex])
-          that.columns.splice(columnIndex, 1)
+          // that.columns.splice(columnIndex, 1)
         }
       }
 
