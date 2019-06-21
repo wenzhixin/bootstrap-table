@@ -84,7 +84,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    let $menu = $(this.constants.html.pageDropdown.join(''))
+    let $menu = $(this.constants.html.toolbarDropdown.join(''))
 
     this.$export = $(`
       <div class="export ${this.constants.classes.buttonsDropdown}">
