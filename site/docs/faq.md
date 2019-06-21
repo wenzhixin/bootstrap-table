@@ -48,7 +48,7 @@ $('#eventsTable').on('click-row.bs.table', function (event, row, $element) {
 })
 ```
 
-the first parameter is always `event`: [http://jsfiddle.net/wenyi/e3nk137y/11688/](http://jsfiddle.net/wenyi/e3nk137y/11688/)
+the first parameter is always `event`: [https://live.bootstrap-table.com/code/wenzhixin/46](https://live.bootstrap-table.com/code/wenzhixin/46)
 
 and use onClickRow event:
 
