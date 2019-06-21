@@ -137,6 +137,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   * `index`: the row index to be updated.
   * `row`: the new row data.
+  * `replace` (optional): set to `true` to replace the row instead of extending.
 
 - **Example:** [Update Row](https://examples.bootstrap-table.com/#methods/update-row.html)
 
@@ -160,6 +161,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   * `id`: a row id where the id should be the uniqueid field assigned to the table.
   * `row`: the new row data.
+  * `replace` (optional): set to `true` to replace the row instead of extending.
 
 - **Example:** [Update By Unique Id](https://examples.bootstrap-table.com/#methods/update-by-unique-id.html)
 

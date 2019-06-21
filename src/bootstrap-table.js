@@ -627,11 +627,11 @@ class BootstrapTable {
 
       html.push(Utils.sprintf(`
         <div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.inputGroup}">
-            %s
+          %s
         </div>
       `,
       Utils.sprintf(this.constants.html.inputGroup,
-        `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)}" type="text" placeholder="${o.formatSearch()}">`,
+        `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`,
         (o.showSearchButton ? showSearchButton : '') +
         (o.showSearchClearButton ? showSearchClearButton : ''))
       ))
@@ -685,8 +685,10 @@ class BootstrapTable {
         return
       }
 
-      this.searchText = text
-      this.options.searchText = text
+      if ($(currentTarget).hasClass('search-input')) {
+        this.searchText = text
+        this.options.searchText = text
+      }
     }
 
     if (!firedByInitSearchText) {
@@ -1025,7 +1027,7 @@ class BootstrapTable {
               html.push(pageItem(i, ' page-intermediate'))
             } else {
               html.push(Utils.sprintf(this.constants.html.paginationItem,
-                ' page-last-separator disabled', '...'))
+                ' page-last-separator disabled', '', '...'))
             }
           }
         }
@@ -2061,7 +2063,13 @@ class BootstrapTable {
       if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
         continue
       }
+
       $.extend(this.options.data[params.index], params.row)
+      if (params.hasOwnProperty('replace') && params.replace) {
+        this.options.data[params.index] = params.row
+      } else {
+        $.extend(this.options.data[params.index], params.row)
+      }
     }
 
     this.initSearch()
@@ -2118,11 +2126,15 @@ class BootstrapTable {
       }
 
       const rowId = this.options.data.indexOf(this.getRowByUniqueId(params.id))
-
       if (rowId === -1) {
         continue
       }
-      $.extend(this.options.data[rowId], params.row)
+
+      if (params.hasOwnProperty('replace') && params.replace) {
+        this.options.data[rowId] = params.row
+      } else {
+        $.extend(this.options.data[rowId], params.row)
+      }
     }
 
     this.initSearch()
