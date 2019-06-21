@@ -29,10 +29,11 @@ restrictions:
 * Please **do not** open issues or pull requests regarding the code in [`bootstrap-table-examples`](https://github.com/wenzhixin/bootstrap-table-examples) and [`extensions plugin dependence`](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions) (open them in their respective repositories), the dependence list:
     * Table Editable: [x-editable](https://github.com/vitalets/x-editable)
     * Table Export: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
-    * Table Filter: [bootstrap-table-filter](https://github.com/lukaskral/bootstrap-table-filter)
-    * Table flat-json: [bootstrap-table-flat-json](https://github.com/djhvscf/bootstrap-table-flatJSON)
-    * Table Reorder: [jquery-ui](https://code.jquery.com/ui/) and [dragTable](https://github.com/akottr/dragtable/)
-    * Table Resizable: [colResizable](https://github.com/alvaro-prieto/colResizable)
+    * Table Reorder-Columns: [jquery-ui](https://code.jquery.com/ui/) and [dragTable](https://github.com/akottr/dragtable/)
+    * Table Reorder-Rows: [tablednd](https://github.com/isocra/TableDnD)
+    * Table Resizable: [jquery-resizable-columns](https://github.com/dobtco/jquery-resizable-columns)
+    * Table Treegrid: Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
+
 
 ## Issues and labels
 
@@ -59,10 +60,7 @@ Guidelines for bug reports:
    latest `master` or development branch in the repository.
 
 3. **Isolate the problem** &mdash; ideally create a live example.
-    The web tool [jsfiddle](http://jsfiddle.net/) is a very helpful for this. Consider to use these templates:
-    * [Table from html](http://jsfiddle.net/wenyi/e3nk137y/44345/)
-    * [Table from data](http://jsfiddle.net/wenyi/e3nk137y/44346/)
-    * [Table from url](http://jsfiddle.net/wenyi/e3nk137y/44348/)
+    Our [Online Editor](https://live.bootstrap-table.com) tool is a very helpful for this.
 
 
 A good bug report shouldn't leave others needing to chase you up for more
@@ -119,7 +117,7 @@ source files in [`/src/`](https://github.com/wenzhixin/bootstrap-table/tree/deve
 
 Similarly, when contributing to Bootstrap's documentation, you should edit the
 documentation source files in
-[the `/docs/` directory of the `develop` branch](https://github.com/wenzhixin/bootstrap-table/tree/develop/docs).
+[the `/site/` directory of the `develop` branch](https://github.com/wenzhixin/bootstrap-table/tree/develop/site).
 
 Adhering to the following process is the best way to get your work
 included in the project:
@@ -174,7 +172,7 @@ included in the project:
 **IMPORTANT**: By submitting a patch, you agree to allow the project owners to
 license your work under the terms of the [MIT License](LICENSE) (if it
 includes code changes) and under the terms of the
-[Creative Commons Attribution 3.0 Unported License](docs/LICENSE)
+[Creative Commons Attribution 3.0 Unported License](site/LICENSE)
 (if it includes documentation changes).
 
 
@@ -189,7 +187,7 @@ includes code changes) and under the terms of the
 ## License
 
 By contributing your code, you agree to license your contribution under the [MIT License](LICENSE).
-By contributing to the documentation, you agree to license your contribution under the [Creative Commons Attribution 3.0 Unported License](docs/LICENSE).
+By contributing to the documentation, you agree to license your contribution under the [Creative Commons Attribution 3.0 Unported License](site/LICENSE).
 
 
 ## Financial contributions
