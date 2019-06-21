@@ -33,7 +33,7 @@
   },
   "scripts": {
     "lint:js": "eslint src",
-    "lint:css": "stylelint src/**/*.scss",
+    "lint:css": "stylelint src/**/*.scss && stylelint src/extensions/**/*.css",
     "lint": "run-s lint:*",
     "docs:check:api": "cd tools && node check-api.js",
     "docs:check:locale": "cd tools && node check-locale.js",

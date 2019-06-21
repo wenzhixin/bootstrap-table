@@ -85,7 +85,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this.$toolbar.find('>.btn-group').append(`
+    this.$toolbar.find('>.columns').append(`
       <button class="btn btn-default${Utils.sprintf(' btn-%s', o.buttonsClass)}${Utils.sprintf(' btn-%s', o.iconSize)}"
         type="button"
         name="advancedSearch"
