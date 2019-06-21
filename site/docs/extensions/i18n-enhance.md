@@ -6,12 +6,12 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-i18n-enhance](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/select2-filter)
+Use Plugin: [bootstrap-table-i18n-enhance](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/i18n-enhance)
 
 ## Usage
 
 {% highlight html %}
-<script src="extensions/select2-filter/bootstrap-table-i18n-enhance.js"></script>
+<script src="extensions/i18n-enhance/bootstrap-table-i18n-enhance.js"></script>
 {% endhighlight %}
 
 ## Methods
