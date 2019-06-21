@@ -625,16 +625,20 @@ class BootstrapTable {
       const showSearchButton = Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '', o.showButtonText ? o.formatSearch() : '')
       const showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '', o.showButtonText ? o.formatClearSearch() : '')
 
+      const searchInputHtml = `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`
+      let searchInputFinalHtml = searchInputHtml
+      if (o.showSearchButton || o.showSearchClearButton) {
+        searchInputFinalHtml = Utils.sprintf(this.constants.html.inputGroup,
+          searchInputHtml,
+          (o.showSearchButton ? showSearchButton : '') +
+            (o.showSearchClearButton ? showSearchClearButton : ''))
+      }
+
       html.push(Utils.sprintf(`
         <div class="${this.constants.classes.pull}-${o.searchAlign} search ${this.constants.classes.inputGroup}">
           %s
         </div>
-      `,
-      Utils.sprintf(this.constants.html.inputGroup,
-        `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`,
-        (o.showSearchButton ? showSearchButton : '') +
-        (o.showSearchClearButton ? showSearchClearButton : ''))
-      ))
+      `, searchInputFinalHtml))
 
       this.$toolbar.append(html.join(''))
       const $searchInput = this.$toolbar.find('.search input')
