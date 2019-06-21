@@ -74,6 +74,64 @@ const UtilsGroupBy = {
     }
 
     return (typeof func === 'function') ? func.apply(self, args || []) : defaultValue
+  },
+
+  initRow (key, val, first_row, btable, allFields) {
+    const html = []
+    const hidden_tds = []
+    const tds = []
+    let colspan = 0
+    let value
+
+    $.each(btable.columns, function (i, column) {
+      if (!column.visible) {
+        return
+      }
+
+      if (btable.options.cardView && (!column.cardVisible)) {
+        return
+      }
+
+      if (first_row) {
+        hidden_tds.push('<td ' + (column.class ? 'class="' + column.class + '"' : '') + '></td>')
+      }
+
+      if ($.inArray(column.field, allFields) > -1 || tds.length > 0) {
+
+        value = val.aggr[column.field]
+
+        tds.push('<td ' + (column.class ? 'class="' + column.class + '"' : '') + ' ' + (value ? 'data-value="' + value + '"' : '') + '>')
+
+        if (column.formatter) {
+          tds.push(UtilsGroupBy.execFunc(column, column.formatter, [value], '&nbsp;'))
+        } else {
+          tds.push(value)
+        }
+
+        tds.push('</td>')
+      } else {
+        colspan += 1
+      }
+    })
+
+    // add an empty string because the header row expects a normal visible first row of data
+    if (first_row) {
+      html.push('<tr>' + hidden_tds.join('') + '</tr>')
+    }
+
+    let formattedValue =
+    [Utils.sprintf('<tr class="group-by-row expanded info groupBy" data-group-index="%s">', key),
+      Utils.sprintf('<td data-col-name="group-title" colspan="%s">%s</td>', colspan, key),
+      tds.join(''),
+      '</tr>'].join('')
+
+    if (typeof(btable.options.groupByFormatter) === 'function') {
+      formattedValue = btable.options.groupByFormatter(colspan, key, tds)
+    }
+
+    html.push(formattedValue)
+
+    return html.join('')
   }
 }
 let initBodyCaller
