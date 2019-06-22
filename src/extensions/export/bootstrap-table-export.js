@@ -225,13 +225,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (o.exportDataType === 'all' && o.pagination) {
       const eventName = o.sidePagination === 'server'
         ? 'post-body.bs.table' : 'page-change.bs.table'
+      const virtualScroll = this.options.virtualScroll
+
       this.$el.one(eventName, () => {
         doExport(() => {
-          this.virtualScrollDisabled = false
+          this.options.virtualScroll = virtualScroll
           this.togglePagination()
         })
       })
-      this.virtualScrollDisabled = true
+      this.options.virtualScroll = false
       this.togglePagination()
       this.trigger('export-saved', this.getData())
     } else if (o.exportDataType === 'selected') {

@@ -1382,7 +1382,7 @@ class BootstrapTable {
       const tr = this.initRow(item, i, data, trFragments)
       hasTr = hasTr || !!tr
       if (tr && typeof tr === 'string') {
-        if (this.virtualScrollDisabled) {
+        if (!this.options.virtualScroll) {
           trFragments.append(tr)
         } else {
           rows.push(tr)
@@ -1396,7 +1396,7 @@ class BootstrapTable {
         this.$header.find('th').length,
         this.options.formatNoMatches())}</tr>`)
     } else {
-      if (this.virtualScrollDisabled) {
+      if (!this.options.virtualScroll) {
         this.$body.html(trFragments)
       } else {
         if (this.virtualScroll) {
@@ -1406,6 +1406,7 @@ class BootstrapTable {
           rows,
           scrollEl: this.$tableBody[0],
           contentEl: this.$body[0],
+          itemHeight: this.options.virtualScrollItemHeight,
           callback: () => {
             this.fitHeader()
           }

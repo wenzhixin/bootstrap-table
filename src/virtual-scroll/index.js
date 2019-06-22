@@ -8,6 +8,7 @@ class VirtualScroll {
     this.scrollEl = options.scrollEl
     this.contentEl = options.contentEl
     this.callback = options.callback
+    this.itemHeight = options.itemHeight
 
     this.cache = {}
     this.scrollTop = this.scrollEl.scrollTop
@@ -59,9 +60,11 @@ class VirtualScroll {
   }
 
   getRowsHeight () {
-    const nodes = this.contentEl.children
-    const node = nodes[Math.floor(nodes.length / 2)]
-    this.itemHeight = node.offsetHeight
+    if (typeof this.itemHeight === 'undefined') {
+      const nodes = this.contentEl.children
+      const node = nodes[Math.floor(nodes.length / 2)]
+      this.itemHeight = node.offsetHeight
+    }
     this.blockHeight = this.itemHeight * BLOCK_ROWS
     this.clusterRows = BLOCK_ROWS * CLUSTER_BLOCKS
     this.clusterHeight = this.blockHeight * CLUSTER_BLOCKS
