@@ -1,10 +1,10 @@
 @charset "UTF-8";
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.14.2
+ * version: 1.15.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
-.bootstrap-table .fixed-table-toolbar:after {
+.bootstrap-table .fixed-table-toolbar::after {
   content: "";
   display: block;
   clear: both;
@@ -20,6 +20,9 @@
   display: inline-block;
   margin-left: -1px !important;
 }
+.bootstrap-table .fixed-table-toolbar .columns .btn-group > .btn-group > .btn {
+  border-radius: 0;
+}
 .bootstrap-table .fixed-table-toolbar .columns .btn-group > .btn-group:first-child > .btn {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
@@ -28,13 +31,12 @@
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-.bootstrap-table .fixed-table-toolbar .columns .btn-group > .btn-group > .btn {
-  border-radius: 0;
-}
 .bootstrap-table .fixed-table-toolbar .columns .dropdown-menu {
   text-align: left;
   max-height: 300px;
   overflow: auto;
+  -ms-overflow-style: scrollbar;
+  z-index: 1001;
 }
 .bootstrap-table .fixed-table-toolbar .columns label {
   display: block;
@@ -56,80 +58,6 @@
 .bootstrap-table .fixed-table-container {
   position: relative;
   clear: both;
-}
-.bootstrap-table .fixed-table-container.fixed-height:not(.has-footer) {
-  border-bottom: 1px solid #dee2e6;
-}
-.bootstrap-table .fixed-table-container.fixed-height .fixed-table-border {
-  border-left: 1px solid #dee2e6;
-  border-right: 1px solid #dee2e6;
-}
-.bootstrap-table .fixed-table-container.fixed-height .table thead th {
-  border-bottom: 1px solid #dee2e6;
-}
-.bootstrap-table .fixed-table-container.fixed-height .table-dark thead th {
-  border-bottom: 1px solid #32383e;
-}
-.bootstrap-table .fixed-table-container .fixed-table-header {
-  overflow: hidden;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body {
-  overflow-x: auto;
-  overflow-y: auto;
-  height: 100%;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading {
-  align-items: center;
-  background: #fff;
-  display: none;
-  justify-content: center;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  z-index: 1000;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap {
-  align-items: baseline;
-  display: flex;
-  justify-content: center;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .loading-text {
-  font-size: 2rem;
-  margin-right: 6px;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-dot,
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap:after,
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap:before {
-  content: "";
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-  animation-name: LOADING;
-  background: #212529;
-  border-radius: 50%;
-  display: block;
-  height: 5px;
-  margin: 0 4px;
-  opacity: 0;
-  width: 5px;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-dot {
-  animation-delay: 0.3s;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap:after {
-  animation-delay: 0.6s;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark {
-  background: #212529;
-}
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-dot,
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-wrap:after,
-.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-wrap:before {
-  background: #fff;
 }
 .bootstrap-table .fixed-table-container .table {
   width: 100%;
@@ -179,6 +107,9 @@
 .bootstrap-table .fixed-table-container .table tbody tr.no-records-found {
   text-align: center;
 }
+.bootstrap-table .fixed-table-container .table tbody tr .card-view {
+  display: flex;
+}
 .bootstrap-table .fixed-table-container .table tbody tr .card-view .card-view-title {
   font-weight: bold;
   display: inline-block;
@@ -195,10 +126,88 @@
 .bootstrap-table .fixed-table-container .table.table-sm .th-inner {
   padding: 0.3rem;
 }
+.bootstrap-table .fixed-table-container.fixed-height:not(.has-footer) {
+  border-bottom: 1px solid #dee2e6;
+}
+.bootstrap-table .fixed-table-container.fixed-height.has-card-view {
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+.bootstrap-table .fixed-table-container.fixed-height .fixed-table-border {
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+}
+.bootstrap-table .fixed-table-container.fixed-height .table thead th {
+  border-bottom: 1px solid #dee2e6;
+}
+.bootstrap-table .fixed-table-container.fixed-height .table-dark thead th {
+  border-bottom: 1px solid #32383e;
+}
+.bootstrap-table .fixed-table-container .fixed-table-header {
+  overflow: hidden;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body {
+  overflow-x: auto;
+  overflow-y: auto;
+  height: 100%;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading {
+  align-items: center;
+  background: #fff;
+  display: none;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap {
+  align-items: baseline;
+  display: flex;
+  justify-content: center;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .loading-text {
+  font-size: 2rem;
+  margin-right: 6px;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-dot,
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap::after,
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap::before {
+  content: "";
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-name: LOADING;
+  background: #212529;
+  border-radius: 50%;
+  display: block;
+  height: 5px;
+  margin: 0 4px;
+  opacity: 0;
+  width: 5px;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-dot {
+  animation-delay: 0.3s;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-wrap::after {
+  animation-delay: 0.6s;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark {
+  background: #212529;
+}
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-dot,
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-wrap::after,
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-wrap::before {
+  background: #fff;
+}
 .bootstrap-table .fixed-table-container .fixed-table-footer {
   overflow: hidden;
 }
-.bootstrap-table .fixed-table-pagination:after {
+.bootstrap-table .fixed-table-pagination::after {
   content: "";
   display: block;
   clear: both;
@@ -233,10 +242,10 @@
 .bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.page-intermediate a {
   color: #c8c8c8;
 }
-.bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.page-intermediate a:before {
+.bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.page-intermediate a::before {
   content: "⬅";
 }
-.bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.page-intermediate a:after {
+.bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.page-intermediate a::after {
   content: "➡";
 }
 .bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.disabled a {
@@ -249,7 +258,7 @@
   left: 0;
   z-index: 1050;
   width: 100% !important;
-  background: #FFF;
+  background: #fff;
 }
 
 /* calculate scrollbar width */
