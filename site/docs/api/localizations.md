@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Localizations
-description: The Methods API of Bootstrap Table.
+description: The Localizations API of Bootstrap Table.
 group: api
 toc: true
 ---
@@ -38,6 +38,16 @@ $('#table').bootstrapTable({
 })
 {% endhighlight %}
 
+You can custom the format localizations, the calling syntax:
+
+{% highlight javascript %}
+$('#table').bootstrapTable({
+  formatName: function () {
+    return 'Format message'
+  }
+})
+{% endhighlight %}
+
 ## formatLoadingMessage
 
 - **Parameter:** `undefined`
@@ -56,6 +66,24 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Showing %s to %s of %s rows'`
 
+## formatSRPaginationPreText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'previous page'`
+
+## formatSRPaginationPageText
+
+- **Parameter:** `page`
+
+- **Default:** `'to page %s`
+
+## formatSRPaginationNextText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'next page'`
+
 ## formatDetailPagination
 
 - **Parameter:** `totalRows`
@@ -68,11 +96,35 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Search'`
 
+## formatClearSearch
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Clear Search'`
+
 ## formatNoMatches
 
 - **Parameter:** `undefined`
 
 - **Default:** `'No matching records found'`
+
+## formatPaginationSwitch
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Hide/Show pagination'`
+
+## formatPaginationSwitchDown
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Show pagination'`
+
+## formatPaginationSwitchUp
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Hide pagination'`
 
 ## formatRefresh
 
@@ -86,20 +138,38 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Toggle'`
 
+## formatToggleOn
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Show card view'`
+
+## formatToggleOff
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Hide card view'`
+
 ## formatColumns
 
 - **Parameter:** `undefined`
 
 - **Default:** `'Columns'`
 
-## formatAllRows
+## formatColumnsToggleAll
 
 - **Parameter:** `undefined`
 
-- **Default:** `'All'`
+- **Default:** `'Toggle all'`
 
 ## formatFullscreen
 
 - **Parameter:** `undefined`
 
 - **Default:** `'Fullscreen'`
+
+## formatAllRows
+
+- **Parameter:** `undefined`
+
+- **Default:** `'All'`

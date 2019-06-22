@@ -134,25 +134,27 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **jQuery Event:** `check-all.bs.table`
 
-- **Parameter:** `rows`
+- **Parameter:** `rowsAfter, rowsBefore`
 
 - **Detail:**
 
   Fires when user check all rows, the parameters contain:
 
-  * `rows`: array of records corresponding to newly checked rows.
+  * `rowsAfter`: array of records of the now checked rows.
+  * `rowsBefore`: array of records of the checked rows before.
 
 ## onUncheckAll
 
 - **jQuery Event:** `uncheck-all.bs.table`
 
-- **Parameter:** `rows`
+- **Parameter:** `rowsAfter, rowsBefore`
 
 - **Detail:**
 
   Fires when user uncheck all rows, the parameters contain:
 
-  * `rows`: array of records corresponding to previously checked rows.
+  * `rowsAfter`: array of records of the now checked rows.
+  * `rowsBefore`: array of records of the checked rows before.
 
 ## onCheckSome
 
@@ -211,7 +213,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **Detail:**
 
-  Fires when switch the column visible, the parameters contain:
+  Fires when switch the column visible ([showColumns](/docs/api/table-options/#showcolumns)), the parameters contain:
 
   * `field`: the field name corresponding to the switch column.
   * `checked`: the checked state of the column.
@@ -287,6 +289,18 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   Fires after the table header is rendered and available in the DOM.
 
+## onPostFooter
+
+- **jQuery Event:** `post-footer.bs.table`
+
+- **Parameter:** `$tableFooter`
+
+- **Detail:**
+
+  Fires after the footer is rendered and available in the DOM, the parameters contain:
+
+  * `$tableFooter`: the DOM element of the footer.
+
 ## onExpandRow
 
 - **jQuery Event:** `expand-row.bs.table`
@@ -305,7 +319,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **jQuery Event:** `collapse-row.bs.table`
 
-- **Parameter:** `index, row`
+- **Parameter:** `index, row, detailView`
 
 - **Detail:**
 
@@ -313,6 +327,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   * `index`: the index of the collapsed row.
   * `row`: the record corresponding to the collapsed row.
+  * `detailView`: the collapsed detailView.
 
 ## onRefreshOptions
 

@@ -8,30 +8,6 @@ toc: true
 
 The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
-## radio
-
-- **Attribute:** `data-radio`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to show a radio. The radio column has fixed width.
-
-- **Default:** `false`
-
-## checkbox
-
-- **Attribute:** `data-checkbox`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to show a checkbox. The checkbox column has fixed width.
-
-- **Default:** `false`
-
 ## field
 
 - **Attribute:** `data-field`
@@ -43,6 +19,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   The column field name.
 
 - **Default:** `undefined`
+
+- **Example:** [Column Field](https://examples.bootstrap-table.com/#column-options/field.html)
 
 ## title
 
@@ -56,6 +34,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Column Title](https://examples.bootstrap-table.com/#column-options/title.html)
+
 ## titleTooltip
 
 - **Attribute:** `data-title-tooltip`
@@ -67,6 +47,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   The column title tooltip text. This option also support the title HTML attribute.
 
 - **Default:** `undefined`
+
+- **Example:** [Title Tooltip](https://examples.bootstrap-table.com/#column-options/title-tooltip.html)
 
 ## class
 
@@ -80,6 +62,36 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Column Class](https://examples.bootstrap-table.com/#column-options/class.html)
+
+## width
+
+- **Attribute:** `data-width`
+
+- **Type:** `Number`
+
+- **Detail:**
+
+  The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this `'width'` might be ignored (use min/max-width via class or such then). The default used Unit is 'px', use `widthUnit` to change it!
+
+- **Default:** `undefined`
+
+- **Example:** [Column Width](https://examples.bootstrap-table.com/#column-options/width.html)
+
+## widthUnit
+
+- **Attribute:** `data-width-unit`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines the unit which is used for the option `width`.
+
+- **Default:** `px`
+
+- **Example:** [Width Unit](https://examples.bootstrap-table.com/#column-options/width-unit.html)
+
 ## rowspan
 
 - **Attribute:** `rowspan | data-rowspan`
@@ -91,6 +103,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   Indicate how many rows a cell should take up.
 
 - **Default:** `undefined`
+
+- **Example:** [Rowspan Colspan](https://examples.bootstrap-table.com/#column-options/rowspan-colspan.html)
 
 ## colspan
 
@@ -104,6 +118,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Rowspan Colspan](https://examples.bootstrap-table.com/#column-options/rowspan-colspan.html)
+
 ## align
 
 - **Attribute:** `data-align`
@@ -115,6 +131,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   Indicate how to align the column data. `'left'`, `'right'`, `'center'` can be used.
 
 - **Default:** `undefined`
+
+- **Example:** [Aligning Columns](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
 
 ## halign
 
@@ -128,6 +146,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Aligning Columns](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
+
 ## falign
 
 - **Attribute:** `data-falign`
@@ -139,6 +159,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   Indicate how to align the table footer. `'left'`, `'right'`, `'center'` can be used.
 
 - **Default:** `undefined`
+
+- **Example:** [Aligning Footer](https://examples.bootstrap-table.com/#column-options/aligning-footer.html)
 
 ## valign
 
@@ -152,17 +174,104 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-## width
+- **Example:** [Aligning Columns](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
 
-- **Attribute:** `data-width`
+## cellStyle
 
-- **Type:** `Number | String`
+- **Attribute:** `data-cell-style`
+
+- **Type:** `Function`
 
 - **Detail:**
 
-  The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this `'width'` might be ignored (use min/max-width via class or such then). Also you can add `'%'` to your number and the Bootstrap Table will use the percentage unit, otherwise, leave as number (or add `'px'`) to make it use pixels.
+  The cell style formatter function, take four parameters:
+
+  * `value`: the field value.
+  * `row`: the row record data.
+  * `index`: the row index.
+  * `field`: the row field.
+
+  Support classes or css.
 
 - **Default:** `undefined`
+
+- **Example:** [Cell Style](https://examples.bootstrap-table.com/#column-options/cell-style.html)
+
+## radio
+
+- **Attribute:** `data-radio`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a radio. The radio column has fixed width.
+
+  If a value is given the Checkbox is automatically checked.
+  Its also possible to check/uncheck the radio by use an formatter (return `true` to check, return `false` to uncheck).
+
+- **Default:** `false`
+
+- **Example:** [Column Radio](https://examples.bootstrap-table.com/#column-options/radio.html)
+
+## checkbox
+
+- **Attribute:** `data-checkbox`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a checkbox. The checkbox column has fixed width.
+
+  If a value is given the Checkbox is automatically checked.
+  Its also possible to check/uncheck the checkbox by use an formatter (return `true` to check, return `false` to uncheck).
+
+- **Default:** `false`
+
+- **Example:** [Column Checkbox](https://examples.bootstrap-table.com/#column-options/checkbox.html)
+
+## checkboxEnabled
+
+- **Attribute:** `data-checkbox-enabled`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to disable the the checkboxes/radioboxes.
+
+- **Default:** `true`
+
+- **Example:** [Checkbox Enabled](https://examples.bootstrap-table.com/#column-options/checkbox-enabled.html) and [Checkbox Disabled](https://examples.bootstrap-table.com/#column-options/checkbox-disabled.html)
+
+## clickToSelect
+
+- **Attribute:** `data-click-to-select`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to select checkbox or radiobox when clicking rows.
+
+- **Default:** `false`
+
+- **Example:** [Click to Select](https://examples.bootstrap-table.com/#column-options/click-to-select.html)
+
+## showSelectTitle
+
+- **Attribute:** `data-show-select-title`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
+
+- **Default:** `false`
+
+- **Example:** [Show Select Title](https://examples.bootstrap-table.com/#column-options/show-select-title.html)
 
 ## sortable
 
@@ -176,6 +285,22 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `false`
 
+- **Example:** [Column Sortable](https://examples.bootstrap-table.com/#column-options/sortable.html)
+
+## sortName
+
+- **Attribute:** `data-sort-name`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Provide a customizable sort-name, not the default sort-name in the header, or the field name of the column. For example, a column might display the value of fieldName of 'html' such as `<b><span style="color:red">abc</span></b>`, but a fieldName to sort is 'content' with the value of `'abc'`.
+
+- **Default:** `undefined`
+
+- **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
+
 ## order
 
 - **Attribute:** `data-order`
@@ -187,6 +312,27 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   The default sort order, can only be `'asc'` or `'desc'`.
 
 - **Default:** `'asc'`
+
+- **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
+
+## sorter
+
+- **Attribute:** `data-sorter`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  The custom field sort function that used to do local sorting, take four parameters:
+
+  * `fieldA`: the first field value.
+  * `fieldB`: the second field value.
+  * `rowA`: the first row.
+  * `rowB`: the second row.
+
+- **Default:** `undefined`
+
+- **Example:** [Column Sorter](https://examples.bootstrap-table.com/#column-options/column-sorter.html)
 
 ## visible
 
@@ -200,17 +346,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
-## cardVisible
 
-- **Attribute:** `data-card-visible`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `false` to hide the columns item in card view state.
-
-- **Default:** `true`
+- **Example:** [Column Visible](https://examples.bootstrap-table.com/#column-options/visible.html)
 
 ## switchable
 
@@ -224,17 +361,35 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
-## clickToSelect
+- **Example:** [Column Switchable](https://examples.bootstrap-table.com/#column-options/switchable.html)
 
-- **Attribute:** `data-click-to-select`
+## cardVisible
+
+- **Attribute:** `data-card-visible`
 
 - **Type:** `Boolean`
 
 - **Detail:**
 
-  Set `true` to select checkbox or radio when the column is clicked.
+  Set `false` to hide the columns item in card view state.
 
 - **Default:** `true`
+
+- **Example:** [Card Visible](https://examples.bootstrap-table.com/#column-options/card-visible.html)
+
+## searchable
+
+- **Attribute:** `data-searchable`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to search data for this column.
+
+- **Default:** `true`
+
+- **Example:** [Column Searchable](https://examples.bootstrap-table.com/#column-options/searchable.html)
 
 ## formatter
 
@@ -255,6 +410,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [Column Formatter](https://examples.bootstrap-table.com/#column-options/format.html)
+
 ## footerFormatter
 
 - **Attribute:** `data-footer-formatter`
@@ -272,6 +429,52 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   the function should return a string with the text to show in the footer cell.
 
 - **Default:** `undefined`
+
+- **Example:** [Footer Formatter](https://examples.bootstrap-table.com/#column-options/footer-formatter.html)
+
+## detailFormatter
+
+- **Attribute:** `data-detail-formatter`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  Format your detail view when `detailView` and `detailViewByClick` is set to `true`. Return a `String` and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
+
+  Fallback is the detail-formatter of the table.
+
+- **Default:** `function(index, row, $element) { return '' }`
+
+- **Example:** [Detail Formatter](https://examples.bootstrap-table.com/#column-options/detail-formatter.html)
+
+## searchFormatter
+
+- **Attribute:** `data-search-formatter`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to search use formatted data.
+
+- **Default:** `true`
+
+- **Example:** [Search Formatter](https://examples.bootstrap-table.com/#column-options/format-search.html)
+
+## escape
+
+- **Attribute:** `data-escape`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Escapes a string for insertion into HTML, replacing &, <, >, ", \`, and ' characters.
+
+- **Default:** `false`
+
+- **Example:** [Column Escape](https://examples.bootstrap-table.com/#column-options/escape.html)
 
 ## events
 
@@ -299,98 +502,4 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `undefined`
 
-## sorter
-
-- **Attribute:** `data-sorter`
-
-- **Type:** `Function`
-
-- **Detail:**
-
-  The custom field sort function that used to do local sorting, take four parameters:
-
-  * `a`: the first field value.
-  * `b`: the second field value.
-  * `rowA`: the first row.
-  * `rowB`: the second row.
-
-- **Default:** `undefined`
-
-## sortName
-
-- **Attribute:** `data-sort-name`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Provide a customizable sort-name, not the default sort-name in the header, or the field name of the column. For example, a column might display the value of fieldName of 'html' such as `<b><span style="color:red">abc</span></b>`, but a fieldName to sort is 'content' with the value of `'abc'`.
-
-- **Default:** `undefined`
-
-## cellStyle
-
-- **Attribute:** `data-cell-style`
-
-- **Type:** `Function`
-
-- **Detail:**
-
-  The cell style formatter function, take four parameters:
-
-  * `value`: the field value.
-  * `row`: the row record data.
-  * `index`: the row index.
-  * `field`: the row field.
-
-  Support classes or css.
-
-- **Default:** `undefined`
-
-## searchable
-
-- **Attribute:** `data-searchable`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to search data for this column.
-
-- **Default:** `true`
-
-## searchFormatter
-
-- **Attribute:** `data-search-formatter`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to search use formatted data.
-
-- **Default:** `true`
-
-## escape
-
-- **Attribute:** `data-escape`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Escapes a string for insertion into HTML, replacing &, <, >, ", \`, and ' characters.
-
-- **Default:** `false`
-
-## showSelectTitle
-
-- **Attribute:** `data-show-select-title`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to show the title of column with 'radio' or 'singleSelect' 'checkbox' option.
-
-- **Default:** `false`
+- **Example:** [Column Events](https://examples.bootstrap-table.com/#column-options/events.html)

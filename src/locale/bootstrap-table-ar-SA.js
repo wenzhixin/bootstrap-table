@@ -2,63 +2,90 @@
  * Bootstrap Table English translation
  * Author: Zhixin Wen<wenzhixin2010@gmail.com>
  */
-($ => {
-  $.fn.bootstrapTable.locales['ar-SA'] = {
-    formatLoadingMessage () {
-      return 'جاري التحميل, يرجى الإنتظار'
-    },
-    formatRecordsPerPage (pageNumber) {
-      return `${pageNumber} سجل لكل صفحة`
-    },
-    formatShowingRows (pageFrom, pageTo, totalRows) {
-      return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل`
-    },
-    formatDetailPagination (totalRows) {
-      return `Showing ${totalRows} rows`
-    },
-    formatSearch () {
-      return 'بحث'
-    },
-    formatNoMatches () {
-      return 'لا توجد نتائج مطابقة للبحث'
-    },
-    formatPaginationSwitch () { /* eslint-disable no-useless-escape */
-      return 'إخفاء\إظهار ترقيم الصفحات'
-    },
-    formatRefresh () {
-      return 'تحديث'
-    },
-    formatToggle () {
-      return 'تغيير'
-    },
-    formatColumns () {
-      return 'أعمدة'
-    },
-    formatFullscreen () {
-      return 'Fullscreen'
-    },
-    formatAllRows () {
-      return 'All'
-    },
-    formatAutoRefresh () {
-      return 'Auto Refresh'
-    },
-    formatExport () {
-      return 'Export data'
-    },
-    formatClearFilters () {
-      return 'Clear filters'
-    },
-    formatJumpto () {
-      return 'GO'
-    },
-    formatAdvancedSearch () {
-      return 'Advanced search'
-    },
-    formatAdvancedCloseButton () {
-      return 'Close'
-    }
-  }
 
-  $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ar-SA'])
-})(jQuery)
+$.fn.bootstrapTable.locales['ar-SA'] = {
+  formatLoadingMessage () {
+    return 'جاري التحميل, يرجى الإنتظار'
+  },
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} سجل لكل صفحة`
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل ${totalNotFiltered} total rows)`
+    }
+
+    return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل`
+  },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Clear Search'
+  },
+  formatSearch () {
+    return 'بحث'
+  },
+  formatNoMatches () {
+    return 'لا توجد نتائج مطابقة للبحث'
+  },
+  formatPaginationSwitch () { /* eslint-disable no-useless-escape */
+    return 'إخفاء\إظهار ترقيم الصفحات'
+  },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+  formatRefresh () {
+    return 'تحديث'
+  },
+  formatToggle () {
+    return 'تغيير'
+  },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
+  formatColumns () {
+    return 'أعمدة'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+  formatAllRows () {
+    return 'All'
+  },
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+  formatExport () {
+    return 'Export data'
+  },
+  formatJumpTo () {
+    return 'GO'
+  },
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+  formatAdvancedCloseButton () {
+    return 'Close'
+  }
+}
+
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ar-SA'])

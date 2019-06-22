@@ -24,7 +24,7 @@ To get started, check out:
 
 ## LICENSE
 
-**NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
+**NOTE:** Bootstrap Table is licensed under [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
 
 ## Features
 
@@ -78,13 +78,13 @@ For feature requests, bug reports or submitting pull requests, please ensure you
 
 As stated above, please read [CONTRIBUTING.md](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTING.md), especially [Bug Reports](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTING.md#bug-reports)
 
-And as stated there, please provide jsFiddle when creating issues!
+And as stated there, please provide an [Online Example](https://live.bootstrap-table.com) when creating issues!
 
 It's really saves much time.
 
-You can also use these for templates:
+You can also use our examples template via Load Examples button:
 
-[jsFiddle Bootstrap Table](https://github.com/wenzhixin/bootstrap-table/issues/1765)
+[Online Editor](https://live.bootstrap-table.com/)
 
 Your feedback is very appreciated!
 

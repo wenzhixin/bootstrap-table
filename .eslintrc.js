@@ -64,7 +64,7 @@ module.exports = {
     'no-useless-constructor': 'warn',
     'comma-dangle': ['error', 'never'],
     'no-param-reassign': 'off',
-    "space-before-function-paren": ["error", "always"]
+    'space-before-function-paren': ["error", "always"]
   },
   'globals': {
     '$': true,

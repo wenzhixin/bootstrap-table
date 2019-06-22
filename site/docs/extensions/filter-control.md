@@ -29,15 +29,15 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `false`
 
-### filterShowClear
+### filterDataCollector
 
-- **type:** `Boolean`
+- **type:** `Function`
 
 - **Detail:**
 
-   Set true to add a button to clear all the controls added by this plugin.
+   Collect data which will added to the select filter, to filter through e.g. labels which are comma separated and displayed with a formatter.
 
-- **Default:** `false`
+- **Default:** `undefined`
 
 ### alignmentSelectControlOptions
 
@@ -101,6 +101,16 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `undefined`
 
+### filterDefault
+
+- **type:** `String`
+
+- **Detail:**
+
+   Set the default value of the filter.
+
+- **Default:** `undefined`
+
 ### filterDatepickerOptions
 - **type:** `Object`
 
@@ -137,6 +147,15 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `''`
 
+### filterOrderBy
+- **type:** `String`
+
+- **Detail:**
+
+   Set this to order the options in a select control whether ascending or descending.
+
+- **Default:** `'asc'`
+
 ### Icons
 * clear: 'glyphicon-trash icon-clear'
 
@@ -162,3 +181,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### triggerSearch
 
 * Trigger manually the search action
+
+### clearFilterControl
+
+* Clear all the controls added by this plugin (similar to filterShowClear option).
