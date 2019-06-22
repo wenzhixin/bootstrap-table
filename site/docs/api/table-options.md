@@ -145,6 +145,36 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Locale](https://examples.bootstrap-table.com/#options/table-locale.html)
 
+## virtualScroll
+
+- **Attribute:** `data-virtual-scroll`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to enable virtual scroll to displays a virtual, "infinite" list.
+
+- **Default:** `false`
+
+- **Example:** [Large Data](https://examples.bootstrap-table.com/#options/large-data.html)
+
+## virtualScrollItemHeight
+
+- **Attribute:** `data-virtual-scroll-item-height`
+
+- **Type:** `Number`
+
+- **Detail:**
+
+  If this option is not define, we will use the height of the first item by default.
+
+  It is **important** to provide this if virtual item height will be significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized, and to help calculate the height of the scrollable area. This height value can only use `px` units.
+
+- **Default:** `undefined`
+
+- **Example:** [Virtual Scroll Item Height](https://examples.bootstrap-table.com/#options/virtual-scroll-item-height.html)
+
 ## sortable
 
 - **Attribute:** `data-sortable`

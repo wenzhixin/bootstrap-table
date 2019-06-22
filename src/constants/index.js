@@ -118,6 +118,8 @@ const DEFAULTS = {
   },
   undefinedText: '-',
   locale: undefined,
+  virtualScroll: false,
+  virtualScrollItemHeight: undefined,
   sortable: true,
   sortClass: undefined,
   silentSort: true,
