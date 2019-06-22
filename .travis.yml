@@ -24,4 +24,4 @@ jobs:
 env:
   global:
   - ENCRYPTION_LABEL: "5453d0fdf68a"
-  - COMMIT_AUTHOR_EMAIL: "wenzhixin2010@gmail.com
+  - COMMIT_AUTHOR_EMAIL: "wenzhixin2010@gmail.com"
