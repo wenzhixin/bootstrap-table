@@ -58,7 +58,7 @@ ChangeLog
 - **New(filter-control):** Added `filterOrderBy` and filterDefault column options.
 - **New(multiple-sort):** Added bootstrap v4 theme support.
 - **New(print):** Added RTL dir support.
-- **Remove:** Removed multi-column-toggle, multiple-search, multiple-selection-row, group-by and tree-column extensions.
+- **Remove:** Removed group-by, multi-column-toggle, multiple-search, multiple-selection-row, select2-filter and tree-column extensions.
 - **Update(cookie):** Fixed cookie search cannot work bug.
 - **Update(editable):** Updated parameters of `onEditableSave` to `field, row, rowIndex, oldValue, $el`.
 - **Update(editable):** Fixed editable rerender bug after saving data.
