@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -362,6 +380,7 @@
 <li class="toc-entry toc-h2"><a href="#onprebody">onPreBody</a></li>
 <li class="toc-entry toc-h2"><a href="#onpostbody">onPostBody</a></li>
 <li class="toc-entry toc-h2"><a href="#onpostheader">onPostHeader</a></li>
+<li class="toc-entry toc-h2"><a href="#onpostfooter">onPostFooter</a></li>
 <li class="toc-entry toc-h2"><a href="#onexpandrow">onExpandRow</a></li>
 <li class="toc-entry toc-h2"><a href="#oncollapserow">onCollapseRow</a></li>
 <li class="toc-entry toc-h2"><a href="#onrefreshoptions">onRefreshOptions</a></li>
@@ -579,7 +598,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">check-all.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">rows</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">rowsAfter, rowsBefore</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -587,7 +606,8 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <p>Fires when user check all rows, the parameters contain:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">rows</code>: array of records corresponding to newly checked rows.</li>
+      <li><code class="highlighter-rouge">rowsAfter</code>: array of records of the now checked rows.</li>
+      <li><code class="highlighter-rouge">rowsBefore</code>: array of records of the checked rows before.</li>
     </ul>
   </li>
 </ul>
@@ -599,7 +619,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">uncheck-all.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">rows</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">rowsAfter, rowsBefore</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -607,7 +627,8 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <p>Fires when user uncheck all rows, the parameters contain:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">rows</code>: array of records corresponding to previously checked rows.</li>
+      <li><code class="highlighter-rouge">rowsAfter</code>: array of records of the now checked rows.</li>
+      <li><code class="highlighter-rouge">rowsBefore</code>: array of records of the checked rows before.</li>
     </ul>
   </li>
 </ul>
@@ -705,7 +726,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Fires when switch the column visible, the parameters contain:</p>
+    <p>Fires when switch the column visible (<a href="/docs/api/table-options/#showcolumns">showColumns</a>), the parameters contain:</p>
 
     <ul>
       <li><code class="highlighter-rouge">field</code>: the field name corresponding to the switch column.</li>
@@ -831,6 +852,26 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   </li>
 </ul>
 
+<h2 id="onpostfooter">onPostFooter</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">post-footer.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">$tableFooter</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires after the footer is rendered and available in the DOM, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">$tableFooter</code>: the DOM element of the footer.</li>
+    </ul>
+  </li>
+</ul>
+
 <h2 id="onexpandrow">onExpandRow</h2>
 
 <ul>
@@ -860,7 +901,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">collapse-row.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">index, row</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">index, row, detailView</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -870,6 +911,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <ul>
       <li><code class="highlighter-rouge">index</code>: the index of the collapsed row.</li>
       <li><code class="highlighter-rouge">row</code>: the record corresponding to the collapsed row.</li>
+      <li><code class="highlighter-rouge">detailView</code>: the collapsed detailView.</li>
     </ul>
   </li>
 </ul>

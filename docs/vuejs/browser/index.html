@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An overview of Bootstrap Table, how to download and use, basic templates, and more.">
+<meta name="description" content="Learn how to use Bootstrap Table Vue Component in your project using browser.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
 <meta name="generator" content="Jekyll v3.8.5">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
 
-<title>Introduction · Bootstrap Table</title>
+<title>Browser · Bootstrap Table</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><!-- Documentation extras -->
 
@@ -128,12 +128,12 @@
 </button>
 </form>
 
-<nav class="collapse bd-links" id="bd-docs-nav"><div class="bd-toc-item active">
+<nav class="collapse bd-links" id="bd-docs-nav"><div class="bd-toc-item">
     <a class="bd-toc-link" href="/docs/getting-started/introduction/">
       Getting started
     </a>
 
-    <ul class="nav bd-sidenav"><li class="active bd-sidenav-active">
+    <ul class="nav bd-sidenav"><li>
           <a href="/docs/getting-started/introduction/">
             Introduction
           </a>
@@ -302,7 +302,7 @@
             Treegrid
           </a>
         </li></ul>
-  </div><div class="bd-toc-item">
+  </div><div class="bd-toc-item active">
     <a class="bd-toc-link" href="/docs/vuejs/introduction/">
       VueJS
     </a>
@@ -311,7 +311,7 @@
           <a href="/docs/vuejs/introduction/">
             Introduction
           </a>
-        </li><li>
+        </li><li class="active bd-sidenav-active">
           <a href="/docs/vuejs/browser/">
             Browser
           </a>
@@ -359,25 +359,16 @@
         
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#quick-start">Quick start</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#css">CSS</a></li>
-<li class="toc-entry toc-h3"><a href="#js">JS</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#starter-template">Starter template</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#html5-doctype">HTML5 doctype</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#community">Community</a></li>
+<li class="toc-entry toc-h2"><a href="#vuejs-javascript">VueJS JavaScript</a></li>
+<li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#starter-template">Starter template</a></li>
 </ul>
           </div>
         
 
-        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content getting-started" role="main">
-          <h1 class="bd-title" id="content">Introduction</h1>
-          <p class="bd-lead">An overview of Bootstrap Table, how to download and use, basic templates, and more.</p>
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content vuejs" role="main">
+          <h1 class="bd-title" id="content">Browser</h1>
+          <p class="bd-lead">Learn how to use Bootstrap Table Vue Component in your project using browser.</p>
           <style>
 #codefund #cf {
   margin: 0!important;
@@ -389,29 +380,54 @@
 <div id="codefund"><!-- fallback content --></div>
 <script src="https://codefund.io/properties/291/funder.js" async="async"></script>
 
-          <h2 id="quick-start">Quick start</h2>
+          <h2 id="vuejs-javascript">VueJS JavaScript</h2>
 
-<p>Looking to quickly add Bootstrap Table to your <a href="https://getbootstrap.com/" target="_blank">Bootstrap v4</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? <a href="/docs/getting-started/download/">Head to the downloads page</a>.</p>
+<p>In addition to the files that <a href="/docs/getting-started/introduction/#quick-start">Quick start</a> mentions, you also need to include our vue component file.</p>
 
-<h3 id="css">CSS</h3>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.15.0/dist/bootstrap-table-vue.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
-<p>Copy-paste the stylesheet <code class="highlighter-rouge">&lt;link&gt;</code> into your <code class="highlighter-rouge">&lt;head&gt;</code> before all other stylesheets to load our CSS.</p>
+<h2 id="usage">Usage</h2>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.15.0/dist/bootstrap-table.min.css"</span><span class="nt">&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"table"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;bootstrap-table</span> <span class="na">:columns=</span><span class="s">"columns"</span> <span class="na">:data=</span><span class="s">"data"</span> <span class="na">:options=</span><span class="s">"options"</span><span class="nt">&gt;&lt;/bootstrap-table&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
 
-<h3 id="js">JS</h3>
-
-<p>Place the following <code class="highlighter-rouge">&lt;script&gt;</code>s near the end of your pages, right before the closing <code class="highlighter-rouge">&lt;/body&gt;</code> tag, to enable them. jQuery must come first, then Bootstrap.js, and then our JavaScript plugins.</p>
-
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.15.0/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<span class="nt">&lt;script&gt;</span>
+  <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">'</span><span class="s1">BootstrapTable</span><span class="dl">'</span><span class="p">:</span> <span class="nx">BootstrapTable</span>
+    <span class="p">},</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">columns</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item ID</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Name</span><span class="dl">'</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">price</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Price</span><span class="dl">'</span>
+        <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="na">data</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 1</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$1</span><span class="dl">'</span>
+        <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">search</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">showColumns</span><span class="p">:</span> <span class="kc">true</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="nt">&lt;/script&gt;</span></code></pre></figure>
 
 <h2 id="starter-template">Starter template</h2>
-
-<p>Be sure to have your pages set up with the latest design and development standards. That means using an HTML5 doctype and including a viewport meta tag for proper responsive behaviors.</p>
-
-<p>For Bootstrap v4, we use <a href="https://fontawesome.com/icons">Font Awesome</a> as the default icons, so need to import Font Awesome link.</p>
-
-<p>Put it all together and your pages should look like this:</p>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
@@ -426,53 +442,73 @@
     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.15.0/dist/bootstrap-table.min.css"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;/head&gt;</span>
   <span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;table</span> <span class="na">data-toggle=</span><span class="s">"table"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;thead&gt;</span>
-        <span class="nt">&lt;tr&gt;</span>
-          <span class="nt">&lt;th&gt;</span>Item ID<span class="nt">&lt;/th&gt;</span>
-          <span class="nt">&lt;th&gt;</span>Item Name<span class="nt">&lt;/th&gt;</span>
-          <span class="nt">&lt;th&gt;</span>Item Price<span class="nt">&lt;/th&gt;</span>
-        <span class="nt">&lt;/tr&gt;</span>
-      <span class="nt">&lt;/thead&gt;</span>
-      <span class="nt">&lt;tbody&gt;</span>
-        <span class="nt">&lt;tr&gt;</span>
-          <span class="nt">&lt;td&gt;</span>1<span class="nt">&lt;/td&gt;</span>
-          <span class="nt">&lt;td&gt;</span>Item 1<span class="nt">&lt;/td&gt;</span>
-          <span class="nt">&lt;td&gt;</span>$1<span class="nt">&lt;/td&gt;</span>
-        <span class="nt">&lt;/tr&gt;</span>
-        <span class="nt">&lt;tr&gt;</span>
-          <span class="nt">&lt;td&gt;</span>2<span class="nt">&lt;/td&gt;</span>
-          <span class="nt">&lt;td&gt;</span>Item 2<span class="nt">&lt;/td&gt;</span>
-          <span class="nt">&lt;td&gt;</span>$2<span class="nt">&lt;/td&gt;</span>
-        <span class="nt">&lt;/tr&gt;</span>
-      <span class="nt">&lt;/tbody&gt;</span>
-    <span class="nt">&lt;/table&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"table"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;bootstrap-table</span> <span class="na">:columns=</span><span class="s">"columns"</span> <span class="na">:data=</span><span class="s">"data"</span> <span class="na">:options=</span><span class="s">"options"</span><span class="nt">&gt;&lt;/bootstrap-table&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
 
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://code.jquery.com/jquery-3.3.1.min.js"</span> <span class="na">integrity=</span><span class="s">"sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"</span> <span class="na">integrity=</span><span class="s">"sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"</span> <span class="na">integrity=</span><span class="s">"sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.15.0/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.15.0/dist/bootstrap-table-vue.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+      <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">'</span><span class="s1">BootstrapTable</span><span class="dl">'</span><span class="p">:</span> <span class="nx">BootstrapTable</span>
+        <span class="p">},</span>
+        <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">columns</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+              <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item ID</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+              <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Name</span><span class="dl">'</span>
+            <span class="p">},</span> <span class="p">{</span>
+              <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">price</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Price</span><span class="dl">'</span>
+            <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+              <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+              <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 1</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$1</span><span class="dl">'</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+              <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+              <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 2</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$2</span><span class="dl">'</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+              <span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+              <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 3</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$3</span><span class="dl">'</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+              <span class="na">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+              <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 4</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$4</span><span class="dl">'</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+              <span class="na">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+              <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 5</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$5</span><span class="dl">'</span>
+            <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">search</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">showColumns</span><span class="p">:</span> <span class="kc">true</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span></code></pre></figure>
 
-<h3 id="html5-doctype">HTML5 doctype</h3>
-
-<p>Bootstrap Table requires the use of the HTML5 doctype. Without it, you’ll see some funky incomplete styling, but including it shouldn’t cause any considerable hiccups.</p>
-
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
-<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
-  ...
-<span class="nt">&lt;/html&gt;</span></code></pre></figure>
-
-<h2 id="community">Community</h2>
-
-<p>Stay up to date on the development of Bootstrap Table and reach out to the community with these helpful resources.</p>
-
-<ul>
-  <li>Follow <a href="https://twitter.com/wenzhixin2010">@wenzhixin2010 on Twitter</a>.</li>
-  <li>Read <a href="/news">The Official Bootstrap Table News</a>.</li>
-  <li>Implementation help may be found at Stack Overflow (tagged <a href="https://stackoverflow.com/questions/tagged/bootstrap-table"><code class="highlighter-rouge">bootstrap-table</code></a>).</li>
-</ul>
 
         </main>
       </div>

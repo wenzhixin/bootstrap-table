@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="The Methods API of Bootstrap Table.">
+<meta name="description" content="The Localizations API of Bootstrap Table.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
 <meta name="generator" content="Jekyll v3.8.5">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -344,21 +362,31 @@
 <li class="toc-entry toc-h2"><a href="#formatloadingmessage">formatLoadingMessage</a></li>
 <li class="toc-entry toc-h2"><a href="#formatrecordsperpage">formatRecordsPerPage</a></li>
 <li class="toc-entry toc-h2"><a href="#formatshowingrows">formatShowingRows</a></li>
+<li class="toc-entry toc-h2"><a href="#formatsrpaginationpretext">formatSRPaginationPreText</a></li>
+<li class="toc-entry toc-h2"><a href="#formatsrpaginationpagetext">formatSRPaginationPageText</a></li>
+<li class="toc-entry toc-h2"><a href="#formatsrpaginationnexttext">formatSRPaginationNextText</a></li>
 <li class="toc-entry toc-h2"><a href="#formatdetailpagination">formatDetailPagination</a></li>
 <li class="toc-entry toc-h2"><a href="#formatsearch">formatSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#formatclearsearch">formatClearSearch</a></li>
 <li class="toc-entry toc-h2"><a href="#formatnomatches">formatNoMatches</a></li>
+<li class="toc-entry toc-h2"><a href="#formatpaginationswitch">formatPaginationSwitch</a></li>
+<li class="toc-entry toc-h2"><a href="#formatpaginationswitchdown">formatPaginationSwitchDown</a></li>
+<li class="toc-entry toc-h2"><a href="#formatpaginationswitchup">formatPaginationSwitchUp</a></li>
 <li class="toc-entry toc-h2"><a href="#formatrefresh">formatRefresh</a></li>
 <li class="toc-entry toc-h2"><a href="#formattoggle">formatToggle</a></li>
+<li class="toc-entry toc-h2"><a href="#formattoggleon">formatToggleOn</a></li>
+<li class="toc-entry toc-h2"><a href="#formattoggleoff">formatToggleOff</a></li>
 <li class="toc-entry toc-h2"><a href="#formatcolumns">formatColumns</a></li>
-<li class="toc-entry toc-h2"><a href="#formatallrows">formatAllRows</a></li>
+<li class="toc-entry toc-h2"><a href="#formatcolumnstoggleall">formatColumnsToggleAll</a></li>
 <li class="toc-entry toc-h2"><a href="#formatfullscreen">formatFullscreen</a></li>
+<li class="toc-entry toc-h2"><a href="#formatallrows">formatAllRows</a></li>
 </ul>
           </div>
         
 
         <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content api" role="main">
           <h1 class="bd-title" id="content">Localizations</h1>
-          <p class="bd-lead">The Methods API of Bootstrap Table.</p>
+          <p class="bd-lead">The Localizations API of Bootstrap Table.</p>
           <style>
 #codefund #cf {
   margin: 0!important;
@@ -394,6 +422,14 @@
   <span class="na">locale</span><span class="p">:</span> <span class="dl">'</span><span class="s1">en-US</span><span class="dl">'</span>
 <span class="p">})</span></code></pre></figure>
 
+<p>You can custom the format localizations, the calling syntax:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">({</span>
+  <span class="na">formatName</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="dl">'</span><span class="s1">Format message</span><span class="dl">'</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></figure>
+
 <h2 id="formatloadingmessage">formatLoadingMessage</h2>
 
 <ul>
@@ -427,6 +463,39 @@
   </li>
 </ul>
 
+<h2 id="formatsrpaginationpretext">formatSRPaginationPreText</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'previous page'</code></p>
+  </li>
+</ul>
+
+<h2 id="formatsrpaginationpagetext">formatSRPaginationPageText</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">page</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'to page %s</code></p>
+  </li>
+</ul>
+
+<h2 id="formatsrpaginationnexttext">formatSRPaginationNextText</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'next page'</code></p>
+  </li>
+</ul>
+
 <h2 id="formatdetailpagination">formatDetailPagination</h2>
 
 <ul>
@@ -449,6 +518,17 @@
   </li>
 </ul>
 
+<h2 id="formatclearsearch">formatClearSearch</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Clear Search'</code></p>
+  </li>
+</ul>
+
 <h2 id="formatnomatches">formatNoMatches</h2>
 
 <ul>
@@ -457,6 +537,39 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'No matching records found'</code></p>
+  </li>
+</ul>
+
+<h2 id="formatpaginationswitch">formatPaginationSwitch</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Hide/Show pagination'</code></p>
+  </li>
+</ul>
+
+<h2 id="formatpaginationswitchdown">formatPaginationSwitchDown</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Show pagination'</code></p>
+  </li>
+</ul>
+
+<h2 id="formatpaginationswitchup">formatPaginationSwitchUp</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Hide pagination'</code></p>
   </li>
 </ul>
 
@@ -482,6 +595,28 @@
   </li>
 </ul>
 
+<h2 id="formattoggleon">formatToggleOn</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Show card view'</code></p>
+  </li>
+</ul>
+
+<h2 id="formattoggleoff">formatToggleOff</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Hide card view'</code></p>
+  </li>
+</ul>
+
 <h2 id="formatcolumns">formatColumns</h2>
 
 <ul>
@@ -493,14 +628,14 @@
   </li>
 </ul>
 
-<h2 id="formatallrows">formatAllRows</h2>
+<h2 id="formatcolumnstoggleall">formatColumnsToggleAll</h2>
 
 <ul>
   <li>
     <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'All'</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Toggle all'</code></p>
   </li>
 </ul>
 
@@ -512,6 +647,17 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'Fullscreen'</code></p>
+  </li>
+</ul>
+
+<h2 id="formatallrows">formatAllRows</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'All'</code></p>
   </li>
 </ul>
 

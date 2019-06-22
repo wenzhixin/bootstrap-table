@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -413,7 +431,7 @@
 
     <ul>
       <li><code class="highlighter-rouge">page</code>: page number</li>
-      <li><code class="highlighter-rouge">limit</code>: page size</li>
+      <li><code class="highlighter-rouge">size</code>: page size</li>
       <li><code class="highlighter-rouge">order</code>: asc/dsc</li>
       <li><code class="highlighter-rouge">sort</code>: the sort keyword</li>
       <li><code class="highlighter-rouge">search</code>: search keyword</li>
@@ -429,15 +447,7 @@
 <h2 id="note">Note</h2>
 
 <ul>
-  <li>
-    <p>Can not use in client pagination.</p>
-  </li>
-  <li>
-    <p>The example page doesn’t handle the sort and search operation, you need do it yourself.</p>
-  </li>
-  <li>
-    <p>While search field appeared, the page number will return to 1 when refresh, you can read <a href="https://github.com/wenzhixin/bootstrap-table/issues/2580">同时设置 pageNumber 和 searchText 初始值会冲突</a>.</p>
-  </li>
+  <li>Only support server side pagination.</li>
 </ul>
 
         </main>

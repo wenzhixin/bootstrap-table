@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -345,7 +363,7 @@
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#filtercontrol">filterControl</a></li>
-<li class="toc-entry toc-h3"><a href="#filtershowclear">filterShowClear</a></li>
+<li class="toc-entry toc-h3"><a href="#filterdatacollector">filterDataCollector</a></li>
 <li class="toc-entry toc-h3"><a href="#alignmentselectcontroloptions">alignmentSelectControlOptions</a></li>
 <li class="toc-entry toc-h3"><a href="#hideunusedselectoptions">hideUnusedSelectOptions</a></li>
 <li class="toc-entry toc-h3"><a href="#disablecontrolwhensearch">disableControlWhenSearch</a></li>
@@ -356,10 +374,12 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#filtercontrol-1">filterControl</a></li>
 <li class="toc-entry toc-h3"><a href="#filterdata">filterData</a></li>
+<li class="toc-entry toc-h3"><a href="#filterdefault">filterDefault</a></li>
 <li class="toc-entry toc-h3"><a href="#filterdatepickeroptions">filterDatepickerOptions</a></li>
 <li class="toc-entry toc-h3"><a href="#filterstrictsearch">filterStrictSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#filterstartswithsearch">filterStartsWithSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercontrolplaceholder">filterControlPlaceholder</a></li>
+<li class="toc-entry toc-h3"><a href="#filterorderby">filterOrderBy</a></li>
 <li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
 </ul>
 </li>
@@ -377,6 +397,7 @@
 <li class="toc-entry toc-h2"><a href="#methods">Methods</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#triggersearch">triggerSearch</a></li>
+<li class="toc-entry toc-h3"><a href="#clearfiltercontrol">clearFilterControl</a></li>
 </ul>
 </li>
 </ul>
@@ -424,19 +445,19 @@
   </li>
 </ul>
 
-<h3 id="filtershowclear">filterShowClear</h3>
+<h3 id="filterdatacollector">filterDataCollector</h3>
 
 <ul>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set true to add a button to clear all the controls added by this plugin.</p>
+    <p>Collect data which will added to the select filter, to filter through e.g. labels which are comma separated and displayed with a formatter.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
 </ul>
 
@@ -538,6 +559,22 @@
   </li>
 </ul>
 
+<h3 id="filterdefault">filterDefault</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set the default value of the filter.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
 <h3 id="filterdatepickeroptions">filterDatepickerOptions</h3>
 <ul>
   <li>
@@ -598,6 +635,21 @@
   </li>
 </ul>
 
+<h3 id="filterorderby">filterOrderBy</h3>
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set this to order the options in a select control whether ascending or descending.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'asc'</code></p>
+  </li>
+</ul>
+
 <h3 id="icons">Icons</h3>
 <ul>
   <li>clear: ‘glyphicon-trash icon-clear’</li>
@@ -635,6 +687,12 @@
 
 <ul>
   <li>Trigger manually the search action</li>
+</ul>
+
+<h3 id="clearfiltercontrol">clearFilterControl</h3>
+
+<ul>
+  <li>Clear all the controls added by this plugin (similar to filterShowClear option).</li>
 </ul>
 
         </main>

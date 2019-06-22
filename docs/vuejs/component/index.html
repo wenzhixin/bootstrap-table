@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Table Group By extension of Bootstrap Table.">
+<meta name="description" content="The API of Bootstrap Table Vue Component.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
 <meta name="generator" content="Jekyll v3.8.5">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
 
-<title>Table Group By · Bootstrap Table</title>
+<title>Component · Bootstrap Table</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><!-- Documentation extras -->
 
@@ -184,7 +184,7 @@
             Localizations
           </a>
         </li></ul>
-  </div><div class="bd-toc-item active">
+  </div><div class="bd-toc-item">
     <a class="bd-toc-link" href="/docs/extensions/accent-neutralise/">
       Extensions
     </a>
@@ -233,7 +233,7 @@
           <a href="/docs/extensions/group-by-v2/">
             Group By v2
           </a>
-        </li><li class="active bd-sidenav-active">
+        </li><li>
           <a href="/docs/extensions/group-by/">
             Group By
           </a>
@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item active">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li class="active bd-sidenav-active">
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -341,38 +359,23 @@
         
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
-<li class="toc-entry toc-h2"><a href="#options">Options</a>
+<li class="toc-entry toc-h2"><a href="#usage-example">Usage Example</a></li>
+<li class="toc-entry toc-h2"><a href="#props">Props</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#groupby">groupBy</a></li>
-<li class="toc-entry toc-h3"><a href="#groupbyfield">groupByField</a></li>
-<li class="toc-entry toc-h3"><a href="#groupbysumgroup">groupBySumGroup</a></li>
-<li class="toc-entry toc-h3"><a href="#groupbyinitexpanded">groupByInitExpanded</a></li>
+<li class="toc-entry toc-h3"><a href="#columns">columns</a></li>
+<li class="toc-entry toc-h3"><a href="#data">data</a></li>
+<li class="toc-entry toc-h3"><a href="#options">options</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#methods">Methods</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#expandall">expandAll</a></li>
-<li class="toc-entry toc-h3"><a href="#collapseall">collapseAll</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#groupbysumgroup-1">groupBySumGroup</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#known-issues">Known issues</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#onsort">OnSort</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a></li>
+<li class="toc-entry toc-h2"><a href="#methods">Methods</a></li>
 </ul>
           </div>
         
 
-        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content extensions" role="main">
-          <h1 class="bd-title" id="content">Table Group By</h1>
-          <p class="bd-lead">Table Group By extension of Bootstrap Table.</p>
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content vuejs" role="main">
+          <h1 class="bd-title" id="content">Component</h1>
+          <p class="bd-lead">The API of Bootstrap Table Vue Component.</p>
           <style>
 #codefund #cf {
   margin: 0!important;
@@ -384,119 +387,79 @@
 <div id="codefund"><!-- fallback content --></div>
 <script src="https://codefund.io/properties/291/funder.js" async="async"></script>
 
-          <p>Use Plugin: <a href="https://github.com/djhvscf/bootstrap-table-group-by">bootstrap-table-group-by</a> &lt;/br&gt;
-Dependence: <a href="https://github.com/ludo/jquery-treetable/">jquery-treetable</a> v3.2.0 &lt;/br&gt;
-You must include the bootstrap-table-group-by.css file in order to get the appropriate style</p>
+          <h2 id="usage-example">Usage Example</h2>
 
-<h2 id="usage">Usage</h2>
+<figure class="highlight"><pre><code class="language-vue" data-lang="vue"><span class="nt">&lt;BootstrapTable</span>
+  <span class="na">ref=</span><span class="s">"table"</span>
+  <span class="na">:columns=</span><span class="s">"columns"</span>
+  <span class="na">:data=</span><span class="s">"data"</span>
+  <span class="na">:options=</span><span class="s">"options"</span>
+  <span class="err">@</span><span class="na">onPostBody=</span><span class="s">"onPostBody"</span>
+<span class="nt">/&gt;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/group-by/bootstrap-table-group-by.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<h2 id="props">Props</h2>
 
-<h2 id="options">Options</h2>
-
-<h3 id="groupby">groupBy</h3>
+<h3 id="columns">columns</h3>
 
 <ul>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Object</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set true to group the data by the field passed.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h3 id="groupbyfield">groupByField</h3>
-
-<ul>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Array</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set the array fields that you want to group the data.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
-  </li>
-</ul>
-
-<h3 id="groupbysumgroup">groupBySumGroup</h3>
-
-<ul>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set to True to include a sum per column.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h3 id="groupbyinitexpanded">groupByInitExpanded</h3>
-
-<ul>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>You can use the node number (parent row index) or you can use the <code class="highlighter-rouge">all</code> option in order to expand all nodes of the table.</p>
+    <p>The <a href="/docs/api/column-options/">column options</a> of Bootstrap Table. This prop is required.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
 </ul>
 
-<h2 id="methods">Methods</h2>
-
-<h3 id="expandall">expandAll</h3>
-
-<ul>
-  <li>Expand all the nodes in the table.</li>
-</ul>
-
-<h3 id="collapseall">collapseAll</h3>
-
-<ul>
-  <li>Collapse all the nodes in the table.</li>
-</ul>
-
-<h2 id="column-options">Column options</h2>
-
-<h3 id="groupbysumgroup-1">groupBySumGroup</h3>
+<h3 id="data">data</h3>
 
 <ul>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Array | Object</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set to True to sum the column values.</p>
+    <p>The data to be loaded.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
 </ul>
 
-<h2 id="known-issues">Known issues</h2>
-
-<h3 id="onsort">OnSort</h3>
+<h3 id="options">options</h3>
 
 <ul>
-  <li>When sort options are set to True the group by is not working properly, for now if these properties are set to True the group by extension will be disabled.</li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Object</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The <a href="/docs/api/table-options/">table options</a> of Bootstrap Table.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
 </ul>
+
+<h2 id="events">Events</h2>
+
+<p>The calling method syntax: <code class="highlighter-rouge">@onEvent="onEvent"</code>.</p>
+
+<p>All events (without <code class="highlighter-rouge">onAll</code>) are defined in <a href="/docs/api/events/">Events API</a>.</p>
+
+<h2 id="methods">Methods</h2>
+
+<p>The calling method syntax: <code class="highlighter-rouge">this.$refs.table.methodName(parameter)</code>.</p>
+
+<p>Example: <code class="highlighter-rouge">this.$refs.table.getOptions()</code>.</p>
+
+<p>All methods are defined in <a href="/docs/api/methods/">Methods API</a>.</p>
 
         </main>
       </div>

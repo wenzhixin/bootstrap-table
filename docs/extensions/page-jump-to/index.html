@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -344,7 +362,7 @@
 <li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#showjumpto">showJumpto</a></li>
+<li class="toc-entry toc-h3"><a href="#showjumpto">showJumpTo</a></li>
 </ul>
 </li>
 </ul>
@@ -367,12 +385,12 @@
 
           <h2 id="usage">Usage</h2>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"extensions/page-jumpto/bootstrap-table-jumpto.css"</span><span class="nt">&gt;&lt;/style&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/page-jumpto/bootstrap-table-jumpto.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"extensions/page-jump-to/bootstrap-table-jump-to.css"</span><span class="nt">&gt;&lt;/style&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/page-jump-to/bootstrap-table-jump-to.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
 <h2 id="options">Options</h2>
 
-<h3 id="showjumpto">showJumpto</h3>
+<h3 id="showjumpto">showJumpTo</h3>
 
 <ul>
   <li>
@@ -381,26 +399,12 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set true to enable show ‘jump to page’. can be defined via <code class="highlighter-rouge">data-show-jumpto</code> HTML attributes.</p>
+    <p>Set true to enable show ‘jump to page’. Can be defined via <code class="highlighter-rouge">data-show-jump-to</code> HTML attributes.</p>
   </li>
-  <li><strong>Default:</strong> <code class="highlighter-rouge">false</code></li>
-  <li>button style: can be styled via bootstrap-table buttonsClass attributes.</li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
 </ul>
-
-<p>`</p>
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;table</span> <span class="na">id=</span><span class="s">"my_table_id"</span>
-  <span class="na">data-url=</span><span class="s">"data/url.json"</span>
-  <span class="na">data-id-field=</span><span class="s">"id"</span>
-  <span class="na">data-show-jumpto=</span><span class="s">"true"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;thead&gt;</span>
-    <span class="nt">&lt;tr&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">class=</span><span class="s">"col-md-1"</span> <span class="na">data-field=</span><span class="s">"id"</span> <span class="na">data-sortable=</span><span class="s">"true"</span> <span class="na">data-align=</span><span class="s">"center"</span><span class="nt">&gt;</span>#<span class="nt">&lt;/th&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">class=</span><span class="s">"col-md-4"</span> <span class="na">data-field=</span><span class="s">"name"</span> <span class="na">data-editable=</span><span class="s">"true"</span><span class="nt">&gt;</span>Name<span class="nt">&lt;/th&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">class=</span><span class="s">"col-md-7"</span> <span class="na">data-field=</span><span class="s">"description"</span> <span class="na">data-editable=</span><span class="s">"true"</span> <span class="na">data-editable-emptytext=</span><span class="s">"Custom empty text."</span><span class="nt">&gt;</span>Description<span class="nt">&lt;/th&gt;</span>
-    <span class="nt">&lt;/tr&gt;</span>
-  <span class="nt">&lt;/thead&gt;</span>
-<span class="nt">&lt;/table&gt;</span></code></pre></figure>
-<p>`</p>
 
         </main>
       </div>

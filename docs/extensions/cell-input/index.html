@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Table Multiple Selection Row extension of Bootstrap Table.">
+<meta name="description" content="Plugin to add input/select element on the cells of table.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
 <meta name="generator" content="Jekyll v3.8.5">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
 
-<title>Table Multiple Selection Row · Bootstrap Table</title>
+<title>Cell Input · Bootstrap Table</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"><!-- Documentation extras -->
 
@@ -257,7 +257,7 @@
           <a href="/docs/extensions/multiple-search/">
             Multiple Search
           </a>
-        </li><li class="active bd-sidenav-active">
+        </li><li>
           <a href="/docs/extensions/multiple-selection-row/">
             Multiple Selection Row
           </a>
@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -344,22 +362,23 @@
 <li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#multipleselectrow">multipleSelectRow</a></li>
-<li class="toc-entry toc-h3"><a href="#multipleselectrowcssclass">multipleSelectRowCssClass</a></li>
+<li class="toc-entry toc-h3"><a href="#cellinputenabled">cellInputEnabled</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#methods">Methods</a>
+<li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#clearallmultipleselectionrow">clearAllMultipleSelectionRow</a></li>
+<li class="toc-entry toc-h3"><a href="#cellinputenabled-1">cellInputEnabled</a></li>
+<li class="toc-entry toc-h3"><a href="#cellinputtype">cellInputType</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h2"><a href="#example">Example</a></li>
 </ul>
           </div>
         
 
         <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content extensions" role="main">
-          <h1 class="bd-title" id="content">Table Multiple Selection Row</h1>
-          <p class="bd-lead">Table Multiple Selection Row extension of Bootstrap Table.</p>
+          <h1 class="bd-title" id="content">Cell Input</h1>
+          <p class="bd-lead">Plugin to add input/select element on the cells of table.</p>
           <style>
 #codefund #cf {
   margin: 0!important;
@@ -371,16 +390,15 @@
 <div id="codefund"><!-- fallback content --></div>
 <script src="https://codefund.io/properties/291/funder.js" async="async"></script>
 
-          <p>Use Plugin: <a href="https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/multiple-selection-row">bootstrap-table-multiple-selection-row</a></p>
+          <p>Use Plugin: <a href="https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/cell-input">bootstrap-table-cell-input</a></p>
 
 <h2 id="usage">Usage</h2>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"extensions/multiple-selection-row/bootstrap-table-multiple-selection-row.css"</span><span class="nt">&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/multiple-selection-row/bootstrap-table-multiple-selection-row.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/cell-input/bootstrap-table-cell-input.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
 <h2 id="options">Options</h2>
 
-<h3 id="multipleselectrow">multipleSelectRow</h3>
+<h3 id="cellinputenabled">cellInputEnabled</h3>
 
 <ul>
   <li>
@@ -389,14 +407,32 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set true to enable the multiple selection row.</p>
+    <p>Set to true to enable the plugin.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
 </ul>
 
-<h3 id="multipleselectrowcssclass">multipleSelectRowCssClass</h3>
+<h2 id="column-options">Column options</h2>
+
+<h3 id="cellinputenabled-1">cellInputEnabled</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to true to make the cell editable.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="cellinputtype">cellInputType</h3>
 
 <ul>
   <li>
@@ -405,29 +441,16 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The class that will be applied in the rows selected.</p>
+    <p>Defines the type of input. available options: <code class="highlighter-rouge">text</code> and <code class="highlighter-rouge">select</code>.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">multiple-select-row-selected</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">text</code></p>
   </li>
 </ul>
 
-<h2 id="methods">Methods</h2>
+<h2 id="example">Example</h2>
 
-<h3 id="clearallmultipleselectionrow">clearAllMultipleSelectionRow</h3>
-
-<ul>
-  <li>Clear all the selected rows.
-    <ul>
-      <li>Parameters
-        <ul>
-          <li>It does not receive parameters.</li>
-        </ul>
-      </li>
-      <li>Example: <code> $table.bootstrapTable("clearAllMultipleSelectionRow");</code></li>
-    </ul>
-  </li>
-</ul>
+<p><a href="http://jsfiddle.net/amatveef/5qztmj0w/">http://jsfiddle.net/amatveef/5qztmj0w/</a></p>
 
         </main>
       </div>

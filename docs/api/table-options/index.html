@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -370,12 +388,15 @@
 <li class="toc-entry toc-h2"><a href="#queryparamstype">queryParamsType</a></li>
 <li class="toc-entry toc-h2"><a href="#responsehandler">responseHandler</a></li>
 <li class="toc-entry toc-h2"><a href="#totalfield">totalField</a></li>
+<li class="toc-entry toc-h2"><a href="#totalnotfilteredfield">totalNotFilteredField</a></li>
 <li class="toc-entry toc-h2"><a href="#datafield">dataField</a></li>
 <li class="toc-entry toc-h2"><a href="#pagination">pagination</a></li>
 <li class="toc-entry toc-h2"><a href="#onlyinfopagination">onlyInfoPagination</a></li>
+<li class="toc-entry toc-h2"><a href="#showextendedpagination">showExtendedPagination</a></li>
 <li class="toc-entry toc-h2"><a href="#paginationloop">paginationLoop</a></li>
 <li class="toc-entry toc-h2"><a href="#sidepagination">sidePagination</a></li>
 <li class="toc-entry toc-h2"><a href="#totalrows">totalRows</a></li>
+<li class="toc-entry toc-h2"><a href="#totalnotfiltered">totalNotFiltered</a></li>
 <li class="toc-entry toc-h2"><a href="#pagenumber">pageNumber</a></li>
 <li class="toc-entry toc-h2"><a href="#pagesize">pageSize</a></li>
 <li class="toc-entry toc-h2"><a href="#pagelist">pageList</a></li>
@@ -390,6 +411,11 @@
 <li class="toc-entry toc-h2"><a href="#search">search</a></li>
 <li class="toc-entry toc-h2"><a href="#searchonenterkey">searchOnEnterKey</a></li>
 <li class="toc-entry toc-h2"><a href="#strictsearch">strictSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#visiblesearch">visibleSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#showbuttonicons">showButtonIcons</a></li>
+<li class="toc-entry toc-h2"><a href="#showbuttontext">showButtonText</a></li>
+<li class="toc-entry toc-h2"><a href="#showsearchbutton">showSearchButton</a></li>
+<li class="toc-entry toc-h2"><a href="#showsearchclearbutton">showSearchClearButton</a></li>
 <li class="toc-entry toc-h2"><a href="#trimonsearch">trimOnSearch</a></li>
 <li class="toc-entry toc-h2"><a href="#searchalign">searchAlign</a></li>
 <li class="toc-entry toc-h2"><a href="#searchtimeout">searchTimeOut</a></li>
@@ -399,6 +425,7 @@
 <li class="toc-entry toc-h2"><a href="#showfooter">showFooter</a></li>
 <li class="toc-entry toc-h2"><a href="#footerstyle">footerStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#showcolumns">showColumns</a></li>
+<li class="toc-entry toc-h2"><a href="#showcolumnstoggleall">showColumnsToggleAll</a></li>
 <li class="toc-entry toc-h2"><a href="#minimumcountcolumns">minimumCountColumns</a></li>
 <li class="toc-entry toc-h2"><a href="#showpaginationswitch">showPaginationSwitch</a></li>
 <li class="toc-entry toc-h2"><a href="#showrefresh">showRefresh</a></li>
@@ -406,24 +433,30 @@
 <li class="toc-entry toc-h2"><a href="#showfullscreen">showFullscreen</a></li>
 <li class="toc-entry toc-h2"><a href="#smartdisplay">smartDisplay</a></li>
 <li class="toc-entry toc-h2"><a href="#escape">escape</a></li>
+<li class="toc-entry toc-h2"><a href="#filteroptions">filterOptions</a></li>
 <li class="toc-entry toc-h2"><a href="#idfield">idField</a></li>
 <li class="toc-entry toc-h2"><a href="#selectitemname">selectItemName</a></li>
 <li class="toc-entry toc-h2"><a href="#clicktoselect">clickToSelect</a></li>
 <li class="toc-entry toc-h2"><a href="#ignoreclicktoselecton">ignoreClickToSelectOn</a></li>
 <li class="toc-entry toc-h2"><a href="#singleselect">singleSelect</a></li>
 <li class="toc-entry toc-h2"><a href="#checkboxheader">checkboxHeader</a></li>
-<li class="toc-entry toc-h2"><a href="#maintainselected">maintainSelected</a></li>
+<li class="toc-entry toc-h2"><a href="#maintainmetadata">maintainMetaData</a></li>
+<li class="toc-entry toc-h2"><a href="#multipleselectrow">multipleSelectRow</a></li>
 <li class="toc-entry toc-h2"><a href="#uniqueid">uniqueId</a></li>
 <li class="toc-entry toc-h2"><a href="#cardview">cardView</a></li>
 <li class="toc-entry toc-h2"><a href="#detailview">detailView</a></li>
+<li class="toc-entry toc-h2"><a href="#detailviewicon">detailViewIcon</a></li>
+<li class="toc-entry toc-h2"><a href="#detailviewbyclick">detailViewByClick</a></li>
 <li class="toc-entry toc-h2"><a href="#detailformatter">detailFormatter</a></li>
 <li class="toc-entry toc-h2"><a href="#detailfilter">detailFilter</a></li>
 <li class="toc-entry toc-h2"><a href="#toolbar">toolbar</a></li>
 <li class="toc-entry toc-h2"><a href="#toolbaralign">toolbarAlign</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonstoolbar">buttonsToolbar</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonsalign">buttonsAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#buttonsprefix">buttonsPrefix</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonsclass">buttonsClass</a></li>
 <li class="toc-entry toc-h2"><a href="#icons">icons</a></li>
+<li class="toc-entry toc-h2"><a href="#html">html</a></li>
 <li class="toc-entry toc-h2"><a href="#iconsize">iconSize</a></li>
 <li class="toc-entry toc-h2"><a href="#iconsprefix">iconsPrefix</a></li>
 </ul>
@@ -481,6 +514,8 @@
     <p><strong>Detail:</strong></p>
 
     <p>The height of table, enable fixed header of table.</p>
+
+    <p>Note that if there are multiple tables on a page and the height option is set at the same time, you need to add the <code class="highlighter-rouge">id</code> attribute to each table, otherwise, the window resize will not work properly.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -632,11 +667,11 @@ Allows for fallback locales, if loaded, in the following order:</p>
     <ul>
       <li>First tries for the locale as specified,</li>
       <li>Then tries the locale with ‘_’ translated to ‘-‘ and the region code upper cased,</li>
-      <li>Then tries the the short locale code (i.e. <code class="highlighter-rouge">'zh'</code> instead of <code class="highlighter-rouge">'fr-CA'</code>),</li>
+      <li>Then tries the short locale code (i.e. <code class="highlighter-rouge">'zh'</code> instead of <code class="highlighter-rouge">'zh-CN'</code>),</li>
       <li>And finally will use the last locale file loaded (or the default locale if no locales loaded).</li>
     </ul>
 
-    <p>If left <code class="highlighter-rouge">undefined</code> or an empty string, uses the last locale loaded (or <code class="highlighter-rouge">'en-US'</code> if no locale files loaded).</p>
+    <p>If left <code class="highlighter-rouge">undefined</code> or an empty string, use the last locale loaded (or <code class="highlighter-rouge">'en-US'</code> if no locale files loaded).</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -702,7 +737,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">false</code> to sort the data with loading message. This options works when the sidePagination option is set to <code class="highlighter-rouge">'server'</code>.</p>
+    <p>Set <code class="highlighter-rouge">false</code> to sort the data with the loading message. This options works when the sidePagination option is set to <code class="highlighter-rouge">'server'</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
@@ -812,7 +847,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The custom sort function is executed instead of built-in sort function, takes three parameters:</p>
+    <p>The custom sort function is executed instead of the built-in sort function, takes three parameters:</p>
 
     <ul>
       <li><code class="highlighter-rouge">sortName</code>: the sort name.</li>
@@ -854,7 +889,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
 
 <ul>
   <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">-</code></p>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-data</code></p>
   </li>
   <li>
     <p><strong>Type:</strong> <code class="highlighter-rouge">Array | Object</code></p>
@@ -898,6 +933,11 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#welcomes/from-url.html">From URL</a></p>
+  </li>
+  <li>
+    <p><strong>Error handling</strong></p>
+
+    <p>To get loading errors please use <a href="https://bootstrap-table.com/docs/api/events/#onloaderror">onLoadError</a></p>
   </li>
 </ul>
 
@@ -1131,6 +1171,28 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
 </ul>
 
+<h2 id="totalnotfilteredfield">totalNotFilteredField</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-total-not-filtered-field</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">string</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The field from the json response which will used for <code class="highlighter-rouge">showExtendedPagination</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">totalNotFiltered</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/total-not-filtered-field.html">Total Not Filtered Field</a></p>
+  </li>
+</ul>
+
 <h2 id="datafield">dataField</h2>
 
 <ul>
@@ -1197,6 +1259,29 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
 </ul>
 
+<h2 id="showextendedpagination">showExtendedPagination</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-extended-pagination</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show a extended version of pagination (including the count of all rows with out filters).
+If you use pagination on the server side pls use <code class="highlighter-rouge">totalNotFilteredField</code> to define the count.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-extended-pagination.html">Show Extended Pagination</a></p>
+  </li>
+</ul>
+
 <h2 id="paginationloop">paginationLoop</h2>
 
 <ul>
@@ -1234,7 +1319,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
     <p>Defines the side pagination of the table, can only be <code class="highlighter-rouge">'client'</code> or <code class="highlighter-rouge">'server'</code>.
 Using <code class="highlighter-rouge">'server'</code> side requires either setting the <code class="highlighter-rouge">'url'</code> or <code class="highlighter-rouge">'ajax'</code> option.</p>
 
-    <p>Note that the required server response format is different depending on whether the <code class="highlighter-rouge">'client'</code> or <code class="highlighter-rouge">'server'</code> option is specified. See the following examples:</p>
+    <p>Note that the required server response format is different depending on whether the  <code class="highlighter-rouge">'sidePagination'</code> option is set to <code class="highlighter-rouge">'client'</code> or <code class="highlighter-rouge">'server'</code>. See the following examples:</p>
 
     <ul>
       <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
@@ -1254,6 +1339,25 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
 <ul>
   <li>
     <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-total-rows</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>This property is mainly passed in by pagination server, which is easy to use.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">0</code></p>
+  </li>
+</ul>
+
+<h2 id="totalnotfiltered">totalNotFiltered</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-total-not-filtered</code></p>
   </li>
   <li>
     <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
@@ -1324,7 +1428,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>When set pagination property, initialize the page size selecting list. If you include the <code class="highlighter-rouge">'All'</code> or <code class="highlighter-rouge">'Unlimited'</code> option, all the records will be shown in your table.</p>
+    <p>When set pagination property, initialize the page size selecting list. If you include the <code class="highlighter-rouge">'all'</code> or <code class="highlighter-rouge">'unlimited'</code> option, all the records will be shown in your table.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">[10, 25, 50, 100]</code></p>
@@ -1500,7 +1604,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Calculate and show intermediate pages for quick access</p>
+    <p>Calculate and show intermediate pages for quick access.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -1523,6 +1627,16 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
     <p><strong>Detail:</strong></p>
 
     <p>Enable the search input.</p>
+
+    <p>There are 3 ways to search:</p>
+    <ul>
+      <li>The value contains the search query (Default).
+Example: Github contains git.</li>
+      <li>The value must be identical to the search query.
+Example: Github (value) and Github (search query).</li>
+      <li>Comparisons (&lt;, &gt;, &lt;=, =&lt;, &gt;=, =&gt;).
+Example: 4 is larger than 3.</li>
+    </ul>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -1566,13 +1680,125 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Enable the strict search.</p>
+    <p>Enable the strict search.
+Disables the comparison checks.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/strict-search.html">Strict Search</a></p>
+  </li>
+</ul>
+
+<h2 id="visiblesearch">visibleSearch</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">visible-search</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>set <code class="highlighter-rouge">true</code> to search only in visible column/data, if the data contains other values which are not displayed they will be ignored while searching.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/visible-search.html">visible search</a></p>
+  </li>
+</ul>
+
+<h2 id="showbuttonicons">showButtonIcons</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">show-button-icons</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>All buttons will show icons on it</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-button-icons.html">show button icons</a></p>
+  </li>
+</ul>
+
+<h2 id="showbuttontext">showButtonText</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">show-button-text</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>All buttons will show an text on it</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-button-text.html">show button text</a></p>
+  </li>
+</ul>
+
+<h2 id="showsearchbutton">showSearchButton</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-search-button</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show a search Button behind the search input.
+The Search will only be executed if the button is pressed (e.g. to prevent traffic or loading time).</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-search-button.html">Show Search Button</a></p>
+  </li>
+</ul>
+
+<h2 id="showsearchclearbutton">showSearchClearButton</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-search-clear-button</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show a clear Button behind the search input which will clear the search input (also all filter from filter-control (if enabled)).</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-search-clear-button.html">Show Search Clear Button</a></p>
   </li>
 </ul>
 
@@ -1765,7 +1991,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
       <li><code class="highlighter-rouge">column</code>: the column object.</li>
     </ul>
 
-    <p>Support classes or css. Example usage:</p>
+    <p>Support <code class="highlighter-rouge">classes</code> or <code class="highlighter-rouge">css</code>. Example usage:</p>
   </li>
 </ul>
 
@@ -1805,6 +2031,28 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/basic-columns.html">Basic Columns</a> and <a href="https://examples.bootstrap-table.com/#options/large-columns.html">Large Columns</a></p>
+  </li>
+</ul>
+
+<h2 id="showcolumnstoggleall">showColumnsToggleAll</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-columns-toggle-all</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show a toogle all checkbox within the columns option/dropdown.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/columns-toggle-all.html">Columns Toggle All</a></p>
   </li>
 </ul>
 
@@ -1962,6 +2210,28 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
 </ul>
 
+<h2 id="filteroptions">filterOptions</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-options</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Define the default filter options of algorithm, <code class="highlighter-rouge">filterAlgorithm: 'and'</code> means all given filter must match, <code class="highlighter-rouge">filterAlgorithm: 'or'</code> means one of the given filter must match.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{ filterAlgorithm: 'and' }</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/filter-options.html">Filter Options</a></p>
+  </li>
+</ul>
+
 <h2 id="idfield">idField</h2>
 
 <ul>
@@ -1974,7 +2244,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Indicate which field is an identity field.</p>
+    <p>Indicate which field will be used as checkbox/radiobox value, its the counterpart to <a href="https://bootstrap-table.com/docs/api/table-options/#selectitemname">selectItemName</a>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -2100,11 +2370,11 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
 </ul>
 
-<h2 id="maintainselected">maintainSelected</h2>
+<h2 id="maintainmetadata">maintainMetaData</h2>
 
 <ul>
   <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-maintain-selected</code></p>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-maintain-meta-data</code></p>
   </li>
   <li>
     <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
@@ -2112,13 +2382,39 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to maintain selected rows on change page and search.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to maintain the following meta data on change page and search:</p>
+    <ul>
+      <li>selected rows</li>
+      <li>hidden rows</li>
+    </ul>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
   <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/maintain-selected.html">Maintain Selected</a></p>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/maintain-meta-data.html">Maintain Meta Data</a></p>
+  </li>
+</ul>
+
+<h2 id="multipleselectrow">multipleSelectRow</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-multiple-select-row</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to enable the multiple selection row. Can use the ctrl+click to select one row or use shift+click to select a range of rows.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/multiple-select-row.html">Multiple Select Row</a></p>
   </li>
 </ul>
 
@@ -2188,6 +2484,50 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
 </ul>
 
+<h2 id="detailviewicon">detailViewIcon</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-detail-view-icon</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show the detail view column (plus/minus icon).</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-icon.html">Detail View Icon</a></p>
+  </li>
+</ul>
+
+<h2 id="detailviewbyclick">detailViewByClick</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-detail-view-by-click</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to toggle the detail view, when a cell is clicked.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-icon.html">Detail View Icon</a></p>
+  </li>
+</ul>
+
 <h2 id="detailformatter">detailFormatter</h2>
 
 <ul>
@@ -2200,7 +2540,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Format your detail view when detailView is set to true. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</p>
+    <p>Format your detail view when <code class="highlighter-rouge">detailView</code> is set to <code class="highlighter-rouge">true</code>. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">function(index, row, element) { return '' }</code></p>
@@ -2222,7 +2562,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Enable expansion per row when detailView is set to true. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.</p>
+    <p>Enable expansion per row when <code class="highlighter-rouge">detailView</code> is set to <code class="highlighter-rouge">true</code>. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">function(index, row) { return true }</code></p>
@@ -2320,6 +2660,28 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
 </ul>
 
+<h2 id="buttonsprefix">buttonsPrefix</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-buttons-prefix</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines prefix of table buttons.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'btn'</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-prefix.html">Buttons Prefix</a></p>
+  </li>
+</ul>
+
 <h2 id="buttonsclass">buttonsClass</h2>
 
 <ul>
@@ -2376,6 +2738,30 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
 
 <ul>
   <li><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-icons.html">Table Icons</a></li>
+</ul>
+
+<h2 id="html">html</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-html</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Object</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines some html of the table.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong></p>
+
+    <p>Too much code, please checkout the source code of the <code class="highlighter-rouge">index.js</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-html.html">Table Html</a></p>
+  </li>
 </ul>
 
 <h2 id="iconsize">iconSize</h2>

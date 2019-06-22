@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -348,6 +366,16 @@
 <li class="toc-entry toc-h3"><a href="#exportdatatype">exportDataType</a></li>
 <li class="toc-entry toc-h3"><a href="#exporttypes">exportTypes</a></li>
 <li class="toc-entry toc-h3"><a href="#exportoptions">exportOptions</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#forceexport">forceExport</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#onexportsaved">onExportSaved</a></li>
 <li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
 </ul>
 </li>
@@ -437,9 +465,58 @@
     <p><strong>Detail:</strong></p>
 
     <p>export <a href="https://github.com/hhurz/tableExport.jquery.plugin#options">options</a> of <code class="highlighter-rouge">tableExport.jquery.plugin</code></p>
+
+    <p><code class="highlighter-rouge">exportOptions.fileName</code> can be a string or a function, for example:</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">exportOptions</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">fileName</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="dl">'</span><span class="s1">exportName</span><span class="dl">'</span>
+    <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+</ul>
+
+<h2 id="column-options">Column options</h2>
+
+<h3 id="forceexport">forceExport</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to force export a column e.g. hidden columns.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="events">Events</h2>
+
+<h3 id="onexportsaved">onExportSaved</h3>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">export-saved.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">exportedRows</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fired when the data is exported, the parameter contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">exportedRows</code>: The exported rows (depends on exportDataType)</li>
+    </ul>
   </li>
 </ul>
 

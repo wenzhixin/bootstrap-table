@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -344,15 +362,15 @@
 <li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#copybtn">copyBtn</a></li>
-<li class="toc-entry toc-h3"><a href="#copywhiddenbtn">copyWHiddenBtn</a></li>
-<li class="toc-entry toc-h3"><a href="#copydelemeter">copyDelemeter</a></li>
+<li class="toc-entry toc-h3"><a href="#showcopyrows">showCopyRows</a></li>
+<li class="toc-entry toc-h3"><a href="#copywithhidden">copyWithHidden</a></li>
+<li class="toc-entry toc-h3"><a href="#copydelimiter">copyDelimiter</a></li>
+<li class="toc-entry toc-h3"><a href="#copynewline">copyNewline</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#methods">Methods</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#copycolumnstoclipboard">copyColumnsToClipboard</a></li>
-<li class="toc-entry toc-h3"><a href="#copycolumnstoclipboardwithhidden">copyColumnsToClipboardWithHidden</a></li>
 </ul>
 </li>
 </ul>
@@ -381,7 +399,7 @@
 
 <h2 id="options">Options</h2>
 
-<h3 id="copybtn">copyBtn</h3>
+<h3 id="showcopyrows">showCopyRows</h3>
 
 <ul>
   <li>
@@ -390,14 +408,14 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set true to show the copy button. This button copys the contents of the selected rows to the clipboard.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show the copy button. This button copy the contents of the selected rows to the clipboard.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
 </ul>
 
-<h3 id="copywhiddenbtn">copyWHiddenBtn</h3>
+<h3 id="copywithhidden">copyWithHidden</h3>
 
 <ul>
   <li>
@@ -406,14 +424,14 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set true to show the copy with hidden button. This button copys the contents of the selected rows to the clipboard, <em>including hidden rows</em>.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to copy with hidden columns.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
 </ul>
 
-<h3 id="copydelemeter">copyDelemeter</h3>
+<h3 id="copydelimiter">copyDelimiter</h3>
 
 <ul>
   <li>
@@ -422,10 +440,26 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>This string will be inserted in-between the column values when copying</p>
+    <p>This delimiter will be inserted in-between the column values when copying.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">', '</code></p>
+  </li>
+</ul>
+
+<h3 id="copynewline">copyNewline</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>This newline will be inserted in-between the row values when copying.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'\n'</code></p>
   </li>
 </ul>
 
@@ -434,13 +468,7 @@
 <h3 id="copycolumnstoclipboard">copyColumnsToClipboard</h3>
 
 <ul>
-  <li>copys the contents of the selected rows to the clipboard.</li>
-</ul>
-
-<h3 id="copycolumnstoclipboardwithhidden">copyColumnsToClipboardWithHidden</h3>
-
-<ul>
-  <li>copys the contents of the selected rows to the clipboard, <strong>including hidden rows</strong>.</li>
+  <li>Copy the contents of the selected rows to the clipboard.</li>
 </ul>
 
         </main>

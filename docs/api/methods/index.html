@@ -290,10 +290,6 @@
             Resizable
           </a>
         </li><li>
-          <a href="/docs/extensions/select2-filter/">
-            Select2 Filter
-          </a>
-        </li><li>
           <a href="/docs/extensions/sticky-header/">
             Sticky Header
           </a>
@@ -304,6 +300,28 @@
         </li><li>
           <a href="/docs/extensions/treegrid/">
             Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/docs/vuejs/component/">
+            Component
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
@@ -342,32 +360,32 @@
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#getoptions">getOptions</a></li>
+<li class="toc-entry toc-h2"><a href="#refreshoptions">refreshOptions</a></li>
+<li class="toc-entry toc-h2"><a href="#getdata">getData</a></li>
 <li class="toc-entry toc-h2"><a href="#getselections">getSelections</a></li>
 <li class="toc-entry toc-h2"><a href="#getallselections">getAllSelections</a></li>
-<li class="toc-entry toc-h2"><a href="#showallcolumns">showAllColumns</a></li>
-<li class="toc-entry toc-h2"><a href="#hideallcolumns">hideAllColumns</a></li>
-<li class="toc-entry toc-h2"><a href="#getdata">getData</a></li>
-<li class="toc-entry toc-h2"><a href="#getrowbyuniqueid">getRowByUniqueId</a></li>
 <li class="toc-entry toc-h2"><a href="#load">load</a></li>
 <li class="toc-entry toc-h2"><a href="#append">append</a></li>
 <li class="toc-entry toc-h2"><a href="#prepend">prepend</a></li>
 <li class="toc-entry toc-h2"><a href="#remove">remove</a></li>
 <li class="toc-entry toc-h2"><a href="#removeall">removeAll</a></li>
-<li class="toc-entry toc-h2"><a href="#removebyuniqueid">removeByUniqueId</a></li>
 <li class="toc-entry toc-h2"><a href="#insertrow">insertRow</a></li>
 <li class="toc-entry toc-h2"><a href="#updaterow">updateRow</a></li>
+<li class="toc-entry toc-h2"><a href="#getrowbyuniqueid">getRowByUniqueId</a></li>
 <li class="toc-entry toc-h2"><a href="#updatebyuniqueid">updateByUniqueId</a></li>
-<li class="toc-entry toc-h2"><a href="#updatecellbyid">updateCellById</a></li>
+<li class="toc-entry toc-h2"><a href="#removebyuniqueid">removeByUniqueId</a></li>
+<li class="toc-entry toc-h2"><a href="#updatecell">updateCell</a></li>
+<li class="toc-entry toc-h2"><a href="#updatecellbyuniqueid">updateCellByUniqueId</a></li>
 <li class="toc-entry toc-h2"><a href="#showrow">showRow</a></li>
 <li class="toc-entry toc-h2"><a href="#hiderow">hideRow</a></li>
 <li class="toc-entry toc-h2"><a href="#gethiddenrows">getHiddenRows</a></li>
+<li class="toc-entry toc-h2"><a href="#showcolumn">showColumn</a></li>
+<li class="toc-entry toc-h2"><a href="#hidecolumn">hideColumn</a></li>
+<li class="toc-entry toc-h2"><a href="#getvisiblecolumns">getVisibleColumns</a></li>
+<li class="toc-entry toc-h2"><a href="#gethiddencolumns">getHiddenColumns</a></li>
+<li class="toc-entry toc-h2"><a href="#showallcolumns">showAllColumns</a></li>
+<li class="toc-entry toc-h2"><a href="#hideallcolumns">hideAllColumns</a></li>
 <li class="toc-entry toc-h2"><a href="#mergecells">mergeCells</a></li>
-<li class="toc-entry toc-h2"><a href="#updatecell">updateCell</a></li>
-<li class="toc-entry toc-h2"><a href="#refresh">refresh</a></li>
-<li class="toc-entry toc-h2"><a href="#refreshoptions">refreshOptions</a></li>
-<li class="toc-entry toc-h2"><a href="#resetsearch">resetSearch</a></li>
-<li class="toc-entry toc-h2"><a href="#showloading">showLoading</a></li>
-<li class="toc-entry toc-h2"><a href="#hideloading">hideLoading</a></li>
 <li class="toc-entry toc-h2"><a href="#checkall">checkAll</a></li>
 <li class="toc-entry toc-h2"><a href="#uncheckall">uncheckAll</a></li>
 <li class="toc-entry toc-h2"><a href="#checkinvert">checkInvert</a></li>
@@ -375,25 +393,29 @@
 <li class="toc-entry toc-h2"><a href="#uncheck">uncheck</a></li>
 <li class="toc-entry toc-h2"><a href="#checkby">checkBy</a></li>
 <li class="toc-entry toc-h2"><a href="#uncheckby">uncheckBy</a></li>
+<li class="toc-entry toc-h2"><a href="#refresh">refresh</a></li>
+<li class="toc-entry toc-h2"><a href="#destroy">destroy</a></li>
 <li class="toc-entry toc-h2"><a href="#resetview">resetView</a></li>
 <li class="toc-entry toc-h2"><a href="#resetwidth">resetWidth</a></li>
-<li class="toc-entry toc-h2"><a href="#destroy">destroy</a></li>
-<li class="toc-entry toc-h2"><a href="#showcolumn">showColumn</a></li>
-<li class="toc-entry toc-h2"><a href="#hidecolumn">hideColumn</a></li>
-<li class="toc-entry toc-h2"><a href="#gethiddencolumns">getHiddenColumns</a></li>
-<li class="toc-entry toc-h2"><a href="#getvisiblecolumns">getVisibleColumns</a></li>
+<li class="toc-entry toc-h2"><a href="#showloading">showLoading</a></li>
+<li class="toc-entry toc-h2"><a href="#hideloading">hideLoading</a></li>
+<li class="toc-entry toc-h2"><a href="#togglepagination">togglePagination</a></li>
+<li class="toc-entry toc-h2"><a href="#togglefullscreen">toggleFullscreen</a></li>
+<li class="toc-entry toc-h2"><a href="#toggleview">toggleView</a></li>
+<li class="toc-entry toc-h2"><a href="#resetsearch">resetSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#filterby">filterBy</a></li>
 <li class="toc-entry toc-h2"><a href="#scrollto">scrollTo</a></li>
 <li class="toc-entry toc-h2"><a href="#getscrollposition">getScrollPosition</a></li>
-<li class="toc-entry toc-h2"><a href="#filterby">filterBy</a></li>
 <li class="toc-entry toc-h2"><a href="#selectpage">selectPage</a></li>
 <li class="toc-entry toc-h2"><a href="#prevpage">prevPage</a></li>
 <li class="toc-entry toc-h2"><a href="#nextpage">nextPage</a></li>
-<li class="toc-entry toc-h2"><a href="#togglepagination">togglePagination</a></li>
-<li class="toc-entry toc-h2"><a href="#toggleview">toggleView</a></li>
+<li class="toc-entry toc-h2"><a href="#toggledetailview">toggleDetailView</a></li>
 <li class="toc-entry toc-h2"><a href="#expandrow">expandRow</a></li>
 <li class="toc-entry toc-h2"><a href="#collapserow">collapseRow</a></li>
 <li class="toc-entry toc-h2"><a href="#expandallrows">expandAllRows</a></li>
 <li class="toc-entry toc-h2"><a href="#collapseallrows">collapseAllRows</a></li>
+<li class="toc-entry toc-h2"><a href="#updatecolumntitle">updateColumnTitle</a></li>
+<li class="toc-entry toc-h2"><a href="#updateformattext">updateFormatText</a></li>
 </ul>
           </div>
         
@@ -425,6 +447,46 @@
 
     <p>Return the options object.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-options.html">Get Options</a></p>
+  </li>
+</ul>
+
+<h2 id="refreshoptions">refreshOptions</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">options</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Refresh the table <code class="highlighter-rouge">options</code>.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/refresh-options.html">Refresh Options</a></p>
+  </li>
+</ul>
+
+<h2 id="getdata">getData</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Get the loaded data of table at the moment that this method is called</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">useCurrentPage</code>: if set to true the method will return the data only in the current page.</li>
+      <li><code class="highlighter-rouge">includeHiddenRows</code>: if set to true the method will include the hidden rows.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/getData.html">Get Data</a></p>
+  </li>
 </ul>
 
 <h2 id="getselections">getSelections</h2>
@@ -437,6 +499,9 @@
     <p><strong>Detail:</strong></p>
 
     <p>Return selected rows, when no record selected, an empty array will return.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-selections.html">Get Selections</a></p>
   </li>
 </ul>
 
@@ -451,57 +516,8 @@
 
     <p>Return all selected rows contain search or filter, when no record selected, an empty array will return.</p>
   </li>
-</ul>
-
-<h2 id="showallcolumns">showAllColumns</h2>
-
-<ul>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Show All the columns.</p>
-  </li>
-</ul>
-
-<h2 id="hideallcolumns">hideAllColumns</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Hide All the columns.</p>
-  </li>
-</ul>
-
-<h2 id="getdata">getData</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">useCurrentPage</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Get the loaded data of table at the moment that this method is called. If you set the <code class="highlighter-rouge">useCurrentPage</code> to <code class="highlighter-rouge">true</code> the method will return the data in the current page.</p>
-  </li>
-</ul>
-
-<h2 id="getrowbyuniqueid">getRowByUniqueId</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">id</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Get data from table, the row that contains the <code class="highlighter-rouge">id</code> passed by parameter.</p>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-all-selections.html">Get All Selections</a></p>
   </li>
 </ul>
 
@@ -516,6 +532,9 @@
 
     <p>Load the <code class="highlighter-rouge">data</code> to table, the old rows will be removed.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/load.html">Load</a></p>
+  </li>
 </ul>
 
 <h2 id="append">append</h2>
@@ -529,6 +548,9 @@
 
     <p>Append the <code class="highlighter-rouge">data</code> to table.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/append.html">Append</a></p>
+  </li>
 </ul>
 
 <h2 id="prepend">prepend</h2>
@@ -541,6 +563,9 @@
     <p><strong>Detail:</strong></p>
 
     <p>Prepend the <code class="highlighter-rouge">data</code> to table.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/prepend.html">Prepend</a></p>
   </li>
 </ul>
 
@@ -560,6 +585,9 @@
       <li><code class="highlighter-rouge">values</code>: the array of values for rows which should be removed.</li>
     </ul>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/remove.html">Remove</a></p>
+  </li>
 </ul>
 
 <h2 id="removeall">removeAll</h2>
@@ -573,18 +601,8 @@
 
     <p>Remove all data from table.</p>
   </li>
-</ul>
-
-<h2 id="removebyuniqueid">removeByUniqueId</h2>
-
-<ul>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">id</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Remove data from table, the row that contains the <code class="highlighter-rouge">id</code> passed by parameter.</p>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/remove-all.html">Remove All</a></p>
   </li>
 </ul>
 
@@ -604,6 +622,9 @@
       <li><code class="highlighter-rouge">row</code>: the row data.</li>
     </ul>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/insert-row.html">Insert Row</a></p>
+  </li>
 </ul>
 
 <h2 id="updaterow">updateRow</h2>
@@ -620,7 +641,27 @@
     <ul>
       <li><code class="highlighter-rouge">index</code>: the row index to be updated.</li>
       <li><code class="highlighter-rouge">row</code>: the new row data.</li>
+      <li><code class="highlighter-rouge">replace</code> (optional): set to <code class="highlighter-rouge">true</code> to replace the row instead of extending.</li>
     </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/update-row.html">Update Row</a></p>
+  </li>
+</ul>
+
+<h2 id="getrowbyuniqueid">getRowByUniqueId</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">id</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Get data from table, the row that contains the <code class="highlighter-rouge">id</code> passed by parameter.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html">Get Row By Unique Id</a></p>
   </li>
 </ul>
 
@@ -638,95 +679,27 @@
     <ul>
       <li><code class="highlighter-rouge">id</code>: a row id where the id should be the uniqueid field assigned to the table.</li>
       <li><code class="highlighter-rouge">row</code>: the new row data.</li>
+      <li><code class="highlighter-rouge">replace</code> (optional): set to <code class="highlighter-rouge">true</code> to replace the row instead of extending.</li>
     </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/update-by-unique-id.html">Update By Unique Id</a></p>
   </li>
 </ul>
 
-<h2 id="updatecellbyid">updateCellById</h2>
+<h2 id="removebyuniqueid">removeByUniqueId</h2>
 
 <ul>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">id</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Update the cell specified by the id, each params contain following properties:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">id</code>: row id where the id should be the uniqueid field assigned to the table.</li>
-      <li><code class="highlighter-rouge">field</code>: field name of the cell to be updated.</li>
-      <li><code class="highlighter-rouge">value</code>: new value of the cell.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="showrow">showRow</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
+    <p>Remove data from table, the row that contains the <code class="highlighter-rouge">id</code> passed by parameter.</p>
   </li>
   <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Show the specified row. The params must contain at least one of the following properties:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">index</code>: the row index.</li>
-      <li><code class="highlighter-rouge">uniqueId</code>: the value of the uniqueId for that row.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="hiderow">hideRow</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Hide the specified row. The params must contain at least one of the following properties:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">index</code>: the row index.</li>
-      <li><code class="highlighter-rouge">uniqueId</code>: the value of the uniqueId for that row.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="gethiddenrows">getHiddenRows</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">show</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Get all rows hidden and if you pass the <code class="highlighter-rouge">show</code> parameter <code class="highlighter-rouge">true</code> the rows will be shown again, otherwise, the method only will return the rows hidden.</p>
-  </li>
-</ul>
-
-<h2 id="mergecells">mergeCells</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Merge some cells to one cell, the params contain following properties:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">index</code>: the row index.</li>
-      <li><code class="highlighter-rouge">field</code>: the field name.</li>
-      <li><code class="highlighter-rouge">rowspan</code>: the rowspan count to be merged.</li>
-      <li><code class="highlighter-rouge">colspan</code>: the colspan count to be merged.</li>
-    </ul>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/remove-by-unique-id.html">Remove By Unique Id</a></p>
   </li>
 </ul>
 
@@ -749,9 +722,12 @@
 
     <p>To disable table re-initialization you can set <code class="highlighter-rouge">{reinit: false}</code>.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/update-cell.html">Update Cell</a></p>
+  </li>
 </ul>
 
-<h2 id="refresh">refresh</h2>
+<h2 id="updatecellbyuniqueid">updateCellByUniqueId</h2>
 
 <ul>
   <li>
@@ -760,37 +736,128 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Refresh the remote server data, you can set <code class="highlighter-rouge">{silent: true}</code> to refresh the data silently, and set <code class="highlighter-rouge">{url: newUrl, pageNumber: pageNumber, pageSize: pageSize}</code> to change the url (optional), page number (optional) and page size (optional). To supply query params specific to this request, set <code class="highlighter-rouge">{query: {foo: 'bar'}}</code>.</p>
+    <p>Update the cell specified by the id, each params contain following properties:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">id</code>: row id where the id should be the <code class="highlighter-rouge">uniqueId</code> field assigned to the table.</li>
+      <li><code class="highlighter-rouge">field</code>: field name of the cell to be updated.</li>
+      <li><code class="highlighter-rouge">value</code>: new value of the cell.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/update-cell-by-unique-id.html">Update Cell By Unique Id</a></p>
   </li>
 </ul>
 
-<h2 id="refreshoptions">refreshOptions</h2>
+<h2 id="showrow">showRow</h2>
 
 <ul>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">options</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Refresh the table <code class="highlighter-rouge">options</code>.</p>
+    <p>Show the specified row. The params must contain at least one of the following properties:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">index</code>: the row index.</li>
+      <li><code class="highlighter-rouge">uniqueId</code>: the value of the uniqueId for that row.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-row.html">Show/Hide Row</a></p>
   </li>
 </ul>
 
-<h2 id="resetsearch">resetSearch</h2>
+<h2 id="hiderow">hideRow</h2>
 
 <ul>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">text</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set the search <code class="highlighter-rouge">text</code>.</p>
+    <p>Hide the specified row. The params must contain at least one of the following properties:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">index</code>: the row index.</li>
+      <li><code class="highlighter-rouge">uniqueId</code>: the value of the uniqueId for that row.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-row.html">Show/Hide Row</a></p>
   </li>
 </ul>
 
-<h2 id="showloading">showLoading</h2>
+<h2 id="gethiddenrows">getHiddenRows</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">show</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Get all rows hidden and if you pass the <code class="highlighter-rouge">show</code> parameter <code class="highlighter-rouge">true</code> the rows will be shown again, otherwise, the method only will return the rows hidden.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-hidden-rows.html">Get Hidden Rows</a></p>
+  </li>
+</ul>
+
+<h2 id="showcolumn">showColumn</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">field</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Show the specified <code class="highlighter-rouge">field</code> column.
+The parameter can be a string or a array of fields.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-column.html">Show/Hide Column</a></p>
+  </li>
+</ul>
+
+<h2 id="hidecolumn">hideColumn</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">field</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Hide the specified <code class="highlighter-rouge">field</code> column.
+The parameter can be a string or a array of fields.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-column.html">Show/Hide Column</a></p>
+  </li>
+</ul>
+
+<h2 id="getvisiblecolumns">getVisibleColumns</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">-</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Get visible columns.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-visible-hidden-columns.html">Get Visible/Hidden Columns</a></p>
+  </li>
+</ul>
+
+<h2 id="gethiddencolumns">getHiddenColumns</h2>
 
 <ul>
   <li>
@@ -799,11 +866,14 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Show loading status.</p>
+    <p>Get hidden columns.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-visible-hidden-columns.html">Get Visible/Hidden Columns</a></p>
   </li>
 </ul>
 
-<h2 id="hideloading">hideLoading</h2>
+<h2 id="showallcolumns">showAllColumns</h2>
 
 <ul>
   <li>
@@ -812,7 +882,49 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Hide loading status.</p>
+    <p>Show All the columns.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-all-columns.html">Show/Hide All Columns</a></p>
+  </li>
+</ul>
+
+<h2 id="hideallcolumns">hideAllColumns</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Hide All the columns.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-all-columns.html">Show/Hide All Columns</a></p>
+  </li>
+</ul>
+
+<h2 id="mergecells">mergeCells</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Merge some cells to one cell, the params contain following properties:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">index</code>: the row index.</li>
+      <li><code class="highlighter-rouge">field</code>: the field name.</li>
+      <li><code class="highlighter-rouge">rowspan</code>: the rowspan count to be merged.</li>
+      <li><code class="highlighter-rouge">colspan</code>: the colspan count to be merged.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/merge-cells.html">Merge Cells</a></p>
   </li>
 </ul>
 
@@ -827,6 +939,9 @@
 
     <p>Check all current page rows.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/check-uncheck-all.html">Check/Uncheck All</a></p>
+  </li>
 </ul>
 
 <h2 id="uncheckall">uncheckAll</h2>
@@ -839,6 +954,9 @@
     <p><strong>Detail:</strong></p>
 
     <p>Uncheck all current page rows.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/check-uncheck-all.html">Check/Uncheck All</a></p>
   </li>
 </ul>
 
@@ -853,6 +971,9 @@
 
     <p>Invert check of current page rows. Triggers <code class="highlighter-rouge">onCheckSome</code> and <code class="highlighter-rouge">onUncheckSome</code> events.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/check-invert.html">Check Invert</a></p>
+  </li>
 </ul>
 
 <h2 id="check">check</h2>
@@ -866,6 +987,9 @@
 
     <p>Check a row, the row <code class="highlighter-rouge">index</code> start with 0.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/check-uncheck.html">Check/Uncheck</a></p>
+  </li>
 </ul>
 
 <h2 id="uncheck">uncheck</h2>
@@ -878,6 +1002,9 @@
     <p><strong>Detail:</strong></p>
 
     <p>Uncheck a row, the row <code class="highlighter-rouge">index</code> start with 0.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/check-uncheck.html">Check/Uncheck</a></p>
   </li>
 </ul>
 
@@ -897,6 +1024,9 @@
       <li><code class="highlighter-rouge">values</code>: array of values for rows to check.</li>
     </ul>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/check-uncheck-by.html">Check/Uncheck By</a></p>
+  </li>
 </ul>
 
 <h2 id="uncheckby">uncheckBy</h2>
@@ -915,6 +1045,41 @@
       <li><code class="highlighter-rouge">values</code>: array of values for rows to uncheck.</li>
     </ul>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/check-uncheck-by.html">Check/Uncheck By</a></p>
+  </li>
+</ul>
+
+<h2 id="refresh">refresh</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Refresh/reload the remote server data, you can set <code class="highlighter-rouge">{silent: true}</code> to refresh the data silently, and set <code class="highlighter-rouge">{url: newUrl, pageNumber: pageNumber, pageSize: pageSize}</code> to change the url (optional), page number (optional) and page size (optional). To supply query params specific to this request, set <code class="highlighter-rouge">{query: {foo: 'bar'}}</code>.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/refresh.html">Refresh</a></p>
+  </li>
+</ul>
+
+<h2 id="destroy">destroy</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Destroy the Bootstrap Table.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/destroy.html">Destroy</a></p>
+  </li>
 </ul>
 
 <h2 id="resetview">resetView</h2>
@@ -932,6 +1097,9 @@
       <li><code class="highlighter-rouge">height</code>: the height of the table.</li>
     </ul>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/reset-view.html">Reset View</a></p>
+  </li>
 </ul>
 
 <h2 id="resetwidth">resetWidth</h2>
@@ -947,7 +1115,7 @@
   </li>
 </ul>
 
-<h2 id="destroy">destroy</h2>
+<h2 id="showloading">showLoading</h2>
 
 <ul>
   <li>
@@ -956,37 +1124,14 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Destroy the Bootstrap Table.</p>
+    <p>Show loading status.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-loading.html">Show/Hide Loading</a></p>
   </li>
 </ul>
 
-<h2 id="showcolumn">showColumn</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">field</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Show the specified <code class="highlighter-rouge">field</code> column.</p>
-  </li>
-</ul>
-
-<h2 id="hidecolumn">hideColumn</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">field</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Hide the specified <code class="highlighter-rouge">field</code> column.</p>
-  </li>
-</ul>
-
-<h2 id="gethiddencolumns">getHiddenColumns</h2>
+<h2 id="hideloading">hideLoading</h2>
 
 <ul>
   <li>
@@ -995,98 +1140,10 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Get hidden columns.</p>
-  </li>
-</ul>
-
-<h2 id="getvisiblecolumns">getVisibleColumns</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">-</code></p>
+    <p>Hide loading status.</p>
   </li>
   <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Get visible columns.</p>
-  </li>
-</ul>
-
-<h2 id="scrollto">scrollTo</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">value</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Scroll to the number <code class="highlighter-rouge">value</code> position, the unit is <code class="highlighter-rouge">'px'</code>, set <code class="highlighter-rouge">'bottom'</code> means scroll to the bottom.</p>
-  </li>
-</ul>
-
-<h2 id="getscrollposition">getScrollPosition</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Get the current scroll position, the unit is <code class="highlighter-rouge">'px'</code>.</p>
-  </li>
-</ul>
-
-<h2 id="filterby">filterBy</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>(Can use only in client-side) Filter data in table, e.g. you can filter <code class="highlighter-rouge">{age: 10}</code> to show the data only age is equal to 10.  You can also filter with an array of values, as in: <code class="highlighter-rouge">{age: 10, hairColor: ['blue', 'red', 'green']}</code> to find data where age is equal to 10 and hairColor is either blue, red, or green.</p>
-  </li>
-</ul>
-
-<h2 id="selectpage">selectPage</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">page</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Go to the a specified <code class="highlighter-rouge">page</code>.</p>
-  </li>
-</ul>
-
-<h2 id="prevpage">prevPage</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Go to previous page.</p>
-  </li>
-</ul>
-
-<h2 id="nextpage">nextPage</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Go to next page.</p>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-loading.html">Show/Hide Loading</a></p>
   </li>
 </ul>
 
@@ -1101,6 +1158,25 @@
 
     <p>Toggle the pagination option.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/toggle-pagination.html">Toggle Pagination</a></p>
+  </li>
+</ul>
+
+<h2 id="togglefullscreen">toggleFullscreen</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Toggle fullscreen.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/toggle-fullscreen.html">Toggle Fullscreen</a></p>
+  </li>
 </ul>
 
 <h2 id="toggleview">toggleView</h2>
@@ -1113,6 +1189,190 @@
     <p><strong>Detail:</strong></p>
 
     <p>Toggle the card/table view.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/toggle-view.html">Toggle View</a></p>
+  </li>
+</ul>
+
+<h2 id="resetsearch">resetSearch</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">text</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set the search <code class="highlighter-rouge">text</code>.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/reset-search.html">Reset Search</a></p>
+  </li>
+</ul>
+
+<h2 id="filterby">filterBy</h2>
+
+<ul>
+  <li><strong>Parameter:</strong>
+    <ul>
+      <li><code class="highlighter-rouge">filter - An Object of filter</code>
+  Default: <code class="highlighter-rouge">{}</code></li>
+      <li><code class="highlighter-rouge">options - An Object of options</code>
+  Default:
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  {
+      'filterAlgorithm': 'and'
+  }
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>(Can use only in client-side) Filter data in table.
+There are multiple ways to filter:</p>
+    <ul>
+      <li>Leave the options blank to use the <code class="highlighter-rouge">and</code> filter.</li>
+      <li>Set the <code class="highlighter-rouge">filterAlgorithm</code> (see at parameter) to <code class="highlighter-rouge">or</code> to use the <code class="highlighter-rouge">or</code> filter.</li>
+      <li>Pass a function to the <code class="highlighter-rouge">filterAlgorithm</code> (see at parameter) to use a <code class="highlighter-rouge">custom</code> filter.</li>
+    </ul>
+
+    <p><strong>Filter Algorithm</strong></p>
+
+    <ul>
+      <li>And
+        <ul>
+          <li>Filter <code class="highlighter-rouge">{age: 10}</code> to show the data only age is equal to 10.  You can also filter with an array of values, as in: <code class="highlighter-rouge">{age: 10, hairColor: ['blue', 'red', 'green']}</code> to find data where age is equal to 10 and hairColor is either blue, red, or green.</li>
+        </ul>
+      </li>
+      <li>Or
+        <ul>
+          <li>Filter <code class="highlighter-rouge">{age: 10, name: "santa"}</code> to show all Data which has a age of 10 <strong>or</strong> the name is equals to santa.</li>
+        </ul>
+      </li>
+      <li>Custom
+        <ul>
+          <li>Filter by your Custom algorithm</li>
+          <li>Function parameters:
+            <ul>
+              <li>Row</li>
+              <li>Filters</li>
+            </ul>
+          </li>
+          <li>Return <code class="highlighter-rouge">true</code> to keep the row and return <code class="highlighter-rouge">false</code> to filter the row.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/filter-by.html">Filter By</a></li>
+</ul>
+
+<h2 id="scrollto">scrollTo</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">value|object</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <ul>
+      <li>value
+        <ul>
+          <li>Scroll to the number <code class="highlighter-rouge">value</code> position, the unit is <code class="highlighter-rouge">'px'</code>, set <code class="highlighter-rouge">'bottom'</code> means scroll to the bottom.</li>
+        </ul>
+      </li>
+      <li>object
+        <ul>
+          <li>Scroll to the unit (<code class="highlighter-rouge">px</code> or <code class="highlighter-rouge">rows (index starts by 0)</code>)
+Default: <code class="highlighter-rouge">{unit: 'px', value: 0}</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/scorll-to.html">Scroll To</a></p>
+  </li>
+</ul>
+
+<h2 id="getscrollposition">getScrollPosition</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Get the current scroll position, the unit is <code class="highlighter-rouge">'px'</code>.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-scroll-position.html">Get Scroll Position</a></p>
+  </li>
+</ul>
+
+<h2 id="selectpage">selectPage</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">page</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Go to the a specified <code class="highlighter-rouge">page</code>.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/select-prev-next-page.html.html">Select/Prev/Next Page</a></p>
+  </li>
+</ul>
+
+<h2 id="prevpage">prevPage</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Go to previous page.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/select-prev-next-page.html.html">Select/Prev/Next Page</a></p>
+  </li>
+</ul>
+
+<h2 id="nextpage">nextPage</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Go to next page.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/select-prev-next-page.html">Select/Prev/Next Page</a></p>
+  </li>
+</ul>
+
+<h2 id="toggledetailview">toggleDetailView</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">index</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Toggle the row that has the <code class="highlighter-rouge">index</code> passed by parameter if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/toggle-detail-view.html">Toggle Detail View</a></p>
   </li>
 </ul>
 
@@ -1127,6 +1387,9 @@
 
     <p>Expand the row that has the <code class="highlighter-rouge">index</code> passed by parameter if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/expand-collapse-row.html">Expand/Collapse Row</a></p>
+  </li>
 </ul>
 
 <h2 id="collapserow">collapseRow</h2>
@@ -1140,18 +1403,24 @@
 
     <p>Collapse the row that has the <code class="highlighter-rouge">index</code> passed by parameter if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
   </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/expand-collapse-row.html">Expand/Collapse Row</a></p>
+  </li>
 </ul>
 
 <h2 id="expandallrows">expandAllRows</h2>
 
 <ul>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">isSubTable</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
     <p>Expand all rows if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/expand-collapse-all-rows.html">Expand/Collapse All Rows</a></p>
   </li>
 </ul>
 
@@ -1159,12 +1428,52 @@
 
 <ul>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">isSubTable</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
     <p>Collapse all rows if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/expand-collapse-all-rows.html">Expand/Collapse All Rows</a></p>
+  </li>
+</ul>
+
+<h2 id="updatecolumntitle">updateColumnTitle</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Update the field title of column, the params contain following properties:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">field</code>: the field name.</li>
+      <li><code class="highlighter-rouge">title</code>: the field title.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/update-column-title.html">Update Column Title</a></p>
+  </li>
+</ul>
+
+<h2 id="updateformattext">updateFormatText</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">formatName, text</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Update the localizations format text.</p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/update-format-text.html">Update Format Text</a></p>
   </li>
 </ul>
 

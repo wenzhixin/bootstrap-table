@@ -132,7 +132,87 @@
 </header>
 
 <main class="bd-content p-5" id="content" role="main">
-  <h2 id="bootstrap-table-1142">Bootstrap Table 1.14.2</h2>
+  <h2 id="bootstrap-table-1150">Bootstrap Table 1.15.0</h2>
+
+<p><span class="post-date">22 Jun 2019</span></p>
+
+<h4 id="core">Core</h4>
+
+<ul>
+  <li><strong>New:</strong> Added virtual scroll to support large data sets.</li>
+  <li><strong>New:</strong> Added vue component support.</li>
+  <li><strong>New:</strong> Added support comparisons search(&lt;, &gt;, &lt;=, =&lt;, &gt;=, =&gt;).</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">detailViewByClick</code> table option and <code class="highlighter-rouge">detailFormatter</code> column option.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">showExtendedPagination</code> and <code class="highlighter-rouge">totalNotFilteredField</code> table options.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">widthUnit</code> option to allow any unit.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">multipleSelectRow</code> option to support ctrl and shift select.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">onPostFooter</code>(<code class="highlighter-rouge">post-footer.bs.table</code>) event.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">detailViewIcon</code> and <code class="highlighter-rouge">toggleDetailView</code> method to hide the show/hide icons.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">showSearchButton</code> and <code class="highlighter-rouge">showSearchClearButton</code> options to improve the search.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">showButtonIcons</code> and <code class="highlighter-rouge">showButtonText</code> options to improve the icons display.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">visibleSearch</code> option search only on displayed/visible columns.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">showColumnsToggleAll</code> option to toggle all columns.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">cellStyle</code> to support checkbox field.</li>
+  <li><strong>New:</strong> Added checkbox and radio auto checked from html support.</li>
+  <li><strong>New:</strong> Added screen reader support for pagination.</li>
+  <li><strong>New:</strong> Added travis lint src and check docs scripts.</li>
+  <li><strong>New:</strong> Added webpack support and user rollup to build the src.</li>
+  <li><strong>New:</strong> Added a version number property.</li>
+  <li><strong>New:</strong> Improved <code class="highlighter-rouge">filterBy</code> method with <code class="highlighter-rouge">or</code> condition and custom filter algorithm.</li>
+  <li><strong>New:</strong> Improved <code class="highlighter-rouge">showColumn</code> and <code class="highlighter-rouge">hideColumn</code> methods with array of fields.</li>
+  <li><strong>New:</strong> Improved <code class="highlighter-rouge">scrollTo</code> method to allow <code class="highlighter-rouge">rows</code> units.</li>
+  <li><strong>Update:</strong> Rewrote all code to ES6.</li>
+  <li><strong>Update:</strong> Improved <code class="highlighter-rouge">pageList</code> options to support localization.</li>
+  <li><strong>Update:</strong> Improved the <code class="highlighter-rouge">totalRows</code> option.</li>
+  <li><strong>Update:</strong> Improved table footer.</li>
+  <li><strong>Update:</strong> Improved <code class="highlighter-rouge">getSelections</code> and <code class="highlighter-rouge">getAllSelections</code> methods.</li>
+  <li><strong>Update:</strong> Improved css frameworks themes.</li>
+  <li><strong>Update:</strong> Updated parameters of the <code class="highlighter-rouge">getData</code> method.</li>
+  <li><strong>Update:</strong> Updated parameters of the (un)checkAll events to <code class="highlighter-rouge">rowsAfter, rowsBefore</code>.</li>
+  <li><strong>Update:</strong> Updated parameters of the <code class="highlighter-rouge">updateRow</code> method to support <code class="highlighter-rouge">replace</code>.</li>
+  <li><strong>Update:</strong> Updated page number to 1 while making a server side sort.</li>
+  <li><strong>Update:</strong> Renamed table <code class="highlighter-rouge">maintainSelected</code> option to <code class="highlighter-rouge">maintainMetaData</code>.</li>
+  <li><strong>Update:</strong> Renamed method <code class="highlighter-rouge">refreshColumnTitle</code> to <code class="highlighter-rouge">updateColumnTitle</code>.</li>
+  <li><strong>Update:</strong> Fixed card view value to be aligned incorrectly bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">smartDisplay</code> option pagination bug.</li>
+  <li><strong>Update:</strong> Fixed data-* attribute is an object bug.</li>
+  <li><strong>Update:</strong> Fixed page separators click bug.</li>
+  <li><strong>Update:</strong> Fixed scrolling bug in IE11.</li>
+  <li><strong>Update:</strong> Fixed initHeader error caused by toggleColumn.</li>
+  <li><strong>Update:</strong> Fixed search input trigger multiple times bug.</li>
+  <li><strong>Update:</strong> Fix Pagination/totalRows not updated on <code class="highlighter-rouge">hideRow</code>.</li>
+  <li><strong>Update:</strong> Fixed columns title error.</li>
+</ul>
+
+<h4 id="extensions">Extensions</h4>
+
+<ul>
+  <li><strong>New(editable):</strong> Added <code class="highlighter-rouge">onExportSaved</code> event.</li>
+  <li><strong>New(export):</strong> Added <code class="highlighter-rouge">forceExport</code> column option force export columns with hidden.</li>
+  <li><strong>New(export):</strong> Added function support of <code class="highlighter-rouge">fileName</code> option.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterDataCollector</code> to control the filter select options.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterOrderBy</code> and filterDefault column options.</li>
+  <li><strong>New(multiple-sort):</strong> Added bootstrap v4 theme support.</li>
+  <li><strong>New(print):</strong> Added RTL dir support.</li>
+  <li><strong>Remove:</strong> Removed group-by, multi-column-toggle, multiple-search, multiple-selection-row, select2-filter and tree-column extensions.</li>
+  <li><strong>Update(cookie):</strong> Fixed cookie search cannot work bug.</li>
+  <li><strong>Update(editable):</strong> Updated parameters of <code class="highlighter-rouge">onEditableSave</code> to <code class="highlighter-rouge">field, row, rowIndex, oldValue, $el</code>.</li>
+  <li><strong>Update(editable):</strong> Fixed editable rerender bug after saving data.</li>
+  <li><strong>Update(export):</strong> Updated to only export table header.</li>
+  <li><strong>Update(export):</strong> Fixed bug with the footer extensions while sorting.</li>
+  <li><strong>Update(filter-control):</strong> Added ability to handle boolean.</li>
+  <li><strong>Update(filter-control):</strong> Fixed DatePicker of filter-control does not work bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed clear filterControl with Cookie bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed loading screen with filter control.</li>
+  <li><strong>Update(filter-control):</strong> Fixed overwriting the searchText bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed filtering does not work json sub-object.</li>
+  <li><strong>Update(multiple-sort):</strong> Fixed multiple-sort does not work with data-query-params bug.</li>
+  <li><strong>Update(page-jump-to):</strong> Fixed <code class="highlighter-rouge">click</code> bug when paginationVAlign is ‘both’.</li>
+  <li><strong>Update(reorder-columns):</strong> Fixed reorder columns cannot work bug.</li>
+  <li><strong>Update(treegrid):</strong> Fixed treegrid cannot work bug.</li>
+</ul>
+
+<h2 id="bootstrap-table-1142">Bootstrap Table 1.14.2</h2>
 
 <p><span class="post-date">19 Mar 2019</span></p>
 
@@ -326,7 +406,7 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.14.2, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.15.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>
