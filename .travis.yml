@@ -21,6 +21,6 @@ jobs:
       if: branch = master AND type = push
       env:
         global:
-        - ENCRYPTION_LABEL: "5453d0fdf68a"
-        - COMMIT_AUTHOR_EMAIL: "wenzhixin2010@gmail.com"
+          - ENCRYPTION_LABEL="5453d0fdf68a"
+          - COMMIT_AUTHOR_EMAIL="wenzhixin2010@gmail.com"
       cache: bundler
