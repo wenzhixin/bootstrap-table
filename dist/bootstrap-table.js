@@ -2640,7 +2640,7 @@
 	  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 	}
 
-	var VERSION = '1.15.1';
+	var VERSION = '1.15.2';
 	var bootstrapVersion = 4;
 
 	try {
