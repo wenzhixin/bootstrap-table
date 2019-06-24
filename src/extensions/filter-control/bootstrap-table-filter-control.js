@@ -246,7 +246,7 @@ const UtilsFilterControl = {
             continue
           }
 
-          UtilsFilterControl.addOptionToSelectControl(selectControl, fieldValue, formattedValue, column.filterDefault)
+          UtilsFilterControl.addOptionToSelectControl(selectControl, formattedValue, formattedValue, column.filterDefault)
         }
 
         UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)

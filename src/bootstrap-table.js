@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.15.0
+ * version: 1.15.2
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -643,7 +643,10 @@ class BootstrapTable {
       this.$toolbar.append(html.join(''))
       const $searchInput = this.$toolbar.find('.search input')
       $search = o.showSearchButton ? this.$toolbar.find('.search button[name=search]') : $searchInput
-      const eventTriggers = o.showSearchButton ? 'click' : 'keyup drop blur'
+
+      const eventTriggers = o.showSearchButton ? 'click' :
+        (Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur')
+
       $search.off(eventTriggers).on(eventTriggers, event => {
         if (o.searchOnEnterKey && event.keyCode !== 13) {
           return
@@ -663,15 +666,6 @@ class BootstrapTable {
         this.$toolbar.find('.search button[name=clearSearch]').click(() => {
           this.resetSearch()
           this.onSearch({currentTarget: this.$toolbar.find('.search input')})
-        })
-      }
-
-      if (Utils.isIEBrowser()) {
-        $search.off('mouseup').on('mouseup', event => {
-          clearTimeout(timeoutId) // doesn't matter if it's 0
-          timeoutId = setTimeout(() => {
-            this.onSearch(event)
-          }, o.searchTimeOut)
         })
       }
     }
@@ -1496,7 +1490,11 @@ class BootstrapTable {
         fieldIndex += 1
       }
 
-      for (const [key, event] of Object.entries(events)) {
+      for (const key in events) {
+        if (!events.hasOwnProperty(key)) {
+          continue
+        }
+        const event = events[key]
         this.$body.find('>tr:not(.no-records-found)').each((i, tr) => {
           const $tr = $(tr)
           const $td = $tr.find(this.options.cardView ? '.card-view' : 'td').eq(fieldIndex)
