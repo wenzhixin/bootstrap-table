@@ -132,14 +132,14 @@
 </header>
 
 <main class="bd-content p-5" id="content" role="main">
-  <h2 id="bootstrap-table-1150">Bootstrap Table 1.15.0</h2>
+  <h2 id="bootstrap-table-1151">Bootstrap Table 1.15.1</h2>
 
-<p><span class="post-date">22 Jun 2019</span></p>
+<p><span class="post-date">24 Jun 2019</span></p>
 
 <h4 id="core">Core</h4>
 
 <ul>
-  <li><strong>New:</strong> Added virtual scroll to support large data sets.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">virtualScroll</code> and <code class="highlighter-rouge">virtualScrollItemHeight</code> options to support large data.</li>
   <li><strong>New:</strong> Added vue component support.</li>
   <li><strong>New:</strong> Added support comparisons search(&lt;, &gt;, &lt;=, =&lt;, &gt;=, =&gt;).</li>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">detailViewByClick</code> table option and <code class="highlighter-rouge">detailFormatter</code> column option.</li>
@@ -206,9 +206,11 @@
   <li><strong>Update(filter-control):</strong> Fixed loading screen with filter control.</li>
   <li><strong>Update(filter-control):</strong> Fixed overwriting the searchText bug.</li>
   <li><strong>Update(filter-control):</strong> Fixed filtering does not work json sub-object.</li>
+  <li><strong>Update(filter-control):</strong> Fixed select filter with formatter.</li>
   <li><strong>Update(multiple-sort):</strong> Fixed multiple-sort does not work with data-query-params bug.</li>
   <li><strong>Update(page-jump-to):</strong> Fixed <code class="highlighter-rouge">click</code> bug when paginationVAlign is ‘both’.</li>
   <li><strong>Update(reorder-columns):</strong> Fixed reorder columns cannot work bug.</li>
+  <li><strong>Update(reorder-columns):</strong> Fix search and columns bug after reorder columns.</li>
   <li><strong>Update(treegrid):</strong> Fixed treegrid cannot work bug.</li>
 </ul>
 
@@ -406,7 +408,7 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.15.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.15.1, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>

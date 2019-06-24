@@ -367,6 +367,8 @@
 <li class="toc-entry toc-h2"><a href="#rowattributes">rowAttributes</a></li>
 <li class="toc-entry toc-h2"><a href="#undefinedtext">undefinedText</a></li>
 <li class="toc-entry toc-h2"><a href="#locale">locale</a></li>
+<li class="toc-entry toc-h2"><a href="#virtualscroll">virtualScroll</a></li>
+<li class="toc-entry toc-h2"><a href="#virtualscrollitemheight">virtualScrollItemHeight</a></li>
 <li class="toc-entry toc-h2"><a href="#sortable">sortable</a></li>
 <li class="toc-entry toc-h2"><a href="#sortclass">sortClass</a></li>
 <li class="toc-entry toc-h2"><a href="#silentsort">silentSort</a></li>
@@ -678,6 +680,52 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-locale.html">Table Locale</a></p>
+  </li>
+</ul>
+
+<h2 id="virtualscroll">virtualScroll</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-virtual-scroll</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to enable virtual scroll to displays a virtual, “infinite” list.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/large-data.html">Large Data</a></p>
+  </li>
+</ul>
+
+<h2 id="virtualscrollitemheight">virtualScrollItemHeight</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-virtual-scroll-item-height</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>If this option is not define, we will use the height of the first item by default.</p>
+
+    <p>It is <strong>important</strong> to provide this if virtual item height will be significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized, and to help calculate the height of the scrollable area. This height value can only use <code class="highlighter-rouge">px</code> units.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/virtual-scroll-item-height.html">Virtual Scroll Item Height</a></p>
   </li>
 </ul>
 
