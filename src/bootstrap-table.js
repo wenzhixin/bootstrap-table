@@ -643,7 +643,10 @@ class BootstrapTable {
       this.$toolbar.append(html.join(''))
       const $searchInput = this.$toolbar.find('.search input')
       $search = o.showSearchButton ? this.$toolbar.find('.search button[name=search]') : $searchInput
-      const eventTriggers = o.showSearchButton ? 'click' : 'keyup drop blur'
+
+      const eventTriggers = o.showSearchButton ? 'click' :
+        (Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur')
+
       $search.off(eventTriggers).on(eventTriggers, event => {
         if (o.searchOnEnterKey && event.keyCode !== 13) {
           return
@@ -663,15 +666,6 @@ class BootstrapTable {
         this.$toolbar.find('.search button[name=clearSearch]').click(() => {
           this.resetSearch()
           this.onSearch({currentTarget: this.$toolbar.find('.search input')})
-        })
-      }
-
-      if (Utils.isIEBrowser()) {
-        $search.off('mouseup').on('mouseup', event => {
-          clearTimeout(timeoutId) // doesn't matter if it's 0
-          timeoutId = setTimeout(() => {
-            this.onSearch(event)
-          }, o.searchTimeOut)
         })
       }
     }
