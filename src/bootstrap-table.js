@@ -1490,7 +1490,11 @@ class BootstrapTable {
         fieldIndex += 1
       }
 
-      for (const [key, event] of Object.entries(events)) {
+      for (const key in events) {
+        if (!events.hasOwnProperty(key)) {
+          continue
+        }
+        const event = events[key]
         this.$body.find('>tr:not(.no-records-found)').each((i, tr) => {
           const $tr = $(tr)
           const $td = $tr.find(this.options.cardView ? '.card-view' : 'td').eq(fieldIndex)
