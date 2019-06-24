@@ -11,7 +11,7 @@ toc: true
 Import Bootstrap Table’s JavaScript by adding this line to your app’s entry point (usually `index.js` or `app.js`):
 
 {% highlight js %}
-import 'bootstrap-table'
+import 'bootstrap-table/dist/bootstrap-table.js'
 {% endhighlight %}
 
 Of course, you can also import themes, locales or extensions you need:
@@ -96,6 +96,8 @@ export default {
 
 ## Starter template
 
+There is an [vue-starter](https://github.com/wenzhixin/bootstrap-table-examples/tree/develop/vue-starter) example in bootstrap-table-example project.
+
 `plugins/jquery.js`
 
 {% highlight js %}
@@ -112,7 +114,7 @@ import 'bootstrap-table/dist/bootstrap-table.min.css'
 import './jquery.js'
 import Vue from 'vue'
 import 'bootstrap'
-import 'bootstrap-table'
+import 'bootstrap-table/dist/bootstrap-table.js'
 import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.esm.js'
 
 Vue.component('BootstrapTable', BootstrapTable)
