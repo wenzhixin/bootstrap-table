@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.15.0
+ * version: 1.15.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -643,7 +643,10 @@ class BootstrapTable {
       this.$toolbar.append(html.join(''))
       const $searchInput = this.$toolbar.find('.search input')
       $search = o.showSearchButton ? this.$toolbar.find('.search button[name=search]') : $searchInput
-      const eventTriggers = o.showSearchButton ? 'click' : 'keyup drop blur'
+
+      const eventTriggers = o.showSearchButton ? 'click' :
+        (Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur')
+
       $search.off(eventTriggers).on(eventTriggers, event => {
         if (o.searchOnEnterKey && event.keyCode !== 13) {
           return
@@ -663,15 +666,6 @@ class BootstrapTable {
         this.$toolbar.find('.search button[name=clearSearch]').click(() => {
           this.resetSearch()
           this.onSearch({currentTarget: this.$toolbar.find('.search input')})
-        })
-      }
-
-      if (Utils.isIEBrowser()) {
-        $search.off('mouseup').on('mouseup', event => {
-          clearTimeout(timeoutId) // doesn't matter if it's 0
-          timeoutId = setTimeout(() => {
-            this.onSearch(event)
-          }, o.searchTimeOut)
         })
       }
     }
@@ -1382,7 +1376,7 @@ class BootstrapTable {
       const tr = this.initRow(item, i, data, trFragments)
       hasTr = hasTr || !!tr
       if (tr && typeof tr === 'string') {
-        if (this.virtualScrollDisabled) {
+        if (!this.options.virtualScroll) {
           trFragments.append(tr)
         } else {
           rows.push(tr)
@@ -1396,7 +1390,7 @@ class BootstrapTable {
         this.$header.find('th').length,
         this.options.formatNoMatches())}</tr>`)
     } else {
-      if (this.virtualScrollDisabled) {
+      if (!this.options.virtualScroll) {
         this.$body.html(trFragments)
       } else {
         if (this.virtualScroll) {
@@ -1406,6 +1400,7 @@ class BootstrapTable {
           rows,
           scrollEl: this.$tableBody[0],
           contentEl: this.$body[0],
+          itemHeight: this.options.virtualScrollItemHeight,
           callback: () => {
             this.fitHeader()
           }

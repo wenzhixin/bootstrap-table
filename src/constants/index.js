@@ -1,4 +1,4 @@
-const VERSION = '1.15.0'
+const VERSION = '1.15.1'
 
 let bootstrapVersion = 4
 try {
@@ -118,6 +118,8 @@ const DEFAULTS = {
   },
   undefinedText: '-',
   locale: undefined,
+  virtualScroll: false,
+  virtualScrollItemHeight: undefined,
   sortable: true,
   sortClass: undefined,
   silentSort: true,

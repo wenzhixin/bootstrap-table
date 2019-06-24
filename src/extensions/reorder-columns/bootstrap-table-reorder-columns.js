@@ -166,6 +166,8 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
       that.header.fields = ths
       that.header.formatters = formatters
       that.initHeader()
+      that.initToolbar()
+      that.initSearchText()
       that.initBody()
       that.resetView()
       that.trigger('reorder-column', ths)
