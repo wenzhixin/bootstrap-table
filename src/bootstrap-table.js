@@ -2192,7 +2192,7 @@ class BootstrapTable {
       if (rowId === -1) {
         return
       }
-      this.data[rowId][field] = value
+      this.options.data[rowId][field] = value
     })
 
     if (params.reinit === false) {
