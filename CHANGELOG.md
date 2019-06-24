@@ -1,11 +1,11 @@
 ChangeLog
 ---------
 
-### 1.15.0
+### 1.15.1
 
 #### Core
 
-- **New:** Added virtual scroll to support large data sets.
+- **New:** Added `virtualScroll` and `virtualScrollItemHeight` options to support large data.
 - **New:** Added vue component support.
 - **New:** Added support comparisons search(<, >, <=, =<, >=, =>).
 - **New:** Added `detailViewByClick` table option and `detailFormatter` column option.
@@ -70,9 +70,11 @@ ChangeLog
 - **Update(filter-control):** Fixed loading screen with filter control.
 - **Update(filter-control):** Fixed overwriting the searchText bug.
 - **Update(filter-control):** Fixed filtering does not work json sub-object.
+- **Update(filter-control):** Fixed select filter with formatter.
 - **Update(multiple-sort):** Fixed multiple-sort does not work with data-query-params bug.
 - **Update(page-jump-to):** Fixed `click` bug when paginationVAlign is 'both'.
 - **Update(reorder-columns):** Fixed reorder columns cannot work bug.
+- **Update(reorder-columns):** Fix search and columns bug after reorder columns.
 - **Update(treegrid):** Fixed treegrid cannot work bug.
 
 ### 1.14.2
