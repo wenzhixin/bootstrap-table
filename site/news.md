@@ -4,7 +4,7 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
-## Bootstrap Table 1.15.1
+## Bootstrap Table 1.15.2
 
 <span class="post-date">24 Jun 2019</span>
 
