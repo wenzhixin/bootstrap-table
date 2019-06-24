@@ -5142,10 +5142,12 @@
 	          fieldIndex += 1;
 	        }
 
-	        var _loop = function _loop() {
-	          var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i7], 2),
-	              key = _Object$entries6$_i[0],
-	              event = _Object$entries6$_i[1];
+	        var _loop = function _loop(key) {
+	          if (!events.hasOwnProperty(key)) {
+	            return "continue";
+	          }
+
+	          var event = events[key];
 
 	          _this8.$body.find('>tr:not(.no-records-found)').each(function (i, tr) {
 	            var $tr = $(tr);
@@ -5162,8 +5164,10 @@
 	          });
 	        };
 
-	        for (var _i7 = 0, _Object$entries6 = Object.entries(events); _i7 < _Object$entries6.length; _i7++) {
-	          _loop();
+	        for (var key in events) {
+	          var _ret = _loop(key);
+
+	          if (_ret === "continue") continue;
 	        }
 	      });
 	      this.updateSelected();
@@ -5516,10 +5520,10 @@
 	          style = Utils.calculateObjectValue(null, this.options.footerStyle, [column]);
 
 	          if (style && style.css) {
-	            for (var _i8 = 0, _Object$entries7 = Object.entries(style.css); _i8 < _Object$entries7.length; _i8++) {
-	              var _Object$entries7$_i = _slicedToArray(_Object$entries7[_i8], 2),
-	                  key = _Object$entries7$_i[0],
-	                  value = _Object$entries7$_i[1];
+	            for (var _i7 = 0, _Object$entries6 = Object.entries(style.css); _i7 < _Object$entries6.length; _i7++) {
+	              var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i7], 2),
+	                  key = _Object$entries6$_i[0],
+	                  value = _Object$entries6$_i[1];
 
 	              csses.push("".concat(key, ": ").concat(value));
 	            }
