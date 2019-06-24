@@ -385,7 +385,7 @@
 
 <p>Import Bootstrap Table’s JavaScript by adding this line to your app’s entry point (usually <code class="highlighter-rouge">index.js</code> or <code class="highlighter-rouge">app.js</code>):</p>
 
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table</span><span class="dl">'</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/bootstrap-table.js</span><span class="dl">'</span></code></pre></figure>
 
 <p>Of course, you can also import themes, locales or extensions you need:</p>
 
@@ -461,6 +461,8 @@
 
 <h2 id="starter-template">Starter template</h2>
 
+<p>There is an <a href="https://github.com/wenzhixin/bootstrap-table-examples/tree/develop/vue-starter">vue-starter</a> example in bootstrap-table-example project.</p>
+
 <p><code class="highlighter-rouge">plugins/jquery.js</code></p>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">import</span> <span class="nx">jQuery</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">jquery</span><span class="dl">'</span>
@@ -474,7 +476,7 @@
 <span class="k">import</span> <span class="dl">'</span><span class="s1">./jquery.js</span><span class="dl">'</span>
 <span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
 <span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap</span><span class="dl">'</span>
-<span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table</span><span class="dl">'</span>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/bootstrap-table.js</span><span class="dl">'</span>
 <span class="k">import</span> <span class="nx">BootstrapTable</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/bootstrap-table-vue.esm.js</span><span class="dl">'</span>
 
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">BootstrapTable</span><span class="dl">'</span><span class="p">,</span> <span class="nx">BootstrapTable</span><span class="p">)</span></code></pre></figure>
