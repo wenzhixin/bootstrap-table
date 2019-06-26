@@ -54,12 +54,16 @@ export default {
         const colspan = r.colspan || 1
         const index = flag[i].indexOf(false)
 
+        r.colspanIndex = index
+
         if (colspan === 1) {
           r.fieldIndex = index
           // when field is undefined, use index instead
           if (typeof r.field === 'undefined') {
             r.field = index
           }
+        } else {
+          r.colspanGroup = r.colspan
         }
 
         for (let k = 0; k < rowspan; k++) {
@@ -67,6 +71,26 @@ export default {
         }
         for (let k = 0; k < colspan; k++) {
           flag[i][index + k] = true
+        }
+      }
+    }
+  },
+
+  updateFieldGroup (columns) {
+    const allColumns = columns.flat()
+
+    for (const c of columns) {
+      for (const r of c) {
+        if (r.colspanGroup > 1) {
+          let colspan = 0
+          for (let i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
+            const column = allColumns.find(col => col.fieldIndex === i)
+            if (column.visible) {
+              colspan++
+            }
+          }
+          r.colspan = colspan
+          r.visible = colspan > 0
         }
       }
     }

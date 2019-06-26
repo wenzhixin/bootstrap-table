@@ -219,6 +219,8 @@ class BootstrapTable {
       searchables: []
     }
 
+    Utils.updateFieldGroup(this.options.columns)
+
     this.options.columns.forEach((columns, i) => {
       html.push('<tr>')
 
@@ -230,6 +232,10 @@ class BootstrapTable {
       }
 
       columns.forEach((column, j) => {
+        if (!column.visible) {
+          return
+        }
+
         const class_ = Utils.sprintf(' class="%s"', column['class'])
         const unitWidth = column.widthUnit
         const width = Number.parseFloat(column.width)
@@ -252,10 +258,6 @@ class BootstrapTable {
           this.header.sortNames[column.fieldIndex] = column.sortName
           this.header.cellStyles[column.fieldIndex] = column.cellStyle
           this.header.searchables[column.fieldIndex] = column.searchable
-
-          if (!column.visible) {
-            return
-          }
 
           if (this.options.cardView && (!column.cardVisible)) {
             return
@@ -1906,7 +1908,7 @@ class BootstrapTable {
     for (const field of this.header.fields) {
       const column = this.columns[this.fieldsColumnsIndex[field]]
 
-      if (!column.visible) {
+      if (!column || !column.visible) {
         continue
       }
       visibleFields.push(field)
