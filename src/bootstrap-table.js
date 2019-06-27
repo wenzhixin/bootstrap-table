@@ -127,6 +127,11 @@ class BootstrapTable {
       }
 
       this.$tableFooter = this.$container.find('.fixed-table-footer')
+    } else {
+      if (!this.$tableFooter.length) {
+        this.$el.append('<tfoot><tr></tr></tfoot>')
+        this.$tableFooter = this.$el.find('tfoot')
+      }
     }
   }
 
