@@ -1,6 +1,6 @@
 /**
  * Bootstrap Table Dutch translation
- * Author: Your Name <info@a2hankes.nl>
+ * Author: Nevets82 <Nevets82@gmail.com>
  */
 
 $.fn.bootstrapTable.locales['nl-NL'] = {
