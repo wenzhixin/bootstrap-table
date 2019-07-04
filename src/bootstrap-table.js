@@ -1930,9 +1930,9 @@ class BootstrapTable {
 
   getOptions () {
     // deep copy and remove data
-    const options = JSON.parse(JSON.stringify(this.options))
+    const options = $.extend({}, this.options)
     delete options.data
-    return options
+    return $.extend(true, {}, options)
   }
 
   refreshOptions (options) {
