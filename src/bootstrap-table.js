@@ -1429,7 +1429,7 @@ class BootstrapTable {
       const item = this.data[rowIndex]
       const index = this.options.cardView ? $cardViewArr.index($cardViewTarget) : $td[0].cellIndex
       const fields = this.getVisibleFields()
-      const field = fields[this.options.detailView && !this.options.cardView ? index - 1 : index]
+      const field = fields[this.options.detailView && this.detailViewIcon && !this.options.cardView ? index - 1 : index]
       const column = this.columns[this.fieldsColumnsIndex[field]]
       const value = Utils.getItemField(item, field, this.options.escape)
 
@@ -1454,7 +1454,7 @@ class BootstrapTable {
       }
 
       if (e.type === 'click' && this.options.detailViewByClick) {
-        this.toggleDetailView(rowIndex, this.header.detailFormatters[index])
+        this.toggleDetailView(rowIndex, this.header.detailFormatters[this.fieldsColumnsIndex[field]])
       }
     }).off('mousedown').on('mousedown', e => {
       // https://github.com/jquery/jquery/issues/1741
