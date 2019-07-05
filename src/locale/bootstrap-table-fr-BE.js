@@ -9,7 +9,7 @@ $.fn.bootstrapTable.locales['fr-BE'] = {
     return 'Chargement en cours'
   },
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} entrées par page`
+    return `${pageNumber} lignes par page`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
@@ -37,7 +37,7 @@ $.fn.bootstrapTable.locales['fr-BE'] = {
     return 'Recherche'
   },
   formatNoMatches () {
-    return 'Pas de fichiers trouvés'
+    return 'Pas de lignes trouvés'
   },
   formatPaginationSwitch () {
     return 'Cacher/Afficher pagination'
