@@ -332,6 +332,8 @@
     z-index: 1050;
     width: 100% !important;
     background: #fff;
+    height: calc(100vh);
+    overflow-y: scroll;
   }
 }
 
