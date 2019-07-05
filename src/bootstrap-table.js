@@ -243,7 +243,7 @@ class BootstrapTable {
 
         const class_ = Utils.sprintf(' class="%s"', column['class'])
         const unitWidth = column.widthUnit
-        const width = Number.parseFloat(column.width)
+        const width = parseFloat(column.width)
 
         const halign = Utils.sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
         const align = Utils.sprintf('text-align: %s; ', column.align)
