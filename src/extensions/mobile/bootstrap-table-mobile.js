@@ -91,7 +91,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.columns.forEach(column => {
         if (this.options.columnsHidden.includes(column.field)) {
           if (column.visible !== checked) {
-            this.toggleColumn(this.fieldsColumnsIndex[column.field], checked, true)
+            this._toggleColumn(this.fieldsColumnsIndex[column.field], checked, true)
           }
         }
       })
