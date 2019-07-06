@@ -1,11 +1,9 @@
 /**
- * Bootstrap Table French (France) translation
- * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
- *         Tidalf (https://github.com/TidalfFR)
- *         Nevets82 <Nevets82@gmail.com>
+ * Bootstrap Table French (Suisse) translation
+ * Author: Nevets82 <Nevets82@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['fr-FR'] = {
+$.fn.bootstrapTable.locales['fr-CH'] = {
   formatLoadingMessage () {
     return 'Chargement en cours'
   },
@@ -90,4 +88,4 @@ $.fn.bootstrapTable.locales['fr-FR'] = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-FR'])
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-CH'])

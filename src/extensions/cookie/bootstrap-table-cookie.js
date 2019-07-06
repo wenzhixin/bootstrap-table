@@ -307,8 +307,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
-  toggleColumn (...args) {
-    super.toggleColumn(...args)
+  _toggleColumn (...args) {
+    super._toggleColumn(...args)
 
     const visibleColumns = []
 
