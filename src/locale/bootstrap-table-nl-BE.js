@@ -1,9 +1,9 @@
 /**
- * Bootstrap Table Dutch translation
+ * Bootstrap Table Dutch (België) translation
  * Author: Nevets82 <Nevets82@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['nl-NL'] = {
+$.fn.bootstrapTable.locales['nl-BE'] = {
   formatLoadingMessage () {
     return 'Laden, even geduld'
   },
@@ -88,4 +88,4 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-NL'])
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-BE'])
