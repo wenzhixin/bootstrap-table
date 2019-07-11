@@ -1,85 +1,86 @@
 /**
  * Bootstrap Table French (France) translation
  * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
- * Modification: Tidalf (https://github.com/TidalfFR)
+ *         Tidalf (https://github.com/TidalfFR)
+ *         Nevets82 <Nevets82@gmail.com>
  */
 
 $.fn.bootstrapTable.locales['fr-FR'] = {
   formatLoadingMessage () {
-    return 'Chargement en cours, patientez, s´il vous plaît'
+    return 'Chargement en cours'
   },
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} lignes par page`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Affichage des lignes ${pageFrom} à ${pageTo} sur ${totalRows} lignes au total (filtered from ${totalNotFiltered} total rows)`
+      return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrés à partir de ${totalNotFiltered} lignes)`
     }
 
-    return `Affichage des lignes ${pageFrom} à ${pageTo} sur ${totalRows} lignes au total`
+    return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'page précédente'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `vers la page ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'page suivante'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Affiche ${totalRows} lignes`
   },
   formatClearSearch () {
-    return 'Vider les filtres'
+    return 'Effacer la recherche'
   },
   formatSearch () {
-    return 'Rechercher'
+    return 'Recherche'
   },
   formatNoMatches () {
-    return 'Aucun résultat trouvé'
+    return 'Pas de lignes trouvés'
   },
   formatPaginationSwitch () {
-    return 'Montrer/Masquer pagination'
+    return 'Cacher/Afficher pagination'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Afficher pagination'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Cacher pagination'
   },
   formatRefresh () {
-    return 'Rafraîchir'
+    return 'Rafraichir'
   },
   formatToggle () {
-    return 'Alterner'
+    return 'Basculer'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Afficher vue carte'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Cacher vue carte'
   },
   formatColumns () {
     return 'Colonnes'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Tout basculer'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Plein écran'
   },
   formatAllRows () {
-    return 'Tous'
+    return 'Tout'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Rafraîchissement automatique'
   },
   formatExport () {
     return 'Exporter les données'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Aller à'
   },
   formatAdvancedSearch () {
     return 'Recherche avancée'

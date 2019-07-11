@@ -630,85 +630,86 @@
 	/**
 	 * Bootstrap Table French (France) translation
 	 * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
-	 * Modification: Tidalf (https://github.com/TidalfFR)
+	 *         Tidalf (https://github.com/TidalfFR)
+	 *         Nevets82 <Nevets82@gmail.com>
 	 */
 
 	$.fn.bootstrapTable.locales['fr-FR'] = {
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Chargement en cours, patientez, s´il vous plaît';
+	    return 'Chargement en cours';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
 	    return "".concat(pageNumber, " lignes par page");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Affichage des lignes ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes au total (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9s \xE0 partir de ").concat(totalNotFiltered, " lignes)");
 	    }
 
-	    return "Affichage des lignes ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes au total");
+	    return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'page précédente';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "vers la page ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'page suivante';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	    return "Affiche ".concat(totalRows, " lignes");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Vider les filtres';
+	    return 'Effacer la recherche';
 	  },
 	  formatSearch: function formatSearch() {
-	    return 'Rechercher';
+	    return 'Recherche';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return 'Aucun résultat trouvé';
+	    return 'Pas de lignes trouvés';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Montrer/Masquer pagination';
+	    return 'Cacher/Afficher pagination';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Afficher pagination';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Cacher pagination';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Rafraîchir';
+	    return 'Rafraichir';
 	  },
 	  formatToggle: function formatToggle() {
-	    return 'Alterner';
+	    return 'Basculer';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Afficher vue carte';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Cacher vue carte';
 	  },
 	  formatColumns: function formatColumns() {
 	    return 'Colonnes';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Tout basculer';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Plein écran';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'Tous';
+	    return 'Tout';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Rafraîchissement automatique';
 	  },
 	  formatExport: function formatExport() {
 	    return 'Exporter les données';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'Aller à';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
 	    return 'Recherche avancée';

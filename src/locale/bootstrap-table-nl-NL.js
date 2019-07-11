@@ -1,6 +1,7 @@
 /**
- * Bootstrap Table Dutch translation
+ * Bootstrap Table Dutch (Nederland) translation
  * Author: Your Name <info@a2hankes.nl>
+ *         Nevets82 <Nevets82@gmail.com>
  */
 
 $.fn.bootstrapTable.locales['nl-NL'] = {
@@ -12,19 +13,19 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${(totalRows > 1) ? 's' : ''} (filtered from ${totalNotFiltered} total rows)`
+      return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${(totalRows > 1) ? 's' : ''} (gefilterd van ${totalNotFiltered} records in totaal)`
     }
 
     return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${(totalRows > 1) ? 's' : ''}`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'vorige pagina'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `tot pagina ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'volgende pagina'
   },
   formatDetailPagination (totalRows) {
     return `Toon ${totalRows} record${(totalRows > 1) ? 's' : ''}`
@@ -39,13 +40,13 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
     return 'Geen resultaten gevonden'
   },
   formatPaginationSwitch () {
-    return 'Verberg/Toon paginatie'
+    return 'Verberg/Toon paginering'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Toon paginering'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Verberg paginering'
   },
   formatRefresh () {
     return 'Vernieuwen'
@@ -54,37 +55,37 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
     return 'Omschakelen'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Toon kaartweergave'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Verberg kaartweergave'
   },
   formatColumns () {
     return 'Kolommen'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Allen omschakelen'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Volledig scherm'
   },
   formatAllRows () {
     return 'Alle'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Automatisch vernieuwen'
   },
   formatExport () {
-    return 'Exporteer data'
+    return 'Exporteer gegevens'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'GA'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Geavanceerd zoeken'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Sluiten'
   }
 }
 

@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.15.2
+ * version: 1.15.3
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -127,6 +127,11 @@ class BootstrapTable {
       }
 
       this.$tableFooter = this.$container.find('.fixed-table-footer')
+    } else {
+      if (!this.$tableFooter.length) {
+        this.$el.append('<tfoot><tr></tr></tfoot>')
+        this.$tableFooter = this.$el.find('tfoot')
+      }
     }
   }
 
@@ -219,6 +224,8 @@ class BootstrapTable {
       searchables: []
     }
 
+    Utils.updateFieldGroup(this.options.columns)
+
     this.options.columns.forEach((columns, i) => {
       html.push('<tr>')
 
@@ -230,9 +237,13 @@ class BootstrapTable {
       }
 
       columns.forEach((column, j) => {
+        if (!column.visible) {
+          return
+        }
+
         const class_ = Utils.sprintf(' class="%s"', column['class'])
         const unitWidth = column.widthUnit
-        const width = Number.parseFloat(column.width)
+        const width = parseFloat(column.width)
 
         const halign = Utils.sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
         const align = Utils.sprintf('text-align: %s; ', column.align)
@@ -252,10 +263,6 @@ class BootstrapTable {
           this.header.sortNames[column.fieldIndex] = column.sortName
           this.header.cellStyles[column.fieldIndex] = column.cellStyle
           this.header.searchables[column.fieldIndex] = column.searchable
-
-          if (!column.visible) {
-            return
-          }
 
           if (this.options.cardView && (!column.cardVisible)) {
             return
@@ -1422,7 +1429,7 @@ class BootstrapTable {
       const item = this.data[rowIndex]
       const index = this.options.cardView ? $cardViewArr.index($cardViewTarget) : $td[0].cellIndex
       const fields = this.getVisibleFields()
-      const field = fields[this.options.detailView && !this.options.cardView ? index - 1 : index]
+      const field = fields[this.options.detailView && this.detailViewIcon && !this.options.cardView ? index - 1 : index]
       const column = this.columns[this.fieldsColumnsIndex[field]]
       const value = Utils.getItemField(item, field, this.options.escape)
 
@@ -1447,7 +1454,7 @@ class BootstrapTable {
       }
 
       if (e.type === 'click' && this.options.detailViewByClick) {
-        this.toggleDetailView(rowIndex, this.header.detailFormatters[index])
+        this.toggleDetailView(rowIndex, this.header.detailFormatters[this.fieldsColumnsIndex[field]])
       }
     }).off('mousedown').on('mousedown', e => {
       // https://github.com/jquery/jquery/issues/1741
@@ -1906,7 +1913,7 @@ class BootstrapTable {
     for (const field of this.header.fields) {
       const column = this.columns[this.fieldsColumnsIndex[field]]
 
-      if (!column.visible) {
+      if (!column || !column.visible) {
         continue
       }
       visibleFields.push(field)
@@ -1923,9 +1930,9 @@ class BootstrapTable {
 
   getOptions () {
     // deep copy and remove data
-    const options = JSON.parse(JSON.stringify(this.options))
+    const options = $.extend({}, this.options)
     delete options.data
-    return options
+    return $.extend(true, {}, options)
   }
 
   refreshOptions (options) {
@@ -2192,7 +2199,7 @@ class BootstrapTable {
       if (rowId === -1) {
         return
       }
-      this.data[rowId][field] = value
+      this.options.data[rowId][field] = value
     })
 
     if (params.reinit === false) {

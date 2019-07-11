@@ -55,7 +55,7 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initHeader = BootstrapTable.prototype.initHeader
-const _toggleColumn = BootstrapTable.prototype.toggleColumn
+const _toggleColumn = BootstrapTable.prototype._toggleColumn
 const _toggleView = BootstrapTable.prototype.toggleView
 const _resetView = BootstrapTable.prototype.resetView
 
@@ -69,7 +69,7 @@ BootstrapTable.prototype.initHeader = function (...args) {
   this.makeRowsReorderable()
 }
 
-BootstrapTable.prototype.toggleColumn = function (...args) {
+BootstrapTable.prototype._toggleColumn = function (...args) {
   _toggleColumn.apply(this, Array.prototype.slice.apply(args))
 
   if (!this.options.reorderableColumns) {

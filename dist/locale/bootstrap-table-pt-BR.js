@@ -631,6 +631,7 @@
 	 * Bootstrap Table Brazilian Portuguese Translation
 	 * Author: Eduardo Cerqueira<egcerqueira@gmail.com>
 	 * Update: João Mello<jmello@hotmail.com.br>
+	 * Update: Leandro Felizari<lfelizari@gmail.com>
 	 */
 
 	$.fn.bootstrapTable.locales['pt-BR'] = {
@@ -648,19 +649,19 @@
 	    return "Exibindo ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'página anterior';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "Para a p\xE1gina ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'próxima página';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	    return "Mostrando ".concat(totalRows, " linhas");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
+	    return 'Limpar Pasquisa';
 	  },
 	  formatSearch: function formatSearch() {
 	    return 'Pesquisar';
@@ -672,10 +673,10 @@
 	    return 'Ocultar/Exibir paginação';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Mostrar Paginação';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Esconder Paginação';
 	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Recarregar';
@@ -696,25 +697,25 @@
 	    return 'Toggle all';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Tela cheia';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'All';
+	    return 'Tudo';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Atualização Automática';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'Exportar dados';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'IR';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'Pesquisa Avançada';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'Fechar';
 	  }
 	};
 	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-BR']);
