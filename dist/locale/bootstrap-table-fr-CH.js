@@ -628,96 +628,94 @@
 	});
 
 	/**
-	 * Bootstrap Table Brazilian Portuguese Translation
-	 * Author: Eduardo Cerqueira<egcerqueira@gmail.com>
-	 * Update: João Mello<jmello@hotmail.com.br>
-	 * Update: Leandro Felizari<lfelizari@gmail.com>
+	 * Bootstrap Table French (Suisse) translation
+	 * Author: Nevets82 <Nevets82@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['pt-BR'] = {
+	$.fn.bootstrapTable.locales['fr-CH'] = {
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Carregando, aguarde';
+	    return 'Chargement en cours';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " registros por p\xE1gina");
+	    return "".concat(pageNumber, " lignes par page");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Exibindo ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9s \xE0 partir de ").concat(totalNotFiltered, " lignes)");
 	    }
 
-	    return "Exibindo ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas");
+	    return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'página anterior';
+	    return 'page précédente';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "Para a p\xE1gina ".concat(page);
+	    return "vers la page ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'próxima página';
+	    return 'page suivante';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Mostrando ".concat(totalRows, " linhas");
+	    return "Affiche ".concat(totalRows, " lignes");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Limpar Pasquisa';
+	    return 'Effacer la recherche';
 	  },
 	  formatSearch: function formatSearch() {
-	    return 'Pesquisar';
+	    return 'Recherche';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return 'Nenhum registro encontrado';
+	    return 'Pas de lignes trouvés';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Ocultar/Exibir paginação';
+	    return 'Cacher/Afficher pagination';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Mostrar Paginação';
+	    return 'Afficher pagination';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Esconder Paginação';
+	    return 'Cacher pagination';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Recarregar';
+	    return 'Rafraichir';
 	  },
 	  formatToggle: function formatToggle() {
-	    return 'Alternar';
+	    return 'Basculer';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Afficher vue carte';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Cacher vue carte';
 	  },
 	  formatColumns: function formatColumns() {
-	    return 'Colunas';
+	    return 'Colonnes';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Tout basculer';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Tela cheia';
+	    return 'Plein écran';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'Tudo';
+	    return 'Tout';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Atualização Automática';
+	    return 'Rafraîchissement automatique';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Exportar dados';
+	    return 'Exporter les données';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'IR';
+	    return 'Aller à';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Pesquisa Avançada';
+	    return 'Recherche avancée';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Fechar';
+	    return 'Fermer';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-BR']);
+	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-CH']);
 
 }));

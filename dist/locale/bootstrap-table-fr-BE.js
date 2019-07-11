@@ -630,6 +630,7 @@
 	/**
 	 * Bootstrap Table French (Belgium) translation
 	 * Author: Julien Bisconti (julien.bisconti@gmail.com)
+	 *         Nevets82 <Nevets82@gmail.com>
 	 */
 
 	$.fn.bootstrapTable.locales['fr-BE'] = {
@@ -637,83 +638,83 @@
 	    return 'Chargement en cours';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " entr\xE9es par page");
+	    return "".concat(pageNumber, " lignes par page");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Affiche de".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9s \xE0 partir de ").concat(totalNotFiltered, " lignes)");
 	    }
 
-	    return "Affiche de".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
+	    return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'page précédente';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "vers la page ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'page suivante';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	    return "Affiche ".concat(totalRows, " lignes");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
+	    return 'Effacer la recherche';
 	  },
 	  formatSearch: function formatSearch() {
 	    return 'Recherche';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return 'Pas de fichiers trouvés';
+	    return 'Pas de lignes trouvés';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Hide/Show pagination';
+	    return 'Cacher/Afficher pagination';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Afficher pagination';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Cacher pagination';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Refresh';
+	    return 'Rafraichir';
 	  },
 	  formatToggle: function formatToggle() {
-	    return 'Toggle';
+	    return 'Basculer';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Afficher vue carte';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Cacher vue carte';
 	  },
 	  formatColumns: function formatColumns() {
-	    return 'Columns';
+	    return 'Colonnes';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Tout basculer';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Plein écran';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'All';
+	    return 'Tout';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Rafraîchissement automatique';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'Exporter les données';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'Aller à';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'Recherche avancée';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'Fermer';
 	  }
 	};
 	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-BE']);

@@ -873,7 +873,7 @@
 	});
 	var BootstrapTable = $.fn.bootstrapTable.Constructor;
 	var _initHeader = BootstrapTable.prototype.initHeader;
-	var _toggleColumn = BootstrapTable.prototype.toggleColumn;
+	var _toggleColumn = BootstrapTable.prototype._toggleColumn;
 	var _toggleView = BootstrapTable.prototype.toggleView;
 	var _resetView = BootstrapTable.prototype.resetView;
 
@@ -891,7 +891,7 @@
 	  this.makeRowsReorderable();
 	};
 
-	BootstrapTable.prototype.toggleColumn = function () {
+	BootstrapTable.prototype._toggleColumn = function () {
 	  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
 	    args[_key2] = arguments[_key2];
 	  }

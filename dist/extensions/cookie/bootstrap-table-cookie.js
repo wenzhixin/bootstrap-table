@@ -1817,15 +1817,15 @@
 	      UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
 	    }
 	  }, {
-	    key: "toggleColumn",
-	    value: function toggleColumn() {
+	    key: "_toggleColumn",
+	    value: function _toggleColumn() {
 	      var _get9;
 
 	      for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
 	        args[_key8] = arguments[_key8];
 	      }
 
-	      (_get9 = _get(_getPrototypeOf(_class.prototype), "toggleColumn", this)).call.apply(_get9, [this].concat(args));
+	      (_get9 = _get(_getPrototypeOf(_class.prototype), "_toggleColumn", this)).call.apply(_get9, [this].concat(args));
 
 	      var visibleColumns = [];
 	      $.each(this.columns, function (i, column) {

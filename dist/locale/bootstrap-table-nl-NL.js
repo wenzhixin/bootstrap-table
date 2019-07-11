@@ -628,8 +628,9 @@
 	});
 
 	/**
-	 * Bootstrap Table Dutch translation
+	 * Bootstrap Table Dutch (Nederland) translation
 	 * Author: Your Name <info@a2hankes.nl>
+	 *         Nevets82 <Nevets82@gmail.com>
 	 */
 
 	$.fn.bootstrapTable.locales['nl-NL'] = {
@@ -641,19 +642,19 @@
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '', " (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '', " (gefilterd van ").concat(totalNotFiltered, " records in totaal)");
 	    }
 
 	    return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'vorige pagina';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "tot pagina ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'volgende pagina';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
 	    return "Toon ".concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
@@ -668,13 +669,13 @@
 	    return 'Geen resultaten gevonden';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Verberg/Toon paginatie';
+	    return 'Verberg/Toon paginering';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Toon paginering';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Verberg paginering';
 	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Vernieuwen';
@@ -683,37 +684,37 @@
 	    return 'Omschakelen';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Toon kaartweergave';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Verberg kaartweergave';
 	  },
 	  formatColumns: function formatColumns() {
 	    return 'Kolommen';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Allen omschakelen';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Volledig scherm';
 	  },
 	  formatAllRows: function formatAllRows() {
 	    return 'Alle';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Automatisch vernieuwen';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Exporteer data';
+	    return 'Exporteer gegevens';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'GA';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'Geavanceerd zoeken';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'Sluiten';
 	  }
 	};
 	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-NL']);

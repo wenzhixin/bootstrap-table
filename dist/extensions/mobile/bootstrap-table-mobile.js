@@ -1129,7 +1129,7 @@
 	        this.columns.forEach(function (column) {
 	          if (_this2.options.columnsHidden.includes(column.field)) {
 	            if (column.visible !== checked) {
-	              _this2.toggleColumn(_this2.fieldsColumnsIndex[column.field], checked, true);
+	              _this2._toggleColumn(_this2.fieldsColumnsIndex[column.field], checked, true);
 	            }
 	          }
 	        });

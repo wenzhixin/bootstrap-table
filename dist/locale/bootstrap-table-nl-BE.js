@@ -628,96 +628,94 @@
 	});
 
 	/**
-	 * Bootstrap Table Brazilian Portuguese Translation
-	 * Author: Eduardo Cerqueira<egcerqueira@gmail.com>
-	 * Update: João Mello<jmello@hotmail.com.br>
-	 * Update: Leandro Felizari<lfelizari@gmail.com>
+	 * Bootstrap Table Dutch (Belgi�) translation
+	 * Author: Nevets82 <Nevets82@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['pt-BR'] = {
+	$.fn.bootstrapTable.locales['nl-BE'] = {
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Carregando, aguarde';
+	    return 'Laden, even geduld';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " registros por p\xE1gina");
+	    return "".concat(pageNumber, " records per pagina");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Exibindo ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '', " (gefilterd van ").concat(totalNotFiltered, " records in totaal)");
 	    }
 
-	    return "Exibindo ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas");
+	    return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'página anterior';
+	    return 'vorige pagina';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "Para a p\xE1gina ".concat(page);
+	    return "tot pagina ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'próxima página';
+	    return 'volgende pagina';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Mostrando ".concat(totalRows, " linhas");
+	    return "Toon ".concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Limpar Pasquisa';
+	    return 'Verwijder filters';
 	  },
 	  formatSearch: function formatSearch() {
-	    return 'Pesquisar';
+	    return 'Zoeken';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return 'Nenhum registro encontrado';
+	    return 'Geen resultaten gevonden';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Ocultar/Exibir paginação';
+	    return 'Verberg/Toon paginering';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Mostrar Paginação';
+	    return 'Toon paginering';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Esconder Paginação';
+	    return 'Verberg paginering';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Recarregar';
+	    return 'Vernieuwen';
 	  },
 	  formatToggle: function formatToggle() {
-	    return 'Alternar';
+	    return 'Omschakelen';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Toon kaartweergave';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Verberg kaartweergave';
 	  },
 	  formatColumns: function formatColumns() {
-	    return 'Colunas';
+	    return 'Kolommen';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Allen omschakelen';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Tela cheia';
+	    return 'Volledig scherm';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'Tudo';
+	    return 'Alle';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Atualização Automática';
+	    return 'Automatisch vernieuwen';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Exportar dados';
+	    return 'Exporteer gegevens';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'IR';
+	    return 'GA';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Pesquisa Avançada';
+	    return 'Geavanceerd zoeken';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Fechar';
+	    return 'Sluiten';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-BR']);
+	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-BE']);
 
 }));
