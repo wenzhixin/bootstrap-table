@@ -1,6 +1,19 @@
 ChangeLog
 ---------
 
+### 1.15.3
+
+- **New:** Added nl-BE, fr-CH and fr-LU locale.
+- **Update:** Updated nl-NL, pt-BR, fr-BE, fr-FR, nl-BE and nl-NL locale.
+- **Update:** Fixed treegrid duplicate rows bug.
+- **Update:** Fixed `updateCellByUniqueId` method bug on a filtered table.
+- **Update:** Fixed colspan group header display bug.
+- **Update:** Fixed table footer display bug in some case.
+- **Update:** Fixed `getOptions` bug.
+- **Update:** Fixed `detailView` bug when hiding columns.
+- **Update:** Fixed IE minify bug.
+- **Update:** Fixed full screen scrolling bug.
+
 ### 1.15.2
 
 #### Core
