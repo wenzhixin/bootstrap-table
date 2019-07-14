@@ -239,7 +239,7 @@ const UtilsFilterControl = {
             formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
           }
 
-          if (typeof formattedValue === 'object') {
+          if (typeof formattedValue === 'object' && formattedValue !== null) {
             formattedValue.forEach((value) => {
               UtilsFilterControl.addOptionToSelectControl(selectControl, value, value, column.filterDefault)
             })
