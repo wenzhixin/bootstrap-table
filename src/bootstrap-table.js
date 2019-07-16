@@ -237,10 +237,6 @@ class BootstrapTable {
       }
 
       columns.forEach((column, j) => {
-        if (!column.visible) {
-          return
-        }
-
         const class_ = Utils.sprintf(' class="%s"', column['class'])
         const unitWidth = column.widthUnit
         const width = parseFloat(column.width)
@@ -251,6 +247,10 @@ class BootstrapTable {
         style += Utils.sprintf('width: %s; ', (column.checkbox || column.radio) && !width
           ? (!column.showSelectTitle ? '36px' : undefined)
           : (width ? width + unitWidth : undefined))
+
+        if (typeof column.fieldIndex === 'undefined' && !column.visible) {
+          return
+        }
 
         if (typeof column.fieldIndex !== 'undefined') {
           this.header.fields[column.fieldIndex] = column.field
@@ -263,6 +263,10 @@ class BootstrapTable {
           this.header.sortNames[column.fieldIndex] = column.sortName
           this.header.cellStyles[column.fieldIndex] = column.cellStyle
           this.header.searchables[column.fieldIndex] = column.searchable
+
+          if (!column.visible) {
+            return
+          }
 
           if (this.options.cardView && (!column.cardVisible)) {
             return
