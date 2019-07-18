@@ -1763,7 +1763,7 @@ class BootstrapTable {
       if (this.options.detailView && this.options.detailViewIcon && !this.options.cardView) {
         if (i === 0) {
           const $thDetail = $ths.filter('.detail')
-          const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()
+          const zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width()
           $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
         }
         index = i - 1
@@ -1778,7 +1778,7 @@ class BootstrapTable {
         $th = $($ths[$this[0].cellIndex])
       }
 
-      const zoomWidth = $th.width() - $th.find('.fht-cell').width()
+      const zoomWidth = $th.innerWidth() - $th.find('.fht-cell').width()
       $th.find('.fht-cell').width($this.innerWidth() - zoomWidth)
     })
 
@@ -1877,7 +1877,7 @@ class BootstrapTable {
       if (this.options.detailView && !this.options.cardView) {
         if (i === 0) {
           const $thDetail = $ths.filter('.detail')
-          const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()
+          const zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width()
           $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
         }
         index = i - 1
@@ -1888,7 +1888,7 @@ class BootstrapTable {
       }
 
       const $th = $ths.eq(i)
-      const zoomWidth = $th.width() - $th.find('.fht-cell').width()
+      const zoomWidth = $th.innerWidth() - $th.find('.fht-cell').width()
       $th.find('.fht-cell').width($this.innerWidth() - zoomWidth)
     })
 
