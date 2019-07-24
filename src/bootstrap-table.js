@@ -1581,9 +1581,9 @@ class BootstrapTable {
       params.filter = JSON.stringify(this.filterColumnsPartial, null)
     }
 
-    data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
+    $.extend(params, query || {})
 
-    $.extend(data, query || {})
+    data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
 
     // false to stop request
     if (data === false) {
