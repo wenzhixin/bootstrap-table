@@ -38,7 +38,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.$fixedBody.css({
       top: this.$tableHeader.outerHeight(true),
       width,
-      height: this.$tableBody.outerHeight(true) - 16
+      height: this.$tableBody.outerHeight(true) - 15
     })
 
     this.initFixedColumnsEvents()
