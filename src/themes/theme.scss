@@ -143,6 +143,10 @@
 
       .bs-checkbox {
         text-align: center;
+
+        label {
+          margin-bottom: 0;
+        }
       }
 
       input[type="radio"],
