@@ -631,18 +631,20 @@ class BootstrapTable {
       })
     }
 
-    if (o.search) {
+    // Fix #4516: this.showSearchClearButton is for extensions
+    if (o.search || this.showSearchClearButton) {
       html = []
       const showSearchButton = Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '', o.showButtonText ? o.formatSearch() : '')
       const showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '', o.showButtonText ? o.formatClearSearch() : '')
-
       const searchInputHtml = `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`
       let searchInputFinalHtml = searchInputHtml
+
       if (o.showSearchButton || o.showSearchClearButton) {
-        searchInputFinalHtml = Utils.sprintf(this.constants.html.inputGroup,
-          searchInputHtml,
-          (o.showSearchButton ? showSearchButton : '') +
-            (o.showSearchClearButton ? showSearchClearButton : ''))
+        const buttonsHtml = (o.showSearchButton ? showSearchButton : '') +
+          (o.showSearchClearButton ? showSearchClearButton : '')
+
+        searchInputFinalHtml = o.search ? Utils.sprintf(this.constants.html.inputGroup,
+          searchInputHtml, buttonsHtml) : buttonsHtml
       }
 
       html.push(Utils.sprintf(`
@@ -676,14 +678,13 @@ class BootstrapTable {
       if (o.showSearchClearButton) {
         this.$toolbar.find('.search button[name=clearSearch]').click(() => {
           this.resetSearch()
-          this.onSearch({currentTarget: this.$toolbar.find('.search input')})
         })
       }
     }
   }
 
   onSearch ({currentTarget, firedByInitSearchText} = {}, overwriteSearchText = true) {
-    if (currentTarget !== undefined && overwriteSearchText) {
+    if (currentTarget !== undefined && $(currentTarget).length && overwriteSearchText) {
       const text = $(currentTarget).val().trim()
 
       if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
