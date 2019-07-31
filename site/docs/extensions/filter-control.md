@@ -184,4 +184,4 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### clearFilterControl
 
-* Clear all the controls added by this plugin (similar to filterShowClear option).
+* Clear all the controls added by this plugin (similar to showSearchClearButton option).

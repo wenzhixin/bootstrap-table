@@ -768,6 +768,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.trigger('column-search', $field, text)
   }
 
+  initToolbar () {
+    this.showSearchClearButton = this.options.filterControl && this.options.showSearchClearButton
+    super.initToolbar()
+  }
+
   resetSearch () {
     if (this.options.filterControl && this.options.showSearchClearButton) {
       this.clearFilterControl()
