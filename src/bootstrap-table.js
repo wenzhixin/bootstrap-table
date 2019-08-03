@@ -2484,8 +2484,16 @@ class BootstrapTable {
         return false
       }
       if (obj.values.includes(row[obj.field])) {
-        const $el = this.$selectItem.filter(':enabled')
-          .filter(Utils.sprintf('[data-index="%s"]', i)).prop('checked', checked)
+        let $el = this.$selectItem.filter(':enabled')
+          .filter(Utils.sprintf('[data-index="%s"]', i))
+
+        $el = checked ? $el.not(':checked') : $el.filter(':checked')
+
+        if (!$el.length) {
+          return
+        }
+
+        $el.prop('checked', checked)
         row[this.header.stateField] = checked
         rows.push(row)
         this.trigger(checked ? 'check' : 'uncheck', row, $el)
