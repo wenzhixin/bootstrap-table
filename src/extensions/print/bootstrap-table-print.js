@@ -80,7 +80,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    const $btnGroup = this.$toolbar.find('>.btn-group')
+    const $btnGroup = this.$toolbar.find('>.columns')
     let $print = $btnGroup.find('button.bs-print')
 
     if (!$print.length) {
