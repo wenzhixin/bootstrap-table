@@ -17,6 +17,10 @@
   }
 
   .fixed-table-toolbar {
+    .input-field .search-input {
+      width: auto;
+    }
+
     .columns > .btn {
       margin-left: 3px;
     }
