@@ -47,7 +47,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>']
     this.constants.html.paginationItem = '<li class="waves-effect page-item%s" aria-label="%s"><a href="#">%s</a></li>'
     this.constants.html.icon = '<i class="%s">%s</i>'
-    this.constants.html.inputGroup = '<div class="input-field col">%s%s</div>'
+    this.constants.html.inputGroup = '%s%s'
   }
 
   initToolbar () {
