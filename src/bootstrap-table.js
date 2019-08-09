@@ -634,8 +634,18 @@ class BootstrapTable {
     // Fix #4516: this.showSearchClearButton is for extensions
     if (o.search || this.showSearchClearButton) {
       html = []
-      const showSearchButton = Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '', o.showButtonText ? o.formatSearch() : '')
-      const showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '', o.showButtonText ? o.formatClearSearch() : '')
+      const showSearchButton = Utils.sprintf(this.constants.html.searchButton,
+        this.constants.buttonsClass,
+        o.formatSearch(),
+        o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '',
+        o.showButtonText ? o.formatSearch() : ''
+      )
+      const showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton,
+        this.constants.buttonsClass,
+        o.formatClearSearch(),
+        o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '',
+        o.showButtonText ? o.formatClearSearch() : ''
+      )
       const searchInputHtml = `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`
       let searchInputFinalHtml = searchInputHtml
 
