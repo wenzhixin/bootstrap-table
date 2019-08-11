@@ -78,7 +78,6 @@
           href="https://live.bootstrap-table.com"
           target="_blank">
           Online Editor
-          <span class="badge badge-warning">New</span>
         </a>
       </li>
       <li class="nav-item ">
@@ -89,6 +88,14 @@
       <li class="nav-item ">
         <a class="nav-link" href="/news">
           News
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="https://blog.bootstrap-table.com"
+          target="_blank">
+          Blog
+          <span class="badge badge-warning">New</span>
         </a>
       </li>
     </ul>
@@ -418,7 +425,11 @@
 <h2 id="usage">Usage</h2>
 
 <figure class="highlight"><pre><code class="language-vue" data-lang="vue"><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;BootstrapTable</span> <span class="na">:columns=</span><span class="s">"columns"</span> <span class="na">:data=</span><span class="s">"data"</span> <span class="na">:options=</span><span class="s">"options"</span><span class="nt">&gt;&lt;/BootstrapTable&gt;</span>
+  <span class="nt">&lt;BootstrapTable</span>
+    <span class="na">:columns=</span><span class="s">"columns"</span>
+    <span class="na">:data=</span><span class="s">"data"</span>
+    <span class="na">:options=</span><span class="s">"options"</span>
+  <span class="nt">/&gt;</span>
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span><span class="nt">&gt;</span>
@@ -438,7 +449,8 @@
         <span class="p">{</span>
           <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span>
           <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Name</span><span class="dl">'</span>
-        <span class="p">},</span> <span class="p">{</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
           <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">price</span><span class="dl">'</span><span class="p">,</span>
           <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Price</span><span class="dl">'</span>
         <span class="p">}</span>
