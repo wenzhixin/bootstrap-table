@@ -52,7 +52,11 @@ import 'bootstrap-table/dist/extensions/fixed-columns/bootstrap-table-fixed-colu
 
 {% highlight vue %}
 <template>
-  <BootstrapTable :columns="columns" :data="data" :options="options"></BootstrapTable>
+  <BootstrapTable
+    :columns="columns"
+    :data="data"
+    :options="options"
+  />
 </template>
 
 <script>
@@ -72,7 +76,8 @@ export default {
         {
           field: 'name',
           title: 'Item Name'
-        }, {
+        },
+        {
           field: 'price',
           title: 'Item Price'
         }
