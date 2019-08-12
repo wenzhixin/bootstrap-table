@@ -963,6 +963,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   * `data`: the table data.
   * `text`: the search text.
+  * `filter`: the filter object from `filterBy` method (from 1.15.4).
 
   Example usage:
 

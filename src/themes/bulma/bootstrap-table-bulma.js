@@ -35,8 +35,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.html.paginationItem = '<li><a class="page-item pagination-link%s" aria-label="%s" href="#">%s</a></li>'
     this.constants.html.searchInput = '<p class="control"><input class="%s input-%s" type="text" placeholder="%s"></p>'
     this.constants.html.inputGroup = '<div class="field has-addons has-addons-right">%s%s</div>'
-    this.constants.html.searchButton = '<p class="control"><button class="button" type="button" name="search" title="%s">%s %s</button></p>'
-    this.constants.html.searchClearButton = '<p class="control"><button class="button" type="button" name="clearSearch" title="%s">%s %s</button></p>'
+    this.constants.html.searchButton = '<p class="control"><button class="%s" type="button" name="search" title="%s">%s %s</button></p>'
+    this.constants.html.searchClearButton = '<p class="control"><button class="%s" type="button" name="clearSearch" title="%s">%s %s</button></p>'
   }
 
   initToolbar () {

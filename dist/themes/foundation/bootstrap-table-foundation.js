@@ -893,8 +893,6 @@
 	      this.constants.html.paginationItem = '<li><a class="page-item%s" aria-label="%s" href="#">%s</a></li>';
 	      this.constants.html.inputGroup = '<div class="input-group">%s <div class="input-group-button">%s</div></div>';
 	      this.constants.html.searchInput = '<input class="%s input-%s input-group-field" type="text" placeholder="%s">';
-	      this.constants.html.searchButton = '<button class="button" type="button" name="search" title="%s">%s %s</button>';
-	      this.constants.html.searchClearButton = '<button class="button" type="button" name="clearSearch" title="%s">%s %s</button>';
 	    }
 	  }, {
 	    key: "initToolbar",

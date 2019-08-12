@@ -17,6 +17,13 @@
   }
 
   .fixed-table-toolbar {
+    .search .search-input {
+      width: auto;
+      margin: 0;
+      height: 35px;
+      vertical-align: bottom;
+    }
+
     .columns > .btn {
       margin-left: 3px;
     }

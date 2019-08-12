@@ -4,9 +4,25 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.15.4
+
+<span class="post-date">13 Aug 2019</span>
+
+- **New:** Added `query` to `queryParams` option.
+- **New:** Added `filter` parameter of `customSearch` option.
+- **Update:** Fixed search bug in hidden columns.
+- **Update:** Fixed table zoom width calculating bug.
+- **Update:** Fixed events of column formatted by nested table.
+- **Update:** Fixed checkbox style display bug.
+- **Update:** Fixed stack overflow error of `checkBy` method.
+- **Update:** Fixed `showSearchButton` and `showSearchClearButton` style bug.
+- **Update:** Fixed filter-control select `null` value handle error.
+- **Update:** Fixed `showSearchClearButton` bug in filter-control extension.
+- **Update:** Fixed `print` button appears twice bug.
+
 ## Bootstrap Table 1.15.3
 
-<span class="post-date">11 July 2019</span>
+<span class="post-date">11 Jul 2019</span>
 
 - **New:** Added nl-BE, fr-CH and fr-LU locale.
 - **Update:** Updated nl-NL, pt-BR, fr-BE, fr-FR, nl-BE and nl-NL locale.

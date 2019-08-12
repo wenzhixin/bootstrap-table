@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.15.3
+ * version: 1.15.4
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -237,10 +237,6 @@ class BootstrapTable {
       }
 
       columns.forEach((column, j) => {
-        if (!column.visible) {
-          return
-        }
-
         const class_ = Utils.sprintf(' class="%s"', column['class'])
         const unitWidth = column.widthUnit
         const width = parseFloat(column.width)
@@ -251,6 +247,10 @@ class BootstrapTable {
         style += Utils.sprintf('width: %s; ', (column.checkbox || column.radio) && !width
           ? (!column.showSelectTitle ? '36px' : undefined)
           : (width ? width + unitWidth : undefined))
+
+        if (typeof column.fieldIndex === 'undefined' && !column.visible) {
+          return
+        }
 
         if (typeof column.fieldIndex !== 'undefined') {
           this.header.fields[column.fieldIndex] = column.field
@@ -263,6 +263,10 @@ class BootstrapTable {
           this.header.sortNames[column.fieldIndex] = column.sortName
           this.header.cellStyles[column.fieldIndex] = column.cellStyle
           this.header.searchables[column.fieldIndex] = column.searchable
+
+          if (!column.visible) {
+            return
+          }
 
           if (this.options.cardView && (!column.cardVisible)) {
             return
@@ -627,18 +631,30 @@ class BootstrapTable {
       })
     }
 
-    if (o.search) {
+    // Fix #4516: this.showSearchClearButton is for extensions
+    if (o.search || this.showSearchClearButton) {
       html = []
-      const showSearchButton = Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '', o.showButtonText ? o.formatSearch() : '')
-      const showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '', o.showButtonText ? o.formatClearSearch() : '')
-
+      const showSearchButton = Utils.sprintf(this.constants.html.searchButton,
+        this.constants.buttonsClass,
+        o.formatSearch(),
+        o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '',
+        o.showButtonText ? o.formatSearch() : ''
+      )
+      const showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton,
+        this.constants.buttonsClass,
+        o.formatClearSearch(),
+        o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '',
+        o.showButtonText ? o.formatClearSearch() : ''
+      )
       const searchInputHtml = `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`
       let searchInputFinalHtml = searchInputHtml
+
       if (o.showSearchButton || o.showSearchClearButton) {
-        searchInputFinalHtml = Utils.sprintf(this.constants.html.inputGroup,
-          searchInputHtml,
-          (o.showSearchButton ? showSearchButton : '') +
-            (o.showSearchClearButton ? showSearchClearButton : ''))
+        const buttonsHtml = (o.showSearchButton ? showSearchButton : '') +
+          (o.showSearchClearButton ? showSearchClearButton : '')
+
+        searchInputFinalHtml = o.search ? Utils.sprintf(this.constants.html.inputGroup,
+          searchInputHtml, buttonsHtml) : buttonsHtml
       }
 
       html.push(Utils.sprintf(`
@@ -672,14 +688,13 @@ class BootstrapTable {
       if (o.showSearchClearButton) {
         this.$toolbar.find('.search button[name=clearSearch]').click(() => {
           this.resetSearch()
-          this.onSearch({currentTarget: this.$toolbar.find('.search input')})
         })
       }
     }
   }
 
   onSearch ({currentTarget, firedByInitSearchText} = {}, overwriteSearchText = true) {
-    if (currentTarget !== undefined && overwriteSearchText) {
+    if (currentTarget !== undefined && $(currentTarget).length && overwriteSearchText) {
       const text = $(currentTarget).val().trim()
 
       if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
@@ -715,7 +730,7 @@ class BootstrapTable {
     if (this.options.sidePagination !== 'server') {
       if (this.options.customSearch) {
         this.data = Utils.calculateObjectValue(this.options, this.options.customSearch,
-          [this.options.data, this.searchText])
+          [this.options.data, this.searchText, this.filterColumns])
         return
       }
 
@@ -1504,7 +1519,7 @@ class BootstrapTable {
         const event = events[key]
         this.$body.find('>tr:not(.no-records-found)').each((i, tr) => {
           const $tr = $(tr)
-          const $td = $tr.find(this.options.cardView ? '.card-view' : 'td').eq(fieldIndex)
+          const $td = $tr.find(this.options.cardView ? '.card-views>.card-view' : '>td').eq(fieldIndex)
           const index = key.indexOf(' ')
           const name = key.substring(0, index)
           const el = key.substring(index + 1)
@@ -1577,9 +1592,9 @@ class BootstrapTable {
       params.filter = JSON.stringify(this.filterColumnsPartial, null)
     }
 
-    data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
+    $.extend(params, query || {})
 
-    $.extend(data, query || {})
+    data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
 
     // false to stop request
     if (data === false) {
@@ -1759,7 +1774,7 @@ class BootstrapTable {
       if (this.options.detailView && this.options.detailViewIcon && !this.options.cardView) {
         if (i === 0) {
           const $thDetail = $ths.filter('.detail')
-          const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()
+          const zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width()
           $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
         }
         index = i - 1
@@ -1774,7 +1789,7 @@ class BootstrapTable {
         $th = $($ths[$this[0].cellIndex])
       }
 
-      const zoomWidth = $th.width() - $th.find('.fht-cell').width()
+      const zoomWidth = $th.innerWidth() - $th.find('.fht-cell').width()
       $th.find('.fht-cell').width($this.innerWidth() - zoomWidth)
     })
 
@@ -1873,7 +1888,7 @@ class BootstrapTable {
       if (this.options.detailView && !this.options.cardView) {
         if (i === 0) {
           const $thDetail = $ths.filter('.detail')
-          const zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width()
+          const zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width()
           $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
         }
         index = i - 1
@@ -1884,7 +1899,7 @@ class BootstrapTable {
       }
 
       const $th = $ths.eq(i)
-      const zoomWidth = $th.width() - $th.find('.fht-cell').width()
+      const zoomWidth = $th.innerWidth() - $th.find('.fht-cell').width()
       $th.find('.fht-cell').width($this.innerWidth() - zoomWidth)
     })
 
@@ -2479,8 +2494,16 @@ class BootstrapTable {
         return false
       }
       if (obj.values.includes(row[obj.field])) {
-        const $el = this.$selectItem.filter(':enabled')
-          .filter(Utils.sprintf('[data-index="%s"]', i)).prop('checked', checked)
+        let $el = this.$selectItem.filter(':enabled')
+          .filter(Utils.sprintf('[data-index="%s"]', i))
+
+        $el = checked ? $el.not(':checked') : $el.filter(':checked')
+
+        if (!$el.length) {
+          return
+        }
+
+        $el.prop('checked', checked)
         row[this.header.stateField] = checked
         rows.push(row)
         this.trigger(checked ? 'check' : 'uncheck', row, $el)
