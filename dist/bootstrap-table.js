@@ -2634,7 +2634,7 @@
 	  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 	}
 
-	var VERSION = '1.15.3';
+	var VERSION = '1.15.4';
 	var bootstrapVersion = 4;
 
 	try {
@@ -2689,8 +2689,8 @@
 	      icon: '<i class="%s %s"></i>',
 	      inputGroup: '<div class="input-group">%s<span class="input-group-btn">%s</span></div>',
 	      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
-	      searchButton: '<button class="btn btn-default" type="button" name="search" title="%s">%s %s</button>',
-	      searchClearButton: '<button class="btn btn-default" type="button" name="clearSearch" title="%s">%s %s</button>'
+	      searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
+	      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
 	    }
 	  },
 	  4: {
@@ -2734,8 +2734,8 @@
 	      icon: '<i class="%s %s"></i>',
 	      inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
 	      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
-	      searchButton: '<button class="btn btn-secondary" type="button" name="search" title="%s">%s %s</button>',
-	      searchClearButton: '<button class="btn btn-secondary" type="button" name="clearSearch" title="%s">%s %s</button>'
+	      searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
+	      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
 	    }
 	  }
 	}[bootstrapVersion];
@@ -4005,10 +4005,6 @@
 	        }
 
 	        columns.forEach(function (column, j) {
-	          if (!column.visible) {
-	            return;
-	          }
-
 	          var class_ = Utils.sprintf(' class="%s"', column['class']);
 	          var unitWidth = column.widthUnit;
 	          var width = parseFloat(column.width);
@@ -4016,6 +4012,10 @@
 	          var align = Utils.sprintf('text-align: %s; ', column.align);
 	          var style = Utils.sprintf('vertical-align: %s; ', column.valign);
 	          style += Utils.sprintf('width: %s; ', (column.checkbox || column.radio) && !width ? !column.showSelectTitle ? '36px' : undefined : width ? width + unitWidth : undefined);
+
+	          if (typeof column.fieldIndex === 'undefined' && !column.visible) {
+	            return;
+	          }
 
 	          if (typeof column.fieldIndex !== 'undefined') {
 	            _this2.header.fields[column.fieldIndex] = column.field;
@@ -4028,6 +4028,10 @@
 	            _this2.header.sortNames[column.fieldIndex] = column.sortName;
 	            _this2.header.cellStyles[column.fieldIndex] = column.cellStyle;
 	            _this2.header.searchables[column.fieldIndex] = column.searchable;
+
+	            if (!column.visible) {
+	              return;
+	            }
 
 	            if (_this2.options.cardView && !column.cardVisible) {
 	              return;
@@ -4364,17 +4368,19 @@
 
 	          _this4._toggleAllColumns($(currentTarget).prop('checked'));
 	        });
-	      }
+	      } // Fix #4516: this.showSearchClearButton is for extensions
 
-	      if (o.search) {
+
+	      if (o.search || this.showSearchClearButton) {
 	        html = [];
-	        var showSearchButton = Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '', o.showButtonText ? o.formatSearch() : '');
-	        var showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '', o.showButtonText ? o.formatClearSearch() : '');
+	        var showSearchButton = Utils.sprintf(this.constants.html.searchButton, this.constants.buttonsClass, o.formatSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '', o.showButtonText ? o.formatSearch() : '');
+	        var showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, this.constants.buttonsClass, o.formatClearSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '', o.showButtonText ? o.formatClearSearch() : '');
 	        var searchInputHtml = "<input class=\"".concat(this.constants.classes.input).concat(Utils.sprintf(' input-%s', o.iconSize), " search-input\" type=\"text\" placeholder=\"").concat(o.formatSearch(), "\">");
 	        var searchInputFinalHtml = searchInputHtml;
 
 	        if (o.showSearchButton || o.showSearchClearButton) {
-	          searchInputFinalHtml = Utils.sprintf(this.constants.html.inputGroup, searchInputHtml, (o.showSearchButton ? showSearchButton : '') + (o.showSearchClearButton ? showSearchClearButton : ''));
+	          var buttonsHtml = (o.showSearchButton ? showSearchButton : '') + (o.showSearchClearButton ? showSearchClearButton : '');
+	          searchInputFinalHtml = o.search ? Utils.sprintf(this.constants.html.inputGroup, searchInputHtml, buttonsHtml) : buttonsHtml;
 	        }
 
 	        html.push(Utils.sprintf("\n        <div class=\"".concat(this.constants.classes.pull, "-").concat(o.searchAlign, " search ").concat(this.constants.classes.inputGroup, "\">\n          %s\n        </div>\n      "), searchInputFinalHtml));
@@ -4403,10 +4409,6 @@
 	        if (o.showSearchClearButton) {
 	          this.$toolbar.find('.search button[name=clearSearch]').click(function () {
 	            _this4.resetSearch();
-
-	            _this4.onSearch({
-	              currentTarget: _this4.$toolbar.find('.search input')
-	            });
 	          });
 	        }
 	      }
@@ -4420,7 +4422,7 @@
 
 	      var overwriteSearchText = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-	      if (currentTarget !== undefined && overwriteSearchText) {
+	      if (currentTarget !== undefined && $(currentTarget).length && overwriteSearchText) {
 	        var text = $(currentTarget).val().trim();
 
 	        if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
@@ -4462,7 +4464,7 @@
 
 	      if (this.options.sidePagination !== 'server') {
 	        if (this.options.customSearch) {
-	          this.data = Utils.calculateObjectValue(this.options, this.options.customSearch, [this.options.data, this.searchText]);
+	          this.data = Utils.calculateObjectValue(this.options, this.options.customSearch, [this.options.data, this.searchText, this.filterColumns]);
 	          return;
 	        }
 
@@ -5270,7 +5272,7 @@
 
 	          _this8.$body.find('>tr:not(.no-records-found)').each(function (i, tr) {
 	            var $tr = $(tr);
-	            var $td = $tr.find(_this8.options.cardView ? '.card-view' : 'td').eq(fieldIndex);
+	            var $td = $tr.find(_this8.options.cardView ? '.card-views>.card-view' : '>td').eq(fieldIndex);
 	            var index = key.indexOf(' ');
 	            var name = key.substring(0, index);
 	            var el = key.substring(index + 1);
@@ -5346,8 +5348,8 @@
 	        params.filter = JSON.stringify(this.filterColumnsPartial, null);
 	      }
 
-	      data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data);
-	      $.extend(data, query || {}); // false to stop request
+	      $.extend(params, query || {});
+	      data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data); // false to stop request
 
 	      if (data === false) {
 	        return;
@@ -5574,7 +5576,7 @@
 	          if (i === 0) {
 	            var $thDetail = $ths.filter('.detail');
 
-	            var _zoomWidth = $thDetail.width() - $thDetail.find('.fht-cell').width();
+	            var _zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width();
 
 	            $thDetail.find('.fht-cell').width($this.innerWidth() - _zoomWidth);
 	          }
@@ -5592,7 +5594,7 @@
 	          $th = $($ths[$this[0].cellIndex]);
 	        }
 
-	        var zoomWidth = $th.width() - $th.find('.fht-cell').width();
+	        var zoomWidth = $th.innerWidth() - $th.find('.fht-cell').width();
 	        $th.find('.fht-cell').width($this.innerWidth() - zoomWidth);
 	      });
 	      this.horizontalScroll();
@@ -5709,7 +5711,7 @@
 	          if (i === 0) {
 	            var $thDetail = $ths.filter('.detail');
 
-	            var _zoomWidth2 = $thDetail.width() - $thDetail.find('.fht-cell').width();
+	            var _zoomWidth2 = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width();
 
 	            $thDetail.find('.fht-cell').width($this.innerWidth() - _zoomWidth2);
 	          }
@@ -5722,7 +5724,7 @@
 	        }
 
 	        var $th = $ths.eq(i);
-	        var zoomWidth = $th.width() - $th.find('.fht-cell').width();
+	        var zoomWidth = $th.innerWidth() - $th.find('.fht-cell').width();
 	        $th.find('.fht-cell').width($this.innerWidth() - zoomWidth);
 	      });
 	      this.horizontalScroll();
@@ -6520,8 +6522,15 @@
 	        }
 
 	        if (obj.values.includes(row[obj.field])) {
-	          var $el = _this22.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i)).prop('checked', checked);
+	          var $el = _this22.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i));
 
+	          $el = checked ? $el.not(':checked') : $el.filter(':checked');
+
+	          if (!$el.length) {
+	            return;
+	          }
+
+	          $el.prop('checked', checked);
 	          row[_this22.header.stateField] = checked;
 	          rows.push(row);
 

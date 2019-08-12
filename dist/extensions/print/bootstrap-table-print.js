@@ -1804,7 +1804,7 @@
 	        return;
 	      }
 
-	      var $btnGroup = this.$toolbar.find('>.btn-group');
+	      var $btnGroup = this.$toolbar.find('>.columns');
 	      var $print = $btnGroup.find('button.bs-print');
 
 	      if (!$print.length) {

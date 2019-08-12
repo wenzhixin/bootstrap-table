@@ -1898,7 +1898,7 @@
 	            formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue);
 	          }
 
-	          if (_typeof(formattedValue) === 'object') {
+	          if (_typeof(formattedValue) === 'object' && formattedValue !== null) {
 	            formattedValue.forEach(function (value) {
 	              UtilsFilterControl.addOptionToSelectControl(selectControl, value, value, column.filterDefault);
 	            });
@@ -2382,6 +2382,13 @@
 	      this.EnableControls(false);
 	      this.onSearch(event, false);
 	      this.trigger('column-search', $field, text);
+	    }
+	  }, {
+	    key: "initToolbar",
+	    value: function initToolbar() {
+	      this.showSearchClearButton = this.options.filterControl && this.options.showSearchClearButton;
+
+	      _get(_getPrototypeOf(_class.prototype), "initToolbar", this).call(this);
 	    }
 	  }, {
 	    key: "resetSearch",
