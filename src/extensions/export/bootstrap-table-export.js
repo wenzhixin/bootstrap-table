@@ -86,23 +86,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     let $menu = $(this.constants.html.toolbarDropdown.join(''))
 
-    this.$export = $(`
-      <div class="export ${this.constants.classes.buttonsDropdown}">
-      <button class="${this.constants.buttonsClass} dropdown-toggle"
-      aria-label="Export"
-      data-toggle="dropdown"
-      type="button"
-      title="${o.formatExport()}">
-      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
-      ${o.showButtonText ? o.formatExport() : ''}
-      ${this.constants.html.dropdownCaret}
-      </button>
-      </div>
-    `).appendTo($btnGroup)
-    this.$export.append($menu)
-
-    this.updateExportButton()
-
     let exportTypes = o.exportTypes
 
     if (typeof exportTypes === 'string') {
@@ -110,30 +93,76 @@ $.BootstrapTable = class extends $.BootstrapTable {
       exportTypes = types.map(t => t.slice(1, -1))
     }
 
-    // themes support
-    if ($menu.children().length) {
-      $menu = $menu.children().eq(0)
+    if (exportTypes.length === 1) {
+      this.$export = $(`
+      <div class="export">
+      <button class="${this.constants.buttonsClass}"
+      aria-label="Export"
+      type="button"
+      title="${o.formatExport()}">
+      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+      ${o.showButtonText ? o.formatExport() : ''}
+      </button>
+      </div>
+    `).appendTo($btnGroup)
+
+      this.updateExportButton()
+
+      $btnGroup.click(e => {
+        e.preventDefault()
+
+        const type = exportTypes[0]
+        const exportOptions = {
+          type,
+          escape: false
+        }
+
+        this.exportTable(exportOptions)
+      })
     }
-    for (const type of exportTypes) {
-      if (TYPE_NAME.hasOwnProperty(type)) {
-        const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
-          '', TYPE_NAME[type]))
-        $item.attr('data-type', type)
-        $menu.append($item)
+    else {
+      this.$export = $(`
+        <div class="export ${this.constants.classes.buttonsDropdown}">
+        <button class="${this.constants.buttonsClass} dropdown-toggle"
+        aria-label="Export"
+        data-toggle="dropdown"
+        type="button"
+        title="${o.formatExport()}">
+        ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+        ${o.showButtonText ? o.formatExport() : ''}
+        ${this.constants.html.dropdownCaret}
+        </button>
+        </div>
+      `).appendTo($btnGroup)
+      this.$export.append($menu)
+
+      this.updateExportButton()
+
+      // themes support
+      if ($menu.children().length) {
+        $menu = $menu.children().eq(0)
       }
+      for (const type of exportTypes) {
+        if (TYPE_NAME.hasOwnProperty(type)) {
+          const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
+            '', TYPE_NAME[type]))
+          $item.attr('data-type', type)
+          $menu.append($item)
+        }
+      }
+
+      $menu.children().click(e => {
+        e.preventDefault()
+
+        const type = $(e.currentTarget).data('type')
+        const exportOptions = {
+          type,
+          escape: false
+        }
+
+        this.exportTable(exportOptions)
+      })
     }
-
-    $menu.children().click(e => {
-      e.preventDefault()
-
-      const type = $(e.currentTarget).data('type')
-      const exportOptions = {
-        type,
-        escape: false
-      }
-
-      this.exportTable(exportOptions)
-    })
     this.handleToolbar()
   }
 
