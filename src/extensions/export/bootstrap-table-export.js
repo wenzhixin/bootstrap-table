@@ -93,7 +93,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       exportTypes = types.map(t => t.slice(1, -1))
     }
 
-    if (exportTypes.length == 1) {
+    if (exportTypes.length === 1) {
       this.$export = $(`
       <div class="export">
       <button class="${this.constants.buttonsClass}"
@@ -121,47 +121,47 @@ $.BootstrapTable = class extends $.BootstrapTable {
       })
     }
     else {
-    this.$export = $(`
-      <div class="export ${this.constants.classes.buttonsDropdown}">
-      <button class="${this.constants.buttonsClass} dropdown-toggle"
-      aria-label="Export"
-      data-toggle="dropdown"
-      type="button"
-      title="${o.formatExport()}">
-      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
-      ${o.showButtonText ? o.formatExport() : ''}
-      ${this.constants.html.dropdownCaret}
-      </button>
-      </div>
-    `).appendTo($btnGroup)
-    this.$export.append($menu)
+      this.$export = $(`
+        <div class="export ${this.constants.classes.buttonsDropdown}">
+        <button class="${this.constants.buttonsClass} dropdown-toggle"
+        aria-label="Export"
+        data-toggle="dropdown"
+        type="button"
+        title="${o.formatExport()}">
+        ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+        ${o.showButtonText ? o.formatExport() : ''}
+        ${this.constants.html.dropdownCaret}
+        </button>
+        </div>
+      `).appendTo($btnGroup)
+      this.$export.append($menu)
 
-    this.updateExportButton()
+      this.updateExportButton()
 
-    // themes support
-    if ($menu.children().length) {
-      $menu = $menu.children().eq(0)
-    }
-    for (const type of exportTypes) {
-      if (TYPE_NAME.hasOwnProperty(type)) {
-        const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
-          '', TYPE_NAME[type]))
-        $item.attr('data-type', type)
-        $menu.append($item)
+      // themes support
+      if ($menu.children().length) {
+        $menu = $menu.children().eq(0)
       }
-    }
-
-    $menu.children().click(e => {
-      e.preventDefault()
-
-      const type = $(e.currentTarget).data('type')
-      const exportOptions = {
-        type,
-        escape: false
+      for (const type of exportTypes) {
+        if (TYPE_NAME.hasOwnProperty(type)) {
+          const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
+            '', TYPE_NAME[type]))
+          $item.attr('data-type', type)
+          $menu.append($item)
+        }
       }
 
-      this.exportTable(exportOptions)
-    })
+      $menu.children().click(e => {
+        e.preventDefault()
+
+        const type = $(e.currentTarget).data('type')
+        const exportOptions = {
+          type,
+          escape: false
+        }
+
+        this.exportTable(exportOptions)
+      })
     }
     this.handleToolbar()
   }
