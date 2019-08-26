@@ -86,6 +86,41 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     let $menu = $(this.constants.html.toolbarDropdown.join(''))
 
+    let exportTypes = o.exportTypes
+
+    if (typeof exportTypes === 'string') {
+      const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
+      exportTypes = types.map(t => t.slice(1, -1))
+    }
+
+    if (exportTypes.length == 1) {
+      this.$export = $(`
+      <div class="export">
+      <button class="${this.constants.buttonsClass}"
+      aria-label="Export"
+      type="button"
+      title="${o.formatExport()}">
+      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+      ${o.showButtonText ? o.formatExport() : ''}
+      </button>
+      </div>
+    `).appendTo($btnGroup)
+
+      this.updateExportButton()
+
+      $btnGroup.click(e => {
+        e.preventDefault()
+
+        const type = exportTypes[0]
+        const exportOptions = {
+          type,
+          escape: false
+        }
+
+        this.exportTable(exportOptions)
+      })
+    }
+    else {
     this.$export = $(`
       <div class="export ${this.constants.classes.buttonsDropdown}">
       <button class="${this.constants.buttonsClass} dropdown-toggle"
@@ -102,13 +137,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.$export.append($menu)
 
     this.updateExportButton()
-
-    let exportTypes = o.exportTypes
-
-    if (typeof exportTypes === 'string') {
-      const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
-      exportTypes = types.map(t => t.slice(1, -1))
-    }
 
     // themes support
     if ($menu.children().length) {
@@ -134,6 +162,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       this.exportTable(exportOptions)
     })
+    }
     this.handleToolbar()
   }
 
