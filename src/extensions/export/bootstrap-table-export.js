@@ -93,9 +93,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       exportTypes = types.map(t => t.slice(1, -1))
     }
 
-    if (exportTypes.length === 1) {
-      this.$export = $(`
-      <div class="export">
+    this.$export = $(exportTypes.length === 1 ? `
+      <div class="export ${this.constants.classes.buttonsDropdown}"
+      data-type="${exportTypes[0]}">
       <button class="${this.constants.buttonsClass}"
       aria-label="Export"
       type="button"
@@ -104,39 +104,24 @@ $.BootstrapTable = class extends $.BootstrapTable {
       ${o.showButtonText ? o.formatExport() : ''}
       </button>
       </div>
+    ` : `
+      <div class="export ${this.constants.classes.buttonsDropdown}">
+      <button class="${this.constants.buttonsClass} dropdown-toggle"
+      aria-label="Export"
+      data-toggle="dropdown"
+      type="button"
+      title="${o.formatExport()}">
+      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+      ${o.showButtonText ? o.formatExport() : ''}
+      ${this.constants.html.dropdownCaret}
+      </button>
+      </div>
     `).appendTo($btnGroup)
 
-      this.updateExportButton()
+    let $items = this.$export
 
-      $btnGroup.click(e => {
-        e.preventDefault()
-
-        const type = exportTypes[0]
-        const exportOptions = {
-          type,
-          escape: false
-        }
-
-        this.exportTable(exportOptions)
-      })
-    }
-    else {
-      this.$export = $(`
-        <div class="export ${this.constants.classes.buttonsDropdown}">
-        <button class="${this.constants.buttonsClass} dropdown-toggle"
-        aria-label="Export"
-        data-toggle="dropdown"
-        type="button"
-        title="${o.formatExport()}">
-        ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
-        ${o.showButtonText ? o.formatExport() : ''}
-        ${this.constants.html.dropdownCaret}
-        </button>
-        </div>
-      `).appendTo($btnGroup)
+    if (exportTypes.length > 1) {
       this.$export.append($menu)
-
-      this.updateExportButton()
 
       // themes support
       if ($menu.children().length) {
@@ -151,18 +136,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
       }
 
-      $menu.children().click(e => {
-        e.preventDefault()
-
-        const type = $(e.currentTarget).data('type')
-        const exportOptions = {
-          type,
-          escape: false
-        }
-
-        this.exportTable(exportOptions)
-      })
+      $items = $menu.children()
     }
+
+    this.updateExportButton()
+
+    $items.click(e => {
+      e.preventDefault()
+
+      const type = $(e.currentTarget).data('type')
+      const exportOptions = {
+        type,
+        escape: false
+      }
+
+      this.exportTable(exportOptions)
+    })
     this.handleToolbar()
   }
 
