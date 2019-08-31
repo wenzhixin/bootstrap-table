@@ -1634,7 +1634,7 @@ class BootstrapTable {
     return html.join('')
   }
 
-  initBody (fixedScroll) {
+  initBody (fixedScroll, updatedUid) {
     const data = this.getData()
 
     this.trigger('pre-body', data)
@@ -1653,15 +1653,34 @@ class BootstrapTable {
     const rows = []
     const trFragments = $(document.createDocumentFragment())
     let hasTr = false
+    const toExpand = []
 
     this.autoMergeCells = Utils.checkAutoMergeCells(data.slice(this.pageFrom - 1, this.pageTo))
 
     for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
       const item = data[i]
-      const tr = this.initRow(item, i, data, trFragments)
+      let tr = this.initRow(item, i, data, trFragments)
 
       hasTr = hasTr || !!tr
       if (tr && typeof tr === 'string') {
+
+        const uniqueId = this.options.uniqueId
+        if (uniqueId && item.hasOwnProperty(uniqueId)) {
+          const itemUniqueId = item[uniqueId]
+
+          const oldTr = this.$body.find(Utils.sprintf('> tr[data-uniqueid="%s"][data-has-detail-view]', itemUniqueId))
+
+          if (oldTr.next().is('tr.detail-view')) {
+
+            toExpand.push(i)
+
+            if (updatedUid && itemUniqueId === updatedUid) {
+            } else {
+              tr += oldTr.next()[0].outerHTML
+            }
+          }
+        }
+
         if (!this.options.virtualScroll) {
           trFragments.append(tr)
         } else {
@@ -1693,6 +1712,8 @@ class BootstrapTable {
         }
       })
     }
+
+    toExpand.forEach((index) => { this.expandRow(index) })
 
     if (!fixedScroll) {
       this.scrollTo(0)
@@ -2512,6 +2533,7 @@ class BootstrapTable {
 
   updateByUniqueId (params) {
     const allParams = Array.isArray(params) ? params : [params]
+    var updatedUid = null
 
     for (const params of allParams) {
       if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
@@ -2529,12 +2551,13 @@ class BootstrapTable {
       } else {
         $.extend(this.options.data[rowId], params.row)
       }
+      updatedUid = params.id
     }
 
     this.initSearch()
     this.initPagination()
     this.initSort()
-    this.initBody(true)
+    this.initBody(true, updatedUid)
   }
 
   removeByUniqueId (id) {
@@ -3112,12 +3135,12 @@ class BootstrapTable {
     const row = this.data[index]
     const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"][data-has-detail-view]', index))
 
-    if ($tr.next().is('tr.detail-view')) {
-      return
-    }
-
     if (this.options.detailViewIcon) {
       $tr.find('a.detail-icon').html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailClose))
+    }
+
+    if ($tr.next().is('tr.detail-view')) {
+      return
     }
 
     $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.children('td').length))
