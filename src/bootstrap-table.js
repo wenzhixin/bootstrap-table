@@ -1373,7 +1373,7 @@ class BootstrapTable {
     return html.join('')
   }
 
-  initBody (fixedScroll) {
+  initBody (fixedScroll, updatedUid) {
     const data = this.getData()
 
     this.trigger('pre-body', data)
@@ -1392,12 +1392,29 @@ class BootstrapTable {
     const rows = []
     const trFragments = $(document.createDocumentFragment())
     let hasTr = false
+    const toExpand = []
 
     for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
       const item = data[i]
-      const tr = this.initRow(item, i, data, trFragments)
+      let tr = this.initRow(item, i, data, trFragments)
       hasTr = hasTr || !!tr
       if (tr && typeof tr === 'string') {
+
+        const uniqueId = this.options.uniqueId
+        if (uniqueId && item.hasOwnProperty(uniqueId)) {
+          const itemUniqueId = item[uniqueId]
+
+          const oldTr = this.$body.find(Utils.sprintf('> tr[data-uniqueid="%s"][data-has-detail-view]', itemUniqueId))
+
+          if (oldTr.next().is('tr.detail-view')) {
+            if (updatedUid && itemUniqueId === updatedUid) {
+              toExpand.push(i)
+            } else {
+              tr += oldTr.next()[0].outerHTML
+            }
+          }
+        }
+
         if (!this.options.virtualScroll) {
           trFragments.append(tr)
         } else {
@@ -1429,6 +1446,8 @@ class BootstrapTable {
         })
       }
     }
+
+    toExpand.forEach((index) => { this.expandRow(index) })
 
     if (!fixedScroll) {
       this.scrollTo(0)
@@ -2144,6 +2163,7 @@ class BootstrapTable {
 
   updateByUniqueId (params) {
     const allParams = Array.isArray(params) ? params : [params]
+    var updatedUid = null
 
     for (const params of allParams) {
       if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
@@ -2160,12 +2180,13 @@ class BootstrapTable {
       } else {
         $.extend(this.options.data[rowId], params.row)
       }
+      updatedUid = params.id
     }
 
     this.initSearch()
     this.initPagination()
     this.initSort()
-    this.initBody(true)
+    this.initBody(true, updatedUid)
   }
 
   removeByUniqueId (id) {
