@@ -2585,7 +2585,9 @@ class BootstrapTable {
       this.getCaret()
       this.$tableContainer.css('padding-bottom', `${padding}px`)
     }
-
+    // fixed the bug of fix body columns
+    this.$el.width(this.$tableBody.innerWidth() - 2);
+    
     this.trigger('reset-view')
   }
 
