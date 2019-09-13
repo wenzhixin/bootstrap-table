@@ -1612,12 +1612,12 @@ class BootstrapTable {
       cache: this.options.cache,
       contentType: this.options.contentType,
       dataType: this.options.dataType,
-      success: _res => {
+      success: (_res, textStatus, jqXHR) => {
         const res = Utils.calculateObjectValue(this.options,
-          this.options.responseHandler, [_res], _res)
+          this.options.responseHandler, [_res, jqXHR], _res)
 
         this.load(res)
-        this.trigger('load-success', res)
+        this.trigger('load-success', res, jqXHR.status, jqXHR)
         if (!silent) {
           this.hideLoading()
         }
