@@ -13,6 +13,8 @@ redirect_from:
     <div class="row align-items-center">
       <div class="col-4 mx-auto col-md-4 order-md-2">
         <img class="img-fluid mb-3 mb-md-0" src="favicon.png">
+
+        {% include subscribe.html %}
       </div>
       <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
         <h1 class="mb-3 bd-text-purple-bright">
@@ -38,12 +40,12 @@ redirect_from:
             </a>
           </div>
         </div>
-        <p class="text-muted mb-0">
-            Currently{{ site.current_version }}
+        <p class="text-muted">
+          Currently{{ site.current_version }}
         </p>
+        {% include ads.html %}
       </div>
     </div>
-    {% include ads.html %}
   </div>
 </main>
 
