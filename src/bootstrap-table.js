@@ -1909,8 +1909,6 @@ class BootstrapTable {
   horizontalScroll () {
     // horizontal scroll event
     // TODO: it's probably better improving the layout than binding to scroll event
-
-    this.trigger('scroll-body')
     this.$tableBody.off('scroll').on('scroll', ({currentTarget}) => {
       if (this.options.showHeader && this.options.height) {
         this.$tableHeader.scrollLeft($(currentTarget).scrollLeft())
@@ -1919,6 +1917,8 @@ class BootstrapTable {
       if (this.options.showFooter && !this.options.cardView) {
         this.$tableFooter.scrollLeft($(currentTarget).scrollLeft())
       }
+
+      this.trigger('scroll-body', $(currentTarget))
     })
   }
 

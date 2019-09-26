@@ -369,7 +369,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **jQuery Event:** `scroll-body.bs.table`
 
-- **Parameter:**: `undefined`
+- **Parameter:**: `$tableBody` (from 1.15.5)
 
 - **Detail:**
 
