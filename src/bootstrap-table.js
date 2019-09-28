@@ -665,25 +665,38 @@ class BootstrapTable {
 
       this.$toolbar.append(html.join(''))
       const $searchInput = this.$toolbar.find('.search input')
-      $search = o.showSearchButton ? this.$toolbar.find('.search button[name=search]') : $searchInput
+      const handleInputEvent = () => {
+        const eventTriggers = Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur'
+        $searchInput.off(eventTriggers).on(eventTriggers, event => {
+          if (o.searchOnEnterKey && event.keyCode !== 13) {
+            return
+          }
 
-      const eventTriggers = o.showSearchButton ? 'click' :
-        (Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur')
+          if ([37, 38, 39, 40].includes(event.keyCode)) {
+            return
+          }
 
-      $search.off(eventTriggers).on(eventTriggers, event => {
-        if (o.searchOnEnterKey && event.keyCode !== 13) {
-          return
+          clearTimeout(timeoutId) // doesn't matter if it's 0
+          timeoutId = setTimeout(() => {
+            this.onSearch(event)
+          }, o.searchTimeOut)
+        })
+      }
+
+      if (o.showSearchButton) {
+        this.$toolbar.find('.search button[name=search]').off('click').on('click', event => {
+          clearTimeout(timeoutId) // doesn't matter if it's 0
+          timeoutId = setTimeout(() => {
+            this.onSearch({currentTarget: $searchInput})
+          }, o.searchTimeOut)
+        })
+
+        if (o.searchOnEnterKey) {
+          handleInputEvent()
         }
-
-        if ([37, 38, 39, 40].includes(event.keyCode)) {
-          return
-        }
-
-        clearTimeout(timeoutId) // doesn't matter if it's 0
-        timeoutId = setTimeout(() => {
-          this.onSearch(o.showSearchButton ? {currentTarget: $searchInput} : event)
-        }, o.searchTimeOut)
-      })
+      } else {
+        handleInputEvent()
+      }
 
       if (o.showSearchClearButton) {
         this.$toolbar.find('.search button[name=clearSearch]').click(() => {
