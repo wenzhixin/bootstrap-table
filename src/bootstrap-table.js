@@ -646,7 +646,9 @@ class BootstrapTable {
         o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '',
         o.showButtonText ? o.formatClearSearch() : ''
       )
-      const searchInputHtml = `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`
+      const searchInputHtml = `<input class="${this.constants.classes.input}
+        ${Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, o.iconSize)}
+        search-input" type="text" placeholder="${o.formatSearch()}">`
       let searchInputFinalHtml = searchInputHtml
 
       if (o.showSearchButton || o.showSearchClearButton) {
