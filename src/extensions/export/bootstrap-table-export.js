@@ -86,7 +86,25 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     let $menu = $(this.constants.html.toolbarDropdown.join(''))
 
-    this.$export = $(`
+    let exportTypes = o.exportTypes
+
+    if (typeof exportTypes === 'string') {
+      const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
+      exportTypes = types.map(t => t.slice(1, -1))
+    }
+
+    this.$export = $(exportTypes.length === 1 ? `
+      <div class="export ${this.constants.classes.buttonsDropdown}"
+      data-type="${exportTypes[0]}">
+      <button class="${this.constants.buttonsClass}"
+      aria-label="Export"
+      type="button"
+      title="${o.formatExport()}">
+      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+      ${o.showButtonText ? o.formatExport() : ''}
+      </button>
+      </div>
+    ` : `
       <div class="export ${this.constants.classes.buttonsDropdown}">
       <button class="${this.constants.buttonsClass} dropdown-toggle"
       aria-label="Export"
@@ -99,31 +117,31 @@ $.BootstrapTable = class extends $.BootstrapTable {
       </button>
       </div>
     `).appendTo($btnGroup)
-    this.$export.append($menu)
+
+    let $items = this.$export
+
+    if (exportTypes.length > 1) {
+      this.$export.append($menu)
+
+      // themes support
+      if ($menu.children().length) {
+        $menu = $menu.children().eq(0)
+      }
+      for (const type of exportTypes) {
+        if (TYPE_NAME.hasOwnProperty(type)) {
+          const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
+            '', TYPE_NAME[type]))
+          $item.attr('data-type', type)
+          $menu.append($item)
+        }
+      }
+
+      $items = $menu.children()
+    }
 
     this.updateExportButton()
 
-    let exportTypes = o.exportTypes
-
-    if (typeof exportTypes === 'string') {
-      const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
-      exportTypes = types.map(t => t.slice(1, -1))
-    }
-
-    // themes support
-    if ($menu.children().length) {
-      $menu = $menu.children().eq(0)
-    }
-    for (const type of exportTypes) {
-      if (TYPE_NAME.hasOwnProperty(type)) {
-        const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
-          '', TYPE_NAME[type]))
-        $item.attr('data-type', type)
-        $menu.append($item)
-      }
-    }
-
-    $menu.children().click(e => {
+    $items.click(e => {
       e.preventDefault()
 
       const type = $(e.currentTarget).data('type')

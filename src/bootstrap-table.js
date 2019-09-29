@@ -646,7 +646,9 @@ class BootstrapTable {
         o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '',
         o.showButtonText ? o.formatClearSearch() : ''
       )
-      const searchInputHtml = `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`
+      const searchInputHtml = `<input class="${this.constants.classes.input}
+        ${Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, o.iconSize)}
+        search-input" type="text" placeholder="${o.formatSearch()}">`
       let searchInputFinalHtml = searchInputHtml
 
       if (o.showSearchButton || o.showSearchClearButton) {
@@ -665,25 +667,38 @@ class BootstrapTable {
 
       this.$toolbar.append(html.join(''))
       const $searchInput = this.$toolbar.find('.search input')
-      $search = o.showSearchButton ? this.$toolbar.find('.search button[name=search]') : $searchInput
+      const handleInputEvent = () => {
+        const eventTriggers = Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur'
+        $searchInput.off(eventTriggers).on(eventTriggers, event => {
+          if (o.searchOnEnterKey && event.keyCode !== 13) {
+            return
+          }
 
-      const eventTriggers = o.showSearchButton ? 'click' :
-        (Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur')
+          if ([37, 38, 39, 40].includes(event.keyCode)) {
+            return
+          }
 
-      $search.off(eventTriggers).on(eventTriggers, event => {
-        if (o.searchOnEnterKey && event.keyCode !== 13) {
-          return
+          clearTimeout(timeoutId) // doesn't matter if it's 0
+          timeoutId = setTimeout(() => {
+            this.onSearch(event)
+          }, o.searchTimeOut)
+        })
+      }
+
+      if (o.showSearchButton) {
+        this.$toolbar.find('.search button[name=search]').off('click').on('click', event => {
+          clearTimeout(timeoutId) // doesn't matter if it's 0
+          timeoutId = setTimeout(() => {
+            this.onSearch({currentTarget: $searchInput})
+          }, o.searchTimeOut)
+        })
+
+        if (o.searchOnEnterKey) {
+          handleInputEvent()
         }
-
-        if ([37, 38, 39, 40].includes(event.keyCode)) {
-          return
-        }
-
-        clearTimeout(timeoutId) // doesn't matter if it's 0
-        timeoutId = setTimeout(() => {
-          this.onSearch(o.showSearchButton ? {currentTarget: $searchInput} : event)
-        }, o.searchTimeOut)
-      })
+      } else {
+        handleInputEvent()
+      }
 
       if (o.showSearchClearButton) {
         this.$toolbar.find('.search button[name=clearSearch]').click(() => {
@@ -1444,7 +1459,7 @@ class BootstrapTable {
       const item = this.data[rowIndex]
       const index = this.options.cardView ? $cardViewArr.index($cardViewTarget) : $td[0].cellIndex
       const fields = this.getVisibleFields()
-      const field = fields[this.options.detailView && this.detailViewIcon && !this.options.cardView ? index - 1 : index]
+      const field = fields[this.options.detailView && this.options.detailViewIcon && !this.options.cardView ? index - 1 : index]
       const column = this.columns[this.fieldsColumnsIndex[field]]
       const value = Utils.getItemField(item, field, this.options.escape)
 
@@ -1612,12 +1627,12 @@ class BootstrapTable {
       cache: this.options.cache,
       contentType: this.options.contentType,
       dataType: this.options.dataType,
-      success: _res => {
+      success: (_res, textStatus, jqXHR) => {
         const res = Utils.calculateObjectValue(this.options,
-          this.options.responseHandler, [_res], _res)
+          this.options.responseHandler, [_res, jqXHR], _res)
 
         this.load(res)
-        this.trigger('load-success', res)
+        this.trigger('load-success', res, jqXHR.status, jqXHR)
         if (!silent) {
           this.hideLoading()
         }
@@ -1909,8 +1924,6 @@ class BootstrapTable {
   horizontalScroll () {
     // horizontal scroll event
     // TODO: it's probably better improving the layout than binding to scroll event
-
-    this.trigger('scroll-body')
     this.$tableBody.off('scroll').on('scroll', ({currentTarget}) => {
       if (this.options.showHeader && this.options.height) {
         this.$tableHeader.scrollLeft($(currentTarget).scrollLeft())
@@ -1919,6 +1932,8 @@ class BootstrapTable {
       if (this.options.showFooter && !this.options.cardView) {
         this.$tableFooter.scrollLeft($(currentTarget).scrollLeft())
       }
+
+      this.trigger('scroll-body', $(currentTarget))
     })
   }
 
