@@ -1435,6 +1435,7 @@ class BootstrapTable {
         }
         this.virtualScroll = new VirtualScroll({
           rows,
+          fixedScroll,
           scrollEl: this.$tableBody[0],
           contentEl: this.$body[0],
           itemHeight: this.options.virtualScrollItemHeight,
