@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'bootstrap-table';
-  src:  url('fonts/bootstrap-table.eot?t9ga3r');
-  src:  url('fonts/bootstrap-table.eot?t9ga3r#iefix') format('embedded-opentype'),
-  url('fonts/bootstrap-table.ttf?t9ga3r') format('truetype'),
-  url('fonts/bootstrap-table.woff?t9ga3r') format('woff'),
-  url('fonts/bootstrap-table.svg?t9ga3r#bootstrap-table') format('svg');
+  src:  url('fonts/bootstrap-table.eot?pmqe8y');
+  src:  url('fonts/bootstrap-table.eot?pmqe8y#iefix') format('embedded-opentype'),
+  url('fonts/bootstrap-table.ttf?pmqe8y') format('truetype'),
+  url('fonts/bootstrap-table.woff?pmqe8y') format('woff'),
+  url('fonts/bootstrap-table.svg?pmqe8y#bootstrap-table') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -36,6 +36,9 @@
 }
 .icon-chevron-right:before {
   content: "\e901";
+}
+.icon-clock:before {
+  content: "\e90d";
 }
 .icon-download:before {
   content: "\e90c";
