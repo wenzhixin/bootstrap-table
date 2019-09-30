@@ -1441,6 +1441,7 @@ class BootstrapTable {
           itemHeight: this.options.virtualScrollItemHeight,
           callback: () => {
             this.fitHeader()
+            this.initBodyEvent()
           }
         })
       }
@@ -1450,6 +1451,19 @@ class BootstrapTable {
       this.scrollTo(0)
     }
 
+    this.initBodyEvent()
+    this.updateSelected()
+    this.initFooter()
+    this.resetView()
+
+    if (this.options.sidePagination !== 'server') {
+      this.options.totalRows = data.length
+    }
+
+    this.trigger('post-body', data)
+  }
+
+  initBodyEvent () {
     // click to select by column
     this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', e => {
       const $td = $(e.currentTarget)
@@ -1550,16 +1564,6 @@ class BootstrapTable {
         })
       }
     })
-
-    this.updateSelected()
-    this.initFooter()
-    this.resetView()
-
-    if (this.options.sidePagination !== 'server') {
-      this.options.totalRows = data.length
-    }
-
-    this.trigger('post-body', data)
   }
 
   initServer (silent, query, url) {
