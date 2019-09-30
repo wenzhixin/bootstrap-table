@@ -57,7 +57,7 @@
         },
         {
           "id": 13,
-          "order": 0
+          "order": 15
         },
         {
           "id": 14,
@@ -89,7 +89,7 @@
         },
         {
           "id": 21,
-          "order": 0
+          "order": 14
         },
         {
           "id": 22,
@@ -837,7 +837,7 @@
         },
         {
           "id": 201,
-          "order": 0
+          "order": 12
         },
         {
           "id": 202,
@@ -15225,7 +15225,9 @@
       "classSelector": ".icon",
       "showMetrics": false,
       "showMetadata": false,
-      "showVersion": false
+      "showVersion": false,
+      "cssVars": true,
+      "cssVarsFormat": "scss"
     },
     "imagePref": {
       "prefix": "icon-",
@@ -15240,6 +15242,5 @@
     "showCodes": true,
     "gridSize": 16
   },
-  "uid": -1,
-  "time": 1560123380980
+  "uid": -1
 }
