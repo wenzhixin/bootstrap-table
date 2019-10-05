@@ -6,13 +6,15 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-mobile](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/mobile)
-
 ## Usage
 
 {% highlight html %}
 <script src="extensions/mobile/bootstrap-table-mobile.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Mobile](https://examples.bootstrap-table.com/#extensions/mobile.html)
 
 ## Options
 

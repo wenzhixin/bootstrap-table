@@ -6,18 +6,22 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-reorder-rows](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/reorder-rows) </br>
-Dependence: [tablednd](https://github.com/isocra/TableDnD) v0.9, </br>
-if you want you can include the bootstrap-table-reorder-rows.css file to use the default dragClass
+Dependence: [tablednd](https://github.com/isocra/TableDnD) v0.9
+
+if you want you can include the bootstrap-table-reorder-rows.css file to use the default dragClass.
 
 
 ## Usage
 
 {% highlight html %}
-<link rel="stylesheet" href=".../bootstrap-table-reorder-rows.css">
+<link rel="stylesheet" href="extensions/reorder-rows/bootstrap-table-reorder-rows.css">
 <script src=".../jquery.tablednd.js"></script>
 <script src="extensions/reorder-rows/bootstrap-table-reorder-rows.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Reorder Rows](https://examples.bootstrap-table.com/#extensions/reorder-rows.html)
 
 ## Options
 

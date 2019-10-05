@@ -6,13 +6,15 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-i18n-enhance](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/i18n-enhance)
-
 ## Usage
 
 {% highlight html %}
 <script src="extensions/i18n-enhance/bootstrap-table-i18n-enhance.js"></script>
 {% endhighlight %}
+
+## Example
+
+[i18n Enhance](https://examples.bootstrap-table.com/#extensions/i18n-enhance.html)
 
 ## Methods
 

@@ -6,13 +6,15 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-toolbar](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/toolbar)
-
 ## Usage
 
 {% highlight html %}
 <script src="extensions/toolbar/bootstrap-table-toolbar.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Advanced Toolbar](https://examples.bootstrap-table.com/#extensions/toolbar.html)
 
 ## Options
 
