@@ -6,19 +6,23 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-reorder-columns](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/reorder-columns) </br>
-Dependence: [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must include the css file), </br>
-[jquery-ui](https://code.jquery.com/ui/) v1.11
+Dependence:
+* [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must include the css file)
+* [jquery-ui](https://code.jquery.com/ui/) v1.11
 
 
 ## Usage
 
 {% highlight html %}
-<link rel="stylesheet" href=".../dragtable.css">
-<script src=".../jquery-ui.js"></script>
-<script src=".../jquery.dragtable.js"></script>
+<link rel="stylesheet" href="dragtable.css">
+<script src="jquery-ui.js"></script>
+<script src="jquery.dragtable.js"></script>
 <script src="extensions/reorder-columns/bootstrap-table-reorder-columns.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Reorder Columns](https://examples.bootstrap-table.com/#extensions/reorder-columns.html)
 
 ## Options
 

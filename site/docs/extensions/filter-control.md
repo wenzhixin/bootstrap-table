@@ -6,8 +6,6 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-filter-control](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/filter-control)
-
 Dependence if you use the datepicker option: [bootstrap-datepicker](https://github.com/eternicode/bootstrap-datepicker) v1.4.0
 
 ## Usage
@@ -16,6 +14,10 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
 <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Filter Control](https://examples.bootstrap-table.com/#extensions/filter-control.html)
 
 ## Options
 

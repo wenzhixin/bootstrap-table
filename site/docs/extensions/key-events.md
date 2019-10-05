@@ -6,13 +6,15 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-key-events](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/key-events)
-
 ## Usage
 
 {% highlight html %}
 <script src="extensions/key-events/bootstrap-table-key-events.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Key Events](https://examples.bootstrap-table.com/#extensions/key-events.html)
 
 ## Options
 
