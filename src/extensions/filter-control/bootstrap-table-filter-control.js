@@ -386,47 +386,47 @@ const UtilsFilterControl = {
     })
 
     if (addedFilterControl) {
-      header.off('keyup', 'input').on('keyup', 'input', (event, obj) => {
+      header.off('keyup', 'input').on('keyup', 'input', ({currentTarget, keyCode}, obj) => {
         // Simulate enter key action from clear button
-        event.keyCode = obj ? obj.keyCode : event.keyCode
+        keyCode = obj ? obj.keyCode : keyCode
 
-        if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+        if (that.options.searchOnEnterKey && keyCode !== 13) {
           return
         }
 
-        if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+        if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
           return
         }
 
-        const $currentTarget = $(event.currentTarget)
+        const $currentTarget = $(currentTarget)
 
         if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio')) {
           return
         }
 
-        clearTimeout(event.currentTarget.timeoutId || 0)
-        event.currentTarget.timeoutId = setTimeout(() => {
-          that.onColumnSearch(event)
+        clearTimeout(currentTarget.timeoutId || 0)
+        currentTarget.timeoutId = setTimeout(() => {
+          that.onColumnSearch({currentTarget, keyCode})
         }, that.options.searchTimeOut)
       })
 
-      header.off('change', 'select').on('change', 'select', event => {
-        if (that.options.searchOnEnterKey && event.keyCode !== 13) {
+      header.off('change', 'select').on('change', 'select', ({currentTarget, keyCode}) => {
+        if (that.options.searchOnEnterKey && keyCode !== 13) {
           return
         }
 
-        if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+        if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
           return
         }
 
-        clearTimeout(event.currentTarget.timeoutId || 0)
-        event.currentTarget.timeoutId = setTimeout(() => {
-          that.onColumnSearch(event)
+        clearTimeout(currentTarget.timeoutId || 0)
+        currentTarget.timeoutId = setTimeout(() => {
+          that.onColumnSearch({currentTarget, keyCode})
         }, that.options.searchTimeOut)
       })
 
-      header.off('mouseup', 'input').on('mouseup', 'input', function (event) {
-        const $input = $(this)
+      header.off('mouseup', 'input').on('mouseup', 'input', ({currentTarget, keyCode}) => {
+        const $input = $(currentTarget)
         const oldValue = $input.val()
 
         if (oldValue === '') {
@@ -437,9 +437,9 @@ const UtilsFilterControl = {
           const newValue = $input.val()
 
           if (newValue === '') {
-            clearTimeout(event.currentTarget.timeoutId || 0)
-            event.currentTarget.timeoutId = setTimeout(() => {
-              that.onColumnSearch(event)
+            clearTimeout(currentTarget.timeoutId || 0)
+            currentTarget.timeoutId = setTimeout(() => {
+              that.onColumnSearch({currentTarget, keyCode})
             }, that.options.searchTimeOut)
           }
         }, 1)
@@ -456,10 +456,10 @@ const UtilsFilterControl = {
                 `.date-filter-control.bootstrap-table-filter-control-${field}`
               )
               .datepicker(filterDatepickerOptions)
-              .on('changeDate', (event) => {
-                clearTimeout(event.currentTarget.timeoutId || 0)
-                event.currentTarget.timeoutId = setTimeout(() => {
-                  that.onColumnSearch(event)
+              .on('changeDate', ({currentTarget, keyCode}) => {
+                clearTimeout(currentTarget.timeoutId || 0)
+                currentTarget.timeoutId = setTimeout(() => {
+                  that.onColumnSearch({currentTarget, keyCode})
                 }, that.options.searchTimeOut)
               })
           }
@@ -640,10 +640,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
           UtilsFilterControl.setValues(that)
         })
         .on('load-success.bs.table', () => {
-          that.EnableControls(true)
+          that.enableControls(true)
         })
         .on('load-error.bs.table', () => {
-          that.EnableControls(true)
+          that.enableControls(true)
         })
     }
 
@@ -740,14 +740,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  onColumnSearch (event) {
-    if ($.inArray(event.keyCode, [37, 38, 39, 40]) > -1) {
+  onColumnSearch ({currentTarget, keyCode}) {
+    if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
       return
     }
 
     UtilsFilterControl.copyValues(this)
-    const text = $.trim($(event.currentTarget).val())
-    const $field = $(event.currentTarget)
+    const text = $.trim($(currentTarget).val())
+    const $field = $(currentTarget)
       .closest('[data-field]')
       .data('field')
 
@@ -761,8 +761,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     this.options.pageNumber = 1
-    this.EnableControls(false)
-    this.onSearch(event, false)
+    this.enableControls(false)
+    this.onSearch({currentTarget}, false)
     this.trigger('column-search', $field, text)
   }
 
@@ -870,7 +870,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     })
   }
 
-  EnableControls (enable) {
+  enableControls (enable) {
     if (
       this.options.disableControlWhenSearch &&
       this.options.sidePagination === 'server'
