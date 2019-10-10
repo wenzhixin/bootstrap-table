@@ -47,7 +47,7 @@ const CONSTANTS = {
     html: {
       toolbarDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       toolbarDropdownItem: '<li role="menuitem"><label>%s</label></li>',
-      toolbarDropdownSeperator: '<li class="divider"></li>',
+      toolbarDropdownSeparator: '<li class="divider"></li>',
       pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
       dropdownCaret: '<span class="caret"></span>',
@@ -95,7 +95,7 @@ const CONSTANTS = {
       toolbarDropdownItem: '<label class="dropdown-item">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],
       pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
-      toolbarDropdownSeperator: '<div class="dropdown-divider"></div>',
+      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
       dropdownCaret: '<span class="caret"></span>',
       pagination: ['<ul class="pagination%s">', '</ul>'],
       paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',

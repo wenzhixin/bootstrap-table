@@ -552,7 +552,7 @@ class BootstrapTable {
           )
         )
 
-        html.push(this.constants.html.toolbarDropdownSeperator)
+        html.push(this.constants.html.toolbarDropdownSeparator)
       }
 
       this.columns.forEach((column, i) => {
