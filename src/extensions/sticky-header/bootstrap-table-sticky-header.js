@@ -8,7 +8,9 @@ const Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {
   stickyHeader: false,
-  stickyHeaderOffsetY: 0
+  stickyHeaderOffsetY: 0,
+  stickyHeaderOffsetLeft: 0,
+  stickyHeaderOffsetRight: 0
 })
 
 const hiddenClass = {
@@ -56,7 +58,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // match bootstrap table style
       this.$stickyContainer.removeClass(hiddenClass).addClass('fix-sticky fixed-table-container')
       // stick it in position
-      this.$stickyContainer.css('top', `${this.options.stickyHeaderOffsetY}px`)
+      this.$stickyContainer.css('top', `${this.options.stickyHeaderOffsetY}`)
+      this.$stickyContainer.css('left', `${this.options.stickyHeaderOffsetLeft}`)
+      this.$stickyContainer.css('right', `${this.options.stickyHeaderOffsetRight}`)
       // create scrollable container for header
       this.$stickyTable = $('<table/>')
       this.$stickyTable.addClass(this.options.classes)

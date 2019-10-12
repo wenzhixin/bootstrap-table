@@ -217,7 +217,7 @@ const UtilsFilterControl = {
 
     $.each(that.header.fields, (j, field) => {
       const column = that.columns[that.fieldsColumnsIndex[field]]
-      const selectControl = $(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
+      const selectControl = that.$tableBody.find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
 
       if (
         UtilsFilterControl.isColumnSearchableViaSelect(column) &&
@@ -337,9 +337,7 @@ const UtilsFilterControl = {
             column.filterData.indexOf(':') + 1,
             column.filterData.length
           )
-          selectControl = $(
-            `.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`
-          )
+          selectControl = that.$tableBody.find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
 
           UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
           filterDataType(filterDataSource, selectControl, column.filterDefault)
