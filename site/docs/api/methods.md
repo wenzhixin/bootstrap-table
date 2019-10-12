@@ -562,7 +562,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Go to the a specified `page`.
 
-- **Example:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html.html)
+- **Example:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html)
 
 ## prevPage
 
@@ -572,7 +572,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Go to previous page.
 
-- **Example:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html.html)
+- **Example:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html)
 
 ## nextPage
 
