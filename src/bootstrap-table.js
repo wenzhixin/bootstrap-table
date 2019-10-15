@@ -680,7 +680,7 @@ class BootstrapTable {
 
           clearTimeout(timeoutId) // doesn't matter if it's 0
           timeoutId = setTimeout(() => {
-            this.onSearch(event)
+            this.onSearch({currentTarget: event.currentTarget})
           }, o.searchTimeOut)
         })
       }
