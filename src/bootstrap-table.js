@@ -2590,9 +2590,18 @@ class BootstrapTable {
       const toolbarHeight = this.$toolbar.outerHeight(true)
       const paginationHeight = this.$pagination.outerHeight(true)
       const height = this.options.height - toolbarHeight - paginationHeight
-      const tableHeight = this.$tableBody.find('table').outerHeight(true)
+      const $bodyTable = this.$tableBody.find('>table')
+      const tableHeight = $bodyTable.outerHeight()
       this.$tableContainer.css('height', `${height}px`)
-      this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
+
+      if (this.$tableBorder) {
+        let tableBorderHeight = height - tableHeight - 2
+        if (this.$tableBody[0].scrollWidth - this.$tableBody.innerWidth()) {
+          tableBorderHeight -= Utils.getScrollBarWidth()
+        }
+        this.$tableBorder.css('width', `${$bodyTable.outerWidth()}px`)
+        this.$tableBorder.css('height', `${tableBorderHeight}px`)
+      }
     }
 
     if (this.options.cardView) {
