@@ -2280,9 +2280,6 @@
 	      }
 
 	      var $menu = $(this.constants.html.toolbarDropdown.join(''));
-	      this.$export = $("\n      <div class=\"export ".concat(this.constants.classes.buttonsDropdown, "\">\n      <button class=\"").concat(this.constants.buttonsClass, " dropdown-toggle\"\n      aria-label=\"Export\"\n      data-toggle=\"dropdown\"\n      type=\"button\"\n      title=\"").concat(o.formatExport(), "\">\n      ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : '', "\n      ").concat(o.showButtonText ? o.formatExport() : '', "\n      ").concat(this.constants.html.dropdownCaret, "\n      </button>\n      </div>\n    ")).appendTo($btnGroup);
-	      this.$export.append($menu);
-	      this.updateExportButton();
 	      var exportTypes = o.exportTypes;
 
 	      if (typeof exportTypes === 'string') {
@@ -2290,43 +2287,52 @@
 	        exportTypes = types.map(function (t) {
 	          return t.slice(1, -1);
 	        });
-	      } // themes support
-
-
-	      if ($menu.children().length) {
-	        $menu = $menu.children().eq(0);
 	      }
 
-	      var _iteratorNormalCompletion = true;
-	      var _didIteratorError = false;
-	      var _iteratorError = undefined;
+	      this.$export = $(exportTypes.length === 1 ? "\n      <div class=\"export ".concat(this.constants.classes.buttonsDropdown, "\"\n      data-type=\"").concat(exportTypes[0], "\">\n      <button class=\"").concat(this.constants.buttonsClass, "\"\n      aria-label=\"Export\"\n      type=\"button\"\n      title=\"").concat(o.formatExport(), "\">\n      ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : '', "\n      ").concat(o.showButtonText ? o.formatExport() : '', "\n      </button>\n      </div>\n    ") : "\n      <div class=\"export ".concat(this.constants.classes.buttonsDropdown, "\">\n      <button class=\"").concat(this.constants.buttonsClass, " dropdown-toggle\"\n      aria-label=\"Export\"\n      data-toggle=\"dropdown\"\n      type=\"button\"\n      title=\"").concat(o.formatExport(), "\">\n      ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : '', "\n      ").concat(o.showButtonText ? o.formatExport() : '', "\n      ").concat(this.constants.html.dropdownCaret, "\n      </button>\n      </div>\n    ")).appendTo($btnGroup);
+	      var $items = this.$export;
 
-	      try {
-	        for (var _iterator = exportTypes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	          var type = _step.value;
+	      if (exportTypes.length > 1) {
+	        this.$export.append($menu); // themes support
 
-	          if (TYPE_NAME.hasOwnProperty(type)) {
-	            var $item = $(Utils.sprintf(this.constants.html.pageDropdownItem, '', TYPE_NAME[type]));
-	            $item.attr('data-type', type);
-	            $menu.append($item);
-	          }
+	        if ($menu.children().length) {
+	          $menu = $menu.children().eq(0);
 	        }
-	      } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	      } finally {
+
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
 	        try {
-	          if (!_iteratorNormalCompletion && _iterator.return != null) {
-	            _iterator.return();
+	          for (var _iterator = exportTypes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	            var type = _step.value;
+
+	            if (TYPE_NAME.hasOwnProperty(type)) {
+	              var $item = $(Utils.sprintf(this.constants.html.pageDropdownItem, '', TYPE_NAME[type]));
+	              $item.attr('data-type', type);
+	              $menu.append($item);
+	            }
 	          }
+	        } catch (err) {
+	          _didIteratorError = true;
+	          _iteratorError = err;
 	        } finally {
-	          if (_didIteratorError) {
-	            throw _iteratorError;
+	          try {
+	            if (!_iteratorNormalCompletion && _iterator.return != null) {
+	              _iterator.return();
+	            }
+	          } finally {
+	            if (_didIteratorError) {
+	              throw _iteratorError;
+	            }
 	          }
 	        }
+
+	        $items = $menu.children();
 	      }
 
-	      $menu.children().click(function (e) {
+	      this.updateExportButton();
+	      $items.click(function (e) {
 	        e.preventDefault();
 	        var type = $(e.currentTarget).data('type');
 	        var exportOptions = {

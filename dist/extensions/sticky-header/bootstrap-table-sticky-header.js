@@ -921,7 +921,9 @@
 	var Utils = $.fn.bootstrapTable.utils;
 	$.extend($.fn.bootstrapTable.defaults, {
 	  stickyHeader: false,
-	  stickyHeaderOffsetY: 0
+	  stickyHeaderOffsetY: 0,
+	  stickyHeaderOffsetLeft: 0,
+	  stickyHeaderOffsetRight: 0
 	});
 	var hiddenClass = {
 	  bootstrap3: 'hidden'
@@ -994,7 +996,9 @@
 
 	        this.$stickyContainer.removeClass(hiddenClass).addClass('fix-sticky fixed-table-container'); // stick it in position
 
-	        this.$stickyContainer.css('top', "".concat(this.options.stickyHeaderOffsetY, "px")); // create scrollable container for header
+	        this.$stickyContainer.css('top', "".concat(this.options.stickyHeaderOffsetY));
+	        this.$stickyContainer.css('left', "".concat(this.options.stickyHeaderOffsetLeft));
+	        this.$stickyContainer.css('right', "".concat(this.options.stickyHeaderOffsetRight)); // create scrollable container for header
 
 	        this.$stickyTable = $('<table/>');
 	        this.$stickyTable.addClass(this.options.classes); // append cloned header to dom

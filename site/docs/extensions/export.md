@@ -16,6 +16,10 @@ This is an important link to check out as some file types may require extra step
 <script src="extensions/export/bootstrap-table-export.js"></script>
 {% endhighlight %}
 
+## Example
+
+[Export](https://examples.bootstrap-table.com/#extensions/export.html)
+
 ## Options
 
 ### showExport
