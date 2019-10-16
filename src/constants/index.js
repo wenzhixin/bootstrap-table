@@ -1,4 +1,4 @@
-const VERSION = '1.15.3'
+const VERSION = '1.15.5'
 
 let bootstrapVersion = 4
 try {
@@ -36,6 +36,7 @@ const CONSTANTS = {
       buttonsDropdown: 'btn-group',
       pull: 'pull',
       inputGroup: 'input-group',
+      inputPrefix: 'input-',
       input: 'form-control',
       paginationDropdown: 'btn-group dropdown',
       dropup: 'dropup',
@@ -46,7 +47,7 @@ const CONSTANTS = {
     html: {
       toolbarDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       toolbarDropdownItem: '<li role="menuitem"><label>%s</label></li>',
-      toolbarDropdownSeperator: '<li class="divider"></li>',
+      toolbarDropdownSeparator: '<li class="divider"></li>',
       pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
       dropdownCaret: '<span class="caret"></span>',
@@ -55,8 +56,8 @@ const CONSTANTS = {
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<span class="input-group-btn">%s</span></div>',
       searchInput: '<input class="%s%s" type="text" placeholder="%s">',
-      searchButton: '<button class="btn btn-default" type="button" name="search" title="%s">%s %s</button>',
-      searchClearButton: '<button class="btn btn-default" type="button" name="clearSearch" title="%s">%s %s</button>'
+      searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
+      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
     }
   },
   4: {
@@ -81,6 +82,7 @@ const CONSTANTS = {
       buttonsDropdown: 'btn-group',
       pull: 'float',
       inputGroup: 'btn-group',
+      inputPrefix: 'form-control-',
       input: 'form-control',
       paginationDropdown: 'btn-group dropdown',
       dropup: 'dropup',
@@ -93,15 +95,15 @@ const CONSTANTS = {
       toolbarDropdownItem: '<label class="dropdown-item">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],
       pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
-      toolbarDropdownSeperator: '<div class="dropdown-divider"></div>',
+      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
       dropdownCaret: '<span class="caret"></span>',
       pagination: ['<ul class="pagination%s">', '</ul>'],
       paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
       searchInput: '<input class="%s%s" type="text" placeholder="%s">',
-      searchButton: '<button class="btn btn-secondary" type="button" name="search" title="%s">%s %s</button>',
-      searchClearButton: '<button class="btn btn-secondary" type="button" name="clearSearch" title="%s">%s %s</button>'
+      searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
+      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
     }
   }
 }[bootstrapVersion]

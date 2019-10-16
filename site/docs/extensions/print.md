@@ -14,6 +14,10 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 <script src="extensions/print/bootstrap-table-print.js"></script>
 {% endhighlight %}
 
+## Example
+
+[Print](https://examples.bootstrap-table.com/#extensions/print.html)
+
 ## Options
 
 ### showPrint

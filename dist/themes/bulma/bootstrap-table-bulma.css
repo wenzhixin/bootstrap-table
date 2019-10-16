@@ -119,6 +119,9 @@
 .bootstrap-table .fixed-table-container .table .bs-checkbox {
   text-align: center;
 }
+.bootstrap-table .fixed-table-container .table .bs-checkbox label {
+  margin-bottom: 0;
+}
 .bootstrap-table .fixed-table-container .table input[type=radio],
 .bootstrap-table .fixed-table-container .table input[type=checkbox] {
   margin: 0 auto !important;

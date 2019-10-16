@@ -13,7 +13,7 @@ class VirtualScroll {
     this.cache = {}
     this.scrollTop = this.scrollEl.scrollTop
 
-    this.initDOM(this.rows)
+    this.initDOM(this.rows, options.fixedScroll)
 
     this.scrollEl.scrollTop = this.scrollTop
     this.lastCluster = 0
@@ -32,13 +32,14 @@ class VirtualScroll {
     }
   }
 
-  initDOM (rows) {
+  initDOM (rows, fixedScroll) {
     if (typeof this.clusterHeight === 'undefined') {
+      this.cache.scrollTop = this.scrollEl.scrollTop
       this.cache.data = this.contentEl.innerHTML = rows[0] + rows[0] + rows[0]
       this.getRowsHeight(rows)
     }
 
-    const data = this.initData(rows, this.getNum())
+    const data = this.initData(rows, this.getNum(fixedScroll))
     const thisRows = data.rows.join('')
     const dataChanged = this.checkChanges('data', thisRows)
     const topOffsetChanged = this.checkChanges('top', data.topOffset)
@@ -54,6 +55,10 @@ class VirtualScroll {
         html.push(this.getExtra('bottom', data.bottomOffset))
       }
       this.contentEl.innerHTML = html.join('')
+
+      if (fixedScroll) {
+        this.contentEl.scrollTop = this.cache.scrollTop
+      }
     } else if (bottomOffsetChanged) {
       this.contentEl.lastChild.style.height = `${data.bottomOffset}px`
     }
@@ -70,8 +75,8 @@ class VirtualScroll {
     this.clusterHeight = this.blockHeight * CLUSTER_BLOCKS
   }
 
-  getNum () {
-    this.scrollTop = this.scrollEl.scrollTop
+  getNum (fixedScroll) {
+    this.scrollTop = fixedScroll ? this.cache.scrollTop : this.scrollEl.scrollTop
     return Math.floor(this.scrollTop / (this.clusterHeight - this.blockHeight)) || 0
   }
 

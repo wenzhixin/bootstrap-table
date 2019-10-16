@@ -6,13 +6,15 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-multiple-sort](https://github.com/dimbslmh/bootstrap-table/tree/master/src/extensions/multiple-sort)
-
 ## Usage
 
 {% highlight html %}
 <script src="extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Multiple Sort](https://examples.bootstrap-table.com/#extensions/multiple-sort.html)
 
 ## Options
 

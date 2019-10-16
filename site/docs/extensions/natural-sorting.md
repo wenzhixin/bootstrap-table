@@ -6,8 +6,6 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-natural-sorting](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/natural-sorting)
-
 ## Usage
 
 {% highlight html %}

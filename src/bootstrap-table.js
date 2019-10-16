@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.15.3
+ * version: 1.15.5
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -552,7 +552,7 @@ class BootstrapTable {
           )
         )
 
-        html.push(this.constants.html.toolbarDropdownSeperator)
+        html.push(this.constants.html.toolbarDropdownSeparator)
       }
 
       this.columns.forEach((column, i) => {
@@ -631,18 +631,32 @@ class BootstrapTable {
       })
     }
 
-    if (o.search) {
+    // Fix #4516: this.showSearchClearButton is for extensions
+    if (o.search || this.showSearchClearButton) {
       html = []
-      const showSearchButton = Utils.sprintf(this.constants.html.searchButton, o.formatSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '', o.showButtonText ? o.formatSearch() : '')
-      const showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, o.formatClearSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '', o.showButtonText ? o.formatClearSearch() : '')
-
-      const searchInputHtml = `<input class="${this.constants.classes.input}${Utils.sprintf(' input-%s', o.iconSize)} search-input" type="text" placeholder="${o.formatSearch()}">`
+      const showSearchButton = Utils.sprintf(this.constants.html.searchButton,
+        this.constants.buttonsClass,
+        o.formatSearch(),
+        o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '',
+        o.showButtonText ? o.formatSearch() : ''
+      )
+      const showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton,
+        this.constants.buttonsClass,
+        o.formatClearSearch(),
+        o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '',
+        o.showButtonText ? o.formatClearSearch() : ''
+      )
+      const searchInputHtml = `<input class="${this.constants.classes.input}
+        ${Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, o.iconSize)}
+        search-input" type="text" placeholder="${o.formatSearch()}">`
       let searchInputFinalHtml = searchInputHtml
+
       if (o.showSearchButton || o.showSearchClearButton) {
-        searchInputFinalHtml = Utils.sprintf(this.constants.html.inputGroup,
-          searchInputHtml,
-          (o.showSearchButton ? showSearchButton : '') +
-            (o.showSearchClearButton ? showSearchClearButton : ''))
+        const buttonsHtml = (o.showSearchButton ? showSearchButton : '') +
+          (o.showSearchClearButton ? showSearchClearButton : '')
+
+        searchInputFinalHtml = o.search ? Utils.sprintf(this.constants.html.inputGroup,
+          searchInputHtml, buttonsHtml) : buttonsHtml
       }
 
       html.push(Utils.sprintf(`
@@ -653,37 +667,49 @@ class BootstrapTable {
 
       this.$toolbar.append(html.join(''))
       const $searchInput = this.$toolbar.find('.search input')
-      $search = o.showSearchButton ? this.$toolbar.find('.search button[name=search]') : $searchInput
+      const handleInputEvent = () => {
+        const eventTriggers = Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur'
+        $searchInput.off(eventTriggers).on(eventTriggers, event => {
+          if (o.searchOnEnterKey && event.keyCode !== 13) {
+            return
+          }
 
-      const eventTriggers = o.showSearchButton ? 'click' :
-        (Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur')
+          if ([37, 38, 39, 40].includes(event.keyCode)) {
+            return
+          }
 
-      $search.off(eventTriggers).on(eventTriggers, event => {
-        if (o.searchOnEnterKey && event.keyCode !== 13) {
-          return
+          clearTimeout(timeoutId) // doesn't matter if it's 0
+          timeoutId = setTimeout(() => {
+            this.onSearch({currentTarget: event.currentTarget})
+          }, o.searchTimeOut)
+        })
+      }
+
+      if (o.showSearchButton) {
+        this.$toolbar.find('.search button[name=search]').off('click').on('click', event => {
+          clearTimeout(timeoutId) // doesn't matter if it's 0
+          timeoutId = setTimeout(() => {
+            this.onSearch({currentTarget: $searchInput})
+          }, o.searchTimeOut)
+        })
+
+        if (o.searchOnEnterKey) {
+          handleInputEvent()
         }
-
-        if ([37, 38, 39, 40].includes(event.keyCode)) {
-          return
-        }
-
-        clearTimeout(timeoutId) // doesn't matter if it's 0
-        timeoutId = setTimeout(() => {
-          this.onSearch(o.showSearchButton ? {currentTarget: $searchInput} : event)
-        }, o.searchTimeOut)
-      })
+      } else {
+        handleInputEvent()
+      }
 
       if (o.showSearchClearButton) {
         this.$toolbar.find('.search button[name=clearSearch]').click(() => {
           this.resetSearch()
-          this.onSearch({currentTarget: this.$toolbar.find('.search input')})
         })
       }
     }
   }
 
   onSearch ({currentTarget, firedByInitSearchText} = {}, overwriteSearchText = true) {
-    if (currentTarget !== undefined && overwriteSearchText) {
+    if (currentTarget !== undefined && $(currentTarget).length && overwriteSearchText) {
       const text = $(currentTarget).val().trim()
 
       if (this.options.trimOnSearch && $(currentTarget).val() !== text) {
@@ -719,7 +745,7 @@ class BootstrapTable {
     if (this.options.sidePagination !== 'server') {
       if (this.options.customSearch) {
         this.data = Utils.calculateObjectValue(this.options, this.options.customSearch,
-          [this.options.data, this.searchText])
+          [this.options.data, this.searchText, this.filterColumns])
         return
       }
 
@@ -1409,11 +1435,13 @@ class BootstrapTable {
         }
         this.virtualScroll = new VirtualScroll({
           rows,
+          fixedScroll,
           scrollEl: this.$tableBody[0],
           contentEl: this.$body[0],
           itemHeight: this.options.virtualScrollItemHeight,
           callback: () => {
             this.fitHeader()
+            this.initBodyEvent()
           }
         })
       }
@@ -1423,6 +1451,19 @@ class BootstrapTable {
       this.scrollTo(0)
     }
 
+    this.initBodyEvent()
+    this.updateSelected()
+    this.initFooter()
+    this.resetView()
+
+    if (this.options.sidePagination !== 'server') {
+      this.options.totalRows = data.length
+    }
+
+    this.trigger('post-body', data)
+  }
+
+  initBodyEvent () {
     // click to select by column
     this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', e => {
       const $td = $(e.currentTarget)
@@ -1433,7 +1474,7 @@ class BootstrapTable {
       const item = this.data[rowIndex]
       const index = this.options.cardView ? $cardViewArr.index($cardViewTarget) : $td[0].cellIndex
       const fields = this.getVisibleFields()
-      const field = fields[this.options.detailView && this.detailViewIcon && !this.options.cardView ? index - 1 : index]
+      const field = fields[this.options.detailView && this.options.detailViewIcon && !this.options.cardView ? index - 1 : index]
       const column = this.columns[this.fieldsColumnsIndex[field]]
       const value = Utils.getItemField(item, field, this.options.escape)
 
@@ -1523,16 +1564,6 @@ class BootstrapTable {
         })
       }
     })
-
-    this.updateSelected()
-    this.initFooter()
-    this.resetView()
-
-    if (this.options.sidePagination !== 'server') {
-      this.options.totalRows = data.length
-    }
-
-    this.trigger('post-body', data)
   }
 
   initServer (silent, query, url) {
@@ -1601,12 +1632,12 @@ class BootstrapTable {
       cache: this.options.cache,
       contentType: this.options.contentType,
       dataType: this.options.dataType,
-      success: _res => {
+      success: (_res, textStatus, jqXHR) => {
         const res = Utils.calculateObjectValue(this.options,
-          this.options.responseHandler, [_res], _res)
+          this.options.responseHandler, [_res, jqXHR], _res)
 
         this.load(res)
-        this.trigger('load-success', res)
+        this.trigger('load-success', res, jqXHR.status, jqXHR)
         if (!silent) {
           this.hideLoading()
         }
@@ -1898,8 +1929,6 @@ class BootstrapTable {
   horizontalScroll () {
     // horizontal scroll event
     // TODO: it's probably better improving the layout than binding to scroll event
-
-    this.trigger('scroll-body')
     this.$tableBody.off('scroll').on('scroll', ({currentTarget}) => {
       if (this.options.showHeader && this.options.height) {
         this.$tableHeader.scrollLeft($(currentTarget).scrollLeft())
@@ -1908,6 +1937,8 @@ class BootstrapTable {
       if (this.options.showFooter && !this.options.cardView) {
         this.$tableFooter.scrollLeft($(currentTarget).scrollLeft())
       }
+
+      this.trigger('scroll-body', $(currentTarget))
     })
   }
 
@@ -2483,8 +2514,16 @@ class BootstrapTable {
         return false
       }
       if (obj.values.includes(row[obj.field])) {
-        const $el = this.$selectItem.filter(':enabled')
-          .filter(Utils.sprintf('[data-index="%s"]', i)).prop('checked', checked)
+        let $el = this.$selectItem.filter(':enabled')
+          .filter(Utils.sprintf('[data-index="%s"]', i))
+
+        $el = checked ? $el.not(':checked') : $el.filter(':checked')
+
+        if (!$el.length) {
+          return
+        }
+
+        $el.prop('checked', checked)
         row[this.header.stateField] = checked
         rows.push(row)
         this.trigger(checked ? 'check' : 'uncheck', row, $el)
@@ -2533,7 +2572,7 @@ class BootstrapTable {
     if (!this.options.cardView && this.options.showHeader && this.options.height) {
       this.$tableHeader.show()
       this.resetHeader()
-      padding += this.$header.outerHeight(true)
+      padding += this.$header.outerHeight(true) + 1
     } else {
       this.$tableHeader.hide()
       this.trigger('post-header')
