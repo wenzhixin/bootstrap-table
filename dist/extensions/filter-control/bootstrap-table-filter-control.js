@@ -1879,7 +1879,7 @@
 	    var z = that.options.pagination ? that.options.sidePagination === 'server' ? that.pageTo : that.options.totalRows : that.pageTo;
 	    $.each(that.header.fields, function (j, field) {
 	      var column = that.columns[that.fieldsColumnsIndex[field]];
-	      var selectControl = $(".bootstrap-table-filter-control-".concat(UtilsFilterControl.escapeID(column.field)));
+	      var selectControl = that.$tableBody.find(".bootstrap-table-filter-control-".concat(UtilsFilterControl.escapeID(column.field)));
 
 	      if (UtilsFilterControl.isColumnSearchableViaSelect(column) && UtilsFilterControl.isFilterDataNotGiven(column) && UtilsFilterControl.hasSelectControlElement(selectControl)) {
 	        if (selectControl.get(selectControl.length - 1).options.length === 0) {
@@ -1979,7 +1979,7 @@
 
 	        if (filterDataType !== null) {
 	          filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length);
-	          selectControl = $(".bootstrap-table-filter-control-".concat(UtilsFilterControl.escapeID(column.field)));
+	          selectControl = that.$tableBody.find(".bootstrap-table-filter-control-".concat(UtilsFilterControl.escapeID(column.field)));
 	          UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault);
 	          filterDataType(filterDataSource, selectControl, column.filterDefault);
 	        } else {

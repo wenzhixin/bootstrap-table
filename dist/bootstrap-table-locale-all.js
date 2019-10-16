@@ -4374,6 +4374,188 @@
 	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sk-SK']);
 
 	/**
+	* Bootstrap Table Serbian Cyrilic RS translation
+	* Author: Vladimir Kanazir (vladimir@kanazir.com)
+	*/
+
+	$.fn.bootstrapTable.locales['sr-Cyrl-RS'] = {
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Молим сачекај';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " \u0440\u0435\u0434\u043E\u0432\u0430 \u043F\u043E \u0441\u0442\u0440\u0430\u043D\u0438");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "\u041F\u0440\u0438\u043A\u0430\u0437\u0430\u043D\u043E ".concat(pageFrom, ". - ").concat(pageTo, ". \u043E\u0434 \u0443\u043A\u0443\u043F\u043D\u043E\u0433 \u0431\u0440\u043E\u0458\u0430 \u0440\u0435\u0434\u043E\u0432\u0430 ").concat(totalRows, " (\u0444\u0438\u043B\u0442\u0440\u0438\u0440\u0430\u043D\u043E \u043E\u0434 ").concat(totalNotFiltered, ")");
+	    }
+
+	    return "\u041F\u0440\u0438\u043A\u0430\u0437\u0430\u043D\u043E ".concat(pageFrom, ". - ").concat(pageTo, ". \u043E\u0434 \u0443\u043A\u0443\u043F\u043D\u043E\u0433 \u0431\u0440\u043E\u0458\u0430 \u0440\u0435\u0434\u043E\u0432\u0430 ").concat(totalRows);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'претходна страна';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "\u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0443 ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'следећа страна';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "\u041F\u0440\u0438\u043A\u0430\u0437\u0430\u043D\u043E ".concat(totalRows, " \u0440\u0435\u0434\u043E\u0432\u0430");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Обриши претрагу';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Пронађи';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Није пронађен ни један податак';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Прикажи/сакриј пагинацију';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Прикажи пагинацију';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Сакриј пагинацију';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Освежи';
+	  },
+	  formatToggle: function formatToggle() {
+	    return 'Промени приказ';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Прикажи картице';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Сакриј картице';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Колоне';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Прикажи/сакриј све';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Цео екран';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Све';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Аутоматско освежавање';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Извези податке';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Иди';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Напредна претрага';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Затвори';
+	  }
+	};
+	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sr-Cyrl-RS']);
+
+	/**
+	* Bootstrap Table Serbian Latin RS translation
+	* Author: Vladimir Kanazir (vladimir@kanazir.com)
+	*/
+
+	$.fn.bootstrapTable.locales['sr-Latn-RS'] = {
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Molim sačekaj';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " redova po strani");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Prikazano ".concat(pageFrom, ". - ").concat(pageTo, ". od ukupnog broja redova ").concat(totalRows, " (filtrirano od ").concat(totalNotFiltered, ")");
+	    }
+
+	    return "Prikazano ".concat(pageFrom, ". - ").concat(pageTo, ". od ukupnog broja redova ").concat(totalRows);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'prethodna strana';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "na stranu ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'sledeća strana';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Prikazano ".concat(totalRows, " redova");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Obriši pretragu';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Pronađi';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Nije pronađen ni jedan podatak';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Prikaži/sakrij paginaciju';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Prikaži paginaciju';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Sakrij paginaciju';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Osveži';
+	  },
+	  formatToggle: function formatToggle() {
+	    return 'Promeni prikaz';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Prikaži kartice';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Sakrij kartice';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Kolone';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Prikaži/sakrij sve';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Ceo ekran';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Sve';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Automatsko osvežavanje';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Izvezi podatke';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Idi';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Napredna pretraga';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Zatvori';
+	  }
+	};
+	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sr-Latn-RS']);
+
+	/**
 	 * Bootstrap Table Swedish translation
 	 * Author: C Bratt <bratt@inix.se>
 	 */

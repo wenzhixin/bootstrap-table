@@ -13,6 +13,10 @@ toc: true
 <script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
 {% endhighlight %}
 
+## Example
+
+[Fixed Columns](https://examples.bootstrap-table.com/#extensions/fixed-columns.html)
+
 ## Options
 
 ### fixedColumns

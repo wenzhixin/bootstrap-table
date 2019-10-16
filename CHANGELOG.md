@@ -1,6 +1,22 @@
 ChangeLog
 ---------
 
+### 1.15.5
+
+- **New:** Added `jqXHR` for `responseHandler` option and `onLoadSuccess` event.
+- **New:** Added `stickyHeaderOffsetLeft` and `stickyHeaderOffsetRight` for sticky-header.
+- **New:** Added Serbian RS cyrillic and latin locales.
+- **Update:** Improved `export` button when there is only one type.
+- **Update:** Fixed column events click error with `detailView`.
+- **Update:** Fixed bug for `searchOnEnterKey` and `showSearchButton` are true.
+- **Update:** Fixed `onScrollBody` event and added parameter.
+- **Update:** Fixed search input size bug with `iconSize` option.
+- **Update:** Fixed filter control select cannot work more than one table.
+- **Update:** Fixed virtual scroll to top error when using `append` method.
+- **Update:** Fixed `events` cannot work on virtual scroll.
+- **Update:** Fixed bottom border bug with `height` option.
+- **Update:** Fixed min version throw cannot convert object to primitive value error.
+
 ### 1.15.4
 
 - **New:** Added `query` to `queryParams` option.

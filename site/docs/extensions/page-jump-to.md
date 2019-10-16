@@ -13,6 +13,10 @@ toc: true
 <script src="extensions/page-jump-to/bootstrap-table-jump-to.js"></script>
 {% endhighlight %}
 
+## Example
+
+[Page Jump To](https://examples.bootstrap-table.com/#extensions/page-jump-to.html)
+
 ## Options
 
 ### showJumpTo
