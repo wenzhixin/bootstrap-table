@@ -109,13 +109,7 @@ npm run build
 
 Result will appear in `dist` directory.
 
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bootstrap-table#backer)]
-
-<a href="https://opencollective.com/bootstrap-table#backers" target="_blank"><img src="https://opencollective.com/bootstrap-table/backers.svg?width=890"></a>
-
-## Sponsors
+## OpenCollective Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/bootstrap-table#sponsor)]
 
@@ -124,3 +118,13 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/bootstrap-table/sponsor/2/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/2/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-table/sponsor/3/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/3/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-table/sponsor/4/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/4/avatar.svg"></a>
+
+## PayPal Sponsors
+
+<a href="https://edubirdie.com/write-my-essay" target="_blank"><img height="64" src="https://bootstrap-table.com/assets/images/edu-birdie.png"></a>
+
+## OpenCollective Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bootstrap-table#backer)]
+
+<a href="https://opencollective.com/bootstrap-table#backers" target="_blank"><img src="https://opencollective.com/bootstrap-table/backers.svg?width=890"></a>
