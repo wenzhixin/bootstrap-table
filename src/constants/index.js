@@ -112,6 +112,9 @@ const DEFAULTS = {
   height: undefined,
   classes: 'table table-bordered table-hover',
   theadClasses: '',
+  headerStyle (row, index) {
+    return {}
+  },
   rowStyle (row, index) {
     return {}
   },
