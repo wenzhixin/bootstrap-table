@@ -21,15 +21,6 @@
 <!-- Favicons -->
 <link rel="icon" href="/favicon.png">
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || []
-  function gtag() {window.dataLayer.push(arguments)}
-  gtag('js', new Date())
-  gtag('config', 'UA-132747866-1')
-</script>
-
 
 <script type="text/javascript">
   if (window !== top) // 判断当前的 window 对象是否是 top 对象
@@ -116,64 +107,8 @@
     <main class="bd-masthead" id="content" role="main">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-4 mx-auto col-md-4 order-md-2">
+      <div class="col-4 mx-auto col-md-3 order-md-2">
         <img class="img-fluid mb-3 mb-md-0" src="favicon.png">
-
-        <!-- Begin Mailchimp Signup Form -->
-<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-  #mc_embed_signup {
-    background: #fff;
-    clear: left;
-    font: 14px Helvetica, Arial, sans-serif;
-  }
-
-  /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-     We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div id="mc_embed_signup">
-  <form action="https://gmail.us20.list-manage.com/subscribe/post?u=f30f83799e58c38ca308f6b73&amp;id=4256ed0bdc"
-    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
-    novalidate>
-    <div id="mc_embed_signup_scroll">
-      <h2>Subscribe News</h2>
-      <div class="mc-field-group">
-        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
-      </div>
-      <div id="mce-responses" class="clear">
-        <div class="response" id="mce-error-response" style="display:none"></div>
-        <div class="response" id="mce-success-response" style="display:none"></div>
-      </div>
-      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
-          name="b_f30f83799e58c38ca308f6b73_4256ed0bdc" tabindex="-1" value=""></div>
-      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
-          class="button"></div>
-    </div>
-  </form>
-</div>
-<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-<script type='text/javascript'>
-  (function ($) {
-    window.fnames = new Array();
-    window.ftypes = new Array();
-    fnames[0] = 'EMAIL';
-    ftypes[0] = 'email';
-    fnames[1] = 'FNAME';
-    ftypes[1] = 'text';
-    fnames[2] = 'LNAME';
-    ftypes[2] = 'text';
-    fnames[3] = 'ADDRESS';
-    ftypes[3] = 'address';
-    fnames[4] = 'PHONE';
-    ftypes[4] = 'phone';
-    fnames[5] = 'BIRTHDAY';
-    ftypes[5] = 'birthday';
-  }(jQuery));
-  var $mcj = jQuery.noConflict(true);
-</script>
-<!--End mc_embed_signup-->
-
       </div>
       <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
         <h1 class="mb-3 bd-text-purple-bright">
@@ -181,9 +116,6 @@
         </h1>
         <p class="lead">
           An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)
-        </p>
-        <p class="lead mb-4">
-          Bootstrap Table has been designed to reduce development time and to require no specific knowledge from developers. It is both featherweight and feature-rich.
         </p>
         <div class="row mx-n2">
           <div class="col-md px-2">
@@ -221,14 +153,12 @@
 <div class="masthead-followup row m-0 border border-white">
   <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
     <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
-    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="32" height="32" fill="none" stroke="currentcolor" stroke-width="2" class="text-primary mb-2" viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Import</title><path d="M28 22v8H4v-8M16 4v20m-8-8l8 8 8-8"/></svg>
+    <h3><svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="32" height="32" fill="none" stroke="currentcolor" stroke-width="2" class="text-primary mb-2" viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Import</title><path d="M28 22v8H4v-8M16 4v20m-8-8l8 8 8-8"/></svg>
+Installation</h3>
+    <p>Include Bootstrap Table source CSS and JavaScript files via npm or yarn.</p>
 
-    <h3>Installation</h3>
-    <p>Include Bootstrap Table source CSS and JavaScript files via npm or Bower.</p>
-
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm <span class="nb">install </span>bootstrap-table</code></pre></figure>
-
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">bower <span class="nb">install </span>bootstrap-table</code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">bootstrap</span><span class="o">-</span><span class="nx">table</span>
+<span class="nx">yarn</span> <span class="nx">add</span> <span class="nx">bootstrap</span><span class="o">-</span><span class="nx">table</span></code></pre></figure>
 
     <hr class="half-rule">
     <a class="btn btn-outline-primary"
@@ -239,10 +169,9 @@
 
   <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
     <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
-    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="32" height="32" fill="none" stroke="currentcolor" stroke-width="2" class="text-primary mb-2" viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Download</title><path d="M9 22c-9 1-8-10 0-9C6 2 23 2 22 10c10-3 10 13 1 12m-12 4l5 4 5-4m-5-10v14"/></svg>
-
-    <h3>CDN</h3>
-    <p>When you only need to include Bootstrap Table’s compiled CSS or JS, you can use <a href="https://unpkg.com/bootstrap-table@1.15.5/dist/">UNPKG</a>.</p>
+    <h3><svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="32" height="32" fill="none" stroke="currentcolor" stroke-width="2" class="text-primary mb-2" viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Download</title><path d="M9 22c-9 1-8-10 0-9C6 2 23 2 22 10c10-3 10 13 1 12m-12 4l5 4 5-4m-5-10v14"/></svg>
+CDN</h3>
+    <p>When you only need to include Bootstrap Table’s compiled CSS or JS, use <a href="https://unpkg.com/bootstrap-table@1.15.5/dist/">UNPKG</a>.</p>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
@@ -255,9 +184,8 @@
 
   <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
     <!-- Icon by Bytesize https://github.com/danklammer/bytesize-icons -->
-    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="32" height="32" fill="none" stroke="currentcolor" stroke-width="2" class="text-primary mb-2" viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Lightning</title><path d="M18 13l8-11L8 13l6 6-8 11 18-11z"/></svg>
-
-    <h3>Examples</h3>
+    <h3><svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="32" height="32" fill="none" stroke="currentcolor" stroke-width="2" class="text-primary mb-2" viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Lightning</title><path d="M18 13l8-11L8 13l6 6-8 11 18-11z"/></svg>
+Examples</h3>
     <p>
       The examples of bootstrap table.
     </p>
@@ -268,29 +196,11 @@
     </a>
   </div>
 
-  <div class="container">
-  <div class="pt-md-5">
-    <div>
-      <h3>Backers</h3>
-    </div>
+  <div class="container border-bottom">
 
+  <div class="pt-5 pb-5">
     <div>
-      Thank you to all our backers!
-      🙏 [<a href="https://opencollective.com/bootstrap-table#backer" target="_blank">
-        Become a backer
-      </a>]
-    </div>
-
-    <div>
-      <a href="https://opencollective.com/bootstrap-table#backers" target="_blank">
-        <img src="https://opencollective.com/bootstrap-table/backers.svg?width=890">
-      </a>
-    </div>
-  </div>
-
-  <div class="pt-md-5 pb-md-5">
-    <div>
-      <h3>Sponsors</h3>
+      <h3>OpenCollective Sponsors</h3>
     </div>
 
     <div>
@@ -309,7 +219,74 @@
       <a href="https://opencollective.com/bootstrap-table/sponsor/4/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/4/avatar.svg"></a>
     </div>
   </div>
+
+  <div class="pt-5 pb-5">
+    <div>
+      <h3>PayPal Sponsors</h3>
+    </div>
+
+    <div>
+      <a href="https://edubirdie.com/write-my-essay" target="_blank">
+        <img height="64" src="assets/images/edu-birdie.png">
+      </a>
+    </div>
+  </div>
+
+  <div class="pt-5 pb-5">
+    <div>
+      <h3>OpenCollective Backers</h3>
+    </div>
+
+    <div>
+      Thank you to all our backers!
+      🙏 [<a href="https://opencollective.com/bootstrap-table#backer" target="_blank">
+        Become a backer
+      </a>]
+      <a href="https://opencollective.com/bootstrap-table#backers" target="_blank">
+        <img src="https://opencollective.com/bootstrap-table/backers.svg?width=890">
+      </a>
+    </div>
+  </div>
 </div>
+
+
+  <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style>
+#mc_embed_signup {
+  margin: 0 auto;
+  text-align: center;
+  max-width: 550px;
+  width: 100%;
+}
+#mc-embedded-subscribe {
+  margin: 0;
+}
+</style>
+
+<hr>
+<div id="mc_embed_signup" class="pt-5 pb-5">
+<form action="https://gmail.us20.list-manage.com/subscribe/post?u=f30f83799e58c38ca308f6b73&amp;id=4256ed0bdc" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+  <h3 for="mce-EMAIL">Subscribe our News</h3>
+  <div class="input-group">
+    <input type="email" value="" name="EMAIL" class="form-control form-control-lg email" id="mce-EMAIL" placeholder="email address" required>
+    <div class="input-group-append">
+      <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-outline-secondary">
+    </div>
+  </div>
+  <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+  <div style="position: absolute; left: -5000px;" aria-hidden="true">
+    <input type="text" name="b_f30f83799e58c38ca308f6b73_4256ed0bdc" tabindex="-1" value="">
+  </div>
+
+  <div id="mce-responses" class="clear">
+    <div class="response" id="mce-error-response" style="display:none"></div>
+    <div class="response" id="mce-success-response" style="display:none"></div>
+  </div>
+</form>
+</div>
+
+<script async src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+<script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
 
 </div>
 
@@ -338,6 +315,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script><script src="/assets/js/docs.min.js?m=1"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || []
+  function gtag() {window.dataLayer.push(arguments)}
+  gtag('js', new Date())
+  gtag('config', 'UA-132747866-1')
+</script>
+
 
   </body>
 </html>
