@@ -111,7 +111,7 @@ Result will appear in `dist` directory.
 
 ## PayPal Sponsors
 
-<a href="https://edubirdie.com/write-my-essay" target="_blank"><img height="64" src="https://bootstrap-table.com/assets/images/edu-birdie.png"></a>
+<a href="https://edubirdie.com/write-my-essay" target="_blank"><img height="64" src="https://bootstrap-table.com/assets/images/edu-birdie.png" alt="Write my essay services from Edubirdie"></a>
 
 ## OpenCollective Sponsors
 
