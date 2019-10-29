@@ -1637,7 +1637,7 @@ class BootstrapTable {
           this.options.responseHandler, [_res, jqXHR], _res)
 
         this.load(res)
-        this.trigger('load-success', res, jqXHR.status, jqXHR)
+        this.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR)
         if (!silent) {
           this.hideLoading()
         }
@@ -1650,7 +1650,7 @@ class BootstrapTable {
           data[this.options.dataField] = []
         }
         this.load(data)
-        this.trigger('load-error', jqXHR.status, jqXHR)
+        this.trigger('load-error', jqXHR && jqXHR.status, jqXHR)
         if (!silent) this.$tableLoading.hide()
       }
     })
