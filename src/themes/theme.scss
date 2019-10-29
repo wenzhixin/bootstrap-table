@@ -125,7 +125,7 @@
           background-color: $hover-bg;
         }
 
-        &.no-records-found {
+        &.no-records-found td {
           text-align: center;
         }
 
@@ -146,12 +146,12 @@
 
         label {
           margin-bottom: 0;
-        }
-      }
 
-      input[type="radio"],
-      input[type="checkbox"] {
-        margin: 0 auto !important;
+          input[type="radio"],
+          input[type="checkbox"] {
+            margin: 0 auto !important;
+          }
+        }
       }
 
       &.table-sm .th-inner {
