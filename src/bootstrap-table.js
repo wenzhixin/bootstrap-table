@@ -422,7 +422,8 @@ class BootstrapTable {
             return order * value
           }
 
-          return Utils.sort(aa, bb, order, this.options.sortStable)
+          return Utils.sort(aa, bb, order, this.options.sortStable,
+            a._position, b._position)
         })
       }
 
