@@ -312,5 +312,10 @@ export default {
     }
 
     return order
+  },
+
+  getResizeEventName (id = '') {
+    id = id || `${+new Date()}${~~(Math.random() * 1000000)}`
+    return `resize.bootstrap-table-${id}`
   }
 }
