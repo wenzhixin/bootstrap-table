@@ -303,7 +303,6 @@ class BootstrapTable {
         if (column.radio) {
           text = ''
           this.header.stateField = column.field
-          this.options.singleSelect = true
         }
         if (!text && column.showSelectTitle) {
           text += title
