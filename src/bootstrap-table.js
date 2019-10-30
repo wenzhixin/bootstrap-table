@@ -345,7 +345,7 @@ class BootstrapTable {
       }
     })
 
-    const resizeEvent = `resize.bootstrap-table${this.$el.attr('id') || ''}`
+    const resizeEvent = Utils.getResizeEventName(this.$el.attr('id'))
     $(window).off(resizeEvent)
     if (!this.options.showHeader || this.options.cardView) {
       this.$header.hide()
