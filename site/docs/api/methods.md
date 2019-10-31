@@ -51,16 +51,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Example:** [Get Selections](https://examples.bootstrap-table.com/#methods/get-selections.html)
 
-## getAllSelections
-
-- **Parameter:** `undefined`
-
-- **Detail:**
-
-  Return all selected rows contain search or filter, when no record selected, an empty array will return.
-
-- **Example:** [Get All Selections](https://examples.bootstrap-table.com/#methods/get-all-selections.html)
-
 ## load
 
 - **Parameter:** `data`

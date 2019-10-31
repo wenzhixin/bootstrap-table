@@ -2006,10 +2006,6 @@ class BootstrapTable {
     return this.data.filter(row => row[this.header.stateField] === true)
   }
 
-  getAllSelections () {
-    return this.options.data.filter(row => row[this.header.stateField] === true)
-  }
-
   load (_data) {
     let fixedScroll = false
     let data = _data
