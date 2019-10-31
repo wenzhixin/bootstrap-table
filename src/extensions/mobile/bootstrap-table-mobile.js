@@ -47,6 +47,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // reset view if height has only changed by at least the threshold.
       const width = $(window).width()
       const height = $(window).height()
+      const activeElement = $(document.activeElement)
+
+      if (activeElement && $.inArray(activeElement.prop('nodeName'), ['input', 'select', 'textarea'])) {
+        return
+      }
 
       if (
         Math.abs(old.height - height) > this.options.heightThreshold ||
@@ -58,7 +63,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           height
         }
       }
-    },200))
+    }, 200))
 
     if (this.options.checkOnInit) {
       const width = $(window).width()
@@ -87,7 +92,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   showHideColumns (checked) {
-    if (this.options.columnsHidden.length > 0 ) {
+    if (this.options.columnsHidden.length > 0) {
       this.columns.forEach(column => {
         if (this.options.columnsHidden.includes(column.field)) {
           if (column.visible !== checked) {
