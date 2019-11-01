@@ -47,9 +47,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // reset view if height has only changed by at least the threshold.
       const width = $(window).width()
       const height = $(window).height()
-      const activeElement = $(document.activeElement)
+      const $activeElement = $(document.activeElement)
 
-      if (activeElement && $.inArray(activeElement.prop('nodeName'), ['input', 'select', 'textarea'])) {
+      if ($activeElement.length && ['INPUT', 'SELECT', 'TEXTAREA'].includes($activeElement.prop('nodeName'))) {
         return
       }
 
