@@ -195,7 +195,8 @@ const UtilsFilterControl = {
     }
   },
   escapeID (id) {
-    return String(id).replace(/(:|\.|\[|\]|,)/g, '\\$1')
+    // eslint-disable-next-line no-useless-escape
+    return String(id).replace(/([:.\[\],])/g, '\\$1')
   },
   isColumnSearchableViaSelect ({filterControl, searchable}) {
     return filterControl &&
