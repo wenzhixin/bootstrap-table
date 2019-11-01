@@ -303,7 +303,6 @@ class BootstrapTable {
         if (column.radio) {
           text = ''
           this.header.stateField = column.field
-          this.options.singleSelect = true
         }
         if (!text && column.showSelectTitle) {
           text += title
@@ -345,7 +344,7 @@ class BootstrapTable {
       }
     })
 
-    const resizeEvent = `resize.bootstrap-table${this.$el.attr('id') || ''}`
+    const resizeEvent = Utils.getResizeEventName(this.$el.attr('id'))
     $(window).off(resizeEvent)
     if (!this.options.showHeader || this.options.cardView) {
       this.$header.hide()
@@ -422,7 +421,8 @@ class BootstrapTable {
             return order * value
           }
 
-          return Utils.sort(aa, bb, order, this.options.sortStable)
+          return Utils.sort(aa, bb, order, this.options.sortStable,
+            a._position, b._position)
         })
       }
 
@@ -1637,7 +1637,7 @@ class BootstrapTable {
           this.options.responseHandler, [_res, jqXHR], _res)
 
         this.load(res)
-        this.trigger('load-success', res, jqXHR.status, jqXHR)
+        this.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR)
         if (!silent) {
           this.hideLoading()
         }
@@ -1650,7 +1650,7 @@ class BootstrapTable {
           data[this.options.dataField] = []
         }
         this.load(data)
-        this.trigger('load-error', jqXHR.status, jqXHR)
+        this.trigger('load-error', jqXHR && jqXHR.status, jqXHR)
         if (!silent) this.$tableLoading.hide()
       }
     })
@@ -2590,9 +2590,18 @@ class BootstrapTable {
       const toolbarHeight = this.$toolbar.outerHeight(true)
       const paginationHeight = this.$pagination.outerHeight(true)
       const height = this.options.height - toolbarHeight - paginationHeight
-      const tableHeight = this.$tableBody.find('table').outerHeight(true)
+      const $bodyTable = this.$tableBody.find('>table')
+      const tableHeight = $bodyTable.outerHeight()
       this.$tableContainer.css('height', `${height}px`)
-      this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
+
+      if (this.$tableBorder) {
+        let tableBorderHeight = height - tableHeight - 2
+        if (this.$tableBody[0].scrollWidth - this.$tableBody.innerWidth()) {
+          tableBorderHeight -= Utils.getScrollBarWidth()
+        }
+        this.$tableBorder.css('width', `${$bodyTable.outerWidth()}px`)
+        this.$tableBorder.css('height', `${tableBorderHeight}px`)
+      }
     }
 
     if (this.options.cardView) {

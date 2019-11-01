@@ -32,7 +32,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initBody (...args) {
-    this.options.virtualScroll = !this.treeEnable
+    if (this.treeEnable) {
+      this.options.virtualScroll = false
+    }
     super.initBody(...args)
   }
 
