@@ -55,7 +55,11 @@ BootstrapTable.prototype.initSort = function (...args) {
   if ((this.options.groupBy) && (this.options.groupByField !== '')) {
 
     if ((this.options.sortName !== this.options.groupByField)) {
-      this.data.sort((a, b) => a[that.options.groupByField].toString().localeCompare(b[that.options.groupByField].toString(), undefined, {numeric: true}))
+      this.data.sort((a, b) => {
+        a = a[that.options.groupByField].toString()
+        b = b[that.options.groupByField].toString()
+        return a.localeCompare(b, undefined, { numeric: true })
+      })
     }
 
     const groups = groupBy(that.data, item => [item[that.options.groupByField]])
