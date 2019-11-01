@@ -99,11 +99,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   doPrint (data) {
     const formatValue = (row, i, column ) => {
-      const value = row[column.field]
-      if (typeof column.printFormatter === 'function') {
-        return column.printFormatter(...[value, row, i])
-      }
-      return typeof value === 'undefined' ? '-' : value
+      const value = Utils.calculateObjectValue(column, column.printFormatter,
+        [row[column.field], row, i], row[column.field])
+
+      return typeof value === 'undefined' || value === null
+        ? this.options.undefinedText : value
     }
 
     const buildTable = (data, columnsArray) => {
