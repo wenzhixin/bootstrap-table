@@ -211,7 +211,6 @@ const UtilsFilterControl = {
   },
   initFilterSelectControls (that) {
     const data = that.data
-    const itemsPerPage = that.pageTo < that.options.data.length ? that.options.data.length : that.pageTo
     const z = that.options.pagination
       ? that.options.sidePagination === 'server'
         ? that.pageTo
