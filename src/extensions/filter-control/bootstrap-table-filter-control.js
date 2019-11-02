@@ -462,9 +462,7 @@ const UtilsFilterControl = {
       }
 
       if (that.options.sidePagination !== 'server') {
-        header.find('[class*=\'bootstrap-table-filter-control\']').each((k, input) => {
-          $(input).trigger('change')
-        })
+        that.triggerSearch()
       }
 
     } else {
