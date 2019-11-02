@@ -53,6 +53,8 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'reorder-column.bs.table': 'onReorderColumn'
 })
 
+$.fn.bootstrapTable.methods.push('orderColumns')
+
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initHeader = BootstrapTable.prototype.initHeader
 const _toggleColumn = BootstrapTable.prototype._toggleColumn
@@ -180,4 +182,9 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
       that.trigger('reorder-column', ths)
     }
   })
+}
+
+BootstrapTable.prototype.orderColumns = function (order) {
+  $(this.$el).dragtable('destroy').dragtable({restoreState: (order)})
+  this.makeRowsReorderable()
 }
