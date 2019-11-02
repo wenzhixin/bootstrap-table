@@ -40,15 +40,7 @@ const UtilsFilterControl = {
     if (
       !UtilsFilterControl.existOptionInSelectControl(selectControl, value)
     ) {
-      const option = $(
-        $('<option></option>')
-          .attr('value', value)
-          .text(
-            $('<div />')
-              .html(text)
-              .text()
-          )
-      )
+      const option = $(`<option value="${value}">${text}</option>`)
 
       if (value === selected) {
         option.attr('selected', true)
