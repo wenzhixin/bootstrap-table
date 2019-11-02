@@ -60,7 +60,7 @@ Dependence:
 
 ### orderColumns
 
-- **parameters:** `object`
+- **parameters:** `object` e.g. `{"name": 0, "price": 1}`
 
 - **Detail:**
 
