@@ -66,6 +66,13 @@ BootstrapTable.prototype.initHeader = function (...args) {
     return
   }
 
+  const oldHandler = $._data( this.$container[0], 'events' )['click'][0].handler
+  this.$container.off('click', '.th-inner').on('click', '.th-inner', e => {
+    if ($('.dragtable-sortable').length > 0) {
+      e.stopImmediatePropagation()
+    }
+  })
+  this.$container.on('click', '.th-inner', oldHandler)
   this.makeRowsReorderable()
 }
 
