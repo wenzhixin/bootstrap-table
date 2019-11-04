@@ -129,7 +129,7 @@ BootstrapTable.prototype.makeRowsReorderable = function () {
       let columnsHidden = []
       let columnIndex = -1
       const optionsColumns = []
-      that.$header.find('th').each(function (i) {
+      that.$header.find('th:not(.detail)').each(function (i) {
         ths.push($(this).data('field'))
         formatters.push($(this).data('formatter'))
       })

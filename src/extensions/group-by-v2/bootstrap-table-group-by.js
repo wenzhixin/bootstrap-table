@@ -41,6 +41,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   groupByFormatter: undefined
 })
 
+const Utils = $.fn.bootstrapTable.utils
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initSort = BootstrapTable.prototype.initSort
 const _initBody = BootstrapTable.prototype.initBody
@@ -55,11 +56,19 @@ BootstrapTable.prototype.initSort = function (...args) {
   if ((this.options.groupBy) && (this.options.groupByField !== '')) {
 
     if ((this.options.sortName !== this.options.groupByField)) {
-      this.data.sort((a, b) => {
-        a = a[that.options.groupByField].toString()
-        b = b[that.options.groupByField].toString()
-        return a.localeCompare(b, undefined, { numeric: true })
-      })
+      if (this.options.customSort) {
+        Utils.calculateObjectValue(this.options, this.options.customSort, [
+          this.options.sortName,
+          this.options.sortOrder,
+          this.data
+        ])
+      } else {
+        this.data.sort((a, b) => {
+          a = a[that.options.groupByField].toString()
+          b = b[that.options.groupByField].toString()
+          return a.localeCompare(b, undefined, { numeric: true })
+        })
+      }
     }
 
     const groups = groupBy(that.data, item => [item[that.options.groupByField]])
