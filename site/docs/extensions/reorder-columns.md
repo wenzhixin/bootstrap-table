@@ -56,6 +56,17 @@ Dependence:
 
 - **Default:** `null`
 
+## Methods
+
+### orderColumns
+
+- **parameters:** `object` e.g. `{name: 0, price: 1}`
+
+- **Detail:**
+
+   Reorders the the columns by the given object.
+   The Object key has to be the [field](https://bootstrap-table.com/docs/api/column-options/#field) and the value is the column index (starts by 0).
+
 ## Events
 
 ### onReorderColumn(reorder-column.bs.table)
