@@ -3,6 +3,7 @@ ChangeLog
 
 ### 1.15.6
 
+- **Update:** Fixed `pageSize` set to all bug with filter.
 - **Update:** Removed `resetWidth` method and use `resetView` instead.
 
 ### 1.15.5
