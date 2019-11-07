@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### 1.15.6
+
+- **Update:** Removed `resetWidth` method and use `resetView` instead.
+
 ### 1.15.5
 
 - **New:** Added `jqXHR` for `responseHandler` option and `onLoadSuccess` event.
