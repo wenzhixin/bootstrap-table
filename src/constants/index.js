@@ -441,7 +441,7 @@ const METHODS = [
   'checkBy', 'uncheckBy',
   'refresh',
   'destroy',
-  'resetView', 'resetWidth',
+  'resetView',
   'showLoading', 'hideLoading',
   'togglePagination', 'toggleFullscreen', 'toggleView',
   'resetSearch',

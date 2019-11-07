@@ -356,7 +356,7 @@ class BootstrapTable {
       this.$tableLoading.css('top', this.$header.outerHeight() + 1)
       // Assign the correct sortable arrow
       this.getCaret()
-      $(window).on(resizeEvent, e => this.resetWidth(e))
+      $(window).on(resizeEvent, () => this.resetView())
     }
 
     this.$selectAll = this.$header.find('[name="btSelectAll"]')
@@ -2616,15 +2616,6 @@ class BootstrapTable {
     }
 
     this.trigger('reset-view')
-  }
-
-  resetWidth () {
-    if (this.options.showHeader && this.options.height) {
-      this.fitHeader()
-    }
-    if (this.options.showFooter && !this.options.cardView) {
-      this.fitFooter()
-    }
   }
 
   showLoading () {

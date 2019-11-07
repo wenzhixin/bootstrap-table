@@ -426,14 +426,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Example:** [Reset View](https://examples.bootstrap-table.com/#methods/reset-view.html)
 
-## resetWidth
-
-- **Parameter:** `undefined`
-
-- **Detail:**
-
-  Resizes header and footer to fit current columns width.
-
 ## showLoading
 
 - **Parameter:** `undefined`
