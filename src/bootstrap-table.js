@@ -881,7 +881,7 @@ class BootstrapTable {
     this.$pagination.show()
 
     const html = []
-    let $allSelected = false
+    let allSelected = false
     let i
     let from
     let to
@@ -892,6 +892,19 @@ class BootstrapTable {
     const data = this.getData({includeHiddenRows: false})
     let pageList = o.pageList
 
+    if (typeof pageList === 'string') {
+      pageList = pageList.replace(/\[|\]| /g, '').toLowerCase().split(',')
+    }
+
+    pageList = pageList.map(value => {
+      if (typeof value === 'string') {
+        return value.toLowerCase() === o.formatAllRows().toLowerCase() ||
+          ['all', 'unlimited'].includes(value.toLowerCase())
+          ? o.formatAllRows() : +value
+      }
+      return value
+    })
+
     if (o.sidePagination !== 'server') {
       o.totalRows = data.length
     }
@@ -900,16 +913,7 @@ class BootstrapTable {
     if (o.totalRows) {
       if (o.pageSize === o.formatAllRows()) {
         o.pageSize = o.totalRows
-        $allSelected = true
-      } else if (o.pageSize === o.totalRows) {
-        // Fix #667 Table with pagination,
-        // multiple pages and a search this matches to one page throws exception
-        const pageLst = typeof o.pageList === 'string'
-          ? o.pageList.replace('[', '').replace(']', '')
-            .replace(/ /g, '').toLowerCase().split(',') : o.pageList
-        if (pageLst.includes(o.formatAllRows().toLowerCase())) {
-          $allSelected = true
-        }
+        allSelected = true
       }
 
       this.totalPages = ~~((o.totalRows - 1) / o.pageSize) + 1
@@ -950,29 +954,16 @@ class BootstrapTable {
         `<span class="${this.constants.classes.paginationDropdown}">
         <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown">
         <span class="page-size">
-        ${$allSelected ? o.formatAllRows() : o.pageSize}
+        ${allSelected ? o.formatAllRows() : o.pageSize}
         </span>
         ${this.constants.html.dropdownCaret}
         </button>
         ${this.constants.html.pageDropdown[0]}`]
 
-      if (typeof o.pageList === 'string') {
-        const list = o.pageList.replace('[', '').replace(']', '')
-          .replace(/ /g, '').split(',')
-
-        pageList = []
-        for (const value of list) {
-          pageList.push(
-            (value.toLowerCase() === o.formatAllRows().toLowerCase() ||
-              ['all', 'unlimited'].includes(value.toLowerCase()))
-              ? o.formatAllRows() : +value)
-        }
-      }
-
       pageList.forEach((page, i) => {
         if (!o.smartDisplay || i === 0 || pageList[i - 1] < o.totalRows) {
           let active
-          if ($allSelected) {
+          if (allSelected) {
             active = page === o.formatAllRows() ? this.constants.classes.dropdownActive : ''
           } else {
             active = page === o.pageSize ? this.constants.classes.dropdownActive : ''
@@ -1109,7 +1100,7 @@ class BootstrapTable {
         }
       }
 
-      if ($allSelected) {
+      if (allSelected) {
         o.pageSize = o.formatAllRows()
       }
       // removed the events for last and first, onPageNumber executeds the same logic
