@@ -3,7 +3,25 @@ ChangeLog
 
 ### 1.15.6
 
+- **New:** Added `filterControlContainer` option for filter-control extension.
+- **New:** Added `printFormatter` data-attribute supported for print extension.
+- **New:** Added `customSort` option supported for group-by extension.
+- **New:** Added `orderColumns` method for reorder-columns extension.
+- **Update:** Updated event name to lowercase hyphen format for vue component.
+- **Update:** Improved the `resize` problem with multiple tables.
+- **Update:** Improved `number` type supported for group-by extension.
+- **Update:** Improved to use `undefinedText` option for print extension.
+- **Update:** Fixed `triggerSearch` not work bug.
+- **Update:** Fixed `height` and `border` not aligned bug.
+- **Update:** Fixed `sortStable` not work bug.
 - **Update:** Fixed `pageSize` set to all bug with filter.
+- **Update:** Fixed `jqXHR` `undefined` error using custom ajax.
+- **Update:** Fixed `refreshOptions` bug with radio and checkbox.
+- **Update:** Fixed checkbox and not-found td style errors.
+- **Update:** Fixed `hideUnusedSelectOptions` not work bug for filter-control extension.
+- **Update:** Fixed `virtualScroll` option bug with treegrid extension.
+- **Update:** Fixed input keyboard bug for mobile extension.
+- **Update:** Fixed detail view column reorder bug for reorder-columns extension.
 - **Update:** Removed `resetWidth` method and use `resetView` instead.
 
 ### 1.15.5
