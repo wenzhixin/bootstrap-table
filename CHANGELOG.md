@@ -7,6 +7,7 @@ ChangeLog
 - **New:** Added `printFormatter` data-attribute supported for print extension.
 - **New:** Added `customSort` option supported for group-by extension.
 - **New:** Added `orderColumns` method for reorder-columns extension.
+- **Remove:** Removed natural-sorting extension.
 - **Update:** Updated event name to lowercase hyphen format for vue component.
 - **Update:** Improved the `resize` problem with multiple tables.
 - **Update:** Improved `number` type supported for group-by extension.
