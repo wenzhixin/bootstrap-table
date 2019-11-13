@@ -21,6 +21,7 @@ ChangeLog
 - **Update:** Fixed `checkAll` event bug with sortable checkbox field.
 - **Update:** Fixed checkbox and not-found td style errors.
 - **Update:** Fixed `hideUnusedSelectOptions` not work bug for filter-control extension.
+- **Update:** Fixed filter not work bug with `undefined` for filter-control extension.
 - **Update:** Fixed `virtualScroll` option bug with treegrid extension.
 - **Update:** Fixed input keyboard bug for mobile extension.
 - **Update:** Fixed detail view column reorder bug for reorder-columns extension.
