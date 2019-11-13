@@ -303,7 +303,6 @@ class BootstrapTable {
         if (column.radio) {
           text = ''
           this.header.stateField = column.field
-          this.options.singleSelect = true
         }
         if (!text && column.showSelectTitle) {
           text += title
@@ -345,7 +344,7 @@ class BootstrapTable {
       }
     })
 
-    const resizeEvent = `resize.bootstrap-table${this.$el.attr('id') || ''}`
+    const resizeEvent = Utils.getResizeEventName(this.$el.attr('id'))
     $(window).off(resizeEvent)
     if (!this.options.showHeader || this.options.cardView) {
       this.$header.hide()
@@ -357,7 +356,7 @@ class BootstrapTable {
       this.$tableLoading.css('top', this.$header.outerHeight() + 1)
       // Assign the correct sortable arrow
       this.getCaret()
-      $(window).on(resizeEvent, e => this.resetWidth(e))
+      $(window).on(resizeEvent, () => this.resetView())
     }
 
     this.$selectAll = this.$header.find('[name="btSelectAll"]')
@@ -422,7 +421,8 @@ class BootstrapTable {
             return order * value
           }
 
-          return Utils.sort(aa, bb, order, this.options.sortStable)
+          return Utils.sort(aa, bb, order, this.options.sortStable,
+            a._position, b._position)
         })
       }
 
@@ -881,7 +881,7 @@ class BootstrapTable {
     this.$pagination.show()
 
     const html = []
-    let $allSelected = false
+    let allSelected = false
     let i
     let from
     let to
@@ -892,6 +892,19 @@ class BootstrapTable {
     const data = this.getData({includeHiddenRows: false})
     let pageList = o.pageList
 
+    if (typeof pageList === 'string') {
+      pageList = pageList.replace(/\[|\]| /g, '').toLowerCase().split(',')
+    }
+
+    pageList = pageList.map(value => {
+      if (typeof value === 'string') {
+        return value.toLowerCase() === o.formatAllRows().toLowerCase() ||
+          ['all', 'unlimited'].includes(value.toLowerCase())
+          ? o.formatAllRows() : +value
+      }
+      return value
+    })
+
     if (o.sidePagination !== 'server') {
       o.totalRows = data.length
     }
@@ -900,16 +913,7 @@ class BootstrapTable {
     if (o.totalRows) {
       if (o.pageSize === o.formatAllRows()) {
         o.pageSize = o.totalRows
-        $allSelected = true
-      } else if (o.pageSize === o.totalRows) {
-        // Fix #667 Table with pagination,
-        // multiple pages and a search this matches to one page throws exception
-        const pageLst = typeof o.pageList === 'string'
-          ? o.pageList.replace('[', '').replace(']', '')
-            .replace(/ /g, '').toLowerCase().split(',') : o.pageList
-        if (pageLst.includes(o.formatAllRows().toLowerCase())) {
-          $allSelected = true
-        }
+        allSelected = true
       }
 
       this.totalPages = ~~((o.totalRows - 1) / o.pageSize) + 1
@@ -950,29 +954,16 @@ class BootstrapTable {
         `<span class="${this.constants.classes.paginationDropdown}">
         <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown">
         <span class="page-size">
-        ${$allSelected ? o.formatAllRows() : o.pageSize}
+        ${allSelected ? o.formatAllRows() : o.pageSize}
         </span>
         ${this.constants.html.dropdownCaret}
         </button>
         ${this.constants.html.pageDropdown[0]}`]
 
-      if (typeof o.pageList === 'string') {
-        const list = o.pageList.replace('[', '').replace(']', '')
-          .replace(/ /g, '').split(',')
-
-        pageList = []
-        for (const value of list) {
-          pageList.push(
-            (value.toLowerCase() === o.formatAllRows().toLowerCase() ||
-              ['all', 'unlimited'].includes(value.toLowerCase()))
-              ? o.formatAllRows() : +value)
-        }
-      }
-
       pageList.forEach((page, i) => {
         if (!o.smartDisplay || i === 0 || pageList[i - 1] < o.totalRows) {
           let active
-          if ($allSelected) {
+          if (allSelected) {
             active = page === o.formatAllRows() ? this.constants.classes.dropdownActive : ''
           } else {
             active = page === o.pageSize ? this.constants.classes.dropdownActive : ''
@@ -1109,7 +1100,7 @@ class BootstrapTable {
         }
       }
 
-      if ($allSelected) {
+      if (allSelected) {
         o.pageSize = o.formatAllRows()
       }
       // removed the events for last and first, onPageNumber executeds the same logic
@@ -1656,7 +1647,7 @@ class BootstrapTable {
           this.options.responseHandler, [_res, jqXHR], _res)
 
         this.load(res)
-        this.trigger('load-success', res, jqXHR.status, jqXHR)
+        this.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR)
         if (!silent) {
           this.hideLoading()
         }
@@ -1669,7 +1660,7 @@ class BootstrapTable {
           data[this.options.dataField] = []
         }
         this.load(data)
-        this.trigger('load-error', jqXHR.status, jqXHR)
+        this.trigger('load-error', jqXHR && jqXHR.status, jqXHR)
         if (!silent) this.$tableLoading.hide()
       }
     })
@@ -2611,9 +2602,18 @@ class BootstrapTable {
       const toolbarHeight = this.$toolbar.outerHeight(true)
       const paginationHeight = this.$pagination.outerHeight(true)
       const height = this.options.height - toolbarHeight - paginationHeight
-      const tableHeight = this.$tableBody.find('table').outerHeight(true)
+      const $bodyTable = this.$tableBody.find('>table')
+      const tableHeight = $bodyTable.outerHeight()
       this.$tableContainer.css('height', `${height}px`)
-      this.$tableBorder && this.$tableBorder.css('height', `${height - tableHeight - padding - 1}px`)
+
+      if (this.$tableBorder) {
+        let tableBorderHeight = height - tableHeight - 2
+        if (this.$tableBody[0].scrollWidth - this.$tableBody.innerWidth()) {
+          tableBorderHeight -= Utils.getScrollBarWidth()
+        }
+        this.$tableBorder.css('width', `${$bodyTable.outerWidth()}px`)
+        this.$tableBorder.css('height', `${tableBorderHeight}px`)
+      }
     }
 
     if (this.options.cardView) {
@@ -2628,15 +2628,6 @@ class BootstrapTable {
     }
 
     this.trigger('reset-view')
-  }
-
-  resetWidth () {
-    if (this.options.showHeader && this.options.height) {
-      this.fitHeader()
-    }
-    if (this.options.showFooter && !this.options.cardView) {
-      this.fitFooter()
-    }
   }
 
   showLoading () {
