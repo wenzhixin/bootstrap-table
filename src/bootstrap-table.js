@@ -360,8 +360,9 @@ class BootstrapTable {
     }
 
     this.$selectAll = this.$header.find('[name="btSelectAll"]')
-    this.$selectAll.off('click').on('click', ({currentTarget}) => {
-      const checked = $(currentTarget).prop('checked')
+    this.$selectAll.off('click').on('click', e => {
+      e.stopPropagation()
+      const checked = $(e.currentTarget).prop('checked')
       this[checked ? 'checkAll' : 'uncheckAll']()
       this.updateSelected()
     })
