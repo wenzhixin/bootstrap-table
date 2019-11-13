@@ -23,6 +23,7 @@ ChangeLog
 - **Update:** Fixed `virtualScroll` option bug with treegrid extension.
 - **Update:** Fixed input keyboard bug for mobile extension.
 - **Update:** Fixed detail view column reorder bug for reorder-columns extension.
+- **Update:** Fixed `flat` not polyfilled error in vue cli3.
 - **Update:** Removed `resetWidth` method and use `resetView` instead.
 
 ### 1.15.5
