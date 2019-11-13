@@ -18,6 +18,7 @@ ChangeLog
 - **Update:** Fixed `pageSize` set to all bug with filter.
 - **Update:** Fixed `jqXHR` `undefined` error using custom ajax.
 - **Update:** Fixed `refreshOptions` bug with radio and checkbox.
+- **Update:** Fixed `checkAll` event bug with sortable checkbox field.
 - **Update:** Fixed checkbox and not-found td style errors.
 - **Update:** Fixed `hideUnusedSelectOptions` not work bug for filter-control extension.
 - **Update:** Fixed `virtualScroll` option bug with treegrid extension.
