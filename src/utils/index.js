@@ -77,7 +77,7 @@ export default {
   },
 
   updateFieldGroup (columns) {
-    const allColumns = columns.flat()
+    const allColumns = [].concat(...columns)
 
     for (const c of columns) {
       for (const r of c) {
