@@ -129,7 +129,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         let columnsHidden = []
         let columnIndex = -1
         const optionsColumns = []
-        this.$header.find('th').each(function (i) {
+        this.$header.find('th:not(.detail)').each(function (i) {
           ths.push($(this).data('field'))
           formatters.push($(this).data('formatter'))
         })
