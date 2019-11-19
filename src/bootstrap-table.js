@@ -573,6 +573,10 @@ class BootstrapTable {
       })()
     }
 
+    if (typeof o.buttonsOrder === 'string') {
+      o.buttonsOrder = o.buttonsOrder.replace(/\[|\]| |'/g, '').toLowerCase().split(',')
+    }
+
     for (const button of o.buttonsOrder) {
       if (o['show' + button.charAt(0).toUpperCase() + button.substring(1)]) {
         html.push(buttonsHtml[button])
