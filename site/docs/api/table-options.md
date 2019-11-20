@@ -1445,6 +1445,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Buttons Align](https://examples.bootstrap-table.com/#options/buttons-align.html)
 
+## buttonsOrder
+
+- **Attribute:** `data-buttons-order`
+
+- **Type:** `Array`
+
+- **Detail:**
+
+  Indicate how to custom order of the toolbar buttons.
+
+- **Default:** `['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns']`
+
+- **Example:** [Buttons Order](https://examples.bootstrap-table.com/#options/buttons-order.html)
+
 ## buttonsPrefix
 
 - **Attribute:** `data-buttons-prefix`
