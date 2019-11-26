@@ -38,9 +38,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.$stickyHeader = this.$header.clone(true, true)
 
     // render sticky on window scroll or resize
-    $(window).on('resize.sticky-header-table', () => this.renderStickyHeader())
-    $(window).on('scroll.sticky-header-table', () => this.renderStickyHeader())
+    $(window).off('resize.sticky-header-table')
+      .on('resize.sticky-header-table', () => this.renderStickyHeader())
+    $(window).off('scroll.sticky-header-table')
+      .on('scroll.sticky-header-table', () => this.renderStickyHeader())
     this.$tableBody.off('scroll').on('scroll', () => this.matchPositionX())
+  }
+
+  resetView (...args) {
+    super.resetView(...args)
+
+    $('.bootstrap-table.fullscreen').off('scroll')
+      .on('scroll', () => this.renderStickyHeader())
   }
 
   renderStickyHeader () {
@@ -58,9 +67,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // match bootstrap table style
       this.$stickyContainer.removeClass(hiddenClass).addClass('fix-sticky fixed-table-container')
       // stick it in position
+      let stickyHeaderOffsetLeft = this.options.stickyHeaderOffsetLeft
+      let stickyHeaderOffsetRight = this.options.stickyHeaderOffsetRight
+      if (this.$el.closest('.bootstrap-table').hasClass('fullscreen')) {
+        stickyHeaderOffsetLeft = 0
+        stickyHeaderOffsetRight = 0
+      }
       this.$stickyContainer.css('top', `${this.options.stickyHeaderOffsetY}`)
-      this.$stickyContainer.css('left', `${this.options.stickyHeaderOffsetLeft}`)
-      this.$stickyContainer.css('right', `${this.options.stickyHeaderOffsetRight}`)
+      this.$stickyContainer.css('left', `${stickyHeaderOffsetLeft}`)
+      this.$stickyContainer.css('right', `${stickyHeaderOffsetRight}`)
       // create scrollable container for header
       this.$stickyTable = $('<table/>')
       this.$stickyTable.addClass(this.options.classes)
