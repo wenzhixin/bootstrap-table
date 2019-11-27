@@ -14,7 +14,7 @@ toc: true
   :columns="columns"
   :data="data"
   :options="options"
-  @onPostBody="onPostBody"
+  @on-post-body="onPostBody"
 />
 {% endhighlight %}
 
@@ -52,9 +52,11 @@ toc: true
 
 ## Events
 
-The calling method syntax: `@onEvent="onEvent"`.
+The calling method syntax: `@on-event="onEvent"`.
 
 All events (without `onAll`) are defined in [Events API](/docs/api/events/).
+
+**Note:** you need to convert event name to lowercase + hyphen format, for example: `onClickRow` should be `on-click-row`.
 
 ## Methods
 

@@ -77,7 +77,7 @@ export default {
   },
 
   updateFieldGroup (columns) {
-    const allColumns = columns.flat()
+    const allColumns = [].concat(...columns)
 
     for (const c of columns) {
       for (const r of c) {
@@ -271,7 +271,7 @@ export default {
     return data
   },
 
-  sort (a, b, order, sortStable) {
+  sort (a, b, order, sortStable, aPosition, bPosition) {
     if (a === undefined || a === null) {
       a = ''
     }
@@ -280,8 +280,8 @@ export default {
     }
 
     if (sortStable && a === b) {
-      a = a._position
-      b = b._position
+      a = aPosition
+      b = bPosition
     }
 
     // If both values are numeric, do a numeric comparison
@@ -312,5 +312,10 @@ export default {
     }
 
     return order
+  },
+
+  getResizeEventName (id = '') {
+    id = id || `${+new Date()}${~~(Math.random() * 1000000)}`
+    return `resize.bootstrap-table-${id}`
   }
 }

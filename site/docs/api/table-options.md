@@ -37,8 +37,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   The height of table, enable fixed header of table.
 
-  Note that if there are multiple tables on a page and the height option is set at the same time, you need to add the `id` attribute to each table, otherwise, the window resize will not work properly.
-
 - **Default:** `undefined`
 
 - **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
@@ -1446,6 +1444,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `'right'`
 
 - **Example:** [Buttons Align](https://examples.bootstrap-table.com/#options/buttons-align.html)
+
+## buttonsOrder
+
+- **Attribute:** `data-buttons-order`
+
+- **Type:** `Array`
+
+- **Detail:**
+
+  Indicate how to custom order of the toolbar buttons.
+
+- **Default:** `['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns']`
+
+- **Example:** [Buttons Order](https://examples.bootstrap-table.com/#options/buttons-order.html)
 
 ## buttonsPrefix
 
