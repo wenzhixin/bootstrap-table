@@ -38,7 +38,7 @@ $.fn.bootstrapTable.locales['fr-FR'] = {
     return 'Recherche'
   },
   formatNoMatches () {
-    return 'Pas de lignes trouvés'
+    return 'Aucun résultat'
   },
   formatPaginationSwitch () {
     return 'Cacher/Afficher pagination'
