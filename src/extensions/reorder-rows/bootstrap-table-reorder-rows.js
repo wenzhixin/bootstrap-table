@@ -13,7 +13,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   onDragStyle: null,
   onDropStyle: null,
   onDragClass: 'reorder_rows_onDragClass',
-  dragHandle: null,
+  dragHandle: '>tbody>tr>td',
   useRowAttrFunc: false,
   onReorderRowsDrag (row) {
     return false
@@ -53,10 +53,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   makeRowsReorderable () {
-    if (this.options.cardView) {
-      return
-    }
-
     this.$el.tableDnD({
       onDragStyle: this.options.onDragStyle,
       onDropStyle: this.options.onDropStyle,
@@ -67,13 +63,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     })
   }
 
-  onDropStart (table, draggingRow) {
-    this.draggingIndex = $(draggingRow).data('index')
+  onDropStart (table, draggingTd) {
+    this.$draggingTd = $(draggingTd).css('cursor', 'move')
+    this.draggingIndex = $(this.$draggingTd.parent()).data('index')
     // Call the user defined function
     this.options.onReorderRowsDrag(this.data[this.draggingIndex])
   }
 
   onDrop (table) {
+    this.$draggingTd.css('cursor', '')
     const newData = []
     for (let i = 0; i < table.tBodies[0].rows.length; i++) {
       const $tr = $(table.tBodies[0].rows[i])
