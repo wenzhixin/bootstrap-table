@@ -129,6 +129,7 @@ const DEFAULTS = {
   sortOrder: 'asc',
   sortStable: false,
   rememberOrder: false,
+  serverSort: true,
   customSort: undefined,
   columns: [
     []
