@@ -271,6 +271,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Remember Order](https://examples.bootstrap-table.com/#options/remember-order.html)
 
+## serverSort
+
+- **Attribute:** `data-server-sort`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to sort the data in the client side, only works when the `sidePagination` is `server`.
+
+- **Default:** `true`
+
+- **Example:** [Server Sort](https://examples.bootstrap-table.com/#options/server-sort.html)
+
 ## customSort
 
 - **Attribute:** `data-custom-sort`
