@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['id-ID'] = {
 
     return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Bersihkan filter'
   },
   formatSearch () {
     return 'Pencarian'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['id-ID'] = {
   formatPaginationSwitch () {
     return 'Sembunyikan/Tampilkan halaman'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Muat ulang'
   },
   formatToggle () {
     return 'Beralih'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'kolom'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['id-ID'] = {
   },
   formatExport () {
     return 'Ekspor data'
-  },
-  formatClearFilters () {
-    return 'Bersihkan filter'
   },
   formatJumpTo () {
     return 'GO'

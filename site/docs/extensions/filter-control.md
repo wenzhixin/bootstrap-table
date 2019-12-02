@@ -6,8 +6,6 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-filter-control](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/filter-control)
-
 Dependence if you use the datepicker option: [bootstrap-datepicker](https://github.com/eternicode/bootstrap-datepicker) v1.4.0
 
 ## Usage
@@ -16,6 +14,10 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
 <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Filter Control](https://examples.bootstrap-table.com/#extensions/filter-control.html)
 
 ## Options
 
@@ -29,15 +31,26 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `false`
 
-### filterShowClear
+### filterControlContainer
 
-- **type:** `Boolean`
+- **type:** `Selector`
 
 - **Detail:**
 
-   Set true to add a button to clear all the controls added by this plugin.
+   Set to e.g. `#filter` to allow custom input filter in a element with the id `filter`.
+   Each filter element (input or select) must have the following id `bootstrap-table-filter-control-<Fieldname>` (<Fieldname> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).
 
 - **Default:** `false`
+
+### filterDataCollector
+
+- **type:** `Function`
+
+- **Detail:**
+
+   Collect data which will added to the select filter, to filter through e.g. labels which are comma separated and displayed with a formatter.
+
+- **Default:** `undefined`
 
 ### alignmentSelectControlOptions
 
@@ -101,6 +114,16 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `undefined`
 
+### filterDefault
+
+- **type:** `String`
+
+- **Detail:**
+
+   Set the default value of the filter.
+
+- **Default:** `undefined`
+
 ### filterDatepickerOptions
 - **type:** `Object`
 
@@ -137,6 +160,15 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `''`
 
+### filterOrderBy
+- **type:** `String`
+
+- **Detail:**
+
+   Set this to order the options in a select control whether ascending or descending.
+
+- **Default:** `'asc'`
+
 ### Icons
 * clear: 'glyphicon-trash icon-clear'
 
@@ -165,4 +197,4 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### clearFilterControl
 
-* Clear all the controls added by this plugin (similar to filterShowClear option).
+* Clear all the controls added by this plugin (similar to showSearchClearButton option).

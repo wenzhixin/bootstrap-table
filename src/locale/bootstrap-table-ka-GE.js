@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['ka-GE'] = {
 
     return `ნაჩვენებია ${pageFrom}-დან ${pageTo}-მდე ჩანაწერი ჯამური ${totalRows}-დან`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Clear Search'
   },
   formatSearch () {
     return 'ძებნა'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['ka-GE'] = {
   formatPaginationSwitch () {
     return 'გვერდების გადამრთველის დამალვა/გამოჩენა'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'განახლება'
   },
   formatToggle () {
     return 'ჩართვა/გამორთვა'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'სვეტები'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['ka-GE'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
   },
   formatJumpTo () {
     return 'GO'

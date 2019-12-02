@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['pt-PT'] = {
 
     return `A mostrar ${pageFrom} at&eacute; ${pageTo} de ${totalRows} linhas`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Clear Search'
   },
   formatSearch () {
     return 'Pesquisa'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['pt-PT'] = {
   formatPaginationSwitch () {
     return 'Esconder/Mostrar pagina&ccedil&atilde;o'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Atualizar'
   },
   formatToggle () {
     return 'Alternar'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Colunas'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['pt-PT'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
   },
   formatJumpTo () {
     return 'GO'

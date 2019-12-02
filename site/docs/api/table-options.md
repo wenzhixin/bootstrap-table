@@ -37,8 +37,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   The height of table, enable fixed header of table.
 
-  Note that if there are multiple tables on a page and the height option is set at the same time, you need to add the `id` attribute to each table, otherwise, the window resize will not work properly.
-
 - **Default:** `undefined`
 
 - **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
@@ -136,14 +134,44 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   * First tries for the locale as specified,
   * Then tries the locale with '_' translated to '-' and the region code upper cased,
-  * Then tries the the short locale code (i.e. `'zh'` instead of `'fr-CA'`),
+  * Then tries the short locale code (i.e. `'zh'` instead of `'zh-CN'`),
   * And finally will use the last locale file loaded (or the default locale if no locales loaded).
 
-  If left `undefined` or an empty string, uses the last locale loaded (or `'en-US'` if no locale files loaded).
+  If left `undefined` or an empty string, use the last locale loaded (or `'en-US'` if no locale files loaded).
 
 - **Default:** `undefined`
 
 - **Example:** [Table Locale](https://examples.bootstrap-table.com/#options/table-locale.html)
+
+## virtualScroll
+
+- **Attribute:** `data-virtual-scroll`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to enable virtual scroll to displays a virtual, "infinite" list.
+
+- **Default:** `false`
+
+- **Example:** [Large Data](https://examples.bootstrap-table.com/#options/large-data.html)
+
+## virtualScrollItemHeight
+
+- **Attribute:** `data-virtual-scroll-item-height`
+
+- **Type:** `Number`
+
+- **Detail:**
+
+  If this option is not define, we will use the height of the first item by default.
+
+  It is **important** to provide this if virtual item height will be significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized, and to help calculate the height of the scrollable area. This height value can only use `px` units.
+
+- **Default:** `undefined`
+
+- **Example:** [Virtual Scroll Item Height](https://examples.bootstrap-table.com/#options/virtual-scroll-item-height.html)
 
 ## sortable
 
@@ -181,7 +209,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `false` to sort the data with loading message. This options works when the sidePagination option is set to `'server'`.
+  Set `false` to sort the data with the loading message. This options works when the sidePagination option is set to `'server'`.
 
 - **Default:** `true`
 
@@ -243,6 +271,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Remember Order](https://examples.bootstrap-table.com/#options/remember-order.html)
 
+## serverSort
+
+- **Attribute:** `data-server-sort`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to sort the data in the client side, only works when the `sidePagination` is `server`.
+
+- **Default:** `true`
+
+- **Example:** [Server Sort](https://examples.bootstrap-table.com/#options/server-sort.html)
+
 ## customSort
 
 - **Attribute:** `data-custom-sort`
@@ -251,7 +293,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The custom sort function is executed instead of built-in sort function, takes three parameters:
+  The custom sort function is executed instead of the built-in sort function, takes three parameters:
 
   * `sortName`: the sort name.
   * `sortOrder`: the sort order.
@@ -306,11 +348,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
+- **Example:** [From URL](https://examples.bootstrap-table.com/#welcomes/from-url.html)
+
 - **Error handling**
 
   To get loading errors please use [onLoadError](https://bootstrap-table.com/docs/api/events/#onloaderror)
-
-- **Example:** [From URL](https://examples.bootstrap-table.com/#welcomes/from-url.html)
 
 ## method
 
@@ -441,6 +483,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Before load remote data, handler the response data format, the parameters object contains:
 
   * `res`: the response data.
+  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR) (from 1.15.5).
 
 - **Default:** `function(res) { return res }`
 
@@ -459,6 +502,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `'total'`
 
 - **Example:** [Total/Data Field](https://examples.bootstrap-table.com/#options/total-data-field.html)
+
+## totalNotFilteredField
+
+- **Attribute:** `data-total-not-filtered-field`
+
+- **Type:** `string`
+
+- **Detail:**
+
+  The field from the json response which will used for `showExtendedPagination`.
+
+- **Default:** `totalNotFiltered`
+
+- **Example:** [Total Not Filtered Field](https://examples.bootstrap-table.com/#options/total-not-filtered-field.html)
 
 ## dataField
 
@@ -511,25 +568,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Set `true` to show a extended version of pagination (including the count of all rows with out filters).
-  If you use pagination on the server side pls use totalNotFilteredField to define the count.
+  If you use pagination on the server side pls use `totalNotFilteredField` to define the count.
 
 - **Default:** `false`
 
 - **Example:** [Show Extended Pagination](https://examples.bootstrap-table.com/#options/show-extended-pagination.html)
-
-## totalNotFilteredField
-
-- **Attribute:** `data-total-not-filtered-field`
-
-- **Type:** `string`
-
-- **Detail:**
-
-  The field from the json response which will used for showExtendedPagination.
-
-- **Default:** `totalNotFiltered`
-
-- **Example:** [Total Not Filtered Field](https://examples.bootstrap-table.com/#options/total-not-filtered-field.html)
 
 ## paginationLoop
 
@@ -556,7 +599,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Defines the side pagination of the table, can only be `'client'` or `'server'`.
   Using `'server'` side requires either setting the `'url'` or `'ajax'` option.
 
-  Note that the required server response format is different depending on whether the `'client'` or `'server'` option is specified. See the following examples:
+  Note that the required server response format is different depending on whether the  `'sidePagination'` option is set to `'client'` or `'server'`. See the following examples:
 
   * [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
   * [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
@@ -568,6 +611,18 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 ## totalRows
 
 - **Attribute:** `data-total-rows`
+
+- **Type:** `Number`
+
+- **Detail:**
+
+  This property is mainly passed in by pagination server, which is easy to use.
+
+- **Default:** `0`
+
+## totalNotFiltered
+
+- **Attribute:** `data-total-not-filtered`
 
 - **Type:** `Number`
 
@@ -725,7 +780,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Calculate and show intermediate pages for quick access
+  Calculate and show intermediate pages for quick access.
 
 - **Default:** `false`
 
@@ -746,7 +801,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     Example: Github contains git.
   - The value must be identical to the search query.
     Example: Github (value) and Github (search query).
-  - Comparisons (<, >, <=, =<, >=, =>)
+  - Comparisons (<, >, <=, =<, >=, =>).
     Example: 4 is larger than 3.
 
 - **Default:** `false`
@@ -781,6 +836,77 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Strict Search](https://examples.bootstrap-table.com/#options/strict-search.html)
+
+## visibleSearch
+
+- **Attribute:** `visible-search`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  set `true` to search only in visible column/data, if the data contains other values which are not displayed they will be ignored while searching.
+
+- **Default:** `false`
+
+- **Example:** [visible search](https://examples.bootstrap-table.com/#options/visible-search.html)
+
+## showButtonIcons
+
+- **Attribute:** `show-button-icons`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  All buttons will show icons on it
+
+- **Default:** `true`
+
+- **Example:** [show button icons](https://examples.bootstrap-table.com/#options/show-button-icons.html)
+
+## showButtonText
+
+- **Attribute:** `show-button-text`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  All buttons will show an text on it
+
+- **Default:** `false`
+
+- **Example:** [show button text](https://examples.bootstrap-table.com/#options/show-button-text.html)
+
+## showSearchButton
+
+- **Attribute:** `data-show-search-button`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a search Button behind the search input.
+  The Search will only be executed if the button is pressed (e.g. to prevent traffic or loading time).
+
+- **Default:** `false`
+
+- **Example:** [Show Search Button](https://examples.bootstrap-table.com/#options/show-search-button.html)
+
+## showSearchClearButton
+
+- **Attribute:** `data-show-search-clear-button`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a clear Button behind the search input which will clear the search input (also all filter from filter-control (if enabled)).
+
+- **Default:** `false`
+
+- **Example:** [Show Search Clear Button](https://examples.bootstrap-table.com/#options/show-search-clear-button.html)
 
 ## trimOnSearch
 
@@ -850,6 +976,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   * `data`: the table data.
   * `text`: the search text.
+  * `filter`: the filter object from `filterBy` method (from 1.15.4).
 
   Example usage:
 
@@ -905,7 +1032,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   * `column`: the column object.
 
-  Support classes or css. Example usage:
+  Support `classes` or `css`. Example usage:
 
   {% highlight javascript %}
   function footerStyle(column) {
@@ -933,6 +1060,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Basic Columns](https://examples.bootstrap-table.com/#options/basic-columns.html) and [Large Columns](https://examples.bootstrap-table.com/#options/large-columns.html)
+
+## showColumnsToggleAll
+
+- **Attribute:** `data-show-columns-toggle-all`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a toogle all checkbox within the columns option/dropdown.
+
+- **Default:** `false`
+
+- **Example:** [Columns Toggle All](https://examples.bootstrap-table.com/#options/columns-toggle-all.html)
 
 ## minimumCountColumns
 
@@ -1032,6 +1173,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Escape](https://examples.bootstrap-table.com/#options/table-escape.html)
 
+## filterOptions
+
+- **Attribute:** `data-filter-options`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Define the default filter options of algorithm, `filterAlgorithm: 'and'` means all given filter must match, `filterAlgorithm: 'or'` means one of the given filter must match.
+
+- **Default:** `{ filterAlgorithm: 'and' }`
+
+- **Example:** [Filter Options](https://examples.bootstrap-table.com/#options/filter-options.html)
+
 ## idField
 
 - **Attribute:** `data-id-field`
@@ -1128,7 +1283,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to maintain the following meta data on change page and search
+  Set `true` to maintain the following meta data on change page and search:
    * selected rows
    * hidden rows
 
@@ -1206,34 +1361,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
 
-## detailFormatter
-
-- **Attribute:** `data-detail-formatter`
-
-- **Type:** `Function`
-
-- **Detail:**
-
-  Format your detail view when detailView is set to true. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
-
-- **Default:** `function(index, row, element) { return '' }`
-
-- **Example:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)
-
-## detailFilter
-
-- **Attribute:** `data-detail-filter`
-
-- **Type:** `Function`
-
-- **Detail:**
-
-  Enable expansion per row when detailView is set to true. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.
-
-- **Default:** `function(index, row) { return true }`
-
-- **Example:** [Detail Filter](https://examples.bootstrap-table.com/#options/detail-filter.html)
-
 ## detailViewByClick
 
 - **Attribute:** `data-detail-view-by-click`
@@ -1247,6 +1374,34 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
+
+## detailFormatter
+
+- **Attribute:** `data-detail-formatter`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  Format your detail view when `detailView` is set to `true`. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
+
+- **Default:** `function(index, row, element) { return '' }`
+
+- **Example:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)
+
+## detailFilter
+
+- **Attribute:** `data-detail-filter`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  Enable expansion per row when `detailView` is set to `true`. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.
+
+- **Default:** `function(index, row) { return true }`
+
+- **Example:** [Detail Filter](https://examples.bootstrap-table.com/#options/detail-filter.html)
 
 ## toolbar
 
@@ -1304,6 +1459,34 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Buttons Align](https://examples.bootstrap-table.com/#options/buttons-align.html)
 
+## buttonsOrder
+
+- **Attribute:** `data-buttons-order`
+
+- **Type:** `Array`
+
+- **Detail:**
+
+  Indicate how to custom order of the toolbar buttons.
+
+- **Default:** `['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns']`
+
+- **Example:** [Buttons Order](https://examples.bootstrap-table.com/#options/buttons-order.html)
+
+## buttonsPrefix
+
+- **Attribute:** `data-buttons-prefix`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines prefix of table buttons.
+
+- **Default:** `'btn'`
+
+- **Example:** [Buttons Prefix](https://examples.bootstrap-table.com/#options/buttons-prefix.html)
+
 ## buttonsClass
 
 - **Attribute:** `data-buttons-class`
@@ -1345,6 +1528,22 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   {% endhighlight %}
 
 - **Example:** [Table Icons](https://examples.bootstrap-table.com/#options/table-icons.html)
+
+## html
+
+- **Attribute:** `data-html`
+
+- **Type:** `Object`
+
+- **Detail:**
+
+  Defines some html of the table.
+
+- **Default:**
+
+  Too much code, please checkout the source code of the `index.js`
+
+- **Example:** [Table Html](https://examples.bootstrap-table.com/#options/table-html.html)
 
 ## iconSize
 

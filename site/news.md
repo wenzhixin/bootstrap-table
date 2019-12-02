@@ -4,6 +4,133 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.15.5
+
+<span class="post-date">12 Oct 2019</span>
+
+- **New:** Added `jqXHR` for `responseHandler` option and `onLoadSuccess` event.
+- **New:** Added `stickyHeaderOffsetLeft` and `stickyHeaderOffsetRight` for sticky-header.
+- **New:** Added Serbian RS cyrillic and latin locales.
+- **Update:** Improved `export` button when there is only one type.
+- **Update:** Fixed column events click error with `detailView`.
+- **Update:** Fixed bug for `searchOnEnterKey` and `showSearchButton` are true.
+- **Update:** Fixed `onScrollBody` event and added parameter.
+- **Update:** Fixed search input size bug with `iconSize` option.
+- **Update:** Fixed filter control select cannot work more than one table.
+- **Update:** Fixed virtual scroll to top error when using `append` method.
+- **Update:** Fixed `events` cannot work on virtual scroll.
+- **Update:** Fixed bottom border bug with `height` option.
+- **Update:** Fixed min version throw cannot convert object to primitive value error.
+
+## Bootstrap Table 1.15.4
+
+<span class="post-date">13 Aug 2019</span>
+
+- **New:** Added `query` to `queryParams` option.
+- **New:** Added `filter` parameter of `customSearch` option.
+- **Update:** Fixed search bug in hidden columns.
+- **Update:** Fixed table zoom width calculating bug.
+- **Update:** Fixed events of column formatted by nested table.
+- **Update:** Fixed checkbox style display bug.
+- **Update:** Fixed stack overflow error of `checkBy` method.
+- **Update:** Fixed `showSearchButton` and `showSearchClearButton` style bug.
+- **Update:** Fixed filter-control select `null` value handle error.
+- **Update:** Fixed `showSearchClearButton` bug in filter-control extension.
+- **Update:** Fixed `print` button appears twice bug.
+
+## Bootstrap Table 1.15.3
+
+<span class="post-date">11 Jul 2019</span>
+
+- **New:** Added nl-BE, fr-CH and fr-LU locale.
+- **Update:** Updated nl-NL, pt-BR, fr-BE, fr-FR, nl-BE and nl-NL locale.
+- **Update:** Fixed treegrid duplicate rows bug.
+- **Update:** Fixed `updateCellByUniqueId` method bug on a filtered table.
+- **Update:** Fixed colspan group header display bug.
+- **Update:** Fixed table footer display bug in some case.
+- **Update:** Fixed `getOptions` bug.
+- **Update:** Fixed `detailView` bug when hiding columns.
+- **Update:** Fixed IE minify bug.
+- **Update:** Fixed full screen scrolling bug.
+
+## Bootstrap Table 1.15.2
+
+<span class="post-date">24 Jun 2019</span>
+
+#### Core
+
+- **New:** Added `virtualScroll` and `virtualScrollItemHeight` options to support large data.
+- **New:** Added vue component support.
+- **New:** Added support comparisons search(<, >, <=, =<, >=, =>).
+- **New:** Added `detailViewByClick` table option and `detailFormatter` column option.
+- **New:** Added `showExtendedPagination` and `totalNotFilteredField` table options.
+- **New:** Added `widthUnit` option to allow any unit.
+- **New:** Added `multipleSelectRow` option to support ctrl and shift select.
+- **New:** Added `onPostFooter`(`post-footer.bs.table`) event.
+- **New:** Added `detailViewIcon` and `toggleDetailView` method to hide the show/hide icons.
+- **New:** Added `showSearchButton` and `showSearchClearButton` options to improve the search.
+- **New:** Added `showButtonIcons` and `showButtonText` options to improve the icons display.
+- **New:** Added `visibleSearch` option search only on displayed/visible columns.
+- **New:** Added `showColumnsToggleAll` option to toggle all columns.
+- **New:** Added `cellStyle` to support checkbox field.
+- **New:** Added checkbox and radio auto checked from html support.
+- **New:** Added screen reader support for pagination.
+- **New:** Added travis lint src and check docs scripts.
+- **New:** Added webpack support and user rollup to build the src.
+- **New:** Added a version number property.
+- **New:** Improved `filterBy` method with `or` condition and custom filter algorithm.
+- **New:** Improved `showColumn` and `hideColumn` methods with array of fields.
+- **New:** Improved `scrollTo` method to allow `rows` units.
+- **Update:** Rewrote all code to ES6.
+- **Update:** Improved `pageList` options to support localization.
+- **Update:** Improved the `totalRows` option.
+- **Update:** Improved table footer.
+- **Update:** Improved `getSelections` and `getAllSelections` methods.
+- **Update:** Improved css frameworks themes.
+- **Update:** Updated parameters of the `getData` method.
+- **Update:** Updated parameters of the (un)checkAll events to `rowsAfter, rowsBefore`.
+- **Update:** Updated parameters of the `updateRow` method to support `replace`.
+- **Update:** Updated page number to 1 while making a server side sort.
+- **Update:** Renamed table `maintainSelected` option to `maintainMetaData`.
+- **Update:** Renamed method `refreshColumnTitle` to `updateColumnTitle`.
+- **Update:** Fixed card view value to be aligned incorrectly bug.
+- **Update:** Fixed `smartDisplay` option pagination bug.
+- **Update:** Fixed data-* attribute is an object bug.
+- **Update:** Fixed page separators click bug.
+- **Update:** Fixed scrolling bug in IE11.
+- **Update:** Fixed initHeader error caused by toggleColumn.
+- **Update:** Fixed search input trigger multiple times bug.
+- **Update:** Fix Pagination/totalRows not updated on `hideRow`.
+- **Update:** Fixed columns title error.
+
+#### Extensions
+
+- **New(editable):** Added `onExportSaved` event.
+- **New(export):** Added `forceExport` column option force export columns with hidden.
+- **New(export):** Added function support of `fileName` option.
+- **New(filter-control):** Added `filterDataCollector` to control the filter select options.
+- **New(filter-control):** Added `filterOrderBy` and filterDefault column options.
+- **New(multiple-sort):** Added bootstrap v4 theme support.
+- **New(print):** Added RTL dir support.
+- **Remove:** Removed group-by, multi-column-toggle, multiple-search, multiple-selection-row, select2-filter and tree-column extensions.
+- **Update(cookie):** Fixed cookie search cannot work bug.
+- **Update(editable):** Updated parameters of `onEditableSave` to `field, row, rowIndex, oldValue, $el`.
+- **Update(editable):** Fixed editable rerender bug after saving data.
+- **Update(export):** Updated to only export table header.
+- **Update(export):** Fixed bug with the footer extensions while sorting.
+- **Update(filter-control):** Added ability to handle boolean.
+- **Update(filter-control):** Fixed DatePicker of filter-control does not work bug.
+- **Update(filter-control):** Fixed clear filterControl with Cookie bug.
+- **Update(filter-control):** Fixed loading screen with filter control.
+- **Update(filter-control):** Fixed overwriting the searchText bug.
+- **Update(filter-control):** Fixed filtering does not work json sub-object.
+- **Update(filter-control):** Fixed select filter with formatter.
+- **Update(multiple-sort):** Fixed multiple-sort does not work with data-query-params bug.
+- **Update(page-jump-to):** Fixed `click` bug when paginationVAlign is 'both'.
+- **Update(reorder-columns):** Fixed reorder columns cannot work bug.
+- **Update(reorder-columns):** Fix search and columns bug after reorder columns.
+- **Update(treegrid):** Fixed treegrid cannot work bug.
+
 ## Bootstrap Table 1.14.2
 
 <span class="post-date">19 Mar 2019</span>

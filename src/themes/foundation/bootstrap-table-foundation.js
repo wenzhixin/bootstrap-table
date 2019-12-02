@@ -23,13 +23,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.paginationActive = 'current'
     this.constants.classes.buttonActive = 'success'
 
-    this.constants.html.toobarDropdow = ['<ul class="dropdown-pane" id="toolbar-columns-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
-    this.constants.html.toobarDropdowItem = '<li><label class="dropdown-item">%s</label></li>'
+    this.constants.html.toolbarDropdown = ['<div class="dropdown-pane" id="toolbar-columns-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
+    this.constants.html.toolbarDropdownItem = '<li><label class="dropdown-item">%s</label></li>'
+    this.constants.html.toolbarDropdownSeparator = '<li><hr></li>'
     this.constants.html.pageDropdown = ['<div class="dropdown-pane" id="pagination-list-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
     this.constants.html.pageDropdownItem = '<li class="dropdown-item %s"><a href="#">%s</a></li>'
     this.constants.html.dropdownCaret = '<i class="fa fa-angle-down"></i>'
-    this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'],
-    this.constants.html.paginationItem = '<li><a class="page-item%s" href="#">%s</a></li>'
+    this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>']
+    this.constants.html.paginationItem = '<li><a class="page-item%s" aria-label="%s" href="#">%s</a></li>'
+    this.constants.html.inputGroup = '<div class="input-group">%s <div class="input-group-button">%s</div></div>'
+    this.constants.html.searchInput = '<input class="%s input-%s input-group-field" type="text" placeholder="%s">'
   }
 
   initToolbar () {

@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['zh-TW'] = {
 
     return `顯示第 ${pageFrom} 到第 ${pageTo} 項記錄，總共 ${totalRows} 項記錄`
   },
+  formatSRPaginationPreText () {
+    return '上一頁'
+  },
+  formatSRPaginationPageText (page) {
+    return `第${page}頁`
+  },
+  formatSRPaginationNextText () {
+    return '下一頁'
+  },
   formatDetailPagination (totalRows) {
     return `總共 ${totalRows} 項記錄`
+  },
+  formatClearSearch () {
+    return '清空過濾'
   },
   formatSearch () {
     return '搜尋'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['zh-TW'] = {
   formatPaginationSwitch () {
     return '隱藏/顯示分頁'
   },
+  formatPaginationSwitchDown () {
+    return '顯示分頁'
+  },
+  formatPaginationSwitchUp () {
+    return '隱藏分頁'
+  },
   formatRefresh () {
     return '重新整理'
   },
   formatToggle () {
     return '切換'
   },
+  formatToggleOn () {
+    return '顯示卡片視圖'
+  },
+  formatToggleOff () {
+    return '隱藏卡片視圖'
+  },
   formatColumns () {
     return '列'
+  },
+  formatColumnsToggleAll () {
+    return '切換所有'
   },
   formatFullscreen () {
     return '全屏'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['zh-TW'] = {
   },
   formatExport () {
     return '導出數據'
-  },
-  formatClearFilters () {
-    return '清空過濾'
   },
   formatJumpTo () {
     return '跳轉'

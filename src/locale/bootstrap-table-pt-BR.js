@@ -2,6 +2,7 @@
  * Bootstrap Table Brazilian Portuguese Translation
  * Author: Eduardo Cerqueira<egcerqueira@gmail.com>
  * Update: João Mello<jmello@hotmail.com.br>
+ * Update: Leandro Felizari<lfelizari@gmail.com>
  */
 
 $.fn.bootstrapTable.locales['pt-BR'] = {
@@ -18,8 +19,20 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
 
     return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linhas`
   },
+  formatSRPaginationPreText () {
+    return 'página anterior'
+  },
+  formatSRPaginationPageText (page) {
+    return `Para a página ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'próxima página'
+  },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Mostrando ${totalRows} linhas`
+  },
+  formatClearSearch () {
+    return 'Limpar Pesquisa'
   },
   formatSearch () {
     return 'Pesquisar'
@@ -30,38 +43,50 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
   formatPaginationSwitch () {
     return 'Ocultar/Exibir paginação'
   },
+  formatPaginationSwitchDown () {
+    return 'Mostrar Paginação'
+  },
+  formatPaginationSwitchUp () {
+    return 'Esconder Paginação'
+  },
   formatRefresh () {
     return 'Recarregar'
   },
   formatToggle () {
     return 'Alternar'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Colunas'
   },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Tela cheia'
   },
   formatAllRows () {
-    return 'All'
+    return 'Tudo'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Atualização Automática'
   },
   formatExport () {
-    return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
+    return 'Exportar dados'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'IR'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Pesquisa Avançada'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Fechar'
   }
 }
 

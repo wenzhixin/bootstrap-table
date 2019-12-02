@@ -172,17 +172,10 @@ const UtilsCookie = {
 
         const applyCookieFilters = (element, filteredCookies) => {
           $(filteredCookies).each((i, cookie) => {
-              if (cookie.text !== '' && $(element).is('input')) {
-                $(element).val(cookie.text)
-                cachedFilters[cookie.field] = cookie.text
-              } else if (cookie.text !== '' && $(element).is('select')) {
-                $(element).append($('<option>', {
-                  value: cookie.text,
-                  text: cookie.text
-                }))
-                $(element).val(cookie.text)
-                cachedFilters[cookie.field] = cookie.text
-              }
+            if (cookie.text !== '') {
+              $(element).val(cookie.text)
+              cachedFilters[cookie.field] = cookie.text
+            }
           })
         }
 
@@ -314,8 +307,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
-  toggleColumn (...args) {
-    super.toggleColumn(...args)
+  _toggleColumn (...args) {
+    super._toggleColumn(...args)
 
     const visibleColumns = []
 
@@ -336,7 +329,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   onSearch (event) {
     super.onSearch(event)
 
-    if ($(event.currentTarget).parent().hasClass('search')) {
+    if (this.options.search) {
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText)
     }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)

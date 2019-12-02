@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['uk-UA'] = {
 
     return `Показано з ${pageFrom} по ${pageTo}. Всього: ${totalRows}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Очистити фільтри'
   },
   formatSearch () {
     return 'Пошук'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['uk-UA'] = {
   formatPaginationSwitch () {
     return 'Hide/Show pagination'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Оновити'
   },
   formatToggle () {
     return 'Змінити'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Стовпці'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['uk-UA'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Очистити фільтри'
   },
   formatJumpTo () {
     return 'GO'

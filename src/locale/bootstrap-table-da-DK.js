@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['da-DK'] = {
 
     return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${(totalRows > 1) ? 'r' : ''}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Viser ${totalRows} række${(totalRows > 1) ? 'r' : ''}`
+  },
+  formatClearSearch () {
+    return 'Ryd filtre'
   },
   formatSearch () {
     return 'Søg'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['da-DK'] = {
   formatPaginationSwitch () {
     return 'Skjul/vis nummerering'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Opdater'
   },
   formatToggle () {
     return 'Skift'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Kolonner'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['da-DK'] = {
   },
   formatExport () {
     return 'Eksporter'
-  },
-  formatClearFilters () {
-    return 'Ryd filtre'
   },
   formatJumpTo () {
     return 'GO'

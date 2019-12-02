@@ -80,7 +80,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    const $btnGroup = this.$toolbar.find('>.btn-group')
+    const $btnGroup = this.$toolbar.find('>.columns')
     let $print = $btnGroup.find('button.bs-print')
 
     if (!$print.length) {
@@ -99,15 +99,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   doPrint (data) {
     const formatValue = (row, i, column ) => {
-      const value = row[column.field]
-      if (typeof column.printFormatter === 'function') {
-        return column.printFormatter(...[value, row, i])
-      }
-      return typeof value === 'undefined' ? '-' : value
+      const value = Utils.calculateObjectValue(column, column.printFormatter,
+        [row[column.field], row, i], row[column.field])
+
+      return typeof value === 'undefined' || value === null
+        ? this.options.undefinedText : value
     }
 
     const buildTable = (data, columnsArray) => {
-      const html = ['<table><thead>']
+      const dir = this.$el.attr('dir') || 'ltr'
+      const html = [`<table dir="${dir}"><thead>`]
 
       for (const columns of columnsArray) {
         html.push('<tr>')
@@ -172,6 +173,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const table = buildTable(data, this.options.columns)
     const newWin = window.open('')
     newWin.document.write(this.options.printPageBuilder.call(this, table))
+    newWin.document.close()
+    newWin.focus()
     newWin.print()
     newWin.close()
   }

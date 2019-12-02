@@ -12,6 +12,10 @@ toc: true
 <script src="extensions/cookie/bootstrap-table-cookie.js"></script>
 {% endhighlight %}
 
+## Example
+
+[Cookie](https://examples.bootstrap-table.com/#extensions/cookie.html)
+
 ## Options
 
 ### cookie

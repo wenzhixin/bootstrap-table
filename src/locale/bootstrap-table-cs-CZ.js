@@ -18,8 +18,20 @@ $.fn.bootstrapTable.locales['cs-CZ'] = {
 
     return `Zobrazena ${pageFrom}. - ${pageTo} . položka z celkových ${totalRows}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Clear Search'
   },
   formatSearch () {
     return 'Vyhledávání'
@@ -30,14 +42,29 @@ $.fn.bootstrapTable.locales['cs-CZ'] = {
   formatPaginationSwitch () {
     return 'Skrýt/Zobrazit stránkování'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Aktualizovat'
   },
   formatToggle () {
     return 'Přepni'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Sloupce'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -50,9 +77,6 @@ $.fn.bootstrapTable.locales['cs-CZ'] = {
   },
   formatExport () {
     return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
   },
   formatJumpTo () {
     return 'GO'

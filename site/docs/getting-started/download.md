@@ -32,7 +32,7 @@ The folks over at [UNPKG](https://unpkg.com/bootstrap-table@{{ site.current_vers
 
 ## Package managers
 
-### npm
+### NPM
 
 Install and manage Bootstrap table's CSS, JavaScript, locales, and extensions using [npm](https://www.npmjs.com/package/bootstrap-table).
 

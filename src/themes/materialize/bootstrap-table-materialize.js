@@ -18,7 +18,10 @@ $.extend($.fn.bootstrapTable.defaults, {
     columns: 'view_list',
     detailOpen: 'add',
     detailClose: 'remove',
-    fullscreen: 'fullscreen'
+    fullscreen: 'fullscreen',
+    sort: 'sort',
+    search: 'search',
+    clearSearch: 'delete'
   }
 })
 
@@ -28,21 +31,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initConstants () {
     super.initConstants()
 
-    this.constants.classes.buttonsGroup = ''
+    this.constants.classes.buttonsGroup = 'button-group'
     this.constants.classes.buttonsDropdown = ''
     this.constants.classes.input = 'input-field'
     this.constants.classes.input = ''
     this.constants.classes.paginationDropdown = ''
     this.constants.classes.buttonActive = 'green'
 
-    this.constants.html.toobarDropdow = ['<ul id="toolbar-columns-id" class="dropdown-content">', '</ul>']
-    this.constants.html.toobarDropdowItem = '<li><label>%s</label></li>'
+    this.constants.html.toolbarDropdown = ['<ul id="toolbar-columns-id" class="dropdown-content">', '</ul>']
+    this.constants.html.toolbarDropdownItem = '<li><label>%s</label></li>'
+    this.constants.html.toolbarDropdownSeparator = '<li class="divider" tabindex="-1"></li>'
     this.constants.html.pageDropdown = ['<ul id="pagination-list-id" class="dropdown-content">', '</ul>']
     this.constants.html.pageDropdownItem = '<li><a class="%s" href="#">%s</a></li>'
     this.constants.html.dropdownCaret = '<i class="material-icons">arrow_drop_down</i>'
-    this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'],
-    this.constants.html.paginationItem = '<li class="waves-effect page-item%s"><a href="#">%s</a></li>'
+    this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>']
+    this.constants.html.paginationItem = '<li class="waves-effect page-item%s" aria-label="%s"><a href="#">%s</a></li>'
     this.constants.html.icon = '<i class="%s">%s</i>'
+    this.constants.html.inputGroup = '%s%s'
   }
 
   initToolbar () {

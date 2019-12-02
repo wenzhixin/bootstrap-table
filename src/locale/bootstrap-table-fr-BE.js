@@ -1,6 +1,7 @@
 /**
  * Bootstrap Table French (Belgium) translation
  * Author: Julien Bisconti (julien.bisconti@gmail.com)
+ *         Nevets82 <Nevets82@gmail.com>
  */
 
 $.fn.bootstrapTable.locales['fr-BE'] = {
@@ -8,59 +9,83 @@ $.fn.bootstrapTable.locales['fr-BE'] = {
     return 'Chargement en cours'
   },
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} entrées par page`
+    return `${pageNumber} lignes par page`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Affiche de${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtered from ${totalNotFiltered} total rows)`
+      return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrés à partir de ${totalNotFiltered} lignes)`
     }
 
-    return `Affiche de${pageFrom} à ${pageTo} sur ${totalRows} lignes`
+    return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
+  },
+  formatSRPaginationPreText () {
+    return 'page précédente'
+  },
+  formatSRPaginationPageText (page) {
+    return `vers la page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'page suivante'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Affiche ${totalRows} lignes`
+  },
+  formatClearSearch () {
+    return 'Effacer la recherche'
   },
   formatSearch () {
     return 'Recherche'
   },
   formatNoMatches () {
-    return 'Pas de fichiers trouvés'
+    return 'Pas de lignes trouvés'
   },
   formatPaginationSwitch () {
-    return 'Hide/Show pagination'
+    return 'Cacher/Afficher pagination'
+  },
+  formatPaginationSwitchDown () {
+    return 'Afficher pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Cacher pagination'
   },
   formatRefresh () {
-    return 'Refresh'
+    return 'Rafraichir'
   },
   formatToggle () {
-    return 'Toggle'
+    return 'Basculer'
+  },
+  formatToggleOn () {
+    return 'Afficher vue carte'
+  },
+  formatToggleOff () {
+    return 'Cacher vue carte'
   },
   formatColumns () {
-    return 'Columns'
+    return 'Colonnes'
+  },
+  formatColumnsToggleAll () {
+    return 'Tout basculer'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Plein écran'
   },
   formatAllRows () {
-    return 'All'
+    return 'Tout'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Rafraîchissement automatique'
   },
   formatExport () {
-    return 'Export data'
-  },
-  formatClearFilters () {
-    return 'Clear filters'
+    return 'Exporter les données'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Aller à'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Recherche avancée'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Fermer'
   }
 }
 

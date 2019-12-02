@@ -1,8 +1,10 @@
+const VERSION = '1.15.5'
+
 let bootstrapVersion = 4
 try {
   const rawVersion = $.fn.dropdown.Constructor.VERSION
 
-  // Only try to parse VERSION if is is defined.
+  // Only try to parse VERSION if it is defined.
   // It is undefined in older versions of Bootstrap (tested with 3.1.1).
   if (rawVersion !== undefined) {
     bootstrapVersion = parseInt(rawVersion, 10)
@@ -23,7 +25,9 @@ const CONSTANTS = {
       columns: 'glyphicon-th icon-th',
       detailOpen: 'glyphicon-plus icon-plus',
       detailClose: 'glyphicon-minus icon-minus',
-      fullscreen: 'glyphicon-fullscreen'
+      fullscreen: 'glyphicon-fullscreen',
+      search: 'glyphicon-search',
+      clearSearch: 'glyphicon-trash'
     },
     classes: {
       buttonsPrefix: 'btn',
@@ -31,7 +35,8 @@ const CONSTANTS = {
       buttonsGroup: 'btn-group',
       buttonsDropdown: 'btn-group',
       pull: 'pull',
-      inputGroup: '',
+      inputGroup: 'input-group',
+      inputPrefix: 'input-',
       input: 'form-control',
       paginationDropdown: 'btn-group dropdown',
       dropup: 'dropup',
@@ -40,14 +45,19 @@ const CONSTANTS = {
       buttonActive: 'active'
     },
     html: {
-      toobarDropdow: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-      toobarDropdowItem: '<li role="menuitem"><label>%s</label></li>',
+      toolbarDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
+      toolbarDropdownItem: '<li role="menuitem"><label>%s</label></li>',
+      toolbarDropdownSeparator: '<li class="divider"></li>',
       pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
       dropdownCaret: '<span class="caret"></span>',
       pagination: ['<ul class="pagination%s">', '</ul>'],
-      paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
-      icon: '<i class="%s %s"></i>'
+      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
+      icon: '<i class="%s %s"></i>',
+      inputGroup: '<div class="input-group">%s<span class="input-group-btn">%s</span></div>',
+      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
+      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
     }
   },
   4: {
@@ -59,9 +69,11 @@ const CONSTANTS = {
       toggleOff: 'fa-toggle-off',
       toggleOn: 'fa-toggle-on',
       columns: 'fa-th-list',
-      fullscreen: 'fa-arrows-alt',
       detailOpen: 'fa-plus',
-      detailClose: 'fa-minus'
+      detailClose: 'fa-minus',
+      fullscreen: 'fa-arrows-alt',
+      search: 'fa-search',
+      clearSearch: 'fa-trash'
     },
     classes: {
       buttonsPrefix: 'btn',
@@ -69,7 +81,8 @@ const CONSTANTS = {
       buttonsGroup: 'btn-group',
       buttonsDropdown: 'btn-group',
       pull: 'float',
-      inputGroup: '',
+      inputGroup: 'btn-group',
+      inputPrefix: 'form-control-',
       input: 'form-control',
       paginationDropdown: 'btn-group dropdown',
       dropup: 'dropup',
@@ -78,14 +91,19 @@ const CONSTANTS = {
       buttonActive: 'active'
     },
     html: {
-      toobarDropdow: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
-      toobarDropdowItem: '<label class="dropdown-item">%s</label>',
+      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
+      toolbarDropdownItem: '<label class="dropdown-item">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],
       pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
+      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
       dropdownCaret: '<span class="caret"></span>',
       pagination: ['<ul class="pagination%s">', '</ul>'],
-      paginationItem: '<li class="page-item%s"><a class="page-link" href="#">%s</a></li>',
-      icon: '<i class="%s %s"></i>'
+      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
+      icon: '<i class="%s %s"></i>',
+      inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
+      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
+      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
     }
   }
 }[bootstrapVersion]
@@ -102,6 +120,8 @@ const DEFAULTS = {
   },
   undefinedText: '-',
   locale: undefined,
+  virtualScroll: false,
+  virtualScrollItemHeight: undefined,
   sortable: true,
   sortClass: undefined,
   silentSort: true,
@@ -109,6 +129,7 @@ const DEFAULTS = {
   sortOrder: 'asc',
   sortStable: false,
   rememberOrder: false,
+  serverSort: true,
   customSort: undefined,
   columns: [
     []
@@ -152,6 +173,11 @@ const DEFAULTS = {
   search: false,
   searchOnEnterKey: false,
   strictSearch: false,
+  visibleSearch: false,
+  showButtonIcons: true,
+  showButtonText: false,
+  showSearchButton: false,
+  showSearchClearButton: false,
   trimOnSearch: true,
   searchAlign: 'right',
   searchTimeOut: 500,
@@ -163,6 +189,7 @@ const DEFAULTS = {
     return {}
   },
   showColumns: false,
+  showColumnsToggleAll: false,
   minimumCountColumns: 1,
   showPaginationSwitch: false,
   showRefresh: false,
@@ -171,7 +198,7 @@ const DEFAULTS = {
   smartDisplay: true,
   escape: false,
   filterOptions: {
-    'filterAlgorithm': 'and' // and means all given filter must match, or means one of the given filter must match
+    filterAlgorithm: 'and'
   },
   idField: undefined,
   selectItemName: 'btSelectItem',
@@ -198,9 +225,11 @@ const DEFAULTS = {
   toolbarAlign: 'left',
   buttonsToolbar: undefined,
   buttonsAlign: 'right',
+  buttonsOrder: ['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns'],
   buttonsPrefix: CONSTANTS.classes.buttonsPrefix,
   buttonsClass: CONSTANTS.classes.buttons,
   icons: CONSTANTS.icons,
+  html: CONSTANTS.html,
   iconSize: undefined,
   iconsPrefix: CONSTANTS.iconsPrefix, // glyphicon or fa(font-awesome)
   onAll (name, args) {
@@ -303,11 +332,23 @@ const EN = {
 
     return `Showing ${pageFrom} to ${pageTo} of ${totalRows} rows`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
   },
   formatSearch () {
     return 'Search'
+  },
+  formatClearSearch () {
+    return 'Clear Search'
   },
   formatNoMatches () {
     return 'No matching records found'
@@ -315,14 +356,29 @@ const EN = {
   formatPaginationSwitch () {
     return 'Hide/Show pagination'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Refresh'
   },
   formatToggle () {
     return 'Toggle'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Columns'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -367,12 +423,45 @@ const COLUMN_DEFAULTS = {
   events: undefined
 }
 
+const METHODS = [
+  'getOptions',
+  'refreshOptions',
+  'getData',
+  'getSelections', 'getAllSelections',
+  'load', 'append', 'prepend',
+  'remove', 'removeAll',
+  'insertRow', 'updateRow',
+  'getRowByUniqueId', 'updateByUniqueId', 'removeByUniqueId',
+  'updateCell', 'updateCellByUniqueId',
+  'showRow', 'hideRow', 'getHiddenRows',
+  'showColumn', 'hideColumn',
+  'getVisibleColumns', 'getHiddenColumns',
+  'showAllColumns', 'hideAllColumns',
+  'mergeCells',
+  'checkAll', 'uncheckAll', 'checkInvert',
+  'check', 'uncheck',
+  'checkBy', 'uncheckBy',
+  'refresh',
+  'destroy',
+  'resetView',
+  'showLoading', 'hideLoading',
+  'togglePagination', 'toggleFullscreen', 'toggleView',
+  'resetSearch',
+  'filterBy',
+  'scrollTo', 'getScrollPosition',
+  'selectPage', 'prevPage', 'nextPage',
+  'toggleDetailView',
+  'expandRow', 'collapseRow',
+  'expandAllRows', 'collapseAllRows',
+  'updateColumnTitle', 'updateFormatText'
+]
+
 const EVENTS = {
   'all.bs.table': 'onAll',
-  'click-cell.bs.table': 'onClickCell',
-  'dbl-click-cell.bs.table': 'onDblClickCell',
   'click-row.bs.table': 'onClickRow',
   'dbl-click-row.bs.table': 'onDblClickRow',
+  'click-cell.bs.table': 'onClickCell',
+  'dbl-click-cell.bs.table': 'onDblClickCell',
   'sort.bs.table': 'onSort',
   'check.bs.table': 'onCheck',
   'uncheck.bs.table': 'onUncheck',
@@ -401,6 +490,8 @@ const EVENTS = {
 Object.assign(DEFAULTS, EN)
 
 export default {
+  VERSION,
+
   THEME: `bootstrap${bootstrapVersion}`,
 
   CONSTANTS,
@@ -408,6 +499,8 @@ export default {
   DEFAULTS,
 
   COLUMN_DEFAULTS,
+
+  METHODS,
 
   EVENTS,
 

@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
 
     return `Ko'rsatypati ${pageFrom} dan ${pageTo} gacha ${totalRows} qatorlarni`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Filtrlarni tozalash'
   },
   formatSearch () {
     return 'Qidirish'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
   formatPaginationSwitch () {
     return 'Sahifalashni yashirish/ko\'rsatish'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Yangilash'
   },
   formatToggle () {
     return 'Ko\'rinish'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Ustunlar'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
   },
   formatExport () {
     return 'Eksport'
-  },
-  formatClearFilters () {
-    return 'Filtrlarni tozalash'
   },
   formatJumpTo () {
     return 'GO'

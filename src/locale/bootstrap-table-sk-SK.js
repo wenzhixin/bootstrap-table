@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['sk-SK'] = {
 
     return `Zobrazená ${pageFrom}. - ${pageTo}. položka z celkových ${totalRows}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Odstráň filtre'
   },
   formatSearch () {
     return 'Vyhľadávanie'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['sk-SK'] = {
   formatPaginationSwitch () {
     return 'Skry/Zobraz stránkovanie'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Obnoviť'
   },
   formatToggle () {
     return 'Prepni'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Stĺpce'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['sk-SK'] = {
   },
   formatExport () {
     return 'Exportuj dáta'
-  },
-  formatClearFilters () {
-    return 'Odstráň filtre'
   },
   formatJumpTo () {
     return 'GO'

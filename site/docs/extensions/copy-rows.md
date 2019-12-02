@@ -14,6 +14,10 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 <script src="extensions/copy-rows/bootstrap-table-copy-rows.js"></script>
 {% endhighlight %}
 
+## Example
+
+[Copy Rows](https://examples.bootstrap-table.com/#extensions/copy-rows.html)
+
 ## Options
 
 ### showCopyRows

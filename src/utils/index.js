@@ -54,12 +54,16 @@ export default {
         const colspan = r.colspan || 1
         const index = flag[i].indexOf(false)
 
+        r.colspanIndex = index
+
         if (colspan === 1) {
           r.fieldIndex = index
           // when field is undefined, use index instead
           if (typeof r.field === 'undefined') {
             r.field = index
           }
+        } else {
+          r.colspanGroup = r.colspan
         }
 
         for (let k = 0; k < rowspan; k++) {
@@ -67,6 +71,26 @@ export default {
         }
         for (let k = 0; k < colspan; k++) {
           flag[i][index + k] = true
+        }
+      }
+    }
+  },
+
+  updateFieldGroup (columns) {
+    const allColumns = [].concat(...columns)
+
+    for (const c of columns) {
+      for (const r of c) {
+        if (r.colspanGroup > 1) {
+          let colspan = 0
+          for (let i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
+            const column = allColumns.find(col => col.fieldIndex === i)
+            if (column.visible) {
+              colspan++
+            }
+          }
+          r.colspan = colspan
+          r.visible = colspan > 0
         }
       }
     }
@@ -245,5 +269,53 @@ export default {
       data.push(row)
     })
     return data
+  },
+
+  sort (a, b, order, sortStable, aPosition, bPosition) {
+    if (a === undefined || a === null) {
+      a = ''
+    }
+    if (b === undefined || b === null) {
+      b = ''
+    }
+
+    if (sortStable && a === b) {
+      a = aPosition
+      b = bPosition
+    }
+
+    // If both values are numeric, do a numeric comparison
+    if (this.isNumeric(a) && this.isNumeric(b)) {
+      // Convert numerical values form string to float.
+      a = parseFloat(a)
+      b = parseFloat(b)
+      if (a < b) {
+        return order * -1
+      }
+      if (a > b) {
+        return order
+      }
+      return 0
+    }
+
+    if (a === b) {
+      return 0
+    }
+
+    // If value is not a string, convert to string
+    if (typeof a !== 'string') {
+      a = a.toString()
+    }
+
+    if (a.localeCompare(b) === -1) {
+      return order * -1
+    }
+
+    return order
+  },
+
+  getResizeEventName (id = '') {
+    id = id || `${+new Date()}${~~(Math.random() * 1000000)}`
+    return `resize.bootstrap-table-${id}`
   }
 }

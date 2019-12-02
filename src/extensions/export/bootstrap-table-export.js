@@ -35,6 +35,10 @@ $.extend($.fn.bootstrapTable.defaults, {
   exportFooter: false
 })
 
+$.extend($.fn.bootstrapTable.columnDefaults, {
+  forceExport: false
+})
+
 $.extend($.fn.bootstrapTable.defaults.icons, {
   export: {
     bootstrap3: 'glyphicon-export icon-share',
@@ -80,23 +84,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    let $menu = $(this.constants.html.pageDropdown.join(''))
-
-    this.$export = $(`
-      <div class="export ${this.constants.classes.buttonsDropdown}">
-      <button class="${this.constants.buttonsClass} dropdown-toggle"
-      aria-label="Export"
-      data-toggle="dropdown"
-      type="button"
-      title="${o.formatExport()}">
-      ${Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export)}
-      ${this.constants.html.dropdownCaret}
-      </button>
-      </div>
-    `).appendTo($btnGroup)
-    this.$export.append($menu)
-
-    this.updateExportButton()
+    let $menu = $(this.constants.html.toolbarDropdown.join(''))
 
     let exportTypes = o.exportTypes
 
@@ -105,20 +93,55 @@ $.BootstrapTable = class extends $.BootstrapTable {
       exportTypes = types.map(t => t.slice(1, -1))
     }
 
-    // themes support
-    if ($menu.children().length) {
-      $menu = $menu.children().eq(0)
-    }
-    for (const type of exportTypes) {
-      if (TYPE_NAME.hasOwnProperty(type)) {
-        const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
-          '', TYPE_NAME[type]))
-        $item.attr('data-type', type)
-        $menu.append($item)
+    this.$export = $(exportTypes.length === 1 ? `
+      <div class="export ${this.constants.classes.buttonsDropdown}"
+      data-type="${exportTypes[0]}">
+      <button class="${this.constants.buttonsClass}"
+      aria-label="Export"
+      type="button"
+      title="${o.formatExport()}">
+      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+      ${o.showButtonText ? o.formatExport() : ''}
+      </button>
+      </div>
+    ` : `
+      <div class="export ${this.constants.classes.buttonsDropdown}">
+      <button class="${this.constants.buttonsClass} dropdown-toggle"
+      aria-label="Export"
+      data-toggle="dropdown"
+      type="button"
+      title="${o.formatExport()}">
+      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+      ${o.showButtonText ? o.formatExport() : ''}
+      ${this.constants.html.dropdownCaret}
+      </button>
+      </div>
+    `).appendTo($btnGroup)
+
+    let $items = this.$export
+
+    if (exportTypes.length > 1) {
+      this.$export.append($menu)
+
+      // themes support
+      if ($menu.children().length) {
+        $menu = $menu.children().eq(0)
       }
+      for (const type of exportTypes) {
+        if (TYPE_NAME.hasOwnProperty(type)) {
+          const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
+            '', TYPE_NAME[type]))
+          $item.attr('data-type', type)
+          $menu.append($item)
+        }
+      }
+
+      $items = $menu.children()
     }
 
-    $menu.children().click(e => {
+    this.updateExportButton()
+
+    $items.click(e => {
       e.preventDefault()
 
       const type = $(e.currentTarget).data('type')
@@ -175,13 +198,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
           footerHtml.push(footerCellHtml)
         })
 
-        this.append(footerData)
-
+        this.$body.append(this.$body.children().last()[0].outerHTML)
         const $lastTableRow = this.$body.children().last()
-
         $.each($lastTableRow.children(), (index, lastTableRowCell) => {
           $(lastTableRowCell).html(footerHtml[index])
         })
+      }
+
+      const hiddenColumns = this.getHiddenColumns()
+      hiddenColumns.forEach((row) => {
+        if (row.forceExport) {
+          this.showColumn(row.field)
+        }
+      })
+
+      if (typeof o.exportOptions.fileName === 'function') {
+        options.fileName = o.exportOptions.fileName()
       }
 
       this.$el.tableExport($.extend({
@@ -197,6 +229,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
             this.toggleView()
           }
 
+          hiddenColumns.forEach((row) => {
+            if (row.forceExport) {
+              this.hideColumn(row.field)
+            }
+          })
+
           if (callback) callback()
         }
       }, o.exportOptions, options))
@@ -205,11 +243,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (o.exportDataType === 'all' && o.pagination) {
       const eventName = o.sidePagination === 'server'
         ? 'post-body.bs.table' : 'page-change.bs.table'
+      const virtualScroll = this.options.virtualScroll
+
       this.$el.one(eventName, () => {
         doExport(() => {
+          this.options.virtualScroll = virtualScroll
           this.togglePagination()
         })
       })
+      this.options.virtualScroll = false
       this.togglePagination()
       this.trigger('export-saved', this.getData())
     } else if (o.exportDataType === 'selected') {

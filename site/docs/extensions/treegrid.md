@@ -6,13 +6,17 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [bootstrap-table-treegrid](https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/treegrid)
+Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 ## Usage
 
 {% highlight html %}
 <script src="extensions/treegrid/bootstrap-table-treegrid.js"></script>
 {% endhighlight %}
+
+## Example
+
+[Treegrid](https://examples.bootstrap-table.com/#extensions/treegrid.html)
 
 ## Options
 

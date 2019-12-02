@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['es-ES'] = {
 
     return `Mostrando desde ${pageFrom} hasta ${pageTo} - En total ${totalRows} resultados`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Limpiar búsqueda'
   },
   formatSearch () {
     return 'Buscar'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['es-ES'] = {
   formatPaginationSwitch () {
     return 'Ocultar/Mostrar paginación'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Refrescar'
   },
   formatToggle () {
     return 'Ocultar/Mostrar'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Columnas'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['es-ES'] = {
   },
   formatExport () {
     return 'Exportar los datos'
-  },
-  formatClearFilters () {
-    return 'Borrar los filtros'
   },
   formatJumpTo () {
     return 'GO'

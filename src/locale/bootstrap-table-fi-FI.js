@@ -17,8 +17,20 @@ $.fn.bootstrapTable.locales['fi-FI'] = {
 
     return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows}`
   },
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
   formatDetailPagination (totalRows) {
     return `Showing ${totalRows} rows`
+  },
+  formatClearSearch () {
+    return 'Poista suodattimet'
   },
   formatSearch () {
     return 'Hae'
@@ -29,14 +41,29 @@ $.fn.bootstrapTable.locales['fi-FI'] = {
   formatPaginationSwitch () {
     return 'Näytä/Piilota sivutus'
   },
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
   formatRefresh () {
     return 'Päivitä'
   },
   formatToggle () {
     return 'Valitse'
   },
+  formatToggleOn () {
+    return 'Show card view'
+  },
+  formatToggleOff () {
+    return 'Hide card view'
+  },
   formatColumns () {
     return 'Sarakkeet'
+  },
+  formatColumnsToggleAll () {
+    return 'Toggle all'
   },
   formatFullscreen () {
     return 'Fullscreen'
@@ -49,9 +76,6 @@ $.fn.bootstrapTable.locales['fi-FI'] = {
   },
   formatExport () {
     return 'Vie tiedot'
-  },
-  formatClearFilters () {
-    return 'Poista suodattimet'
   },
   formatJumpTo () {
     return 'GO'
