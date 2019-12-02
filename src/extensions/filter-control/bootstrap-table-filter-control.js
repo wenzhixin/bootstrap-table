@@ -192,8 +192,8 @@ const UtilsFilterControl = {
         }
       })
     }
-    if (foundLocalStorage){
-      for(var i = 0; i < foundLocalStorage.length; i++) {
+    if (foundLocalStorage) {
+      for (var i = 0; i < foundLocalStorage.length; i++) {
         let cookie = foundLocalStorage.key(i)
         if (/./.test(cookie)) {
           cookie = cookie.split('.').pop()
