@@ -24,7 +24,7 @@ To get started, check out:
 
 ## LICENSE
 
-**NOTE:** Bootstrap Table is licensed under the [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
+**NOTE:** Bootstrap Table is licensed under [The MIT License](https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE). Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can **Star** this repo, your support is my biggest motive force, thanks.
 
 ## Features
 
@@ -78,13 +78,13 @@ For feature requests, bug reports or submitting pull requests, please ensure you
 
 As stated above, please read [CONTRIBUTING.md](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTING.md), especially [Bug Reports](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTING.md#bug-reports)
 
-And as stated there, please provide jsFiddle when creating issues!
+And as stated there, please provide an [Online Example](https://live.bootstrap-table.com) when creating issues!
 
 It's really saves much time.
 
-You can also use these for templates:
+You can also use our examples template via Load Examples button:
 
-[jsFiddle Bootstrap Table](https://github.com/wenzhixin/bootstrap-table/issues/1765)
+[Online Editor](https://live.bootstrap-table.com/)
 
 Your feedback is very appreciated!
 
@@ -109,13 +109,11 @@ npm run build
 
 Result will appear in `dist` directory.
 
-## Backers
+## PayPal Sponsors
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bootstrap-table#backer)]
+<a href="https://edubirdie.com/write-my-essay" target="_blank"><img height="64" src="https://bootstrap-table.com/assets/images/edu-birdie.png" alt="Write my essay services from Edubirdie"></a>
 
-<a href="https://opencollective.com/bootstrap-table#backers" target="_blank"><img src="https://opencollective.com/bootstrap-table/backers.svg?width=890"></a>
-
-## Sponsors
+## OpenCollective Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/bootstrap-table#sponsor)]
 
@@ -124,3 +122,15 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/bootstrap-table/sponsor/2/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/2/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-table/sponsor/3/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/3/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-table/sponsor/4/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/5/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/6/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/7/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/8/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/9/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/9/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-table/sponsor/10/website" target="_blank"><img src="https://opencollective.com/bootstrap-table/sponsor/10/avatar.svg"></a>
+
+## OpenCollective Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bootstrap-table#backer)]
+
+<a href="https://opencollective.com/bootstrap-table#backers" target="_blank"><img src="https://opencollective.com/bootstrap-table/backers.svg?width=890"></a>

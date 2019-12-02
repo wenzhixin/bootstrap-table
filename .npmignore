@@ -1,0 +1,16 @@
+_gh_pages
+.github
+.sass-cache
+site
+tools
+_config.yml
+.browserslistrc
+.eslintrc.js
+.stylelintrc
+.travis.yml
+CONTRIBUTING.md
+deploy_key.enc
+deploy.sh
+DONATORS.md
+Gemfile
+Gemfile.lock
