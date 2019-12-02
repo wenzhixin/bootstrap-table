@@ -178,7 +178,7 @@ const UtilsCookie = {
             } else if (cookie.text !== '' && $(element).is('select')) {
               $(element).append($('<option>', {value: cookie.text, text: cookie.text}))
               $(element).val(cookie.text)
-			  cachedFilters[cookie.field] = cookie.text
+              cachedFilters[cookie.field] = cookie.text
             }
           })
         }
