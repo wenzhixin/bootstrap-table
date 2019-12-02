@@ -173,11 +173,11 @@ const UtilsCookie = {
         const applyCookieFilters = (element, filteredCookies) => {
           $(filteredCookies).each((i, cookie) => {
             if (cookie.text !== '' && $(element).is('input')) {
-              $(element).val(cookie.text);
-              cachedFilters[cookie.field] = cookie.text;
-            }else if(cookie.text !== '' && $(element).is('select')){
-              $(element).append($('<option>', {value: cookie.text, text: cookie.text}));
-              $(element).val(cookie.text); cachedFilters[cookie.field] = cookie.text;
+              $(element).val(cookie.text)
+              cachedFilters[cookie.field] = cookie.text
+            } else if (cookie.text !== '' && $(element).is('select')){
+              $(element).append($('<option>', {value: cookie.text, text: cookie.text}))
+              $(element).val(cookie.text); cachedFilters[cookie.field] = cookie.text
             }
           })
         }
