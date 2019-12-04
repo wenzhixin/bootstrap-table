@@ -193,13 +193,13 @@ const UtilsFilterControl = {
       })
     }
     if (foundLocalStorage) {
-      for (var i = 0; i < foundLocalStorage.length; i++) {
+      for (let i = 0; i < foundLocalStorage.length; i++) {
         let cookie = foundLocalStorage.key(i)
         if (/./.test(cookie)) {
           cookie = cookie.split('.').pop()
         }
 
-        if ($.inArray(cookie, cookies) === -1) {
+        if (!cookies.includes(cookie)) {
           cookies.push(cookie)
         }
       }
