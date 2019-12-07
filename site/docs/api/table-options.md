@@ -69,6 +69,33 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Thead Classes](https://examples.bootstrap-table.com/#options/thead-classes.html)
 
+## headerStyle
+
+- **Attribute:** `data-header-style`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  The header style formatter function, takes one parameter:
+
+  * `column`: the column object.
+
+  Support `classes` or `css`. Example usage:
+
+  {% highlight javascript %}
+  function headerStyle(column) {
+    return {
+      css: { 'font-weight': 'normal' },
+      classes: 'my-class'
+    }
+  }
+  {% endhighlight %}
+
+- **Default:** `{}`
+
+- **Example:** [Header Style](https://examples.bootstrap-table.com/#options/header-style.html)
+
 ## rowStyle
 
 - **Attribute:** `data-row-style`

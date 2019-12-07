@@ -112,6 +112,9 @@ const DEFAULTS = {
   height: undefined,
   classes: 'table table-bordered table-hover',
   theadClasses: '',
+  headerStyle (column) {
+    return {}
+  },
   rowStyle (row, index) {
     return {}
   },
@@ -185,7 +188,7 @@ const DEFAULTS = {
   customSearch: undefined,
   showHeader: true,
   showFooter: false,
-  footerStyle (row, index) {
+  footerStyle (column) {
     return {}
   },
   showColumns: false,
