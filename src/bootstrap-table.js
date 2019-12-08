@@ -252,6 +252,20 @@ class BootstrapTable {
           return
         }
 
+        const headerStyle = Utils.calculateObjectValue(null, this.options.headerStyle, [column])
+        const csses = []
+        let classes = ''
+
+        if (headerStyle && headerStyle.css) {
+          for (const [key, value] of Object.entries(headerStyle.css)) {
+            csses.push(`${key}: ${value}`)
+          }
+        }
+        if (headerStyle && headerStyle.classes) {
+          classes = Utils.sprintf(' class="%s"', column['class'] ?
+            [column['class'], headerStyle.classes].join(' ') : headerStyle.classes)
+        }
+
         if (typeof column.fieldIndex !== 'undefined') {
           this.header.fields[column.fieldIndex] = column.field
           this.header.styles[column.fieldIndex] = align + style
@@ -278,8 +292,8 @@ class BootstrapTable {
         html.push(`<th${Utils.sprintf(' title="%s"', column.titleTooltip)}`,
           column.checkbox || column.radio
             ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '')
-            : class_,
-          Utils.sprintf(' style="%s"', halign + style),
+            : classes || class_,
+          Utils.sprintf(' style="%s"', halign + style + csses.join('; ')),
           Utils.sprintf(' rowspan="%s"', column.rowspan),
           Utils.sprintf(' colspan="%s"', column.colspan),
           Utils.sprintf(' data-field="%s"', column.field),
@@ -1982,7 +1996,13 @@ class BootstrapTable {
 
   getData (params) {
     let data = this.options.data
-    if (this.searchText || this.options.sortName || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) {
+    if (
+      this.searchText ||
+      this.options.customSearch ||
+      this.options.sortName ||
+      !Utils.isEmptyObject(this.filterColumns) ||
+      !Utils.isEmptyObject(this.filterColumnsPartial)
+    ) {
       data = this.data
     }
 
