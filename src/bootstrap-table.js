@@ -1996,7 +1996,13 @@ class BootstrapTable {
 
   getData (params) {
     let data = this.options.data
-    if (this.searchText || this.options.sortName || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) {
+    if (
+      this.searchText ||
+      this.options.customSearch ||
+      this.options.sortName ||
+      !Utils.isEmptyObject(this.filterColumns) ||
+      !Utils.isEmptyObject(this.filterColumnsPartial)
+    ) {
       data = this.data
     }
 
