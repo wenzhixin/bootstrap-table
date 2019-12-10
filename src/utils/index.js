@@ -36,6 +36,7 @@ export default {
   setFieldIndex (columns) {
     let totalCol = 0
     const flag = []
+    const fieldIndexMap = {}
 
     for (const column of columns[0]) {
       totalCol += column.colspan || 1
@@ -57,10 +58,17 @@ export default {
         r.colspanIndex = index
 
         if (colspan === 1) {
-          r.fieldIndex = index
-          // when field is undefined, use index instead
-          if (typeof r.field === 'undefined') {
-            r.field = index
+          if (
+            typeof fieldIndexMap[index] === 'undefined' ||
+            typeof fieldIndexMap[index] !== 'string' ||
+            typeof r.field === 'string'
+          ) {
+            r.fieldIndex = index
+            // when field is undefined, use index instead
+            if (typeof r.field === 'undefined') {
+              r.field = index
+            }
+            fieldIndexMap[index] = r.field
           }
         } else {
           r.colspanGroup = r.colspan
