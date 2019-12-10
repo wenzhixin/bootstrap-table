@@ -180,7 +180,7 @@ const UtilsCookie = {
               option.value = cookie.text
               option.text = cookie.text
               element.add(option, element[1])
-              element.selectedIndex = 1;
+              element.selectedIndex = 1
               cachedFilters[cookie.field] = cookie.text
             }
           })
