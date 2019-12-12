@@ -2342,7 +2342,7 @@ class BootstrapTable {
     this.initBody()
 
     if (this.options.showColumns) {
-      const $items = this.$toolbar.find('.keep-open input').prop('disabled', false)
+      const $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false)
 
       if (needUpdate) {
         $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked)

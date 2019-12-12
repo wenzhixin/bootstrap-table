@@ -792,11 +792,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initToolbar()
   }
 
-  resetSearch () {
+  resetSearch (text) {
     if (this.options.filterControl && this.options.showSearchClearButton) {
       this.clearFilterControl()
     }
-    super.resetSearch()
+    super.resetSearch(text)
   }
 
   clearFilterControl () {
