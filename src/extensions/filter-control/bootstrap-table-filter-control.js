@@ -348,7 +348,7 @@ const UtilsFilterControl = {
           selectControl = UtilsFilterControl.getControlContainer().find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
 
           UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
-          filterDataType(filterDataSource, selectControl, column.filterDefault)
+          filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
         } else {
           throw new SyntaxError(
             'Error. You should use any of these allowed filter data methods: var, json, url.' +
