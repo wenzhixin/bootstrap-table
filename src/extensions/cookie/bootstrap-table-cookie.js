@@ -171,9 +171,16 @@ const UtilsCookie = {
         const searchControls = UtilsCookie.getCurrentSearchControls(bootstrapTable)
 
         const applyCookieFilters = (element, filteredCookies) => {
-          $(filteredCookies).each((i, cookie) => {
-            if (cookie.text !== '') {
-              $(element).val(cookie.text)
+          filteredCookies.forEach(cookie => {
+            if (cookie.text !== '' && element.tagName === 'INPUT') {
+              element.value = cookie.text
+              cachedFilters[cookie.field] = cookie.text
+            } else if (cookie.text !== '' && element.tagName === 'SELECT') {
+              const option = document.createElement('option')
+              option.value = cookie.text
+              option.text = cookie.text
+              element.add(option, element[1])
+              element.selectedIndex = 1
               cachedFilters[cookie.field] = cookie.text
             }
           })

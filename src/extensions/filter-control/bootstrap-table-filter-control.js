@@ -178,6 +178,7 @@ const UtilsFilterControl = {
   collectBootstrapCookies () {
     const cookies = []
     const foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g)
+    const foundLocalStorage = localStorage
 
     if (foundCookies) {
       $.each(foundCookies, (i, _cookie) => {
@@ -190,8 +191,20 @@ const UtilsFilterControl = {
           cookies.push(cookie)
         }
       })
-      return cookies
     }
+    if (foundLocalStorage) {
+      for (let i = 0; i < foundLocalStorage.length; i++) {
+        let cookie = foundLocalStorage.key(i)
+        if (/./.test(cookie)) {
+          cookie = cookie.split('.').pop()
+        }
+
+        if (!cookies.includes(cookie)) {
+          cookies.push(cookie)
+        }
+      }
+    }
+    return cookies
   },
   escapeID (id) {
     // eslint-disable-next-line no-useless-escape

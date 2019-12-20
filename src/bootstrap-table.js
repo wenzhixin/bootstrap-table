@@ -738,7 +738,7 @@ class BootstrapTable {
         $(currentTarget).val(text)
       }
 
-      if (this.searchText === text) {
+      if (this.searchText === text && text.length > 0) {
         return
       }
 
