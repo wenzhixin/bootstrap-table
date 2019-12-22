@@ -5,6 +5,17 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
 function doCompile {
+    cd site/_themes
+    yarn
+    yarn build
+    mv dist/js ../assets/js/themes
+    cd ../assets/js/themes
+    FILE=../../../_includes/themes.html
+    echo "" > $FILE
+    for f in *.js; do
+        echo "<script src=/assets/js/themes/$f></script>" >> $FILE
+    done
+    cd ../../../../
     bundle exec jekyll build
 }
 

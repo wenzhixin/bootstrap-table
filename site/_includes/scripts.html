@@ -14,3 +14,7 @@ $(function () {
 
 <script src="{{ site.baseurl }}/assets/js/docs.min.js?m=1"></script>
 {% include analytics.html %}
+
+{%- if page.group == "themes" -%}
+{% include themes.html %}
+{%- endif -%}
