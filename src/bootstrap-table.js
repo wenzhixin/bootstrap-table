@@ -1654,6 +1654,14 @@ class BootstrapTable {
         if (!silent) {
           this.hideLoading()
         }
+
+        if (
+          this.options.sidePagination === 'server' &&
+          res[this.options.totalField] > 0 &&
+          !res[this.options.dataField].length
+        ) {
+          this.updatePagination()
+        }
       },
       error: jqXHR => {
         let data = []
