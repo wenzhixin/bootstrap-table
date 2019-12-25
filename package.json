@@ -46,7 +46,7 @@
     "js:build": "run-s js:build:*",
     "css:build:scss": "find src -name 'bootstrap-table*.scss' | sed -e 'p;s/scss/css/' | xargs -n2 sass",
     "css:build:base": "find src -name '*.css' | sed -e 'p;s/src/dist/' | xargs -n2 cp",
-    "css:build:min": "find dist -name '*.css' | sed -e 'p;s/.css/.min.css/' | xargs -n2 cssmin",
+    "css:build:min": "find dist -name '*.css' -not -name '*.min.css' | sed -e 'p;s/.css/.min.css/' | xargs -n2 cssmin",
     "css:build:banner": "find dist -name '*.min.css' -exec headr {} -o {} --version --homepage --author --license \\;",
     "css:build": "run-s css:build:*",
     "clean": "rm -rf dist",
