@@ -738,7 +738,7 @@ class BootstrapTable {
         $(currentTarget).val(text)
       }
 
-      if (this.searchText === text) {
+      if (this.searchText === text && text.length > 0) {
         return
       }
 
@@ -1654,6 +1654,14 @@ class BootstrapTable {
         if (!silent) {
           this.hideLoading()
         }
+
+        if (
+          this.options.sidePagination === 'server' &&
+          res[this.options.totalField] > 0 &&
+          !res[this.options.dataField].length
+        ) {
+          this.updatePagination()
+        }
       },
       error: jqXHR => {
         let data = []
@@ -2342,7 +2350,7 @@ class BootstrapTable {
     this.initBody()
 
     if (this.options.showColumns) {
-      const $items = this.$toolbar.find('.keep-open input').prop('disabled', false)
+      const $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false)
 
       if (needUpdate) {
         $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked)

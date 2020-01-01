@@ -178,6 +178,7 @@ const UtilsFilterControl = {
   collectBootstrapCookies () {
     const cookies = []
     const foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g)
+    const foundLocalStorage = localStorage
 
     if (foundCookies) {
       $.each(foundCookies, (i, _cookie) => {
@@ -190,8 +191,20 @@ const UtilsFilterControl = {
           cookies.push(cookie)
         }
       })
-      return cookies
     }
+    if (foundLocalStorage) {
+      for (let i = 0; i < foundLocalStorage.length; i++) {
+        let cookie = foundLocalStorage.key(i)
+        if (/./.test(cookie)) {
+          cookie = cookie.split('.').pop()
+        }
+
+        if (!cookies.includes(cookie)) {
+          cookies.push(cookie)
+        }
+      }
+    }
+    return cookies
   },
   escapeID (id) {
     // eslint-disable-next-line no-useless-escape
@@ -348,7 +361,7 @@ const UtilsFilterControl = {
           selectControl = UtilsFilterControl.getControlContainer().find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
 
           UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
-          filterDataType(filterDataSource, selectControl, column.filterDefault)
+          filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
         } else {
           throw new SyntaxError(
             'Error. You should use any of these allowed filter data methods: var, json, url.' +
@@ -779,11 +792,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initToolbar()
   }
 
-  resetSearch () {
+  resetSearch (text) {
     if (this.options.filterControl && this.options.showSearchClearButton) {
       this.clearFilterControl()
     }
-    super.resetSearch()
+    super.resetSearch(text)
   }
 
   clearFilterControl () {
