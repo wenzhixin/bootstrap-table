@@ -2371,7 +2371,7 @@ class BootstrapTable {
   }
 
   isSelectionColumn (column) {
-    return (column.radio || column.checkbox)
+    return column.radio || column.checkbox
   }
 
   showAllColumns () {
