@@ -37,8 +37,8 @@ BootstrapTable.prototype.initBody = function (...args) {
   _initBody.apply(this, Array.prototype.slice.apply(args))
 
   that.$el
-    .off('column-switch.bs.table, page-change.bs.table')
-    .on('column-switch.bs.table, page-change.bs.table', () => {
+    .off('column-switch.bs.table page-change.bs.table')
+    .on('column-switch.bs.table page-change.bs.table', () => {
       reInitResizable(that)
     })
 }
