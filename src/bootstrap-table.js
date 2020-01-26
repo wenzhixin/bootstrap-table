@@ -690,7 +690,7 @@ class BootstrapTable {
       this.$toolbar.append(html.join(''))
       const $searchInput = this.$toolbar.find('.search input')
       const handleInputEvent = () => {
-        const eventTriggers = Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur'
+        const eventTriggers = `keyup drop blur ${Utils.isIEBrowser() ? 'mouseup' : ''}`
         $searchInput.off(eventTriggers).on(eventTriggers, event => {
           if (opts.searchOnEnterKey && event.keyCode !== 13) {
             return
