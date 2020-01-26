@@ -554,7 +554,7 @@ class BootstrapTable {
           ${this.constants.html.toolbarDropdown[0]}`)
 
         if (opts.showColumnsToggleAll) {
-          const allFieldsVisible = this.getVisibleColumns().length === this.columns.length
+          const allFieldsVisible = this.getVisibleColumns().length === this.columns.filter(column => !this.isSelectionColumn(column)).length
           html.push(
             Utils.sprintf(this.constants.html.toolbarDropdownItem,
               Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>',
@@ -566,7 +566,7 @@ class BootstrapTable {
         }
 
         this.columns.forEach((column, i) => {
-          if (column.radio || column.checkbox) {
+          if (this.isSelectionColumn(column)) {
             return
           }
 
@@ -645,7 +645,7 @@ class BootstrapTable {
 
         this._toggleColumn($this.val(), $this.prop('checked'), false)
         this.trigger('column-switch', $this.data('field'), $this.prop('checked'))
-        $toggleAll.prop('checked', $checkboxes.filter(':checked').length === this.columns.length)
+        $toggleAll.prop('checked', $checkboxes.filter(':checked').length === this.columns.filter(column => !this.isSelectionColumn(column)).length)
       })
 
       $toggleAll.off('click').on('click', ({currentTarget}) => {
@@ -2363,11 +2363,15 @@ class BootstrapTable {
   }
 
   getVisibleColumns () {
-    return this.columns.filter(({visible}) => visible)
+    return this.columns.filter((column) => column.visible && !this.isSelectionColumn(column))
   }
 
   getHiddenColumns () {
     return this.columns.filter(({visible}) => !visible)
+  }
+
+  isSelectionColumn (column) {
+    return column.radio || column.checkbox
   }
 
   showAllColumns () {
