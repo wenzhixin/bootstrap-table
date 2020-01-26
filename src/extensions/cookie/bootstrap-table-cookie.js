@@ -230,40 +230,42 @@ $.extend($.fn.bootstrapTable.utils, {
 
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
-    // FilterBy logic
-    const filterByCookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy))
-    this.filterColumns = filterByCookie ? filterByCookie : {}
+    if (this.options.cookie) {
+      // FilterBy logic
+      const filterByCookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy))
+      this.filterColumns = filterByCookie ? filterByCookie : {}
 
-    // FilterControl logic
-    this.options.filterControls = []
-    this.options.filterControlValuesLoaded = false
+      // FilterControl logic
+      this.options.filterControls = []
+      this.options.filterControlValuesLoaded = false
 
-    this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
-      this.options.cookiesEnabled.replace('[', '').replace(']', '')
-        .replace(/ /g, '').toLowerCase().split(',') :
-      this.options.cookiesEnabled
+      this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
+        this.options.cookiesEnabled.replace('[', '').replace(']', '')
+          .replace(/ /g, '').toLowerCase().split(',') :
+        this.options.cookiesEnabled
 
-    if (this.options.filterControl) {
-      const that = this
-      this.$el.on('column-search.bs.table', (e, field, text) => {
-        let isNewField = true
+      if (this.options.filterControl) {
+        const that = this
+        this.$el.on('column-search.bs.table', (e, field, text) => {
+          let isNewField = true
 
-        for (let i = 0; i < that.options.filterControls.length; i++) {
-          if (that.options.filterControls[i].field === field) {
-            that.options.filterControls[i].text = text
-            isNewField = false
-            break
+          for (let i = 0; i < that.options.filterControls.length; i++) {
+            if (that.options.filterControls[i].field === field) {
+              that.options.filterControls[i].text = text
+              isNewField = false
+              break
+            }
           }
-        }
-        if (isNewField) {
-          that.options.filterControls.push({
-            field,
-            text
-          })
-        }
+          if (isNewField) {
+            that.options.filterControls.push({
+              field,
+              text
+            })
+          }
 
-        UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that.options.filterControls))
-      }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(that))
+          UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that.options.filterControls))
+        }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(that))
+      }
     }
     super.init()
   }
