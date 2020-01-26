@@ -618,20 +618,22 @@ BootstrapTable.prototype.onMultipleSort = function () {
       if (aa === undefined || aa === null) {
         aa = ''
       }
+
       if (bb === undefined || bb === null) {
         bb = ''
       }
+
       if ($.isNumeric(aa) && $.isNumeric(bb)) {
         aa = parseFloat(aa)
         bb = parseFloat(bb)
-      }
-      if (typeof aa !== 'string') {
+      } else {
         aa = aa.toString()
-      }
+        bb = bb.toString()
 
-      if (that.options.multiSortStrictSearch) {
-        aa = aa.toLowerCase()
-        bb = bb.toLowerCase()
+        if (that.options.multiSortStrictSearch) {
+          aa = aa.toLowerCase()
+          bb = bb.toLowerCase()
+        }
       }
 
       arr1.push(
