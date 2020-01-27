@@ -127,11 +127,6 @@ class BootstrapTable {
       }
 
       this.$tableFooter = this.$container.find('.fixed-table-footer')
-    } else {
-      if (!this.$tableFooter.length) {
-        this.$el.append('<tfoot><tr></tr></tfoot>')
-        this.$tableFooter = this.$el.find('tfoot')
-      }
     }
   }
 
@@ -1891,6 +1886,11 @@ class BootstrapTable {
       html.push('<div class="fht-cell"></div>')
       html.push('</div>')
       html.push('</th>')
+    }
+
+    if (!this.options.height && !this.$tableFooter.length) {
+      this.$el.append('<tfoot><tr></tr></tfoot>')
+      this.$tableFooter = this.$el.find('tfoot')
     }
 
     this.$tableFooter.find('tr').html(html.join(''))
