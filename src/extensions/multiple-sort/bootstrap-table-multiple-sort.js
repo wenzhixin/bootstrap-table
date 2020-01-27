@@ -432,7 +432,7 @@ $.fn.bootstrapTable.methods.push('multipleSort')
 $.extend($.fn.bootstrapTable.defaults, {
   showMultiSort: false,
   showMultiSortButton: true,
-  multiSortStrictSearch: false,
+  multiSortStrictSort: false,
   sortPriority: null,
   onMultipleSort () {
     return false
@@ -630,7 +630,7 @@ BootstrapTable.prototype.onMultipleSort = function () {
         aa = aa.toString()
         bb = bb.toString()
 
-        if (that.options.multiSortStrictSearch) {
+        if (that.options.multiSortStrictSort) {
           aa = aa.toLowerCase()
           bb = bb.toLowerCase()
         }
