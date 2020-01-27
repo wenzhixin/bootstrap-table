@@ -236,7 +236,7 @@ const bootstrap = {
                     </table>
                 </div>
               </div>
-              
+
               <button class="waves-effect waves-light button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">%s</span>
               </button>
@@ -488,6 +488,7 @@ $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initToolbar = BootstrapTable.prototype.initToolbar
+const _destroy = BootstrapTable.prototype.destroy
 
 BootstrapTable.prototype.initToolbar = function (...args) {
   this.showToolbar = this.showToolbar || this.options.showMultiSort
@@ -581,6 +582,14 @@ BootstrapTable.prototype.initToolbar = function (...args) {
         that.assignSortableArrows()
       }
     })
+  }
+}
+
+BootstrapTable.prototype.destroy = function (...args) {
+  _destroy.apply(this, Array.prototype.slice.apply(args))
+
+  if (this.options.showMultiSort) {
+    this.$sortModal.remove()
   }
 }
 
