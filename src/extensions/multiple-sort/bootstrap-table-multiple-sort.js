@@ -432,6 +432,7 @@ $.fn.bootstrapTable.methods.push('multipleSort')
 $.extend($.fn.bootstrapTable.defaults, {
   showMultiSort: false,
   showMultiSortButton: true,
+  multiSortStrictSort: false,
   sortPriority: null,
   onMultipleSort () {
     return false
@@ -617,15 +618,22 @@ BootstrapTable.prototype.onMultipleSort = function () {
       if (aa === undefined || aa === null) {
         aa = ''
       }
+
       if (bb === undefined || bb === null) {
         bb = ''
       }
+
       if ($.isNumeric(aa) && $.isNumeric(bb)) {
         aa = parseFloat(aa)
         bb = parseFloat(bb)
-      }
-      if (typeof aa !== 'string') {
+      } else {
         aa = aa.toString()
+        bb = bb.toString()
+
+        if (that.options.multiSortStrictSort) {
+          aa = aa.toLowerCase()
+          bb = bb.toLowerCase()
+        }
       }
 
       arr1.push(
