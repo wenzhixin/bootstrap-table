@@ -236,7 +236,7 @@ const bootstrap = {
                     </table>
                 </div>
               </div>
-              
+
               <button class="waves-effect waves-light button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">%s</span>
               </button>
@@ -432,6 +432,7 @@ $.fn.bootstrapTable.methods.push('multipleSort')
 $.extend($.fn.bootstrapTable.defaults, {
   showMultiSort: false,
   showMultiSortButton: true,
+  multiSortStrictSort: false,
   sortPriority: null,
   onMultipleSort () {
     return false
@@ -488,6 +489,7 @@ $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initToolbar = BootstrapTable.prototype.initToolbar
+const _destroy = BootstrapTable.prototype.destroy
 
 BootstrapTable.prototype.initToolbar = function (...args) {
   this.showToolbar = this.showToolbar || this.options.showMultiSort
@@ -584,6 +586,14 @@ BootstrapTable.prototype.initToolbar = function (...args) {
   }
 }
 
+BootstrapTable.prototype.destroy = function (...args) {
+  _destroy.apply(this, Array.prototype.slice.apply(args))
+
+  if (this.options.showMultiSort) {
+    this.$sortModal.remove()
+  }
+}
+
 BootstrapTable.prototype.multipleSort = function () {
   const that = this
   if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
@@ -608,15 +618,22 @@ BootstrapTable.prototype.onMultipleSort = function () {
       if (aa === undefined || aa === null) {
         aa = ''
       }
+
       if (bb === undefined || bb === null) {
         bb = ''
       }
+
       if ($.isNumeric(aa) && $.isNumeric(bb)) {
         aa = parseFloat(aa)
         bb = parseFloat(bb)
-      }
-      if (typeof aa !== 'string') {
+      } else {
         aa = aa.toString()
+        bb = bb.toString()
+
+        if (that.options.multiSortStrictSort) {
+          aa = aa.toLowerCase()
+          bb = bb.toLowerCase()
+        }
       }
 
       arr1.push(

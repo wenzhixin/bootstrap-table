@@ -127,11 +127,6 @@ class BootstrapTable {
       }
 
       this.$tableFooter = this.$container.find('.fixed-table-footer')
-    } else {
-      if (!this.$tableFooter.length) {
-        this.$el.append('<tfoot><tr></tr></tfoot>')
-        this.$tableFooter = this.$el.find('tfoot')
-      }
     }
   }
 
@@ -190,7 +185,7 @@ class BootstrapTable {
     // if options.data is setting, do not process tbody and tfoot data
     if (!this.options.data.length) {
       this.options.data = Utils.trToData(this.columns, this.$el.find('>tbody>tr'))
-      if (data.length) {
+      if (this.options.data.length) {
         this.fromHtml = true
       }
     }
@@ -771,7 +766,7 @@ class BootstrapTable {
         return
       }
 
-      const s = this.searchText && (this.options.escape
+      const s = this.searchText && (this.fromHtml
         ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
       const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
@@ -1891,6 +1886,11 @@ class BootstrapTable {
       html.push('<div class="fht-cell"></div>')
       html.push('</div>')
       html.push('</th>')
+    }
+
+    if (!this.options.height && !this.$tableFooter.length) {
+      this.$el.append('<tfoot><tr></tr></tfoot>')
+      this.$tableFooter = this.$el.find('tfoot')
     }
 
     this.$tableFooter.find('tr').html(html.join(''))

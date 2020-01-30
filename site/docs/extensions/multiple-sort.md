@@ -38,6 +38,16 @@ toc: true
 
 - **Default:** `true`
 
+### multiSortStrictSort
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to enable strict sorting. This means that strings will be compared and ordered using toLowerCase.
+
+- **Default:** `false`
+
 ### sortPriority
 
 - **type:** `Object`
