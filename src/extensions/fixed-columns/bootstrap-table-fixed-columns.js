@@ -239,4 +239,52 @@ $.BootstrapTable = class extends $.BootstrapTable {
       })
     }
   }
+
+  updateSelected () {
+    super.updateSelected()
+
+    if (!this.options.fixedColumns || this.options.detailView) {
+      return
+    }
+
+    this.$tableBody.find('tr').each((i, el) => {
+      const index = $(el).data('index')
+      const classes = $(el).attr('class')
+
+      const inputSelector = `[name="${this.options.selectItemName}"]`
+      const $input = $(el).find(inputSelector)
+
+      if (typeof index === undefined) {
+        return
+      }
+
+      if (this.$fixedBody && this.options.fixedNumber) {
+        const $tr = this.$fixedBody.find(`tr[data-index="${index}"]`)
+        $tr.attr('class', classes)
+
+        if ($input.length) {
+          $tr.find(inputSelector).prop('checked', $input.prop('checked'))
+        }
+
+        if (this.$selectAll.length) {
+          this.$fixedHeader.find('[name="btSelectAll"]')
+            .prop('checked', this.$selectAll.prop('checked'))
+        }
+      }
+
+      if (this.$fixedBodyRight && this.options.fixedRightNumber) {
+        const $tr = this.$fixedBodyRight.find(`tr[data-index="${index}"]`)
+        $tr.attr('class', classes)
+
+        if ($input.length) {
+          $tr.find(inputSelector).prop('checked', $input.prop('checked'))
+        }
+
+        if (this.$selectAll.length) {
+          this.$fixedHeaderRight.find('[name="btSelectAll"]')
+            .prop('checked', this.$selectAll.prop('checked'))
+        }
+      }
+    })
+  }
 }

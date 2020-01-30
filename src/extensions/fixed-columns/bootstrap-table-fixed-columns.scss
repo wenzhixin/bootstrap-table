@@ -1,7 +1,7 @@
 @import '../../themes/bootstrap/variables.scss';
 
 .bootstrap-table {
-  tr.hover {
+  tr.hover td {
     background: $hover-bg;
   }
 }
