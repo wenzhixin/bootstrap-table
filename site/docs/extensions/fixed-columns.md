@@ -27,7 +27,7 @@ toc: true
 
 - **Detail:**
 
-  set `true` to enable fixed columns.
+  Set `true` to enable fixed columns.
 
 - **Default:** `false`
 
@@ -39,6 +39,16 @@ toc: true
 
 - **Detail:**
 
-  the number of fixed columns.
+  The number of the left fixed columns.
 
-- **Default:** `1`
+- **Default:** `0`
+
+### fixedRightNumber
+
+- **type:** Number
+
+- **Detail:**
+
+  The number of the right fixed columns.
+
+- **Default:** `0`
