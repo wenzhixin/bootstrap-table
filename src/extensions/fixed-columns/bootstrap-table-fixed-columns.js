@@ -11,18 +11,16 @@ $.extend($.fn.bootstrapTable.defaults, {
 $.BootstrapTable = class extends $.BootstrapTable {
 
   initContainer () {
-    if (
-      this.options.fixedColumns &&
-      (this.options.fixedNumber || this.options.fixedRightNumber)
-    ) {
+    if (!this.options.fixedColumns || this.options.detailView) {
+      super.initContainer()
+      return
+    }
+
+    if (this.options.fixedNumber || this.options.fixedRightNumber) {
       this.options.classes = this.options.classes.replace('table-hover', '')
     }
 
     super.initContainer()
-
-    if (!this.options.fixedColumns) {
-      return
-    }
 
     if (this.options.fixedNumber) {
       this.$tableContainer.append('<div class="fixed-columns"></div>')
@@ -38,7 +36,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   fitHeader (...args) {
     super.fitHeader(...args)
 
-    if (!this.options.fixedColumns) {
+    if (!this.options.fixedColumns || this.options.detailView) {
       return
     }
 
@@ -76,7 +74,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initBody (...args) {
     super.initBody(...args)
 
-    if (!this.options.fixedColumns) {
+    if (!this.options.fixedColumns || this.options.detailView) {
       return
     }
 
@@ -130,6 +128,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   trigger (...args) {
     super.trigger(...args)
+
+    if (!this.options.fixedColumns || this.options.detailView) {
+      return
+    }
 
     if (args[0] === 'scroll-body') {
       if (this.needFixedColumns && this.options.fixedNumber) {
