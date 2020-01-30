@@ -56,3 +56,4 @@ toc: true
 ## Note
 
 * This extension does not support `detailView` option.
+* This extension does not support `cardView` option.

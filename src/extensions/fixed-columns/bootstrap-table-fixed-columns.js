@@ -10,8 +10,14 @@ $.extend($.fn.bootstrapTable.defaults, {
 
 $.BootstrapTable = class extends $.BootstrapTable {
 
+  fixedColumnsSupported () {
+    return this.options.fixedColumns &&
+      !this.options.detailView &&
+      !this.options.cardView
+  }
+
   initContainer () {
-    if (!this.options.fixedColumns || this.options.detailView) {
+    if (!this.fixedColumnsSupported()) {
       super.initContainer()
       return
     }
@@ -33,18 +39,97 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  fitHeader (...args) {
-    super.fitHeader(...args)
+  initBody (...args) {
+    super.initBody(...args)
 
-    if (!this.options.fixedColumns || this.options.detailView) {
+    if (!this.fixedColumnsSupported()) {
       return
     }
 
-    if (this.$el.is(':hidden')) {
+    if (this.options.showHeader && this.options.height) {
       return
     }
 
-    this.needFixedColumns = this.$tableHeader.width() < this.$tableHeader.find('table').width()
+    this.initFixedColumnsBody()
+    this.initFixedColumnsEvents()
+  }
+
+  trigger (...args) {
+    super.trigger(...args)
+
+    if (!this.fixedColumnsSupported()) {
+      return
+    }
+
+    if (args[0] === 'post-header') {
+      this.initFixedColumnsHeader()
+    } else if (args[0] === 'scroll-body') {
+      if (this.needFixedColumns && this.options.fixedNumber) {
+        this.$fixedBody.scrollTop(this.$tableBody.scrollTop())
+      }
+
+      if (this.needFixedColumns && this.options.fixedRightNumber) {
+        this.$fixedBodyRight.scrollTop(this.$tableBody.scrollTop())
+      }
+    }
+  }
+
+  updateSelected () {
+    super.updateSelected()
+
+    if (!this.fixedColumnsSupported()) {
+      return
+    }
+
+    this.$tableBody.find('tr').each((i, el) => {
+      const index = $(el).data('index')
+      const classes = $(el).attr('class')
+
+      const inputSelector = `[name="${this.options.selectItemName}"]`
+      const $input = $(el).find(inputSelector)
+
+      if (typeof index === undefined) {
+        return
+      }
+
+      if (this.$fixedBody && this.options.fixedNumber) {
+        const $tr = this.$fixedBody.find(`tr[data-index="${index}"]`)
+        $tr.attr('class', classes)
+
+        if ($input.length) {
+          $tr.find(inputSelector).prop('checked', $input.prop('checked'))
+        }
+
+        if (this.$selectAll.length) {
+          this.$fixedHeader.add(this.$fixedBody)
+            .find('[name="btSelectAll"]')
+            .prop('checked', this.$selectAll.prop('checked'))
+        }
+      }
+
+      if (this.$fixedBodyRight && this.options.fixedRightNumber) {
+        const $tr = this.$fixedBodyRight.find(`tr[data-index="${index}"]`)
+        $tr.attr('class', classes)
+
+        if ($input.length) {
+          $tr.find(inputSelector).prop('checked', $input.prop('checked'))
+        }
+
+        if (this.$selectAll.length) {
+          this.$fixedHeaderRight.add(this.$fixedBodyRight)
+            .find('[name="btSelectAll"]')
+            .prop('checked', this.$selectAll.prop('checked'))
+        }
+      }
+    })
+  }
+
+  initFixedColumnsHeader () {
+    if (this.options.height) {
+      this.needFixedColumns = this.$tableHeader.width() < this.$tableHeader.find('table').width()
+    } else {
+      this.needFixedColumns = this.$tableBody.width() < this.$tableBody.find('table').width()
+    }
 
     if (this.needFixedColumns && this.options.fixedNumber) {
       this.$fixedColumns.find('.fixed-table-header').remove()
@@ -65,21 +150,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
         width: this.getFixedColumnsWidth(true)
       })
       this.$fixedHeaderRight.scrollLeft(this.$fixedHeaderRight.find('table').width())
-    }
-
-    this.initFixedColumnsBody()
-    this.initFixedColumnsEvents()
-  }
-
-  initBody (...args) {
-    super.initBody(...args)
-
-    if (!this.options.fixedColumns || this.options.detailView) {
-      return
-    }
-
-    if (this.options.showHeader && this.options.height) {
-      return
     }
 
     this.initFixedColumnsBody()
@@ -124,24 +194,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     return width + 1
-  }
-
-  trigger (...args) {
-    super.trigger(...args)
-
-    if (!this.options.fixedColumns || this.options.detailView) {
-      return
-    }
-
-    if (args[0] === 'scroll-body') {
-      if (this.needFixedColumns && this.options.fixedNumber) {
-        this.$fixedBody.scrollTop(this.$tableBody.scrollTop())
-      }
-
-      if (this.needFixedColumns && this.options.fixedRightNumber) {
-        this.$fixedBodyRight.scrollTop(this.$tableBody.scrollTop())
-      }
-    }
   }
 
   initFixedColumnsEvents () {
@@ -238,53 +290,5 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
       })
     }
-  }
-
-  updateSelected () {
-    super.updateSelected()
-
-    if (!this.options.fixedColumns || this.options.detailView) {
-      return
-    }
-
-    this.$tableBody.find('tr').each((i, el) => {
-      const index = $(el).data('index')
-      const classes = $(el).attr('class')
-
-      const inputSelector = `[name="${this.options.selectItemName}"]`
-      const $input = $(el).find(inputSelector)
-
-      if (typeof index === undefined) {
-        return
-      }
-
-      if (this.$fixedBody && this.options.fixedNumber) {
-        const $tr = this.$fixedBody.find(`tr[data-index="${index}"]`)
-        $tr.attr('class', classes)
-
-        if ($input.length) {
-          $tr.find(inputSelector).prop('checked', $input.prop('checked'))
-        }
-
-        if (this.$selectAll.length) {
-          this.$fixedHeader.find('[name="btSelectAll"]')
-            .prop('checked', this.$selectAll.prop('checked'))
-        }
-      }
-
-      if (this.$fixedBodyRight && this.options.fixedRightNumber) {
-        const $tr = this.$fixedBodyRight.find(`tr[data-index="${index}"]`)
-        $tr.attr('class', classes)
-
-        if ($input.length) {
-          $tr.find(inputSelector).prop('checked', $input.prop('checked'))
-        }
-
-        if (this.$selectAll.length) {
-          this.$fixedHeaderRight.find('[name="btSelectAll"]')
-            .prop('checked', this.$selectAll.prop('checked'))
-        }
-      }
-    })
   }
 }
