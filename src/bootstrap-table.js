@@ -665,7 +665,7 @@ class BootstrapTable {
           $listItems.show()
           $checkboxes.each((i, el) => {
             const $checkbox = $(el)
-            const $listItem = $checkbox.parents('li')
+            const $listItem = $checkbox.parents('.dropdown-item-marker')
             const text = $listItem.text().toLowerCase()
             if (!text.includes(searchValue)) {
               $listItem.hide()
