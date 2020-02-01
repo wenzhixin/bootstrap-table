@@ -1102,6 +1102,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Columns Toggle All](https://examples.bootstrap-table.com/#options/columns-toggle-all.html)
 
+## showColumnsSearch
+
+- **Attribute:** `data-show-columns-search`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a search for the columns filter.
+
+- **Default:** `false`
+
+- **Example:** [Columns Search](https://examples.bootstrap-table.com/#options/columns-search.html)
+
 ## minimumCountColumns
 
 - **Attribute:** `data-minimum-count-columns`

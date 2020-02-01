@@ -193,6 +193,7 @@ const DEFAULTS = {
   },
   showColumns: false,
   showColumnsToggleAll: false,
+  showColumnsSearch: false,
   minimumCountColumns: 1,
   showPaginationSwitch: false,
   showRefresh: false,
