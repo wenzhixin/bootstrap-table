@@ -398,8 +398,6 @@ class BootstrapTable {
     let name = this.options.sortName
     const order = this.options.sortOrder === 'desc' ? -1 : 1
     const index = this.header.fields.indexOf(this.options.sortName)
-    const currSortOrder = this.options.sortOrder
-    const lastSortOrder = this.options.lastSortOrder
     let timeoutId = 0
 
     if (index !== -1) {
@@ -418,9 +416,9 @@ class BootstrapTable {
           this.data
         ])
       } else {
-        if (lastSortOrder === undefined && this.options.dataUnsorted === undefined) {
+        if (this.options.lastSortOrder === undefined && this.options.dataUnsorted === undefined) {
           this.options.dataUnsorted = this.options.data.slice()
-        } else if (lastSortOrder === 'asc' && currSortOrder === 'desc') {
+        } else if (this.options.lastSortOrder === 'asc' && this.options.sortOrder === 'desc') {
           this.options.sortOrder = 'asc'
           this.options.sortName = undefined
           this.options.lastSortOrder = undefined
@@ -430,8 +428,8 @@ class BootstrapTable {
           return
         }
 
-        if (!(lastSortOrder === undefined && currSortOrder === 'asc')) {
-          this.options.lastSortOrder = currSortOrder
+        if (!(this.options.lastSortOrder === undefined && this.options.sortOrder === 'asc')) {
+          this.options.lastSortOrder = this.options.sortOrder
         }
 
         this.data.sort((a, b) => {
