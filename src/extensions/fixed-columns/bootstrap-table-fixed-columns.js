@@ -2,6 +2,59 @@
  * @author zhixin wen <wenzhixin2010@gmail.com>
  */
 
+const Utils = $.fn.bootstrapTable.utils
+
+// Reasonable defaults
+const PIXEL_STEP = 10
+const LINE_HEIGHT = 40
+const PAGE_HEIGHT = 800
+
+function normalizeWheel (event) {
+  let sX = 0 // spinX
+  let sY = 0 // spinY
+  let pX = 0 // pixelX
+  let pY = 0 // pixelY
+
+  // Legacy
+  if ('detail' in event) { sY = event.detail }
+  if ('wheelDelta' in event) { sY = -event.wheelDelta / 120 }
+  if ('wheelDeltaY' in event) { sY = -event.wheelDeltaY / 120 }
+  if ('wheelDeltaX' in event) { sX = -event.wheelDeltaX / 120 }
+
+  // side scrolling on FF with DOMMouseScroll
+  if ( 'axis' in event && event.axis === event.HORIZONTAL_AXIS ) {
+    sX = sY
+    sY = 0
+  }
+
+  pX = sX * PIXEL_STEP
+  pY = sY * PIXEL_STEP
+
+  if ('deltaY' in event) { pY = event.deltaY }
+  if ('deltaX' in event) { pX = event.deltaX }
+
+  if ((pX || pY) && event.deltaMode) {
+    if (event.deltaMode === 1) { // delta in LINE units
+      pX *= LINE_HEIGHT
+      pY *= LINE_HEIGHT
+    } else { // delta in PAGE units
+      pX *= PAGE_HEIGHT
+      pY *= PAGE_HEIGHT
+    }
+  }
+
+  // Fall-back if spin cannot be determined
+  if (pX && !sX) { sX = (pX < 1) ? -1 : 1 }
+  if (pY && !sY) { sY = (pY < 1) ? -1 : 1 }
+
+  return {
+    spinX: sX,
+    spinY: sY,
+    pixelX: pX,
+    pixelY: pY
+  }
+}
+
 $.extend($.fn.bootstrapTable.defaults, {
   fixedColumns: false,
   fixedNumber: 0,
@@ -82,18 +135,19 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     this.$tableBody.find('tr').each((i, el) => {
-      const index = $(el).data('index')
-      const classes = $(el).attr('class')
+      const $el = $(el)
+      const index = $el.data('index')
+      const classes = $el.attr('class')
 
       const inputSelector = `[name="${this.options.selectItemName}"]`
-      const $input = $(el).find(inputSelector)
+      const $input = $el.find(inputSelector)
 
       if (typeof index === undefined) {
         return
       }
 
-      if (this.$fixedBody && this.options.fixedNumber) {
-        const $tr = this.$fixedBody.find(`tr[data-index="${index}"]`)
+      const updateFixedBody = ($fixedHeader, $fixedBody) => {
+        const $tr = $fixedBody.find(`tr[data-index="${index}"]`)
         $tr.attr('class', classes)
 
         if ($input.length) {
@@ -101,25 +155,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
 
         if (this.$selectAll.length) {
-          this.$fixedHeader.add(this.$fixedBody)
+          $fixedHeader.add($fixedBody)
             .find('[name="btSelectAll"]')
             .prop('checked', this.$selectAll.prop('checked'))
         }
       }
 
+      if (this.$fixedBody && this.options.fixedNumber) {
+        updateFixedBody(this.$fixedHeader, this.$fixedBody)
+      }
+
       if (this.$fixedBodyRight && this.options.fixedRightNumber) {
-        const $tr = this.$fixedBodyRight.find(`tr[data-index="${index}"]`)
-        $tr.attr('class', classes)
-
-        if ($input.length) {
-          $tr.find(inputSelector).prop('checked', $input.prop('checked'))
-        }
-
-        if (this.$selectAll.length) {
-          this.$fixedHeaderRight.add(this.$fixedBodyRight)
-            .find('[name="btSelectAll"]')
-            .prop('checked', this.$selectAll.prop('checked'))
-        }
+        updateFixedBody(this.$fixedHeaderRight, this.$fixedBodyRight)
       }
     })
   }
@@ -131,24 +178,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.needFixedColumns = this.$tableBody.width() < this.$tableBody.find('table').width()
     }
 
-    if (this.needFixedColumns && this.options.fixedNumber) {
-      this.$fixedColumns.find('.fixed-table-header').remove()
-      this.$fixedColumns.append(this.$tableHeader.clone(true))
-      this.$fixedHeader = this.$fixedColumns.find('.fixed-table-header')
+    const initFixedHeader = ($fixedColumns, isRight) => {
+      $fixedColumns.find('.fixed-table-header').remove()
+      $fixedColumns.append(this.$tableHeader.clone(true))
 
-      this.$fixedColumns.css({
-        width: this.getFixedColumnsWidth()
+      $fixedColumns.css({
+        width: this.getFixedColumnsWidth(isRight)
       })
+      return $fixedColumns.find('.fixed-table-header')
+    }
+
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedHeader = initFixedHeader(this.$fixedColumns)
+      this.$fixedHeader.css('margin-right', '')
     }
 
     if (this.needFixedColumns && this.options.fixedRightNumber) {
-      this.$fixedColumnsRight.find('.fixed-table-header').remove()
-      this.$fixedColumnsRight.append(this.$tableHeader.clone(true))
-      this.$fixedHeaderRight = this.$fixedColumnsRight.find('.fixed-table-header')
-
-      this.$fixedColumnsRight.css({
-        width: this.getFixedColumnsWidth(true)
-      })
+      this.$fixedHeaderRight = initFixedHeader(this.$fixedColumnsRight, true)
       this.$fixedHeaderRight.scrollLeft(this.$fixedHeaderRight.find('table').width())
     }
 
@@ -157,24 +203,34 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initFixedColumnsBody () {
-    if (this.needFixedColumns && this.options.fixedNumber) {
-      this.$fixedColumns.find('.fixed-table-body').remove()
-      this.$fixedColumns.append(this.$tableBody.clone(true))
-      this.$fixedBody = this.$fixedColumns.find('.fixed-table-body')
+    const initFixedBody = ($fixedColumns, $fixedHeader) => {
+      $fixedColumns.find('.fixed-table-body').remove()
+      $fixedColumns.append(this.$tableBody.clone(true))
 
-      this.$fixedBody.css({
-        height: this.$fixedColumns.height() - this.$fixedHeader.height()
+      const $fixedBody = $fixedColumns.find('.fixed-table-body')
+
+      const tableBody = this.$tableBody.get(0)
+      const scrollHeight = tableBody.scrollHeight >
+        tableBody.clientHeight + this.$header.outerHeight()
+        ? Utils.getScrollBarWidth() : 0
+
+      $fixedColumns.css({
+        height: this.$tableContainer.outerHeight(true) - scrollHeight - 1
       })
+
+      $fixedBody.css({
+        height: $fixedColumns.height() - $fixedHeader.height()
+      })
+
+      return $fixedBody
+    }
+
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedBody = initFixedBody(this.$fixedColumns, this.$fixedHeader)
     }
 
     if (this.needFixedColumns && this.options.fixedRightNumber) {
-      this.$fixedColumnsRight.find('.fixed-table-body').remove()
-      this.$fixedColumnsRight.append(this.$tableBody.clone(true))
-      this.$fixedBodyRight = this.$fixedColumnsRight.find('.fixed-table-body')
-
-      this.$fixedBodyRight.css({
-        height: this.$fixedColumnsRight.height() - this.$fixedHeaderRight.height()
-      })
+      this.$fixedBodyRight = initFixedBody(this.$fixedColumnsRight, this.$fixedHeaderRight)
       this.$fixedBodyRight.scrollLeft(this.$fixedBodyRight.find('table').width())
     }
   }
@@ -183,110 +239,91 @@ $.BootstrapTable = class extends $.BootstrapTable {
     let visibleFields = this.getVisibleFields()
     let width = 0
     let fixedNumber = this.options.fixedNumber
+    let marginRight = 0
 
     if (isRight) {
       visibleFields = visibleFields.reverse()
       fixedNumber = this.options.fixedRightNumber
+      marginRight = parseInt(this.$tableHeader.css('margin-right'), 10)
     }
 
     for (let i = 0; i < fixedNumber; i++) {
       width += this.$header.find(`th[data-field="${visibleFields[i]}"]`).outerWidth(true)
     }
 
-    return width + 1
+    return width + marginRight + 1
   }
 
   initFixedColumnsEvents () {
+    const toggleHover = (e, toggle) => {
+      const tr = `tr[data-index="${$(e.currentTarget).data('index')}"]`
+      let $trs = this.$tableBody.find(tr)
+
+      if (this.$fixedBody) {
+        $trs = $trs.add(this.$fixedBody.find(tr))
+      }
+      if (this.$fixedBodyRight) {
+        $trs = $trs.add(this.$fixedBodyRight.find(tr))
+      }
+
+      $trs.toggleClass('hover', toggle)
+    }
+
     this.$tableBody.find('tr').hover(e => {
-      const index = $(e.currentTarget).data('index')
-      $(e.currentTarget).addClass('hover')
-
-      if (this.options.fixedNumber) {
-        this.$fixedBody.find(`tr[data-index="${index}"]`).addClass('hover')
-      }
-      if (this.options.fixedRightNumber) {
-        this.$fixedBodyRight.find(`tr[data-index="${index}"]`).addClass('hover')
-      }
+      toggleHover(e, true)
     }, e => {
-      const index = $(e.currentTarget).data('index')
-      $(e.currentTarget).removeClass('hover')
-
-      if (this.options.fixedNumber) {
-        this.$fixedBody.find(`tr[data-index="${index}"]`).removeClass('hover')
-      }
-      if (this.options.fixedRightNumber) {
-        this.$fixedBodyRight.find(`tr[data-index="${index}"]`).removeClass('hover')
-      }
+      toggleHover(e, false)
     })
 
-    if (this.needFixedColumns && this.options.fixedNumber) {
-      this.$fixedBody.off('mousewheel').on('mousewheel', e => {
-        const deltaY = e.originalEvent.wheelDeltaY
-        const top = this.$tableBody.scrollTop() - deltaY
-        const fixedBody = this.$fixedBody[0]
+    const isFirefox = typeof navigator !== 'undefined' &&
+      navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+    const mousewheel = isFirefox ? 'DOMMouseScroll' : 'mousewheel'
+    const updateScroll = (e, fixedBody) => {
+      const normalized = normalizeWheel(e)
+      const deltaY = Math.ceil(normalized.pixelY)
+      const top = this.$tableBody.scrollTop() + deltaY
 
-        if (
-          deltaY > 0 && top > 0 ||
-          deltaY < 0 && top < fixedBody.scrollHeight - fixedBody.clientHeight
-        ) {
-          e.preventDefault()
-        }
+      if (
+        deltaY < 0 && top > 0 ||
+        deltaY > 0 && top < fixedBody.scrollHeight - fixedBody.clientHeight
+      ) {
+        e.preventDefault()
+      }
+
+      this.$tableBody.scrollTop(top)
+      if (this.$fixedBody) {
         this.$fixedBody.scrollTop(top)
-        this.$tableBody.scrollTop(top)
-        if (this.options.fixedRightNumber) {
-          this.$fixedBodyRight.scrollTop(top)
-        }
-      }).find('tr').hover(e => {
-        const index = $(e.currentTarget).data('index')
-        $(e.currentTarget).addClass('hover')
+      }
+      if (this.$fixedBodyRight) {
+        this.$fixedBodyRight.scrollTop(top)
+      }
+    }
 
-        this.$tableBody.find(`tr[data-index="${index}"]`).addClass('hover')
-        if (this.options.fixedRightNumber) {
-          this.$fixedBodyRight.find(`tr[data-index="${index}"]`).addClass('hover')
-        }
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedBody.find('tr').hover(e => {
+        toggleHover(e, true)
       }, e => {
-        const index = $(e.currentTarget).data('index')
-        $(e.currentTarget).removeClass('hover')
+        toggleHover(e, false)
+      })
 
-        this.$tableBody.find(`tr[data-index="${index}"]`).removeClass('hover')
-        if (this.options.fixedRightNumber) {
-          this.$fixedBodyRight.find(`tr[data-index="${index}"]`).removeClass('hover')
-        }
+      this.$fixedBody[0].addEventListener(mousewheel, e => {
+        updateScroll(e, this.$fixedBody[0])
       })
     }
 
     if (this.needFixedColumns && this.options.fixedRightNumber) {
-      this.$fixedBodyRight.off('mousewheel').on('mousewheel', e => {
-        const deltaY = e.originalEvent.wheelDeltaY
-        const top = this.$tableBody.scrollTop() - deltaY
-        const fixedBody = this.$fixedBodyRight[0]
-
-        if (
-          deltaY > 0 && top > 0 ||
-          deltaY < 0 && top < fixedBody.scrollHeight - fixedBody.clientHeight
-        ) {
-          e.preventDefault()
-        }
-        this.$fixedBodyRight.scrollTop(top)
-        this.$tableBody.scrollTop(top)
-        if (this.options.fixedNumber) {
-          this.$fixedBody.scrollTop(top)
-        }
-      }).find('tr').hover(e => {
-        const index = $(e.currentTarget).data('index')
-        $(e.currentTarget).addClass('hover')
-
-        this.$tableBody.find(`tr[data-index="${index}"]`).addClass('hover')
-        if (this.options.fixedNumber) {
-          this.$fixedBody.find(`tr[data-index="${index}"]`).addClass('hover')
-        }
+      this.$fixedBodyRight.find('tr').hover(e => {
+        toggleHover(e, true)
       }, e => {
-        const index = $(e.currentTarget).data('index')
-        $(e.currentTarget).removeClass('hover')
+        toggleHover(e, false)
+      })
 
-        this.$tableBody.find(`tr[data-index="${index}"]`).removeClass('hover')
-        if (this.options.fixedNumber) {
-          this.$fixedBody.find(`tr[data-index="${index}"]`).removeClass('hover')
+      this.$fixedBodyRight.on('scroll', () => {
+        const top = this.$fixedBodyRight.scrollTop()
+
+        this.$tableBody.scrollTop(top)
+        if (this.$fixedBody) {
+          this.$fixedBody.scrollTop(top)
         }
       })
     }

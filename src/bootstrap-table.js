@@ -1986,7 +1986,7 @@ class BootstrapTable {
   horizontalScroll () {
     // horizontal scroll event
     // TODO: it's probably better improving the layout than binding to scroll event
-    this.$tableBody.off('scroll').on('scroll', ({currentTarget}) => {
+    this.$tableBody.off('scroll').on('scroll', () => {
       const scrollLeft = this.$tableBody.scrollLeft()
 
       if (this.options.showHeader && this.options.height) {

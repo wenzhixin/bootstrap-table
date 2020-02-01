@@ -14,17 +14,20 @@
   background-color: #fff;
   box-sizing: border-box;
   z-index: 1;
-
-  .fixed-table-body {
-    overflow: hidden!important;
-    animation: none;
-  }
 }
 
 .fixed-columns {
   left: 0;
+
+  .fixed-table-body {
+    overflow: hidden!important;
+  }
 }
 
 .fixed-columns-right {
   right: 0;
+
+  .fixed-table-body {
+    overflow-x: hidden!important;
+  }
 }
