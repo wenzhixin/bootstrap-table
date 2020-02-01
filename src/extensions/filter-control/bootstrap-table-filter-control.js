@@ -155,7 +155,7 @@ const UtilsFilterControl = {
 
         if (result.length > 0) {
           $(this).val(result[0].value)
-          if (result[0].hasFocus) {
+          if (result[0].hasFocus && result[0].value !== '') {
             // set callback if the field had the focus.
             fieldToFocusCallback = ((fieldToFocus, carretPosition) => {
               // Closure here to capture the field and cursor position
@@ -554,7 +554,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   filterTemplate: {
     input (that, field, placeholder, value) {
       return Utils.sprintf(
-        '<input type="text" class="form-control bootstrap-table-filter-control-%s" style="width: 100%;" placeholder="%s" value="%s">',
+        '<input type="text" class="form-control bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
         field,
         'undefined' === typeof placeholder ? '' : placeholder,
         'undefined' === typeof value ? '' : value
