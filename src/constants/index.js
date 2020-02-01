@@ -131,6 +131,8 @@ const DEFAULTS = {
   sortName: undefined,
   sortOrder: 'asc',
   sortStable: false,
+  lastSortOrder: undefined,
+  dataUnsorted: undefined,
   rememberOrder: false,
   serverSort: true,
   customSort: undefined,
