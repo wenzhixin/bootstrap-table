@@ -658,7 +658,7 @@ class BootstrapTable {
 
       if (opts.showColumnsSearch) {
         const $columnsSearch = $keepOpen.find('#columnsSearch')
-        const $listItems = $keepOpen.find('li[role="menuitem"]')
+        const $listItems = $keepOpen.find('.dropdown-item-marker')
         $columnsSearch.on('keyup paste change', ({currentTarget}) => {
           const $this = $(currentTarget)
           const searchValue = $this.val().toLowerCase()
