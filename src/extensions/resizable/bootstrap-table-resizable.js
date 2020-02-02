@@ -8,7 +8,9 @@ const isInit = that => that.$el.data('resizableColumns') !== undefined
 
 const initResizable = that => {
   if (that.options.resizable && !that.options.cardView && !isInit(that)) {
-    that.$el.resizableColumns()
+    that.$el.resizableColumns({
+      store: window.store
+    })
   }
 }
 

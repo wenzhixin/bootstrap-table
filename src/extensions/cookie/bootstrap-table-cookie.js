@@ -12,6 +12,7 @@ const UtilsCookie = {
     pageList: 'bs.table.pageList',
     columns: 'bs.table.columns',
     searchText: 'bs.table.searchText',
+    reorderColumns: 'bs.table.reorderColumns',
     filterControl: 'bs.table.filterControl',
     filterBy: 'bs.table.filterBy'
   },
@@ -212,7 +213,8 @@ $.extend($.fn.bootstrapTable.defaults, {
     'bs.table.sortOrder', 'bs.table.sortName',
     'bs.table.pageNumber', 'bs.table.pageList',
     'bs.table.columns', 'bs.table.searchText',
-    'bs.table.filterControl', 'bs.table.filterBy'
+    'bs.table.filterControl', 'bs.table.filterBy',
+    'bs.table.reorderColumns'
   ],
   cookieStorage: 'cookieStorage', // localStorage, sessionStorage
   // internal variable
@@ -342,6 +344,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText)
     }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
+  }
+
+  initHeader (...args) {
+    if (this.options.reorderableColumns) {
+      this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.reorderColumns))
+    }
+    super.initHeader(...args)
+  }
+
+  persistReorderColumnsState (that) {
+    UtilsCookie.setCookie(that, UtilsCookie.cookieIds.reorderColumns, JSON.stringify(that.columnsSortOrder))
   }
 
   filterBy (...args) {
