@@ -706,10 +706,9 @@ BootstrapTable.prototype.multiSort = function (sortPriority) {
   this.options.sortName = ''
 
   if (this.options.sidePagination === 'server') {
-    const t = this.options.queryParams
     this.options.queryParams = params => {
       params.multiSort = this.options.sortPriority
-      return $.fn.bootstrapTable.utils.calculateObjectValue(this.options, t, [params])
+      return $.fn.bootstrapTable.utils.calculateObjectValue(this.options, this.options.queryParams, [params])
     }
     isSingleSort = false
     this.initServer(this.options.silentSort)
