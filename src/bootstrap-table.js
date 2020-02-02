@@ -2619,7 +2619,10 @@ class BootstrapTable {
       }
     }
 
-    if (this.options.height) {
+    if (this.$container.hasClass('fullscreen')) {
+      this.$tableContainer.css('height', '')
+      this.$tableContainer.css('width', '')
+    } else if (this.options.height) {
       const toolbarHeight = this.$toolbar.outerHeight(true)
       const paginationHeight = this.$pagination.outerHeight(true)
       const height = this.options.height - toolbarHeight - paginationHeight
