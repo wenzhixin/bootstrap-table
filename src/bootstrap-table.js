@@ -2034,11 +2034,13 @@ class BootstrapTable {
   getData (params) {
     let data = this.options.data
     if (
-      this.searchText ||
-      this.options.customSearch ||
-      this.options.sortName ||
-      !Utils.isEmptyObject(this.filterColumns) ||
-      !Utils.isEmptyObject(this.filterColumnsPartial)
+      (
+        this.searchText ||
+        this.options.customSearch ||
+        this.options.sortName ||
+        !Utils.isEmptyObject(this.filterColumns) ||
+        !Utils.isEmptyObject(this.filterColumnsPartial)
+      ) && (!params || !params.unfiltered)
     ) {
       data = this.data
     }
