@@ -73,6 +73,29 @@ toc: true
 
    Force mutltiple sort table (usable after manual data changes).
 
+
+### multiSort
+
+- **parameters:** sortPriority
+
+- **Detail:**
+
+   Set one or multiple sort priority
+
+   Example:
+   ```
+  [
+    {
+      "sortName": "forks_count",
+      "sortOrder": "desc"
+    },
+    {
+      "sortName": "stargazers_count",
+      "sortOrder": "asc"
+    }
+  ]
+  ```
+
 ## Locales
 
 ### formatMultipleSort
