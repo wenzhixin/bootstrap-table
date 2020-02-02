@@ -24,7 +24,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.buttonActive = 'success'
 
     this.constants.html.toolbarDropdown = ['<div class="dropdown-pane" id="toolbar-columns-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
-    this.constants.html.toolbarDropdownItem = '<li><label class="dropdown-item">%s</label></li>'
+    this.constants.html.toolbarDropdownItem = '<li class="dropdown-item-marker"><label class="dropdown-item">%s</label></li>'
     this.constants.html.toolbarDropdownSeparator = '<li><hr></li>'
     this.constants.html.pageDropdown = ['<div class="dropdown-pane" id="pagination-list-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
     this.constants.html.pageDropdownItem = '<li class="dropdown-item %s"><a href="#">%s</a></li>'

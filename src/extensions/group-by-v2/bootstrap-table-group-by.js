@@ -4,7 +4,6 @@
  */
 
 let initBodyCaller
-let tableGroups
 
 // it only does '%s', and return '' when arguments are undefined
 const sprintf = function (str) {
@@ -51,7 +50,7 @@ BootstrapTable.prototype.initSort = function (...args) {
   _initSort.apply(this, Array.prototype.slice.apply(args))
 
   const that = this
-  tableGroups = []
+  this.tableGroups = []
 
   if ((this.options.groupBy) && (this.options.groupByField !== '')) {
 
@@ -75,7 +74,7 @@ BootstrapTable.prototype.initSort = function (...args) {
 
     let index = 0
     $.each(groups, (key, value) => {
-      tableGroups.push({
+      this.tableGroups.push({
         id: index,
         name: key,
         data: value
@@ -118,7 +117,7 @@ BootstrapTable.prototype.initBody = function (...args) {
       visibleColumns += 1
     }
 
-    tableGroups.forEach(item => {
+    this.tableGroups.forEach(item => {
       const html = []
 
       html.push(sprintf('<tr class="info groupBy expanded" data-group-index="%s">', item.id))
