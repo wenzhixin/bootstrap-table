@@ -702,7 +702,6 @@ BootstrapTable.prototype.setButtonStates = function () {
 }
 
 BootstrapTable.prototype.multiSort = function (sortPriority) {
-  console.log(sortPriority)
   this.options.sortPriority = sortPriority
   this.options.sortName = ''
 
