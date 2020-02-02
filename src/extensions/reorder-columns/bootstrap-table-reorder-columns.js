@@ -121,8 +121,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
       dragaccept: this.options.dragaccept,
       clickDelay: 200,
       dragHandle: '.th-inner',
-      restoreState: order,
-      beforeStop: () => {
+      restoreState: order ? order : this.columnsSortOrder,
+      beforeStop: (table) => {
+        const sortOrder = {}
+        table.el.find('th').each((i, el) => {
+          sortOrder[$(el).data('field')] = i
+        })
+
+        this.columnsSortOrder = sortOrder
+        this.persistReorderColumnsState(this)
+
         const ths = []
         const formatters = []
         const columns = []
@@ -143,7 +151,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
         }
 
-        for (let i = 0; i < ths.length; i++ ) {
+        for (let i = 0; i < ths.length; i++) {
           columnIndex = this.fieldsColumnsIndex[ths[i]]
           if (columnIndex !== -1) {
             this.fieldsColumnsIndex[ths[i]] = i
@@ -183,6 +191,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   orderColumns (order) {
-    this.makeRowsReorderable(order)
+    this.columnsSortOrder = order
+    this.makeRowsReorderable()
   }
 }
