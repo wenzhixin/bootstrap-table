@@ -551,7 +551,7 @@ class BootstrapTable {
         if (opts.showColumnsSearch) {
           html.push(
             Utils.sprintf(this.constants.html.toolbarDropdownItem,
-              Utils.sprintf('<input type="text" class="%s" id="columnsSearch" placeholder="%s">', this.constants.classes.input, opts.formatSearch())
+              Utils.sprintf('<input type="text" class="%s" id="columnsSearch" placeholder="%s" autocomplete="off">', this.constants.classes.input, opts.formatSearch())
             )
           )
           html.push(this.constants.html.toolbarDropdownSeparator)
@@ -692,7 +692,7 @@ class BootstrapTable {
       )
       const searchInputHtml = `<input class="${this.constants.classes.input}
         ${Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, opts.iconSize)}
-        search-input" type="text" placeholder="${opts.formatSearch()}">`
+        search-input" type="text" placeholder="${opts.formatSearch()}" autocomplete="off">`
       let searchInputFinalHtml = searchInputHtml
 
       if (opts.showSearchButton || opts.showSearchClearButton) {
