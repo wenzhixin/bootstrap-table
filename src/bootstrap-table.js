@@ -2424,7 +2424,7 @@ class BootstrapTable {
     this.initPagination()
     this.initBody()
     if (this.options.showColumns) {
-      const $items = this.$toolbar.find('.keep-open input[type="checkboxc"]:not(".toggle-all")').prop('disabled', false)
+      const $items = this.$toolbar.find('.keep-open input[type="checkbox"]:not(".toggle-all")').prop('disabled', false)
 
       if (visible) {
         $items.prop('checked', visible)
