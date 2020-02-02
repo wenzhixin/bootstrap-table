@@ -542,11 +542,20 @@ class BootstrapTable {
         html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
           <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
           aria-label="Columns" title="${opts.formatColumns()}">
-          ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : '' }
+          ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
           ${opts.showButtonText ? opts.formatColumns() : ''}
           ${this.constants.html.dropdownCaret}
           </button>
           ${this.constants.html.toolbarDropdown[0]}`)
+
+        if (opts.showColumnsSearch) {
+          html.push(
+            Utils.sprintf(this.constants.html.toolbarDropdownItem,
+              Utils.sprintf('<input type="text" class="%s" id="columnsSearch" placeholder="%s" autocomplete="off">', this.constants.classes.input, opts.formatSearch())
+            )
+          )
+          html.push(this.constants.html.toolbarDropdownSeparator)
+        }
 
         if (opts.showColumnsToggleAll) {
           const allFieldsVisible = this.getVisibleColumns().length === this.columns.filter(column => !this.isSelectionColumn(column)).length
@@ -624,8 +633,8 @@ class BootstrapTable {
 
     if (opts.showColumns) {
       $keepOpen = this.$toolbar.find('.keep-open')
-      const $checkboxes = $keepOpen.find('input:not(".toggle-all")')
-      const $toggleAll = $keepOpen.find('input.toggle-all')
+      const $checkboxes = $keepOpen.find('input[type="checkbox"]:not(".toggle-all")')
+      const $toggleAll = $keepOpen.find('input[type="checkbox"].toggle-all')
 
       if (switchableCount <= opts.minimumCountColumns) {
         $keepOpen.find('input').prop('disabled', true)
@@ -646,6 +655,24 @@ class BootstrapTable {
       $toggleAll.off('click').on('click', ({currentTarget}) => {
         this._toggleAllColumns($(currentTarget).prop('checked'))
       })
+
+      if (opts.showColumnsSearch) {
+        const $columnsSearch = $keepOpen.find('#columnsSearch')
+        const $listItems = $keepOpen.find('.dropdown-item-marker')
+        $columnsSearch.on('keyup paste change', ({currentTarget}) => {
+          const $this = $(currentTarget)
+          const searchValue = $this.val().toLowerCase()
+          $listItems.show()
+          $checkboxes.each((i, el) => {
+            const $checkbox = $(el)
+            const $listItem = $checkbox.parents('.dropdown-item-marker')
+            const text = $listItem.text().toLowerCase()
+            if (!text.includes(searchValue)) {
+              $listItem.hide()
+            }
+          })
+        })
+      }
     }
 
     // Fix #4516: this.showSearchClearButton is for extensions
@@ -665,7 +692,7 @@ class BootstrapTable {
       )
       const searchInputHtml = `<input class="${this.constants.classes.input}
         ${Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, opts.iconSize)}
-        search-input" type="text" placeholder="${opts.formatSearch()}">`
+        search-input" type="text" placeholder="${opts.formatSearch()}" autocomplete="off">`
       let searchInputFinalHtml = searchInputHtml
 
       if (opts.showSearchButton || opts.showSearchClearButton) {
@@ -2399,7 +2426,7 @@ class BootstrapTable {
     this.initPagination()
     this.initBody()
     if (this.options.showColumns) {
-      const $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false)
+      const $items = this.$toolbar.find('.keep-open input[type="checkbox"]:not(".toggle-all")').prop('disabled', false)
 
       if (visible) {
         $items.prop('checked', visible)

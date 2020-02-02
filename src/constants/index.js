@@ -46,7 +46,7 @@ const CONSTANTS = {
     },
     html: {
       toolbarDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-      toolbarDropdownItem: '<li role="menuitem"><label>%s</label></li>',
+      toolbarDropdownItem: '<li class="dropdown-item-marker" role="menuitem"><label>%s</label></li>',
       toolbarDropdownSeparator: '<li class="divider"></li>',
       pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
@@ -92,7 +92,7 @@ const CONSTANTS = {
     },
     html: {
       toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
-      toolbarDropdownItem: '<label class="dropdown-item">%s</label>',
+      toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],
       pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
       toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
@@ -193,6 +193,7 @@ const DEFAULTS = {
   },
   showColumns: false,
   showColumnsToggleAll: false,
+  showColumnsSearch: false,
   minimumCountColumns: 1,
   showPaginationSwitch: false,
   showRefresh: false,
