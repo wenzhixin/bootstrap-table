@@ -22,6 +22,8 @@ Dependence: [jquery-resizable-columns](https://github.com/dobtco/jquery-resizabl
 
 ### resizable
 
+- **attribute:** `data-resizable`
+
 - **type:** `Boolean`
 
 - **Detail:**

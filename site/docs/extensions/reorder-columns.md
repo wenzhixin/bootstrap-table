@@ -28,6 +28,8 @@ Dependence:
 
 ### reorderableColumns
 
+- **attribute:** `data-reorderable-columns`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -38,6 +40,8 @@ Dependence:
 
 ### maxMovingRows
 
+- **attribute:** `data-max-moving-rows`
+
 - **type:** `Integer`
 
 - **Detail:**
@@ -47,6 +51,8 @@ Dependence:
 - **Default:** `10`
 
 ### dragaccept
+
+- **attribute:** `data-dragaccept`
 
 - **type:** `String`
 

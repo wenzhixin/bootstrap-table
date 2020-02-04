@@ -21,6 +21,8 @@ toc: true
 
 ### groupBy
 
+- **attribute:** `data-group-by`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -31,6 +33,8 @@ toc: true
 
 ### groupByField
 
+- **attribute:** `data-group-by-field`
+
 - **type:** `String`
 
 - **Detail:**
@@ -40,6 +44,8 @@ toc: true
 - **Default:** `''`
 
 ### groupByFormatter
+
+- **attribute:** `data-group-by-formatter`
 
 - **type:** `Function`
 

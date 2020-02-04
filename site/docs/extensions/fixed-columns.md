@@ -21,6 +21,8 @@ toc: true
 
 ### fixedColumns
 
+- **attribute:** `data-fixed-columns`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -30,6 +32,8 @@ toc: true
 - **Default:** `false`
 
 ### fixedNumber
+
+- **attribute:** `data-fixed-number`
 
 - **type:** Number
 

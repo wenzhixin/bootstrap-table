@@ -22,6 +22,8 @@ Every time when changing page, sorting and searching operation, it will change t
 
 ### addrbar
 
+- **Attribute:** `data-addrbar`
+
 - **Type:** `Boolean`
 
 - **Detail:**
@@ -31,6 +33,8 @@ Every time when changing page, sorting and searching operation, it will change t
 - **Default:** `false`
 
 ### addrPrefix
+
+- **Attribute:** `data-addr-prefix`
 
 - **Type:** `String`
 

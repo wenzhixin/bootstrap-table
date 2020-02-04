@@ -24,6 +24,8 @@ This is an important link to check out as some file types may require extra step
 
 ### showExport
 
+- **Attribute:** `data-show-export`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -33,6 +35,8 @@ This is an important link to check out as some file types may require extra step
 - **Default:** `false`
 
 ### exportDataType
+
+- **Attribute:** `data-export-data-type`
 
 - **type:** `String`
 
@@ -44,6 +48,8 @@ This is an important link to check out as some file types may require extra step
 
 ### exportTypes
 
+- **Attribute:** `data-export-types`
+
 - **type:** `Array`
 
 - **Detail:**
@@ -53,6 +59,8 @@ This is an important link to check out as some file types may require extra step
 - **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
 
 ### exportOptions
+
+- **Attribute:** `data-export-options`
 
 - **type:** `Object`
 
@@ -75,6 +83,8 @@ This is an important link to check out as some file types may require extra step
 ## Column options
 
 ### forceExport
+
+- **Attribute:** `data-force-export`
 
 - **type:** `Boolean`
 

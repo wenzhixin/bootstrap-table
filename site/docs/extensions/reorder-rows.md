@@ -27,6 +27,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### reorderableRows
 
+- **attribute:** `data-reorderable-rows`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -36,6 +38,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 - **Default:** `false`
 
 ### onDragStyle
+
+- **attribute:** `data-on-drag-style`
 
 - **type:** `String`
 
@@ -47,6 +51,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### onDropStyle
 
+- **attribute:** `data-on-drop-style`
+
 - **type:** `String`
 
 - **Detail:**
@@ -56,6 +62,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 - **Default:** `null`
 
 ### onDragClass
+
+- **attribute:** `data-on-drag-class`
 
 - **type:** `String`
 
@@ -67,6 +75,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### dragHandle
 
+- **attribute:** `data-drag-handle`
+
 - **type:** `String`
 
 - **Detail:**
@@ -76,6 +86,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 - **Default:** `>tbody>tr>td`
 
 ### useRowAttrFunc
+
+- **attribute:** `data-use-row-attr-func`
 
 - **type:** `Boolean`
 
@@ -87,6 +99,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### onReorderRowsDrag
 
+- **attribute:** `data-on-reorder-rows-drag`
+
 - **type:** `Function`
 
 - **Detail:**
@@ -96,6 +110,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 - **Default:** `empty function`
 
 ### onReorderRowsDrop
+
+- **attribute:** `data-on-reorder-rows-drop`
 
 - **type:** `Function`
 
