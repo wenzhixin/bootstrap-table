@@ -23,6 +23,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### filterControl
 
+- **Attribute:** `data-filter-control`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -32,6 +34,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `false`
 
 ### filterControlContainer
+
+- **Attribute:** `data-filter-control-container`
 
 - **type:** `Selector`
 
@@ -44,6 +48,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### filterDataCollector
 
+- **Attribute:** `data-filter-data-collector`
+
 - **type:** `Function`
 
 - **Detail:**
@@ -53,6 +59,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `undefined`
 
 ### alignmentSelectControlOptions
+
+- **Attribute:** `data-alignment-select-control-options`
 
 - **type:** `String`
 
@@ -64,6 +72,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### hideUnusedSelectOptions
 
+- **Attribute:** `data-hide-unused-select-options`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -74,6 +84,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### disableControlWhenSearch
 
+- **Attribute:** `data-disable-control-when-search`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -83,6 +95,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `false`
 
 ### searchOnEnterKey
+
+- **Attribute:** `data-search-on-enter-key`
 
 - **type:** `Boolean`
 
@@ -96,6 +110,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### filterControl
 
+- **Attribute:** `data-filter-control`
+
 - **type:** `String`
 
 - **Detail:**
@@ -105,6 +121,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `undefined`
 
 ### filterData
+
+- **Attribute:** `data-filter-data`
 
 - **type:** `String`
 
@@ -116,6 +134,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### filterDefault
 
+- **Attribute:** `data-filter-default`
+
 - **type:** `String`
 
 - **Detail:**
@@ -125,6 +145,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `undefined`
 
 ### filterDatepickerOptions
+
+- **Attribute:** `data-filter-datepicker-options`
+
 - **type:** `Object`
 
 - **Detail:**
@@ -134,6 +157,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `undefined`
 
 ### filterStrictSearch
+
+- **Attribute:** `data-filter-strict-search`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -143,6 +169,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `false`
 
 ### filterStartsWithSearch
+
+- **attribute:** `data-filter-starts-with-search`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -152,6 +181,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `false`
 
 ### filterControlPlaceholder
+
+- **attribute:** `data-filter-control-placeholder`
+
 - **type:** `String`
 
 - **Detail:**
@@ -161,6 +193,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `''`
 
 ### filterOrderBy
+
+- **attribute:** `data-filter-order-by`
+
 - **type:** `String`
 
 - **Detail:**
@@ -170,11 +205,13 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `'asc'`
 
 ### Icons
+
 * clear: 'glyphicon-trash icon-clear'
 
 ## Locale
 
 ### formatClearFilters
+
 - **type:** `Function`
 
 - **Default:** `function () { return "Clear Filters";}`

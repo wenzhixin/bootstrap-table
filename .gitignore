@@ -5,10 +5,8 @@ bower_components
 _gh_pages
 
 # use scss instead
-src/bootstrap-table.css
-src/bootstrap-table.css.map
-src/themes/**/*.css
-src/themes/**/*.css.map
+src/**/*.css
+src/**/*.css.map
 .sass-cache
 
 # old docs

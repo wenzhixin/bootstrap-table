@@ -22,6 +22,8 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 ### showPrint
 
+- **attribute:** `data-show-print`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -31,6 +33,8 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 - **Default:** `false`
 
 ### printAsFilteredAndSortedOnUI
+
+- **attribute:** `data-print-as-filtered-and-sorted-on-ui`
 
 - **type:** `Boolean`
 
@@ -42,6 +46,8 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 ### printSortColumn
 
+- **attribute:** `data-print-sort-column`
+
 - **type:** `String`
 
 - **Detail:**
@@ -52,6 +58,8 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 ### printSortOrder
 
+- **attribute:** `data-print-sort-order`
+
 - **type:** `String`
 
 - **Detail:**
@@ -61,6 +69,8 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 - **Default:** `'asc'`
 
 ### printPageBuilder
+
+- **attribute:** `data-print-page-builder`
 
 - **type:** `Function`
 
@@ -74,6 +84,8 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 ### printFilter
 
+- **attribute:** `data-print-filter`
+
 - **type:** `String`
 
 - **Detail:**
@@ -84,6 +96,8 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 ### printIgnore
 
+- **attribute:** `data-print-ignore`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -93,6 +107,8 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 - **Default:** `false`
 
 ### printFormatter
+
+- **attribute:** `data-print-formatter`
 
 - **type:** `Function`
 

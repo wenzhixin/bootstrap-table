@@ -22,6 +22,8 @@ This is an extension which provides a sticky header for the table when scrolling
 
 ### stickyHeader
 
+- **attribute:** `data-sticky-header`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -31,6 +33,8 @@ This is an extension which provides a sticky header for the table when scrolling
 - **Default:** `false`
 
 ### stickyHeaderOffsetY
+
+- **attribute:** `data-sticky-header-offset-y`
 
 - **type:** `Number`
 
@@ -42,6 +46,8 @@ This is an extension which provides a sticky header for the table when scrolling
 
 ### stickyHeaderOffsetLeft
 
+- **attribute:** `data-sticky-header-offset-left`
+
 - **type:** `Number | String`
 
 - **Detail:**
@@ -51,6 +57,8 @@ This is an extension which provides a sticky header for the table when scrolling
 - **Default:** `0`
 
 ### stickyHeaderOffsetRight
+
+- **attribute:** `data-sticky-header-offset-right`
 
 - **type:** `Number | String`
 

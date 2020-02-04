@@ -20,6 +20,8 @@ toc: true
 
 ### showMultiSort
 
+- **attribute:** `data-show-multi-sort`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -29,6 +31,8 @@ toc: true
 - **Default:** `false`
 
 ### showMultiSortButton
+
+- **attribute:** `data-show-multi-sort-button`
 
 - **type:** `Boolean`
 
@@ -40,6 +44,8 @@ toc: true
 
 ### multiSortStrictSort
 
+- **attribute:** `data-multi-sort-strict-sort`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -49,6 +55,8 @@ toc: true
 - **Default:** `false`
 
 ### sortPriority
+
+- **attribute:** `data-sort-priority`
 
 - **type:** `Object`
 

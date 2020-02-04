@@ -20,42 +20,62 @@ Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 ## Options
 
+### treeEnable
+
+- **attribute:** `data-tree-enable`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to enable the tree grid.
+
+- **Default:** `false`
+
 ### idField
+
+- **attribute:** `data-id-field`
 
 - **type:** `String`
 
 - **Detail:**
 
-   overwrite the default idField to `'id'`
+   Overwrite the default idField to `'id'`.
 
 - **Default:** `'id'`
 
 ### treeShowField
 
+- **attribute:** `data-tree-show-field`
+
 - **type:** `String`
 
 - **Detail:**
 
-
+  Set the `treeShowField` will auto enable the tree grid.
 
 - **Default:** `''`
 
 ### parentIdField
 
+- **attribute:** `data-parent-id-field`
+
 - **type:** `String`
 
 - **Detail:**
 
-
+  Set the parent id field.
 
 - **Default:** `'pid'`
 
 ### rootParentId
 
+- **attribute:** `data-root-parent-id`
+
 - **type:** `String`
 
 - **Detail:**
 
-
+  Set the root parent id.
 
 - **Default:** `null`
