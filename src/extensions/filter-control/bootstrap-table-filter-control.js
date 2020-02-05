@@ -494,7 +494,6 @@ const UtilsFilterControl = {
 const filterDataMethods = {
   var (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource]
-    // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
@@ -505,7 +504,6 @@ const filterDataMethods = {
       url: filterDataSource,
       dataType: 'json',
       success (data) {
-        // eslint-disable-next-line guard-for-in
         for (const key in data) {
           UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key], selected)
         }
@@ -515,7 +513,6 @@ const filterDataMethods = {
   },
   json (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = JSON.parse(filterDataSource)
-    // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
@@ -733,7 +730,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.filterColumnsPartial = filterColumnsDefaults
       this.updatePagination()
 
-      // eslint-disable-next-line guard-for-in
       for (const filter in filterColumnsDefaults) {
         this.trigger('column-search', filter, filterColumnsDefaults[filter])
       }
