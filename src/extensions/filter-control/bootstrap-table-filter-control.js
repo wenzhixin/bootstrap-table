@@ -347,41 +347,6 @@ const UtilsFilterControl = {
             ' Use like this: var: {key: "value"}'
           )
         }
-
-        let variableValues
-        let key
-        // eslint-disable-next-line default-case
-        switch (filterDataType) {
-          case 'url':
-            $.ajax({
-              url: filterDataSource,
-              dataType: 'json',
-              success (data) {
-                // eslint-disable-next-line guard-for-in
-                for (const key in data) {
-                  UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key], column.filterDefault)
-                }
-                UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
-              }
-            })
-            break
-          case 'var':
-            variableValues = window[filterDataSource]
-            // eslint-disable-next-line guard-for-in
-            for (key in variableValues) {
-              UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], column.filterDefault)
-            }
-            UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
-            break
-          case 'jso':
-            variableValues = JSON.parse(filterDataSource)
-            // eslint-disable-next-line guard-for-in
-            for (key in variableValues) {
-              UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], column.filterDefault)
-            }
-            UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
-            break
-        }
       }
     })
 
