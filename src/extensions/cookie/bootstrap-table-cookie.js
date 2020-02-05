@@ -3,7 +3,7 @@
  * @webSite: http://djhvscf.github.io/Blog
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
-
+const Utils = $.fn.bootstrapTable.utils
 const UtilsCookie = {
   cookieIds: {
     sortOrder: 'bs.table.sortOrder',
@@ -74,6 +74,17 @@ const UtilsCookie = {
       case 'sessionStorage':
         sessionStorage.setItem(cookieName, cookieValue)
         break
+      case 'customStorage':
+        if (
+          !that.options.cookieCustomStorageSet
+          || !that.options.cookieCustomStorageGet
+          || !that.options.cookieCustomStorageDelete
+        ) {
+          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
+        }
+
+        Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageSet, [cookieName, cookieValue], '')
+        break
       default:
         return false
     }
@@ -100,6 +111,16 @@ const UtilsCookie = {
         return localStorage.getItem(cookieName)
       case 'sessionStorage':
         return sessionStorage.getItem(cookieName)
+      case 'customStorage':
+        if (
+          !that.options.cookieCustomStorageSet
+          || !that.options.cookieCustomStorageGet
+          || !that.options.cookieCustomStorageDelete
+        ) {
+          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
+        }
+
+        return Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageGet, [cookieName], '')
       default:
         return null
     }
@@ -121,6 +142,17 @@ const UtilsCookie = {
         break
       case 'sessionStorage':
         sessionStorage.removeItem(cookieName)
+        break
+      case 'customStorage':
+        if (
+          !that.options.cookieCustomStorageSet
+          || !that.options.cookieCustomStorageGet
+          || !that.options.cookieCustomStorageDelete
+        ) {
+          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
+        }
+
+        Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageDelete, [cookieName], '')
         break
       default:
         return false
@@ -216,7 +248,7 @@ $.extend($.fn.bootstrapTable.defaults, {
     'bs.table.filterControl', 'bs.table.filterBy',
     'bs.table.reorderColumns'
   ],
-  cookieStorage: 'cookieStorage', // localStorage, sessionStorage
+  cookieStorage: 'cookieStorage', // localStorage, sessionStorage, customStorage
   // internal variable
   filterControls: [],
   filterControlValuesLoaded: false
@@ -234,7 +266,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
   init () {
     if (this.options.cookie) {
       // FilterBy logic
-      const filterByCookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy))
+      const filterByCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy)
+      if (typeof filterByCookieValue === 'boolean' && !filterByCookieValue) {
+        throw new Error('The cookie value of filterBy must be a json!')
+      }
+
+      let filterByCookie = {}
+      try {
+        filterByCookie = JSON.parse(filterByCookieValue)
+        // eslint-disable-next-line no-empty
+      } catch (e) {
+        throw new Error('Could not parse the json of the filterBy cookie!')
+      }
       this.filterColumns = filterByCookie ? filterByCookie : {}
 
       // FilterControl logic
@@ -377,8 +420,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const sortOrderNameCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
     const pageNumberCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageNumber)
     const pageListCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageList)
-    const columnsCookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.columns))
     const searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText)
+
+    const columnsCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.columns)
+
+    if (typeof columnsCookieValue === 'boolean' && !columnsCookieValue) {
+      throw new Error('The cookie value of filterBy must be a json!')
+    }
+
+    let columnsCookie = {}
+    try {
+      columnsCookie = JSON.parse(columnsCookieValue)
+      // eslint-disable-next-line no-empty
+    } catch (e) {
+      throw new Error('Could not parse the json of the columns cookie!', columnsCookieValue)
+    }
+
 
     // sortOrder
     this.options.sortOrder = sortOrderCookie ? sortOrderCookie : this.options.sortOrder
