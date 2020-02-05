@@ -343,7 +343,7 @@ const UtilsFilterControl = {
           filterDataType(filterDataSource, selectControl, column.filterDefault)
         } else {
           throw new SyntaxError(
-            'Error. You should use any of these allowed filter data methods: var, json, url.' +
+            'Error. You should use any of these allowed filter data methods: var, obj, json, url, func.' +
             ' Use like this: var: {key: "value"}'
           )
         }
@@ -457,6 +457,29 @@ const UtilsFilterControl = {
   }
 }
 const filterDataMethods = {
+  func (filterDataSource, selectControl, filterOrderBy, selected) {
+    const variableValues = window[filterDataSource].apply()
+    for (const key in variableValues) {
+      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+    }
+    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
+  },
+  obj (filterDataSource, selectControl, filterOrderBy, selected) {
+    const objectKeys = filterDataSource.split('.')
+    const variableName = objectKeys.shift()
+    let variableValues = window[variableName]
+
+    if (objectKeys.length > 0) {
+      objectKeys.forEach((key) => {
+        variableValues = variableValues[key]
+      })
+    }
+
+    for (const key in variableValues) {
+      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+    }
+    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
+  },
   var (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource]
     for (const key in variableValues) {
