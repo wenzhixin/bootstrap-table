@@ -274,7 +274,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       let filterByCookie = {}
       try {
         filterByCookie = JSON.parse(filterByCookieValue)
-        // eslint-disable-next-line no-empty
       } catch (e) {
         throw new Error('Could not parse the json of the filterBy cookie!')
       }
@@ -423,7 +422,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText)
 
     const columnsCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.columns)
-
     if (typeof columnsCookieValue === 'boolean' && !columnsCookieValue) {
       throw new Error('The cookie value of filterBy must be a json!')
     }
@@ -431,7 +429,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     let columnsCookie = {}
     try {
       columnsCookie = JSON.parse(columnsCookieValue)
-      // eslint-disable-next-line no-empty
     } catch (e) {
       throw new Error('Could not parse the json of the columns cookie!', columnsCookieValue)
     }
