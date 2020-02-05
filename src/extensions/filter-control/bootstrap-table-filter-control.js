@@ -77,10 +77,10 @@ const UtilsFilterControl = {
     // If we get here, the value is valid to add
     return false
   },
-  fixHeaderCSS ({ $tableHeader }) {
+  fixHeaderCSS ({$tableHeader}) {
     $tableHeader.css('height', '77px')
   },
-  getCurrentHeader ({ $header, options, $tableHeader }) {
+  getCurrentHeader ({$header, options, $tableHeader}) {
     let header = $header
     if (options.height) {
       header = $tableHeader
@@ -88,7 +88,7 @@ const UtilsFilterControl = {
 
     return header
   },
-  getCurrentSearchControls ({ options }) {
+  getCurrentSearchControls ({options}) {
     let searchControls = 'select, input'
     if (options.height) {
       searchControls = 'table select, table input'
@@ -194,12 +194,12 @@ const UtilsFilterControl = {
   escapeID (id) {
     return String(id).replace(/(:|\.|\[|\]|,)/g, '\\$1')
   },
-  isColumnSearchableViaSelect ({ filterControl, searchable }) {
+  isColumnSearchableViaSelect ({filterControl, searchable}) {
     return filterControl &&
       filterControl.toLowerCase() === 'select' &&
       searchable
   },
-  isFilterDataNotGiven ({ filterData }) {
+  isFilterDataNotGiven ({filterData}) {
     return filterData === undefined ||
       filterData.toLowerCase() === 'column'
   },
@@ -446,7 +446,7 @@ const UtilsFilterControl = {
       })
 
       if (header.find('.date-filter-control').length > 0) {
-        $.each(that.columns, (i, { filterControl, field, filterDatepickerOptions }) => {
+        $.each(that.columns, (i, {filterControl, field, filterDatepickerOptions}) => {
           if (
             filterControl !== undefined &&
             filterControl.toLowerCase() === 'datepicker'
@@ -539,7 +539,7 @@ $.extend($.fn.bootstrapTable.defaults, {
         'undefined' === typeof value ? '' : value
       )
     },
-    select ({ options }, field, isVisible) {
+    select ({options}, field, isVisible) {
       return Utils.sprintf(
         '<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%; visibility: %s" dir="%s"></select>',
         field,
@@ -655,6 +655,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
     UtilsFilterControl.createControls(this, this.$header)
   }
+
   initBody () {
     super.initBody()
 
@@ -819,7 +820,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if (controls.length > 0) {
         this.filterColumnsPartial = {}
         $(controls[0]).trigger(
-          controls[0].tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 }
+          controls[0].tagName === 'INPUT' ? 'keyup' : 'change', {keyCode: 13}
         )
       } else {
         return
@@ -843,7 +844,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           )
         )
         if (sorter.length > 0) {
-          that.onSort({ type: 'keypress', currentTarget: sorter })
+          that.onSort({type: 'keypress', currentTarget: sorter})
           $(sorter)
             .find('.sortable')
             .trigger('click')
