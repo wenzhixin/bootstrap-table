@@ -4,7 +4,6 @@
  */
 
 let initBodyCaller
-let tableGroups
 
 // it only does '%s', and return '' when arguments are undefined
 const sprintf = function (str) {
@@ -41,6 +40,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   groupByFormatter: undefined
 })
 
+const Utils = $.fn.bootstrapTable.utils
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initSort = BootstrapTable.prototype.initSort
 const _initBody = BootstrapTable.prototype.initBody
@@ -50,19 +50,31 @@ BootstrapTable.prototype.initSort = function (...args) {
   _initSort.apply(this, Array.prototype.slice.apply(args))
 
   const that = this
-  tableGroups = []
+  this.tableGroups = []
 
   if ((this.options.groupBy) && (this.options.groupByField !== '')) {
 
     if ((this.options.sortName !== this.options.groupByField)) {
-      this.data.sort((a, b) => a[that.options.groupByField].localeCompare(b[that.options.groupByField]))
+      if (this.options.customSort) {
+        Utils.calculateObjectValue(this.options, this.options.customSort, [
+          this.options.sortName,
+          this.options.sortOrder,
+          this.data
+        ])
+      } else {
+        this.data.sort((a, b) => {
+          a = a[that.options.groupByField].toString()
+          b = b[that.options.groupByField].toString()
+          return a.localeCompare(b, undefined, { numeric: true })
+        })
+      }
     }
 
     const groups = groupBy(that.data, item => [item[that.options.groupByField]])
 
     let index = 0
     $.each(groups, (key, value) => {
-      tableGroups.push({
+      this.tableGroups.push({
         id: index,
         name: key,
         data: value
@@ -105,7 +117,7 @@ BootstrapTable.prototype.initBody = function (...args) {
       visibleColumns += 1
     }
 
-    tableGroups.forEach(item => {
+    this.tableGroups.forEach(item => {
       const html = []
 
       html.push(sprintf('<tr class="info groupBy expanded" data-group-index="%s">', item.id))

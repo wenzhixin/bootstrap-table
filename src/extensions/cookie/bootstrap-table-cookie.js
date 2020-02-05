@@ -12,6 +12,7 @@ const UtilsCookie = {
     pageList: 'bs.table.pageList',
     columns: 'bs.table.columns',
     searchText: 'bs.table.searchText',
+    reorderColumns: 'bs.table.reorderColumns',
     filterControl: 'bs.table.filterControl',
     filterBy: 'bs.table.filterBy'
   },
@@ -171,9 +172,16 @@ const UtilsCookie = {
         const searchControls = UtilsCookie.getCurrentSearchControls(bootstrapTable)
 
         const applyCookieFilters = (element, filteredCookies) => {
-          $(filteredCookies).each((i, cookie) => {
-            if (cookie.text !== '') {
-              $(element).val(cookie.text)
+          filteredCookies.forEach(cookie => {
+            if (cookie.text !== '' && element.tagName === 'INPUT') {
+              element.value = cookie.text
+              cachedFilters[cookie.field] = cookie.text
+            } else if (cookie.text !== '' && element.tagName === 'SELECT') {
+              const option = document.createElement('option')
+              option.value = cookie.text
+              option.text = cookie.text
+              element.add(option, element[1])
+              element.selectedIndex = 1
               cachedFilters[cookie.field] = cookie.text
             }
           })
@@ -205,7 +213,8 @@ $.extend($.fn.bootstrapTable.defaults, {
     'bs.table.sortOrder', 'bs.table.sortName',
     'bs.table.pageNumber', 'bs.table.pageList',
     'bs.table.columns', 'bs.table.searchText',
-    'bs.table.filterControl', 'bs.table.filterBy'
+    'bs.table.filterControl', 'bs.table.filterBy',
+    'bs.table.reorderColumns'
   ],
   cookieStorage: 'cookieStorage', // localStorage, sessionStorage
   // internal variable
@@ -223,40 +232,42 @@ $.extend($.fn.bootstrapTable.utils, {
 
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
-    // FilterBy logic
-    const filterByCookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy))
-    this.filterColumns = filterByCookie ? filterByCookie : {}
+    if (this.options.cookie) {
+      // FilterBy logic
+      const filterByCookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy))
+      this.filterColumns = filterByCookie ? filterByCookie : {}
 
-    // FilterControl logic
-    this.options.filterControls = []
-    this.options.filterControlValuesLoaded = false
+      // FilterControl logic
+      this.options.filterControls = []
+      this.options.filterControlValuesLoaded = false
 
-    this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
-      this.options.cookiesEnabled.replace('[', '').replace(']', '')
-        .replace(/ /g, '').toLowerCase().split(',') :
-      this.options.cookiesEnabled
+      this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
+        this.options.cookiesEnabled.replace('[', '').replace(']', '')
+          .replace(/'/g, '').replace(/ /g, '').toLowerCase().split(',') :
+        this.options.cookiesEnabled
 
-    if (this.options.filterControl) {
-      const that = this
-      this.$el.on('column-search.bs.table', (e, field, text) => {
-        let isNewField = true
+      if (this.options.filterControl) {
+        const that = this
+        this.$el.on('column-search.bs.table', (e, field, text) => {
+          let isNewField = true
 
-        for (let i = 0; i < that.options.filterControls.length; i++) {
-          if (that.options.filterControls[i].field === field) {
-            that.options.filterControls[i].text = text
-            isNewField = false
-            break
+          for (let i = 0; i < that.options.filterControls.length; i++) {
+            if (that.options.filterControls[i].field === field) {
+              that.options.filterControls[i].text = text
+              isNewField = false
+              break
+            }
           }
-        }
-        if (isNewField) {
-          that.options.filterControls.push({
-            field,
-            text
-          })
-        }
+          if (isNewField) {
+            that.options.filterControls.push({
+              field,
+              text
+            })
+          }
 
-        UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that.options.filterControls))
-      }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(that))
+          UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that.options.filterControls))
+        }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(that))
+      }
     }
     super.init()
   }
@@ -333,6 +344,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText)
     }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
+  }
+
+  initHeader (...args) {
+    if (this.options.reorderableColumns) {
+      this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.reorderColumns))
+    }
+    super.initHeader(...args)
+  }
+
+  persistReorderColumnsState (that) {
+    UtilsCookie.setCookie(that, UtilsCookie.cookieIds.reorderColumns, JSON.stringify(that.columnsSortOrder))
   }
 
   filterBy (...args) {

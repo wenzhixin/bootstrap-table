@@ -37,8 +37,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   The height of table, enable fixed header of table.
 
-  Note that if there are multiple tables on a page and the height option is set at the same time, you need to add the `id` attribute to each table, otherwise, the window resize will not work properly.
-
 - **Default:** `undefined`
 
 - **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
@@ -70,6 +68,33 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `''`
 
 - **Example:** [Thead Classes](https://examples.bootstrap-table.com/#options/thead-classes.html)
+
+## headerStyle
+
+- **Attribute:** `data-header-style`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  The header style formatter function, takes one parameter:
+
+  * `column`: the column object.
+
+  Support `classes` or `css`. Example usage:
+
+  {% highlight javascript %}
+  function headerStyle(column) {
+    return {
+      css: { 'font-weight': 'normal' },
+      classes: 'my-class'
+    }
+  }
+  {% endhighlight %}
+
+- **Default:** `{}`
+
+- **Example:** [Header Style](https://examples.bootstrap-table.com/#options/header-style.html)
 
 ## rowStyle
 
@@ -272,6 +297,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Remember Order](https://examples.bootstrap-table.com/#options/remember-order.html)
+
+## serverSort
+
+- **Attribute:** `data-server-sort`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to sort the data in the client side, only works when the `sidePagination` is `server`.
+
+- **Default:** `true`
+
+- **Example:** [Server Sort](https://examples.bootstrap-table.com/#options/server-sort.html)
 
 ## customSort
 
@@ -1063,6 +1102,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Columns Toggle All](https://examples.bootstrap-table.com/#options/columns-toggle-all.html)
 
+## showColumnsSearch
+
+- **Attribute:** `data-show-columns-search`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a search for the columns filter.
+
+- **Default:** `false`
+
+- **Example:** [Columns Search](https://examples.bootstrap-table.com/#options/columns-search.html)
+
 ## minimumCountColumns
 
 - **Attribute:** `data-minimum-count-columns`
@@ -1446,6 +1499,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `'right'`
 
 - **Example:** [Buttons Align](https://examples.bootstrap-table.com/#options/buttons-align.html)
+
+## buttonsOrder
+
+- **Attribute:** `data-buttons-order`
+
+- **Type:** `Array`
+
+- **Detail:**
+
+  Indicate how to custom order of the toolbar buttons.
+
+- **Default:** `['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns']`
+
+- **Example:** [Buttons Order](https://examples.bootstrap-table.com/#options/buttons-order.html)
 
 ## buttonsPrefix
 

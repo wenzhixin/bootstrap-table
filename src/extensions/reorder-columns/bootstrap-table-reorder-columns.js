@@ -1,8 +1,18 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v1.1.0
+ * @update: https://github.com/wenzhixin
+ * @version: v1.2.0
  */
+
+$.akottr.dragtable.prototype._restoreState = function (persistObj) {
+  for (const [field, value] of Object.entries(persistObj)) {
+    var $th = this.originalTable.el.find(`th[data-field="${field}"]`)
+    this.originalTable.startIndex = $th.prevAll().length + 1
+    this.originalTable.endIndex = parseInt(value, 10) + 1
+    this._bubbleCols()
+  }
+}
 
 // From MDN site, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 const filterFn = () => {
@@ -27,7 +37,7 @@ const filterFn = () => {
           // NOTE: Technically this should Object.defineProperty at
           //       the next index, as push can be affected by
           //       properties on Object.prototype and Array.prototype.
-          //       But that method's new, and collisions should be
+          //       But this method's new, and collisions should be
           //       rare, so use the more-compatible alternative.
           if (fun.call(thisArg, val, i, t)) {
             res.push(val)
@@ -53,124 +63,135 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'reorder-column.bs.table': 'onReorderColumn'
 })
 
-const BootstrapTable = $.fn.bootstrapTable.Constructor
-const _initHeader = BootstrapTable.prototype.initHeader
-const _toggleColumn = BootstrapTable.prototype._toggleColumn
-const _toggleView = BootstrapTable.prototype.toggleView
-const _resetView = BootstrapTable.prototype.resetView
+$.fn.bootstrapTable.methods.push('orderColumns')
 
-BootstrapTable.prototype.initHeader = function (...args) {
-  _initHeader.apply(this, Array.prototype.slice.apply(args))
+$.BootstrapTable = class extends $.BootstrapTable {
+  initHeader (...args) {
+    super.initHeader(...args)
 
-  if (!this.options.reorderableColumns) {
-    return
-  }
-
-  this.makeRowsReorderable()
-}
-
-BootstrapTable.prototype._toggleColumn = function (...args) {
-  _toggleColumn.apply(this, Array.prototype.slice.apply(args))
-
-  if (!this.options.reorderableColumns) {
-    return
-  }
-
-  this.makeRowsReorderable()
-}
-
-BootstrapTable.prototype.toggleView = function (...args) {
-  _toggleView.apply(this, Array.prototype.slice.apply(args))
-
-  if (!this.options.reorderableColumns) {
-    return
-  }
-
-  if (this.options.cardView) {
-    return
-  }
-
-  this.makeRowsReorderable()
-}
-
-BootstrapTable.prototype.resetView = function (...args) {
-  _resetView.apply(this, Array.prototype.slice.apply(args))
-
-  if (!this.options.reorderableColumns) {
-    return
-  }
-
-  this.makeRowsReorderable()
-}
-
-BootstrapTable.prototype.makeRowsReorderable = function () {
-  const that = this
-  try {
-    $(this.$el).dragtable('destroy')
-  } catch (e) {
-    //
-  }
-  $(this.$el).dragtable({
-    maxMovingRows: that.options.maxMovingRows,
-    dragaccept: that.options.dragaccept,
-    clickDelay: 200,
-    dragHandle: '.th-inner',
-    beforeStop () {
-      const ths = []
-      const formatters = []
-      const columns = []
-      let columnsHidden = []
-      let columnIndex = -1
-      const optionsColumns = []
-      that.$header.find('th').each(function (i) {
-        ths.push($(this).data('field'))
-        formatters.push($(this).data('formatter'))
-      })
-
-      // Exist columns not shown
-      if (ths.length < that.columns.length) {
-        columnsHidden = that.columns.filter(column => !column.visible)
-        for (var i = 0; i < columnsHidden.length; i++) {
-          ths.push(columnsHidden[i].field)
-          formatters.push(columnsHidden[i].formatter)
-        }
-      }
-
-      for (let i = 0; i < ths.length; i++ ) {
-        columnIndex = that.fieldsColumnsIndex[ths[i]]
-        if (columnIndex !== -1) {
-          that.fieldsColumnsIndex[ths[i]] = i
-          that.columns[columnIndex].fieldIndex = i
-          columns.push(that.columns[columnIndex])
-        }
-      }
-
-      that.columns = columns
-
-      filterFn() // Support <IE9
-      $.each(that.columns, (i, column) => {
-        let found = false
-        const field = column.field
-        that.options.columns[0].filter(item => {
-          if (!found && item['field'] === field) {
-            optionsColumns.push(item)
-            found = true
-            return false
-          }
-          return true
-        })
-      })
-
-      that.options.columns[0] = optionsColumns
-
-      that.header.fields = ths
-      that.header.formatters = formatters
-      that.initHeader()
-      that.initToolbar()
-      that.initSearchText()
-      that.initBody()
-      that.resetView()
-      that.trigger('reorder-column', ths)
+    if (!this.options.reorderableColumns) {
+      return
     }
-  })
+
+    this.makeRowsReorderable()
+  }
+
+  _toggleColumn (...args) {
+    super._toggleColumn(...args)
+
+    if (!this.options.reorderableColumns) {
+      return
+    }
+
+    this.makeRowsReorderable()
+  }
+
+  toggleView (...args) {
+    super.toggleView(...args)
+
+    if (!this.options.reorderableColumns) {
+      return
+    }
+
+    if (this.options.cardView) {
+      return
+    }
+
+    this.makeRowsReorderable()
+  }
+
+  resetView (...args) {
+    super.resetView(...args)
+
+    if (!this.options.reorderableColumns) {
+      return
+    }
+
+    this.makeRowsReorderable()
+  }
+
+  makeRowsReorderable (order = null) {
+    try {
+      $(this.$el).dragtable('destroy')
+    } catch (e) {
+      // do nothing
+    }
+    $(this.$el).dragtable({
+      maxMovingRows: this.options.maxMovingRows,
+      dragaccept: this.options.dragaccept,
+      clickDelay: 200,
+      dragHandle: '.th-inner',
+      restoreState: order ? order : this.columnsSortOrder,
+      beforeStop: (table) => {
+        const sortOrder = {}
+        table.el.find('th').each((i, el) => {
+          sortOrder[$(el).data('field')] = i
+        })
+
+        this.columnsSortOrder = sortOrder
+        this.persistReorderColumnsState(this)
+
+        const ths = []
+        const formatters = []
+        const columns = []
+        let columnsHidden = []
+        let columnIndex = -1
+        const optionsColumns = []
+        this.$header.find('th:not(.detail)').each(function (i) {
+          ths.push($(this).data('field'))
+          formatters.push($(this).data('formatter'))
+        })
+
+        // Exist columns not shown
+        if (ths.length < this.columns.length) {
+          columnsHidden = this.columns.filter(column => !column.visible)
+          for (var i = 0; i < columnsHidden.length; i++) {
+            ths.push(columnsHidden[i].field)
+            formatters.push(columnsHidden[i].formatter)
+          }
+        }
+
+        for (let i = 0; i < ths.length; i++) {
+          columnIndex = this.fieldsColumnsIndex[ths[i]]
+          if (columnIndex !== -1) {
+            this.fieldsColumnsIndex[ths[i]] = i
+            this.columns[columnIndex].fieldIndex = i
+            columns.push(this.columns[columnIndex])
+          }
+        }
+
+        this.columns = columns
+
+        filterFn() // Support <IE9
+        $.each(this.columns, (i, column) => {
+          let found = false
+          const field = column.field
+          this.options.columns[0].filter(item => {
+            if (!found && item['field'] === field) {
+              optionsColumns.push(item)
+              found = true
+              return false
+            }
+            return true
+          })
+        })
+
+        this.options.columns[0] = optionsColumns
+
+        this.header.fields = ths
+        this.header.formatters = formatters
+        this.initHeader()
+        this.initToolbar()
+        this.initSearchText()
+        this.initBody()
+        this.resetView()
+        this.trigger('reorder-column', ths)
+      }
+    })
+  }
+
+  orderColumns (order) {
+    this.columnsSortOrder = order
+    this.makeRowsReorderable()
+  }
 }

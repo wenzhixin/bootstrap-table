@@ -20,6 +20,8 @@ toc: true
 
 ### cookie
 
+- **Attribute:** `data-cookie`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -29,6 +31,8 @@ toc: true
 - **Default:** `false`
 
 ### cookieExpire
+
+- **Attribute:** `data-cookie-expire`
 
 - **type:** `String`
 
@@ -40,6 +44,8 @@ toc: true
 
 ### cookiePath
 
+- **Attribute:** `data-cookie-path`
+
 - **type:** `String`
 
 - **Detail:**
@@ -49,6 +55,8 @@ toc: true
 - **Default:** `null`
 
 ### cookieDomain
+
+- **Attribute:** `data-cookie-domain`
 
 - **type:** `String`
 
@@ -60,6 +68,8 @@ toc: true
 
 ### cookieSecure
 
+- **Attribute:** `data-cookie-secure`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -69,6 +79,8 @@ toc: true
 - **Default:** `null`
 
 ### cookieIdTable
+
+- **Attribute:** `data-cookie-id-table`
 
 - **type:** `String`
 
@@ -80,6 +92,8 @@ toc: true
 
 ### cookieStorage
 
+- **Attribute:** `data-cookie-storage`
+
 - **type:** `String`
 
 - **Detail:**
@@ -89,6 +103,8 @@ toc: true
 - **Default:** `cookieStorage`
 
 ### cookiesEnabled
+
+- **Attribute:** `data-cookies-enabled`
 
 - **type:** `Array`
 

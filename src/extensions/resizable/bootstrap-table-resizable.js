@@ -8,7 +8,9 @@ const isInit = that => that.$el.data('resizableColumns') !== undefined
 
 const initResizable = that => {
   if (that.options.resizable && !that.options.cardView && !isInit(that)) {
-    that.$el.resizableColumns()
+    that.$el.resizableColumns({
+      store: window.store
+    })
   }
 }
 
@@ -37,8 +39,8 @@ BootstrapTable.prototype.initBody = function (...args) {
   _initBody.apply(this, Array.prototype.slice.apply(args))
 
   that.$el
-    .off('column-switch.bs.table, page-change.bs.table')
-    .on('column-switch.bs.table, page-change.bs.table', () => {
+    .off('column-switch.bs.table page-change.bs.table')
+    .on('column-switch.bs.table page-change.bs.table', () => {
       reInitResizable(that)
     })
 }

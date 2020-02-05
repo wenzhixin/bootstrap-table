@@ -20,6 +20,8 @@ toc: true
 
 ### advancedSearch
 
+- **attribute:** `data-advanced-search`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -29,6 +31,8 @@ toc: true
 - **Default:** `false`
 
 ### idForm
+
+- **attribute:** `data-id-form`
 
 - **type:** `String`
 
@@ -40,6 +44,8 @@ toc: true
 
 ### actionForm
 
+- **attribute:** `data-action-form`
+
 - **type:** `String`
 
 - **Detail:**
@@ -49,6 +55,8 @@ toc: true
 - **Default:** `''`
 
 ### idTable
+
+- **attribute:** `data-id-table`
 
 - **type:** `String`
 
@@ -62,7 +70,6 @@ toc: true
 
 ### formatAdvancedSearch
 
-
 - **Detail:**
 
    Title of the advanced search modal
@@ -70,7 +77,6 @@ toc: true
 - **Default:** `Advanced search`
 
 ### formatAdvancedCloseButton
-
 
 - **Detail:**
 

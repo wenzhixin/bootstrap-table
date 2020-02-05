@@ -32,7 +32,7 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
     return `Mostrando ${totalRows} linhas`
   },
   formatClearSearch () {
-    return 'Limpar Pasquisa'
+    return 'Limpar Pesquisa'
   },
   formatSearch () {
     return 'Pesquisar'

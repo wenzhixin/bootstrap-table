@@ -20,6 +20,8 @@ toc: true
 
 ### mobileResponsive
 
+- **attribute:** `data-mobile-responsive`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -29,6 +31,8 @@ toc: true
 - **Default:** `false`
 
 ### checkOnInit
+
+- **attribute:** `data-check-on-init`
 
 - **type:** `Boolean`
 
@@ -40,6 +44,8 @@ toc: true
 
 ### minWidth
 
+- **attribute:** `data-min-width`
+
 - **type:** `Integer`
 
 - **Detail:**
@@ -50,6 +56,8 @@ toc: true
 
 ### minHeight
 
+- **attribute:** `data-min-height`
+
 - **type:** `Integer`
 
 - **Detail:**
@@ -59,6 +67,8 @@ toc: true
 - **Default:** `undefined`
 
 ### columnsHidden
+
+- **attribute:** `data-columns-hidden`
 
 - **type:** `String`
 

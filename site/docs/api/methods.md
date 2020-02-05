@@ -38,6 +38,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   * `useCurrentPage`: if set to true the method will return the data only in the current page.
   * `includeHiddenRows`: if set to true the method will include the hidden rows.
+  * `unfiltered`: if set to true the method will include all data (unfiltered).
 
 - **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/getData.html)
 
@@ -425,14 +426,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `height`: the height of the table.
 
 - **Example:** [Reset View](https://examples.bootstrap-table.com/#methods/reset-view.html)
-
-## resetWidth
-
-- **Parameter:** `undefined`
-
-- **Detail:**
-
-  Resizes header and footer to fit current columns width.
 
 ## showLoading
 

@@ -21,6 +21,8 @@ toc: true
 
 ### showJumpTo
 
+- **attribute:** `data-show-jump-to`
+
 - **type:** `Boolean`
 
 - **Detail:**

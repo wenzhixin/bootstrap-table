@@ -22,7 +22,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.paginationDropdown = 'ui dropdown'
 
     this.constants.html.toolbarDropdown = ['<div class="menu">', '</div>']
-    this.constants.html.toolbarDropdownItem = '<label class="item">%s</label>'
+    this.constants.html.toolbarDropdownItem = '<label class="item dropdown-item-marker">%s</label>'
     this.constants.html.toolbarDropdownSeparator = '<div class="divider"></div>'
     this.constants.html.pageDropdown = ['<div class="menu">', '</div>']
     this.constants.html.pageDropdownItem = '<a class="item %s" href="#">%s</a>'

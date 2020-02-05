@@ -236,7 +236,7 @@ const bootstrap = {
                     </table>
                 </div>
               </div>
-              
+
               <button class="waves-effect waves-light button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">%s</span>
               </button>
@@ -352,7 +352,7 @@ const showSortModal = that => {
       const fields = []
       const results = []
 
-      that.options.sortPriority = $.map($rows, row => {
+      const sortPriority = $.map($rows, row => {
         const $row = $(row)
         const name = $row.find('.multi-sort-name').val()
         const order = $row.find('.multi-sort-order').val()
@@ -387,20 +387,7 @@ const showSortModal = that => {
           that.$sortModal.modal('hide')
         }
 
-        that.options.sortName = ''
-
-        if (that.options.sidePagination === 'server') {
-          const t = that.options.queryParams
-          that.options.queryParams = params => {
-            params.multiSort = that.options.sortPriority
-            return $.fn.bootstrapTable.utils.calculateObjectValue(that.options, t, [params])
-          }
-          isSingleSort = false
-          that.initServer(that.options.silentSort)
-          return
-        }
-        that.onMultipleSort()
-
+        that.multiSort(sortPriority)
       }
     })
 
@@ -428,10 +415,12 @@ const showSortModal = that => {
 }
 
 $.fn.bootstrapTable.methods.push('multipleSort')
+$.fn.bootstrapTable.methods.push('multiSort')
 
 $.extend($.fn.bootstrapTable.defaults, {
   showMultiSort: false,
   showMultiSortButton: true,
+  multiSortStrictSort: false,
   sortPriority: null,
   onMultipleSort () {
     return false
@@ -488,6 +477,7 @@ $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initToolbar = BootstrapTable.prototype.initToolbar
+const _destroy = BootstrapTable.prototype.destroy
 
 BootstrapTable.prototype.initToolbar = function (...args) {
   this.showToolbar = this.showToolbar || this.options.showMultiSort
@@ -584,6 +574,14 @@ BootstrapTable.prototype.initToolbar = function (...args) {
   }
 }
 
+BootstrapTable.prototype.destroy = function (...args) {
+  _destroy.apply(this, Array.prototype.slice.apply(args))
+
+  if (this.options.showMultiSort) {
+    this.$sortModal.remove()
+  }
+}
+
 BootstrapTable.prototype.multipleSort = function () {
   const that = this
   if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
@@ -608,15 +606,22 @@ BootstrapTable.prototype.onMultipleSort = function () {
       if (aa === undefined || aa === null) {
         aa = ''
       }
+
       if (bb === undefined || bb === null) {
         bb = ''
       }
+
       if ($.isNumeric(aa) && $.isNumeric(bb)) {
         aa = parseFloat(aa)
         bb = parseFloat(bb)
-      }
-      if (typeof aa !== 'string') {
+      } else {
         aa = aa.toString()
+        bb = bb.toString()
+
+        if (that.options.multiSortStrictSort) {
+          aa = aa.toLowerCase()
+          bb = bb.toLowerCase()
+        }
       }
 
       arr1.push(
@@ -694,4 +699,21 @@ BootstrapTable.prototype.setButtonStates = function () {
   if (current === 1) {
     this.$sortModal.find('#delete').attr('disabled', 'disabled')
   }
+}
+
+BootstrapTable.prototype.multiSort = function (sortPriority) {
+  this.options.sortPriority = sortPriority
+  this.options.sortName = ''
+
+  if (this.options.sidePagination === 'server') {
+    this.options.queryParams = params => {
+      params.multiSort = this.options.sortPriority
+      return $.fn.bootstrapTable.utils.calculateObjectValue(this.options, this.options.queryParams, [params])
+    }
+    isSingleSort = false
+    this.initServer(this.options.silentSort)
+    return
+  }
+
+  this.onMultipleSort()
 }

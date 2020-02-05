@@ -20,6 +20,8 @@ toc: true
 
 ### deferUrl
 
+- **Attribute:** `data-defer-url`
+
 - **type:** `String`
 
 - **Detail:**

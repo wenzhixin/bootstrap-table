@@ -22,6 +22,8 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 ### showCopyRows
 
+- **Attribute:** `data-show-copy-rows`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -31,6 +33,8 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 - **Default:** `false`
 
 ### copyWithHidden
+
+- **Attribute:** `data-copy-width-hidden`
 
 - **type:** `Boolean`
 
@@ -42,6 +46,8 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 ### copyDelimiter
 
+- **Attribute:** `data-copy-delimiter`
+
 - **type:** `String`
 
 - **Detail:**
@@ -51,6 +57,8 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 - **Default:** `', '`
 
 ### copyNewline
+
+- **Attribute:** `data-copy-newline`
 
 - **type:** `String`
 

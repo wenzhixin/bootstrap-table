@@ -20,6 +20,8 @@ toc: true
 
 ### showMultiSort
 
+- **attribute:** `data-show-multi-sort`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -30,6 +32,8 @@ toc: true
 
 ### showMultiSortButton
 
+- **attribute:** `data-show-multi-sort-button`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -38,7 +42,21 @@ toc: true
 
 - **Default:** `true`
 
+### multiSortStrictSort
+
+- **attribute:** `data-multi-sort-strict-sort`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to enable strict sorting. This means that strings will be compared and ordered using toLowerCase.
+
+- **Default:** `false`
+
 ### sortPriority
+
+- **attribute:** `data-sort-priority`
 
 - **type:** `Object`
 
@@ -62,6 +80,29 @@ toc: true
 - **Detail:**
 
    Force mutltiple sort table (usable after manual data changes).
+
+
+### multiSort
+
+- **parameters:** sortPriority
+
+- **Detail:**
+
+   Set one or multiple sort priority
+
+   Example:
+   ```
+  [
+    {
+      "sortName": "forks_count",
+      "sortOrder": "desc"
+    },
+    {
+      "sortName": "stargazers_count",
+      "sortOrder": "asc"
+    }
+  ]
+  ```
 
 ## Locales
 

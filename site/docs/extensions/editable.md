@@ -18,6 +18,8 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 
 ### editable
 
+- **Attribute:** `data-editable`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -29,6 +31,8 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 ## Column options
 
 ### editable
+
+- **Attribute:** `data-editable`
 
 - **type:** `Object | Function`
 

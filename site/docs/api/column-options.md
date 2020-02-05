@@ -16,7 +16,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  The column field name.
+  The column field name. This field must be unique, or some unknown problems may occur.
 
 - **Default:** `undefined`
 
