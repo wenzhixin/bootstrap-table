@@ -48,7 +48,7 @@ module.exports = {
     'no-multi-spaces': 'error',
     'valid-jsdoc': 'warn',
     'eqeqeq': 'error',
-    'guard-for-in': 'warn',
+    'guard-for-in': 'off',
     'no-multi-str': 'error',
     'no-return-await': 'error',
     'no-return-assign': 'error',
