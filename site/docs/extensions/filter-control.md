@@ -128,7 +128,12 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   Set custom select filter values, use `var:variable` to load from a variable or `url:http://www.example.com/data.json` to load from a remote json file or `json:{key:data}` to load from a json string.
+   Set custom select filter values, use   
+   `var:variable` to load from a variable   
+   `obj:variable.key` to load from a object   
+   `url:http://www.example.com/data.json` to load from a remote json file   
+   `json:{key:data}` to load from a json string.   
+   `func:functionName` to load from a function.
 
 - **Default:** `undefined`
 

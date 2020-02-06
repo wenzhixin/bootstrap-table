@@ -364,44 +364,9 @@ const UtilsFilterControl = {
           filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
         } else {
           throw new SyntaxError(
-            'Error. You should use any of these allowed filter data methods: var, json, url.' +
+            'Error. You should use any of these allowed filter data methods: var, obj, json, url, func.' +
             ' Use like this: var: {key: "value"}'
           )
-        }
-
-        let variableValues
-        let key
-        // eslint-disable-next-line default-case
-        switch (filterDataType) {
-          case 'url':
-            $.ajax({
-              url: filterDataSource,
-              dataType: 'json',
-              success (data) {
-                // eslint-disable-next-line guard-for-in
-                for (const key in data) {
-                  UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key], column.filterDefault)
-                }
-                UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
-              }
-            })
-            break
-          case 'var':
-            variableValues = window[filterDataSource]
-            // eslint-disable-next-line guard-for-in
-            for (key in variableValues) {
-              UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], column.filterDefault)
-            }
-            UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
-            break
-          case 'jso':
-            variableValues = JSON.parse(filterDataSource)
-            // eslint-disable-next-line guard-for-in
-            for (key in variableValues) {
-              UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], column.filterDefault)
-            }
-            UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
-            break
         }
       }
     })
@@ -511,9 +476,31 @@ const UtilsFilterControl = {
   }
 }
 const filterDataMethods = {
+  func (filterDataSource, selectControl, filterOrderBy, selected) {
+    const variableValues = window[filterDataSource].apply()
+    for (const key in variableValues) {
+      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+    }
+    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
+  },
+  obj (filterDataSource, selectControl, filterOrderBy, selected) {
+    const objectKeys = filterDataSource.split('.')
+    const variableName = objectKeys.shift()
+    let variableValues = window[variableName]
+
+    if (objectKeys.length > 0) {
+      objectKeys.forEach((key) => {
+        variableValues = variableValues[key]
+      })
+    }
+
+    for (const key in variableValues) {
+      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+    }
+    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
+  },
   var (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource]
-    // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
@@ -524,7 +511,6 @@ const filterDataMethods = {
       url: filterDataSource,
       dataType: 'json',
       success (data) {
-        // eslint-disable-next-line guard-for-in
         for (const key in data) {
           UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key], selected)
         }
@@ -534,7 +520,6 @@ const filterDataMethods = {
   },
   json (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = JSON.parse(filterDataSource)
-    // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
@@ -560,6 +545,7 @@ $.extend($.fn.bootstrapTable.defaults, {
         'undefined' === typeof value ? '' : value
       )
     },
+
     select ({options}, field) {
       return Utils.sprintf(
         '<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%;" dir="%s"></select>',
@@ -754,7 +740,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.filterColumnsPartial = filterColumnsDefaults
       this.updatePagination()
 
-      // eslint-disable-next-line guard-for-in
       for (const filter in filterColumnsDefaults) {
         this.trigger('column-search', filter, filterColumnsDefaults[filter])
       }
