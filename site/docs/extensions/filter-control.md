@@ -224,6 +224,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
      * `field`: the column field name.
      * `data`: the table data.
 
+   Return `false` to filter out the column/row.  
+   Return `null` to skip the custom search for the current value.
+
 - **Default:** `undefined`
 
 ### Icons
