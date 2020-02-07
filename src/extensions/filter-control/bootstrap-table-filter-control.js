@@ -770,7 +770,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
                 }
 
                 if (thisColumn.filterCustomSearch) {
-                  tmpItemIsExpected = Utils.calculateObjectValue(that, thisColumn.filterCustomSearch, [fval, value, key, that.options.data], true)
+                  const customSearchResult = Utils.calculateObjectValue(that, thisColumn.filterCustomSearch, [fval, value, key, that.options.data], true)
+                  if (customSearchResult !== null) {
+                    tmpItemIsExpected = customSearchResult
+                  }
                 }
               }
             }
