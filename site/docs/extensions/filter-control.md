@@ -209,6 +209,23 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `'asc'`
 
+### filterCustomSearch
+
+- **Attribute:** `data-filter-custom-search`
+
+- **type:** `function`
+
+- **Detail:**
+
+   The custom search function is executed instead of built-in search function, takes four parameters:
+
+     * `text`: the search text.
+     * `value`: the the value of the column to compare.
+     * `field`: the column field name.
+     * `data`: the table data.
+
+- **Default:** `undefined`
+
 ### Icons
 
 * clear: 'glyphicon-trash icon-clear'
