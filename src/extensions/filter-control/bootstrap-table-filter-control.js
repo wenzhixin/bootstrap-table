@@ -440,6 +440,15 @@ const UtilsFilterControl = {
           return
         }
 
+        const $select = $(currentTarget)
+        const value = $select.val()
+        if ($.trim(value)) {
+          $select.find('option[selected]').removeAttr('selected')
+          $select.find('option[value="' + value + '"]').attr('selected', true)
+        } else {
+          $(currentTarget).find('option[selected]').removeAttr('selected')
+        }
+
         clearTimeout(currentTarget.timeoutId || 0)
         currentTarget.timeoutId = setTimeout(() => {
           that.onColumnSearch({currentTarget, keyCode})
