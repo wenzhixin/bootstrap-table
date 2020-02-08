@@ -1,11 +1,3 @@
-@import '../../themes/bootstrap/variables.scss';
-
-.bootstrap-table {
-  tr.hover td {
-    background: $hover-bg;
-  }
-}
-
 .fixed-columns,
 .fixed-columns-right {
   position: absolute;

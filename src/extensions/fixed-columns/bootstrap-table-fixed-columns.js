@@ -70,16 +70,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initContainer () {
+    super.initContainer()
+
     if (!this.fixedColumnsSupported()) {
-      super.initContainer()
       return
     }
-
-    if (this.options.fixedNumber || this.options.fixedRightNumber) {
-      this.options.classes = this.options.classes.replace('table-hover', '')
-    }
-
-    super.initContainer()
 
     if (this.options.fixedNumber) {
       this.$tableContainer.append('<div class="fixed-columns"></div>')
@@ -173,9 +168,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initFixedColumnsHeader () {
     if (this.options.height) {
-      this.needFixedColumns = this.$tableHeader.width() < this.$tableHeader.find('table').width()
+      this.needFixedColumns = this.$tableHeader.outerWidth(true) < this.$tableHeader.find('table').outerWidth(true)
     } else {
-      this.needFixedColumns = this.$tableBody.width() < this.$tableBody.find('table').width()
+      this.needFixedColumns = this.$tableBody.outerWidth(true) < this.$tableBody.find('table').outerWidth(true)
     }
 
     const initFixedHeader = ($fixedColumns, isRight) => {
@@ -191,14 +186,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.needFixedColumns && this.options.fixedNumber) {
       this.$fixedHeader = initFixedHeader(this.$fixedColumns)
       this.$fixedHeader.css('margin-right', '')
-    } else {
+    } else if (this.$fixedColumns) {
       this.$fixedColumns.html('').css('width', '')
     }
 
     if (this.needFixedColumns && this.options.fixedRightNumber) {
       this.$fixedHeaderRight = initFixedHeader(this.$fixedColumnsRight, true)
       this.$fixedHeaderRight.scrollLeft(this.$fixedHeaderRight.find('table').width())
-    } else {
+    } else if (this.$fixedColumnsRight) {
       this.$fixedColumnsRight.html('').css('width', '')
     }
 
@@ -214,16 +209,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const $fixedBody = $fixedColumns.find('.fixed-table-body')
 
       const tableBody = this.$tableBody.get(0)
-      const scrollHeight = tableBody.scrollHeight >
-        tableBody.clientHeight + this.$header.outerHeight()
+      const scrollHeight = tableBody.scrollWidth > tableBody.clientWidth
         ? Utils.getScrollBarWidth() : 0
+      const height = this.$tableContainer.outerHeight(true) - scrollHeight - 1
 
       $fixedColumns.css({
-        height: this.$tableContainer.outerHeight(true) - scrollHeight - 1
+        height
       })
 
       $fixedBody.css({
-        height: $fixedColumns.height() - $fixedHeader.height()
+        height: height - $fixedHeader.height()
       })
 
       return $fixedBody
@@ -236,6 +231,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.needFixedColumns && this.options.fixedRightNumber) {
       this.$fixedBodyRight = initFixedBody(this.$fixedColumnsRight, this.$fixedHeaderRight)
       this.$fixedBodyRight.scrollLeft(this.$fixedBodyRight.find('table').width())
+      this.$fixedBodyRight.css('overflow-y', this.options.height ? 'auto' : 'hidden')
     }
   }
 
@@ -270,7 +266,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $trs = $trs.add(this.$fixedBodyRight.find(tr))
       }
 
-      $trs.toggleClass('hover', toggle)
+      $trs.css('background-color', toggle ? $(e.currentTarget).css('background-color') : '')
     }
 
     this.$tableBody.find('tr').hover(e => {
@@ -322,7 +318,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         toggleHover(e, false)
       })
 
-      this.$fixedBodyRight.on('scroll', () => {
+      this.$fixedBodyRight.off('scroll').on('scroll', () => {
         const top = this.$fixedBodyRight.scrollTop()
 
         this.$tableBody.scrollTop(top)
