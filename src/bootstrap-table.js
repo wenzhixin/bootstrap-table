@@ -569,6 +569,13 @@ class BootstrapTable {
           html.push(this.constants.html.toolbarDropdownSeparator)
         }
 
+        let visibleColumns = 0
+        this.columns.forEach((column, i) => {
+          if (column.visible) {
+            visibleColumns++
+          }
+        })
+
         this.columns.forEach((column, i) => {
           if (this.isSelectionColumn(column)) {
             return
@@ -579,11 +586,11 @@ class BootstrapTable {
           }
 
           const checked = column.visible ? ' checked="checked"' : ''
-
+          const disabled = (visibleColumns <= this.options.minimumCountColumns) && checked ? ' disabled="disabled"' : ''
           if (column.switchable) {
             html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
-              Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s> <span>%s</span>',
-                column.field, i, checked, column.title)))
+              Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
+                column.field, i, checked, disabled, column.title)))
             switchableCount++
           }
         })
