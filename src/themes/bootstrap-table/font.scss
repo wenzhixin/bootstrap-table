@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'bootstrap-table';
-  src:  url('fonts/bootstrap-table.eot?9p6kv0');
-  src:  url('fonts/bootstrap-table.eot?9p6kv0#iefix') format('embedded-opentype'),
-  url('fonts/bootstrap-table.ttf?9p6kv0') format('truetype'),
-  url('fonts/bootstrap-table.woff?9p6kv0') format('woff'),
-  url('fonts/bootstrap-table.svg?9p6kv0#bootstrap-table') format('svg');
+  src:  url('fonts/bootstrap-table.eot?gmdfsp');
+  src:  url('fonts/bootstrap-table.eot?gmdfsp#iefix') format('embedded-opentype'),
+  url('fonts/bootstrap-table.ttf?gmdfsp') format('truetype'),
+  url('fonts/bootstrap-table.woff?gmdfsp') format('woff'),
+  url('fonts/bootstrap-table.svg?gmdfsp#bootstrap-table') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -37,8 +37,14 @@
 .icon-chevron-right:before {
   content: "\e901";
 }
+.icon-clock:before {
+  content: "\e90c";
+}
 .icon-copy:before {
   content: "\e909";
+}
+.icon-download:before {
+  content: "\e90d";
 }
 .icon-list:before {
   content: "\e902";
@@ -46,8 +52,14 @@
 .icon-maximize:before {
   content: "\1f5ce";
 }
+.icon-minus:before {
+  content: "\e90f";
+}
 .icon-move:before {
   content: "\e903";
+}
+.icon-plus:before {
+  content: "\e90e";
 }
 .icon-printer:before {
   content: "\e90b";
