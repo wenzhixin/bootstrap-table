@@ -446,7 +446,7 @@ const UtilsFilterControl = {
           $select.find('option[selected]').removeAttr('selected')
           $select.find('option[value="' + value + '"]').attr('selected', true)
         } else {
-          $(currentTarget).find('option[selected]').removeAttr('selected')
+          $select.find('option[selected]').removeAttr('selected')
         }
 
         clearTimeout(currentTarget.timeoutId || 0)
