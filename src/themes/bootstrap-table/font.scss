@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'bootstrap-table';
-  src:  url('fonts/bootstrap-table.eot?gh2p5u');
-  src:  url('fonts/bootstrap-table.eot?gh2p5u#iefix') format('embedded-opentype'),
-  url('fonts/bootstrap-table.ttf?gh2p5u') format('truetype'),
-  url('fonts/bootstrap-table.woff?gh2p5u') format('woff'),
-  url('fonts/bootstrap-table.svg?gh2p5u#bootstrap-table') format('svg');
+  src:  url('fonts/bootstrap-table.eot?9p6kv0');
+  src:  url('fonts/bootstrap-table.eot?9p6kv0#iefix') format('embedded-opentype'),
+  url('fonts/bootstrap-table.ttf?9p6kv0') format('truetype'),
+  url('fonts/bootstrap-table.woff?9p6kv0') format('woff'),
+  url('fonts/bootstrap-table.svg?9p6kv0#bootstrap-table') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -63,4 +63,7 @@
 }
 .icon-trash-2:before {
   content: "\e906";
+}
+.icon-sort-amount-asc:before {
+  content: "\ea4c";
 }
