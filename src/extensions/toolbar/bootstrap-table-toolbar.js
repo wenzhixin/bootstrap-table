@@ -244,7 +244,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       $(modalSelector).toggleClass('is-active')
     } else if ($.fn.bootstrapTable.theme === 'foundation') {
       if (!this.toolbarModal) {
-        this.foundationModal = new Foundation.Reveal($(modalSelector))
+        this.toolbarModal = new Foundation.Reveal($(modalSelector))
       }
       this.toolbarModal.open()
     } else if ($.fn.bootstrapTable.theme === 'materialize') {
