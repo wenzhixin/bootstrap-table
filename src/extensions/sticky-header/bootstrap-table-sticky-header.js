@@ -13,10 +13,6 @@ $.extend($.fn.bootstrapTable.defaults, {
   stickyHeaderOffsetRight: 0
 })
 
-const hiddenClass = {
-  bootstrap3: 'hidden'
-}[$.fn.bootstrapTable.theme] || 'd-none'
-
 $.BootstrapTable = class extends $.BootstrapTable {
   initHeader (...args) {
     super.initHeader(...args)
@@ -92,7 +88,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $(el).css('min-width', this.$header.find('tr:eq(0)').find('th').eq(index).css('width'))
       })
       // match bootstrap table style
-      this.$stickyContainer.removeClass(hiddenClass).addClass('fix-sticky fixed-table-container')
+      this.$stickyContainer.show().addClass('fix-sticky fixed-table-container')
       // stick it in position
       let stickyHeaderOffsetLeft = this.options.stickyHeaderOffsetLeft
       let stickyHeaderOffsetRight = this.options.stickyHeaderOffsetRight
@@ -111,7 +107,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // match clone and source header positions when left-right scroll
       this.matchPositionX()
     } else {
-      this.$stickyContainer.removeClass('fix-sticky').addClass(hiddenClass)
+      this.$stickyContainer.removeClass('fix-sticky').hide()
     }
   }
 
