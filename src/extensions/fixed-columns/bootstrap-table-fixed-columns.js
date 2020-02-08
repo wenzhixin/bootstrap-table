@@ -191,11 +191,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.needFixedColumns && this.options.fixedNumber) {
       this.$fixedHeader = initFixedHeader(this.$fixedColumns)
       this.$fixedHeader.css('margin-right', '')
+    } else {
+      this.$fixedColumns.html('').css('width', '')
     }
 
     if (this.needFixedColumns && this.options.fixedRightNumber) {
       this.$fixedHeaderRight = initFixedHeader(this.$fixedColumnsRight, true)
       this.$fixedHeaderRight.scrollLeft(this.$fixedHeaderRight.find('table').width())
+    } else {
+      this.$fixedColumnsRight.html('').css('width', '')
     }
 
     this.initFixedColumnsBody()
