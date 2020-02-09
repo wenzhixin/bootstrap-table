@@ -210,8 +210,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   showAvdSearch () {
     const o = this.options
-
-    if ($(`#avdSearchModal_${o.idTable}`).length <= 0) {
+    const modalSelector = '#avdSearchModal_' + o.idTable
+    if ($(modalSelector).length <= 0) {
       $('body').append(Utils.sprintf(bootstrap.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()))
 
       let timeoutId = 0
@@ -230,6 +230,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       })
 
       $(`#btnCloseAvd_${o.idTable}`).click(() => this.hideModal())
+
+      if ($.fn.bootstrapTable.theme === 'bulma') {
+        $(modalSelector).find('.delete').off('click').on('click', () => this.hideModal());
+      }
+
       this.showModal()
     } else {
       this.showModal()
