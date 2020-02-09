@@ -232,7 +232,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       $(`#btnCloseAvd_${o.idTable}`).click(() => this.hideModal())
 
       if ($.fn.bootstrapTable.theme === 'bulma') {
-        $(modalSelector).find('.delete').off('click').on('click', () => this.hideModal());
+        $(modalSelector).find('.delete').off('click').on('click', () => this.hideModal())
       }
 
       this.showModal()
