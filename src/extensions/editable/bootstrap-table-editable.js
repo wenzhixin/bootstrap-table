@@ -36,7 +36,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this.editedColumns = []
+    this.editedCells = []
     $.each(this.columns, (i, column) => {
       if (!column.editable) {
         return
@@ -58,12 +58,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       column.formatter = column.formatter || (value => value)
       column._formatter = column._formatter ? column._formatter : column.formatter
       column.formatter = (value, row, index) => {
-
-        const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
-        let result = value
-        if ($.inArray(column.field + uniqueId, this.editedColumns) === -1) {
-          result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
-          result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
+        let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
+        result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
+        if (this.options.uniqueId !== undefined) {
+          const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
+          if ($.inArray(column.field + uniqueId, this.editedCells) !== -1) {
+            result = value
+          }
         }
 
         $.each(column, processDataOptions)
@@ -123,9 +124,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const row = data[rowIndex]
         const oldValue = row[column.field]
 
-        const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
-        if ($.inArray(column.field + uniqueId, this.editedColumns) === -1) {
-          this.editedColumns.push(column.field + uniqueId)
+        if (this.options.uniqueId !== undefined) {
+          const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
+          if ($.inArray(column.field + uniqueId, this.editedCells) === -1) {
+            this.editedCells.push(column.field + uniqueId)
+          }
         }
 
         $this.data('value', submitValue)
