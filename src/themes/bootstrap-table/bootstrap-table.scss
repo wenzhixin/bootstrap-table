@@ -2,9 +2,9 @@
  * @author Dustin Utecht
  * https://github.com/wenzhixin/bootstrap-table/
  */
-@import './variables.scss';
+@import '_variables';
 @import '../theme.scss';
-@import './font.css';
+@import './_font.css';
 
 .bootstrap-table {
   input, select {
