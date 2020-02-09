@@ -38,8 +38,10 @@ ChangeLog
 - **New(cookie):** Added new options to get/set/delete the values by a custom function.
 - **New(cookie):** Added save re-order and resize support.
 - **New(filter-control):** Added `filterControlContainer` option.
+- **New(filter-control):** Added `filterCustomSearch` option.
 - **New(filter-control):** Added object and function support in `filterData` column option.
 - **New(filter-control):** Added support for using sticky-header extension.
+- **New(filter-control):** Added support comparisons search(<, >, <=, =<, >=, =>).
 - **New(fixed-columns):** Added all themes support.
 - **New(fixed-columns):** Added `fixedRightNumber` option.
 - **New(group-by):** Added `customSort` option supported.

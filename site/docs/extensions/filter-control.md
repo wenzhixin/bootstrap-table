@@ -128,11 +128,11 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   Set custom select filter values, use   
-   `var:variable` to load from a variable   
-   `obj:variable.key` to load from a object   
-   `url:http://www.example.com/data.json` to load from a remote json file   
-   `json:{key:data}` to load from a json string.   
+   Set custom select filter values, use
+   `var:variable` to load from a variable
+   `obj:variable.key` to load from a object
+   `url:http://www.example.com/data.json` to load from a remote json file
+   `json:{key:data}` to load from a json string.
    `func:functionName` to load from a function.
 
 - **Default:** `undefined`
@@ -224,8 +224,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
      * `field`: the column field name.
      * `data`: the table data.
 
-   Return `false` to filter out the current column/row.  
-   Return `true` to dont filter out the current column/row.   
+   Return `false` to filter out the current column/row.
+   Return `true` to not filter out the current column/row.
    Return `null` to skip the custom search for the current value.
 
 - **Default:** `undefined`
