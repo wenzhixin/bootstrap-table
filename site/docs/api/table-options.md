@@ -999,7 +999,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The custom search function is executed instead of built-in search function, takes two parameters:
+  The custom search function is executed instead of built-in search function, takes three parameters:
 
   * `data`: the table data.
   * `text`: the search text.
