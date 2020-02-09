@@ -45,6 +45,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.$tableBody.off('scroll').on('scroll', () => this.matchPositionX())
   }
 
+  onColumnSearch ({currentTarget, keyCode}) {
+    super.onColumnSearch({currentTarget, keyCode})
+    this.renderStickyHeader()
+  }
+
   resetView (...args) {
     super.resetView(...args)
 
@@ -53,6 +58,28 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   renderStickyHeader () {
+    const that = this
+    this.$stickyHeader = this.$header.clone(true, true)
+
+    if (this.options.filterControl) {
+      $(this.$stickyHeader).off('keyup change mouseup').on('keyup change mouse', function (e) {
+        const $target = $(e.target)
+        const value = $target.val()
+        const field = $target.parents('th').data('field')
+        const $coreTh = that.$header.find('th[data-field="' + field + '"]')
+
+        if ($target.is('input')) {
+          $coreTh.find('input').val(value)
+        } else if ($target.is('select')) {
+          const $select = $coreTh.find('select')
+          $select.find('option[selected]').removeAttr('selected')
+          $select.find('option[value="' + value + '"]').attr('selected', true)
+        }
+
+        that.triggerSearch()
+      })
+    }
+
     const top = $(window).scrollTop()
     // top anchor scroll position, minus header height
     const start = this.$stickyBegin.offset().top - this.options.stickyHeaderOffsetY
