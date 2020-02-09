@@ -599,18 +599,11 @@ BootstrapTable.prototype.onMultipleSort = function () {
     const arr2 = []
 
     for (let i = 0; i < that.options.sortPriority.length; i++) {
-      // get fieldName from multi sort
       let fieldName = that.options.sortPriority[i].sortName
-
-      // get index of fieldName from fields array
       const fieldIndex = that.header.fields.indexOf(fieldName)
-
-      // use fieldIndex to get column's custom sorter
       const sorterName = that.header.sorters[that.header.fields.indexOf(fieldName)]
 
-      // check if column has a custom sort name
       if (that.header.sortNames[fieldIndex]) {
-        // set fieldName to custom sort column
         fieldName = that.header.sortNames[fieldIndex]
       }
 
