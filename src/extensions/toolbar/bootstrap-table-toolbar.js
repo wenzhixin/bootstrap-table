@@ -244,6 +244,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       $(modalSelector).toggleClass('is-active')
     } else if ($.fn.bootstrapTable.theme === 'foundation') {
       if (!this.toolbarModal) {
+        // eslint-disable-next-line no-undef
         this.toolbarModal = new Foundation.Reveal($(modalSelector))
       }
       this.toolbarModal.open()
