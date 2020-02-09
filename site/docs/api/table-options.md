@@ -510,7 +510,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Before load remote data, handler the response data format, the parameters object contains:
 
   * `res`: the response data.
-  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR) (from 1.15.5).
+  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
 
 - **Default:** `function(res) { return res }`
 
@@ -999,11 +999,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The custom search function is executed instead of built-in search function, takes two parameters:
+  The custom search function is executed instead of built-in search function, takes three parameters:
 
   * `data`: the table data.
   * `text`: the search text.
-  * `filter`: the filter object from `filterBy` method (from 1.15.4).
+  * `filter`: the filter object from `filterBy` method.
 
   Example usage:
 

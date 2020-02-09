@@ -1,32 +1,80 @@
 ChangeLog
 ---------
 
-### 1.15.6
+### 1.16.0
 
-- **New:** Added `filterControlContainer` option for filter-control extension.
-- **New:** Added `printFormatter` data-attribute supported for print extension.
-- **New:** Added `customSort` option supported for group-by extension.
-- **New:** Added `orderColumns` method for reorder-columns extension.
-- **Remove:** Removed natural-sorting extension.
-- **Update:** Updated event name to lowercase hyphen format for vue component.
+#### Core
+
+- **New:** Added `buttonsOrder` option.
+- **New:** Added `headerStyle` option.
+- **New:** Added `showColumnsSearch` option.
+- **New:** Added `serverSort` option.
+- **New:** Added `unfiltered` parameter for `getData` method.
+- **Update:** Updated `event` name to lowercase hyphen format for vue component.
+- **Update:** Updated `es-AR` locale.
+- **Update:** Updated the default classes of semantic theme.
 - **Update:** Improved the `resize` problem with multiple tables.
-- **Update:** Improved `number` type supported for group-by extension.
-- **Update:** Improved to use `undefinedText` option for print extension.
-- **Update:** Fixed `triggerSearch` not work bug.
-- **Update:** Fixed `height` and `border` not aligned bug.
-- **Update:** Fixed `sortStable` not work bug.
-- **Update:** Fixed `pageSize` set to all bug with filter.
-- **Update:** Fixed `jqXHR` `undefined` error using custom ajax.
-- **Update:** Fixed `refreshOptions` bug with radio and checkbox.
 - **Update:** Fixed `checkAll` event bug with sortable checkbox field.
-- **Update:** Fixed checkbox and not-found td style errors.
-- **Update:** Fixed `hideUnusedSelectOptions` not work bug for filter-control extension.
-- **Update:** Fixed filter not work bug with `undefined` for filter-control extension.
-- **Update:** Fixed `virtualScroll` option bug with treegrid extension.
-- **Update:** Fixed input keyboard bug for mobile extension.
-- **Update:** Fixed detail view column reorder bug for reorder-columns extension.
+- **Update:** Fixed `checkbox` and not-found td style errors.
+- **Update:** Fixed `customSearch` return empty array bug.
+- **Update:** Fixed column checkboxes not being disabled when using `toggleAll`.
 - **Update:** Fixed `flat` not polyfilled error in vue cli3.
-- **Update:** Removed `resetWidth` method and use `resetView` instead.
+- **Update:** Fixed `height` and `border` not aligned bug.
+- **Update:** Fixed `jqXHR` `undefined` error using custom ajax.
+- **Update:** Fixed `pageSize` set to all bug with filter.
+- **Update:** Fixed `refreshOptions` bug with radio and checkbox.
+- **Update:** Fixed `removeAll` bug in the last page when sidePagination is server.
+- **Update:** Fixed `search` not always trigger in IE11 bug.
+- **Update:** Fixed `search` width `escape` bug.
+- **Update:** Fixed `showColumns` cannot work of foundation theme.
+- **Update:** Fixed `showFullscreen` bug when setting height.
+- **Update:** Fixed `sort` cannot work after searching.
+- **Update:** Fixed `sortable` style error when using `table-sm`.
+- **Update:** Fixed `sortStable` not work bug.
+- **Update:** Fixed `triggerSearch` not work bug.
+- **Update:** Supported build cross all platforms.
+- **Remove:** Removed `resetWidth` method and use `resetView` instead.
+
+#### Extensions
+
+- **New(cookie):** Added new options to get/set/delete the values by a custom function.
+- **New(cookie):** Added save re-order and resize support.
+- **New(filter-control):** Added `filterControlContainer` option.
+- **New(filter-control):** Added `filterCustomSearch` option.
+- **New(filter-control):** Added object and function support in `filterData` column option.
+- **New(filter-control):** Added support for using sticky-header extension.
+- **New(filter-control):** Added support comparisons search(<, >, <=, =<, >=, =>).
+- **New(fixed-columns):** Added all themes support.
+- **New(fixed-columns):** Added `fixedRightNumber` option.
+- **New(group-by):** Added `customSort` option supported.
+- **New(multiple-sort):** Added `multiSortStrictSort` option.
+- **New(multiple-sort):** Added `multiSort` method.
+- **New(print):** Added `printFormatter` data-attribute supported.
+- **New(reorder-columns):** Added `orderColumns` method.
+- **New(reorder-rows):** Added `search` and `cardView` supported.
+- **Update(sticky-header):** Added support for all themes.
+- **Update(cookie):** Fixed cookie localeStorage not work bug with filter-control.
+- **Update(cookie):** Fixed `minimumCountColumns` not working bug.
+- **Update(cookie):** Improved `cookiesEnabled` to support ' in `data-attribute`.
+- **Update(filter-control):** Fixed `hideUnusedSelectOptions` not work bug.
+- **Update(filter-control):** Fixed filter not work bug with `undefined`.
+- **Update(filter-control):** Fixed missing parameter of `resetSearch` and `filterDataType`.
+- **Update(filter-control):** Fixed `search` with filter-control `search` bug.
+- **Update(fixed-columns):** Fixed checkbox bug with fixed columns.
+- **Update(fixed-columns):** Updated default value to `0` of `fixedNumber` option.
+- **Update(group-by):** Improved `number` type supported.
+- **Update(group-by):** Fixed new table using modal bug.
+- **Update(mobile):** Fixed input keyboard bug.
+- **Update(multiple-sort):** Fixed not destroy bug.
+- **Update(multiple-sort):** Fixed sort not work with `boolean` bug.
+- **Update(print):** Improved to use `undefinedText` option.
+- **Update(print):** Fixed IE11 not work bug.
+- **Update(reorder-columns):** Fixed detail view column reorder bug.
+- **Update(resizable):** Fixed columns resizing not work bug.
+- **Update(resizable):** Fixed not work via JavaScript.
+- **Update(sticky-header):** Fixed not work bug with fullscreen.
+- **Update(treegrid):** Fixed `virtualScroll` option bug.
+- **Remove:** Removed natural-sorting extension.
 
 ### 1.15.5
 
