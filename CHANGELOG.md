@@ -26,6 +26,7 @@ ChangeLog
 - **Update:** Fixed `removeAll` bug in the last page when sidePagination is server.
 - **Update:** Fixed `search` not always trigger in IE11 bug.
 - **Update:** Fixed `search` width `escape` bug.
+- **Update:** Fixed `showColumns` cannot work of foundation theme.
 - **Update:** Fixed `showFullscreen` bug when setting height.
 - **Update:** Fixed `sort` cannot work after searching.
 - **Update:** Fixed `sortable` style error when using `table-sm`.

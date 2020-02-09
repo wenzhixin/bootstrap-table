@@ -76,8 +76,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     $dropdowns.off('click').on('click', e => {
       const $this = $(e.currentTarget)
       e.stopPropagation()
-      $dropdowns.not($this).next().foundation('close')
+
       $this.next().foundation('toggle')
+
+      if ($dropdowns.not($this).length) {
+        $dropdowns.not($this).next().foundation('close')
+      }
     })
 
     $(document).off('click.bs.dropdown.foundation').on('click.bs.dropdown.foundation', () => {
