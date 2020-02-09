@@ -12,6 +12,7 @@ ChangeLog
 - **New:** Added `unfiltered` parameter for `getData` method.
 - **Update:** Updated `event` name to lowercase hyphen format for vue component.
 - **Update:** Updated `es-AR` locale.
+- **Update:** Updated the default classes of semantic theme.
 - **Update:** Improved the `resize` problem with multiple tables.
 - **Update:** Fixed `checkAll` event bug with sortable checkbox field.
 - **Update:** Fixed `checkbox` and not-found td style errors.
