@@ -253,5 +253,5 @@ BootstrapTable.prototype.getGroupByFields = function () {
     groupByFields = [this.options.groupByField]
   }
 
-  return groupByFields;
+  return groupByFields
 }
