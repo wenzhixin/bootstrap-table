@@ -291,7 +291,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           <div class="form-group row">
             <label class="col-sm-4 control-label">${column.title}</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control input-md" name="${column.field}" placeholder="${column.title}" id="${column.field}">
+              <input type="text" class="form-control ${this.constants.classes.input}" name="${column.field}" placeholder="${column.title}" id="${column.field}">
             </div>
           </div>
         `)
