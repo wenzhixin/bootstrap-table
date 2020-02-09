@@ -5,7 +5,7 @@
  */
 
 $.extend($.fn.bootstrapTable.defaults, {
-  classes: 'ui selectable celled table',
+  classes: 'ui selectable celled table unstackable',
   buttonsPrefix: '',
   buttonsClass: 'ui button'
 })
