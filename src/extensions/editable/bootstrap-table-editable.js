@@ -36,6 +36,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
+    this.editedColumns = []
     $.each(this.columns, (i, column) => {
       if (!column.editable) {
         return
@@ -57,8 +58,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       column.formatter = column.formatter || (value => value)
       column._formatter = column._formatter ? column._formatter : column.formatter
       column.formatter = (value, row, index) => {
-        let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
-        result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
+
+        const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
+        let result = value
+        if ($.inArray(column.field + uniqueId, this.editedColumns) === -1) {
+          result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
+          result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
+        }
 
         $.each(column, processDataOptions)
 
@@ -116,6 +122,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const rowIndex = $this.parents('tr[data-index]').data('index')
         const row = data[rowIndex]
         const oldValue = row[column.field]
+
+        const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
+        if ($.inArray(column.field + uniqueId, this.editedColumns) === -1) {
+          this.editedColumns.push(column.field + uniqueId)
+        }
 
         $this.data('value', submitValue)
         row[column.field] = submitValue
