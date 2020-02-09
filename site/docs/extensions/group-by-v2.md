@@ -35,11 +35,13 @@ toc: true
 
 - **attribute:** `data-group-by-field`
 
-- **type:** `String`
+- **type:** `String|Array`
 
 - **Detail:**
 
-   Set the field name that you want to group the data.
+   Set the field name(s) that you want to group the data.  
+   For a single field use a `String` e.g. `shape`.   
+   For a multiple fields use a `Array` e.g. `["shape", "color"]`.   
 
 - **Default:** `''`
 
