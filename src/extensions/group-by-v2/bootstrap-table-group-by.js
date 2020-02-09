@@ -24,14 +24,14 @@ const sprintf = function (str) {
 }
 
 const groupBy = (array, f) => {
-  const groups = {}
+  const tmpGroups = {}
   array.forEach(o => {
-    const group = f(o)
-    groups[group] = groups[group] || []
-    groups[group].push(o)
+    const groups = f(o)
+    tmpGroups[groups] = tmpGroups[groups] || []
+    tmpGroups[groups].push(o)
   })
 
-  return groups
+  return tmpGroups
 }
 
 $.extend($.fn.bootstrapTable.defaults, {
@@ -63,14 +63,31 @@ BootstrapTable.prototype.initSort = function (...args) {
         ])
       } else {
         this.data.sort((a, b) => {
-          a = a[that.options.groupByField].toString()
-          b = b[that.options.groupByField].toString()
-          return a.localeCompare(b, undefined, { numeric: true })
+          const groupByFields = this.getGroupByFields()
+          const fieldValuesA = []
+          const fieldValuesB = []
+
+          $.each(groupByFields, (i, field) => {
+            fieldValuesA.push(a[field])
+            fieldValuesB.push(b[field])
+          })
+
+          a = fieldValuesA.join()
+          b = fieldValuesB.join()
+          return a.localeCompare(b, undefined, {numeric: true})
         })
       }
     }
 
-    const groups = groupBy(that.data, item => [item[that.options.groupByField]])
+    const groups = groupBy(that.data, (item) => {
+      const groupByFields = this.getGroupByFields()
+      const groupValues = []
+      $.each(groupByFields, (i, field) => {
+        groupValues.push(item[field])
+      })
+
+      return groupValues.join(', ')
+    })
 
     let index = 0
     $.each(groups, (key, value) => {
@@ -133,7 +150,7 @@ BootstrapTable.prototype.initBody = function (...args) {
         )
       }
       let formattedValue = item.name
-      if (typeof(that.options.groupByFormatter) === 'function') {
+      if (typeof (that.options.groupByFormatter) === 'function') {
         formattedValue = that.options.groupByFormatter(item.name, item.id, item.data)
       }
       html.push('<td',
@@ -154,7 +171,7 @@ BootstrapTable.prototype.initBody = function (...args) {
         group: self,
         item: that.$selectItem.filter(function () {
           return ($(this).closest('tr').data('parent-index') ===
-                      self.closest('tr').data('group-index'))
+            self.closest('tr').data('group-index'))
         })
       })
     })
@@ -186,7 +203,7 @@ BootstrapTable.prototype.updateSelected = function (...args) {
     if ((this.options.groupBy) && (this.options.groupByField !== '')) {
       this.$selectGroup.forEach(item => {
         const checkGroup = item.item.filter(':enabled').length ===
-                      item.item.filter(':enabled').filter(':checked').length
+          item.item.filter(':enabled').filter(':checked').length
 
         item.group.prop('checked', checkGroup)
       })
@@ -226,4 +243,15 @@ BootstrapTable.prototype.checkGroup_ = function (index, checked) {
     rows = this.getGroupSelections(index)
   }
   this.trigger(checked ? 'check-all' : 'uncheck-all', rows)
+}
+
+
+BootstrapTable.prototype.getGroupByFields = function () {
+  let groupByFields = this.options.groupByField
+  if (!$.isArray(this.options.groupByField))
+  {
+    groupByFields = [this.options.groupByField]
+  }
+
+  return groupByFields
 }
