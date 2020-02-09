@@ -233,6 +233,26 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$fixedBodyRight.scrollLeft(this.$fixedBodyRight.find('table').width())
       this.$fixedBodyRight.css('overflow-y', this.options.height ? 'auto' : 'hidden')
     }
+
+    const that = this
+    if (this.options.filterControl) {
+      $(this.$fixedColumns).off('keyup change mouseup').on('keyup change mouse', function (e) {
+        const $target = $(e.target)
+        const value = $target.val()
+        const field = $target.parents('th').data('field')
+        const $coreTh = that.$header.find('th[data-field="' + field + '"]')
+
+        if ($target.is('input')) {
+          $coreTh.find('input').val(value)
+        } else if ($target.is('select')) {
+          const $select = $coreTh.find('select')
+          $select.find('option[selected]').removeAttr('selected')
+          $select.find('option[value="' + value + '"]').attr('selected', true)
+        }
+
+        that.triggerSearch()
+      })
+    }
   }
 
   getFixedColumnsWidth (isRight) {
