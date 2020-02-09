@@ -191,8 +191,8 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   Fires when remote data is loaded successfully, the parameters contain:
 
   * `data`: the remote data.
-  * `status`: the status code of `jqXHR` (from 1.15.5).
-  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR) (from 1.15.5).
+  * `status`: the status code of `jqXHR`.
+  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
 
 ## onLoadError
 
@@ -369,7 +369,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **jQuery Event:** `scroll-body.bs.table`
 
-- **Parameter:**: `$tableBody` (from 1.15.5)
+- **Parameter:**: `$tableBody`
 
 - **Detail:**
 
