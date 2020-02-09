@@ -40,6 +40,8 @@ ChangeLog
 - **New(filter-control):** Added `filterControlContainer` option.
 - **New(filter-control):** Added object and function support in `filterData` column option.
 - **New(filter-control):** Added support for using sticky-header extension.
+- **New(fixed-columns):** Added all themes support.
+- **New(fixed-columns):** Added `fixedRightNumber` option.
 - **New(group-by):** Added `customSort` option supported.
 - **New(multiple-sort):** Added `multiSortStrictSort` option.
 - **New(multiple-sort):** Added `multiSort` method.
@@ -54,6 +56,8 @@ ChangeLog
 - **Update(filter-control):** Fixed filter not work bug with `undefined`.
 - **Update(filter-control):** Fixed missing parameter of `resetSearch` and `filterDataType`.
 - **Update(filter-control):** Fixed `search` with filter-control `search` bug.
+- **Update(fixed-columns):** Fixed checkbox bug with fixed columns.
+- **Update(fixed-columns):** Updated default value to `0` of `fixedNumber` option.
 - **Update(group-by):** Improved `number` type supported.
 - **Update(group-by):** Fixed new table using modal bug.
 - **Update(mobile):** Fixed input keyboard bug.
