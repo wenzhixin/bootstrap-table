@@ -599,17 +599,28 @@ BootstrapTable.prototype.onMultipleSort = function () {
     const arr2 = []
 
     for (let i = 0; i < that.options.sortPriority.length; i++) {
+      let fieldName = that.options.sortPriority[i].sortName
+      const fieldIndex = that.header.fields.indexOf(fieldName)
+      const sorterName = that.header.sorters[that.header.fields.indexOf(fieldName)]
+
+      if (that.header.sortNames[fieldIndex]) {
+        fieldName = that.header.sortNames[fieldIndex]
+      }
+
       const order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1
-      let aa = a[that.options.sortPriority[i].sortName]
-      let bb = b[that.options.sortPriority[i].sortName]
+      let aa = a[fieldName]
+      let bb = b[fieldName]
+      const value1 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb])
+      const value2 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa])
 
-      if (aa === undefined || aa === null) {
-        aa = ''
+      if (value1 !== undefined && value2 !== undefined) {
+        arr1.push(order * value1)
+        arr2.push(order * value2)
+        continue
       }
 
-      if (bb === undefined || bb === null) {
-        bb = ''
-      }
+      if (aa === undefined || aa === null) aa = ''
+      if (bb === undefined || bb === null) bb = ''
 
       if ($.isNumeric(aa) && $.isNumeric(bb)) {
         aa = parseFloat(aa)
@@ -624,10 +635,8 @@ BootstrapTable.prototype.onMultipleSort = function () {
         }
       }
 
-      arr1.push(
-        order * cmp(aa, bb))
-      arr2.push(
-        order * cmp(bb, aa))
+      arr1.push(order * cmp(aa, bb))
+      arr2.push(order * cmp(bb, aa))
     }
 
     return cmp(arr1, arr2)
