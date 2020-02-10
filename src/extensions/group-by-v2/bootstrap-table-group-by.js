@@ -245,11 +245,9 @@ BootstrapTable.prototype.checkGroup_ = function (index, checked) {
   this.trigger(checked ? 'check-all' : 'uncheck-all', rows)
 }
 
-
 BootstrapTable.prototype.getGroupByFields = function () {
   let groupByFields = this.options.groupByField
-  if (!$.isArray(this.options.groupByField))
-  {
+  if (!$.isArray(this.options.groupByField)) {
     groupByFields = [this.options.groupByField]
   }
 
