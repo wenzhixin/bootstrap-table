@@ -14,12 +14,26 @@ const bootstrap = {
       advancedSearchIcon: 'glyphicon-chevron-down'
     },
     html: {
-      modalHeader: `
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title">%s</h4>
+      modal: `
+        <div id="avdSearchModal_%s"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xs">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">%s</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body modal-body-custom">
+                <div class="container-fluid" id="avdSearchModalContent_%s"
+                  style="padding-right: 0px; padding-left: 0px;" >
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="btnCloseAvd_%s" class="btn btn-%s">%s</button>
+              </div>
+            </div>
+          </div>
         </div>
       `
     }
@@ -29,12 +43,107 @@ const bootstrap = {
       advancedSearchIcon: 'fa-chevron-down'
     },
     html: {
-      modalHeader: `
-        <div class="modal-header">
-          <h4 class="modal-title">%s</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      modal: `
+        <div id="avdSearchModal_%s"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xs">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">%s</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body modal-body-custom">
+                <div class="container-fluid" id="avdSearchModalContent_%s"
+                  style="padding-right: 0px; padding-left: 0px;" >
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="btnCloseAvd_%s" class="btn btn-%s">%s</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    }
+  },
+  bulma: {
+    icons: {
+      advancedSearchIcon: 'fa-chevron-down'
+    },
+    html: {
+      modal: `
+        <div class="modal" id="avdSearchModal_%s">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">%s</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body" id="avdSearchModalContent_%s"></section>
+            <footer class="modal-card-foot">
+              <button class="button" id="btnCloseAvd_%s" data-close="btn btn-%s">%s</button>
+            </footer>
+          </div>
+        </div>
+      `
+    }
+  },
+  foundation: {
+    icons: {
+      advancedSearchIcon: 'fa-chevron-down'
+    },
+    html: {
+      modal: `
+        <div class="reveal" id="avdSearchModal_%s" data-reveal>
+          <h1>%s</h1>
+          <div id="avdSearchModalContent_%s">
+          
+          </div>
+          <button class="close-button" data-close aria-label="Close modal" type="button">
             <span aria-hidden="true">&times;</span>
           </button>
+          
+          <button id="btnCloseAvd_%s" class="%s" type="button">%s</button>
+        </div>
+      `
+    }
+  },
+  materialize: {
+    icons: {
+      advancedSearchIcon: 'expand_more'
+    },
+    html: {
+      modal: `
+        <div id="avdSearchModal_%s" class="modal">
+          <div class="modal-content">
+            <h4>%s</h4>
+            <div id="avdSearchModalContent_%s">
+            
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="javascript:void(0)"" id="btnCloseAvd_%s" class="modal-close waves-effect waves-green btn-flat %s">%s</a>
+          </div>
+        </div>
+      `
+    }
+  },
+  semantic: {
+    icons: {
+      advancedSearchIcon: 'fa-chevron-down'
+    },
+    html: {
+      modal: `
+        <div class="ui modal" id="avdSearchModal_%s">
+          <i class="close icon"></i>
+          <div class="header">
+            %s
+          </div>
+          <div class="image content ui form" id="avdSearchModalContent_%s"></div>
+          <div class="actions">
+            <div id="btnCloseAvd_%s" class="ui black deny button %s">%s</div>
+          </div>
         </div>
       `
     }
@@ -86,7 +195,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     this.$toolbar.find('>.columns').append(`
-      <button class="btn btn-default${Utils.sprintf(' btn-%s', o.buttonsClass)}${Utils.sprintf(' btn-%s', o.iconSize)}"
+      <button class="${this.constants.buttonsClass} "
         type="button"
         name="advancedSearch"
         aria-label="advanced search"
@@ -101,27 +210,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   showAvdSearch () {
     const o = this.options
-
-    if (!$(`#avdSearchModal_${o.idTable}`).hasClass('modal')) {
-      $('body').append(`
-        <div id="avdSearchModal_${o.idTable}"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xs">
-            <div class="modal-content">
-              ${Utils.sprintf(bootstrap.html.modalHeader, o.formatAdvancedSearch())}
-              <div class="modal-body modal-body-custom">
-                <div class="container-fluid" id="avdSearchModalContent_${o.idTable}"
-                  style="padding-right: 0px; padding-left: 0px;" >
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" id="btnCloseAvd_${o.idTable}" class="btn btn-${o.buttonsClass}">
-                  ${o.formatAdvancedCloseButton()}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      `)
+    const modalSelector = '#avdSearchModal_' + o.idTable
+    if ($(modalSelector).length <= 0) {
+      $('body').append(Utils.sprintf(bootstrap.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()))
 
       let timeoutId = 0
 
@@ -138,20 +229,62 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
       })
 
-      $(`#btnCloseAvd_${o.idTable}`).click(() => {
-        $(`#avdSearchModal_${o.idTable}`).modal('hide')
-        if (o.sidePagination === 'server') {
-          this.options.pageNumber = 1
-          this.updatePagination()
-          this.trigger('column-advanced-search', this.filterColumnsPartial)
-        }
-      })
+      $(`#btnCloseAvd_${o.idTable}`).click(() => this.hideModal())
 
-      $(`#avdSearchModal_${o.idTable}`).modal()
+      if ($.fn.bootstrapTable.theme === 'bulma') {
+        $(modalSelector).find('.delete').off('click').on('click', () => this.hideModal())
+      }
+
+      this.showModal()
     } else {
-      $(`#avdSearchModal_${o.idTable}`).modal()
+      this.showModal()
     }
   }
+
+  showModal () {
+    const modalSelector = '#avdSearchModal_' + this.options.idTable
+    if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
+      $(modalSelector).modal()
+    } else if ($.fn.bootstrapTable.theme === 'bulma') {
+      $(modalSelector).toggleClass('is-active')
+    } else if ($.fn.bootstrapTable.theme === 'foundation') {
+      if (!this.toolbarModal) {
+        // eslint-disable-next-line no-undef
+        this.toolbarModal = new Foundation.Reveal($(modalSelector))
+      }
+      this.toolbarModal.open()
+    } else if ($.fn.bootstrapTable.theme === 'materialize') {
+      $(modalSelector).modal()
+      $(modalSelector).modal('open')
+    } else if ($.fn.bootstrapTable.theme === 'semantic') {
+      $(modalSelector).modal('show')
+    }
+
+  }
+
+  hideModal () {
+    const $closeModalButton = $(`#avdSearchModal_${this.options.idTable}`)
+    const modalSelector = '#avdSearchModal_' + this.options.idTable
+    if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
+      $closeModalButton.modal('hide')
+    } else if ($.fn.bootstrapTable.theme === 'bulma') {
+      $('html').toggleClass('is-clipped')
+      $(modalSelector).toggleClass('is-active')
+    } else if ($.fn.bootstrapTable.theme === 'foundation') {
+      this.toolbarModal.close()
+    } else if ($.fn.bootstrapTable.theme === 'materialize') {
+      $(modalSelector).modal('open')
+    } else if ($.fn.bootstrapTable.theme === 'semantic') {
+      $(modalSelector).modal('close')
+    }
+
+    if (this.options.sidePagination === 'server') {
+      this.options.pageNumber = 1
+      this.updatePagination()
+      this.trigger('column-advanced-search', this.filterColumnsPartial)
+    }
+  }
+
 
   createFormAvd () {
     const o = this.options
@@ -163,7 +296,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           <div class="form-group row">
             <label class="col-sm-4 control-label">${column.title}</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control input-md" name="${column.field}" placeholder="${column.title}" id="${column.field}">
+              <input type="text" class="form-control ${this.constants.classes.input}" name="${column.field}" placeholder="${column.title}" id="${column.field}">
             </div>
           </div>
         `)

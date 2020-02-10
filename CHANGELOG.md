@@ -52,7 +52,8 @@ ChangeLog
 - **New(print):** Added `printFormatter` data-attribute supported.
 - **New(reorder-columns):** Added `orderColumns` method.
 - **New(reorder-rows):** Added `search` and `cardView` supported.
-- **Update(sticky-header):** Added support for all themes.
+- **New(sticky-header):** Added support for all themes.
+- **New(toolbar):** Added support for all themes.
 - **Update(cookie):** Fixed cookie localeStorage not work bug with filter-control.
 - **Update(cookie):** Fixed `minimumCountColumns` not working bug.
 - **Update(cookie):** Improved `cookiesEnabled` to support ' in `data-attribute`.
