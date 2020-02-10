@@ -247,7 +247,8 @@ const UtilsFilterControl = {
         for (let i = 0; i < z; i++) {
           // Added a new value
           const fieldValue = data[i][field]
-          let formattedValue = Utils.calculateObjectValue(that.header, that.header.formatters[j], [fieldValue, data[i], i], fieldValue)
+          const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
+          let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
 
           if (column.filterDataCollector) {
             formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
