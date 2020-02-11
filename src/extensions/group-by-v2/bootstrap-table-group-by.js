@@ -245,13 +245,39 @@ BootstrapTable.prototype.checkGroup_ = function (index, checked) {
   this.trigger(checked ? 'check-all' : 'uncheck-all', rows)
 }
 
-
 BootstrapTable.prototype.getGroupByFields = function () {
   let groupByFields = this.options.groupByField
-  if (!$.isArray(this.options.groupByField))
-  {
+  if (!$.isArray(this.options.groupByField)) {
     groupByFields = [this.options.groupByField]
   }
 
   return groupByFields
+}
+
+$.BootstrapTable = class extends $.BootstrapTable {
+  scrollTo (params) {
+    if (this.options.groupBy) {
+      let options = {unit: 'px', value: 0}
+      if (typeof params === 'object') {
+        options = Object.assign(options, params)
+      }
+
+      if (options.unit === 'rows') {
+        let scrollTo = 0
+        this.$body.find(`> tr:lt(${options.value})`).each((i, el) => {
+          scrollTo += $(el).outerHeight(true)
+        })
+
+        const $targetColumn = this.$body.find(`> tr:not(.groupBy):eq(${options.value})`)
+        $targetColumn.prevAll('.groupBy').each((i, el) => {
+          scrollTo += $(el).outerHeight(true)
+        })
+
+        this.$tableBody.scrollTop(scrollTo)
+        return
+      }
+    }
+
+    super.scrollTo(params)
+  }
 }
