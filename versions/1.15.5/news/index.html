@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="News and announcements for all things Bootstrap Table, including new releases.">
+<meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
+<meta name="generator" content="Jekyll v3.8.5">
+<meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
+
+<meta name="docsearch:language" content="en">
+
+<title>News · Bootstrap Table</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
+
+
+<link href="/assets/css/docs.min.css" rel="stylesheet">
+<link href="/assets/css/style.css?m=2" rel="stylesheet">
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || []
+  function gtag() {window.dataLayer.push(arguments)}
+  gtag('js', new Date())
+  gtag('config', 'UA-132747866-1')
+</script>
+
+
+<script type="text/javascript">
+  if (window !== top) // 判断当前的 window 对象是否是 top 对象
+    top.location.href = window.location.href // 如果不是，将 top 对象的网址自动导向被嵌入网页的网址
+</script>
+
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+  <span class="skippy-text">Skip to main content</span>
+</a>
+
+
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+  <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Bootstrap">
+    <img src="/favicon.png" width="36" height="36">
+  </a>
+
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link "
+          href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link "
+          href="/docs/getting-started/introduction/">
+          Documentation
+        </a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/themes">
+          CSS Frameworks
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link "
+          href="https://examples.bootstrap-table.com">
+          Examples
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="https://live.bootstrap-table.com"
+          target="_blank">
+          Online Editor
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/news">
+          News
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="https://blog.bootstrap-table.com"
+          target="_blank">
+          Blog
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 416.32" focusable="false" role="img"><path d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92" fill="currentColor"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 40 41" focusable="false" role="img" fill="currentColor" fill-rule="evenodd"><title>Open Collective</title><path d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z" fill-opacity=".4"/><path d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"/></svg>
+</a>
+    </li>
+  </ul>
+
+  <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="/docs/getting-started/download/">Download</a>
+</header>
+
+
+    
+      <header class="d-flex flex-column flex-md-row align-items-md-center p-5 bg-light">
+  <div class="pt-md-3 pb-md-4">
+    <h1 class="bd-title mt-0">News</h1>
+    <p class="bd-lead">News and announcements for all things Bootstrap Table, including new releases.</p>
+  </div>
+  <style>
+#codefund #cf {
+  margin: 0!important;
+}
+.bd-content #codefund #cf {
+  margin-bottom: 20px!important;
+}
+</style>
+<div id="codefund"><!-- fallback content --></div>
+<script src="https://codefund.io/properties/291/funder.js" async="async"></script>
+
+</header>
+
+<main class="bd-content p-5" id="content" role="main">
+  <h2 id="bootstrap-table-1155">Bootstrap Table 1.15.5</h2>
+
+<p><span class="post-date">12 Oct 2019</span></p>
+
+<ul>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">jqXHR</code> for <code class="highlighter-rouge">responseHandler</code> option and <code class="highlighter-rouge">onLoadSuccess</code> event.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">stickyHeaderOffsetLeft</code> and <code class="highlighter-rouge">stickyHeaderOffsetRight</code> for sticky-header.</li>
+  <li><strong>New:</strong> Added Serbian RS cyrillic and latin locales.</li>
+  <li><strong>Update:</strong> Improved <code class="highlighter-rouge">export</code> button when there is only one type.</li>
+  <li><strong>Update:</strong> Fixed column events click error with <code class="highlighter-rouge">detailView</code>.</li>
+  <li><strong>Update:</strong> Fixed bug for <code class="highlighter-rouge">searchOnEnterKey</code> and <code class="highlighter-rouge">showSearchButton</code> are true.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">onScrollBody</code> event and added parameter.</li>
+  <li><strong>Update:</strong> Fixed search input size bug with <code class="highlighter-rouge">iconSize</code> option.</li>
+  <li><strong>Update:</strong> Fixed filter control select cannot work more than one table.</li>
+  <li><strong>Update:</strong> Fixed virtual scroll to top error when using <code class="highlighter-rouge">append</code> method.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">events</code> cannot work on virtual scroll.</li>
+  <li><strong>Update:</strong> Fixed bottom border bug with <code class="highlighter-rouge">height</code> option.</li>
+  <li><strong>Update:</strong> Fixed min version throw cannot convert object to primitive value error.</li>
+</ul>
+
+<h2 id="bootstrap-table-1154">Bootstrap Table 1.15.4</h2>
+
+<p><span class="post-date">13 Aug 2019</span></p>
+
+<ul>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">query</code> to <code class="highlighter-rouge">queryParams</code> option.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">filter</code> parameter of <code class="highlighter-rouge">customSearch</code> option.</li>
+  <li><strong>Update:</strong> Fixed search bug in hidden columns.</li>
+  <li><strong>Update:</strong> Fixed table zoom width calculating bug.</li>
+  <li><strong>Update:</strong> Fixed events of column formatted by nested table.</li>
+  <li><strong>Update:</strong> Fixed checkbox style display bug.</li>
+  <li><strong>Update:</strong> Fixed stack overflow error of <code class="highlighter-rouge">checkBy</code> method.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">showSearchButton</code> and <code class="highlighter-rouge">showSearchClearButton</code> style bug.</li>
+  <li><strong>Update:</strong> Fixed filter-control select <code class="highlighter-rouge">null</code> value handle error.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">showSearchClearButton</code> bug in filter-control extension.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">print</code> button appears twice bug.</li>
+</ul>
+
+<h2 id="bootstrap-table-1153">Bootstrap Table 1.15.3</h2>
+
+<p><span class="post-date">11 Jul 2019</span></p>
+
+<ul>
+  <li><strong>New:</strong> Added nl-BE, fr-CH and fr-LU locale.</li>
+  <li><strong>Update:</strong> Updated nl-NL, pt-BR, fr-BE, fr-FR, nl-BE and nl-NL locale.</li>
+  <li><strong>Update:</strong> Fixed treegrid duplicate rows bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">updateCellByUniqueId</code> method bug on a filtered table.</li>
+  <li><strong>Update:</strong> Fixed colspan group header display bug.</li>
+  <li><strong>Update:</strong> Fixed table footer display bug in some case.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">getOptions</code> bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">detailView</code> bug when hiding columns.</li>
+  <li><strong>Update:</strong> Fixed IE minify bug.</li>
+  <li><strong>Update:</strong> Fixed full screen scrolling bug.</li>
+</ul>
+
+<h2 id="bootstrap-table-1152">Bootstrap Table 1.15.2</h2>
+
+<p><span class="post-date">24 Jun 2019</span></p>
+
+<h4 id="core">Core</h4>
+
+<ul>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">virtualScroll</code> and <code class="highlighter-rouge">virtualScrollItemHeight</code> options to support large data.</li>
+  <li><strong>New:</strong> Added vue component support.</li>
+  <li><strong>New:</strong> Added support comparisons search(&lt;, &gt;, &lt;=, =&lt;, &gt;=, =&gt;).</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">detailViewByClick</code> table option and <code class="highlighter-rouge">detailFormatter</code> column option.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">showExtendedPagination</code> and <code class="highlighter-rouge">totalNotFilteredField</code> table options.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">widthUnit</code> option to allow any unit.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">multipleSelectRow</code> option to support ctrl and shift select.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">onPostFooter</code>(<code class="highlighter-rouge">post-footer.bs.table</code>) event.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">detailViewIcon</code> and <code class="highlighter-rouge">toggleDetailView</code> method to hide the show/hide icons.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">showSearchButton</code> and <code class="highlighter-rouge">showSearchClearButton</code> options to improve the search.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">showButtonIcons</code> and <code class="highlighter-rouge">showButtonText</code> options to improve the icons display.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">visibleSearch</code> option search only on displayed/visible columns.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">showColumnsToggleAll</code> option to toggle all columns.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">cellStyle</code> to support checkbox field.</li>
+  <li><strong>New:</strong> Added checkbox and radio auto checked from html support.</li>
+  <li><strong>New:</strong> Added screen reader support for pagination.</li>
+  <li><strong>New:</strong> Added travis lint src and check docs scripts.</li>
+  <li><strong>New:</strong> Added webpack support and user rollup to build the src.</li>
+  <li><strong>New:</strong> Added a version number property.</li>
+  <li><strong>New:</strong> Improved <code class="highlighter-rouge">filterBy</code> method with <code class="highlighter-rouge">or</code> condition and custom filter algorithm.</li>
+  <li><strong>New:</strong> Improved <code class="highlighter-rouge">showColumn</code> and <code class="highlighter-rouge">hideColumn</code> methods with array of fields.</li>
+  <li><strong>New:</strong> Improved <code class="highlighter-rouge">scrollTo</code> method to allow <code class="highlighter-rouge">rows</code> units.</li>
+  <li><strong>Update:</strong> Rewrote all code to ES6.</li>
+  <li><strong>Update:</strong> Improved <code class="highlighter-rouge">pageList</code> options to support localization.</li>
+  <li><strong>Update:</strong> Improved the <code class="highlighter-rouge">totalRows</code> option.</li>
+  <li><strong>Update:</strong> Improved table footer.</li>
+  <li><strong>Update:</strong> Improved <code class="highlighter-rouge">getSelections</code> and <code class="highlighter-rouge">getAllSelections</code> methods.</li>
+  <li><strong>Update:</strong> Improved css frameworks themes.</li>
+  <li><strong>Update:</strong> Updated parameters of the <code class="highlighter-rouge">getData</code> method.</li>
+  <li><strong>Update:</strong> Updated parameters of the (un)checkAll events to <code class="highlighter-rouge">rowsAfter, rowsBefore</code>.</li>
+  <li><strong>Update:</strong> Updated parameters of the <code class="highlighter-rouge">updateRow</code> method to support <code class="highlighter-rouge">replace</code>.</li>
+  <li><strong>Update:</strong> Updated page number to 1 while making a server side sort.</li>
+  <li><strong>Update:</strong> Renamed table <code class="highlighter-rouge">maintainSelected</code> option to <code class="highlighter-rouge">maintainMetaData</code>.</li>
+  <li><strong>Update:</strong> Renamed method <code class="highlighter-rouge">refreshColumnTitle</code> to <code class="highlighter-rouge">updateColumnTitle</code>.</li>
+  <li><strong>Update:</strong> Fixed card view value to be aligned incorrectly bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">smartDisplay</code> option pagination bug.</li>
+  <li><strong>Update:</strong> Fixed data-* attribute is an object bug.</li>
+  <li><strong>Update:</strong> Fixed page separators click bug.</li>
+  <li><strong>Update:</strong> Fixed scrolling bug in IE11.</li>
+  <li><strong>Update:</strong> Fixed initHeader error caused by toggleColumn.</li>
+  <li><strong>Update:</strong> Fixed search input trigger multiple times bug.</li>
+  <li><strong>Update:</strong> Fix Pagination/totalRows not updated on <code class="highlighter-rouge">hideRow</code>.</li>
+  <li><strong>Update:</strong> Fixed columns title error.</li>
+</ul>
+
+<h4 id="extensions">Extensions</h4>
+
+<ul>
+  <li><strong>New(editable):</strong> Added <code class="highlighter-rouge">onExportSaved</code> event.</li>
+  <li><strong>New(export):</strong> Added <code class="highlighter-rouge">forceExport</code> column option force export columns with hidden.</li>
+  <li><strong>New(export):</strong> Added function support of <code class="highlighter-rouge">fileName</code> option.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterDataCollector</code> to control the filter select options.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterOrderBy</code> and filterDefault column options.</li>
+  <li><strong>New(multiple-sort):</strong> Added bootstrap v4 theme support.</li>
+  <li><strong>New(print):</strong> Added RTL dir support.</li>
+  <li><strong>Remove:</strong> Removed group-by, multi-column-toggle, multiple-search, multiple-selection-row, select2-filter and tree-column extensions.</li>
+  <li><strong>Update(cookie):</strong> Fixed cookie search cannot work bug.</li>
+  <li><strong>Update(editable):</strong> Updated parameters of <code class="highlighter-rouge">onEditableSave</code> to <code class="highlighter-rouge">field, row, rowIndex, oldValue, $el</code>.</li>
+  <li><strong>Update(editable):</strong> Fixed editable rerender bug after saving data.</li>
+  <li><strong>Update(export):</strong> Updated to only export table header.</li>
+  <li><strong>Update(export):</strong> Fixed bug with the footer extensions while sorting.</li>
+  <li><strong>Update(filter-control):</strong> Added ability to handle boolean.</li>
+  <li><strong>Update(filter-control):</strong> Fixed DatePicker of filter-control does not work bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed clear filterControl with Cookie bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed loading screen with filter control.</li>
+  <li><strong>Update(filter-control):</strong> Fixed overwriting the searchText bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed filtering does not work json sub-object.</li>
+  <li><strong>Update(filter-control):</strong> Fixed select filter with formatter.</li>
+  <li><strong>Update(multiple-sort):</strong> Fixed multiple-sort does not work with data-query-params bug.</li>
+  <li><strong>Update(page-jump-to):</strong> Fixed <code class="highlighter-rouge">click</code> bug when paginationVAlign is ‘both’.</li>
+  <li><strong>Update(reorder-columns):</strong> Fixed reorder columns cannot work bug.</li>
+  <li><strong>Update(reorder-columns):</strong> Fix search and columns bug after reorder columns.</li>
+  <li><strong>Update(treegrid):</strong> Fixed treegrid cannot work bug.</li>
+</ul>
+
+<h2 id="bootstrap-table-1142">Bootstrap Table 1.14.2</h2>
+
+<p><span class="post-date">19 Mar 2019</span></p>
+
+<ul>
+  <li><strong>New(fixed-columns extension):</strong> Added new version fixed-columns extension.</li>
+  <li><strong>New(js):</strong> Updated the style of loading message.</li>
+  <li><strong>Update(js):</strong> Updated refresh event params.</li>
+  <li><strong>Update(locale):</strong> Updated all locale translation with English as default.</li>
+  <li><strong>Update(export extension):</strong> Fixed export all rows to pdf bug.</li>
+  <li><strong>Update(export extension):</strong> Disabled export button when exportDataType is ‘selected’ and selection empty.</li>
+  <li><strong>Update(addrbar extension):</strong> Fixed addrbar extension remove hash from url bug.</li>
+</ul>
+
+<h2 id="bootstrap-table-1141">Bootstrap Table 1.14.1</h2>
+
+<p><span class="post-date">5 Mar 2019</span></p>
+
+<ul>
+  <li><strong>New(css):</strong> Added CSS Frameworks supported.</li>
+  <li><strong>New(css):</strong> Added <a href="http://semantic-ui.com">Semantic UI</a> theme.</li>
+  <li><strong>New(css):</strong> Added <a href="http://bulma.io">Bulma</a> theme.</li>
+  <li><strong>New(css):</strong> Added <a href="https://materializecss.com/">Materialize</a> theme.</li>
+  <li><strong>New(css):</strong> Added <a href="https://foundation.zurb.com/">Foundation</a> theme.</li>
+  <li><strong>New(js):</strong> Added data attribute support for <code class="highlighter-rouge">ignoreClickToSelectOn</code> option.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">detailView</code> find td elements bug.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">showColumns</code> close dropdown bug when item label clicking.</li>
+  <li><strong>Update(js):</strong> Fixed reset width error after <code class="highlighter-rouge">toggleFullscreen</code>.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">cardview</code> click event bug.</li>
+</ul>
+
+<h2 id="bootstrap-table-1135">Bootstrap Table 1.13.5</h2>
+
+<p><span class="post-date">23 Feb 2019</span></p>
+
+<ul>
+  <li><strong>New(auto-refresh extension):</strong> Rewrote auto-refresh extension to ES6.</li>
+  <li><strong>Update(js):</strong> Fixed showFullscreen cannot work bug.</li>
+  <li><strong>Update(js):</strong> Redefined customSearch option.</li>
+  <li><strong>Update(js):</strong> Fixed show footer cannot work bug.</li>
+  <li><strong>Update(js):</strong> Updated the parameter of <code class="highlighter-rouge">footerStyle</code>.</li>
+  <li><strong>Update(js):</strong> Added classes supported for <code class="highlighter-rouge">footerStyle</code>.</li>
+  <li><strong>Update(js):</strong> Fixed IE11 transform bug.</li>
+  <li><strong>Update(js):</strong> Removed beginning and end whitespace from td.</li>
+  <li><strong>Update(export extension):</strong> Fixed export selected bug.</li>
+</ul>
+
+<h2 id="bootstrap-table-1134">Bootstrap Table 1.13.4</h2>
+
+<p><span class="post-date">05 Feb 2019</span></p>
+
+<ul>
+  <li><strong>New(sticky-header extension):</strong> Rewrote sticky-header extension to ES6.</li>
+  <li><strong>New(sticky-header extension):</strong> Added to support bootstrap v4 and <code class="highlighter-rouge">theadClasses</code> option.</li>
+  <li><strong>New(auto-refresh extension):</strong> Icons update to font-awesome 5.</li>
+  <li><strong>New(examples):</strong> Added examples Algolia search.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">theadClasses</code> is not set when a <code class="highlighter-rouge">thead</code> exists.</li>
+  <li><strong>Update(js):</strong> Fixed table resize after mergeCell the first row.</li>
+  <li><strong>Update(cookie extension):</strong> Fixed cookie extension broken bug.</li>
+  <li><strong>Update(cookie extension):</strong> Fixed cookie extension unicode encode bug.</li>
+  <li><strong>Update(package):</strong> Added <code class="highlighter-rouge">sass</code> devDependencies.</li>
+</ul>
+
+<h2 id="bootstrap-table-1133">Bootstrap Table 1.13.3</h2>
+
+<p><span class="post-date">28 Jan 2019</span></p>
+
+<ul>
+  <li><strong>New(js):</strong> Supported full table classes of bootstrap v4.</li>
+  <li><strong>New(css):</strong> Rewrited bootstrap-table.css to scss.</li>
+  <li><strong>New(accent-neutralise extension):</strong> Rewrited accent-neutralise extension to ES6.</li>
+  <li><strong>New(addrbar extension):</strong> Rewrited addrbar extension to ES6 and supported attribute option.</li>
+  <li><strong>New(group-by-v2 extension):</strong> New <code class="highlighter-rouge">groupByFormatter</code> option.</li>
+  <li><strong>New(pipeline extension):</strong> New pipeline extension <code class="highlighter-rouge">bootstrap-table-pipeline</code>.</li>
+  <li><strong>Remove(js):</strong> Removed <code class="highlighter-rouge">striped</code> option and use classes instead.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">locale</code> option bug.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">sortClass</code> option bug.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">sortStable</code> option cannot work bug.</li>
+  <li><strong>Update(js):</strong> Improved built-in sort function and <code class="highlighter-rouge">customSort</code> logic.</li>
+  <li><strong>Update(js):</strong> Fixed horizontal scrollbar bug.</li>
+  <li><strong>Update(cookie extension):</strong> Improved cookie extension code.</li>
+</ul>
+
+<h2 id="bootstrap-table-1132">Bootstrap Table 1.13.2</h2>
+
+<p><span class="post-date">18 Jan 2019</span></p>
+
+<ul>
+  <li><strong>New(js):</strong> Added <code class="highlighter-rouge">paginationSuccessivelySize</code>, <code class="highlighter-rouge">paginationPagesBySide</code> and <code class="highlighter-rouge">paginationUseIntermediate</code> pagination options.</li>
+  <li><strong>New(cookie extension):</strong> Rewrited cookie extension to ES6.</li>
+  <li><strong>New(cookie extension):</strong> Saved <code class="highlighter-rouge">filterBy</code> method.</li>
+  <li><strong>New(filter-control extension):</strong> Added <code class="highlighter-rouge">placeholder</code> as a empty option to the select controls.</li>
+  <li><strong>New(filter-control extension):</strong> Added <code class="highlighter-rouge">clearFilterControl</code> method in order to clear all filter controls.</li>
+  <li><strong>New(docs)</strong> Added algolia search.</li>
+  <li><strong>Update(js):</strong> Fixed sort column shows hidden rows in <code class="highlighter-rouge">server</code> side pagination bug.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">scrollTo</code> bug.</li>
+  <li><strong>Update(css):</strong> Fixed no-bordered problem of bootstrap v4.</li>
+  <li><strong>Update(filter-control extension):</strong> Added bootstrap v4 icon support.</li>
+</ul>
+
+<h2 id="new-website-for-bootstrap-v4">New Website for Bootstrap v4</h2>
+
+<p><span class="post-date">10 Jan 2019</span></p>
+
+<p>Bootstrap has released the latest version v4.2.1. Since Bootstrap Table has been mainly used for Bootstrap v3, We have rebuilt the official documentation of Bootstrap Table while upgrading the code to Bootstrap v4.</p>
+
+<p>Bootstrap Table Website is a fork of <a href="http://getbootstrap.com/">Bootstrap</a>.</p>
+
+<h3 id="whats-new">What’s new</h3>
+
+<p>Here are the highlights of what’s new and updated in new website.</p>
+
+<ul>
+  <li><strong>New:</strong> More detailed documentation.</li>
+  <li><strong>New:</strong> Added Extensions documentation.</li>
+  <li><strong>New:</strong> Supported for searching documentation.</li>
+  <li><strong>New:</strong> Added News Menu.</li>
+  <li><strong>New:</strong> Added New Examples for Bootstrap v4 instead v3.</li>
+  <li><strong>Update:</strong> Used new API display style instead table.</li>
+  <li><strong>Remove:</strong> Removed Translation Documentations.</li>
+</ul>
+
+<h2 id="bootstrap-table-1131">Bootstrap Table 1.13.1</h2>
+
+<p><span class="post-date">01 Jan 2019</span></p>
+
+<ul>
+  <li><strong>New(js):</strong> Added <code class="highlighter-rouge">theadClasses</code> option to supoort bootstrap v4.</li>
+  <li><strong>New(js):</strong> Updated the default icons to font-awesome 5.</li>
+  <li><strong>New(locale):</strong> Rewrited all locales to ES6.</li>
+  <li><strong>New(editable extension):</strong> Rewrited <code class="highlighter-rouge">bootstrap-table-editable</code> to ES6.</li>
+  <li><strong>New(filter-control extension):</strong> Rewrited <code class="highlighter-rouge">bootstrap-table-filter-control</code> to ES6.</li>
+  <li><strong>New(treegrid extension):</strong> Added <code class="highlighter-rouge">rootParentId</code> option.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">getHiddenRows</code> method bug.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">getOptions</code> method to remove data property.</li>
+  <li><strong>Update(js):</strong> Fixed no matches display error.</li>
+  <li><strong>Update(js):</strong> Fixed eslint warning and error.</li>
+  <li><strong>Update(locale):</strong> Improved <code class="highlighter-rouge">es-ES</code> locale.</li>
+  <li><strong>Update(filter-control extension):</strong> Fixed multiple choice bug.</li>
+  <li><strong>Update(filter-control extension):</strong> Fixed select all rows and <code class="highlighter-rouge">keyup</code> event error.</li>
+  <li><strong>Update(export extension):</strong> Fixed export in cardView display error.</li>
+</ul>
+
+<h2 id="bootstrap-table-1130">Bootstrap Table 1.13.0</h2>
+
+<p><span class="post-date">27 Dec 2019</span></p>
+
+<ul>
+  <li><strong>New(js):</strong> Rewrited bootstrap-table to ES6.</li>
+  <li><strong>New(locale):</strong> Added <code class="highlighter-rouge">fi-FI.js</code> locale.</li>
+  <li><strong>New(build):</strong> Used babel instead of grunt.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">created-controls.bs.table</code> event to filter-control.</li>
+  <li><strong>New(export extension):</strong> Rewrited export extension to ES6.</li>
+  <li><strong>New(export extension):</strong> Added export extension support bootstrap v4.</li>
+  <li><strong>New(export extension):</strong> Added <code class="highlighter-rouge">exportTable</code> method.</li>
+  <li><strong>New(toolbar extension):</strong> Rewrited toolbar extension to ES6.</li>
+  <li><strong>New(toolbar extension):</strong> Added toolbar extension supports bootstrap v4.</li>
+  <li><strong>New(toolbar extension):</strong> Added server sidePagination support</li>
+  <li><strong>New(resizable extension):</strong> Released new resizable extension version 2.0.0.</li>
+  <li><strong>New(editable extension):</strong> Allowed different x-editable configuration per table row.</li>
+  <li><strong>New(addrbar extension):</strong> Added addrbar extension.</li>
+  <li><strong>Update(js):</strong> Improved <code class="highlighter-rouge">check/uncheck</code> methods</li>
+  <li><strong>Update(js):</strong> Fixed cookie with <code class="highlighter-rouge">pageNumber</code> and <code class="highlighter-rouge">searchText</code> bug.</li>
+  <li><strong>Update(js):</strong> Fix <code class="highlighter-rouge">selections</code> bugs.</li>
+  <li><strong>Update(js):</strong> Added <code class="highlighter-rouge">customSearch</code> support data attribute.</li>
+  <li><strong>Update(js):</strong> Fixed can’t search data with formatter.</li>
+  <li><strong>Update(js):</strong> Fixed <code class="highlighter-rouge">getRowByUniqueId</code> error when row unique id is undefined.</li>
+  <li><strong>Update(js):</strong> Fxied older bootstrap version bug.</li>
+  <li><strong>Update(css):</strong> Removed toolbar line-height.</li>
+  <li><strong>Update(css):</strong> Limitted fullscreen CSS rule scope.</li>
+  <li><strong>Update(editable extension):</strong> Fixed editable formatter bug.</li>
+  <li><strong>Update(extension):</strong> Fixed bug with export extension together.</li>
+  <li><strong>Update(extension):</strong> Removed click-edit-row and flat-json extensions.</li>
+</ul>
+
+</main>
+
+    
+
+    <footer class="bd-footer text-muted">
+  <div class="container-fluid p-3 p-md-5">
+    <ul class="bd-footer-links">
+      <li><a href="https://github.com/wenzhixin/bootstrap-table">GitHub</a></li>
+      <li><a href="https://twitter.com/wenzhixin2010">Twitter</a></li>
+      <li><a href="http://wenzhixin.net.cn">My website</a></li>
+      <li><a href="http://repos.wenzhixin.net.cn">My repos</a></li>
+      <li><a href="http://stackoverflow.com/questions/tagged/bootstrap-table">Questions / Helps</a></li>
+      <li><a href="mailto:wenzhixin2010@gmail.com">Email</a></li>
+    </ul>
+    <p>
+      Bootstrap Table Website is a fork of <a href="http://getbootstrap.com/">Bootstrap</a>.
+      This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
+    </p>
+    <p>
+      Currently v1.15.5, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script><script src="/assets/js/docs.min.js?m=1"></script>
+
+  </body>
+</html>
