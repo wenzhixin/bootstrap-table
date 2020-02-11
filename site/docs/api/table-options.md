@@ -1096,7 +1096,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show a toogle all checkbox within the columns option/dropdown.
+  Set `true` to show a toggle all checkbox within the columns option/dropdown.
 
 - **Default:** `false`
 
