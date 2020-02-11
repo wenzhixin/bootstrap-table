@@ -87,6 +87,15 @@
   </div>
 
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        v1.16.0
+      </a>
+      <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
+        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5" target="_blank">v1.15.5</a>
+      </div>
+    </li>
     <li class="nav-item">
       <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
 </a>
@@ -242,10 +251,6 @@
             Multiple Sort
           </a>
         </li><li>
-          <a href="/docs/extensions/natural-sorting/">
-            Natural Sorting
-          </a>
-        </li><li>
           <a href="/docs/extensions/page-jump-to/">
             Page Jump To
           </a>
@@ -339,6 +344,7 @@
 <li class="toc-entry toc-h2"><a href="#height">height</a></li>
 <li class="toc-entry toc-h2"><a href="#classes">classes</a></li>
 <li class="toc-entry toc-h2"><a href="#theadclasses">theadClasses</a></li>
+<li class="toc-entry toc-h2"><a href="#headerstyle">headerStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#rowstyle">rowStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#rowattributes">rowAttributes</a></li>
 <li class="toc-entry toc-h2"><a href="#undefinedtext">undefinedText</a></li>
@@ -352,6 +358,7 @@
 <li class="toc-entry toc-h2"><a href="#sortorder">sortOrder</a></li>
 <li class="toc-entry toc-h2"><a href="#sortstable">sortStable</a></li>
 <li class="toc-entry toc-h2"><a href="#rememberorder">rememberOrder</a></li>
+<li class="toc-entry toc-h2"><a href="#serversort">serverSort</a></li>
 <li class="toc-entry toc-h2"><a href="#customsort">customSort</a></li>
 <li class="toc-entry toc-h2"><a href="#columns">columns</a></li>
 <li class="toc-entry toc-h2"><a href="#data">data</a></li>
@@ -404,6 +411,7 @@
 <li class="toc-entry toc-h2"><a href="#footerstyle">footerStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#showcolumns">showColumns</a></li>
 <li class="toc-entry toc-h2"><a href="#showcolumnstoggleall">showColumnsToggleAll</a></li>
+<li class="toc-entry toc-h2"><a href="#showcolumnssearch">showColumnsSearch</a></li>
 <li class="toc-entry toc-h2"><a href="#minimumcountcolumns">minimumCountColumns</a></li>
 <li class="toc-entry toc-h2"><a href="#showpaginationswitch">showPaginationSwitch</a></li>
 <li class="toc-entry toc-h2"><a href="#showrefresh">showRefresh</a></li>
@@ -431,6 +439,7 @@
 <li class="toc-entry toc-h2"><a href="#toolbaralign">toolbarAlign</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonstoolbar">buttonsToolbar</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonsalign">buttonsAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#buttonsorder">buttonsOrder</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonsprefix">buttonsPrefix</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonsclass">buttonsClass</a></li>
 <li class="toc-entry toc-h2"><a href="#icons">icons</a></li>
@@ -492,8 +501,6 @@
     <p><strong>Detail:</strong></p>
 
     <p>The height of table, enable fixed header of table.</p>
-
-    <p>Note that if there are multiple tables on a page and the height option is set at the same time, you need to add the <code class="highlighter-rouge">id</code> attribute to each table, otherwise, the window resize will not work properly.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -544,6 +551,45 @@
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/thead-classes.html">Thead Classes</a></p>
+  </li>
+</ul>
+
+<h2 id="headerstyle">headerStyle</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-header-style</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The header style formatter function, takes one parameter:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">column</code>: the column object.</li>
+    </ul>
+
+    <p>Support <code class="highlighter-rouge">classes</code> or <code class="highlighter-rouge">css</code>. Example usage:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">headerStyle</span><span class="p">(</span><span class="nx">column</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">css</span><span class="p">:</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">font-weight</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">normal</span><span class="dl">'</span> <span class="p">},</span>
+      <span class="na">classes</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-class</span><span class="dl">'</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  </code></pre></figure>
+
+<ul>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/header-style.html">Header Style</a></p>
   </li>
 </ul>
 
@@ -859,6 +905,28 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
 </ul>
 
+<h2 id="serversort">serverSort</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-server-sort</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">false</code> to sort the data in the client side, only works when the <code class="highlighter-rouge">sidePagination</code> is <code class="highlighter-rouge">server</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/server-sort.html">Server Sort</a></p>
+  </li>
+</ul>
+
 <h2 id="customsort">customSort</h2>
 
 <ul>
@@ -1163,7 +1231,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
 
     <ul>
       <li><code class="highlighter-rouge">res</code>: the response data.</li>
-      <li><code class="highlighter-rouge">jqXHR</code>: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a> (from 1.15.5).</li>
+      <li><code class="highlighter-rouge">jqXHR</code>: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
     </ul>
   </li>
   <li>
@@ -1927,12 +1995,12 @@ The Search will only be executed if the button is pressed (e.g. to prevent traff
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The custom search function is executed instead of built-in search function, takes two parameters:</p>
+    <p>The custom search function is executed instead of built-in search function, takes three parameters:</p>
 
     <ul>
       <li><code class="highlighter-rouge">data</code>: the table data.</li>
       <li><code class="highlighter-rouge">text</code>: the search text.</li>
-      <li><code class="highlighter-rouge">filter</code>: the filter object from <code class="highlighter-rouge">filterBy</code> method (from 1.15.4).</li>
+      <li><code class="highlighter-rouge">filter</code>: the filter object from <code class="highlighter-rouge">filterBy</code> method.</li>
     </ul>
 
     <p>Example usage:</p>
@@ -2072,13 +2140,35 @@ The Search will only be executed if the button is pressed (e.g. to prevent traff
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show a toogle all checkbox within the columns option/dropdown.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show a toggle all checkbox within the columns option/dropdown.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/columns-toggle-all.html">Columns Toggle All</a></p>
+  </li>
+</ul>
+
+<h2 id="showcolumnssearch">showColumnsSearch</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-columns-search</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show a search for the columns filter.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/columns-search.html">Columns Search</a></p>
   </li>
 </ul>
 
@@ -2683,6 +2773,28 @@ The Search will only be executed if the button is pressed (e.g. to prevent traff
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-align.html">Buttons Align</a></p>
+  </li>
+</ul>
+
+<h2 id="buttonsorder">buttonsOrder</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-buttons-order</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Array</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Indicate how to custom order of the toolbar buttons.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns']</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-order.html">Buttons Order</a></p>
   </li>
 </ul>
 

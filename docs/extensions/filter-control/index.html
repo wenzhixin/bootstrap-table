@@ -87,6 +87,15 @@
   </div>
 
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        v1.16.0
+      </a>
+      <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
+        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5" target="_blank">v1.15.5</a>
+      </div>
+    </li>
     <li class="nav-item">
       <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
 </a>
@@ -242,10 +251,6 @@
             Multiple Sort
           </a>
         </li><li>
-          <a href="/docs/extensions/natural-sorting/">
-            Natural Sorting
-          </a>
-        </li><li>
           <a href="/docs/extensions/page-jump-to/">
             Page Jump To
           </a>
@@ -340,6 +345,7 @@
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#filtercontrol">filterControl</a></li>
+<li class="toc-entry toc-h3"><a href="#filtercontrolcontainer">filterControlContainer</a></li>
 <li class="toc-entry toc-h3"><a href="#filterdatacollector">filterDataCollector</a></li>
 <li class="toc-entry toc-h3"><a href="#alignmentselectcontroloptions">alignmentSelectControlOptions</a></li>
 <li class="toc-entry toc-h3"><a href="#hideunusedselectoptions">hideUnusedSelectOptions</a></li>
@@ -357,6 +363,7 @@
 <li class="toc-entry toc-h3"><a href="#filterstartswithsearch">filterStartsWithSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercontrolplaceholder">filterControlPlaceholder</a></li>
 <li class="toc-entry toc-h3"><a href="#filterorderby">filterOrderBy</a></li>
+<li class="toc-entry toc-h3"><a href="#filtercustomsearch">filterCustomSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
 </ul>
 </li>
@@ -412,6 +419,9 @@
 
 <ul>
   <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-control</code></p>
+  </li>
+  <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
   </li>
   <li>
@@ -424,9 +434,32 @@
   </li>
 </ul>
 
+<h3 id="filtercontrolcontainer">filterControlContainer</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-control-container</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Selector</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to e.g. <code class="highlighter-rouge">#filter</code> to allow custom input filter in a element with the id <code class="highlighter-rouge">filter</code>.
+ Each filter element (input or select) must have the following id <code class="highlighter-rouge">bootstrap-table-filter-control-&lt;Fieldname&gt;</code> (<Fieldname> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).</Fieldname></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
 <h3 id="filterdatacollector">filterDataCollector</h3>
 
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-data-collector</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
   </li>
@@ -444,6 +477,9 @@
 
 <ul>
   <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-alignment-select-control-options</code></p>
+  </li>
+  <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
   <li>
@@ -459,6 +495,9 @@
 <h3 id="hideunusedselectoptions">hideUnusedSelectOptions</h3>
 
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-hide-unused-select-options</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
   </li>
@@ -476,6 +515,9 @@
 
 <ul>
   <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-disable-control-when-search</code></p>
+  </li>
+  <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
   </li>
   <li>
@@ -491,6 +533,9 @@
 <h3 id="searchonenterkey">searchOnEnterKey</h3>
 
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-on-enter-key</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
   </li>
@@ -510,6 +555,9 @@
 
 <ul>
   <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-control</code></p>
+  </li>
+  <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
   <li>
@@ -526,12 +574,20 @@
 
 <ul>
   <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-data</code></p>
+  </li>
+  <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set custom select filter values, use <code class="highlighter-rouge">var:variable</code> to load from a variable or <code class="highlighter-rouge">url:http://www.example.com/data.json</code> to load from a remote json file or <code class="highlighter-rouge">json:{key:data}</code> to load from a json string.</p>
+    <p>Set custom select filter values, use
+ <code class="highlighter-rouge">var:variable</code> to load from a variable
+ <code class="highlighter-rouge">obj:variable.key</code> to load from a object
+ <code class="highlighter-rouge">url:http://www.example.com/data.json</code> to load from a remote json file
+ <code class="highlighter-rouge">json:{key:data}</code> to load from a json string.
+ <code class="highlighter-rouge">func:functionName</code> to load from a function.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -541,6 +597,9 @@
 <h3 id="filterdefault">filterDefault</h3>
 
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-default</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
@@ -555,7 +614,11 @@
 </ul>
 
 <h3 id="filterdatepickeroptions">filterDatepickerOptions</h3>
+
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-datepicker-options</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Object</code></p>
   </li>
@@ -570,7 +633,11 @@
 </ul>
 
 <h3 id="filterstrictsearch">filterStrictSearch</h3>
+
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-strict-search</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
   </li>
@@ -585,7 +652,11 @@
 </ul>
 
 <h3 id="filterstartswithsearch">filterStartsWithSearch</h3>
+
 <ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-filter-starts-with-search</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
   </li>
@@ -600,7 +671,11 @@
 </ul>
 
 <h3 id="filtercontrolplaceholder">filterControlPlaceholder</h3>
+
 <ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-filter-control-placeholder</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
@@ -615,7 +690,11 @@
 </ul>
 
 <h3 id="filterorderby">filterOrderBy</h3>
+
 <ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-filter-order-by</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
@@ -629,7 +708,38 @@
   </li>
 </ul>
 
+<h3 id="filtercustomsearch">filterCustomSearch</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-custom-search</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The custom search function is executed instead of built-in search function, takes four parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">text</code>: the search text.</li>
+      <li><code class="highlighter-rouge">value</code>: the the value of the column to compare.</li>
+      <li><code class="highlighter-rouge">field</code>: the column field name.</li>
+      <li><code class="highlighter-rouge">data</code>: the table data.</li>
+    </ul>
+
+    <p>Return <code class="highlighter-rouge">false</code> to filter out the current column/row.
+ Return <code class="highlighter-rouge">true</code> to not filter out the current column/row.
+ Return <code class="highlighter-rouge">null</code> to skip the custom search for the current value.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
 <h3 id="icons">Icons</h3>
+
 <ul>
   <li>clear: ‘glyphicon-trash icon-clear’</li>
 </ul>
@@ -637,6 +747,7 @@
 <h2 id="locale">Locale</h2>
 
 <h3 id="formatclearfilters">formatClearFilters</h3>
+
 <ul>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>

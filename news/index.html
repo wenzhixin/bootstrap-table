@@ -85,6 +85,15 @@
   </div>
 
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        v1.16.0
+      </a>
+      <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
+        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5" target="_blank">v1.15.5</a>
+      </div>
+    </li>
     <li class="nav-item">
       <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
 </a>
@@ -122,7 +131,96 @@
 </header>
 
 <main class="bd-content p-5" id="content" role="main">
-  <h2 id="bootstrap-table-1155">Bootstrap Table 1.15.5</h2>
+  <h2 id="bootstrap-table-1160">Bootstrap Table 1.16.0</h2>
+
+<p><span class="post-date">11 Feb 2020</span></p>
+
+<h4 id="core">Core</h4>
+
+<ul>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">buttonsOrder</code> option.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">headerStyle</code> option.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">showColumnsSearch</code> option.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">serverSort</code> option.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">unfiltered</code> parameter for <code class="highlighter-rouge">getData</code> method.</li>
+  <li><strong>Update:</strong> Updated <code class="highlighter-rouge">event</code> name to lowercase hyphen format for vue component.</li>
+  <li><strong>Update:</strong> Updated <code class="highlighter-rouge">es-AR</code> locale.</li>
+  <li><strong>Update:</strong> Updated the default classes of semantic theme.</li>
+  <li><strong>Update:</strong> Improved the <code class="highlighter-rouge">resize</code> problem with multiple tables.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">checkAll</code> event bug with sortable checkbox field.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">checkbox</code> and not-found td style errors.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">customSearch</code> return empty array bug.</li>
+  <li><strong>Update:</strong> Fixed column checkboxes not being disabled when using <code class="highlighter-rouge">toggleAll</code>.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">flat</code> not polyfilled error in vue cli3.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">height</code> and <code class="highlighter-rouge">border</code> not aligned bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">jqXHR</code> <code class="highlighter-rouge">undefined</code> error using custom ajax.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">pageSize</code> set to all bug with filter.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">refreshOptions</code> bug with radio and checkbox.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">removeAll</code> bug in the last page when sidePagination is server.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">search</code> not always trigger in IE11 bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">search</code> width <code class="highlighter-rouge">escape</code> bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">showColumns</code> cannot work of foundation theme.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">showFullscreen</code> bug when setting height.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">sort</code> cannot work after searching.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">sortable</code> style error when using <code class="highlighter-rouge">table-sm</code>.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">sortStable</code> not work bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">triggerSearch</code> not work bug.</li>
+  <li><strong>Update:</strong> Supported build cross all platforms.</li>
+  <li><strong>Remove:</strong> Removed <code class="highlighter-rouge">resetWidth</code> method and use <code class="highlighter-rouge">resetView</code> instead.</li>
+</ul>
+
+<h4 id="extensions">Extensions</h4>
+
+<ul>
+  <li><strong>New(cookie):</strong> Added new options to get/set/delete the values by a custom function.</li>
+  <li><strong>New(cookie):</strong> Added save re-order and resize support.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterControlContainer</code> option.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterCustomSearch</code> option.</li>
+  <li><strong>New(filter-control):</strong> Added object and function support in <code class="highlighter-rouge">filterData</code> column option.</li>
+  <li><strong>New(filter-control):</strong> Added support for using sticky-header extension.</li>
+  <li><strong>New(filter-control):</strong> Added support comparisons search(&lt;, &gt;, &lt;=, =&lt;, &gt;=, =&gt;).</li>
+  <li><strong>New(fixed-columns):</strong> Added all themes support.</li>
+  <li><strong>New(fixed-columns):</strong> Added <code class="highlighter-rouge">fixedRightNumber</code> option.</li>
+  <li><strong>New(fixed-columns):</strong> Added support for using filter-control extension.</li>
+  <li><strong>New(group-by):</strong> Add <code class="highlighter-rouge">Array</code> support for <code class="highlighter-rouge">groupByField</code> option.</li>
+  <li><strong>New(group-by):</strong> Added <code class="highlighter-rouge">customSort</code> option support.</li>
+  <li><strong>New(multiple-sort):</strong> Added custom <code class="highlighter-rouge">sorter</code> support.</li>
+  <li><strong>New(multiple-sort):</strong> Added <code class="highlighter-rouge">multiSortStrictSort</code> option.</li>
+  <li><strong>New(multiple-sort):</strong> Added <code class="highlighter-rouge">multiSort</code> method.</li>
+  <li><strong>New(print):</strong> Added <code class="highlighter-rouge">printFormatter</code> data-attribute support.</li>
+  <li><strong>New(reorder-columns):</strong> Added <code class="highlighter-rouge">orderColumns</code> method.</li>
+  <li><strong>New(reorder-rows):</strong> Added <code class="highlighter-rouge">search</code> and <code class="highlighter-rouge">cardView</code> supported.</li>
+  <li><strong>New(sticky-header):</strong> Added support for all themes.</li>
+  <li><strong>New(toolbar):</strong> Added support for all themes.</li>
+  <li><strong>New(reorder-rows):</strong> Added <code class="highlighter-rouge">search</code> and <code class="highlighter-rouge">cardView</code> support.</li>
+  <li><strong>Update(cookie):</strong> Fixed cookie localeStorage not work bug with filter-control.</li>
+  <li><strong>Update(cookie):</strong> Fixed <code class="highlighter-rouge">minimumCountColumns</code> not working bug.</li>
+  <li><strong>Update(cookie):</strong> Improved <code class="highlighter-rouge">cookiesEnabled</code> to support ‘ in <code class="highlighter-rouge">data-attribute</code>.</li>
+  <li><strong>Update(editable):</strong> Fixed <code class="highlighter-rouge">formatter</code> bug if the column was edited.</li>
+  <li><strong>Update(filter-control):</strong> Fixed <code class="highlighter-rouge">hideUnusedSelectOptions</code> not work bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed filter not work bug with <code class="highlighter-rouge">undefined</code>.</li>
+  <li><strong>Update(filter-control):</strong> Fixed missing parameter of <code class="highlighter-rouge">resetSearch</code> and <code class="highlighter-rouge">filterDataType</code>.</li>
+  <li><strong>Update(filter-control):</strong> Fixed <code class="highlighter-rouge">search</code> with filter-control <code class="highlighter-rouge">search</code> bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed the <code class="highlighter-rouge">value</code> of select display error using editable.</li>
+  <li><strong>Update(fixed-columns):</strong> Fixed checkbox bug with fixed columns.</li>
+  <li><strong>Update(fixed-columns):</strong> Updated default value to <code class="highlighter-rouge">0</code> of <code class="highlighter-rouge">fixedNumber</code> option.</li>
+  <li><strong>Update(group-by):</strong> Improved <code class="highlighter-rouge">number</code> type support.</li>
+  <li><strong>Update(group-by):</strong> Fixed new table using modal bug.</li>
+  <li><strong>Update(group-by):</strong> Fixed <code class="highlighter-rouge">scrollTo</code> method using group-by.</li>
+  <li><strong>Update(mobile):</strong> Fixed input keyboard bug.</li>
+  <li><strong>Update(multiple-sort):</strong> Fixed not destroy bug.</li>
+  <li><strong>Update(multiple-sort):</strong> Fixed sort not work with <code class="highlighter-rouge">boolean</code> bug.</li>
+  <li><strong>Update(print):</strong> Improved to use <code class="highlighter-rouge">undefinedText</code> option.</li>
+  <li><strong>Update(print):</strong> Fixed IE11 not work bug.</li>
+  <li><strong>Update(reorder-columns):</strong> Fixed detail view column reorder bug.</li>
+  <li><strong>Update(resizable):</strong> Fixed columns resizing not work bug.</li>
+  <li><strong>Update(resizable):</strong> Fixed not work via JavaScript.</li>
+  <li><strong>Update(sticky-header):</strong> Fixed not work bug with fullscreen.</li>
+  <li><strong>Update(treegrid):</strong> Fixed <code class="highlighter-rouge">virtualScroll</code> option bug.</li>
+  <li><strong>Remove:</strong> Removed natural-sorting extension.</li>
+</ul>
+
+<h2 id="bootstrap-table-1155">Bootstrap Table 1.15.5</h2>
 
 <p><span class="post-date">12 Oct 2019</span></p>
 
@@ -181,7 +279,7 @@
 
 <p><span class="post-date">24 Jun 2019</span></p>
 
-<h4 id="core">Core</h4>
+<h4 id="core-1">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">virtualScroll</code> and <code class="highlighter-rouge">virtualScrollItemHeight</code> options to support large data.</li>
@@ -229,7 +327,7 @@
   <li><strong>Update:</strong> Fixed columns title error.</li>
 </ul>
 
-<h4 id="extensions">Extensions</h4>
+<h4 id="extensions-1">Extensions</h4>
 
 <ul>
   <li><strong>New(editable):</strong> Added <code class="highlighter-rouge">onExportSaved</code> event.</li>
@@ -453,7 +551,7 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.15.5, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.16.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>

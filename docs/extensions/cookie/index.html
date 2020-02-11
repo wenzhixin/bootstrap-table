@@ -87,6 +87,15 @@
   </div>
 
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        v1.16.0
+      </a>
+      <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
+        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5" target="_blank">v1.15.5</a>
+      </div>
+    </li>
     <li class="nav-item">
       <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
 </a>
@@ -242,10 +251,6 @@
             Multiple Sort
           </a>
         </li><li>
-          <a href="/docs/extensions/natural-sorting/">
-            Natural Sorting
-          </a>
-        </li><li>
           <a href="/docs/extensions/page-jump-to/">
             Page Jump To
           </a>
@@ -347,6 +352,9 @@
 <li class="toc-entry toc-h3"><a href="#cookieidtable">cookieIdTable</a></li>
 <li class="toc-entry toc-h3"><a href="#cookiestorage">cookieStorage</a></li>
 <li class="toc-entry toc-h3"><a href="#cookiesenabled">cookiesEnabled</a></li>
+<li class="toc-entry toc-h3"><a href="#cookiecustomstorageget">cookieCustomStorageGet</a></li>
+<li class="toc-entry toc-h3"><a href="#cookiecustomstorageset">cookieCustomStorageSet</a></li>
+<li class="toc-entry toc-h3"><a href="#cookiecustomstoragedelete">cookieCustomStorageDelete</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#methods">Methods</a>
@@ -388,6 +396,9 @@
 
 <ul>
   <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie</code></p>
+  </li>
+  <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
   </li>
   <li>
@@ -403,6 +414,9 @@
 <h3 id="cookieexpire">cookieExpire</h3>
 
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie-expire</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
@@ -420,6 +434,9 @@
 
 <ul>
   <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie-path</code></p>
+  </li>
+  <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
   <li>
@@ -435,6 +452,9 @@
 <h3 id="cookiedomain">cookieDomain</h3>
 
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie-domain</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
@@ -452,6 +472,9 @@
 
 <ul>
   <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie-secure</code></p>
+  </li>
+  <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
   </li>
   <li>
@@ -467,6 +490,9 @@
 <h3 id="cookieidtable">cookieIdTable</h3>
 
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie-id-table</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
@@ -484,12 +510,18 @@
 
 <ul>
   <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie-storage</code></p>
+  </li>
+  <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set the storage that this extension will use. Use <code class="highlighter-rouge">cookieStorage</code> or <code class="highlighter-rouge">localStorage</code> or <code class="highlighter-rouge">sessionStorage</code>.</p>
+    <p>Set the storage that this extension will use. Use <code class="highlighter-rouge">cookieStorage</code> or <code class="highlighter-rouge">localStorage</code> or <code class="highlighter-rouge">sessionStorage</code> or <code class="highlighter-rouge">customStorage</code>.</p>
+
+    <p>Info for <code class="highlighter-rouge">customStorage</code>: <br />
+ You have use <code class="highlighter-rouge">cookieCustomStorageGet</code>, <code class="highlighter-rouge">cookieCustomStorageSet</code> and <code class="highlighter-rouge">cookieCustomStorageDelete</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">cookieStorage</code></p>
@@ -499,6 +531,9 @@
 <h3 id="cookiesenabled">cookiesEnabled</h3>
 
 <ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookies-enabled</code></p>
+  </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Array</code></p>
   </li>
@@ -510,6 +545,76 @@
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']</code></p>
   </li>
+</ul>
+
+<h3 id="cookiecustomstorageget">cookieCustomStorageGet</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie-custom-storage-get</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">function</code></p>
+  </li>
+  <li><strong>parameter</strong>
+    <ul>
+      <li>cookieName - The name of the value e.g. the search</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>This option allows to get the saved value from your custom function. <br />
+ This option is only required if you use <code class="highlighter-rouge">customStorage</code> on the <code class="highlighter-rouge">cookieStorage</code> option!</p>
+  </li>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></li>
+</ul>
+
+<h3 id="cookiecustomstorageset">cookieCustomStorageSet</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie-custom-storage-set</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">function</code></p>
+  </li>
+  <li><strong>parameter</strong>
+    <ul>
+      <li>cookieName - The name of the value e.g. the search</li>
+      <li>value - The value which will be saved</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>This option allows to save values with your custom function. <br />
+ This option is only required if you use <code class="highlighter-rouge">customStorage</code> on the <code class="highlighter-rouge">cookieStorage</code> option!</p>
+  </li>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></li>
+</ul>
+
+<h3 id="cookiecustomstoragedelete">cookieCustomStorageDelete</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-cookie-custom-storage-delete</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">function</code></p>
+  </li>
+  <li><strong>parameter</strong>
+    <ul>
+      <li>cookieName - The name of the value e.g. the search</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>This option allows to delete values with your custom function.    <br />
+ This option is only required if you use <code class="highlighter-rouge">customStorage</code> on the <code class="highlighter-rouge">cookieStorage</code> option!</p>
+  </li>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></li>
 </ul>
 
 <h2 id="methods">Methods</h2>
