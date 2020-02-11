@@ -37,8 +37,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   The height of table, enable fixed header of table.
 
-  Note that if there are multiple tables on a page and the height option is set at the same time, you need to add the `id` attribute to each table, otherwise, the window resize will not work properly.
-
 - **Default:** `undefined`
 
 - **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
@@ -70,6 +68,33 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `''`
 
 - **Example:** [Thead Classes](https://examples.bootstrap-table.com/#options/thead-classes.html)
+
+## headerStyle
+
+- **Attribute:** `data-header-style`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  The header style formatter function, takes one parameter:
+
+  * `column`: the column object.
+
+  Support `classes` or `css`. Example usage:
+
+  {% highlight javascript %}
+  function headerStyle(column) {
+    return {
+      css: { 'font-weight': 'normal' },
+      classes: 'my-class'
+    }
+  }
+  {% endhighlight %}
+
+- **Default:** `{}`
+
+- **Example:** [Header Style](https://examples.bootstrap-table.com/#options/header-style.html)
 
 ## rowStyle
 
@@ -273,6 +298,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Remember Order](https://examples.bootstrap-table.com/#options/remember-order.html)
 
+## serverSort
+
+- **Attribute:** `data-server-sort`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to sort the data in the client side, only works when the `sidePagination` is `server`.
+
+- **Default:** `true`
+
+- **Example:** [Server Sort](https://examples.bootstrap-table.com/#options/server-sort.html)
+
 ## customSort
 
 - **Attribute:** `data-custom-sort`
@@ -471,7 +510,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Before load remote data, handler the response data format, the parameters object contains:
 
   * `res`: the response data.
-  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR) (from 1.15.5).
+  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
 
 - **Default:** `function(res) { return res }`
 
@@ -960,11 +999,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The custom search function is executed instead of built-in search function, takes two parameters:
+  The custom search function is executed instead of built-in search function, takes three parameters:
 
   * `data`: the table data.
   * `text`: the search text.
-  * `filter`: the filter object from `filterBy` method (from 1.15.4).
+  * `filter`: the filter object from `filterBy` method.
 
   Example usage:
 
@@ -1057,11 +1096,25 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show a toogle all checkbox within the columns option/dropdown.
+  Set `true` to show a toggle all checkbox within the columns option/dropdown.
 
 - **Default:** `false`
 
 - **Example:** [Columns Toggle All](https://examples.bootstrap-table.com/#options/columns-toggle-all.html)
+
+## showColumnsSearch
+
+- **Attribute:** `data-show-columns-search`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show a search for the columns filter.
+
+- **Default:** `false`
+
+- **Example:** [Columns Search](https://examples.bootstrap-table.com/#options/columns-search.html)
 
 ## minimumCountColumns
 
@@ -1446,6 +1499,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `'right'`
 
 - **Example:** [Buttons Align](https://examples.bootstrap-table.com/#options/buttons-align.html)
+
+## buttonsOrder
+
+- **Attribute:** `data-buttons-order`
+
+- **Type:** `Array`
+
+- **Detail:**
+
+  Indicate how to custom order of the toolbar buttons.
+
+- **Default:** `['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns']`
+
+- **Example:** [Buttons Order](https://examples.bootstrap-table.com/#options/buttons-order.html)
 
 ## buttonsPrefix
 

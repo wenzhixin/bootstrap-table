@@ -23,6 +23,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### filterControl
 
+- **Attribute:** `data-filter-control`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -31,7 +33,22 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `false`
 
+### filterControlContainer
+
+- **Attribute:** `data-filter-control-container`
+
+- **type:** `Selector`
+
+- **Detail:**
+
+   Set to e.g. `#filter` to allow custom input filter in a element with the id `filter`.
+   Each filter element (input or select) must have the following id `bootstrap-table-filter-control-<Fieldname>` (<Fieldname> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).
+
+- **Default:** `false`
+
 ### filterDataCollector
+
+- **Attribute:** `data-filter-data-collector`
 
 - **type:** `Function`
 
@@ -43,6 +60,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### alignmentSelectControlOptions
 
+- **Attribute:** `data-alignment-select-control-options`
+
 - **type:** `String`
 
 - **Detail:**
@@ -52,6 +71,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `undefined`
 
 ### hideUnusedSelectOptions
+
+- **Attribute:** `data-hide-unused-select-options`
 
 - **type:** `Boolean`
 
@@ -63,6 +84,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### disableControlWhenSearch
 
+- **Attribute:** `data-disable-control-when-search`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -72,6 +95,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `false`
 
 ### searchOnEnterKey
+
+- **Attribute:** `data-search-on-enter-key`
 
 - **type:** `Boolean`
 
@@ -85,6 +110,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### filterControl
 
+- **Attribute:** `data-filter-control`
+
 - **type:** `String`
 
 - **Detail:**
@@ -95,15 +122,24 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### filterData
 
+- **Attribute:** `data-filter-data`
+
 - **type:** `String`
 
 - **Detail:**
 
-   Set custom select filter values, use `var:variable` to load from a variable or `url:http://www.example.com/data.json` to load from a remote json file or `json:{key:data}` to load from a json string.
+   Set custom select filter values, use
+   `var:variable` to load from a variable
+   `obj:variable.key` to load from a object
+   `url:http://www.example.com/data.json` to load from a remote json file
+   `json:{key:data}` to load from a json string.
+   `func:functionName` to load from a function.
 
 - **Default:** `undefined`
 
 ### filterDefault
+
+- **Attribute:** `data-filter-default`
 
 - **type:** `String`
 
@@ -114,6 +150,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `undefined`
 
 ### filterDatepickerOptions
+
+- **Attribute:** `data-filter-datepicker-options`
+
 - **type:** `Object`
 
 - **Detail:**
@@ -123,6 +162,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `undefined`
 
 ### filterStrictSearch
+
+- **Attribute:** `data-filter-strict-search`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -132,6 +174,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `false`
 
 ### filterStartsWithSearch
+
+- **attribute:** `data-filter-starts-with-search`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -141,6 +186,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `false`
 
 ### filterControlPlaceholder
+
+- **attribute:** `data-filter-control-placeholder`
+
 - **type:** `String`
 
 - **Detail:**
@@ -150,6 +198,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Default:** `''`
 
 ### filterOrderBy
+
+- **attribute:** `data-filter-order-by`
+
 - **type:** `String`
 
 - **Detail:**
@@ -158,12 +209,35 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `'asc'`
 
+### filterCustomSearch
+
+- **Attribute:** `data-filter-custom-search`
+
+- **type:** `function`
+
+- **Detail:**
+
+   The custom search function is executed instead of built-in search function, takes four parameters:
+
+     * `text`: the search text.
+     * `value`: the the value of the column to compare.
+     * `field`: the column field name.
+     * `data`: the table data.
+
+   Return `false` to filter out the current column/row.
+   Return `true` to not filter out the current column/row.
+   Return `null` to skip the custom search for the current value.
+
+- **Default:** `undefined`
+
 ### Icons
+
 * clear: 'glyphicon-trash icon-clear'
 
 ## Locale
 
 ### formatClearFilters
+
 - **type:** `Function`
 
 - **Default:** `function () { return "Clear Filters";}`

@@ -49,6 +49,15 @@
   </div>
 
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item dropdown">
+      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        v{{ site.current_version }}
+      </a>
+      <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
+        <a class="dropdown-item active" href="/">Latest ({{ site.current_version }})</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5" target="_blank">v1.15.5</a>
+      </div>
+    </li>
     <li class="nav-item">
       <a class="nav-link p-2" href="{{ site.repo }}" target="_blank" rel="noopener" aria-label="GitHub">
         {%- include icons/github.svg class="navbar-nav-svg" -%}

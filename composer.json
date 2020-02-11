@@ -17,7 +17,7 @@
         "material-design",
         "materialize",
         "foundation"
-    ]
+    ],
     "type": "component",
     "homepage": "https://github.com/wenzhixin/bootstrap-table",
     "license": "MIT",

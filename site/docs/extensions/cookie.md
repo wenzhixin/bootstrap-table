@@ -20,6 +20,8 @@ toc: true
 
 ### cookie
 
+- **Attribute:** `data-cookie`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -29,6 +31,8 @@ toc: true
 - **Default:** `false`
 
 ### cookieExpire
+
+- **Attribute:** `data-cookie-expire`
 
 - **type:** `String`
 
@@ -40,6 +44,8 @@ toc: true
 
 ### cookiePath
 
+- **Attribute:** `data-cookie-path`
+
 - **type:** `String`
 
 - **Detail:**
@@ -49,6 +55,8 @@ toc: true
 - **Default:** `null`
 
 ### cookieDomain
+
+- **Attribute:** `data-cookie-domain`
 
 - **type:** `String`
 
@@ -60,6 +68,8 @@ toc: true
 
 ### cookieSecure
 
+- **Attribute:** `data-cookie-secure`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -69,6 +79,8 @@ toc: true
 - **Default:** `null`
 
 ### cookieIdTable
+
+- **Attribute:** `data-cookie-id-table`
 
 - **type:** `String`
 
@@ -80,15 +92,22 @@ toc: true
 
 ### cookieStorage
 
+- **Attribute:** `data-cookie-storage`
+
 - **type:** `String`
 
 - **Detail:**
 
-   Set the storage that this extension will use. Use `cookieStorage` or `localStorage` or `sessionStorage`.
+   Set the storage that this extension will use. Use `cookieStorage` or `localStorage` or `sessionStorage` or `customStorage`.
+   
+   Info for `customStorage`:   
+   You have use `cookieCustomStorageGet`, `cookieCustomStorageSet` and `cookieCustomStorageDelete`. 
 
 - **Default:** `cookieStorage`
 
 ### cookiesEnabled
+
+- **Attribute:** `data-cookies-enabled`
 
 - **type:** `Array`
 
@@ -97,6 +116,55 @@ toc: true
    Set this array with the table properties (sortOrder, sortName, pageNumber, pageList, columns, searchText, filterControl) that you want to save
 
 - **Default:** `['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']`
+
+### cookieCustomStorageGet
+
+- **Attribute:** `data-cookie-custom-storage-get`
+
+- **type:** `function`
+
+- **parameter**
+  - cookieName - The name of the value e.g. the search
+
+- **Detail:**
+
+   This option allows to get the saved value from your custom function.   
+   This option is only required if you use `customStorage` on the `cookieStorage` option! 
+
+- **Default:** `undefined`
+
+### cookieCustomStorageSet
+
+- **Attribute:** `data-cookie-custom-storage-set`
+
+- **type:** `function`
+
+- **parameter**
+  - cookieName - The name of the value e.g. the search
+  - value - The value which will be saved
+
+- **Detail:**
+
+   This option allows to save values with your custom function.   
+   This option is only required if you use `customStorage` on the `cookieStorage` option! 
+
+- **Default:** `undefined`
+
+### cookieCustomStorageDelete
+
+- **Attribute:** `data-cookie-custom-storage-delete`
+
+- **type:** `function`
+
+- **parameter**
+  - cookieName - The name of the value e.g. the search
+
+- **Detail:**
+
+   This option allows to delete values with your custom function.      
+   This option is only required if you use `customStorage` on the `cookieStorage` option! 
+
+- **Default:** `undefined`
 
 ## Methods
 

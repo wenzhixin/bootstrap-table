@@ -28,6 +28,8 @@ Dependence:
 
 ### reorderableColumns
 
+- **attribute:** `data-reorderable-columns`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -37,6 +39,8 @@ Dependence:
 - **Default:** `false`
 
 ### maxMovingRows
+
+- **attribute:** `data-max-moving-rows`
 
 - **type:** `Integer`
 
@@ -48,6 +52,8 @@ Dependence:
 
 ### dragaccept
 
+- **attribute:** `data-dragaccept`
+
 - **type:** `String`
 
 - **Detail:**
@@ -55,6 +61,17 @@ Dependence:
    Allow to drag only the rows that have the css class as attribute.
 
 - **Default:** `null`
+
+## Methods
+
+### orderColumns
+
+- **parameters:** `object` e.g. `{name: 0, price: 1}`
+
+- **Detail:**
+
+   Reorders the the columns by the given object.
+   The Object key has to be the [field](https://bootstrap-table.com/docs/api/column-options/#field) and the value is the column index (starts by 0).
 
 ## Events
 

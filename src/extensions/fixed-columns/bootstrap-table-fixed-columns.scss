@@ -10,16 +10,16 @@
 
 .fixed-columns {
   left: 0;
-}
 
-.fixed-columns .fixed-table-body {
-  overflow: hidden !important;
+  .fixed-table-body {
+    overflow: hidden!important;
+  }
 }
 
 .fixed-columns-right {
   right: 0;
-}
 
-.fixed-columns-right .fixed-table-body {
-  overflow-x: hidden !important;
+  .fixed-table-body {
+    overflow-x: hidden!important;
+  }
 }

@@ -27,6 +27,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### reorderableRows
 
+- **attribute:** `data-reorderable-rows`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -37,15 +39,19 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### onDragStyle
 
+- **attribute:** `data-on-drag-style`
+
 - **type:** `String`
 
 - **Detail:**
 
-   This is the style that is assigned to the row during drag. There are limitations to the styles that can be associated with a row (such as you can't assign a border�well you can, but it won't be displayed).
+   This is the style that is assigned to the row during drag. There are limitations to the styles that can be associated with a row (such as you can't assign a border well you can, but it won't be displayed).
 
 - **Default:** `null`
 
 ### onDropStyle
+
+- **attribute:** `data-on-drop-style`
 
 - **type:** `String`
 
@@ -57,6 +63,8 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### onDragClass
 
+- **attribute:** `data-on-drag-class`
+
 - **type:** `String`
 
 - **Detail:**
@@ -67,15 +75,19 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### dragHandle
 
+- **attribute:** `data-drag-handle`
+
 - **type:** `String`
 
 - **Detail:**
 
    This is the cursor to use
 
-- **Default:** `null`
+- **Default:** `>tbody>tr>td`
 
 ### useRowAttrFunc
+
+- **attribute:** `data-use-row-attr-func`
 
 - **type:** `Boolean`
 
@@ -87,21 +99,25 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### onReorderRowsDrag
 
+- **attribute:** `data-on-reorder-rows-drag`
+
 - **type:** `Function`
 
 - **Detail:**
 
-   Pass a function that will be called when the user starts dragging. The function takes 2 parameters: the table and the row which the user has started to drag.
+   Pass a function that will be called when the user starts dragging. The function takes 1 parameter: the row which the user has started to drag.
 
 - **Default:** `empty function`
 
 ### onReorderRowsDrop
 
+- **attribute:** `data-on-reorder-rows-drop`
+
 - **type:** `Function`
 
 - **Detail:**
 
-   Pass a function that will be called when the row is dropped. The function takes 2 parameters: the table and the row that was dropped.
+   Pass a function that will be called when the row is dropped. The function takes 1 parameter:  the row that was dropped.
 
 - **Default:** `empty function`
 
@@ -109,8 +125,4 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### onReorderRow(reorder-row.bs.table)
 
-Fired when the row was dropped, receive as parameter the new data order
-
-## The existing problems
-
-* After search if the user reorder the rows the data is not shown properly after that.
+Fired when the row was dropped, receive as parameter the new data order.

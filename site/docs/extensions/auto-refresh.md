@@ -20,6 +20,8 @@ toc: true
 
 ### autoRefresh
 
+- **Attribute:** `data-auto-refresh`
+
 - **type:** `Boolean`
 
 - **Detail:**
@@ -29,6 +31,8 @@ toc: true
 - **Default:** `false`
 
 ### autoRefreshStatus
+
+- **Attribute:** `data-auto-refresh-status`
 
 - **type:** `Boolean`
 
@@ -40,6 +44,8 @@ toc: true
 
 ### autoRefreshInterval
 
+- **Attribute:** `data-auto-refresh-interval`
+
 - **type:** `Number`
 
 - **Detail:**
@@ -49,6 +55,8 @@ toc: true
 - **Default:** `60`
 
 ### autoRefreshSilent
+
+- **Attribute:** `data-auto-refresh-silent`
 
 - **type:** `Boolean`
 

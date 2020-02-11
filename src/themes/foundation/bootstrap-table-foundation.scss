@@ -21,22 +21,20 @@
       height: 2.5293rem;
     }
 
-    .keep-open {
-      .dropdown-container {
-        .button {
-          &:hover .menu {
-            background: #fff;
-          }
+    .keep-open.dropdown-container {
+      .button {
+        &:hover .menu {
+          background: #fff;
         }
+      }
 
-        .menu {
-          li {
-            padding: 5px 0;
+      .menu {
+        li {
+          padding: 5px 0;
 
-            label {
-              white-space: nowrap;
-              text-align: left;
-            }
+          label {
+            white-space: nowrap;
+            text-align: left;
           }
         }
       }

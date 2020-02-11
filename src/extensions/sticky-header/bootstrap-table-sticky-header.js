@@ -13,10 +13,6 @@ $.extend($.fn.bootstrapTable.defaults, {
   stickyHeaderOffsetRight: 0
 })
 
-const hiddenClass = {
-  bootstrap3: 'hidden'
-}[$.fn.bootstrapTable.theme] || 'd-none'
-
 $.BootstrapTable = class extends $.BootstrapTable {
   initHeader (...args) {
     super.initHeader(...args)
@@ -38,12 +34,48 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.$stickyHeader = this.$header.clone(true, true)
 
     // render sticky on window scroll or resize
-    $(window).on('resize.sticky-header-table', () => this.renderStickyHeader())
-    $(window).on('scroll.sticky-header-table', () => this.renderStickyHeader())
+    $(window).off('resize.sticky-header-table')
+      .on('resize.sticky-header-table', () => this.renderStickyHeader())
+    $(window).off('scroll.sticky-header-table')
+      .on('scroll.sticky-header-table', () => this.renderStickyHeader())
     this.$tableBody.off('scroll').on('scroll', () => this.matchPositionX())
   }
 
+  onColumnSearch ({currentTarget, keyCode}) {
+    super.onColumnSearch({currentTarget, keyCode})
+    this.renderStickyHeader()
+  }
+
+  resetView (...args) {
+    super.resetView(...args)
+
+    $('.bootstrap-table.fullscreen').off('scroll')
+      .on('scroll', () => this.renderStickyHeader())
+  }
+
   renderStickyHeader () {
+    const that = this
+    this.$stickyHeader = this.$header.clone(true, true)
+
+    if (this.options.filterControl) {
+      $(this.$stickyHeader).off('keyup change mouseup').on('keyup change mouse', function (e) {
+        const $target = $(e.target)
+        const value = $target.val()
+        const field = $target.parents('th').data('field')
+        const $coreTh = that.$header.find('th[data-field="' + field + '"]')
+
+        if ($target.is('input')) {
+          $coreTh.find('input').val(value)
+        } else if ($target.is('select')) {
+          const $select = $coreTh.find('select')
+          $select.find('option[selected]').removeAttr('selected')
+          $select.find('option[value="' + value + '"]').attr('selected', true)
+        }
+
+        that.triggerSearch()
+      })
+    }
+
     const top = $(window).scrollTop()
     // top anchor scroll position, minus header height
     const start = this.$stickyBegin.offset().top - this.options.stickyHeaderOffsetY
@@ -56,11 +88,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $(el).css('min-width', this.$header.find('tr:eq(0)').find('th').eq(index).css('width'))
       })
       // match bootstrap table style
-      this.$stickyContainer.removeClass(hiddenClass).addClass('fix-sticky fixed-table-container')
+      this.$stickyContainer.show().addClass('fix-sticky fixed-table-container')
       // stick it in position
+      let stickyHeaderOffsetLeft = this.options.stickyHeaderOffsetLeft
+      let stickyHeaderOffsetRight = this.options.stickyHeaderOffsetRight
+      if (this.$el.closest('.bootstrap-table').hasClass('fullscreen')) {
+        stickyHeaderOffsetLeft = 0
+        stickyHeaderOffsetRight = 0
+      }
       this.$stickyContainer.css('top', `${this.options.stickyHeaderOffsetY}`)
-      this.$stickyContainer.css('left', `${this.options.stickyHeaderOffsetLeft}`)
-      this.$stickyContainer.css('right', `${this.options.stickyHeaderOffsetRight}`)
+      this.$stickyContainer.css('left', `${stickyHeaderOffsetLeft}`)
+      this.$stickyContainer.css('right', `${stickyHeaderOffsetRight}`)
       // create scrollable container for header
       this.$stickyTable = $('<table/>')
       this.$stickyTable.addClass(this.options.classes)
@@ -69,7 +107,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // match clone and source header positions when left-right scroll
       this.matchPositionX()
     } else {
-      this.$stickyContainer.removeClass('fix-sticky').addClass(hiddenClass)
+      this.$stickyContainer.removeClass('fix-sticky').hide()
     }
   }
 

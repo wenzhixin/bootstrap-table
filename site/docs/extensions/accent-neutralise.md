@@ -25,6 +25,8 @@ toc: true
 
 ### searchAccentNeutralise
 
+- **Attribute:** `data-search-accent-neutralise`
+
 - **Type:** `Boolean`
 
 - **Detail:**

@@ -23,8 +23,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.paginationActive = 'current'
     this.constants.classes.buttonActive = 'success'
 
-    this.constants.html.toolbarDropdown = ['<ul class="dropdown-pane" id="toolbar-columns-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
-    this.constants.html.toolbarDropdownItem = '<li><label class="dropdown-item">%s</label></li>'
+    this.constants.html.toolbarDropdown = ['<div class="dropdown-pane" id="toolbar-columns-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
+    this.constants.html.toolbarDropdownItem = '<li class="dropdown-item-marker"><label class="dropdown-item">%s</label></li>'
     this.constants.html.toolbarDropdownSeparator = '<li><hr></li>'
     this.constants.html.pageDropdown = ['<div class="dropdown-pane" id="pagination-list-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
     this.constants.html.pageDropdownItem = '<li class="dropdown-item %s"><a href="#">%s</a></li>'
@@ -76,8 +76,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     $dropdowns.off('click').on('click', e => {
       const $this = $(e.currentTarget)
       e.stopPropagation()
-      $dropdowns.not($this).next().foundation('close')
+
       $this.next().foundation('toggle')
+
+      if ($dropdowns.not($this).length) {
+        $dropdowns.not($this).next().foundation('close')
+      }
     })
 
     $(document).off('click.bs.dropdown.foundation').on('click.bs.dropdown.foundation', () => {

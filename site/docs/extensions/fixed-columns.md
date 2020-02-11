@@ -21,20 +21,39 @@ toc: true
 
 ### fixedColumns
 
+- **attribute:** `data-fixed-columns`
+
 - **type:** `Boolean`
 
 - **Detail:**
 
-  set `true` to enable fixed columns.
+  Set `true` to enable fixed columns.
 
 - **Default:** `false`
 
 ### fixedNumber
 
+- **attribute:** `data-fixed-number`
+
 - **type:** Number
 
 - **Detail:**
 
-  the number of fixed columns.
+  The number of the left fixed columns.
 
-- **Default:** `1`
+- **Default:** `0`
+
+### fixedRightNumber
+
+- **type:** Number
+
+- **Detail:**
+
+  The number of the right fixed columns.
+
+- **Default:** `0`
+
+## Note
+
+* This extension does not support `detailView` option.
+* This extension does not support `cardView` option.

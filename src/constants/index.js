@@ -1,4 +1,4 @@
-const VERSION = '1.15.5'
+const VERSION = '1.16.0'
 
 let bootstrapVersion = 4
 try {
@@ -46,7 +46,7 @@ const CONSTANTS = {
     },
     html: {
       toolbarDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-      toolbarDropdownItem: '<li role="menuitem"><label>%s</label></li>',
+      toolbarDropdownItem: '<li class="dropdown-item-marker" role="menuitem"><label>%s</label></li>',
       toolbarDropdownSeparator: '<li class="divider"></li>',
       pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
       pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
@@ -92,7 +92,7 @@ const CONSTANTS = {
     },
     html: {
       toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
-      toolbarDropdownItem: '<label class="dropdown-item">%s</label>',
+      toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],
       pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
       toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
@@ -112,6 +112,9 @@ const DEFAULTS = {
   height: undefined,
   classes: 'table table-bordered table-hover',
   theadClasses: '',
+  headerStyle (column) {
+    return {}
+  },
   rowStyle (row, index) {
     return {}
   },
@@ -129,6 +132,7 @@ const DEFAULTS = {
   sortOrder: 'asc',
   sortStable: false,
   rememberOrder: false,
+  serverSort: true,
   customSort: undefined,
   columns: [
     []
@@ -184,11 +188,12 @@ const DEFAULTS = {
   customSearch: undefined,
   showHeader: true,
   showFooter: false,
-  footerStyle (row, index) {
+  footerStyle (column) {
     return {}
   },
   showColumns: false,
   showColumnsToggleAll: false,
+  showColumnsSearch: false,
   minimumCountColumns: 1,
   showPaginationSwitch: false,
   showRefresh: false,
@@ -224,6 +229,7 @@ const DEFAULTS = {
   toolbarAlign: 'left',
   buttonsToolbar: undefined,
   buttonsAlign: 'right',
+  buttonsOrder: ['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns'],
   buttonsPrefix: CONSTANTS.classes.buttonsPrefix,
   buttonsClass: CONSTANTS.classes.buttons,
   icons: CONSTANTS.icons,
@@ -441,7 +447,7 @@ const METHODS = [
   'checkBy', 'uncheckBy',
   'refresh',
   'destroy',
-  'resetView', 'resetWidth',
+  'resetView',
   'showLoading', 'hideLoading',
   'togglePagination', 'toggleFullscreen', 'toggleView',
   'resetSearch',

@@ -32,7 +32,9 @@ export default {
     this.$table = $(this.$el)
 
     this.$table.on('all.bs.table', (e, name, args) => {
-      this.$emit($.fn.bootstrapTable.events[name], ...args)
+      let eventName = $.fn.bootstrapTable.events[name]
+      eventName = eventName.replace(/([A-Z])/g, '-$1').toLowerCase()
+      this.$emit(eventName, ...args)
     })
 
     this._initTable()
