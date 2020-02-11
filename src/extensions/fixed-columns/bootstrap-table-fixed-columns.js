@@ -327,5 +327,24 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
       })
     }
+
+    if (this.options.filterControl) {
+      $(this.$fixedColumns).off('keyup change').on('keyup change', e => {
+        const $target = $(e.target)
+        const value = $target.val()
+        const field = $target.parents('th').data('field')
+        const $coreTh = this.$header.find(`th[data-field="${field}"]`)
+
+        if ($target.is('input')) {
+          $coreTh.find('input').val(value)
+        } else if ($target.is('select')) {
+          const $select = $coreTh.find('select')
+          $select.find('option[selected]').removeAttr('selected')
+          $select.find(`option[value="${value}"]`).attr('selected', true)
+        }
+
+        this.triggerSearch()
+      })
+    }
   }
 }
