@@ -2288,7 +2288,6 @@ class BootstrapTable {
   }
 
   updateCellByUniqueId (params) {
-    
     const allParams = Array.isArray(params) ? params : [params]
 
     allParams.forEach(({id, field, value}) => {
