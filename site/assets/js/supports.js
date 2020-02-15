@@ -3,6 +3,11 @@ $(function () {
     if (!item.image) {
       item.image = 'https://images.opencollective.com/' + item.profile.split('/').pop() + '/avatar.png'
     }
+    if (!item.website) {
+      item.website = item.profile || ''
+    }
+    item.website = item.website.split(' ')[0]
+
     return [
       '<a class="support-item" href="' + item.website + '" target="_blank" title="$' + item.totalAmountDonated + ' by ' + item.name + '">',
       '<img class="support-silver-avatar" src="' + item.image + '" alt="' + item.name + '">',
