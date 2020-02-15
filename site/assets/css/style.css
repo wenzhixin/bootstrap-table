@@ -113,3 +113,37 @@
 header.themes .bd-lead {
   max-width: 100%;
 }
+
+.supports-container {
+  text-align: center;
+}
+
+.supports {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 0 .5em 1em;
+}
+
+.support-description {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin-bottom: 1em;
+}
+
+.support-item {
+  position: relative;
+  margin: 0 2px 2px;
+}
+
+.support-silver-avatar {
+  max-height: 64px;
+  max-width: 192px;
+  vertical-align: middle;
+}
