@@ -39,11 +39,14 @@ cd $OUT
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 
 # Clean out existing contents except versions
-ls | grep -v versions | xargs rm -rf
+mv versions ..
+ls | xargs rm -rf
 cd ..
 
 # Run our compile script
 doCompile
+
+mv versions $OUT
 
 # Now let's go have some fun with the cloned repo
 cd $OUT
