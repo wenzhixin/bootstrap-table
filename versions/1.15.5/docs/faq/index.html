@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Frequently Asked Questions.">
+<meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
+<meta name="generator" content="Jekyll v3.8.5">
+<meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
+
+<meta name="docsearch:language" content="en">
+
+<title>FAQ · Bootstrap Table</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
+
+<link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+
+
+<link href="/versions/1.15.5/assets/css/docs.min.css" rel="stylesheet">
+<link href="/versions/1.15.5/assets/css/style.css?m=3" rel="stylesheet">
+
+<!-- Favicons -->
+<link rel="icon" href="/versions/1.15.5/favicon.png">
+
+
+<script type="text/javascript">
+  if (window !== top) // 判断当前的 window 对象是否是 top 对象
+    top.location.href = window.location.href // 如果不是，将 top 对象的网址自动导向被嵌入网页的网址
+</script>
+
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+  <span class="skippy-text">Skip to main content</span>
+</a>
+
+
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+  <a class="navbar-brand mr-0 mr-md-2" href="/versions/1.15.5/" aria-label="Bootstrap">
+    <img src="/versions/1.15.5/favicon.png" width="36" height="36">
+  </a>
+
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link "
+          href="/versions/1.15.5/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active"
+          href="/versions/1.15.5/docs/getting-started/introduction/">
+          Documentation
+        </a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/versions/1.15.5/themes">
+          Themes
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link "
+          href="https://examples.bootstrap-table.com">
+          Examples
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="https://live.bootstrap-table.com"
+          target="_blank">
+          Online Editor
+        </a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/versions/1.15.5/news">
+          News
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="https://blog.bootstrap-table.com"
+          target="_blank">
+          Blog
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 416.32" focusable="false" role="img"><path d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92" fill="currentColor"/></svg>
+</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 40 41" focusable="false" role="img" fill="currentColor" fill-rule="evenodd"><title>Open Collective</title><path d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z" fill-opacity=".4"/><path d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"/></svg>
+</a>
+    </li>
+  </ul>
+
+  <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="/versions/1.15.5/docs/getting-started/download/">Download</a>
+</header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+          <form class="bd-search d-flex align-items-center">
+  <input type="search" class="form-control"
+    id="search-input" placeholder="Search..."
+    aria-label="Search for..." autocomplete="off">
+  <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3"
+    type="button" data-toggle="collapse" data-target="#bd-docs-nav"
+    aria-controls="bd-docs-nav" aria-expanded="false"
+    aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 30 30" width="30" height="30" focusable="false" role="img"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/></svg>
+</button>
+</form>
+
+<nav class="collapse bd-links" id="bd-docs-nav"><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/versions/1.15.5/docs/getting-started/introduction/">
+      Getting started
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/versions/1.15.5/docs/getting-started/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/getting-started/download/">
+            Download
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/getting-started/contents/">
+            Contents
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/getting-started/usage/">
+            Usage
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/getting-started/browsers-devices/">
+            Browsers & devices
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/getting-started/build-tools/">
+            Build tools
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/versions/1.15.5/docs/api/table-options/">
+      API
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/versions/1.15.5/docs/api/table-options/">
+            Table Options
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/api/column-options/">
+            Column Options
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/api/events/">
+            Events
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/api/methods/">
+            Methods
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/api/localizations/">
+            Localizations
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/versions/1.15.5/docs/extensions/accent-neutralise/">
+      Extensions
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/versions/1.15.5/docs/extensions/accent-neutralise/">
+            Accent Neutralise
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/addrbar/">
+            Addrbar
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/auto-refresh/">
+            Auto Refresh
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/cookie/">
+            Cookie
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/copy-rows/">
+            Copy Rows
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/defer-url/">
+            Defer URL
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/editable/">
+            Editable
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/export/">
+            Export
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/filter-control/">
+            Filter Control
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/fixed-columns/">
+            Fixed Columns
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/group-by-v2/">
+            Group By v2
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/i18n-enhance/">
+            i18n Enhance
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/key-events/">
+            Key Events
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/mobile/">
+            Mobile
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/multiple-sort/">
+            Multiple Sort
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/natural-sorting/">
+            Natural Sorting
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/page-jump-to/">
+            Page Jump To
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/print/">
+            Print
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/reorder-columns/">
+            Reorder Columns
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/reorder-rows/">
+            Reorder Rows
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/resizable/">
+            Resizable
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/sticky-header/">
+            Sticky Header
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/toolbar/">
+            Toolbar
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/extensions/treegrid/">
+            Treegrid
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/versions/1.15.5/docs/vuejs/introduction/">
+      VueJS
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/versions/1.15.5/docs/vuejs/introduction/">
+            Introduction
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/vuejs/browser/">
+            Browser
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/vuejs/webpack/">
+            Webpack
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/vuejs/component/">
+            Component
+          </a>
+        </li></ul>
+  </div><div class="bd-toc-item active">
+    <a class="bd-toc-link" href="/versions/1.15.5/docs/faq/">
+      FAQ
+    </a>
+
+    <ul class="nav bd-sidenav"></ul>
+  </div><div class="bd-toc-item">
+    <a class="bd-toc-link" href="/versions/1.15.5/docs/about/overview/">
+      About
+    </a>
+
+    <ul class="nav bd-sidenav"><li>
+          <a href="/versions/1.15.5/docs/about/overview/">
+            Overview
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/about/team/">
+            Team
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/about/license/">
+            License
+          </a>
+        </li><li>
+          <a href="/versions/1.15.5/docs/about/translations/">
+            Translations
+          </a>
+        </li></ul>
+  </div></nav>
+
+        </div>
+
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content faq" role="main">
+          <h1 class="bd-title" id="content">FAQ</h1>
+          <p class="bd-lead">Frequently Asked Questions.</p>
+          <style>
+#codefund #cf {
+  margin: 0!important;
+}
+.bd-content #codefund #cf {
+  margin-bottom: 20px!important;
+}
+</style>
+<div id="codefund"><!-- fallback content --></div>
+<script src="https://codefund.io/properties/291/funder.js" async="async"></script>
+
+          <h3 id="when-resizing-the-window-the-table-header-does-not-adjust-automatically-how-to-solve-it">When resizing the window, the table header does not adjust automatically, how to solve it?</h3>
+
+<p>When you set the <code class="highlighter-rouge">height</code> of the bootstrap table, the <code class="highlighter-rouge">fixed header</code> feature is automatically enabled, that is what causes the problem, you need to listen to the <code class="highlighter-rouge">resize</code> event of the window and use the <code class="highlighter-rouge">resetView</code> method to solve this problem, code example:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#tableId'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">()</span> <span class="c1">// init via javascript</span>
+
+  <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">resize</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'#tableId'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">(</span><span class="s1">'resetView'</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="how-to-better-merge-cells">How to better merge cells?</h3>
+
+<p>For merged cells, when you do refresh, next page or switch columns to show, the merge cells will be unmerged. We can listen the events(on load success, on column switch, on page change and on search) to solve this problem, code example:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$table</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'load-success.bs.table column-switch.bs.table page-change.bs.table search.bs.table'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">$table</span><span class="p">.</span><span class="nx">bootstrapTable</span><span class="p">(</span><span class="s1">'mergeCells'</span><span class="p">,</span> <span class="p">{...})</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="is-event-parameter-put-in-the-wrong-order">Is event parameter put in the wrong order?</h3>
+
+<p>When you use like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$('#eventsTable').on('click-row.bs.table', function (event, row, $element) {
+
+})
+</code></pre></div></div>
+
+<p>the first parameter is always <code class="highlighter-rouge">event</code>: <a href="https://live.bootstrap-table.com/code/wenzhixin/46">https://live.bootstrap-table.com/code/wenzhixin/46</a></p>
+
+<p>and use onClickRow event:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>onClickRow: function (row, $element) {
+
+}
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="how-can-i-support-the-development-of-bootstrap-table">How can I support the development of bootstrap-table?</h3>
+
+<p>All your ideas and feedback are very appreciated! Please feel free to open issues on GitHub or send me an email.</p>
+
+<p>I’m also grateful for your donations: <a href="/donate">https://opencollective.com/bootstrap-table</a>.</p>
+
+        </main>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+$(function () {
+  $('.bd-content.api a').attr('target', '_blank')
+})
+</script><script src="/versions/1.15.5/assets/js/docs.min.js?m=1"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || []
+  function gtag() {window.dataLayer.push(arguments)}
+  gtag('js', new Date())
+  gtag('config', 'UA-132747866-1')
+</script>
+
+  </body>
+</html>
