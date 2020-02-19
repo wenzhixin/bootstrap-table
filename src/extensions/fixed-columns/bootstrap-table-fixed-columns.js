@@ -166,6 +166,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
     })
   }
 
+  hideLoading () {
+    super.hideLoading()
+
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedColumns.find('.fixed-table-loading').hide()
+    }
+
+    if (this.needFixedColumns && this.options.fixedRightNumber) {
+      this.$fixedColumnsRight.find('.fixed-table-loading').hide()
+    }
+  }
+
   initFixedColumnsHeader () {
     if (this.options.height) {
       this.needFixedColumns = this.$tableHeader.outerWidth(true) < this.$tableHeader.find('table').outerWidth(true)
