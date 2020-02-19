@@ -8,7 +8,12 @@ let errorSum = 0
 class API {
   constructor () {
     this.init()
+    this.sortOptions()
     this.check()
+  }
+
+  sortOptions () {
+    this.options.sort()
   }
 
   check () {

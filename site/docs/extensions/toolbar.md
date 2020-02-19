@@ -30,18 +30,6 @@ toc: true
 
 - **Default:** `false`
 
-### idForm
-
-- **attribute:** `data-id-form`
-
-- **type:** `String`
-
-- **Detail:**
-
-   Must be set to know the idform.
-
-- **Default:** `advancedSearch`
-
 ### actionForm
 
 - **attribute:** `data-action-form`
@@ -53,6 +41,18 @@ toc: true
    Set the action of the form (pop-up).
 
 - **Default:** `''`
+
+### idForm
+
+- **attribute:** `data-id-form`
+
+- **type:** `String`
+
+- **Detail:**
+
+   Must be set to know the idform.
+
+- **Default:** `advancedSearch`
 
 ### idTable
 
@@ -66,15 +66,13 @@ toc: true
 
 - **Default:** `''`
 
+## Events
+
+### onColumnAdvancedSearch(column-advanced-search.bs.table)
+
+* Fired when we are searching into the advanced search form.
+
 ## Locales
-
-### formatAdvancedSearch
-
-- **Detail:**
-
-   Title of the advanced search modal
-
-- **Default:** `Advanced search`
 
 ### formatAdvancedCloseButton
 
@@ -84,8 +82,10 @@ toc: true
 
 - **Default:** `Close`
 
-## Events
+### formatAdvancedSearch
 
-### onColumnAdvancedSearch(column-advanced-search.bs.table)
+- **Detail:**
 
-* Fired when we are searching into the advanced search form
+   Title of the advanced search modal
+
+- **Default:** `Advanced search`

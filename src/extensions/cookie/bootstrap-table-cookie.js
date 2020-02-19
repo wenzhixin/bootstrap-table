@@ -249,6 +249,9 @@ $.extend($.fn.bootstrapTable.defaults, {
     'bs.table.reorderColumns'
   ],
   cookieStorage: 'cookieStorage', // localStorage, sessionStorage, customStorage
+  cookieCustomStorageGet: null,
+  cookieCustomStorageSet: null,
+  cookieCustomStorageDelete: null,
   // internal variable
   filterControls: [],
   filterControlValuesLoaded: false
