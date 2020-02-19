@@ -32,18 +32,6 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Default:** `false`
 
-### copyWithHidden
-
-- **Attribute:** `data-copy-width-hidden`
-
-- **type:** `Boolean`
-
-- **Detail:**
-
-   Set `true` to copy with hidden columns.
-
-- **Default:** `false`
-
 ### copyDelimiter
 
 - **Attribute:** `data-copy-delimiter`
@@ -67,6 +55,22 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
    This newline will be inserted in-between the row values when copying.
 
 - **Default:** `'\n'`
+
+### copyWithHidden
+
+- **Attribute:** `data-copy-width-hidden`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to copy with hidden columns.
+
+- **Default:** `false`
+
+### Icons
+
+- copy: 'fa-copy'
 
 ## Methods
 

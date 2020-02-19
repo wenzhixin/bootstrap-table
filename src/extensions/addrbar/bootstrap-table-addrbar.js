@@ -63,6 +63,11 @@ function _buildUrl (dict, url = window.location.search) {
   return url
 }
 
+$.extend($.fn.bootstrapTable.defaults, {
+  addrbar: false,
+  addrPrefix: ''
+})
+
 $.BootstrapTable = class extends $.BootstrapTable {
   init (...args) {
     if (

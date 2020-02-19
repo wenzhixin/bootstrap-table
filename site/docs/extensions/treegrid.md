@@ -44,18 +44,6 @@ Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 - **Default:** `'id'`
 
-### treeShowField
-
-- **attribute:** `data-tree-show-field`
-
-- **type:** `String`
-
-- **Detail:**
-
-  Set the `treeShowField` will auto enable the tree grid.
-
-- **Default:** `''`
-
 ### parentIdField
 
 - **attribute:** `data-parent-id-field`
@@ -67,6 +55,18 @@ Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
   Set the parent id field.
 
 - **Default:** `'pid'`
+
+### treeShowField
+
+- **attribute:** `data-tree-show-field`
+
+- **type:** `String`
+
+- **Detail:**
+
+  Set the `treeShowField` will auto enable the tree grid.
+
+- **Default:** `''`
 
 ### rootParentId
 
