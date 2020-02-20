@@ -129,7 +129,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
         })
 
         this.columnsSortOrder = sortOrder
-        this.persistReorderColumnsState(this)
+        if (this.options.cookie) {
+          this.persistReorderColumnsState(this)
+        }
 
         const ths = []
         const formatters = []
