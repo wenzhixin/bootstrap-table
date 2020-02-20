@@ -9,15 +9,14 @@ const UtilsFilterControl = {
   getOptionsFromSelectControl (selectControl) {
     return selectControl.get(selectControl.length - 1).options
   },
-  getControlContainer () {
-    if (UtilsFilterControl.bootstrapTableInstance.options.filterControlContainer) {
-      return $(`${UtilsFilterControl.bootstrapTableInstance.options.filterControlContainer}`)
+  getControlContainer (that) {
+    if (that.options.filterControlContainer) {
+      return $(`${that.options.filterControlContainer}`)
     }
-
-    return UtilsFilterControl.getCurrentHeader(UtilsFilterControl.bootstrapTableInstance)
+    return UtilsFilterControl.getCurrentHeader(that)
   },
   getSearchControls (scope) {
-    const header = UtilsFilterControl.getControlContainer()
+    const header = UtilsFilterControl.getControlContainer(scope)
     const searchControls = UtilsFilterControl.getCurrentSearchControls(scope)
 
     return header.find(searchControls)
@@ -232,7 +231,7 @@ const UtilsFilterControl = {
 
     $.each(that.header.fields, (j, field) => {
       const column = that.columns[that.fieldsColumnsIndex[field]]
-      const selectControl = UtilsFilterControl.getControlContainer().find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
+      const selectControl = UtilsFilterControl.getControlContainer(that).find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
       if (
         UtilsFilterControl.isColumnSearchableViaSelect(column) &&
         UtilsFilterControl.isFilterDataNotGiven(column) &&
@@ -359,7 +358,7 @@ const UtilsFilterControl = {
             column.filterData.indexOf(':') + 1,
             column.filterData.length
           )
-          selectControl = UtilsFilterControl.getControlContainer().find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
+          selectControl = UtilsFilterControl.getControlContainer(that).find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
 
           UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
           filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
@@ -373,7 +372,7 @@ const UtilsFilterControl = {
     })
 
     if (addedFilterControl) {
-      UtilsFilterControl.getControlContainer().off('keyup', 'input').on('keyup', 'input', ({currentTarget, keyCode}, obj) => {
+      UtilsFilterControl.getControlContainer(that).off('keyup', 'input').on('keyup', 'input', ({currentTarget, keyCode}, obj) => {
         // Simulate enter key action from clear button
         keyCode = obj ? obj.keyCode : keyCode
 
@@ -397,7 +396,7 @@ const UtilsFilterControl = {
         }, that.options.searchTimeOut)
       })
 
-      UtilsFilterControl.getControlContainer().off('change', 'select').on('change', 'select', ({currentTarget, keyCode}) => {
+      UtilsFilterControl.getControlContainer(that).off('change', 'select').on('change', 'select', ({currentTarget, keyCode}) => {
         if (that.options.searchOnEnterKey && keyCode !== 13) {
           return
         }
@@ -441,13 +440,13 @@ const UtilsFilterControl = {
         }, 1)
       })
 
-      if (UtilsFilterControl.getControlContainer().find('.date-filter-control').length > 0) {
+      if (UtilsFilterControl.getControlContainer(that).find('.date-filter-control').length > 0) {
         $.each(that.columns, (i, {filterControl, field, filterDatepickerOptions}) => {
           if (
             filterControl !== undefined &&
             filterControl.toLowerCase() === 'datepicker'
           ) {
-            UtilsFilterControl.getControlContainer()
+            UtilsFilterControl.getControlContainer(that)
               .find(
                 `.date-filter-control.bootstrap-table-filter-control-${field}`
               )
@@ -467,7 +466,7 @@ const UtilsFilterControl = {
       }
 
     } else {
-      UtilsFilterControl.getControlContainer().find('.filterControl').hide()
+      UtilsFilterControl.getControlContainer(that).find('.filterControl').hide()
     }
   },
   getDirectionOfSelectOptions (_alignment) {
@@ -615,7 +614,6 @@ $.fn.bootstrapTable.methods.push('clearFilterControl')
 
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
-    UtilsFilterControl.bootstrapTableInstance = this
     // Make sure that the filterControl option is set
     if (this.options.filterControl) {
       const that = this
@@ -631,14 +629,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
 
           // Avoid recreate the controls
+          const $controlContainer = UtilsFilterControl.getControlContainer(that)
           if (
-            UtilsFilterControl.getControlContainer().find('select').length > 0 ||
-            UtilsFilterControl.getControlContainer().find('input').length > 0
+            $controlContainer.find('select').length > 0 ||
+            $controlContainer.getControlContainer(that).find('input').length > 0
           ) {
             return
           }
 
-          UtilsFilterControl.createControls(that, UtilsFilterControl.getControlContainer())
+          UtilsFilterControl.createControls(that, $controlContainer)
         })
         .on('post-header.bs.table', () => {
           UtilsFilterControl.setValues(that)
@@ -669,7 +668,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (!this.options.filterControl) {
       return
     }
-    UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer())
+    UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
   }
 
   initBody () {
