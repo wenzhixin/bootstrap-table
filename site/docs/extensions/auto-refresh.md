@@ -30,18 +30,6 @@ toc: true
 
 - **Default:** `false`
 
-### autoRefreshStatus
-
-- **Attribute:** `data-auto-refresh-status`
-
-- **type:** `Boolean`
-
-- **Detail:**
-
-   Set `true` to enable auto refresh. This is the state auto refresh will be in when the table loads. Clicking the button toggles this property. This is simply the default state of auto refresh as the user can always change it by clicking the button.
-
-- **Default:** `true`
-
 ### autoRefreshInterval
 
 - **Attribute:** `data-auto-refresh-interval`
@@ -66,6 +54,26 @@ toc: true
 
 - **Default:** `true`
 
+### autoRefreshStatus
+
+- **Attribute:** `data-auto-refresh-status`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to enable auto refresh. This is the state auto refresh will be in when the table loads. Clicking the button toggles this property. This is simply the default state of auto refresh as the user can always change it by clicking the button.
+
+- **Default:** `true`
+
 ### Icons
 
 - autoRefresh: 'fa-clock'
+
+## Localizations
+
+### formatAutoRefresh
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Auto Refresh'`

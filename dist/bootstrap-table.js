@@ -2,7 +2,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
 	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
 	(global = global || self, global.BootstrapTable = factory(global.jQuery));
-}(this, function ($) { 'use strict';
+}(this, (function ($) { 'use strict';
 
 	$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
 
@@ -12,7 +12,6 @@
 		return module = { exports: {} }, fn(module, module.exports), module.exports;
 	}
 
-	var O = 'object';
 	var check = function (it) {
 	  return it && it.Math == Math && it;
 	};
@@ -20,10 +19,10 @@
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 	var global_1 =
 	  // eslint-disable-next-line no-undef
-	  check(typeof globalThis == O && globalThis) ||
-	  check(typeof window == O && window) ||
-	  check(typeof self == O && self) ||
-	  check(typeof commonjsGlobal == O && commonjsGlobal) ||
+	  check(typeof globalThis == 'object' && globalThis) ||
+	  check(typeof window == 'object' && window) ||
+	  check(typeof self == 'object' && self) ||
+	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
 	  // eslint-disable-next-line no-new-func
 	  Function('return this')();
 
@@ -179,7 +178,7 @@
 		f: f$2
 	};
 
-	var hide = descriptors ? function (object, key, value) {
+	var createNonEnumerableProperty = descriptors ? function (object, key, value) {
 	  return objectDefineProperty.f(object, key, createPropertyDescriptor(1, value));
 	} : function (object, key, value) {
 	  object[key] = value;
@@ -188,30 +187,41 @@
 
 	var setGlobal = function (key, value) {
 	  try {
-	    hide(global_1, key, value);
+	    createNonEnumerableProperty(global_1, key, value);
 	  } catch (error) {
 	    global_1[key] = value;
 	  } return value;
 	};
 
-	var shared = createCommonjsModule(function (module) {
 	var SHARED = '__core-js_shared__';
 	var store = global_1[SHARED] || setGlobal(SHARED, {});
 
+	var sharedStore = store;
+
+	var functionToString = Function.toString;
+
+	// this helper broken in `3.4.1-3.4.4`, so we can't use `shared` helper
+	if (typeof sharedStore.inspectSource != 'function') {
+	  sharedStore.inspectSource = function (it) {
+	    return functionToString.call(it);
+	  };
+	}
+
+	var inspectSource = sharedStore.inspectSource;
+
+	var WeakMap = global_1.WeakMap;
+
+	var nativeWeakMap = typeof WeakMap === 'function' && /native code/.test(inspectSource(WeakMap));
+
+	var shared = createCommonjsModule(function (module) {
 	(module.exports = function (key, value) {
-	  return store[key] || (store[key] = value !== undefined ? value : {});
+	  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	})('versions', []).push({
-	  version: '3.1.3',
+	  version: '3.6.0',
 	  mode:  'global',
 	  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
 	});
 	});
-
-	var functionToString = shared('native-function-to-string', Function.toString);
-
-	var WeakMap = global_1.WeakMap;
-
-	var nativeWeakMap = typeof WeakMap === 'function' && /native code/.test(functionToString.call(WeakMap));
 
 	var id = 0;
 	var postfix = Math.random();
@@ -245,25 +255,25 @@
 	};
 
 	if (nativeWeakMap) {
-	  var store = new WeakMap$1();
-	  var wmget = store.get;
-	  var wmhas = store.has;
-	  var wmset = store.set;
+	  var store$1 = new WeakMap$1();
+	  var wmget = store$1.get;
+	  var wmhas = store$1.has;
+	  var wmset = store$1.set;
 	  set = function (it, metadata) {
-	    wmset.call(store, it, metadata);
+	    wmset.call(store$1, it, metadata);
 	    return metadata;
 	  };
 	  get = function (it) {
-	    return wmget.call(store, it) || {};
+	    return wmget.call(store$1, it) || {};
 	  };
 	  has$1 = function (it) {
-	    return wmhas.call(store, it);
+	    return wmhas.call(store$1, it);
 	  };
 	} else {
 	  var STATE = sharedKey('state');
 	  hiddenKeys[STATE] = true;
 	  set = function (it, metadata) {
-	    hide(it, STATE, metadata);
+	    createNonEnumerableProperty(it, STATE, metadata);
 	    return metadata;
 	  };
 	  get = function (it) {
@@ -285,18 +295,14 @@
 	var redefine = createCommonjsModule(function (module) {
 	var getInternalState = internalState.get;
 	var enforceInternalState = internalState.enforce;
-	var TEMPLATE = String(functionToString).split('toString');
-
-	shared('inspectSource', function (it) {
-	  return functionToString.call(it);
-	});
+	var TEMPLATE = String(String).split('String');
 
 	(module.exports = function (O, key, value, options) {
 	  var unsafe = options ? !!options.unsafe : false;
 	  var simple = options ? !!options.enumerable : false;
 	  var noTargetGet = options ? !!options.noTargetGet : false;
 	  if (typeof value == 'function') {
-	    if (typeof key == 'string' && !has(value, 'name')) hide(value, 'name', key);
+	    if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
 	    enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
 	  }
 	  if (O === global_1) {
@@ -309,10 +315,10 @@
 	    simple = true;
 	  }
 	  if (simple) O[key] = value;
-	  else hide(O, key, value);
+	  else createNonEnumerableProperty(O, key, value);
 	// add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
 	})(Function.prototype, 'toString', function toString() {
-	  return typeof this == 'function' && getInternalState(this).source || functionToString.call(this);
+	  return typeof this == 'function' && getInternalState(this).source || inspectSource(this);
 	});
 	});
 
@@ -349,7 +355,7 @@
 
 	// Helper for a popular repeating case of the spec:
 	// Let integer be ? ToInteger(index).
-	// If integer < 0, let result be max((length + integer), 0); else let result be min(length, length).
+	// If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
 	var toAbsoluteIndex = function (index, length) {
 	  var integer = toInteger(index);
 	  return integer < 0 ? max(integer + length, 0) : min$1(integer, length);
@@ -513,7 +519,7 @@
 	    }
 	    // add a flag to not completely full polyfills
 	    if (options.sham || (targetProperty && targetProperty.sham)) {
-	      hide(sourceProperty, 'sham', true);
+	      createNonEnumerableProperty(sourceProperty, 'sham', true);
 	    }
 	    // extend global
 	    redefine(target, key, sourceProperty, options);
@@ -525,6 +531,12 @@
 	  // eslint-disable-next-line no-undef
 	  return !String(Symbol());
 	});
+
+	var useSymbolAsUid = nativeSymbol
+	  // eslint-disable-next-line no-undef
+	  && !Symbol.sham
+	  // eslint-disable-next-line no-undef
+	  && typeof Symbol() == 'symbol';
 
 	// `IsArray` abstract operation
 	// https://tc39.github.io/ecma262/#sec-isarray
@@ -558,48 +570,76 @@
 
 	var html = getBuiltIn('document', 'documentElement');
 
+	var GT = '>';
+	var LT = '<';
+	var PROTOTYPE = 'prototype';
+	var SCRIPT = 'script';
 	var IE_PROTO = sharedKey('IE_PROTO');
 
-	var PROTOTYPE = 'prototype';
-	var Empty = function () { /* empty */ };
+	var EmptyConstructor = function () { /* empty */ };
+
+	var scriptTag = function (content) {
+	  return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT;
+	};
+
+	// Create object with fake `null` prototype: use ActiveX Object with cleared prototype
+	var NullProtoObjectViaActiveX = function (activeXDocument) {
+	  activeXDocument.write(scriptTag(''));
+	  activeXDocument.close();
+	  var temp = activeXDocument.parentWindow.Object;
+	  activeXDocument = null; // avoid memory leak
+	  return temp;
+	};
 
 	// Create object with fake `null` prototype: use iframe Object with cleared prototype
-	var createDict = function () {
+	var NullProtoObjectViaIFrame = function () {
 	  // Thrash, waste and sodomy: IE GC bug
 	  var iframe = documentCreateElement('iframe');
-	  var length = enumBugKeys.length;
-	  var lt = '<';
-	  var script = 'script';
-	  var gt = '>';
-	  var js = 'java' + script + ':';
+	  var JS = 'java' + SCRIPT + ':';
 	  var iframeDocument;
 	  iframe.style.display = 'none';
 	  html.appendChild(iframe);
-	  iframe.src = String(js);
+	  // https://github.com/zloirock/core-js/issues/475
+	  iframe.src = String(JS);
 	  iframeDocument = iframe.contentWindow.document;
 	  iframeDocument.open();
-	  iframeDocument.write(lt + script + gt + 'document.F=Object' + lt + '/' + script + gt);
+	  iframeDocument.write(scriptTag('document.F=Object'));
 	  iframeDocument.close();
-	  createDict = iframeDocument.F;
-	  while (length--) delete createDict[PROTOTYPE][enumBugKeys[length]];
-	  return createDict();
+	  return iframeDocument.F;
 	};
+
+	// Check for document.domain and active x support
+	// No need to use active x approach when document.domain is not set
+	// see https://github.com/es-shims/es5-shim/issues/150
+	// variation of https://github.com/kitcambridge/es5-shim/commit/4f738ac066346
+	// avoid IE GC bug
+	var activeXDocument;
+	var NullProtoObject = function () {
+	  try {
+	    /* global ActiveXObject */
+	    activeXDocument = document.domain && new ActiveXObject('htmlfile');
+	  } catch (error) { /* ignore */ }
+	  NullProtoObject = activeXDocument ? NullProtoObjectViaActiveX(activeXDocument) : NullProtoObjectViaIFrame();
+	  var length = enumBugKeys.length;
+	  while (length--) delete NullProtoObject[PROTOTYPE][enumBugKeys[length]];
+	  return NullProtoObject();
+	};
+
+	hiddenKeys[IE_PROTO] = true;
 
 	// `Object.create` method
 	// https://tc39.github.io/ecma262/#sec-object.create
 	var objectCreate = Object.create || function create(O, Properties) {
 	  var result;
 	  if (O !== null) {
-	    Empty[PROTOTYPE] = anObject(O);
-	    result = new Empty();
-	    Empty[PROTOTYPE] = null;
+	    EmptyConstructor[PROTOTYPE] = anObject(O);
+	    result = new EmptyConstructor();
+	    EmptyConstructor[PROTOTYPE] = null;
 	    // add "__proto__" for Object.getPrototypeOf polyfill
 	    result[IE_PROTO] = O;
-	  } else result = createDict();
+	  } else result = NullProtoObject();
 	  return Properties === undefined ? result : objectDefineProperties(result, Properties);
 	};
-
-	hiddenKeys[IE_PROTO] = true;
 
 	var nativeGetOwnPropertyNames = objectGetOwnPropertyNames.f;
 
@@ -627,12 +667,15 @@
 		f: f$5
 	};
 
+	var WellKnownSymbolsStore = shared('wks');
 	var Symbol$1 = global_1.Symbol;
-	var store$1 = shared('wks');
+	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : uid;
 
 	var wellKnownSymbol = function (name) {
-	  return store$1[name] || (store$1[name] = nativeSymbol && Symbol$1[name]
-	    || (nativeSymbol ? Symbol$1 : uid)('Symbol.' + name));
+	  if (!has(WellKnownSymbolsStore, name)) {
+	    if (nativeSymbol && has(Symbol$1, name)) WellKnownSymbolsStore[name] = Symbol$1[name];
+	    else WellKnownSymbolsStore[name] = createWellKnownSymbol('Symbol.' + name);
+	  } return WellKnownSymbolsStore[name];
 	};
 
 	var f$6 = wellKnownSymbol;
@@ -778,8 +821,7 @@
 	var getInternalState = internalState.getterFor(SYMBOL);
 	var ObjectPrototype = Object[PROTOTYPE$1];
 	var $Symbol = global_1.Symbol;
-	var JSON$1 = global_1.JSON;
-	var nativeJSONStringify = JSON$1 && JSON$1.stringify;
+	var $stringify = getBuiltIn('JSON', 'stringify');
 	var nativeGetOwnPropertyDescriptor$1 = objectGetOwnPropertyDescriptor.f;
 	var nativeDefineProperty$1 = objectDefineProperty.f;
 	var nativeGetOwnPropertyNames$1 = objectGetOwnPropertyNamesExternal.f;
@@ -788,7 +830,7 @@
 	var ObjectPrototypeSymbols = shared('op-symbols');
 	var StringToSymbolRegistry = shared('string-to-symbol-registry');
 	var SymbolToStringRegistry = shared('symbol-to-string-registry');
-	var WellKnownSymbolsStore = shared('wks');
+	var WellKnownSymbolsStore$1 = shared('wks');
 	var QObject = global_1.QObject;
 	// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
 	var USE_SETTER = !QObject || !QObject[PROTOTYPE$1] || !QObject[PROTOTYPE$1].findChild;
@@ -931,7 +973,9 @@
 	      redefine(ObjectPrototype, 'propertyIsEnumerable', $propertyIsEnumerable, { unsafe: true });
 	    }
 	  }
+	}
 
+	if (!useSymbolAsUid) {
 	  wrappedWellKnownSymbol.f = function (name) {
 	    return wrap(wellKnownSymbol(name), name);
 	  };
@@ -941,7 +985,7 @@
 	  Symbol: $Symbol
 	});
 
-	$forEach(objectKeys(WellKnownSymbolsStore), function (name) {
+	$forEach(objectKeys(WellKnownSymbolsStore$1), function (name) {
 	  defineWellKnownSymbol(name);
 	});
 
@@ -1000,34 +1044,41 @@
 
 	// `JSON.stringify` method behavior with symbols
 	// https://tc39.github.io/ecma262/#sec-json.stringify
-	JSON$1 && _export({ target: 'JSON', stat: true, forced: !nativeSymbol || fails(function () {
-	  var symbol = $Symbol();
-	  // MS Edge converts symbol values to JSON as {}
-	  return nativeJSONStringify([symbol]) != '[null]'
-	    // WebKit converts symbol values to JSON as null
-	    || nativeJSONStringify({ a: symbol }) != '{}'
-	    // V8 throws on boxed symbols
-	    || nativeJSONStringify(Object(symbol)) != '{}';
-	}) }, {
-	  stringify: function stringify(it) {
-	    var args = [it];
-	    var index = 1;
-	    var replacer, $replacer;
-	    while (arguments.length > index) args.push(arguments[index++]);
-	    $replacer = replacer = args[1];
-	    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
-	    if (!isArray(replacer)) replacer = function (key, value) {
-	      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
-	      if (!isSymbol(value)) return value;
-	    };
-	    args[1] = replacer;
-	    return nativeJSONStringify.apply(JSON$1, args);
-	  }
-	});
+	if ($stringify) {
+	  var FORCED_JSON_STRINGIFY = !nativeSymbol || fails(function () {
+	    var symbol = $Symbol();
+	    // MS Edge converts symbol values to JSON as {}
+	    return $stringify([symbol]) != '[null]'
+	      // WebKit converts symbol values to JSON as null
+	      || $stringify({ a: symbol }) != '{}'
+	      // V8 throws on boxed symbols
+	      || $stringify(Object(symbol)) != '{}';
+	  });
+
+	  _export({ target: 'JSON', stat: true, forced: FORCED_JSON_STRINGIFY }, {
+	    // eslint-disable-next-line no-unused-vars
+	    stringify: function stringify(it, replacer, space) {
+	      var args = [it];
+	      var index = 1;
+	      var $replacer;
+	      while (arguments.length > index) args.push(arguments[index++]);
+	      $replacer = replacer;
+	      if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
+	      if (!isArray(replacer)) replacer = function (key, value) {
+	        if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
+	        if (!isSymbol(value)) return value;
+	      };
+	      args[1] = replacer;
+	      return $stringify.apply(null, args);
+	    }
+	  });
+	}
 
 	// `Symbol.prototype[@@toPrimitive]` method
 	// https://tc39.github.io/ecma262/#sec-symbol.prototype-@@toprimitive
-	if (!$Symbol[PROTOTYPE$1][TO_PRIMITIVE]) hide($Symbol[PROTOTYPE$1], TO_PRIMITIVE, $Symbol[PROTOTYPE$1].valueOf);
+	if (!$Symbol[PROTOTYPE$1][TO_PRIMITIVE]) {
+	  createNonEnumerableProperty($Symbol[PROTOTYPE$1], TO_PRIMITIVE, $Symbol[PROTOTYPE$1].valueOf);
+	}
 	// `Symbol.prototype[@@toStringTag]` property
 	// https://tc39.github.io/ecma262/#sec-symbol.prototype-@@tostringtag
 	setToStringTag($Symbol, SYMBOL);
@@ -1087,10 +1138,33 @@
 	  else object[propertyKey] = value;
 	};
 
+	var userAgent = getBuiltIn('navigator', 'userAgent') || '';
+
+	var process = global_1.process;
+	var versions = process && process.versions;
+	var v8 = versions && versions.v8;
+	var match, version;
+
+	if (v8) {
+	  match = v8.split('.');
+	  version = match[0] + match[1];
+	} else if (userAgent) {
+	  match = userAgent.match(/Edge\/(\d+)/);
+	  if (!match || match[1] >= 74) {
+	    match = userAgent.match(/Chrome\/(\d+)/);
+	    if (match) version = match[1];
+	  }
+	}
+
+	var v8Version = version && +version;
+
 	var SPECIES$1 = wellKnownSymbol('species');
 
 	var arrayMethodHasSpeciesSupport = function (METHOD_NAME) {
-	  return !fails(function () {
+	  // We can't use this feature detection in V8 since it causes
+	  // deoptimization and serious performance degradation
+	  // https://github.com/zloirock/core-js/issues/677
+	  return v8Version >= 51 || !fails(function () {
 	    var array = [];
 	    var constructor = array.constructor = {};
 	    constructor[SPECIES$1] = function () {
@@ -1104,7 +1178,10 @@
 	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
 	var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded';
 
-	var IS_CONCAT_SPREADABLE_SUPPORT = !fails(function () {
+	// We can't use this feature detection in V8 since it causes
+	// deoptimization and serious performance degradation
+	// https://github.com/zloirock/core-js/issues/679
+	var IS_CONCAT_SPREADABLE_SUPPORT = v8Version >= 51 || !fails(function () {
 	  var array = [];
 	  array[IS_CONCAT_SPREADABLE] = false;
 	  return array.concat()[0] !== array;
@@ -1148,10 +1225,17 @@
 	var $filter = arrayIteration.filter;
 
 
+
+	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('filter');
+	// Edge 14- issue
+	var USES_TO_LENGTH = HAS_SPECIES_SUPPORT && !fails(function () {
+	  [].filter.call({ length: -1, 0: 1 }, function (it) { throw it; });
+	});
+
 	// `Array.prototype.filter` method
 	// https://tc39.github.io/ecma262/#sec-array.prototype.filter
 	// with adding support of @@species
-	_export({ target: 'Array', proto: true, forced: !arrayMethodHasSpeciesSupport('filter') }, {
+	_export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
 	  filter: function filter(callbackfn /* , thisArg */) {
 	    return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
 	  }
@@ -1163,7 +1247,10 @@
 	// Array.prototype[@@unscopables]
 	// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
 	if (ArrayPrototype[UNSCOPABLES] == undefined) {
-	  hide(ArrayPrototype, UNSCOPABLES, objectCreate(null));
+	  objectDefineProperty.f(ArrayPrototype, UNSCOPABLES, {
+	    configurable: true,
+	    value: objectCreate(null)
+	  });
 	}
 
 	// add a key to Array.prototype[@@unscopables]
@@ -1293,7 +1380,9 @@
 	if (IteratorPrototype == undefined) IteratorPrototype = {};
 
 	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-	if ( !has(IteratorPrototype, ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
+	if ( !has(IteratorPrototype, ITERATOR)) {
+	  createNonEnumerableProperty(IteratorPrototype, ITERATOR, returnThis);
+	}
 
 	var iteratorsCore = {
 	  IteratorPrototype: IteratorPrototype,
@@ -1377,7 +1466,7 @@
 	        if (objectSetPrototypeOf) {
 	          objectSetPrototypeOf(CurrentIteratorPrototype, IteratorPrototype$2);
 	        } else if (typeof CurrentIteratorPrototype[ITERATOR$1] != 'function') {
-	          hide(CurrentIteratorPrototype, ITERATOR$1, returnThis$1);
+	          createNonEnumerableProperty(CurrentIteratorPrototype, ITERATOR$1, returnThis$1);
 	        }
 	      }
 	      // Set @@toStringTag to native iterators
@@ -1393,7 +1482,7 @@
 
 	  // define iterator
 	  if ( IterablePrototype[ITERATOR$1] !== defaultIterator) {
-	    hide(IterablePrototype, ITERATOR$1, defaultIterator);
+	    createNonEnumerableProperty(IterablePrototype, ITERATOR$1, defaultIterator);
 	  }
 
 	  // export additional methods
@@ -1468,6 +1557,40 @@
 	  }
 	});
 
+	var $map = arrayIteration.map;
+
+
+
+	var HAS_SPECIES_SUPPORT$1 = arrayMethodHasSpeciesSupport('map');
+	// FF49- issue
+	var USES_TO_LENGTH$1 = HAS_SPECIES_SUPPORT$1 && !fails(function () {
+	  [].map.call({ length: -1, 0: 1 }, function (it) { throw it; });
+	});
+
+	// `Array.prototype.map` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.map
+	// with adding support of @@species
+	_export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT$1 || !USES_TO_LENGTH$1 }, {
+	  map: function map(callbackfn /* , thisArg */) {
+	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	});
+
+	var nativeReverse = [].reverse;
+	var test = [1, 2];
+
+	// `Array.prototype.reverse` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.reverse
+	// fix for Safari 12.0 bug
+	// https://bugs.webkit.org/show_bug.cgi?id=188794
+	_export({ target: 'Array', proto: true, forced: String(test) === String(test.reverse()) }, {
+	  reverse: function reverse() {
+	    // eslint-disable-next-line no-self-assign
+	    if (isArray(this)) this.length = this.length;
+	    return nativeReverse.call(this);
+	  }
+	});
+
 	var SPECIES$2 = wellKnownSymbol('species');
 	var nativeSlice = [].slice;
 	var max$1 = Math.max;
@@ -1503,16 +1626,16 @@
 	  }
 	});
 
-	var nativeSort = [].sort;
-	var test = [1, 2, 3];
+	var test$1 = [];
+	var nativeSort = test$1.sort;
 
 	// IE8-
 	var FAILS_ON_UNDEFINED = fails(function () {
-	  test.sort(undefined);
+	  test$1.sort(undefined);
 	});
 	// V8 bug
 	var FAILS_ON_NULL = fails(function () {
-	  test.sort(null);
+	  test$1.sort(null);
 	});
 	// Old WebKit
 	var SLOPPY_METHOD$2 = sloppyArrayMethod('sort');
@@ -1700,11 +1823,22 @@
 	}
 
 	var nativeAssign = Object.assign;
+	var defineProperty$4 = Object.defineProperty;
 
 	// `Object.assign` method
 	// https://tc39.github.io/ecma262/#sec-object.assign
-	// should work with symbols and should have deterministic property order (V8 bug)
 	var objectAssign = !nativeAssign || fails(function () {
+	  // should have correct order of operations (Edge bug)
+	  if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty$4({}, 'a', {
+	    enumerable: true,
+	    get: function () {
+	      defineProperty$4(this, 'b', {
+	        value: 3,
+	        enumerable: false
+	      });
+	    }
+	  }), { b: 2 })).b !== 1) return true;
+	  // should work with symbols and should have deterministic property order (V8 bug)
 	  var A = {};
 	  var B = {};
 	  // eslint-disable-next-line no-undef
@@ -1779,6 +1913,13 @@
 	});
 
 	var TO_STRING_TAG$1 = wellKnownSymbol('toStringTag');
+	var test$2 = {};
+
+	test$2[TO_STRING_TAG$1] = 'z';
+
+	var toStringTagSupport = String(test$2) === '[object z]';
+
+	var TO_STRING_TAG$2 = wellKnownSymbol('toStringTag');
 	// ES3 wrong here
 	var CORRECT_ARGUMENTS = classofRaw(function () { return arguments; }()) == 'Arguments';
 
@@ -1790,34 +1931,27 @@
 	};
 
 	// getting tag from ES6+ `Object.prototype.toString`
-	var classof = function (it) {
+	var classof = toStringTagSupport ? classofRaw : function (it) {
 	  var O, tag, result;
 	  return it === undefined ? 'Undefined' : it === null ? 'Null'
 	    // @@toStringTag case
-	    : typeof (tag = tryGet(O = Object(it), TO_STRING_TAG$1)) == 'string' ? tag
+	    : typeof (tag = tryGet(O = Object(it), TO_STRING_TAG$2)) == 'string' ? tag
 	    // builtinTag case
 	    : CORRECT_ARGUMENTS ? classofRaw(O)
 	    // ES3 arguments fallback
 	    : (result = classofRaw(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : result;
 	};
 
-	var TO_STRING_TAG$2 = wellKnownSymbol('toStringTag');
-	var test$1 = {};
-
-	test$1[TO_STRING_TAG$2] = 'z';
-
 	// `Object.prototype.toString` method implementation
 	// https://tc39.github.io/ecma262/#sec-object.prototype.tostring
-	var objectToString = String(test$1) !== '[object z]' ? function toString() {
+	var objectToString = toStringTagSupport ? {}.toString : function toString() {
 	  return '[object ' + classof(this) + ']';
-	} : test$1.toString;
-
-	var ObjectPrototype$2 = Object.prototype;
+	};
 
 	// `Object.prototype.toString` method
 	// https://tc39.github.io/ecma262/#sec-object.prototype.tostring
-	if (objectToString !== ObjectPrototype$2.toString) {
-	  redefine(ObjectPrototype$2, 'toString', objectToString, { unsafe: true });
+	if (!toStringTagSupport) {
+	  redefine(Object.prototype, 'toString', objectToString, { unsafe: true });
 	}
 
 	var trim$1 = stringTrim.trim;
@@ -1873,6 +2007,119 @@
 	  if (that.sticky) result += 'y';
 	  return result;
 	};
+
+	// babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError,
+	// so we use an intermediate function.
+	function RE(s, f) {
+	  return RegExp(s, f);
+	}
+
+	var UNSUPPORTED_Y = fails(function () {
+	  // babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
+	  var re = RE('a', 'y');
+	  re.lastIndex = 2;
+	  return re.exec('abcd') != null;
+	});
+
+	var BROKEN_CARET = fails(function () {
+	  // https://bugzilla.mozilla.org/show_bug.cgi?id=773687
+	  var re = RE('^r', 'gy');
+	  re.lastIndex = 2;
+	  return re.exec('str') != null;
+	});
+
+	var regexpStickyHelpers = {
+		UNSUPPORTED_Y: UNSUPPORTED_Y,
+		BROKEN_CARET: BROKEN_CARET
+	};
+
+	var nativeExec = RegExp.prototype.exec;
+	// This always refers to the native implementation, because the
+	// String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
+	// which loads this file before patching the method.
+	var nativeReplace = String.prototype.replace;
+
+	var patchedExec = nativeExec;
+
+	var UPDATES_LAST_INDEX_WRONG = (function () {
+	  var re1 = /a/;
+	  var re2 = /b*/g;
+	  nativeExec.call(re1, 'a');
+	  nativeExec.call(re2, 'a');
+	  return re1.lastIndex !== 0 || re2.lastIndex !== 0;
+	})();
+
+	var UNSUPPORTED_Y$1 = regexpStickyHelpers.UNSUPPORTED_Y || regexpStickyHelpers.BROKEN_CARET;
+
+	// nonparticipating capturing group, copied from es5-shim's String#split patch.
+	var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
+
+	var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y$1;
+
+	if (PATCH) {
+	  patchedExec = function exec(str) {
+	    var re = this;
+	    var lastIndex, reCopy, match, i;
+	    var sticky = UNSUPPORTED_Y$1 && re.sticky;
+	    var flags = regexpFlags.call(re);
+	    var source = re.source;
+	    var charsAdded = 0;
+	    var strCopy = str;
+
+	    if (sticky) {
+	      flags = flags.replace('y', '');
+	      if (flags.indexOf('g') === -1) {
+	        flags += 'g';
+	      }
+
+	      strCopy = String(str).slice(re.lastIndex);
+	      // Support anchored sticky behavior.
+	      if (re.lastIndex > 0 && (!re.multiline || re.multiline && str[re.lastIndex - 1] !== '\n')) {
+	        source = '(?: ' + source + ')';
+	        strCopy = ' ' + strCopy;
+	        charsAdded++;
+	      }
+	      // ^(? + rx + ) is needed, in combination with some str slicing, to
+	      // simulate the 'y' flag.
+	      reCopy = new RegExp('^(?:' + source + ')', flags);
+	    }
+
+	    if (NPCG_INCLUDED) {
+	      reCopy = new RegExp('^' + source + '$(?!\\s)', flags);
+	    }
+	    if (UPDATES_LAST_INDEX_WRONG) lastIndex = re.lastIndex;
+
+	    match = nativeExec.call(sticky ? reCopy : re, strCopy);
+
+	    if (sticky) {
+	      if (match) {
+	        match.input = match.input.slice(charsAdded);
+	        match[0] = match[0].slice(charsAdded);
+	        match.index = re.lastIndex;
+	        re.lastIndex += match[0].length;
+	      } else re.lastIndex = 0;
+	    } else if (UPDATES_LAST_INDEX_WRONG && match) {
+	      re.lastIndex = re.global ? match.index + match[0].length : lastIndex;
+	    }
+	    if (NPCG_INCLUDED && match && match.length > 1) {
+	      // Fix browsers whose `exec` methods don't consistently return `undefined`
+	      // for NPCG, like IE8. NOTE: This doesn' work for /(.?)?/
+	      nativeReplace.call(match[0], reCopy, function () {
+	        for (i = 1; i < arguments.length - 2; i++) {
+	          if (arguments[i] === undefined) match[i] = undefined;
+	        }
+	      });
+	    }
+
+	    return match;
+	  };
+	}
+
+	var regexpExec = patchedExec;
+
+	_export({ target: 'RegExp', proto: true, forced: /./.exec !== regexpExec }, {
+	  exec: regexpExec
+	});
 
 	var TO_STRING = 'toString';
 	var RegExpPrototype = RegExp.prototype;
@@ -1986,58 +2233,6 @@
 	  return { value: point, done: false };
 	});
 
-	var nativeExec = RegExp.prototype.exec;
-	// This always refers to the native implementation, because the
-	// String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
-	// which loads this file before patching the method.
-	var nativeReplace = String.prototype.replace;
-
-	var patchedExec = nativeExec;
-
-	var UPDATES_LAST_INDEX_WRONG = (function () {
-	  var re1 = /a/;
-	  var re2 = /b*/g;
-	  nativeExec.call(re1, 'a');
-	  nativeExec.call(re2, 'a');
-	  return re1.lastIndex !== 0 || re2.lastIndex !== 0;
-	})();
-
-	// nonparticipating capturing group, copied from es5-shim's String#split patch.
-	var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
-
-	var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED;
-
-	if (PATCH) {
-	  patchedExec = function exec(str) {
-	    var re = this;
-	    var lastIndex, reCopy, match, i;
-
-	    if (NPCG_INCLUDED) {
-	      reCopy = new RegExp('^' + re.source + '$(?!\\s)', regexpFlags.call(re));
-	    }
-	    if (UPDATES_LAST_INDEX_WRONG) lastIndex = re.lastIndex;
-
-	    match = nativeExec.call(re, str);
-
-	    if (UPDATES_LAST_INDEX_WRONG && match) {
-	      re.lastIndex = re.global ? match.index + match[0].length : lastIndex;
-	    }
-	    if (NPCG_INCLUDED && match && match.length > 1) {
-	      // Fix browsers whose `exec` methods don't consistently return `undefined`
-	      // for NPCG, like IE8. NOTE: This doesn' work for /(.?)?/
-	      nativeReplace.call(match[0], reCopy, function () {
-	        for (i = 1; i < arguments.length - 2; i++) {
-	          if (arguments[i] === undefined) match[i] = undefined;
-	        }
-	      });
-	    }
-
-	    return match;
-	  };
-	}
-
-	var regexpExec = patchedExec;
-
 	var SPECIES$3 = wellKnownSymbol('species');
 
 	var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
@@ -2052,6 +2247,12 @@
 	  };
 	  return ''.replace(re, '$<a>') !== '7';
 	});
+
+	// IE <= 11 replaces $0 with the whole match, as if it was $&
+	// https://stackoverflow.com/questions/6024666/getting-ie-to-replace-a-regex-with-the-literal-string-0
+	var REPLACE_KEEPS_$0 = (function () {
+	  return 'a'.replace(/./, '$0') === '$0';
+	})();
 
 	// Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
 	// Weex JS has frozen built-in prototypes, so use try / catch wrapper
@@ -2077,14 +2278,21 @@
 	    // Symbol-named RegExp methods call .exec
 	    var execCalled = false;
 	    var re = /a/;
-	    re.exec = function () { execCalled = true; return null; };
 
 	    if (KEY === 'split') {
+	      // We can't use real regex here since it causes deoptimization
+	      // and serious performance degradation in V8
+	      // https://github.com/zloirock/core-js/issues/306
+	      re = {};
 	      // RegExp[@@split] doesn't call the regex's exec method, but first creates
 	      // a new one. We need to return the patched regex when creating the new one.
 	      re.constructor = {};
 	      re.constructor[SPECIES$3] = function () { return re; };
+	      re.flags = '';
+	      re[SYMBOL] = /./[SYMBOL];
 	    }
+
+	    re.exec = function () { execCalled = true; return null; };
 
 	    re[SYMBOL]('');
 	    return !execCalled;
@@ -2093,7 +2301,7 @@
 	  if (
 	    !DELEGATES_TO_SYMBOL ||
 	    !DELEGATES_TO_EXEC ||
-	    (KEY === 'replace' && !REPLACE_SUPPORTS_NAMED_GROUPS) ||
+	    (KEY === 'replace' && !(REPLACE_SUPPORTS_NAMED_GROUPS && REPLACE_KEEPS_$0)) ||
 	    (KEY === 'split' && !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC)
 	  ) {
 	    var nativeRegExpMethod = /./[SYMBOL];
@@ -2108,7 +2316,7 @@
 	        return { done: true, value: nativeMethod.call(str, regexp, arg2) };
 	      }
 	      return { done: false };
-	    });
+	    }, { REPLACE_KEEPS_$0: REPLACE_KEEPS_$0 });
 	    var stringMethod = methods[0];
 	    var regexMethod = methods[1];
 
@@ -2121,8 +2329,9 @@
 	      // 21.2.5.9 RegExp.prototype[@@search](string)
 	      : function (string) { return regexMethod.call(string, this); }
 	    );
-	    if (sham) hide(RegExp.prototype[SYMBOL], 'sham', true);
 	  }
+
+	  if (sham) createNonEnumerableProperty(RegExp.prototype[SYMBOL], 'sham', true);
 	};
 
 	var charAt$1 = stringMultibyte.charAt;
@@ -2163,7 +2372,7 @@
 	};
 
 	// @@replace logic
-	fixRegexpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, maybeCallNative) {
+	fixRegexpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, maybeCallNative, reason) {
 	  return [
 	    // `String.prototype.replace` method
 	    // https://tc39.github.io/ecma262/#sec-string.prototype.replace
@@ -2177,8 +2386,10 @@
 	    // `RegExp.prototype[@@replace]` method
 	    // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@replace
 	    function (regexp, replaceValue) {
-	      var res = maybeCallNative(nativeReplace, regexp, this, replaceValue);
-	      if (res.done) return res.value;
+	      if (reason.REPLACE_KEEPS_$0 || (typeof replaceValue === 'string' && replaceValue.indexOf('$0') === -1)) {
+	        var res = maybeCallNative(nativeReplace, regexp, this, replaceValue);
+	        if (res.done) return res.value;
+	      }
 
 	      var rx = anObject(regexp);
 	      var S = String(this);
@@ -2508,7 +2719,7 @@
 	  var CollectionPrototype = Collection && Collection.prototype;
 	  // some Chrome versions have non-configurable methods on DOMTokenList
 	  if (CollectionPrototype && CollectionPrototype.forEach !== arrayForEach) try {
-	    hide(CollectionPrototype, 'forEach', arrayForEach);
+	    createNonEnumerableProperty(CollectionPrototype, 'forEach', arrayForEach);
 	  } catch (error) {
 	    CollectionPrototype.forEach = arrayForEach;
 	  }
@@ -2524,15 +2735,17 @@
 	  if (CollectionPrototype$1) {
 	    // some Chrome versions have non-configurable methods on DOMTokenList
 	    if (CollectionPrototype$1[ITERATOR$2] !== ArrayValues) try {
-	      hide(CollectionPrototype$1, ITERATOR$2, ArrayValues);
+	      createNonEnumerableProperty(CollectionPrototype$1, ITERATOR$2, ArrayValues);
 	    } catch (error) {
 	      CollectionPrototype$1[ITERATOR$2] = ArrayValues;
 	    }
-	    if (!CollectionPrototype$1[TO_STRING_TAG$3]) hide(CollectionPrototype$1, TO_STRING_TAG$3, COLLECTION_NAME$1);
+	    if (!CollectionPrototype$1[TO_STRING_TAG$3]) {
+	      createNonEnumerableProperty(CollectionPrototype$1, TO_STRING_TAG$3, COLLECTION_NAME$1);
+	    }
 	    if (domIterables[COLLECTION_NAME$1]) for (var METHOD_NAME in es_array_iterator) {
 	      // some Chrome versions have non-configurable methods on DOMTokenList
 	      if (CollectionPrototype$1[METHOD_NAME] !== es_array_iterator[METHOD_NAME]) try {
-	        hide(CollectionPrototype$1, METHOD_NAME, es_array_iterator[METHOD_NAME]);
+	        createNonEnumerableProperty(CollectionPrototype$1, METHOD_NAME, es_array_iterator[METHOD_NAME]);
 	      } catch (error) {
 	        CollectionPrototype$1[METHOD_NAME] = es_array_iterator[METHOD_NAME];
 	      }
@@ -2601,6 +2814,10 @@
 	}
 
 	function _iterableToArrayLimit(arr, i) {
+	  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+	    return;
+	  }
+
 	  var _arr = [];
 	  var _n = true;
 	  var _d = false;
@@ -2634,7 +2851,7 @@
 	  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 	}
 
-	var VERSION = '1.15.5';
+	var VERSION = '1.16.0';
 	var bootstrapVersion = 4;
 
 	try {
@@ -2680,7 +2897,7 @@
 	    },
 	    html: {
 	      toolbarDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-	      toolbarDropdownItem: '<li role="menuitem"><label>%s</label></li>',
+	      toolbarDropdownItem: '<li class="dropdown-item-marker" role="menuitem"><label>%s</label></li>',
 	      toolbarDropdownSeparator: '<li class="divider"></li>',
 	      pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
 	      pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
@@ -2726,7 +2943,7 @@
 	    },
 	    html: {
 	      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
-	      toolbarDropdownItem: '<label class="dropdown-item">%s</label>',
+	      toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
 	      pageDropdown: ['<div class="dropdown-menu">', '</div>'],
 	      pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
 	      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
@@ -2745,6 +2962,9 @@
 	  height: undefined,
 	  classes: 'table table-bordered table-hover',
 	  theadClasses: '',
+	  headerStyle: function headerStyle(column) {
+	    return {};
+	  },
 	  rowStyle: function rowStyle(row, index) {
 	    return {};
 	  },
@@ -2762,6 +2982,7 @@
 	  sortOrder: 'asc',
 	  sortStable: false,
 	  rememberOrder: false,
+	  serverSort: true,
 	  customSort: undefined,
 	  columns: [[]],
 	  data: [],
@@ -2823,11 +3044,12 @@
 	  customSearch: undefined,
 	  showHeader: true,
 	  showFooter: false,
-	  footerStyle: function footerStyle(row, index) {
+	  footerStyle: function footerStyle(column) {
 	    return {};
 	  },
 	  showColumns: false,
 	  showColumnsToggleAll: false,
+	  showColumnsSearch: false,
 	  minimumCountColumns: 1,
 	  showPaginationSwitch: false,
 	  showRefresh: false,
@@ -2864,6 +3086,7 @@
 	  toolbarAlign: 'left',
 	  buttonsToolbar: undefined,
 	  buttonsAlign: 'right',
+	  buttonsOrder: ['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns'],
 	  buttonsPrefix: CONSTANTS.classes.buttonsPrefix,
 	  buttonsClass: CONSTANTS.classes.buttons,
 	  icons: CONSTANTS.icons,
@@ -3064,7 +3287,7 @@
 	  escape: false,
 	  events: undefined
 	};
-	var METHODS = ['getOptions', 'refreshOptions', 'getData', 'getSelections', 'getAllSelections', 'load', 'append', 'prepend', 'remove', 'removeAll', 'insertRow', 'updateRow', 'getRowByUniqueId', 'updateByUniqueId', 'removeByUniqueId', 'updateCell', 'updateCellByUniqueId', 'showRow', 'hideRow', 'getHiddenRows', 'showColumn', 'hideColumn', 'getVisibleColumns', 'getHiddenColumns', 'showAllColumns', 'hideAllColumns', 'mergeCells', 'checkAll', 'uncheckAll', 'checkInvert', 'check', 'uncheck', 'checkBy', 'uncheckBy', 'refresh', 'destroy', 'resetView', 'resetWidth', 'showLoading', 'hideLoading', 'togglePagination', 'toggleFullscreen', 'toggleView', 'resetSearch', 'filterBy', 'scrollTo', 'getScrollPosition', 'selectPage', 'prevPage', 'nextPage', 'toggleDetailView', 'expandRow', 'collapseRow', 'expandAllRows', 'collapseAllRows', 'updateColumnTitle', 'updateFormatText'];
+	var METHODS = ['getOptions', 'refreshOptions', 'getData', 'getSelections', 'getAllSelections', 'load', 'append', 'prepend', 'remove', 'removeAll', 'insertRow', 'updateRow', 'getRowByUniqueId', 'updateByUniqueId', 'removeByUniqueId', 'updateCell', 'updateCellByUniqueId', 'showRow', 'hideRow', 'getHiddenRows', 'showColumn', 'hideColumn', 'getVisibleColumns', 'getHiddenColumns', 'showAllColumns', 'hideAllColumns', 'mergeCells', 'checkAll', 'uncheckAll', 'checkInvert', 'check', 'uncheck', 'checkBy', 'uncheckBy', 'refresh', 'destroy', 'resetView', 'showLoading', 'hideLoading', 'togglePagination', 'toggleFullscreen', 'toggleView', 'resetSearch', 'filterBy', 'scrollTo', 'getScrollPosition', 'selectPage', 'prevPage', 'nextPage', 'toggleDetailView', 'expandRow', 'collapseRow', 'expandAllRows', 'collapseAllRows', 'updateColumnTitle', 'updateFormatText'];
 	var EVENTS = {
 	  'all.bs.table': 'onAll',
 	  'click-row.bs.table': 'onClickRow',
@@ -3109,53 +3332,6 @@
 	    'en-US': EN
 	  }
 	};
-
-	// `FlattenIntoArray` abstract operation
-	// https://tc39.github.io/proposal-flatMap/#sec-FlattenIntoArray
-	var flattenIntoArray = function (target, original, source, sourceLen, start, depth, mapper, thisArg) {
-	  var targetIndex = start;
-	  var sourceIndex = 0;
-	  var mapFn = mapper ? bindContext(mapper, thisArg, 3) : false;
-	  var element;
-
-	  while (sourceIndex < sourceLen) {
-	    if (sourceIndex in source) {
-	      element = mapFn ? mapFn(source[sourceIndex], sourceIndex, original) : source[sourceIndex];
-
-	      if (depth > 0 && isArray(element)) {
-	        targetIndex = flattenIntoArray(target, original, element, toLength(element.length), targetIndex, depth - 1) - 1;
-	      } else {
-	        if (targetIndex >= 0x1FFFFFFFFFFFFF) throw TypeError('Exceed the acceptable array length');
-	        target[targetIndex] = element;
-	      }
-
-	      targetIndex++;
-	    }
-	    sourceIndex++;
-	  }
-	  return targetIndex;
-	};
-
-	var flattenIntoArray_1 = flattenIntoArray;
-
-	// `Array.prototype.flat` method
-	// https://github.com/tc39/proposal-flatMap
-	_export({ target: 'Array', proto: true }, {
-	  flat: function flat(/* depthArg = 1 */) {
-	    var depthArg = arguments.length ? arguments[0] : undefined;
-	    var O = toObject(this);
-	    var sourceLen = toLength(O.length);
-	    var A = arraySpeciesCreate(O, 0);
-	    A.length = flattenIntoArray_1(A, O, O, sourceLen, 0, depthArg === undefined ? 1 : toInteger(depthArg));
-	    return A;
-	  }
-	});
-
-	// this method was added to unscopables after implementation
-	// in popular engines, so it's moved to a separate module
-
-
-	addToUnscopables('flat');
 
 	var FAILS_ON_PRIMITIVES = fails(function () { objectKeys(1); });
 
@@ -3312,7 +3488,10 @@
 	    }
 	  },
 	  updateFieldGroup: function updateFieldGroup(columns) {
-	    var allColumns = columns.flat();
+	    var _ref;
+
+	    var allColumns = (_ref = []).concat.apply(_ref, _toConsumableArray(columns));
+
 	    var _iteratorNormalCompletion4 = true;
 	    var _didIteratorError4 = false;
 	    var _iteratorError4 = undefined;
@@ -3603,7 +3782,7 @@
 	    });
 	    return data;
 	  },
-	  sort: function sort(a, b, order, sortStable) {
+	  sort: function sort(a, b, order, sortStable, aPosition, bPosition) {
 	    if (a === undefined || a === null) {
 	      a = '';
 	    }
@@ -3613,8 +3792,8 @@
 	    }
 
 	    if (sortStable && a === b) {
-	      a = a._position;
-	      b = b._position;
+	      a = aPosition;
+	      b = bPosition;
 	    } // If both values are numeric, do a numeric comparison
 
 
@@ -3648,6 +3827,11 @@
 	    }
 
 	    return order;
+	  },
+	  getResizeEventName: function getResizeEventName() {
+	    var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	    id = id || "".concat(+new Date()).concat(~~(Math.random() * 1000000));
+	    return "resize.bootstrap-table-".concat(id);
 	  }
 	};
 
@@ -3836,11 +4020,11 @@
 	  }, {
 	    key: "initConstants",
 	    value: function initConstants() {
-	      var o = this.options;
+	      var opts = this.options;
 	      this.constants = Constants.CONSTANTS;
 	      this.constants.theme = $.fn.bootstrapTable.theme;
-	      var buttonsPrefix = o.buttonsPrefix ? "".concat(o.buttonsPrefix, "-") : '';
-	      this.constants.buttonsClass = [o.buttonsPrefix, buttonsPrefix + o.buttonsClass, Utils.sprintf("".concat(buttonsPrefix, "%s"), o.iconSize)].join(' ').trim();
+	      var buttonsPrefix = opts.buttonsPrefix ? "".concat(opts.buttonsPrefix, "-") : '';
+	      this.constants.buttonsClass = [opts.buttonsPrefix, buttonsPrefix + opts.buttonsClass, Utils.sprintf("".concat(buttonsPrefix, "%s"), opts.iconSize)].join(' ').trim();
 	    }
 	  }, {
 	    key: "initLocale",
@@ -3902,11 +4086,6 @@
 	        }
 
 	        this.$tableFooter = this.$container.find('.fixed-table-footer');
-	      } else {
-	        if (!this.$tableFooter.length) {
-	          this.$el.append('<tfoot><tr></tr></tfoot>');
-	          this.$tableFooter = this.$el.find('tfoot');
-	        }
 	      }
 	    }
 	  }, {
@@ -3915,7 +4094,6 @@
 	      var _this = this;
 
 	      var columns = [];
-	      var data = [];
 	      this.$header = this.$el.find('>thead');
 
 	      if (!this.$header.length) {
@@ -3967,7 +4145,7 @@
 	      if (!this.options.data.length) {
 	        this.options.data = Utils.trToData(this.columns, this.$el.find('>tbody>tr'));
 
-	        if (data.length) {
+	        if (this.options.data.length) {
 	          this.fromHtml = true;
 	        }
 	      }
@@ -4024,6 +4202,24 @@
 	            return;
 	          }
 
+	          var headerStyle = Utils.calculateObjectValue(null, _this2.options.headerStyle, [column]);
+	          var csses = [];
+	          var classes = '';
+
+	          if (headerStyle && headerStyle.css) {
+	            for (var _i = 0, _Object$entries = Object.entries(headerStyle.css); _i < _Object$entries.length; _i++) {
+	              var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+	                  key = _Object$entries$_i[0],
+	                  value = _Object$entries$_i[1];
+
+	              csses.push("".concat(key, ": ").concat(value));
+	            }
+	          }
+
+	          if (headerStyle && headerStyle.classes) {
+	            classes = Utils.sprintf(' class="%s"', column['class'] ? [column['class'], headerStyle.classes].join(' ') : headerStyle.classes);
+	          }
+
 	          if (typeof column.fieldIndex !== 'undefined') {
 	            _this2.header.fields[column.fieldIndex] = column.field;
 	            _this2.header.styles[column.fieldIndex] = align + style;
@@ -4047,7 +4243,7 @@
 	            visibleColumns[column.field] = column;
 	          }
 
-	          html.push("<th".concat(Utils.sprintf(' title="%s"', column.titleTooltip)), column.checkbox || column.radio ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') : class_, Utils.sprintf(' style="%s"', halign + style), Utils.sprintf(' rowspan="%s"', column.rowspan), Utils.sprintf(' colspan="%s"', column.colspan), Utils.sprintf(' data-field="%s"', column.field), // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
+	          html.push("<th".concat(Utils.sprintf(' title="%s"', column.titleTooltip)), column.checkbox || column.radio ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') : classes || class_, Utils.sprintf(' style="%s"', halign + style + csses.join('; ')), Utils.sprintf(' rowspan="%s"', column.rowspan), Utils.sprintf(' colspan="%s"', column.colspan), Utils.sprintf(' data-field="%s"', column.field), // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
 	          j === 0 && i > 0 ? ' data-not-first-th' : '', '>');
 	          html.push(Utils.sprintf('<div class="th-inner %s">', _this2.options.sortable && column.sortable ? 'sortable both' : ''));
 	          var text = _this2.options.escape ? Utils.escapeHTML(column.title) : column.title;
@@ -4066,7 +4262,6 @@
 	          if (column.radio) {
 	            text = '';
 	            _this2.header.stateField = column.field;
-	            _this2.options.singleSelect = true;
 	          }
 
 	          if (!text && column.showSelectTitle) {
@@ -4108,7 +4303,7 @@
 	          }
 	        }
 	      });
-	      var resizeEvent = "resize.bootstrap-table".concat(this.$el.attr('id') || '');
+	      var resizeEvent = Utils.getResizeEventName(this.$el.attr('id'));
 	      $(window).off(resizeEvent);
 
 	      if (!this.options.showHeader || this.options.cardView) {
@@ -4121,15 +4316,15 @@
 	        this.$tableLoading.css('top', this.$header.outerHeight() + 1); // Assign the correct sortable arrow
 
 	        this.getCaret();
-	        $(window).on(resizeEvent, function (e) {
-	          return _this2.resetWidth(e);
+	        $(window).on(resizeEvent, function () {
+	          return _this2.resetView();
 	        });
 	      }
 
 	      this.$selectAll = this.$header.find('[name="btSelectAll"]');
-	      this.$selectAll.off('click').on('click', function (_ref) {
-	        var currentTarget = _ref.currentTarget;
-	        var checked = $(currentTarget).prop('checked');
+	      this.$selectAll.off('click').on('click', function (e) {
+	        e.stopPropagation();
+	        var checked = $(e.currentTarget).prop('checked');
 
 	        _this2[checked ? 'checkAll' : 'uncheckAll']();
 
@@ -4194,7 +4389,7 @@
 	              return order * value;
 	            }
 
-	            return Utils.sort(aa, bb, order, _this3.options.sortStable);
+	            return Utils.sort(aa, bb, order, _this3.options.sortStable, a._position, b._position);
 	          });
 	        }
 
@@ -4212,9 +4407,9 @@
 	    }
 	  }, {
 	    key: "onSort",
-	    value: function onSort(_ref2) {
-	      var type = _ref2.type,
-	          currentTarget = _ref2.currentTarget;
+	    value: function onSort(_ref) {
+	      var type = _ref.type,
+	          currentTarget = _ref.currentTarget;
 	      var $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent();
 	      var $this_ = this.$header.find('th').eq($this.index());
 	      this.$header.add(this.$header_).find('span.order').remove();
@@ -4236,7 +4431,7 @@
 
 	      this.getCaret();
 
-	      if (this.options.sidePagination === 'server') {
+	      if (this.options.sidePagination === 'server' && this.options.serverSort) {
 	        this.options.pageNumber = 1;
 	        this.initServer(this.options.silentSort);
 	        return;
@@ -4250,71 +4445,112 @@
 	    value: function initToolbar() {
 	      var _this4 = this;
 
-	      var o = this.options;
+	      var opts = this.options;
 	      var html = [];
 	      var timeoutId = 0;
 	      var $keepOpen;
 	      var switchableCount = 0;
 
 	      if (this.$toolbar.find('.bs-bars').children().length) {
-	        $('body').append($(o.toolbar));
+	        $('body').append($(opts.toolbar));
 	      }
 
 	      this.$toolbar.html('');
 
-	      if (typeof o.toolbar === 'string' || _typeof(o.toolbar) === 'object') {
-	        $(Utils.sprintf('<div class="bs-bars %s-%s"></div>', this.constants.classes.pull, o.toolbarAlign)).appendTo(this.$toolbar).append($(o.toolbar));
+	      if (typeof opts.toolbar === 'string' || _typeof(opts.toolbar) === 'object') {
+	        $(Utils.sprintf('<div class="bs-bars %s-%s"></div>', this.constants.classes.pull, opts.toolbarAlign)).appendTo(this.$toolbar).append($(opts.toolbar));
 	      } // showColumns, showToggle, showRefresh
 
 
-	      html = ["<div class=\"".concat(['columns', "columns-".concat(o.buttonsAlign), this.constants.classes.buttonsGroup, "".concat(this.constants.classes.pull, "-").concat(o.buttonsAlign)].join(' '), "\">")];
+	      html = ["<div class=\"".concat(['columns', "columns-".concat(opts.buttonsAlign), this.constants.classes.buttonsGroup, "".concat(this.constants.classes.pull, "-").concat(opts.buttonsAlign)].join(' '), "\">")];
 
-	      if (typeof o.icons === 'string') {
-	        o.icons = Utils.calculateObjectValue(null, o.icons);
+	      if (typeof opts.icons === 'string') {
+	        opts.icons = Utils.calculateObjectValue(null, opts.icons);
 	      }
 
-	      if (o.showPaginationSwitch) {
-	        html.push("<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"paginationSwitch\"\n        aria-label=\"Pagination Switch\" title=\"").concat(o.formatPaginationSwitch(), "\">\n        ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.paginationSwitchDown) : '', "\n        ").concat(o.showButtonText ? o.formatPaginationSwitchUp() : '', "\n        </button>"));
+	      var buttonsHtml = {
+	        paginationSwitch: "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"paginationSwitch\"\n        aria-label=\"Pagination Switch\" title=\"").concat(opts.formatPaginationSwitch(), "\">\n        ").concat(opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.paginationSwitchDown) : '', "\n        ").concat(opts.showButtonText ? opts.formatPaginationSwitchUp() : '', "\n        </button>"),
+	        refresh: "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"refresh\"\n        aria-label=\"Refresh\" title=\"").concat(opts.formatRefresh(), "\">\n        ").concat(opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.refresh) : '', "\n        ").concat(opts.showButtonText ? opts.formatRefresh() : '', "\n        </button>"),
+	        toggle: "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"toggle\"\n        aria-label=\"Toggle\" title=\"").concat(opts.formatToggle(), "\">\n        ").concat(opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.toggleOff) : '', "\n        ").concat(opts.showButtonText ? opts.formatToggleOn() : '', "\n        </button>"),
+	        fullscreen: "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"fullscreen\"\n        aria-label=\"Fullscreen\" title=\"").concat(opts.formatFullscreen(), "\">\n        ").concat(opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.fullscreen) : '', "\n        ").concat(opts.showButtonText ? opts.formatFullscreen() : '', "\n        </button>"),
+	        columns: function () {
+	          var html = [];
+	          html.push("<div class=\"keep-open ".concat(_this4.constants.classes.buttonsDropdown, "\" title=\"").concat(opts.formatColumns(), "\">\n          <button class=\"").concat(_this4.constants.buttonsClass, " dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\"\n          aria-label=\"Columns\" title=\"").concat(opts.formatColumns(), "\">\n          ").concat(opts.showButtonIcons ? Utils.sprintf(_this4.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : '', "\n          ").concat(opts.showButtonText ? opts.formatColumns() : '', "\n          ").concat(_this4.constants.html.dropdownCaret, "\n          </button>\n          ").concat(_this4.constants.html.toolbarDropdown[0]));
+
+	          if (opts.showColumnsSearch) {
+	            html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="text" class="%s" id="columnsSearch" placeholder="%s" autocomplete="off">', _this4.constants.classes.input, opts.formatSearch())));
+	            html.push(_this4.constants.html.toolbarDropdownSeparator);
+	          }
+
+	          if (opts.showColumnsToggleAll) {
+	            var allFieldsVisible = _this4.getVisibleColumns().length === _this4.columns.filter(function (column) {
+	              return !_this4.isSelectionColumn(column);
+	            }).length;
+
+	            html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>', allFieldsVisible ? 'checked="checked"' : '', opts.formatColumnsToggleAll())));
+	            html.push(_this4.constants.html.toolbarDropdownSeparator);
+	          }
+
+	          var visibleColumns = 0;
+
+	          _this4.columns.forEach(function (column, i) {
+	            if (column.visible) {
+	              visibleColumns++;
+	            }
+	          });
+
+	          _this4.columns.forEach(function (column, i) {
+	            if (_this4.isSelectionColumn(column)) {
+	              return;
+	            }
+
+	            if (opts.cardView && !column.cardVisible) {
+	              return;
+	            }
+
+	            var checked = column.visible ? ' checked="checked"' : '';
+	            var disabled = visibleColumns <= _this4.options.minimumCountColumns && checked ? ' disabled="disabled"' : '';
+
+	            if (column.switchable) {
+	              html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>', column.field, i, checked, disabled, column.title)));
+	              switchableCount++;
+	            }
+	          });
+
+	          html.push(_this4.constants.html.toolbarDropdown[1], '</div>');
+	          return html.join('');
+	        }()
+	      };
+
+	      if (typeof opts.buttonsOrder === 'string') {
+	        opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').toLowerCase().split(',');
 	      }
 
-	      if (o.showRefresh) {
-	        html.push("<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"refresh\"\n        aria-label=\"Refresh\" title=\"").concat(o.formatRefresh(), "\">\n        ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.refresh) : '', "\n        ").concat(o.showButtonText ? o.formatRefresh() : '', "\n        </button>"));
-	      }
+	      var _iteratorNormalCompletion = true;
+	      var _didIteratorError = false;
+	      var _iteratorError = undefined;
 
-	      if (o.showToggle) {
-	        html.push("<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"toggle\"\n        aria-label=\"Toggle\" title=\"").concat(o.formatToggle(), "\">\n        ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.toggleOff) : '', "\n        ").concat(o.showButtonText ? o.formatToggleOn() : '', "\n        </button>"));
-	      }
+	      try {
+	        for (var _iterator = opts.buttonsOrder[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	          var button = _step.value;
 
-	      if (o.showFullscreen) {
-	        html.push("<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"fullscreen\"\n        aria-label=\"Fullscreen\" title=\"").concat(o.formatFullscreen(), "\">\n        ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.fullscreen) : '', "\n        ").concat(o.showButtonText ? o.formatFullscreen() : '', "\n        </button>"));
-	      }
-
-	      if (o.showColumns) {
-	        html.push("<div class=\"keep-open ".concat(this.constants.classes.buttonsDropdown, "\" title=\"").concat(o.formatColumns(), "\">\n        <button class=\"").concat(this.constants.buttonsClass, " dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\"\n        aria-label=\"Columns\" title=\"").concat(o.formatColumns(), "\">\n        ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.columns) : '', "\n        ").concat(o.showButtonText ? o.formatColumns() : '', "\n        ").concat(this.constants.html.dropdownCaret, "\n        </button>\n        ").concat(this.constants.html.toolbarDropdown[0]));
-
-	        if (o.showColumnsToggleAll) {
-	          var allFieldsVisible = this.getVisibleColumns().length === this.columns.length;
-	          html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>', allFieldsVisible ? 'checked="checked"' : '', o.formatColumnsToggleAll())));
-	          html.push(this.constants.html.toolbarDropdownSeparator);
+	          if (opts['show' + button.charAt(0).toUpperCase() + button.substring(1)]) {
+	            html.push(buttonsHtml[button]);
+	          }
 	        }
-
-	        this.columns.forEach(function (column, i) {
-	          if (column.radio || column.checkbox) {
-	            return;
+	      } catch (err) {
+	        _didIteratorError = true;
+	        _iteratorError = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion && _iterator.return != null) {
+	            _iterator.return();
 	          }
-
-	          if (o.cardView && !column.cardVisible) {
-	            return;
+	        } finally {
+	          if (_didIteratorError) {
+	            throw _iteratorError;
 	          }
-
-	          var checked = column.visible ? ' checked="checked"' : '';
-
-	          if (column.switchable) {
-	            html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s> <span>%s</span>', column.field, i, checked, column.title)));
-	            switchableCount++;
-	          }
-	        });
-	        html.push(this.constants.html.toolbarDropdown[1], '</div>');
+	        }
 	      }
 
 	      html.push('</div>'); // Fix #188: this.showToolbar is for extensions
@@ -4323,80 +4559,103 @@
 	        this.$toolbar.append(html.join(''));
 	      }
 
-	      if (o.showPaginationSwitch) {
+	      if (opts.showPaginationSwitch) {
 	        this.$toolbar.find('button[name="paginationSwitch"]').off('click').on('click', function () {
 	          return _this4.togglePagination();
 	        });
 	      }
 
-	      if (o.showFullscreen) {
+	      if (opts.showFullscreen) {
 	        this.$toolbar.find('button[name="fullscreen"]').off('click').on('click', function () {
 	          return _this4.toggleFullscreen();
 	        });
 	      }
 
-	      if (o.showRefresh) {
+	      if (opts.showRefresh) {
 	        this.$toolbar.find('button[name="refresh"]').off('click').on('click', function () {
 	          return _this4.refresh();
 	        });
 	      }
 
-	      if (o.showToggle) {
+	      if (opts.showToggle) {
 	        this.$toolbar.find('button[name="toggle"]').off('click').on('click', function () {
 	          _this4.toggleView();
 	        });
 	      }
 
-	      if (o.showColumns) {
+	      if (opts.showColumns) {
 	        $keepOpen = this.$toolbar.find('.keep-open');
-	        var $checkboxes = $keepOpen.find('input:not(".toggle-all")');
-	        var $toggleAll = $keepOpen.find('input.toggle-all');
+	        var $checkboxes = $keepOpen.find('input[type="checkbox"]:not(".toggle-all")');
+	        var $toggleAll = $keepOpen.find('input[type="checkbox"].toggle-all');
 
-	        if (switchableCount <= o.minimumCountColumns) {
+	        if (switchableCount <= opts.minimumCountColumns) {
 	          $keepOpen.find('input').prop('disabled', true);
 	        }
 
 	        $keepOpen.find('li, label').off('click').on('click', function (e) {
 	          e.stopImmediatePropagation();
 	        });
-	        $checkboxes.off('click').on('click', function (_ref3) {
-	          var currentTarget = _ref3.currentTarget;
+	        $checkboxes.off('click').on('click', function (_ref2) {
+	          var currentTarget = _ref2.currentTarget;
 	          var $this = $(currentTarget);
 
 	          _this4._toggleColumn($this.val(), $this.prop('checked'), false);
 
 	          _this4.trigger('column-switch', $this.data('field'), $this.prop('checked'));
 
-	          $toggleAll.prop('checked', $checkboxes.filter(':checked').length === _this4.columns.length);
+	          $toggleAll.prop('checked', $checkboxes.filter(':checked').length === _this4.columns.filter(function (column) {
+	            return !_this4.isSelectionColumn(column);
+	          }).length);
 	        });
-	        $toggleAll.off('click').on('click', function (_ref4) {
-	          var currentTarget = _ref4.currentTarget;
+	        $toggleAll.off('click').on('click', function (_ref3) {
+	          var currentTarget = _ref3.currentTarget;
 
 	          _this4._toggleAllColumns($(currentTarget).prop('checked'));
 	        });
+
+	        if (opts.showColumnsSearch) {
+	          var $columnsSearch = $keepOpen.find('#columnsSearch');
+	          var $listItems = $keepOpen.find('.dropdown-item-marker');
+	          $columnsSearch.on('keyup paste change', function (_ref4) {
+	            var currentTarget = _ref4.currentTarget;
+	            var $this = $(currentTarget);
+	            var searchValue = $this.val().toLowerCase();
+	            $listItems.show();
+	            $checkboxes.each(function (i, el) {
+	              var $checkbox = $(el);
+	              var $listItem = $checkbox.parents('.dropdown-item-marker');
+	              var text = $listItem.text().toLowerCase();
+
+	              if (!text.includes(searchValue)) {
+	                $listItem.hide();
+	              }
+	            });
+	          });
+	        }
 	      } // Fix #4516: this.showSearchClearButton is for extensions
 
 
-	      if (o.search || this.showSearchClearButton) {
+	      if (opts.search || this.showSearchClearButton) {
 	        html = [];
-	        var showSearchButton = Utils.sprintf(this.constants.html.searchButton, this.constants.buttonsClass, o.formatSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.search) : '', o.showButtonText ? o.formatSearch() : '');
-	        var showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, this.constants.buttonsClass, o.formatClearSearch(), o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.clearSearch) : '', o.showButtonText ? o.formatClearSearch() : '');
-	        var searchInputHtml = "<input class=\"".concat(this.constants.classes.input, "\n        ").concat(Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, o.iconSize), "\n        search-input\" type=\"text\" placeholder=\"").concat(o.formatSearch(), "\">");
+	        var showSearchButton = Utils.sprintf(this.constants.html.searchButton, this.constants.buttonsClass, opts.formatSearch(), opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.search) : '', opts.showButtonText ? opts.formatSearch() : '');
+	        var showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, this.constants.buttonsClass, opts.formatClearSearch(), opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.clearSearch) : '', opts.showButtonText ? opts.formatClearSearch() : '');
+	        var searchInputHtml = "<input class=\"".concat(this.constants.classes.input, "\n        ").concat(Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, opts.iconSize), "\n        search-input\" type=\"text\" placeholder=\"").concat(opts.formatSearch(), "\" autocomplete=\"off\">");
 	        var searchInputFinalHtml = searchInputHtml;
 
-	        if (o.showSearchButton || o.showSearchClearButton) {
-	          var buttonsHtml = (o.showSearchButton ? showSearchButton : '') + (o.showSearchClearButton ? showSearchClearButton : '');
-	          searchInputFinalHtml = o.search ? Utils.sprintf(this.constants.html.inputGroup, searchInputHtml, buttonsHtml) : buttonsHtml;
+	        if (opts.showSearchButton || opts.showSearchClearButton) {
+	          var _buttonsHtml = (opts.showSearchButton ? showSearchButton : '') + (opts.showSearchClearButton ? showSearchClearButton : '');
+
+	          searchInputFinalHtml = opts.search ? Utils.sprintf(this.constants.html.inputGroup, searchInputHtml, _buttonsHtml) : _buttonsHtml;
 	        }
 
-	        html.push(Utils.sprintf("\n        <div class=\"".concat(this.constants.classes.pull, "-").concat(o.searchAlign, " search ").concat(this.constants.classes.inputGroup, "\">\n          %s\n        </div>\n      "), searchInputFinalHtml));
+	        html.push(Utils.sprintf("\n        <div class=\"".concat(this.constants.classes.pull, "-").concat(opts.searchAlign, " search ").concat(this.constants.classes.inputGroup, "\">\n          %s\n        </div>\n      "), searchInputFinalHtml));
 	        this.$toolbar.append(html.join(''));
 	        var $searchInput = this.$toolbar.find('.search input');
 
 	        var handleInputEvent = function handleInputEvent() {
-	          var eventTriggers = Utils.isIEBrowser() ? 'mouseup' : 'keyup drop blur';
+	          var eventTriggers = "keyup drop blur ".concat(Utils.isIEBrowser() ? 'mouseup' : '');
 	          $searchInput.off(eventTriggers).on(eventTriggers, function (event) {
-	            if (o.searchOnEnterKey && event.keyCode !== 13) {
+	            if (opts.searchOnEnterKey && event.keyCode !== 13) {
 	              return;
 	            }
 
@@ -4407,12 +4666,14 @@
 	            clearTimeout(timeoutId); // doesn't matter if it's 0
 
 	            timeoutId = setTimeout(function () {
-	              _this4.onSearch(event);
-	            }, o.searchTimeOut);
+	              _this4.onSearch({
+	                currentTarget: event.currentTarget
+	              });
+	            }, opts.searchTimeOut);
 	          });
 	        };
 
-	        if (o.showSearchButton) {
+	        if (opts.showSearchButton) {
 	          this.$toolbar.find('.search button[name=search]').off('click').on('click', function (event) {
 	            clearTimeout(timeoutId); // doesn't matter if it's 0
 
@@ -4420,17 +4681,17 @@
 	              _this4.onSearch({
 	                currentTarget: $searchInput
 	              });
-	            }, o.searchTimeOut);
+	            }, opts.searchTimeOut);
 	          });
 
-	          if (o.searchOnEnterKey) {
+	          if (opts.searchOnEnterKey) {
 	            handleInputEvent();
 	          }
 	        } else {
 	          handleInputEvent();
 	        }
 
-	        if (o.showSearchClearButton) {
+	        if (opts.showSearchClearButton) {
 	          this.$toolbar.find('.search button[name=clearSearch]').click(function () {
 	            _this4.resetSearch();
 	          });
@@ -4453,7 +4714,7 @@
 	          $(currentTarget).val(text);
 	        }
 
-	        if (this.searchText === text) {
+	        if (this.searchText === text && text.length > 0) {
 	          return;
 	        }
 
@@ -4492,7 +4753,7 @@
 	          return;
 	        }
 
-	        var s = this.searchText && (this.options.escape ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase();
+	        var s = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase();
 	        var f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns; // Check filter
 
 	        if (typeof this.filterOptions.filterAlgorithm === 'function') {
@@ -4540,9 +4801,9 @@
 	              value = item;
 	              var props = key.split('.');
 
-	              for (var _i = 0; _i < props.length; _i++) {
-	                if (value[props[_i]] !== null) {
-	                  value = value[props[_i]];
+	              for (var _i2 = 0; _i2 < props.length; _i2++) {
+	                if (value[props[_i2]] !== null) {
+	                  value = value[props[_i2]];
 	                }
 	              }
 	            } else {
@@ -4594,9 +4855,6 @@
 	                    case '=<l':
 	                      comparisonCheck = int >= comparisonInt;
 	                      break;
-
-	                    default:
-	                      break;
 	                  }
 	                }
 
@@ -4610,22 +4868,24 @@
 	          return false;
 	        }) : this.data;
 	      }
+
+	      this.initSort();
 	    }
 	  }, {
 	    key: "initPagination",
 	    value: function initPagination() {
 	      var _this6 = this;
 
-	      var o = this.options;
+	      var opts = this.options;
 
-	      if (!o.pagination) {
+	      if (!opts.pagination) {
 	        this.$pagination.hide();
 	        return;
 	      }
 
 	      this.$pagination.show();
 	      var html = [];
-	      var $allSelected = false;
+	      var allSelected = false;
 	      var i;
 	      var from;
 	      var to;
@@ -4636,41 +4896,45 @@
 	      var data = this.getData({
 	        includeHiddenRows: false
 	      });
-	      var pageList = o.pageList;
+	      var pageList = opts.pageList;
 
-	      if (o.sidePagination !== 'server') {
-	        o.totalRows = data.length;
+	      if (typeof pageList === 'string') {
+	        pageList = pageList.replace(/\[|\]| /g, '').toLowerCase().split(',');
+	      }
+
+	      pageList = pageList.map(function (value) {
+	        if (typeof value === 'string') {
+	          return value.toLowerCase() === opts.formatAllRows().toLowerCase() || ['all', 'unlimited'].includes(value.toLowerCase()) ? opts.formatAllRows() : +value;
+	        }
+
+	        return value;
+	      });
+
+	      if (opts.sidePagination !== 'server') {
+	        opts.totalRows = data.length;
 	      }
 
 	      this.totalPages = 0;
 
-	      if (o.totalRows) {
-	        if (o.pageSize === o.formatAllRows()) {
-	          o.pageSize = o.totalRows;
-	          $allSelected = true;
-	        } else if (o.pageSize === o.totalRows) {
-	          // Fix #667 Table with pagination,
-	          // multiple pages and a search this matches to one page throws exception
-	          var pageLst = typeof o.pageList === 'string' ? o.pageList.replace('[', '').replace(']', '').replace(/ /g, '').toLowerCase().split(',') : o.pageList;
-
-	          if (pageLst.includes(o.formatAllRows().toLowerCase())) {
-	            $allSelected = true;
-	          }
+	      if (opts.totalRows) {
+	        if (opts.pageSize === opts.formatAllRows()) {
+	          opts.pageSize = opts.totalRows;
+	          allSelected = true;
 	        }
 
-	        this.totalPages = ~~((o.totalRows - 1) / o.pageSize) + 1;
-	        o.totalPages = this.totalPages;
+	        this.totalPages = ~~((opts.totalRows - 1) / opts.pageSize) + 1;
+	        opts.totalPages = this.totalPages;
 	      }
 
-	      if (this.totalPages > 0 && o.pageNumber > this.totalPages) {
-	        o.pageNumber = this.totalPages;
+	      if (this.totalPages > 0 && opts.pageNumber > this.totalPages) {
+	        opts.pageNumber = this.totalPages;
 	      }
 
-	      this.pageFrom = (o.pageNumber - 1) * o.pageSize + 1;
-	      this.pageTo = o.pageNumber * o.pageSize;
+	      this.pageFrom = (opts.pageNumber - 1) * opts.pageSize + 1;
+	      this.pageTo = opts.pageNumber * opts.pageSize;
 
-	      if (this.pageTo > o.totalRows) {
-	        this.pageTo = o.totalRows;
+	      if (this.pageTo > opts.totalRows) {
+	        this.pageTo = opts.totalRows;
 	      }
 
 	      if (this.options.pagination && this.options.sidePagination !== 'server') {
@@ -4681,73 +4945,44 @@
 	        this.options.totalNotFiltered = undefined;
 	      }
 
-	      var paginationInfo = o.onlyInfoPagination ? o.formatDetailPagination(o.totalRows) : o.formatShowingRows(this.pageFrom, this.pageTo, o.totalRows, o.totalNotFiltered);
-	      html.push("<div class=\"".concat(this.constants.classes.pull, "-").concat(o.paginationDetailHAlign, " pagination-detail\">\n      <span class=\"pagination-info\">\n      ").concat(paginationInfo, "\n      </span>"));
+	      var paginationInfo = opts.onlyInfoPagination ? opts.formatDetailPagination(opts.totalRows) : opts.formatShowingRows(this.pageFrom, this.pageTo, opts.totalRows, opts.totalNotFiltered);
+	      html.push("<div class=\"".concat(this.constants.classes.pull, "-").concat(opts.paginationDetailHAlign, " pagination-detail\">\n      <span class=\"pagination-info\">\n      ").concat(paginationInfo, "\n      </span>"));
 
-	      if (!o.onlyInfoPagination) {
+	      if (!opts.onlyInfoPagination) {
 	        html.push('<span class="page-list">');
-	        var pageNumber = ["<span class=\"".concat(this.constants.classes.paginationDropdown, "\">\n        <button class=\"").concat(this.constants.buttonsClass, " dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">\n        <span class=\"page-size\">\n        ").concat($allSelected ? o.formatAllRows() : o.pageSize, "\n        </span>\n        ").concat(this.constants.html.dropdownCaret, "\n        </button>\n        ").concat(this.constants.html.pageDropdown[0])];
-
-	        if (typeof o.pageList === 'string') {
-	          var list = o.pageList.replace('[', '').replace(']', '').replace(/ /g, '').split(',');
-	          pageList = [];
-	          var _iteratorNormalCompletion = true;
-	          var _didIteratorError = false;
-	          var _iteratorError = undefined;
-
-	          try {
-	            for (var _iterator = list[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	              var value = _step.value;
-	              pageList.push(value.toLowerCase() === o.formatAllRows().toLowerCase() || ['all', 'unlimited'].includes(value.toLowerCase()) ? o.formatAllRows() : +value);
-	            }
-	          } catch (err) {
-	            _didIteratorError = true;
-	            _iteratorError = err;
-	          } finally {
-	            try {
-	              if (!_iteratorNormalCompletion && _iterator.return != null) {
-	                _iterator.return();
-	              }
-	            } finally {
-	              if (_didIteratorError) {
-	                throw _iteratorError;
-	              }
-	            }
-	          }
-	        }
-
+	        var pageNumber = ["<span class=\"".concat(this.constants.classes.paginationDropdown, "\">\n        <button class=\"").concat(this.constants.buttonsClass, " dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">\n        <span class=\"page-size\">\n        ").concat(allSelected ? opts.formatAllRows() : opts.pageSize, "\n        </span>\n        ").concat(this.constants.html.dropdownCaret, "\n        </button>\n        ").concat(this.constants.html.pageDropdown[0])];
 	        pageList.forEach(function (page, i) {
-	          if (!o.smartDisplay || i === 0 || pageList[i - 1] < o.totalRows) {
+	          if (!opts.smartDisplay || i === 0 || pageList[i - 1] < opts.totalRows) {
 	            var active;
 
-	            if ($allSelected) {
-	              active = page === o.formatAllRows() ? _this6.constants.classes.dropdownActive : '';
+	            if (allSelected) {
+	              active = page === opts.formatAllRows() ? _this6.constants.classes.dropdownActive : '';
 	            } else {
-	              active = page === o.pageSize ? _this6.constants.classes.dropdownActive : '';
+	              active = page === opts.pageSize ? _this6.constants.classes.dropdownActive : '';
 	            }
 
 	            pageNumber.push(Utils.sprintf(_this6.constants.html.pageDropdownItem, active, page));
 	          }
 	        });
 	        pageNumber.push("".concat(this.constants.html.pageDropdown[1], "</span>"));
-	        html.push(o.formatRecordsPerPage(pageNumber.join('')));
+	        html.push(opts.formatRecordsPerPage(pageNumber.join('')));
 	        html.push('</span></div>');
-	        html.push("<div class=\"".concat(this.constants.classes.pull, "-").concat(o.paginationHAlign, " pagination\">"), Utils.sprintf(this.constants.html.pagination[0], Utils.sprintf(' pagination-%s', o.iconSize)), Utils.sprintf(this.constants.html.paginationItem, ' page-pre', o.formatSRPaginationPreText(), o.paginationPreText));
+	        html.push("<div class=\"".concat(this.constants.classes.pull, "-").concat(opts.paginationHAlign, " pagination\">"), Utils.sprintf(this.constants.html.pagination[0], Utils.sprintf(' pagination-%s', opts.iconSize)), Utils.sprintf(this.constants.html.paginationItem, ' page-pre', opts.formatSRPaginationPreText(), opts.paginationPreText));
 
-	        if (this.totalPages < o.paginationSuccessivelySize) {
+	        if (this.totalPages < opts.paginationSuccessivelySize) {
 	          from = 1;
 	          to = this.totalPages;
 	        } else {
-	          from = o.pageNumber - o.paginationPagesBySide;
-	          to = from + o.paginationPagesBySide * 2;
+	          from = opts.pageNumber - opts.paginationPagesBySide;
+	          to = from + opts.paginationPagesBySide * 2;
 	        }
 
-	        if (o.pageNumber < o.paginationSuccessivelySize - 1) {
-	          to = o.paginationSuccessivelySize;
+	        if (opts.pageNumber < opts.paginationSuccessivelySize - 1) {
+	          to = opts.paginationSuccessivelySize;
 	        }
 
-	        if (o.paginationSuccessivelySize > this.totalPages - from) {
-	          from = from - (o.paginationSuccessivelySize - (this.totalPages - from)) + 1;
+	        if (opts.paginationSuccessivelySize > this.totalPages - from) {
+	          from = from - (opts.paginationSuccessivelySize - (this.totalPages - from)) + 1;
 	        }
 
 	        if (from < 1) {
@@ -4758,15 +4993,15 @@
 	          to = this.totalPages;
 	        }
 
-	        var middleSize = Math.round(o.paginationPagesBySide / 2);
+	        var middleSize = Math.round(opts.paginationPagesBySide / 2);
 
 	        var pageItem = function pageItem(i) {
 	          var classes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-	          return Utils.sprintf(_this6.constants.html.paginationItem, classes + (i === o.pageNumber ? " ".concat(_this6.constants.classes.paginationActive) : ''), o.formatSRPaginationPageText(i), i);
+	          return Utils.sprintf(_this6.constants.html.paginationItem, classes + (i === opts.pageNumber ? " ".concat(_this6.constants.classes.paginationActive) : ''), opts.formatSRPaginationPageText(i), i);
 	        };
 
 	        if (from > 1) {
-	          var max = o.paginationPagesBySide;
+	          var max = opts.paginationPagesBySide;
 	          if (max >= from) max = from - 1;
 
 	          for (i = 1; i <= max; i++) {
@@ -4778,7 +5013,7 @@
 	            html.push(pageItem(i));
 	          } else {
 	            if (from - 1 > max) {
-	              if (from - o.paginationPagesBySide * 2 > o.paginationPagesBySide && o.paginationUseIntermediate) {
+	              if (from - opts.paginationPagesBySide * 2 > opts.paginationPagesBySide && opts.paginationUseIntermediate) {
 	                i = Math.round((from - middleSize) / 2 + middleSize);
 	                html.push(pageItem(i, ' page-intermediate'));
 	              } else {
@@ -4793,7 +5028,7 @@
 	        }
 
 	        if (this.totalPages > to) {
-	          var min = this.totalPages - (o.paginationPagesBySide - 1);
+	          var min = this.totalPages - (opts.paginationPagesBySide - 1);
 	          if (to >= min) min = to + 1;
 
 	          if (to + 1 === min - 1) {
@@ -4801,7 +5036,7 @@
 	            html.push(pageItem(i));
 	          } else {
 	            if (min > to + 1) {
-	              if (this.totalPages - to > o.paginationPagesBySide * 2 && o.paginationUseIntermediate) {
+	              if (this.totalPages - to > opts.paginationPagesBySide * 2 && opts.paginationUseIntermediate) {
 	                i = Math.round((this.totalPages - middleSize - to) / 2 + to);
 	                html.push(pageItem(i, ' page-intermediate'));
 	              } else {
@@ -4815,15 +5050,15 @@
 	          }
 	        }
 
-	        html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-next', o.formatSRPaginationNextText(), o.paginationNextText));
+	        html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-next', opts.formatSRPaginationNextText(), opts.paginationNextText));
 	        html.push(this.constants.html.pagination[1], '</div>');
 	      }
 
 	      this.$pagination.html(html.join(''));
-	      var dropupClass = ['bottom', 'both'].includes(o.paginationVAlign) ? " ".concat(this.constants.classes.dropup) : '';
+	      var dropupClass = ['bottom', 'both'].includes(opts.paginationVAlign) ? " ".concat(this.constants.classes.dropup) : '';
 	      this.$pagination.last().find('.page-list > span').addClass(dropupClass);
 
-	      if (!o.onlyInfoPagination) {
+	      if (!opts.onlyInfoPagination) {
 	        $pageList = this.$pagination.find('.page-list a');
 	        $pre = this.$pagination.find('.page-pre');
 	        $next = this.$pagination.find('.page-next');
@@ -4833,8 +5068,8 @@
 	          this.$pagination.find('div.pagination').hide();
 	        }
 
-	        if (o.smartDisplay) {
-	          if (pageList.length < 2 || o.totalRows <= pageList[0]) {
+	        if (opts.smartDisplay) {
+	          if (pageList.length < 2 || opts.totalRows <= pageList[0]) {
 	            this.$pagination.find('span.page-list').hide();
 	          }
 	        } // when data is empty, hide the pagination
@@ -4842,18 +5077,18 @@
 
 	        this.$pagination[this.getData().length ? 'show' : 'hide']();
 
-	        if (!o.paginationLoop) {
-	          if (o.pageNumber === 1) {
+	        if (!opts.paginationLoop) {
+	          if (opts.pageNumber === 1) {
 	            $pre.addClass('disabled');
 	          }
 
-	          if (o.pageNumber === this.totalPages) {
+	          if (opts.pageNumber === this.totalPages) {
 	            $next.addClass('disabled');
 	          }
 	        }
 
-	        if ($allSelected) {
-	          o.pageSize = o.formatAllRows();
+	        if (allSelected) {
+	          opts.pageSize = opts.formatAllRows();
 	        } // removed the events for last and first, onPageNumber executeds the same logic
 
 
@@ -4964,10 +5199,10 @@
 	      style = Utils.calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
 	      if (style && style.css) {
-	        for (var _i2 = 0, _Object$entries = Object.entries(style.css); _i2 < _Object$entries.length; _i2++) {
-	          var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
-	              key = _Object$entries$_i[0],
-	              value = _Object$entries$_i[1];
+	        for (var _i3 = 0, _Object$entries2 = Object.entries(style.css); _i3 < _Object$entries2.length; _i3++) {
+	          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i3], 2),
+	              key = _Object$entries2$_i[0],
+	              value = _Object$entries2$_i[1];
 
 	          csses.push("".concat(key, ": ").concat(value));
 	        }
@@ -4976,20 +5211,20 @@
 	      attributes = Utils.calculateObjectValue(this.options, this.options.rowAttributes, [item, i], attributes);
 
 	      if (attributes) {
-	        for (var _i3 = 0, _Object$entries2 = Object.entries(attributes); _i3 < _Object$entries2.length; _i3++) {
-	          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i3], 2),
-	              key = _Object$entries2$_i[0],
-	              value = _Object$entries2$_i[1];
+	        for (var _i4 = 0, _Object$entries3 = Object.entries(attributes); _i4 < _Object$entries3.length; _i4++) {
+	          var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i4], 2),
+	              _key2 = _Object$entries3$_i[0],
+	              _value = _Object$entries3$_i[1];
 
-	          htmlAttributes.push("".concat(key, "=\"").concat(Utils.escapeHTML(value), "\""));
+	          htmlAttributes.push("".concat(_key2, "=\"").concat(Utils.escapeHTML(_value), "\""));
 	        }
 	      }
 
 	      if (item._data && !Utils.isEmptyObject(item._data)) {
-	        for (var _i4 = 0, _Object$entries3 = Object.entries(item._data); _i4 < _Object$entries3.length; _i4++) {
-	          var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i4], 2),
-	              k = _Object$entries3$_i[0],
-	              v = _Object$entries3$_i[1];
+	        for (var _i5 = 0, _Object$entries4 = Object.entries(item._data); _i5 < _Object$entries4.length; _i5++) {
+	          var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i5], 2),
+	              k = _Object$entries4$_i[0],
+	              v = _Object$entries4$_i[1];
 
 	          // ignore data-index
 	          if (k === 'index') {
@@ -5083,12 +5318,12 @@
 	        if (cellStyle.css) {
 	          var csses_ = [];
 
-	          for (var _i5 = 0, _Object$entries4 = Object.entries(cellStyle.css); _i5 < _Object$entries4.length; _i5++) {
-	            var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i5], 2),
-	                key = _Object$entries4$_i[0],
-	                _value = _Object$entries4$_i[1];
+	          for (var _i6 = 0, _Object$entries5 = Object.entries(cellStyle.css); _i6 < _Object$entries5.length; _i6++) {
+	            var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i6], 2),
+	                _key3 = _Object$entries5$_i[0],
+	                _value2 = _Object$entries5$_i[1];
 
-	            csses_.push("".concat(key, ": ").concat(_value));
+	            csses_.push("".concat(_key3, ": ").concat(_value2));
 	          }
 
 	          style_ = " style=\"".concat(csses_.concat(_this7.header.styles[j]).join('; '), "\"");
@@ -5097,17 +5332,17 @@
 	        value = Utils.calculateObjectValue(column, _this7.header.formatters[j], [value_, item, i, field], value_);
 
 	        if (item["_".concat(field, "_data")] && !Utils.isEmptyObject(item["_".concat(field, "_data")])) {
-	          for (var _i6 = 0, _Object$entries5 = Object.entries(item["_".concat(field, "_data")]); _i6 < _Object$entries5.length; _i6++) {
-	            var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i6], 2),
-	                k = _Object$entries5$_i[0],
-	                v = _Object$entries5$_i[1];
+	          for (var _i7 = 0, _Object$entries6 = Object.entries(item["_".concat(field, "_data")]); _i7 < _Object$entries6.length; _i7++) {
+	            var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i7], 2),
+	                _k = _Object$entries6$_i[0],
+	                _v = _Object$entries6$_i[1];
 
 	            // ignore data-index
-	            if (k === 'index') {
+	            if (_k === 'index') {
 	              return;
 	            }
 
-	            data_ += " data-".concat(k, "=\"").concat(v, "\"");
+	            data_ += " data-".concat(_k, "=\"").concat(_v, "\"");
 	          }
 	        }
 
@@ -5405,10 +5640,14 @@
 
 	          _this10.load(res);
 
-	          _this10.trigger('load-success', res, jqXHR.status, jqXHR);
+	          _this10.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR);
 
 	          if (!silent) {
 	            _this10.hideLoading();
+	          }
+
+	          if (_this10.options.sidePagination === 'server' && res[_this10.options.totalField] > 0 && !res[_this10.options.dataField].length) {
+	            _this10.updatePagination();
 	          }
 	        },
 	        error: function error(jqXHR) {
@@ -5422,7 +5661,7 @@
 
 	          _this10.load(data);
 
-	          _this10.trigger('load-error', jqXHR.status, jqXHR);
+	          _this10.trigger('load-error', jqXHR && jqXHR.status, jqXHR);
 
 	          if (!silent) _this10.$tableLoading.hide();
 	        }
@@ -5524,8 +5763,8 @@
 
 	      var name = "".concat(_name, ".bs.table");
 
-	      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key2 = 1; _key2 < _len; _key2++) {
-	        args[_key2 - 1] = arguments[_key2];
+	      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key4 = 1; _key4 < _len; _key4++) {
+	        args[_key4 - 1] = arguments[_key4];
 	      }
 
 	      (_this$options = this.options)[BootstrapTable.EVENTS[name]].apply(_this$options, args);
@@ -5675,10 +5914,10 @@
 	          style = Utils.calculateObjectValue(null, this.options.footerStyle, [column]);
 
 	          if (style && style.css) {
-	            for (var _i7 = 0, _Object$entries6 = Object.entries(style.css); _i7 < _Object$entries6.length; _i7++) {
-	              var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i7], 2),
-	                  key = _Object$entries6$_i[0],
-	                  value = _Object$entries6$_i[1];
+	            for (var _i8 = 0, _Object$entries7 = Object.entries(style.css); _i8 < _Object$entries7.length; _i8++) {
+	              var _Object$entries7$_i = _slicedToArray(_Object$entries7[_i8], 2),
+	                  key = _Object$entries7$_i[0],
+	                  value = _Object$entries7$_i[1];
 
 	              csses.push("".concat(key, ": ").concat(value));
 	            }
@@ -5709,6 +5948,11 @@
 	            throw _iteratorError3;
 	          }
 	        }
+	      }
+
+	      if (!this.options.height && !this.$tableFooter.length) {
+	        this.$el.append('<tfoot><tr></tr></tfoot>');
+	        this.$tableFooter = this.$el.find('tfoot');
 	      }
 
 	      this.$tableFooter.find('tr').html(html.join(''));
@@ -5770,18 +6014,18 @@
 
 	      // horizontal scroll event
 	      // TODO: it's probably better improving the layout than binding to scroll event
-	      this.$tableBody.off('scroll').on('scroll', function (_ref6) {
-	        var currentTarget = _ref6.currentTarget;
+	      this.$tableBody.off('scroll').on('scroll', function () {
+	        var scrollLeft = _this16.$tableBody.scrollLeft();
 
 	        if (_this16.options.showHeader && _this16.options.height) {
-	          _this16.$tableHeader.scrollLeft($(currentTarget).scrollLeft());
+	          _this16.$tableHeader.scrollLeft(scrollLeft);
 	        }
 
 	        if (_this16.options.showFooter && !_this16.options.cardView) {
-	          _this16.$tableFooter.scrollLeft($(currentTarget).scrollLeft());
+	          _this16.$tableFooter.scrollLeft(scrollLeft);
 	        }
 
-	        _this16.trigger('scroll-body', $(currentTarget));
+	        _this16.trigger('scroll-body', _this16.$tableBody);
 	      });
 	    }
 	  }, {
@@ -5853,7 +6097,7 @@
 	    value: function getData(params) {
 	      var data = this.options.data;
 
-	      if (this.searchText || this.options.sortName || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) {
+	      if ((this.searchText || this.options.customSearch || this.options.sortName || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) && (!params || !params.unfiltered)) {
 	        data = this.data;
 	      }
 
@@ -6165,10 +6409,10 @@
 	      }
 
 	      var allParams = Array.isArray(params) ? params : [params];
-	      allParams.forEach(function (_ref7) {
-	        var id = _ref7.id,
-	            field = _ref7.field,
-	            value = _ref7.value;
+	      allParams.forEach(function (_ref6) {
+	        var id = _ref6.id,
+	            field = _ref6.field,
+	            value = _ref6.value;
 
 	        var rowId = _this19.options.data.indexOf(_this19.getRowByUniqueId(id));
 
@@ -6301,7 +6545,7 @@
 	      this.initBody();
 
 	      if (this.options.showColumns) {
-	        var $items = this.$toolbar.find('.keep-open input').prop('disabled', false);
+	        var $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false);
 
 	        if (needUpdate) {
 	          $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked);
@@ -6315,18 +6559,24 @@
 	  }, {
 	    key: "getVisibleColumns",
 	    value: function getVisibleColumns() {
-	      return this.columns.filter(function (_ref8) {
-	        var visible = _ref8.visible;
-	        return visible;
+	      var _this22 = this;
+
+	      return this.columns.filter(function (column) {
+	        return column.visible && !_this22.isSelectionColumn(column);
 	      });
 	    }
 	  }, {
 	    key: "getHiddenColumns",
 	    value: function getHiddenColumns() {
-	      return this.columns.filter(function (_ref9) {
-	        var visible = _ref9.visible;
+	      return this.columns.filter(function (_ref7) {
+	        var visible = _ref7.visible;
 	        return !visible;
 	      });
+	    }
+	  }, {
+	    key: "isSelectionColumn",
+	    value: function isSelectionColumn(column) {
+	      return column.radio || column.checkbox;
 	    }
 	  }, {
 	    key: "showAllColumns",
@@ -6341,7 +6591,7 @@
 	  }, {
 	    key: "_toggleAllColumns",
 	    value: function _toggleAllColumns(visible) {
-	      var _this22 = this;
+	      var _this23 = this;
 
 	      var _iteratorNormalCompletion8 = true;
 	      var _didIteratorError8 = false;
@@ -6380,13 +6630,13 @@
 	      this.initBody();
 
 	      if (this.options.showColumns) {
-	        var $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false);
+	        var $items = this.$toolbar.find('.keep-open input[type="checkbox"]:not(".toggle-all")').prop('disabled', false);
 
 	        if (visible) {
 	          $items.prop('checked', visible);
 	        } else {
 	          $items.get().reverse().forEach(function (item) {
-	            if ($items.filter(':checked').length > _this22.options.minimumCountColumns) {
+	            if ($items.filter(':checked').length > _this23.options.minimumCountColumns) {
 	              $(item).prop('checked', visible);
 	            }
 	          });
@@ -6544,7 +6794,7 @@
 	  }, {
 	    key: "_toggleCheckBy",
 	    value: function _toggleCheckBy(checked, obj) {
-	      var _this23 = this;
+	      var _this24 = this;
 
 	      if (!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
 	        return;
@@ -6557,7 +6807,7 @@
 	        }
 
 	        if (obj.values.includes(row[obj.field])) {
-	          var $el = _this23.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i));
+	          var $el = _this24.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i));
 
 	          $el = checked ? $el.not(':checked') : $el.filter(':checked');
 
@@ -6566,10 +6816,10 @@
 	          }
 
 	          $el.prop('checked', checked);
-	          row[_this23.header.stateField] = checked;
+	          row[_this24.header.stateField] = checked;
 	          rows.push(row);
 
-	          _this23.trigger(checked ? 'check' : 'uncheck', row, $el);
+	          _this24.trigger(checked ? 'check' : 'uncheck', row, $el);
 	        }
 	      });
 	      this.updateSelected();
@@ -6631,13 +6881,27 @@
 	        }
 	      }
 
-	      if (this.options.height) {
+	      if (this.$container.hasClass('fullscreen')) {
+	        this.$tableContainer.css('height', '');
+	        this.$tableContainer.css('width', '');
+	      } else if (this.options.height) {
 	        var toolbarHeight = this.$toolbar.outerHeight(true);
 	        var paginationHeight = this.$pagination.outerHeight(true);
 	        var height = this.options.height - toolbarHeight - paginationHeight;
-	        var tableHeight = this.$tableBody.find('table').outerHeight(true);
+	        var $bodyTable = this.$tableBody.find('>table');
+	        var tableHeight = $bodyTable.outerHeight();
 	        this.$tableContainer.css('height', "".concat(height, "px"));
-	        this.$tableBorder && this.$tableBorder.css('height', "".concat(height - tableHeight - padding - 1, "px"));
+
+	        if (this.$tableBorder) {
+	          var tableBorderHeight = height - tableHeight - 2;
+
+	          if (this.$tableBody[0].scrollWidth - this.$tableBody.innerWidth()) {
+	            tableBorderHeight -= Utils.getScrollBarWidth();
+	          }
+
+	          this.$tableBorder.css('width', "".concat($bodyTable.outerWidth(), "px"));
+	          this.$tableBorder.css('height', "".concat(tableBorderHeight, "px"));
+	        }
 	      }
 
 	      if (this.options.cardView) {
@@ -6652,17 +6916,6 @@
 	      }
 
 	      this.trigger('reset-view');
-	    }
-	  }, {
-	    key: "resetWidth",
-	    value: function resetWidth() {
-	      if (this.options.showHeader && this.options.height) {
-	        this.fitHeader();
-	      }
-
-	      if (this.options.showFooter && !this.options.cardView) {
-	        this.fitFooter();
-	      }
 	    }
 	  }, {
 	    key: "showLoading",
@@ -6905,8 +7158,8 @@
 	$.BootstrapTable = BootstrapTable;
 
 	$.fn.bootstrapTable = function (option) {
-	  for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key3 = 1; _key3 < _len2; _key3++) {
-	    args[_key3 - 1] = arguments[_key3];
+	  for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key5 = 1; _key5 < _len2; _key5++) {
+	    args[_key5 - 1] = arguments[_key5];
 	  }
 
 	  var value;
@@ -6956,4 +7209,4 @@
 
 	return BootstrapTable;
 
-}));
+})));

@@ -37,13 +37,16 @@ OUT=_gh_pages
 git clone $REPO $OUT
 cd $OUT
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-cd ..
 
-# Clean out existing contents
-rm -rf $OUT/**/* || exit 0
+# Clean out existing contents except versions
+mv versions ..
+ls | xargs rm -rf
+cd ..
 
 # Run our compile script
 doCompile
+
+mv versions $OUT
 
 # Now let's go have some fun with the cloned repo
 cd $OUT

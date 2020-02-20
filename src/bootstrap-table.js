@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.15.5
+ * version: 1.16.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -2288,11 +2288,6 @@ class BootstrapTable {
   }
 
   updateCellByUniqueId (params) {
-    if (!params.hasOwnProperty('id') ||
-      !params.hasOwnProperty('field') ||
-      !params.hasOwnProperty('value')) {
-      return
-    }
     const allParams = Array.isArray(params) ? params : [params]
 
     allParams.forEach(({id, field, value}) => {

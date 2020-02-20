@@ -1,27 +1,25 @@
-.fixed-table-header-columns,
-.fixed-table-body-columns {
+.fixed-columns,
+.fixed-columns-right {
   position: absolute;
+  top: 0;
+  height: 100%;
   background-color: #fff;
   box-sizing: border-box;
-  overflow: hidden;
   z-index: 1;
 }
 
-.fixed-table-header-columns {
-  z-index: 2;
+.fixed-columns {
+  left: 0;
 }
 
-.fixed-table-header-columns .table,
-.fixed-table-body-columns .table {
-  border-right: 1px solid #ddd;
+.fixed-columns .fixed-table-body {
+  overflow: hidden !important;
 }
 
-.fixed-table-header-columns .table.table-no-bordered,
-.fixed-table-body-columns .table.table-no-bordered {
-  border-right: 1px solid transparent;
+.fixed-columns-right {
+  right: 0;
 }
 
-.fixed-table-body-columns table {
-  position: absolute;
-  animation: none;
+.fixed-columns-right .fixed-table-body {
+  overflow-x: hidden !important;
 }

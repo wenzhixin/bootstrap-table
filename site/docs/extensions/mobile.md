@@ -18,18 +18,6 @@ toc: true
 
 ## Options
 
-### mobileResponsive
-
-- **attribute:** `data-mobile-responsive`
-
-- **type:** `Boolean`
-
-- **Detail:**
-
-   Set true to change the view between card and table view depending on width and height given.
-
-- **Default:** `false`
-
 ### checkOnInit
 
 - **attribute:** `data-check-on-init`
@@ -42,17 +30,17 @@ toc: true
 
 - **Default:** `true`
 
-### minWidth
+### columnsHidden
 
-- **attribute:** `data-min-width`
+- **attribute:** `data-columns-hidden`
 
-- **type:** `Integer`
+- **type:** `String`
 
 - **Detail:**
 
-   Set the minimum width when the table will change the view.
+   Set the columns fields in this array in order to hide those columns in the cardView mode. Use this way in `data-*` configuration: ` data-columns-hidden="['name', 'description']"` or this way in javascript configuration: `columnsHidden = ['name', 'description']`.
 
-- **Default:** `562`
+- **Default:** `undefined`
 
 ### minHeight
 
@@ -66,14 +54,26 @@ toc: true
 
 - **Default:** `undefined`
 
-### columnsHidden
+### minWidth
 
-- **attribute:** `data-columns-hidden`
+- **attribute:** `data-min-width`
 
-- **type:** `String`
+- **type:** `Integer`
 
 - **Detail:**
 
-   Set the columns fields in this array in order to hide those columns in the cardView mode. Use this way in `data-*` configuration: ` data-columns-hidden="['name', 'description']"` or this way in javascript configuration: `columnsHidden = ['name', 'description']`.
+   Set the minimum width when the table will change the view.
 
-- **Default:** `undefined`
+- **Default:** `562`
+
+### mobileResponsive
+
+- **attribute:** `data-mobile-responsive`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to change the view between card and table view depending on width and height given.
+
+- **Default:** `false`

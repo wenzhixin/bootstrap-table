@@ -166,6 +166,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
     })
   }
 
+  hideLoading () {
+    super.hideLoading()
+
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedColumns.find('.fixed-table-loading').hide()
+    }
+
+    if (this.needFixedColumns && this.options.fixedRightNumber) {
+      this.$fixedColumnsRight.find('.fixed-table-loading').hide()
+    }
+  }
+
   initFixedColumnsHeader () {
     if (this.options.height) {
       this.needFixedColumns = this.$tableHeader.outerWidth(true) < this.$tableHeader.find('table').outerWidth(true)
@@ -325,6 +337,25 @@ $.BootstrapTable = class extends $.BootstrapTable {
         if (this.$fixedBody) {
           this.$fixedBody.scrollTop(top)
         }
+      })
+    }
+
+    if (this.options.filterControl) {
+      $(this.$fixedColumns).off('keyup change').on('keyup change', e => {
+        const $target = $(e.target)
+        const value = $target.val()
+        const field = $target.parents('th').data('field')
+        const $coreTh = this.$header.find(`th[data-field="${field}"]`)
+
+        if ($target.is('input')) {
+          $coreTh.find('input').val(value)
+        } else if ($target.is('select')) {
+          const $select = $coreTh.find('select')
+          $select.find('option[selected]').removeAttr('selected')
+          $select.find(`option[value="${value}"]`).attr('selected', true)
+        }
+
+        this.triggerSearch()
       })
     }
   }

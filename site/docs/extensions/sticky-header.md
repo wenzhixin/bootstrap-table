@@ -32,18 +32,6 @@ This is an extension which provides a sticky header for the table when scrolling
 
 - **Default:** `false`
 
-### stickyHeaderOffsetY
-
-- **attribute:** `data-sticky-header-offset-y`
-
-- **type:** `Number`
-
-- **Detail:**
-
-   Set the Y offset from the top of the window to pin the sticky header. If there is a fixed navigation bar with a height of 60px, this value would be `60`.
-
-- **Default:** `0`
-
 ### stickyHeaderOffsetLeft
 
 - **attribute:** `data-sticky-header-offset-left`
@@ -65,5 +53,17 @@ This is an extension which provides a sticky header for the table when scrolling
 - **Detail:**
 
    Set the right offset of the sticky header container.
+
+- **Default:** `0`
+
+### stickyHeaderOffsetY
+
+- **attribute:** `data-sticky-header-offset-y`
+
+- **type:** `Number`
+
+- **Detail:**
+
+   Set the Y offset from the top of the window to pin the sticky header. If there is a fixed navigation bar with a height of 60px, this value would be `60`.
 
 - **Default:** `0`

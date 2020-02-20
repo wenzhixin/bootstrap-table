@@ -44,6 +44,18 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Default:** `true`
 
+### printPageBuilder
+
+- **attribute:** `data-print-page-builder`
+
+- **type:** `Function`
+
+- **Detail:**
+
+   Receive html `<table>` element as string parameter, returns html string for printing. Used for styling and adding header or footer.
+
+- **Default:** `function(table){return printPageBuilderDefault(table)}`
+
 ### printSortColumn
 
 - **attribute:** `data-print-sort-column`
@@ -68,17 +80,9 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Default:** `'asc'`
 
-### printPageBuilder
+### Icons
 
-- **attribute:** `data-print-page-builder`
-
-- **type:** `Function`
-
-- **Detail:**
-
-   Receive html `<table>` element as string parameter, returns html string for printing. Used for styling and adding header or footer.
-
-- **Default:** `function(table){return printPageBuilderDefault(table)}`
+* print: `'glyphicon-print icon-share'`
 
 ## Column options
 
@@ -94,18 +98,6 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Default:** `undefined`
 
-### printIgnore
-
-- **attribute:** `data-print-ignore`
-
-- **type:** `Boolean`
-
-- **Detail:**
-
-   set true to hide this column in the printed page.
-
-- **Default:** `false`
-
 ### printFormatter
 
 - **attribute:** `data-print-formatter`
@@ -118,6 +110,14 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Default:** `undefined`
 
-## Icons
+### printIgnore
 
-* print: `'glyphicon-print icon-share'`
+- **attribute:** `data-print-ignore`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   set true to hide this column in the printed page.
+
+- **Default:** `false`

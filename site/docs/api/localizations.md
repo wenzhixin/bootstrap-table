@@ -48,41 +48,28 @@ $('#table').bootstrapTable({
 })
 {% endhighlight %}
 
-## formatLoadingMessage
+## formatAllRows
 
 - **Parameter:** `undefined`
 
-- **Default:** `'Loading, please wait…'`
-
-## formatRecordsPerPage
-
-- **Parameter:** `pageNumber`
-
-- **Default:** `'%s records per page'`
-
-## formatShowingRows
-
-- **Parameter:** `pageFrom, pageTo, totalRows`
-
-- **Default:** `'Showing %s to %s of %s rows'`
-
-## formatSRPaginationPreText
+- **Default:** `'All'`
+## formatClearSearch
 
 - **Parameter:** `undefined`
 
-- **Default:** `'previous page'`
+- **Default:** `'Clear Search'`
 
-## formatSRPaginationPageText
-
-- **Parameter:** `page`
-
-- **Default:** `'to page %s`
-
-## formatSRPaginationNextText
+## formatColumns
 
 - **Parameter:** `undefined`
 
-- **Default:** `'next page'`
+- **Default:** `'Columns'`
+
+## formatColumnsToggleAll
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Toggle all'`
 
 ## formatDetailPagination
 
@@ -90,17 +77,17 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Showing %s rows'`
 
-## formatSearch
+## formatFullscreen
 
 - **Parameter:** `undefined`
 
-- **Default:** `'Search'`
+- **Default:** `'Fullscreen'`
 
-## formatClearSearch
+## formatLoadingMessage
 
 - **Parameter:** `undefined`
 
-- **Default:** `'Clear Search'`
+- **Default:** `'Loading, please wait…'`
 
 ## formatNoMatches
 
@@ -126,11 +113,47 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Hide pagination'`
 
+## formatRecordsPerPage
+
+- **Parameter:** `pageNumber`
+
+- **Default:** `'%s records per page'`
+
 ## formatRefresh
 
 - **Parameter:** `undefined`
 
 - **Default:** `'Refresh'`
+
+## formatSRPaginationNextText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'next page'`
+
+## formatSRPaginationPageText
+
+- **Parameter:** `page`
+
+- **Default:** `'to page %s`
+
+## formatSRPaginationPreText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'previous page'`
+
+## formatSearch
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Search'`
+
+## formatShowingRows
+
+- **Parameter:** `pageFrom, pageTo, totalRows`
+
+- **Default:** `'Showing %s to %s of %s rows'`
 
 ## formatToggle
 
@@ -138,38 +161,15 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Toggle'`
 
-## formatToggleOn
-
-- **Parameter:** `undefined`
-
-- **Default:** `'Show card view'`
-
 ## formatToggleOff
 
 - **Parameter:** `undefined`
 
 - **Default:** `'Hide card view'`
 
-## formatColumns
+## formatToggleOn
 
 - **Parameter:** `undefined`
 
-- **Default:** `'Columns'`
+- **Default:** `'Show card view'`
 
-## formatColumnsToggleAll
-
-- **Parameter:** `undefined`
-
-- **Default:** `'Toggle all'`
-
-## formatFullscreen
-
-- **Parameter:** `undefined`
-
-- **Default:** `'Fullscreen'`
-
-## formatAllRows
-
-- **Parameter:** `undefined`
-
-- **Default:** `'All'`

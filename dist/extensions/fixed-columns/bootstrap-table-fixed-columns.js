@@ -2,7 +2,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
 	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
 	(global = global || self, factory(global.jQuery));
-}(this, function ($) { 'use strict';
+}(this, (function ($) { 'use strict';
 
 	$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
 
@@ -12,7 +12,6 @@
 		return module = { exports: {} }, fn(module, module.exports), module.exports;
 	}
 
-	var O = 'object';
 	var check = function (it) {
 	  return it && it.Math == Math && it;
 	};
@@ -20,10 +19,10 @@
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 	var global_1 =
 	  // eslint-disable-next-line no-undef
-	  check(typeof globalThis == O && globalThis) ||
-	  check(typeof window == O && window) ||
-	  check(typeof self == O && self) ||
-	  check(typeof commonjsGlobal == O && commonjsGlobal) ||
+	  check(typeof globalThis == 'object' && globalThis) ||
+	  check(typeof window == 'object' && window) ||
+	  check(typeof self == 'object' && self) ||
+	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
 	  // eslint-disable-next-line no-new-func
 	  Function('return this')();
 
@@ -121,12 +120,12 @@
 	  return hasOwnProperty.call(it, key);
 	};
 
-	var document = global_1.document;
+	var document$1 = global_1.document;
 	// typeof document.createElement is 'object' in old IE
-	var EXISTS = isObject(document) && isObject(document.createElement);
+	var EXISTS = isObject(document$1) && isObject(document$1.createElement);
 
 	var documentCreateElement = function (it) {
-	  return EXISTS ? document.createElement(it) : {};
+	  return EXISTS ? document$1.createElement(it) : {};
 	};
 
 	// Thank's IE8 for his funny defineProperty
@@ -179,7 +178,7 @@
 		f: f$2
 	};
 
-	var hide = descriptors ? function (object, key, value) {
+	var createNonEnumerableProperty = descriptors ? function (object, key, value) {
 	  return objectDefineProperty.f(object, key, createPropertyDescriptor(1, value));
 	} : function (object, key, value) {
 	  object[key] = value;
@@ -188,30 +187,41 @@
 
 	var setGlobal = function (key, value) {
 	  try {
-	    hide(global_1, key, value);
+	    createNonEnumerableProperty(global_1, key, value);
 	  } catch (error) {
 	    global_1[key] = value;
 	  } return value;
 	};
 
-	var shared = createCommonjsModule(function (module) {
 	var SHARED = '__core-js_shared__';
 	var store = global_1[SHARED] || setGlobal(SHARED, {});
 
+	var sharedStore = store;
+
+	var functionToString = Function.toString;
+
+	// this helper broken in `3.4.1-3.4.4`, so we can't use `shared` helper
+	if (typeof sharedStore.inspectSource != 'function') {
+	  sharedStore.inspectSource = function (it) {
+	    return functionToString.call(it);
+	  };
+	}
+
+	var inspectSource = sharedStore.inspectSource;
+
+	var WeakMap = global_1.WeakMap;
+
+	var nativeWeakMap = typeof WeakMap === 'function' && /native code/.test(inspectSource(WeakMap));
+
+	var shared = createCommonjsModule(function (module) {
 	(module.exports = function (key, value) {
-	  return store[key] || (store[key] = value !== undefined ? value : {});
+	  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	})('versions', []).push({
-	  version: '3.1.3',
+	  version: '3.6.0',
 	  mode:  'global',
 	  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
 	});
 	});
-
-	var functionToString = shared('native-function-to-string', Function.toString);
-
-	var WeakMap = global_1.WeakMap;
-
-	var nativeWeakMap = typeof WeakMap === 'function' && /native code/.test(functionToString.call(WeakMap));
 
 	var id = 0;
 	var postfix = Math.random();
@@ -245,25 +255,25 @@
 	};
 
 	if (nativeWeakMap) {
-	  var store = new WeakMap$1();
-	  var wmget = store.get;
-	  var wmhas = store.has;
-	  var wmset = store.set;
+	  var store$1 = new WeakMap$1();
+	  var wmget = store$1.get;
+	  var wmhas = store$1.has;
+	  var wmset = store$1.set;
 	  set = function (it, metadata) {
-	    wmset.call(store, it, metadata);
+	    wmset.call(store$1, it, metadata);
 	    return metadata;
 	  };
 	  get = function (it) {
-	    return wmget.call(store, it) || {};
+	    return wmget.call(store$1, it) || {};
 	  };
 	  has$1 = function (it) {
-	    return wmhas.call(store, it);
+	    return wmhas.call(store$1, it);
 	  };
 	} else {
 	  var STATE = sharedKey('state');
 	  hiddenKeys[STATE] = true;
 	  set = function (it, metadata) {
-	    hide(it, STATE, metadata);
+	    createNonEnumerableProperty(it, STATE, metadata);
 	    return metadata;
 	  };
 	  get = function (it) {
@@ -285,18 +295,14 @@
 	var redefine = createCommonjsModule(function (module) {
 	var getInternalState = internalState.get;
 	var enforceInternalState = internalState.enforce;
-	var TEMPLATE = String(functionToString).split('toString');
-
-	shared('inspectSource', function (it) {
-	  return functionToString.call(it);
-	});
+	var TEMPLATE = String(String).split('String');
 
 	(module.exports = function (O, key, value, options) {
 	  var unsafe = options ? !!options.unsafe : false;
 	  var simple = options ? !!options.enumerable : false;
 	  var noTargetGet = options ? !!options.noTargetGet : false;
 	  if (typeof value == 'function') {
-	    if (typeof key == 'string' && !has(value, 'name')) hide(value, 'name', key);
+	    if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
 	    enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
 	  }
 	  if (O === global_1) {
@@ -309,10 +315,10 @@
 	    simple = true;
 	  }
 	  if (simple) O[key] = value;
-	  else hide(O, key, value);
+	  else createNonEnumerableProperty(O, key, value);
 	// add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
 	})(Function.prototype, 'toString', function toString() {
-	  return typeof this == 'function' && getInternalState(this).source || functionToString.call(this);
+	  return typeof this == 'function' && getInternalState(this).source || inspectSource(this);
 	});
 	});
 
@@ -349,7 +355,7 @@
 
 	// Helper for a popular repeating case of the spec:
 	// Let integer be ? ToInteger(index).
-	// If integer < 0, let result be max((length + integer), 0); else let result be min(length, length).
+	// If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
 	var toAbsoluteIndex = function (index, length) {
 	  var integer = toInteger(index);
 	  return integer < 0 ? max(integer + length, 0) : min$1(integer, length);
@@ -513,7 +519,7 @@
 	    }
 	    // add a flag to not completely full polyfills
 	    if (options.sham || (targetProperty && targetProperty.sham)) {
-	      hide(sourceProperty, 'sham', true);
+	      createNonEnumerableProperty(sourceProperty, 'sham', true);
 	    }
 	    // extend global
 	    redefine(target, key, sourceProperty, options);
@@ -544,12 +550,21 @@
 	  return !String(Symbol());
 	});
 
+	var useSymbolAsUid = nativeSymbol
+	  // eslint-disable-next-line no-undef
+	  && !Symbol.sham
+	  // eslint-disable-next-line no-undef
+	  && typeof Symbol() == 'symbol';
+
+	var WellKnownSymbolsStore = shared('wks');
 	var Symbol$1 = global_1.Symbol;
-	var store$1 = shared('wks');
+	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : uid;
 
 	var wellKnownSymbol = function (name) {
-	  return store$1[name] || (store$1[name] = nativeSymbol && Symbol$1[name]
-	    || (nativeSymbol ? Symbol$1 : uid)('Symbol.' + name));
+	  if (!has(WellKnownSymbolsStore, name)) {
+	    if (nativeSymbol && has(Symbol$1, name)) WellKnownSymbolsStore[name] = Symbol$1[name];
+	    else WellKnownSymbolsStore[name] = createWellKnownSymbol('Symbol.' + name);
+	  } return WellKnownSymbolsStore[name];
 	};
 
 	var SPECIES = wellKnownSymbol('species');
@@ -569,10 +584,33 @@
 	  } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
 	};
 
+	var userAgent = getBuiltIn('navigator', 'userAgent') || '';
+
+	var process = global_1.process;
+	var versions = process && process.versions;
+	var v8 = versions && versions.v8;
+	var match, version;
+
+	if (v8) {
+	  match = v8.split('.');
+	  version = match[0] + match[1];
+	} else if (userAgent) {
+	  match = userAgent.match(/Edge\/(\d+)/);
+	  if (!match || match[1] >= 74) {
+	    match = userAgent.match(/Chrome\/(\d+)/);
+	    if (match) version = match[1];
+	  }
+	}
+
+	var v8Version = version && +version;
+
 	var SPECIES$1 = wellKnownSymbol('species');
 
 	var arrayMethodHasSpeciesSupport = function (METHOD_NAME) {
-	  return !fails(function () {
+	  // We can't use this feature detection in V8 since it causes
+	  // deoptimization and serious performance degradation
+	  // https://github.com/zloirock/core-js/issues/677
+	  return v8Version >= 51 || !fails(function () {
 	    var array = [];
 	    var constructor = array.constructor = {};
 	    constructor[SPECIES$1] = function () {
@@ -586,7 +624,10 @@
 	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
 	var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded';
 
-	var IS_CONCAT_SPREADABLE_SUPPORT = !fails(function () {
+	// We can't use this feature detection in V8 since it causes
+	// deoptimization and serious performance degradation
+	// https://github.com/zloirock/core-js/issues/679
+	var IS_CONCAT_SPREADABLE_SUPPORT = v8Version >= 51 || !fails(function () {
 	  var array = [];
 	  array[IS_CONCAT_SPREADABLE] = false;
 	  return array.concat()[0] !== array;
@@ -736,48 +777,76 @@
 
 	var html = getBuiltIn('document', 'documentElement');
 
+	var GT = '>';
+	var LT = '<';
+	var PROTOTYPE = 'prototype';
+	var SCRIPT = 'script';
 	var IE_PROTO = sharedKey('IE_PROTO');
 
-	var PROTOTYPE = 'prototype';
-	var Empty = function () { /* empty */ };
+	var EmptyConstructor = function () { /* empty */ };
+
+	var scriptTag = function (content) {
+	  return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT;
+	};
+
+	// Create object with fake `null` prototype: use ActiveX Object with cleared prototype
+	var NullProtoObjectViaActiveX = function (activeXDocument) {
+	  activeXDocument.write(scriptTag(''));
+	  activeXDocument.close();
+	  var temp = activeXDocument.parentWindow.Object;
+	  activeXDocument = null; // avoid memory leak
+	  return temp;
+	};
 
 	// Create object with fake `null` prototype: use iframe Object with cleared prototype
-	var createDict = function () {
+	var NullProtoObjectViaIFrame = function () {
 	  // Thrash, waste and sodomy: IE GC bug
 	  var iframe = documentCreateElement('iframe');
-	  var length = enumBugKeys.length;
-	  var lt = '<';
-	  var script = 'script';
-	  var gt = '>';
-	  var js = 'java' + script + ':';
+	  var JS = 'java' + SCRIPT + ':';
 	  var iframeDocument;
 	  iframe.style.display = 'none';
 	  html.appendChild(iframe);
-	  iframe.src = String(js);
+	  // https://github.com/zloirock/core-js/issues/475
+	  iframe.src = String(JS);
 	  iframeDocument = iframe.contentWindow.document;
 	  iframeDocument.open();
-	  iframeDocument.write(lt + script + gt + 'document.F=Object' + lt + '/' + script + gt);
+	  iframeDocument.write(scriptTag('document.F=Object'));
 	  iframeDocument.close();
-	  createDict = iframeDocument.F;
-	  while (length--) delete createDict[PROTOTYPE][enumBugKeys[length]];
-	  return createDict();
+	  return iframeDocument.F;
 	};
+
+	// Check for document.domain and active x support
+	// No need to use active x approach when document.domain is not set
+	// see https://github.com/es-shims/es5-shim/issues/150
+	// variation of https://github.com/kitcambridge/es5-shim/commit/4f738ac066346
+	// avoid IE GC bug
+	var activeXDocument;
+	var NullProtoObject = function () {
+	  try {
+	    /* global ActiveXObject */
+	    activeXDocument = document.domain && new ActiveXObject('htmlfile');
+	  } catch (error) { /* ignore */ }
+	  NullProtoObject = activeXDocument ? NullProtoObjectViaActiveX(activeXDocument) : NullProtoObjectViaIFrame();
+	  var length = enumBugKeys.length;
+	  while (length--) delete NullProtoObject[PROTOTYPE][enumBugKeys[length]];
+	  return NullProtoObject();
+	};
+
+	hiddenKeys[IE_PROTO] = true;
 
 	// `Object.create` method
 	// https://tc39.github.io/ecma262/#sec-object.create
 	var objectCreate = Object.create || function create(O, Properties) {
 	  var result;
 	  if (O !== null) {
-	    Empty[PROTOTYPE] = anObject(O);
-	    result = new Empty();
-	    Empty[PROTOTYPE] = null;
+	    EmptyConstructor[PROTOTYPE] = anObject(O);
+	    result = new EmptyConstructor();
+	    EmptyConstructor[PROTOTYPE] = null;
 	    // add "__proto__" for Object.getPrototypeOf polyfill
 	    result[IE_PROTO] = O;
-	  } else result = createDict();
+	  } else result = NullProtoObject();
 	  return Properties === undefined ? result : objectDefineProperties(result, Properties);
 	};
-
-	hiddenKeys[IE_PROTO] = true;
 
 	var UNSCOPABLES = wellKnownSymbol('unscopables');
 	var ArrayPrototype = Array.prototype;
@@ -785,7 +854,10 @@
 	// Array.prototype[@@unscopables]
 	// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
 	if (ArrayPrototype[UNSCOPABLES] == undefined) {
-	  hide(ArrayPrototype, UNSCOPABLES, objectCreate(null));
+	  objectDefineProperty.f(ArrayPrototype, UNSCOPABLES, {
+	    configurable: true,
+	    value: objectCreate(null)
+	  });
 	}
 
 	// add a key to Array.prototype[@@unscopables]
@@ -813,327 +885,111 @@
 	// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
 	addToUnscopables(FIND);
 
-	// `RegExp.prototype.flags` getter implementation
-	// https://tc39.github.io/ecma262/#sec-get-regexp.prototype.flags
-	var regexpFlags = function () {
-	  var that = anObject(this);
-	  var result = '';
-	  if (that.global) result += 'g';
-	  if (that.ignoreCase) result += 'i';
-	  if (that.multiline) result += 'm';
-	  if (that.dotAll) result += 's';
-	  if (that.unicode) result += 'u';
-	  if (that.sticky) result += 'y';
-	  return result;
+	var sloppyArrayMethod = function (METHOD_NAME, argument) {
+	  var method = [][METHOD_NAME];
+	  return !method || !fails(function () {
+	    // eslint-disable-next-line no-useless-call,no-throw-literal
+	    method.call(null, argument || function () { throw 1; }, 1);
+	  });
 	};
 
-	var nativeExec = RegExp.prototype.exec;
-	// This always refers to the native implementation, because the
-	// String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
-	// which loads this file before patching the method.
-	var nativeReplace = String.prototype.replace;
+	var $indexOf = arrayIncludes.indexOf;
 
-	var patchedExec = nativeExec;
 
-	var UPDATES_LAST_INDEX_WRONG = (function () {
-	  var re1 = /a/;
-	  var re2 = /b*/g;
-	  nativeExec.call(re1, 'a');
-	  nativeExec.call(re2, 'a');
-	  return re1.lastIndex !== 0 || re2.lastIndex !== 0;
-	})();
+	var nativeIndexOf = [].indexOf;
 
-	// nonparticipating capturing group, copied from es5-shim's String#split patch.
-	var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
+	var NEGATIVE_ZERO = !!nativeIndexOf && 1 / [1].indexOf(1, -0) < 0;
+	var SLOPPY_METHOD = sloppyArrayMethod('indexOf');
 
-	var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED;
+	// `Array.prototype.indexOf` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.indexof
+	_export({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || SLOPPY_METHOD }, {
+	  indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
+	    return NEGATIVE_ZERO
+	      // convert -0 to +0
+	      ? nativeIndexOf.apply(this, arguments) || 0
+	      : $indexOf(this, searchElement, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	});
 
-	if (PATCH) {
-	  patchedExec = function exec(str) {
-	    var re = this;
-	    var lastIndex, reCopy, match, i;
+	var nativeReverse = [].reverse;
+	var test = [1, 2];
 
-	    if (NPCG_INCLUDED) {
-	      reCopy = new RegExp('^' + re.source + '$(?!\\s)', regexpFlags.call(re));
-	    }
-	    if (UPDATES_LAST_INDEX_WRONG) lastIndex = re.lastIndex;
+	// `Array.prototype.reverse` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.reverse
+	// fix for Safari 12.0 bug
+	// https://bugs.webkit.org/show_bug.cgi?id=188794
+	_export({ target: 'Array', proto: true, forced: String(test) === String(test.reverse()) }, {
+	  reverse: function reverse() {
+	    // eslint-disable-next-line no-self-assign
+	    if (isArray(this)) this.length = this.length;
+	    return nativeReverse.call(this);
+	  }
+	});
 
-	    match = nativeExec.call(re, str);
+	// a string of all valid unicode whitespaces
+	// eslint-disable-next-line max-len
+	var whitespaces = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
 
-	    if (UPDATES_LAST_INDEX_WRONG && match) {
-	      re.lastIndex = re.global ? match.index + match[0].length : lastIndex;
-	    }
-	    if (NPCG_INCLUDED && match && match.length > 1) {
-	      // Fix browsers whose `exec` methods don't consistently return `undefined`
-	      // for NPCG, like IE8. NOTE: This doesn' work for /(.?)?/
-	      nativeReplace.call(match[0], reCopy, function () {
-	        for (i = 1; i < arguments.length - 2; i++) {
-	          if (arguments[i] === undefined) match[i] = undefined;
-	        }
-	      });
-	    }
+	var whitespace = '[' + whitespaces + ']';
+	var ltrim = RegExp('^' + whitespace + whitespace + '*');
+	var rtrim = RegExp(whitespace + whitespace + '*$');
 
-	    return match;
+	// `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
+	var createMethod$2 = function (TYPE) {
+	  return function ($this) {
+	    var string = String(requireObjectCoercible($this));
+	    if (TYPE & 1) string = string.replace(ltrim, '');
+	    if (TYPE & 2) string = string.replace(rtrim, '');
+	    return string;
 	  };
+	};
+
+	var stringTrim = {
+	  // `String.prototype.{ trimLeft, trimStart }` methods
+	  // https://tc39.github.io/ecma262/#sec-string.prototype.trimstart
+	  start: createMethod$2(1),
+	  // `String.prototype.{ trimRight, trimEnd }` methods
+	  // https://tc39.github.io/ecma262/#sec-string.prototype.trimend
+	  end: createMethod$2(2),
+	  // `String.prototype.trim` method
+	  // https://tc39.github.io/ecma262/#sec-string.prototype.trim
+	  trim: createMethod$2(3)
+	};
+
+	var trim = stringTrim.trim;
+
+
+	var nativeParseInt = global_1.parseInt;
+	var hex = /^[+-]?0[Xx]/;
+	var FORCED$1 = nativeParseInt(whitespaces + '08') !== 8 || nativeParseInt(whitespaces + '0x16') !== 22;
+
+	// `parseInt` method
+	// https://tc39.github.io/ecma262/#sec-parseint-string-radix
+	var _parseInt = FORCED$1 ? function parseInt(string, radix) {
+	  var S = trim(String(string));
+	  return nativeParseInt(S, (radix >>> 0) || (hex.test(S) ? 16 : 10));
+	} : nativeParseInt;
+
+	// `parseInt` method
+	// https://tc39.github.io/ecma262/#sec-parseint-string-radix
+	_export({ global: true, forced: parseInt != _parseInt }, {
+	  parseInt: _parseInt
+	});
+
+	function _typeof(obj) {
+	  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+	    _typeof = function (obj) {
+	      return typeof obj;
+	    };
+	  } else {
+	    _typeof = function (obj) {
+	      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	    };
+	  }
+
+	  return _typeof(obj);
 	}
-
-	var regexpExec = patchedExec;
-
-	var SPECIES$2 = wellKnownSymbol('species');
-
-	var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
-	  // #replace needs built-in support for named groups.
-	  // #match works fine because it just return the exec results, even if it has
-	  // a "grops" property.
-	  var re = /./;
-	  re.exec = function () {
-	    var result = [];
-	    result.groups = { a: '7' };
-	    return result;
-	  };
-	  return ''.replace(re, '$<a>') !== '7';
-	});
-
-	// Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
-	// Weex JS has frozen built-in prototypes, so use try / catch wrapper
-	var SPLIT_WORKS_WITH_OVERWRITTEN_EXEC = !fails(function () {
-	  var re = /(?:)/;
-	  var originalExec = re.exec;
-	  re.exec = function () { return originalExec.apply(this, arguments); };
-	  var result = 'ab'.split(re);
-	  return result.length !== 2 || result[0] !== 'a' || result[1] !== 'b';
-	});
-
-	var fixRegexpWellKnownSymbolLogic = function (KEY, length, exec, sham) {
-	  var SYMBOL = wellKnownSymbol(KEY);
-
-	  var DELEGATES_TO_SYMBOL = !fails(function () {
-	    // String methods call symbol-named RegEp methods
-	    var O = {};
-	    O[SYMBOL] = function () { return 7; };
-	    return ''[KEY](O) != 7;
-	  });
-
-	  var DELEGATES_TO_EXEC = DELEGATES_TO_SYMBOL && !fails(function () {
-	    // Symbol-named RegExp methods call .exec
-	    var execCalled = false;
-	    var re = /a/;
-	    re.exec = function () { execCalled = true; return null; };
-
-	    if (KEY === 'split') {
-	      // RegExp[@@split] doesn't call the regex's exec method, but first creates
-	      // a new one. We need to return the patched regex when creating the new one.
-	      re.constructor = {};
-	      re.constructor[SPECIES$2] = function () { return re; };
-	    }
-
-	    re[SYMBOL]('');
-	    return !execCalled;
-	  });
-
-	  if (
-	    !DELEGATES_TO_SYMBOL ||
-	    !DELEGATES_TO_EXEC ||
-	    (KEY === 'replace' && !REPLACE_SUPPORTS_NAMED_GROUPS) ||
-	    (KEY === 'split' && !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC)
-	  ) {
-	    var nativeRegExpMethod = /./[SYMBOL];
-	    var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
-	      if (regexp.exec === regexpExec) {
-	        if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
-	          // The native String method already delegates to @@method (this
-	          // polyfilled function), leasing to infinite recursion.
-	          // We avoid it by directly calling the native @@method method.
-	          return { done: true, value: nativeRegExpMethod.call(regexp, str, arg2) };
-	        }
-	        return { done: true, value: nativeMethod.call(str, regexp, arg2) };
-	      }
-	      return { done: false };
-	    });
-	    var stringMethod = methods[0];
-	    var regexMethod = methods[1];
-
-	    redefine(String.prototype, KEY, stringMethod);
-	    redefine(RegExp.prototype, SYMBOL, length == 2
-	      // 21.2.5.8 RegExp.prototype[@@replace](string, replaceValue)
-	      // 21.2.5.11 RegExp.prototype[@@split](string, limit)
-	      ? function (string, arg) { return regexMethod.call(string, this, arg); }
-	      // 21.2.5.6 RegExp.prototype[@@match](string)
-	      // 21.2.5.9 RegExp.prototype[@@search](string)
-	      : function (string) { return regexMethod.call(string, this); }
-	    );
-	    if (sham) hide(RegExp.prototype[SYMBOL], 'sham', true);
-	  }
-	};
-
-	// `String.prototype.{ codePointAt, at }` methods implementation
-	var createMethod$2 = function (CONVERT_TO_STRING) {
-	  return function ($this, pos) {
-	    var S = String(requireObjectCoercible($this));
-	    var position = toInteger(pos);
-	    var size = S.length;
-	    var first, second;
-	    if (position < 0 || position >= size) return CONVERT_TO_STRING ? '' : undefined;
-	    first = S.charCodeAt(position);
-	    return first < 0xD800 || first > 0xDBFF || position + 1 === size
-	      || (second = S.charCodeAt(position + 1)) < 0xDC00 || second > 0xDFFF
-	        ? CONVERT_TO_STRING ? S.charAt(position) : first
-	        : CONVERT_TO_STRING ? S.slice(position, position + 2) : (first - 0xD800 << 10) + (second - 0xDC00) + 0x10000;
-	  };
-	};
-
-	var stringMultibyte = {
-	  // `String.prototype.codePointAt` method
-	  // https://tc39.github.io/ecma262/#sec-string.prototype.codepointat
-	  codeAt: createMethod$2(false),
-	  // `String.prototype.at` method
-	  // https://github.com/mathiasbynens/String.prototype.at
-	  charAt: createMethod$2(true)
-	};
-
-	var charAt = stringMultibyte.charAt;
-
-	// `AdvanceStringIndex` abstract operation
-	// https://tc39.github.io/ecma262/#sec-advancestringindex
-	var advanceStringIndex = function (S, index, unicode) {
-	  return index + (unicode ? charAt(S, index).length : 1);
-	};
-
-	// `RegExpExec` abstract operation
-	// https://tc39.github.io/ecma262/#sec-regexpexec
-	var regexpExecAbstract = function (R, S) {
-	  var exec = R.exec;
-	  if (typeof exec === 'function') {
-	    var result = exec.call(R, S);
-	    if (typeof result !== 'object') {
-	      throw TypeError('RegExp exec method returned something other than an Object or null');
-	    }
-	    return result;
-	  }
-
-	  if (classofRaw(R) !== 'RegExp') {
-	    throw TypeError('RegExp#exec called on incompatible receiver');
-	  }
-
-	  return regexpExec.call(R, S);
-	};
-
-	var max$1 = Math.max;
-	var min$2 = Math.min;
-	var floor$1 = Math.floor;
-	var SUBSTITUTION_SYMBOLS = /\$([$&'`]|\d\d?|<[^>]*>)/g;
-	var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'`]|\d\d?)/g;
-
-	var maybeToString = function (it) {
-	  return it === undefined ? it : String(it);
-	};
-
-	// @@replace logic
-	fixRegexpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, maybeCallNative) {
-	  return [
-	    // `String.prototype.replace` method
-	    // https://tc39.github.io/ecma262/#sec-string.prototype.replace
-	    function replace(searchValue, replaceValue) {
-	      var O = requireObjectCoercible(this);
-	      var replacer = searchValue == undefined ? undefined : searchValue[REPLACE];
-	      return replacer !== undefined
-	        ? replacer.call(searchValue, O, replaceValue)
-	        : nativeReplace.call(String(O), searchValue, replaceValue);
-	    },
-	    // `RegExp.prototype[@@replace]` method
-	    // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@replace
-	    function (regexp, replaceValue) {
-	      var res = maybeCallNative(nativeReplace, regexp, this, replaceValue);
-	      if (res.done) return res.value;
-
-	      var rx = anObject(regexp);
-	      var S = String(this);
-
-	      var functionalReplace = typeof replaceValue === 'function';
-	      if (!functionalReplace) replaceValue = String(replaceValue);
-
-	      var global = rx.global;
-	      if (global) {
-	        var fullUnicode = rx.unicode;
-	        rx.lastIndex = 0;
-	      }
-	      var results = [];
-	      while (true) {
-	        var result = regexpExecAbstract(rx, S);
-	        if (result === null) break;
-
-	        results.push(result);
-	        if (!global) break;
-
-	        var matchStr = String(result[0]);
-	        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
-	      }
-
-	      var accumulatedResult = '';
-	      var nextSourcePosition = 0;
-	      for (var i = 0; i < results.length; i++) {
-	        result = results[i];
-
-	        var matched = String(result[0]);
-	        var position = max$1(min$2(toInteger(result.index), S.length), 0);
-	        var captures = [];
-	        // NOTE: This is equivalent to
-	        //   captures = result.slice(1).map(maybeToString)
-	        // but for some reason `nativeSlice.call(result, 1, result.length)` (called in
-	        // the slice polyfill when slicing native arrays) "doesn't work" in safari 9 and
-	        // causes a crash (https://pastebin.com/N21QzeQA) when trying to debug it.
-	        for (var j = 1; j < result.length; j++) captures.push(maybeToString(result[j]));
-	        var namedCaptures = result.groups;
-	        if (functionalReplace) {
-	          var replacerArgs = [matched].concat(captures, position, S);
-	          if (namedCaptures !== undefined) replacerArgs.push(namedCaptures);
-	          var replacement = String(replaceValue.apply(undefined, replacerArgs));
-	        } else {
-	          replacement = getSubstitution(matched, S, position, captures, namedCaptures, replaceValue);
-	        }
-	        if (position >= nextSourcePosition) {
-	          accumulatedResult += S.slice(nextSourcePosition, position) + replacement;
-	          nextSourcePosition = position + matched.length;
-	        }
-	      }
-	      return accumulatedResult + S.slice(nextSourcePosition);
-	    }
-	  ];
-
-	  // https://tc39.github.io/ecma262/#sec-getsubstitution
-	  function getSubstitution(matched, str, position, captures, namedCaptures, replacement) {
-	    var tailPos = position + matched.length;
-	    var m = captures.length;
-	    var symbols = SUBSTITUTION_SYMBOLS_NO_NAMED;
-	    if (namedCaptures !== undefined) {
-	      namedCaptures = toObject(namedCaptures);
-	      symbols = SUBSTITUTION_SYMBOLS;
-	    }
-	    return nativeReplace.call(replacement, symbols, function (match, ch) {
-	      var capture;
-	      switch (ch.charAt(0)) {
-	        case '$': return '$';
-	        case '&': return matched;
-	        case '`': return str.slice(0, position);
-	        case "'": return str.slice(tailPos);
-	        case '<':
-	          capture = namedCaptures[ch.slice(1, -1)];
-	          break;
-	        default: // \d\d?
-	          var n = +ch;
-	          if (n === 0) return match;
-	          if (n > m) {
-	            var f = floor$1(n / 10);
-	            if (f === 0) return match;
-	            if (f <= m) return captures[f - 1] === undefined ? ch.charAt(1) : captures[f - 1] + ch.charAt(1);
-	            return match;
-	          }
-	          capture = captures[n - 1];
-	      }
-	      return capture === undefined ? '' : capture;
-	    });
-	  }
-	});
 
 	function _classCallCheck(instance, Constructor) {
 	  if (!(instance instanceof Constructor)) {
@@ -1238,9 +1094,88 @@
 	 * @author zhixin wen <wenzhixin2010@gmail.com>
 	 */
 
+	var Utils = $.fn.bootstrapTable.utils; // Reasonable defaults
+
+	var PIXEL_STEP = 10;
+	var LINE_HEIGHT = 40;
+	var PAGE_HEIGHT = 800;
+
+	function normalizeWheel(event) {
+	  var sX = 0; // spinX
+
+	  var sY = 0; // spinY
+
+	  var pX = 0; // pixelX
+
+	  var pY = 0; // pixelY
+	  // Legacy
+
+	  if ('detail' in event) {
+	    sY = event.detail;
+	  }
+
+	  if ('wheelDelta' in event) {
+	    sY = -event.wheelDelta / 120;
+	  }
+
+	  if ('wheelDeltaY' in event) {
+	    sY = -event.wheelDeltaY / 120;
+	  }
+
+	  if ('wheelDeltaX' in event) {
+	    sX = -event.wheelDeltaX / 120;
+	  } // side scrolling on FF with DOMMouseScroll
+
+
+	  if ('axis' in event && event.axis === event.HORIZONTAL_AXIS) {
+	    sX = sY;
+	    sY = 0;
+	  }
+
+	  pX = sX * PIXEL_STEP;
+	  pY = sY * PIXEL_STEP;
+
+	  if ('deltaY' in event) {
+	    pY = event.deltaY;
+	  }
+
+	  if ('deltaX' in event) {
+	    pX = event.deltaX;
+	  }
+
+	  if ((pX || pY) && event.deltaMode) {
+	    if (event.deltaMode === 1) {
+	      // delta in LINE units
+	      pX *= LINE_HEIGHT;
+	      pY *= LINE_HEIGHT;
+	    } else {
+	      // delta in PAGE units
+	      pX *= PAGE_HEIGHT;
+	      pY *= PAGE_HEIGHT;
+	    }
+	  } // Fall-back if spin cannot be determined
+
+
+	  if (pX && !sX) {
+	    sX = pX < 1 ? -1 : 1;
+	  }
+
+	  if (pY && !sY) {
+	    sY = pY < 1 ? -1 : 1;
+	  }
+
+	  return {
+	    spinX: sX,
+	    spinY: sY,
+	    pixelX: pX,
+	    pixelY: pY
+	  };
+	}
+
 	$.extend($.fn.bootstrapTable.defaults, {
 	  fixedColumns: false,
-	  fixedNumber: 1
+	  fixedNumber: 0,
+	  fixedRightNumber: 0
 	});
 
 	$.BootstrapTable =
@@ -1255,54 +1190,41 @@
 	  }
 
 	  _createClass(_class, [{
-	    key: "fitHeader",
-	    value: function fitHeader() {
+	    key: "fixedColumnsSupported",
+	    value: function fixedColumnsSupported() {
+	      return this.options.fixedColumns && !this.options.detailView && !this.options.cardView;
+	    }
+	  }, {
+	    key: "initContainer",
+	    value: function initContainer() {
+	      _get(_getPrototypeOf(_class.prototype), "initContainer", this).call(this);
+
+	      if (!this.fixedColumnsSupported()) {
+	        return;
+	      }
+
+	      if (this.options.fixedNumber) {
+	        this.$tableContainer.append('<div class="fixed-columns"></div>');
+	        this.$fixedColumns = this.$tableContainer.find('.fixed-columns');
+	      }
+
+	      if (this.options.fixedRightNumber) {
+	        this.$tableContainer.append('<div class="fixed-columns-right"></div>');
+	        this.$fixedColumnsRight = this.$tableContainer.find('.fixed-columns-right');
+	      }
+	    }
+	  }, {
+	    key: "initBody",
+	    value: function initBody() {
 	      var _get2;
 
 	      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
 	        args[_key] = arguments[_key];
 	      }
 
-	      (_get2 = _get(_getPrototypeOf(_class.prototype), "fitHeader", this)).call.apply(_get2, [this].concat(args));
+	      (_get2 = _get(_getPrototypeOf(_class.prototype), "initBody", this)).call.apply(_get2, [this].concat(args));
 
-	      if (!this.options.fixedColumns) {
-	        return;
-	      }
-
-	      if (this.$el.is(':hidden')) {
-	        return;
-	      }
-
-	      this.$container.find('.fixed-table-header-columns').remove();
-	      this.$fixedHeader = $('<div class="fixed-table-header-columns"></div>');
-	      this.$fixedHeader.append(this.$tableHeader.find('>table').clone(true));
-	      this.$tableHeader.after(this.$fixedHeader);
-	      var width = this.getFixedColumnsWidth();
-	      this.$fixedHeader.css({
-	        top: 0,
-	        width: width,
-	        height: this.$tableHeader.outerHeight(true)
-	      });
-	      this.initFixedColumnsBody();
-	      this.$fixedBody.css({
-	        top: this.$tableHeader.outerHeight(true),
-	        width: width,
-	        height: this.$tableBody.outerHeight(true) - 1
-	      });
-	      this.initFixedColumnsEvents();
-	    }
-	  }, {
-	    key: "initBody",
-	    value: function initBody() {
-	      var _get3;
-
-	      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	        args[_key2] = arguments[_key2];
-	      }
-
-	      (_get3 = _get(_getPrototypeOf(_class.prototype), "initBody", this)).call.apply(_get3, [this].concat(args));
-
-	      if (!this.options.fixedColumns) {
+	      if (!this.fixedColumnsSupported()) {
 	        return;
 	      }
 
@@ -1311,68 +1233,269 @@
 	      }
 
 	      this.initFixedColumnsBody();
-	      this.$fixedBody.css({
-	        top: 0,
-	        width: this.getFixedColumnsWidth(),
-	        height: this.$tableHeader.outerHeight(true) + this.$tableBody.outerHeight(true)
+	      this.initFixedColumnsEvents();
+	    }
+	  }, {
+	    key: "trigger",
+	    value: function trigger() {
+	      var _get3;
+
+	      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	        args[_key2] = arguments[_key2];
+	      }
+
+	      (_get3 = _get(_getPrototypeOf(_class.prototype), "trigger", this)).call.apply(_get3, [this].concat(args));
+
+	      if (!this.fixedColumnsSupported()) {
+	        return;
+	      }
+
+	      if (args[0] === 'post-header') {
+	        this.initFixedColumnsHeader();
+	      } else if (args[0] === 'scroll-body') {
+	        if (this.needFixedColumns && this.options.fixedNumber) {
+	          this.$fixedBody.scrollTop(this.$tableBody.scrollTop());
+	        }
+
+	        if (this.needFixedColumns && this.options.fixedRightNumber) {
+	          this.$fixedBodyRight.scrollTop(this.$tableBody.scrollTop());
+	        }
+	      }
+	    }
+	  }, {
+	    key: "updateSelected",
+	    value: function updateSelected() {
+	      var _this = this;
+
+	      _get(_getPrototypeOf(_class.prototype), "updateSelected", this).call(this);
+
+	      if (!this.fixedColumnsSupported()) {
+	        return;
+	      }
+
+	      this.$tableBody.find('tr').each(function (i, el) {
+	        var $el = $(el);
+	        var index = $el.data('index');
+	        var classes = $el.attr('class');
+	        var inputSelector = "[name=\"".concat(_this.options.selectItemName, "\"]");
+	        var $input = $el.find(inputSelector);
+
+	        if (_typeof(index) === undefined) {
+	          return;
+	        }
+
+	        var updateFixedBody = function updateFixedBody($fixedHeader, $fixedBody) {
+	          var $tr = $fixedBody.find("tr[data-index=\"".concat(index, "\"]"));
+	          $tr.attr('class', classes);
+
+	          if ($input.length) {
+	            $tr.find(inputSelector).prop('checked', $input.prop('checked'));
+	          }
+
+	          if (_this.$selectAll.length) {
+	            $fixedHeader.add($fixedBody).find('[name="btSelectAll"]').prop('checked', _this.$selectAll.prop('checked'));
+	          }
+	        };
+
+	        if (_this.$fixedBody && _this.options.fixedNumber) {
+	          updateFixedBody(_this.$fixedHeader, _this.$fixedBody);
+	        }
+
+	        if (_this.$fixedBodyRight && _this.options.fixedRightNumber) {
+	          updateFixedBody(_this.$fixedHeaderRight, _this.$fixedBodyRight);
+	        }
 	      });
+	    }
+	  }, {
+	    key: "initFixedColumnsHeader",
+	    value: function initFixedColumnsHeader() {
+	      var _this2 = this;
+
+	      if (this.options.height) {
+	        this.needFixedColumns = this.$tableHeader.outerWidth(true) < this.$tableHeader.find('table').outerWidth(true);
+	      } else {
+	        this.needFixedColumns = this.$tableBody.outerWidth(true) < this.$tableBody.find('table').outerWidth(true);
+	      }
+
+	      var initFixedHeader = function initFixedHeader($fixedColumns, isRight) {
+	        $fixedColumns.find('.fixed-table-header').remove();
+	        $fixedColumns.append(_this2.$tableHeader.clone(true));
+	        $fixedColumns.css({
+	          width: _this2.getFixedColumnsWidth(isRight)
+	        });
+	        return $fixedColumns.find('.fixed-table-header');
+	      };
+
+	      if (this.needFixedColumns && this.options.fixedNumber) {
+	        this.$fixedHeader = initFixedHeader(this.$fixedColumns);
+	        this.$fixedHeader.css('margin-right', '');
+	      } else if (this.$fixedColumns) {
+	        this.$fixedColumns.html('').css('width', '');
+	      }
+
+	      if (this.needFixedColumns && this.options.fixedRightNumber) {
+	        this.$fixedHeaderRight = initFixedHeader(this.$fixedColumnsRight, true);
+	        this.$fixedHeaderRight.scrollLeft(this.$fixedHeaderRight.find('table').width());
+	      } else if (this.$fixedColumnsRight) {
+	        this.$fixedColumnsRight.html('').css('width', '');
+	      }
+
+	      this.initFixedColumnsBody();
 	      this.initFixedColumnsEvents();
 	    }
 	  }, {
 	    key: "initFixedColumnsBody",
 	    value: function initFixedColumnsBody() {
-	      this.$container.find('.fixed-table-body-columns').remove();
-	      this.$fixedBody = $('<div class="fixed-table-body-columns"></div>');
-	      this.$fixedBody.append(this.$tableBody.find('>table').clone(true));
-	      this.$tableBody.after(this.$fixedBody);
+	      var _this3 = this;
+
+	      var initFixedBody = function initFixedBody($fixedColumns, $fixedHeader) {
+	        $fixedColumns.find('.fixed-table-body').remove();
+	        $fixedColumns.append(_this3.$tableBody.clone(true));
+	        var $fixedBody = $fixedColumns.find('.fixed-table-body');
+
+	        var tableBody = _this3.$tableBody.get(0);
+
+	        var scrollHeight = tableBody.scrollWidth > tableBody.clientWidth ? Utils.getScrollBarWidth() : 0;
+	        var height = _this3.$tableContainer.outerHeight(true) - scrollHeight - 1;
+	        $fixedColumns.css({
+	          height: height
+	        });
+	        $fixedBody.css({
+	          height: height - $fixedHeader.height()
+	        });
+	        return $fixedBody;
+	      };
+
+	      if (this.needFixedColumns && this.options.fixedNumber) {
+	        this.$fixedBody = initFixedBody(this.$fixedColumns, this.$fixedHeader);
+	      }
+
+	      if (this.needFixedColumns && this.options.fixedRightNumber) {
+	        this.$fixedBodyRight = initFixedBody(this.$fixedColumnsRight, this.$fixedHeaderRight);
+	        this.$fixedBodyRight.scrollLeft(this.$fixedBodyRight.find('table').width());
+	        this.$fixedBodyRight.css('overflow-y', this.options.height ? 'auto' : 'hidden');
+	      }
 	    }
 	  }, {
 	    key: "getFixedColumnsWidth",
-	    value: function getFixedColumnsWidth() {
+	    value: function getFixedColumnsWidth(isRight) {
 	      var visibleFields = this.getVisibleFields();
 	      var width = 0;
+	      var fixedNumber = this.options.fixedNumber;
+	      var marginRight = 0;
 
-	      for (var i = 0; i < this.options.fixedNumber; i++) {
+	      if (isRight) {
+	        visibleFields = visibleFields.reverse();
+	        fixedNumber = this.options.fixedRightNumber;
+	        marginRight = parseInt(this.$tableHeader.css('margin-right'), 10);
+	      }
+
+	      for (var i = 0; i < fixedNumber; i++) {
 	        width += this.$header.find("th[data-field=\"".concat(visibleFields[i], "\"]")).outerWidth(true);
 	      }
 
-	      return width + 1;
+	      return width + marginRight + 1;
 	    }
 	  }, {
 	    key: "initFixedColumnsEvents",
 	    value: function initFixedColumnsEvents() {
-	      var _this = this;
+	      var _this4 = this;
 
-	      // events
-	      this.$tableBody.off('scroll.fixed-columns').on('scroll.fixed-columns', function (e) {
-	        _this.$fixedBody.find('table').css('top', -$(e.currentTarget).scrollTop());
-	      });
-	      this.$body.find('> tr[data-index]').off('hover').hover(function (e) {
-	        var index = $(e.currentTarget).data('index');
+	      var toggleHover = function toggleHover(e, toggle) {
+	        var tr = "tr[data-index=\"".concat($(e.currentTarget).data('index'), "\"]");
 
-	        _this.$fixedBody.find("tr[data-index=\"".concat(index, "\"]")).css('background-color', $(e.currentTarget).css('background-color'));
+	        var $trs = _this4.$tableBody.find(tr);
+
+	        if (_this4.$fixedBody) {
+	          $trs = $trs.add(_this4.$fixedBody.find(tr));
+	        }
+
+	        if (_this4.$fixedBodyRight) {
+	          $trs = $trs.add(_this4.$fixedBodyRight.find(tr));
+	        }
+
+	        $trs.css('background-color', toggle ? $(e.currentTarget).css('background-color') : '');
+	      };
+
+	      this.$tableBody.find('tr').hover(function (e) {
+	        toggleHover(e, true);
 	      }, function (e) {
-	        var index = $(e.currentTarget).data('index');
-
-	        var $tr = _this.$fixedBody.find("tr[data-index=\"".concat(index, "\"]"));
-
-	        $tr.attr('style', $tr.attr('style').replace(/background-color:.*;/, ''));
+	        toggleHover(e, false);
 	      });
-	      this.$fixedBody.find('tr[data-index]').off('hover').hover(function (e) {
-	        var index = $(e.currentTarget).data('index');
+	      var isFirefox = typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+	      var mousewheel = isFirefox ? 'DOMMouseScroll' : 'mousewheel';
 
-	        _this.$body.find("tr[data-index=\"".concat(index, "\"]")).css('background-color', $(e.currentTarget).css('background-color'));
-	      }, function (e) {
-	        var index = $(e.currentTarget).data('index');
+	      var updateScroll = function updateScroll(e, fixedBody) {
+	        var normalized = normalizeWheel(e);
+	        var deltaY = Math.ceil(normalized.pixelY);
+	        var top = _this4.$tableBody.scrollTop() + deltaY;
 
-	        var $tr = _this.$body.find("> tr[data-index=\"".concat(index, "\"]"));
+	        if (deltaY < 0 && top > 0 || deltaY > 0 && top < fixedBody.scrollHeight - fixedBody.clientHeight) {
+	          e.preventDefault();
+	        }
 
-	        $tr.attr('style', $tr.attr('style').replace(/background-color:.*;/, ''));
-	      });
+	        _this4.$tableBody.scrollTop(top);
+
+	        if (_this4.$fixedBody) {
+	          _this4.$fixedBody.scrollTop(top);
+	        }
+
+	        if (_this4.$fixedBodyRight) {
+	          _this4.$fixedBodyRight.scrollTop(top);
+	        }
+	      };
+
+	      if (this.needFixedColumns && this.options.fixedNumber) {
+	        this.$fixedBody.find('tr').hover(function (e) {
+	          toggleHover(e, true);
+	        }, function (e) {
+	          toggleHover(e, false);
+	        });
+	        this.$fixedBody[0].addEventListener(mousewheel, function (e) {
+	          updateScroll(e, _this4.$fixedBody[0]);
+	        });
+	      }
+
+	      if (this.needFixedColumns && this.options.fixedRightNumber) {
+	        this.$fixedBodyRight.find('tr').hover(function (e) {
+	          toggleHover(e, true);
+	        }, function (e) {
+	          toggleHover(e, false);
+	        });
+	        this.$fixedBodyRight.off('scroll').on('scroll', function () {
+	          var top = _this4.$fixedBodyRight.scrollTop();
+
+	          _this4.$tableBody.scrollTop(top);
+
+	          if (_this4.$fixedBody) {
+	            _this4.$fixedBody.scrollTop(top);
+	          }
+	        });
+	      }
+
+	      if (this.options.filterControl) {
+	        $(this.$fixedColumns).off('keyup change').on('keyup change', function (e) {
+	          var $target = $(e.target);
+	          var value = $target.val();
+	          var field = $target.parents('th').data('field');
+
+	          var $coreTh = _this4.$header.find("th[data-field=\"".concat(field, "\"]"));
+
+	          if ($target.is('input')) {
+	            $coreTh.find('input').val(value);
+	          } else if ($target.is('select')) {
+	            var $select = $coreTh.find('select');
+	            $select.find('option[selected]').removeAttr('selected');
+	            $select.find("option[value=\"".concat(value, "\"]")).attr('selected', true);
+	          }
+
+	          _this4.triggerSearch();
+	        });
+	      }
 	    }
 	  }]);
 
 	  return _class;
 	}($.BootstrapTable);
 
-}));
+})));

@@ -46,25 +46,32 @@ ChangeLog
 - **New(filter-control):** Added support comparisons search(<, >, <=, =<, >=, =>).
 - **New(fixed-columns):** Added all themes support.
 - **New(fixed-columns):** Added `fixedRightNumber` option.
-- **New(group-by):** Added `customSort` option supported.
+- **New(fixed-columns):** Added support for using filter-control extension.
+- **New(group-by):** Add `Array` support for `groupByField` option.
+- **New(group-by):** Added `customSort` option support.
+- **New(multiple-sort):** Added custom `sorter` support.
 - **New(multiple-sort):** Added `multiSortStrictSort` option.
 - **New(multiple-sort):** Added `multiSort` method.
-- **New(print):** Added `printFormatter` data-attribute supported.
+- **New(print):** Added `printFormatter` data-attribute support.
 - **New(reorder-columns):** Added `orderColumns` method.
 - **New(reorder-rows):** Added `search` and `cardView` supported.
 - **New(sticky-header):** Added support for all themes.
 - **New(toolbar):** Added support for all themes.
+- **New(reorder-rows):** Added `search` and `cardView` support.
 - **Update(cookie):** Fixed cookie localeStorage not work bug with filter-control.
 - **Update(cookie):** Fixed `minimumCountColumns` not working bug.
 - **Update(cookie):** Improved `cookiesEnabled` to support ' in `data-attribute`.
+- **Update(editable):** Fixed `formatter` bug if the column was edited.
 - **Update(filter-control):** Fixed `hideUnusedSelectOptions` not work bug.
 - **Update(filter-control):** Fixed filter not work bug with `undefined`.
 - **Update(filter-control):** Fixed missing parameter of `resetSearch` and `filterDataType`.
 - **Update(filter-control):** Fixed `search` with filter-control `search` bug.
+- **Update(filter-control):** Fixed the `value` of select display error using editable.
 - **Update(fixed-columns):** Fixed checkbox bug with fixed columns.
 - **Update(fixed-columns):** Updated default value to `0` of `fixedNumber` option.
-- **Update(group-by):** Improved `number` type supported.
+- **Update(group-by):** Improved `number` type support.
 - **Update(group-by):** Fixed new table using modal bug.
+- **Update(group-by):** Fixed `scrollTo` method using group-by.
 - **Update(mobile):** Fixed input keyboard bug.
 - **Update(multiple-sort):** Fixed not destroy bug.
 - **Update(multiple-sort):** Fixed sort not work with `boolean` bug.
