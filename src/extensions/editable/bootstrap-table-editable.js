@@ -21,6 +21,10 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
+$.extend($.fn.bootstrapTable.columnDefaults, {
+  alwaysUseFormatter: false
+})
+
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'editable-init.bs.table': 'onEditableInit',
   'editable-save.bs.table': 'onEditableSave',
@@ -60,7 +64,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       column.formatter = (value, row, index) => {
         let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
         result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
-        if (this.options.uniqueId !== undefined) {
+        if (this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
           const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
           if ($.inArray(column.field + uniqueId, this.editedCells) !== -1) {
             result = value
@@ -124,7 +128,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const row = data[rowIndex]
         const oldValue = row[column.field]
 
-        if (this.options.uniqueId !== undefined) {
+        if (this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
           const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
           if ($.inArray(column.field + uniqueId, this.editedCells) === -1) {
             this.editedCells.push(column.field + uniqueId)
