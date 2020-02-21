@@ -608,8 +608,8 @@ BootstrapTable.prototype.onMultipleSort = function () {
       }
 
       const order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1
-      let aa = a[fieldName]
-      let bb = b[fieldName]
+      let aa = Utils.getItemField(a, fieldName)
+      let bb = Utils.getItemField(b, fieldName)
       const value1 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb])
       const value2 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa])
 
