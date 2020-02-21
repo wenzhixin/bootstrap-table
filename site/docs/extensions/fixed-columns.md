@@ -55,5 +55,13 @@ toc: true
 
 ## Note
 
-* This extension does not support `detailView` option.
-* This extension does not support `cardView` option.
+* Not support `detailView` option.
+* Not support `cardView` option.
+* Not support `showFooter` option.
+* Need to import after sticky-header when using with sticky-header extension. For example:
+{% highlight html %}
+<link rel="stylesheet" src="extensions/sticky-header/bootstrap-table-sticky-header.css">
+<link rel="stylesheet" src="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
+<script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
+{% endhighlight %}

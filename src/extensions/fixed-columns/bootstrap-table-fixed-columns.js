@@ -359,4 +359,37 @@ $.BootstrapTable = class extends $.BootstrapTable {
       })
     }
   }
+
+  renderStickyHeader () {
+    if (!this.options.stickyHeader) {
+      return
+    }
+
+    this.$stickyContainer = this.$container.find('.sticky-header-container')
+    super.renderStickyHeader()
+
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedColumns.css('z-index', 101)
+        .find('.sticky-header-container')
+        .css('right', '')
+        .width(this.$fixedColumns.outerWidth())
+    }
+
+    if (this.needFixedColumns && this.options.fixedRightNumber) {
+      const $stickyHeaderContainerRight = this.$fixedColumnsRight.find('.sticky-header-container')
+
+      this.$fixedColumnsRight.css('z-index', 101)
+      $stickyHeaderContainerRight.css('left', '')
+        .scrollLeft($stickyHeaderContainerRight.find('.table').outerWidth())
+        .width(this.$fixedColumnsRight.outerWidth())
+    }
+  }
+
+  matchPositionX () {
+    if (!this.options.stickyHeader) {
+      return
+    }
+
+    this.$stickyContainer.eq(0).scrollLeft(this.$tableBody.scrollLeft())
+  }
 }
