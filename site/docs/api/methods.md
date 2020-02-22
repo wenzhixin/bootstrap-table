@@ -215,7 +215,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Detail:**
 
-   Returns the the page count (the last page) as number.
+   Returns the page count (the last page) as number.
 
 ## getRowByUniqueId
 
