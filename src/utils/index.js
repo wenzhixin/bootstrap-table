@@ -184,6 +184,19 @@ export default {
     return text
   },
 
+  unescapeHTML (text) {
+    if (typeof text === 'string') {
+      return text
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#039;/g, '\'')
+        .replace(/&#x60;/g, '`')
+    }
+    return text
+  },
+
   getRealDataAttr (dataAttr) {
     for (const [attr, value] of Object.entries(dataAttr)) {
       const auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase()

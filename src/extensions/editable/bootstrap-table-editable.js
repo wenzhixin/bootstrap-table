@@ -102,7 +102,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return
       }
 
-      const data = this.getData()
+      const data = this.getData({escape: true})
       const $field = this.$body.find(`a[data-name="${column.field}"]`)
 
       $field.each((i, element) => {
@@ -131,6 +131,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
         }
 
+        submitValue = Utils.escapeHTML(submitValue)
         $this.data('value', submitValue)
         row[column.field] = submitValue
         this.trigger('editable-save', column.field, row, rowIndex, oldValue, $this)
@@ -156,5 +157,19 @@ $.BootstrapTable = class extends $.BootstrapTable {
       })
     })
     this.trigger('editable-init')
+  }
+
+  getData (params) {
+    const data = super.getData(params)
+
+    if (params && params.escape) {
+      for (const row of data) {
+        for (const [key, value] of Object.entries(row)) {
+          row[key] = Utils.unescapeHTML(value)
+        }
+      }
+    }
+
+    return data
   }
 }
