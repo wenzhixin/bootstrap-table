@@ -69,17 +69,17 @@ There are two new events:
 
 ## Options
 
-### usePipeline
-
-* type: Boolean
-* description: Set true to enable pipelining
-* default: `false`
-
 ## pipelineSize
 
 * type: Integer
 * description: Size of each cache window. Must be greater than 0
 * default: `1000`    
+
+### usePipeline
+
+* type: Boolean
+* description: Set true to enable pipelining
+* default: `false`
 
 ## Events
 
