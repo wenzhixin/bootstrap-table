@@ -632,7 +632,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           const $controlContainer = UtilsFilterControl.getControlContainer(that)
           if (
             $controlContainer.find('select').length > 0 ||
-            $controlContainer.getControlContainer(that).find('input').length > 0
+            $controlContainer.find('input').length > 0
           ) {
             return
           }
