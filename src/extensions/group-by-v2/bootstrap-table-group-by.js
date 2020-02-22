@@ -231,7 +231,6 @@ BootstrapTable.prototype.checkGroup_ = function (index, checked) {
   this.updateRows()
   this.updateSelected()
   const rowsAfter = this.getSelections()
-  console.log(rows)
   if (checked) {
     this.trigger('check-all', rowsAfter, rowsBefore)
     return
