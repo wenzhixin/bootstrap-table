@@ -30,6 +30,18 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 
 ## Column options
 
+### alwaysUseFormatter
+
+- **Attribute:** `data-always-use-formatter`
+
+- **type:** `Boolean`
+
+- **Detail:**
+    
+    Set `true` to use always the formatter, even if the column was already edited.
+
+- **Default:** `false`
+
 ### editable
 
 - **Attribute:** `data-editable`
