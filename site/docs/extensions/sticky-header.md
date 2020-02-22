@@ -11,6 +11,7 @@ This is an extension which provides a sticky header for the table when scrolling
 ## Usage
 
 {% highlight html %}
+<link rel="stylesheet" src="extensions/sticky-header/bootstrap-table-sticky-header.css">
 <script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
 {% endhighlight %}
 
