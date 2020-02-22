@@ -527,13 +527,13 @@ class BootstrapTable {
 
       toggle: `<button class="${this.constants.buttonsClass}" type="button" name="toggle"
         aria-label="Toggle" title="${opts.formatToggle()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.toggleOff) : '' }
+        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.toggleOff) : ''}
         ${opts.showButtonText ? opts.formatToggleOn() : ''}
         </button>`,
 
       fullscreen: `<button class="${this.constants.buttonsClass}" type="button" name="fullscreen"
         aria-label="Fullscreen" title="${opts.formatFullscreen()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.fullscreen) : '' }
+        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.fullscreen) : ''}
         ${opts.showButtonText ? opts.formatFullscreen() : ''}
         </button>`,
 
@@ -2763,6 +2763,14 @@ class BootstrapTable {
 
   getScrollPosition () {
     return this.scrollTo()
+  }
+
+  getPageCount () {
+    return this.options.pagination ? this.options.totalPages : 1
+  }
+
+  getCurrentPage () {
+    return this.options.pagination ? this.options.pageNumber : 1
   }
 
   selectPage (page) {

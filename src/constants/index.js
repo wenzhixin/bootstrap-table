@@ -453,7 +453,7 @@ const METHODS = [
   'resetSearch',
   'filterBy',
   'scrollTo', 'getScrollPosition',
-  'selectPage', 'prevPage', 'nextPage',
+  'getPageCount', 'getCurrentPage', 'selectPage', 'prevPage', 'nextPage',
   'toggleDetailView',
   'expandRow', 'collapseRow',
   'expandAllRows', 'collapseAllRows',

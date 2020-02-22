@@ -157,6 +157,14 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Example:** [Get All Selections](https://examples.bootstrap-table.com/#methods/get-all-selections.html)
 
+## getCurrentPage
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+   Returns the current page number.
+
 ## getData
 
 - **Parameter:** `params`
@@ -200,6 +208,14 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   Return the options object.
 
 - **Example:** [Get Options](https://examples.bootstrap-table.com/#methods/get-options.html)
+
+## getPageCount
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+   Returns the the page count (the last page) as number.
 
 ## getRowByUniqueId
 
