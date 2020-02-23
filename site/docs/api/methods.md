@@ -165,6 +165,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
    Returns the current page number.
 
+- **Example:** [Get Current Page](https://examples.bootstrap-table.com/#methods/get-current-page.html)
+
 ## getData
 
 - **Parameter:** `params`
@@ -216,6 +218,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
    Returns the page count (the last page) as number.
+
+- **Example:** [Get Page Count](https://examples.bootstrap-table.com/#methods/get-page-count.html)
 
 ## getRowByUniqueId
 
