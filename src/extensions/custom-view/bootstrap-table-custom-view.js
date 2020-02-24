@@ -20,6 +20,9 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
 $.extend($.fn.bootstrapTable.defaults, {
   onCustomViewPostBody () {
     return false
+  },
+  onCustomViewPreBody () {
+    return false
   }
 })
 
@@ -31,7 +34,8 @@ $.extend($.fn.bootstrapTable.locales, {
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-  'custom-view-post-body.bs.table': 'onCustomViewPostBody'
+  'custom-view-post-body.bs.table': 'onCustomViewPostBody',
+  'custom-view-pre-body.bs.table': 'onCustomViewPreBody'
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
@@ -82,6 +86,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     const value = Utils.calculateObjectValue(this, this.options.customView, [data], '')
+    this.trigger('custom-view-pre-body', data, value)
     if ($customViewContainer.length === 1) {
       $customViewContainer.show()
       $customViewContainer.html(value)
