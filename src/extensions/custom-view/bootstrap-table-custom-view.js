@@ -5,10 +5,7 @@
 const Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {
-  customView: false
-})
-
-$.extend($.fn.bootstrapTable.defaults, {
+  customView: false,
   showCustomView: false
 })
 
