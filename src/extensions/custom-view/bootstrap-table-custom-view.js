@@ -35,6 +35,11 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 
 $.BootstrapTable = class extends $.BootstrapTable {
 
+  init () {
+    this.showCustomView = this.options.showCustomView || true
+    super.init()
+  }
+
   initToolbar (...args) {
     super.initToolbar(...args)
 
