@@ -44,7 +44,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initToolbar(...args)
 
     if (this.options.customView) {
-      const $btnGroup = this.$toolbar.find('>.columns')
+      const $btnGroup = this.$toolbar.find('>.' + this.constants.classes.buttonsGroup.split(' ').join('.')).first()
       let $btnToggleCustomView = $btnGroup.find('.toggle-custom-view')
 
       if (!$btnToggleCustomView.length) {
