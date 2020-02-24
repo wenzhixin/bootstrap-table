@@ -632,7 +632,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           const $controlContainer = UtilsFilterControl.getControlContainer(that)
           if (
             $controlContainer.find('select').length > 0 ||
-            $controlContainer.getControlContainer(that).find('input').length > 0
+            $controlContainer.find('input').length > 0
           ) {
             return
           }
@@ -683,21 +683,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
       ? null
       : that.filterColumnsPartial
 
-    if (fp === null || Object.keys(fp).length <= 1) {
-      super.initSearch()
-    }
+    super.initSearch()
 
-    if (this.options.sidePagination === 'server') {
-      return
-    }
-
-    if (fp === null) {
+    if (this.options.sidePagination === 'server' || fp === null) {
       return
     }
 
     // Check partial column filter
     that.data = fp
-      ? that.options.data.filter((item, i) => {
+      ? that.data.filter((item, i) => {
         const itemIsExpected = []
         const keys1 = Object.keys(item)
         const keys2 = Object.keys(fp)

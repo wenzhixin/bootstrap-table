@@ -21,6 +21,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
+    this.$tableBody.find('.sticky-header-container,.sticky_anchor_begin,.sticky_anchor_end').remove()
+
     this.$el.before('<div class="sticky-header-container"></div>')
     this.$el.before('<div class="sticky_anchor_begin"></div>')
     this.$el.after('<div class="sticky_anchor_end"></div>')
