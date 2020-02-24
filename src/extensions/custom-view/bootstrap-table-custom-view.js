@@ -13,7 +13,11 @@ $.extend($.fn.bootstrapTable.defaults, {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   customView: {
     bootstrap3: 'glyphicon glyphicon-eye-open',
-    bootstrap4: 'da fa-eye'
+    bootstrap4: 'fa fa-eye',
+    semantic: 'fa fa-eye',
+    foundation: 'fa fa-eye',
+    bulma: 'fa fa-eye',
+    materialize: 'remove_red_eye'
   }[$.fn.bootstrapTable.theme] || 'fa-eye'
 })
 
