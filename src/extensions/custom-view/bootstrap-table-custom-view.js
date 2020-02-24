@@ -57,7 +57,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           </button>
         `).appendTo($btnGroup)
 
-        $btnToggleCustomView.on('click', $.proxy(this.toggleAutoRefresh, this))
+        $btnToggleCustomView.on('click', $.proxy(this.toggleCustomView, this))
       }
     }
   }
@@ -85,14 +85,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       $customViewContainer.show()
       $customViewContainer.html(value)
     } else {
-      console.log($customViewContainer)
-      this.$tableBody.after(`<div id="fixed-table-custom-view">${value}</div>`)
+      this.$tableBody.after(`<div class="fixed-table-custom-view">${value}</div>`)
     }
 
     this.trigger('custom-view-post-body', data, value)
   }
 
-  toggleAutoRefresh () {
+  toggleCustomView () {
     this.showCustomView = !this.showCustomView
     this.initBody()
   }
