@@ -81,7 +81,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     const value = Utils.calculateObjectValue(this, this.options.customView, [data], '')
-    if ($customViewContainer.length > 1) {
+    if ($customViewContainer.length === 1) {
       $customViewContainer.show()
       $customViewContainer.html(value)
     } else {
