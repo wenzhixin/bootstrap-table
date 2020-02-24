@@ -6,7 +6,8 @@ const Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {
   customView: false,
-  showCustomView: false
+  showCustomView: false,
+  showCustomViewButton: false
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
@@ -43,7 +44,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar (...args) {
     super.initToolbar(...args)
 
-    if (this.options.customView) {
+    if (this.options.customView && this.options.showCustomViewButton) {
       const $btnGroup = this.$toolbar.find('>.' + this.constants.classes.buttonsGroup.split(' ').join('.')).first()
       let $btnToggleCustomView = $btnGroup.find('.toggle-custom-view')
 
