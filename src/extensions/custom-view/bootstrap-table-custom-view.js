@@ -65,7 +65,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initBody () {
     super.initBody()
     const $table = this.$el
-    const $customViewContainer = this.$container.find('#fixed-table-custom-view')
+    const $customViewContainer = this.$container.find('.fixed-table-custom-view')
 
     $table.hide()
     $customViewContainer.hide()
