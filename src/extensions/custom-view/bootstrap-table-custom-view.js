@@ -32,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 
 $.extend($.fn.bootstrapTable.locales, {
   formatToggleCustomView () {
-    return 'Toggle customview'
+    return 'Toggle custom view'
   }
 })
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
