@@ -1,5 +1,6 @@
 /**
  * @author: Dustin Utecht
+ * @github: https://github.com/UtechtDustin
  */
 
 const Utils = $.fn.bootstrapTable.utils
