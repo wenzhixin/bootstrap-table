@@ -63,8 +63,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       if (!$btnToggleCustomView.length) {
         $btnToggleCustomView = $(`
-          <button class="toggle-custom-view ${this.constants.buttonsClass}
-          ${this.options.autoRefreshStatus ? ` ${this.constants.classes.buttonActive}` : ''}"
+          <button class="toggle-custom-view ${this.constants.buttonsClass}"
           type="button" title="${this.options.formatToggleCustomView()}">
           ${this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.customView) : ''}
           ${this.options.showButtonText ? this.options.formatToggleCustomView() : ''}
