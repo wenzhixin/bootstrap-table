@@ -381,8 +381,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Remove data from table, the params contain two properties:
 
-  * `field`: the field name of remove rows.
-  * `values`: the array of values for rows which should be removed.
+  * `field`: the field name of remove rows. If `$index` is not in your fields, you can use this special field `$index` to remove rows by row index.
+  * `values`: the array of values for rows which should be removed. If you use the special field `$index`, you can pass an array of indexes.
 
 - **Example:** [Remove](https://examples.bootstrap-table.com/#methods/remove.html)
 
@@ -648,4 +648,3 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `replace` (optional): set to `true` to replace the row instead of extending.
 
 - **Example:** [Update Row](https://examples.bootstrap-table.com/#methods/update-row.html)
-
