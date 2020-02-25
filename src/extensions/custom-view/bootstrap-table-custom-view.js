@@ -37,6 +37,8 @@ $.extend($.fn.bootstrapTable.locales, {
 })
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
+$.fn.bootstrapTable.methods.push('toggleCustomView')
+
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'custom-view-post-body.bs.table': 'onCustomViewPostBody',
   'custom-view-pre-body.bs.table': 'onCustomViewPreBody'
