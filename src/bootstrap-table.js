@@ -184,8 +184,9 @@ class BootstrapTable {
 
     // if options.data is setting, do not process tbody and tfoot data
     if (!this.options.data.length) {
-      this.options.data = Utils.trToData(this.columns, this.$el.find('>tbody>tr'))
-      if (this.options.data.length) {
+      const htmlData = Utils.trToData(this.columns, this.$el.find('>tbody>tr'))
+      if (htmlData.length) {
+        this.options.data = htmlData
         this.fromHtml = true
       }
     }
@@ -2125,12 +2126,17 @@ class BootstrapTable {
     }
 
     for (i = len - 1; i >= 0; i--) {
+      let exists = false
       row = this.options.data[i]
 
-      if (!row.hasOwnProperty(params.field)) {
+      if (!row.hasOwnProperty(params.field) && params.field !== '$index') {
         continue
+      } else if (!row.hasOwnProperty(params.field) && params.field === '$index') {
+        exists = params.values.includes(i)
+      } else {
+        exists = params.values.includes(row[params.field])
       }
-      if (params.values.includes(row[params.field])) {
+      if (exists) {
         this.options.data.splice(i, 1)
         if (this.options.sidePagination === 'server') {
           this.options.totalRows -= 1
