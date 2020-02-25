@@ -45,7 +45,10 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 $.BootstrapTable = class extends $.BootstrapTable {
 
   init () {
-    this.showCustomView = this.options.showCustomView || true
+    if (this.options.showCustomView) {
+      this.showCustomView = this.options.showCustomView
+    }
+
     super.init()
   }
 
