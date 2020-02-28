@@ -95,8 +95,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const value = Utils.calculateObjectValue(this, this.options.customView, [data], '')
     this.trigger('custom-view-pre-body', data, value)
     if ($customViewContainer.length === 1) {
-      $customViewContainer.show()
-      $customViewContainer.html(value)
+      $customViewContainer.show().html(value)
     } else {
       this.$tableBody.after(`<div class="fixed-table-custom-view">${value}</div>`)
     }
