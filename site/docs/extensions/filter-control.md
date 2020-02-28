@@ -254,7 +254,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 * Clear all the controls added by this plugin (similar to showSearchClearButton option).
 
-## Locale
+## Localizations
 
 ### formatClearFilters
 

@@ -72,7 +72,7 @@ toc: true
 
 * Fired when we are searching into the advanced search form.
 
-## Locales
+## Localizations
 
 ### formatAdvancedCloseButton
 
