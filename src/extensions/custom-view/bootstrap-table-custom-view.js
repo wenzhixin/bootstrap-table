@@ -91,12 +91,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    const _data = this.getData()
-    const data = []
-    for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
-      data.push(_data[i])
-    }
-
+    const data = this.getData().slice(this.pageFrom - 1, this.pageTo)
     const value = Utils.calculateObjectValue(this, this.options.customView, [data], '')
     this.trigger('custom-view-pre-body', data, value)
     if ($customViewContainer.length === 1) {
