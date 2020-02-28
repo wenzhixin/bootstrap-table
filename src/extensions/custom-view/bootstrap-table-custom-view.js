@@ -48,9 +48,7 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 $.BootstrapTable = class extends $.BootstrapTable {
 
   init () {
-    if (this.options.showCustomView) {
-      this.showCustomView = this.options.showCustomView
-    }
+    this.showCustomView = this.options.showCustomView
 
     super.init()
   }
@@ -78,6 +76,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initBody () {
     super.initBody()
+
+    if (!this.options.customView) {
+      return
+    }
+
     const $table = this.$el
     const $customViewContainer = this.$container.find('.fixed-table-custom-view')
 
