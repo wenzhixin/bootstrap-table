@@ -57,3 +57,37 @@ This extension adds the ability to create a custom view to display the data.
   Set to `true` to show the custom view toggle button.
 
 - **Default:** `false`
+
+### Icons
+
+- Toggle custom view:
+    * Bootstrap3: `glyphicon glyphicon-eye-open`
+    * Bootstrap4: `fa fa-eye`
+    * Semantic: `fa fa-eye`
+    * Foundation: `fa fa-eye`
+    * Bulma: `fa fa-eye`
+    * Materialize: `remove_red_eye`
+
+## Methods
+
+### toggleCustomView
+
+* Toggles the view between the table and the custom view.
+
+## Events
+
+### onCustomViewPostBody(custom-view-post-body.bs.table)
+
+* Fires before the custom view was rendered.
+
+### onCustomViewPreBody(custom-view-pre-body.bs.table)
+
+* Fires after the custom view was rendered.
+
+## Localizations
+
+### formatToggleCustomView
+
+- **type:** `Function`
+
+- **Default:** `function () { return "Toggle custom view;}`
