@@ -195,11 +195,10 @@ const UtilsCookie = {
   },
   initCookieFilters (bootstrapTable) {
     setTimeout(() => {
+      const cachedFilters = {}
       const parsedCookieFilters = JSON.parse(UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
 
       if (!bootstrapTable.options.filterControlValuesLoaded && parsedCookieFilters) {
-
-        const cachedFilters = {}
         const header = UtilsCookie.getCurrentHeader(bootstrapTable)
         const searchControls = UtilsCookie.getCurrentSearchControls(bootstrapTable)
 
@@ -226,10 +225,11 @@ const UtilsCookie = {
           applyCookieFilters(this, filteredCookies)
         })
 
-        bootstrapTable.initColumnSearch(cachedFilters)
-        bootstrapTable.options.filterControlValuesLoaded = true
-        bootstrapTable.initServer()
       }
+
+      bootstrapTable.initColumnSearch(cachedFilters)
+      bootstrapTable.options.filterControlValuesLoaded = true
+      bootstrapTable.initServer()
     }, 250)
   }
 }
