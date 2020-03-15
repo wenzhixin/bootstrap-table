@@ -66,7 +66,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Detail:**
 
    Set to e.g. `#filter` to allow custom input filter in a element with the id `filter`.
-   Each filter element (input or select) must have the following id `bootstrap-table-filter-control-<Fieldname>` (<Fieldname> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).
+   Each filter element (input or select) must have the following class `bootstrap-table-filter-control-<Fieldname>` (<Fieldname> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).
 
 - **Default:** `false`
 
@@ -254,7 +254,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 * Clear all the controls added by this plugin (similar to showSearchClearButton option).
 
-## Locale
+## Localizations
 
 ### formatClearFilters
 
