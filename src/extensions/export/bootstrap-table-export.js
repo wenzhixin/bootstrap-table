@@ -257,6 +257,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     } else if (o.exportDataType === 'selected') {
       let data = this.getData()
       let selectedData = this.getSelections()
+      const pagination = o.pagination
+
       if (!selectedData.length) {
         return
       }
@@ -273,7 +275,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       this.load(selectedData)
+      if (pagination) {
+        this.togglePagination()
+      }
       doExport(() => {
+        if (pagination) {
+          this.togglePagination()
+        }
         this.load(data)
       })
       this.trigger('export-saved', selectedData)
