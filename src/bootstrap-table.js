@@ -921,9 +921,9 @@ class BootstrapTable {
         }
         return false
       }) : this.data
-    }
 
-    this.initSort()
+      this.initSort()
+    }
   }
 
   initPagination () {
