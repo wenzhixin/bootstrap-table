@@ -225,7 +225,7 @@ class BootstrapTable {
     this.options.columns.forEach((columns, i) => {
       html.push('<tr>')
 
-      if (i === 0 && !this.options.cardView && this.options.detailView && this.options.detailViewIcon) {
+      if (i === 0 && Utils.hasDetailViewIcon(this.options)) {
         html.push(`<th class="detail" rowspan="${this.options.columns.length}">
           <div class="fht-cell"></div>
           </th>
@@ -921,9 +921,9 @@ class BootstrapTable {
         }
         return false
       }) : this.data
-    }
 
-    this.initSort()
+      this.initSort()
+    }
   }
 
   initPagination () {
@@ -1285,7 +1285,7 @@ class BootstrapTable {
       html.push(`<td colspan="${this.header.fields.length}"><div class="card-views">`)
     }
 
-    if (!this.options.cardView && this.options.detailView && this.options.detailViewIcon) {
+    if (Utils.hasDetailViewIcon(this.options)) {
       html.push('<td>')
 
       if (Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) {
@@ -1519,7 +1519,7 @@ class BootstrapTable {
       const item = this.data[rowIndex]
       const index = this.options.cardView ? $cardViewArr.index($cardViewTarget) : $td[0].cellIndex
       const fields = this.getVisibleFields()
-      const field = fields[this.options.detailView && this.options.detailViewIcon && !this.options.cardView ? index - 1 : index]
+      const field = fields[Utils.hasDetailViewIcon(this.options) ? index - 1 : index]
       const column = this.columns[this.fieldsColumnsIndex[field]]
       const value = Utils.getItemField(item, field, this.options.escape)
 
@@ -1583,7 +1583,7 @@ class BootstrapTable {
         return
       }
 
-      if (this.options.detailView && !this.options.cardView) {
+      if (Utils.hasDetailViewIcon(this.options)) {
         fieldIndex += 1
       }
 
@@ -1844,7 +1844,7 @@ class BootstrapTable {
       const $this = $(el)
       let index = i
 
-      if (this.options.detailView && this.options.detailViewIcon && !this.options.cardView) {
+      if (Utils.hasDetailViewIcon(this.options)) {
         if (i === 0) {
           const $thDetail = $ths.filter('.detail')
           const zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width()
@@ -1878,7 +1878,7 @@ class BootstrapTable {
     const data = this.getData()
     const html = []
 
-    if (!this.options.cardView && this.options.detailView && this.options.detailViewIcon) {
+    if (Utils.hasDetailViewIcon(this.options)) {
       html.push('<th class="detail"><div class="th-inner"></div><div class="fht-cell"></div></th>')
     }
 
@@ -1963,7 +1963,7 @@ class BootstrapTable {
       const $this = $(el)
       let index = i
 
-      if (this.options.detailView && !this.options.cardView) {
+      if (Utils.hasDetailViewIcon(this.options)) {
         if (i === 0) {
           const $thDetail = $ths.filter('.detail')
           const zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width()
@@ -2465,7 +2465,7 @@ class BootstrapTable {
     let j
     const $tr = this.$body.find('>tr')
 
-    if (this.options.detailView && !this.options.cardView) {
+    if (Utils.hasDetailViewIcon(this.options)) {
       col += 1
     }
 

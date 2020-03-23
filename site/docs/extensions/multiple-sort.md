@@ -104,7 +104,7 @@ toc: true
   ]
   ```
 
-## Locales
+## Localizations
 
 ### formatAddLevel
 
