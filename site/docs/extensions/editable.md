@@ -37,7 +37,7 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 - **type:** `Boolean`
 
 - **Detail:**
-    
+
     Set `true` to use always the formatter, even if the column was already edited.
 
 - **Default:** `false`
@@ -80,7 +80,7 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
     editable: {
       noeditFormatter (value, row, index) {
         if (value === 'noedit') {
-          return true
+          return 'No Edit'
         }
         return false
       }

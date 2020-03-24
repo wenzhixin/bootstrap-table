@@ -78,8 +78,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
         })
 
         let _dont_edit_formatter = false
-        if (column.editable.hasOwnProperty('noeditFormatter')) {
-          _dont_edit_formatter = column.editable.noeditFormatter(value, row, index)
+        const editableOpts = Utils.calculateObjectValue(column,
+          column.editable, [index, row], {})
+
+        if (editableOpts.hasOwnProperty('noeditFormatter')) {
+          _dont_edit_formatter = editableOpts.noeditFormatter(value, row, index)
         }
 
         if (_dont_edit_formatter === false) {
