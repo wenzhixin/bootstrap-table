@@ -73,13 +73,13 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
   </table>
   {% endhighlight %}
 
-  You can use `noeditFormatter` to disable the editable column, for example:
+  You can use `noEditFormatter` to disable the editable column, for example:
 
   {% highlight javascript %}
   {
     editable: {
-      noeditFormatter (value, row, index) {
-        if (value === 'noedit') {
+      noEditFormatter (value, row, index) {
+        if (value === 'noEdit') {
           return 'No Edit'
         }
         return false

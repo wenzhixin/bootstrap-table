@@ -77,22 +77,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
           editableDataMarkup.push(` ${key}="${value}"`)
         })
 
-        let _dont_edit_formatter = false
+        let noEditFormatter = false
         const editableOpts = Utils.calculateObjectValue(column,
           column.editable, [index, row], {})
 
-        if (editableOpts.hasOwnProperty('noeditFormatter')) {
-          _dont_edit_formatter = editableOpts.noeditFormatter(value, row, index)
+        if (editableOpts.hasOwnProperty('noEditFormatter')) {
+          noEditFormatter = editableOpts.noEditFormatter(value, row, index)
         }
 
-        if (_dont_edit_formatter === false) {
+        if (noEditFormatter === false) {
           return `<a href="javascript:void(0)"
             data-name="${column.field}"
             data-pk="${row[this.options.idField]}"
             data-value="${result}"
             ${editableDataMarkup.join('')}></a>`
         }
-        return _dont_edit_formatter
+        return noEditFormatter
       }
     })
   }
