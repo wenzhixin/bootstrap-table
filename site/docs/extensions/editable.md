@@ -37,7 +37,7 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 - **type:** `Boolean`
 
 - **Detail:**
-    
+
     Set `true` to use always the formatter, even if the column was already edited.
 
 - **Default:** `false`
@@ -73,14 +73,14 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
   </table>
   {% endhighlight %}
 
-  You can use `noeditFormatter` to disable the editable column, for example:
+  You can use `noEditFormatter` to disable the editable column, for example:
 
   {% highlight javascript %}
   {
     editable: {
-      noeditFormatter (value, row, index) {
-        if (value === 'noedit') {
-          return true
+      noEditFormatter (value, row, index) {
+        if (value === 'noEdit') {
+          return 'No Edit'
         }
         return false
       }
