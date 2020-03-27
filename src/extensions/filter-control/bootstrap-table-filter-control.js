@@ -446,6 +446,7 @@ const UtilsFilterControl = {
             filterControl !== undefined &&
             filterControl.toLowerCase() === 'datepicker'
           ) {
+            filterDatepickerOptions = JSON.parse(filterDatepickerOptions);
             UtilsFilterControl.getControlContainer(that)
               .find(
                 `.date-filter-control.bootstrap-table-filter-control-${field}`
