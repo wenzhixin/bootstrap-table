@@ -2336,7 +2336,7 @@
 	        $.each(that.columns, function (i, _ref9) {
 	          var filterControl = _ref9.filterControl,
 	              field = _ref9.field,
-	              filterDatepickerOptions = _ref9.filterDatepickerOptions;
+	              filterDatepickerOptions = JSON.parse(_ref9.filterDatepickerOptions);
 
 	          if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
 	            UtilsFilterControl.getControlContainer().find(".date-filter-control.bootstrap-table-filter-control-".concat(field)).datepicker(filterDatepickerOptions).on('changeDate', function (_ref10) {
