@@ -1176,13 +1176,14 @@ class BootstrapTable {
     }
 
     this.initPagination()
+
+    this.trigger('page-change', this.options.pageNumber, this.options.pageSize)
+
     if (this.options.sidePagination === 'server') {
       this.initServer()
     } else {
       this.initBody()
     }
-
-    this.trigger('page-change', this.options.pageNumber, this.options.pageSize)
   }
 
   onPageListChange (event) {
@@ -1469,7 +1470,7 @@ class BootstrapTable {
     // show no records
     if (!hasTr) {
       this.$body.html(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
-        this.$header.find('th').length,
+        this.getVisibleFields().length,
         this.options.formatNoMatches())}</tr>`)
     } else {
       if (!this.options.virtualScroll) {
