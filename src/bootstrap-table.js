@@ -1176,13 +1176,14 @@ class BootstrapTable {
     }
 
     this.initPagination()
+
+    this.trigger('page-change', this.options.pageNumber, this.options.pageSize)
+
     if (this.options.sidePagination === 'server') {
       this.initServer()
     } else {
       this.initBody()
     }
-
-    this.trigger('page-change', this.options.pageNumber, this.options.pageSize)
   }
 
   onPageListChange (event) {
