@@ -32,6 +32,7 @@ the requested page data is returned from the cached data set. Otherwise, a new s
 request will be issued for the new cache window.
 
 The current cached data is only invalidated on these events:
+
  - sorting
  - searching
  - page size change
@@ -43,28 +44,12 @@ There are two new events:
 
 ## Features
 
-* Created with Bootstrap 4 
+* Created with Bootstrap 4
 
 ## Usage
 
 ```
-# assumed import of bootstrap and bootstrap-table assets
-<script src="/path/to/bootstrap-table-pipeline.js"></script>
-...
-<table id="pipeline_table" 
-    class="table table-striped"
-    data-method='post'
-    data-use-pipeline="true"
-    data-pipeline-size="5000"
-    data-pagination="true"
-    data-side-pagination="server"
-    data-page-size="50">
-    <thead><tr>
-        <th data-field="type" data-sortable="true">Type</th>
-        <th data-field="value" data-sortable="true">Value</th>
-        <th data-field="date" data-sortable="true">Date</th>
-    </tr></thead>
-</table>
+<script src="extensions/pipeline/bootstrap-table-pipeline.js"></script>
 ```
 
 ## Options
@@ -73,7 +58,7 @@ There are two new events:
 
 * type: Integer
 * description: Size of each cache window. Must be greater than 0
-* default: `1000`    
+* default: `1000`
 
 ### usePipeline
 
