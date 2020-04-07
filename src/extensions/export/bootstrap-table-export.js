@@ -36,7 +36,8 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.columnDefaults, {
-  forceExport: false
+  forceExport: false,
+  forceHide: false
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
@@ -184,6 +185,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.toggleView()
       }
 
+      this.columns.forEach((row) => {
+        if (row.forceHide) {
+          this.hideColumn(row.field)
+        }
+      })
+
       const data = this.getData()
       if (o.exportFooter) {
         const $footerRow = this.$tableFooter.find('tr').first()
@@ -232,6 +239,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
           hiddenColumns.forEach((row) => {
             if (row.forceExport) {
               this.hideColumn(row.field)
+            }
+          })
+
+          this.columns.forEach((row) => {
+            if (row.forceHide) {
+              this.showColumn(row.field)
             }
           })
 
