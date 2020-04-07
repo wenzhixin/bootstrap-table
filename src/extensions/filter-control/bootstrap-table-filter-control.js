@@ -256,13 +256,16 @@ const UtilsFilterControl = {
           uniqueValues[formattedValue] = fieldValue
 
           if (typeof formattedValue === 'object' && formattedValue !== null) {
+
             formattedValue.forEach((value) => {
               UtilsFilterControl.addOptionToSelectControl(selectControl, value, value, column.filterDefault)
             })
             continue
           }
 
-          UtilsFilterControl.addOptionToSelectControl(selectControl, formattedValue, formattedValue, column.filterDefault)
+          for (const key in uniqueValues) {
+            UtilsFilterControl.addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
+          }
         }
 
         UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
