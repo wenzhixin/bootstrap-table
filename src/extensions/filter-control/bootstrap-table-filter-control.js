@@ -67,9 +67,7 @@ const UtilsFilterControl = {
     $selectControl.append($opts)
   },
   existOptionInSelectControl (selectControl, value) {
-    const options = UtilsFilterControl.getOptionsFromSelectControl(
-      selectControl
-    )
+    const options = UtilsFilterControl.getOptionsFromSelectControl(selectControl)
     for (let i = 0; i < options.length; i++) {
       if (options[i].value === value.toString()) {
         // The value is not valid to add
@@ -245,7 +243,7 @@ const UtilsFilterControl = {
         const uniqueValues = {}
         for (let i = 0; i < z; i++) {
           // Added a new value
-          const fieldValue = data[i][field]
+          let fieldValue = data[i][field]
           const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
           let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
 
@@ -253,6 +251,9 @@ const UtilsFilterControl = {
             formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
           }
 
+          if (column.searchFormatter) {
+            fieldValue = formattedValue
+          }
           uniqueValues[formattedValue] = fieldValue
 
           if (typeof formattedValue === 'object' && formattedValue !== null) {
@@ -262,11 +263,12 @@ const UtilsFilterControl = {
             continue
           }
 
-          UtilsFilterControl.addOptionToSelectControl(selectControl, formattedValue, formattedValue, column.filterDefault)
+          for (const key in uniqueValues) {
+            UtilsFilterControl.addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
+          }
         }
 
         UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
-
         if (that.options.hideUnusedSelectOptions) {
           UtilsFilterControl.hideUnusedSelectOptions(selectControl, uniqueValues)
         }
