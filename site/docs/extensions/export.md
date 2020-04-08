@@ -110,6 +110,18 @@ This is an important link to check out as some file types may require extra step
 
 - **Default:** `false`
 
+### forceHide
+
+- **Attribute:** `data-force-hide`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to force hide a column e.g. for icon columns.
+
+- **Default:** `false`
+
 ## Events
 
 ### onExportSaved
