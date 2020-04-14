@@ -59,9 +59,11 @@ const UtilsFilterControl = {
     const $selectControl = $(selectControl.get(selectControl.length - 1))
     const $opts = $selectControl.find('option:gt(0)')
 
-    $opts.sort((a, b) => {
-      return Utils.sort(a.textContent, b.textContent, orderBy === 'desc' ? -1 : 1)
-    })
+    if (orderBy !== 'server') {
+      $opts.sort((a, b) => {
+        return Utils.sort(a.textContent, b.textContent, orderBy === 'desc' ? -1 : 1)
+      })
+    }
 
     $selectControl.find('option:gt(0)').remove()
     $selectControl.append($opts)
