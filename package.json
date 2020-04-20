@@ -9,7 +9,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
-    "chalk": "^2.4.2",
+    "chalk": "^4.0.0",
     "clean-css-cli": "^4.3.0",
     "core-js": "^3.1.4",
     "cross-env": "^6.0.3",
