@@ -12,7 +12,7 @@
     "chalk": "^4.0.0",
     "clean-css-cli": "^4.3.0",
     "core-js": "^3.1.4",
-    "cross-env": "^6.0.3",
+    "cross-env": "^7.0.2",
     "eslint": "^6.0.0",
     "esm": "^3.2.25",
     "foreach-cli": "^1.8.1",
