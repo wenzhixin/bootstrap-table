@@ -14,7 +14,9 @@
     // TOOLS DEFINITION
     // ======================
 
-    var cachedWidth = null;
+    var cachedWi
+
+    dth = null;
 
     // it only does '%s', and return '' when arguments are undefined
     var sprintf = function (str) {
