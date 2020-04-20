@@ -30,7 +30,7 @@
     "rollup-plugin-vue": "5.1.6",
     "safe-eval": "^0.4.1",
     "stylelint": "^10.1.0",
-    "stylelint-config-standard": "^18.3.0",
+    "stylelint-config-standard": "^20.0.0",
     "vue-template-compiler": "^2.6.10"
   },
   "scripts": {
