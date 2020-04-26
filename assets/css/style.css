@@ -139,17 +139,30 @@ header.themes .bd-lead {
 
 .support-item {
   position: relative;
-  margin: 0 2px 2px;
+  display: inline-block;
+  margin: 3px;
+  padding: .25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: .25rem;
+}
+
+.support-item:hover {
+  background-color: rgba(108,117,125,.25098);
 }
 
 .support-gold-avatar {
   max-height: 96px;
   max-width: 288px;
+  min-height: 48px;
+  min-width: 48px;
   vertical-align: middle;
 }
 
 .support-silver-avatar {
   max-height: 64px;
   max-width: 192px;
+  min-height: 48px;
+  min-width: 48px;
   vertical-align: middle;
 }
