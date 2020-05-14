@@ -602,6 +602,33 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Locale](https://examples.bootstrap-table.com/#options/table-locale.html)
 
+
+## loadingTemplate
+
+- **Attribute:** `data-loading-template`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  To custom the loading type by yourself. The parameters object contain:
+
+  * loadingMessage: the `formatLoadingMessage` locale.
+
+- **Default:**
+  ```
+  function (loadingMessage) {
+    return '<span class="loading-wrap">' +
+      '<span class="loading-text">' +
+      loadingMessage +
+      '</span>' +
+      '<span class="animation-wrap"><span class="animation-dot"></span></span>' +
+      '</span>'
+  }
+  ```
+
+- **Example:** [Loading Template](https://examples.bootstrap-table.com/#options/loading-template.html)
+
 ## maintainMetaData
 
 - **Attribute:** `data-maintain-meta-data`
@@ -1612,4 +1639,3 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [visible search](https://examples.bootstrap-table.com/#options/visible-search.html)
-
