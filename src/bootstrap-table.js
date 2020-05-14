@@ -72,6 +72,8 @@ class BootstrapTable {
       ? '<div class="fixed-table-pagination clearfix"></div>' : ''
     const bottomPagination = ['bottom', 'both'].includes(this.options.paginationVAlign)
       ? '<div class="fixed-table-pagination"></div>' : ''
+    const loadingTemplate = Utils.calculateObjectValue(this.options,
+      this.options.loadingTemplate, [this.options.formatLoadingMessage()])
 
     this.$container = $(`
       <div class="bootstrap-table ${this.constants.theme}">
@@ -81,10 +83,7 @@ class BootstrapTable {
       <div class="fixed-table-header"><table></table></div>
       <div class="fixed-table-body">
       <div class="fixed-table-loading">
-      <span class="loading-wrap">
-      <span class="loading-text">${this.options.formatLoadingMessage()}</span>
-      <span class="animation-wrap"><span class="animation-dot"></span></span>
-      </span>
+      ${loadingTemplate}
       </div>
       </div>
       <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
