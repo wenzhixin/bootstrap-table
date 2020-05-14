@@ -602,6 +602,19 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Locale](https://examples.bootstrap-table.com/#options/table-locale.html)
 
+## loadingFontSize
+
+- **Attribute:** `data-loading-font-size`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  To define the font size of the loading text, the default value is `'auto'`, it will be calculated automatically according to the table width, between 12px and 32px.
+
+- **Default:** `'auto'`
+
+- **Example:** [Loading Font Size](https://examples.bootstrap-table.com/#options/loading-font-size.html)
 
 ## loadingTemplate
 

@@ -2696,12 +2696,16 @@ class BootstrapTable {
   showLoading () {
     this.$tableLoading.css('display', 'flex')
 
-    let fontSize = this.$tableLoading.width() * 0.04
+    let fontSize = this.options.loadingFontSize
 
-    fontSize = Math.max(12, fontSize)
-    fontSize = Math.min(32, fontSize)
+    if (this.options.loadingFontSize === 'auto') {
+      fontSize = this.$tableLoading.width() * 0.04
+      fontSize = Math.max(12, fontSize)
+      fontSize = Math.min(32, fontSize)
+      fontSize = `${fontSize}px`
+    }
 
-    this.$tableLoading.find('.loading-text').css('font-size', `${fontSize}px`)
+    this.$tableLoading.find('.loading-text').css('font-size', fontSize)
   }
 
   hideLoading () {

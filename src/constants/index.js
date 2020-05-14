@@ -236,6 +236,7 @@ const DEFAULTS = {
   html: CONSTANTS.html,
   iconSize: undefined,
   iconsPrefix: CONSTANTS.iconsPrefix, // glyphicon or fa(font-awesome)
+  loadingFontSize: 'auto',
   loadingTemplate (loadingMessage) {
     return `<span class="loading-wrap">
       <span class="loading-text">${loadingMessage}</span>
