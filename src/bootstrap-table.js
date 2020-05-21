@@ -72,6 +72,8 @@ class BootstrapTable {
       ? '<div class="fixed-table-pagination clearfix"></div>' : ''
     const bottomPagination = ['bottom', 'both'].includes(this.options.paginationVAlign)
       ? '<div class="fixed-table-pagination"></div>' : ''
+    const loadingTemplate = Utils.calculateObjectValue(this.options,
+      this.options.loadingTemplate, [this.options.formatLoadingMessage()])
 
     this.$container = $(`
       <div class="bootstrap-table ${this.constants.theme}">
@@ -81,10 +83,7 @@ class BootstrapTable {
       <div class="fixed-table-header"><table></table></div>
       <div class="fixed-table-body">
       <div class="fixed-table-loading">
-      <span class="loading-wrap">
-      <span class="loading-text">${this.options.formatLoadingMessage()}</span>
-      <span class="animation-wrap"><span class="animation-dot"></span></span>
-      </span>
+      ${loadingTemplate}
       </div>
       </div>
       <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
@@ -1277,7 +1276,7 @@ class BootstrapTable {
       Utils.sprintf(' class="%s"', style.classes || (Array.isArray(item) ? undefined : item._class)),
       ` data-index="${i}"`,
       Utils.sprintf(' data-uniqueid="%s"', Utils.getItemField(item, this.options.uniqueId, false)),
-      Utils.sprintf(' data-has-detail-view="%s"', (!this.options.cardView && this.options.detailView && Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) ? 'true' : undefined),
+      Utils.sprintf(' data-has-detail-view="%s"', (this.options.detailView && Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) ? 'true' : undefined),
       Utils.sprintf('%s', data_),
       '>'
     )
@@ -2663,6 +2662,11 @@ class BootstrapTable {
       this.$tableContainer.css('height', '')
       this.$tableContainer.css('width', '')
     } else if (this.options.height) {
+      if (this.$tableBorder) {
+        this.$tableBorder.css('width', '')
+        this.$tableBorder.css('height', '')
+      }
+
       const toolbarHeight = this.$toolbar.outerHeight(true)
       const paginationHeight = this.$pagination.outerHeight(true)
       const height = this.options.height - toolbarHeight - paginationHeight
@@ -2670,7 +2674,7 @@ class BootstrapTable {
       const tableHeight = $bodyTable.outerHeight()
       this.$tableContainer.css('height', `${height}px`)
 
-      if (this.$tableBorder) {
+      if (this.$tableBorder && $bodyTable.is(':visible')) {
         let tableBorderHeight = height - tableHeight - 2
         if (this.$tableBody[0].scrollWidth - this.$tableBody.innerWidth()) {
           tableBorderHeight -= Utils.getScrollBarWidth()
@@ -2696,6 +2700,17 @@ class BootstrapTable {
 
   showLoading () {
     this.$tableLoading.css('display', 'flex')
+
+    let fontSize = this.options.loadingFontSize
+
+    if (this.options.loadingFontSize === 'auto') {
+      fontSize = this.$tableLoading.width() * 0.04
+      fontSize = Math.max(12, fontSize)
+      fontSize = Math.min(32, fontSize)
+      fontSize = `${fontSize}px`
+    }
+
+    this.$tableLoading.find('.loading-text').css('font-size', fontSize)
   }
 
   hideLoading () {
