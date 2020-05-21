@@ -2662,6 +2662,11 @@ class BootstrapTable {
       this.$tableContainer.css('height', '')
       this.$tableContainer.css('width', '')
     } else if (this.options.height) {
+      if (this.$tableBorder) {
+        this.$tableBorder.css('width', '')
+        this.$tableBorder.css('height', '')
+      }
+
       const toolbarHeight = this.$toolbar.outerHeight(true)
       const paginationHeight = this.$pagination.outerHeight(true)
       const height = this.options.height - toolbarHeight - paginationHeight
@@ -2669,7 +2674,7 @@ class BootstrapTable {
       const tableHeight = $bodyTable.outerHeight()
       this.$tableContainer.css('height', `${height}px`)
 
-      if (this.$tableBorder) {
+      if (this.$tableBorder && $bodyTable.is(':visible')) {
         let tableBorderHeight = height - tableHeight - 2
         if (this.$tableBody[0].scrollWidth - this.$tableBody.innerWidth()) {
           tableBorderHeight -= Utils.getScrollBarWidth()
