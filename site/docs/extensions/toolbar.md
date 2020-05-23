@@ -50,7 +50,7 @@ toc: true
 
 - **Detail:**
 
-   Must be set to know the idform.
+   Must be set to know the id form.
 
 - **Default:** `advancedSearch`
 

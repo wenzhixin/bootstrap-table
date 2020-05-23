@@ -1,6 +1,48 @@
 ChangeLog
 ---------
 
+### 1.16.1
+
+#### Core
+
+- **Add:** Added `$index` field for `remove` method.
+- **Add:** Added `on-all` event for vue component.
+- **Add:** Added `bg-BG` locale.
+- **Add:** Added `loadingFontSize` option.
+- **Add:** Added `loadingTemplate` option.
+- **Add:** Added `detailView` support for `cardView`.
+- **Update:** Fixed `updateByUniqueId` method cannot update multiple rows bug.
+- **Update:** Fixed `insertRow` not write to source data array bug.
+- **Update:** Fixed events bug with `detailViewIcon` option.
+- **Update:** Fixed server side pagination sort bug.
+- **Update:** Fixed the `page-change` event before init server.
+- **Update:** Fixed no records found `colspan` error.
+- **Update:** Fixed the `page-change` event before init server.
+- **Update:** Fixed `font-size` of the loading text.
+- **Update:** Fixed table `border` bug when table is hidden.
+
+#### Extensions
+
+- **New(custom-view):** Added `custom-view` extension.
+- **New(editable):** Added `alwaysUseFormatter` option.
+- **New(export):** Added `forceHide` column option.
+- **New(filter-control):** Added `filterOrderBy` column option support order by `server`.
+- **New(fixed-columns):** Added support for sticky-header.
+- **New(pipeline):** Added `pipeline` extension.
+- **Update(editable):** Fixed not handle quotation marks bug.
+- **Update(editable):** Updated `noeditFormatter` to `noEditFormatter`.
+- **Update(export):** Fixed export error with `maintainMetaData` and `clientSidePagination`.
+- **Update(filter-control):** Fixed not Working in multiple tables.
+- **Update(filter-control):** Fixed ignore default search text bug.
+- **Update(filter-control):** Fixed not work with html formatter.
+- **Update(filter-control):** Fixed reset `filterBy` method bug.
+- **Update(fixed-columns):** Fixed loading message not hide bug.
+- **Update(group-by):** Fixed params error of `checkAll`/`uncheckAll`.
+- **Update(multiple-sort):** Fixed not working with multiple level field bug.
+- **Update(reorder-columns):** Fixed cannot work bug.
+- **Update(reorder-rows):** Fixed `this` context of `onPostBody` error.
+- **Update(treegrid):** Fixed treegrid `destroy` bug.
+
 ### 1.16.0
 
 #### Core
@@ -224,7 +266,7 @@ ChangeLog
 - **Update(js):** Fixed `detailView` find td elements bug.
 - **Update(js):** Fixed `showColumns` close dropdown bug when item label clicking.
 - **Update(js):** Fixed reset width error after `toggleFullscreen`.
-- **Update(js):** Fixed `cardview` click event bug.
+- **Update(js):** Fixed `cardView` click event bug.
 
 ### 1.13.5
 
@@ -273,7 +315,7 @@ ChangeLog
 - **New(cookie extension):** Saved `filterBy` method.
 - **New(filter-control extension):** Added `placeholder` as a empty option to the select controls.
 - **New(filter-control extension):** Added `clearFilterControl` method in order to clear all filter controls.
-- **New(docs)** Added algolia search.
+- **New(docs)** Added Algolia search.
 - **Update(js):** Fixed sort column shows hidden rows in `server` side pagination bug.
 - **Update(js):** Fixed `scrollTo` bug.
 - **Update(css):** Fixed no-bordered problem of bootstrap v4.
@@ -281,7 +323,7 @@ ChangeLog
 
 ### 1.13.1
 
-- feat(js): add `theadClasses` option to supoort bootstrap v4
+- feat(js): add `theadClasses` option to support bootstrap v4
 - feat(js): fix #3727, icons update to font-awesome 5
 - feat(locale): rewrite all locales to ES6
 - feat(editable extension): rewrite bootstrap-table-editable to ES6
@@ -364,7 +406,7 @@ ChangeLog
 - feat(export extension): add `exportFooter` option
 - feat(multiple-sort extension): add `showMultiSortButton` option
 - feat(filter-control extension): add `searchOnEnterKey` option
-- feat(page-jumpto extension): add `page-jumpto` extension
+- feat(page-jump-to extension): add `page-jump-to` extension
 - feat(resizable extension): add `resizeMode` option
 - feat(sticky-header extension): add `Bootstrap v4.0` support
 - feat(treegrid extension): add `treegrid` extension
@@ -426,7 +468,7 @@ ChangeLog
 - fix(js): return field from visible cells
 - fix(js): onSearch event is not fire when we press the arrows keys
 - fix(js): fix fromHtml error
-- fix(js): fix event cannot work when some columns are hideen
+- fix(js): fix event cannot work when some columns are hidden
 - fix(js): remove page size and number when pagination is false
 - fix(js): remove getFieldIndexFromColumnIndex because it cause events bug
 - fix(js): fix getSelections method bug
@@ -435,7 +477,7 @@ ChangeLog
 - fix(locale): add formatAllRows in template locale
 - fix(filter-control extension): add check for null values on existsOptionInSelectControl
 - fix(filter-control extension): fix show-clear button bug
-- fix(editable extesion): fix editable formatter error when refreshOptions
+- fix(editable extension): fix editable formatter error when refreshOptions
 - feat(js): add support for transfer from rowspan / colspan table
 - feat(js): add data variable to post-body event
 - feat(js): add `buttonsClass` option
@@ -443,7 +485,7 @@ ChangeLog
 - feat(js): add resize event to fit the header
 - feat(js): add `onRefresh` event
 - feat(js): add field parameter in the click and dblClick row events
-- feat(js): add div.card-views surrounds all the card view divs
+- feat(js): add div.card-views surrounds all the card view div
 - feat(js): add `field` parameter to cellStyle
 - feat(js): add `sortStable` option
 - feat(js): add `footerStyle` option
@@ -456,7 +498,7 @@ ChangeLog
 - feat(multiple-sort extension): support pagination server
 - refactor(filter-control extension): refactor the filterDataType method
 - refactor(filter-control extension): adding all unique values to select control and performance improvements
-- refactor(extension): refactor filter cookies extension to avoid dbcalls
+- refactor(extension): refactor filter cookies extension to avoid double calls
 - docs(filter-control extension): add documentation for filterData
 
 
@@ -484,7 +526,7 @@ ChangeLog
 - [bug] Fixed clear function and searchFormatter option of filter-control extension.
 - [bug] Fixed year computation on cookie extension.
 - [bug] Fixed ReorderRows init when reorderable is false.
-- [bug] Fix #1660: removed powerpoint type of export extension.
+- [bug] Fix #1660: removed PowerPoint type of export extension.
 - [enh] Added `title` attribute to pagination controls defining the page number.
 - [enh] Added `escape` option.
 - [enh] Added `searchOnEnterKey` option.
@@ -535,8 +577,8 @@ ChangeLog
 - [enh] Added option for setting locale.
 - [enh] Added `exportDataType` option for export extension.
 - [enh] Add fa-IR, ca-ES, es-ES, et-EE and af-ZA locales.
-- [enh] Supported complex header with `rowspans` and `colspans`.
-- [enh] Added `searchFomatter` column option.
+- [enh] Supported complex header with `rowspan` and `colspan`.
+- [enh] Added `searchFormatter` column option.
 - [bug] Fixed ResetRow function and undefined column search bug.
 - [bug] Fixed #639: footer resizing problem.
 - [enh] Added resetSearch method to reset the search text.
@@ -582,7 +624,7 @@ ChangeLog
 - [enh] Added `onClickCell` and `onDblClickCell` events.
 - [bug] Fix #672: Column Fixed Width in Percentage bug.
 - [bug] Fix row state field value bug when there are disabled rows.
-- [bug] Fix #762: save tr's data-* attributes.
+- [bug] Fix #762: save data-* attributes of tr.
 - [bug] Fix #823, #850: break rowspan bug, data-attribute bug.
 
 ### 1.7.0
@@ -621,7 +663,7 @@ ChangeLog
 - [enh] Add `iconSize` option.
 - [enh] Add `buttonsAlign` option and update `toolbarAlign` option.
 - [enh] Add `prepend`, `insertRow` and `toggleView` methods.
-- [enh] Add `editable-save.bs.table` event to editatble extension.
+- [enh] Add `editable-save.bs.table` event to editable extension.
 - [enh] #431: load method support pagination.
 
 ### 1.5.0
@@ -723,7 +765,7 @@ ChangeLog
 
 - Fix bootstrap 2 table border bug.
 - Fix loading and not found record display bug.
-- Update `minimunCountColumns` option to `minimumCountColumns`.
+- Rename `minimumCountColumns`.
 - Fix sort order bug.
 
 ### 1.1.5
@@ -755,7 +797,7 @@ ChangeLog
 
 ### 1.1.1
 
-- Remove `bootstrapVerion` option.
+- Remove `bootstrapVersion` option.
 - Add `data-page-list` attribute.
 - Fix search data error.
 - Non case sensitive search in client side.
@@ -764,7 +806,7 @@ ChangeLog
 ### 1.1.0
 
 - Fix old firefox browser display error.
-- Add minimunCountColumns option.
+- Add minimumCountColumns option.
 - Update the table body header implementation and resetView method.
 - Remove bootstrapVersion option.
 - Fix search data error.
@@ -774,7 +816,7 @@ ChangeLog
 - Add jQuery events.
 - Add `onDblClickRow` event and `onAll` event.
 - Add `singleSelect` option.
-- Search improvent: add a timeout and trigger the search event when the text has changed to improve the search.
+- Search improve: add a timeout and trigger the search event when the text has changed to improve the search.
 - Scroll to top after data loaded.
 - Add `toolbar` option.
 - Add `rowStyle` option.

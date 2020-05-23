@@ -955,7 +955,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Before load remote data, handler the response data format, the parameters object contains:
 
   * `res`: the response data.
-  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
+  * `jqXHR`: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
 
 - **Default:** `function(res) { return res }`
 

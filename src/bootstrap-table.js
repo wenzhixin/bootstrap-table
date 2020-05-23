@@ -1335,7 +1335,7 @@ class BootstrapTable {
       if (csses.concat([this.header.styles[j]]).length) {
         style_ = ` style="${csses.concat([this.header.styles[j]]).join('; ')}"`
       }
-      // handle td's id and class
+      // handle id and class of td
       if (item[`_${field}_id`]) {
         id_ = Utils.sprintf(' id="%s"', item[`_${field}_id`])
       }
@@ -1884,7 +1884,6 @@ class BootstrapTable {
 
     for (const column of this.columns) {
       let falign = ''
-
       let valign = ''
       const csses = []
       let style = {}
