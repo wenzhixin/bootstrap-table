@@ -20,6 +20,7 @@ ChangeLog
 - **Update:** Fixed the `page-change` event before init server.
 - **Update:** Fixed `font-size` of the loading text.
 - **Update:** Fixed table `border` bug when table is hidden.
+- **Update:** Fixed `showRow` method show all hidden rows bug.
 
 #### Extensions
 

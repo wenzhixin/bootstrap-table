@@ -2339,18 +2339,16 @@ class BootstrapTable {
     } else if (visible && index > -1) {
       this.hiddenRows.splice(index, 1)
     }
-    if (visible) {
-      this.updatePagination()
-    } else {
-      this.initBody(true)
-      this.initPagination()
-    }
+
+    this.initBody(true)
+    this.initPagination()
   }
 
   getHiddenRows (show) {
     if (show) {
       this.initHiddenRows()
       this.initBody(true)
+      this.initPagination()
       return
     }
     const data = this.getData()
