@@ -580,28 +580,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Ignore Click To Select On](https://examples.bootstrap-table.com/#options/ignore-click-to-select-on.html)
 
-## locale
-
-- **Attribute:** `data-locale`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Sets the locale to use (i.e. `'zh-CN'`). Locale files must be pre-loaded.
-  Allows for fallback locales, if loaded, in the following order:
-
-  * First tries for the locale as specified,
-  * Then tries the locale with '_' translated to '-' and the region code upper cased,
-  * Then tries the short locale code (i.e. `'zh'` instead of `'zh-CN'`),
-  * And finally will use the last locale file loaded (or the default locale if no locales loaded).
-
-  If left `undefined` or an empty string, use the last locale loaded (or `'en-US'` if no locale files loaded).
-
-- **Default:** `undefined`
-
-- **Example:** [Table Locale](https://examples.bootstrap-table.com/#options/table-locale.html)
-
 ## loadingFontSize
 
 - **Attribute:** `data-loading-font-size`
@@ -641,6 +619,28 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   ```
 
 - **Example:** [Loading Template](https://examples.bootstrap-table.com/#options/loading-template.html)
+
+## locale
+
+- **Attribute:** `data-locale`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Sets the locale to use (i.e. `'zh-CN'`). Locale files must be pre-loaded.
+  Allows for fallback locales, if loaded, in the following order:
+
+  * First tries for the locale as specified,
+  * Then tries the locale with '_' translated to '-' and the region code upper cased,
+  * Then tries the short locale code (i.e. `'zh'` instead of `'zh-CN'`),
+  * And finally will use the last locale file loaded (or the default locale if no locales loaded).
+
+  If left `undefined` or an empty string, use the last locale loaded (or `'en-US'` if no locale files loaded).
+
+- **Default:** `undefined`
+
+- **Example:** [Table Locale](https://examples.bootstrap-table.com/#options/table-locale.html)
 
 ## maintainMetaData
 
