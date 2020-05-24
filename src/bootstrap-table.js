@@ -1653,6 +1653,15 @@ class BootstrapTable {
       }
     }
 
+    if (this.options.search && this.options.sidePagination === 'server') {
+      params.searchable = []
+      for (const column of this.columns) {
+        if (!column.checkbox && column.searchable && ((this.options.visibleSearch && column.visible) || !this.options.visibleSearch)) {
+          params.searchable.push(column.field)
+        }
+      }
+    }
+
     if (!(Utils.isEmptyObject(this.filterColumnsPartial))) {
       params.filter = JSON.stringify(this.filterColumnsPartial, null)
     }
