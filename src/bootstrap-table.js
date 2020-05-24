@@ -527,13 +527,13 @@ class BootstrapTable {
 
       toggle: `<button class="${this.constants.buttonsClass}" type="button" name="toggle"
         aria-label="Toggle" title="${opts.formatToggle()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.toggleOff) : '' }
+        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.toggleOff) : ''}
         ${opts.showButtonText ? opts.formatToggleOn() : ''}
         </button>`,
 
       fullscreen: `<button class="${this.constants.buttonsClass}" type="button" name="fullscreen"
         aria-label="Fullscreen" title="${opts.formatFullscreen()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.fullscreen) : '' }
+        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.fullscreen) : ''}
         ${opts.showButtonText ? opts.formatFullscreen() : ''}
         </button>`,
 
@@ -952,7 +952,7 @@ class BootstrapTable {
     pageList = pageList.map(value => {
       if (typeof value === 'string') {
         return value.toLowerCase() === opts.formatAllRows().toLowerCase() ||
-          ['all', 'unlimited'].includes(value.toLowerCase())
+        ['all', 'unlimited'].includes(value.toLowerCase())
           ? opts.formatAllRows() : +value
       }
       return value
