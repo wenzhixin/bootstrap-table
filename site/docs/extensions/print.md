@@ -106,7 +106,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-   function(value, row, index) - returns a string. Formats the cell values for this column in the printed table. Function behaviour is similar to the 'formatter' column option
+   function(value, row, index) - returns a string. Formats the cell values for this column in the printed table. Function behavior is similar to the 'formatter' column option
 
 - **Default:** `undefined`
 

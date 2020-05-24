@@ -577,7 +577,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   Update the specified row(s), each params contain following properties:
 
-  * `id`: a row id where the id should be the uniqueid field assigned to the table.
+  * `id`: a row id where the id should be the `uniqueId` field assigned to the table.
   * `row`: the new row data.
   * `replace` (optional): set to `true` to replace the row instead of extending.
 
@@ -605,7 +605,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Detail:**
 
-  Update the cell specified by the id, each params contain following properties:
+  Update the specified cell(s), each params contain following properties:
 
   * `id`: row id where the id should be the `uniqueId` field assigned to the table.
   * `field`: field name of the cell to be updated.

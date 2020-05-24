@@ -181,7 +181,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   Fires when some errors occur to load remote data, the parameters contain:
 
   * `status`: the status code of `jqXHR`.
-  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
+  * `jqXHR`: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
 
 ## onLoadSuccess
 
@@ -195,7 +195,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   * `data`: the remote data.
   * `status`: the status code of `jqXHR`.
-  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
+  * `jqXHR`: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
 
 ## onPageChange
 
@@ -373,4 +373,3 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   Fires when user uncheck some rows, the parameters contain:
 
   * `rows`: array of records corresponding to previously checked rows.
-

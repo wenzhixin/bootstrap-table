@@ -79,7 +79,7 @@ toc: true
 
 - **Detail:**
 
-   Force mutltiple sort table (usable after manual data changes).
+   Force multiple sort table (usable after manual data changes).
 
 
 ### multiSort
