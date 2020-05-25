@@ -952,7 +952,7 @@ class BootstrapTable {
     pageList = pageList.map(value => {
       if (typeof value === 'string') {
         return value.toLowerCase() === opts.formatAllRows().toLowerCase() ||
-        ['all', 'unlimited'].includes(value.toLowerCase())
+          ['all', 'unlimited'].includes(value.toLowerCase())
           ? opts.formatAllRows() : +value
       }
       return value
