@@ -153,6 +153,10 @@ const UtilsFilterControl = {
         result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
 
         if (result.length > 0) {
+          if ($(this).is('[type=radio]')) {
+            return
+          }
+
           $(this).val(result[0].value)
           if (result[0].hasFocus && result[0].value !== '') {
             // set callback if the field had the focus.
@@ -303,11 +307,18 @@ const UtilsFilterControl = {
       if (!column.filterControl && !that.options.filterControlContainer) {
         html.push('<div class="no-filter-control"></div>')
       } else if (that.options.filterControlContainer) {
-        const $filterControl = $(`.bootstrap-table-filter-control-${column.field}`)
-        const placeholder = column.filterControlPlaceholder ? column.filterControlPlaceholder : ''
-        $filterControl.attr('placeholder', placeholder)
-        $filterControl.val(column.filterDefault)
-        $filterControl.attr('data-field', column.field)
+        const $filterControls = $(`.bootstrap-table-filter-control-${column.field}`)
+        $.each($filterControls, (i, filterControl) => {
+          const $filterControl = $(filterControl)
+          if (!$filterControl.is('[type=radio]')) {
+            const placeholder = column.filterControlPlaceholder ? column.filterControlPlaceholder : ''
+            $filterControl.attr('placeholder', placeholder)
+            $filterControl.val(column.filterDefault)
+          }
+
+          $filterControl.attr('data-field', column.field)
+        })
+
         addedFilterControl = true
       } else {
         const nameControl = column.filterControl.toLowerCase()
@@ -424,7 +435,7 @@ const UtilsFilterControl = {
         }, that.options.searchTimeOut)
       })
 
-      header.off('mouseup', 'input').on('mouseup', 'input', ({currentTarget, keyCode}) => {
+      UtilsFilterControl.getControlContainer(that).off('mouseup', 'input:not([type=radio])').on('mouseup', 'input:not([type=radio])', ({currentTarget, keyCode}) => {
         const $input = $(currentTarget)
         const oldValue = $input.val()
 
@@ -442,6 +453,13 @@ const UtilsFilterControl = {
             }, that.options.searchTimeOut)
           }
         }, 1)
+      })
+
+      UtilsFilterControl.getControlContainer(that).off('change', 'input[type=radio]').on('change', 'input[type=radio]', ({currentTarget, keyCode}) => {
+        clearTimeout(currentTarget.timeoutId || 0)
+        currentTarget.timeoutId = setTimeout(() => {
+          that.onColumnSearch({currentTarget, keyCode})
+        }, that.options.searchTimeOut)
       })
 
       if (UtilsFilterControl.getControlContainer(that).find('.date-filter-control').length > 0) {
