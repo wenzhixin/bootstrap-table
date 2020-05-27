@@ -412,13 +412,7 @@ const UtilsFilterControl = {
       })
 
       UtilsFilterControl.getControlContainer(that).off('change', 'select').on('change', 'select', ({currentTarget, keyCode}) => {
-        if (that.options.searchOnEnterKey && keyCode !== 13) {
-          return
-        }
 
-        if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
-          return
-        }
 
         const $select = $(currentTarget)
         const value = $select.val()
