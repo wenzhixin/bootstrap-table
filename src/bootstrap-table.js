@@ -401,41 +401,42 @@ class BootstrapTable {
     let timeoutId = 0
 
     if (index !== -1) {
-      if (this.options.sortStable) {
-        this.data.forEach((row, i) => {
-          if (!row.hasOwnProperty('_position')) {
-            row._position = i
-          }
-        })
-      }
-
-      if (this.options.customSort) {
-        Utils.calculateObjectValue(this.options, this.options.customSort, [
-          this.options.sortName,
-          this.options.sortOrder,
-          this.data
-        ])
-      } else {
-        this.data.sort((a, b) => {
-          if (this.header.sortNames[index]) {
-            name = this.header.sortNames[index]
-          }
-          const aa = Utils.getItemField(a, name, this.options.escape)
-          const bb = Utils.getItemField(b, name, this.options.escape)
-          const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
-
-          if (value !== undefined) {
-            if (this.options.sortStable && value === 0) {
-              return order * (a._position - b._position)
+      if(!this.options.serverSort) {
+        if (this.options.sortStable) {
+          this.data.forEach((row, i) => {
+            if (!row.hasOwnProperty('_position')) {
+              row._position = i
             }
-            return order * value
-          }
+          })
+        }
 
-          return Utils.sort(aa, bb, order, this.options.sortStable,
-            a._position, b._position)
-        })
+        if (this.options.customSort) {
+          Utils.calculateObjectValue(this.options, this.options.customSort, [
+            this.options.sortName,
+            this.options.sortOrder,
+            this.data
+          ])
+        } else {
+          this.data.sort((a, b) => {
+            if (this.header.sortNames[index]) {
+              name = this.header.sortNames[index]
+            }
+            const aa = Utils.getItemField(a, name, this.options.escape)
+            const bb = Utils.getItemField(b, name, this.options.escape)
+            const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
+
+            if (value !== undefined) {
+              if (this.options.sortStable && value === 0) {
+                return order * (a._position - b._position)
+              }
+              return order * value
+            }
+
+            return Utils.sort(aa, bb, order, this.options.sortStable,
+              a._position, b._position)
+          })
+        }
       }
-
       if (this.options.sortClass !== undefined) {
         clearTimeout(timeoutId)
         timeoutId = setTimeout(() => {
