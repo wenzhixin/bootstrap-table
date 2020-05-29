@@ -14,22 +14,22 @@ $.fn.bootstrapTable.locales['it-IT'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi (filtered from ${totalNotFiltered} total rows)`
+      return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi (filtrati da ${totalNotFiltered} elementi totali)`
     }
 
     return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'pagina precedente'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `alla pagina ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'pagina successiva'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Mostrando ${totalRows} elementi`
   },
   formatClearSearch () {
     return 'Pulisci filtri'
@@ -44,10 +44,10 @@ $.fn.bootstrapTable.locales['it-IT'] = {
     return 'Nascondi/Mostra paginazione'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Mostra paginazione'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Nascondi paginazione'
   },
   formatRefresh () {
     return 'Aggiorna'
@@ -56,37 +56,37 @@ $.fn.bootstrapTable.locales['it-IT'] = {
     return 'Attiva/Disattiva'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Mostra visuale a scheda'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Nascondi visuale a scheda'
   },
   formatColumns () {
     return 'Colonne'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Mostra tutte'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Schermo intero'
   },
   formatAllRows () {
     return 'Tutto'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Auto Aggiornamento'
   },
   formatExport () {
     return 'Esporta dati'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'VAI'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Filtri avanzati'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Chiudi'
   }
 
 }
