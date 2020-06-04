@@ -28,6 +28,7 @@ ChangeLog
 - **New(editable):** Added `alwaysUseFormatter` option.
 - **New(export):** Added `forceHide` column option.
 - **New(filter-control):** Added `filterOrderBy` column option support order by `server`.
+- **New(filter-control):** Added radio support for `filterControlContainer`.
 - **New(fixed-columns):** Added support for sticky-header.
 - **New(pipeline):** Added `pipeline` extension.
 - **Update(editable):** Fixed not handle quotation marks bug.
