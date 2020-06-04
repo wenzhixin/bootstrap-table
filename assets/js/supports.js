@@ -18,7 +18,7 @@ $(function () {
   $.getJSON('https://examples.wenzhixin.net.cn/opencollective/all.json', function (res) {
     res.push({
       website: 'https://edubirdie.com/write-my-essay',
-      totalAmountDonated: 300,
+      totalAmountDonated: 600,
       name: 'Write my essay services from Edubirdie',
       image: window.baseurl + '/assets/images/edu-birdie.png',
       isActive: true,
