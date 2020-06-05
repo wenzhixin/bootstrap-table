@@ -15,48 +15,36 @@ $(function () {
     ].join('')
   }
 
-  $.getJSON('https://examples.wenzhixin.net.cn/opencollective/all.json', function (res) {
-    res.push({
-      website: 'https://edubirdie.com/write-my-essay',
-      totalAmountDonated: 600,
-      name: 'Write my essay services from Edubirdie',
-      image: window.baseurl + '/assets/images/edu-birdie.png',
-      isActive: true,
-      role: 'BACKER'
-    })
-
-    res.sort(function (a, b) {
-      return b.totalAmountDonated - a.totalAmountDonated
-    })
-
-    var goldSponsors = res.filter(function (item) {
-      var isGold = item.isActive &&
-        item.role === 'BACKER' &&
-        item.totalAmountDonated >= 100
-
-      if (isGold) {
-        item.classes = 'gold'
+  $.getJSON('https://examples.wenzhixin.net.cn/opencollective/supports.json', function (res) {
+    var ranks = [
+      {
+        title: 'Gold',
+        minimum: 200
+      },
+      {
+        title: 'Bronze',
+        minimum: 20,
+        maximum: 200
+      },
+      {
+        title: 'Backer',
+        maximum: 20
       }
-      return isGold
+    ]
+
+    ranks.forEach(function (rank) {
+      rank.supports = res.filter(function (row) {
+        return row.totalDonations >= (rank.minimum || 0) &&
+          row.totalDonations < (rank.maximum || Number.MAX_VALUE)
+      })
     })
 
-    var bronzeSponsors = res.filter(function (item) {
-      return item.isActive &&
-        item.role === 'BACKER' &&
-        item.totalAmountDonated >= 10 &&
-        item.totalAmountDonated < 100
+    new window.Vue({
+      el: '#supports',
+      data: {
+        ranks: ranks
+      }
     })
-
-    var backers = res.filter(function (item) {
-      return item.isActive &&
-        item.role === 'BACKER' &&
-        item.totalAmountDonated < 10
-    })
-
-    $('.gold-sponsors').html(goldSponsors.map(function (item) {
-      return createSupportItem(item, 'gold')
-    }).join(''))
-    $('.bronze-sponsors').html(bronzeSponsors.map(createSupportItem).join(''))
-    $('.support-backers').html(backers.map(createSupportItem).join(''))
+    $('#supports').show()
   })
 })
