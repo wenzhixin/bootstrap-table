@@ -16,7 +16,7 @@
 
 
 <link href="/assets/css/docs.min.css" rel="stylesheet">
-<link href="/assets/css/style.css?m=6" rel="stylesheet">
+<link href="/assets/css/style.css?m=7" rel="stylesheet">
 
 <!-- Favicons -->
 <link rel="icon" href="/favicon.png">
@@ -207,52 +207,48 @@ Examples</h3>
     </div>
   </div>
 
-  <div class="supports pt-5 pb-5">
-    <div>
-      <h3>Gold Sponsors</h3>
-    </div>
+  <div id="supports" style="display: none">
+    <div
+      v-for="(rank, i) in ranks"
+      :key="i"
+      class="supports pt-5 pb-5"
+    >
+      <div>
+        <h3><span v-text="rank.title"></span> Sponsors</h3>
+      </div>
 
-    <div class="support-description">
-      <b>Gold Sponsors</b> are those who have pledged $100 or more to bootstrap-table.
-      <a href="https://opencollective.com/bootstrap-table#sponsor" target="_blank">
-        Become a gold sponsor
-      </a>
-    </div>
+      <div v-if="rank.title === 'Backer'" class="support-description">
+        The following <b>Backers</b> are individuals who have contributed various amounts of money in order to help support bootstrap-table.
+        Every little bit helps, and we appreciate even the smallest contributions.
+        <a href="https://opencollective.com/bootstrap-table#sponsor" target="_blank">
+          Become a backer
+        </a>
+      </div>
 
-    <div class="gold-sponsors">
-    </div>
-  </div>
+      <div v-else class="support-description">
+        <b><span v-text="rank.title"></span> Sponsors</b> are those who have pledged $<span v-text="rank.minimum + (rank.maximum ? ' to $' + rank.maximum : ' or more')"></span> to bootstrap-table.
+        <a href="https://opencollective.com/bootstrap-table#section-contribute" target="_blank">
+          Become a sponsor
+        </a>
+      </div>
 
-  <div class="supports pt-5 pb-5">
-    <div>
-      <h3>Bronze Sponsors</h3>
-    </div>
-
-    <div class="support-description">
-      <b>Bronze Sponsors</b> are those who have pledged $10 to $100 to bootstrap-table.
-      <a href="https://opencollective.com/bootstrap-table#sponsor" target="_blank">
-        Become a bronze sponsor
-      </a>
-    </div>
-
-    <div class="bronze-sponsors">
-    </div>
-  </div>
-
-  <div class="supports pt-5 pb-5">
-    <div>
-      <h3>Backers</h3>
-    </div>
-
-    <div class="support-description">
-      The following <b>Backers</b> are individuals who have contributed various amounts of money in order to help support bootstrap-table.
-      Every little bit helps, and we appreciate even the smallest contributions.
-      <a href="https://opencollective.com/bootstrap-table#sponsor" target="_blank">
-        Become a backer
-      </a>
-    </div>
-
-    <div class="support-backers">
+      <div>
+        <a
+          v-for="support in rank.supports"
+          :key="support.slug"
+          :href="support.website || 'https://opencollective.com/' + support.slug"
+          :title="'$' + support.totalDonations + ' by ' + support.name || support.slug"
+          class="support-item"
+          target="_blank"
+        >
+          <img
+            :class="rank.title"
+            :src="support.avatar"
+            :alt="support.name || support.slug"
+            class="support-avatar"
+          >
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -293,9 +289,6 @@ Examples</h3>
 </form>
 </div>
 
-<script async src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-<script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
-
 </div>
 
 
@@ -319,12 +312,17 @@ Examples</h3>
   </div>
 </footer>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script async defer src="https://buttons.github.io/buttons.js"></script><script src="/assets/js/docs.min.js?m=1"></script>
-<script src="/assets/js/supports.js?m=3"></script>
-<script src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<script src="/assets/js/supports.js?m=4"></script>
+
+<script async src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+<script>(function($) {
+  window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';
+}(jQuery))</script><script src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script>
+<script src="/assets/js/docs.min.js?m=1"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script>
