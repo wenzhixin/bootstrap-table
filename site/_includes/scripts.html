@@ -1,4 +1,4 @@
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -12,9 +12,18 @@ $(function () {
 </script>
 {%- endif -%}
 
-<script src="{{ site.baseurl }}/assets/js/docs.min.js?m=1"></script>
-<script src="{{ site.baseurl }}/assets/js/supports.js?m=3"></script>
+{%- if page.layout == "home" -%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<script src="{{ site.baseurl }}/assets/js/supports.js?m=4"></script>
+
+<script async src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+<script>(function($) {
+  window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';
+}(jQuery))</script>
+{%- endif -%}
+
 <script src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script>
+<script src="{{ site.baseurl }}/assets/js/docs.min.js?m=1"></script>
 
 {% include analytics.html %}
 

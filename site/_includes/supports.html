@@ -9,52 +9,48 @@
     </div>
   </div>
 
-  <div class="supports pt-5 pb-5">
-    <div>
-      <h3>Gold Sponsors</h3>
-    </div>
+  <div id="supports" style="display: none">
+    <div
+      v-for="(rank, i) in ranks"
+      :key="i"
+      class="supports pt-5 pb-5"
+    >
+      <div>
+        <h3><span v-text="rank.title"></span> Sponsors</h3>
+      </div>
 
-    <div class="support-description">
-      <b>Gold Sponsors</b> are those who have pledged $100 or more to bootstrap-table.
-      <a href="https://opencollective.com/bootstrap-table#sponsor" target="_blank">
-        Become a gold sponsor
-      </a>
-    </div>
+      <div v-if="rank.title === 'Backer'" class="support-description">
+        The following <b>Backers</b> are individuals who have contributed various amounts of money in order to help support bootstrap-table.
+        Every little bit helps, and we appreciate even the smallest contributions.
+        <a href="https://opencollective.com/bootstrap-table#sponsor" target="_blank">
+          Become a backer
+        </a>
+      </div>
 
-    <div class="gold-sponsors">
-    </div>
-  </div>
+      <div v-else class="support-description">
+        <b><span v-text="rank.title"></span> Sponsors</b> are those who have pledged $<span v-text="rank.minimum + (rank.maximum ? ' to $' + rank.maximum : ' or more')"></span> to bootstrap-table.
+        <a href="https://opencollective.com/bootstrap-table#section-contribute" target="_blank">
+          Become a sponsor
+        </a>
+      </div>
 
-  <div class="supports pt-5 pb-5">
-    <div>
-      <h3>Bronze Sponsors</h3>
-    </div>
-
-    <div class="support-description">
-      <b>Bronze Sponsors</b> are those who have pledged $10 to $100 to bootstrap-table.
-      <a href="https://opencollective.com/bootstrap-table#sponsor" target="_blank">
-        Become a bronze sponsor
-      </a>
-    </div>
-
-    <div class="bronze-sponsors">
-    </div>
-  </div>
-
-  <div class="supports pt-5 pb-5">
-    <div>
-      <h3>Backers</h3>
-    </div>
-
-    <div class="support-description">
-      The following <b>Backers</b> are individuals who have contributed various amounts of money in order to help support bootstrap-table.
-      Every little bit helps, and we appreciate even the smallest contributions.
-      <a href="https://opencollective.com/bootstrap-table#sponsor" target="_blank">
-        Become a backer
-      </a>
-    </div>
-
-    <div class="support-backers">
+      <div>
+        <a
+          v-for="support in rank.supports"
+          :key="support.slug"
+          :href="support.website || 'https://opencollective.com/' + support.slug"
+          :title="'$' + support.totalDonations + ' by ' + support.name || support.slug"
+          class="support-item"
+          target="_blank"
+        >
+          <img
+            :class="rank.title"
+            :src="support.avatar"
+            :alt="support.name || support.slug"
+            class="support-avatar"
+          >
+        </a>
+      </div>
     </div>
   </div>
 </div>
