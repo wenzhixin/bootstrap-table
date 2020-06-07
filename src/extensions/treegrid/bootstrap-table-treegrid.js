@@ -8,7 +8,9 @@ $.extend($.fn.bootstrapTable.defaults, {
   treeShowField: null,
   idField: 'id',
   parentIdField: 'pid',
-  rootParentId: null
+  rootParentId: null,
+  //Use this property name to indicate whether a child node exists，default‘haveChild’
+  haveChildField:'haveChild'//用此属性名表示是否存在子节点，默认‘haveChild’
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
@@ -63,6 +65,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
           `treegrid-${id}`,
           `treegrid-parent-${pid}`
         ].join(' ')
+        var haveChild=item[_this.options.haveChildField];
+				if(haveChild){
+					res.classes = [res.classes , "treegrid-haveChild"].join(' ');
+				}
         return res
       }
       this.initTr(node, $.inArray(node, data), data, parentDom)
@@ -86,6 +92,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
             res.classes || '',
             `treegrid-${x}`
           ].join(' ')
+          var haveChild=item[_this2.options.haveChildField];
+			  if(haveChild){
+				  res.classes = [res.classes , "treegrid-haveChild"].join(' ');
+			  }
           return res
         }
         this.initTr(item, idx, data, parentDom)
