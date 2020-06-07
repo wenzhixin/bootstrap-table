@@ -627,6 +627,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 
 $.fn.bootstrapTable.methods.push('triggerSearch')
 $.fn.bootstrapTable.methods.push('clearFilterControl')
+$.fn.bootstrapTable.methods.push('toggleFilterControl')
 
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
@@ -952,5 +953,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
         searchControls.removeProp('disabled')
       }
     }
+  }
+
+  toggleFilterControl () {
+    this.refreshOptions({
+      filterControl: !this.getOptions().filterControl
+    })
   }
 }
