@@ -327,7 +327,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Default:** `true`
 
-- **Example:** [Search Formatter](https://examples.bootstrap-table.com/#column-options/format-search.html)
+- **Example:** [Search Formatter](https://examples.bootstrap-table.com/#column-options/search-formatter.html)
 
 ## searchable
 
