@@ -1,6 +1,7 @@
 ---
 name: ⛔ Documentation & Examples
 about: Issues with the Documentation and/or the Examples
+labels: docs
 
 ---
 
