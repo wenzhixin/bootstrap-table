@@ -951,9 +951,8 @@ class BootstrapTable {
 
     pageList = pageList.map(value => {
       if (typeof value === 'string') {
-        return value.toLowerCase() === opts.formatAllRows().toLowerCase() ||
-          ['all', 'unlimited'].includes(value.toLowerCase())
-          ? opts.formatAllRows() : +value
+        return (value.toLowerCase() === opts.formatAllRows().toLowerCase() ||
+          ['all', 'unlimited'].includes(value.toLowerCase())) ? opts.formatAllRows() : +value
       }
       return value
     })
@@ -1653,10 +1652,23 @@ class BootstrapTable {
       }
     }
 
-    if (this.options.search && this.options.sidePagination === 'server') {
+    if (
+      this.options.search &&
+      this.options.sidePagination === 'server' &&
+      this.columns.filter(column => !column.searchable).length
+    ) {
       params.searchable = []
+
       for (const column of this.columns) {
-        if (!column.checkbox && column.searchable && ((this.options.visibleSearch && column.visible) || !this.options.visibleSearch)) {
+        if (
+          !column.checkbox &&
+          column.searchable &&
+          (
+            this.options.visibleSearch &&
+            column.visible ||
+            !this.options.visibleSearch
+          )
+        ) {
           params.searchable.push(column.field)
         }
       }
