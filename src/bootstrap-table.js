@@ -804,6 +804,12 @@ class BootstrapTable {
         ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
       const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
+      for (const key in f) {
+        for (const valueKey in f[key]) {
+          f[key][valueKey] = f[key][valueKey].toString()
+        }
+      }
+
       // Check filter
       if (typeof this.filterOptions.filterAlgorithm === 'function') {
         this.data = this.options.data.filter((item, i) => this.filterOptions.filterAlgorithm.apply(null, [item, f]))
@@ -814,7 +820,7 @@ class BootstrapTable {
             for (const key in f) {
               if (
                 (Array.isArray(f[key]) &&
-                  !f[key].includes(item[key])) ||
+                  !f[key].includes(item[key].toString())) ||
                 (!Array.isArray(f[key]) &&
                   item[key] !== f[key])
               ) {
@@ -826,7 +832,7 @@ class BootstrapTable {
             for (const key in f) {
               if (
                 (Array.isArray(f[key]) &&
-                  f[key].includes(item[key])) ||
+                  f[key].includes(item[key].toString())) ||
                 (!Array.isArray(f[key]) &&
                   item[key] === f[key])
               ) {
