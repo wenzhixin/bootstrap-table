@@ -463,7 +463,7 @@ const METHODS = [
   'scrollTo', 'getScrollPosition',
   'selectPage', 'prevPage', 'nextPage',
   'toggleDetailView',
-  'expandRow', 'collapseRow',
+  'expandRow', 'collapseRow', 'expandRowByUniqueId', 'collapseRowByUniqueId',
   'expandAllRows', 'collapseAllRows',
   'updateColumnTitle', 'updateFormatText'
 ]

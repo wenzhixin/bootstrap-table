@@ -2861,6 +2861,16 @@ class BootstrapTable {
     this.trigger('expand-row', index, row, $element)
   }
 
+  expandRowByUniqueId (uniqueId) {
+    const row = this.getRowByUniqueId(uniqueId)
+
+    if (!row) {
+      return
+    }
+
+    this.expandRow(this.data.indexOf(row))
+  }
+
   collapseRow (index) {
     const row = this.data[index]
     const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"][data-has-detail-view]', index))
@@ -2874,6 +2884,16 @@ class BootstrapTable {
 
     this.trigger('collapse-row', index, row, $tr.next())
     $tr.next().remove()
+  }
+
+  collapseRowByUniqueId (uniqueId) {
+    const row = this.getRowByUniqueId(uniqueId)
+
+    if (!row) {
+      return
+    }
+
+    this.collapseRow(this.data.indexOf(row))
   }
 
   expandAllRows () {
