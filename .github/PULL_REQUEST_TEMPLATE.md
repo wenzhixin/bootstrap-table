@@ -4,7 +4,7 @@
 **New Feature?**
 <!-- yes/no -->
 
-**Resolve a issue?**
+**Resolve an issue?**
 <!-- Please prefix each issue number with  "Fix #"  (e.g. Fix #200)  -->
 
 **Example(s)?**
