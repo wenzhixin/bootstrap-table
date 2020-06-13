@@ -368,11 +368,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     const visibleColumns = []
 
-    $.each(this.columns, (i, column) => {
+    for (const column of this.columns) {
       if (column.visible) {
         visibleColumns.push(column.field)
       }
-    })
+    }
 
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(visibleColumns))
   }
@@ -436,7 +436,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       throw new Error('Could not parse the json of the columns cookie!', columnsCookieValue)
     }
 
-
     // sortOrder
     this.options.sortOrder = sortOrderCookie ? sortOrderCookie : this.options.sortOrder
     // sortName
@@ -449,9 +448,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.searchText = searchTextCookie ? searchTextCookie : ''
 
     if (columnsCookie) {
-      $.each(this.columns, (i, column) => {
-        column.visible = $.inArray(column.field, columnsCookie) !== -1
-      })
+      for (const column of this.columns) {
+        column.visible = columnsCookie.includes(column.field) || !column.switchable
+      }
     }
   }
 

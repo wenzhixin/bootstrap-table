@@ -81,6 +81,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Example:** [Expand/Collapse Row](https://examples.bootstrap-table.com/#methods/expand-collapse-row.html)
 
+## collapseRowByUniqueId
+
+- **Parameter:** `uniqueId`
+
+- **Detail:**
+
+  Collapse the row that has the `uniqueId` passed by parameter if the detail view option is set to `true`.
+
+- **Example:** [Expand/Collapse Row by uniqueId](https://examples.bootstrap-table.com/#methods/expand-collapse-row-by-uniqueid.html)
+
 ## destroy
 
 - **Parameter:** `undefined`
@@ -110,6 +120,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   Expand the row that has the `index` passed by parameter if the detail view option is set to `true`.
 
 - **Example:** [Expand/Collapse Row](https://examples.bootstrap-table.com/#methods/expand-collapse-row.html)
+
+## expandRowByUniqueId
+
+- **Parameter:** `uniqueId`
+
+- **Detail:**
+
+  Expand the row that has the `uniqueId` passed by parameter if the detail view option is set to `true`.
+
+- **Example:** [Expand/Collapse Row by uniqueId](https://examples.bootstrap-table.com/#methods/expand-collapse-row-by-uniqueid.html)
 
 ## filterBy
 

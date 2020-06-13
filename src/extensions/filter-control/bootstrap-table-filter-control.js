@@ -526,8 +526,13 @@ const filterDataMethods = {
   },
   var (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource]
+    const isArray = Array.isArray(variableValues)
     for (const key in variableValues) {
-      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+      if (isArray) {
+        UtilsFilterControl.addOptionToSelectControl(selectControl, variableValues[key], variableValues[key], selected)
+      } else {
+        UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+      }
     }
     UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
   },
