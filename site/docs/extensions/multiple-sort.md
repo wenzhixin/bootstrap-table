@@ -79,7 +79,7 @@ toc: true
 
 - **Detail:**
 
-   Force mutltiple sort table (usable after manual data changes).
+   Force multiple sort table (usable after manual data changes).
 
 
 ### multiSort
@@ -104,115 +104,103 @@ toc: true
   ]
   ```
 
-## Locales
-
-### formatMultipleSort
-
-
-- **Detail:**
-
-   Title of the advanced search modal
-
-- **Default:** `Multiple Sort`
+## Localizations
 
 ### formatAddLevel
 
-
 - **Detail:**
 
-   Text of the add level button
+  Text of the add level button
 
 - **Default:** `Add Level`
 
-### formatDeleteLevel
-
-
-- **Detail:**
-
-   Text of the delete level button
-
-- **Default:** `Delete Level`
-
-### formatColumn
-
-
-- **Detail:**
-
-   Text of Column header
-
-- **Default:** `Column`
-
-### formatOrder
-
-
-- **Detail:**
-
-   Text of the delete level button
-
-- **Default:** `Order`
-
-### formatSortBy
-
-
-- **Detail:**
-
-   Text of the delete level button
-
-- **Default:** `Sort by`
-
-### formatThenBy
-
-
-- **Detail:**
-
-   Text of the delete level button
-
-- **Default:** `Then by`
-
-### formatSort
-
-
-- **Detail:**
-
-   Text of the delete level button
-
-- **Default:** `Sort`
-
 ### formatCancel
 
-
 - **Detail:**
 
-   Text of the delete level button
+  Text of the delete level button
 
 - **Default:** `Cancel`
 
-### formatDuplicateAlertTitle
-
+### formatColumn
 
 - **Detail:**
 
-   Title of the duplicate alert
+  Text of Column header
+
+- **Default:** `Column`
+
+### formatDeleteLevel
+
+- **Detail:**
+
+  Text of the delete level button
+
+- **Default:** `Delete Level`
+
+### formatDuplicateAlertTitle
+
+- **Detail:**
+
+  Title of the duplicate alert
 
 - **Default:** `Duplicate(s) detected!`
 
 ### formatDuplicateAlertDescription
 
-
 - **Detail:**
 
-   Text of the duplicate alert
+  Text of the duplicate alert
 
 - **Default:** `Please remove or change any duplicate column.`
 
-### formatSortOrders
-
+### formatMultipleSort
 
 - **Detail:**
 
-   Text of the sort orders
+  Title of the advanced search modal
+
+- **Default:** `Multiple Sort`
+
+### formatOrder
+
+- **Detail:**
+
+  Text of the delete level button
+
+- **Default:** `Order`
+
+### formatSort
+
+- **Detail:**
+
+  Text of the delete level button
+
+- **Default:** `Sort`
+
+### formatSortBy
+
+- **Detail:**
+
+  Text of the delete level button
+
+- **Default:** `Sort by`
+
+### formatSortOrders
+
+- **Detail:**
+
+  Text of the sort orders
 
 - **Default:**asc : `Ascending` and desc : `Descending`
+
+### formatThenBy
+
+- **Detail:**
+
+  Text of the delete level button
+
+- **Default:** `Then by`
 
 ## Events
 

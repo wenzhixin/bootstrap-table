@@ -95,4 +95,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
     return super.initRow(item, idx, data, parentDom)
   }
+
+  destroy (...args) {
+    super.destroy(...args)
+    this.options.rowStyle = this._rowStyle
+  }
 }

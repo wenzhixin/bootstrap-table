@@ -45,7 +45,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.onPostBody = () => {
       setTimeout(() => {
         this.makeRowsReorderable()
-        onPostBody.apply()
+        onPostBody.call(this.options, this.options.data)
       }, 1)
     }
 

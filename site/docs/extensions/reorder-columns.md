@@ -38,18 +38,6 @@ Dependence:
 
 - **Default:** `false`
 
-### maxMovingRows
-
-- **attribute:** `data-max-moving-rows`
-
-- **type:** `Integer`
-
-- **Detail:**
-
-   Moving only the header. Recommended for very large tables (cells > 1000)
-
-- **Default:** `10`
-
 ### dragaccept
 
 - **attribute:** `data-dragaccept`
@@ -62,6 +50,24 @@ Dependence:
 
 - **Default:** `null`
 
+### maxMovingRows
+
+- **attribute:** `data-max-moving-rows`
+
+- **type:** `Integer`
+
+- **Detail:**
+
+   Moving only the header. Recommended for very large tables (cells > 1000)
+
+- **Default:** `10`
+
+## Events
+
+### onReorderColumn(reorder-column.bs.table)
+
+Fired when the column was dropped, receive as parameter the new header fields order.
+
 ## Methods
 
 ### orderColumns
@@ -72,9 +78,3 @@ Dependence:
 
    Reorders the the columns by the given object.
    The Object key has to be the [field](https://bootstrap-table.com/docs/api/column-options/#field) and the value is the column index (starts by 0).
-
-## Events
-
-### onReorderColumn(reorder-column.bs.table)
-
-Fired when the column was dropped, receive as parameter the new header fields order

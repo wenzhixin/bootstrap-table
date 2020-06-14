@@ -46,17 +46,17 @@ This is an important link to check out as some file types may require extra step
 
 - **Default:** `basic`
 
-### exportTypes
+### exportFooter
 
-- **Attribute:** `data-export-types`
+- **Attribute:** `data-export-footer`
 
-- **type:** `Array`
+- **type:** `Boolean`
 
 - **Detail:**
 
-   export types, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'.
+   set `true` to export the table footer.
 
-- **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
+- **Default:** `false`
 
 ### exportOptions
 
@@ -78,7 +78,23 @@ This is an important link to check out as some file types may require extra step
    }
    ```
 
+### exportTypes
+
+- **Attribute:** `data-export-types`
+
+- **type:** `Array`
+
+- **Detail:**
+
+   export types, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'.
+
+- **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
+
 - **Default:** `{}`
+
+### Icons
+
+- export: `'glyphicon-export icon-share'`
 
 ## Column options
 
@@ -91,6 +107,18 @@ This is an important link to check out as some file types may require extra step
 - **Detail:**
 
    Set `true` to force export a column e.g. hidden columns.
+
+- **Default:** `false`
+
+### forceHide
+
+- **Attribute:** `data-force-hide`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to force hide a column e.g. for icon columns.
 
 - **Default:** `false`
 
@@ -108,6 +136,20 @@ This is an important link to check out as some file types may require extra step
 
   * `exportedRows`: The exported rows (depends on exportDataType)
 
-### Icons
+## Methods
 
-- export: `'glyphicon-export icon-share'`
+### exportTable
+
+- **parameters:** `options`
+
+- **Detail:**
+
+   Export table with custom options.
+
+## Localizations
+
+### formatExport
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Export data'`

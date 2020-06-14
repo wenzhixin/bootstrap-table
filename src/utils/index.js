@@ -184,6 +184,19 @@ export default {
     return text
   },
 
+  unescapeHTML (text) {
+    if (typeof text === 'string') {
+      return text
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#039;/g, '\'')
+        .replace(/&#x60;/g, '`')
+    }
+    return text
+  },
+
   getRealDataAttr (dataAttr) {
     for (const [attr, value] of Object.entries(dataAttr)) {
       const auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase()
@@ -317,5 +330,9 @@ export default {
   getResizeEventName (id = '') {
     id = id || `${+new Date()}${~~(Math.random() * 1000000)}`
     return `resize.bootstrap-table-${id}`
+  },
+
+  hasDetailViewIcon (options) {
+    return options.detailView && options.detailViewIcon && !options.cardView
   }
 }

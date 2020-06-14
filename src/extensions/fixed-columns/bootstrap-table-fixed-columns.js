@@ -166,6 +166,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
     })
   }
 
+  hideLoading () {
+    super.hideLoading()
+
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedColumns.find('.fixed-table-loading').hide()
+    }
+
+    if (this.needFixedColumns && this.options.fixedRightNumber) {
+      this.$fixedColumnsRight.find('.fixed-table-loading').hide()
+    }
+  }
+
   initFixedColumnsHeader () {
     if (this.options.height) {
       this.needFixedColumns = this.$tableHeader.outerWidth(true) < this.$tableHeader.find('table').outerWidth(true)
@@ -346,5 +358,38 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.triggerSearch()
       })
     }
+  }
+
+  renderStickyHeader () {
+    if (!this.options.stickyHeader) {
+      return
+    }
+
+    this.$stickyContainer = this.$container.find('.sticky-header-container')
+    super.renderStickyHeader()
+
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedColumns.css('z-index', 101)
+        .find('.sticky-header-container')
+        .css('right', '')
+        .width(this.$fixedColumns.outerWidth())
+    }
+
+    if (this.needFixedColumns && this.options.fixedRightNumber) {
+      const $stickyHeaderContainerRight = this.$fixedColumnsRight.find('.sticky-header-container')
+
+      this.$fixedColumnsRight.css('z-index', 101)
+      $stickyHeaderContainerRight.css('left', '')
+        .scrollLeft($stickyHeaderContainerRight.find('.table').outerWidth())
+        .width(this.$fixedColumnsRight.outerWidth())
+    }
+  }
+
+  matchPositionX () {
+    if (!this.options.stickyHeader) {
+      return
+    }
+
+    this.$stickyContainer.eq(0).scrollLeft(this.$tableBody.scrollLeft())
   }
 }

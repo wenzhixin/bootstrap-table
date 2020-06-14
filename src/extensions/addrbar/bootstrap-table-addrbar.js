@@ -63,6 +63,11 @@ function _buildUrl (dict, url = window.location.search) {
   return url
 }
 
+$.extend($.fn.bootstrapTable.defaults, {
+  addrbar: false,
+  addrPrefix: ''
+})
+
 $.BootstrapTable = class extends $.BootstrapTable {
   init (...args) {
     if (
@@ -72,15 +77,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
     ) {
       // 标志位, 初始加载后关闭
       this.addrbarInit = true
+
+      this.options.pageNumber = +this.getDefaultOptionValue('pageNumber', 'page')
+      this.options.pageSize = +this.getDefaultOptionValue('pageSize', 'size')
+      this.options.sortOrder = this.getDefaultOptionValue('sortOrder', 'order')
+      this.options.sortName = this.getDefaultOptionValue('sortName', 'sort')
+      this.options.searchText = this.getDefaultOptionValue('searchText', 'search')
+
       const _prefix = this.options.addrPrefix || ''
-
-      // 优先级排序: 用户指定值最优先, 未指定时从地址栏获取, 未获取到时采用默认值
-      this.options.pageNumber = +_GET(`${_prefix}page`) || $.BootstrapTable.DEFAULTS.pageNumber
-      this.options.pageSize = +_GET(`${_prefix}size`) || $.BootstrapTable.DEFAULTS.pageSize
-      this.options.sortOrder = _GET(`${_prefix}order`) || $.BootstrapTable.DEFAULTS.sortOrder
-      this.options.sortName = _GET(`${_prefix}sort`) || $.BootstrapTable.DEFAULTS.sortName
-      this.options.searchText = _GET(`${_prefix}search`) || $.BootstrapTable.DEFAULTS.searchText
-
       const _onLoadSuccess = this.options.onLoadSuccess
 
       this.options.onLoadSuccess = data => {
@@ -103,5 +107,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     }
     super.init(...args)
+  }
+
+  /*
+   * Priority order:
+   * The value specified by the user has the highest priority.
+   * If it is not specified, it will be obtained from the address bar.
+   * If it is not obtained, the default value will be used.
+   */
+  getDefaultOptionValue (optionName, prefixName) {
+    if (this.options[optionName] !== $.BootstrapTable.DEFAULTS[optionName]) {
+      return this.options[optionName]
+    }
+
+    return _GET(`${this.options.addrPrefix || ''}${prefixName}`) ||
+      $.BootstrapTable.DEFAULTS[optionName]
   }
 }

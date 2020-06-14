@@ -219,6 +219,7 @@ const DEFAULTS = {
   detailView: false,
   detailViewIcon: true,
   detailViewByClick: false,
+  detailViewAlign: 'left',
   detailFormatter (index, row) {
     return ''
   },
@@ -236,6 +237,14 @@ const DEFAULTS = {
   html: CONSTANTS.html,
   iconSize: undefined,
   iconsPrefix: CONSTANTS.iconsPrefix, // glyphicon or fa(font-awesome)
+  loadingFontSize: 'auto',
+  loadingTemplate (loadingMessage) {
+    return `<span class="loading-wrap">
+      <span class="loading-text">${loadingMessage}</span>
+      <span class="animation-wrap"><span class="animation-dot"></span></span>
+      </span>
+    `
+  },
   onAll (name, args) {
     return false
   },
@@ -455,7 +464,7 @@ const METHODS = [
   'scrollTo', 'getScrollPosition',
   'selectPage', 'prevPage', 'nextPage',
   'toggleDetailView',
-  'expandRow', 'collapseRow',
+  'expandRow', 'collapseRow', 'expandRowByUniqueId', 'collapseRowByUniqueId',
   'expandAllRows', 'collapseAllRows',
   'updateColumnTitle', 'updateFormatText'
 ]
