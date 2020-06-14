@@ -2127,6 +2127,19 @@ class BootstrapTable {
       })
     }
 
+    if (params && params.formatted) {
+      data.forEach((row) => {
+        for (const [key, value] of Object.entries(row)) {
+          const column = this.columns[this.fieldsColumnsIndex[key]]
+          if (!column) {
+            return
+          }
+
+          row[key] = Utils.calculateObjectValue(column, this.header.formatters[column.fieldIndex], [value, row, row.index, column.field], value)
+        }
+      })
+    }
+
     return data
   }
 
