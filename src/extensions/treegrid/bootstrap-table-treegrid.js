@@ -65,10 +65,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
           `treegrid-${id}`,
           `treegrid-parent-${pid}`
         ].join(' ')
-        var haveChild=item[_this.options.haveChildField];
-				if(haveChild){
-					res.classes = [res.classes , "treegrid-haveChild"].join(' ');
-				}
+        var haveChild = item[_this.options.haveChildField]
+        if (haveChild) {
+          res.classes = [res.classes , "treegrid-haveChild"].join(' ')
+        }
         return res
       }
       this.initTr(node, $.inArray(node, data), data, parentDom)
@@ -92,10 +92,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
             res.classes || '',
             `treegrid-${x}`
           ].join(' ')
-          var haveChild=item[_this2.options.haveChildField];
-			  if(haveChild){
-				  res.classes = [res.classes , "treegrid-haveChild"].join(' ');
-			  }
+          var haveChild = item[_this2.options.haveChildField]
+          if (haveChild) {
+            res.classes = [res.classes , "treegrid-haveChild"].join(' ')
+          }
           return res
         }
         this.initTr(item, idx, data, parentDom)
