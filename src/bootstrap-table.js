@@ -527,13 +527,13 @@ class BootstrapTable {
 
       toggle: `<button class="${this.constants.buttonsClass}" type="button" name="toggle"
         aria-label="Toggle" title="${opts.formatToggle()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.toggleOff) : '' }
+        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.toggleOff) : ''}
         ${opts.showButtonText ? opts.formatToggleOn() : ''}
         </button>`,
 
       fullscreen: `<button class="${this.constants.buttonsClass}" type="button" name="fullscreen"
         aria-label="Fullscreen" title="${opts.formatFullscreen()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.fullscreen) : '' }
+        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.fullscreen) : ''}
         ${opts.showButtonText ? opts.formatFullscreen() : ''}
         </button>`,
 
@@ -2062,6 +2062,19 @@ class BootstrapTable {
       const hiddenRows = this.getHiddenRows()
       data = data.filter(function (row) {
         return Utils.findIndex(hiddenRows, row) === -1
+      })
+    }
+
+    if (params && params.formatted) {
+      data.forEach((row) => {
+        for (const [key, value] of Object.entries(row)) {
+          const column = this.columns[this.fieldsColumnsIndex[key]]
+          if (column === undefined) {
+            return
+          }
+
+          row[key] = Utils.calculateObjectValue(column, this.header.formatters[column.fieldIndex], [value, row, row.index, column.field], value)
+        }
       })
     }
 
