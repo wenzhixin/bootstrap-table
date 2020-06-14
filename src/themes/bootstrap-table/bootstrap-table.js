@@ -26,6 +26,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
   init () {
     super.init()
 
+    this.constants.classes.dropup = 'dropdown-menu-up'
+
     $('.modal').on('click', '[data-close]', (e) => {
       $(e.delegateTarget).removeClass('show')
     })

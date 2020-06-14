@@ -131,11 +131,19 @@
     }
   }
 
+  .dropdown-menu-up {
+    .dropdown-menu {
+      top: auto;
+      bottom: 100%;
+    }
+  }
+
   .dropdown-menu {
     display: none;
     background-color: $background;
     position: absolute;
     right: 0;
+    min-width: 160px;
     margin-top: 2px;
     border: 1px solid $btn-border;
     border-radius: 4px;
@@ -299,4 +307,8 @@
 
 .mt-30 {
   margin-top: 30px;
+}
+
+.float-left {
+  float: left;
 }
