@@ -208,6 +208,9 @@ const UtilsCookie = {
             if (cookie.text !== '' && element.tagName === 'INPUT') {
               element.value = cookie.text
               cachedFilters[cookie.field] = cookie.text
+            } else if (cookie.text !== '' && element.tagName === 'SELECT' && bootstrapTable.options.filterControlContainer) {
+              element.value = cookie.text
+              cachedFilters[cookie.field] = cookie.text
             } else if (cookie.text !== '' && element.tagName === 'SELECT') {
               const option = document.createElement('option')
               option.value = cookie.text
@@ -219,7 +222,12 @@ const UtilsCookie = {
           })
         }
 
-        header.find(searchControls).each(function () {
+        let filterContainer = header
+        if (bootstrapTable.options.filterControlContainer) {
+          filterContainer = $(`${bootstrapTable.options.filterControlContainer}`)
+        }
+
+        filterContainer.find(searchControls).each(function () {
           const field = $(this).closest('[data-field]').data('field')
           const filteredCookies = parsedCookieFilters.filter(cookie => cookie.field === field)
 
