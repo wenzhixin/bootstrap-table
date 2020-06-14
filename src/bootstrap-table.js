@@ -2131,7 +2131,7 @@ class BootstrapTable {
       data.forEach((row) => {
         for (const [key, value] of Object.entries(row)) {
           const column = this.columns[this.fieldsColumnsIndex[key]]
-          if (column === undefined) {
+          if (!column) {
             return
           }
 
