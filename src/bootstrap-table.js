@@ -139,23 +139,32 @@ class BootstrapTable {
     } else if (this.options.theadClasses) {
       this.$header.addClass(this.options.theadClasses)
     }
+
+    this._headerTrClasses = []
     this.$header.find('tr').each((i, el) => {
+      const $tr = $(el)
       const column = []
 
-      $(el).find('th').each((i, el) => {
+      $tr.find('th').each((i, el) => {
+        const $th = $(el)
+
         // #2014: getFieldIndex and elsewhere assume this is string, causes issues if not
-        if (typeof $(el).data('field') !== 'undefined') {
-          $(el).data('field', `${$(el).data('field')}`)
+        if (typeof $th.data('field') !== 'undefined') {
+          $th.data('field', `${$th.data('field')}`)
         }
         column.push($.extend({}, {
-          title: $(el).html(),
-          'class': $(el).attr('class'),
-          titleTooltip: $(el).attr('title'),
-          rowspan: $(el).attr('rowspan') ? +$(el).attr('rowspan') : undefined,
-          colspan: $(el).attr('colspan') ? +$(el).attr('colspan') : undefined
-        }, $(el).data()))
+          title: $th.html(),
+          'class': $th.attr('class'),
+          titleTooltip: $th.attr('title'),
+          rowspan: $th.attr('rowspan') ? +$th.attr('rowspan') : undefined,
+          colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined
+        }, $th.data()))
       })
       columns.push(column)
+
+      if ($tr.attr('class')) {
+        this._headerTrClasses.push($tr.attr('class'))
+      }
     })
 
     if (!Array.isArray(this.options.columns[0])) {
@@ -222,7 +231,7 @@ class BootstrapTable {
     Utils.updateFieldGroup(this.options.columns)
 
     this.options.columns.forEach((columns, i) => {
-      html.push('<tr>')
+      html.push(`<tr${Utils.sprintf(' class="%s"', this._headerTrClasses[i])}>`)
 
       let detailViewTemplate = ''
 
