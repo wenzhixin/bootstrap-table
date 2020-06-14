@@ -64,7 +64,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $target = $target.parents('.dropdown-toggle')
       }
 
-      $dropdownToggles.next('.dropdown-menu').removeClass('open')
       $target.next('.dropdown-menu').toggleClass('open')
     })
 
