@@ -189,7 +189,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `includeHiddenRows`: if set to true the method will include the hidden rows.
   * `unfiltered`: if set to true the method will include all data (unfiltered).
   * `formatted`: get the formatted value from the defined [formatter](https://bootstrap-table.com/docs/api/column-options/#formatter).
-  
+
 - **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/getData.html)
 
 ## getHiddenColumns
