@@ -7,7 +7,8 @@
 @import './font.scss';
 
 .bootstrap-table {
-  input, select {
+  input,
+  select {
     border-radius: 4px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -52,7 +53,6 @@
     color: $btn-active-background;
   }
 
-
   .fixed-table-toolbar {
     .columns > div {
       display: inline-block;
@@ -75,7 +75,8 @@
     .columns.btn-group {
       display: inline-block;
 
-      .btn, input {
+      .btn,
+      input {
         &:not(:first-child):not(:last-child) {
           border-radius: 0;
         }
@@ -108,20 +109,16 @@
       }
 
       button[name="search"],
-      button[name="clearSearch"]
-      {
+      button[name="clearSearch"] {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
 
       button[name="search"]:not(:last-child),
-      button[name="clearSearch"]:not(:last-child)
-      {
+      button[name="clearSearch"]:not(:last-child) {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
       }
-
-
     }
   }
 
@@ -160,6 +157,7 @@
   }
 
   .pagination-detail {
+    float: left;
     .dropdown-item {
       min-width: 45px;
       text-align: center;
@@ -170,7 +168,8 @@
     border-collapse: collapse;
 
     &.table-bordered {
-      thead tr th, tbody tr td {
+      thead tr th,
+      tbody tr td {
         border: 1px solid #ddd;
       }
 
@@ -181,15 +180,12 @@
   }
 
   .float-right {
-    float: right
-  }
-
-  .pagination-detail {
-    float: left;
+    float: right;
   }
 
   .page-jump-to {
-    input, .btn {
+    input,
+    .btn {
       padding: 8px 12px;
     }
   }
@@ -231,7 +227,8 @@
     .btn-group {
       display: inline-block;
 
-      .btn, input {
+      .btn,
+      input {
         &:not(:first-child):not(:last-child) {
           border-radius: 0;
         }

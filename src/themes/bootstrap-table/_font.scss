@@ -1,7 +1,8 @@
 @font-face {
   font-family: 'bootstrap-table';
-  src:  url('fonts/bootstrap-table.eot?gmdfsp');
-  src:  url('fonts/bootstrap-table.eot?gmdfsp#iefix') format('embedded-opentype'),
+  src: url('fonts/bootstrap-table.eot?gmdfsp');
+  src:
+  url('fonts/bootstrap-table.eot?gmdfsp#iefix') format('embedded-opentype'),
   url('fonts/bootstrap-table.ttf?gmdfsp') format('truetype'),
   url('fonts/bootstrap-table.woff?gmdfsp') format('woff'),
   url('fonts/bootstrap-table.svg?gmdfsp#bootstrap-table') format('svg');
@@ -10,9 +11,10 @@
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"],
+[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'bootstrap-table' !important;
+  font-family: 'bootstrap-table', sans-serif !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
