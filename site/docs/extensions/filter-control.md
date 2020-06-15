@@ -33,6 +33,19 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `false`
 
+### filterControlHidden
+
+- **Attribute:** `data-filter-control-hidden`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set true to hide the filter controls.
+
+- **Default:** `false`
+
+
 ### alignmentSelectControlOptions
 
 - **Attribute:** `data-alignment-select-control-options`

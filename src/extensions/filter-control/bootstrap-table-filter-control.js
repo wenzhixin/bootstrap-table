@@ -481,6 +481,10 @@ const UtilsFilterControl = {
         that.triggerSearch()
       }
 
+      if (that.options.filterControlHidden) {
+        UtilsFilterControl.getControlContainer(that).find('.filter-control').hide()
+      }
+
     } else {
       UtilsFilterControl.getControlContainer(that).find('.filterControl').hide()
     }
@@ -559,6 +563,7 @@ const filterDataMethods = {
 
 $.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,
+  filterControlHidden: false,
   onColumnSearch (field, text) {
     return false
   },
@@ -961,8 +966,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   toggleFilterControl () {
-    this.refreshOptions({
-      filterControl: !this.getOptions().filterControl
-    })
+    this.options.filterControlHidden = !this.options.filterControlHidden
+    const filterControl = UtilsFilterControl.getControlContainer(this).find('.filter-control')
+    if (this.options.filterControlHidden) {
+      filterControl.hide()
+      this.clearFilterControl()
+    } else {
+      filterControl.show()
+    }
   }
 }
