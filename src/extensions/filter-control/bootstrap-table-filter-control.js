@@ -967,11 +967,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   toggleFilterControl () {
     this.options.filterControlVisible = !this.options.filterControlVisible
-    const filterControl = UtilsFilterControl.getControlContainer(this).find('.filter-control')
+    const $filterControls = UtilsFilterControl.getControlContainer(this).find('.filter-control')
     if (this.options.filterControlVisible) {
-      filterControl.show()
+      $filterControls.show()
     } else {
-      filterControl.hide()
+      $filterControls.hide()
       this.clearFilterControl()
     }
   }
