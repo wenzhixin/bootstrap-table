@@ -29,22 +29,21 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   Set true to add an `input` or `select` into the column.
+   Set to true to add an `input` or `select` into the column.
 
 - **Default:** `false`
 
-### filterControlHidden
+### filterControlVisible
 
-- **Attribute:** `data-filter-control-hidden`
+- **Attribute:** `data-filter-control-visible`
 
 - **type:** `Boolean`
 
 - **Detail:**
 
-   Set true to hide the filter controls.
+   Set to false to hide the filter controls.
 
-- **Default:** `false`
-
+- **Default:** `true`
 
 ### alignmentSelectControlOptions
 
