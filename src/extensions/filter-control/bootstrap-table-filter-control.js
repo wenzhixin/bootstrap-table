@@ -486,7 +486,7 @@ const UtilsFilterControl = {
       }
 
     } else {
-      UtilsFilterControl.getControlContainer(that).find('.filterControl').hide()
+      UtilsFilterControl.getControlContainer(that).find('.filter-control, .no-filter-control').hide()
     }
   },
   getDirectionOfSelectOptions (_alignment) {
