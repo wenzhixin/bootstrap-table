@@ -212,6 +212,13 @@ const UtilsCookie = {
               element.value = cookie.text
               cachedFilters[cookie.field] = cookie.text
             } else if (cookie.text !== '' && element.tagName === 'SELECT') {
+              for (var i = 0; i < element.length; i++) {
+                const currentElement = element[i]
+                if (currentElement.value === cookie.text) {
+                  currentElement.selected = true
+                  return
+                }
+              }
               const option = document.createElement('option')
               option.value = cookie.text
               option.text = cookie.text
