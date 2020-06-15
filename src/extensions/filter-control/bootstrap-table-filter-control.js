@@ -482,7 +482,7 @@ const UtilsFilterControl = {
       }
 
       if (!that.options.filterControlVisible) {
-        UtilsFilterControl.getControlContainer(that).find('.filter-control').hide()
+        UtilsFilterControl.getControlContainer(that).find('.filter-control, .no-filter-control').hide()
       }
 
     } else {
