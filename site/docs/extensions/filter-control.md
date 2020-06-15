@@ -29,7 +29,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   Set to true to add an `input` or `select` into the column.
+   Set to `true` to add an `input` or `select` into the column.
 
 - **Default:** `false`
 
@@ -41,7 +41,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   Set to false to hide the filter controls.
+   Set to `false` to hide the filter controls.
 
 - **Default:** `true`
 
@@ -268,7 +268,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### toggleFilterControl
 
-* Toggle filter control.
+* Toggles the visibility (show/hide) of the filter controls.
 
 ## Localizations
 
