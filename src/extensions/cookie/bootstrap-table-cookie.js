@@ -209,16 +209,16 @@ const UtilsCookie = {
               return
             }
 
-            if (cookie.text !== '' && element.tagName === 'INPUT' && element.type === 'radio' && element.value.toString() === cookie.text.toString()) {
+            if (element.tagName === 'INPUT' && element.type === 'radio' && element.value.toString() === cookie.text.toString()) {
               element.checked = true
               cachedFilters[cookie.field] = cookie.text
-            } else if (cookie.text !== '' && element.tagName === 'INPUT') {
+            } else if (element.tagName === 'INPUT') {
               element.value = cookie.text
               cachedFilters[cookie.field] = cookie.text
-            } else if (cookie.text !== '' && element.tagName === 'SELECT' && bootstrapTable.options.filterControlContainer) {
+            } else if (element.tagName === 'SELECT' && bootstrapTable.options.filterControlContainer) {
               element.value = cookie.text
               cachedFilters[cookie.field] = cookie.text
-            } else if (cookie.text !== '' && element.tagName === 'SELECT') {
+            } else if (element.tagName === 'SELECT') {
               for (var i = 0; i < element.length; i++) {
                 const currentElement = element[i]
                 if (currentElement.value === cookie.text) {
