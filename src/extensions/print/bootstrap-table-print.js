@@ -99,7 +99,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   doPrint (data) {
-    const formatValue = (row, i, column ) => {
+    const formatValue = (row, i, column) => {
       const value = Utils.calculateObjectValue(column, column.printFormatter,
         [row[column.field], row, i], row[column.field])
 
@@ -127,13 +127,43 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       html.push('</thead><tbody>')
 
+      const dontRender = []
+      for (let mc = 0; mc < this.mergedCells.length; mc++) {
+        const currentMergedCell = this.mergedCells[mc]
+        for (let rs = 0; rs < currentMergedCell.rowspan; rs++) {
+          const row = currentMergedCell.row + rs
+          for (let cs = 0; cs < currentMergedCell.colspan; cs++) {
+            const col = currentMergedCell.col + cs
+            dontRender.push(row + ',' + col)
+          }
+        }
+      }
+
       for (let i = 0; i < data.length; i++) {
         html.push('<tr>')
 
         for (const columns of columnsArray) {
           for (let j = 0; j < columns.length; j++) {
-            if (!columns[j].printIgnore && columns[j].field) {
-              html.push('<td>', formatValue(data[i], i, columns[j]), '</td>')
+            let rowspan = 0
+            let colspan = 0
+            for (let mc = 0; mc < this.mergedCells.length; mc++) {
+              const currentMergedCell = this.mergedCells[mc]
+              if (currentMergedCell.col === j && currentMergedCell.row === i) {
+                rowspan = currentMergedCell.rowspan
+                colspan = currentMergedCell.colspan
+              }
+            }
+
+            if (
+              !columns[j].printIgnore && columns[j].field
+              && (
+                !dontRender.includes(i + ',' + j)
+                || (rowspan > 0 && colspan > 0)
+              )
+            ) {
+              html.push(`<td
+              ${Utils.sprintf(' rowspan="%s"', rowspan)}
+              ${Utils.sprintf(' colspan="%s"', colspan)}>`, formatValue(data[i], i, columns[j]), '</td>')
             }
           }
         }
@@ -179,14 +209,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return true
     }
 
-    const filterRows = (data, filters) => data.filter(row => filterRow(row,filters))
-
+    const filterRows = (data, filters) => data.filter(row => filterRow(row, filters))
     const getColumnFilters = columns => !columns || !columns[0] ? [] : columns[0].filter(col => col.printFilter).map(col => ({
       colName: col.field,
       value: col.printFilter
     }))
 
-    data = filterRows(data,getColumnFilters(this.options.columns))
+    data = filterRows(data, getColumnFilters(this.options.columns))
     data = sortRows(data, this.options.printSortColumn, this.options.printSortOrder)
     const table = buildTable(data, this.options.columns)
     const newWin = window.open('')

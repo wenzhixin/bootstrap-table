@@ -2563,6 +2563,16 @@ class BootstrapTable {
     }
 
     $td.attr('rowspan', rowspan).attr('colspan', colspan).show()
+    if (this.mergedCells === undefined) {
+      this.mergedCells = []
+    }
+
+    this.mergedCells.push({
+      row: row,
+      col: col,
+      rowspan: rowspan,
+      colspan: colspan
+    })
   }
 
   checkAll () {
