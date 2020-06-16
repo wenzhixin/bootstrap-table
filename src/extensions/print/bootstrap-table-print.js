@@ -128,13 +128,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
       html.push('</thead><tbody>')
 
       const dontRender = []
-      for (let mc = 0; mc < this.mergedCells.length; mc++) {
-        const currentMergedCell = this.mergedCells[mc]
-        for (let rs = 0; rs < currentMergedCell.rowspan; rs++) {
-          const row = currentMergedCell.row + rs
-          for (let cs = 0; cs < currentMergedCell.colspan; cs++) {
-            const col = currentMergedCell.col + cs
-            dontRender.push(row + ',' + col)
+      if (this.mergedCells !== undefined) {
+        for (let mc = 0; mc < this.mergedCells.length; mc++) {
+          const currentMergedCell = this.mergedCells[mc]
+          for (let rs = 0; rs < currentMergedCell.rowspan; rs++) {
+            const row = currentMergedCell.row + rs
+            for (let cs = 0; cs < currentMergedCell.colspan; cs++) {
+              const col = currentMergedCell.col + cs
+              dontRender.push(row + ',' + col)
+            }
           }
         }
       }
@@ -146,11 +148,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
           for (let j = 0; j < columns.length; j++) {
             let rowspan = 0
             let colspan = 0
-            for (let mc = 0; mc < this.mergedCells.length; mc++) {
-              const currentMergedCell = this.mergedCells[mc]
-              if (currentMergedCell.col === j && currentMergedCell.row === i) {
-                rowspan = currentMergedCell.rowspan
-                colspan = currentMergedCell.colspan
+            if (this.mergedCells !== undefined) {
+              for (let mc = 0; mc < this.mergedCells.length; mc++) {
+                const currentMergedCell = this.mergedCells[mc]
+                if (currentMergedCell.col === j && currentMergedCell.row === i) {
+                  rowspan = currentMergedCell.rowspan
+                  colspan = currentMergedCell.colspan
+                }
               }
             }
 
