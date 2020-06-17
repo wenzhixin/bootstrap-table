@@ -625,10 +625,7 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   clear: {
     bootstrap3: 'glyphicon-trash icon-clear'
-  }[$.fn.bootstrapTable.theme] || 'fa-trash'
-})
-
-$.extend($.fn.bootstrapTable.defaults.icons, {
+  }[$.fn.bootstrapTable.theme] || 'fa-trash',
   filterControlSwitchHide: {
     bootstrap3: 'glyphicon-zoom-out icon-zoom-out'
   }[$.fn.bootstrapTable.theme] || 'fa-search-minus',

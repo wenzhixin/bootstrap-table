@@ -244,7 +244,9 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 ### Icons
 
-* clear: 'glyphicon-trash icon-clear'
+* clear: `'glyphicon-trash icon-clear'`
+* filterControlSwitchHide: `'glyphicon-zoom-out icon-zoom-out'`
+* filterControlSwitchShow: `'glyphicon-zoom-in icon-zoom-in'`
 
 ## Events
 
@@ -277,3 +279,21 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **type:** `Function`
 
 - **Default:** `function () { return "Clear Filters";}`
+
+### formatFilterControlSwitch
+
+- **type:** `Function`
+
+- **Default:** `function () { return "Hide/Show controls";}`
+
+### formatFilterControlSwitchHide
+
+- **type:** `Function`
+
+- **Default:** `function () { return "Hide controls";}`
+
+### formatFilterControlSwitchShow
+
+- **type:** `Function`
+
+- **Default:** `function () { return "Show controls";}`
