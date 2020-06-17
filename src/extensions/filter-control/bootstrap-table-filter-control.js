@@ -481,8 +481,12 @@ const UtilsFilterControl = {
         that.triggerSearch()
       }
 
+      if (!that.options.filterControlVisible) {
+        UtilsFilterControl.getControlContainer(that).find('.filter-control, .no-filter-control').hide()
+      }
+
     } else {
-      UtilsFilterControl.getControlContainer(that).find('.filterControl').hide()
+      UtilsFilterControl.getControlContainer(that).find('.filter-control, .no-filter-control').hide()
     }
   },
   getDirectionOfSelectOptions (_alignment) {
@@ -559,6 +563,7 @@ const filterDataMethods = {
 
 $.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,
+  filterControlVisible: true,
   onColumnSearch (field, text) {
     return false
   },
@@ -632,6 +637,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 
 $.fn.bootstrapTable.methods.push('triggerSearch')
 $.fn.bootstrapTable.methods.push('clearFilterControl')
+$.fn.bootstrapTable.methods.push('toggleFilterControl')
 
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
@@ -956,6 +962,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
       } else {
         searchControls.removeProp('disabled')
       }
+    }
+  }
+
+  toggleFilterControl () {
+    this.options.filterControlVisible = !this.options.filterControlVisible
+    const $filterControls = UtilsFilterControl.getControlContainer(this).find('.filter-control, .no-filter-control')
+    if (this.options.filterControlVisible) {
+      $filterControls.show()
+    } else {
+      $filterControls.hide()
+      this.clearFilterControl()
     }
   }
 }

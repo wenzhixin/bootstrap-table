@@ -29,9 +29,21 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   Set true to add an `input` or `select` into the column.
+   Set to `true` to add an `input` or `select` into the column.
 
 - **Default:** `false`
+
+### filterControlVisible
+
+- **Attribute:** `data-filter-control-visible`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set to `false` to hide the filter controls.
+
+- **Default:** `true`
 
 ### alignmentSelectControlOptions
 
@@ -253,6 +265,10 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 ### clearFilterControl
 
 * Clear all the controls added by this plugin (similar to showSearchClearButton option).
+
+### toggleFilterControl
+
+* Toggles the visibility (show/hide) of the filter controls.
 
 ## Localizations
 
