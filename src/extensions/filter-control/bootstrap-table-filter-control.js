@@ -882,9 +882,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
           ${this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''}
           </button>
         `).appendTo($btnGroup)
-      }
 
-      $btnFilterControlSwitch.on('click', $.proxy(this.toggleFilterControl, this))
+        $btnFilterControlSwitch.on('click', $.proxy(this.toggleFilterControl, this))
+      }
     }
   }
 
