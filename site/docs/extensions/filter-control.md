@@ -118,6 +118,18 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `false`
 
+### showFilterControlSwitch
+
+- **Attribute:** `data-show-filter-control-switch`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set to `true` to show the filter control switch button.
+
+- **Default:** `false`
+
 ## Column options
 
 ### filterControl
