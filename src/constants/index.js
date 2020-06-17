@@ -115,6 +115,52 @@ const CONSTANTS = {
       searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
       searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
     }
+  },
+  5: {
+    iconsPrefix: 'fa',
+    icons: {
+      paginationSwitchDown: 'fa-caret-square-down',
+      paginationSwitchUp: 'fa-caret-square-up',
+      refresh: 'fa-sync',
+      toggleOff: 'fa-toggle-off',
+      toggleOn: 'fa-toggle-on',
+      columns: 'fa-th-list',
+      detailOpen: 'fa-plus',
+      detailClose: 'fa-minus',
+      fullscreen: 'fa-arrows-alt',
+      search: 'fa-search',
+      clearSearch: 'fa-trash'
+    },
+    classes: {
+      buttonsPrefix: 'btn',
+      buttons: 'secondary',
+      buttonsGroup: 'btn-group',
+      buttonsDropdown: 'btn-group',
+      pull: 'float',
+      inputGroup: 'btn-group',
+      inputPrefix: 'form-control-',
+      input: 'form-control',
+      paginationDropdown: 'btn-group dropdown',
+      dropup: 'dropup',
+      dropdownActive: 'active',
+      paginationActive: 'active',
+      buttonActive: 'active'
+    },
+    html: {
+      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
+      toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
+      pageDropdown: ['<div class="dropdown-menu">', '</div>'],
+      pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
+      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
+      dropdownCaret: '<span class="caret"></span>',
+      pagination: ['<ul class="pagination%s">', '</ul>'],
+      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
+      icon: '<i class="%s %s"></i>',
+      inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
+      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
+      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
+    }
   }
 }[bootstrapVersion]
 
