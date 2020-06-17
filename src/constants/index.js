@@ -13,6 +13,16 @@ try {
   // ignore
 }
 
+try {
+  // eslint-disable-next-line no-undef
+  const rawVersion = bootstrap.Tooltip.VERSION
+  if (rawVersion !== undefined) {
+    bootstrapVersion = parseInt(rawVersion, 10)
+  }
+} catch (e) {
+  // ignore
+}
+
 const CONSTANTS = {
   3: {
     iconsPrefix: 'glyphicon',
