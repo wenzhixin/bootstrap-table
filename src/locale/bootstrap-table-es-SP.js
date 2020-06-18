@@ -87,13 +87,13 @@ $.fn.bootstrapTable.locales['es-SP'] = {
     return 'Close'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Ocultar/Mostrar controles'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Ocultar controles'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Mostrar controles'
   }
 }
 
