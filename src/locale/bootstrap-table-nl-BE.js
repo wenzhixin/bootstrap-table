@@ -1,5 +1,5 @@
 /**
- * Bootstrap Table Dutch (Belgi�) translation
+ * Bootstrap Table Dutch (België) translation
  * Author: Nevets82 <Nevets82@gmail.com>
  */
 
