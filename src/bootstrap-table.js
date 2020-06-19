@@ -73,25 +73,12 @@ class BootstrapTable {
     const bottomPagination = ['bottom', 'both'].includes(this.options.paginationVAlign)
       ? '<div class="fixed-table-pagination"></div>' : ''
 
-    this.$container = $(`
-      <div class="bootstrap-table ${this.constants.theme}">
-      <div class="fixed-table-toolbar"></div>
-      ${topPagination}
-      <div class="fixed-table-container">
-      <div class="fixed-table-header"><table></table></div>
-      <div class="fixed-table-body">
-      <div class="fixed-table-loading">
-      <span class="loading-wrap">
-      <span class="loading-text">${this.options.formatLoadingMessage()}</span>
-      <span class="animation-wrap"><span class="animation-dot"></span></span>
-      </span>
-      </div>
-      </div>
-      <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
-      </div>
-      ${bottomPagination}
-      </div>
-    `)
+    this.$container = $(`<div class="bootstrap-table ${this.constants.theme}"><div class="fixed-table-toolbar"></div>${topPagination}` +
+			`<div class="fixed-table-container"><div class="fixed-table-header"><table></table></div>` +
+			`<div class="fixed-table-body"><div class="fixed-table-loading">` +
+			`<span class="loading-wrap"><span class="loading-text">${this.options.formatLoadingMessage()}</span>` +
+			`<span class="animation-wrap"><span class="animation-dot"></span></span></span></div></div>` +
+			`<div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div></div>${bottomPagination}</div>`);
 
     this.$container.insertAfter(this.$el)
     this.$tableContainer = this.$container.find('.fixed-table-container')
