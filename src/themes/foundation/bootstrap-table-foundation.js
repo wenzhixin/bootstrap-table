@@ -57,7 +57,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initPagination () {
     super.initPagination()
 
-    if (this.options.pagination && !this.options.onlyInfoPagination) {
+    if (this.options.pagination && this.paginationParts.includes('pageSize')) {
       const $el = this.$pagination.find('.dropdown-toggle')
       $el.attr('data-toggle', $el.next().attr('id'))
 
