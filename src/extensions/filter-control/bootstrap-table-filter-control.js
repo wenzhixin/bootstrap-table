@@ -600,6 +600,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   },
   disableControlWhenSearch: false,
   searchOnEnterKey: false,
+  showFilterControlSwitch: false,
   // internal variables
   valuesFilterControl: []
 })
@@ -624,9 +625,28 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   clear: {
     bootstrap3: 'glyphicon-trash icon-clear'
-  }[$.fn.bootstrapTable.theme] || 'fa-trash'
+  }[$.fn.bootstrapTable.theme] || 'fa-trash',
+  filterControlSwitchHide: {
+    bootstrap3: 'glyphicon-zoom-out icon-zoom-out',
+    materialize: 'zoom_out'
+  }[$.fn.bootstrapTable.theme] || 'fa-search-minus',
+  filterControlSwitchShow: {
+    bootstrap3: 'glyphicon-zoom-in icon-zoom-in',
+    materialize: 'zoom_in'
+  }[$.fn.bootstrapTable.theme] || 'fa-search-plus'
 })
 
+$.extend($.fn.bootstrapTable.locales, {
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
+  }
+})
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.extend($.fn.bootstrapTable.defaults, {
@@ -848,8 +868,26 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initToolbar () {
+    this.showToolbar = this.showToolbar || this.options.showFilterControlSwitch
     this.showSearchClearButton = this.options.filterControl && this.options.showSearchClearButton
     super.initToolbar()
+
+    if (this.options.showFilterControlSwitch) {
+      const $btnGroup = this.$toolbar.find('>.columns')
+      let $btnFilterControlSwitch = $btnGroup.find('.filter-control-switch')
+
+      if (!$btnFilterControlSwitch.length) {
+        $btnFilterControlSwitch = $(`
+          <button class="filter-control-switch ${this.constants.buttonsClass}"
+          type="button" title="${this.options.formatFilterControlSwitch()}">
+          ${this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow) : ''}
+          ${this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''}
+          </button>
+        `).appendTo($btnGroup)
+
+        $btnFilterControlSwitch.on('click', $.proxy(this.toggleFilterControl, this))
+      }
+    }
   }
 
   resetSearch (text) {
@@ -974,5 +1012,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       $filterControls.hide()
       this.clearFilterControl()
     }
+    const icon = this.options.showButtonIcons ? this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow : ''
+    const text = this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''
+    this.$toolbar.find('>.columns').find('.filter-control-switch')
+      .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) + ' ' + text)
   }
 }
