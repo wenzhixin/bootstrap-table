@@ -85,6 +85,15 @@ $.fn.bootstrapTable.locales['bg-BG'] = {
   },
   formatAdvancedCloseButton () {
     return 'Затваряне'
+  },
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
   }
 }
 
