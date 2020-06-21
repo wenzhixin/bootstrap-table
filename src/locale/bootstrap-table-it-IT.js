@@ -87,8 +87,16 @@ $.fn.bootstrapTable.locales['it-IT'] = {
   },
   formatAdvancedCloseButton () {
     return 'Chiudi'
+  },
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
   }
-
 }
 
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['it-IT'])
