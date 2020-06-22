@@ -156,7 +156,7 @@ const DEFAULTS = {
   totalNotFilteredField: 'totalNotFiltered',
   dataField: 'rows',
   pagination: false,
-  onlyInfoPagination: false,
+  paginationParts: ['pageInfo', 'pageSize', 'pageList'],
   showExtendedPagination: false,
   paginationLoop: true,
   sidePagination: 'client', // client or server
