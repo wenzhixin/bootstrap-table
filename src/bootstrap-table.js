@@ -2134,9 +2134,7 @@ class BootstrapTable {
 
     if (params && !params.includeHiddenRows) {
       const hiddenRows = this.getHiddenRows()
-      data = data.filter(function (row) {
-        return Utils.findIndex(hiddenRows, row) === -1
-      })
+      data = data.filter(row => Utils.findIndex(hiddenRows, row) === -1)
     }
 
     if (params && params.formatted) {
