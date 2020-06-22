@@ -7,7 +7,7 @@
 
 $.akottr.dragtable.prototype._restoreState = function (persistObj) {
   for (const [field, value] of Object.entries(persistObj)) {
-    var $th = this.originalTable.el.find(`th[data-field="${field}"]`)
+    const $th = this.originalTable.el.find(`th[data-field="${field}"]`)
     this.originalTable.startIndex = $th.prevAll().length + 1
     this.originalTable.endIndex = parseInt(value, 10) + 1
     this._bubbleCols()
@@ -147,7 +147,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         // Exist columns not shown
         if (ths.length < this.columns.length) {
           columnsHidden = this.columns.filter(column => !column.visible)
-          for (var i = 0; i < columnsHidden.length; i++) {
+          for (let i = 0; i < columnsHidden.length; i++) {
             ths.push(columnsHidden[i].field)
             formatters.push(columnsHidden[i].formatter)
           }

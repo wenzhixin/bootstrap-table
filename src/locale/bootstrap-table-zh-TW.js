@@ -87,13 +87,13 @@ $.fn.bootstrapTable.locales['zh-TW'] = {
     return '關閉'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return '隱藏/顯示過濾控制'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return '隱藏過濾控制'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return '顯示過濾控制'
   }
 }
 
