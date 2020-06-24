@@ -4,7 +4,10 @@ $background: #fff;
 $color: #363636;
 $dark-border-color: #32383e;
 
-//Buttons
+// custom
+$background-hover: darken($background, 4);
+$primary-background: #3679e4;
+$primary-background-hover: darken($primary-background, 10);
+$btn-padding: 9px 12px;
 $btn-border: #ccc;
-$btn-active-background: #3679e4;
-$btn-active-background-hover: darken($btn-active-background, 10);
+$btn-border-radius: 4px;

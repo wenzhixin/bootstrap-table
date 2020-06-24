@@ -46,14 +46,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   handleToolbar () {
-    if (this.$toolbar.find('.dropdown').length) {
+    if (this.$toolbar.find('.dropdown-toggle').length) {
       this._initDropdown()
     }
   }
 
   initPagination () {
     super.initPagination()
-    if (this.options.pagination && !this.options.onlyInfoPagination) {
+    if (this.options.pagination && this.paginationParts.includes('pageSize')) {
       this._initDropdown()
     }
   }

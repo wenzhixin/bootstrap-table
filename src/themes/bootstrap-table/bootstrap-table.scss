@@ -7,28 +7,34 @@
 @import './font.scss';
 
 .bootstrap-table {
-  input,
-  select {
-    border-radius: 4px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 6px 12px;
+  * {
+    box-sizing: border-box;
   }
 
-  select {
-    height: 31px;
+  input.form-control,
+  select.form-control,
+  .btn {
+    border-radius: $btn-border-radius;
+    background-color: $background;
+    border: 1px solid $btn-border;
+    padding: $btn-padding;
+  }
+
+  select.form-control {
+    height: 35px;
   }
 
   .btn {
-    border-radius: 4px;
-    background-color: $background;
-    border: 1px solid $btn-border;
-    padding: 6px 12px;
     outline: none;
     cursor: pointer;
 
     &.active {
-      border-color: black;
+      background-color: darken($background, 8);
+    }
+
+    &:focus,
+    &:hover {
+      background-color: $background-hover;
     }
   }
 
@@ -44,80 +50,77 @@
     border-left: 4px solid transparent;
   }
 
-  .filter-control {
-    display: flex;
-  }
-
   .detail-icon {
     text-decoration: none;
-    color: $btn-active-background;
+    color: $primary-background;
+
+    &:hover {
+      color: darken($primary-background, 20);
+    }
   }
 
   .fixed-table-toolbar {
-    .columns > div {
-      display: inline-block;
-    }
+    .columns {
+      &,
+      .btn-group {
+        display: inline-block;
+      }
 
-    .columns > div:not(:last-child) button {
-      border-radius: 0;
-    }
-
-    .columns > div:not(:first-child):last-child button {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    .columns > div:not(:last-child):first-child button {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    .columns.btn-group {
-      display: inline-block;
-
-      .btn,
-      input {
+      >.btn,
+      >.btn-group {
         &:not(:first-child):not(:last-child) {
-          border-radius: 0;
+          &,
+          >.btn {
+            border-radius: 0;
+          }
         }
 
-        &:first-child:not(:last-child):not(.dropdown-toggle) {
+        &:not(:last-child):not(.dropdown-toggle),
+        &:not(:last-child)>.btn {
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
+          border-right: none;
         }
 
-        &:last-child:not(:first-child) {
+        &:not(:first-child):not(.dropdown-toggle),
+        &:not(:first-child)>.btn {
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
         }
       }
-
-      & > .btn-group:last-child:not(:first-child) > .btn:first-child {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-      }
     }
 
-    .columns label {
-      padding: 4px 15px;
-    }
-
-    div.input-group {
+    .search .input-group {
       .search-input {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
+        border-right: none;
       }
 
       button[name="search"],
       button[name="clearSearch"] {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+
+        &:not(:last-child) {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          border-right: none;
+        }
+      }
+    }
+
+    .columns {
+      label {
+        padding: 5px 12px;
       }
 
-      button[name="search"]:not(:last-child),
-      button[name="clearSearch"]:not(:last-child) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+      input[type="checkbox"] {
+        vertical-align: middle;
+      }
+
+      .dropdown-divider {
+        border-bottom: 1px solid $border-color;
       }
     }
   }
@@ -140,7 +143,7 @@
     background-color: $background;
     position: absolute;
     right: 0;
-    min-width: 160px;
+    min-width: 120px;
     margin-top: 2px;
     border: 1px solid $btn-border;
     border-radius: 4px;
@@ -151,8 +154,28 @@
       color: $color;
       text-decoration: none;
       display: block;
-      font-size: 11pt;
-      padding: 4px 15px;
+      padding: 5px 12px;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: $background-hover;
+      }
+
+      &.active {
+        background-color: $primary-background;
+        color: #fff;
+
+        &:hover {
+          background-color: $primary-background-hover;
+        }
+      }
+    }
+  }
+
+  .columns-left {
+    .dropdown-menu {
+      left: 0;
+      right: auto;
     }
   }
 
@@ -167,30 +190,38 @@
   table {
     border-collapse: collapse;
 
+    th {
+      text-align: inherit;
+    }
+
     &.table-bordered {
       thead tr th,
       tbody tr td {
-        border: 1px solid #ddd;
+        border: 1px solid $border-color;
       }
 
       tbody tr td {
-        padding: 8px;
+        padding: 0.75rem;
       }
     }
+
+    &.table-hover {
+      tbody tr:hover {
+        background: $hover-bg;
+      }
+    }
+  }
+
+  .float-left {
+    float: left;
   }
 
   .float-right {
     float: right;
   }
 
-  .page-jump-to {
-    input,
-    .btn {
-      padding: 8px 12px;
-    }
-  }
-
   .pagination {
+    padding: 0;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -204,6 +235,10 @@
       margin: 2px;
       padding: 5px 2px 5px 2px;
 
+      &:hover {
+        background-color: $background-hover;
+      }
+
       .page-link {
         color: $color;
         text-decoration: none;
@@ -211,15 +246,15 @@
       }
 
       &.active {
-        background-color: $btn-active-background;
-        border: 1px solid darken($btn-active-background, 5);
+        background-color: $primary-background;
+        border: 1px solid darken($primary-background, 5);
 
         .page-link {
-          color: white;
+          color: #fff;
         }
 
         &:hover {
-          background-color: $btn-active-background-hover;
+          background-color: $primary-background-hover;
         }
       }
     }
@@ -248,6 +283,17 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
+    }
+  }
+
+  .filter-control {
+    display: flex;
+  }
+
+  .page-jump-to {
+    input,
+    .btn {
+      padding: 8px 12px;
     }
   }
 }
@@ -300,12 +346,4 @@
       padding: 1.25rem;
     }
   }
-}
-
-.mt-30 {
-  margin-top: 30px;
-}
-
-.float-left {
-  float: left;
 }
