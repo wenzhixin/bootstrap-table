@@ -976,6 +976,11 @@ class BootstrapTable {
       return value
     })
 
+    this.paginationParts = opts.paginationParts
+    if (typeof this.paginationParts === 'string') {
+      this.paginationParts = this.paginationParts.replace(/\[|\]| |'/g, '').split(',')
+    }
+
     if (opts.sidePagination !== 'server') {
       opts.totalRows = data.length
     }
@@ -1009,16 +1014,18 @@ class BootstrapTable {
       this.options.totalNotFiltered = undefined
     }
 
-    const paginationInfo = opts.onlyInfoPagination ?
-      opts.formatDetailPagination(opts.totalRows) :
-      opts.formatShowingRows(this.pageFrom, this.pageTo, opts.totalRows, opts.totalNotFiltered)
+    if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort') || this.paginationParts.includes('pageSize')) {
+      html.push(`<div class="${this.constants.classes.pull}-${opts.paginationDetailHAlign} pagination-detail">`)
+    }
 
-    html.push(`<div class="${this.constants.classes.pull}-${opts.paginationDetailHAlign} pagination-detail">
-      <span class="pagination-info">
+    if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort')) {
+      const paginationInfo = this.paginationParts.includes('pageInfoShort') ? opts.formatDetailPagination(opts.totalRows) : opts.formatShowingRows(this.pageFrom, this.pageTo, opts.totalRows, opts.totalNotFiltered)
+      html.push(`<span class="pagination-info">
       ${paginationInfo}
       </span>`)
+    }
 
-    if (!opts.onlyInfoPagination) {
+    if (this.paginationParts.includes('pageSize')) {
       html.push('<span class="page-list">')
 
       const pageNumber = [
@@ -1045,8 +1052,13 @@ class BootstrapTable {
       pageNumber.push(`${this.constants.html.pageDropdown[1]}</span>`)
 
       html.push(opts.formatRecordsPerPage(pageNumber.join('')))
-      html.push('</span></div>')
+    }
 
+    if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort') || this.paginationParts.includes('pageSize')) {
+      html.push('</span></div>')
+    }
+
+    if (this.paginationParts.includes('pageList')) {
       html.push(`<div class="${this.constants.classes.pull}-${opts.paginationHAlign} pagination">`,
         Utils.sprintf(this.constants.html.pagination[0], Utils.sprintf(' pagination-%s', opts.iconSize)),
         Utils.sprintf(this.constants.html.paginationItem, ' page-pre', opts.formatSRPaginationPreText(), opts.paginationPreText))
@@ -2122,9 +2134,7 @@ class BootstrapTable {
 
     if (params && !params.includeHiddenRows) {
       const hiddenRows = this.getHiddenRows()
-      data = data.filter(function (row) {
-        return Utils.findIndex(hiddenRows, row) === -1
-      })
+      data = data.filter(row => Utils.findIndex(hiddenRows, row) === -1)
     }
 
     if (params && params.formatted) {

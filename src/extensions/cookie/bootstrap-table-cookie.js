@@ -218,8 +218,8 @@ const UtilsCookie = {
             } else if (element.tagName === 'SELECT' && bootstrapTable.options.filterControlContainer) {
               element.value = cookie.text
               cachedFilters[cookie.field] = cookie.text
-            } else if (element.tagName === 'SELECT') {
-              for (var i = 0; i < element.length; i++) {
+            } else if (cookie.text !== '' && element.tagName === 'SELECT') {
+              for (let i = 0; i < element.length; i++) {
                 const currentElement = element[i]
                 if (currentElement.value === cookie.text) {
                   currentElement.selected = true
