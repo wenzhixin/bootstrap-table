@@ -4,6 +4,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
 import inject from 'rollup-plugin-inject'
+import copy from 'rollup-plugin-copy'
 import multiEntry from 'rollup-plugin-multi-entry'
 import vue from 'rollup-plugin-vue'
 
@@ -30,6 +31,11 @@ const plugins = [
   commonjs(),
   babel({
     exclude: 'node_modules/**'
+  }),
+  copy({
+    targets: [
+      { src: 'src/themes/bootstrap-table/fonts/*', dest: 'dist/themes/bootstrap-table/fonts' }
+    ]
   })
 ]
 

@@ -17,7 +17,8 @@ $.extend($.fn.bootstrapTable.defaults, {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   autoRefresh: {
     bootstrap3: 'glyphicon-time icon-time',
-    materialize: 'access_time'
+    materialize: 'access_time',
+    'bootstrap-table': 'icon-clock'
   }[$.fn.bootstrapTable.theme] || 'fa-clock'
 })
 
