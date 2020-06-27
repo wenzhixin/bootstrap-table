@@ -454,7 +454,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (columnsCookie) {
       for (const column of this.columns) {
-        column.visible = columnsCookie.includes(column.field) || !column.switchable
+        column.visible = columnsCookie.filter((c) => { return c.field === column.field }) || !column.switchable
       }
     }
   }
