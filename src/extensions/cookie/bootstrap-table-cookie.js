@@ -373,16 +373,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   _toggleColumn (...args) {
     super._toggleColumn(...args)
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
+  }
 
-    const visibleColumns = []
+  _toggleAllColumns (...args) {
+    super._toggleAllColumns(...args)
 
-    for (const column of this.columns) {
-      if (column.visible) {
-        visibleColumns.push(column.field)
-      }
-    }
-
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(visibleColumns))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
   }
 
   selectPage (page) {
