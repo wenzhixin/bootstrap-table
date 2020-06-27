@@ -85,6 +85,15 @@ $.fn.bootstrapTable.locales['ar-SA'] = {
   },
   formatAdvancedCloseButton () {
     return 'Close'
+  },
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
   }
 }
 

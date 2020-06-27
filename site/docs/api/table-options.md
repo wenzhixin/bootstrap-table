@@ -714,20 +714,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Multiple Select Row](https://examples.bootstrap-table.com/#options/multiple-select-row.html)
 
-## onlyInfoPagination
-
-- **Attribute:** `data-only-info-pagination`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to show only the quantity of the data that is showing in the table. It needs the pagination table options is set to true.
-
-- **Default:** `false`
-
-- **Example:** [Only Info Pagination](https://examples.bootstrap-table.com/#options/only-info-pagination.html)
-
 ## pageList
 
 - **Attribute:** `data-page-list`
@@ -853,6 +839,24 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `1`
 
 - **Example:** [Pagination Index Number](https://examples.bootstrap-table.com/#options/pagination-index-number.html)
+
+## paginationParts
+
+- **Attribute:** `data-pagination-parts`
+
+- **Type:** `Array`
+
+- **Detail:**
+
+  These options define which parts of the pagination should be visible.
+  * `pageInfo` Shows which dataset will be displayed on the current page (e.g. `Showing 1 to 10 of 54 rows`).
+  * `pageInfoShort` Similar to `pageInfo`, but it only displays how much rows the table has (e.g. `Showing 54 rows`).
+  * `pageSize` Shows the dropdown which defines how many rows should be displayed on the page.
+  * `pageList` Shows the main part of the pagination (The list of the pages).
+
+- **Default:** `['pageInfo', 'pageSize', 'pageList']`
+
+- **Example:** [Pagination Parts](https://examples.bootstrap-table.com/#options/pagination-parts.html)
 
 ## paginationPreText
 
