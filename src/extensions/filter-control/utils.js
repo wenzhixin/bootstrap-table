@@ -21,9 +21,9 @@ export function getControlContainer (that) {
 }
 
 export function getCurrentSearchControls ({ options }) {
-  let searchControls = 'select, input'
+  let searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
   if (options.height) {
-    searchControls = 'table select, table input'
+    searchControls = 'table select, table input:not([type="checkbox"]):not([type="radio"])'
   }
 
   return searchControls
@@ -37,20 +37,14 @@ export function getSearchControls (scope) {
 }
 
 export function hideUnusedSelectOptions (selectControl, uniqueValues) {
-  const options = getOptionsFromSelectControl(
-    selectControl
-  )
+  const options = getOptionsFromSelectControl(selectControl)
 
   for (let i = 0; i < options.length; i++) {
     if (options[i].value !== '') {
       if (!uniqueValues.hasOwnProperty(options[i].value)) {
-        selectControl
-          .find(Utils.sprintf('option[value=\'%s\']', options[i].value))
-          .hide()
+        selectControl.find(Utils.sprintf('option[value=\'%s\']', options[i].value)).hide()
       } else {
-        selectControl
-          .find(Utils.sprintf('option[value=\'%s\']', options[i].value))
-          .show()
+        selectControl.find(Utils.sprintf('option[value=\'%s\']', options[i].value)).show()
       }
     }
   }
@@ -100,7 +94,7 @@ export function sortSelectControl (selectControl, orderBy) {
 }
 
 export function fixHeaderCSS ({ $tableHeader }) {
-  $tableHeader.css('height', '77px')
+  $tableHeader.css('height', '89px')
 }
 
 export function getCursorPosition (el) {
@@ -293,8 +287,6 @@ export function initFilterSelectControls (that) {
       }
     }
   })
-
-  that.trigger('created-controls')
 }
 
 export function getFilterDataMethod (objFilterDataMethod, searchTerm) {
@@ -309,10 +301,9 @@ export function getFilterDataMethod (objFilterDataMethod, searchTerm) {
 
 export function createControls (that, header) {
   let addedFilterControl = false
-  let isVisible
   let html
 
-  $.each(that.columns, (i, column) => {
+  $.each(that.columns, (_, column) => {
     html = []
 
     if (!column.visible) {
@@ -323,12 +314,11 @@ export function createControls (that, header) {
       html.push('<div class="no-filter-control"></div>')
     } else if (that.options.filterControlContainer) {
       const $filterControls = $(`.bootstrap-table-filter-control-${column.field}`)
-      $.each($filterControls, (i, filterControl) => {
+      $.each($filterControls, (_, filterControl) => {
         const $filterControl = $(filterControl)
         if (!$filterControl.is('[type=radio]')) {
           const placeholder = column.filterControlPlaceholder ? column.filterControlPlaceholder : ''
-          $filterControl.attr('placeholder', placeholder)
-          $filterControl.val(column.filterDefault)
+          $filterControl.attr('placeholder', placeholder).val(column.filterDefault)
         }
 
         $filterControl.attr('data-field', column.field)
@@ -363,18 +353,15 @@ export function createControls (that, header) {
       that.filterColumnsPartial[column.field] = column.filterDefault
     }
 
-    $.each(header.children().children(), (i, tr) => {
-      const $tr = $(tr)
-      if ($tr.data('field') === column.field) {
-        $tr.find('.fht-cell').append(html.join(''))
+    $.each(header.find('th'), (i, th) => {
+      const $th = $(th)
+      if ($th.data('field') === column.field) {
+        $th.find('.fht-cell').append(html.join(''))
         return false
       }
     })
 
-    if (
-      column.filterData !== undefined &&
-            column.filterData.toLowerCase() !== 'column'
-    ) {
+    if (column.filterData && column.filterData.toLowerCase() !== 'column') {
       const filterDataType = getFilterDataMethod(
         /* eslint-disable no-use-before-define */
         filterDataMethods,
@@ -383,12 +370,12 @@ export function createControls (that, header) {
       let filterDataSource
       let selectControl
 
-      if (filterDataType !== null) {
+      if (filterDataType) {
         filterDataSource = column.filterData.substring(
           column.filterData.indexOf(':') + 1,
           column.filterData.length
         )
-        selectControl = getControlContainer(that).find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
+        selectControl = header.find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
         addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
         filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
@@ -402,7 +389,7 @@ export function createControls (that, header) {
   })
 
   if (addedFilterControl) {
-    getControlContainer(that).off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
+    header.off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
       // Simulate enter key action from clear button
       keyCode = obj ? obj.keyCode : keyCode
 
@@ -426,9 +413,7 @@ export function createControls (that, header) {
       }, that.options.searchTimeOut)
     })
 
-    getControlContainer(that).off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }) => {
-
-
+    header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }) => {
       const $select = $(currentTarget)
       const value = $select.val()
       if ($.trim(value)) {
@@ -444,7 +429,7 @@ export function createControls (that, header) {
       }, that.options.searchTimeOut)
     })
 
-    getControlContainer(that).off('mouseup', 'input:not([type=radio])').on('mouseup', 'input:not([type=radio])', ({ currentTarget, keyCode }) => {
+    header.off('mouseup', 'input:not([type=radio])').on('mouseup', 'input:not([type=radio])', ({ currentTarget, keyCode }) => {
       const $input = $(currentTarget)
       const oldValue = $input.val()
 
@@ -464,20 +449,20 @@ export function createControls (that, header) {
       }, 1)
     })
 
-    getControlContainer(that).off('change', 'input[type=radio]').on('change', 'input[type=radio]', ({ currentTarget, keyCode }) => {
+    header.off('change', 'input[type=radio]').on('change', 'input[type=radio]', ({ currentTarget, keyCode }) => {
       clearTimeout(currentTarget.timeoutId || 0)
       currentTarget.timeoutId = setTimeout(() => {
         that.onColumnSearch({ currentTarget, keyCode })
       }, that.options.searchTimeOut)
     })
 
-    if (getControlContainer(that).find('.date-filter-control').length > 0) {
+    if (header.find('.date-filter-control').length > 0) {
       $.each(that.columns, (i, { filterControl, field, filterDatepickerOptions }) => {
         if (
           filterControl !== undefined &&
                     filterControl.toLowerCase() === 'datepicker'
         ) {
-          getControlContainer(that)
+          header
             .find(
               `.date-filter-control.bootstrap-table-filter-control-${field}`
             )
@@ -492,17 +477,18 @@ export function createControls (that, header) {
       })
     }
 
-    if (that.options.sidePagination !== 'server') {
+    if (that.options.sidePagination !== 'server' && !that.options.height) {
       that.triggerSearch()
     }
 
     if (!that.options.filterControlVisible) {
-      getControlContainer(that).find('.filter-control, .no-filter-control').hide()
+      header.find('.filter-control, .no-filter-control').hide()
     }
-
   } else {
-    getControlContainer(that).find('.filter-control, .no-filter-control').hide()
+    header.find('.filter-control, .no-filter-control').hide()
   }
+
+  that.trigger('created-controls')
 }
 
 export function getDirectionOfSelectOptions (_alignment) {
