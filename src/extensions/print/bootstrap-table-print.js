@@ -165,9 +165,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
                 || (rowspan > 0 && colspan > 0)
               )
             ) {
-              html.push(`<td
-              ${Utils.sprintf(' rowspan="%s"', rowspan)}
-              ${Utils.sprintf(' colspan="%s"', colspan)}>`, formatValue(data[i], i, columns[j]), '</td>')
+              if (rowspan > 0 && colspan > 0) {
+                html.push(`<td ${Utils.sprintf(' rowspan="%s"', rowspan)} ${Utils.sprintf(' colspan="%s"', colspan)}>`, formatValue(data[i], i, columns[j]), '</td>')
+              } else {
+                html.push('<td>', formatValue(data[i], i, columns[j]), '</td>')
+              }
             }
           }
         }
