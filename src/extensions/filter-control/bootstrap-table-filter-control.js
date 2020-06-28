@@ -123,10 +123,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
           // Avoid recreate the controls
           const $controlContainer = UtilsFilterControl.getControlContainer(that)
-          if (
-            $controlContainer.find('select').length > 0 ||
-            $controlContainer.find('input').length > 0
-          ) {
+          if ($controlContainer.find('select').length > 0 || $controlContainer.find('input:not([type="checkbox"]):not([type="radio"])').length > 0) {
             return
           }
 
@@ -150,6 +147,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
         .on('load-error.bs.table', () => {
           that.enableControls(true)
         })
+        .on('created-controls.bs.table', () => {
+          if (that.options.height) {
+            UtilsFilterControl.initFilterSelectControls(that)
+          }
+        })
     }
 
     super.init()
@@ -158,10 +160,25 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initHeader () {
     super.initHeader()
 
-    if (!this.options.filterControl) {
+    if (!this.options.filterControl || this.options.height) {
       return
     }
+
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
+  }
+
+  fitHeader (...args) {
+    super.fitHeader(...args)
+    // Create controls on $tableHeader if the height is set
+    if (this.options.height) {
+      // Avoid recreate the controls
+      const $controlContainer = UtilsFilterControl.getControlContainer(this)
+      if ($controlContainer.find('select').length > 0 || $controlContainer.find('input:not([type="checkbox"]):not([type="radio"])').length > 0) {
+        return
+      }
+
+      UtilsFilterControl.createControls(this, $controlContainer)
+    }
   }
 
   initBody () {
