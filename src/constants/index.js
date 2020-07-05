@@ -361,6 +361,9 @@ const DEFAULTS = {
   onPostBody () {
     return false
   },
+  onPreHeader () {
+    return false
+  },
   onPostHeader () {
     return false
   },
@@ -546,6 +549,7 @@ const EVENTS = {
   'toggle.bs.table': 'onToggle',
   'pre-body.bs.table': 'onPreBody',
   'post-body.bs.table': 'onPostBody',
+  'pre-header.bs.table': 'onPreHeader',
   'post-header.bs.table': 'onPostHeader',
   'post-footer.bs.table': 'onPostFooter',
   'expand-row.bs.table': 'onExpandRow',
