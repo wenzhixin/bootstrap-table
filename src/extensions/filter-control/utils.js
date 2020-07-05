@@ -1,39 +1,19 @@
 const Utils = $.fn.bootstrapTable.utils
+const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
 
 export function getOptionsFromSelectControl (selectControl) {
   return selectControl.get(selectControl.length - 1).options
-}
-
-export function getCurrentHeader ({ $header, options, $tableHeader }) {
-  let header = $header
-  if (options.height) {
-    header = $tableHeader
-  }
-
-  return header
 }
 
 export function getControlContainer (that) {
   if (that.options.filterControlContainer) {
     return $(`${that.options.filterControlContainer}`)
   }
-  return getCurrentHeader(that)
+  return that.$header
 }
 
-export function getCurrentSearchControls ({ options }) {
-  let searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
-  if (options.height) {
-    searchControls = 'table select, table input:not([type="checkbox"]):not([type="radio"])'
-  }
-
-  return searchControls
-}
-
-export function getSearchControls (scope) {
-  const header = getControlContainer(scope)
-  const searchControls = getCurrentSearchControls(scope)
-
-  return header.find(searchControls)
+export function getSearchControls (that) {
+  return getControlContainer(that).find(searchControls)
 }
 
 export function hideUnusedSelectOptions (selectControl, uniqueValues) {
@@ -97,27 +77,6 @@ export function fixHeaderCSS ({ $tableHeader }) {
   $tableHeader.css('height', '89px')
 }
 
-export function getCursorPosition (el) {
-  if (Utils.isIEBrowser()) {
-    if ($(el).is('input[type=text]')) {
-      let pos = 0
-      if ('selectionStart' in el) {
-        pos = el.selectionStart
-      } else if ('selection' in document) {
-        el.focus()
-        const Sel = document.selection.createRange()
-        const SelLength = document.selection.createRange().text.length
-        Sel.moveStart('character', -el.value.length)
-        pos = Sel.text.length - SelLength
-      }
-      return pos
-    }
-    return -1
-
-  }
-  return -1
-}
-
 export function setCursorPosition (el) {
   $(el).val(el.value)
 }
@@ -128,13 +87,12 @@ export function copyValues (that) {
   that.options.valuesFilterControl = []
 
   searchControls.each(function () {
+    const $field = $(this)
     that.options.valuesFilterControl.push({
-      field: $(this)
-        .closest('[data-field]')
-        .data('field'),
-      value: $(this).val(),
-      position: getCursorPosition($(this).get(0)),
-      hasFocus: $(this).is(':focus')
+      field: $field.closest('[data-field]').data('field'),
+      value: $field.val(),
+      position: getCursorPosition($field.get(0)),
+      hasFocus: $field.is(':focus')
     })
   })
 }
@@ -487,8 +445,6 @@ export function createControls (that, header) {
   } else {
     header.find('.filter-control, .no-filter-control').hide()
   }
-
-  that.trigger('created-controls')
 }
 
 export function getDirectionOfSelectOptions (_alignment) {
@@ -504,6 +460,53 @@ export function getDirectionOfSelectOptions (_alignment) {
     default:
       return 'ltr'
   }
+}
+
+export function syncControls (that) {
+  if (that.options.height) {
+    const controlsTableHeader = that.$tableHeader.find('select, input:not([type="checkbox"]):not([type="radio"])')
+    that.$header.find('select, input:not([type="checkbox"]):not([type="radio"])').each((_, control) => {
+      const $control = $(control)
+      const controlClass = $control.attr('class').replace('form-control', '').replace('focus-temp', '').trim()
+      const foundControl = controlsTableHeader.filter((_, ele) => {
+        let eleClass = $(ele).attr('class')
+        eleClass = eleClass.replace('form-control', '').replace('focus-temp', '').trim()
+
+        return controlClass === eleClass
+      })
+
+      if (foundControl.length === 0) {
+        return
+      }
+      if ($control.is('select')) {
+        $control.find('option:selected').removeAttr('selected')
+        $control.find(`option[value='${foundControl.val()}']`).attr('selected', true)
+      } else {
+        $control.val(foundControl.val())
+      }
+    })
+  }
+}
+
+function getCursorPosition (el) {
+  if (Utils.isIEBrowser()) {
+    if ($(el).is('input[type=text]')) {
+      let pos = 0
+      if ('selectionStart' in el) {
+        pos = el.selectionStart
+      } else if ('selection' in document) {
+        el.focus()
+        const Sel = document.selection.createRange()
+        const SelLength = document.selection.createRange().text.length
+        Sel.moveStart('character', -el.value.length)
+        pos = Sel.text.length - SelLength
+      }
+      return pos
+    }
+    return -1
+
+  }
+  return -1
 }
 
 const filterDataMethods = {

@@ -13,8 +13,8 @@ $.extend($.fn.bootstrapTable.defaults, {
   onColumnSearch (field, text) {
     return false
   },
-  onCreatedControls () {
-    return true
+  onInitFilterSelectControls () {
+    return false
   },
   alignmentSelectControlOptions: undefined,
   filterTemplate: {
@@ -64,8 +64,7 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
 })
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-  'column-search.bs.table': 'onColumnSearch',
-  'created-controls.bs.table': 'onCreatedControls'
+  'column-search.bs.table': 'onColumnSearch'
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
@@ -109,48 +108,41 @@ $.BootstrapTable = class extends $.BootstrapTable {
   init () {
     // Make sure that the filterControl option is set
     if (this.options.filterControl) {
-      const that = this
-
       // Make sure that the internal variables are set correctly
       this.options.valuesFilterControl = []
 
       this.$el
         .on('reset-view.bs.table', () => {
           // Create controls on $tableHeader if the height is set
-          if (!that.options.height) {
+          if (!this.options.height) {
             return
           }
 
           // Avoid recreate the controls
-          const $controlContainer = UtilsFilterControl.getControlContainer(that)
+          const $controlContainer = UtilsFilterControl.getControlContainer(this)
           if ($controlContainer.find('select').length > 0 || $controlContainer.find('input:not([type="checkbox"]):not([type="radio"])').length > 0) {
             return
           }
 
-          UtilsFilterControl.createControls(that, $controlContainer)
+          UtilsFilterControl.createControls(this, $controlContainer)
         })
         .on('post-header.bs.table', () => {
-          UtilsFilterControl.setValues(that)
+          UtilsFilterControl.setValues(this)
         })
         .on('post-body.bs.table', () => {
-          if (that.options.height && !that.options.filterControlContainer) {
-            UtilsFilterControl.fixHeaderCSS(that)
+          if (this.options.height && !this.options.filterControlContainer) {
+            UtilsFilterControl.fixHeaderCSS(this)
           }
           this.$tableLoading.css('top', this.$header.outerHeight() + 1)
         })
         .on('column-switch.bs.table', () => {
-          UtilsFilterControl.setValues(that)
+          UtilsFilterControl.setValues(this)
         })
         .on('load-success.bs.table', () => {
-          that.enableControls(true)
+          this.enableControls(true)
         })
         .on('load-error.bs.table', () => {
-          that.enableControls(true)
-        })
-        .on('created-controls.bs.table', () => {
-          if (that.options.height) {
-            UtilsFilterControl.initFilterSelectControls(that)
-          }
+          this.enableControls(true)
         })
     }
 
@@ -183,7 +175,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initBody () {
     super.initBody()
-
+    UtilsFilterControl.syncControls(this)
     UtilsFilterControl.initFilterSelectControls(this)
   }
 
@@ -315,6 +307,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .closest('[data-field]')
       .data('field')
 
+    this.trigger('column-search', $field, text)
+
     if ($.isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {}
     }
@@ -327,7 +321,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.pageNumber = 1
     this.enableControls(false)
     this.onSearch({currentTarget}, false)
-    this.trigger('column-search', $field, text)
   }
 
   initToolbar () {
