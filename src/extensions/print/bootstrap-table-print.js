@@ -72,6 +72,16 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
+  init (...args) {
+    super.init(...args)
+
+    if (!this.options.showPrint) {
+      return
+    }
+
+    this.mergedCells = []
+  }
+
   initToolbar (...args) {
     this.showToolbar = this.showToolbar || this.options.showPrint
 
@@ -95,6 +105,27 @@ $.BootstrapTable = class extends $.BootstrapTable {
     $print.off('click').on('click', () => {
       this.doPrint(this.options.printAsFilteredAndSortedOnUI ?
         this.getData() : this.options.data.slice(0))
+    })
+  }
+
+  mergeCells (options) {
+    super.mergeCells(options)
+
+    if (!this.options.showPrint) {
+      return
+    }
+
+    let col = this.getVisibleFields().indexOf(options.field)
+
+    if (Utils.hasDetailViewIcon(this.options)) {
+      col += 1
+    }
+
+    this.mergedCells.push({
+      row: options.index,
+      col,
+      rowspan: options.rowspan || 1,
+      colspan: options.colspan || 1
     })
   }
 
