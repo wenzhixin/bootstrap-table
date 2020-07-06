@@ -1,16 +1,24 @@
 ChangeLog
 ---------
 
-### 1.16.1
+### 1.17.0
 
 #### Core
 
-- **Add:** Added `$index` field for `remove` method.
-- **Add:** Added `on-all` event for vue component.
-- **Add:** Added `bg-BG` locale.
-- **Add:** Added `loadingFontSize` option.
-- **Add:** Added `loadingTemplate` option.
-- **Add:** Added `detailView` support for `cardView`.
+- **New:** Added `bootstrap-table` theme without any framework.
+- **New:** Added support for Bootstrap v5.
+- **New:** Added `$index` field for `remove` method.
+- **New:** Added `on-all` event for vue component.
+- **New:** Added `bg-BG` locale.
+- **New:** Added `loadingFontSize` option.
+- **New:** Added `loadingTemplate` option.
+- **New:** Added `detailView` support for `cardView`.
+- **New:** Added the `searchable` columns to the query params for server side.
+- **New:** Added `collapseRowByUniqueId` and `expandRowByUniqueId` methods.
+- **New:** Added `detailViewAlign` option for the detail view icon.
+- **New:** Added tr `class` support for `thead`.
+- **New:** Added `formatted` parameter for `getData` method to get formatted data.
+- **New:** Added `paginationParts` option instead of `onlyInfoPagination`.
 - **Update:** Fixed `updateByUniqueId` method cannot update multiple rows bug.
 - **Update:** Fixed `insertRow` not write to source data array bug.
 - **Update:** Fixed events bug with `detailViewIcon` option.
@@ -21,16 +29,23 @@ ChangeLog
 - **Update:** Fixed `font-size` of the loading text.
 - **Update:** Fixed table `border` bug when table is hidden.
 - **Update:** Fixed `showRow` method show all hidden rows bug.
+- **Remove:** Removed the `onlyInfoPagination` option.
 
 #### Extensions
 
+- **New(cookie)**: Added support for toggle all columns options.
 - **New(custom-view):** Added `custom-view` extension.
 - **New(editable):** Added `alwaysUseFormatter` option.
 - **New(export):** Added `forceHide` column option.
 - **New(filter-control):** Added `filterOrderBy` column option support order by `server`.
 - **New(filter-control):** Added radio support for `filterControlContainer`.
+- **New(filter-control):** Added `filterControlVisible` option and `toggleFilterControl` method.
+- **New(filter-control):** Added `showFilterControlSwitch` option.
 - **New(fixed-columns):** Added support for sticky-header.
 - **New(pipeline):** Added `pipeline` extension.
+- **Update(accent-neutralise):** Fixed comparison with arrays.
+- **Update(cookie):** Updated cookie columns to always visible when `switchable` is `false`.
+- **Update(cookie):** Fixed cookie value from existing options bug.
 - **Update(editable):** Fixed not handle quotation marks bug.
 - **Update(editable):** Updated `noeditFormatter` to `noEditFormatter`.
 - **Update(export):** Fixed export error with `maintainMetaData` and `clientSidePagination`.
@@ -38,6 +53,7 @@ ChangeLog
 - **Update(filter-control):** Fixed ignore default search text bug.
 - **Update(filter-control):** Fixed not work with html formatter.
 - **Update(filter-control):** Fixed reset `filterBy` method bug.
+- **Update(filter-control):** Fixed issue with a custom filter control container.
 - **Update(fixed-columns):** Fixed loading message not hide bug.
 - **Update(group-by):** Fixed params error of `checkAll`/`uncheckAll`.
 - **Update(multiple-sort):** Fixed not working with multiple level field bug.
