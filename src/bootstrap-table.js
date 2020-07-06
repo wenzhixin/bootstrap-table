@@ -1848,7 +1848,6 @@ class BootstrapTable {
   }
 
   fitHeader () {
-    this.trigger('pre-header')
     if (this.$el.is(':hidden')) {
       this.timeoutId_ = setTimeout(() => this.fitHeader(), 100)
       return
