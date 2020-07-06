@@ -44,7 +44,7 @@ export function existOptionInSelectControl (selectControl, value) {
 }
 
 export function addOptionToSelectControl (selectControl, _value, text, selected) {
-  const value = $.trim(_value)
+  const value = _value.trim()
   const $selectControl = $(selectControl.get(selectControl.length - 1))
   if (
     !existOptionInSelectControl(selectControl, value)
@@ -87,7 +87,12 @@ export function copyValues (that) {
   that.options.valuesFilterControl = []
 
   searchControls.each(function () {
-    const $field = $(this)
+    let $field = $(this)
+    if (that.options.height) {
+      const fieldClass = getElementClass($field)
+      $field = $(`.fixed-table-header .${fieldClass}`)
+    }
+
     that.options.valuesFilterControl.push({
       field: $field.closest('[data-field]').data('field'),
       value: $field.val(),
@@ -106,17 +111,16 @@ export function setValues (that) {
     //  Callback to apply after settings fields values
     let fieldToFocusCallback = null
     searchControls.each(function (index, ele) {
-      field = $(this)
-        .closest('[data-field]')
-        .data('field')
+      const $this = $(this)
+      field = $this.closest('[data-field]').data('field')
       result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
 
       if (result.length > 0) {
-        if ($(this).is('[type=radio]')) {
+        if ($this.is('[type=radio]')) {
           return
         }
 
-        $(this).val(result[0].value)
+        $this.val(result[0].value)
         if (result[0].hasFocus && result[0].value !== '') {
           // set callback if the field had the focus.
           fieldToFocusCallback = ((fieldToFocus, carretPosition) => {
@@ -126,7 +130,7 @@ export function setValues (that) {
               setCursorPosition(fieldToFocus, carretPosition)
             }
             return closedCallback
-          })($(this).get(0), result[0].position)
+          })($this.get(0), result[0].position)
         }
       }
     })
@@ -348,6 +352,7 @@ export function createControls (that, header) {
 
   if (addedFilterControl) {
     header.off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
+      syncControls(that)
       // Simulate enter key action from clear button
       keyCode = obj ? obj.keyCode : keyCode
 
@@ -372,9 +377,10 @@ export function createControls (that, header) {
     })
 
     header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }) => {
+      syncControls(that)
       const $select = $(currentTarget)
       const value = $select.val()
-      if ($.trim(value)) {
+      if (value.trim()) {
         $select.find('option[selected]').removeAttr('selected')
         $select.find('option[value="' + value + '"]').attr('selected', true)
       } else {
@@ -396,6 +402,7 @@ export function createControls (that, header) {
       }
 
       setTimeout(() => {
+        syncControls(that)
         const newValue = $input.val()
 
         if (newValue === '') {
@@ -410,24 +417,20 @@ export function createControls (that, header) {
     header.off('change', 'input[type=radio]').on('change', 'input[type=radio]', ({ currentTarget, keyCode }) => {
       clearTimeout(currentTarget.timeoutId || 0)
       currentTarget.timeoutId = setTimeout(() => {
+        syncControls(that)
         that.onColumnSearch({ currentTarget, keyCode })
       }, that.options.searchTimeOut)
     })
 
     if (header.find('.date-filter-control').length > 0) {
       $.each(that.columns, (i, { filterControl, field, filterDatepickerOptions }) => {
-        if (
-          filterControl !== undefined &&
-                    filterControl.toLowerCase() === 'datepicker'
-        ) {
-          header
-            .find(
-              `.date-filter-control.bootstrap-table-filter-control-${field}`
-            )
+        if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
+          header.find(`.date-filter-control.bootstrap-table-filter-control-${field}`)
             .datepicker(filterDatepickerOptions)
             .on('changeDate', ({ currentTarget, keyCode }) => {
               clearTimeout(currentTarget.timeoutId || 0)
               currentTarget.timeoutId = setTimeout(() => {
+                syncControls(that)
                 that.onColumnSearch({ currentTarget, keyCode })
               }, that.options.searchTimeOut)
             })
@@ -464,13 +467,12 @@ export function getDirectionOfSelectOptions (_alignment) {
 
 export function syncControls (that) {
   if (that.options.height) {
-    const controlsTableHeader = that.$tableHeader.find('select, input:not([type="checkbox"]):not([type="radio"])')
-    that.$header.find('select, input:not([type="checkbox"]):not([type="radio"])').each((_, control) => {
+    const controlsTableHeader = that.$tableHeader.find(searchControls)
+    that.$header.find(searchControls).each((_, control) => {
       const $control = $(control)
-      const controlClass = $control.attr('class').replace('form-control', '').replace('focus-temp', '').trim()
+      const controlClass = getElementClass($control)
       const foundControl = controlsTableHeader.filter((_, ele) => {
-        let eleClass = $(ele).attr('class')
-        eleClass = eleClass.replace('form-control', '').replace('focus-temp', '').trim()
+        const eleClass = getElementClass($(ele))
 
         return controlClass === eleClass
       })
@@ -486,6 +488,10 @@ export function syncControls (that) {
       }
     })
   }
+}
+
+function getElementClass ($element) {
+  return $element.attr('class').replace('form-control', '').replace('focus-temp', '').replace('search-input', '').trim()
 }
 
 function getCursorPosition (el) {
