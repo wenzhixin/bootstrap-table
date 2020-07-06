@@ -159,20 +159,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
   }
 
-  fitHeader (...args) {
-    super.fitHeader(...args)
-    // Create controls on $tableHeader if the height is set
-    if (this.options.height) {
-      // Avoid recreate the controls
-      const $controlContainer = UtilsFilterControl.getControlContainer(this)
-      if ($controlContainer.find('select').length > 0 || $controlContainer.find('input:not([type="checkbox"]):not([type="radio"])').length > 0) {
-        return
-      }
-
-      UtilsFilterControl.createControls(this, $controlContainer)
-    }
-  }
-
   initBody () {
     super.initBody()
     UtilsFilterControl.syncControls(this)
