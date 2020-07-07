@@ -3,6 +3,7 @@
  * Author: Eduardo Cerqueira<egcerqueira@gmail.com>
  * Update: João Mello<jmello@hotmail.com.br>
  * Update: Leandro Felizari<lfelizari@gmail.com>
+ * Update: Fernando Marcos Souza Silva<fernandomarcosss@gmail.com>
  */
 
 $.fn.bootstrapTable.locales['pt-BR'] = {
@@ -14,7 +15,7 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linhas (filtered from ${totalNotFiltered} total rows)`
+      return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linhas (filtradas de um total de ${totalNotFiltered} linhas)`
     }
 
     return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linhas`
@@ -65,7 +66,7 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
     return 'Colunas'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Alternar tudo'
   },
   formatFullscreen () {
     return 'Tela cheia'
@@ -89,13 +90,13 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
     return 'Fechar'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Ocultar/Exibir controles'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Ocultar controles'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Exibir controles'
   }
 }
 
