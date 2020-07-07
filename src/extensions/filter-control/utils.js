@@ -1,6 +1,31 @@
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
 
+function getElementClass ($element) {
+  return $element.attr('class').replace('form-control', '').replace('focus-temp', '').replace('search-input', '').trim()
+}
+
+function getCursorPosition (el) {
+  if (Utils.isIEBrowser()) {
+    if ($(el).is('input[type=text]')) {
+      let pos = 0
+      if ('selectionStart' in el) {
+        pos = el.selectionStart
+      } else if ('selection' in document) {
+        el.focus()
+        const Sel = document.selection.createRange()
+        const SelLength = document.selection.createRange().text.length
+        Sel.moveStart('character', -el.value.length)
+        pos = Sel.text.length - SelLength
+      }
+      return pos
+    }
+    return -1
+
+  }
+  return -1
+}
+
 export function getOptionsFromSelectControl (selectControl) {
   return selectControl.get(selectControl.length - 1).options
 }
@@ -180,9 +205,7 @@ export function escapeID (id) {
 }
 
 export function isColumnSearchableViaSelect ({ filterControl, searchable }) {
-  return filterControl &&
-        filterControl.toLowerCase() === 'select' &&
-        searchable
+  return filterControl && (filterControl.toLowerCase() === 'select' || filterControl.toLowerCase() === 'multipleselect') && searchable
 }
 
 export function isFilterDataNotGiven ({ filterData }) {
@@ -204,12 +227,8 @@ export function initFilterSelectControls (that) {
 
   $.each(that.header.fields, (j, field) => {
     const column = that.columns[that.fieldsColumnsIndex[field]]
-    const selectControl = getControlContainer(that).find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
-    if (
-      isColumnSearchableViaSelect(column) &&
-            isFilterDataNotGiven(column) &&
-            hasSelectControlElement(selectControl)
-    ) {
+    const selectControl = getControlContainer(that).find(`select.bootstrap-table-filter-control-${escapeID(column.field)}`)
+    if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
       if (selectControl.get(selectControl.length - 1).options.length === 0) {
         // Added the default option
         addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
@@ -376,11 +395,11 @@ export function createControls (that, header) {
       }, that.options.searchTimeOut)
     })
 
-    header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }) => {
+    header.off('change', 'select:not(".ms-offscreen")').on('change', 'select:not(".ms-offscreen")', ({ currentTarget, keyCode }) => {
       syncControls(that)
       const $select = $(currentTarget)
       const value = $select.val()
-      if (value.trim()) {
+      if (value && value.length > 0 && value.trim()) {
         $select.find('option[selected]').removeAttr('selected')
         $select.find('option[value="' + value + '"]').attr('selected', true)
       } else {
@@ -448,6 +467,8 @@ export function createControls (that, header) {
   } else {
     header.find('.filter-control, .no-filter-control').hide()
   }
+
+  that.trigger('created-controls')
 }
 
 export function getDirectionOfSelectOptions (_alignment) {
@@ -488,31 +509,6 @@ export function syncControls (that) {
       }
     })
   }
-}
-
-function getElementClass ($element) {
-  return $element.attr('class').replace('form-control', '').replace('focus-temp', '').replace('search-input', '').trim()
-}
-
-function getCursorPosition (el) {
-  if (Utils.isIEBrowser()) {
-    if ($(el).is('input[type=text]')) {
-      let pos = 0
-      if ('selectionStart' in el) {
-        pos = el.selectionStart
-      } else if ('selection' in document) {
-        el.focus()
-        const Sel = document.selection.createRange()
-        const SelLength = document.selection.createRange().text.length
-        Sel.moveStart('character', -el.value.length)
-        pos = Sel.text.length - SelLength
-      }
-      return pos
-    }
-    return -1
-
-  }
-  return -1
 }
 
 const filterDataMethods = {

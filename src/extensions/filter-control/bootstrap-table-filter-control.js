@@ -13,7 +13,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   onColumnSearch (field, text) {
     return false
   },
-  onInitFilterSelectControls () {
+  onCreatedControls () {
     return false
   },
   alignmentSelectControlOptions: undefined,
@@ -52,7 +52,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.columnDefaults, {
-  filterControl: undefined,
+  filterControl: undefined, // input, select, datepicker
   filterDataCollector: undefined,
   filterData: undefined,
   filterDatepickerOptions: undefined,
@@ -64,7 +64,8 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
 })
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-  'column-search.bs.table': 'onColumnSearch'
+  'column-search.bs.table': 'onColumnSearch',
+  'created-controls.bs.table': 'onCreatedControls'
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
@@ -167,9 +168,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initSearch () {
     const that = this
-    const fp = $.isEmptyObject(that.filterColumnsPartial)
-      ? null
-      : that.filterColumnsPartial
+    const fp = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial
 
     super.initSearch()
 
@@ -289,9 +288,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     UtilsFilterControl.copyValues(this)
     const text = $.trim($(currentTarget).val())
-    const $field = $(currentTarget)
-      .closest('[data-field]')
-      .data('field')
+    const $field = $(currentTarget).closest('[data-field]').data('field')
 
     this.trigger('column-search', $field, text)
 
@@ -395,23 +392,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       // use the default sort order if it exists. do nothing if it does not
-      if (
-        that.options.sortName !== table.data('sortName') ||
-        that.options.sortOrder !== table.data('sortOrder')
-      ) {
-        const sorter = header.find(
-          Utils.sprintf(
-            '[data-field="%s"]',
-            $(controls[0])
-              .closest('table')
-              .data('sortName')
-          )
-        )
+      if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
+        const sorter = header.find(Utils.sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')))
         if (sorter.length > 0) {
           that.onSort({type: 'keypress', currentTarget: sorter})
-          $(sorter)
-            .find('.sortable')
-            .trigger('click')
+          $(sorter).find('.sortable').trigger('click')
         }
       }
     }
@@ -431,10 +416,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   enableControls (enable) {
-    if (
-      this.options.disableControlWhenSearch &&
-      this.options.sidePagination === 'server'
-    ) {
+    if (this.options.disableControlWhenSearch && this.options.sidePagination === 'server') {
       const searchControls = UtilsFilterControl.getSearchControls(this)
 
       if (!enable) {
