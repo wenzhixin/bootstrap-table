@@ -43,17 +43,20 @@ ChangeLog
 - **New(filter-control):** Added `showFilterControlSwitch` option.
 - **New(fixed-columns):** Added support for sticky-header.
 - **New(pipeline):** Added `pipeline` extension.
+- **New(print):** Added support for print footer and merge cells.
 - **Update(accent-neutralise):** Fixed comparison with arrays.
 - **Update(cookie):** Updated cookie columns to always visible when `switchable` is `false`.
 - **Update(cookie):** Fixed cookie value from existing options bug.
 - **Update(editable):** Fixed not handle quotation marks bug.
 - **Update(editable):** Updated `noeditFormatter` to `noEditFormatter`.
 - **Update(export):** Fixed export error with `maintainMetaData` and `clientSidePagination`.
-- **Update(filter-control):** Fixed not Working in multiple tables.
+- **Update(filter-control):** Fixed not work with `height` option.
+- **Update(filter-control):** Fixed not work in multiple tables.
 - **Update(filter-control):** Fixed ignore default search text bug.
 - **Update(filter-control):** Fixed not work with html formatter.
 - **Update(filter-control):** Fixed reset `filterBy` method bug.
 - **Update(filter-control):** Fixed issue with a custom filter control container.
+- **Update(filter-control):** Fixed filter control disappear after column switched.
 - **Update(fixed-columns):** Fixed loading message not hide bug.
 - **Update(group-by):** Fixed params error of `checkAll`/`uncheckAll`.
 - **Update(multiple-sort):** Fixed not working with multiple level field bug.

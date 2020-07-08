@@ -2849,7 +2849,7 @@ class BootstrapTable {
       options = Object.assign(options, params)
     } else if (typeof params === 'string' && params === 'bottom') {
       options.value = this.$tableBody[0].scrollHeight
-    } else if (typeof params === 'string') {
+    } else if (typeof params === 'string' || typeof params === 'number') {
       options.value = params
     }
 

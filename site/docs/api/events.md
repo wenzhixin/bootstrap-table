@@ -294,7 +294,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **jQuery Event:** `scroll-body.bs.table`
 
-- **Parameter:**: `$tableBody`
+- **Parameter:** `$tableBody`
 
 - **Detail:**
 
