@@ -90,6 +90,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.onReorderRowsDrop(droppedRow)
 
     // Call the event reorder-row
-    this.trigger('reorder-row', newData)
+    this.trigger('reorder-row', newData, draggingRow, droppedRow)
   }
 }
