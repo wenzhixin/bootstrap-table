@@ -206,56 +206,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
             if ($.inArray(key, that.header.fields) !== -1) {
               if (value === undefined || value === null) {
                 tmpItemIsExpected = false
+              } else if (typeof value === 'object') {
+                value.forEach((objectValue) => {
+                  if (tmpItemIsExpected) {
+                    return
+                  }
+                  tmpItemIsExpected = that.isValueExpected(fval, objectValue, thisColumn, key)
+                })
               } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-                if (thisColumn.filterStrictSearch) {
-                  tmpItemIsExpected = value.toString().toLowerCase() === fval.toString().toLowerCase()
-                } else if (thisColumn.filterStartsWithSearch) {
-                  tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(fval) === 0
-                } else {
-                  tmpItemIsExpected = (`${value}`).toLowerCase().includes(fval)
-                }
-
-                const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
-                const matches = largerSmallerEqualsRegex.exec(fval)
-
-                if (matches) {
-                  const operator = matches[1] || `${matches[5]}l`
-                  const comparisonValue = matches[2] || matches[3]
-                  const int = parseInt(value, 10)
-                  const comparisonInt = parseInt(comparisonValue, 10)
-
-                  switch (operator) {
-                    case '>':
-                    case '<l':
-                      tmpItemIsExpected = int > comparisonInt
-                      break
-                    case '<':
-                    case '>l':
-                      tmpItemIsExpected = int < comparisonInt
-                      break
-                    case '<=':
-                    case '=<':
-                    case '>=l':
-                    case '=>l':
-                      tmpItemIsExpected = int <= comparisonInt
-                      break
-                    case '>=':
-                    case '=>':
-                    case '<=l':
-                    case '=<l':
-                      tmpItemIsExpected = int >= comparisonInt
-                      break
-                    default:
-                      break
-                  }
-                }
-
-                if (thisColumn.filterCustomSearch) {
-                  const customSearchResult = Utils.calculateObjectValue(that, thisColumn.filterCustomSearch, [fval, value, key, that.options.data], true)
-                  if (customSearchResult !== null) {
-                    tmpItemIsExpected = customSearchResult
-                  }
-                }
+                tmpItemIsExpected = that.isValueExpected(fval, value, thisColumn, key)
               }
             }
           }
@@ -266,6 +225,61 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return !itemIsExpected.includes(false)
       })
       : that.data
+  }
+
+  isValueExpected (searchValue, value, column, key) {
+    let tmpItemIsExpected = false
+    if (column.filterStrictSearch) {
+      tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
+    } else if (column.filterStartsWithSearch) {
+      tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(searchValue) === 0
+    } else {
+      tmpItemIsExpected = (`${value}`).toLowerCase().includes(searchValue)
+    }
+
+    const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+    const matches = largerSmallerEqualsRegex.exec(searchValue)
+
+    if (matches) {
+      const operator = matches[1] || `${matches[5]}l`
+      const comparisonValue = matches[2] || matches[3]
+      const int = parseInt(value, 10)
+      const comparisonInt = parseInt(comparisonValue, 10)
+
+      switch (operator) {
+        case '>':
+        case '<l':
+          tmpItemIsExpected = int > comparisonInt
+          break
+        case '<':
+        case '>l':
+          tmpItemIsExpected = int < comparisonInt
+          break
+        case '<=':
+        case '=<':
+        case '>=l':
+        case '=>l':
+          tmpItemIsExpected = int <= comparisonInt
+          break
+        case '>=':
+        case '=>':
+        case '<=l':
+        case '=<l':
+          tmpItemIsExpected = int >= comparisonInt
+          break
+        default:
+          break
+      }
+    }
+
+    if (column.filterCustomSearch) {
+      const customSearchResult = Utils.calculateObjectValue(this, column.filterCustomSearch, [searchValue, value, key, this.options.data], true)
+      if (customSearchResult !== null) {
+        tmpItemIsExpected = customSearchResult
+      }
+    }
+
+    return tmpItemIsExpected
   }
 
   initColumnSearch (filterColumnsDefaults) {
