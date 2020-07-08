@@ -1,31 +1,6 @@
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
 
-function getElementClass ($element) {
-  return $element.attr('class').replace('form-control', '').replace('focus-temp', '').replace('search-input', '').trim()
-}
-
-function getCursorPosition (el) {
-  if (Utils.isIEBrowser()) {
-    if ($(el).is('input[type=text]')) {
-      let pos = 0
-      if ('selectionStart' in el) {
-        pos = el.selectionStart
-      } else if ('selection' in document) {
-        el.focus()
-        const Sel = document.selection.createRange()
-        const SelLength = document.selection.createRange().text.length
-        Sel.moveStart('character', -el.value.length)
-        pos = Sel.text.length - SelLength
-      }
-      return pos
-    }
-    return -1
-
-  }
-  return -1
-}
-
 export function getOptionsFromSelectControl (selectControl) {
   return selectControl.get(selectControl.length - 1).options
 }
@@ -69,11 +44,9 @@ export function existOptionInSelectControl (selectControl, value) {
 }
 
 export function addOptionToSelectControl (selectControl, _value, text, selected) {
-  const value = _value.trim()
+  const value = _value || _value.toString().trim()
   const $selectControl = $(selectControl.get(selectControl.length - 1))
-  if (
-    !existOptionInSelectControl(selectControl, value)
-  ) {
+  if (!existOptionInSelectControl(selectControl, value)) {
     const option = $(`<option value="${value}">${text}</option>`)
 
     if (value === selected) {
@@ -100,6 +73,31 @@ export function sortSelectControl (selectControl, orderBy) {
 
 export function fixHeaderCSS ({ $tableHeader }) {
   $tableHeader.css('height', '89px')
+}
+
+export function getElementClass ($element) {
+  return $element.attr('class').replace('form-control', '').replace('focus-temp', '').replace('search-input', '').trim()
+}
+
+export function getCursorPosition (el) {
+  if (Utils.isIEBrowser()) {
+    if ($(el).is('input[type=text]')) {
+      let pos = 0
+      if ('selectionStart' in el) {
+        pos = el.selectionStart
+      } else if ('selection' in document) {
+        el.focus()
+        const Sel = document.selection.createRange()
+        const SelLength = document.selection.createRange().text.length
+        Sel.moveStart('character', -el.value.length)
+        pos = Sel.text.length - SelLength
+      }
+      return pos
+    }
+    return -1
+
+  }
+  return -1
 }
 
 export function setCursorPosition (el) {
@@ -205,7 +203,7 @@ export function escapeID (id) {
 }
 
 export function isColumnSearchableViaSelect ({ filterControl, searchable }) {
-  return filterControl && (filterControl.toLowerCase() === 'select' || filterControl.toLowerCase() === 'multipleselect') && searchable
+  return filterControl && filterControl.toLowerCase() === 'select' && searchable
 }
 
 export function isFilterDataNotGiven ({ filterData }) {

@@ -4,7 +4,7 @@
  * @version: v2.3.0
  */
 
-import * as UtilsFilterControl from './utils'
+import * as UtilsFilterControl from './utils.js'
 const Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {
