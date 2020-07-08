@@ -266,6 +266,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return !itemIsExpected.includes(false)
       })
       : that.data
+
+    that.unsortedData = [...that.data]
   }
 
   initColumnSearch (filterColumnsDefaults) {
