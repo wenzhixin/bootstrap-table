@@ -168,6 +168,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
         return false
       }) : this.data
+      this.unsortedData = [...this.data]
     }
   }
 }

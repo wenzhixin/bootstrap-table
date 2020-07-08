@@ -225,6 +225,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return !itemIsExpected.includes(false)
       })
       : that.data
+
+    that.unsortedData = [...that.data]
   }
 
   isValueExpected (searchValue, value, column, key) {
