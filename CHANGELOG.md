@@ -19,6 +19,7 @@ ChangeLog
 - **New:** Added tr `class` support for `thead`.
 - **New:** Added `formatted` parameter for `getData` method to get formatted data.
 - **New:** Added `paginationParts` option instead of `onlyInfoPagination`.
+- **New:** Added `sortReset` option to reset sort on third click.
 - **Update:** Fixed `updateByUniqueId` method cannot update multiple rows bug.
 - **Update:** Fixed `insertRow` not write to source data array bug.
 - **Update:** Fixed events bug with `detailViewIcon` option.
@@ -39,6 +40,7 @@ ChangeLog
 - **New(export):** Added `forceHide` column option.
 - **New(filter-control):** Added `filterOrderBy` column option support order by `server`.
 - **New(filter-control):** Added radio support for `filterControlContainer`.
+- **New(filter-control):** Added support for array filter.
 - **New(filter-control):** Added `filterControlVisible` option and `toggleFilterControl` method.
 - **New(filter-control):** Added `showFilterControlSwitch` option.
 - **New(fixed-columns):** Added support for sticky-header.
