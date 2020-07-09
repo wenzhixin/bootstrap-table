@@ -902,6 +902,10 @@ class BootstrapTable {
             value = item[key]
           }
 
+          if (this.options.searchAccentNeutralise) {
+            value = Utils.normalizeAccent(value)
+          }
+
           // Fix #142: respect searchFormatter boolean
           if (column && column.searchFormatter) {
             value = Utils.calculateObjectValue(column,

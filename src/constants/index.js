@@ -248,6 +248,7 @@ const DEFAULTS = {
   footerStyle (column) {
     return {}
   },
+  searchAccentNeutralise: false,
   showColumns: false,
   showColumnsToggleAll: false,
   showColumnsSearch: false,
