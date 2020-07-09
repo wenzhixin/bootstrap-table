@@ -4,7 +4,7 @@
 	(global = global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -2211,8 +2211,24 @@
 	  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 	}
 
+	function _toConsumableArray(arr) {
+	  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+	}
+
+	function _arrayWithoutHoles(arr) {
+	  if (Array.isArray(arr)) {
+	    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+	    return arr2;
+	  }
+	}
+
 	function _arrayWithHoles(arr) {
 	  if (Array.isArray(arr)) return arr;
+	}
+
+	function _iterableToArray(iter) {
+	  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
 	}
 
 	function _iterableToArrayLimit(arr, i) {
@@ -2245,6 +2261,10 @@
 	  return _arr;
 	}
 
+	function _nonIterableSpread() {
+	  throw new TypeError("Invalid attempt to spread non-iterable instance");
+	}
+
 	function _nonIterableRest() {
 	  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 	}
@@ -2258,7 +2278,7 @@
 	 */
 
 	var Utils = $.fn.bootstrapTable.utils;
-	var bootstrap = {
+	var theme = {
 	  bootstrap3: {
 	    icons: {
 	      advancedSearchIcon: 'glyphicon-chevron-down'
@@ -2272,7 +2292,15 @@
 	      advancedSearchIcon: 'fa-chevron-down'
 	    },
 	    html: {
-	      modal: "\n        <div id=\"avdSearchModal_%s\"  class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\n          <div class=\"modal-dialog modal-xs\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <h4 class=\"modal-title\">%s</h4>\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n              </div>\n              <div class=\"modal-body modal-body-custom\">\n                <div class=\"container-fluid\" id=\"avdSearchModalContent_%s\"\n                  style=\"padding-right: 0px; padding-left: 0px;\" >\n                </div>\n              </div>\n              <div class=\"modal-footer\">\n                <button type=\"button\" id=\"btnCloseAvd_%s\" class=\"btn btn-%s\">%s</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      "
+	      modal: "\n        <div id=\"avdSearchModal_%s\"  class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\n          <div class=\"modal-dialog modal-xs\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <h4 class=\"modal-title\">%s</h4>\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n              </div>\n              <div class=\"modal-body modal-body-custom\">\n                <div class=\"container-fluid\" id=\"avdSearchModalContent_%s\"\n                  style=\"padding-right: 0; padding-left: 0;\" >\n                </div>\n              </div>\n              <div class=\"modal-footer\">\n                <button type=\"button\" id=\"btnCloseAvd_%s\" class=\"btn btn-%s\">%s</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      "
+	    }
+	  },
+	  bootstrap5: {
+	    icons: {
+	      advancedSearchIcon: 'fa-chevron-down'
+	    },
+	    html: {
+	      modal: "\n        <div id=\"avdSearchModal_%s\"  class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\n          <div class=\"modal-dialog modal-xs\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <h4 class=\"modal-title\">%s</h4>\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n              </div>\n              <div class=\"modal-body modal-body-custom\">\n                <div class=\"container-fluid\" id=\"avdSearchModalContent_%s\"\n                  style=\"padding-right: 0; padding-left: 0;\" >\n                </div>\n              </div>\n              <div class=\"modal-footer\">\n                <button type=\"button\" id=\"btnCloseAvd_%s\" class=\"btn btn-%s\">%s</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      "
 	    }
 	  },
 	  bulma: {
@@ -2288,7 +2316,7 @@
 	      advancedSearchIcon: 'fa-chevron-down'
 	    },
 	    html: {
-	      modal: "\n        <div class=\"reveal\" id=\"avdSearchModal_%s\" data-reveal>\n          <h1>%s</h1>\n          <div id=\"avdSearchModalContent_%s\">\n          \n          </div>\n          <button class=\"close-button\" data-close aria-label=\"Close modal\" type=\"button\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n          \n          <button id=\"btnCloseAvd_%s\" class=\"%s\" type=\"button\">%s</button>\n        </div>\n      "
+	      modal: "\n        <div class=\"reveal\" id=\"avdSearchModal_%s\" data-reveal>\n          <h1>%s</h1>\n          <div id=\"avdSearchModalContent_%s\">\n\n          </div>\n          <button class=\"close-button\" data-close aria-label=\"Close modal\" type=\"button\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n\n          <button id=\"btnCloseAvd_%s\" class=\"%s\" type=\"button\">%s</button>\n        </div>\n      "
 	    }
 	  },
 	  materialize: {
@@ -2296,7 +2324,7 @@
 	      advancedSearchIcon: 'expand_more'
 	    },
 	    html: {
-	      modal: "\n        <div id=\"avdSearchModal_%s\" class=\"modal\">\n          <div class=\"modal-content\">\n            <h4>%s</h4>\n            <div id=\"avdSearchModalContent_%s\">\n            \n            </div>\n          </div>\n          <div class=\"modal-footer\">\n            <a href=\"javascript:void(0)\"\" id=\"btnCloseAvd_%s\" class=\"modal-close waves-effect waves-green btn-flat %s\">%s</a>\n          </div>\n        </div>\n      "
+	      modal: "\n        <div id=\"avdSearchModal_%s\" class=\"modal\">\n          <div class=\"modal-content\">\n            <h4>%s</h4>\n            <div id=\"avdSearchModalContent_%s\">\n\n            </div>\n          </div>\n          <div class=\"modal-footer\">\n            <a href=\"javascript:void(0)\"\" id=\"btnCloseAvd_%s\" class=\"modal-close waves-effect waves-green btn-flat %s\">%s</a>\n          </div>\n        </div>\n      "
 	    }
 	  },
 	  semantic: {
@@ -2318,7 +2346,7 @@
 	  }
 	});
 	$.extend($.fn.bootstrapTable.defaults.icons, {
-	  advancedSearchIcon: bootstrap.icons.advancedSearchIcon
+	  advancedSearchIcon: theme.icons.advancedSearchIcon
 	});
 	$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 	  'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
@@ -2372,7 +2400,7 @@
 	      var modalSelector = '#avdSearchModal_' + o.idTable;
 
 	      if ($(modalSelector).length <= 0) {
-	        $('body').append(Utils.sprintf(bootstrap.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()));
+	        $('body').append(Utils.sprintf(theme.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()));
 	        var timeoutId = 0;
 	        $("#avdSearchModalContent_".concat(o.idTable)).append(this.createFormAvd().join(''));
 	        $("#".concat(o.idForm)).off('keyup blur', 'input').on('keyup blur', 'input', function (e) {
@@ -2407,6 +2435,13 @@
 
 	      if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
 	        $(modalSelector).modal();
+	      } else if ($.fn.bootstrapTable.theme === 'bootstrap5') {
+	        if (!this.toolbarModal) {
+	          //   eslint-disable-next-line no-undef
+	          this.toolbarModal = new bootstrap.Modal(document.getElementById('avdSearchModal_' + this.options.idTable), {});
+	        }
+
+	        this.toolbarModal.show();
 	      } else if ($.fn.bootstrapTable.theme === 'bulma') {
 	        $(modalSelector).toggleClass('is-active');
 	      } else if ($.fn.bootstrapTable.theme === 'foundation') {
@@ -2431,6 +2466,8 @@
 
 	      if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
 	        $closeModalButton.modal('hide');
+	      } else if ($.fn.bootstrapTable.theme === 'bootstrap5') {
+	        this.toolbarModal.hide();
 	      } else if ($.fn.bootstrapTable.theme === 'bulma') {
 	        $('html').toggleClass('is-clipped');
 	        $(modalSelector).toggleClass('is-active');
@@ -2515,6 +2552,7 @@
 
 	        return true;
 	      }) : this.data;
+	      this.unsortedData = _toConsumableArray(this.data);
 	    }
 	  }, {
 	    key: "onColumnAdvancedSearch",

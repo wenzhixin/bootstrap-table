@@ -4,7 +4,7 @@
 	(global = global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -1644,6 +1644,18 @@
 	      multipleSortSelect: '<select class="%s %s form-control">'
 	    }
 	  },
+	  bootstrap5: {
+	    icons: {
+	      'plus': 'fa-plus',
+	      'minus': 'fa-minus',
+	      'sort': 'fa-sort'
+	    },
+	    html: {
+	      multipleSortModal: "\n        <div class=\"modal fade\" id=\"%s\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"%sLabel\" aria-hidden=\"true\">\n          <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <h5 class=\"modal-title\" id=\"%sLabel\">%s</h5>\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n              </div>\n              <div class=\"modal-body\">\n                <div class=\"bootstrap-table\">\n                        <div class=\"fixed-table-toolbar\">\n                            <div class=\"bars\">\n                                <div id=\"toolbar\" class=\"pb-3\">\n                                     <button id=\"add\" type=\"button\" class=\"btn btn-secondary\">%s %s</button>\n                                     <button id=\"delete\" type=\"button\" class=\"btn btn-secondary\" disabled>%s %s</button>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"fixed-table-container\">\n                            <table id=\"multi-sort\" class=\"table\">\n                                <thead>\n                                    <tr>\n                                        <th></th>\n                                         <th><div class=\"th-inner\">%s</div></th>\n                                         <th><div class=\"th-inner\">%s</div></th>\n                                    </tr>\n                                </thead>\n                                <tbody></tbody>\n                            </table>\n                        </div>\n                    </div>\n              </div>\n              <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">%s</button>\n                <button type=\"button\" class=\"btn btn-primary multi-sort-order-button\">%s</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      ",
+	      multipleSortButton: '<button class="multi-sort btn btn-secondary" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
+	      multipleSortSelect: '<select class="%s %s form-control">'
+	    }
+	  },
 	  semantic: {
 	    icons: {
 	      'plus': 'fa-plus',
@@ -1689,6 +1701,18 @@
 	    html: {
 	      multipleSortModal: "\n        <div class=\"modal\" id=\"%s\" aria-labelledby=\"%sLabel\" aria-hidden=\"true\">\n          <div class=\"modal-background\"></div>\n          <div class=\"modal-content\" id=\"%sLabel\">\n            <div class=\"box\">\n            <h2>%s</h2>\n              <div class=\"bootstrap-table\">\n                  <div class=\"fixed-table-toolbar\">\n                      <div class=\"bars\">\n                        <div id=\"toolbar\" class=\"padding-bottom-2\">\n                          <button id=\"add\" type=\"button\" class=\"waves-effect waves-light button\">%s %s</button>\n                          <button id=\"delete\" type=\"button\" class=\"waves-effect waves-light button\" disabled>%s %s</button>\n                        </div>\n                      </div>\n                  </div>\n                  <div class=\"fixed-table-container\">\n                      <table id=\"multi-sort\" class=\"table\">\n                          <thead>\n                              <tr>\n                                  <th></th>\n                                  <th><div class=\"th-inner\">%s</div></th>\n                                  <th><div class=\"th-inner\">%s</div></th>\n                              </tr>\n                          </thead>\n                          <tbody></tbody>\n                      </table>\n                    </div>\n                </div>\n                <button type=\"button\" class=\"waves-effect waves-light button\" data-close>%s</button>\n                <button type=\"button\" class=\"waves-effect waves-light button multi-sort-order-button\" data-close>%s</button>\n            </div>\n          </div>\n        </div>\n      ",
 	      multipleSortButton: '<button class="button multi-sort" data-target="%s" title="%s">%s</button>',
+	      multipleSortSelect: '<select class="%s %s browser-default">'
+	    }
+	  },
+	  'bootstrap-table': {
+	    icons: {
+	      'plus': 'icon-plus',
+	      'minus': 'icon-minus',
+	      'sort': 'icon-sort-amount-asc'
+	    },
+	    html: {
+	      multipleSortModal: "\n        <div class=\"modal\" id=\"%s\" aria-labelledby=\"%sLabel\" aria-hidden=\"true\">\n          <div class=\"modal-background\"></div>\n          <div class=\"modal-content\" id=\"%sLabel\">\n            <div class=\"box\">\n            <h2>%s</h2>\n              <div class=\"bootstrap-table\">\n                  <div class=\"fixed-table-toolbar\">\n                      <div class=\"bars\">\n                        <div id=\"toolbar\" class=\"padding-bottom-2\">\n                          <button id=\"add\" type=\"button\" class=\"btn\">%s %s</button>\n                          <button id=\"delete\" type=\"button\" class=\"btn\" disabled>%s %s</button>\n                        </div>\n                      </div>\n                  </div>\n                  <div class=\"fixed-table-container\">\n                      <table id=\"multi-sort\" class=\"table\">\n                          <thead>\n                              <tr>\n                                  <th></th>\n                                  <th><div class=\"th-inner\">%s</div></th>\n                                  <th><div class=\"th-inner\">%s</div></th>\n                              </tr>\n                          </thead>\n                          <tbody></tbody>\n                      </table>\n                    </div>\n                </div>\n                <div class=\"mt-30\">\n                    <button type=\"button\" class=\"btn\" data-close>%s</button>\n                    <button type=\"button\" class=\"btn multi-sort-order-button\" data-close>%s</button> \n                </div>\n            </div>\n          </div>\n        </div>\n      ",
+	      multipleSortButton: '<button class="btn multi-sort" data-target="%s" title="%s">%s</button>',
 	      multipleSortSelect: '<select class="%s %s browser-default">'
 	    }
 	  }
@@ -1898,6 +1922,10 @@
 	        this.$toolbar.find('.multi-sort').on('click', function () {
 	          $(sortModalId).modal();
 	        });
+	      } else if ($.fn.bootstrapTable.theme === 'bootstrap-table') {
+	        this.$toolbar.find('.multi-sort').on('click', function () {
+	          $(sortModalId).addClass('show');
+	        });
 	      } else if ($.fn.bootstrapTable.theme === 'foundation') {
 	        this.$toolbar.find('.multi-sort').on('click', function () {
 	          if (!_this.foundationModal) {
@@ -1992,8 +2020,8 @@
 	      }
 
 	      var order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1;
-	      var aa = a[fieldName];
-	      var bb = b[fieldName];
+	      var aa = Utils.getItemField(a, fieldName);
+	      var bb = Utils.getItemField(b, fieldName);
 	      var value1 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb]);
 	      var value2 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa]);
 

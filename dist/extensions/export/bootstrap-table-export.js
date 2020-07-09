@@ -4,7 +4,7 @@
 	(global = global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -2385,12 +2385,14 @@
 	  exportFooter: false
 	});
 	$.extend($.fn.bootstrapTable.columnDefaults, {
-	  forceExport: false
+	  forceExport: false,
+	  forceHide: false
 	});
 	$.extend($.fn.bootstrapTable.defaults.icons, {
 	  export: {
 	    bootstrap3: 'glyphicon-export icon-share',
-	    materialize: 'file_download'
+	    materialize: 'file_download',
+	    'bootstrap-table': 'icon-download'
 	  }[$.fn.bootstrapTable.theme] || 'fa-download'
 	});
 	$.extend($.fn.bootstrapTable.locales, {
@@ -2547,6 +2549,12 @@
 	          _this2.toggleView();
 	        }
 
+	        _this2.columns.forEach(function (row) {
+	          if (row.forceHide) {
+	            _this2.hideColumn(row.field);
+	          }
+	        });
+
 	        var data = _this2.getData();
 
 	        if (o.exportFooter) {
@@ -2601,6 +2609,13 @@
 	                _this2.hideColumn(row.field);
 	              }
 	            });
+
+	            _this2.columns.forEach(function (row) {
+	              if (row.forceHide) {
+	                _this2.showColumn(row.field);
+	              }
+	            });
+
 	            if (callback) callback();
 	          }
 	        }, o.exportOptions, options));
@@ -2622,6 +2637,7 @@
 	      } else if (o.exportDataType === 'selected') {
 	        var data = this.getData();
 	        var selectedData = this.getSelections();
+	        var pagination = o.pagination;
 
 	        if (!selectedData.length) {
 	          return;
@@ -2637,7 +2653,16 @@
 	        }
 
 	        this.load(selectedData);
+
+	        if (pagination) {
+	          this.togglePagination();
+	        }
+
 	        doExport(function () {
+	          if (pagination) {
+	            _this2.togglePagination();
+	          }
+
 	          _this2.load(data);
 	        });
 	        this.trigger('export-saved', selectedData);

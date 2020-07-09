@@ -4,7 +4,7 @@
 	(global = global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -1779,13 +1779,6 @@
 	  }
 	};
 
-	BootstrapTable.prototype.getGroupSelections = function (index) {
-	  var that = this;
-	  return this.data.filter(function (row) {
-	    return row[that.header.stateField] && row._data['parent-index'] === index;
-	  });
-	};
-
 	BootstrapTable.prototype.checkGroup = function (index) {
 	  this.checkGroup_(index, true);
 	};
@@ -1795,25 +1788,23 @@
 	};
 
 	BootstrapTable.prototype.checkGroup_ = function (index, checked) {
-	  var rows;
+	  var rowsBefore = this.getSelections();
 
 	  var filter = function filter() {
 	    return $(this).closest('tr').data('parent-index') === index;
 	  };
 
-	  if (!checked) {
-	    rows = this.getGroupSelections(index);
-	  }
-
 	  this.$selectItem.filter(filter).prop('checked', checked);
 	  this.updateRows();
 	  this.updateSelected();
+	  var rowsAfter = this.getSelections();
 
 	  if (checked) {
-	    rows = this.getGroupSelections(index);
+	    this.trigger('check-all', rowsAfter, rowsBefore);
+	    return;
 	  }
 
-	  this.trigger(checked ? 'check-all' : 'uncheck-all', rows);
+	  this.trigger('uncheck-all', rowsAfter, rowsBefore);
 	};
 
 	BootstrapTable.prototype.getGroupByFields = function () {
