@@ -1419,9 +1419,9 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines the column sort order, can only be `'asc'` or `'desc'`.
+  Defines the column sort order, can only be `'none'`, `'asc'` or `'desc'`.
 
-- **Default:** `'asc'`
+- **Default:** `'none'`
 
 - **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#options/sort-name-order.html)
 

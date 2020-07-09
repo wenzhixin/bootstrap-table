@@ -126,4 +126,7 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 ### onReorderRow(reorder-row.bs.table)
 
-Fired when the row was dropped, receive as parameter the new data order.
+Fired when the row was dropped, receives two parameters:
+* The new table data
+* The dropped row
+* The row of the old position

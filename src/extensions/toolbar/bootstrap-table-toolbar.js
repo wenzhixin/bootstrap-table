@@ -372,6 +372,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
       return true
     }) : this.data
+    this.unsortedData = [...this.data]
   }
 
   onColumnAdvancedSearch (e) {

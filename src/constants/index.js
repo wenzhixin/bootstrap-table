@@ -185,7 +185,7 @@ const DEFAULTS = {
   sortClass: undefined,
   silentSort: true,
   sortName: undefined,
-  sortOrder: 'asc',
+  sortOrder: 'none',
   sortStable: false,
   rememberOrder: false,
   serverSort: true,
