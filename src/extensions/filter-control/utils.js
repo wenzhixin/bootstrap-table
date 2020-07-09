@@ -44,7 +44,7 @@ export function existOptionInSelectControl (selectControl, value) {
 }
 
 export function addOptionToSelectControl (selectControl, _value, text, selected) {
-  const value = _value || _value.toString().trim()
+  const value = _value ? _value.toString().trim() : ''
   const $selectControl = $(selectControl.get(selectControl.length - 1))
   if (!existOptionInSelectControl(selectControl, value)) {
     const option = $(`<option value="${value}">${text}</option>`)
