@@ -356,9 +356,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.filterControl) {
       const that = this
       const cookies = UtilsFilterControl.collectBootstrapCookies()
-      const header = UtilsFilterControl.getCurrentHeader(that)
-      const table = header.closest('table')
-      const controls = header.find(UtilsFilterControl.getCurrentSearchControls(that))
+      const table = this.$el.closest('table')
+      const controls = UtilsFilterControl.getSearchControls(that)
       const search = that.$toolbar.find('.search input')
       let hasValues = false
       let timeoutId = 0
@@ -409,7 +408,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       // use the default sort order if it exists. do nothing if it does not
       if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
-        const sorter = header.find(Utils.sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')))
+        const sorter = this.$header.find(Utils.sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')))
         if (sorter.length > 0) {
           that.onSort({type: 'keypress', currentTarget: sorter})
           $(sorter).find('.sortable').trigger('click')
