@@ -1051,6 +1051,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
+- **Example:** [Accent Neutralise](https://examples.bootstrap-table.com/#options/search-align.html)
+
 ## searchAlign
 
 - **Attribute:** `data-search-align`
