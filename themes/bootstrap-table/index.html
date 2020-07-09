@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Bootstrap Table can help you to build UI Kits, Templates and Dashboards. You can see how developers and designers are using Bootstrap Table in production and real world web applications.">
+<meta name="description" content="A getting started of add Bootstrap Table theme, how to download and use, basic templates, and more.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
 <meta name="generator" content="Jekyll v3.8.7">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
 
-<title>Themes and Templates · Bootstrap Table</title>
+<title>Bootstrap Table · Bootstrap Table</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
 
@@ -117,12 +117,92 @@
     
       <header class="d-flex flex-column flex-md-row align-items-md-center p-5 bg-light themes">
   <div class="pt-md-3 pb-md-4">
-    <h1 class="bd-title mt-0">Themes and Templates</h1>
-    <p class="bd-lead">Bootstrap Table can help you to build UI Kits, Templates and Dashboards. You can see how developers and designers are using Bootstrap Table in production and real world web applications.</p>
+    <h1 class="bd-title mt-0">Bootstrap Table</h1>
+    <p class="bd-lead">A getting started of add Bootstrap Table theme, how to download and use, basic templates, and more.</p>
   </div></header>
 
 <main class="bd-content p-5" id="content" role="main">
-  <div id="app"></div>
+  <h2 id="quick-start">Quick start</h2>
+
+<p>Looking to quickly add Bootstrap Table theme to your project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? <a href="/docs/getting-started/download/">Head to the downloads page</a>.</p>
+
+<h3 id="css">CSS</h3>
+
+<p>Copy-paste the stylesheet <code class="highlighter-rouge">&lt;link&gt;</code> into your <code class="highlighter-rouge">&lt;head&gt;</code> before all other stylesheets to load our CSS.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/themes/bootstrap-table/bootstrap-table.min.css"</span><span class="nt">&gt;</span></code></pre></figure>
+
+<h3 id="js">JS</h3>
+
+<p>Place the following <code class="highlighter-rouge">&lt;script&gt;</code>s near the end of your pages, right before the closing <code class="highlighter-rouge">&lt;/body&gt;</code> tag, to enable them. jQuery must come first, then our JavaScript plugins.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/themes/bootstrap-table/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+
+<h2 id="starter-template">Starter template</h2>
+
+<p>Be sure to have your pages set up with the latest design and development standards. That means using an HTML5 doctype and including a viewport meta tag for proper responsive behaviors.</p>
+
+<p>Put it all together and your pages should look like this:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Required meta tags --&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1, shrink-to-fit=no"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/themes/bootstrap-table/bootstrap-table.min.css"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;title&gt;</span>Hello, Bootstrap Table!<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;table</span> <span class="na">data-toggle=</span><span class="s">"table"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;thead&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+          <span class="nt">&lt;th&gt;</span>Item ID<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;th&gt;</span>Item Name<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;th&gt;</span>Item Price<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+      <span class="nt">&lt;/thead&gt;</span>
+      <span class="nt">&lt;tbody&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+          <span class="nt">&lt;td&gt;</span>1<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>Item 1<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>$1<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+          <span class="nt">&lt;td&gt;</span>2<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>Item 2<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>$2<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+      <span class="nt">&lt;/tbody&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://code.jquery.com/jquery-3.3.1.min.js"</span> <span class="na">integrity=</span><span class="s">"sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/themes/bootstrap-table/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<h3 id="html5-doctype">HTML5 doctype</h3>
+
+<p>Bootstrap Table requires the use of the HTML5 doctype. Without it, you’ll see some funky incomplete styling, but including it shouldn’t cause any considerable hiccups.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<h2 id="community">Community</h2>
+
+<p>Stay up to date on the development of Bootstrap Table and reach out to the community with these helpful resources.</p>
+
+<ul>
+  <li>Follow <a href="https://twitter.com/wenzhixin2010">@wenzhixin2010 on Twitter</a>.</li>
+  <li>Read <a href="/news">The Official Bootstrap Table News</a>.</li>
+  <li>Implementation help may be found at Stack Overflow (tagged <a href="https://stackoverflow.com/questions/tagged/bootstrap-table"><code class="highlighter-rouge">bootstrap-table</code></a>).</li>
+</ul>
 
 </main>
 

@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -345,9 +350,10 @@
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#showcopyrows">showCopyRows</a></li>
-<li class="toc-entry toc-h3"><a href="#copywithhidden">copyWithHidden</a></li>
 <li class="toc-entry toc-h3"><a href="#copydelimiter">copyDelimiter</a></li>
 <li class="toc-entry toc-h3"><a href="#copynewline">copyNewline</a></li>
+<li class="toc-entry toc-h3"><a href="#copywithhidden">copyWithHidden</a></li>
+<li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#methods">Methods</a>
@@ -395,25 +401,6 @@
   </li>
 </ul>
 
-<h3 id="copywithhidden">copyWithHidden</h3>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-copy-width-hidden</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set <code class="highlighter-rouge">true</code> to copy with hidden columns.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
 <h3 id="copydelimiter">copyDelimiter</h3>
 
 <ul>
@@ -450,6 +437,31 @@
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'\n'</code></p>
   </li>
+</ul>
+
+<h3 id="copywithhidden">copyWithHidden</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-copy-width-hidden</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to copy with hidden columns.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="icons">Icons</h3>
+
+<ul>
+  <li>copy: ‘fa-copy’</li>
 </ul>
 
 <h2 id="methods">Methods</h2>

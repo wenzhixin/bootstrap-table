@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -253,6 +254,10 @@
         </li><li>
           <a href="/docs/extensions/page-jump-to/">
             Page Jump To
+          </a>
+        </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
           </a>
         </li><li>
           <a href="/docs/extensions/print/">
@@ -427,9 +432,17 @@
 <h2 id="note">Note</h2>
 
 <ul>
-  <li>This extension does not support <code class="highlighter-rouge">detailView</code> option.</li>
-  <li>This extension does not support <code class="highlighter-rouge">cardView</code> option.</li>
+  <li>Not support <code class="highlighter-rouge">detailView</code> option.</li>
+  <li>Not support <code class="highlighter-rouge">cardView</code> option.</li>
+  <li>Not support <code class="highlighter-rouge">showFooter</code> option.</li>
+  <li>Need to import after sticky-header when using with sticky-header extension. For example:</li>
 </ul>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">src=</span><span class="s">"extensions/sticky-header/bootstrap-table-sticky-header.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">src=</span><span class="s">"extensions/fixed-columns/bootstrap-table-fixed-columns.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/sticky-header/bootstrap-table-sticky-header.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/fixed-columns/bootstrap-table-fixed-columns.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+
 
         </main>
       </div>

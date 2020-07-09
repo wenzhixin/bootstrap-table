@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -254,6 +255,10 @@
           <a href="/docs/extensions/page-jump-to/">
             Page Jump To
           </a>
+        </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
         </li><li class="active bd-sidenav-active">
           <a href="/docs/extensions/print/">
             Print
@@ -346,19 +351,19 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#showprint">showPrint</a></li>
 <li class="toc-entry toc-h3"><a href="#printasfilteredandsortedonui">printAsFilteredAndSortedOnUI</a></li>
+<li class="toc-entry toc-h3"><a href="#printpagebuilder">printPageBuilder</a></li>
 <li class="toc-entry toc-h3"><a href="#printsortcolumn">printSortColumn</a></li>
 <li class="toc-entry toc-h3"><a href="#printsortorder">printSortOrder</a></li>
-<li class="toc-entry toc-h3"><a href="#printpagebuilder">printPageBuilder</a></li>
+<li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#printfilter">printFilter</a></li>
-<li class="toc-entry toc-h3"><a href="#printignore">printIgnore</a></li>
 <li class="toc-entry toc-h3"><a href="#printformatter">printFormatter</a></li>
+<li class="toc-entry toc-h3"><a href="#printignore">printIgnore</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#icons">Icons</a></li>
 </ul>
           </div>
         
@@ -418,6 +423,25 @@
   </li>
 </ul>
 
+<h3 id="printpagebuilder">printPageBuilder</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-print-page-builder</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Receive html <code class="highlighter-rouge">&lt;table&gt;</code> element as string parameter, returns html string for printing. Used for styling and adding header or footer.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function(table){return printPageBuilderDefault(table)}</code></p>
+  </li>
+</ul>
+
 <h3 id="printsortcolumn">printSortColumn</h3>
 
 <ul>
@@ -456,23 +480,10 @@
   </li>
 </ul>
 
-<h3 id="printpagebuilder">printPageBuilder</h3>
+<h3 id="icons">Icons</h3>
 
 <ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-print-page-builder</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Receive html <code class="highlighter-rouge">&lt;table&gt;</code> element as string parameter, returns html string for printing. Used for styling and adding header or footer.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function(table){return printPageBuilderDefault(table)}</code></p>
-  </li>
+  <li>print: <code class="highlighter-rouge">'glyphicon-print icon-share'</code></li>
 </ul>
 
 <h2 id="column-options">Column options</h2>
@@ -496,6 +507,25 @@
   </li>
 </ul>
 
+<h3 id="printformatter">printFormatter</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-print-formatter</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>function(value, row, index) - returns a string. Formats the cell values for this column in the printed table. Function behavior is similar to the ‘formatter’ column option</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
 <h3 id="printignore">printIgnore</h3>
 
 <ul>
@@ -513,31 +543,6 @@
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
-</ul>
-
-<h3 id="printformatter">printFormatter</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-print-formatter</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>function(value, row, index) - returns a string. Formats the cell values for this column in the printed table. Function behaviour is similar to the ‘formatter’ column option</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-</ul>
-
-<h2 id="icons">Icons</h2>
-
-<ul>
-  <li>print: <code class="highlighter-rouge">'glyphicon-print icon-share'</code></li>
 </ul>
 
         </main>

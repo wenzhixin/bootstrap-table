@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -346,8 +351,8 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#treeenable">treeEnable</a></li>
 <li class="toc-entry toc-h3"><a href="#idfield">idField</a></li>
-<li class="toc-entry toc-h3"><a href="#treeshowfield">treeShowField</a></li>
 <li class="toc-entry toc-h3"><a href="#parentidfield">parentIdField</a></li>
+<li class="toc-entry toc-h3"><a href="#treeshowfield">treeShowField</a></li>
 <li class="toc-entry toc-h3"><a href="#rootparentid">rootParentId</a></li>
 </ul>
 </li>
@@ -410,25 +415,6 @@
   </li>
 </ul>
 
-<h3 id="treeshowfield">treeShowField</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-tree-show-field</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set the <code class="highlighter-rouge">treeShowField</code> will auto enable the tree grid.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
-  </li>
-</ul>
-
 <h3 id="parentidfield">parentIdField</h3>
 
 <ul>
@@ -445,6 +431,25 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'pid'</code></p>
+  </li>
+</ul>
+
+<h3 id="treeshowfield">treeShowField</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-tree-show-field</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set the <code class="highlighter-rouge">treeShowField</code> will auto enable the tree grid.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
   </li>
 </ul>
 

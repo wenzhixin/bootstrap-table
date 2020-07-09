@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Plugin to add input/select element on the cells of table.">
+<meta name="description" content="Custom View extension of Bootstrap Table.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
 <meta name="generator" content="Jekyll v3.8.7">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
 
-<title>Cell Input · Bootstrap Table</title>
+<title>Custom View · Bootstrap Table</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
 
@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -340,89 +345,162 @@
         
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#description">Description</a></li>
 <li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#example">Example</a></li>
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#cellinputenabled">cellInputEnabled</a></li>
+<li class="toc-entry toc-h3"><a href="#customview">customView</a></li>
+<li class="toc-entry toc-h3"><a href="#showcustomview">showCustomView</a></li>
+<li class="toc-entry toc-h3"><a href="#showcustomviewbutton">showCustomViewButton</a></li>
+<li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
+<li class="toc-entry toc-h2"><a href="#methods">Methods</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#cellinputenabled-1">cellInputEnabled</a></li>
-<li class="toc-entry toc-h3"><a href="#cellinputtype">cellInputType</a></li>
+<li class="toc-entry toc-h3"><a href="#togglecustomview">toggleCustomView</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#example">Example</a></li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#oncustomviewpostbodycustom-view-post-bodybstable">onCustomViewPostBody(custom-view-post-body.bs.table)</a></li>
+<li class="toc-entry toc-h3"><a href="#oncustomviewprebodycustom-view-pre-bodybstable">onCustomViewPreBody(custom-view-pre-body.bs.table)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#localizations">Localizations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#formattogglecustomview">formatToggleCustomView</a></li>
+</ul>
+</li>
 </ul>
           </div>
         
 
         <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content extensions" role="main">
-          <h1 class="bd-title" id="content">Cell Input</h1>
-          <p class="bd-lead">Plugin to add input/select element on the cells of table.</p>
+          <h1 class="bd-title" id="content">Custom View</h1>
+          <p class="bd-lead">Custom View extension of Bootstrap Table.</p>
           <div id="gg"></div>
 
-          <p>Use Plugin: <a href="https://github.com/wenzhixin/bootstrap-table/tree/master/src/extensions/cell-input">bootstrap-table-cell-input</a></p>
+          <h2 id="description">Description</h2>
+<p>This extension adds the ability to create a custom view to display the data.</p>
 
 <h2 id="usage">Usage</h2>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/cell-input/bootstrap-table-cell-input.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
-
-<h2 id="options">Options</h2>
-
-<h3 id="cellinputenabled">cellInputEnabled</h3>
-
-<ul>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set to true to enable the plugin.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h2 id="column-options">Column options</h2>
-
-<h3 id="cellinputenabled-1">cellInputEnabled</h3>
-
-<ul>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set to true to make the cell editable.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h3 id="cellinputtype">cellInputType</h3>
-
-<ul>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Defines the type of input. available options: <code class="highlighter-rouge">text</code> and <code class="highlighter-rouge">select</code>.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">text</code></p>
-  </li>
-</ul>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/custom-view/bootstrap-table-custom-view.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
 <h2 id="example">Example</h2>
 
-<p><a href="http://jsfiddle.net/amatveef/5qztmj0w/">http://jsfiddle.net/amatveef/5qztmj0w/</a></p>
+<p><a href="https://examples.bootstrap-table.com/#extensions/custom-view.html">Custom View</a></p>
+
+<h2 id="options">Options</h2>
+
+<h3 id="customview">customView</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-custom-view</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function|Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">false</code> to disable this extension.<br />
+Set to <code class="highlighter-rouge">function</code> to format your custom view.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="showcustomview">showCustomView</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-custom-view</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">true</code> to show the custom view as default view.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="showcustomviewbutton">showCustomViewButton</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-custom-view-button</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">true</code> to show the custom view toggle button.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="icons">Icons</h3>
+
+<ul>
+  <li>Toggle custom view:
+    <ul>
+      <li>Bootstrap3: <code class="highlighter-rouge">glyphicon glyphicon-eye-open</code></li>
+      <li>Bootstrap4: <code class="highlighter-rouge">fa fa-eye</code></li>
+      <li>Semantic: <code class="highlighter-rouge">fa fa-eye</code></li>
+      <li>Foundation: <code class="highlighter-rouge">fa fa-eye</code></li>
+      <li>Bulma: <code class="highlighter-rouge">fa fa-eye</code></li>
+      <li>Materialize: <code class="highlighter-rouge">remove_red_eye</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="methods">Methods</h2>
+
+<h3 id="togglecustomview">toggleCustomView</h3>
+
+<ul>
+  <li>Toggles the view between the table and the custom view.</li>
+</ul>
+
+<h2 id="events">Events</h2>
+
+<h3 id="oncustomviewpostbodycustom-view-post-bodybstable">onCustomViewPostBody(custom-view-post-body.bs.table)</h3>
+
+<ul>
+  <li>Fires before the custom view was rendered.</li>
+</ul>
+
+<h3 id="oncustomviewprebodycustom-view-pre-bodybstable">onCustomViewPreBody(custom-view-pre-body.bs.table)</h3>
+
+<ul>
+  <li>Fires after the custom view was rendered.</li>
+</ul>
+
+<h2 id="localizations">Localizations</h2>
+
+<h3 id="formattogglecustomview">formatToggleCustomView</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Toggle custom view;}</code></p>
+  </li>
+</ul>
 
         </main>
       </div>

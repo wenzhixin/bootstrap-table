@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -345,31 +350,28 @@
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#filtercontrol">filterControl</a></li>
+<li class="toc-entry toc-h3"><a href="#filtercontrolvisible">filterControlVisible</a></li>
+<li class="toc-entry toc-h3"><a href="#alignmentselectcontroloptions">alignmentSelectControlOptions</a></li>
+<li class="toc-entry toc-h3"><a href="#disablecontrolwhensearch">disableControlWhenSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercontrolcontainer">filterControlContainer</a></li>
 <li class="toc-entry toc-h3"><a href="#filterdatacollector">filterDataCollector</a></li>
-<li class="toc-entry toc-h3"><a href="#alignmentselectcontroloptions">alignmentSelectControlOptions</a></li>
 <li class="toc-entry toc-h3"><a href="#hideunusedselectoptions">hideUnusedSelectOptions</a></li>
-<li class="toc-entry toc-h3"><a href="#disablecontrolwhensearch">disableControlWhenSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#searchonenterkey">searchOnEnterKey</a></li>
+<li class="toc-entry toc-h3"><a href="#showfiltercontrolswitch">showFilterControlSwitch</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#filtercontrol-1">filterControl</a></li>
-<li class="toc-entry toc-h3"><a href="#filterdata">filterData</a></li>
-<li class="toc-entry toc-h3"><a href="#filterdefault">filterDefault</a></li>
-<li class="toc-entry toc-h3"><a href="#filterdatepickeroptions">filterDatepickerOptions</a></li>
-<li class="toc-entry toc-h3"><a href="#filterstrictsearch">filterStrictSearch</a></li>
-<li class="toc-entry toc-h3"><a href="#filterstartswithsearch">filterStartsWithSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercontrolplaceholder">filterControlPlaceholder</a></li>
-<li class="toc-entry toc-h3"><a href="#filterorderby">filterOrderBy</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercustomsearch">filterCustomSearch</a></li>
+<li class="toc-entry toc-h3"><a href="#filterdata">filterData</a></li>
+<li class="toc-entry toc-h3"><a href="#filterdatepickeroptions">filterDatepickerOptions</a></li>
+<li class="toc-entry toc-h3"><a href="#filterdefault">filterDefault</a></li>
+<li class="toc-entry toc-h3"><a href="#filterorderby">filterOrderBy</a></li>
+<li class="toc-entry toc-h3"><a href="#filterstartswithsearch">filterStartsWithSearch</a></li>
+<li class="toc-entry toc-h3"><a href="#filterstrictsearch">filterStrictSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#locale">Locale</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#formatclearfilters">formatClearFilters</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#events">Events</a>
@@ -382,6 +384,15 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#triggersearch">triggerSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#clearfiltercontrol">clearFilterControl</a></li>
+<li class="toc-entry toc-h3"><a href="#togglefiltercontrol">toggleFilterControl</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#localizations">Localizations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#formatclearfilters">formatClearFilters</a></li>
+<li class="toc-entry toc-h3"><a href="#formatfiltercontrolswitch">formatFilterControlSwitch</a></li>
+<li class="toc-entry toc-h3"><a href="#formatfiltercontrolswitchhide">formatFilterControlSwitchHide</a></li>
+<li class="toc-entry toc-h3"><a href="#formatfiltercontrolswitchshow">formatFilterControlSwitchShow</a></li>
 </ul>
 </li>
 </ul>
@@ -418,7 +429,64 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set true to add an <code class="highlighter-rouge">input</code> or <code class="highlighter-rouge">select</code> into the column.</p>
+    <p>Set to <code class="highlighter-rouge">true</code> to add an <code class="highlighter-rouge">input</code> or <code class="highlighter-rouge">select</code> into the column.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="filtercontrolvisible">filterControlVisible</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-control-visible</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">false</code> to hide the filter controls.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h3 id="alignmentselectcontroloptions">alignmentSelectControlOptions</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-alignment-select-control-options</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set the alignment of the select control options. Use Use <code class="highlighter-rouge">left</code>, <code class="highlighter-rouge">right</code> or <code class="highlighter-rouge">auto</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="disablecontrolwhensearch">disableControlWhenSearch</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-disable-control-when-search</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to true if you want to disable the control while the server is responding the data. This options will work if the sidePagination is ‘server’.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -438,7 +506,7 @@
     <p><strong>Detail:</strong></p>
 
     <p>Set to e.g. <code class="highlighter-rouge">#filter</code> to allow custom input filter in a element with the id <code class="highlighter-rouge">filter</code>.
- Each filter element (input or select) must have the following id <code class="highlighter-rouge">bootstrap-table-filter-control-&lt;Fieldname&gt;</code> (<Fieldname> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).</Fieldname></p>
+ Each filter element (input or select) must have the following class <code class="highlighter-rouge">bootstrap-table-filter-control-&lt;FieldName&gt;</code> (<FieldName> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).</FieldName></p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -464,25 +532,6 @@
   </li>
 </ul>
 
-<h3 id="alignmentselectcontroloptions">alignmentSelectControlOptions</h3>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-alignment-select-control-options</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set the alignemnt of the select control options. Use Use <code class="highlighter-rouge">left</code>, <code class="highlighter-rouge">right</code> or <code class="highlighter-rouge">auto</code>.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-</ul>
-
 <h3 id="hideunusedselectoptions">hideUnusedSelectOptions</h3>
 
 <ul>
@@ -502,25 +551,6 @@
   </li>
 </ul>
 
-<h3 id="disablecontrolwhensearch">disableControlWhenSearch</h3>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-disable-control-when-search</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set to true if you want to disable the control while the server is responding the data. This options will work if the sidePagination is ‘server’.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
 <h3 id="searchonenterkey">searchOnEnterKey</h3>
 
 <ul>
@@ -534,6 +564,25 @@
     <p><strong>Detail:</strong></p>
 
     <p>Set to true to fire the search action when the user press the enter key.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="showfiltercontrolswitch">showFilterControlSwitch</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-filter-control-switch</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">true</code> to show the filter control switch button.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -561,106 +610,6 @@
   </li>
 </ul>
 
-<h3 id="filterdata">filterData</h3>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-data</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set custom select filter values, use
- <code class="highlighter-rouge">var:variable</code> to load from a variable
- <code class="highlighter-rouge">obj:variable.key</code> to load from a object
- <code class="highlighter-rouge">url:http://www.example.com/data.json</code> to load from a remote json file
- <code class="highlighter-rouge">json:{key:data}</code> to load from a json string.
- <code class="highlighter-rouge">func:functionName</code> to load from a function.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-</ul>
-
-<h3 id="filterdefault">filterDefault</h3>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-default</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set the default value of the filter.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-</ul>
-
-<h3 id="filterdatepickeroptions">filterDatepickerOptions</h3>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-datepicker-options</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Object</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: <code class="highlighter-rouge">data-filter-datepicker-options='{"autoclose":true, "clearBtn": true, "todayHighlight": true}'</code>.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-</ul>
-
-<h3 id="filterstrictsearch">filterStrictSearch</h3>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-strict-search</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set to true if you want to use the strict search mode.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h3 id="filterstartswithsearch">filterStartsWithSearch</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-filter-starts-with-search</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set to true if you want to use the starts with search mode.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
 <h3 id="filtercontrolplaceholder">filterControlPlaceholder</h3>
 
 <ul>
@@ -677,25 +626,6 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
-  </li>
-</ul>
-
-<h3 id="filterorderby">filterOrderBy</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-filter-order-by</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set this to order the options in a select control whether ascending or descending.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'asc'</code></p>
   </li>
 </ul>
 
@@ -729,23 +659,131 @@
   </li>
 </ul>
 
+<h3 id="filterdata">filterData</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-data</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set custom select filter values, use
+ <code class="highlighter-rouge">var:variable</code> to load from a variable
+ <code class="highlighter-rouge">obj:variable.key</code> to load from a object
+ <code class="highlighter-rouge">url:http://www.example.com/data.json</code> to load from a remote json file
+ <code class="highlighter-rouge">json:{key:data}</code> to load from a json string.
+ <code class="highlighter-rouge">func:functionName</code> to load from a function.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="filterdatepickeroptions">filterDatepickerOptions</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-datepicker-options</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Object</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: <code class="highlighter-rouge">data-filter-datepicker-options='{"autoclose":true, "clearBtn": true, "todayHighlight": true}'</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="filterdefault">filterDefault</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-default</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set the default value of the filter.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="filterorderby">filterOrderBy</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-filter-order-by</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set this to order the options in a select control whether ascending (<code class="highlighter-rouge">'asc'</code>), descending (<code class="highlighter-rouge">'desc'</code>) or in the order provided by the server (<code class="highlighter-rouge">'server'</code>).</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'asc'</code></p>
+  </li>
+</ul>
+
+<h3 id="filterstartswithsearch">filterStartsWithSearch</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-filter-starts-with-search</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to true if you want to use the starts with search mode.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="filterstrictsearch">filterStrictSearch</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-strict-search</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to true if you want to use the strict search mode.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
 <h3 id="icons">Icons</h3>
 
 <ul>
-  <li>clear: ‘glyphicon-trash icon-clear’</li>
-</ul>
-
-<h2 id="locale">Locale</h2>
-
-<h3 id="formatclearfilters">formatClearFilters</h3>
-
-<ul>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Clear Filters";}</code></p>
-  </li>
+  <li>clear: <code class="highlighter-rouge">'glyphicon-trash icon-clear'</code></li>
+  <li>filterControlSwitchHide: <code class="highlighter-rouge">'glyphicon-zoom-out icon-zoom-out'</code></li>
+  <li>filterControlSwitchShow: <code class="highlighter-rouge">'glyphicon-zoom-in icon-zoom-in'</code></li>
 </ul>
 
 <h2 id="events">Events</h2>
@@ -774,6 +812,58 @@
 
 <ul>
   <li>Clear all the controls added by this plugin (similar to showSearchClearButton option).</li>
+</ul>
+
+<h3 id="togglefiltercontrol">toggleFilterControl</h3>
+
+<ul>
+  <li>Toggles the visibility (show/hide) of the filter controls.</li>
+</ul>
+
+<h2 id="localizations">Localizations</h2>
+
+<h3 id="formatclearfilters">formatClearFilters</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Clear Filters";}</code></p>
+  </li>
+</ul>
+
+<h3 id="formatfiltercontrolswitch">formatFilterControlSwitch</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Hide/Show controls";}</code></p>
+  </li>
+</ul>
+
+<h3 id="formatfiltercontrolswitchhide">formatFilterControlSwitchHide</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Hide controls";}</code></p>
+  </li>
+</ul>
+
+<h3 id="formatfiltercontrolswitchshow">formatFilterControlSwitchShow</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Show controls";}</code></p>
+  </li>
 </ul>
 
         </main>

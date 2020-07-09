@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -340,27 +345,27 @@
         
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#formatloadingmessage">formatLoadingMessage</a></li>
-<li class="toc-entry toc-h2"><a href="#formatrecordsperpage">formatRecordsPerPage</a></li>
-<li class="toc-entry toc-h2"><a href="#formatshowingrows">formatShowingRows</a></li>
-<li class="toc-entry toc-h2"><a href="#formatsrpaginationpretext">formatSRPaginationPreText</a></li>
-<li class="toc-entry toc-h2"><a href="#formatsrpaginationpagetext">formatSRPaginationPageText</a></li>
-<li class="toc-entry toc-h2"><a href="#formatsrpaginationnexttext">formatSRPaginationNextText</a></li>
-<li class="toc-entry toc-h2"><a href="#formatdetailpagination">formatDetailPagination</a></li>
-<li class="toc-entry toc-h2"><a href="#formatsearch">formatSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#formatallrows">formatAllRows</a></li>
 <li class="toc-entry toc-h2"><a href="#formatclearsearch">formatClearSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#formatcolumns">formatColumns</a></li>
+<li class="toc-entry toc-h2"><a href="#formatcolumnstoggleall">formatColumnsToggleAll</a></li>
+<li class="toc-entry toc-h2"><a href="#formatdetailpagination">formatDetailPagination</a></li>
+<li class="toc-entry toc-h2"><a href="#formatfullscreen">formatFullscreen</a></li>
+<li class="toc-entry toc-h2"><a href="#formatloadingmessage">formatLoadingMessage</a></li>
 <li class="toc-entry toc-h2"><a href="#formatnomatches">formatNoMatches</a></li>
 <li class="toc-entry toc-h2"><a href="#formatpaginationswitch">formatPaginationSwitch</a></li>
 <li class="toc-entry toc-h2"><a href="#formatpaginationswitchdown">formatPaginationSwitchDown</a></li>
 <li class="toc-entry toc-h2"><a href="#formatpaginationswitchup">formatPaginationSwitchUp</a></li>
+<li class="toc-entry toc-h2"><a href="#formatrecordsperpage">formatRecordsPerPage</a></li>
 <li class="toc-entry toc-h2"><a href="#formatrefresh">formatRefresh</a></li>
+<li class="toc-entry toc-h2"><a href="#formatsrpaginationnexttext">formatSRPaginationNextText</a></li>
+<li class="toc-entry toc-h2"><a href="#formatsrpaginationpagetext">formatSRPaginationPageText</a></li>
+<li class="toc-entry toc-h2"><a href="#formatsrpaginationpretext">formatSRPaginationPreText</a></li>
+<li class="toc-entry toc-h2"><a href="#formatsearch">formatSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#formatshowingrows">formatShowingRows</a></li>
 <li class="toc-entry toc-h2"><a href="#formattoggle">formatToggle</a></li>
-<li class="toc-entry toc-h2"><a href="#formattoggleon">formatToggleOn</a></li>
 <li class="toc-entry toc-h2"><a href="#formattoggleoff">formatToggleOff</a></li>
-<li class="toc-entry toc-h2"><a href="#formatcolumns">formatColumns</a></li>
-<li class="toc-entry toc-h2"><a href="#formatcolumnstoggleall">formatColumnsToggleAll</a></li>
-<li class="toc-entry toc-h2"><a href="#formatfullscreen">formatFullscreen</a></li>
-<li class="toc-entry toc-h2"><a href="#formatallrows">formatAllRows</a></li>
+<li class="toc-entry toc-h2"><a href="#formattoggleon">formatToggleOn</a></li>
 </ul>
           </div>
         
@@ -402,69 +407,40 @@
   <span class="p">}</span>
 <span class="p">})</span></code></pre></figure>
 
-<h2 id="formatloadingmessage">formatLoadingMessage</h2>
+<h2 id="formatallrows">formatAllRows</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">'All'</code>
+    <h2 id="formatclearsearch">formatClearSearch</h2>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li><strong>Default:</strong> <code class="highlighter-rouge">'Clear Search'</code></li>
+</ul>
+
+<h2 id="formatcolumns">formatColumns</h2>
 
 <ul>
   <li>
     <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'Loading, please wait…'</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Columns'</code></p>
   </li>
 </ul>
 
-<h2 id="formatrecordsperpage">formatRecordsPerPage</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">pageNumber</code></p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'%s records per page'</code></p>
-  </li>
-</ul>
-
-<h2 id="formatshowingrows">formatShowingRows</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">pageFrom, pageTo, totalRows</code></p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'Showing %s to %s of %s rows'</code></p>
-  </li>
-</ul>
-
-<h2 id="formatsrpaginationpretext">formatSRPaginationPreText</h2>
+<h2 id="formatcolumnstoggleall">formatColumnsToggleAll</h2>
 
 <ul>
   <li>
     <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'previous page'</code></p>
-  </li>
-</ul>
-
-<h2 id="formatsrpaginationpagetext">formatSRPaginationPageText</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">page</code></p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'to page %s</code></p>
-  </li>
-</ul>
-
-<h2 id="formatsrpaginationnexttext">formatSRPaginationNextText</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'next page'</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Toggle all'</code></p>
   </li>
 </ul>
 
@@ -479,25 +455,25 @@
   </li>
 </ul>
 
-<h2 id="formatsearch">formatSearch</h2>
+<h2 id="formatfullscreen">formatFullscreen</h2>
 
 <ul>
   <li>
     <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'Search'</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Fullscreen'</code></p>
   </li>
 </ul>
 
-<h2 id="formatclearsearch">formatClearSearch</h2>
+<h2 id="formatloadingmessage">formatLoadingMessage</h2>
 
 <ul>
   <li>
     <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'Clear Search'</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Loading, please wait…'</code></p>
   </li>
 </ul>
 
@@ -545,6 +521,17 @@
   </li>
 </ul>
 
+<h2 id="formatrecordsperpage">formatRecordsPerPage</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">pageNumber</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'%s records per page'</code></p>
+  </li>
+</ul>
+
 <h2 id="formatrefresh">formatRefresh</h2>
 
 <ul>
@@ -553,6 +540,61 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'Refresh'</code></p>
+  </li>
+</ul>
+
+<h2 id="formatsrpaginationnexttext">formatSRPaginationNextText</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'next page'</code></p>
+  </li>
+</ul>
+
+<h2 id="formatsrpaginationpagetext">formatSRPaginationPageText</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">page</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'to page %s</code></p>
+  </li>
+</ul>
+
+<h2 id="formatsrpaginationpretext">formatSRPaginationPreText</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'previous page'</code></p>
+  </li>
+</ul>
+
+<h2 id="formatsearch">formatSearch</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Search'</code></p>
+  </li>
+</ul>
+
+<h2 id="formatshowingrows">formatShowingRows</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">pageFrom, pageTo, totalRows</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Showing %s to %s of %s rows'</code></p>
   </li>
 </ul>
 
@@ -567,17 +609,6 @@
   </li>
 </ul>
 
-<h2 id="formattoggleon">formatToggleOn</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'Show card view'</code></p>
-  </li>
-</ul>
-
 <h2 id="formattoggleoff">formatToggleOff</h2>
 
 <ul>
@@ -589,49 +620,17 @@
   </li>
 </ul>
 
-<h2 id="formatcolumns">formatColumns</h2>
+<h2 id="formattoggleon">formatToggleOn</h2>
 
 <ul>
   <li>
     <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'Columns'</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'Show card view'</code></p>
   </li>
 </ul>
 
-<h2 id="formatcolumnstoggleall">formatColumnsToggleAll</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'Toggle all'</code></p>
-  </li>
-</ul>
-
-<h2 id="formatfullscreen">formatFullscreen</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'Fullscreen'</code></p>
-  </li>
-</ul>
-
-<h2 id="formatallrows">formatAllRows</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'All'</code></p>
-  </li>
-</ul>
 
         </main>
       </div>

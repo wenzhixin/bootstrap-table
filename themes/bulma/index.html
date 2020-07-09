@@ -87,10 +87,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -129,14 +130,14 @@
 
 <p>Copy-paste the stylesheet <code class="highlighter-rouge">&lt;link&gt;</code> into your <code class="highlighter-rouge">&lt;head&gt;</code> before all other stylesheets to load our CSS.</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.16.0/dist/themes/bulma/bootstrap-table-bulma.min.css"</span><span class="nt">&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/themes/bulma/bootstrap-table-bulma.min.css"</span><span class="nt">&gt;</span></code></pre></figure>
 
 <h3 id="js">JS</h3>
 
 <p>Place the following <code class="highlighter-rouge">&lt;script&gt;</code>s near the end of your pages, right before the closing <code class="highlighter-rouge">&lt;/body&gt;</code> tag, to enable them. jQuery must come first, then our JavaScript plugins.</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.16.0/dist/themes/bulma/bootstrap-table-bulma.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/themes/bulma/bootstrap-table-bulma.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
 <h2 id="starter-template">Starter template</h2>
 
@@ -155,7 +156,7 @@
 
     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://use.fontawesome.com/releases/v5.6.3/css/all.css"</span> <span class="na">integrity=</span><span class="s">"sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.16.0/dist/themes/bulma/bootstrap-table-bulma.min.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/themes/bulma/bootstrap-table-bulma.min.css"</span><span class="nt">&gt;</span>
 
     <span class="nt">&lt;title&gt;</span>Hello, Bootstrap Table!<span class="nt">&lt;/title&gt;</span>
   <span class="nt">&lt;/head&gt;</span>
@@ -183,8 +184,8 @@
     <span class="nt">&lt;/table&gt;</span>
 
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://code.jquery.com/jquery-3.3.1.min.js"</span> <span class="na">integrity=</span><span class="s">"sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.16.0/dist/themes/bulma/bootstrap-table-bulma.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.17.0/dist/themes/bulma/bootstrap-table-bulma.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span></code></pre></figure>
 
@@ -226,7 +227,7 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.16.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.17.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>
@@ -246,8 +247,8 @@
   gtag('config', 'UA-132747866-1')
 </script>
 
-<script src=/assets/js/themes/app.61062a77.js></script>
-<script src=/assets/js/themes/chunk-vendors.941198a8.js></script>
+<script src=/assets/js/themes/app.972ace7b.js></script>
+<script src=/assets/js/themes/chunk-vendors.ea575977.js></script>
 
   </body>
 </html>

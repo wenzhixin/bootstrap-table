@@ -87,10 +87,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -122,11 +123,80 @@
 </header>
 
 <main class="bd-content p-5" id="content" role="main">
-  <h2 id="bootstrap-table-1160">Bootstrap Table 1.16.0</h2>
+  <h2 id="bootstrap-table-1170">Bootstrap Table 1.17.0</h2>
+
+<p><span class="post-date">8 Jul 2020</span></p>
+
+<h4 id="core">Core</h4>
+
+<ul>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">bootstrap-table</code> theme without any framework.</li>
+  <li><strong>New:</strong> Added support for Bootstrap v5.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">$index</code> field for <code class="highlighter-rouge">remove</code> method.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">on-all</code> event for vue component.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">bg-BG</code> locale.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">loadingFontSize</code> option.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">loadingTemplate</code> option.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">detailView</code> support for <code class="highlighter-rouge">cardView</code>.</li>
+  <li><strong>New:</strong> Added the <code class="highlighter-rouge">searchable</code> columns to the query params for server side.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">collapseRowByUniqueId</code> and <code class="highlighter-rouge">expandRowByUniqueId</code> methods.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">detailViewAlign</code> option for the detail view icon.</li>
+  <li><strong>New:</strong> Added tr <code class="highlighter-rouge">class</code> support for <code class="highlighter-rouge">thead</code>.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">formatted</code> parameter for <code class="highlighter-rouge">getData</code> method to get formatted data.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">paginationParts</code> option instead of <code class="highlighter-rouge">onlyInfoPagination</code>.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">updateByUniqueId</code> method cannot update multiple rows bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">insertRow</code> not write to source data array bug.</li>
+  <li><strong>Update:</strong> Fixed events bug with <code class="highlighter-rouge">detailViewIcon</code> option.</li>
+  <li><strong>Update:</strong> Fixed server side pagination sort bug.</li>
+  <li><strong>Update:</strong> Fixed the <code class="highlighter-rouge">page-change</code> event before init server.</li>
+  <li><strong>Update:</strong> Fixed no records found <code class="highlighter-rouge">colspan</code> error.</li>
+  <li><strong>Update:</strong> Fixed the <code class="highlighter-rouge">page-change</code> event before init server.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">font-size</code> of the loading text.</li>
+  <li><strong>Update:</strong> Fixed table <code class="highlighter-rouge">border</code> bug when table is hidden.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">showRow</code> method show all hidden rows bug.</li>
+  <li><strong>Remove:</strong> Removed the <code class="highlighter-rouge">onlyInfoPagination</code> option.</li>
+</ul>
+
+<h4 id="extensions">Extensions</h4>
+
+<ul>
+  <li><strong>New(cookie)</strong>: Added support for toggle all columns options.</li>
+  <li><strong>New(custom-view):</strong> Added <code class="highlighter-rouge">custom-view</code> extension.</li>
+  <li><strong>New(editable):</strong> Added <code class="highlighter-rouge">alwaysUseFormatter</code> option.</li>
+  <li><strong>New(export):</strong> Added <code class="highlighter-rouge">forceHide</code> column option.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterOrderBy</code> column option support order by <code class="highlighter-rouge">server</code>.</li>
+  <li><strong>New(filter-control):</strong> Added radio support for <code class="highlighter-rouge">filterControlContainer</code>.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterControlVisible</code> option and <code class="highlighter-rouge">toggleFilterControl</code> method.</li>
+  <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">showFilterControlSwitch</code> option.</li>
+  <li><strong>New(fixed-columns):</strong> Added support for sticky-header.</li>
+  <li><strong>New(pipeline):</strong> Added <code class="highlighter-rouge">pipeline</code> extension.</li>
+  <li><strong>New(print):</strong> Added support for print footer and merge cells.</li>
+  <li><strong>Update(accent-neutralise):</strong> Fixed comparison with arrays.</li>
+  <li><strong>Update(cookie):</strong> Updated cookie columns to always visible when <code class="highlighter-rouge">switchable</code> is <code class="highlighter-rouge">false</code>.</li>
+  <li><strong>Update(cookie):</strong> Fixed cookie value from existing options bug.</li>
+  <li><strong>Update(editable):</strong> Fixed not handle quotation marks bug.</li>
+  <li><strong>Update(editable):</strong> Updated <code class="highlighter-rouge">noeditFormatter</code> to <code class="highlighter-rouge">noEditFormatter</code>.</li>
+  <li><strong>Update(export):</strong> Fixed export error with <code class="highlighter-rouge">maintainMetaData</code> and <code class="highlighter-rouge">clientSidePagination</code>.</li>
+  <li><strong>Update(filter-control):</strong> Fixed not work with <code class="highlighter-rouge">height</code> option.</li>
+  <li><strong>Update(filter-control):</strong> Fixed not work in multiple tables.</li>
+  <li><strong>Update(filter-control):</strong> Fixed ignore default search text bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed not work with html formatter.</li>
+  <li><strong>Update(filter-control):</strong> Fixed reset <code class="highlighter-rouge">filterBy</code> method bug.</li>
+  <li><strong>Update(filter-control):</strong> Fixed issue with a custom filter control container.</li>
+  <li><strong>Update(filter-control):</strong> Fixed filter control disappear after column switched.</li>
+  <li><strong>Update(fixed-columns):</strong> Fixed loading message not hide bug.</li>
+  <li><strong>Update(group-by):</strong> Fixed params error of <code class="highlighter-rouge">checkAll</code>/<code class="highlighter-rouge">uncheckAll</code>.</li>
+  <li><strong>Update(multiple-sort):</strong> Fixed not working with multiple level field bug.</li>
+  <li><strong>Update(reorder-columns):</strong> Fixed cannot work bug.</li>
+  <li><strong>Update(reorder-rows):</strong> Fixed <code class="highlighter-rouge">this</code> context of <code class="highlighter-rouge">onPostBody</code> error.</li>
+  <li><strong>Update(treegrid):</strong> Fixed treegrid <code class="highlighter-rouge">destroy</code> bug.</li>
+</ul>
+
+<h2 id="bootstrap-table-1160">Bootstrap Table 1.16.0</h2>
 
 <p><span class="post-date">11 Feb 2020</span></p>
 
-<h4 id="core">Core</h4>
+<h4 id="core-1">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">buttonsOrder</code> option.</li>
@@ -160,7 +230,7 @@
   <li><strong>Remove:</strong> Removed <code class="highlighter-rouge">resetWidth</code> method and use <code class="highlighter-rouge">resetView</code> instead.</li>
 </ul>
 
-<h4 id="extensions">Extensions</h4>
+<h4 id="extensions-1">Extensions</h4>
 
 <ul>
   <li><strong>New(cookie):</strong> Added new options to get/set/delete the values by a custom function.</li>
@@ -270,7 +340,7 @@
 
 <p><span class="post-date">24 Jun 2019</span></p>
 
-<h4 id="core-1">Core</h4>
+<h4 id="core-2">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">virtualScroll</code> and <code class="highlighter-rouge">virtualScrollItemHeight</code> options to support large data.</li>
@@ -318,7 +388,7 @@
   <li><strong>Update:</strong> Fixed columns title error.</li>
 </ul>
 
-<h4 id="extensions-1">Extensions</h4>
+<h4 id="extensions-2">Extensions</h4>
 
 <ul>
   <li><strong>New(editable):</strong> Added <code class="highlighter-rouge">onExportSaved</code> event.</li>
@@ -542,7 +612,7 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.16.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.17.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>

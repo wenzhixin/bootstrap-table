@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -341,33 +346,33 @@
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#onall">onAll</a></li>
-<li class="toc-entry toc-h2"><a href="#onclickrow">onClickRow</a></li>
-<li class="toc-entry toc-h2"><a href="#ondblclickrow">onDblClickRow</a></li>
-<li class="toc-entry toc-h2"><a href="#onclickcell">onClickCell</a></li>
-<li class="toc-entry toc-h2"><a href="#ondblclickcell">onDblClickCell</a></li>
-<li class="toc-entry toc-h2"><a href="#onsort">onSort</a></li>
 <li class="toc-entry toc-h2"><a href="#oncheck">onCheck</a></li>
-<li class="toc-entry toc-h2"><a href="#onuncheck">onUncheck</a></li>
 <li class="toc-entry toc-h2"><a href="#oncheckall">onCheckAll</a></li>
-<li class="toc-entry toc-h2"><a href="#onuncheckall">onUncheckAll</a></li>
 <li class="toc-entry toc-h2"><a href="#onchecksome">onCheckSome</a></li>
-<li class="toc-entry toc-h2"><a href="#onunchecksome">onUncheckSome</a></li>
-<li class="toc-entry toc-h2"><a href="#onloadsuccess">onLoadSuccess</a></li>
-<li class="toc-entry toc-h2"><a href="#onloaderror">onLoadError</a></li>
-<li class="toc-entry toc-h2"><a href="#oncolumnswitch">onColumnSwitch</a></li>
-<li class="toc-entry toc-h2"><a href="#onpagechange">onPageChange</a></li>
-<li class="toc-entry toc-h2"><a href="#onsearch">onSearch</a></li>
-<li class="toc-entry toc-h2"><a href="#ontoggle">onToggle</a></li>
-<li class="toc-entry toc-h2"><a href="#onprebody">onPreBody</a></li>
-<li class="toc-entry toc-h2"><a href="#onpostbody">onPostBody</a></li>
-<li class="toc-entry toc-h2"><a href="#onpostheader">onPostHeader</a></li>
-<li class="toc-entry toc-h2"><a href="#onpostfooter">onPostFooter</a></li>
-<li class="toc-entry toc-h2"><a href="#onexpandrow">onExpandRow</a></li>
+<li class="toc-entry toc-h2"><a href="#onclickcell">onClickCell</a></li>
+<li class="toc-entry toc-h2"><a href="#onclickrow">onClickRow</a></li>
 <li class="toc-entry toc-h2"><a href="#oncollapserow">onCollapseRow</a></li>
+<li class="toc-entry toc-h2"><a href="#oncolumnswitch">onColumnSwitch</a></li>
+<li class="toc-entry toc-h2"><a href="#ondblclickcell">onDblClickCell</a></li>
+<li class="toc-entry toc-h2"><a href="#ondblclickrow">onDblClickRow</a></li>
+<li class="toc-entry toc-h2"><a href="#onexpandrow">onExpandRow</a></li>
+<li class="toc-entry toc-h2"><a href="#onloaderror">onLoadError</a></li>
+<li class="toc-entry toc-h2"><a href="#onloadsuccess">onLoadSuccess</a></li>
+<li class="toc-entry toc-h2"><a href="#onpagechange">onPageChange</a></li>
+<li class="toc-entry toc-h2"><a href="#onpostbody">onPostBody</a></li>
+<li class="toc-entry toc-h2"><a href="#onpostfooter">onPostFooter</a></li>
+<li class="toc-entry toc-h2"><a href="#onpostheader">onPostHeader</a></li>
+<li class="toc-entry toc-h2"><a href="#onprebody">onPreBody</a></li>
+<li class="toc-entry toc-h2"><a href="#onrefresh">onRefresh</a></li>
 <li class="toc-entry toc-h2"><a href="#onrefreshoptions">onRefreshOptions</a></li>
 <li class="toc-entry toc-h2"><a href="#onresetview">onResetView</a></li>
-<li class="toc-entry toc-h2"><a href="#onrefresh">onRefresh</a></li>
 <li class="toc-entry toc-h2"><a href="#onscrollbody">onScrollBody</a></li>
+<li class="toc-entry toc-h2"><a href="#onsearch">onSearch</a></li>
+<li class="toc-entry toc-h2"><a href="#onsort">onSort</a></li>
+<li class="toc-entry toc-h2"><a href="#ontoggle">onToggle</a></li>
+<li class="toc-entry toc-h2"><a href="#onuncheck">onUncheck</a></li>
+<li class="toc-entry toc-h2"><a href="#onuncheckall">onUncheckAll</a></li>
+<li class="toc-entry toc-h2"><a href="#onunchecksome">onUncheckSome</a></li>
 </ul>
           </div>
         
@@ -410,117 +415,6 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   </li>
 </ul>
 
-<h2 id="onclickrow">onClickRow</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">click-row.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">row, $element, field</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires when user click a row, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="highlighter-rouge">$element</code>: the tr element.</li>
-      <li><code class="highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="ondblclickrow">onDblClickRow</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">dbl-click-row.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">row, $element, field</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires when user double click a row, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="highlighter-rouge">$element</code>: the tr element.</li>
-      <li><code class="highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="onclickcell">onClickCell</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">click-cell.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">field, value, row, $element</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires when user click a cell, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
-      <li><code class="highlighter-rouge">value</code>: the data value corresponding to the clicked cell.</li>
-      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="highlighter-rouge">$element</code>: the td element.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="ondblclickcell">onDblClickCell</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">dbl-click-cell.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">field, value, row, $element</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires when user double click a cell, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
-      <li><code class="highlighter-rouge">value</code>: the data value corresponding to the clicked cell.</li>
-      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="highlighter-rouge">$element</code>: the td element.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="onsort">onSort</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">sort.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">name, order</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires when user sort a column, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">name</code>: the sort column field name.</li>
-      <li><code class="highlighter-rouge">order</code>: the sort column order.</li>
-    </ul>
-  </li>
-</ul>
-
 <h2 id="oncheck">onCheck</h2>
 
 <ul>
@@ -542,27 +436,6 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   </li>
 </ul>
 
-<h2 id="onuncheck">onUncheck</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">uncheck.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">row, $element</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires when user uncheck a row, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="highlighter-rouge">$element</code>: the DOM element unchecked.</li>
-    </ul>
-  </li>
-</ul>
-
 <h2 id="oncheckall">onCheckAll</h2>
 
 <ul>
@@ -576,27 +449,6 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <p><strong>Detail:</strong></p>
 
     <p>Fires when user check all rows, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">rowsAfter</code>: array of records of the now checked rows.</li>
-      <li><code class="highlighter-rouge">rowsBefore</code>: array of records of the checked rows before.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="onuncheckall">onUncheckAll</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">uncheck-all.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">rowsAfter, rowsBefore</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires when user uncheck all rows, the parameters contain:</p>
 
     <ul>
       <li><code class="highlighter-rouge">rowsAfter</code>: array of records of the now checked rows.</li>
@@ -625,65 +477,69 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   </li>
 </ul>
 
-<h2 id="onunchecksome">onUncheckSome</h2>
+<h2 id="onclickcell">onClickCell</h2>
 
 <ul>
   <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">uncheck-some.bs.table</code></p>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">click-cell.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">rows</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">field, value, row, $element</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Fires when user uncheck some rows, the parameters contain:</p>
+    <p>Fires when user click a cell, the parameters contain:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">rows</code>: array of records corresponding to previously checked rows.</li>
+      <li><code class="highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
+      <li><code class="highlighter-rouge">value</code>: the data value corresponding to the clicked cell.</li>
+      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
+      <li><code class="highlighter-rouge">$element</code>: the td element.</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="onloadsuccess">onLoadSuccess</h2>
+<h2 id="onclickrow">onClickRow</h2>
 
 <ul>
   <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">load-success.bs.table</code></p>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">click-row.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">data</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">row, $element, field</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Fires when remote data is loaded successfully, the parameters contain:</p>
+    <p>Fires when user click a row, the parameters contain:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">data</code>: the remote data.</li>
-      <li><code class="highlighter-rouge">status</code>: the status code of <code class="highlighter-rouge">jqXHR</code>.</li>
-      <li><code class="highlighter-rouge">jqXHR</code>: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
+      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
+      <li><code class="highlighter-rouge">$element</code>: the tr element.</li>
+      <li><code class="highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="onloaderror">onLoadError</h2>
+<h2 id="oncollapserow">onCollapseRow</h2>
 
 <ul>
   <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">load-error.bs.table</code></p>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">collapse-row.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">status, jqXHR</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">index, row, detailView</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Fires when some errors occur to load remote data, the parameters contain:</p>
+    <p>Fires when click the detail icon to collapse the detail view, the parameters contain:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">status</code>: the status code of <code class="highlighter-rouge">jqXHR</code>.</li>
-      <li><code class="highlighter-rouge">jqXHR</code>: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
+      <li><code class="highlighter-rouge">index</code>: the index of the collapsed row.</li>
+      <li><code class="highlighter-rouge">row</code>: the record corresponding to the collapsed row.</li>
+      <li><code class="highlighter-rouge">detailView</code>: the collapsed detailView.</li>
     </ul>
   </li>
 </ul>
@@ -709,139 +565,47 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   </li>
 </ul>
 
-<h2 id="onpagechange">onPageChange</h2>
+<h2 id="ondblclickcell">onDblClickCell</h2>
 
 <ul>
   <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">page-change.bs.table</code></p>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">dbl-click-cell.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">number, size</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">field, value, row, $element</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Fires when change the page number or page size, the parameters contain:</p>
+    <p>Fires when user double click a cell, the parameters contain:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">number</code>: the page number.</li>
-      <li><code class="highlighter-rouge">size</code>: the page size.</li>
+      <li><code class="highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
+      <li><code class="highlighter-rouge">value</code>: the data value corresponding to the clicked cell.</li>
+      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
+      <li><code class="highlighter-rouge">$element</code>: the td element.</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="onsearch">onSearch</h2>
+<h2 id="ondblclickrow">onDblClickRow</h2>
 
 <ul>
   <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">search.bs.table</code></p>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">dbl-click-row.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">text</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">row, $element, field</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Fires when search the table, the parameters contain:</p>
+    <p>Fires when user double click a row, the parameters contain:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">text</code>: the text of the search input.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="ontoggle">onToggle</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">toggle.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">cardView</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires when toggle the view of table, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">cardView</code>: the cardView state of the table.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="onprebody">onPreBody</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">pre-body.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">data</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires before the table body is rendered, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">data</code>: the rendered data.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="onpostbody">onPostBody</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">post-body.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">data</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires after the table body is rendered and available in the DOM, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">data</code>: the rendered data.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="onpostheader">onPostHeader</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">post-header.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires after the table header is rendered and available in the DOM.</p>
-  </li>
-</ul>
-
-<h2 id="onpostfooter">onPostFooter</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">post-footer.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">$tableFooter</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires after the footer is rendered and available in the DOM, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">$tableFooter</code>: the DOM element of the footer.</li>
+      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
+      <li><code class="highlighter-rouge">$element</code>: the tr element.</li>
+      <li><code class="highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
     </ul>
   </li>
 </ul>
@@ -868,24 +632,162 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   </li>
 </ul>
 
-<h2 id="oncollapserow">onCollapseRow</h2>
+<h2 id="onloaderror">onLoadError</h2>
 
 <ul>
   <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">collapse-row.bs.table</code></p>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">load-error.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">index, row, detailView</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">status, jqXHR</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Fires when click the detail icon to collapse the detail view, the parameters contain:</p>
+    <p>Fires when some errors occur to load remote data, the parameters contain:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">index</code>: the index of the collapsed row.</li>
-      <li><code class="highlighter-rouge">row</code>: the record corresponding to the collapsed row.</li>
-      <li><code class="highlighter-rouge">detailView</code>: the collapsed detailView.</li>
+      <li><code class="highlighter-rouge">status</code>: the status code of <code class="highlighter-rouge">jqXHR</code>.</li>
+      <li><code class="highlighter-rouge">jqXHR</code>: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onloadsuccess">onLoadSuccess</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">load-success.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">data</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when remote data is loaded successfully, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">data</code>: the remote data.</li>
+      <li><code class="highlighter-rouge">status</code>: the status code of <code class="highlighter-rouge">jqXHR</code>.</li>
+      <li><code class="highlighter-rouge">jqXHR</code>: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onpagechange">onPageChange</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">page-change.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">number, size</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when change the page number or page size, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">number</code>: the page number.</li>
+      <li><code class="highlighter-rouge">size</code>: the page size.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onpostbody">onPostBody</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">post-body.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">data</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires after the table body is rendered and available in the DOM, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">data</code>: the rendered data.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onpostfooter">onPostFooter</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">post-footer.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">$tableFooter</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires after the footer is rendered and available in the DOM, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">$tableFooter</code>: the DOM element of the footer.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onpostheader">onPostHeader</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">post-header.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires after the table header is rendered and available in the DOM.</p>
+  </li>
+</ul>
+
+<h2 id="onprebody">onPreBody</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">pre-body.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">data</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires before the table body is rendered, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">data</code>: the rendered data.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onrefresh">onRefresh</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">refresh.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires after the click the refresh button, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">params</code>: the additional parameters request to the server.</li>
     </ul>
   </li>
 </ul>
@@ -926,26 +828,6 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   </li>
 </ul>
 
-<h2 id="onrefresh">onRefresh</h2>
-
-<ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">refresh.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Fires after the click the refresh button, the parameters contain:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">params</code>: the additional parameters request to the server.</li>
-    </ul>
-  </li>
-</ul>
-
 <h2 id="onscrollbody">onScrollBody</h2>
 
 <ul>
@@ -953,12 +835,131 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">scroll-body.bs.table</code></p>
   </li>
   <li>
-    <p><strong>Parameter:</strong>: <code class="highlighter-rouge">$tableBody</code></p>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">$tableBody</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
     <p>Fires when table body scroll.</p>
+    <h2 id="onsearch">onSearch</h2>
+  </li>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">search.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">text</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when search the table, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">text</code>: the text of the search input.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onsort">onSort</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">sort.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">name, order</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when user sort a column, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">name</code>: the sort column field name.</li>
+      <li><code class="highlighter-rouge">order</code>: the sort column order.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="ontoggle">onToggle</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">toggle.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">cardView</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when toggle the view of table, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">cardView</code>: the cardView state of the table.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onuncheck">onUncheck</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">uncheck.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">row, $element</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when user uncheck a row, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
+      <li><code class="highlighter-rouge">$element</code>: the DOM element unchecked.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onuncheckall">onUncheckAll</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">uncheck-all.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">rowsAfter, rowsBefore</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when user uncheck all rows, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">rowsAfter</code>: array of records of the now checked rows.</li>
+      <li><code class="highlighter-rouge">rowsBefore</code>: array of records of the checked rows before.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onunchecksome">onUncheckSome</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">uncheck-some.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">rows</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when user uncheck some rows, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">rows</code>: array of records corresponding to previously checked rows.</li>
+    </ul>
   </li>
 </ul>
 

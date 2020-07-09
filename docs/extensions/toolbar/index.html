@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -345,20 +350,20 @@
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#advancedsearch">advancedSearch</a></li>
-<li class="toc-entry toc-h3"><a href="#idform">idForm</a></li>
 <li class="toc-entry toc-h3"><a href="#actionform">actionForm</a></li>
+<li class="toc-entry toc-h3"><a href="#idform">idForm</a></li>
 <li class="toc-entry toc-h3"><a href="#idtable">idTable</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#locales">Locales</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#formatadvancedsearch">formatAdvancedSearch</a></li>
-<li class="toc-entry toc-h3"><a href="#formatadvancedclosebutton">formatAdvancedCloseButton</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#events">Events</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#oncolumnadvancedsearchcolumn-advanced-searchbstable">onColumnAdvancedSearch(column-advanced-search.bs.table)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#localizations">Localizations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#formatadvancedclosebutton">formatAdvancedCloseButton</a></li>
+<li class="toc-entry toc-h3"><a href="#formatadvancedsearch">formatAdvancedSearch</a></li>
 </ul>
 </li>
 </ul>
@@ -399,25 +404,6 @@
   </li>
 </ul>
 
-<h3 id="idform">idForm</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-id-form</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Must be set to know the idform.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">advancedSearch</code></p>
-  </li>
-</ul>
-
 <h3 id="actionform">actionForm</h3>
 
 <ul>
@@ -434,6 +420,25 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
+  </li>
+</ul>
+
+<h3 id="idform">idForm</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-id-form</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Must be set to know the id form.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">advancedSearch</code></p>
   </li>
 </ul>
 
@@ -456,20 +461,15 @@
   </li>
 </ul>
 
-<h2 id="locales">Locales</h2>
+<h2 id="events">Events</h2>
 
-<h3 id="formatadvancedsearch">formatAdvancedSearch</h3>
+<h3 id="oncolumnadvancedsearchcolumn-advanced-searchbstable">onColumnAdvancedSearch(column-advanced-search.bs.table)</h3>
 
 <ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Title of the advanced search modal</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">Advanced search</code></p>
-  </li>
+  <li>Fired when we are searching into the advanced search form.</li>
 </ul>
+
+<h2 id="localizations">Localizations</h2>
 
 <h3 id="formatadvancedclosebutton">formatAdvancedCloseButton</h3>
 
@@ -484,12 +484,17 @@
   </li>
 </ul>
 
-<h2 id="events">Events</h2>
-
-<h3 id="oncolumnadvancedsearchcolumn-advanced-searchbstable">onColumnAdvancedSearch(column-advanced-search.bs.table)</h3>
+<h3 id="formatadvancedsearch">formatAdvancedSearch</h3>
 
 <ul>
-  <li>Fired when we are searching into the advanced search form</li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Title of the advanced search modal</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">Advanced search</code></p>
+  </li>
 </ul>
 
         </main>

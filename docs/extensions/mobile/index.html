@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -344,11 +349,11 @@
 <li class="toc-entry toc-h2"><a href="#example">Example</a></li>
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#mobileresponsive">mobileResponsive</a></li>
 <li class="toc-entry toc-h3"><a href="#checkoninit">checkOnInit</a></li>
-<li class="toc-entry toc-h3"><a href="#minwidth">minWidth</a></li>
-<li class="toc-entry toc-h3"><a href="#minheight">minHeight</a></li>
 <li class="toc-entry toc-h3"><a href="#columnshidden">columnsHidden</a></li>
+<li class="toc-entry toc-h3"><a href="#minheight">minHeight</a></li>
+<li class="toc-entry toc-h3"><a href="#minwidth">minWidth</a></li>
+<li class="toc-entry toc-h3"><a href="#mobileresponsive">mobileResponsive</a></li>
 </ul>
 </li>
 </ul>
@@ -370,25 +375,6 @@
 
 <h2 id="options">Options</h2>
 
-<h3 id="mobileresponsive">mobileResponsive</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-mobile-responsive</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set true to change the view between card and table view depending on width and height given.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
 <h3 id="checkoninit">checkOnInit</h3>
 
 <ul>
@@ -408,22 +394,22 @@
   </li>
 </ul>
 
-<h3 id="minwidth">minWidth</h3>
+<h3 id="columnshidden">columnsHidden</h3>
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-min-width</code></p>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-columns-hidden</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Integer</code></p>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set the minimum width when the table will change the view.</p>
+    <p>Set the columns fields in this array in order to hide those columns in the cardView mode. Use this way in <code class="highlighter-rouge">data-*</code> configuration: ` data-columns-hidden=”[‘name’, ‘description’]”<code class="highlighter-rouge"> or this way in javascript configuration: </code>columnsHidden = [‘name’, ‘description’]`.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">562</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
 </ul>
 
@@ -446,22 +432,41 @@
   </li>
 </ul>
 
-<h3 id="columnshidden">columnsHidden</h3>
+<h3 id="minwidth">minWidth</h3>
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-columns-hidden</code></p>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-min-width</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Integer</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set the columns fields in this array in order to hide those columns in the cardView mode. Use this way in <code class="highlighter-rouge">data-*</code> configuration: ` data-columns-hidden=”[‘name’, ‘description’]”<code class="highlighter-rouge"> or this way in javascript configuration: </code>columnsHidden = [‘name’, ‘description’]`.</p>
+    <p>Set the minimum width when the table will change the view.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">562</code></p>
+  </li>
+</ul>
+
+<h3 id="mobileresponsive">mobileResponsive</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-mobile-responsive</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set true to change the view between card and table view depending on width and height given.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
 </ul>
 

@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -348,6 +353,7 @@
 </li>
 <li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
 <ul>
+<li class="toc-entry toc-h3"><a href="#alwaysuseformatter">alwaysUseFormatter</a></li>
 <li class="toc-entry toc-h3"><a href="#editable-1">editable</a></li>
 </ul>
 </li>
@@ -398,6 +404,25 @@
 
 <h2 id="column-options">Column options</h2>
 
+<h3 id="alwaysuseformatter">alwaysUseFormatter</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-always-use-formatter</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to use always the formatter, even if the column was already edited.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
 <h3 id="editable-1">editable</h3>
 
 <ul>
@@ -432,6 +457,20 @@ each row of the table. It should return Object of the x-editable configuration.<
       <span class="nt">&lt;/tr&gt;</span>
     <span class="nt">&lt;/thead&gt;</span>
   <span class="nt">&lt;/table&gt;</span>
+  </code></pre></figure>
+
+<p>You can use <code class="highlighter-rouge">noEditFormatter</code> to disable the editable column, for example:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="p">{</span>
+    <span class="nl">editable</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nx">noEditFormatter</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">row</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">noEdit</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="dl">'</span><span class="s1">No Edit</span><span class="dl">'</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
   </code></pre></figure>
 
 <ul>

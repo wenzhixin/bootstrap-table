@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -345,9 +350,9 @@
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#stickyheader">stickyHeader</a></li>
-<li class="toc-entry toc-h3"><a href="#stickyheaderoffsety">stickyHeaderOffsetY</a></li>
 <li class="toc-entry toc-h3"><a href="#stickyheaderoffsetleft">stickyHeaderOffsetLeft</a></li>
 <li class="toc-entry toc-h3"><a href="#stickyheaderoffsetright">stickyHeaderOffsetRight</a></li>
+<li class="toc-entry toc-h3"><a href="#stickyheaderoffsety">stickyHeaderOffsetY</a></li>
 </ul>
 </li>
 </ul>
@@ -363,7 +368,8 @@
 
 <h2 id="usage">Usage</h2>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/sticky-header/bootstrap-table-sticky-header.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">src=</span><span class="s">"extensions/sticky-header/bootstrap-table-sticky-header.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/sticky-header/bootstrap-table-sticky-header.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
 <h2 id="example">Example</h2>
 
@@ -387,25 +393,6 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h3 id="stickyheaderoffsety">stickyHeaderOffsetY</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-sticky-header-offset-y</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Number</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set the Y offset from the top of the window to pin the sticky header. If there is a fixed navigation bar with a height of 60px, this value would be <code class="highlighter-rouge">60</code>.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">0</code></p>
   </li>
 </ul>
 
@@ -441,6 +428,25 @@
     <p><strong>Detail:</strong></p>
 
     <p>Set the right offset of the sticky header container.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">0</code></p>
+  </li>
+</ul>
+
+<h3 id="stickyheaderoffsety">stickyHeaderOffsetY</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-sticky-header-offset-y</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Number</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set the Y offset from the top of the window to pin the sticky header. If there is a fixed navigation bar with a height of 60px, this value would be <code class="highlighter-rouge">60</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">0</code></p>

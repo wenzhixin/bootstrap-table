@@ -10,6 +10,9 @@
 <loc>https://bootstrap-table.com/docs/extensions/auto-refresh/</loc>
 </url>
 <url>
+<loc>https://bootstrap-table.com/themes/bootstrap-table/</loc>
+</url>
+<url>
 <loc>https://bootstrap-table.com/themes/bootstrap3/</loc>
 </url>
 <url>
@@ -25,9 +28,6 @@
 <loc>https://bootstrap-table.com/themes/bulma/</loc>
 </url>
 <url>
-<loc>https://bootstrap-table.com/docs/extensions/cell-input/</loc>
-</url>
-<url>
 <loc>https://bootstrap-table.com/docs/api/column-options/</loc>
 </url>
 <url>
@@ -41,6 +41,9 @@
 </url>
 <url>
 <loc>https://bootstrap-table.com/docs/extensions/copy-rows/</loc>
+</url>
+<url>
+<loc>https://bootstrap-table.com/docs/extensions/custom-view/</loc>
 </url>
 <url>
 <loc>https://bootstrap-table.com/docs/extensions/defer-url/</loc>

@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -346,12 +351,12 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#reorderablerows">reorderableRows</a></li>
 <li class="toc-entry toc-h3"><a href="#ondragstyle">onDragStyle</a></li>
-<li class="toc-entry toc-h3"><a href="#ondropstyle">onDropStyle</a></li>
 <li class="toc-entry toc-h3"><a href="#ondragclass">onDragClass</a></li>
-<li class="toc-entry toc-h3"><a href="#draghandle">dragHandle</a></li>
-<li class="toc-entry toc-h3"><a href="#userowattrfunc">useRowAttrFunc</a></li>
+<li class="toc-entry toc-h3"><a href="#ondropstyle">onDropStyle</a></li>
 <li class="toc-entry toc-h3"><a href="#onreorderrowsdrag">onReorderRowsDrag</a></li>
 <li class="toc-entry toc-h3"><a href="#onreorderrowsdrop">onReorderRowsDrop</a></li>
+<li class="toc-entry toc-h3"><a href="#draghandle">dragHandle</a></li>
+<li class="toc-entry toc-h3"><a href="#userowattrfunc">useRowAttrFunc</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#events">Events</a>
@@ -422,25 +427,6 @@
   </li>
 </ul>
 
-<h3 id="ondropstyle">onDropStyle</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-on-drop-style</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>This is the style that is assigned to the row when it is dropped. As for onDragStyle, there are limitations to what you can do. Also this replaces the original style, so again consider using onDragClass which is simply added and then removed on drop.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">null</code></p>
-  </li>
-</ul>
-
 <h3 id="ondragclass">onDragClass</h3>
 
 <ul>
@@ -460,11 +446,11 @@
   </li>
 </ul>
 
-<h3 id="draghandle">dragHandle</h3>
+<h3 id="ondropstyle">onDropStyle</h3>
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-drag-handle</code></p>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-on-drop-style</code></p>
   </li>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
@@ -472,29 +458,10 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>This is the cursor to use</p>
+    <p>This is the style that is assigned to the row when it is dropped. As for onDragStyle, there are limitations to what you can do. Also this replaces the original style, so again consider using onDragClass which is simply added and then removed on drop.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">&gt;tbody&gt;tr&gt;td</code></p>
-  </li>
-</ul>
-
-<h3 id="userowattrfunc">useRowAttrFunc</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-use-row-attr-func</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>This function must be use if your <code class="highlighter-rouge">tr</code> elements won’t have the <code class="highlighter-rouge">id</code> attribute. If your <code class="highlighter-rouge">tr</code> elements don’t have the <code class="highlighter-rouge">id</code> attribute this plugin don’t fire the onDrop event.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">null</code></p>
   </li>
 </ul>
 
@@ -536,11 +503,56 @@
   </li>
 </ul>
 
+<h3 id="draghandle">dragHandle</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-drag-handle</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>This is the cursor element.</p>
+
+    <p><strong>Note: This option is mainly used to adapt to the <code class="highlighter-rouge">TableDnD</code> plugin. Under no special circumstances, please do not modify the default value.</strong></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">&gt;tbody&gt;tr&gt;td</code></p>
+  </li>
+</ul>
+
+<h3 id="userowattrfunc">useRowAttrFunc</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-use-row-attr-func</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>This function must be use if your <code class="highlighter-rouge">tr</code> elements won’t have the <code class="highlighter-rouge">id</code> attribute. If your <code class="highlighter-rouge">tr</code> elements don’t have the <code class="highlighter-rouge">id</code> attribute this plugin don’t fire the onDrop event.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
 <h2 id="events">Events</h2>
 
 <h3 id="onreorderrowreorder-rowbstable">onReorderRow(reorder-row.bs.table)</h3>
 
-<p>Fired when the row was dropped, receive as parameter the new data order.</p>
+<p>Fired when the row was dropped, receives two parameters:</p>
+<ul>
+  <li>The new table data</li>
+  <li>The dropped row</li>
+  <li>The row of the old position</li>
+</ul>
 
         </main>
       </div>

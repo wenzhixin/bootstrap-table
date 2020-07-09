@@ -89,10 +89,11 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.16.0
+        v1.17.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.16.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
     </li>
@@ -255,6 +256,10 @@
             Page Jump To
           </a>
         </li><li>
+          <a href="/docs/extensions/pipeline/">
+            Pipeline
+          </a>
+        </li><li>
           <a href="/docs/extensions/print/">
             Print
           </a>
@@ -357,20 +362,20 @@
 <li class="toc-entry toc-h3"><a href="#multisort">multiSort</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#locales">Locales</a>
+<li class="toc-entry toc-h2"><a href="#localizations">Localizations</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#formatmultiplesort">formatMultipleSort</a></li>
 <li class="toc-entry toc-h3"><a href="#formataddlevel">formatAddLevel</a></li>
-<li class="toc-entry toc-h3"><a href="#formatdeletelevel">formatDeleteLevel</a></li>
-<li class="toc-entry toc-h3"><a href="#formatcolumn">formatColumn</a></li>
-<li class="toc-entry toc-h3"><a href="#formatorder">formatOrder</a></li>
-<li class="toc-entry toc-h3"><a href="#formatsortby">formatSortBy</a></li>
-<li class="toc-entry toc-h3"><a href="#formatthenby">formatThenBy</a></li>
-<li class="toc-entry toc-h3"><a href="#formatsort">formatSort</a></li>
 <li class="toc-entry toc-h3"><a href="#formatcancel">formatCancel</a></li>
+<li class="toc-entry toc-h3"><a href="#formatcolumn">formatColumn</a></li>
+<li class="toc-entry toc-h3"><a href="#formatdeletelevel">formatDeleteLevel</a></li>
 <li class="toc-entry toc-h3"><a href="#formatduplicatealerttitle">formatDuplicateAlertTitle</a></li>
 <li class="toc-entry toc-h3"><a href="#formatduplicatealertdescription">formatDuplicateAlertDescription</a></li>
+<li class="toc-entry toc-h3"><a href="#formatmultiplesort">formatMultipleSort</a></li>
+<li class="toc-entry toc-h3"><a href="#formatorder">formatOrder</a></li>
+<li class="toc-entry toc-h3"><a href="#formatsort">formatSort</a></li>
+<li class="toc-entry toc-h3"><a href="#formatsortby">formatSortBy</a></li>
 <li class="toc-entry toc-h3"><a href="#formatsortorders">formatSortOrders</a></li>
+<li class="toc-entry toc-h3"><a href="#formatthenby">formatThenBy</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#events">Events</a>
@@ -491,7 +496,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Force mutltiple sort table (usable after manual data changes).</p>
+    <p>Force multiple sort table (usable after manual data changes).</p>
   </li>
 </ul>
 
@@ -521,20 +526,7 @@
   </li>
 </ul>
 
-<h2 id="locales">Locales</h2>
-
-<h3 id="formatmultiplesort">formatMultipleSort</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Title of the advanced search modal</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">Multiple Sort</code></p>
-  </li>
-</ul>
+<h2 id="localizations">Localizations</h2>
 
 <h3 id="formataddlevel">formatAddLevel</h3>
 
@@ -549,7 +541,7 @@
   </li>
 </ul>
 
-<h3 id="formatdeletelevel">formatDeleteLevel</h3>
+<h3 id="formatcancel">formatCancel</h3>
 
 <ul>
   <li>
@@ -558,7 +550,7 @@
     <p>Text of the delete level button</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">Delete Level</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">Cancel</code></p>
   </li>
 </ul>
 
@@ -575,7 +567,7 @@
   </li>
 </ul>
 
-<h3 id="formatorder">formatOrder</h3>
+<h3 id="formatdeletelevel">formatDeleteLevel</h3>
 
 <ul>
   <li>
@@ -584,59 +576,7 @@
     <p>Text of the delete level button</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">Order</code></p>
-  </li>
-</ul>
-
-<h3 id="formatsortby">formatSortBy</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the delete level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">Sort by</code></p>
-  </li>
-</ul>
-
-<h3 id="formatthenby">formatThenBy</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the delete level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">Then by</code></p>
-  </li>
-</ul>
-
-<h3 id="formatsort">formatSort</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the delete level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">Sort</code></p>
-  </li>
-</ul>
-
-<h3 id="formatcancel">formatCancel</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the delete level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">Cancel</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">Delete Level</code></p>
   </li>
 </ul>
 
@@ -666,6 +606,58 @@
   </li>
 </ul>
 
+<h3 id="formatmultiplesort">formatMultipleSort</h3>
+
+<ul>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Title of the advanced search modal</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">Multiple Sort</code></p>
+  </li>
+</ul>
+
+<h3 id="formatorder">formatOrder</h3>
+
+<ul>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Text of the delete level button</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">Order</code></p>
+  </li>
+</ul>
+
+<h3 id="formatsort">formatSort</h3>
+
+<ul>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Text of the delete level button</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">Sort</code></p>
+  </li>
+</ul>
+
+<h3 id="formatsortby">formatSortBy</h3>
+
+<ul>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Text of the delete level button</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">Sort by</code></p>
+  </li>
+</ul>
+
 <h3 id="formatsortorders">formatSortOrders</h3>
 
 <ul>
@@ -676,6 +668,19 @@
   </li>
   <li>
     <p><strong>Default:</strong>asc : <code class="highlighter-rouge">Ascending</code> and desc : <code class="highlighter-rouge">Descending</code></p>
+  </li>
+</ul>
+
+<h3 id="formatthenby">formatThenBy</h3>
+
+<ul>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Text of the delete level button</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">Then by</code></p>
   </li>
 </ul>
 
