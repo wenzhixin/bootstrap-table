@@ -1,7 +1,7 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
  * https://github.com/wenzhixin/bootstrap-table/
- * theme: https://github.com/jgthms/bulma/
+ * theme: https://materializecss.com/
  */
 
 $.extend($.fn.bootstrapTable.defaults, {
@@ -71,7 +71,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initPagination () {
     super.initPagination()
 
-    if (this.options.pagination && !this.options.onlyInfoPagination) {
+    if (this.options.pagination && this.paginationParts.includes('pageSize')) {
       this.$pagination.find('.dropdown-toggle')
         .attr('data-target', this.$pagination.find('.dropdown-content').attr('id'))
         .dropdown()

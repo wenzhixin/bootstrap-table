@@ -11,6 +11,7 @@ This is an extension which provides a sticky header for the table when scrolling
 ## Usage
 
 {% highlight html %}
+<link rel="stylesheet" src="extensions/sticky-header/bootstrap-table-sticky-header.css">
 <script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
 {% endhighlight %}
 
@@ -31,18 +32,6 @@ This is an extension which provides a sticky header for the table when scrolling
    Set true to use sticky header.
 
 - **Default:** `false`
-
-### stickyHeaderOffsetY
-
-- **attribute:** `data-sticky-header-offset-y`
-
-- **type:** `Number`
-
-- **Detail:**
-
-   Set the Y offset from the top of the window to pin the sticky header. If there is a fixed navigation bar with a height of 60px, this value would be `60`.
-
-- **Default:** `0`
 
 ### stickyHeaderOffsetLeft
 
@@ -65,5 +54,17 @@ This is an extension which provides a sticky header for the table when scrolling
 - **Detail:**
 
    Set the right offset of the sticky header container.
+
+- **Default:** `0`
+
+### stickyHeaderOffsetY
+
+- **attribute:** `data-sticky-header-offset-y`
+
+- **type:** `Number`
+
+- **Detail:**
+
+   Set the Y offset from the top of the window to pin the sticky header. If there is a fixed navigation bar with a height of 60px, this value would be `60`.
 
 - **Default:** `0`

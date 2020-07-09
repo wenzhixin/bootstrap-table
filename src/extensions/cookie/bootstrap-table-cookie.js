@@ -205,10 +205,27 @@ const UtilsCookie = {
 
         const applyCookieFilters = (element, filteredCookies) => {
           filteredCookies.forEach(cookie => {
-            if (cookie.text !== '' && element.tagName === 'INPUT') {
+            if (cookie.text === '' || (element.type === 'radio' && element.value.toString() !== cookie.text.toString())) {
+              return
+            }
+
+            if (element.tagName === 'INPUT' && element.type === 'radio' && element.value.toString() === cookie.text.toString()) {
+              element.checked = true
+              cachedFilters[cookie.field] = cookie.text
+            } else if (element.tagName === 'INPUT') {
+              element.value = cookie.text
+              cachedFilters[cookie.field] = cookie.text
+            } else if (element.tagName === 'SELECT' && bootstrapTable.options.filterControlContainer) {
               element.value = cookie.text
               cachedFilters[cookie.field] = cookie.text
             } else if (cookie.text !== '' && element.tagName === 'SELECT') {
+              for (let i = 0; i < element.length; i++) {
+                const currentElement = element[i]
+                if (currentElement.value === cookie.text) {
+                  currentElement.selected = true
+                  return
+                }
+              }
               const option = document.createElement('option')
               option.value = cookie.text
               option.text = cookie.text
@@ -219,7 +236,12 @@ const UtilsCookie = {
           })
         }
 
-        header.find(searchControls).each(function () {
+        let filterContainer = header
+        if (bootstrapTable.options.filterControlContainer) {
+          filterContainer = $(`${bootstrapTable.options.filterControlContainer}`)
+        }
+
+        filterContainer.find(searchControls).each(function () {
           const field = $(this).closest('[data-field]').data('field')
           const filteredCookies = parsedCookieFilters.filter(cookie => cookie.field === field)
 
@@ -249,6 +271,9 @@ $.extend($.fn.bootstrapTable.defaults, {
     'bs.table.reorderColumns'
   ],
   cookieStorage: 'cookieStorage', // localStorage, sessionStorage, customStorage
+  cookieCustomStorageGet: null,
+  cookieCustomStorageSet: null,
+  cookieCustomStorageDelete: null,
   // internal variable
   filterControls: [],
   filterControlValuesLoaded: false
@@ -362,16 +387,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   _toggleColumn (...args) {
     super._toggleColumn(...args)
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
+  }
 
-    const visibleColumns = []
+  _toggleAllColumns (...args) {
+    super._toggleAllColumns(...args)
 
-    $.each(this.columns, (i, column) => {
-      if (column.visible) {
-        visibleColumns.push(column.field)
-      }
-    })
-
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(visibleColumns))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
   }
 
   selectPage (page) {
@@ -433,7 +455,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       throw new Error('Could not parse the json of the columns cookie!', columnsCookieValue)
     }
 
-
     // sortOrder
     this.options.sortOrder = sortOrderCookie ? sortOrderCookie : this.options.sortOrder
     // sortName
@@ -446,9 +467,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.searchText = searchTextCookie ? searchTextCookie : ''
 
     if (columnsCookie) {
-      $.each(this.columns, (i, column) => {
-        column.visible = $.inArray(column.field, columnsCookie) !== -1
-      })
+      for (const column of this.columns) {
+        column.visible = columnsCookie.filter((c) => { return c.field === column.field }).length > 0 || !column.switchable
+      }
     }
   }
 

@@ -1,549 +1,20 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.2.0
+ * @version: v2.3.0
  */
 
+import * as UtilsFilterControl from './utils.js'
 const Utils = $.fn.bootstrapTable.utils
-const UtilsFilterControl = {
-  getOptionsFromSelectControl (selectControl) {
-    return selectControl.get(selectControl.length - 1).options
-  },
-  getControlContainer () {
-    if (UtilsFilterControl.bootstrapTableInstance.options.filterControlContainer) {
-      return $(`${UtilsFilterControl.bootstrapTableInstance.options.filterControlContainer}`)
-    }
-
-    return UtilsFilterControl.getCurrentHeader(UtilsFilterControl.bootstrapTableInstance)
-  },
-  getSearchControls (scope) {
-    const header = UtilsFilterControl.getControlContainer()
-    const searchControls = UtilsFilterControl.getCurrentSearchControls(scope)
-
-    return header.find(searchControls)
-  },
-  hideUnusedSelectOptions (selectControl, uniqueValues) {
-    const options = UtilsFilterControl.getOptionsFromSelectControl(
-      selectControl
-    )
-
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].value !== '') {
-        if (!uniqueValues.hasOwnProperty(options[i].value)) {
-          selectControl
-            .find(Utils.sprintf('option[value=\'%s\']', options[i].value))
-            .hide()
-        } else {
-          selectControl
-            .find(Utils.sprintf('option[value=\'%s\']', options[i].value))
-            .show()
-        }
-      }
-    }
-  },
-  addOptionToSelectControl (selectControl, _value, text, selected) {
-    const value = $.trim(_value)
-    const $selectControl = $(selectControl.get(selectControl.length - 1))
-    if (
-      !UtilsFilterControl.existOptionInSelectControl(selectControl, value)
-    ) {
-      const option = $(`<option value="${value}">${text}</option>`)
-
-      if (value === selected) {
-        option.attr('selected', true)
-      }
-
-      $selectControl.append(option)
-    }
-  },
-  sortSelectControl (selectControl, orderBy) {
-    const $selectControl = $(selectControl.get(selectControl.length - 1))
-    const $opts = $selectControl.find('option:gt(0)')
-
-    $opts.sort((a, b) => {
-      return Utils.sort(a.textContent, b.textContent, orderBy === 'desc' ? -1 : 1)
-    })
-
-    $selectControl.find('option:gt(0)').remove()
-    $selectControl.append($opts)
-  },
-  existOptionInSelectControl (selectControl, value) {
-    const options = UtilsFilterControl.getOptionsFromSelectControl(
-      selectControl
-    )
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].value === value.toString()) {
-        // The value is not valid to add
-        return true
-      }
-    }
-
-    // If we get here, the value is valid to add
-    return false
-  },
-  fixHeaderCSS ({$tableHeader}) {
-    $tableHeader.css('height', '77px')
-  },
-  getCurrentHeader ({$header, options, $tableHeader}) {
-    let header = $header
-    if (options.height) {
-      header = $tableHeader
-    }
-
-    return header
-  },
-  getCurrentSearchControls ({options}) {
-    let searchControls = 'select, input'
-    if (options.height) {
-      searchControls = 'table select, table input'
-    }
-
-    return searchControls
-  },
-  getCursorPosition (el) {
-    if (Utils.isIEBrowser()) {
-      if ($(el).is('input[type=text]')) {
-        let pos = 0
-        if ('selectionStart' in el) {
-          pos = el.selectionStart
-        } else if ('selection' in document) {
-          el.focus()
-          const Sel = document.selection.createRange()
-          const SelLength = document.selection.createRange().text.length
-          Sel.moveStart('character', -el.value.length)
-          pos = Sel.text.length - SelLength
-        }
-        return pos
-      }
-      return -1
-
-    }
-    return -1
-  },
-  setCursorPosition (el) {
-    $(el).val(el.value)
-  },
-  copyValues (that) {
-    const searchControls = UtilsFilterControl.getSearchControls(that)
-
-    that.options.valuesFilterControl = []
-
-    searchControls.each(function () {
-      that.options.valuesFilterControl.push({
-        field: $(this)
-          .closest('[data-field]')
-          .data('field'),
-        value: $(this).val(),
-        position: UtilsFilterControl.getCursorPosition($(this).get(0)),
-        hasFocus: $(this).is(':focus')
-      })
-    })
-  },
-  setValues (that) {
-    let field = null
-    let result = []
-    const searchControls = UtilsFilterControl.getSearchControls(that)
-
-    if (that.options.valuesFilterControl.length > 0) {
-      //  Callback to apply after settings fields values
-      let fieldToFocusCallback = null
-      searchControls.each(function (index, ele) {
-        field = $(this)
-          .closest('[data-field]')
-          .data('field')
-        result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
-
-        if (result.length > 0) {
-          $(this).val(result[0].value)
-          if (result[0].hasFocus && result[0].value !== '') {
-            // set callback if the field had the focus.
-            fieldToFocusCallback = ((fieldToFocus, carretPosition) => {
-              // Closure here to capture the field and cursor position
-              const closedCallback = () => {
-                fieldToFocus.focus()
-                UtilsFilterControl.setCursorPosition(fieldToFocus, carretPosition)
-              }
-              return closedCallback
-            })($(this).get(0), result[0].position)
-          }
-        }
-      })
-
-      // Callback call.
-      if (fieldToFocusCallback !== null) {
-        fieldToFocusCallback()
-      }
-    }
-  },
-  collectBootstrapCookies () {
-    const cookies = []
-    const foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g)
-    const foundLocalStorage = localStorage
-
-    if (foundCookies) {
-      $.each(foundCookies, (i, _cookie) => {
-        let cookie = _cookie
-        if (/./.test(cookie)) {
-          cookie = cookie.split('.').pop()
-        }
-
-        if ($.inArray(cookie, cookies) === -1) {
-          cookies.push(cookie)
-        }
-      })
-    }
-    if (foundLocalStorage) {
-      for (let i = 0; i < foundLocalStorage.length; i++) {
-        let cookie = foundLocalStorage.key(i)
-        if (/./.test(cookie)) {
-          cookie = cookie.split('.').pop()
-        }
-
-        if (!cookies.includes(cookie)) {
-          cookies.push(cookie)
-        }
-      }
-    }
-    return cookies
-  },
-  escapeID (id) {
-    // eslint-disable-next-line no-useless-escape
-    return String(id).replace(/([:.\[\],])/g, '\\$1')
-  },
-  isColumnSearchableViaSelect ({filterControl, searchable}) {
-    return filterControl &&
-      filterControl.toLowerCase() === 'select' &&
-      searchable
-  },
-  isFilterDataNotGiven ({filterData}) {
-    return filterData === undefined ||
-      filterData.toLowerCase() === 'column'
-  },
-  hasSelectControlElement (selectControl) {
-    return selectControl && selectControl.length > 0
-  },
-  initFilterSelectControls (that) {
-    const data = that.data
-    const z = that.options.pagination
-      ? that.options.sidePagination === 'server'
-        ? that.pageTo
-        : that.options.totalRows
-      : that.pageTo
-
-    $.each(that.header.fields, (j, field) => {
-      const column = that.columns[that.fieldsColumnsIndex[field]]
-      const selectControl = UtilsFilterControl.getControlContainer().find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
-      if (
-        UtilsFilterControl.isColumnSearchableViaSelect(column) &&
-        UtilsFilterControl.isFilterDataNotGiven(column) &&
-        UtilsFilterControl.hasSelectControlElement(selectControl)
-      ) {
-        if (selectControl.get(selectControl.length - 1).options.length === 0) {
-          // Added the default option
-          UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
-        }
-
-        const uniqueValues = {}
-        for (let i = 0; i < z; i++) {
-          // Added a new value
-          const fieldValue = data[i][field]
-          const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
-          let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
-
-          if (column.filterDataCollector) {
-            formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
-          }
-
-          uniqueValues[formattedValue] = fieldValue
-
-          if (typeof formattedValue === 'object' && formattedValue !== null) {
-            formattedValue.forEach((value) => {
-              UtilsFilterControl.addOptionToSelectControl(selectControl, value, value, column.filterDefault)
-            })
-            continue
-          }
-
-          UtilsFilterControl.addOptionToSelectControl(selectControl, formattedValue, formattedValue, column.filterDefault)
-        }
-
-        UtilsFilterControl.sortSelectControl(selectControl, column.filterOrderBy)
-
-        if (that.options.hideUnusedSelectOptions) {
-          UtilsFilterControl.hideUnusedSelectOptions(selectControl, uniqueValues)
-        }
-      }
-    })
-
-    that.trigger('created-controls')
-  },
-  getFilterDataMethod (objFilterDataMethod, searchTerm) {
-    const keys = Object.keys(objFilterDataMethod)
-    for (let i = 0; i < keys.length; i++) {
-      if (keys[i] === searchTerm) {
-        return objFilterDataMethod[searchTerm]
-      }
-    }
-    return null
-  },
-  createControls (that, header) {
-    let addedFilterControl = false
-    let isVisible
-    let html
-
-    $.each(that.columns, (i, column) => {
-      html = []
-
-      if (!column.visible) {
-        return
-      }
-
-      if (!column.filterControl && !that.options.filterControlContainer) {
-        html.push('<div class="no-filter-control"></div>')
-      } else if (that.options.filterControlContainer) {
-        const $filterControl = $(`.bootstrap-table-filter-control-${column.field}`)
-        const placeholder = column.filterControlPlaceholder ? column.filterControlPlaceholder : ''
-        $filterControl.attr('placeholder', placeholder)
-        $filterControl.val(column.filterDefault)
-        $filterControl.attr('data-field', column.field)
-        addedFilterControl = true
-      } else {
-        const nameControl = column.filterControl.toLowerCase()
-
-        html.push('<div class="filter-control">')
-        addedFilterControl = true
-
-        if (column.searchable && that.options.filterTemplate[nameControl]) {
-          html.push(
-            that.options.filterTemplate[nameControl](
-              that,
-              column.field,
-              column.filterControlPlaceholder
-                ? column.filterControlPlaceholder
-                : '',
-              column.filterDefault
-            )
-          )
-        }
-      }
-
-      if (!column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
-        if ($.isEmptyObject(that.filterColumnsPartial)) {
-          that.filterColumnsPartial = {}
-        }
-
-        that.filterColumnsPartial[column.field] = column.filterDefault
-      }
-
-      $.each(header.children().children(), (i, tr) => {
-        const $tr = $(tr)
-        if ($tr.data('field') === column.field) {
-          $tr.find('.fht-cell').append(html.join(''))
-          return false
-        }
-      })
-
-      if (
-        column.filterData !== undefined &&
-        column.filterData.toLowerCase() !== 'column'
-      ) {
-        const filterDataType = UtilsFilterControl.getFilterDataMethod(
-          /* eslint-disable no-use-before-define */
-          filterDataMethods,
-          column.filterData.substring(0, column.filterData.indexOf(':'))
-        )
-        let filterDataSource
-        let selectControl
-
-        if (filterDataType !== null) {
-          filterDataSource = column.filterData.substring(
-            column.filterData.indexOf(':') + 1,
-            column.filterData.length
-          )
-          selectControl = UtilsFilterControl.getControlContainer().find(`.bootstrap-table-filter-control-${UtilsFilterControl.escapeID(column.field)}`)
-
-          UtilsFilterControl.addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
-          filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
-        } else {
-          throw new SyntaxError(
-            'Error. You should use any of these allowed filter data methods: var, obj, json, url, func.' +
-            ' Use like this: var: {key: "value"}'
-          )
-        }
-      }
-    })
-
-    if (addedFilterControl) {
-      UtilsFilterControl.getControlContainer().off('keyup', 'input').on('keyup', 'input', ({currentTarget, keyCode}, obj) => {
-        // Simulate enter key action from clear button
-        keyCode = obj ? obj.keyCode : keyCode
-
-        if (that.options.searchOnEnterKey && keyCode !== 13) {
-          return
-        }
-
-        if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
-          return
-        }
-
-        const $currentTarget = $(currentTarget)
-
-        if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio')) {
-          return
-        }
-
-        clearTimeout(currentTarget.timeoutId || 0)
-        currentTarget.timeoutId = setTimeout(() => {
-          that.onColumnSearch({currentTarget, keyCode})
-        }, that.options.searchTimeOut)
-      })
-
-      UtilsFilterControl.getControlContainer().off('change', 'select').on('change', 'select', ({currentTarget, keyCode}) => {
-        if (that.options.searchOnEnterKey && keyCode !== 13) {
-          return
-        }
-
-        if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
-          return
-        }
-
-        const $select = $(currentTarget)
-        const value = $select.val()
-        if ($.trim(value)) {
-          $select.find('option[selected]').removeAttr('selected')
-          $select.find('option[value="' + value + '"]').attr('selected', true)
-        } else {
-          $select.find('option[selected]').removeAttr('selected')
-        }
-
-        clearTimeout(currentTarget.timeoutId || 0)
-        currentTarget.timeoutId = setTimeout(() => {
-          that.onColumnSearch({currentTarget, keyCode})
-        }, that.options.searchTimeOut)
-      })
-
-      header.off('mouseup', 'input').on('mouseup', 'input', ({currentTarget, keyCode}) => {
-        const $input = $(currentTarget)
-        const oldValue = $input.val()
-
-        if (oldValue === '') {
-          return
-        }
-
-        setTimeout(() => {
-          const newValue = $input.val()
-
-          if (newValue === '') {
-            clearTimeout(currentTarget.timeoutId || 0)
-            currentTarget.timeoutId = setTimeout(() => {
-              that.onColumnSearch({currentTarget, keyCode})
-            }, that.options.searchTimeOut)
-          }
-        }, 1)
-      })
-
-      if (UtilsFilterControl.getControlContainer().find('.date-filter-control').length > 0) {
-        $.each(that.columns, (i, {filterControl, field, filterDatepickerOptions}) => {
-          if (
-            filterControl !== undefined &&
-            filterControl.toLowerCase() === 'datepicker'
-          ) {
-            UtilsFilterControl.getControlContainer()
-              .find(
-                `.date-filter-control.bootstrap-table-filter-control-${field}`
-              )
-              .datepicker(filterDatepickerOptions)
-              .on('changeDate', ({currentTarget, keyCode}) => {
-                clearTimeout(currentTarget.timeoutId || 0)
-                currentTarget.timeoutId = setTimeout(() => {
-                  that.onColumnSearch({currentTarget, keyCode})
-                }, that.options.searchTimeOut)
-              })
-          }
-        })
-      }
-
-      if (that.options.sidePagination !== 'server') {
-        that.triggerSearch()
-      }
-
-    } else {
-      UtilsFilterControl.getControlContainer().find('.filterControl').hide()
-    }
-  },
-  getDirectionOfSelectOptions (_alignment) {
-    const alignment = _alignment === undefined ? 'left' : _alignment.toLowerCase()
-
-    switch (alignment) {
-      case 'left':
-        return 'ltr'
-      case 'right':
-        return 'rtl'
-      case 'auto':
-        return 'auto'
-      default:
-        return 'ltr'
-    }
-  }
-}
-const filterDataMethods = {
-  func (filterDataSource, selectControl, filterOrderBy, selected) {
-    const variableValues = window[filterDataSource].apply()
-    for (const key in variableValues) {
-      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
-    }
-    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
-  },
-  obj (filterDataSource, selectControl, filterOrderBy, selected) {
-    const objectKeys = filterDataSource.split('.')
-    const variableName = objectKeys.shift()
-    let variableValues = window[variableName]
-
-    if (objectKeys.length > 0) {
-      objectKeys.forEach((key) => {
-        variableValues = variableValues[key]
-      })
-    }
-
-    for (const key in variableValues) {
-      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
-    }
-    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
-  },
-  var (filterDataSource, selectControl, filterOrderBy, selected) {
-    const variableValues = window[filterDataSource]
-    for (const key in variableValues) {
-      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
-    }
-    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
-  },
-  url (filterDataSource, selectControl, filterOrderBy, selected) {
-    $.ajax({
-      url: filterDataSource,
-      dataType: 'json',
-      success (data) {
-        for (const key in data) {
-          UtilsFilterControl.addOptionToSelectControl(selectControl, key, data[key], selected)
-        }
-        UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
-      }
-    })
-  },
-  json (filterDataSource, selectControl, filterOrderBy, selected) {
-    const variableValues = JSON.parse(filterDataSource)
-    for (const key in variableValues) {
-      UtilsFilterControl.addOptionToSelectControl(selectControl, key, variableValues[key], selected)
-    }
-    UtilsFilterControl.sortSelectControl(selectControl, filterOrderBy)
-  }
-}
 
 $.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,
+  filterControlVisible: true,
   onColumnSearch (field, text) {
     return false
   },
   onCreatedControls () {
-    return true
+    return false
   },
   alignmentSelectControlOptions: undefined,
   filterTemplate: {
@@ -575,12 +46,13 @@ $.extend($.fn.bootstrapTable.defaults, {
   },
   disableControlWhenSearch: false,
   searchOnEnterKey: false,
+  showFilterControlSwitch: false,
   // internal variables
   valuesFilterControl: []
 })
 
 $.extend($.fn.bootstrapTable.columnDefaults, {
-  filterControl: undefined,
+  filterControl: undefined, // input, select, datepicker
   filterDataCollector: undefined,
   filterData: undefined,
   filterDatepickerOptions: undefined,
@@ -599,9 +71,28 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   clear: {
     bootstrap3: 'glyphicon-trash icon-clear'
-  }[$.fn.bootstrapTable.theme] || 'fa-trash'
+  }[$.fn.bootstrapTable.theme] || 'fa-trash',
+  filterControlSwitchHide: {
+    bootstrap3: 'glyphicon-zoom-out icon-zoom-out',
+    materialize: 'zoom_out'
+  }[$.fn.bootstrapTable.theme] || 'fa-search-minus',
+  filterControlSwitchShow: {
+    bootstrap3: 'glyphicon-zoom-in icon-zoom-in',
+    materialize: 'zoom_in'
+  }[$.fn.bootstrapTable.theme] || 'fa-search-plus'
 })
 
+$.extend($.fn.bootstrapTable.locales, {
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
+  }
+})
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.extend($.fn.bootstrapTable.defaults, {
@@ -612,51 +103,47 @@ $.extend($.fn.bootstrapTable.defaults, {
 
 $.fn.bootstrapTable.methods.push('triggerSearch')
 $.fn.bootstrapTable.methods.push('clearFilterControl')
+$.fn.bootstrapTable.methods.push('toggleFilterControl')
 
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
-    UtilsFilterControl.bootstrapTableInstance = this
     // Make sure that the filterControl option is set
     if (this.options.filterControl) {
-      const that = this
-
       // Make sure that the internal variables are set correctly
       this.options.valuesFilterControl = []
 
       this.$el
         .on('reset-view.bs.table', () => {
           // Create controls on $tableHeader if the height is set
-          if (!that.options.height) {
+          if (!this.options.height) {
             return
           }
 
           // Avoid recreate the controls
-          if (
-            UtilsFilterControl.getControlContainer().find('select').length > 0 ||
-            UtilsFilterControl.getControlContainer().find('input').length > 0
-          ) {
+          const $controlContainer = UtilsFilterControl.getControlContainer(this)
+          if ($controlContainer.find('select').length > 0 || $controlContainer.find('input:not([type="checkbox"]):not([type="radio"])').length > 0) {
             return
           }
 
-          UtilsFilterControl.createControls(that, UtilsFilterControl.getControlContainer())
+          UtilsFilterControl.createControls(this, $controlContainer)
         })
         .on('post-header.bs.table', () => {
-          UtilsFilterControl.setValues(that)
+          UtilsFilterControl.setValues(this)
         })
         .on('post-body.bs.table', () => {
-          if (that.options.height && !that.options.filterControlContainer) {
-            UtilsFilterControl.fixHeaderCSS(that)
+          if (this.options.height && !this.options.filterControlContainer) {
+            UtilsFilterControl.fixHeaderCSS(this)
           }
           this.$tableLoading.css('top', this.$header.outerHeight() + 1)
         })
         .on('column-switch.bs.table', () => {
-          UtilsFilterControl.setValues(that)
+          UtilsFilterControl.setValues(this)
         })
         .on('load-success.bs.table', () => {
-          that.enableControls(true)
+          this.enableControls(true)
         })
         .on('load-error.bs.table', () => {
-          that.enableControls(true)
+          this.enableControls(true)
         })
     }
 
@@ -666,39 +153,32 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initHeader () {
     super.initHeader()
 
-    if (!this.options.filterControl) {
+    if (!this.options.filterControl || this.options.height) {
       return
     }
-    UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer())
+
+    UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
   }
 
   initBody () {
     super.initBody()
-
+    UtilsFilterControl.syncControls(this)
     UtilsFilterControl.initFilterSelectControls(this)
   }
 
   initSearch () {
     const that = this
-    const fp = $.isEmptyObject(that.filterColumnsPartial)
-      ? null
-      : that.filterColumnsPartial
+    const fp = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial
 
-    if (fp === null || Object.keys(fp).length <= 1) {
-      super.initSearch()
-    }
+    super.initSearch()
 
-    if (this.options.sidePagination === 'server') {
-      return
-    }
-
-    if (fp === null) {
+    if (this.options.sidePagination === 'server' || fp === null) {
       return
     }
 
     // Check partial column filter
     that.data = fp
-      ? that.options.data.filter((item, i) => {
+      ? that.data.filter((item, i) => {
         const itemIsExpected = []
         const keys1 = Object.keys(item)
         const keys2 = Object.keys(fp)
@@ -726,56 +206,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
             if ($.inArray(key, that.header.fields) !== -1) {
               if (value === undefined || value === null) {
                 tmpItemIsExpected = false
+              } else if (typeof value === 'object') {
+                value.forEach((objectValue) => {
+                  if (tmpItemIsExpected) {
+                    return
+                  }
+                  tmpItemIsExpected = that.isValueExpected(fval, objectValue, thisColumn, key)
+                })
               } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-                if (thisColumn.filterStrictSearch) {
-                  tmpItemIsExpected = value.toString().toLowerCase() === fval.toString().toLowerCase()
-                } else if (thisColumn.filterStartsWithSearch) {
-                  tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(fval) === 0
-                } else {
-                  tmpItemIsExpected = (`${value}`).toLowerCase().includes(fval)
-                }
-
-                const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
-                const matches = largerSmallerEqualsRegex.exec(fval)
-
-                if (matches) {
-                  const operator = matches[1] || `${matches[5]}l`
-                  const comparisonValue = matches[2] || matches[3]
-                  const int = parseInt(value, 10)
-                  const comparisonInt = parseInt(comparisonValue, 10)
-
-                  switch (operator) {
-                    case '>':
-                    case '<l':
-                      tmpItemIsExpected = int > comparisonInt
-                      break
-                    case '<':
-                    case '>l':
-                      tmpItemIsExpected = int < comparisonInt
-                      break
-                    case '<=':
-                    case '=<':
-                    case '>=l':
-                    case '=>l':
-                      tmpItemIsExpected = int <= comparisonInt
-                      break
-                    case '>=':
-                    case '=>':
-                    case '<=l':
-                    case '=<l':
-                      tmpItemIsExpected = int >= comparisonInt
-                      break
-                    default:
-                      break
-                  }
-                }
-
-                if (thisColumn.filterCustomSearch) {
-                  const customSearchResult = Utils.calculateObjectValue(that, thisColumn.filterCustomSearch, [fval, value, key, that.options.data], true)
-                  if (customSearchResult !== null) {
-                    tmpItemIsExpected = customSearchResult
-                  }
-                }
+                tmpItemIsExpected = that.isValueExpected(fval, value, thisColumn, key)
               }
             }
           }
@@ -786,6 +225,63 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return !itemIsExpected.includes(false)
       })
       : that.data
+
+    that.unsortedData = [...that.data]
+  }
+
+  isValueExpected (searchValue, value, column, key) {
+    let tmpItemIsExpected = false
+    if (column.filterStrictSearch) {
+      tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
+    } else if (column.filterStartsWithSearch) {
+      tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(searchValue) === 0
+    } else {
+      tmpItemIsExpected = (`${value}`).toLowerCase().includes(searchValue)
+    }
+
+    const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+    const matches = largerSmallerEqualsRegex.exec(searchValue)
+
+    if (matches) {
+      const operator = matches[1] || `${matches[5]}l`
+      const comparisonValue = matches[2] || matches[3]
+      const int = parseInt(value, 10)
+      const comparisonInt = parseInt(comparisonValue, 10)
+
+      switch (operator) {
+        case '>':
+        case '<l':
+          tmpItemIsExpected = int > comparisonInt
+          break
+        case '<':
+        case '>l':
+          tmpItemIsExpected = int < comparisonInt
+          break
+        case '<=':
+        case '=<':
+        case '>=l':
+        case '=>l':
+          tmpItemIsExpected = int <= comparisonInt
+          break
+        case '>=':
+        case '=>':
+        case '<=l':
+        case '=<l':
+          tmpItemIsExpected = int >= comparisonInt
+          break
+        default:
+          break
+      }
+    }
+
+    if (column.filterCustomSearch) {
+      const customSearchResult = Utils.calculateObjectValue(this, column.filterCustomSearch, [searchValue, value, key, this.options.data], true)
+      if (customSearchResult !== null) {
+        tmpItemIsExpected = customSearchResult
+      }
+    }
+
+    return tmpItemIsExpected
   }
 
   initColumnSearch (filterColumnsDefaults) {
@@ -808,9 +304,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     UtilsFilterControl.copyValues(this)
     const text = $.trim($(currentTarget).val())
-    const $field = $(currentTarget)
-      .closest('[data-field]')
-      .data('field')
+    const $field = $(currentTarget).closest('[data-field]').data('field')
+
+    this.trigger('column-search', $field, text)
 
     if ($.isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {}
@@ -824,12 +320,29 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.pageNumber = 1
     this.enableControls(false)
     this.onSearch({currentTarget}, false)
-    this.trigger('column-search', $field, text)
   }
 
   initToolbar () {
+    this.showToolbar = this.showToolbar || this.options.showFilterControlSwitch
     this.showSearchClearButton = this.options.filterControl && this.options.showSearchClearButton
     super.initToolbar()
+
+    if (this.options.showFilterControlSwitch) {
+      const $btnGroup = this.$toolbar.find('>.columns')
+      let $btnFilterControlSwitch = $btnGroup.find('.filter-control-switch')
+
+      if (!$btnFilterControlSwitch.length) {
+        $btnFilterControlSwitch = $(`
+          <button class="filter-control-switch ${this.constants.buttonsClass}"
+          type="button" title="${this.options.formatFilterControlSwitch()}">
+          ${this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow) : ''}
+          ${this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''}
+          </button>
+        `).appendTo($btnGroup)
+
+        $btnFilterControlSwitch.on('click', $.proxy(this.toggleFilterControl, this))
+      }
+    }
   }
 
   resetSearch (text) {
@@ -843,9 +356,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.filterControl) {
       const that = this
       const cookies = UtilsFilterControl.collectBootstrapCookies()
-      const header = UtilsFilterControl.getCurrentHeader(that)
-      const table = header.closest('table')
-      const controls = header.find(UtilsFilterControl.getCurrentSearchControls(that))
+      const table = this.$el.closest('table')
+      const controls = UtilsFilterControl.getSearchControls(that)
       const search = that.$toolbar.find('.search input')
       let hasValues = false
       let timeoutId = 0
@@ -895,23 +407,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       // use the default sort order if it exists. do nothing if it does not
-      if (
-        that.options.sortName !== table.data('sortName') ||
-        that.options.sortOrder !== table.data('sortOrder')
-      ) {
-        const sorter = header.find(
-          Utils.sprintf(
-            '[data-field="%s"]',
-            $(controls[0])
-              .closest('table')
-              .data('sortName')
-          )
-        )
+      if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
+        const sorter = this.$header.find(Utils.sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')))
         if (sorter.length > 0) {
           that.onSort({type: 'keypress', currentTarget: sorter})
-          $(sorter)
-            .find('.sortable')
-            .trigger('click')
+          $(sorter).find('.sortable').trigger('click')
         }
       }
     }
@@ -931,10 +431,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   enableControls (enable) {
-    if (
-      this.options.disableControlWhenSearch &&
-      this.options.sidePagination === 'server'
-    ) {
+    if (this.options.disableControlWhenSearch && this.options.sidePagination === 'server') {
       const searchControls = UtilsFilterControl.getSearchControls(this)
 
       if (!enable) {
@@ -943,5 +440,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
         searchControls.removeProp('disabled')
       }
     }
+  }
+
+  toggleFilterControl () {
+    this.options.filterControlVisible = !this.options.filterControlVisible
+    const $filterControls = UtilsFilterControl.getControlContainer(this).find('.filter-control, .no-filter-control')
+    if (this.options.filterControlVisible) {
+      $filterControls.show()
+    } else {
+      $filterControls.hide()
+      this.clearFilterControl()
+    }
+    const icon = this.options.showButtonIcons ? this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow : ''
+    const text = this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''
+    this.$toolbar.find('>.columns').find('.filter-control-switch')
+      .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) + ' ' + text)
   }
 }

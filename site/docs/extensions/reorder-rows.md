@@ -10,7 +10,6 @@ Dependence: [tablednd](https://github.com/isocra/TableDnD) v0.9
 
 if you want you can include the bootstrap-table-reorder-rows.css file to use the default dragClass.
 
-
 ## Usage
 
 {% highlight html %}
@@ -49,18 +48,6 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 - **Default:** `null`
 
-### onDropStyle
-
-- **attribute:** `data-on-drop-style`
-
-- **type:** `String`
-
-- **Detail:**
-
-   This is the style that is assigned to the row when it is dropped. As for onDragStyle, there are limitations to what you can do. Also this replaces the original style, so again consider using onDragClass which is simply added and then removed on drop.
-
-- **Default:** `null`
-
 ### onDragClass
 
 - **attribute:** `data-on-drag-class`
@@ -73,29 +60,17 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 - **Default:** `reorder_rows_onDragClass`
 
-### dragHandle
+### onDropStyle
 
-- **attribute:** `data-drag-handle`
+- **attribute:** `data-on-drop-style`
 
 - **type:** `String`
 
 - **Detail:**
 
-   This is the cursor to use
+   This is the style that is assigned to the row when it is dropped. As for onDragStyle, there are limitations to what you can do. Also this replaces the original style, so again consider using onDragClass which is simply added and then removed on drop.
 
-- **Default:** `>tbody>tr>td`
-
-### useRowAttrFunc
-
-- **attribute:** `data-use-row-attr-func`
-
-- **type:** `Boolean`
-
-- **Detail:**
-
-   This function must be use if your `tr` elements won't have the `id` attribute. If your `tr` elements don't have the `id` attribute this plugin don't fire the onDrop event.
-
-- **Default:** `false`
+- **Default:** `null`
 
 ### onReorderRowsDrag
 
@@ -121,8 +96,37 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 - **Default:** `empty function`
 
+### dragHandle
+
+- **attribute:** `data-drag-handle`
+
+- **type:** `String`
+
+- **Detail:**
+
+   This is the cursor element.
+
+   **Note: This option is mainly used to adapt to the `TableDnD` plugin. Under no special circumstances, please do not modify the default value.**
+
+- **Default:** `>tbody>tr>td`
+
+### useRowAttrFunc
+
+- **attribute:** `data-use-row-attr-func`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   This function must be use if your `tr` elements won't have the `id` attribute. If your `tr` elements don't have the `id` attribute this plugin don't fire the onDrop event.
+
+- **Default:** `false`
+
 ## Events
 
 ### onReorderRow(reorder-row.bs.table)
 
-Fired when the row was dropped, receive as parameter the new data order.
+Fired when the row was dropped, receives two parameters:
+* The new table data
+* The dropped row
+* The row of the old position

@@ -33,77 +33,6 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   * `name`: the event name,
   * `args`: the event data.
 
-## onClickRow
-
-- **jQuery Event:** `click-row.bs.table`
-
-- **Parameter:** `row, $element, field`
-
-- **Detail:**
-
-  Fires when user click a row, the parameters contain:
-
-  * `row`: the record corresponding to the clicked row.
-  * `$element`: the tr element.
-  * `field`: the field name corresponding to the clicked cell.
-
-## onDblClickRow
-
-- **jQuery Event:** `dbl-click-row.bs.table`
-
-- **Parameter:** `row, $element, field`
-
-- **Detail:**
-
-  Fires when user double click a row, the parameters contain:
-
-  * `row`: the record corresponding to the clicked row.
-  * `$element`: the tr element.
-  * `field`: the field name corresponding to the clicked cell.
-
-## onClickCell
-
-- **jQuery Event:** `click-cell.bs.table`
-
-- **Parameter:** `field, value, row, $element`
-
-- **Detail:**
-
-  Fires when user click a cell, the parameters contain:
-
-  * `field`: the field name corresponding to the clicked cell.
-  * `value`: the data value corresponding to the clicked cell.
-  * `row`: the record corresponding to the clicked row.
-  * `$element`: the td element.
-
-## onDblClickCell
-
-- **jQuery Event:** `dbl-click-cell.bs.table`
-
-- **Parameter:** `field, value, row, $element`
-
-- **Detail:**
-
-  Fires when user double click a cell, the parameters contain:
-
-  * `field`: the field name corresponding to the clicked cell.
-  * `value`: the data value corresponding to the clicked cell.
-  * `row`: the record corresponding to the clicked row.
-  * `$element`: the td element.
-
-## onSort
-
-- **jQuery Event:** `sort.bs.table`
-
-- **Parameter:** `name, order`
-
-- **Detail:**
-
-  Fires when user sort a column, the parameters contain:
-
-  * `name`: the sort column field name.
-  * `order`: the sort column order.
-
 ## onCheck
 
 - **jQuery Event:** `check.bs.table`
@@ -117,19 +46,6 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   * `row`: the record corresponding to the clicked row.
   * `$element`: the DOM element checked.
 
-## onUncheck
-
-- **jQuery Event:** `uncheck.bs.table`
-
-- **Parameter:** `row, $element`
-
-- **Detail:**
-
-  Fires when user uncheck a row, the parameters contain:
-
-  * `row`: the record corresponding to the clicked row.
-  * `$element`: the DOM element unchecked.
-
 ## onCheckAll
 
 - **jQuery Event:** `check-all.bs.table`
@@ -139,19 +55,6 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 - **Detail:**
 
   Fires when user check all rows, the parameters contain:
-
-  * `rowsAfter`: array of records of the now checked rows.
-  * `rowsBefore`: array of records of the checked rows before.
-
-## onUncheckAll
-
-- **jQuery Event:** `uncheck-all.bs.table`
-
-- **Parameter:** `rowsAfter, rowsBefore`
-
-- **Detail:**
-
-  Fires when user uncheck all rows, the parameters contain:
 
   * `rowsAfter`: array of records of the now checked rows.
   * `rowsBefore`: array of records of the checked rows before.
@@ -168,44 +71,48 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   * `rows`: array of records corresponding to newly checked rows.
 
-## onUncheckSome
+## onClickCell
 
-- **jQuery Event:** `uncheck-some.bs.table`
+- **jQuery Event:** `click-cell.bs.table`
 
-- **Parameter:** `rows`
-
-- **Detail:**
-
-  Fires when user uncheck some rows, the parameters contain:
-
-  * `rows`: array of records corresponding to previously checked rows.
-
-## onLoadSuccess
-
-- **jQuery Event:** `load-success.bs.table`
-
-- **Parameter:** `data`
+- **Parameter:** `field, value, row, $element`
 
 - **Detail:**
 
-  Fires when remote data is loaded successfully, the parameters contain:
+  Fires when user click a cell, the parameters contain:
 
-  * `data`: the remote data.
-  * `status`: the status code of `jqXHR`.
-  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
+  * `field`: the field name corresponding to the clicked cell.
+  * `value`: the data value corresponding to the clicked cell.
+  * `row`: the record corresponding to the clicked row.
+  * `$element`: the td element.
 
-## onLoadError
+## onClickRow
 
-- **jQuery Event:** `load-error.bs.table`
+- **jQuery Event:** `click-row.bs.table`
 
-- **Parameter:** `status, jqXHR`
+- **Parameter:** `row, $element, field`
 
 - **Detail:**
 
-  Fires when some errors occur to load remote data, the parameters contain:
+  Fires when user click a row, the parameters contain:
 
-  * `status`: the status code of `jqXHR`.
-  * `jqXHR`: jqXHR object, which is a superset of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
+  * `row`: the record corresponding to the clicked row.
+  * `$element`: the tr element.
+  * `field`: the field name corresponding to the clicked cell.
+
+## onCollapseRow
+
+- **jQuery Event:** `collapse-row.bs.table`
+
+- **Parameter:** `index, row, detailView`
+
+- **Detail:**
+
+  Fires when click the detail icon to collapse the detail view, the parameters contain:
+
+  * `index`: the index of the collapsed row.
+  * `row`: the record corresponding to the collapsed row.
+  * `detailView`: the collapsed detailView.
 
 ## onColumnSwitch
 
@@ -220,88 +127,34 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   * `field`: the field name corresponding to the switch column.
   * `checked`: the checked state of the column.
 
-## onPageChange
+## onDblClickCell
 
-- **jQuery Event:** `page-change.bs.table`
+- **jQuery Event:** `dbl-click-cell.bs.table`
 
-- **Parameter:** `number, size`
-
-- **Detail:**
-
-  Fires when change the page number or page size, the parameters contain:
-
-  * `number`: the page number.
-  * `size`: the page size.
-
-## onSearch
-
-- **jQuery Event:** `search.bs.table`
-
-- **Parameter:** `text`
+- **Parameter:** `field, value, row, $element`
 
 - **Detail:**
 
-  Fires when search the table, the parameters contain:
+  Fires when user double click a cell, the parameters contain:
 
-  * `text`: the text of the search input.
+  * `field`: the field name corresponding to the clicked cell.
+  * `value`: the data value corresponding to the clicked cell.
+  * `row`: the record corresponding to the clicked row.
+  * `$element`: the td element.
 
-## onToggle
+## onDblClickRow
 
-- **jQuery Event:** `toggle.bs.table`
+- **jQuery Event:** `dbl-click-row.bs.table`
 
-- **Parameter:** `cardView`
-
-- **Detail:**
-
-  Fires when toggle the view of table, the parameters contain:
-
-  * `cardView`: the cardView state of the table.
-
-## onPreBody
-
-- **jQuery Event:** `pre-body.bs.table`
-
-- **Parameter:** `data`
+- **Parameter:** `row, $element, field`
 
 - **Detail:**
 
-  Fires before the table body is rendered, the parameters contain:
+  Fires when user double click a row, the parameters contain:
 
-  * `data`: the rendered data.
-
-## onPostBody
-
-- **jQuery Event:** `post-body.bs.table`
-
-- **Parameter:** `data`
-
-- **Detail:**
-
-  Fires after the table body is rendered and available in the DOM, the parameters contain:
-
-  * `data`: the rendered data.
-
-## onPostHeader
-
-- **jQuery Event:** `post-header.bs.table`
-
-- **Parameter:** `undefined`
-
-- **Detail:**
-
-  Fires after the table header is rendered and available in the DOM.
-
-## onPostFooter
-
-- **jQuery Event:** `post-footer.bs.table`
-
-- **Parameter:** `$tableFooter`
-
-- **Detail:**
-
-  Fires after the footer is rendered and available in the DOM, the parameters contain:
-
-  * `$tableFooter`: the DOM element of the footer.
+  * `row`: the record corresponding to the clicked row.
+  * `$element`: the tr element.
+  * `field`: the field name corresponding to the clicked cell.
 
 ## onExpandRow
 
@@ -317,19 +170,103 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   * `row`: the record corresponding to the expanded row.
   * `$detail`: the DOM element of the detail `div` after current `tr` element, you can use jQuery methods to custom the detail views.
 
-## onCollapseRow
+## onLoadError
 
-- **jQuery Event:** `collapse-row.bs.table`
+- **jQuery Event:** `load-error.bs.table`
 
-- **Parameter:** `index, row, detailView`
+- **Parameter:** `status, jqXHR`
 
 - **Detail:**
 
-  Fires when click the detail icon to collapse the detail view, the parameters contain:
+  Fires when some errors occur to load remote data, the parameters contain:
 
-  * `index`: the index of the collapsed row.
-  * `row`: the record corresponding to the collapsed row.
-  * `detailView`: the collapsed detailView.
+  * `status`: the status code of `jqXHR`.
+  * `jqXHR`: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
+
+## onLoadSuccess
+
+- **jQuery Event:** `load-success.bs.table`
+
+- **Parameter:** `data`
+
+- **Detail:**
+
+  Fires when remote data is loaded successfully, the parameters contain:
+
+  * `data`: the remote data.
+  * `status`: the status code of `jqXHR`.
+  * `jqXHR`: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
+
+## onPageChange
+
+- **jQuery Event:** `page-change.bs.table`
+
+- **Parameter:** `number, size`
+
+- **Detail:**
+
+  Fires when change the page number or page size, the parameters contain:
+
+  * `number`: the page number.
+  * `size`: the page size.
+
+## onPostBody
+
+- **jQuery Event:** `post-body.bs.table`
+
+- **Parameter:** `data`
+
+- **Detail:**
+
+  Fires after the table body is rendered and available in the DOM, the parameters contain:
+
+  * `data`: the rendered data.
+
+## onPostFooter
+
+- **jQuery Event:** `post-footer.bs.table`
+
+- **Parameter:** `$tableFooter`
+
+- **Detail:**
+
+  Fires after the footer is rendered and available in the DOM, the parameters contain:
+
+  * `$tableFooter`: the DOM element of the footer.
+
+## onPostHeader
+
+- **jQuery Event:** `post-header.bs.table`
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+  Fires after the table header is rendered and available in the DOM.
+
+## onPreBody
+
+- **jQuery Event:** `pre-body.bs.table`
+
+- **Parameter:** `data`
+
+- **Detail:**
+
+  Fires before the table body is rendered, the parameters contain:
+
+  * `data`: the rendered data.
+
+## onRefresh
+
+- **jQuery Event:** `refresh.bs.table`
+
+- **Parameter:** `params`
+
+- **Detail:**
+
+  Fires after the click the refresh button, the parameters contain:
+
+  * `params`: the additional parameters request to the server.
 
 ## onRefreshOptions
 
@@ -353,24 +290,86 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   Fires when reset view of the table.
 
-## onRefresh
-
-- **jQuery Event:** `refresh.bs.table`
-
-- **Parameter:** `params`
-
-- **Detail:**
-
-  Fires after the click the refresh button, the parameters contain:
-
-  * `params`: the additional parameters request to the server.
-
 ## onScrollBody
 
 - **jQuery Event:** `scroll-body.bs.table`
 
-- **Parameter:**: `$tableBody`
+- **Parameter:** `$tableBody`
 
 - **Detail:**
 
   Fires when table body scroll.
+## onSearch
+
+- **jQuery Event:** `search.bs.table`
+
+- **Parameter:** `text`
+
+- **Detail:**
+
+  Fires when search the table, the parameters contain:
+
+  * `text`: the text of the search input.
+
+## onSort
+
+- **jQuery Event:** `sort.bs.table`
+
+- **Parameter:** `name, order`
+
+- **Detail:**
+
+  Fires when user sort a column, the parameters contain:
+
+  * `name`: the sort column field name.
+  * `order`: the sort column order.
+
+## onToggle
+
+- **jQuery Event:** `toggle.bs.table`
+
+- **Parameter:** `cardView`
+
+- **Detail:**
+
+  Fires when toggle the view of table, the parameters contain:
+
+  * `cardView`: the cardView state of the table.
+
+## onUncheck
+
+- **jQuery Event:** `uncheck.bs.table`
+
+- **Parameter:** `row, $element`
+
+- **Detail:**
+
+  Fires when user uncheck a row, the parameters contain:
+
+  * `row`: the record corresponding to the clicked row.
+  * `$element`: the DOM element unchecked.
+
+## onUncheckAll
+
+- **jQuery Event:** `uncheck-all.bs.table`
+
+- **Parameter:** `rowsAfter, rowsBefore`
+
+- **Detail:**
+
+  Fires when user uncheck all rows, the parameters contain:
+
+  * `rowsAfter`: array of records of the now checked rows.
+  * `rowsBefore`: array of records of the checked rows before.
+
+## onUncheckSome
+
+- **jQuery Event:** `uncheck-some.bs.table`
+
+- **Parameter:** `rows`
+
+- **Detail:**
+
+  Fires when user uncheck some rows, the parameters contain:
+
+  * `rows`: array of records corresponding to previously checked rows.

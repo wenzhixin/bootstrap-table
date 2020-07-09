@@ -8,7 +8,7 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-const bootstrap = {
+const theme = {
   bootstrap3: {
     icons: {
       advancedSearchIcon: 'glyphicon-chevron-down'
@@ -55,7 +55,36 @@ const bootstrap = {
               </div>
               <div class="modal-body modal-body-custom">
                 <div class="container-fluid" id="avdSearchModalContent_%s"
-                  style="padding-right: 0px; padding-left: 0px;" >
+                  style="padding-right: 0; padding-left: 0;" >
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="btnCloseAvd_%s" class="btn btn-%s">%s</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    }
+  },
+  bootstrap5: {
+    icons: {
+      advancedSearchIcon: 'fa-chevron-down'
+    },
+    html: {
+      modal: `
+        <div id="avdSearchModal_%s"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xs">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">%s</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body modal-body-custom">
+                <div class="container-fluid" id="avdSearchModalContent_%s"
+                  style="padding-right: 0; padding-left: 0;" >
                 </div>
               </div>
               <div class="modal-footer">
@@ -98,12 +127,12 @@ const bootstrap = {
         <div class="reveal" id="avdSearchModal_%s" data-reveal>
           <h1>%s</h1>
           <div id="avdSearchModalContent_%s">
-          
+
           </div>
           <button class="close-button" data-close aria-label="Close modal" type="button">
             <span aria-hidden="true">&times;</span>
           </button>
-          
+
           <button id="btnCloseAvd_%s" class="%s" type="button">%s</button>
         </div>
       `
@@ -119,7 +148,7 @@ const bootstrap = {
           <div class="modal-content">
             <h4>%s</h4>
             <div id="avdSearchModalContent_%s">
-            
+
             </div>
           </div>
           <div class="modal-footer">
@@ -161,7 +190,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
-  advancedSearchIcon: bootstrap.icons.advancedSearchIcon
+  advancedSearchIcon: theme.icons.advancedSearchIcon
 })
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
@@ -212,7 +241,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const o = this.options
     const modalSelector = '#avdSearchModal_' + o.idTable
     if ($(modalSelector).length <= 0) {
-      $('body').append(Utils.sprintf(bootstrap.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()))
+      $('body').append(Utils.sprintf(theme.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()))
 
       let timeoutId = 0
 
@@ -245,6 +274,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const modalSelector = '#avdSearchModal_' + this.options.idTable
     if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
       $(modalSelector).modal()
+    } else if ($.fn.bootstrapTable.theme === 'bootstrap5') {
+      if (!this.toolbarModal) {
+      //   eslint-disable-next-line no-undef
+        this.toolbarModal = new bootstrap.Modal(document.getElementById('avdSearchModal_' + this.options.idTable), {})
+      }
+      this.toolbarModal.show()
     } else if ($.fn.bootstrapTable.theme === 'bulma') {
       $(modalSelector).toggleClass('is-active')
     } else if ($.fn.bootstrapTable.theme === 'foundation') {
@@ -267,6 +302,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const modalSelector = '#avdSearchModal_' + this.options.idTable
     if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
       $closeModalButton.modal('hide')
+    } else if ($.fn.bootstrapTable.theme === 'bootstrap5') {
+      this.toolbarModal.hide()
     } else if ($.fn.bootstrapTable.theme === 'bulma') {
       $('html').toggleClass('is-clipped')
       $(modalSelector).toggleClass('is-active')
@@ -335,6 +372,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
       return true
     }) : this.data
+    this.unsortedData = [...this.data]
   }
 
   onColumnAdvancedSearch (e) {

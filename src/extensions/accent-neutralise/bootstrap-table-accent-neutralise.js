@@ -126,7 +126,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // Check filter
       this.data = f ? this.options.data.filter((item, i) => {
         for (const key in f) {
-          if (item[key] !== f[key]) {
+          if (
+            (Array.isArray(f[key]) &&
+              !f[key].includes(item[key])) ||
+            (!Array.isArray(f[key]) &&
+              item[key] !== f[key])
+          ) {
             return false
           }
         }
@@ -163,6 +168,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
         return false
       }) : this.data
+      this.unsortedData = [...this.data]
     }
   }
 }

@@ -112,6 +112,59 @@ const bootstrap = {
       multipleSortSelect: '<select class="%s %s form-control">'
     }
   },
+  bootstrap5: {
+    icons: {
+      'plus': 'fa-plus',
+      'minus': 'fa-minus',
+      'sort': 'fa-sort'
+    },
+    html: {
+      multipleSortModal: `
+        <div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="%sLabel">%s</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="bootstrap-table">
+                        <div class="fixed-table-toolbar">
+                            <div class="bars">
+                                <div id="toolbar" class="pb-3">
+                                     <button id="add" type="button" class="btn btn-secondary">%s %s</button>
+                                     <button id="delete" type="button" class="btn btn-secondary" disabled>%s %s</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fixed-table-container">
+                            <table id="multi-sort" class="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                         <th><div class="th-inner">%s</div></th>
+                                         <th><div class="th-inner">%s</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">%s</button>
+                <button type="button" class="btn btn-primary multi-sort-order-button">%s</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      multipleSortButton: '<button class="multi-sort btn btn-secondary" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
+      multipleSortSelect: '<select class="%s %s form-control">'
+    }
+  },
   semantic: {
     icons: {
       'plus': 'fa-plus',
@@ -292,6 +345,53 @@ const bootstrap = {
         </div>
       `,
       multipleSortButton: '<button class="button multi-sort" data-target="%s" title="%s">%s</button>',
+      multipleSortSelect: '<select class="%s %s browser-default">'
+    }
+  },
+  'bootstrap-table': {
+    icons: {
+      'plus': 'icon-plus',
+      'minus': 'icon-minus',
+      'sort': 'icon-sort-amount-asc'
+    },
+    html: {
+      multipleSortModal: `
+        <div class="modal" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
+          <div class="modal-background"></div>
+          <div class="modal-content" id="%sLabel">
+            <div class="box">
+            <h2>%s</h2>
+              <div class="bootstrap-table">
+                  <div class="fixed-table-toolbar">
+                      <div class="bars">
+                        <div id="toolbar" class="padding-bottom-2">
+                          <button id="add" type="button" class="btn">%s %s</button>
+                          <button id="delete" type="button" class="btn" disabled>%s %s</button>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="fixed-table-container">
+                      <table id="multi-sort" class="table">
+                          <thead>
+                              <tr>
+                                  <th></th>
+                                  <th><div class="th-inner">%s</div></th>
+                                  <th><div class="th-inner">%s</div></th>
+                              </tr>
+                          </thead>
+                          <tbody></tbody>
+                      </table>
+                    </div>
+                </div>
+                <div class="mt-30">
+                    <button type="button" class="btn" data-close>%s</button>
+                    <button type="button" class="btn multi-sort-order-button" data-close>%s</button> 
+                </div>
+            </div>
+          </div>
+        </div>
+      `,
+      multipleSortButton: '<button class="btn multi-sort" data-target="%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s browser-default">'
     }
   }
@@ -518,6 +618,10 @@ BootstrapTable.prototype.initToolbar = function (...args) {
         this.$toolbar.find('.multi-sort').on('click', () => {
           $(sortModalId).modal()
         })
+      } else if ($.fn.bootstrapTable.theme === 'bootstrap-table') {
+        this.$toolbar.find('.multi-sort').on('click', () => {
+          $(sortModalId).addClass('show')
+        })
       } else if ($.fn.bootstrapTable.theme === 'foundation') {
         this.$toolbar.find('.multi-sort').on('click', () => {
           if (!this.foundationModal) {
@@ -608,8 +712,8 @@ BootstrapTable.prototype.onMultipleSort = function () {
       }
 
       const order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1
-      let aa = a[fieldName]
-      let bb = b[fieldName]
+      let aa = Utils.getItemField(a, fieldName)
+      let bb = Utils.getItemField(b, fieldName)
       const value1 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb])
       const value2 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa])
 

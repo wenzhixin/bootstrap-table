@@ -45,7 +45,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.onPostBody = () => {
       setTimeout(() => {
         this.makeRowsReorderable()
-        onPostBody.apply()
+        onPostBody.call(this.options, this.options.data)
       }, 1)
     }
 
@@ -90,6 +90,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.onReorderRowsDrop(droppedRow)
 
     // Call the event reorder-row
-    this.trigger('reorder-row', newData)
+    this.trigger('reorder-row', newData, draggingRow, droppedRow)
   }
 }

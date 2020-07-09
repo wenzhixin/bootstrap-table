@@ -36,13 +36,15 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.columnDefaults, {
-  forceExport: false
+  forceExport: false,
+  forceHide: false
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
   export: {
     bootstrap3: 'glyphicon-export icon-share',
-    materialize: 'file_download'
+    materialize: 'file_download',
+    'bootstrap-table': 'icon-download'
   }[$.fn.bootstrapTable.theme] || 'fa-download'
 })
 
@@ -184,6 +186,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.toggleView()
       }
 
+      this.columns.forEach((row) => {
+        if (row.forceHide) {
+          this.hideColumn(row.field)
+        }
+      })
+
       const data = this.getData()
       if (o.exportFooter) {
         const $footerRow = this.$tableFooter.find('tr').first()
@@ -235,6 +243,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
             }
           })
 
+          this.columns.forEach((row) => {
+            if (row.forceHide) {
+              this.showColumn(row.field)
+            }
+          })
+
           if (callback) callback()
         }
       }, o.exportOptions, options))
@@ -257,6 +271,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     } else if (o.exportDataType === 'selected') {
       let data = this.getData()
       let selectedData = this.getSelections()
+      const pagination = o.pagination
+
       if (!selectedData.length) {
         return
       }
@@ -273,7 +289,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       this.load(selectedData)
+      if (pagination) {
+        this.togglePagination()
+      }
       doExport(() => {
+        if (pagination) {
+          this.togglePagination()
+        }
         this.load(data)
       })
       this.trigger('export-saved', selectedData)

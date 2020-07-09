@@ -1,5 +1,5 @@
 /**
- * Bootstrap Table Dutch (België) translation
+ * Bootstrap Table Dutch (BelgiÃ«) translation
  * Author: Nevets82 <Nevets82@gmail.com>
  */
 
@@ -85,6 +85,15 @@ $.fn.bootstrapTable.locales['nl-BE'] = {
   },
   formatAdvancedCloseButton () {
     return 'Sluiten'
+  },
+  formatFilterControlSwitch () {
+    return 'Verberg/Toon controls'
+  },
+  formatFilterControlSwitchHide () {
+    return 'Verberg controls'
+  },
+  formatFilterControlSwitchShow () {
+    return 'Toon controls'
   }
 }
 

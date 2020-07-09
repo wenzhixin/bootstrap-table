@@ -1,4 +1,4 @@
-const VERSION = '1.16.0'
+const VERSION = '1.17.0'
 
 let bootstrapVersion = 4
 try {
@@ -6,6 +6,16 @@ try {
 
   // Only try to parse VERSION if it is defined.
   // It is undefined in older versions of Bootstrap (tested with 3.1.1).
+  if (rawVersion !== undefined) {
+    bootstrapVersion = parseInt(rawVersion, 10)
+  }
+} catch (e) {
+  // ignore
+}
+
+try {
+  // eslint-disable-next-line no-undef
+  const rawVersion = bootstrap.Tooltip.VERSION
   if (rawVersion !== undefined) {
     bootstrapVersion = parseInt(rawVersion, 10)
   }
@@ -105,6 +115,52 @@ const CONSTANTS = {
       searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
       searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
     }
+  },
+  5: {
+    iconsPrefix: 'fa',
+    icons: {
+      paginationSwitchDown: 'fa-caret-square-down',
+      paginationSwitchUp: 'fa-caret-square-up',
+      refresh: 'fa-sync',
+      toggleOff: 'fa-toggle-off',
+      toggleOn: 'fa-toggle-on',
+      columns: 'fa-th-list',
+      detailOpen: 'fa-plus',
+      detailClose: 'fa-minus',
+      fullscreen: 'fa-arrows-alt',
+      search: 'fa-search',
+      clearSearch: 'fa-trash'
+    },
+    classes: {
+      buttonsPrefix: 'btn',
+      buttons: 'secondary',
+      buttonsGroup: 'btn-group',
+      buttonsDropdown: 'btn-group',
+      pull: 'float',
+      inputGroup: 'btn-group',
+      inputPrefix: 'form-control-',
+      input: 'form-control',
+      paginationDropdown: 'btn-group dropdown',
+      dropup: 'dropup',
+      dropdownActive: 'active',
+      paginationActive: 'active',
+      buttonActive: 'active'
+    },
+    html: {
+      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
+      toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
+      pageDropdown: ['<div class="dropdown-menu">', '</div>'],
+      pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
+      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
+      dropdownCaret: '<span class="caret"></span>',
+      pagination: ['<ul class="pagination%s">', '</ul>'],
+      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
+      icon: '<i class="%s %s"></i>',
+      inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
+      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
+      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
+    }
   }
 }[bootstrapVersion]
 
@@ -129,7 +185,8 @@ const DEFAULTS = {
   sortClass: undefined,
   silentSort: true,
   sortName: undefined,
-  sortOrder: 'asc',
+  sortOrder: undefined,
+  sortReset: false,
   sortStable: false,
   rememberOrder: false,
   serverSort: true,
@@ -156,7 +213,7 @@ const DEFAULTS = {
   totalNotFilteredField: 'totalNotFiltered',
   dataField: 'rows',
   pagination: false,
-  onlyInfoPagination: false,
+  paginationParts: ['pageInfo', 'pageSize', 'pageList'],
   showExtendedPagination: false,
   paginationLoop: true,
   sidePagination: 'client', // client or server
@@ -219,6 +276,7 @@ const DEFAULTS = {
   detailView: false,
   detailViewIcon: true,
   detailViewByClick: false,
+  detailViewAlign: 'left',
   detailFormatter (index, row) {
     return ''
   },
@@ -236,6 +294,14 @@ const DEFAULTS = {
   html: CONSTANTS.html,
   iconSize: undefined,
   iconsPrefix: CONSTANTS.iconsPrefix, // glyphicon or fa(font-awesome)
+  loadingFontSize: 'auto',
+  loadingTemplate (loadingMessage) {
+    return `<span class="loading-wrap">
+      <span class="loading-text">${loadingMessage}</span>
+      <span class="animation-wrap"><span class="animation-dot"></span></span>
+      </span>
+    `
+  },
   onAll (name, args) {
     return false
   },
@@ -455,7 +521,7 @@ const METHODS = [
   'scrollTo', 'getScrollPosition',
   'selectPage', 'prevPage', 'nextPage',
   'toggleDetailView',
-  'expandRow', 'collapseRow',
+  'expandRow', 'collapseRow', 'expandRowByUniqueId', 'collapseRowByUniqueId',
   'expandAllRows', 'collapseAllRows',
   'updateColumnTitle', 'updateFormatText'
 ]

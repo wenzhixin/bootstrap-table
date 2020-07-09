@@ -211,12 +211,6 @@ BootstrapTable.prototype.updateSelected = function (...args) {
   }
 }
 
-BootstrapTable.prototype.getGroupSelections = function (index) {
-  const that = this
-
-  return this.data.filter(row => row[that.header.stateField] && (row._data['parent-index'] === index))
-}
-
 BootstrapTable.prototype.checkGroup = function (index) {
   this.checkGroup_(index, true)
 }
@@ -226,23 +220,23 @@ BootstrapTable.prototype.uncheckGroup = function (index) {
 }
 
 BootstrapTable.prototype.checkGroup_ = function (index, checked) {
+  const rowsBefore = this.getSelections()
   let rows
   const filter = function () {
     return ($(this).closest('tr').data('parent-index') === index)
-  }
-
-  if (!checked) {
-    rows = this.getGroupSelections(index)
   }
 
   this.$selectItem.filter(filter).prop('checked', checked)
 
   this.updateRows()
   this.updateSelected()
+  const rowsAfter = this.getSelections()
   if (checked) {
-    rows = this.getGroupSelections(index)
+    this.trigger('check-all', rowsAfter, rowsBefore)
+    return
   }
-  this.trigger(checked ? 'check-all' : 'uncheck-all', rows)
+
+  this.trigger('uncheck-all', rowsAfter, rowsBefore)
 }
 
 BootstrapTable.prototype.getGroupByFields = function () {

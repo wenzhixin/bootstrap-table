@@ -30,3 +30,11 @@ toc: true
    Set true to enable show 'jump to page'. Can be defined via `data-show-jump-to` HTML attributes.
 
 - **Default:** `false`
+
+## Localizations
+
+### formatJumpTo
+
+- **Parameter:** `undefined`
+
+- **Default:** `'GO'`

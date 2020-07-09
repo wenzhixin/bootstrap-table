@@ -4,7 +4,7 @@
 	(global = global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -1278,6 +1278,47 @@
 	// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
 	addToUnscopables(FIND);
 
+	var $includes = arrayIncludes.includes;
+
+
+	// `Array.prototype.includes` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.includes
+	_export({ target: 'Array', proto: true }, {
+	  includes: function includes(el /* , fromIndex = 0 */) {
+	    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	});
+
+	// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
+	addToUnscopables('includes');
+
+	var sloppyArrayMethod = function (METHOD_NAME, argument) {
+	  var method = [][METHOD_NAME];
+	  return !method || !fails(function () {
+	    // eslint-disable-next-line no-useless-call,no-throw-literal
+	    method.call(null, argument || function () { throw 1; }, 1);
+	  });
+	};
+
+	var $indexOf = arrayIncludes.indexOf;
+
+
+	var nativeIndexOf = [].indexOf;
+
+	var NEGATIVE_ZERO = !!nativeIndexOf && 1 / [1].indexOf(1, -0) < 0;
+	var SLOPPY_METHOD = sloppyArrayMethod('indexOf');
+
+	// `Array.prototype.indexOf` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.indexof
+	_export({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || SLOPPY_METHOD }, {
+	  indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
+	    return NEGATIVE_ZERO
+	      // convert -0 to +0
+	      ? nativeIndexOf.apply(this, arguments) || 0
+	      : $indexOf(this, searchElement, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	});
+
 	var correctPrototypeGetter = !fails(function () {
 	  function F() { /* empty */ }
 	  F.prototype.constructor = null;
@@ -1483,22 +1524,14 @@
 	addToUnscopables('values');
 	addToUnscopables('entries');
 
-	var sloppyArrayMethod = function (METHOD_NAME, argument) {
-	  var method = [][METHOD_NAME];
-	  return !method || !fails(function () {
-	    // eslint-disable-next-line no-useless-call,no-throw-literal
-	    method.call(null, argument || function () { throw 1; }, 1);
-	  });
-	};
-
 	var nativeJoin = [].join;
 
 	var ES3_STRINGS = indexedObject != Object;
-	var SLOPPY_METHOD = sloppyArrayMethod('join', ',');
+	var SLOPPY_METHOD$1 = sloppyArrayMethod('join', ',');
 
 	// `Array.prototype.join` method
 	// https://tc39.github.io/ecma262/#sec-array.prototype.join
-	_export({ target: 'Array', proto: true, forced: ES3_STRINGS || SLOPPY_METHOD }, {
+	_export({ target: 'Array', proto: true, forced: ES3_STRINGS || SLOPPY_METHOD$1 }, {
 	  join: function join(separator) {
 	    return nativeJoin.call(toIndexedObject(this), separator === undefined ? ',' : separator);
 	  }
@@ -1570,9 +1603,9 @@
 	  test.sort(null);
 	});
 	// Old WebKit
-	var SLOPPY_METHOD$1 = sloppyArrayMethod('sort');
+	var SLOPPY_METHOD$2 = sloppyArrayMethod('sort');
 
-	var FORCED$1 = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || SLOPPY_METHOD$1;
+	var FORCED$1 = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || SLOPPY_METHOD$2;
 
 	// `Array.prototype.sort` method
 	// https://tc39.github.io/ecma262/#sec-array.prototype.sort
@@ -1869,7 +1902,8 @@
 	});
 	$.extend($.fn.bootstrapTable.defaults.icons, {
 	  print: {
-	    bootstrap3: 'glyphicon-print icon-share'
+	    bootstrap3: 'glyphicon-print icon-share',
+	    'bootstrap-table': 'icon-printer'
 	  }[$.fn.bootstrapTable.theme] || 'fa-print'
 	});
 
@@ -1885,18 +1919,35 @@
 	  }
 
 	  _createClass(_class, [{
-	    key: "initToolbar",
-	    value: function initToolbar() {
-	      var _get2,
-	          _this = this;
-
-	      this.showToolbar = this.showToolbar || this.options.showPrint;
+	    key: "init",
+	    value: function init() {
+	      var _get2;
 
 	      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
 	        args[_key] = arguments[_key];
 	      }
 
-	      (_get2 = _get(_getPrototypeOf(_class.prototype), "initToolbar", this)).call.apply(_get2, [this].concat(args));
+	      (_get2 = _get(_getPrototypeOf(_class.prototype), "init", this)).call.apply(_get2, [this].concat(args));
+
+	      if (!this.options.showPrint) {
+	        return;
+	      }
+
+	      this.mergedCells = [];
+	    }
+	  }, {
+	    key: "initToolbar",
+	    value: function initToolbar() {
+	      var _get3,
+	          _this = this;
+
+	      this.showToolbar = this.showToolbar || this.options.showPrint;
+
+	      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	        args[_key2] = arguments[_key2];
+	      }
+
+	      (_get3 = _get(_getPrototypeOf(_class.prototype), "initToolbar", this)).call.apply(_get3, [this].concat(args));
 
 	      if (!this.options.showPrint) {
 	        return;
@@ -1911,6 +1962,28 @@
 
 	      $print.off('click').on('click', function () {
 	        _this.doPrint(_this.options.printAsFilteredAndSortedOnUI ? _this.getData() : _this.options.data.slice(0));
+	      });
+	    }
+	  }, {
+	    key: "mergeCells",
+	    value: function mergeCells(options) {
+	      _get(_getPrototypeOf(_class.prototype), "mergeCells", this).call(this, options);
+
+	      if (!this.options.showPrint) {
+	        return;
+	      }
+
+	      var col = this.getVisibleFields().indexOf(options.field);
+
+	      if (Utils.hasDetailViewIcon(this.options)) {
+	        col += 1;
+	      }
+
+	      this.mergedCells.push({
+	        row: options.index,
+	        col: col,
+	        rowspan: options.rowspan || 1,
+	        colspan: options.colspan || 1
 	      });
 	    }
 	  }, {
@@ -1932,12 +2005,12 @@
 
 	        try {
 	          for (var _iterator = columnsArray[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	            var _columns = _step.value;
+	            var _columns2 = _step.value;
 	            html.push('<tr>');
 
-	            for (var h = 0; h < _columns.length; h++) {
-	              if (!_columns[h].printIgnore) {
-	                html.push("<th\n              ".concat(Utils.sprintf(' rowspan="%s"', _columns[h].rowspan), "\n              ").concat(Utils.sprintf(' colspan="%s"', _columns[h].colspan), "\n              >").concat(_columns[h].title, "</th>"));
+	            for (var _h = 0; _h < _columns2.length; _h++) {
+	              if (!_columns2[_h].printIgnore) {
+	                html.push("<th\n              ".concat(Utils.sprintf(' rowspan="%s"', _columns2[_h].rowspan), "\n              ").concat(Utils.sprintf(' colspan="%s"', _columns2[_h].colspan), "\n              >").concat(_columns2[_h].title, "</th>"));
 	              }
 	            }
 
@@ -1959,6 +2032,22 @@
 	        }
 
 	        html.push('</thead><tbody>');
+	        var dontRender = [];
+
+	        if (_this2.mergedCells) {
+	          for (var mc = 0; mc < _this2.mergedCells.length; mc++) {
+	            var currentMergedCell = _this2.mergedCells[mc];
+
+	            for (var rs = 0; rs < currentMergedCell.rowspan; rs++) {
+	              var row = currentMergedCell.row + rs;
+
+	              for (var cs = 0; cs < currentMergedCell.colspan; cs++) {
+	                var col = currentMergedCell.col + cs;
+	                dontRender.push(row + ',' + col);
+	              }
+	            }
+	          }
+	        }
 
 	        for (var i = 0; i < data.length; i++) {
 	          html.push('<tr>');
@@ -1971,8 +2060,26 @@
 	              var columns = _step2.value;
 
 	              for (var j = 0; j < columns.length; j++) {
-	                if (!columns[j].printIgnore && columns[j].field) {
-	                  html.push('<td>', formatValue(data[i], i, columns[j]), '</td>');
+	                var rowspan = 0;
+	                var colspan = 0;
+
+	                if (_this2.mergedCells) {
+	                  for (var _mc = 0; _mc < _this2.mergedCells.length; _mc++) {
+	                    var _currentMergedCell = _this2.mergedCells[_mc];
+
+	                    if (_currentMergedCell.col === j && _currentMergedCell.row === i) {
+	                      rowspan = _currentMergedCell.rowspan;
+	                      colspan = _currentMergedCell.colspan;
+	                    }
+	                  }
+	                }
+
+	                if (!columns[j].printIgnore && columns[j].field && (!dontRender.includes(i + ',' + j) || rowspan > 0 && colspan > 0)) {
+	                  if (rowspan > 0 && colspan > 0) {
+	                    html.push("<td ".concat(Utils.sprintf(' rowspan="%s"', rowspan), " ").concat(Utils.sprintf(' colspan="%s"', colspan), ">"), formatValue(data[i], i, columns[j]), '</td>');
+	                  } else {
+	                    html.push('<td>', formatValue(data[i], i, columns[j]), '</td>');
+	                  }
 	                }
 	              }
 	            }
@@ -1994,7 +2101,45 @@
 	          html.push('</tr>');
 	        }
 
-	        html.push('</tbody></table>');
+	        html.push('</tbody>');
+
+	        if (_this2.options.showFooter) {
+	          html.push('<footer><tr>');
+	          var _iteratorNormalCompletion3 = true;
+	          var _didIteratorError3 = false;
+	          var _iteratorError3 = undefined;
+
+	          try {
+	            for (var _iterator3 = columnsArray[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	              var _columns = _step3.value;
+
+	              for (var h = 0; h < _columns.length; h++) {
+	                if (!_columns[h].printIgnore) {
+	                  var footerData = Utils.trToData(_columns, _this2.$el.find('>tfoot>tr'));
+	                  var footerValue = Utils.calculateObjectValue(_columns[h], _columns[h].footerFormatter, [data], footerData[0] && footerData[0][_columns[h].field] || '');
+	                  html.push("<th>".concat(footerValue, "</th>"));
+	                }
+	              }
+	            }
+	          } catch (err) {
+	            _didIteratorError3 = true;
+	            _iteratorError3 = err;
+	          } finally {
+	            try {
+	              if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+	                _iterator3.return();
+	              }
+	            } finally {
+	              if (_didIteratorError3) {
+	                throw _iteratorError3;
+	              }
+	            }
+	          }
+
+	          html.push('</tr></footer>');
+	        }
+
+	        html.push('</table>');
 	        return html.join('');
 	      };
 

@@ -1,0 +1,13 @@
+$border-color: #dbdbdb;
+$hover-bg: hsl(0,0%,98%);
+$background: #fff;
+$color: #363636;
+$dark-border-color: #32383e;
+
+// custom
+$background-hover: darken($background, 4);
+$primary-background: #3679e4;
+$primary-background-hover: darken($primary-background, 10);
+$btn-padding: 9px 12px;
+$btn-border: #ccc;
+$btn-border-radius: 4px;

@@ -86,6 +86,15 @@ $.fn.bootstrapTable.locales['nl-NL'] = {
   },
   formatAdvancedCloseButton () {
     return 'Sluiten'
+  },
+  formatFilterControlSwitch () {
+    return 'Verberg/Toon controls'
+  },
+  formatFilterControlSwitchHide () {
+    return 'Verberg controls'
+  },
+  formatFilterControlSwitchShow () {
+    return 'Toon controls'
   }
 }
 

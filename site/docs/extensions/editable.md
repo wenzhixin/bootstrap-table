@@ -30,6 +30,18 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
 
 ## Column options
 
+### alwaysUseFormatter
+
+- **Attribute:** `data-always-use-formatter`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+    Set `true` to use always the formatter, even if the column was already edited.
+
+- **Default:** `false`
+
 ### editable
 
 - **Attribute:** `data-editable`
@@ -59,6 +71,21 @@ Use Plugin: [x-editable](https://github.com/vitalets/x-editable)
       </tr>
     </thead>
   </table>
+  {% endhighlight %}
+
+  You can use `noEditFormatter` to disable the editable column, for example:
+
+  {% highlight javascript %}
+  {
+    editable: {
+      noEditFormatter (value, row, index) {
+        if (value === 'noEdit') {
+          return 'No Edit'
+        }
+        return false
+      }
+    }
+  }
   {% endhighlight %}
 
 - **Default:** `undefined`

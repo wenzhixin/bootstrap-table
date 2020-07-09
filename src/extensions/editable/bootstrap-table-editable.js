@@ -21,6 +21,10 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
+$.extend($.fn.bootstrapTable.columnDefaults, {
+  alwaysUseFormatter: false
+})
+
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'editable-init.bs.table': 'onEditableInit',
   'editable-save.bs.table': 'onEditableSave',
@@ -60,7 +64,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       column.formatter = (value, row, index) => {
         let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
         result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
-        if (this.options.uniqueId !== undefined) {
+        if (this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
           const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
           if ($.inArray(column.field + uniqueId, this.editedCells) !== -1) {
             result = value
@@ -73,19 +77,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
           editableDataMarkup.push(` ${key}="${value}"`)
         })
 
-        let _dont_edit_formatter = false
-        if (column.editable.hasOwnProperty('noeditFormatter')) {
-          _dont_edit_formatter = column.editable.noeditFormatter(value, row, index)
+        let noEditFormatter = false
+        const editableOpts = Utils.calculateObjectValue(column,
+          column.editable, [index, row], {})
+
+        if (editableOpts.hasOwnProperty('noEditFormatter')) {
+          noEditFormatter = editableOpts.noEditFormatter(value, row, index)
         }
 
-        if (_dont_edit_formatter === false) {
+        if (noEditFormatter === false) {
           return `<a href="javascript:void(0)"
             data-name="${column.field}"
             data-pk="${row[this.options.idField]}"
             data-value="${result}"
             ${editableDataMarkup.join('')}></a>`
         }
-        return _dont_edit_formatter
+        return noEditFormatter
       }
     })
   }
@@ -102,7 +109,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return
       }
 
-      const data = this.getData()
+      const data = this.getData({escape: true})
       const $field = this.$body.find(`a[data-name="${column.field}"]`)
 
       $field.each((i, element) => {
@@ -124,13 +131,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const row = data[rowIndex]
         const oldValue = row[column.field]
 
-        if (this.options.uniqueId !== undefined) {
+        if (this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
           const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
           if ($.inArray(column.field + uniqueId, this.editedCells) === -1) {
             this.editedCells.push(column.field + uniqueId)
           }
         }
 
+        submitValue = Utils.escapeHTML(submitValue)
         $this.data('value', submitValue)
         row[column.field] = submitValue
         this.trigger('editable-save', column.field, row, rowIndex, oldValue, $this)
@@ -156,5 +164,19 @@ $.BootstrapTable = class extends $.BootstrapTable {
       })
     })
     this.trigger('editable-init')
+  }
+
+  getData (params) {
+    const data = super.getData(params)
+
+    if (params && params.escape) {
+      for (const row of data) {
+        for (const [key, value] of Object.entries(row)) {
+          row[key] = Utils.unescapeHTML(value)
+        }
+      }
+    }
+
+    return data
   }
 }

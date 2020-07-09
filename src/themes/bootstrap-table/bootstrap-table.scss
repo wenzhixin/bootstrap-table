@@ -1,0 +1,347 @@
+/**
+ * @author Dustin Utecht
+ * https://github.com/wenzhixin/bootstrap-table/
+ */
+@import 'variables';
+@import '../theme.scss';
+@import './font.scss';
+
+.bootstrap-table {
+  * {
+    box-sizing: border-box;
+  }
+
+  input.form-control,
+  select.form-control,
+  .btn {
+    border-radius: $btn-border-radius;
+    background-color: $background;
+    border: 1px solid $btn-border;
+    padding: $btn-padding;
+  }
+
+  select.form-control {
+    height: 35px;
+  }
+
+  .btn {
+    outline: none;
+    cursor: pointer;
+
+    &.active {
+      background-color: darken($background, 8);
+    }
+
+    &:focus,
+    &:hover {
+      background-color: $background-hover;
+    }
+  }
+
+  .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+  }
+
+  .detail-icon {
+    text-decoration: none;
+    color: $primary-background;
+
+    &:hover {
+      color: darken($primary-background, 20);
+    }
+  }
+
+  .fixed-table-toolbar {
+    .columns {
+      &,
+      .btn-group {
+        display: inline-block;
+      }
+
+      > .btn,
+      > .btn-group {
+        &:not(:first-child):not(:last-child) {
+          &,
+          > .btn {
+            border-radius: 0;
+          }
+        }
+
+        &:not(:last-child):not(.dropdown-toggle),
+        &:not(:last-child) > .btn {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          border-right: none;
+        }
+
+        &:not(:first-child):not(.dropdown-toggle),
+        &:not(:first-child) > .btn {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+
+      label {
+        padding: 5px 12px;
+      }
+
+      input[type="checkbox"] {
+        vertical-align: middle;
+      }
+
+      .dropdown-divider {
+        border-bottom: 1px solid $border-color;
+      }
+    }
+
+    .search .input-group {
+      .search-input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: none;
+      }
+
+      button[name="search"],
+      button[name="clearSearch"] {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        &:not(:last-child) {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          border-right: none;
+        }
+      }
+    }
+  }
+
+  .open {
+    &.dropdown-menu {
+      display: block;
+    }
+  }
+
+  .dropdown-menu-up {
+    .dropdown-menu {
+      top: auto;
+      bottom: 100%;
+    }
+  }
+
+  .dropdown-menu {
+    display: none;
+    background-color: $background;
+    position: absolute;
+    right: 0;
+    min-width: 120px;
+    margin-top: 2px;
+    border: 1px solid $btn-border;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .175);
+
+    .dropdown-item {
+      color: $color;
+      text-decoration: none;
+      display: block;
+      padding: 5px 12px;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: $background-hover;
+      }
+
+      &.active {
+        background-color: $primary-background;
+        color: #fff;
+
+        &:hover {
+          background-color: $primary-background-hover;
+        }
+      }
+    }
+  }
+
+  .columns-left {
+    .dropdown-menu {
+      left: 0;
+      right: auto;
+    }
+  }
+
+  .pagination-detail {
+    float: left;
+    .dropdown-item {
+      min-width: 45px;
+      text-align: center;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+
+    th {
+      text-align: inherit;
+    }
+
+    &.table-bordered {
+      thead tr th,
+      tbody tr td {
+        border: 1px solid $border-color;
+      }
+
+      tbody tr td {
+        padding: 0.75rem;
+      }
+    }
+
+    &.table-hover {
+      tbody tr:hover {
+        background: $hover-bg;
+      }
+    }
+  }
+
+  .float-left {
+    float: left;
+  }
+
+  .float-right {
+    float: right;
+  }
+
+  .pagination {
+    padding: 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    list-style: none;
+
+    .page-item {
+      border: 1px solid $border-color;
+      background-color: $background;
+      border-radius: 4px;
+      margin: 2px;
+      padding: 5px 2px 5px 2px;
+
+      &:hover {
+        background-color: $background-hover;
+      }
+
+      .page-link {
+        color: $color;
+        text-decoration: none;
+        outline: none;
+      }
+
+      &.active {
+        background-color: $primary-background;
+        border: 1px solid darken($primary-background, 5);
+
+        .page-link {
+          color: #fff;
+        }
+
+        &:hover {
+          background-color: $primary-background-hover;
+        }
+      }
+    }
+
+    .btn-group {
+      display: inline-block;
+
+      .btn,
+      input {
+        &:not(:first-child):not(:last-child) {
+          border-radius: 0;
+        }
+
+        &:first-child:not(:last-child):not(.dropdown-toggle) {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+        &:last-child:not(:first-child) {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+
+      & > .btn-group:last-child:not(:first-child) > .btn:first-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+
+  .filter-control {
+    display: flex;
+  }
+
+  .page-jump-to {
+    input,
+    .btn {
+      padding: 8px 12px;
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  &.show {
+    display: flex;
+  }
+
+  .btn {
+    border-radius: 4px;
+    background-color: $background;
+    border: 1px solid $btn-border;
+    padding: 6px 12px;
+    outline: none;
+    cursor: pointer;
+
+    &.active {
+      border-color: black;
+    }
+  }
+
+  .modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 998;
+    background-color: rgba(10,10,10,.86);
+  }
+
+  .modal-content {
+    position: relative;
+    width: 600px;
+    margin: 30px auto;
+    z-index: 999;
+
+    .box {
+      background-color: #fff;
+      border-radius: 6px;
+      display: block;
+      padding: 1.25rem;
+    }
+  }
+}

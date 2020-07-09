@@ -34,6 +34,7 @@ export default {
     this.$table.on('all.bs.table', (e, name, args) => {
       let eventName = $.fn.bootstrapTable.events[name]
       eventName = eventName.replace(/([A-Z])/g, '-$1').toLowerCase()
+      this.$emit('on-all', ...args)
       this.$emit(eventName, ...args)
     })
 

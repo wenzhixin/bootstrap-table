@@ -4,7 +4,7 @@
 	(global = global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -1001,7 +1001,8 @@
 	$.extend($.fn.bootstrapTable.defaults.icons, {
 	  autoRefresh: {
 	    bootstrap3: 'glyphicon-time icon-time',
-	    materialize: 'access_time'
+	    materialize: 'access_time',
+	    'bootstrap-table': 'icon-clock'
 	  }[$.fn.bootstrapTable.theme] || 'fa-clock'
 	});
 	$.extend($.fn.bootstrapTable.locales, {

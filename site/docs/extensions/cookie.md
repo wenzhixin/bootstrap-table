@@ -30,6 +30,70 @@ toc: true
 
 - **Default:** `false`
 
+### cookieCustomStorageDelete
+
+- **Attribute:** `data-cookie-custom-storage-delete`
+
+- **type:** `function`
+
+- **parameter**
+
+  - cookieName - The name of the value e.g. the search
+
+- **Detail:**
+
+   This option allows to delete values with your custom function.
+   This option is only required if you use `customStorage` on the `cookieStorage` option!
+
+- **Default:** `undefined`
+
+### cookieCustomStorageGet
+
+- **Attribute:** `data-cookie-custom-storage-get`
+
+- **type:** `function`
+
+- **parameter**
+
+  - cookieName - The name of the value e.g. the search
+
+- **Detail:**
+
+   This option allows to get the saved value from your custom function.
+   This option is only required if you use `customStorage` on the `cookieStorage` option!
+
+- **Default:** `undefined`
+
+### cookieCustomStorageSet
+
+- **Attribute:** `data-cookie-custom-storage-set`
+
+- **type:** `function`
+
+- **parameter**
+
+  - cookieName - The name of the value e.g. the search
+  - value - The value which will be saved
+
+- **Detail:**
+
+   This option allows to save values with your custom function.
+   This option is only required if you use `customStorage` on the `cookieStorage` option!
+
+- **Default:** `undefined`
+
+### cookieDomain
+
+- **Attribute:** `data-cookie-domain`
+
+- **type:** `String`
+
+- **Detail:**
+
+   This is the website domain, with the www. prefix removed.
+
+- **Default:** `null`
+
 ### cookieExpire
 
 - **Attribute:** `data-cookie-expire`
@@ -42,6 +106,18 @@ toc: true
 
 - **Default:** `2h`
 
+### cookieIdTable
+
+- **Attribute:** `data-cookie-id-table`
+
+- **type:** `String`
+
+- **Detail:**
+
+   You must set this property if the cookie property is enabled to set an unique cookie with an identifier for each table in your page or project. You must set this property because we need create cookies with an identifier.
+
+- **Default:** `''`
+
 ### cookiePath
 
 - **Attribute:** `data-cookie-path`
@@ -51,18 +127,6 @@ toc: true
 - **Detail:**
 
    you can tell the browser what path the cookie belongs to. By default, the cookie belongs to the current page.
-
-- **Default:** `null`
-
-### cookieDomain
-
-- **Attribute:** `data-cookie-domain`
-
-- **type:** `String`
-
-- **Detail:**
-
-   This is the website domain, with the www. prefix removed.
 
 - **Default:** `null`
 
@@ -78,18 +142,6 @@ toc: true
 
 - **Default:** `null`
 
-### cookieIdTable
-
-- **Attribute:** `data-cookie-id-table`
-
-- **type:** `String`
-
-- **Detail:**
-
-   You must set this property if the cookie property is enabled to set an unique cookie with an identifier for each table in your page or project. You must set this property because we need create cookies with an identifier.
-
-- **Default:** `''`
-
 ### cookieStorage
 
 - **Attribute:** `data-cookie-storage`
@@ -99,9 +151,9 @@ toc: true
 - **Detail:**
 
    Set the storage that this extension will use. Use `cookieStorage` or `localStorage` or `sessionStorage` or `customStorage`.
-   
-   Info for `customStorage`:   
-   You have use `cookieCustomStorageGet`, `cookieCustomStorageSet` and `cookieCustomStorageDelete`. 
+
+   Info for `customStorage`:
+   You have use `cookieCustomStorageGet`, `cookieCustomStorageSet` and `cookieCustomStorageDelete`.
 
 - **Default:** `cookieStorage`
 
@@ -117,64 +169,7 @@ toc: true
 
 - **Default:** `['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']`
 
-### cookieCustomStorageGet
-
-- **Attribute:** `data-cookie-custom-storage-get`
-
-- **type:** `function`
-
-- **parameter**
-  - cookieName - The name of the value e.g. the search
-
-- **Detail:**
-
-   This option allows to get the saved value from your custom function.   
-   This option is only required if you use `customStorage` on the `cookieStorage` option! 
-
-- **Default:** `undefined`
-
-### cookieCustomStorageSet
-
-- **Attribute:** `data-cookie-custom-storage-set`
-
-- **type:** `function`
-
-- **parameter**
-  - cookieName - The name of the value e.g. the search
-  - value - The value which will be saved
-
-- **Detail:**
-
-   This option allows to save values with your custom function.   
-   This option is only required if you use `customStorage` on the `cookieStorage` option! 
-
-- **Default:** `undefined`
-
-### cookieCustomStorageDelete
-
-- **Attribute:** `data-cookie-custom-storage-delete`
-
-- **type:** `function`
-
-- **parameter**
-  - cookieName - The name of the value e.g. the search
-
-- **Detail:**
-
-   This option allows to delete values with your custom function.      
-   This option is only required if you use `customStorage` on the `cookieStorage` option! 
-
-- **Default:** `undefined`
-
 ## Methods
-
-### getCookies
-
-- **parameters:** `undefined`
-
-- **Detail:**
-
-   Return the saved cookies.
 
 ### deleteCookie
 
@@ -184,10 +179,19 @@ toc: true
 
    Delete the saved cookie by cookie name.
 
+### getCookies
+
+- **parameters:** `undefined`
+
+- **Detail:**
+
+   Return the saved cookies.
+
 ## This plugin saves
 
-* Sort order
 * Page number
 * Page number from the list
-* Visible columns
 * Search text
+* Search filter control
+* Sort order
+* Visible columns

@@ -8,7 +8,8 @@ const Utils = $.fn.bootstrapTable.utils
 $.extend($.fn.bootstrapTable.defaults.icons, {
   copy: {
     bootstrap3: 'glyphicon-copy icon-pencil',
-    materialize: 'content_copy'
+    materialize: 'content_copy',
+    'bootstrap-table': 'icon-copy'
   }[$.fn.bootstrapTable.theme] || 'fa-copy'
 })
 

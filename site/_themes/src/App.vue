@@ -104,6 +104,14 @@ export default {
             price: ''
           },
           {
+            name: 'Bootstrap Table',
+            desc: 'Our custom theme of Bootstrap Table.',
+            img: '/assets/images/bootstrap-table.jpg',
+            url: '/themes/bootstrap-table/',
+            demo: 'https://examples.bootstrap-table.com/index.html?bootstrap-table',
+            price: ''
+          },
+          {
             name: 'Semantic UI',
             desc: 'UI component framework based around useful principles from natural language.',
             img: '/assets/images/semantic.jpg',
