@@ -17,8 +17,8 @@ jobs:
       language: ruby
       rvm:
         - 2.4.1
-      node_js:
-        - 12
+      before_install:
+        - nvm install 12
       script: ./deploy.sh
       if: branch = master AND type = push
       cache: bundler
