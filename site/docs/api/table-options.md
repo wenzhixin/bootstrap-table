@@ -1419,11 +1419,25 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines the column sort order, can only be `'none'`, `'asc'` or `'desc'`.
+  Defines the column sort order, can only be `undefined`, `'asc'` or `'desc'`.
 
-- **Default:** `'none'`
+- **Default:** `undefined`
 
 - **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#options/sort-name-order.html)
+
+## sortReset
+
+- **Attribute:** `data-sort-reset`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to reset the sort on third click.
+
+- **Default:** `false`
+
+- **Example:** [Sort Reset](https://examples.bootstrap-table.com/#options/sort-reset.html)
 
 ## sortStable
 

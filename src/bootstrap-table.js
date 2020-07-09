@@ -477,8 +477,16 @@ class BootstrapTable {
 
     if (this.options.sortName === $this.data('field')) {
       const currentSortOrder = this.options.sortOrder
-      this.options.sortOrder = currentSortOrder === 'none' ? 'asc' : currentSortOrder === 'asc' ? 'desc' : 'none'
-      if (this.options.sortOrder === 'none') {
+
+      if (currentSortOrder === undefined) {
+        this.options.sortOrder = 'asc'
+      } else if (currentSortOrder === 'asc') {
+        this.options.sortOrder = 'desc'
+      } else if (this.options.sortOrder === 'desc') {
+        this.options.sortOrder = this.options.sortReset ? undefined : 'asc'
+      }
+
+      if (this.options.sortOrder === undefined) {
         this.options.sortName = undefined
       }
     } else {
