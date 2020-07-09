@@ -90,6 +90,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   updateCopyButton () {
-    this.$copyButton.prop('disabled', !this.getSelections().length)
+    if (this.options.showCopyRows) {
+      this.$copyButton.prop('disabled', !this.getSelections().length)
+    }
   }
 }
