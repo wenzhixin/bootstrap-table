@@ -406,6 +406,7 @@ class BootstrapTable {
     }
 
     this.data = this.options.data
+    this.unsortedData = [...this.data]
 
     if (this.options.sidePagination === 'server') {
       return
@@ -463,6 +464,8 @@ class BootstrapTable {
           this.$el.find(`tr td:nth-child(${index + 1})`).addClass(this.options.sortClass)
         }, 250)
       }
+    } else {
+      this.data = this.unsortedData
     }
   }
 
@@ -473,7 +476,11 @@ class BootstrapTable {
     this.$header.add(this.$header_).find('span.order').remove()
 
     if (this.options.sortName === $this.data('field')) {
-      this.options.sortOrder = this.options.sortOrder === 'asc' ? 'desc' : 'asc'
+      const currentSortOrder = this.options.sortOrder
+      this.options.sortOrder = currentSortOrder === 'none' ? 'asc' : currentSortOrder === 'asc' ? 'desc' : 'none'
+      if (this.options.sortOrder === 'none') {
+        this.options.sortName = undefined
+      }
     } else {
       this.options.sortName = $this.data('field')
       if (this.options.rememberOrder) {
@@ -939,7 +946,7 @@ class BootstrapTable {
         }
         return false
       }) : this.data
-
+      this.unsortedData = [...this.data]
       this.initSort()
     }
   }
