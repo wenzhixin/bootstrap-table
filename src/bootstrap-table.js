@@ -1377,7 +1377,7 @@ class BootstrapTable {
       let title_ = ''
       const column = this.columns[j]
 
-      if (this.fromHtml && typeof value_ === 'undefined') {
+      if ((this.fromHtml || this.autoMergeCells) && typeof value_ === 'undefined') {
         if ((!column.checkbox) && (!column.radio)) {
           return
         }
@@ -1519,6 +1519,8 @@ class BootstrapTable {
     const rows = []
     const trFragments = $(document.createDocumentFragment())
     let hasTr = false
+
+    this.autoMergeCells = Utils.checkAutoMergeCells(data.slice(this.pageFrom - 1, this.pageTo))
 
     for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
       const item = data[i]

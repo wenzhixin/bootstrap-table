@@ -338,5 +338,16 @@ export default {
 
   hasDetailViewIcon (options) {
     return options.detailView && options.detailViewIcon && !options.cardView
+  },
+
+  checkAutoMergeCells (data) {
+    for (const row of data) {
+      for (const key of Object.keys(row)) {
+        if (key.startsWith('_') && (key.endsWith('_rowspan') || key.endsWith('_colspan'))) {
+          return true
+        }
+      }
+    }
+    return false
   }
 }
