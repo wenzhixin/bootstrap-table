@@ -402,11 +402,15 @@ class BootstrapTable {
     } else if (type === 'prepend') {
       this.options.data = [].concat(data).concat(this.options.data)
     } else {
-      this.options.data = data || this.options.data
+      data = data || this.options.data
+      this.options.data = Array.isArray(data) ? data : data[this.options.dataField]
     }
 
-    this.data = this.options.data
-    this.unsortedData = [...this.data]
+    this.data = [...this.options.data]
+
+    if (this.options.sortReset) {
+      this.unsortedData = [...this.data]
+    }
 
     if (this.options.sidePagination === 'server') {
       return
@@ -464,8 +468,8 @@ class BootstrapTable {
           this.$el.find(`tr td:nth-child(${index + 1})`).addClass(this.options.sortClass)
         }, 250)
       }
-    } else {
-      this.data = this.unsortedData
+    } else if (this.options.sortReset) {
+      this.data = [...this.unsortedData]
     }
   }
 
@@ -872,7 +876,7 @@ class BootstrapTable {
           }
 
           return true
-        }) : this.options.data
+        }) : [...this.options.data]
       }
 
       const visibleFields = this.getVisibleFields()
@@ -954,7 +958,11 @@ class BootstrapTable {
         }
         return false
       }) : this.data
-      this.unsortedData = [...this.data]
+
+      if (this.options.sortReset) {
+        this.unsortedData = [...this.data]
+      }
+
       this.initSort()
     }
   }
