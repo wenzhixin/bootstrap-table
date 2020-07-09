@@ -1039,6 +1039,18 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Search](https://examples.bootstrap-table.com/#options/table-search.html)
 
+### searchAccentNeutralise
+
+- **Attribute:** `data-search-accent-neutralise`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set to `true` if you want to use accent neutralise feature.
+
+- **Default:** `false`
+
 ## searchAlign
 
 - **Attribute:** `data-search-align`
