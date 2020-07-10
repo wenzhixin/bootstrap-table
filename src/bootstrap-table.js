@@ -589,7 +589,7 @@ class BootstrapTable {
         if (opts.showColumnsSearch) {
           html.push(
             Utils.sprintf(this.constants.html.toolbarDropdownItem,
-              Utils.sprintf('<input type="text" class="%s" id="columnsSearch" placeholder="%s" autocomplete="off">', this.constants.classes.input, opts.formatSearch())
+              Utils.sprintf('<input type="text" class="%s" name="columnsSearch" placeholder="%s" autocomplete="off">', this.constants.classes.input, opts.formatSearch())
             )
           )
           html.push(this.constants.html.toolbarDropdownSeparator)
@@ -702,7 +702,7 @@ class BootstrapTable {
       })
 
       if (opts.showColumnsSearch) {
-        const $columnsSearch = $keepOpen.find('#columnsSearch')
+        const $columnsSearch = $keepOpen.find('[name="columnsSearch"]')
         const $listItems = $keepOpen.find('.dropdown-item-marker')
         $columnsSearch.on('keyup paste change', ({currentTarget}) => {
           const $this = $(currentTarget)

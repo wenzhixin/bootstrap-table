@@ -31,6 +31,7 @@ ChangeLog
 - **Update:** Fixed `font-size` of the loading text.
 - **Update:** Fixed table `border` bug when table is hidden.
 - **Update:** Fixed `showRow` method show all hidden rows bug.
+- **Update:** Fixed columnsSearch non-unique id warning.
 - **Remove:** Removed the `onlyInfoPagination` option.
 - **Remove:** Removed accent neutralise extension and moved it to core.
 
