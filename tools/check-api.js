@@ -15,8 +15,8 @@ if (exampleFilesFound) {
     ...fs.readdirSync(exampleFilesFolder + 'methods')
   ]
 } else {
-  console.log((chalk.yellow(chalk.bold('Warning: ') + 'Cant check if example files are correct formatted and has a valid url.')))
-  console.log((chalk.yellow(chalk.bold('Warning: ') + 'To enable that check, please clone the "bootstrap-table-examples" repository in the tools folder or create a symlink (if you already cloned the repository on a other path).')))
+  console.log((chalk.yellow(chalk.bold('Warning: ') + 'Cant check if example files are correct formatted and have a valid url.')))
+  console.log((chalk.yellow(chalk.bold('Warning: ') + 'To enable that check, please clone the "bootstrap-table-examples" repository in the tools folder or create a symlink (if you already cloned the repository on an other path).')))
 }
 
 class API {
