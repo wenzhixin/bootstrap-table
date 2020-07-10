@@ -279,6 +279,25 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   The data to be loaded.
 
+  If in the data has `_<field>_rowspan` or `_<field>_colspan` property, then will merge cells auto, for example:
+  ```js
+  $table.bootstrapTable({
+    data: [
+      {
+        id: 1,
+        name: 'Item 1',
+        _name_rowspan: 2,
+        price: '$1'
+      },
+      {
+        id: 2,
+        price: '$2'
+      }
+    ]
+  })
+  ```
+  If use this feature, the `data` is required to ensure that the format is correct.
+
 - **Default:** `[]`
 
 - **Example:** [From Data](https://examples.bootstrap-table.com/#welcomes/from-data.html)
@@ -621,7 +640,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   * loadingMessage: the `formatLoadingMessage` locale.
 
 - **Default:**
-  ```
+  ```js
   function (loadingMessage) {
     return '<span class="loading-wrap">' +
       '<span class="loading-text">' +
@@ -1051,7 +1070,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
-- **Example:** [Accent Neutralise](https://examples.bootstrap-table.com/#options/search-align.html)
+- **Example:** [Search Accent Neutralise](https://examples.bootstrap-table.com/#options/search-accent-neutralise.html)
 
 ## searchAlign
 
