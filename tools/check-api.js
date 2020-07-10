@@ -3,29 +3,13 @@ require = require('esm')(module)
 const fs = require('fs')
 const chalk = require('chalk')
 const Constants = require('../src/constants/index.js').default
-const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
 let errorSum = 0
-
-function loadExampleLink (url) {
-  const request = new XMLHttpRequest()
-  request.open('GET', url, false)
-  request.send(null)
-
-  const filesJson = JSON.parse(request.responseText)
-  const fileNames = []
-
-  for (const [key, value] of Object.entries(filesJson)) {
-    fileNames.push(value.name)
-  }
-
-  return fileNames
-}
-
-let exampleFiles = []
-exampleFiles = exampleFiles.concat(loadExampleLink('https://api.github.com/repos/wenzhixin/bootstrap-table-examples/contents/options'))
-exampleFiles = exampleFiles.concat(loadExampleLink('https://api.github.com/repos/wenzhixin/bootstrap-table-examples/contents/methods'))
-exampleFiles = exampleFiles.concat(loadExampleLink('https://api.github.com/repos/wenzhixin/bootstrap-table-examples/contents/column-options'))
-exampleFiles = exampleFiles.concat(loadExampleLink('https://api.github.com/repos/wenzhixin/bootstrap-table-examples/contents/welcomes'))
+const exampleFiles = [
+  ...fs.readdirSync('./bootstrap-table-examples/welcomes'),
+  ...fs.readdirSync('./bootstrap-table-examples/options'),
+  ...fs.readdirSync('./bootstrap-table-examples/column-options'),
+  ...fs.readdirSync('./bootstrap-table-examples/methods')
+]
 
 class API {
   constructor () {
@@ -109,7 +93,8 @@ class TableOptions extends API {
     this.attributes = ['Attribute', 'Type', 'Detail', 'Default', 'Example']
     this.ignore = {
       totalRows: ['Example'],
-      totalNotFiltered: ['Example']
+      totalNotFiltered: ['Example'],
+      virtualScrollItemHeight: ['Example']
     }
   }
 }

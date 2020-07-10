@@ -32,8 +32,7 @@
     "safe-eval": "^0.4.1",
     "stylelint": "^13.3.3",
     "stylelint-config-standard": "^20.0.0",
-    "vue-template-compiler": "^2.6.10",
-    "xmlhttprequest": "^1.8.0"
+    "vue-template-compiler": "^2.6.10"
   },
   "scripts": {
     "lint:js": "eslint src",
