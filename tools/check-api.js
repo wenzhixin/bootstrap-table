@@ -4,12 +4,20 @@ const fs = require('fs')
 const chalk = require('chalk')
 const Constants = require('../src/constants/index.js').default
 let errorSum = 0
-const exampleFiles = [
-  ...fs.readdirSync('./bootstrap-table-examples/welcomes'),
-  ...fs.readdirSync('./bootstrap-table-examples/options'),
-  ...fs.readdirSync('./bootstrap-table-examples/column-options'),
-  ...fs.readdirSync('./bootstrap-table-examples/methods')
-]
+const exampleFilesFolder = './bootstrap-table-examples/'
+const exampleFilesFound = fs.existsSync(exampleFilesFolder)
+let exampleFiles = []
+if (exampleFilesFound) {
+  exampleFiles = [
+    ...fs.readdirSync(exampleFilesFolder + 'welcomes'),
+    ...fs.readdirSync(exampleFilesFolder + 'options'),
+    ...fs.readdirSync(exampleFilesFolder + 'column-options'),
+    ...fs.readdirSync(exampleFilesFolder + 'methods')
+  ]
+} else {
+  console.log((chalk.yellow(chalk.bold('Warning: ') + 'Cant check if example files are correct formatted and has a valid url.')))
+  console.log((chalk.yellow(chalk.bold('Warning: ') + 'To enable that check, please clone the "bootstrap-table-examples" repository in the tools folder or create a symlink (if you already cloned the repository on a other path).')))
+}
 
 class API {
   constructor () {
@@ -48,7 +56,7 @@ class API {
           }
 
           const tmpDetails = details[i + 1].trim()
-          if (name === 'Example') {
+          if (name === 'Example' && exampleFilesFound) {
             const matches = exampleRegex.exec(tmpDetails)
             if (matches === null) {
               errors.push(chalk.red(`[${key}] missing or wrong formatted example`, `"${tmpDetails}"`))
