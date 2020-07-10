@@ -3,7 +3,29 @@ require = require('esm')(module)
 const fs = require('fs')
 const chalk = require('chalk')
 const Constants = require('../src/constants/index.js').default
+const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
 let errorSum = 0
+
+function loadExampleLink (url) {
+  const request = new XMLHttpRequest()
+  request.open('GET', url, false)
+  request.send(null)
+
+  const filesJson = JSON.parse(request.responseText)
+  const fileNames = []
+
+  for (const [key, value] of Object.entries(filesJson)) {
+    fileNames.push(value.name)
+  }
+
+  return fileNames
+}
+
+let exampleFiles = []
+exampleFiles = exampleFiles.concat(loadExampleLink('https://api.github.com/repos/wenzhixin/bootstrap-table-examples/contents/options'))
+exampleFiles = exampleFiles.concat(loadExampleLink('https://api.github.com/repos/wenzhixin/bootstrap-table-examples/contents/methods'))
+exampleFiles = exampleFiles.concat(loadExampleLink('https://api.github.com/repos/wenzhixin/bootstrap-table-examples/contents/column-options'))
+exampleFiles = exampleFiles.concat(loadExampleLink('https://api.github.com/repos/wenzhixin/bootstrap-table-examples/contents/welcomes'))
 
 class API {
   constructor () {
@@ -23,6 +45,7 @@ class API {
     const lines = content.split('## ')
     const outLines = lines.slice(0, 1)
     const errors = []
+    const exampleRegex = /\[.*\]\(.*\/(.*\.html)\)/m
 
     for (const item of lines.slice(1)) {
       md[item.split('\n')[0]] = item
@@ -39,7 +62,21 @@ class API {
           if (this.ignore && this.ignore[key] && this.ignore[key].includes(name)) {
             continue
           }
-          if (!details[i + 1] || details[i + 1].indexOf(`**${name}:**`) === -1) {
+
+          const tmpDetails = details[i + 1].trim()
+          if (name === 'Example') {
+            const matches = exampleRegex.exec(tmpDetails)
+            if (matches === null) {
+              errors.push(chalk.red(`[${key}] missing or wrong formatted example`, `"${tmpDetails}"`))
+              continue
+            }
+
+            if (!exampleFiles.includes(matches[1])) {
+              errors.push(chalk.red(`[${key}] example '${matches[1]}' could not be found`))
+            }
+          }
+
+          if (!tmpDetails || tmpDetails.indexOf(`**${name}:**`) === -1) {
             errors.push(chalk.red(`[${key}] missing '${name}'`))
           }
         }
