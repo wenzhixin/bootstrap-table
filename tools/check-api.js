@@ -58,7 +58,7 @@ class API {
           const tmpDetails = details[i + 1].trim()
           if (name === 'Example' && exampleFilesFound) {
             const matches = exampleRegex.exec(tmpDetails)
-            if (matches === null) {
+            if (!matches) {
               errors.push(chalk.red(`[${key}] missing or wrong formatted example`, `"${tmpDetails}"`))
               continue
             }
