@@ -190,7 +190,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `unfiltered`: if set to true the method will include all data (unfiltered).
   * `formatted`: get the formatted value from the defined [formatter](https://bootstrap-table.com/docs/api/column-options/#formatter).
 
-- **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/getData.html)
+- **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/get-data.html)
 
 ## getHiddenColumns
 
@@ -461,7 +461,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
     -  Scroll to the unit (`px` or `rows (index starts by 0)`)
     Default: `{unit: 'px', value: 0}`
 
-- **Example:** [Scroll To](https://examples.bootstrap-table.com/#methods/scorll-to.html)
+- **Example:** [Scroll To](https://examples.bootstrap-table.com/#methods/scroll-to.html)
 
 ## selectPage
 

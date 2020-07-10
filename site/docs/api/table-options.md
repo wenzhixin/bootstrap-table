@@ -267,7 +267,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [Custom Order](https://examples.bootstrap-table.com/#options/custom-order.html)
+- **Example:** [Custom Order](https://examples.bootstrap-table.com/#options/custom-sort.html)
 
 ## data
 
@@ -1649,7 +1649,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [getRowByUniqueId](https://examples.bootstrap-table.com/#methods/getRowByUniqueId.html)
+- **Example:** [getRowByUniqueId](https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html)
 
 ## url
 
