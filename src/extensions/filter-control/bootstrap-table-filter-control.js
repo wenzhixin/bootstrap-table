@@ -211,9 +211,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
                   if (tmpItemIsExpected) {
                     return
                   }
+
+                  if (this.options.searchAccentNeutralise) {
+                    objectValue = Utils.normalizeAccent(objectValue)
+                  }
+
                   tmpItemIsExpected = that.isValueExpected(fval, objectValue, thisColumn, key)
                 })
               } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+                if (this.options.searchAccentNeutralise) {
+                  value = Utils.normalizeAccent(value)
+                }
                 tmpItemIsExpected = that.isValueExpected(fval, value, thisColumn, key)
               }
             }

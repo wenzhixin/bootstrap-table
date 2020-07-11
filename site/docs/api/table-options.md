@@ -267,7 +267,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [Custom Order](https://examples.bootstrap-table.com/#options/custom-order.html)
+- **Example:** [Custom Order](https://examples.bootstrap-table.com/#options/custom-sort.html)
 
 ## data
 
@@ -278,6 +278,25 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   The data to be loaded.
+
+  If in the data has `_<field>_rowspan` or `_<field>_colspan` property, then will merge cells auto, for example:
+  ```js
+  $table.bootstrapTable({
+    data: [
+      {
+        id: 1,
+        name: 'Item 1',
+        _name_rowspan: 2,
+        price: '$1'
+      },
+      {
+        id: 2,
+        price: '$2'
+      }
+    ]
+  })
+  ```
+  If use this feature, the `data` is required to ensure that the format is correct.
 
 - **Default:** `[]`
 
@@ -491,22 +510,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
 
-## html
-
-- **Attribute:** `data-html`
-
-- **Type:** `Object`
-
-- **Detail:**
-
-  Defines some html of the table.
-
-- **Default:**
-
-  Too much code, please checkout the source code of the `index.js`
-
-- **Example:** [Table Html](https://examples.bootstrap-table.com/#options/table-html.html)
-
 ## iconSize
 
 - **Attribute:** `data-icon-size`
@@ -621,7 +624,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   * loadingMessage: the `formatLoadingMessage` locale.
 
 - **Default:**
-  ```
+  ```js
   function (loadingMessage) {
     return '<span class="loading-wrap">' +
       '<span class="loading-text">' +
@@ -1038,6 +1041,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Table Search](https://examples.bootstrap-table.com/#options/table-search.html)
+
+### searchAccentNeutralise
+
+- **Attribute:** `data-search-accent-neutralise`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set to `true` if you want to use accent neutralise feature.
+
+- **Default:** `false`
+
+- **Example:** [Search Accent Neutralise](https://examples.bootstrap-table.com/#options/search-accent-neutralise.html)
 
 ## searchAlign
 
@@ -1616,7 +1633,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [getRowByUniqueId](https://examples.bootstrap-table.com/#methods/getRowByUniqueId.html)
+- **Example:** [getRowByUniqueId](https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html)
 
 ## url
 
@@ -1668,8 +1685,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   It is **important** to provide this if virtual item height will be significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized, and to help calculate the height of the scrollable area. This height value can only use `px` units.
 
 - **Default:** `undefined`
-
-- **Example:** [Virtual Scroll Item Height](https://examples.bootstrap-table.com/#options/virtual-scroll-item-height.html)
 
 ## visibleSearch
 

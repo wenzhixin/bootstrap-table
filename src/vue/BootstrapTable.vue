@@ -5,6 +5,9 @@
 <script>
 const $ = window.jQuery
 const deepCopy = arg => {
+  if (arg === undefined) {
+    return arg
+  }
   return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
 }
 

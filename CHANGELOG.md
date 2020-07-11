@@ -1,7 +1,7 @@
 ChangeLog
 ---------
 
-### 1.17.0
+### 1.17.1
 
 #### Core
 
@@ -20,6 +20,7 @@ ChangeLog
 - **New:** Added `formatted` parameter for `getData` method to get formatted data.
 - **New:** Added `paginationParts` option instead of `onlyInfoPagination`.
 - **New:** Added `sortReset` option to reset sort on third click.
+- **New:** Added support for auto merge the table body cells.
 - **Update:** Fixed `updateByUniqueId` method cannot update multiple rows bug.
 - **Update:** Fixed `insertRow` not write to source data array bug.
 - **Update:** Fixed events bug with `detailViewIcon` option.
@@ -30,7 +31,9 @@ ChangeLog
 - **Update:** Fixed `font-size` of the loading text.
 - **Update:** Fixed table `border` bug when table is hidden.
 - **Update:** Fixed `showRow` method show all hidden rows bug.
+- **Update:** Fixed columnsSearch non-unique id warning.
 - **Remove:** Removed the `onlyInfoPagination` option.
+- **Remove:** Removed accent neutralise extension and moved it to core.
 
 #### Extensions
 
@@ -49,6 +52,7 @@ ChangeLog
 - **Update(accent-neutralise):** Fixed comparison with arrays.
 - **Update(cookie):** Updated cookie columns to always visible when `switchable` is `false`.
 - **Update(cookie):** Fixed cookie value from existing options bug.
+- **Update(copy-rows):** Fixed copy rows bug with fixed-column.
 - **Update(editable):** Fixed not handle quotation marks bug.
 - **Update(editable):** Updated `noeditFormatter` to `noEditFormatter`.
 - **Update(export):** Fixed export error with `maintainMetaData` and `clientSidePagination`.

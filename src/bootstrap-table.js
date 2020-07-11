@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.17.0
+ * version: 1.17.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -402,11 +402,15 @@ class BootstrapTable {
     } else if (type === 'prepend') {
       this.options.data = [].concat(data).concat(this.options.data)
     } else {
-      this.options.data = data || this.options.data
+      data = data || this.options.data
+      this.options.data = Array.isArray(data) ? data : data[this.options.dataField]
     }
 
-    this.data = this.options.data
-    this.unsortedData = [...this.data]
+    this.data = [...this.options.data]
+
+    if (this.options.sortReset) {
+      this.unsortedData = [...this.data]
+    }
 
     if (this.options.sidePagination === 'server') {
       return
@@ -464,8 +468,8 @@ class BootstrapTable {
           this.$el.find(`tr td:nth-child(${index + 1})`).addClass(this.options.sortClass)
         }, 250)
       }
-    } else {
-      this.data = this.unsortedData
+    } else if (this.options.sortReset) {
+      this.data = [...this.unsortedData]
     }
   }
 
@@ -585,7 +589,7 @@ class BootstrapTable {
         if (opts.showColumnsSearch) {
           html.push(
             Utils.sprintf(this.constants.html.toolbarDropdownItem,
-              Utils.sprintf('<input type="text" class="%s" id="columnsSearch" placeholder="%s" autocomplete="off">', this.constants.classes.input, opts.formatSearch())
+              Utils.sprintf('<input type="text" class="%s" name="columnsSearch" placeholder="%s" autocomplete="off">', this.constants.classes.input, opts.formatSearch())
             )
           )
           html.push(this.constants.html.toolbarDropdownSeparator)
@@ -698,7 +702,7 @@ class BootstrapTable {
       })
 
       if (opts.showColumnsSearch) {
-        const $columnsSearch = $keepOpen.find('#columnsSearch')
+        const $columnsSearch = $keepOpen.find('[name="columnsSearch"]')
         const $listItems = $keepOpen.find('.dropdown-item-marker')
         $columnsSearch.on('keyup paste change', ({currentTarget}) => {
           const $this = $(currentTarget)
@@ -872,7 +876,7 @@ class BootstrapTable {
           }
 
           return true
-        }) : this.options.data
+        }) : [...this.options.data]
       }
 
       const visibleFields = this.getVisibleFields()
@@ -896,6 +900,10 @@ class BootstrapTable {
             }
           } else {
             value = item[key]
+          }
+
+          if (this.options.searchAccentNeutralise) {
+            value = Utils.normalizeAccent(value)
           }
 
           // Fix #142: respect searchFormatter boolean
@@ -954,7 +962,11 @@ class BootstrapTable {
         }
         return false
       }) : this.data
-      this.unsortedData = [...this.data]
+
+      if (this.options.sortReset) {
+        this.unsortedData = [...this.data]
+      }
+
       this.initSort()
     }
   }
@@ -1365,7 +1377,7 @@ class BootstrapTable {
       let title_ = ''
       const column = this.columns[j]
 
-      if (this.fromHtml && typeof value_ === 'undefined') {
+      if ((this.fromHtml || this.autoMergeCells) && typeof value_ === 'undefined') {
         if ((!column.checkbox) && (!column.radio)) {
           return
         }
@@ -1507,6 +1519,8 @@ class BootstrapTable {
     const rows = []
     const trFragments = $(document.createDocumentFragment())
     let hasTr = false
+
+    this.autoMergeCells = Utils.checkAutoMergeCells(data.slice(this.pageFrom - 1, this.pageTo))
 
     for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
       const item = data[i]
