@@ -10,8 +10,6 @@ description: News and announcements for all things Bootstrap Table, including ne
 
 #### Core
 
-#### Core
-
 - **New:** Added `bootstrap-table` theme without any framework.
 - **New:** Added support for Bootstrap v5.
 - **New:** Added `$index` field for `remove` method.
