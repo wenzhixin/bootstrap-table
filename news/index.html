@@ -87,10 +87,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.17.0
+        v1.17.1
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.1)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
@@ -123,11 +123,13 @@
 </header>
 
 <main class="bd-content p-5" id="content" role="main">
-  <h2 id="bootstrap-table-1170">Bootstrap Table 1.17.0</h2>
+  <h2 id="bootstrap-table-1171">Bootstrap Table 1.17.1</h2>
 
-<p><span class="post-date">8 Jul 2020</span></p>
+<p><span class="post-date">11 Jul 2020</span></p>
 
 <h4 id="core">Core</h4>
+
+<h4 id="core-1">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">bootstrap-table</code> theme without any framework.</li>
@@ -144,6 +146,8 @@
   <li><strong>New:</strong> Added tr <code class="highlighter-rouge">class</code> support for <code class="highlighter-rouge">thead</code>.</li>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">formatted</code> parameter for <code class="highlighter-rouge">getData</code> method to get formatted data.</li>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">paginationParts</code> option instead of <code class="highlighter-rouge">onlyInfoPagination</code>.</li>
+  <li><strong>New:</strong> Added <code class="highlighter-rouge">sortReset</code> option to reset sort on third click.</li>
+  <li><strong>New:</strong> Added support for auto merge the table body cells.</li>
   <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">updateByUniqueId</code> method cannot update multiple rows bug.</li>
   <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">insertRow</code> not write to source data array bug.</li>
   <li><strong>Update:</strong> Fixed events bug with <code class="highlighter-rouge">detailViewIcon</code> option.</li>
@@ -154,7 +158,9 @@
   <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">font-size</code> of the loading text.</li>
   <li><strong>Update:</strong> Fixed table <code class="highlighter-rouge">border</code> bug when table is hidden.</li>
   <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">showRow</code> method show all hidden rows bug.</li>
+  <li><strong>Update:</strong> Fixed columnsSearch non-unique id warning.</li>
   <li><strong>Remove:</strong> Removed the <code class="highlighter-rouge">onlyInfoPagination</code> option.</li>
+  <li><strong>Remove:</strong> Removed accent neutralise extension and moved it to core.</li>
 </ul>
 
 <h4 id="extensions">Extensions</h4>
@@ -166,6 +172,7 @@
   <li><strong>New(export):</strong> Added <code class="highlighter-rouge">forceHide</code> column option.</li>
   <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterOrderBy</code> column option support order by <code class="highlighter-rouge">server</code>.</li>
   <li><strong>New(filter-control):</strong> Added radio support for <code class="highlighter-rouge">filterControlContainer</code>.</li>
+  <li><strong>New(filter-control):</strong> Added support for array filter.</li>
   <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">filterControlVisible</code> option and <code class="highlighter-rouge">toggleFilterControl</code> method.</li>
   <li><strong>New(filter-control):</strong> Added <code class="highlighter-rouge">showFilterControlSwitch</code> option.</li>
   <li><strong>New(fixed-columns):</strong> Added support for sticky-header.</li>
@@ -174,6 +181,7 @@
   <li><strong>Update(accent-neutralise):</strong> Fixed comparison with arrays.</li>
   <li><strong>Update(cookie):</strong> Updated cookie columns to always visible when <code class="highlighter-rouge">switchable</code> is <code class="highlighter-rouge">false</code>.</li>
   <li><strong>Update(cookie):</strong> Fixed cookie value from existing options bug.</li>
+  <li><strong>Update(copy-rows):</strong> Fixed copy rows bug with fixed-column.</li>
   <li><strong>Update(editable):</strong> Fixed not handle quotation marks bug.</li>
   <li><strong>Update(editable):</strong> Updated <code class="highlighter-rouge">noeditFormatter</code> to <code class="highlighter-rouge">noEditFormatter</code>.</li>
   <li><strong>Update(export):</strong> Fixed export error with <code class="highlighter-rouge">maintainMetaData</code> and <code class="highlighter-rouge">clientSidePagination</code>.</li>
@@ -196,7 +204,7 @@
 
 <p><span class="post-date">11 Feb 2020</span></p>
 
-<h4 id="core-1">Core</h4>
+<h4 id="core-2">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">buttonsOrder</code> option.</li>
@@ -340,7 +348,7 @@
 
 <p><span class="post-date">24 Jun 2019</span></p>
 
-<h4 id="core-2">Core</h4>
+<h4 id="core-3">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">virtualScroll</code> and <code class="highlighter-rouge">virtualScrollItemHeight</code> options to support large data.</li>
@@ -612,7 +620,7 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.17.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.17.1, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>

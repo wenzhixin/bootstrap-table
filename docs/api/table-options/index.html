@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.17.0
+        v1.17.1
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.17.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.17.1)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
@@ -187,15 +187,11 @@
           </a>
         </li></ul>
   </div><div class="bd-toc-item">
-    <a class="bd-toc-link" href="/docs/extensions/accent-neutralise/">
+    <a class="bd-toc-link" href="/docs/extensions/addrbar/">
       Extensions
     </a>
 
     <ul class="nav bd-sidenav"><li>
-          <a href="/docs/extensions/accent-neutralise/">
-            Accent Neutralise
-          </a>
-        </li><li>
           <a href="/docs/extensions/addrbar/">
             Addrbar
           </a>
@@ -376,7 +372,6 @@
 <li class="toc-entry toc-h2"><a href="#footerstyle">footerStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#headerstyle">headerStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#height">height</a></li>
-<li class="toc-entry toc-h2"><a href="#html">html</a></li>
 <li class="toc-entry toc-h2"><a href="#iconsize">iconSize</a></li>
 <li class="toc-entry toc-h2"><a href="#icons">icons</a></li>
 <li class="toc-entry toc-h2"><a href="#iconsprefix">iconsPrefix</a></li>
@@ -409,7 +404,11 @@
 <li class="toc-entry toc-h2"><a href="#responsehandler">responseHandler</a></li>
 <li class="toc-entry toc-h2"><a href="#rowattributes">rowAttributes</a></li>
 <li class="toc-entry toc-h2"><a href="#rowstyle">rowStyle</a></li>
-<li class="toc-entry toc-h2"><a href="#search">search</a></li>
+<li class="toc-entry toc-h2"><a href="#search">search</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#searchaccentneutralise">searchAccentNeutralise</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#searchalign">searchAlign</a></li>
 <li class="toc-entry toc-h2"><a href="#searchonenterkey">searchOnEnterKey</a></li>
 <li class="toc-entry toc-h2"><a href="#searchtext">searchText</a></li>
@@ -860,7 +859,7 @@
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-order.html">Custom Order</a></p>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-sort.html">Custom Order</a></p>
   </li>
 </ul>
 
@@ -877,6 +876,24 @@
     <p><strong>Detail:</strong></p>
 
     <p>The data to be loaded.</p>
+
+    <p>If in the data has <code class="highlighter-rouge">_&lt;field&gt;_rowspan</code> or <code class="highlighter-rouge">_&lt;field&gt;_colspan</code> property, then will merge cells auto, for example:</p>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$table</span><span class="p">.</span><span class="nx">bootstrapTable</span><span class="p">({</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 1</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">_name_rowspan</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$1</span><span class="dl">'</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$2</span><span class="dl">'</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+</code></pre></div>    </div>
+    <p>If use this feature, the <code class="highlighter-rouge">data</code> is required to ensure that the format is correct.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
@@ -1206,30 +1223,6 @@
   </li>
 </ul>
 
-<h2 id="html">html</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-html</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Object</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Defines some html of the table.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong></p>
-
-    <p>Too much code, please checkout the source code of the <code class="highlighter-rouge">index.js</code></p>
-  </li>
-  <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-html.html">Table Html</a></p>
-  </li>
-</ul>
-
 <h2 id="iconsize">iconSize</h2>
 
 <ul>
@@ -1394,14 +1387,14 @@
     </ul>
   </li>
   <li><strong>Default:</strong>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function (loadingMessage) {
-  return '&lt;span class="loading-wrap"&gt;' +
-    '&lt;span class="loading-text"&gt;' +
-    loadingMessage +
-    '&lt;/span&gt;' +
-    '&lt;span class="animation-wrap"&gt;&lt;span class="animation-dot"&gt;&lt;/span&gt;&lt;/span&gt;' +
-    '&lt;/span&gt;'
-}
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="p">(</span><span class="nx">loadingMessage</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="dl">'</span><span class="s1">&lt;span class="loading-wrap"&gt;</span><span class="dl">'</span> <span class="o">+</span>
+    <span class="dl">'</span><span class="s1">&lt;span class="loading-text"&gt;</span><span class="dl">'</span> <span class="o">+</span>
+    <span class="nx">loadingMessage</span> <span class="o">+</span>
+    <span class="dl">'</span><span class="s1">&lt;/span&gt;</span><span class="dl">'</span> <span class="o">+</span>
+    <span class="dl">'</span><span class="s1">&lt;span class="animation-wrap"&gt;&lt;span class="animation-dot"&gt;&lt;/span&gt;&lt;/span&gt;</span><span class="dl">'</span> <span class="o">+</span>
+    <span class="dl">'</span><span class="s1">&lt;/span&gt;</span><span class="dl">'</span>
+<span class="p">}</span>
 </code></pre></div>    </div>
   </li>
   <li><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/loading-template.html">Loading Template</a></li>
@@ -2031,6 +2024,28 @@ Example: 4 is larger than 3.</li>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-search.html">Table Search</a></p>
+  </li>
+</ul>
+
+<h3 id="searchaccentneutralise">searchAccentNeutralise</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-accent-neutralise</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">true</code> if you want to use accent neutralise feature.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-accent-neutralise.html">Search Accent Neutralise</a></p>
   </li>
 </ul>
 
@@ -2937,7 +2952,7 @@ Disables the comparison checks.</p>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/getRowByUniqueId.html">getRowByUniqueId</a></p>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html">getRowByUniqueId</a></p>
   </li>
 </ul>
 
@@ -3015,9 +3030,6 @@ Disables the comparison checks.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/virtual-scroll-item-height.html">Virtual Scroll Item Height</a></p>
   </li>
 </ul>
 
