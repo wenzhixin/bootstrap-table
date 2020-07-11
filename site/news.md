@@ -4,9 +4,11 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
-## Bootstrap Table 1.17.0
+## Bootstrap Table 1.17.1
 
-<span class="post-date">8 Jul 2020</span>
+<span class="post-date">11 Jul 2020</span>
+
+#### Core
 
 #### Core
 
@@ -24,6 +26,8 @@ description: News and announcements for all things Bootstrap Table, including ne
 - **New:** Added tr `class` support for `thead`.
 - **New:** Added `formatted` parameter for `getData` method to get formatted data.
 - **New:** Added `paginationParts` option instead of `onlyInfoPagination`.
+- **New:** Added `sortReset` option to reset sort on third click.
+- **New:** Added support for auto merge the table body cells.
 - **Update:** Fixed `updateByUniqueId` method cannot update multiple rows bug.
 - **Update:** Fixed `insertRow` not write to source data array bug.
 - **Update:** Fixed events bug with `detailViewIcon` option.
@@ -34,7 +38,9 @@ description: News and announcements for all things Bootstrap Table, including ne
 - **Update:** Fixed `font-size` of the loading text.
 - **Update:** Fixed table `border` bug when table is hidden.
 - **Update:** Fixed `showRow` method show all hidden rows bug.
+- **Update:** Fixed columnsSearch non-unique id warning.
 - **Remove:** Removed the `onlyInfoPagination` option.
+- **Remove:** Removed accent neutralise extension and moved it to core.
 
 #### Extensions
 
@@ -44,6 +50,7 @@ description: News and announcements for all things Bootstrap Table, including ne
 - **New(export):** Added `forceHide` column option.
 - **New(filter-control):** Added `filterOrderBy` column option support order by `server`.
 - **New(filter-control):** Added radio support for `filterControlContainer`.
+- **New(filter-control):** Added support for array filter.
 - **New(filter-control):** Added `filterControlVisible` option and `toggleFilterControl` method.
 - **New(filter-control):** Added `showFilterControlSwitch` option.
 - **New(fixed-columns):** Added support for sticky-header.
@@ -52,6 +59,7 @@ description: News and announcements for all things Bootstrap Table, including ne
 - **Update(accent-neutralise):** Fixed comparison with arrays.
 - **Update(cookie):** Updated cookie columns to always visible when `switchable` is `false`.
 - **Update(cookie):** Fixed cookie value from existing options bug.
+- **Update(copy-rows):** Fixed copy rows bug with fixed-column.
 - **Update(editable):** Fixed not handle quotation marks bug.
 - **Update(editable):** Updated `noeditFormatter` to `noEditFormatter`.
 - **Update(export):** Fixed export error with `maintainMetaData` and `clientSidePagination`.

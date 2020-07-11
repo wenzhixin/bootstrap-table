@@ -1,4 +1,4 @@
-const VERSION = '1.17.0'
+const VERSION = '1.17.1'
 
 let bootstrapVersion = 4
 try {
