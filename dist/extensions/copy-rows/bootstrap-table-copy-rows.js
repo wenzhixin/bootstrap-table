@@ -1105,7 +1105,9 @@
 	  }, {
 	    key: "updateCopyButton",
 	    value: function updateCopyButton() {
-	      this.$copyButton.prop('disabled', !this.getSelections().length);
+	      if (this.options.showCopyRows) {
+	        this.$copyButton.prop('disabled', !this.getSelections().length);
+	      }
 	    }
 	  }]);
 
