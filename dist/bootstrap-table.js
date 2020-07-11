@@ -2851,7 +2851,7 @@
 	  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 	}
 
-	var VERSION = '1.17.0';
+	var VERSION = '1.17.1';
 	var bootstrapVersion = 4;
 
 	try {
@@ -3104,6 +3104,7 @@
 	  footerStyle: function footerStyle(column) {
 	    return {};
 	  },
+	  searchAccentNeutralise: false,
 	  showColumns: false,
 	  showColumnsToggleAll: false,
 	  showColumnsSearch: false,
@@ -3148,7 +3149,6 @@
 	  buttonsPrefix: CONSTANTS.classes.buttonsPrefix,
 	  buttonsClass: CONSTANTS.classes.buttons,
 	  icons: CONSTANTS.icons,
-	  html: CONSTANTS.html,
 	  iconSize: undefined,
 	  iconsPrefix: CONSTANTS.iconsPrefix,
 	  // glyphicon or fa(font-awesome)
@@ -3405,6 +3405,70 @@
 	  }
 	});
 
+	var getOwnPropertyDescriptor$3 = objectGetOwnPropertyDescriptor.f;
+
+
+
+
+
+
+	var nativeEndsWith = ''.endsWith;
+	var min$5 = Math.min;
+
+	var CORRECT_IS_REGEXP_LOGIC = correctIsRegexpLogic('endsWith');
+	// https://github.com/zloirock/core-js/pull/702
+	var MDN_POLYFILL_BUG =  !CORRECT_IS_REGEXP_LOGIC && !!function () {
+	  var descriptor = getOwnPropertyDescriptor$3(String.prototype, 'endsWith');
+	  return descriptor && !descriptor.writable;
+	}();
+
+	// `String.prototype.endsWith` method
+	// https://tc39.github.io/ecma262/#sec-string.prototype.endswith
+	_export({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC }, {
+	  endsWith: function endsWith(searchString /* , endPosition = @length */) {
+	    var that = String(requireObjectCoercible(this));
+	    notARegexp(searchString);
+	    var endPosition = arguments.length > 1 ? arguments[1] : undefined;
+	    var len = toLength(that.length);
+	    var end = endPosition === undefined ? len : min$5(toLength(endPosition), len);
+	    var search = String(searchString);
+	    return nativeEndsWith
+	      ? nativeEndsWith.call(that, search, end)
+	      : that.slice(end - search.length, end) === search;
+	  }
+	});
+
+	var getOwnPropertyDescriptor$4 = objectGetOwnPropertyDescriptor.f;
+
+
+
+
+
+
+	var nativeStartsWith = ''.startsWith;
+	var min$6 = Math.min;
+
+	var CORRECT_IS_REGEXP_LOGIC$1 = correctIsRegexpLogic('startsWith');
+	// https://github.com/zloirock/core-js/pull/702
+	var MDN_POLYFILL_BUG$1 =  !CORRECT_IS_REGEXP_LOGIC$1 && !!function () {
+	  var descriptor = getOwnPropertyDescriptor$4(String.prototype, 'startsWith');
+	  return descriptor && !descriptor.writable;
+	}();
+
+	// `String.prototype.startsWith` method
+	// https://tc39.github.io/ecma262/#sec-string.prototype.startswith
+	_export({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG$1 && !CORRECT_IS_REGEXP_LOGIC$1 }, {
+	  startsWith: function startsWith(searchString /* , position = 0 */) {
+	    var that = String(requireObjectCoercible(this));
+	    notARegexp(searchString);
+	    var index = toLength(min$6(arguments.length > 1 ? arguments[1] : undefined, that.length));
+	    var search = String(searchString);
+	    return nativeStartsWith
+	      ? nativeStartsWith.call(that, search, index)
+	      : that.slice(index, index + search.length) === search;
+	  }
+	});
+
 	var Utils = {
 	  // it only does '%s', and return '' when arguments are undefined
 	  sprintf: function sprintf(_str) {
@@ -3548,6 +3612,9 @@
 	        }
 	      }
 	    }
+	  },
+	  normalizeAccent: function normalizeAccent(string) {
+	    return string.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 	  },
 	  updateFieldGroup: function updateFieldGroup(columns) {
 	    var _ref;
@@ -3904,6 +3971,40 @@
 	  },
 	  hasDetailViewIcon: function hasDetailViewIcon(options) {
 	    return options.detailView && options.detailViewIcon && !options.cardView;
+	  },
+	  checkAutoMergeCells: function checkAutoMergeCells(data) {
+	    var _iteratorNormalCompletion9 = true;
+	    var _didIteratorError9 = false;
+	    var _iteratorError9 = undefined;
+
+	    try {
+	      for (var _iterator9 = data[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+	        var row = _step9.value;
+
+	        for (var _i4 = 0, _Object$keys = Object.keys(row); _i4 < _Object$keys.length; _i4++) {
+	          var key = _Object$keys[_i4];
+
+	          if (key.startsWith('_') && (key.endsWith('_rowspan') || key.endsWith('_colspan'))) {
+	            return true;
+	          }
+	        }
+	      }
+	    } catch (err) {
+	      _didIteratorError9 = true;
+	      _iteratorError9 = err;
+	    } finally {
+	      try {
+	        if (!_iteratorNormalCompletion9 && _iterator9.return != null) {
+	          _iterator9.return();
+	        }
+	      } finally {
+	        if (_didIteratorError9) {
+	          throw _iteratorError9;
+	        }
+	      }
+	    }
+
+	    return false;
 	  }
 	};
 
@@ -4430,11 +4531,15 @@
 	      } else if (type === 'prepend') {
 	        this.options.data = [].concat(data).concat(this.options.data);
 	      } else {
-	        this.options.data = data || this.options.data;
+	        data = data || this.options.data;
+	        this.options.data = Array.isArray(data) ? data : data[this.options.dataField];
 	      }
 
-	      this.data = this.options.data;
-	      this.unsortedData = _toConsumableArray(this.data);
+	      this.data = _toConsumableArray(this.options.data);
+
+	      if (this.options.sortReset) {
+	        this.unsortedData = _toConsumableArray(this.data);
+	      }
 
 	      if (this.options.sidePagination === 'server') {
 	        return;
@@ -4495,8 +4600,8 @@
 	            _this3.$el.find("tr td:nth-child(".concat(index + 1, ")")).addClass(_this3.options.sortClass);
 	          }, 250);
 	        }
-	      } else {
-	        this.data = this.unsortedData;
+	      } else if (this.options.sortReset) {
+	        this.data = _toConsumableArray(this.unsortedData);
 	      }
 	    }
 	  }, {
@@ -4584,7 +4689,7 @@
 	          html.push("<div class=\"keep-open ".concat(_this4.constants.classes.buttonsDropdown, "\" title=\"").concat(opts.formatColumns(), "\">\n          <button class=\"").concat(_this4.constants.buttonsClass, " dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\"\n          aria-label=\"Columns\" title=\"").concat(opts.formatColumns(), "\">\n          ").concat(opts.showButtonIcons ? Utils.sprintf(_this4.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : '', "\n          ").concat(opts.showButtonText ? opts.formatColumns() : '', "\n          ").concat(_this4.constants.html.dropdownCaret, "\n          </button>\n          ").concat(_this4.constants.html.toolbarDropdown[0]));
 
 	          if (opts.showColumnsSearch) {
-	            html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="text" class="%s" id="columnsSearch" placeholder="%s" autocomplete="off">', _this4.constants.classes.input, opts.formatSearch())));
+	            html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="text" class="%s" name="columnsSearch" placeholder="%s" autocomplete="off">', _this4.constants.classes.input, opts.formatSearch())));
 	            html.push(_this4.constants.html.toolbarDropdownSeparator);
 	          }
 
@@ -4720,7 +4825,7 @@
 	        });
 
 	        if (opts.showColumnsSearch) {
-	          var $columnsSearch = $keepOpen.find('#columnsSearch');
+	          var $columnsSearch = $keepOpen.find('[name="columnsSearch"]');
 	          var $listItems = $keepOpen.find('.dropdown-item-marker');
 	          $columnsSearch.on('keyup paste change', function (_ref4) {
 	            var currentTarget = _ref4.currentTarget;
@@ -4889,7 +4994,7 @@
 	            }
 
 	            return true;
-	          }) : this.options.data;
+	          }) : _toConsumableArray(this.options.data);
 	        }
 
 	        var visibleFields = this.getVisibleFields();
@@ -4914,6 +5019,10 @@
 	              }
 	            } else {
 	              value = item[key];
+	            }
+
+	            if (_this5.options.searchAccentNeutralise) {
+	              value = Utils.normalizeAccent(value);
 	            } // Fix #142: respect searchFormatter boolean
 
 
@@ -4973,7 +5082,11 @@
 
 	          return false;
 	        }) : this.data;
-	        this.unsortedData = _toConsumableArray(this.data);
+
+	        if (this.options.sortReset) {
+	          this.unsortedData = _toConsumableArray(this.data);
+	        }
+
 	        this.initSort();
 	      }
 	    }
@@ -5394,7 +5507,7 @@
 	        var title_ = '';
 	        var column = _this7.columns[j];
 
-	        if (_this7.fromHtml && typeof value_ === 'undefined') {
+	        if ((_this7.fromHtml || _this7.autoMergeCells) && typeof value_ === 'undefined') {
 	          if (!column.checkbox && !column.radio) {
 	            return;
 	          }
@@ -5533,6 +5646,7 @@
 	      var rows = [];
 	      var trFragments = $(document.createDocumentFragment());
 	      var hasTr = false;
+	      this.autoMergeCells = Utils.checkAutoMergeCells(data.slice(this.pageFrom - 1, this.pageTo));
 
 	      for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
 	        var item = data[i];

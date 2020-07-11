@@ -2046,6 +2046,10 @@ function _nonIterableSpread() {
 var $ = window.jQuery;
 
 var deepCopy = function deepCopy(arg) {
+  if (arg === undefined) {
+    return arg;
+  }
+
   return $.extend(true, Array.isArray(arg) ? [] : {}, arg);
 };
 
