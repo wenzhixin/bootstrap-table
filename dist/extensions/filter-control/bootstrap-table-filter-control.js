@@ -2655,6 +2655,8 @@
 	  }, {
 	    key: "initSearch",
 	    value: function initSearch() {
+	      var _this2 = this;
+
 	      var that = this;
 	      var fp = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial;
 
@@ -2695,9 +2697,17 @@
 	                    return;
 	                  }
 
+	                  if (_this2.options.searchAccentNeutralise) {
+	                    objectValue = Utils$1.normalizeAccent(objectValue);
+	                  }
+
 	                  tmpItemIsExpected = that.isValueExpected(fval, objectValue, thisColumn, key);
 	                });
 	              } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+	                if (_this2.options.searchAccentNeutralise) {
+	                  value = Utils$1.normalizeAccent(value);
+	                }
+
 	                tmpItemIsExpected = that.isValueExpected(fval, value, thisColumn, key);
 	              }
 	            }
