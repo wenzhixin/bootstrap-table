@@ -1862,11 +1862,12 @@ class BootstrapTable {
 
   trigger (_name, ...args) {
     const name = `${_name}.bs.table`
+    args[args.length - 1] = this
     this.options[BootstrapTable.EVENTS[name]](...args)
-    this.$el.trigger($.Event(name), args)
+    this.$el.trigger($.Event(name, { sender: this }), args)
 
     this.options.onAll(name, args)
-    this.$el.trigger($.Event('all.bs.table'), [name, args])
+    this.$el.trigger($.Event('all.bs.table', { sender: this }), [name, args])
   }
 
   resetHeader () {
