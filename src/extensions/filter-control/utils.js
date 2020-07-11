@@ -558,6 +558,14 @@ const filterDataMethods = {
 
         sleep(5000)
 
+        const select = selectControl[0]
+        // Understand that a select with two values (empty and the one from cookie) is more than a hack, this is just a PoC
+        if (select[1]) {
+          selected = select[1].text
+          var $selectControl = $(selectControl.get(selectControl.length - 1))
+          $selectControl.find('[value="' + selected + '"]').remove()
+        }
+
         for (const key in data) {
           addOptionToSelectControl(selectControl, key, data[key], selected)
         }
