@@ -14,6 +14,10 @@ jobs:
         - git clone --depth=1 https://github.com/wenzhixin/bootstrap-table-examples
       script: npm run pre-commit
       if: type = pull_request
+      branches:
+        except:
+        - master
+        - develop
 
     - stage: deploy
       name: "Deploy docs"
