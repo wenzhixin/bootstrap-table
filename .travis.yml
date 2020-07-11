@@ -9,6 +9,9 @@ jobs:
       node_js:
         - 12
       name: "Lint src and check docs"
+      before_install:
+        - cd tools
+        - git clone --depth=1 https://github.com/wenzhixin/bootstrap-table-examples
       script: npm run pre-commit
       if: type = pull_request
 

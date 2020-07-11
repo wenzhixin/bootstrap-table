@@ -4,6 +4,20 @@ const fs = require('fs')
 const chalk = require('chalk')
 const Constants = require('../src/constants/index.js').default
 let errorSum = 0
+const exampleFilesFolder = './bootstrap-table-examples/'
+const exampleFilesFound = fs.existsSync(exampleFilesFolder)
+let exampleFiles = []
+if (exampleFilesFound) {
+  exampleFiles = [
+    ...fs.readdirSync(exampleFilesFolder + 'welcomes'),
+    ...fs.readdirSync(exampleFilesFolder + 'options'),
+    ...fs.readdirSync(exampleFilesFolder + 'column-options'),
+    ...fs.readdirSync(exampleFilesFolder + 'methods')
+  ]
+} else {
+  console.log((chalk.yellow(chalk.bold('Warning: ') + 'Cant check if example files are correct formatted and have a valid url.')))
+  console.log((chalk.yellow(chalk.bold('Warning: ') + 'To enable that check, please clone the "bootstrap-table-examples" repository in the tools folder or create a symlink (if you already cloned the repository on an other path).')))
+}
 
 class API {
   constructor () {
@@ -23,6 +37,7 @@ class API {
     const lines = content.split('## ')
     const outLines = lines.slice(0, 1)
     const errors = []
+    const exampleRegex = /\[.*\]\(.*\/(.*\.html)\)/m
 
     for (const item of lines.slice(1)) {
       md[item.split('\n')[0]] = item
@@ -39,7 +54,21 @@ class API {
           if (this.ignore && this.ignore[key] && this.ignore[key].includes(name)) {
             continue
           }
-          if (!details[i + 1] || details[i + 1].indexOf(`**${name}:**`) === -1) {
+
+          const tmpDetails = details[i + 1].trim()
+          if (name === 'Example' && exampleFilesFound) {
+            const matches = exampleRegex.exec(tmpDetails)
+            if (!matches) {
+              errors.push(chalk.red(`[${key}] missing or wrong formatted example`, `"${tmpDetails}"`))
+              continue
+            }
+
+            if (!exampleFiles.includes(matches[1])) {
+              errors.push(chalk.red(`[${key}] example '${matches[1]}' could not be found`))
+            }
+          }
+
+          if (!tmpDetails || tmpDetails.indexOf(`**${name}:**`) === -1) {
             errors.push(chalk.red(`[${key}] missing '${name}'`))
           }
         }
@@ -72,7 +101,8 @@ class TableOptions extends API {
     this.attributes = ['Attribute', 'Type', 'Detail', 'Default', 'Example']
     this.ignore = {
       totalRows: ['Example'],
-      totalNotFiltered: ['Example']
+      totalNotFiltered: ['Example'],
+      virtualScrollItemHeight: ['Example']
     }
   }
 }

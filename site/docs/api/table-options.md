@@ -267,7 +267,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [Custom Order](https://examples.bootstrap-table.com/#options/custom-order.html)
+- **Example:** [Custom Order](https://examples.bootstrap-table.com/#options/custom-sort.html)
 
 ## data
 
@@ -509,22 +509,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `undefined`
 
 - **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
-
-## html
-
-- **Attribute:** `data-html`
-
-- **Type:** `Object`
-
-- **Detail:**
-
-  Defines some html of the table.
-
-- **Default:**
-
-  Too much code, please checkout the source code of the `index.js`
-
-- **Example:** [Table Html](https://examples.bootstrap-table.com/#options/table-html.html)
 
 ## iconSize
 
@@ -1649,7 +1633,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `undefined`
 
-- **Example:** [getRowByUniqueId](https://examples.bootstrap-table.com/#methods/getRowByUniqueId.html)
+- **Example:** [getRowByUniqueId](https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html)
 
 ## url
 
@@ -1701,8 +1685,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   It is **important** to provide this if virtual item height will be significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized, and to help calculate the height of the scrollable area. This height value can only use `px` units.
 
 - **Default:** `undefined`
-
-- **Example:** [Virtual Scroll Item Height](https://examples.bootstrap-table.com/#options/virtual-scroll-item-height.html)
 
 ## visibleSearch
 
