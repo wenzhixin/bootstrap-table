@@ -66,11 +66,10 @@ export default {
           r.colspanGroup = r.colspan
         }
 
-        for (let k = 0; k < rowspan; k++) {
-          flag[i + k][index] = true
-        }
-        for (let k = 0; k < colspan; k++) {
-          flag[i][index + k] = true
+        for (let j = 0; j < rowspan; j++) {
+          for (let k = 0; k < colspan; k++) {
+            flag[i + j][index + k] = true
+          }
         }
       }
     }
