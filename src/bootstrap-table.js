@@ -1862,11 +1862,10 @@ class BootstrapTable {
 
   trigger (_name, ...args) {
     const name = `${_name}.bs.table`
-    args[args.length] = this
-    this.options[BootstrapTable.EVENTS[name]](...args)
+    this.options[BootstrapTable.EVENTS[name]](...[...args, this])
     this.$el.trigger($.Event(name, { sender: this }), args)
 
-    this.options.onAll(name, args)
+    this.options.onAll(name, ...[...args, this])
     this.$el.trigger($.Event('all.bs.table', { sender: this }), [name, args])
   }
 
