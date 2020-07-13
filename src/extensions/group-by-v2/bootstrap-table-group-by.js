@@ -5,24 +5,6 @@
 
 let initBodyCaller
 
-// it only does '%s', and return '' when arguments are undefined
-const sprintf = function (str) {
-  const args = arguments
-  let flag = true
-  let i = 1
-
-  str = str.replace(/%s/g, () => {
-    const arg = args[i++]
-
-    if (typeof arg === 'undefined') {
-      flag = false
-      return ''
-    }
-    return arg
-  })
-  return flag ? str : ''
-}
-
 const groupBy = (array, f) => {
   const tmpGroups = {}
   array.forEach(o => {
