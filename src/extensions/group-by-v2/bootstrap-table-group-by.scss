@@ -1,4 +1,5 @@
-.bootstrap-table .table > tbody > tr.groupBy {
+.bootstrap-table .table > tbody > tr.groupBy.expanded,
+.bootstrap-table .table > tbody > tr.groupBy.collapsed {
   cursor: pointer;
 }
 

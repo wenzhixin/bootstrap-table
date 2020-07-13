@@ -16,10 +16,23 @@ const groupBy = (array, f) => {
   return tmpGroups
 }
 
+$.extend($.fn.bootstrapTable.defaults.icons, {
+  collapseGroup: {
+    bootstrap3: 'glyphicon-chevron-up',
+    materialize: 'arrow_drop_down'
+  }[$.fn.bootstrapTable.theme] || 'fa-angle-up',
+  expandGroup: {
+    bootstrap3: 'glyphicon-chevron-down',
+    materialize: 'arrow_drop_up'
+  }[$.fn.bootstrapTable.theme] || 'fa-angle-down'
+})
+
 $.extend($.fn.bootstrapTable.defaults, {
   groupBy: false,
   groupByField: '',
-  groupByFormatter: undefined
+  groupByFormatter: undefined,
+  groupByToggle: false,
+  groupByShowToggleIcon: false
 })
 
 const Utils = $.fn.bootstrapTable.utils
@@ -35,7 +48,6 @@ BootstrapTable.prototype.initSort = function (...args) {
   this.tableGroups = []
 
   if ((this.options.groupBy) && (this.options.groupByField !== '')) {
-
     if ((this.options.sortName !== this.options.groupByField)) {
       if (this.options.customSort) {
         Utils.calculateObjectValue(this.options, this.options.customSort, [
@@ -94,7 +106,6 @@ BootstrapTable.prototype.initSort = function (...args) {
 
 BootstrapTable.prototype.initBody = function (...args) {
   initBodyCaller = true
-
   _initBody.apply(this, Array.prototype.slice.apply(args))
 
   if ((this.options.groupBy) && (this.options.groupByField !== '')) {
@@ -119,8 +130,7 @@ BootstrapTable.prototype.initBody = function (...args) {
     this.tableGroups.forEach(item => {
       const html = []
 
-      html.push(sprintf('<tr class="info groupBy expanded" data-group-index="%s">', item.id))
-
+      html.push(Utils.sprintf('<tr class="info groupBy %s" data-group-index="%s">', this.options.groupByToggle ? 'expanded' : '', item.id))
       if (that.options.detailView && !that.options.cardView) {
         html.push('<td class="detail"></td>')
       }
@@ -131,17 +141,21 @@ BootstrapTable.prototype.initBody = function (...args) {
           '</td>'
         )
       }
+
       let formattedValue = item.name
       if (typeof (that.options.groupByFormatter) === 'function') {
         formattedValue = that.options.groupByFormatter(item.name, item.id, item.data)
       }
       html.push('<td',
-        sprintf(' colspan="%s"', visibleColumns),
-        '>', formattedValue, '</td>'
+        Utils.sprintf(' colspan="%s"', visibleColumns),
+        '>', formattedValue
       )
 
-      html.push('</tr>')
+      if (this.options.groupByToggle && this.options.groupByShowToggleIcon) {
+        html.push(`<span class="float-right ${this.options.iconsPrefix} ${this.options.icons.collapseGroup}"></span>`)
+      }
 
+      html.push('</td></tr>')
       that.$body.find(`tr[data-parent-index=${item.id}]:first`).before($(html.join('')))
     })
 
@@ -158,11 +172,14 @@ BootstrapTable.prototype.initBody = function (...args) {
       })
     })
 
-    this.$container.off('click', '.groupBy')
-      .on('click', '.groupBy', function () {
-        $(this).toggleClass('expanded')
-        that.$body.find(`tr[data-parent-index=${$(this).closest('tr').data('group-index')}]`).toggleClass('hidden')
-      })
+    if (this.options.groupByToggle) {
+      this.$container.off('click', '.groupBy')
+        .on('click', '.groupBy', function () {
+          $(this).toggleClass('expanded collapsed')
+          $(this).find('span').toggleClass(`${that.options.icons.collapseGroup} ${that.options.icons.expandGroup}`)
+          that.$body.find(`tr[data-parent-index=${$(this).closest('tr').data('group-index')}]`).toggleClass('hidden')
+        })
+    }
 
     this.$container.off('click', '[name="btSelectGroup"]')
       .on('click', '[name="btSelectGroup"]', function (event) {
