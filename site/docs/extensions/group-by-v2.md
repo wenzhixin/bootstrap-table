@@ -69,7 +69,7 @@ toc: true
 
 - **Detail:**
 
-   Set `true` to allow collapse/expand groups
+   Set `true` to allow collapse/expand groups.
 
 - **Default:** `false`
 
