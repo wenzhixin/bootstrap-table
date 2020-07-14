@@ -60,3 +60,27 @@ toc: true
    * `data`: an array of rows in the group.
 
 - **Default:** `undefined`
+
+### groupByToggle
+
+- **attribute:** `data-group-by-toggle`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to allow collapse/expand groups.
+
+- **Default:** `false`
+
+### groupByShowToggleIcon
+
+- **attribute:** `data-group-by-show-toggle-icon`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to show icons if the group is collapsed or expanded (see groupByToggle).
+
+- **Default:** `false`
