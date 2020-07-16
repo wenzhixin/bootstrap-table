@@ -225,9 +225,10 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
   The context (this) is the column Object.
 
-  The function, take one parameter:
+  The function, takes two parameters:
 
-  * `data`: Array of all the  data rows.
+  * `data`: Array of all the data rows.
+  * `value`: If footer data is set, the value of the footer column.
 
   the function should return a string with the text to show in the footer cell.
 

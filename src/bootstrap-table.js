@@ -199,7 +199,10 @@ class BootstrapTable {
       }
     }
 
-    this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr'))
+    if (!(this.options.pagination && this.options.sidePagination !== 'server')) {
+      this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr'))
+    }
+
     if (this.footerData) {
       this.$el.find('tfoot').html('<tr></tr>')
     }
@@ -1950,7 +1953,7 @@ class BootstrapTable {
       }
 
       const index = Utils.hasDetailViewIcon(this.options) &&
-        this.options.detailViewAlign !== 'right' ? i - 1 : i
+      this.options.detailViewAlign !== 'right' ? i - 1 : i
       let $th = this.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]))
       if ($th.length > 1) {
         $th = $($ths[$this[0].cellIndex])
@@ -1988,7 +1991,10 @@ class BootstrapTable {
       let style = {}
       let class_ = Utils.sprintf(' class="%s"', column['class'])
 
-      if (!column.visible) {
+      if (
+        !column.visible
+        || (this.footerData && this.footerData.length > 0 && !(column.field in this.footerData[0]))
+      ) {
         continue
       }
 
@@ -2011,11 +2017,24 @@ class BootstrapTable {
           [column['class'], style.classes].join(' ') : style.classes)
       }
 
-      html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>')
+      html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')))
+      let colspan = 0
+      if (this.footerData && this.footerData.length > 0) {
+        colspan = this.footerData[0]['_' + column.field + '_colspan'] || 0
+      }
+      if (colspan) {
+        html.push(` colspan="${colspan}" `)
+      }
+
+      html.push('>')
       html.push('<div class="th-inner">')
 
+      let value = ''
+      if (this.footerData && this.footerData.length > 0) {
+        value = this.footerData[0][column.field] || ''
+      }
       html.push(Utils.calculateObjectValue(column, column.footerFormatter,
-        [data], this.footerData[0] && this.footerData[0][column.field] || ''))
+        [data, value], value))
 
       html.push('</div>')
       html.push('<div class="fht-cell"></div>')
@@ -2198,10 +2217,8 @@ class BootstrapTable {
     // #431: support pagination
     if (this.options.pagination && this.options.sidePagination === 'server') {
       this.options.totalRows = data[this.options.totalField]
-    }
-
-    if (this.options.pagination && this.options.sidePagination === 'server') {
       this.options.totalNotFiltered = data[this.options.totalNotFilteredField]
+      this.footerData = data[this.options.footerField] ? [data[this.options.footerField]] : undefined
     }
 
     fixedScroll = data.fixedScroll

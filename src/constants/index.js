@@ -212,6 +212,7 @@ const DEFAULTS = {
   totalField: 'total',
   totalNotFilteredField: 'totalNotFiltered',
   dataField: 'rows',
+  footerField: 'footer',
   pagination: false,
   paginationParts: ['pageInfo', 'pageSize', 'pageList'],
   showExtendedPagination: false,
