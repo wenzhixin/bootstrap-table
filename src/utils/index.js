@@ -342,6 +342,10 @@ export default {
     return options.detailView && options.detailViewIcon && !options.cardView
   },
 
+  getDetailViewIndexOffset (options) {
+    return this.hasDetailViewIcon(options) && options.detailViewAlign !== 'right' ? 1 : 0
+  },
+
   checkAutoMergeCells (data) {
     for (const row of data) {
       for (const key of Object.keys(row)) {
