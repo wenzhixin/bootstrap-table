@@ -20,7 +20,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   filterTemplate: {
     input (that, field, placeholder, value) {
       return Utils.sprintf(
-        '<input type="text" class="form-control bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
+        '<input type="search" class="form-control bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
         field,
         'undefined' === typeof placeholder ? '' : placeholder,
         'undefined' === typeof value ? '' : value

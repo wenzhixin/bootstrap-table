@@ -737,7 +737,7 @@ class BootstrapTable {
       )
       const searchInputHtml = `<input class="${this.constants.classes.input}
         ${Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, opts.iconSize)}
-        search-input" type="text" placeholder="${opts.formatSearch()}" autocomplete="off">`
+        search-input" type="search" placeholder="${opts.formatSearch()}" autocomplete="off">`
       let searchInputFinalHtml = searchInputHtml
 
       if (opts.showSearchButton || opts.showSearchClearButton) {
@@ -757,7 +757,7 @@ class BootstrapTable {
       this.$toolbar.append(html.join(''))
       const $searchInput = this.$toolbar.find('.search input')
       const handleInputEvent = () => {
-        const eventTriggers = `keyup drop blur ${Utils.isIEBrowser() ? 'mouseup' : ''}`
+        const eventTriggers = 'keyup drop blur mouseup'
         $searchInput.off(eventTriggers).on(eventTriggers, event => {
           if (opts.searchOnEnterKey && event.keyCode !== 13) {
             return
