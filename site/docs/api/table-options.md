@@ -442,6 +442,39 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Filter Options](https://examples.bootstrap-table.com/#options/filter-options.html)
 
+## footerField
+
+- **Attribute:** `data-footer-field`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines the key of the footer Object (From data array or server response json).
+  The footer Object can be used to set/define footer colspans and/or the value of the footer.
+  
+  {% highlight javascript %}
+    {
+      "rows": [
+        {
+          "id": 0,
+          "name": "Item 0",
+          "price": "$0",
+          "amount": 3
+        }
+      ],
+      "footer": {
+        "id": "footer id",
+        "_id_colspan": 2,
+        "name": "footer name"
+      }
+    }
+    {% endhighlight %}
+
+- **Default:** `footerField`
+
+- **Example:** [Footer Field](https://examples.bootstrap-table.com/#options/footer-field.html)
+
 ## footerStyle
 
 - **Attribute:** `data-footer-style`
