@@ -2886,10 +2886,6 @@ class BootstrapTable {
   }
 
   scrollTo (params) {
-    if (typeof params === 'undefined') {
-      return this.$tableBody.scrollTop()
-    }
-
     let options = {unit: 'px', value: 0}
     if (typeof params === 'object') {
       options = Object.assign(options, params)
@@ -2911,7 +2907,7 @@ class BootstrapTable {
   }
 
   getScrollPosition () {
-    return this.scrollTo()
+    return this.$tableBody.scrollTop()
   }
 
   selectPage (page) {
