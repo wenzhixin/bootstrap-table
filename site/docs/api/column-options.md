@@ -231,6 +231,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   * `value`: If footer data is set, the value of the footer column.
 
   the function should return a string with the text to show in the footer cell.
+  
+  If you fetch data from a server and tries to set the footer value from the server response, please use the `footerField` Option.
 
 - **Default:** `undefined`
 

@@ -73,7 +73,7 @@ class API {
           }
         }
       } else {
-        outLines.push(key + '\n\n')
+        errors.push(chalk.red(`[${key}] option could not be found`))
       }
     }
 
