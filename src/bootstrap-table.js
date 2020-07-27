@@ -1545,7 +1545,7 @@ class BootstrapTable {
     // show no records
     if (!hasTr) {
       this.$body.html(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
-        this.getVisibleFields().length,
+        this.getVisibleFields().length + Utils.getDetailViewIndexOffset(this.options),
         this.options.formatNoMatches())}</tr>`)
     } else {
       if (!this.options.virtualScroll) {
@@ -1595,8 +1595,7 @@ class BootstrapTable {
       const item = this.data[rowIndex]
       const index = this.options.cardView ? $cardViewArr.index($cardViewTarget) : $td[0].cellIndex
       const fields = this.getVisibleFields()
-      const field = fields[Utils.hasDetailViewIcon(this.options) &&
-        this.options.detailViewAlign !== 'right' ? index - 1 : index]
+      const field = fields[index - Utils.getDetailViewIndexOffset(this.options)]
       const column = this.columns[this.fieldsColumnsIndex[field]]
       const value = Utils.getItemField(item, field, this.options.escape)
 
@@ -1660,9 +1659,7 @@ class BootstrapTable {
         return
       }
 
-      if (Utils.hasDetailViewIcon(this.options) && this.options.detailViewAlign !== 'right') {
-        fieldIndex += 1
-      }
+      fieldIndex += Utils.getDetailViewIndexOffset(this.options)
 
       for (const key in events) {
         if (!events.hasOwnProperty(key)) {
@@ -1956,8 +1953,7 @@ class BootstrapTable {
         }
       }
 
-      const index = Utils.hasDetailViewIcon(this.options) &&
-      this.options.detailViewAlign !== 'right' ? i - 1 : i
+      const index = i - Utils.getDetailViewIndexOffset(this.options)
       let $th = this.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]))
       if ($th.length > 1) {
         $th = $($ths[$this[0].cellIndex])
@@ -2596,9 +2592,7 @@ class BootstrapTable {
     let j
     const $tr = this.$body.find('>tr')
 
-    if (Utils.hasDetailViewIcon(this.options)) {
-      col += 1
-    }
+    col += Utils.getDetailViewIndexOffset(this.options)
 
     const $td = $tr.eq(row).find('>td').eq(col)
 
