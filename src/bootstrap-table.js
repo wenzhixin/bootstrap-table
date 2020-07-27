@@ -15,8 +15,6 @@ class BootstrapTable {
     this.$el_ = this.$el.clone()
     this.timeoutId_ = 0
     this.timeoutFooter_ = 0
-
-    this.init()
   }
 
   init () {
@@ -3084,7 +3082,9 @@ $.fn.bootstrapTable = function (option, ...args) {
     }
 
     if (!data) {
-      $(el).data('bootstrap.table', (data = new $.BootstrapTable(el, options)))
+      data = new $.BootstrapTable(el, options)
+      $(el).data('bootstrap.table', data)
+      data.init()
     }
   })
 
