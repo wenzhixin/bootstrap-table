@@ -838,6 +838,10 @@ class BootstrapTable {
       if (this.options.customSearch) {
         this.data = Utils.calculateObjectValue(this.options, this.options.customSearch,
           [this.options.data, this.searchText, this.filterColumns])
+
+        if (this.options.sortReset) {
+          this.unsortedData = [...this.data]
+        }
         return
       }
 
