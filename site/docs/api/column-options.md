@@ -346,6 +346,20 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Example:** [Column Searchable](https://examples.bootstrap-table.com/#column-options/searchable.html)
 
+## searchHighlightFormatter
+
+- **Attribute:** `data-search-highlight-formatter`
+
+- **Type:** `Function|Bool`
+
+- **Detail:**
+
+  Define a `function` to use a custom highlight formatter for the [search highlight](https://bootstrap-table.com/docs/api/table-options/#searchhighlight) option.
+
+- **Default:** `true`
+
+- **Example:** [Column Searchable](https://examples.bootstrap-table.com/#column-options/search-highlight-formatter.html)
+
 ## showSelectTitle
 
 - **Attribute:** `data-show-select-title`

@@ -1103,6 +1103,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Search Align](https://examples.bootstrap-table.com/#options/search-align.html)
 
+## searchHighlight
+
+- **Attribute:** `data-search-highlight`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set to `true` to highlight the searched text (using the `<mark>` html tag).   
+  You can also define a [custom highlight formatter](https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter) e.g. for values with html or to use a custom highlight color. 
+- **Default:** `'false'`
+
+- **Example:** [Search Align](https://examples.bootstrap-table.com/#options/search-highlight.html)
+
 ## searchOnEnterKey
 
 - **Attribute:** `data-search-on-enter-key`
