@@ -385,7 +385,7 @@ const bootstrap = {
                 </div>
                 <div class="mt-30">
                     <button type="button" class="btn" data-close>%s</button>
-                    <button type="button" class="btn multi-sort-order-button" data-close>%s</button> 
+                    <button type="button" class="btn multi-sort-order-button" data-close>%s</button>
                 </div>
             </div>
           </div>
@@ -816,7 +816,7 @@ BootstrapTable.prototype.setButtonStates = function () {
 
 BootstrapTable.prototype.multiSort = function (sortPriority) {
   this.options.sortPriority = sortPriority
-  this.options.sortName = ''
+  this.options.sortName = undefined
 
   if (this.options.sidePagination === 'server') {
     this.options.queryParams = params => {

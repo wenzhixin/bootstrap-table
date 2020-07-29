@@ -2074,6 +2074,8 @@ class BootstrapTable {
     const $ths = this.$tableFooter.find('th')
     let $tr = this.$body.find('>tr:first-child:not(.no-records-found)')
 
+    $ths.find('.fht-cell').width('auto')
+
     while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
       $tr = $tr.next()
     }
