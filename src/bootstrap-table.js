@@ -1435,6 +1435,10 @@ class BootstrapTable {
       value = Utils.calculateObjectValue(column,
         this.header.formatters[j], [value_, item, i, field], value_)
 
+      if (this.searchText !== '' && this.options.searchHighlight) {
+        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.replace(new RegExp('(' + this.searchText + ')', 'gim'), '<mark>$1</mark>'))
+      }
+
       if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
         for (const [k, v] of Object.entries(item[`_${field}_data`])) {
           // ignore data-index

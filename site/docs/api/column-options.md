@@ -231,7 +231,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   * `value`: If footer data is set, the value of the footer column.
 
   the function should return a string with the text to show in the footer cell.
-  
+
   If you fetch data from a server and tries to set the footer value from the server response, please use the `footerField` Option.
 
 - **Default:** `undefined`
@@ -318,20 +318,6 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Example:** [Rowspan Colspan](https://examples.bootstrap-table.com/#column-options/rowspan-colspan.html)
 
-## searchFormatter
-
-- **Attribute:** `data-search-formatter`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `true` to search use formatted data.
-
-- **Default:** `true`
-
-- **Example:** [Search Formatter](https://examples.bootstrap-table.com/#column-options/search-formatter.html)
-
 ## searchable
 
 - **Attribute:** `data-searchable`
@@ -346,6 +332,34 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Example:** [Column Searchable](https://examples.bootstrap-table.com/#column-options/searchable.html)
 
+## searchFormatter
+
+- **Attribute:** `data-search-formatter`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to search use formatted data.
+
+- **Default:** `true`
+
+- **Example:** [Search Formatter](https://examples.bootstrap-table.com/#column-options/search-formatter.html)
+
+## searchHighlightFormatter
+
+- **Attribute:** `data-search-highlight-formatter`
+
+- **Type:** `Boolean|Function`
+
+- **Detail:**
+
+  Define a `function` to use a custom highlight formatter for the [search highlight](https://bootstrap-table.com/docs/api/table-options/#searchhighlight) option.
+
+- **Default:** `true`
+
+- **Example:** [Searchable Highlight Formatter](https://examples.bootstrap-table.com/#column-options/search-highlight-formatter.html)
+
 ## showSelectTitle
 
 - **Attribute:** `data-show-select-title`
@@ -359,20 +373,6 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 - **Default:** `false`
 
 - **Example:** [Show Select Title](https://examples.bootstrap-table.com/#column-options/show-select-title.html)
-
-## sortName
-
-- **Attribute:** `data-sort-name`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Provide a customizable sort-name, not the default sort-name in the header, or the field name of the column. For example, a column might display the value of fieldName of 'html' such as `<b><span style="color:red">abc</span></b>`, but a fieldName to sort is 'content' with the value of `'abc'`.
-
-- **Default:** `undefined`
-
-- **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
 
 ## sortable
 
@@ -408,6 +408,20 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 - **Default:** `undefined`
 
 - **Example:** [Column Sorter](https://examples.bootstrap-table.com/#column-options/sorter.html)
+
+## sortName
+
+- **Attribute:** `data-sort-name`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Provide a customizable sort-name, not the default sort-name in the header, or the field name of the column. For example, a column might display the value of fieldName of 'html' such as `<b><span style="color:red">abc</span></b>`, but a fieldName to sort is 'content' with the value of `'abc'`.
+
+- **Default:** `undefined`
+
+- **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
 
 ## switchable
 

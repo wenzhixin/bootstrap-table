@@ -125,6 +125,18 @@ $('#table').bootstrapTable({
 
 - **Default:** `'Refresh'`
 
+## formatSearch
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Search'`
+
+## formatShowingRows
+
+- **Parameter:** `pageFrom, pageTo, totalRows`
+
+- **Default:** `'Showing %s to %s of %s rows'`
+
 ## formatSRPaginationNextText
 
 - **Parameter:** `undefined`
@@ -142,18 +154,6 @@ $('#table').bootstrapTable({
 - **Parameter:** `undefined`
 
 - **Default:** `'previous page'`
-
-## formatSearch
-
-- **Parameter:** `undefined`
-
-- **Default:** `'Search'`
-
-## formatShowingRows
-
-- **Parameter:** `pageFrom, pageTo, totalRows`
-
-- **Default:** `'Showing %s to %s of %s rows'`
 
 ## formatToggle
 

@@ -232,6 +232,7 @@ const DEFAULTS = {
   paginationPagesBySide: 1, // Number of pages on each side (right, left) of the current page.
   paginationUseIntermediate: false, // Calculate intermediate pages for quick access
   search: false,
+  searchHighlight: false,
   searchOnEnterKey: false,
   strictSearch: false,
   visibleSearch: false,
@@ -490,6 +491,7 @@ const COLUMN_DEFAULTS = {
   footerFormatter: undefined,
   detailFormatter: undefined,
   searchFormatter: true,
+  searchHighlightFormatter: false,
   escape: false,
   events: undefined
 }
