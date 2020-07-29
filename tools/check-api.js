@@ -27,7 +27,7 @@ class API {
   }
 
   sortOptions () {
-    this.options.sort()
+    this.options.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
   }
 
   check () {

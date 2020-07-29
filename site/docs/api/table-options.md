@@ -452,7 +452,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   Defines the key of the footer Object (From data array or server response json).
   The footer Object can be used to set/define footer colspans and/or the value of the footer.
-  
+
   {% highlight javascript %}
     {
       "rows": [
@@ -543,20 +543,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
 
-## iconSize
-
-- **Attribute:** `data-icon-size`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Defines icon size, `undefined`, `'lg'`, `'sm'` can be used.
-
-- **Default:** `undefined`
-
-- **Example:** [Icon Size](https://examples.bootstrap-table.com/#options/icon-size.html)
-
 ## icons
 
 - **Attribute:** `data-icons`
@@ -584,6 +570,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   {% endhighlight %}
 
 - **Example:** [Table Icons](https://examples.bootstrap-table.com/#options/table-icons.html)
+
+## iconSize
+
+- **Attribute:** `data-icon-size`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines icon size, `undefined`, `'lg'`, `'sm'` can be used.
+
+- **Default:** `undefined`
+
+- **Example:** [Icon Size](https://examples.bootstrap-table.com/#options/icon-size.html)
 
 ## iconsPrefix
 
@@ -1075,7 +1075,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Search](https://examples.bootstrap-table.com/#options/table-search.html)
 
-### searchAccentNeutralise
+## searchAccentNeutralise
 
 - **Attribute:** `data-search-accent-neutralise`
 
@@ -1111,11 +1111,12 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set to `true` to highlight the searched text (using the `<mark>` html tag).   
-  You can also define a [custom highlight formatter](https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter) e.g. for values with html or to use a custom highlight color. 
+  Set to `true` to highlight the searched text (using the `<mark>` html tag).
+  You can also define a [custom highlight formatter](https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter) e.g. for values with html or to use a custom highlight color.
+
 - **Default:** `'false'`
 
-- **Example:** [Search Align](https://examples.bootstrap-table.com/#options/search-highlight.html)
+- **Example:** [Search Highlight](https://examples.bootstrap-table.com/#options/search-highlight.html)
 
 ## searchOnEnterKey
 
@@ -1447,6 +1448,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Smart Display](https://examples.bootstrap-table.com/#options/smart-display.html)
 
+## sortable
+
+- **Attribute:** `data-sortable`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to disable sortable of all columns.
+
+- **Default:** `true`
+
+- **Example:** [Table Sortable](https://examples.bootstrap-table.com/#options/table-sortable.html)
+
 ## sortClass
 
 - **Attribute:** `data-sort-class`
@@ -1516,20 +1531,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Sort Stable](https://examples.bootstrap-table.com/#options/sort-stable.html)
-
-## sortable
-
-- **Attribute:** `data-sortable`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `false` to disable sortable of all columns.
-
-- **Default:** `true`
-
-- **Example:** [Table Sortable](https://examples.bootstrap-table.com/#options/table-sortable.html)
 
 ## strictSearch
 
