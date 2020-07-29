@@ -2166,7 +2166,7 @@ class BootstrapTable {
       (
         this.searchText ||
         this.options.customSearch ||
-        this.options.sortName ||
+        this.options.sortName !== undefined ||
         !Utils.isEmptyObject(this.filterColumns) ||
         !Utils.isEmptyObject(this.filterColumnsPartial)
       ) && (!params || !params.unfiltered)
