@@ -7,7 +7,7 @@
 
 let isSingleSort = false
 const Utils = $.fn.bootstrapTable.utils
-const bootstrap = {
+const theme = {
   bootstrap3: {
     icons: {
       plus: 'glyphicon-plus',
@@ -396,8 +396,6 @@ const bootstrap = {
     }
   }
 }[$.fn.bootstrapTable.theme]
-$.extend($.fn.bootstrapTable.defaults.icons, bootstrap.icons)
-$.extend($.fn.bootstrapTable.defaults.html, bootstrap.html)
 
 const showSortModal = that => {
   const _selector = that.sortModalSelector
@@ -406,12 +404,12 @@ const showSortModal = that => {
 
   if (!$(_id).hasClass('modal')) {
     const sModal = Utils.sprintf(
-      that.constants.html.multipleSortModal,
+      theme.html.multipleSortModal,
       _selector, _selector, _selector,
       that.options.formatMultipleSort(),
-      Utils.sprintf(that.constants.html.icon, o.iconsPrefix, that.constants.icons.plus),
+      Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.plus),
       that.options.formatAddLevel(),
-      Utils.sprintf(that.constants.html.icon, o.iconsPrefix, that.constants.icons.minus),
+      Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.minus),
       that.options.formatDeleteLevel(),
       that.options.formatColumn(),
       that.options.formatOrder(),
@@ -607,7 +605,7 @@ BootstrapTable.prototype.initToolbar = function (...args) {
     const o = that.options
 
     if (!$multiSortBtn.length && this.options.showMultiSortButton) {
-      $multiSortBtn = Utils.sprintf(that.constants.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, o.icons.sort))
+      $multiSortBtn = Utils.sprintf(theme.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.sort))
       $btnGroup.append($multiSortBtn)
 
       if ($.fn.bootstrapTable.theme === 'semantic') {
@@ -759,8 +757,8 @@ BootstrapTable.prototype.addLevel = function (index, sortPriority) {
   this.$sortModal.find('tbody')
     .append($('<tr>')
       .append($('<td>').text(text))
-      .append($('<td>').append($(Utils.sprintf(this.constants.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-name'))))
-      .append($('<td>').append($(Utils.sprintf(this.constants.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-order'))))
+      .append($('<td>').append($(Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-name'))))
+      .append($('<td>').append($(Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-order'))))
     )
 
   const $multiSortName = this.$sortModal.find('.multi-sort-name').last()
