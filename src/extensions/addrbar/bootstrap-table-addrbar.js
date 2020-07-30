@@ -72,7 +72,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
   init (...args) {
     if (
       this.options.pagination &&
-      this.options.sidePagination === 'server' &&
       this.options.addrbar
     ) {
       // 标志位, 初始加载后关闭
@@ -104,6 +103,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
         if (_onLoadSuccess) {
           _onLoadSuccess.call(this, data)
         }
+      }
+      //this realy stupid but works with change page, search and sort.
+      this.options.onPageChange = (number,size) => {
+        const params = {}
+        params[`${_prefix}page`] = this.options.pageNumber,
+          params[`${_prefix}size`] = this.options.pageSize,
+          params[`${_prefix}order`] = this.options.sortOrder,
+          params[`${_prefix}sort`] = this.options.sortName,
+          params[`${_prefix}search`] = this.options.searchText
+        window.history.pushState({}, '', _buildUrl(params))
       }
     }
     super.init(...args)
