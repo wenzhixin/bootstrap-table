@@ -5,6 +5,12 @@
  */
 
 $.fn.bootstrapTable.locales['hr-HR'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Molimo pričekajte'
   },

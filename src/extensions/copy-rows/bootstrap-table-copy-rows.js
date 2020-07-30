@@ -5,6 +5,13 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
+$.extend($.fn.bootstrapTable.locales, {
+  formatCopyRows () {
+    return 'Copy Rows'
+  }
+})
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+
 $.extend($.fn.bootstrapTable.defaults.icons, {
   copy: {
     bootstrap3: 'glyphicon-copy icon-pencil',
@@ -42,20 +49,24 @@ $.fn.bootstrapTable.methods.push(
 $.BootstrapTable = class extends $.BootstrapTable {
 
   initToolbar (...args) {
-    super.initToolbar(...args)
+    if (this.options.showCopyRows && this.header.stateField) {
+      this.buttons = Object.assign(this.buttons, {
+        copyRows: {
+          'text': this.options.formatCopyRows(),
+          'icon': this.options.icons.copy,
+          'event': this.copyColumnsToClipboard,
+          'attributes': {
+            'aria-label': this.options.formatCopyRows(),
+            'title': this.options.formatCopyRows()
+          }
+        }
+      })
+    }
 
-    const $btnGroup = this.$toolbar.find('>.columns')
+    super.initToolbar(...args)
+    this.$copyButton = this.$toolbar.find('>.columns [name="copyRows"]')
 
     if (this.options.showCopyRows && this.header.stateField) {
-      this.$copyButton = $(`
-        <button class="${this.constants.buttonsClass}">
-        ${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.copy)}
-        </button>
-      `)
-      $btnGroup.append(this.$copyButton)
-      this.$copyButton.click(() => {
-        this.copyColumnsToClipboard()
-      })
       this.updateCopyButton()
     }
   }
@@ -90,7 +101,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   updateCopyButton () {
-    if (this.options.showCopyRows) {
+    if (this.options.showCopyRows && this.header.stateField && this.$copyButton) {
       this.$copyButton.prop('disabled', !this.getSelections().length)
     }
   }

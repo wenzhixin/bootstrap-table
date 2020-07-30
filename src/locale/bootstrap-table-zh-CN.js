@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['zh-CN'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return '正在努力地加载数据中，请稍候'
   },

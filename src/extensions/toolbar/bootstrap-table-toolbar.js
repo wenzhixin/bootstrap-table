@@ -217,24 +217,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
       o.advancedSearch &&
       o.idTable)
 
-    super.initToolbar()
-
-    if (!o.search || !o.advancedSearch || !o.idTable) {
-      return
+    if (o.search && o.advancedSearch && o.idTable) {
+      this.buttons = Object.assign(this.buttons, {
+        advancedSearch: {
+          'text': this.options.formatAdvancedSearch(),
+          'icon': this.options.icons.advancedSearchIcon,
+          'event': this.showAvdSearch,
+          'attributes': {
+            'aria-label': this.options.formatAdvancedSearch(),
+            'title': this.options.formatAdvancedSearch()
+          }
+        }
+      })
     }
 
-    this.$toolbar.find('>.columns').append(`
-      <button class="${this.constants.buttonsClass} "
-        type="button"
-        name="advancedSearch"
-        aria-label="advanced search"
-        title="${o.formatAdvancedSearch()}">
-        ${ this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.advancedSearchIcon) : ''}
-        ${ this.options.showButtonText ? this.options.formatAdvancedSearch() : ''}
-      </button>
-    `)
-
-    this.$toolbar.find('button[name="advancedSearch"]').off('click').on('click', () => this.showAvdSearch())
+    super.initToolbar()
   }
 
   showAvdSearch () {

@@ -4,6 +4,12 @@
 */
 
 $.fn.bootstrapTable.locales['de-DE'] = {
+  formatCopyRows () {
+    return 'Zeilen kopieren'
+  },
+  formatPrint () {
+    return 'Drucken'
+  },
   formatLoadingMessage () {
     return 'Lade, bitte warten'
   },
@@ -87,13 +93,13 @@ $.fn.bootstrapTable.locales['de-DE'] = {
     return 'Schließen'
   },
   formatFilterControlSwitch () {
-    return 'Verstecke/Zeige controls'
+    return 'Verstecke/Zeige Filter'
   },
   formatFilterControlSwitchHide () {
-    return 'Verstecke controls'
+    return 'Verstecke Filter'
   },
   formatFilterControlSwitchShow () {
-    return 'Zeige controls'
+    return 'Zeige Filter'
   }
 }
 

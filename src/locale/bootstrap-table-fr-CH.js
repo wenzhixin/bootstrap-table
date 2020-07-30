@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['fr-CH'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Chargement en cours'
   },

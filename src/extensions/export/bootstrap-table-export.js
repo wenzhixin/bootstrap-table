@@ -72,56 +72,61 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const o = this.options
 
     this.showToolbar = this.showToolbar || o.showExport
+    const $btnGroup = this.$toolbar.find('>.columns')
+
+    if (this.options.showExport) {
+      var exportTypes = o.exportTypes
+
+      if (typeof exportTypes === 'string') {
+        const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
+        exportTypes = types.map(t => t.slice(1, -1))
+      }
+
+      this.$export = this.$toolbar.find('>.columns div.export')
+      if (this.$export.length) {
+        this.updateExportButton()
+        return
+      }
+
+      this.buttons = Object.assign(this.buttons, {
+        'export': {
+          'html': exportTypes.length === 1 ? `
+            <div class="export ${this.constants.classes.buttonsDropdown}"
+            data-type="${exportTypes[0]}">
+            <button class="${this.constants.buttonsClass}"
+            aria-label="Export"
+            type="button"
+            title="${o.formatExport()}">
+            ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+            ${o.showButtonText ? o.formatExport() : ''}
+            </button>
+            </div>
+          ` : `
+            <div class="export ${this.constants.classes.buttonsDropdown}">
+            <button class="${this.constants.buttonsClass} dropdown-toggle"
+            aria-label="Export"
+            data-toggle="dropdown"
+            type="button"
+            title="${o.formatExport()}">
+            ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+            ${o.showButtonText ? o.formatExport() : ''}
+            ${this.constants.html.dropdownCaret}
+            </button>
+            </div>
+          `
+        }
+      })
+    }
 
     super.initToolbar(...args)
+    this.$export = this.$toolbar.find('>.columns div.export')
 
     if (!this.options.showExport) {
       return
     }
-    const $btnGroup = this.$toolbar.find('>.columns')
-    this.$export = $btnGroup.find('div.export')
-
-    if (this.$export.length) {
-      this.updateExportButton()
-      return
-    }
 
     let $menu = $(this.constants.html.toolbarDropdown.join(''))
-
-    let exportTypes = o.exportTypes
-
-    if (typeof exportTypes === 'string') {
-      const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
-      exportTypes = types.map(t => t.slice(1, -1))
-    }
-
-    this.$export = $(exportTypes.length === 1 ? `
-      <div class="export ${this.constants.classes.buttonsDropdown}"
-      data-type="${exportTypes[0]}">
-      <button class="${this.constants.buttonsClass}"
-      aria-label="Export"
-      type="button"
-      title="${o.formatExport()}">
-      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
-      ${o.showButtonText ? o.formatExport() : ''}
-      </button>
-      </div>
-    ` : `
-      <div class="export ${this.constants.classes.buttonsDropdown}">
-      <button class="${this.constants.buttonsClass} dropdown-toggle"
-      aria-label="Export"
-      data-toggle="dropdown"
-      type="button"
-      title="${o.formatExport()}">
-      ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
-      ${o.showButtonText ? o.formatExport() : ''}
-      ${this.constants.html.dropdownCaret}
-      </button>
-      </div>
-    `).appendTo($btnGroup)
-
     let $items = this.$export
-
     if (exportTypes.length > 1) {
       this.$export.append($menu)
 

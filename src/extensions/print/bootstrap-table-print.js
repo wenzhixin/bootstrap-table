@@ -48,6 +48,13 @@ function printPageBuilderDefault (table) {
   </html>`
 }
 
+$.extend($.fn.bootstrapTable.locales, {
+  formatPrint () {
+    return 'Print'
+  }
+})
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+
 $.extend($.fn.bootstrapTable.defaults, {
   showPrint: false,
   printAsFilteredAndSortedOnUI: true,
@@ -85,27 +92,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar (...args) {
     this.showToolbar = this.showToolbar || this.options.showPrint
 
+    if (this.options.showPrint) {
+      this.buttons = Object.assign(this.buttons, {
+        print: {
+          'text': this.options.formatPrint(),
+          'icon': this.options.icons.print,
+          'event': () => {
+            this.doPrint(this.options.printAsFilteredAndSortedOnUI ? this.getData() : this.options.data.slice(0))
+          },
+          'attributes': {
+            'aria-label': this.options.formatPrint(),
+            'title': this.options.formatPrint()
+          }
+        }
+      })
+    }
+
     super.initToolbar(...args)
-
-    if (!this.options.showPrint) {
-      return
-    }
-
-    const $btnGroup = this.$toolbar.find('>.columns')
-    let $print = $btnGroup.find('button.bs-print')
-
-    if (!$print.length) {
-      $print = $(`
-        <button class="${this.constants.buttonsClass} bs-print" type="button">
-        <i class="${this.options.iconsPrefix} ${this.options.icons.print}"></i>
-        </button>`
-      ).appendTo($btnGroup)
-    }
-
-    $print.off('click').on('click', () => {
-      this.doPrint(this.options.printAsFilteredAndSortedOnUI ?
-        this.getData() : this.options.data.slice(0))
-    })
   }
 
   mergeCells (options) {

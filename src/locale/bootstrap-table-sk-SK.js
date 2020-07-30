@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['sk-SK'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Prosím čakajte'
   },

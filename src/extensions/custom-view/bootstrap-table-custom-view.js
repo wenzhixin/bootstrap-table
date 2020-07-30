@@ -54,24 +54,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initToolbar (...args) {
-    super.initToolbar(...args)
-
     if (this.options.customView && this.options.showCustomViewButton) {
-      const $btnGroup = this.$toolbar.find('>.' + this.constants.classes.buttonsGroup.split(' ').join('.')).first()
-      let $btnToggleCustomView = $btnGroup.find('.toggle-custom-view')
-
-      if (!$btnToggleCustomView.length) {
-        $btnToggleCustomView = $(`
-          <button class="toggle-custom-view ${this.constants.buttonsClass}"
-          type="button" title="${this.options.formatToggleCustomView()}">
-          ${this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.customView) : ''}
-          ${this.options.showButtonText ? this.options.formatToggleCustomView() : ''}
-          </button>
-        `).appendTo($btnGroup)
-
-        $btnToggleCustomView.on('click', $.proxy(this.toggleCustomView, this))
-      }
+      this.buttons = Object.assign(this.buttons, {
+        customView: {
+          'text': this.options.formatToggleCustomView(),
+          'icon': this.options.icons.customView,
+          'event': this.toggleCustomView,
+          'attributes': {
+            'aria-label': this.options.formatToggleCustomView(),
+            'title': this.options.formatToggleCustomView()
+          }
+        }
+      })
     }
+
+    super.initToolbar(...args)
   }
 
   initBody () {

@@ -152,4 +152,4 @@ This is an important link to check out as some file types may require extra step
 
 - **Parameter:** `undefined`
 
-- **Default:** `'Export data'`
+- **Default:** `function () { return "Export data" }`
