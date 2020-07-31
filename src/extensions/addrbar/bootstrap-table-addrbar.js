@@ -66,16 +66,17 @@ function _buildUrl (dict, url = window.location.search) {
 /*
 * function: _updateHistoryState
 * var _prefix = this.options.addrPrefix || ''
-* _updateHistoryState(_prefix)
+* var table = this
+* _updateHistoryState( table,_prefix)
 * returns void
 */
-function _updateHistoryState ( _prefix ) {
+function _updateHistoryState ( table,_prefix ) {
   const params = {}
-  params[`${_prefix}page`] = this.options.pageNumber,
-  params[`${_prefix}size`] = this.options.pageSize,
-  params[`${_prefix}order`] = this.options.sortOrder,
-  params[`${_prefix}sort`] = this.options.sortName,
-  params[`${_prefix}search`] = this.options.searchText
+  params[`${_prefix}page`] = table.options.pageNumber,
+  params[`${_prefix}size`] = table.options.pageSize,
+  params[`${_prefix}order`] = table.options.sortOrder,
+  params[`${_prefix}sort`] = table.options.sortName,
+  params[`${_prefix}search`] = table.options.searchText
   // h5提供的修改浏览器地址栏的方法
   window.history.pushState({}, '', _buildUrl(params))
 }
@@ -108,7 +109,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         if (this.addrbarInit) {
           this.addrbarInit = false
         } else {
-          _updateHistoryState(_prefix)
+          _updateHistoryState(this,_prefix)
         }
 
         if (_onLoadSuccess) {
@@ -116,7 +117,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
       }
       this.options.onPageChange = (number,size) => {
-        _updateHistoryState(_prefix)
+        _updateHistoryState(this,_prefix)
 
         if (_onPageChange) {
           _onPageChange.call(this,number,size)
