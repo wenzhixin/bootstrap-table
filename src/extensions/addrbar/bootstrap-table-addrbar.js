@@ -44,6 +44,8 @@ function _buildUrl (dict, url = window.location.search) {
     // 搜索name=general这种形式的字符串(&是分隔符)
     const pattern = `${key}=([^&]*)`
     const targetStr = `${key}=${val}`
+    if (targetStr.includes('undefined'))
+      continue
 
     /*
      * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
