@@ -44,7 +44,7 @@ function _buildUrl (dict, url = window.location.search) {
     // 搜索name=general这种形式的字符串(&是分隔符)
     const pattern = `${key}=([^&]*)`
     const targetStr = `${key}=${val}`
-    if (targetStr.includes('undefined'))
+    if (val === undefined )
       continue
 
     /*
