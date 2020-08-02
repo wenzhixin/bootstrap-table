@@ -79,7 +79,6 @@ function _updateHistoryState ( table,_prefix ) {
   params[`${_prefix}order`] = table.options.sortOrder,
   params[`${_prefix}sort`] = table.options.sortName,
   params[`${_prefix}search`] = table.options.searchText
-  // h5提供的修改浏览器地址栏的方法
   window.history.pushState({}, '', _buildUrl(params))
 }
 
