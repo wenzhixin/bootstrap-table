@@ -121,7 +121,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         _updateHistoryState(this,_prefix)
 
         if (_onPageChange) {
-          _onPageChange.call(this,number,size)
+          _onPageChange.apply(this,arguments)
         }
       }
     }
