@@ -56,6 +56,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .on('scroll', () => this.renderStickyHeader())
   }
 
+  horizontalScroll () {
+    super.horizontalScroll()
+    this.$tableBody.on('scroll', () => this.matchPositionX())
+  }
+
   renderStickyHeader () {
     const that = this
     this.$stickyHeader = this.$header.clone(true, true)
