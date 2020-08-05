@@ -257,7 +257,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       if (options.unit === 'rows') {
         let scrollTo = 0
-        this.$body.find(`> tr:lt(${options.value})`).each((i, el) => {
+        this.$body.find(`> tr:not(.groupBy):lt(${options.value})`).each((i, el) => {
           scrollTo += $(el).outerHeight(true)
         })
 
