@@ -1454,7 +1454,8 @@ class BootstrapTable {
         type = column.radio ? 'radio' : type
 
         const c = column['class'] || ''
-        const isChecked = (typeof(value.checked) !== 'undefined' ? value.checked : (value === true || value_ || value && value.checked) && value !== false)
+        const isChecked = Utils.isObject(value) && value.hasOwnProperty('checked') ?
+          value.checked : (value === true || value_) && value !== false
         const isDisabled = !column.checkboxEnabled || (value && value.disabled)
 
         text = [
