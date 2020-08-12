@@ -17,7 +17,7 @@ export default {
   },
   
   isObject (val) {
-    return val !== null && typeof val === 'object' && !Array.isArray(val)
+    return val instanceof Object && !Array.isArray(val)
   },
 
   isEmptyObject (obj = {}) {
