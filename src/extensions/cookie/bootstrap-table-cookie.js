@@ -387,13 +387,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   _toggleColumn (...args) {
     super._toggleColumn(...args)
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map((column) => column.field)))
   }
 
   _toggleAllColumns (...args) {
     super._toggleAllColumns(...args)
 
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map((column) => column.field)))
   }
 
   selectPage (page) {
@@ -468,7 +468,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (columnsCookie) {
       for (const column of this.columns) {
-        column.visible = columnsCookie.filter((c) => { return c.field === column.field }).length > 0 || !column.switchable
+        column.visible = columnsCookie.filter((columnField) => { return columnField === column.field }).length > 0 || !column.switchable
       }
     }
   }
