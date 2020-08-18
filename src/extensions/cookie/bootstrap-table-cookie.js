@@ -469,6 +469,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (columnsCookie) {
       for (const column of this.columns) {
         column.visible = columnsCookie.filter((columnField) => {
+          if (this.isSelectionColumn(column)) {
+            return true
+          }
           /**
            * This is needed for the old saved cookies or the table will show no columns!
            * It can be removed in 2-3 Versions Later!!
