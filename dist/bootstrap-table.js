@@ -5753,7 +5753,11 @@
 	        e.preventDefault();
 
 	        _this9.toggleDetailView($(e.currentTarget).parent().parent().data('index'));
-
+		
+                if(_this9.options.height){
+	               var top = $(this).position().top + $('.fixed-table-body').scrollTop();
+	               $('.fixed-table-body').stop().animate({ scrollTop:  top }, 750); 
+                }
 	        return false;
 	      });
 	      this.$selectItem = this.$body.find(Utils.sprintf('[name="%s"]', this.options.selectItemName));
