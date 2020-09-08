@@ -247,16 +247,19 @@ export default {
     const m = []
 
     $els.each((y, el) => {
+      const $el = $(el)
       const row = {}
 
       // save tr's id, class and data-* attributes
-      row._id = $(el).attr('id')
-      row._class = $(el).attr('class')
-      row._data = this.getRealDataAttr($(el).data())
+      row._id = $el.attr('id')
+      row._class = $el.attr('class')
+      row._data = this.getRealDataAttr($el.data())
+      row._style = $el.attr('style')
 
-      $(el).find('>td,>th').each((_x, el) => {
-        const cspan = +$(el).attr('colspan') || 1
-        const rspan = +$(el).attr('rowspan') || 1
+      $el.find('>td,>th').each((_x, el) => {
+        const $el = $(el)
+        const cspan = +$el.attr('colspan') || 1
+        const rspan = +$el.attr('rowspan') || 1
         let x = _x
 
         // skip already occupied cells in current row
@@ -276,14 +279,15 @@ export default {
 
         const field = columns[x].field
 
-        row[field] = $(el).html().trim()
+        row[field] = $el.html().trim()
         // save td's id, class and data-* attributes
-        row[`_${field}_id`] = $(el).attr('id')
-        row[`_${field}_class`] = $(el).attr('class')
-        row[`_${field}_rowspan`] = $(el).attr('rowspan')
-        row[`_${field}_colspan`] = $(el).attr('colspan')
-        row[`_${field}_title`] = $(el).attr('title')
-        row[`_${field}_data`] = this.getRealDataAttr($(el).data())
+        row[`_${field}_id`] = $el.attr('id')
+        row[`_${field}_class`] = $el.attr('class')
+        row[`_${field}_rowspan`] = $el.attr('rowspan')
+        row[`_${field}_colspan`] = $el.attr('colspan')
+        row[`_${field}_title`] = $el.attr('title')
+        row[`_${field}_data`] = this.getRealDataAttr($el.data())
+        row[`_${field}_style`] = $el.attr('style')
       })
       data.push(row)
     })
