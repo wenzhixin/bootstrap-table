@@ -2626,6 +2626,7 @@ class BootstrapTable {
     this.$selectAll.add(this.$selectAll_).prop('checked', checked)
     this.$selectItem.filter(':enabled').prop('checked', checked)
     this.updateRows()
+    this.updateSelected()
 
     const rowsAfter = this.getSelections()
     if (checked) {
