@@ -29,7 +29,6 @@
     "rollup-plugin-node-resolve": "^5.0.4",
     "rollup-plugin-terser": "^7.0.0",
     "rollup-plugin-vue": "5.1.9",
-    "safe-eval": "^0.4.1",
     "stylelint": "^13.3.3",
     "stylelint-config-standard": "^20.0.0",
     "vue-template-compiler": "^2.6.10"
