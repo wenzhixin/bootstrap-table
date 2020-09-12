@@ -15,6 +15,23 @@ jobs:
         - npm run pre-commit
       if: branch != master AND type = pull_request
 
+    - stage: test
+      language: node_js
+      node_js:
+        - 10
+      name: "e2e tests"
+      addons:
+        apt:
+          packages:
+            - libgconf-2-4
+      cache:
+        npm: true
+        directories:
+          - ~/.cache
+      script:
+        - $(npm bin)/cypress run --headless
+      if: branch != master AND type = pull_request
+
     - stage: deploy
       name: "Deploy docs"
       language: ruby
