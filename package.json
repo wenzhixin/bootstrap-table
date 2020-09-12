@@ -38,6 +38,7 @@
     "lint:js": "eslint src",
     "lint:css": "stylelint src/**/*.scss",
     "lint": "run-s lint:*",
+    "test": "./node_modules/.bin/cypress run --headless",
     "docs:check:api": "cd tools && node check-api.js",
     "docs:check:locale": "cd tools && node check-locale.js",
     "docs:check": "run-s docs:check:*",
