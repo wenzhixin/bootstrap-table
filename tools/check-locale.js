@@ -1,30 +1,14 @@
 const fs = require('fs')
-const safeEval = require('safe-eval')
 const _ = require('lodash')
 const chalk = require('chalk')
 
 const DIR = '../src/locale/'
-const readObj = text => {
-  return safeEval(text.replace('($ => {', '')
-    .replace('})(jQuery)', '')
-    .replace(/\$\.fn\.bootstrapTable\.locales\['.*'\] = /, '')
-    .replace(/\$\.extend.*/, '').trim())
-}
-const readString = (obj, text) => {
-  const lines = text.split('\n')
-  for (const key in obj) {
-    if (obj[key]) {
-      const index = _.findIndex(lines, line => line.includes(key))
-      if (Object.keys(obj).pop() === key) {
-        lines[index + 2] += ','
-      }
-      obj[key] = lines.slice(index, index + 3).join('\n')
-    }
-  }
-  return obj
+const readKeys = text => {
+  return text.match(/ {2}(format\w*) \(/g)
+    .map(it => it.replace('  ', '').replace(' (', ''))
 }
 const baseText = fs.readFileSync(DIR + 'bootstrap-table-en-US.js').toString()
-const baseObj = readString(readObj(baseText), baseText)
+const baseKeys = readKeys(baseText)
 
 fs.readdir(`${DIR}`, (err, files) => {
   let errorSum = 0
@@ -34,12 +18,11 @@ fs.readdir(`${DIR}`, (err, files) => {
     }
 
     const text = fs.readFileSync(DIR + file).toString()
-    const obj = readString(readObj(text), text)
-    const keys = Object.keys(obj)
+    const keys = readKeys(text)
     let offset = 0
     const errors = []
 
-    for (const [i, key] of Object.keys(baseObj).entries()) {
+    for (const [i, key] of baseKeys.entries()) {
       if (!keys.includes(key)) {
         errors.push(chalk.red(`Missing key: '${key}'`))
         offset++
