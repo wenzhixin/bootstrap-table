@@ -677,7 +677,7 @@ class BootstrapTable {
     if (opts.showToggle) {
       this.$toolbar.find('button[name="toggle"]')
         .off('click').on('click', () => {
-          this.toggleView()
+          // this.toggleView()
         })
     }
 
