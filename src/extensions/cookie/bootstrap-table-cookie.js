@@ -65,7 +65,8 @@ const UtilsCookie = {
           `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
           that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
           that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-          that.options.cookieSecure ? '; secure' : ''
+          that.options.cookieSecure ? '; secure' : '',
+          ';SameSite=' + that.options.cookieSameSite
         ].join('')
         break
       case 'localStorage':
@@ -262,6 +263,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   cookiePath: null,
   cookieDomain: null,
   cookieSecure: null,
+  cookieSameSite: 'Lax',
   cookieIdTable: '',
   cookiesEnabled: [
     'bs.table.sortOrder', 'bs.table.sortName',
