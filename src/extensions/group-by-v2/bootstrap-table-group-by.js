@@ -32,7 +32,8 @@ $.extend($.fn.bootstrapTable.defaults, {
   groupByField: '',
   groupByFormatter: undefined,
   groupByToggle: false,
-  groupByShowToggleIcon: false
+  groupByShowToggleIcon: false,
+  groupByCollapsedGroups: []
 })
 
 const Utils = $.fn.bootstrapTable.utils
@@ -96,6 +97,10 @@ BootstrapTable.prototype.initSort = function (...args) {
           item._data = {}
         }
 
+        if (this.isCollapsed(key, value)) {
+          item._class = 'hidden'
+        }
+
         item._data['parent-index'] = index
       })
 
@@ -151,8 +156,13 @@ BootstrapTable.prototype.initBody = function (...args) {
         '>', formattedValue
       )
 
+      let icon = this.options.icons.collapseGroup
+      if (this.isCollapsed(item.name, item.data)) {
+        icon = this.options.icons.expandGroup
+      }
+
       if (this.options.groupByToggle && this.options.groupByShowToggleIcon) {
-        html.push(`<span class="float-right ${this.options.iconsPrefix} ${this.options.icons.collapseGroup}"></span>`)
+        html.push(`<span class="float-right ${this.options.iconsPrefix} ${icon}"></span>`)
       }
 
       html.push('</td></tr>')
@@ -216,6 +226,17 @@ BootstrapTable.prototype.checkGroup = function (index) {
 
 BootstrapTable.prototype.uncheckGroup = function (index) {
   this.checkGroup_(index, false)
+}
+
+BootstrapTable.prototype.isCollapsed = function (groupKey, items) {
+  if (this.options.groupByCollapsedGroups) {
+    const collapsedGroups = Utils.calculateObjectValue(this, this.options.groupByCollapsedGroups, [groupKey, items], true)
+    if ($.inArray(groupKey, collapsedGroups) > -1) {
+      return true
+    }
+  }
+
+  return false
 }
 
 BootstrapTable.prototype.checkGroup_ = function (index, checked) {
