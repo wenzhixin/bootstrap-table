@@ -501,7 +501,7 @@ const METHODS = [
   'getOptions',
   'refreshOptions',
   'getData',
-  'getSelections', 'getAllSelections',
+  'getSelections',
   'load', 'append', 'prepend',
   'remove', 'removeAll',
   'insertRow', 'updateRow',
