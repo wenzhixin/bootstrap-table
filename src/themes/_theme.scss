@@ -199,12 +199,20 @@
       .fixed-table-loading {
         align-items: center;
         background: $background;
-        display: none;
+        display: flex;
         justify-content: center;
         position: absolute;
         bottom: 0;
         width: 100%;
         z-index: 1000;
+        transition: visibility 0s, opacity 0.15s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+
+        &.open {
+          visibility: visible;
+          opacity: 1;
+        }
 
         .loading-wrap {
           align-items: baseline;
