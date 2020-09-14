@@ -1142,7 +1142,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  If this option isset (must be a valid dom selector e.g. `#customSearch`), the found dom element (should be a `input` element) will be used as table search instead of the build in search input.
+  If this option is set (must be a valid dom selector e.g. `#customSearch`), the found dom element (should be an `input` element) will be used as table search instead of the build-in search input.
 
 - **Default:** `false`
 
