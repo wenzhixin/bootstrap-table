@@ -2681,7 +2681,7 @@ class BootstrapTable {
 
   _toggleCheck (checked, index) {
     const $el = this.$selectItem.filter(`[data-index="${index}"]`)
-    const row = this.data[index]
+    const row = this.options.data[index]
 
     if (
       $el.is(':radio') ||
