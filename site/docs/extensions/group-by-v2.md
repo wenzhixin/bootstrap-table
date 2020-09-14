@@ -84,3 +84,21 @@ toc: true
    Set `true` to show icons if the group is collapsed or expanded (see groupByToggle).
 
 - **Default:** `false`
+
+### groupByCollapsedGroups
+
+- **attribute:** `data-group-by-collapsed-groups`
+
+- **type:** `Array|Function`
+
+- **Detail:**
+
+  All group keys (which are in this array will be collapsed by default.   
+  The value of this option can be:
+  - A variable (array)
+  - An Array string e.g. `["circle"]`
+  - A function (returns an array) which gets as parameters:
+     - The group key
+     - The entries of the group 
+
+- **Default:** `[]`
