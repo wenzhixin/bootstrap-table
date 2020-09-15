@@ -235,6 +235,7 @@ const DEFAULTS = {
   searchHighlight: false,
   searchOnEnterKey: false,
   strictSearch: false,
+  searchSelector: false,
   visibleSearch: false,
   showButtonIcons: true,
   showButtonText: false,
