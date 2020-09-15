@@ -44,6 +44,8 @@ function _buildUrl (dict, url = window.location.search) {
     // 搜索name=general这种形式的字符串(&是分隔符)
     const pattern = `${key}=([^&]*)`
     const targetStr = `${key}=${val}`
+    if (val === undefined )
+      continue
 
     /*
      * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
@@ -63,6 +65,23 @@ function _buildUrl (dict, url = window.location.search) {
   return url
 }
 
+/*
+* function: _updateHistoryState
+* var _prefix = this.options.addrPrefix || ''
+* var table = this
+* _updateHistoryState( table,_prefix)
+* returns void
+*/
+function _updateHistoryState (table, _prefix) {
+  const params = {}
+  params[`${_prefix}page`] = table.options.pageNumber,
+  params[`${_prefix}size`] = table.options.pageSize,
+  params[`${_prefix}order`] = table.options.sortOrder,
+  params[`${_prefix}sort`] = table.options.sortName,
+  params[`${_prefix}search`] = table.options.searchText
+  window.history.pushState({}, '', _buildUrl(params))
+}
+
 $.extend($.fn.bootstrapTable.defaults, {
   addrbar: false,
   addrPrefix: ''
@@ -72,7 +91,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
   init (...args) {
     if (
       this.options.pagination &&
-      this.options.sidePagination === 'server' &&
       this.options.addrbar
     ) {
       // 标志位, 初始加载后关闭
@@ -86,23 +104,24 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       const _prefix = this.options.addrPrefix || ''
       const _onLoadSuccess = this.options.onLoadSuccess
+      const _onPageChange = this.options.onPageChange
 
       this.options.onLoadSuccess = data => {
         if (this.addrbarInit) {
           this.addrbarInit = false
         } else {
-          const params = {}
-          params[`${_prefix}page`] = this.options.pageNumber,
-          params[`${_prefix}size`] = this.options.pageSize,
-          params[`${_prefix}order`] = this.options.sortOrder,
-          params[`${_prefix}sort`] = this.options.sortName,
-          params[`${_prefix}search`] = this.options.searchText
-          // h5提供的修改浏览器地址栏的方法
-          window.history.pushState({}, '', _buildUrl(params))
+          _updateHistoryState(this, _prefix)
         }
 
         if (_onLoadSuccess) {
           _onLoadSuccess.call(this, data)
+        }
+      }
+      this.options.onPageChange = (number, size) => {
+        _updateHistoryState(this, _prefix)
+
+        if (_onPageChange) {
+          _onPageChange.call(this, number, size)
         }
       }
     }

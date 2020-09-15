@@ -142,6 +142,19 @@ toc: true
 
 - **Default:** `null`
 
+### cookieSameSite
+
+- **Attribute:** `data-cookie-same-site`
+
+- **type:** `string`
+
+- **Detail:**
+
+   This property defines the value of the `SameSite` cookie attribute, for more information please check the [SameSite Documentation](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Set-Cookie/SameSite).
+
+- **Default:** `Lax`
+
+
 ### cookieStorage
 
 - **Attribute:** `data-cookie-storage`
