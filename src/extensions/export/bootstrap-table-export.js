@@ -260,10 +260,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const virtualScroll = this.options.virtualScroll
 
       this.$el.one(eventName, () => {
-        doExport(() => {
-          this.options.virtualScroll = virtualScroll
-          this.togglePagination()
-        })
+        setTimeout(() => {
+          doExport(() => {
+            this.options.virtualScroll = virtualScroll
+            this.togglePagination()
+          })
+        }, 0)
       })
       this.options.virtualScroll = false
       this.togglePagination()
