@@ -15,7 +15,7 @@ export default {
     })
     return flag ? str : ''
   },
-  
+
   isObject (val) {
     return val instanceof Object && !Array.isArray(val)
   },
