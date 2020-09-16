@@ -1071,6 +1071,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   - Comparisons (<, >, <=, =<, >=, =>).
     Example: 4 is larger than 3.
 
+  Note: If you want to use a custom search input use the [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector).
+
 - **Default:** `false`
 
 - **Example:** [Table Search](https://examples.bootstrap-table.com/#options/table-search.html)
@@ -1131,6 +1133,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Search On Enter Key](https://examples.bootstrap-table.com/#options/search-on-enter-key.html)
+
+## searchSelector
+
+- **Attribute:** `data-search-selector`
+
+- **Type:** `Boolean|String`
+
+- **Detail:**
+
+  If this option is set (must be a valid dom selector e.g. `#customSearch`), the found dom element (should be an `input` element) will be used as table search instead of the built-in search input.
+
+- **Default:** `false`
+
+- **Example:** [Search Selector](https://examples.bootstrap-table.com/#options/table-search-selector.html)
 
 ## searchText
 

@@ -1,4 +1,12 @@
 export default {
+
+  getSearchInput (that) {
+    if (typeof that.options.searchSelector === 'string') {
+      return $(that.options.searchSelector)
+    }
+    return that.$toolbar.find('.search input')
+  },
+
   // it only does '%s', and return '' when arguments are undefined
   sprintf (_str, ...args) {
     let flag = true
