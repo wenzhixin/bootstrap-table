@@ -24,6 +24,10 @@ export default {
     return flag ? str : ''
   },
 
+  isObject (val) {
+    return val instanceof Object && !Array.isArray(val)
+  },
+
   isEmptyObject (obj = {}) {
     return Object.entries(obj).length === 0 && obj.constructor === Object
   },
