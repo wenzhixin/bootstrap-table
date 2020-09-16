@@ -1146,7 +1146,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
-- **Example:** [Search Selector](https://examples.bootstrap-table.com/#options/table-search-selector.html)
+- **Example:** [Search Selector](https://examples.bootstrap-table.com/#options/search-selector.html)
 
 ## searchText
 
