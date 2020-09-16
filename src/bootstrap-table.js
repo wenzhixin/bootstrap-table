@@ -407,7 +407,7 @@ class BootstrapTable {
     } else if (type === 'prepend') {
       this.options.data = [].concat(data).concat(this.options.data)
     } else {
-      data = data || this.options.data
+      data = data || [...this.options.data]
       this.options.data = Array.isArray(data) ? data : data[this.options.dataField]
     }
 
