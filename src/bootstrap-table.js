@@ -43,6 +43,8 @@ class BootstrapTable {
       buttonsPrefix + opts.buttonsClass,
       Utils.sprintf(`${buttonsPrefix}%s`, opts.iconSize)
     ].join(' ').trim()
+
+    this.buttons = Utils.calculateObjectValue(this, opts.buttons, [], [])
   }
 
   initLocale () {
@@ -529,7 +531,6 @@ class BootstrapTable {
     let html = []
     let timeoutId = 0
     let $keepOpen
-    let $search
     let switchableCount = 0
 
     if (this.$toolbar.find('.bs-bars').children().length) {
@@ -555,99 +556,165 @@ class BootstrapTable {
       opts.icons = Utils.calculateObjectValue(null, opts.icons)
     }
 
-    const buttonsHtml = {
-      paginationSwitch: `<button class="${this.constants.buttonsClass}" type="button" name="paginationSwitch"
-        aria-label="Pagination Switch" title="${opts.formatPaginationSwitch()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.paginationSwitchDown) : ''}
-        ${opts.showButtonText ? opts.formatPaginationSwitchUp() : ''}
-        </button>`,
-
-      refresh: `<button class="${this.constants.buttonsClass}" type="button" name="refresh"
-        aria-label="Refresh" title="${opts.formatRefresh()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.refresh) : ''}
-        ${opts.showButtonText ? opts.formatRefresh() : ''}
-        </button>`,
-
-      toggle: `<button class="${this.constants.buttonsClass}" type="button" name="toggle"
-        aria-label="Toggle" title="${opts.formatToggle()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.toggleOff) : ''}
-        ${opts.showButtonText ? opts.formatToggleOn() : ''}
-        </button>`,
-
-      fullscreen: `<button class="${this.constants.buttonsClass}" type="button" name="fullscreen"
-        aria-label="Fullscreen" title="${opts.formatFullscreen()}">
-        ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.fullscreen) : ''}
-        ${opts.showButtonText ? opts.formatFullscreen() : ''}
-        </button>`,
-
-      columns: (() => {
-        const html = []
-        html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
-          <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
-          aria-label="Columns" title="${opts.formatColumns()}">
-          ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
-          ${opts.showButtonText ? opts.formatColumns() : ''}
-          ${this.constants.html.dropdownCaret}
-          </button>
-          ${this.constants.html.toolbarDropdown[0]}`)
-
-        if (opts.showColumnsSearch) {
-          html.push(
-            Utils.sprintf(this.constants.html.toolbarDropdownItem,
-              Utils.sprintf('<input type="text" class="%s" name="columnsSearch" placeholder="%s" autocomplete="off">', this.constants.classes.input, opts.formatSearch())
-            )
-          )
-          html.push(this.constants.html.toolbarDropdownSeparator)
-        }
-
-        if (opts.showColumnsToggleAll) {
-          const allFieldsVisible = this.getVisibleColumns().length === this.columns.filter(column => !this.isSelectionColumn(column)).length
-          html.push(
-            Utils.sprintf(this.constants.html.toolbarDropdownItem,
-              Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>',
-                allFieldsVisible ? 'checked="checked"' : '', opts.formatColumnsToggleAll())
-            )
-          )
-
-          html.push(this.constants.html.toolbarDropdownSeparator)
-        }
-
-        let visibleColumns = 0
-        this.columns.forEach((column, i) => {
-          if (column.visible) {
-            visibleColumns++
-          }
-        })
-
-        this.columns.forEach((column, i) => {
-          if (this.isSelectionColumn(column)) {
-            return
-          }
-
-          if (opts.cardView && !column.cardVisible) {
-            return
-          }
-
-          const checked = column.visible ? ' checked="checked"' : ''
-          const disabled = (visibleColumns <= this.options.minimumCountColumns) && checked ? ' disabled="disabled"' : ''
-          if (column.switchable) {
-            html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
-              Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
-                column.field, i, checked, disabled, column.title)))
-            switchableCount++
-          }
-        })
-        html.push(this.constants.html.toolbarDropdown[1], '</div>')
-        return html.join('')
-      })()
-    }
-
     if (typeof opts.buttonsOrder === 'string') {
       opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').toLowerCase().split(',')
     }
 
+    this.buttons = Object.assign(this.buttons, {
+      paginationSwitch: {
+        text: opts.pagination ? opts.formatPaginationSwitchUp() : opts.formatPaginationSwitchDown(),
+        icon: opts.pagination ? opts.icons.paginationSwitchDown : opts.icons.paginationSwitchUp,
+        render: false,
+        event: this.togglePagination,
+        attributes: {
+          'aria-label': opts.formatPaginationSwitch(),
+          title: opts.formatPaginationSwitch()
+        }
+      },
+      refresh: {
+        text: opts.formatRefresh(),
+        icon: opts.icons.refresh,
+        render: false,
+        event: this.refresh,
+        attributes: {
+          'aria-label': opts.formatRefresh(),
+          title: opts.formatRefresh()
+        }
+      },
+      toggle: {
+        text: opts.formatToggle(),
+        icon: opts.icons.toggleOff,
+        render: false,
+        event: this.toggleView,
+        attributes: {
+          'aria-label': opts.formatToggleOn(),
+          title: opts.formatToggleOn()
+        }
+      },
+      fullscreen: {
+        text: opts.formatFullscreen(),
+        icon: opts.icons.fullscreen,
+        render: false,
+        event: this.toggleFullscreen,
+        attributes: {
+          'aria-label': opts.formatFullscreen(),
+          title: opts.formatFullscreen()
+        }
+      },
+      columns: {
+        render: false,
+        html: (() => {
+          const html = []
+          html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
+            <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
+            aria-label="Columns" title="${opts.formatColumns()}">
+            ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
+            ${opts.showButtonText ? opts.formatColumns() : ''}
+            ${this.constants.html.dropdownCaret}
+            </button>
+            ${this.constants.html.toolbarDropdown[0]}`)
+
+          if (opts.showColumnsSearch) {
+            html.push(
+              Utils.sprintf(this.constants.html.toolbarDropdownItem,
+                Utils.sprintf('<input type="text" class="%s" name="columnsSearch" placeholder="%s" autocomplete="off">', this.constants.classes.input, opts.formatSearch())
+              )
+            )
+            html.push(this.constants.html.toolbarDropdownSeparator)
+          }
+
+          if (opts.showColumnsToggleAll) {
+            const allFieldsVisible = this.getVisibleColumns().length === this.columns.filter(column => !this.isSelectionColumn(column)).length
+            html.push(
+              Utils.sprintf(this.constants.html.toolbarDropdownItem,
+                Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>',
+                  allFieldsVisible ? 'checked="checked"' : '', opts.formatColumnsToggleAll())
+              )
+            )
+
+            html.push(this.constants.html.toolbarDropdownSeparator)
+          }
+
+          let visibleColumns = 0
+          this.columns.forEach((column, i) => {
+            if (column.visible) {
+              visibleColumns++
+            }
+          })
+
+          this.columns.forEach((column, i) => {
+            if (this.isSelectionColumn(column)) {
+              return
+            }
+
+            if (opts.cardView && !column.cardVisible) {
+              return
+            }
+
+            const checked = column.visible ? ' checked="checked"' : ''
+            const disabled = (visibleColumns <= opts.minimumCountColumns) && checked ? ' disabled="disabled"' : ''
+            if (column.switchable) {
+              html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
+                Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
+                  column.field, i, checked, disabled, column.title)))
+              switchableCount++
+            }
+          })
+          html.push(this.constants.html.toolbarDropdown[1], '</div>')
+          return html.join('')
+        })
+      }
+    })
+
+    const buttonsHtml = {}
+    for (const [buttonName, buttonConfig] of Object.entries(this.buttons)) {
+      let buttonHtml
+      if (buttonConfig.hasOwnProperty('html')) {
+        buttonHtml = Utils.calculateObjectValue(opts, buttonConfig.html)
+      } else {
+        buttonHtml = `<button class="${this.constants.buttonsClass}" type="button" name="${buttonName}"`
+
+        if (buttonConfig.hasOwnProperty('attributes')) {
+          for (const [attributeName, value] of Object.entries(buttonConfig.attributes)) {
+            buttonHtml += ` ${attributeName}="${Utils.calculateObjectValue(opts, value)}"`
+          }
+        }
+
+        buttonHtml += '>'
+
+        if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
+          const icon = Utils.calculateObjectValue(opts, buttonConfig.icon)
+          buttonHtml += Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, icon) + ' '
+        }
+
+        if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
+          buttonHtml += Utils.calculateObjectValue(opts, buttonConfig.text)
+        }
+
+        buttonHtml += '</button>'
+      }
+
+      buttonsHtml[buttonName] = buttonHtml
+      const optionName = `show${buttonName.charAt(0).toUpperCase()}${buttonName.substring(1)}`
+      const showOption = opts[optionName]
+      if ((
+        !buttonConfig.hasOwnProperty('render') ||
+        buttonConfig.hasOwnProperty('render') &&
+        buttonConfig.render) &&
+        (showOption === undefined || showOption === true)
+      ) {
+        opts[optionName] = true
+      }
+
+      if (!opts.buttonsOrder.includes(buttonName)) {
+        opts.buttonsOrder.push(buttonName)
+      }
+    }
+
+    // Adding the button html to the final toolbar html when the showOption is true
     for (const button of opts.buttonsOrder) {
-      if (opts['show' + button.charAt(0).toUpperCase() + button.substring(1)]) {
+      const showOption = opts[`show${button.charAt(0).toUpperCase()}${button.substring(1)}`]
+      if (showOption) {
         html.push(buttonsHtml[button])
       }
     }
@@ -659,26 +726,23 @@ class BootstrapTable {
       this.$toolbar.append(html.join(''))
     }
 
-    if (opts.showPaginationSwitch) {
-      this.$toolbar.find('button[name="paginationSwitch"]')
-        .off('click').on('click', () => this.togglePagination())
-    }
+    for (const [buttonName, buttonConfig] of Object.entries(this.buttons)) {
+      if (buttonConfig.hasOwnProperty('event')) {
+        if (typeof buttonConfig.event === 'function' || typeof buttonConfig.event === 'string') {
+          const event = typeof buttonConfig.event === 'string' ? window[buttonConfig.event] : buttonConfig.event
+          this.$toolbar.find(`button[name="${buttonName}"]`)
+            .off('click')
+            .on('click', () => event.call(this))
+          continue
+        }
 
-    if (opts.showFullscreen) {
-      this.$toolbar.find('button[name="fullscreen"]')
-        .off('click').on('click', () => this.toggleFullscreen())
-    }
-
-    if (opts.showRefresh) {
-      this.$toolbar.find('button[name="refresh"]')
-        .off('click').on('click', () => this.refresh())
-    }
-
-    if (opts.showToggle) {
-      this.$toolbar.find('button[name="toggle"]')
-        .off('click').on('click', () => {
-          this.toggleView()
-        })
+        for (const [eventType, eventFunction] of Object.entries(buttonConfig.event)) {
+          const event = typeof eventFunction === 'string' ? window[eventFunction] : eventFunction
+          this.$toolbar.find(`button[name="${buttonName}"]`)
+            .off(eventType)
+            .on(eventType, () => event.call(this))
+        }
+      }
     }
 
     if (opts.showColumns) {
@@ -744,7 +808,7 @@ class BootstrapTable {
     // Fix #4516: this.showSearchClearButton is for extensions
     if (
       (opts.search || this.showSearchClearButton)
-      && typeof this.options.searchSelector !== 'string'
+      && typeof opts.searchSelector !== 'string'
     ) {
       html = []
       const showSearchButton = Utils.sprintf(this.constants.html.searchButton,
@@ -800,7 +864,7 @@ class BootstrapTable {
           this.resetSearch()
         })
       }
-    } else if (typeof this.options.searchSelector === 'string') {
+    } else if (typeof opts.searchSelector === 'string') {
       const $searchInput = Utils.getSearchInput(this)
       handleInputEvent($searchInput)
     }

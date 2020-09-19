@@ -136,7 +136,7 @@ export default {
     return this.cachedWidth
   },
 
-  calculateObjectValue (self, name, args, defaultValue) {
+  calculateObjectValue (self, name, args = [], defaultValue) {
     let func = name
 
     if (typeof name === 'string') {

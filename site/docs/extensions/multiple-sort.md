@@ -112,7 +112,7 @@ toc: true
 
   Text of the add level button
 
-- **Default:** `Add Level`
+- **Default:** `function () { return "Add Level" }`
 
 ### formatCancel
 
@@ -120,7 +120,7 @@ toc: true
 
   Text of the delete level button
 
-- **Default:** `Cancel`
+- **Default:** `function () { return "Cancel" }`
 
 ### formatColumn
 
@@ -128,7 +128,7 @@ toc: true
 
   Text of Column header
 
-- **Default:** `Column`
+- **Default:** `function () { return "Column" }`
 
 ### formatDeleteLevel
 
@@ -136,7 +136,7 @@ toc: true
 
   Text of the delete level button
 
-- **Default:** `Delete Level`
+- **Default:** `function () { return "Delete Level" }`
 
 ### formatDuplicateAlertTitle
 
@@ -144,7 +144,7 @@ toc: true
 
   Title of the duplicate alert
 
-- **Default:** `Duplicate(s) detected!`
+- **Default:** `function () { return "Duplicate(s) detected!" }`
 
 ### formatDuplicateAlertDescription
 
@@ -152,7 +152,7 @@ toc: true
 
   Text of the duplicate alert
 
-- **Default:** `Please remove or change any duplicate column.`
+- **Default:** `function () { return "Please remove or change any duplicate column." }`
 
 ### formatMultipleSort
 
@@ -160,7 +160,7 @@ toc: true
 
   Title of the advanced search modal
 
-- **Default:** `Multiple Sort`
+- **Default:** `function () { return "Multiple Sort" }`
 
 ### formatOrder
 
@@ -168,7 +168,7 @@ toc: true
 
   Text of the delete level button
 
-- **Default:** `Order`
+- **Default:** `function () { return "Order" }`
 
 ### formatSort
 
@@ -176,7 +176,7 @@ toc: true
 
   Text of the delete level button
 
-- **Default:** `Sort`
+- **Default:** `function () { return "Sort" }`
 
 ### formatSortBy
 
@@ -184,7 +184,7 @@ toc: true
 
   Text of the delete level button
 
-- **Default:** `Sort by`
+- **Default:** `function () { return "Sort by" }`
 
 ### formatSortOrders
 
@@ -192,7 +192,9 @@ toc: true
 
   Text of the sort orders
 
-- **Default:**asc : `Ascending` and desc : `Descending`
+- **Default:**
+  - asc : `function () { return "Ascending" }`
+  - desc : `function () { return "Descending" }`
 
 ### formatThenBy
 
@@ -200,7 +202,7 @@ toc: true
 
   Text of the delete level button
 
-- **Default:** `Then by`
+- **Default:** `function () { return "Then by" }`
 
 ## Events
 

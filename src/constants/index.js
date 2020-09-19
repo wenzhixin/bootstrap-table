@@ -167,6 +167,7 @@ const CONSTANTS = {
 const DEFAULTS = {
   height: undefined,
   classes: 'table table-bordered table-hover',
+  buttons: {},
   theadClasses: '',
   headerStyle (column) {
     return {}

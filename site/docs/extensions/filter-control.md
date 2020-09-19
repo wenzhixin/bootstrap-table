@@ -290,22 +290,22 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **type:** `Function`
 
-- **Default:** `function () { return "Clear Filters";}`
+- **Default:** `function () { return "Clear Filters" }`
 
 ### formatFilterControlSwitch
 
 - **type:** `Function`
 
-- **Default:** `function () { return "Hide/Show controls";}`
+- **Default:** `function () { return "Hide/Show controls" }`
 
 ### formatFilterControlSwitchHide
 
 - **type:** `Function`
 
-- **Default:** `function () { return "Hide controls";}`
+- **Default:** `function () { return "Hide controls" }`
 
 ### formatFilterControlSwitchShow
 
 - **type:** `Function`
 
-- **Default:** `function () { return "Show controls";}`
+- **Default:** `function () { return "Show controls" }`

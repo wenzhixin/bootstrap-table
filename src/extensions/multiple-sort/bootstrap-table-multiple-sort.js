@@ -582,12 +582,21 @@ BootstrapTable.prototype.initToolbar = function (...args) {
   const that = this
   const sortModalSelector = `sortModal_${this.$el.attr('id')}`
   const sortModalId = `#${sortModalSelector}`
+  const $multiSortBtn = this.$toolbar.find('div.multi-sort')
+  const o = this.options
+
   this.$sortModal = $(sortModalId)
   this.sortModalSelector = sortModalSelector
 
   if (that.options.sortPriority !== null) {
     that.onMultipleSort()
   }
+
+  this.buttons = Object.assign(this.buttons, {
+    multipleSort: {
+      'html': Utils.sprintf(theme.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.sort))
+    }
+  })
 
   _initToolbar.apply(this, Array.prototype.slice.apply(args))
 
@@ -600,14 +609,7 @@ BootstrapTable.prototype.initToolbar = function (...args) {
   }
 
   if (this.options.showMultiSort) {
-    const $btnGroup = this.$toolbar.find('>.' + that.constants.classes.buttonsGroup.split(' ').join('.')).first()
-    let $multiSortBtn = this.$toolbar.find('div.multi-sort')
-    const o = that.options
-
     if (!$multiSortBtn.length && this.options.showMultiSortButton) {
-      $multiSortBtn = Utils.sprintf(theme.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.sort))
-      $btnGroup.append($multiSortBtn)
-
       if ($.fn.bootstrapTable.theme === 'semantic') {
         this.$toolbar.find('.multi-sort').on('click', () => {
           $(sortModalId).modal('show')

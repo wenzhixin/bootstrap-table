@@ -55,6 +55,92 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [AJAX Options](https://examples.bootstrap-table.com/#options/ajax-options.html)
 
+## buttons
+
+- **Attribute:** `data-buttons`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  This option allows creating/adding custom button(s) to "buttonbar" (top right of the table).  
+  This buttons can be sorted with the table option [buttonsOrder](https://bootstrap-table.com/docs/api/table-options/#buttonsorder), the used key/name for the event should be used for that!
+  
+  The custom button is highly configurable, the following options exists:
+  - `text`
+    - Description: This options is used for the [showButtonText](https://bootstrap-table.com/docs/api/table-options/#showbuttontext) table option.
+    - Type: `String`
+  - `icon`
+    - Description: This option is used for the [showButtonIcons](https://bootstrap-table.com/docs/api/table-options/#showbuttonicons) table option.
+    - Type: `String` - Only needs the icon class e.g. `fa-users`
+  - `render`
+    - Description: Set this option to `false` to hide the button by default, the button is visible again when you add the data attribute `data-show-BUTTONNAME="true"`.    
+  - `attributes`
+    - Description: This option allows adding additional html attributes e.g. `title`
+    - Type: `Object`
+    - Example: `{title: 'Button title'}`
+  - `html`
+    - Description: If you don't want to autogenerate the html, you can use this option to insert your custom html.   
+      The `event` option is only working if you custom html contains `name="BUTTONNAME"`.   
+      If this option is used the following options will be ignored:
+      - `text`
+      - `icon`
+      - `attributes`   
+    - Type: `Function|String`
+  - `event`
+    - Description: Should be used if you want to add an event to the button
+    - Type: `Function|Object|String`
+
+   The `event` option can be configured in three ways.     
+   One event with `click` event:  
+   ```javascript
+   {
+     'event': () => { }
+   }
+   ```
+  
+  One event with a self defined event type:   
+  ```javascript
+     {
+       'event': {
+         'mouseenter': () => { }
+       }
+     }
+  ```
+  
+  Multiple events with self defined event types:   
+    ```javascript
+       {
+         'event': {
+           'click': () => { },
+           'mouseenter': () => { },
+           'mouseleave': () => { }
+         }
+       }
+    ```
+  
+  **Hint:** Instead of inline functions you also can use function names.
+  
+  A configured custom button could look like this:
+  ``` javascript 
+  {
+    btnRemoveEvenRows: {
+      'text': 'Remove even Rows',
+      'icon': 'fa-trash',
+      'event': () => {
+        //DO STUFF TO REMOVE EVEN ROWS
+      },
+      'attributes': {
+        'title': 'Remove all rows which has a even id'
+      }
+    }
+  }
+  ```
+
+- **Default:** `{}`
+
+- **Example:** [Buttons](https://examples.bootstrap-table.com/#options/buttons.html)
+
 ## buttonsAlign
 
 - **Attribute:** `data-buttons-align`
