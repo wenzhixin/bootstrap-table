@@ -675,6 +675,12 @@
 	*/
 
 	$.fn.bootstrapTable.locales['hr-HR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Molimo pričekajte';
 	  },

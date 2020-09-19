@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['sv-SE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Laddar, vänligen vänta';
 	  },

@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['af-ZA'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Besig om te laai, wag asseblief';
 	  },
@@ -774,6 +780,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ar-SA'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'جاري التحميل, يرجى الإنتظار';
 	  },
@@ -875,6 +887,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['bg-BG'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Зареждане, моля изчакайте';
 	  },
@@ -976,6 +994,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ca-ES'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Espereu, si us plau';
 	  },
@@ -1077,6 +1101,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['cs-CZ'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Čekejte, prosím';
 	  },
@@ -1177,6 +1207,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['da-DK'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Indlæser, vent venligst';
 	  },
@@ -1277,6 +1313,12 @@
 	*/
 
 	$.fn.bootstrapTable.locales['de-DE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Zeilen kopieren';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Drucken';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Lade, bitte warten';
 	  },
@@ -1360,13 +1402,13 @@
 	    return 'Schließen';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Verstecke/Zeige controls';
+	    return 'Verstecke/Zeige Filter';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Verstecke controls';
+	    return 'Verstecke Filter';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Zeige controls';
+	    return 'Zeige Filter';
 	  }
 	};
 	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['de-DE']);
@@ -1377,6 +1419,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['el-GR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Φορτώνει, παρακαλώ περιμένετε';
 	  },
@@ -1477,6 +1525,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['en-US'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Loading, please wait';
 	  },
@@ -1578,6 +1632,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['es-AR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Cargando, espere por favor';
 	  },
@@ -1679,6 +1739,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['es-CL'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Cargando, espere por favor';
 	  },
@@ -1779,6 +1845,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['es-CR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Cargando, por favor espere';
 	  },
@@ -1879,6 +1951,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['es-ES'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Por favor espere';
 	  },
@@ -1981,6 +2059,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['es-MX'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Cargando, espere por favor';
 	  },
@@ -2081,6 +2165,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['es-NI'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Cargando, por favor espere';
 	  },
@@ -2181,6 +2271,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['es-SP'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Cargando, por favor espera';
 	  },
@@ -2281,6 +2377,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['et-EE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Päring käib, palun oota';
 	  },
@@ -2381,6 +2483,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['eu-EU'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Itxaron mesedez';
 	  },
@@ -2481,6 +2589,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['fa-IR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'در حال بارگذاری, لطفا صبر کنید';
 	  },
@@ -2581,6 +2695,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['fi-FI'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Ladataan, ole hyvä ja odota';
 	  },
@@ -2682,6 +2802,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['fr-BE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Chargement en cours';
 	  },
@@ -2782,6 +2908,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['fr-CH'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Chargement en cours';
 	  },
@@ -2884,6 +3016,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['fr-FR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Chargement en cours';
 	  },
@@ -2984,6 +3122,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['fr-LU'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Chargement en cours';
 	  },
@@ -3084,6 +3228,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['he-IL'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'טוען, נא להמתין';
 	  },
@@ -3185,6 +3335,12 @@
 	*/
 
 	$.fn.bootstrapTable.locales['hr-HR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Molimo pričekajte';
 	  },
@@ -3285,6 +3441,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['hu-HU'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Betöltés, kérem várjon';
 	  },
@@ -3385,6 +3547,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['id-ID'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Memuat, mohon tunggu';
 	  },
@@ -3487,6 +3655,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['it-IT'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Caricamento in corso';
 	  },
@@ -3587,6 +3761,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ja-JP'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return '読み込み中です。少々お待ちください。';
 	  },
@@ -3687,6 +3867,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ka-GE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'იტვირთება, გთხოვთ მოიცადოთ';
 	  },
@@ -3787,6 +3973,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ko-KR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return '데이터를 불러오는 중입니다';
 	  },
@@ -3887,6 +4079,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ms-MY'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Permintaan sedang dimuatkan. Sila tunggu sebentar';
 	  },
@@ -3987,6 +4185,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['nb-NO'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Oppdaterer, vennligst vent';
 	  },
@@ -4087,6 +4291,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['nl-BE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Laden, even geduld';
 	  },
@@ -4188,6 +4398,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['nl-NL'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Laden, even geduld';
 	  },
@@ -4288,6 +4504,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['pl-PL'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Ładowanie, proszę czekać';
 	  },
@@ -4391,6 +4613,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['pt-BR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Carregando, aguarde';
 	  },
@@ -4491,6 +4719,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['pt-PT'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'A carregar, por favor aguarde';
 	  },
@@ -4591,6 +4825,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ro-RO'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Se incarca, va rugam asteptati';
 	  },
@@ -4691,6 +4931,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ru-RU'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Пожалуйста, подождите, идёт загрузка';
 	  },
@@ -4791,6 +5037,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['sk-SK'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Prosím čakajte';
 	  },
@@ -4891,6 +5143,12 @@
 	*/
 
 	$.fn.bootstrapTable.locales['sr-Cyrl-RS'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Молим сачекај';
 	  },
@@ -4991,6 +5249,12 @@
 	*/
 
 	$.fn.bootstrapTable.locales['sr-Latn-RS'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Molim sačekaj';
 	  },
@@ -5091,6 +5355,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['sv-SE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Laddar, vänligen vänta';
 	  },
@@ -5191,6 +5461,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['th-TH'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'กำลังโหลดข้อมูล, กรุณารอสักครู่';
 	  },
@@ -5292,6 +5568,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['tr-TR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Yükleniyor, lütfen bekleyin';
 	  },
@@ -5392,6 +5674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['uk-UA'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Завантаження, будь ласка, зачекайте';
 	  },
@@ -5492,6 +5780,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ur-PK'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'براۓ مہربانی انتظار کیجئے';
 	  },
@@ -5592,6 +5886,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Yuklanyapti, iltimos kuting';
 	  },
@@ -5692,6 +5992,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['vi-VN'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Đang tải';
 	  },
@@ -5792,6 +6098,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['zh-CN'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return '正在努力地加载数据中，请稍候';
 	  },
@@ -5892,6 +6204,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['zh-TW'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return '正在努力地載入資料，請稍候';
 	  },

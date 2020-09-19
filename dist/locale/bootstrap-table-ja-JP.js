@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ja-JP'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return '読み込み中です。少々お待ちください。';
 	  },

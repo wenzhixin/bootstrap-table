@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['th-TH'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'กำลังโหลดข้อมูล, กรุณารอสักครู่';
 	  },

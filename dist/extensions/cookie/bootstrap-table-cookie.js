@@ -1504,6 +1504,25 @@
 	  }
 	});
 
+	var $map = arrayIteration.map;
+
+
+
+	var HAS_SPECIES_SUPPORT$1 = arrayMethodHasSpeciesSupport('map');
+	// FF49- issue
+	var USES_TO_LENGTH$1 = HAS_SPECIES_SUPPORT$1 && !fails(function () {
+	  [].map.call({ length: -1, 0: 1 }, function (it) { throw it; });
+	});
+
+	// `Array.prototype.map` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.map
+	// with adding support of @@species
+	_export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT$1 || !USES_TO_LENGTH$1 }, {
+	  map: function map(callbackfn /* , thisArg */) {
+	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	});
+
 	var TO_STRING_TAG$1 = wellKnownSymbol('toStringTag');
 	var test = {};
 
@@ -2419,7 +2438,7 @@
 
 	    switch (that.options.cookieStorage) {
 	      case 'cookieStorage':
-	        document.cookie = [cookieName, '=', encodeURIComponent(cookieValue), "; expires=".concat(UtilsCookie.calculateExpiration(that.options.cookieExpire)), that.options.cookiePath ? "; path=".concat(that.options.cookiePath) : '', that.options.cookieDomain ? "; domain=".concat(that.options.cookieDomain) : '', that.options.cookieSecure ? '; secure' : ''].join('');
+	        document.cookie = [cookieName, '=', encodeURIComponent(cookieValue), "; expires=".concat(UtilsCookie.calculateExpiration(that.options.cookieExpire)), that.options.cookiePath ? "; path=".concat(that.options.cookiePath) : '', that.options.cookieDomain ? "; domain=".concat(that.options.cookieDomain) : '', that.options.cookieSecure ? '; secure' : '', ';SameSite=' + that.options.cookieSameSite].join('');
 	        break;
 
 	      case 'localStorage':
@@ -2621,6 +2640,7 @@
 	  cookiePath: null,
 	  cookieDomain: null,
 	  cookieSecure: null,
+	  cookieSameSite: 'Lax',
 	  cookieIdTable: '',
 	  cookiesEnabled: ['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl', 'bs.table.filterBy', 'bs.table.reorderColumns'],
 	  cookieStorage: 'cookieStorage',
@@ -2812,7 +2832,9 @@
 
 	      (_get9 = _get(_getPrototypeOf(_class.prototype), "_toggleColumn", this)).call.apply(_get9, [this].concat(args));
 
-	      UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()));
+	      UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(function (column) {
+	        return column.field;
+	      })));
 	    }
 	  }, {
 	    key: "_toggleAllColumns",
@@ -2825,7 +2847,9 @@
 
 	      (_get10 = _get(_getPrototypeOf(_class.prototype), "_toggleAllColumns", this)).call.apply(_get10, [this].concat(args));
 
-	      UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()));
+	      UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(function (column) {
+	        return column.field;
+	      })));
 	    }
 	  }, {
 	    key: "selectPage",
@@ -2881,6 +2905,8 @@
 	  }, {
 	    key: "initCookie",
 	    value: function initCookie() {
+	      var _this = this;
+
 	      if (!this.options.cookie) {
 	        return;
 	      }
@@ -2930,8 +2956,22 @@
 	        try {
 	          var _loop = function _loop() {
 	            var column = _step.value;
-	            column.visible = columnsCookie.filter(function (c) {
-	              return c.field === column.field;
+	            column.visible = columnsCookie.filter(function (columnField) {
+	              if (_this.isSelectionColumn(column)) {
+	                return true;
+	              }
+	              /**
+	               * This is needed for the old saved cookies or the table will show no columns!
+	               * It can be removed in 2-3 Versions Later!!
+	               * TODO: Remove this part some versions later e.g. 1.17.3
+	               */
+
+
+	              if (columnField instanceof Object) {
+	                return columnField.field === column.field;
+	              }
+
+	              return columnField === column.field;
 	            }).length > 0 || !column.switchable;
 	          };
 
