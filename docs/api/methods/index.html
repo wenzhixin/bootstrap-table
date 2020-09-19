@@ -354,7 +354,6 @@
 <li class="toc-entry toc-h2"><a href="#expandrow">expandRow</a></li>
 <li class="toc-entry toc-h2"><a href="#expandrowbyuniqueid">expandRowByUniqueId</a></li>
 <li class="toc-entry toc-h2"><a href="#filterby">filterBy</a></li>
-<li class="toc-entry toc-h2"><a href="#getallselections">getAllSelections</a></li>
 <li class="toc-entry toc-h2"><a href="#getdata">getData</a></li>
 <li class="toc-entry toc-h2"><a href="#gethiddencolumns">getHiddenColumns</a></li>
 <li class="toc-entry toc-h2"><a href="#gethiddenrows">getHiddenRows</a></li>
@@ -664,22 +663,6 @@ There are multiple ways to filter:</p>
   <li><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/filter-by.html">Filter By</a></li>
 </ul>
 
-<h2 id="getallselections">getAllSelections</h2>
-
-<ul>
-  <li>
-    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Return all selected rows contain search or filter, when no record selected, an empty array will return.</p>
-  </li>
-  <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-all-selections.html">Get All Selections</a></p>
-  </li>
-</ul>
-
 <h2 id="getdata">getData</h2>
 
 <ul>
@@ -792,7 +775,8 @@ There are multiple ways to filter:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Return selected rows, when no record selected, an empty array will return.</p>
+    <p>Return selected rows, when no record selected, an empty array will return.
+The selected rows will be unselected while some actions happens e.g. searching or page change, if you want to maintain the selections please use <a href="https://bootstrap-table.com/docs/api/table-options/#maintainmetadata">maintainMetaData</a>.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-selections.html">Get Selections</a></p>

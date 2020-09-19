@@ -360,12 +360,13 @@
 <li class="toc-entry toc-h2"><a href="#order">order</a></li>
 <li class="toc-entry toc-h2"><a href="#radio">radio</a></li>
 <li class="toc-entry toc-h2"><a href="#rowspan">rowspan</a></li>
-<li class="toc-entry toc-h2"><a href="#searchformatter">searchFormatter</a></li>
 <li class="toc-entry toc-h2"><a href="#searchable">searchable</a></li>
+<li class="toc-entry toc-h2"><a href="#searchformatter">searchFormatter</a></li>
+<li class="toc-entry toc-h2"><a href="#searchhighlightformatter">searchHighlightFormatter</a></li>
 <li class="toc-entry toc-h2"><a href="#showselecttitle">showSelectTitle</a></li>
-<li class="toc-entry toc-h2"><a href="#sortname">sortName</a></li>
 <li class="toc-entry toc-h2"><a href="#sortable">sortable</a></li>
 <li class="toc-entry toc-h2"><a href="#sorter">sorter</a></li>
+<li class="toc-entry toc-h2"><a href="#sortname">sortName</a></li>
 <li class="toc-entry toc-h2"><a href="#switchable">switchable</a></li>
 <li class="toc-entry toc-h2"><a href="#title">title</a></li>
 <li class="toc-entry toc-h2"><a href="#titletooltip">titleTooltip</a></li>
@@ -709,13 +710,16 @@ Its also possible to check/uncheck the checkbox by use an formatter (return <cod
 
     <p>The context (this) is the column Object.</p>
 
-    <p>The function, take one parameter:</p>
+    <p>The function, takes two parameters:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">data</code>: Array of all the  data rows.</li>
+      <li><code class="highlighter-rouge">data</code>: Array of all the data rows.</li>
+      <li><code class="highlighter-rouge">value</code>: If footer data is set, the value of the footer column.</li>
     </ul>
 
     <p>the function should return a string with the text to show in the footer cell.</p>
+
+    <p>If you fetch data from a server and tries to set the footer value from the server response, please use the <code class="highlighter-rouge">footerField</code> Option.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -847,28 +851,6 @@ Its also possible to check/uncheck the radio by use an formatter (return <code c
   </li>
 </ul>
 
-<h2 id="searchformatter">searchFormatter</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-formatter</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set <code class="highlighter-rouge">true</code> to search use formatted data.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
-  </li>
-  <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/search-formatter.html">Search Formatter</a></p>
-  </li>
-</ul>
-
 <h2 id="searchable">searchable</h2>
 
 <ul>
@@ -891,6 +873,50 @@ Its also possible to check/uncheck the radio by use an formatter (return <code c
   </li>
 </ul>
 
+<h2 id="searchformatter">searchFormatter</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-formatter</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to search use formatted data.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/search-formatter.html">Search Formatter</a></p>
+  </li>
+</ul>
+
+<h2 id="searchhighlightformatter">searchHighlightFormatter</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-highlight-formatter</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean|Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Define a <code class="highlighter-rouge">function</code> to use a custom highlight formatter for the <a href="https://bootstrap-table.com/docs/api/table-options/#searchhighlight">search highlight</a> option.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/search-highlight-formatter.html">Searchable Highlight Formatter</a></p>
+  </li>
+</ul>
+
 <h2 id="showselecttitle">showSelectTitle</h2>
 
 <ul>
@@ -910,28 +936,6 @@ Its also possible to check/uncheck the radio by use an formatter (return <code c
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/show-select-title.html">Show Select Title</a></p>
-  </li>
-</ul>
-
-<h2 id="sortname">sortName</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-name</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Provide a customizable sort-name, not the default sort-name in the header, or the field name of the column. For example, a column might display the value of fieldName of ‘html’ such as <code class="highlighter-rouge">&lt;b&gt;&lt;span style="color:red"&gt;abc&lt;/span&gt;&lt;/b&gt;</code>, but a fieldName to sort is ‘content’ with the value of <code class="highlighter-rouge">'abc'</code>.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/sort-name-order.html">Sort Name Order</a></p>
   </li>
 </ul>
 
@@ -985,6 +989,28 @@ Its also possible to check/uncheck the radio by use an formatter (return <code c
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/sorter.html">Column Sorter</a></p>
+  </li>
+</ul>
+
+<h2 id="sortname">sortName</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-name</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Provide a customizable sort-name, not the default sort-name in the header, or the field name of the column. For example, a column might display the value of fieldName of ‘html’ such as <code class="highlighter-rouge">&lt;b&gt;&lt;span style="color:red"&gt;abc&lt;/span&gt;&lt;/b&gt;</code>, but a fieldName to sort is ‘content’ with the value of <code class="highlighter-rouge">'abc'</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/sort-name-order.html">Sort Name Order</a></p>
   </li>
 </ul>
 

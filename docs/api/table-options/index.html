@@ -344,6 +344,7 @@
 <li class="toc-entry toc-h2"><a href="#-">-</a></li>
 <li class="toc-entry toc-h2"><a href="#ajax">ajax</a></li>
 <li class="toc-entry toc-h2"><a href="#ajaxoptions">ajaxOptions</a></li>
+<li class="toc-entry toc-h2"><a href="#buttons">buttons</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonsalign">buttonsAlign</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonsclass">buttonsClass</a></li>
 <li class="toc-entry toc-h2"><a href="#buttonsorder">buttonsOrder</a></li>
@@ -369,11 +370,12 @@
 <li class="toc-entry toc-h2"><a href="#detailviewicon">detailViewIcon</a></li>
 <li class="toc-entry toc-h2"><a href="#escape">escape</a></li>
 <li class="toc-entry toc-h2"><a href="#filteroptions">filterOptions</a></li>
+<li class="toc-entry toc-h2"><a href="#footerfield">footerField</a></li>
 <li class="toc-entry toc-h2"><a href="#footerstyle">footerStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#headerstyle">headerStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#height">height</a></li>
-<li class="toc-entry toc-h2"><a href="#iconsize">iconSize</a></li>
 <li class="toc-entry toc-h2"><a href="#icons">icons</a></li>
+<li class="toc-entry toc-h2"><a href="#iconsize">iconSize</a></li>
 <li class="toc-entry toc-h2"><a href="#iconsprefix">iconsPrefix</a></li>
 <li class="toc-entry toc-h2"><a href="#idfield">idField</a></li>
 <li class="toc-entry toc-h2"><a href="#ignoreclicktoselecton">ignoreClickToSelectOn</a></li>
@@ -404,13 +406,12 @@
 <li class="toc-entry toc-h2"><a href="#responsehandler">responseHandler</a></li>
 <li class="toc-entry toc-h2"><a href="#rowattributes">rowAttributes</a></li>
 <li class="toc-entry toc-h2"><a href="#rowstyle">rowStyle</a></li>
-<li class="toc-entry toc-h2"><a href="#search">search</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#searchaccentneutralise">searchAccentNeutralise</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#search">search</a></li>
+<li class="toc-entry toc-h2"><a href="#searchaccentneutralise">searchAccentNeutralise</a></li>
 <li class="toc-entry toc-h2"><a href="#searchalign">searchAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#searchhighlight">searchHighlight</a></li>
 <li class="toc-entry toc-h2"><a href="#searchonenterkey">searchOnEnterKey</a></li>
+<li class="toc-entry toc-h2"><a href="#searchselector">searchSelector</a></li>
 <li class="toc-entry toc-h2"><a href="#searchtext">searchText</a></li>
 <li class="toc-entry toc-h2"><a href="#searchtimeout">searchTimeOut</a></li>
 <li class="toc-entry toc-h2"><a href="#selectitemname">selectItemName</a></li>
@@ -433,12 +434,12 @@
 <li class="toc-entry toc-h2"><a href="#silentsort">silentSort</a></li>
 <li class="toc-entry toc-h2"><a href="#singleselect">singleSelect</a></li>
 <li class="toc-entry toc-h2"><a href="#smartdisplay">smartDisplay</a></li>
+<li class="toc-entry toc-h2"><a href="#sortable">sortable</a></li>
 <li class="toc-entry toc-h2"><a href="#sortclass">sortClass</a></li>
 <li class="toc-entry toc-h2"><a href="#sortname">sortName</a></li>
 <li class="toc-entry toc-h2"><a href="#sortorder">sortOrder</a></li>
 <li class="toc-entry toc-h2"><a href="#sortreset">sortReset</a></li>
 <li class="toc-entry toc-h2"><a href="#sortstable">sortStable</a></li>
-<li class="toc-entry toc-h2"><a href="#sortable">sortable</a></li>
 <li class="toc-entry toc-h2"><a href="#strictsearch">strictSearch</a></li>
 <li class="toc-entry toc-h2"><a href="#theadclasses">theadClasses</a></li>
 <li class="toc-entry toc-h2"><a href="#toolbar">toolbar</a></li>
@@ -528,6 +529,119 @@
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/ajax-options.html">AJAX Options</a></p>
+  </li>
+</ul>
+
+<h2 id="buttons">buttons</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-buttons</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>This option allows creating/adding custom button(s) to “buttonbar” (top right of the table).<br />
+This buttons can be sorted with the table option <a href="https://bootstrap-table.com/docs/api/table-options/#buttonsorder">buttonsOrder</a>, the used key/name for the event should be used for that!</p>
+
+    <p>The custom button is highly configurable, the following options exists:</p>
+    <ul>
+      <li><code class="highlighter-rouge">text</code>
+        <ul>
+          <li>Description: This options is used for the <a href="https://bootstrap-table.com/docs/api/table-options/#showbuttontext">showButtonText</a> table option.</li>
+          <li>Type: <code class="highlighter-rouge">String</code></li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">icon</code>
+        <ul>
+          <li>Description: This option is used for the <a href="https://bootstrap-table.com/docs/api/table-options/#showbuttonicons">showButtonIcons</a> table option.</li>
+          <li>Type: <code class="highlighter-rouge">String</code> - Only needs the icon class e.g. <code class="highlighter-rouge">fa-users</code></li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">render</code>
+        <ul>
+          <li>Description: Set this option to <code class="highlighter-rouge">false</code> to hide the button by default, the button is visible again when you add the data attribute <code class="highlighter-rouge">data-show-BUTTONNAME="true"</code>.</li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">attributes</code>
+        <ul>
+          <li>Description: This option allows adding additional html attributes e.g. <code class="highlighter-rouge">title</code></li>
+          <li>Type: <code class="highlighter-rouge">Object</code></li>
+          <li>Example: <code class="highlighter-rouge">{title: 'Button title'}</code></li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">html</code>
+        <ul>
+          <li>Description: If you don’t want to autogenerate the html, you can use this option to insert your custom html. <br />
+The <code class="highlighter-rouge">event</code> option is only working if you custom html contains <code class="highlighter-rouge">name="BUTTONNAME"</code>. <br />
+If this option is used the following options will be ignored:
+            <ul>
+              <li><code class="highlighter-rouge">text</code></li>
+              <li><code class="highlighter-rouge">icon</code></li>
+              <li><code class="highlighter-rouge">attributes</code></li>
+            </ul>
+          </li>
+          <li>Type: <code class="highlighter-rouge">Function|String</code></li>
+        </ul>
+      </li>
+      <li><code class="highlighter-rouge">event</code>
+        <ul>
+          <li>Description: Should be used if you want to add an event to the button</li>
+          <li>Type: <code class="highlighter-rouge">Function|Object|String</code></li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>The <code class="highlighter-rouge">event</code> option can be configured in three ways.   <br />
+ One event with <code class="highlighter-rouge">click</code> event:</p>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="p">{</span>
+   <span class="dl">'</span><span class="s1">event</span><span class="dl">'</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>One event with a self defined event type:</p>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="p">{</span>
+     <span class="dl">'</span><span class="s1">event</span><span class="dl">'</span><span class="p">:</span> <span class="p">{</span>
+       <span class="dl">'</span><span class="s1">mouseenter</span><span class="dl">'</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">}</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>Multiple events with self defined event types:</p>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="p">{</span>
+       <span class="dl">'</span><span class="s1">event</span><span class="dl">'</span><span class="p">:</span> <span class="p">{</span>
+         <span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">},</span>
+         <span class="dl">'</span><span class="s1">mouseenter</span><span class="dl">'</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">},</span>
+         <span class="dl">'</span><span class="s1">mouseleave</span><span class="dl">'</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">}</span>
+       <span class="p">}</span>
+     <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p><strong>Hint:</strong> Instead of inline functions you also can use function names.</p>
+
+    <p>A configured custom button could look like this:</p>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">btnRemoveEvenRows</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">'</span><span class="s1">text</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Remove even Rows</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">icon</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">fa-trash</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">event</span><span class="dl">'</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">//DO STUFF TO REMOVE EVEN ROWS</span>
+    <span class="p">},</span>
+    <span class="dl">'</span><span class="s1">attributes</span><span class="dl">'</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">'</span><span class="s1">title</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Remove all rows which has a even id</span><span class="dl">'</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons.html">Buttons</a></p>
   </li>
 </ul>
 
@@ -1123,6 +1237,49 @@
   </li>
 </ul>
 
+<h2 id="footerfield">footerField</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-footer-field</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines the key of the footer Object (From data array or server response json).
+The footer Object can be used to set/define footer colspans and/or the value of the footer.</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">rows</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Item 0</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">$0</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">amount</span><span class="dl">"</span><span class="p">:</span> <span class="mi">3</span>
+        <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="dl">"</span><span class="s2">footer</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">footer id</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">_id_colspan</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">footer name</span><span class="dl">"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    </code></pre></figure>
+
+<ul>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">footerField</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/footer-field.html">Footer Field</a></p>
+  </li>
+</ul>
+
 <h2 id="footerstyle">footerStyle</h2>
 
 <ul>
@@ -1223,28 +1380,6 @@
   </li>
 </ul>
 
-<h2 id="iconsize">iconSize</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-icon-size</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Defines icon size, <code class="highlighter-rouge">undefined</code>, <code class="highlighter-rouge">'lg'</code>, <code class="highlighter-rouge">'sm'</code> can be used.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/icon-size.html">Icon Size</a></p>
-  </li>
-</ul>
-
 <h2 id="icons">icons</h2>
 
 <ul>
@@ -1279,6 +1414,28 @@
 
 <ul>
   <li><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-icons.html">Table Icons</a></li>
+</ul>
+
+<h2 id="iconsize">iconSize</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-icon-size</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines icon size, <code class="highlighter-rouge">undefined</code>, <code class="highlighter-rouge">'lg'</code>, <code class="highlighter-rouge">'sm'</code> can be used.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/icon-size.html">Icon Size</a></p>
+  </li>
 </ul>
 
 <h2 id="iconsprefix">iconsPrefix</h2>
@@ -2018,6 +2175,8 @@ Example: Github (value) and Github (search query).</li>
       <li>Comparisons (&lt;, &gt;, &lt;=, =&lt;, &gt;=, =&gt;).
 Example: 4 is larger than 3.</li>
     </ul>
+
+    <p>Note: If you want to use a custom search input use the <a href="https://bootstrap-table.com/docs/api/table-options/#searchSelector">searchSelector</a>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2027,7 +2186,7 @@ Example: 4 is larger than 3.</li>
   </li>
 </ul>
 
-<h3 id="searchaccentneutralise">searchAccentNeutralise</h3>
+<h2 id="searchaccentneutralise">searchAccentNeutralise</h2>
 
 <ul>
   <li>
@@ -2071,6 +2230,29 @@ Example: 4 is larger than 3.</li>
   </li>
 </ul>
 
+<h2 id="searchhighlight">searchHighlight</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-highlight</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">true</code> to highlight the searched text (using the <code class="highlighter-rouge">&lt;mark&gt;</code> html tag).
+You can also define a <a href="https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter">custom highlight formatter</a> e.g. for values with html or to use a custom highlight color.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">'false'</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-highlight.html">Search Highlight</a></p>
+  </li>
+</ul>
+
 <h2 id="searchonenterkey">searchOnEnterKey</h2>
 
 <ul>
@@ -2090,6 +2272,28 @@ Example: 4 is larger than 3.</li>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-on-enter-key.html">Search On Enter Key</a></p>
+  </li>
+</ul>
+
+<h2 id="searchselector">searchSelector</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-search-selector</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean|String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>If this option is set (must be a valid dom selector e.g. <code class="highlighter-rouge">#customSearch</code>), the found dom element (should be an <code class="highlighter-rouge">input</code> element) will be used as table search instead of the built-in search input.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-selector.html">Search Selector</a></p>
   </li>
 </ul>
 
@@ -2587,6 +2791,28 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
 </ul>
 
+<h2 id="sortable">sortable</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sortable</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">false</code> to disable sortable of all columns.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-sortable.html">Table Sortable</a></p>
+  </li>
+</ul>
+
 <h2 id="sortclass">sortClass</h2>
 
 <ul>
@@ -2694,28 +2920,6 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-stable.html">Sort Stable</a></p>
-  </li>
-</ul>
-
-<h2 id="sortable">sortable</h2>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sortable</code></p>
-  </li>
-  <li>
-    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set <code class="highlighter-rouge">false</code> to disable sortable of all columns.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
-  </li>
-  <li>
-    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-sortable.html">Table Sortable</a></p>
   </li>
 </ul>
 

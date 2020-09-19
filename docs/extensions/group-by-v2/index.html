@@ -348,6 +348,9 @@
 <li class="toc-entry toc-h3"><a href="#groupby">groupBy</a></li>
 <li class="toc-entry toc-h3"><a href="#groupbyfield">groupByField</a></li>
 <li class="toc-entry toc-h3"><a href="#groupbyformatter">groupByFormatter</a></li>
+<li class="toc-entry toc-h3"><a href="#groupbytoggle">groupByToggle</a></li>
+<li class="toc-entry toc-h3"><a href="#groupbyshowtoggleicon">groupByShowToggleIcon</a></li>
+<li class="toc-entry toc-h3"><a href="#groupbycollapsedgroups">groupByCollapsedGroups</a></li>
 </ul>
 </li>
 </ul>
@@ -432,6 +435,74 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="groupbytoggle">groupByToggle</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-group-by-toggle</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to allow collapse/expand groups.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="groupbyshowtoggleicon">groupByShowToggleIcon</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-group-by-show-toggle-icon</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to show icons if the group is collapsed or expanded (see groupByToggle).</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="groupbycollapsedgroups">groupByCollapsedGroups</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-group-by-collapsed-groups</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Array|Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>All group keys (which are in this array will be collapsed by default. <br />
+The value of this option can be:</p>
+    <ul>
+      <li>A variable (array)</li>
+      <li>An Array string e.g. <code class="highlighter-rouge">["circle"]</code></li>
+      <li>A function (returns an array) which gets as parameters:
+        <ul>
+          <li>The group key</li>
+          <li>The entries of the group</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
   </li>
 </ul>
 
