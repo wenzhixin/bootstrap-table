@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!--JQUERY-->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+        <!--BOOTSTRAP 4-->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <!--BOOTSTRAP TABLE-->
+        <link href="/src/bootstrap-table.css" rel="stylesheet">
+        <script type="module" src="/src/bootstrap-table.js"></script>
+    </head>
+    <body>
+        <table
+                id="table"
+                data-toggle="table"
+                data-buttons="buttonsFunction"
+                data-show-btn-test4="true"
+                data-url="/cypress/json/data1.json"
+        >
+            <thead>
+                <tr>
+                    <th data-field="id">ID</th>
+                    <th data-field="name">Item Name</th>
+                    <th data-field="price">Item Price</th>
+                </tr>
+            </thead>
+        </table>
+        <div id="eventTest"></div>
+
+        <script>
+          function buttonsFunction () {
+            return {
+              btnTest: {
+                'text': 'Button 1',
+                'icon': 'fa-users',
+                'event': function btnTestFunction () {
+                  $('#eventTest').html('event works!')
+                },
+                'attributes': {
+                  'title': 'TITLE',
+                  'data-test': 'test123'
+                }
+              },
+              btnTest2: {
+                'text': 'Button 2',
+                'icon': 'fa-users',
+                'html': '<a id="custom">custom</a>'
+              },
+              btnTest3: {
+                'text': 'Button 3',
+                'render': false
+              },
+              btnTest4: {
+                'text': 'Button 3',
+                'icon': 'fa-users',
+                'render': false
+              }
+            }
+          }
+        </script>
+    </body>
+</html>
