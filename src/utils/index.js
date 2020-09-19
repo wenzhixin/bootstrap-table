@@ -1,4 +1,12 @@
 export default {
+
+  getSearchInput (that) {
+    if (typeof that.options.searchSelector === 'string') {
+      return $(that.options.searchSelector)
+    }
+    return that.$toolbar.find('.search input')
+  },
+
   // it only does '%s', and return '' when arguments are undefined
   sprintf (_str, ...args) {
     let flag = true
@@ -14,6 +22,10 @@ export default {
       return arg
     })
     return flag ? str : ''
+  },
+
+  isObject (val) {
+    return val instanceof Object && !Array.isArray(val)
   },
 
   isEmptyObject (obj = {}) {
@@ -66,18 +78,20 @@ export default {
           r.colspanGroup = r.colspan
         }
 
-        for (let k = 0; k < rowspan; k++) {
-          flag[i + k][index] = true
-        }
-        for (let k = 0; k < colspan; k++) {
-          flag[i][index + k] = true
+        for (let j = 0; j < rowspan; j++) {
+          for (let k = 0; k < colspan; k++) {
+            flag[i + j][index + k] = true
+          }
         }
       }
     }
   },
 
-  normalizeAccent (string) {
-    return string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  normalizeAccent (value) {
+    if (typeof value !== 'string') {
+      return value
+    }
+    return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   },
 
   updateFieldGroup (columns) {
@@ -122,7 +136,7 @@ export default {
     return this.cachedWidth
   },
 
-  calculateObjectValue (self, name, args, defaultValue) {
+  calculateObjectValue (self, name, args = [], defaultValue) {
     let func = name
 
     if (typeof name === 'string') {
@@ -245,16 +259,19 @@ export default {
     const m = []
 
     $els.each((y, el) => {
+      const $el = $(el)
       const row = {}
 
       // save tr's id, class and data-* attributes
-      row._id = $(el).attr('id')
-      row._class = $(el).attr('class')
-      row._data = this.getRealDataAttr($(el).data())
+      row._id = $el.attr('id')
+      row._class = $el.attr('class')
+      row._data = this.getRealDataAttr($el.data())
+      row._style = $el.attr('style')
 
-      $(el).find('>td,>th').each((_x, el) => {
-        const cspan = +$(el).attr('colspan') || 1
-        const rspan = +$(el).attr('rowspan') || 1
+      $el.find('>td,>th').each((_x, el) => {
+        const $el = $(el)
+        const cspan = +$el.attr('colspan') || 1
+        const rspan = +$el.attr('rowspan') || 1
         let x = _x
 
         // skip already occupied cells in current row
@@ -274,14 +291,15 @@ export default {
 
         const field = columns[x].field
 
-        row[field] = $(el).html().trim()
+        row[field] = $el.html().trim()
         // save td's id, class and data-* attributes
-        row[`_${field}_id`] = $(el).attr('id')
-        row[`_${field}_class`] = $(el).attr('class')
-        row[`_${field}_rowspan`] = $(el).attr('rowspan')
-        row[`_${field}_colspan`] = $(el).attr('colspan')
-        row[`_${field}_title`] = $(el).attr('title')
-        row[`_${field}_data`] = this.getRealDataAttr($(el).data())
+        row[`_${field}_id`] = $el.attr('id')
+        row[`_${field}_class`] = $el.attr('class')
+        row[`_${field}_rowspan`] = $el.attr('rowspan')
+        row[`_${field}_colspan`] = $el.attr('colspan')
+        row[`_${field}_title`] = $el.attr('title')
+        row[`_${field}_data`] = this.getRealDataAttr($el.data())
+        row[`_${field}_style`] = $el.attr('style')
       })
       data.push(row)
     })
@@ -331,13 +349,17 @@ export default {
     return order
   },
 
-  getResizeEventName (id = '') {
+  getEventName (eventPrefix, id = '') {
     id = id || `${+new Date()}${~~(Math.random() * 1000000)}`
-    return `resize.bootstrap-table-${id}`
+    return `${eventPrefix}-${id}`
   },
 
   hasDetailViewIcon (options) {
     return options.detailView && options.detailViewIcon && !options.cardView
+  },
+
+  getDetailViewIndexOffset (options) {
+    return this.hasDetailViewIcon(options) && options.detailViewAlign !== 'right' ? 1 : 0
   },
 
   checkAutoMergeCells (data) {
@@ -349,5 +371,12 @@ export default {
       }
     }
     return false
+  },
+
+  deepCopy (arg) {
+    if (arg === undefined) {
+      return arg
+    }
+    return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
   }
 }

@@ -42,38 +42,36 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initToolbar (...args) {
-    super.initToolbar(...args)
-
     if (this.options.autoRefresh) {
-      const $btnGroup = this.$toolbar.find('>.columns')
-      let $btnAutoRefresh = $btnGroup.find('.auto-refresh')
-
-      if (!$btnAutoRefresh.length) {
-        $btnAutoRefresh = $(`
-          <button class="auto-refresh ${this.constants.buttonsClass}
-          ${this.options.autoRefreshStatus ? ` ${this.constants.classes.buttonActive}` : ''}"
-          type="button" title="${this.options.formatAutoRefresh()}">
-          ${ this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : ''}
-          ${ this.options.showButtonText ? this.options.formatAutoRefresh() : ''}
-          </button>
-        `).appendTo($btnGroup)
-
-        $btnAutoRefresh.on('click', $.proxy(this.toggleAutoRefresh, this))
-      }
+      this.buttons = Object.assign(this.buttons, {
+        autoRefresh: {
+          'html': `
+            <button class="auto-refresh ${this.constants.buttonsClass}
+              ${this.options.autoRefreshStatus ? ` ${this.constants.classes.buttonActive}` : ''}"
+              type="button" name="autoRefresh" title="${this.options.formatAutoRefresh()}">
+              ${ this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : ''}
+              ${ this.options.showButtonText ? this.options.formatAutoRefresh() : ''}
+            </button>
+           `,
+          'event': this.toggleAutoRefresh
+        }
+      })
     }
+
+    super.initToolbar(...args)
   }
 
   toggleAutoRefresh () {
     if (this.options.autoRefresh) {
       if (this.options.autoRefreshStatus) {
         clearInterval(this.options.autoRefreshFunction)
-        this.$toolbar.find('>.columns').find('.auto-refresh')
+        this.$toolbar.find('>.columns .auto-refresh')
           .removeClass(this.constants.classes.buttonActive)
       } else {
         this.options.autoRefreshFunction = setInterval(() => {
           this.refresh({silent: this.options.autoRefreshSilent})
         }, this.options.autoRefreshInterval * 1000)
-        this.$toolbar.find('>.columns').find('.auto-refresh')
+        this.$toolbar.find('>.columns .auto-refresh')
           .addClass(this.constants.classes.buttonActive)
       }
       this.options.autoRefreshStatus = !this.options.autoRefreshStatus

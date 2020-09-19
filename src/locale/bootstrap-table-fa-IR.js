@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['fa-IR'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'در حال بارگذاری, لطفا صبر کنید'
   },

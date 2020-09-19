@@ -167,6 +167,7 @@ const CONSTANTS = {
 const DEFAULTS = {
   height: undefined,
   classes: 'table table-bordered table-hover',
+  buttons: {},
   theadClasses: '',
   headerStyle (column) {
     return {}
@@ -212,6 +213,7 @@ const DEFAULTS = {
   totalField: 'total',
   totalNotFilteredField: 'totalNotFiltered',
   dataField: 'rows',
+  footerField: 'footer',
   pagination: false,
   paginationParts: ['pageInfo', 'pageSize', 'pageList'],
   showExtendedPagination: false,
@@ -231,8 +233,10 @@ const DEFAULTS = {
   paginationPagesBySide: 1, // Number of pages on each side (right, left) of the current page.
   paginationUseIntermediate: false, // Calculate intermediate pages for quick access
   search: false,
+  searchHighlight: false,
   searchOnEnterKey: false,
   strictSearch: false,
+  searchSelector: false,
   visibleSearch: false,
   showButtonIcons: true,
   showButtonText: false,
@@ -489,6 +493,7 @@ const COLUMN_DEFAULTS = {
   footerFormatter: undefined,
   detailFormatter: undefined,
   searchFormatter: true,
+  searchHighlightFormatter: false,
   escape: false,
   events: undefined
 }
@@ -497,7 +502,7 @@ const METHODS = [
   'getOptions',
   'refreshOptions',
   'getData',
-  'getSelections', 'getAllSelections',
+  'getSelections',
   'load', 'append', 'prepend',
   'remove', 'removeAll',
   'insertRow', 'updateRow',

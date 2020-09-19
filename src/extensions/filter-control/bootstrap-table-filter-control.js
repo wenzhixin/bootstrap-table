@@ -20,7 +20,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   filterTemplate: {
     input (that, field, placeholder, value) {
       return Utils.sprintf(
-        '<input type="text" class="form-control bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
+        '<input type="search" class="form-control bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
         field,
         'undefined' === typeof placeholder ? '' : placeholder,
         'undefined' === typeof value ? '' : value
@@ -333,24 +333,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar () {
     this.showToolbar = this.showToolbar || this.options.showFilterControlSwitch
     this.showSearchClearButton = this.options.filterControl && this.options.showSearchClearButton
-    super.initToolbar()
 
     if (this.options.showFilterControlSwitch) {
-      const $btnGroup = this.$toolbar.find('>.columns')
-      let $btnFilterControlSwitch = $btnGroup.find('.filter-control-switch')
-
-      if (!$btnFilterControlSwitch.length) {
-        $btnFilterControlSwitch = $(`
-          <button class="filter-control-switch ${this.constants.buttonsClass}"
-          type="button" title="${this.options.formatFilterControlSwitch()}">
-          ${this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow) : ''}
-          ${this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''}
-          </button>
-        `).appendTo($btnGroup)
-
-        $btnFilterControlSwitch.on('click', $.proxy(this.toggleFilterControl, this))
-      }
+      this.buttons = Object.assign(this.buttons, {
+        filterControlSwitch: {
+          'text': this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow(),
+          'icon': this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow,
+          'event': this.toggleFilterControl,
+          'attributes': {
+            'aria-label': this.options.formatFilterControlSwitch(),
+            'title': this.options.formatFilterControlSwitch()
+          }
+        }
+      })
     }
+
+    super.initToolbar()
   }
 
   resetSearch (text) {
@@ -366,7 +364,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const cookies = UtilsFilterControl.collectBootstrapCookies()
       const table = this.$el.closest('table')
       const controls = UtilsFilterControl.getSearchControls(that)
-      const search = that.$toolbar.find('.search input')
+      const search = Utils.getSearchInput(this)
       let hasValues = false
       let timeoutId = 0
 

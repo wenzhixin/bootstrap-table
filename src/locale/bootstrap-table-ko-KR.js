@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['ko-KR'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return '데이터를 불러오는 중입니다'
   },

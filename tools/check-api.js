@@ -27,7 +27,7 @@ class API {
   }
 
   sortOptions () {
-    this.options.sort()
+    this.options.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
   }
 
   check () {
@@ -45,35 +45,39 @@ class API {
 
     const mds = Object.keys(md)
     for (const [i, key] of this.options.entries()) {
-      if (md[key]) {
-        outLines.push(md[key])
-        const details = md[key].split('\n\n- ')
+      try {
+        if (md[key]) {
+          outLines.push(md[key])
+          const details = md[key].split('\n\n- ')
 
-        for (let i = 0; i < this.attributes.length; i++) {
-          const name = this.attributes[i]
-          if (this.ignore && this.ignore[key] && this.ignore[key].includes(name)) {
-            continue
-          }
-
-          const tmpDetails = details[i + 1].trim()
-          if (name === 'Example' && exampleFilesFound) {
-            const matches = exampleRegex.exec(tmpDetails)
-            if (!matches) {
-              errors.push(chalk.red(`[${key}] missing or wrong formatted example`, `"${tmpDetails}"`))
+          for (let i = 0; i < this.attributes.length; i++) {
+            const name = this.attributes[i]
+            if (this.ignore && this.ignore[key] && this.ignore[key].includes(name)) {
               continue
             }
 
-            if (!exampleFiles.includes(matches[1])) {
-              errors.push(chalk.red(`[${key}] example '${matches[1]}' could not be found`))
+            const tmpDetails = details[i + 1].trim()
+            if (name === 'Example' && exampleFilesFound) {
+              const matches = exampleRegex.exec(tmpDetails)
+              if (!matches) {
+                errors.push(chalk.red(`[${key}] missing or wrong formatted example`, `"${tmpDetails}"`))
+                continue
+              }
+
+              if (!exampleFiles.includes(matches[1])) {
+                errors.push(chalk.red(`[${key}] example '${matches[1]}' could not be found`))
+              }
+            }
+
+            if (!tmpDetails || tmpDetails.indexOf(`**${name}:**`) === -1) {
+              errors.push(chalk.red(`[${key}] missing '${name}'`))
             }
           }
-
-          if (!tmpDetails || tmpDetails.indexOf(`**${name}:**`) === -1) {
-            errors.push(chalk.red(`[${key}] missing '${name}'`))
-          }
+        } else {
+          errors.push(chalk.red(`[${key}] option could not be found`))
         }
-      } else {
-        outLines.push(key + '\n\n')
+      } catch (ex) {
+        console.log(ex)
       }
     }
 

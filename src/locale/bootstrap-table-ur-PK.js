@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['ur-PK'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'براۓ مہربانی انتظار کیجئے'
   },

@@ -9,11 +9,15 @@ toc: true
 To use event syntax:
 
 {% highlight html %}
+// Here you can expect to have as last parameter the boostrap-table object
+
 $('#table').bootstrapTable({
   onEventName: function (arg1, arg2, ...) {
     // ...
   }
 })
+
+// Here you can expect to have in the 'e' variable the sender property which is the boostrap-table object
 
 $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   // ...

@@ -7,7 +7,7 @@
 
 let isSingleSort = false
 const Utils = $.fn.bootstrapTable.utils
-const bootstrap = {
+const theme = {
   bootstrap3: {
     icons: {
       plus: 'glyphicon-plus',
@@ -385,7 +385,7 @@ const bootstrap = {
                 </div>
                 <div class="mt-30">
                     <button type="button" class="btn" data-close>%s</button>
-                    <button type="button" class="btn multi-sort-order-button" data-close>%s</button> 
+                    <button type="button" class="btn multi-sort-order-button" data-close>%s</button>
                 </div>
             </div>
           </div>
@@ -396,8 +396,6 @@ const bootstrap = {
     }
   }
 }[$.fn.bootstrapTable.theme]
-$.extend($.fn.bootstrapTable.defaults.icons, bootstrap.icons)
-$.extend($.fn.bootstrapTable.defaults.html, bootstrap.html)
 
 const showSortModal = that => {
   const _selector = that.sortModalSelector
@@ -406,12 +404,12 @@ const showSortModal = that => {
 
   if (!$(_id).hasClass('modal')) {
     const sModal = Utils.sprintf(
-      that.constants.html.multipleSortModal,
+      theme.html.multipleSortModal,
       _selector, _selector, _selector,
       that.options.formatMultipleSort(),
-      Utils.sprintf(that.constants.html.icon, o.iconsPrefix, that.constants.icons.plus),
+      Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.plus),
       that.options.formatAddLevel(),
-      Utils.sprintf(that.constants.html.icon, o.iconsPrefix, that.constants.icons.minus),
+      Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.minus),
       that.options.formatDeleteLevel(),
       that.options.formatColumn(),
       that.options.formatOrder(),
@@ -584,12 +582,21 @@ BootstrapTable.prototype.initToolbar = function (...args) {
   const that = this
   const sortModalSelector = `sortModal_${this.$el.attr('id')}`
   const sortModalId = `#${sortModalSelector}`
+  const $multiSortBtn = this.$toolbar.find('div.multi-sort')
+  const o = this.options
+
   this.$sortModal = $(sortModalId)
   this.sortModalSelector = sortModalSelector
 
   if (that.options.sortPriority !== null) {
     that.onMultipleSort()
   }
+
+  this.buttons = Object.assign(this.buttons, {
+    multipleSort: {
+      'html': Utils.sprintf(theme.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.sort))
+    }
+  })
 
   _initToolbar.apply(this, Array.prototype.slice.apply(args))
 
@@ -602,14 +609,7 @@ BootstrapTable.prototype.initToolbar = function (...args) {
   }
 
   if (this.options.showMultiSort) {
-    const $btnGroup = this.$toolbar.find('>.' + that.constants.classes.buttonsGroup.split(' ').join('.')).first()
-    let $multiSortBtn = this.$toolbar.find('div.multi-sort')
-    const o = that.options
-
     if (!$multiSortBtn.length && this.options.showMultiSortButton) {
-      $multiSortBtn = Utils.sprintf(that.constants.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, o.icons.sort))
-      $btnGroup.append($multiSortBtn)
-
       if ($.fn.bootstrapTable.theme === 'semantic') {
         this.$toolbar.find('.multi-sort').on('click', () => {
           $(sortModalId).modal('show')
@@ -759,8 +759,8 @@ BootstrapTable.prototype.addLevel = function (index, sortPriority) {
   this.$sortModal.find('tbody')
     .append($('<tr>')
       .append($('<td>').text(text))
-      .append($('<td>').append($(Utils.sprintf(this.constants.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-name'))))
-      .append($('<td>').append($(Utils.sprintf(this.constants.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-order'))))
+      .append($('<td>').append($(Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-name'))))
+      .append($('<td>').append($(Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-order'))))
     )
 
   const $multiSortName = this.$sortModal.find('.multi-sort-name').last()
@@ -816,7 +816,7 @@ BootstrapTable.prototype.setButtonStates = function () {
 
 BootstrapTable.prototype.multiSort = function (sortPriority) {
   this.options.sortPriority = sortPriority
-  this.options.sortName = ''
+  this.options.sortName = undefined
 
   if (this.options.sidePagination === 'server') {
     this.options.queryParams = params => {

@@ -36,10 +36,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.$stickyHeader = this.$header.clone(true, true)
 
     // render sticky on window scroll or resize
-    $(window).off('resize.sticky-header-table')
-      .on('resize.sticky-header-table', () => this.renderStickyHeader())
-    $(window).off('scroll.sticky-header-table')
-      .on('scroll.sticky-header-table', () => this.renderStickyHeader())
+    const resizeEvent = Utils.getEventName('resize.sticky-header-table', this.$el.attr('id'))
+    const scrollEvent = Utils.getEventName('scroll.sticky-header-table', this.$el.attr('id'))
+
+    $(window).off(resizeEvent).on(resizeEvent, () => this.renderStickyHeader())
+    $(window).off(scrollEvent).on(scrollEvent, () => this.renderStickyHeader())
     this.$tableBody.off('scroll').on('scroll', () => this.matchPositionX())
   }
 
@@ -53,6 +54,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     $('.bootstrap-table.fullscreen').off('scroll')
       .on('scroll', () => this.renderStickyHeader())
+  }
+
+  horizontalScroll () {
+    super.horizontalScroll()
+    this.$tableBody.on('scroll', () => this.matchPositionX())
   }
 
   renderStickyHeader () {

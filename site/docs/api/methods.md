@@ -167,16 +167,6 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Example:** [Filter By](https://examples.bootstrap-table.com/#methods/filter-by.html)
 
-## getAllSelections
-
-- **Parameter:** `undefined`
-
-- **Detail:**
-
-  Return all selected rows contain search or filter, when no record selected, an empty array will return.
-
-- **Example:** [Get All Selections](https://examples.bootstrap-table.com/#methods/get-all-selections.html)
-
 ## getData
 
 - **Parameter:** `params`
@@ -249,6 +239,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 - **Detail:**
 
   Return selected rows, when no record selected, an empty array will return.
+  The selected rows will be unselected while some actions happens e.g. searching or page change, if you want to maintain the selections please use [maintainMetaData](https://bootstrap-table.com/docs/api/table-options/#maintainmetadata). 
 
 - **Example:** [Get Selections](https://examples.bootstrap-table.com/#methods/get-selections.html)
 

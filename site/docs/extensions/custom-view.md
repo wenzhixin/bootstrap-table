@@ -90,4 +90,4 @@ This extension adds the ability to create a custom view to display the data.
 
 - **type:** `Function`
 
-- **Default:** `function () { return "Toggle custom view;}`
+- **Default:** `function () { return "Toggle custom view" }`

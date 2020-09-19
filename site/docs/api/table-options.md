@@ -55,6 +55,92 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [AJAX Options](https://examples.bootstrap-table.com/#options/ajax-options.html)
 
+## buttons
+
+- **Attribute:** `data-buttons`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  This option allows creating/adding custom button(s) to "buttonbar" (top right of the table).  
+  This buttons can be sorted with the table option [buttonsOrder](https://bootstrap-table.com/docs/api/table-options/#buttonsorder), the used key/name for the event should be used for that!
+  
+  The custom button is highly configurable, the following options exists:
+  - `text`
+    - Description: This options is used for the [showButtonText](https://bootstrap-table.com/docs/api/table-options/#showbuttontext) table option.
+    - Type: `String`
+  - `icon`
+    - Description: This option is used for the [showButtonIcons](https://bootstrap-table.com/docs/api/table-options/#showbuttonicons) table option.
+    - Type: `String` - Only needs the icon class e.g. `fa-users`
+  - `render`
+    - Description: Set this option to `false` to hide the button by default, the button is visible again when you add the data attribute `data-show-BUTTONNAME="true"`.    
+  - `attributes`
+    - Description: This option allows adding additional html attributes e.g. `title`
+    - Type: `Object`
+    - Example: `{title: 'Button title'}`
+  - `html`
+    - Description: If you don't want to autogenerate the html, you can use this option to insert your custom html.   
+      The `event` option is only working if you custom html contains `name="BUTTONNAME"`.   
+      If this option is used the following options will be ignored:
+      - `text`
+      - `icon`
+      - `attributes`   
+    - Type: `Function|String`
+  - `event`
+    - Description: Should be used if you want to add an event to the button
+    - Type: `Function|Object|String`
+
+   The `event` option can be configured in three ways.     
+   One event with `click` event:  
+   ```javascript
+   {
+     'event': () => { }
+   }
+   ```
+  
+  One event with a self defined event type:   
+  ```javascript
+     {
+       'event': {
+         'mouseenter': () => { }
+       }
+     }
+  ```
+  
+  Multiple events with self defined event types:   
+    ```javascript
+       {
+         'event': {
+           'click': () => { },
+           'mouseenter': () => { },
+           'mouseleave': () => { }
+         }
+       }
+    ```
+  
+  **Hint:** Instead of inline functions you also can use function names.
+  
+  A configured custom button could look like this:
+  ``` javascript 
+  {
+    btnRemoveEvenRows: {
+      'text': 'Remove even Rows',
+      'icon': 'fa-trash',
+      'event': () => {
+        //DO STUFF TO REMOVE EVEN ROWS
+      },
+      'attributes': {
+        'title': 'Remove all rows which has a even id'
+      }
+    }
+  }
+  ```
+
+- **Default:** `{}`
+
+- **Example:** [Buttons](https://examples.bootstrap-table.com/#options/buttons.html)
+
 ## buttonsAlign
 
 - **Attribute:** `data-buttons-align`
@@ -442,6 +528,39 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Filter Options](https://examples.bootstrap-table.com/#options/filter-options.html)
 
+## footerField
+
+- **Attribute:** `data-footer-field`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines the key of the footer Object (From data array or server response json).
+  The footer Object can be used to set/define footer colspans and/or the value of the footer.
+
+  {% highlight javascript %}
+    {
+      "rows": [
+        {
+          "id": 0,
+          "name": "Item 0",
+          "price": "$0",
+          "amount": 3
+        }
+      ],
+      "footer": {
+        "id": "footer id",
+        "_id_colspan": 2,
+        "name": "footer name"
+      }
+    }
+    {% endhighlight %}
+
+- **Default:** `footerField`
+
+- **Example:** [Footer Field](https://examples.bootstrap-table.com/#options/footer-field.html)
+
 ## footerStyle
 
 - **Attribute:** `data-footer-style`
@@ -510,20 +629,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
 
-## iconSize
-
-- **Attribute:** `data-icon-size`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Defines icon size, `undefined`, `'lg'`, `'sm'` can be used.
-
-- **Default:** `undefined`
-
-- **Example:** [Icon Size](https://examples.bootstrap-table.com/#options/icon-size.html)
-
 ## icons
 
 - **Attribute:** `data-icons`
@@ -551,6 +656,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   {% endhighlight %}
 
 - **Example:** [Table Icons](https://examples.bootstrap-table.com/#options/table-icons.html)
+
+## iconSize
+
+- **Attribute:** `data-icon-size`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  Defines icon size, `undefined`, `'lg'`, `'sm'` can be used.
+
+- **Default:** `undefined`
+
+- **Example:** [Icon Size](https://examples.bootstrap-table.com/#options/icon-size.html)
 
 ## iconsPrefix
 
@@ -1038,11 +1157,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   - Comparisons (<, >, <=, =<, >=, =>).
     Example: 4 is larger than 3.
 
+  Note: If you want to use a custom search input use the [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector).
+
 - **Default:** `false`
 
 - **Example:** [Table Search](https://examples.bootstrap-table.com/#options/table-search.html)
 
-### searchAccentNeutralise
+## searchAccentNeutralise
 
 - **Attribute:** `data-search-accent-neutralise`
 
@@ -1070,6 +1191,21 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Search Align](https://examples.bootstrap-table.com/#options/search-align.html)
 
+## searchHighlight
+
+- **Attribute:** `data-search-highlight`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set to `true` to highlight the searched text (using the `<mark>` html tag).
+  You can also define a [custom highlight formatter](https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter) e.g. for values with html or to use a custom highlight color.
+
+- **Default:** `'false'`
+
+- **Example:** [Search Highlight](https://examples.bootstrap-table.com/#options/search-highlight.html)
+
 ## searchOnEnterKey
 
 - **Attribute:** `data-search-on-enter-key`
@@ -1083,6 +1219,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Search On Enter Key](https://examples.bootstrap-table.com/#options/search-on-enter-key.html)
+
+## searchSelector
+
+- **Attribute:** `data-search-selector`
+
+- **Type:** `Boolean|String`
+
+- **Detail:**
+
+  If this option is set (must be a valid dom selector e.g. `#customSearch`), the found dom element (should be an `input` element) will be used as table search instead of the built-in search input.
+
+- **Default:** `false`
+
+- **Example:** [Search Selector](https://examples.bootstrap-table.com/#options/search-selector.html)
 
 ## searchText
 
@@ -1400,6 +1550,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Smart Display](https://examples.bootstrap-table.com/#options/smart-display.html)
 
+## sortable
+
+- **Attribute:** `data-sortable`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to disable sortable of all columns.
+
+- **Default:** `true`
+
+- **Example:** [Table Sortable](https://examples.bootstrap-table.com/#options/table-sortable.html)
+
 ## sortClass
 
 - **Attribute:** `data-sort-class`
@@ -1469,20 +1633,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Sort Stable](https://examples.bootstrap-table.com/#options/sort-stable.html)
-
-## sortable
-
-- **Attribute:** `data-sortable`
-
-- **Type:** `Boolean`
-
-- **Detail:**
-
-  Set `false` to disable sortable of all columns.
-
-- **Default:** `true`
-
-- **Example:** [Table Sortable](https://examples.bootstrap-table.com/#options/table-sortable.html)
 
 ## strictSearch
 

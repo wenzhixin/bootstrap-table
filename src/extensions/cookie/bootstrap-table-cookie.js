@@ -65,7 +65,8 @@ const UtilsCookie = {
           `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
           that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
           that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-          that.options.cookieSecure ? '; secure' : ''
+          that.options.cookieSecure ? '; secure' : '',
+          ';SameSite=' + that.options.cookieSameSite
         ].join('')
         break
       case 'localStorage':
@@ -262,6 +263,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   cookiePath: null,
   cookieDomain: null,
   cookieSecure: null,
+  cookieSameSite: 'Lax',
   cookieIdTable: '',
   cookiesEnabled: [
     'bs.table.sortOrder', 'bs.table.sortName',
@@ -387,13 +389,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   _toggleColumn (...args) {
     super._toggleColumn(...args)
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map((column) => column.field)))
   }
 
   _toggleAllColumns (...args) {
     super._toggleAllColumns(...args)
 
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map((column) => column.field)))
   }
 
   selectPage (page) {
@@ -468,7 +470,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (columnsCookie) {
       for (const column of this.columns) {
-        column.visible = columnsCookie.filter((c) => { return c.field === column.field }).length > 0 || !column.switchable
+        column.visible = columnsCookie.filter((columnField) => {
+          if (this.isSelectionColumn(column)) {
+            return true
+          }
+          /**
+           * This is needed for the old saved cookies or the table will show no columns!
+           * It can be removed in 2-3 Versions Later!!
+           * TODO: Remove this part some versions later e.g. 1.17.3
+           */
+          if (columnField instanceof Object) {
+            return columnField.field === column.field
+          }
+
+          return columnField === column.field
+        }).length > 0 || !column.switchable
       }
     }
   }
