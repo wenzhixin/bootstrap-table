@@ -17,10 +17,14 @@
     </head>
     <body>
         <table data-toggle="table"
+               data-buttons-align="left"
+               data-show-columns="true"
                data-show-toggle="true"
+               data-show-pagination-switch="true"
+               data-show-refresh="true"
+               data-buttons-order="['refresh', 'paginationSwitch', 'toggle', 'fullscreen', 'columns']"
                data-url="/cypress/json/data1.json"
-               data-search="true"
-        >
+               data-search="true">
             <thead>
                 <tr>
                     <th data-field="id">ID</th>
