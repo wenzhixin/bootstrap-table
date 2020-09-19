@@ -61,9 +61,9 @@ const theme = {
   },
   bootstrap4: {
     icons: {
-      'plus': 'fa-plus',
-      'minus': 'fa-minus',
-      'sort': 'fa-sort'
+      plus: 'fa-plus',
+      minus: 'fa-minus',
+      sort: 'fa-sort'
     },
     html: {
       multipleSortModal: `
@@ -114,9 +114,9 @@ const theme = {
   },
   bootstrap5: {
     icons: {
-      'plus': 'fa-plus',
-      'minus': 'fa-minus',
-      'sort': 'fa-sort'
+      plus: 'fa-plus',
+      minus: 'fa-minus',
+      sort: 'fa-sort'
     },
     html: {
       multipleSortModal: `
@@ -167,9 +167,9 @@ const theme = {
   },
   semantic: {
     icons: {
-      'plus': 'fa-plus',
-      'minus': 'fa-minus',
-      'sort': 'fa-sort'
+      plus: 'fa-plus',
+      minus: 'fa-minus',
+      sort: 'fa-sort'
     },
     html: {
       multipleSortModal: `
@@ -214,9 +214,9 @@ const theme = {
   },
   materialize: {
     icons: {
-      'plus': 'plus',
-      'minus': 'minus',
-      'sort': 'sort'
+      plus: 'plus',
+      minus: 'minus',
+      sort: 'sort'
     },
     html: {
       multipleSortModal: `
@@ -258,9 +258,9 @@ const theme = {
   },
   foundation: {
     icons: {
-      'plus': 'fa-plus',
-      'minus': 'fa-minus',
-      'sort': 'fa-sort'
+      plus: 'fa-plus',
+      minus: 'fa-minus',
+      sort: 'fa-sort'
     },
     html: {
       multipleSortModal: `
@@ -305,9 +305,9 @@ const theme = {
   },
   bulma: {
     icons: {
-      'plus': 'fa-plus',
-      'minus': 'fa-minus',
-      'sort': 'fa-sort'
+      plus: 'fa-plus',
+      minus: 'fa-minus',
+      sort: 'fa-sort'
     },
     html: {
       multipleSortModal: `
@@ -350,9 +350,9 @@ const theme = {
   },
   'bootstrap-table': {
     icons: {
-      'plus': 'icon-plus',
-      'minus': 'icon-minus',
-      'sort': 'icon-sort-amount-asc'
+      plus: 'icon-plus',
+      minus: 'icon-minus',
+      sort: 'icon-sort-amount-asc'
     },
     html: {
       multipleSortModal: `
@@ -594,7 +594,7 @@ BootstrapTable.prototype.initToolbar = function (...args) {
 
   this.buttons = Object.assign(this.buttons, {
     multipleSort: {
-      'html': Utils.sprintf(theme.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.sort))
+      html: Utils.sprintf(theme.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, theme.icons.sort))
     }
   })
 
@@ -602,6 +602,7 @@ BootstrapTable.prototype.initToolbar = function (...args) {
 
   if (that.options.sidePagination === 'server' && !isSingleSort && that.options.sortPriority !== null) {
     const t = that.options.queryParams
+
     that.options.queryParams = params => {
       params.multiSort = that.options.sortPriority
       return t(params)
@@ -688,6 +689,7 @@ BootstrapTable.prototype.destroy = function (...args) {
 
 BootstrapTable.prototype.multipleSort = function () {
   const that = this
+
   if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object' && that.options.sidePagination !== 'server') {
     that.onMultipleSort()
   }

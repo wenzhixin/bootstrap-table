@@ -32,6 +32,7 @@ export function hideUnusedSelectOptions (selectControl, uniqueValues) {
 
 export function existOptionInSelectControl (selectControl, value) {
   const options = getOptionsFromSelectControl(selectControl)
+
   for (let i = 0; i < options.length; i++) {
     if (options[i].value === value.toString()) {
       // The value is not valid to add
@@ -46,6 +47,7 @@ export function existOptionInSelectControl (selectControl, value) {
 export function addOptionToSelectControl (selectControl, _value, text, selected) {
   const value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
   const $selectControl = $(selectControl.get(selectControl.length - 1))
+
   if (!existOptionInSelectControl(selectControl, value)) {
     const option = $(`<option value="${value}">${text}</option>`)
 
@@ -83,12 +85,14 @@ export function getCursorPosition (el) {
   if (Utils.isIEBrowser()) {
     if ($(el).is('input[type=text]')) {
       let pos = 0
+
       if ('selectionStart' in el) {
         pos = el.selectionStart
       } else if ('selection' in document) {
         el.focus()
         const Sel = document.selection.createRange()
         const SelLength = document.selection.createRange().text.length
+
         Sel.moveStart('character', -el.value.length)
         pos = Sel.text.length - SelLength
       }
@@ -111,8 +115,10 @@ export function copyValues (that) {
 
   searchControls.each(function () {
     let $field = $(this)
+
     if (that.options.height) {
       const fieldClass = getElementClass($field)
+
       $field = $(`.fixed-table-header .${fieldClass}`)
     }
 
@@ -133,8 +139,10 @@ export function setValues (that) {
   if (that.options.valuesFilterControl.length > 0) {
     //  Callback to apply after settings fields values
     let fieldToFocusCallback = null
-    searchControls.each(function (index, ele) {
-      const $this = $(this)
+
+    searchControls.each((i, el) => {
+      const $this = $(el)
+
       field = $this.closest('[data-field]').data('field')
       result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
 
@@ -152,6 +160,7 @@ export function setValues (that) {
               fieldToFocus.focus()
               setCursorPosition(fieldToFocus, carretPosition)
             }
+
             return closedCallback
           })($this.get(0), result[0].position)
         }
@@ -173,6 +182,7 @@ export function collectBootstrapCookies () {
   if (foundCookies) {
     $.each(foundCookies, (i, _cookie) => {
       let cookie = _cookie
+
       if (/./.test(cookie)) {
         cookie = cookie.split('.').pop()
       }
@@ -185,6 +195,7 @@ export function collectBootstrapCookies () {
   if (foundLocalStorage) {
     for (let i = 0; i < foundLocalStorage.length; i++) {
       let cookie = foundLocalStorage.key(i)
+
       if (/./.test(cookie)) {
         cookie = cookie.split('.').pop()
       }
@@ -217,15 +228,16 @@ export function hasSelectControlElement (selectControl) {
 
 export function initFilterSelectControls (that) {
   const data = that.data
-  const z = that.options.pagination
-    ? that.options.sidePagination === 'server'
-      ? that.pageTo
-      : that.options.totalRows
-    : that.pageTo
+  const z = that.options.pagination ?
+    that.options.sidePagination === 'server' ?
+      that.pageTo :
+      that.options.totalRows :
+    that.pageTo
 
   $.each(that.header.fields, (j, field) => {
     const column = that.columns[that.fieldsColumnsIndex[field]]
     const selectControl = getControlContainer(that).find(`select.bootstrap-table-filter-control-${escapeID(column.field)}`)
+
     if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
       if (selectControl.get(selectControl.length - 1).options.length === 0) {
         // Added the default option
@@ -233,6 +245,7 @@ export function initFilterSelectControls (that) {
       }
 
       const uniqueValues = {}
+
       for (let i = 0; i < z; i++) {
         // Added a new value
         let fieldValue = data[i][field]
@@ -249,12 +262,13 @@ export function initFilterSelectControls (that) {
         uniqueValues[formattedValue] = fieldValue
 
         if (typeof formattedValue === 'object' && formattedValue !== null) {
-          formattedValue.forEach((value) => {
+          formattedValue.forEach(value => {
             addOptionToSelectControl(selectControl, value, value, column.filterDefault)
           })
           continue
         }
 
+        // eslint-disable-next-line guard-for-in
         for (const key in uniqueValues) {
           addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
         }
@@ -270,6 +284,7 @@ export function initFilterSelectControls (that) {
 
 export function getFilterDataMethod (objFilterDataMethod, searchTerm) {
   const keys = Object.keys(objFilterDataMethod)
+
   for (let i = 0; i < keys.length; i++) {
     if (keys[i] === searchTerm) {
       return objFilterDataMethod[searchTerm]
@@ -293,10 +308,13 @@ export function createControls (that, header) {
       html.push('<div class="no-filter-control"></div>')
     } else if (that.options.filterControlContainer) {
       const $filterControls = $(`.bootstrap-table-filter-control-${column.field}`)
+
       $.each($filterControls, (_, filterControl) => {
         const $filterControl = $(filterControl)
+
         if (!$filterControl.is('[type=radio]')) {
           const placeholder = column.filterControlPlaceholder ? column.filterControlPlaceholder : ''
+
           $filterControl.attr('placeholder', placeholder).val(column.filterDefault)
         }
 
@@ -315,9 +333,9 @@ export function createControls (that, header) {
           that.options.filterTemplate[nameControl](
             that,
             column.field,
-            column.filterControlPlaceholder
-              ? column.filterControlPlaceholder
-              : '',
+            column.filterControlPlaceholder ?
+              column.filterControlPlaceholder :
+              '',
             column.filterDefault
           )
         )
@@ -334,6 +352,7 @@ export function createControls (that, header) {
 
     $.each(header.find('th'), (i, th) => {
       const $th = $(th)
+
       if ($th.data('field') === column.field) {
         $th.find('.fht-cell').append(html.join(''))
         return false
@@ -397,9 +416,10 @@ export function createControls (that, header) {
       syncControls(that)
       const $select = $(currentTarget)
       const value = $select.val()
+
       if (value && value.length > 0 && value.trim()) {
         $select.find('option[selected]').removeAttr('selected')
-        $select.find('option[value="' + value + '"]').attr('selected', true)
+        $select.find(`option[value="${ value }"]`).attr('selected', true)
       } else {
         $select.find('option[selected]').removeAttr('selected')
       }
@@ -487,6 +507,7 @@ export function getDirectionOfSelectOptions (_alignment) {
 export function syncControls (that) {
   if (that.options.height) {
     const controlsTableHeader = that.$tableHeader.find(searchControls)
+
     that.$header.find(searchControls).each((_, control) => {
       const $control = $(control)
       const controlClass = getElementClass($control)
@@ -512,6 +533,8 @@ export function syncControls (that) {
 const filterDataMethods = {
   func (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource].apply()
+
+    // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
@@ -523,11 +546,12 @@ const filterDataMethods = {
     let variableValues = window[variableName]
 
     if (objectKeys.length > 0) {
-      objectKeys.forEach((key) => {
+      objectKeys.forEach(key => {
         variableValues = variableValues[key]
       })
     }
 
+    // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
@@ -536,6 +560,7 @@ const filterDataMethods = {
   var (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource]
     const isArray = Array.isArray(variableValues)
+
     for (const key in variableValues) {
       if (isArray) {
         addOptionToSelectControl(selectControl, variableValues[key], variableValues[key], selected)
@@ -550,6 +575,7 @@ const filterDataMethods = {
       url: filterDataSource,
       dataType: 'json',
       success (data) {
+        // eslint-disable-next-line guard-for-in
         for (const key in data) {
           addOptionToSelectControl(selectControl, key, data[key], selected)
         }
@@ -559,6 +585,8 @@ const filterDataMethods = {
   },
   json (filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = JSON.parse(filterDataSource)
+
+    // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }

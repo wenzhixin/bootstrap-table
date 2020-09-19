@@ -34,7 +34,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           </div>
         `).appendTo($pageGroup)
 
-        $jumpTo.on('click', 'button', (e) => {
+        $jumpTo.on('click', 'button', e => {
           this.selectPage(+$(e.target).parent('.page-jump-to').find('input').val())
         })
       }

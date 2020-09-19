@@ -47,6 +47,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const $pane = $(el).next()
           .attr('data-position', 'bottom')
           .attr('data-alignment', 'right')
+
         new window.Foundation.Dropdown($pane)
       })
 
@@ -59,11 +60,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (this.options.pagination && this.paginationParts.includes('pageSize')) {
       const $el = this.$pagination.find('.dropdown-toggle')
+
       $el.attr('data-toggle', $el.next().attr('id'))
 
       const $pane = this.$pagination.find('.dropdown-pane')
         .attr('data-position', 'top')
         .attr('data-alignment', 'left')
+
       new window.Foundation.Dropdown($pane)
 
       this._initDropdown()
@@ -75,6 +78,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     $dropdowns.off('click').on('click', e => {
       const $this = $(e.currentTarget)
+
       e.stopPropagation()
 
       $this.next().foundation('toggle')

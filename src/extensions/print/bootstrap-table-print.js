@@ -95,14 +95,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.showPrint) {
       this.buttons = Object.assign(this.buttons, {
         print: {
-          'text': this.options.formatPrint(),
-          'icon': this.options.icons.print,
-          'event': () => {
+          text: this.options.formatPrint(),
+          icon: this.options.icons.print,
+          event: () => {
             this.doPrint(this.options.printAsFilteredAndSortedOnUI ? this.getData() : this.options.data.slice(0))
           },
-          'attributes': {
+          attributes: {
             'aria-label': this.options.formatPrint(),
-            'title': this.options.formatPrint()
+            title: this.options.formatPrint()
           }
         }
       })
@@ -137,8 +137,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const value = Utils.calculateObjectValue(column, column.printFormatter,
         [row[column.field], row, i], row[column.field])
 
-      return typeof value === 'undefined' || value === null
-        ? this.options.undefinedText : value
+      return typeof value === 'undefined' || value === null ?
+        this.options.undefinedText : value
     }
 
     const buildTable = (data, columnsArray) => {
@@ -162,14 +162,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
       html.push('</thead><tbody>')
 
       const dontRender = []
+
       if (this.mergedCells) {
         for (let mc = 0; mc < this.mergedCells.length; mc++) {
           const currentMergedCell = this.mergedCells[mc]
+
           for (let rs = 0; rs < currentMergedCell.rowspan; rs++) {
             const row = currentMergedCell.row + rs
+
             for (let cs = 0; cs < currentMergedCell.colspan; cs++) {
               const col = currentMergedCell.col + cs
-              dontRender.push(row + ',' + col)
+
+              dontRender.push(`${row },${ col}`)
             }
           }
         }
@@ -182,9 +186,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
           for (let j = 0; j < columns.length; j++) {
             let rowspan = 0
             let colspan = 0
+
             if (this.mergedCells) {
               for (let mc = 0; mc < this.mergedCells.length; mc++) {
                 const currentMergedCell = this.mergedCells[mc]
+
                 if (currentMergedCell.col === j && currentMergedCell.row === i) {
                   rowspan = currentMergedCell.rowspan
                   colspan = currentMergedCell.colspan
@@ -193,10 +199,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
             }
 
             if (
-              !columns[j].printIgnore && columns[j].field
-              && (
-                !dontRender.includes(i + ',' + j)
-                || (rowspan > 0 && colspan > 0)
+              !columns[j].printIgnore && columns[j].field &&
+              (
+                !dontRender.includes(`${i },${ j}`) ||
+                (rowspan > 0 && colspan > 0)
               )
             ) {
               if (rowspan > 0 && colspan > 0) {
@@ -220,6 +226,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
             if (!columns[h].printIgnore) {
               const footerData = Utils.trToData(columns, this.$el.find('>tfoot>tr'))
               const footerValue = Utils.calculateObjectValue(columns[h], columns[h].footerFormatter, [data], footerData[0] && footerData[0][columns[h].field] || '')
+
               html.push(`<th>${footerValue}</th>`)
             }
           }
@@ -236,6 +243,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return data
       }
       let reverse = sortOrder !== 'asc'
+
       reverse = -((+reverse) || -1)
       return data.sort((a, b) => reverse * (a[colName].localeCompare(b[colName])))
     }
@@ -259,6 +267,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     data = sortRows(data, this.options.printSortColumn, this.options.printSortOrder)
     const table = buildTable(data, this.options.columns)
     const newWin = window.open('')
+
     newWin.document.write(this.options.printPageBuilder.call(this, table))
     newWin.document.close()
     newWin.focus()

@@ -44,8 +44,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.$tableBody.off('scroll').on('scroll', () => this.matchPositionX())
   }
 
-  onColumnSearch ({currentTarget, keyCode}) {
-    super.onColumnSearch({currentTarget, keyCode})
+  onColumnSearch ({ currentTarget, keyCode }) {
+    super.onColumnSearch({ currentTarget, keyCode })
     this.renderStickyHeader()
   }
 
@@ -63,6 +63,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   renderStickyHeader () {
     const that = this
+
     this.$stickyHeader = this.$header.clone(true, true)
 
     if (this.options.filterControl) {
@@ -70,14 +71,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const $target = $(e.target)
         const value = $target.val()
         const field = $target.parents('th').data('field')
-        const $coreTh = that.$header.find('th[data-field="' + field + '"]')
+        const $coreTh = that.$header.find(`th[data-field="${ field }"]`)
 
         if ($target.is('input')) {
           $coreTh.find('input').val(value)
         } else if ($target.is('select')) {
           const $select = $coreTh.find('select')
+
           $select.find('option[selected]').removeAttr('selected')
-          $select.find('option[value="' + value + '"]').attr('selected', true)
+          $select.find(`option[value="${ value }"]`).attr('selected', true)
         }
 
         that.triggerSearch()
@@ -89,6 +91,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const start = this.$stickyBegin.offset().top - this.options.stickyHeaderOffsetY
     // bottom anchor scroll position, minus header height, minus sticky height
     const end = this.$stickyEnd.offset().top - this.options.stickyHeaderOffsetY - this.$header.height()
+
     // show sticky when top anchor touches header, and when bottom anchor not exceeded
     if (top > start && top <= end) {
       // ensure clone and source column widths are the same
@@ -100,6 +103,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // stick it in position
       let stickyHeaderOffsetLeft = this.options.stickyHeaderOffsetLeft
       let stickyHeaderOffsetRight = this.options.stickyHeaderOffsetRight
+
       if (this.$el.closest('.bootstrap-table').hasClass('fullscreen')) {
         stickyHeaderOffsetLeft = 0
         stickyHeaderOffsetRight = 0
