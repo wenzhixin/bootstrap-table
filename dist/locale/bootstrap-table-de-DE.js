@@ -674,6 +674,12 @@
 	*/
 
 	$.fn.bootstrapTable.locales['de-DE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Zeilen kopieren';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Drucken';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Lade, bitte warten';
 	  },
@@ -757,13 +763,13 @@
 	    return 'Schließen';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Verstecke/Zeige controls';
+	    return 'Verstecke/Zeige Filter';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Verstecke controls';
+	    return 'Verstecke Filter';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Zeige controls';
+	    return 'Zeige Filter';
 	  }
 	};
 	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['de-DE']);

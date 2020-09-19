@@ -945,6 +945,56 @@
 	  }
 	});
 
+	var nativeAssign = Object.assign;
+	var defineProperty = Object.defineProperty;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	var objectAssign = !nativeAssign || fails(function () {
+	  // should have correct order of operations (Edge bug)
+	  if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty({}, 'a', {
+	    enumerable: true,
+	    get: function () {
+	      defineProperty(this, 'b', {
+	        value: 3,
+	        enumerable: false
+	      });
+	    }
+	  }), { b: 2 })).b !== 1) return true;
+	  // should work with symbols and should have deterministic property order (V8 bug)
+	  var A = {};
+	  var B = {};
+	  // eslint-disable-next-line no-undef
+	  var symbol = Symbol();
+	  var alphabet = 'abcdefghijklmnopqrst';
+	  A[symbol] = 7;
+	  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
+	  return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
+	}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+	  var T = toObject(target);
+	  var argumentsLength = arguments.length;
+	  var index = 1;
+	  var getOwnPropertySymbols = objectGetOwnPropertySymbols.f;
+	  var propertyIsEnumerable = objectPropertyIsEnumerable.f;
+	  while (argumentsLength > index) {
+	    var S = indexedObject(arguments[index++]);
+	    var keys = getOwnPropertySymbols ? objectKeys(S).concat(getOwnPropertySymbols(S)) : objectKeys(S);
+	    var length = keys.length;
+	    var j = 0;
+	    var key;
+	    while (length > j) {
+	      key = keys[j++];
+	      if (!descriptors || propertyIsEnumerable.call(S, key)) T[key] = S[key];
+	    }
+	  } return T;
+	} : nativeAssign;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	_export({ target: 'Object', stat: true, forced: Object.assign !== objectAssign }, {
+	  assign: objectAssign
+	});
+
 	var FAILS_ON_PRIMITIVES = fails(function () { objectKeys(1); });
 
 	// `Object.keys` method
@@ -2513,7 +2563,7 @@
 	  alignmentSelectControlOptions: undefined,
 	  filterTemplate: {
 	    input: function input(that, field, placeholder, value) {
-	      return Utils$1.sprintf('<input type="text" class="form-control bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">', field, 'undefined' === typeof placeholder ? '' : placeholder, 'undefined' === typeof value ? '' : value);
+	      return Utils$1.sprintf('<input type="search" class="form-control bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">', field, 'undefined' === typeof placeholder ? '' : placeholder, 'undefined' === typeof value ? '' : value);
 	    },
 	    select: function select(_ref, field) {
 	      var options = _ref.options;
@@ -2829,17 +2879,21 @@
 	      this.showToolbar = this.showToolbar || this.options.showFilterControlSwitch;
 	      this.showSearchClearButton = this.options.filterControl && this.options.showSearchClearButton;
 
-	      _get(_getPrototypeOf(_class.prototype), "initToolbar", this).call(this);
-
 	      if (this.options.showFilterControlSwitch) {
-	        var $btnGroup = this.$toolbar.find('>.columns');
-	        var $btnFilterControlSwitch = $btnGroup.find('.filter-control-switch');
-
-	        if (!$btnFilterControlSwitch.length) {
-	          $btnFilterControlSwitch = $("\n          <button class=\"filter-control-switch ".concat(this.constants.buttonsClass, "\"\n          type=\"button\" title=\"").concat(this.options.formatFilterControlSwitch(), "\">\n          ").concat(this.options.showButtonIcons ? Utils$1.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow) : '', "\n          ").concat(this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : '', "\n          </button>\n        ")).appendTo($btnGroup);
-	          $btnFilterControlSwitch.on('click', $.proxy(this.toggleFilterControl, this));
-	        }
+	        this.buttons = Object.assign(this.buttons, {
+	          filterControlSwitch: {
+	            'text': this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow(),
+	            'icon': this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow,
+	            'event': this.toggleFilterControl,
+	            'attributes': {
+	              'aria-label': this.options.formatFilterControlSwitch(),
+	              'title': this.options.formatFilterControlSwitch()
+	            }
+	          }
+	        });
 	      }
+
+	      _get(_getPrototypeOf(_class.prototype), "initToolbar", this).call(this);
 	    }
 	  }, {
 	    key: "resetSearch",
@@ -2858,7 +2912,7 @@
 	        var cookies = collectBootstrapCookies();
 	        var table = this.$el.closest('table');
 	        var controls = getSearchControls(that);
-	        var search = that.$toolbar.find('.search input');
+	        var search = Utils$1.getSearchInput(this);
 	        var hasValues = false;
 	        var timeoutId = 0;
 	        $.each(that.options.valuesFilterControl, function (i, item) {

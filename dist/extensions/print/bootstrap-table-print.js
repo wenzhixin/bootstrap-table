@@ -1617,6 +1617,56 @@
 	  }
 	});
 
+	var nativeAssign = Object.assign;
+	var defineProperty$3 = Object.defineProperty;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	var objectAssign = !nativeAssign || fails(function () {
+	  // should have correct order of operations (Edge bug)
+	  if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty$3({}, 'a', {
+	    enumerable: true,
+	    get: function () {
+	      defineProperty$3(this, 'b', {
+	        value: 3,
+	        enumerable: false
+	      });
+	    }
+	  }), { b: 2 })).b !== 1) return true;
+	  // should work with symbols and should have deterministic property order (V8 bug)
+	  var A = {};
+	  var B = {};
+	  // eslint-disable-next-line no-undef
+	  var symbol = Symbol();
+	  var alphabet = 'abcdefghijklmnopqrst';
+	  A[symbol] = 7;
+	  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
+	  return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
+	}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+	  var T = toObject(target);
+	  var argumentsLength = arguments.length;
+	  var index = 1;
+	  var getOwnPropertySymbols = objectGetOwnPropertySymbols.f;
+	  var propertyIsEnumerable = objectPropertyIsEnumerable.f;
+	  while (argumentsLength > index) {
+	    var S = indexedObject(arguments[index++]);
+	    var keys = getOwnPropertySymbols ? objectKeys(S).concat(getOwnPropertySymbols(S)) : objectKeys(S);
+	    var length = keys.length;
+	    var j = 0;
+	    var key;
+	    while (length > j) {
+	      key = keys[j++];
+	      if (!descriptors || propertyIsEnumerable.call(S, key)) T[key] = S[key];
+	    }
+	  } return T;
+	} : nativeAssign;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	_export({ target: 'Object', stat: true, forced: Object.assign !== objectAssign }, {
+	  assign: objectAssign
+	});
+
 	var TO_STRING_TAG$1 = wellKnownSymbol('toStringTag');
 	var test$1 = {};
 
@@ -1886,6 +1936,12 @@
 	  return "\n  <html>\n  <head>\n  <style type=\"text/css\" media=\"print\">\n  @page {\n    size: auto;\n    margin: 25px 0 25px 0;\n  }\n  </style>\n  <style type=\"text/css\" media=\"all\">\n  table {\n    border-collapse: collapse;\n    font-size: 12px;\n  }\n  table, th, td {\n    border: 1px solid grey;\n  }\n  th, td {\n    text-align: center;\n    vertical-align: middle;\n  }\n  p {\n    font-weight: bold;\n    margin-left:20px;\n  }\n  table {\n    width:94%;\n    margin-left:3%;\n    margin-right:3%;\n  }\n  div.bs-table-print {\n    text-align:center;\n  }\n  </style>\n  </head>\n  <title>Print Table</title>\n  <body>\n  <p>Printed on: ".concat(new Date(), " </p>\n  <div class=\"bs-table-print\">").concat(table, "</div>\n  </body>\n  </html>");
 	}
 
+	$.extend($.fn.bootstrapTable.locales, {
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  }
+	});
+	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 	$.extend($.fn.bootstrapTable.defaults, {
 	  showPrint: false,
 	  printAsFilteredAndSortedOnUI: true,
@@ -1938,31 +1994,32 @@
 	  }, {
 	    key: "initToolbar",
 	    value: function initToolbar() {
-	      var _get3,
-	          _this = this;
+	      var _this = this,
+	          _get3;
 
 	      this.showToolbar = this.showToolbar || this.options.showPrint;
+
+	      if (this.options.showPrint) {
+	        this.buttons = Object.assign(this.buttons, {
+	          print: {
+	            'text': this.options.formatPrint(),
+	            'icon': this.options.icons.print,
+	            'event': function event() {
+	              _this.doPrint(_this.options.printAsFilteredAndSortedOnUI ? _this.getData() : _this.options.data.slice(0));
+	            },
+	            'attributes': {
+	              'aria-label': this.options.formatPrint(),
+	              'title': this.options.formatPrint()
+	            }
+	          }
+	        });
+	      }
 
 	      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
 	        args[_key2] = arguments[_key2];
 	      }
 
 	      (_get3 = _get(_getPrototypeOf(_class.prototype), "initToolbar", this)).call.apply(_get3, [this].concat(args));
-
-	      if (!this.options.showPrint) {
-	        return;
-	      }
-
-	      var $btnGroup = this.$toolbar.find('>.columns');
-	      var $print = $btnGroup.find('button.bs-print');
-
-	      if (!$print.length) {
-	        $print = $("\n        <button class=\"".concat(this.constants.buttonsClass, " bs-print\" type=\"button\">\n        <i class=\"").concat(this.options.iconsPrefix, " ").concat(this.options.icons.print, "\"></i>\n        </button>")).appendTo($btnGroup);
-	      }
-
-	      $print.off('click').on('click', function () {
-	        _this.doPrint(_this.options.printAsFilteredAndSortedOnUI ? _this.getData() : _this.options.data.slice(0));
-	      });
 	    }
 	  }, {
 	    key: "mergeCells",

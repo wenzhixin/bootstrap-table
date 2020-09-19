@@ -885,6 +885,56 @@
 	// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
 	addToUnscopables(FIND);
 
+	var nativeAssign = Object.assign;
+	var defineProperty = Object.defineProperty;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	var objectAssign = !nativeAssign || fails(function () {
+	  // should have correct order of operations (Edge bug)
+	  if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty({}, 'a', {
+	    enumerable: true,
+	    get: function () {
+	      defineProperty(this, 'b', {
+	        value: 3,
+	        enumerable: false
+	      });
+	    }
+	  }), { b: 2 })).b !== 1) return true;
+	  // should work with symbols and should have deterministic property order (V8 bug)
+	  var A = {};
+	  var B = {};
+	  // eslint-disable-next-line no-undef
+	  var symbol = Symbol();
+	  var alphabet = 'abcdefghijklmnopqrst';
+	  A[symbol] = 7;
+	  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
+	  return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
+	}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+	  var T = toObject(target);
+	  var argumentsLength = arguments.length;
+	  var index = 1;
+	  var getOwnPropertySymbols = objectGetOwnPropertySymbols.f;
+	  var propertyIsEnumerable = objectPropertyIsEnumerable.f;
+	  while (argumentsLength > index) {
+	    var S = indexedObject(arguments[index++]);
+	    var keys = getOwnPropertySymbols ? objectKeys(S).concat(getOwnPropertySymbols(S)) : objectKeys(S);
+	    var length = keys.length;
+	    var j = 0;
+	    var key;
+	    while (length > j) {
+	      key = keys[j++];
+	      if (!descriptors || propertyIsEnumerable.call(S, key)) T[key] = S[key];
+	    }
+	  } return T;
+	} : nativeAssign;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	_export({ target: 'Object', stat: true, forced: Object.assign !== objectAssign }, {
+	  assign: objectAssign
+	});
+
 	function _classCallCheck(instance, Constructor) {
 	  if (!(instance instanceof Constructor)) {
 	    throw new TypeError("Cannot call a class as a function");
@@ -1048,21 +1098,20 @@
 	    value: function initToolbar() {
 	      var _get3;
 
+	      if (this.options.autoRefresh) {
+	        this.buttons = Object.assign(this.buttons, {
+	          autoRefresh: {
+	            'html': "\n            <button class=\"auto-refresh ".concat(this.constants.buttonsClass, "\n              ").concat(this.options.autoRefreshStatus ? " ".concat(this.constants.classes.buttonActive) : '', "\"\n              type=\"button\" name=\"autoRefresh\" title=\"").concat(this.options.formatAutoRefresh(), "\">\n              ").concat(this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : '', "\n              ").concat(this.options.showButtonText ? this.options.formatAutoRefresh() : '', "\n            </button>\n           "),
+	            'event': this.toggleAutoRefresh
+	          }
+	        });
+	      }
+
 	      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
 	        args[_key2] = arguments[_key2];
 	      }
 
 	      (_get3 = _get(_getPrototypeOf(_class.prototype), "initToolbar", this)).call.apply(_get3, [this].concat(args));
-
-	      if (this.options.autoRefresh) {
-	        var $btnGroup = this.$toolbar.find('>.columns');
-	        var $btnAutoRefresh = $btnGroup.find('.auto-refresh');
-
-	        if (!$btnAutoRefresh.length) {
-	          $btnAutoRefresh = $("\n          <button class=\"auto-refresh ".concat(this.constants.buttonsClass, "\n          ").concat(this.options.autoRefreshStatus ? " ".concat(this.constants.classes.buttonActive) : '', "\"\n          type=\"button\" title=\"").concat(this.options.formatAutoRefresh(), "\">\n          ").concat(this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : '', "\n          ").concat(this.options.showButtonText ? this.options.formatAutoRefresh() : '', "\n          </button>\n        ")).appendTo($btnGroup);
-	          $btnAutoRefresh.on('click', $.proxy(this.toggleAutoRefresh, this));
-	        }
-	      }
 	    }
 	  }, {
 	    key: "toggleAutoRefresh",
@@ -1072,14 +1121,14 @@
 	      if (this.options.autoRefresh) {
 	        if (this.options.autoRefreshStatus) {
 	          clearInterval(this.options.autoRefreshFunction);
-	          this.$toolbar.find('>.columns').find('.auto-refresh').removeClass(this.constants.classes.buttonActive);
+	          this.$toolbar.find('>.columns .auto-refresh').removeClass(this.constants.classes.buttonActive);
 	        } else {
 	          this.options.autoRefreshFunction = setInterval(function () {
 	            _this2.refresh({
 	              silent: _this2.options.autoRefreshSilent
 	            });
 	          }, this.options.autoRefreshInterval * 1000);
-	          this.$toolbar.find('>.columns').find('.auto-refresh').addClass(this.constants.classes.buttonActive);
+	          this.$toolbar.find('>.columns .auto-refresh').addClass(this.constants.classes.buttonActive);
 	        }
 
 	        this.options.autoRefreshStatus = !this.options.autoRefreshStatus;

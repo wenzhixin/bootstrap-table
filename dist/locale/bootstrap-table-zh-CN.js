@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['zh-CN'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return '正在努力地加载数据中，请稍候';
 	  },

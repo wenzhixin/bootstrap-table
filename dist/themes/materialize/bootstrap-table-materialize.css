@@ -193,12 +193,20 @@
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading {
   align-items: center;
   background: #fefefe;
-  display: none;
+  display: flex;
   justify-content: center;
   position: absolute;
   bottom: 0;
   width: 100%;
   z-index: 1000;
+  transition: visibility 0s, opacity 0.15s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.open {
+  visibility: visible;
+  opacity: 1;
 }
 
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap {

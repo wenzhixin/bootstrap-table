@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ur-PK'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'براۓ مہربانی انتظار کیجئے';
 	  },

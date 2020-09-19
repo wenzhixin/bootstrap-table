@@ -990,7 +990,7 @@
 	      this.constants.html.pagination = ['<ul class="pagination%s">', '</ul>'];
 	      this.constants.html.paginationItem = '<li><a class="page-item%s" aria-label="%s" href="#">%s</a></li>';
 	      this.constants.html.inputGroup = '<div class="input-group">%s <div class="input-group-button">%s</div></div>';
-	      this.constants.html.searchInput = '<input class="%s input-%s input-group-field" type="text" placeholder="%s">';
+	      this.constants.html.searchInput = '<input class="%s input-%s input-group-field" type="search" placeholder="%s">';
 	    }
 	  }, {
 	    key: "initToolbar",

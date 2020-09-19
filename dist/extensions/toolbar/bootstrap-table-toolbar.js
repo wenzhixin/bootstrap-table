@@ -1537,6 +1537,56 @@
 	  }
 	});
 
+	var nativeAssign = Object.assign;
+	var defineProperty$3 = Object.defineProperty;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	var objectAssign = !nativeAssign || fails(function () {
+	  // should have correct order of operations (Edge bug)
+	  if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty$3({}, 'a', {
+	    enumerable: true,
+	    get: function () {
+	      defineProperty$3(this, 'b', {
+	        value: 3,
+	        enumerable: false
+	      });
+	    }
+	  }), { b: 2 })).b !== 1) return true;
+	  // should work with symbols and should have deterministic property order (V8 bug)
+	  var A = {};
+	  var B = {};
+	  // eslint-disable-next-line no-undef
+	  var symbol = Symbol();
+	  var alphabet = 'abcdefghijklmnopqrst';
+	  A[symbol] = 7;
+	  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
+	  return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
+	}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+	  var T = toObject(target);
+	  var argumentsLength = arguments.length;
+	  var index = 1;
+	  var getOwnPropertySymbols = objectGetOwnPropertySymbols.f;
+	  var propertyIsEnumerable = objectPropertyIsEnumerable.f;
+	  while (argumentsLength > index) {
+	    var S = indexedObject(arguments[index++]);
+	    var keys = getOwnPropertySymbols ? objectKeys(S).concat(getOwnPropertySymbols(S)) : objectKeys(S);
+	    var length = keys.length;
+	    var j = 0;
+	    var key;
+	    while (length > j) {
+	      key = keys[j++];
+	      if (!descriptors || propertyIsEnumerable.call(S, key)) T[key] = S[key];
+	    }
+	  } return T;
+	} : nativeAssign;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	_export({ target: 'Object', stat: true, forced: Object.assign !== objectAssign }, {
+	  assign: objectAssign
+	});
+
 	var propertyIsEnumerable = objectPropertyIsEnumerable.f;
 
 	// `Object.{ entries, values }` methods implementation
@@ -2375,26 +2425,29 @@
 	  _createClass(_class, [{
 	    key: "initToolbar",
 	    value: function initToolbar() {
-	      var _this = this;
-
 	      var o = this.options;
 	      this.showToolbar = this.showToolbar || o.search && o.advancedSearch && o.idTable;
 
-	      _get(_getPrototypeOf(_class.prototype), "initToolbar", this).call(this);
-
-	      if (!o.search || !o.advancedSearch || !o.idTable) {
-	        return;
+	      if (o.search && o.advancedSearch && o.idTable) {
+	        this.buttons = Object.assign(this.buttons, {
+	          advancedSearch: {
+	            'text': this.options.formatAdvancedSearch(),
+	            'icon': this.options.icons.advancedSearchIcon,
+	            'event': this.showAvdSearch,
+	            'attributes': {
+	              'aria-label': this.options.formatAdvancedSearch(),
+	              'title': this.options.formatAdvancedSearch()
+	            }
+	          }
+	        });
 	      }
 
-	      this.$toolbar.find('>.columns').append("\n      <button class=\"".concat(this.constants.buttonsClass, " \"\n        type=\"button\"\n        name=\"advancedSearch\"\n        aria-label=\"advanced search\"\n        title=\"").concat(o.formatAdvancedSearch(), "\">\n        ").concat(this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.advancedSearchIcon) : '', "\n        ").concat(this.options.showButtonText ? this.options.formatAdvancedSearch() : '', "\n      </button>\n    "));
-	      this.$toolbar.find('button[name="advancedSearch"]').off('click').on('click', function () {
-	        return _this.showAvdSearch();
-	      });
+	      _get(_getPrototypeOf(_class.prototype), "initToolbar", this).call(this);
 	    }
 	  }, {
 	    key: "showAvdSearch",
 	    value: function showAvdSearch() {
-	      var _this2 = this;
+	      var _this = this;
 
 	      var o = this.options;
 	      var modalSelector = '#avdSearchModal_' + o.idTable;
@@ -2405,21 +2458,21 @@
 	        $("#avdSearchModalContent_".concat(o.idTable)).append(this.createFormAvd().join(''));
 	        $("#".concat(o.idForm)).off('keyup blur', 'input').on('keyup blur', 'input', function (e) {
 	          if (o.sidePagination === 'server') {
-	            _this2.onColumnAdvancedSearch(e);
+	            _this.onColumnAdvancedSearch(e);
 	          } else {
 	            clearTimeout(timeoutId);
 	            timeoutId = setTimeout(function () {
-	              _this2.onColumnAdvancedSearch(e);
+	              _this.onColumnAdvancedSearch(e);
 	            }, o.searchTimeOut);
 	          }
 	        });
 	        $("#btnCloseAvd_".concat(o.idTable)).click(function () {
-	          return _this2.hideModal();
+	          return _this.hideModal();
 	        });
 
 	        if ($.fn.bootstrapTable.theme === 'bulma') {
 	          $(modalSelector).find('.delete').off('click').on('click', function () {
-	            return _this2.hideModal();
+	            return _this.hideModal();
 	          });
 	        }
 
@@ -2523,7 +2576,7 @@
 	  }, {
 	    key: "initSearch",
 	    value: function initSearch() {
-	      var _this3 = this;
+	      var _this2 = this;
 
 	      _get(_getPrototypeOf(_class.prototype), "initSearch", this).call(this);
 
@@ -2541,9 +2594,9 @@
 	          var fval = v.toLowerCase();
 	          var value = item[key];
 
-	          var index = _this3.header.fields.indexOf(key);
+	          var index = _this2.header.fields.indexOf(key);
 
-	          value = Utils.calculateObjectValue(_this3.header, _this3.header.formatters[index], [value, item, i], value);
+	          value = Utils.calculateObjectValue(_this2.header, _this2.header.formatters[index], [value, item, i], value);
 
 	          if (!(index !== -1 && (typeof value === 'string' || typeof value === 'number') && "".concat(value).toLowerCase().includes(fval))) {
 	            return false;

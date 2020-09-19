@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Yuklanyapti, iltimos kuting';
 	  },
