@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 describe('Check Buttons order functionality', () => {
   it('Check if buttons order was initialized', () => {
-    cy.visit('./cypress/html/buttons/buttons-order.html')
+    cy.visit('./cypress/html/table-options/buttons-order.html')
       .get('div.fixed-table-toolbar').should('have.length', 1)
       .get('div.fixed-table-toolbar > .columns').should('have.length', 1)
   })

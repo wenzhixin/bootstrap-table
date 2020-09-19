@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 describe('Check custom buttons functionality', () => {
   it('Check if custom buttons was initialized', () => {
-    cy.visit('./cypress/html/buttons/buttons-custom.html')
+    cy.visit('./cypress/html/table-options/buttons-custom.html')
       .get('div.fixed-table-toolbar').should('have.length', 1)
       .get('div.fixed-table-toolbar button').should('have.length.above', 0)
   })
