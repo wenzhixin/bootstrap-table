@@ -371,5 +371,12 @@ export default {
       }
     }
     return false
+  },
+
+  deepCopy (arg) {
+    if (arg === undefined) {
+      return arg
+    }
+    return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
   }
 }
