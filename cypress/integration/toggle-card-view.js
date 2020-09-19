@@ -2,7 +2,7 @@
 describe('Check toggle card view functionality', () => {
   it('Card-view toggle', () => {
     cy.visit('./cypress/html/core/toggle-card-view.html')
-      .get('button[title="Toggle"]')
+      .get('button[title="Show card view"]')
       .should('have.length', 1)
       .click()
       .get('.fixed-table-body tbody')
@@ -12,12 +12,12 @@ describe('Check toggle card view functionality', () => {
 
   it('Card-view toggle to normal view', () => {
     cy.reload(true)
-      .get('button[title="Toggle"]')
+      .get('button[title="Show card view"]')
       .should('have.length', 1)
       .click()
       .get('.fixed-table-body tbody')
       .find('.card-views')
-      .get('button[title="Toggle"]')
+      .get('button[title="Show card view"]')
       .click()
       .get('.fixed-table-body tbody')
       .find('.card-views')
