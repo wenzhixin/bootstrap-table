@@ -5,6 +5,7 @@ ChangeLog
 
 #### Core
 
+- **New(option):** Added `buttons` to add custom buttons to the button bar.
 - **New(option):** Added `footerField` to support `server` side pagination.
 - **New(option):** Added new parameter `value` to `footerFormatter`.
 - **New(option):** Added `searchHighlight` and `searchHighlightFormatter`.
