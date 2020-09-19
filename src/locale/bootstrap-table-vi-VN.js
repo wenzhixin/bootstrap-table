@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['vi-VN'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Đang tải'
   },

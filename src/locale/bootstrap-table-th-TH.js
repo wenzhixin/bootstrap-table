@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['th-TH'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'กำลังโหลดข้อมูล, กรุณารอสักครู่'
   },

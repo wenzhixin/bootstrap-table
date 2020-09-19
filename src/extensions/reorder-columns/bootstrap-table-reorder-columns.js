@@ -8,6 +8,7 @@
 $.akottr.dragtable.prototype._restoreState = function (persistObj) {
   for (const [field, value] of Object.entries(persistObj)) {
     const $th = this.originalTable.el.find(`th[data-field="${field}"]`)
+
     this.originalTable.startIndex = $th.prevAll().length + 1
     this.originalTable.endIndex = parseInt(value, 10) + 1
     this._bubbleCols()
@@ -24,12 +25,14 @@ const filterFn = () => {
 
       const t = Object(this)
       const len = t.length >>> 0
+
       if (typeof fun !== 'function') {
         throw new TypeError()
       }
 
       const res = []
       const thisArg = arguments.length >= 2 ? arguments[1] : undefined
+
       for (let i = 0; i < len; i++) {
         if (i in t) {
           const val = t[i]
@@ -53,6 +56,7 @@ const filterFn = () => {
 $.extend($.fn.bootstrapTable.defaults, {
   reorderableColumns: false,
   maxMovingRows: 10,
+  // eslint-disable-next-line no-unused-vars
   onReorderColumn (headerFields) {
     return false
   },
@@ -122,8 +126,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       clickDelay: 200,
       dragHandle: '.th-inner',
       restoreState: order ? order : this.columnsSortOrder,
-      beforeStop: (table) => {
+      beforeStop: table => {
         const sortOrder = {}
+
         table.el.find('th').each((i, el) => {
           sortOrder[$(el).data('field')] = i
         })
@@ -139,9 +144,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
         let columnsHidden = []
         let columnIndex = -1
         const optionsColumns = []
-        this.$header.find('th:not(.detail)').each(function (i) {
-          ths.push($(this).data('field'))
-          formatters.push($(this).data('formatter'))
+
+        this.$header.find('th:not(.detail)').each((i, el) => {
+          ths.push($(el).data('field'))
+          formatters.push($(el).data('formatter'))
         })
 
         // Exist columns not shown
@@ -168,6 +174,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $.each(this.columns, (i, column) => {
           let found = false
           const field = column.field
+
           this.options.columns[0].filter(item => {
             if (!found && item['field'] === field) {
               optionsColumns.push(item)

@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['et-EE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Päring käib, palun oota';
 	  },

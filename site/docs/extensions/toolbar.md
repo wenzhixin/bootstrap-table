@@ -80,7 +80,7 @@ toc: true
 
    Text of the close button
 
-- **Default:** `Close`
+- **Default:** `function () { return "Close" }`
 
 ### formatAdvancedSearch
 
@@ -88,4 +88,4 @@ toc: true
 
    Title of the advanced search modal
 
-- **Default:** `Advanced search`
+- **Default:** `function () { return "Advanced search" }`

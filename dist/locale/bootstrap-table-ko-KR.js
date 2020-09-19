@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ko-KR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return '데이터를 불러오는 중입니다';
 	  },

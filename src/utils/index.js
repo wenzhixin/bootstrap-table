@@ -21,7 +21,12 @@ export default {
       }
       return arg
     })
+
     return flag ? str : ''
+  },
+
+  isObject (val) {
+    return val instanceof Object && !Array.isArray(val)
   },
 
   isEmptyObject (obj = {}) {
@@ -97,8 +102,10 @@ export default {
       for (const r of c) {
         if (r.colspanGroup > 1) {
           let colspan = 0
+
           for (let i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
             const column = allColumns.find(col => col.fieldIndex === i)
+
             if (column.visible) {
               colspan++
             }
@@ -119,6 +126,7 @@ export default {
       $('body').append($outer)
 
       const w1 = $inner[0].offsetWidth
+
       $outer.css('overflow', 'scroll')
       let w2 = $inner[0].offsetWidth
 
@@ -132,7 +140,7 @@ export default {
     return this.cachedWidth
   },
 
-  calculateObjectValue (self, name, args, defaultValue) {
+  calculateObjectValue (self, name, args = [], defaultValue) {
     let func = name
 
     if (typeof name === 'string') {
@@ -214,6 +222,7 @@ export default {
   getRealDataAttr (dataAttr) {
     for (const [attr, value] of Object.entries(dataAttr)) {
       const auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase()
+
       if (auxAttr !== attr) {
         dataAttr[auxAttr] = value
         delete dataAttr[attr]
@@ -230,6 +239,7 @@ export default {
     }
 
     const props = field.split('.')
+
     for (const p of props) {
       value = value && value[p]
     }
@@ -367,5 +377,12 @@ export default {
       }
     }
     return false
+  },
+
+  deepCopy (arg) {
+    if (arg === undefined) {
+      return arg
+    }
+    return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
   }
 }

@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['ms-MY'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Permintaan sedang dimuatkan. Sila tunggu sebentar'
   },

@@ -37,4 +37,4 @@ toc: true
 
 - **Parameter:** `undefined`
 
-- **Default:** `'GO'`
+- **Default:** `function () { return "GO" }`

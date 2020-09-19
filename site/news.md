@@ -4,6 +4,49 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.18.0
+
+<span class="post-date">20 Sep 2020</span>
+
+#### Core
+
+- **New(option):** Added `buttons` to add custom buttons to the button bar.
+- **New(option):** Added `footerField` to support `server` side pagination.
+- **New(option):** Added new parameter `value` to `footerFormatter`.
+- **New(option):** Added `searchHighlight` and `searchHighlightFormatter`.
+- **New(option):** Added `searchSelector` to custom the search input.
+- **New(event):** Added `BootstrapTable` object as last parameter to all `event`.
+- **New(css):** Added CSS transitions for loading style.
+- **New:** Added support for `style` attribute of `tr` or `td`.
+- **New:** Added ability to use `colspan` in the footer.
+- **Update:** Updated search input type from `text` to `search`.
+- **Update:** Fixed `normalize` not string bug when using `searchAccentNeutralise`.
+- **Update:** Fixed complex group header bug.
+- **Update:** Fixed `resize` and `scroll` event bug with multiple tables.
+- **Update:** Fixed `getScrollPosition` bug when using group-by extension.
+- **Update:** Fixed `updateRow` with `customSearch` and `sortReset` bug.
+- **Update:** Fixed `colspan` and `mergeCell` bug when using `detailFormatter`.
+- **Update:** Fixed `init` bug when using `onPostBody`.
+- **Update:** Fixed sort bug when the `field` is set to `0`.
+- **Update:** Fixed `showFooter` display bug after resize table width.
+- **Update:** Fixed not update selected rows bug when using `checkAll`/`uncheckAll`.
+- **Update:** Fixed `checked` property bug using `formatter` when the field has a value.
+- **Update:** Fixed default data shared bug with multiple tables.
+- **Remove(method):** Removed `getAllSelections` method.
+
+#### Extensions
+
+- **New(addrbar):** Added support for `client` side pagination.
+- **New(cookie):** Added `cookieSameSite` option to prevent breaking changes.
+- **New(group-by):** Added `groupByToggle` and `groupByShowToggleIcon` options.
+- **New(group-by):** Added `groupByCollapsedGroups` option to allow collapse groups.
+- **Update(cookie):** Fixed cookie size is too big bug when saving columns.
+- **Update(cookie):** Fixed checkbox column disappears bug.
+- **Update(export):** Fixed cannot export `all` data bug with pagination.
+- **Update(group-by):** Fixed `scrollTo` not working properly bug.
+- **Update(multiple-sort):** Fixed cannot work bug.
+- **Update(sticky-header):** Fixed vertical scroll cannot work bug.
+
 ## Bootstrap Table 1.17.1
 
 <span class="post-date">11 Jul 2020</span>

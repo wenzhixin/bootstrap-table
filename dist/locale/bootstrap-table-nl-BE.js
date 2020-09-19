@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['nl-BE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Laden, even geduld';
 	  },

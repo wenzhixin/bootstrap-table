@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['ar-SA'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'جاري التحميل, يرجى الإنتظار'
   },

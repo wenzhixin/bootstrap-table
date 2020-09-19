@@ -121,3 +121,11 @@ Adds a button to the toolbar for printing the table in a predefined configurable
    set true to hide this column in the printed page.
 
 - **Default:** `false`
+
+## Localizations
+
+### formatPrint
+
+- **type:** `Function`
+
+- **Default:** `function () { return "Print" }`

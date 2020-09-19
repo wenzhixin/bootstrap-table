@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['et-EE'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Päring käib, palun oota'
   },

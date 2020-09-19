@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['id-ID'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Memuat, mohon tunggu';
 	  },
