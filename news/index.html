@@ -87,10 +87,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.17.1
+        v1.18.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.17.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.18.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
       </div>
@@ -123,11 +123,58 @@
 </header>
 
 <main class="bd-content p-5" id="content" role="main">
-  <h2 id="bootstrap-table-1171">Bootstrap Table 1.17.1</h2>
+  <h2 id="bootstrap-table-1180">Bootstrap Table 1.18.0</h2>
+
+<p><span class="post-date">20 Sep 2020</span></p>
+
+<h4 id="core">Core</h4>
+
+<ul>
+  <li><strong>New(option):</strong> Added <code class="highlighter-rouge">buttons</code> to add custom buttons to the button bar.</li>
+  <li><strong>New(option):</strong> Added <code class="highlighter-rouge">footerField</code> to support <code class="highlighter-rouge">server</code> side pagination.</li>
+  <li><strong>New(option):</strong> Added new parameter <code class="highlighter-rouge">value</code> to <code class="highlighter-rouge">footerFormatter</code>.</li>
+  <li><strong>New(option):</strong> Added <code class="highlighter-rouge">searchHighlight</code> and <code class="highlighter-rouge">searchHighlightFormatter</code>.</li>
+  <li><strong>New(option):</strong> Added <code class="highlighter-rouge">searchSelector</code> to custom the search input.</li>
+  <li><strong>New(event):</strong> Added <code class="highlighter-rouge">BootstrapTable</code> object as last parameter to all <code class="highlighter-rouge">event</code>.</li>
+  <li><strong>New(css):</strong> Added CSS transitions for loading style.</li>
+  <li><strong>New:</strong> Added support for <code class="highlighter-rouge">style</code> attribute of <code class="highlighter-rouge">tr</code> or <code class="highlighter-rouge">td</code>.</li>
+  <li><strong>New:</strong> Added ability to use <code class="highlighter-rouge">colspan</code> in the footer.</li>
+  <li><strong>Update:</strong> Updated search input type from <code class="highlighter-rouge">text</code> to <code class="highlighter-rouge">search</code>.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">normalize</code> not string bug when using <code class="highlighter-rouge">searchAccentNeutralise</code>.</li>
+  <li><strong>Update:</strong> Fixed complex group header bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">resize</code> and <code class="highlighter-rouge">scroll</code> event bug with multiple tables.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">getScrollPosition</code> bug when using group-by extension.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">updateRow</code> with <code class="highlighter-rouge">customSearch</code> and <code class="highlighter-rouge">sortReset</code> bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">colspan</code> and <code class="highlighter-rouge">mergeCell</code> bug when using <code class="highlighter-rouge">detailFormatter</code>.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">init</code> bug when using <code class="highlighter-rouge">onPostBody</code>.</li>
+  <li><strong>Update:</strong> Fixed sort bug when the <code class="highlighter-rouge">field</code> is set to <code class="highlighter-rouge">0</code>.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">showFooter</code> display bug after resize table width.</li>
+  <li><strong>Update:</strong> Fixed not update selected rows bug when using <code class="highlighter-rouge">checkAll</code>/<code class="highlighter-rouge">uncheckAll</code>.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">checked</code> property bug using <code class="highlighter-rouge">formatter</code> when the field has a value.</li>
+  <li><strong>Update:</strong> Fixed default data shared bug with multiple tables.</li>
+  <li><strong>Remove(method):</strong> Removed <code class="highlighter-rouge">getAllSelections</code> method.</li>
+</ul>
+
+<h4 id="extensions">Extensions</h4>
+
+<ul>
+  <li><strong>New(addrbar):</strong> Added support for <code class="highlighter-rouge">client</code> side pagination.</li>
+  <li><strong>New(cookie):</strong> Added <code class="highlighter-rouge">cookieSameSite</code> option to prevent breaking changes.</li>
+  <li><strong>New(group-by):</strong> Added <code class="highlighter-rouge">groupByToggle</code> and <code class="highlighter-rouge">groupByShowToggleIcon</code> options.</li>
+  <li><strong>New(group-by):</strong> Added <code class="highlighter-rouge">groupByCollapsedGroups</code> option to allow collapse groups.</li>
+  <li><strong>Update(cookie):</strong> Fixed cookie size is too big bug when saving columns.</li>
+  <li><strong>Update(cookie):</strong> Fixed checkbox column disappears bug.</li>
+  <li><strong>Update(export):</strong> Fixed cannot export <code class="highlighter-rouge">all</code> data bug with pagination.</li>
+  <li><strong>Update(group-by):</strong> Fixed <code class="highlighter-rouge">scrollTo</code> not working properly bug.</li>
+  <li><strong>Update(multiple-sort):</strong> Fixed cannot work bug.</li>
+  <li><strong>Update(sticky-header):</strong> Fixed vertical scroll cannot work bug.</li>
+</ul>
+
+<h2 id="bootstrap-table-1171">Bootstrap Table 1.17.1</h2>
 
 <p><span class="post-date">11 Jul 2020</span></p>
 
-<h4 id="core">Core</h4>
+<h4 id="core-1">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">bootstrap-table</code> theme without any framework.</li>
@@ -161,7 +208,7 @@
   <li><strong>Remove:</strong> Removed accent neutralise extension and moved it to core.</li>
 </ul>
 
-<h4 id="extensions">Extensions</h4>
+<h4 id="extensions-1">Extensions</h4>
 
 <ul>
   <li><strong>New(cookie)</strong>: Added support for toggle all columns options.</li>
@@ -202,7 +249,7 @@
 
 <p><span class="post-date">11 Feb 2020</span></p>
 
-<h4 id="core-1">Core</h4>
+<h4 id="core-2">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">buttonsOrder</code> option.</li>
@@ -236,7 +283,7 @@
   <li><strong>Remove:</strong> Removed <code class="highlighter-rouge">resetWidth</code> method and use <code class="highlighter-rouge">resetView</code> instead.</li>
 </ul>
 
-<h4 id="extensions-1">Extensions</h4>
+<h4 id="extensions-2">Extensions</h4>
 
 <ul>
   <li><strong>New(cookie):</strong> Added new options to get/set/delete the values by a custom function.</li>
@@ -346,7 +393,7 @@
 
 <p><span class="post-date">24 Jun 2019</span></p>
 
-<h4 id="core-2">Core</h4>
+<h4 id="core-3">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">virtualScroll</code> and <code class="highlighter-rouge">virtualScrollItemHeight</code> options to support large data.</li>
@@ -394,7 +441,7 @@
   <li><strong>Update:</strong> Fixed columns title error.</li>
 </ul>
 
-<h4 id="extensions-2">Extensions</h4>
+<h4 id="extensions-3">Extensions</h4>
 
 <ul>
   <li><strong>New(editable):</strong> Added <code class="highlighter-rouge">onExportSaved</code> event.</li>
@@ -618,7 +665,7 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.17.1, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.18.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>
