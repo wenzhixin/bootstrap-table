@@ -63,6 +63,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     $dropdowns.off('click').on('click', e => {
       const $this = $(e.currentTarget)
+
       e.stopPropagation()
       $dropdowns.not($this).removeClass('is-active')
       $this.toggleClass('is-active')

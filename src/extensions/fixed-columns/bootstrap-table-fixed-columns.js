@@ -22,7 +22,7 @@ function normalizeWheel (event) {
   if ('wheelDeltaX' in event) { sX = -event.wheelDeltaX / 120 }
 
   // side scrolling on FF with DOMMouseScroll
-  if ( 'axis' in event && event.axis === event.HORIZONTAL_AXIS ) {
+  if ('axis' in event && event.axis === event.HORIZONTAL_AXIS) {
     sX = sY
     sY = 0
   }
@@ -143,6 +143,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       const updateFixedBody = ($fixedHeader, $fixedBody) => {
         const $tr = $fixedBody.find(`tr[data-index="${index}"]`)
+
         $tr.attr('class', classes)
 
         if ($input.length) {
@@ -221,8 +222,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const $fixedBody = $fixedColumns.find('.fixed-table-body')
 
       const tableBody = this.$tableBody.get(0)
-      const scrollHeight = tableBody.scrollWidth > tableBody.clientWidth
-        ? Utils.getScrollBarWidth() : 0
+      const scrollHeight = tableBody.scrollWidth > tableBody.clientWidth ?
+        Utils.getScrollBarWidth() : 0
       const height = this.$tableContainer.outerHeight(true) - scrollHeight - 1
 
       $fixedColumns.css({
@@ -351,6 +352,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           $coreTh.find('input').val(value)
         } else if ($target.is('select')) {
           const $select = $coreTh.find('select')
+
           $select.find('option[selected]').removeAttr('selected')
           $select.find(`option[value="${value}"]`).attr('selected', true)
         }

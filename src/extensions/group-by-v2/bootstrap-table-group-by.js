@@ -7,8 +7,10 @@ let initBodyCaller
 
 const groupBy = (array, f) => {
   const tmpGroups = {}
+
   array.forEach(o => {
     const groups = f(o)
+
     tmpGroups[groups] = tmpGroups[groups] || []
     tmpGroups[groups].push(o)
   })
@@ -46,6 +48,7 @@ BootstrapTable.prototype.initSort = function (...args) {
   _initSort.apply(this, Array.prototype.slice.apply(args))
 
   const that = this
+
   this.tableGroups = []
 
   if ((this.options.groupBy) && (this.options.groupByField !== '')) {
@@ -69,14 +72,15 @@ BootstrapTable.prototype.initSort = function (...args) {
 
           a = fieldValuesA.join()
           b = fieldValuesB.join()
-          return a.localeCompare(b, undefined, {numeric: true})
+          return a.localeCompare(b, undefined, { numeric: true })
         })
       }
     }
 
-    const groups = groupBy(that.data, (item) => {
+    const groups = groupBy(that.data, item => {
       const groupByFields = this.getGroupByFields()
       const groupValues = []
+
       $.each(groupByFields, (i, field) => {
         groupValues.push(item[field])
       })
@@ -85,6 +89,7 @@ BootstrapTable.prototype.initSort = function (...args) {
     })
 
     let index = 0
+
     $.each(groups, (key, value) => {
       this.tableGroups.push({
         id: index,
@@ -121,10 +126,8 @@ BootstrapTable.prototype.initBody = function (...args) {
     this.columns.forEach(column => {
       if (column.checkbox) {
         checkBox = true
-      } else {
-        if (column.visible) {
-          visibleColumns += 1
-        }
+      } else if (column.visible) {
+        visibleColumns += 1
       }
     })
 
@@ -148,6 +151,7 @@ BootstrapTable.prototype.initBody = function (...args) {
       }
 
       let formattedValue = item.name
+
       if (typeof (that.options.groupByFormatter) === 'function') {
         formattedValue = that.options.groupByFormatter(item.name, item.id, item.data)
       }
@@ -157,6 +161,7 @@ BootstrapTable.prototype.initBody = function (...args) {
       )
 
       let icon = this.options.icons.collapseGroup
+
       if (this.isCollapsed(item.name, item.data)) {
         icon = this.options.icons.expandGroup
       }
@@ -197,6 +202,7 @@ BootstrapTable.prototype.initBody = function (...args) {
 
         const self = $(this)
         const checked = self.prop('checked')
+
         that[checked ? 'checkGroup' : 'uncheckGroup']($(this).closest('tr').data('group-index'))
       })
   }
@@ -231,6 +237,7 @@ BootstrapTable.prototype.uncheckGroup = function (index) {
 BootstrapTable.prototype.isCollapsed = function (groupKey, items) {
   if (this.options.groupByCollapsedGroups) {
     const collapsedGroups = Utils.calculateObjectValue(this, this.options.groupByCollapsedGroups, [groupKey, items], true)
+
     if ($.inArray(groupKey, collapsedGroups) > -1) {
       return true
     }
@@ -241,7 +248,6 @@ BootstrapTable.prototype.isCollapsed = function (groupKey, items) {
 
 BootstrapTable.prototype.checkGroup_ = function (index, checked) {
   const rowsBefore = this.getSelections()
-  let rows
   const filter = function () {
     return ($(this).closest('tr').data('parent-index') === index)
   }
@@ -251,6 +257,7 @@ BootstrapTable.prototype.checkGroup_ = function (index, checked) {
   this.updateRows()
   this.updateSelected()
   const rowsAfter = this.getSelections()
+
   if (checked) {
     this.trigger('check-all', rowsAfter, rowsBefore)
     return
@@ -261,6 +268,7 @@ BootstrapTable.prototype.checkGroup_ = function (index, checked) {
 
 BootstrapTable.prototype.getGroupByFields = function () {
   let groupByFields = this.options.groupByField
+
   if (!$.isArray(this.options.groupByField)) {
     groupByFields = [this.options.groupByField]
   }
@@ -271,18 +279,21 @@ BootstrapTable.prototype.getGroupByFields = function () {
 $.BootstrapTable = class extends $.BootstrapTable {
   scrollTo (params) {
     if (this.options.groupBy) {
-      let options = {unit: 'px', value: 0}
+      let options = { unit: 'px', value: 0 }
+
       if (typeof params === 'object') {
         options = Object.assign(options, params)
       }
 
       if (options.unit === 'rows') {
         let scrollTo = 0
+
         this.$body.find(`> tr:not(.groupBy):lt(${options.value})`).each((i, el) => {
           scrollTo += $(el).outerHeight(true)
         })
 
         const $targetColumn = this.$body.find(`> tr:not(.groupBy):eq(${options.value})`)
+
         $targetColumn.prevAll('.groupBy').each((i, el) => {
           scrollTo += $(el).outerHeight(true)
         })

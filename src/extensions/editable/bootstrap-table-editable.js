@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
  * extensions: https://github.com/vitalets/x-editable
@@ -52,6 +53,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const processDataOptions = (key, value) => {
         // Replace camel case with dashes.
         const dashKey = key.replace(/([A-Z])/g, $1 => `-${$1.toLowerCase()}`)
+
         if (dashKey.indexOf(editableDataPrefix) === 0) {
           editableOptions[dashKey.replace(editableDataPrefix, 'data-')] = value
         }
@@ -63,9 +65,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       column._formatter = column._formatter ? column._formatter : column.formatter
       column.formatter = (value, row, index) => {
         let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
+
         result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
         if (this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
           const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
+
           if ($.inArray(column.field + uniqueId, this.editedCells) !== -1) {
             result = value
           }
@@ -109,7 +113,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return
       }
 
-      const data = this.getData({escape: true})
+      const data = this.getData({ escape: true })
       const $field = this.$body.find(`a[data-name="${column.field}"]`)
 
       $field.each((i, element) => {
@@ -124,7 +128,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $element.editable(editableOpts)
       })
 
-      $field.off('save').on('save', ({currentTarget}, {submitValue}) => {
+      $field.off('save').on('save', ({ currentTarget }, { submitValue }) => {
         const $this = $(currentTarget)
         const data = this.getData()
         const rowIndex = $this.parents('tr[data-index]').data('index')
@@ -133,6 +137,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         if (this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
           const uniqueId = Utils.getItemField(row, this.options.uniqueId, false)
+
           if ($.inArray(column.field + uniqueId, this.editedCells) === -1) {
             this.editedCells.push(column.field + uniqueId)
           }
@@ -145,7 +150,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.initBody()
       })
 
-      $field.off('shown').on('shown', ({currentTarget}, editable) => {
+      $field.off('shown').on('shown', ({ currentTarget }, editable) => {
         const $this = $(currentTarget)
         const data = this.getData()
         const rowIndex = $this.parents('tr[data-index]').data('index')
@@ -154,7 +159,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.trigger('editable-shown', column.field, row, $this, editable)
       })
 
-      $field.off('hidden').on('hidden', ({currentTarget}, reason) => {
+      $field.off('hidden').on('hidden', ({ currentTarget }, reason) => {
         const $this = $(currentTarget)
         const data = this.getData()
         const rowIndex = $this.parents('tr[data-index]').data('index')
