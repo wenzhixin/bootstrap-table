@@ -687,26 +687,28 @@ class BootstrapTable {
       let buttonHtml
 
       if (buttonConfig.hasOwnProperty('html')) {
-        buttonHtml = Utils.calculateObjectValue(opts, buttonConfig.html)
+        if (typeof buttonConfig.html === 'function') {
+          buttonHtml = buttonConfig.html()
+        } else if (typeof buttonConfig.html === 'string') {
+          buttonHtml = buttonConfig.html
+        }
       } else {
         buttonHtml = `<button class="${this.constants.buttonsClass}" type="button" name="${buttonName}"`
 
         if (buttonConfig.hasOwnProperty('attributes')) {
           for (const [attributeName, value] of Object.entries(buttonConfig.attributes)) {
-            buttonHtml += ` ${attributeName}="${Utils.calculateObjectValue(opts, value)}"`
+            buttonHtml += ` ${attributeName}="${value}"`
           }
         }
 
         buttonHtml += '>'
 
         if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
-          const icon = Utils.calculateObjectValue(opts, buttonConfig.icon)
-
-          buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, icon) } `
+          buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon) } `
         }
 
         if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
-          buttonHtml += Utils.calculateObjectValue(opts, buttonConfig.text)
+          buttonHtml += buttonConfig.text
         }
 
         buttonHtml += '</button>'
