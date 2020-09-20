@@ -46,7 +46,10 @@ class BootstrapTable {
       Utils.sprintf(`${buttonsPrefix}%s`, opts.iconSize)
     ].join(' ').trim()
 
-    this.buttons = Utils.calculateObjectValue(this, opts.buttons, [], [])
+    this.buttons = Utils.calculateObjectValue(this, opts.buttons, [], {})
+    if (typeof this.buttons !== 'object') {
+      this.buttons = {}
+    }
   }
 
   initLocale () {
