@@ -586,11 +586,13 @@ BootstrapTable.prototype.initToolbar = function (...args) {
     that.onMultipleSort()
   }
 
-  this.buttons = Object.assign(this.buttons, {
-    multipleSort: {
-      html: Utils.sprintf(theme.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, o.icons.sort))
-    }
-  })
+  if (this.options.showMultiSortButton) {
+    this.buttons = Object.assign(this.buttons, {
+      multipleSort: {
+        html: Utils.sprintf(theme.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, o.icons.sort))
+      }
+    })
+  }
 
   _initToolbar.apply(this, Array.prototype.slice.apply(args))
 
