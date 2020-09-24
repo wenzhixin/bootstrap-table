@@ -190,9 +190,16 @@ BootstrapTable.prototype.initBody = function (...args) {
     if (this.options.groupByToggle) {
       this.$container.off('click', '.groupBy')
         .on('click', '.groupBy', function () {
+          const groupIndex = $(this).closest('tr').data('group-index')
+
           $(this).toggleClass('expanded collapsed')
           $(this).find('span').toggleClass(`${that.options.icons.collapseGroup} ${that.options.icons.expandGroup}`)
-          that.$body.find(`tr[data-parent-index=${$(this).closest('tr').data('group-index')}]`).toggleClass('hidden')
+
+          that.$body.find(`tr[data-parent-index=${groupIndex}]`).toggleClass('hidden')
+
+          const indexes = $(`tr[data-parent-index="${groupIndex}"]`).map((i, element) => $(element).data('index'))
+
+          indexes.each(index => that.collapseRow(index))
         })
     }
 
