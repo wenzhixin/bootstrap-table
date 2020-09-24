@@ -50,6 +50,10 @@ class BootstrapTable {
     if (typeof this.buttons !== 'object') {
       this.buttons = {}
     }
+
+    if (typeof opts.icons === 'string') {
+      opts.icons = Utils.calculateObjectValue(null, opts.icons)
+    }
   }
 
   initLocale () {
@@ -562,10 +566,6 @@ class BootstrapTable {
       this.constants.classes.buttonsGroup,
       `${this.constants.classes.pull}-${opts.buttonsAlign}`
     ].join(' ')}">`]
-
-    if (typeof opts.icons === 'string') {
-      opts.icons = Utils.calculateObjectValue(null, opts.icons)
-    }
 
     if (typeof opts.buttonsOrder === 'string') {
       opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').toLowerCase().split(',')
