@@ -2352,7 +2352,8 @@ class BootstrapTable {
   }
 
   getSelections () {
-    return this.options.data.filter(row => row[this.header.stateField] === true)
+    return (this.options.maintainMetaData ? this.options.data : this.data)
+      .filter(row => row[this.header.stateField] === true)
   }
 
   load (_data) {
