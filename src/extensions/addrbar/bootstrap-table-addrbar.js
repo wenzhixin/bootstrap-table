@@ -45,15 +45,20 @@ function _buildUrl (dict, url = window.location.search) {
     const pattern = `${key}=([^&]*)`
     const targetStr = `${key}=${val}`
 
+    if (val === undefined)
+      continue
+
     /*
      * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
      * 不然就直接添加好了.
      */
     if (url.match(pattern)) {
       const tmp = new RegExp(`(${key}=)([^&]*)`, 'gi')
+
       url = url.replace(tmp, targetStr)
     } else {
       const seperator = url.match('[?]') ? '&' : '?'
+
       url = url + seperator + targetStr
     }
   }
@@ -61,6 +66,24 @@ function _buildUrl (dict, url = window.location.search) {
     url += location.hash
   }
   return url
+}
+
+/*
+* function: _updateHistoryState
+* var _prefix = this.options.addrPrefix || ''
+* var table = this
+* _updateHistoryState( table,_prefix)
+* returns void
+*/
+function _updateHistoryState (table, _prefix) {
+  const params = {}
+
+  params[`${_prefix}page`] = table.options.pageNumber
+  params[`${_prefix}size`] = table.options.pageSize
+  params[`${_prefix}order`] = table.options.sortOrder
+  params[`${_prefix}sort`] = table.options.sortName
+  params[`${_prefix}search`] = table.options.searchText
+  window.history.pushState({}, '', _buildUrl(params))
 }
 
 $.extend($.fn.bootstrapTable.defaults, {
@@ -72,7 +95,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
   init (...args) {
     if (
       this.options.pagination &&
-      this.options.sidePagination === 'server' &&
       this.options.addrbar
     ) {
       // 标志位, 初始加载后关闭
@@ -86,23 +108,24 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       const _prefix = this.options.addrPrefix || ''
       const _onLoadSuccess = this.options.onLoadSuccess
+      const _onPageChange = this.options.onPageChange
 
       this.options.onLoadSuccess = data => {
         if (this.addrbarInit) {
           this.addrbarInit = false
         } else {
-          const params = {}
-          params[`${_prefix}page`] = this.options.pageNumber,
-          params[`${_prefix}size`] = this.options.pageSize,
-          params[`${_prefix}order`] = this.options.sortOrder,
-          params[`${_prefix}sort`] = this.options.sortName,
-          params[`${_prefix}search`] = this.options.searchText
-          // h5提供的修改浏览器地址栏的方法
-          window.history.pushState({}, '', _buildUrl(params))
+          _updateHistoryState(this, _prefix)
         }
 
         if (_onLoadSuccess) {
           _onLoadSuccess.call(this, data)
+        }
+      }
+      this.options.onPageChange = (number, size) => {
+        _updateHistoryState(this, _prefix)
+
+        if (_onPageChange) {
+          _onPageChange.call(this, number, size)
         }
       }
     }

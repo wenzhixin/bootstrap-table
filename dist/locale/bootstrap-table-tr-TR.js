@@ -675,6 +675,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['tr-TR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Yükleniyor, lütfen bekleyin';
 	  },

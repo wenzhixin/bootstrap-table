@@ -18,6 +18,7 @@ const UtilsCookie = {
   },
   getCurrentHeader (that) {
     let header = that.$header
+
     if (that.options.height) {
       header = that.$tableHeader
     }
@@ -26,6 +27,7 @@ const UtilsCookie = {
   },
   getCurrentSearchControls (that) {
     let searchControls = 'select, input'
+
     if (that.options.height) {
       searchControls = 'table select, table input'
     }
@@ -65,7 +67,8 @@ const UtilsCookie = {
           `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
           that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
           that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-          that.options.cookieSecure ? '; secure' : ''
+          that.options.cookieSecure ? '; secure' : '',
+          `;SameSite=${ that.options.cookieSameSite}`
         ].join('')
         break
       case 'localStorage':
@@ -76,9 +79,9 @@ const UtilsCookie = {
         break
       case 'customStorage':
         if (
-          !that.options.cookieCustomStorageSet
-          || !that.options.cookieCustomStorageGet
-          || !that.options.cookieCustomStorageDelete
+          !that.options.cookieCustomStorageSet ||
+          !that.options.cookieCustomStorageGet ||
+          !that.options.cookieCustomStorageDelete
         ) {
           throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
         }
@@ -106,6 +109,7 @@ const UtilsCookie = {
       case 'cookieStorage':
         const value = `; ${document.cookie}`
         const parts = value.split(`; ${cookieName}=`)
+
         return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null
       case 'localStorage':
         return localStorage.getItem(cookieName)
@@ -113,9 +117,9 @@ const UtilsCookie = {
         return sessionStorage.getItem(cookieName)
       case 'customStorage':
         if (
-          !that.options.cookieCustomStorageSet
-          || !that.options.cookieCustomStorageGet
-          || !that.options.cookieCustomStorageDelete
+          !that.options.cookieCustomStorageSet ||
+          !that.options.cookieCustomStorageGet ||
+          !that.options.cookieCustomStorageDelete
         ) {
           throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
         }
@@ -145,9 +149,9 @@ const UtilsCookie = {
         break
       case 'customStorage':
         if (
-          !that.options.cookieCustomStorageSet
-          || !that.options.cookieCustomStorageGet
-          || !that.options.cookieCustomStorageDelete
+          !that.options.cookieCustomStorageSet ||
+          !that.options.cookieCustomStorageGet ||
+          !that.options.cookieCustomStorageDelete
         ) {
           throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
         }
@@ -161,6 +165,7 @@ const UtilsCookie = {
   },
   calculateExpiration (cookieExpire) {
     const time = cookieExpire.replace(/[0-9]*/, '') // s,mi,h,d,m,y
+
     cookieExpire = cookieExpire.replace(/[A-Za-z]{1,2}/, '') // number
 
     switch (time.toLowerCase()) {
@@ -190,6 +195,7 @@ const UtilsCookie = {
       return ''
     }
     const d = new Date()
+
     d.setTime(d.getTime() + cookieExpire * 1000)
     return d.toGMTString()
   },
@@ -221,12 +227,14 @@ const UtilsCookie = {
             } else if (cookie.text !== '' && element.tagName === 'SELECT') {
               for (let i = 0; i < element.length; i++) {
                 const currentElement = element[i]
+
                 if (currentElement.value === cookie.text) {
                   currentElement.selected = true
                   return
                 }
               }
               const option = document.createElement('option')
+
               option.value = cookie.text
               option.text = cookie.text
               element.add(option, element[1])
@@ -237,6 +245,7 @@ const UtilsCookie = {
         }
 
         let filterContainer = header
+
         if (bootstrapTable.options.filterControlContainer) {
           filterContainer = $(`${bootstrapTable.options.filterControlContainer}`)
         }
@@ -262,6 +271,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   cookiePath: null,
   cookieDomain: null,
   cookieSecure: null,
+  cookieSameSite: 'Lax',
   cookieIdTable: '',
   cookiesEnabled: [
     'bs.table.sortOrder', 'bs.table.sortName',
@@ -292,11 +302,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.cookie) {
       // FilterBy logic
       const filterByCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy)
+
       if (typeof filterByCookieValue === 'boolean' && !filterByCookieValue) {
         throw new Error('The cookie value of filterBy must be a json!')
       }
 
       let filterByCookie = {}
+
       try {
         filterByCookie = JSON.parse(filterByCookieValue)
       } catch (e) {
@@ -315,6 +327,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       if (this.options.filterControl) {
         const that = this
+
         this.$el.on('column-search.bs.table', (e, field, text) => {
           let isNewField = true
 
@@ -346,6 +359,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       !this.options.filterControlValuesLoaded
     ) {
       const cookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
+
       if (cookie) {
         return
       }
@@ -387,13 +401,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   _toggleColumn (...args) {
     super._toggleColumn(...args)
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(column => column.field)))
   }
 
   _toggleAllColumns (...args) {
     super._toggleAllColumns(...args)
 
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns()))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(column => column.field)))
   }
 
   selectPage (page) {
@@ -444,11 +458,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText)
 
     const columnsCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.columns)
+
     if (typeof columnsCookieValue === 'boolean' && !columnsCookieValue) {
       throw new Error('The cookie value of filterBy must be a json!')
     }
 
     let columnsCookie = {}
+
     try {
       columnsCookie = JSON.parse(columnsCookieValue)
     } catch (e) {
@@ -468,7 +484,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (columnsCookie) {
       for (const column of this.columns) {
-        column.visible = columnsCookie.filter((c) => { return c.field === column.field }).length > 0 || !column.switchable
+        column.visible = columnsCookie.filter(columnField => {
+          if (this.isSelectionColumn(column)) {
+            return true
+          }
+          /**
+           * This is needed for the old saved cookies or the table will show no columns!
+           * It can be removed in 2-3 Versions Later!!
+           * TODO: Remove this part some versions later e.g. 1.17.3
+           */
+          if (columnField instanceof Object) {
+            return columnField.field === column.field
+          }
+
+          return columnField === column.field
+        }).length > 0 || !column.switchable
       }
     }
   }
@@ -476,6 +506,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   getCookies () {
     const bootstrapTable = this
     const cookies = {}
+
     $.each(UtilsCookie.cookieIds, (key, value) => {
       cookies[key] = UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, value)
       if (key === 'columns') {

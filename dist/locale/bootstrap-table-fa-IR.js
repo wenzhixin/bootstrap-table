@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['fa-IR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'در حال بارگذاری, لطفا صبر کنید';
 	  },

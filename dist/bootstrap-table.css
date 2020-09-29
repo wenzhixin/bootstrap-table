@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.17.1
+ * version: 1.18.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 .bootstrap-table .fixed-table-toolbar::after {
@@ -193,12 +193,20 @@
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading {
   align-items: center;
   background: #fff;
-  display: none;
+  display: flex;
   justify-content: center;
   position: absolute;
   bottom: 0;
   width: 100%;
   z-index: 1000;
+  transition: visibility 0s, opacity 0.15s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.open {
+  visibility: visible;
+  opacity: 1;
 }
 
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap {

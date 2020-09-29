@@ -1549,6 +1549,7 @@
 	    // 搜索name=general这种形式的字符串(&是分隔符)
 	    var pattern = "".concat(key, "=([^&]*)");
 	    var targetStr = "".concat(key, "=").concat(val);
+	    if (val === undefined) continue;
 	    /*
 	     * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
 	     * 不然就直接添加好了.
@@ -1568,6 +1569,20 @@
 	  }
 
 	  return url;
+	}
+	/*
+	* function: _updateHistoryState
+	* var _prefix = this.options.addrPrefix || ''
+	* var table = this
+	* _updateHistoryState( table,_prefix)
+	* returns void
+	*/
+
+
+	function _updateHistoryState(table, _prefix) {
+	  var params = {};
+	  params["".concat(_prefix, "page")] = table.options.pageNumber, params["".concat(_prefix, "size")] = table.options.pageSize, params["".concat(_prefix, "order")] = table.options.sortOrder, params["".concat(_prefix, "sort")] = table.options.sortName, params["".concat(_prefix, "search")] = table.options.searchText;
+	  window.history.pushState({}, '', _buildUrl(params));
 	}
 
 	$.extend($.fn.bootstrapTable.defaults, {
@@ -1592,7 +1607,7 @@
 	      var _this = this,
 	          _get2;
 
-	      if (this.options.pagination && this.options.sidePagination === 'server' && this.options.addrbar) {
+	      if (this.options.pagination && this.options.addrbar) {
 	        // 标志位, 初始加载后关闭
 	        this.addrbarInit = true;
 	        this.options.pageNumber = +this.getDefaultOptionValue('pageNumber', 'page');
@@ -1604,19 +1619,25 @@
 	        var _prefix = this.options.addrPrefix || '';
 
 	        var _onLoadSuccess = this.options.onLoadSuccess;
+	        var _onPageChange = this.options.onPageChange;
 
 	        this.options.onLoadSuccess = function (data) {
 	          if (_this.addrbarInit) {
 	            _this.addrbarInit = false;
 	          } else {
-	            var params = {};
-	            params["".concat(_prefix, "page")] = _this.options.pageNumber, params["".concat(_prefix, "size")] = _this.options.pageSize, params["".concat(_prefix, "order")] = _this.options.sortOrder, params["".concat(_prefix, "sort")] = _this.options.sortName, params["".concat(_prefix, "search")] = _this.options.searchText; // h5提供的修改浏览器地址栏的方法
-
-	            window.history.pushState({}, '', _buildUrl(params));
+	            _updateHistoryState(_this, _prefix);
 	          }
 
 	          if (_onLoadSuccess) {
 	            _onLoadSuccess.call(_this, data);
+	          }
+	        };
+
+	        this.options.onPageChange = function (number, size) {
+	          _updateHistoryState(_this, _prefix);
+
+	          if (_onPageChange) {
+	            _onPageChange.call(_this, number, size);
 	          }
 	        };
 	      }

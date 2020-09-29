@@ -77,3 +77,11 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 ### copyColumnsToClipboard
 
 * Copy the contents of the selected rows to the clipboard.
+
+## Localizations
+
+### formatCopyRows
+
+- **type:** `Function`
+
+- **Default:** `function () { return "Copy Rows" }`

@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['id-ID'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Memuat, mohon tunggu'
   },

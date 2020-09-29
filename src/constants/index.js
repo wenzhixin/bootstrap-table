@@ -1,6 +1,8 @@
-const VERSION = '1.17.1'
+/* eslint-disable no-unused-vars */
+const VERSION = '1.18.0'
 
 let bootstrapVersion = 4
+
 try {
   const rawVersion = $.fn.dropdown.Constructor.VERSION
 
@@ -16,6 +18,7 @@ try {
 try {
   // eslint-disable-next-line no-undef
   const rawVersion = bootstrap.Tooltip.VERSION
+
   if (rawVersion !== undefined) {
     bootstrapVersion = parseInt(rawVersion, 10)
   }
@@ -167,6 +170,7 @@ const CONSTANTS = {
 const DEFAULTS = {
   height: undefined,
   classes: 'table table-bordered table-hover',
+  buttons: {},
   theadClasses: '',
   headerStyle (column) {
     return {}
@@ -235,6 +239,7 @@ const DEFAULTS = {
   searchHighlight: false,
   searchOnEnterKey: false,
   strictSearch: false,
+  searchSelector: false,
   visibleSearch: false,
   showButtonIcons: true,
   showButtonText: false,
@@ -267,7 +272,7 @@ const DEFAULTS = {
   idField: undefined,
   selectItemName: 'btSelectItem',
   clickToSelect: false,
-  ignoreClickToSelectOn ({tagName}) {
+  ignoreClickToSelectOn ({ tagName }) {
     return ['A', 'BUTTON'].includes(tagName)
   },
   singleSelect: false,
@@ -464,7 +469,7 @@ const COLUMN_DEFAULTS = {
   field: undefined,
   title: undefined,
   titleTooltip: undefined,
-  'class': undefined,
+  class: undefined,
   width: undefined,
   widthUnit: 'px',
   rowspan: undefined,
@@ -500,7 +505,7 @@ const METHODS = [
   'getOptions',
   'refreshOptions',
   'getData',
-  'getSelections', 'getAllSelections',
+  'getSelections',
   'load', 'append', 'prepend',
   'remove', 'removeAll',
   'insertRow', 'updateRow',

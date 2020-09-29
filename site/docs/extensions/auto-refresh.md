@@ -76,4 +76,4 @@ toc: true
 
 - **Parameter:** `undefined`
 
-- **Default:** `'Auto Refresh'`
+- **Default:** `function () { return "Auto Refresh" }`

@@ -674,6 +674,12 @@
 	*/
 
 	$.fn.bootstrapTable.locales['sr-Cyrl-RS'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Молим сачекај';
 	  },

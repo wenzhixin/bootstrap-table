@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['en-US'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Loading, please wait';
 	  },

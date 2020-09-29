@@ -906,6 +906,56 @@
 	  }
 	});
 
+	var nativeAssign = Object.assign;
+	var defineProperty = Object.defineProperty;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	var objectAssign = !nativeAssign || fails(function () {
+	  // should have correct order of operations (Edge bug)
+	  if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty({}, 'a', {
+	    enumerable: true,
+	    get: function () {
+	      defineProperty(this, 'b', {
+	        value: 3,
+	        enumerable: false
+	      });
+	    }
+	  }), { b: 2 })).b !== 1) return true;
+	  // should work with symbols and should have deterministic property order (V8 bug)
+	  var A = {};
+	  var B = {};
+	  // eslint-disable-next-line no-undef
+	  var symbol = Symbol();
+	  var alphabet = 'abcdefghijklmnopqrst';
+	  A[symbol] = 7;
+	  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
+	  return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
+	}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+	  var T = toObject(target);
+	  var argumentsLength = arguments.length;
+	  var index = 1;
+	  var getOwnPropertySymbols = objectGetOwnPropertySymbols.f;
+	  var propertyIsEnumerable = objectPropertyIsEnumerable.f;
+	  while (argumentsLength > index) {
+	    var S = indexedObject(arguments[index++]);
+	    var keys = getOwnPropertySymbols ? objectKeys(S).concat(getOwnPropertySymbols(S)) : objectKeys(S);
+	    var length = keys.length;
+	    var j = 0;
+	    var key;
+	    while (length > j) {
+	      key = keys[j++];
+	      if (!descriptors || propertyIsEnumerable.call(S, key)) T[key] = S[key];
+	    }
+	  } return T;
+	} : nativeAssign;
+
+	// `Object.assign` method
+	// https://tc39.github.io/ecma262/#sec-object.assign
+	_export({ target: 'Object', stat: true, forced: Object.assign !== objectAssign }, {
+	  assign: objectAssign
+	});
+
 	function _classCallCheck(instance, Constructor) {
 	  if (!(instance instanceof Constructor)) {
 	    throw new TypeError("Cannot call a class as a function");
@@ -1011,6 +1061,12 @@
 	 */
 
 	var Utils = $.fn.bootstrapTable.utils;
+	$.extend($.fn.bootstrapTable.locales, {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  }
+	});
+	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 	$.extend($.fn.bootstrapTable.defaults.icons, {
 	  copy: {
 	    bootstrap3: 'glyphicon-copy icon-pencil',
@@ -1056,8 +1112,21 @@
 	  _createClass(_class, [{
 	    key: "initToolbar",
 	    value: function initToolbar() {
-	      var _get2,
-	          _this = this;
+	      var _get2;
+
+	      if (this.options.showCopyRows && this.header.stateField) {
+	        this.buttons = Object.assign(this.buttons, {
+	          copyRows: {
+	            'text': this.options.formatCopyRows(),
+	            'icon': this.options.icons.copy,
+	            'event': this.copyColumnsToClipboard,
+	            'attributes': {
+	              'aria-label': this.options.formatCopyRows(),
+	              'title': this.options.formatCopyRows()
+	            }
+	          }
+	        });
+	      }
 
 	      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
 	        args[_key] = arguments[_key];
@@ -1065,33 +1134,28 @@
 
 	      (_get2 = _get(_getPrototypeOf(_class.prototype), "initToolbar", this)).call.apply(_get2, [this].concat(args));
 
-	      var $btnGroup = this.$toolbar.find('>.columns');
+	      this.$copyButton = this.$toolbar.find('>.columns [name="copyRows"]');
 
 	      if (this.options.showCopyRows && this.header.stateField) {
-	        this.$copyButton = $("\n        <button class=\"".concat(this.constants.buttonsClass, "\">\n        ").concat(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.copy), "\n        </button>\n      "));
-	        $btnGroup.append(this.$copyButton);
-	        this.$copyButton.click(function () {
-	          _this.copyColumnsToClipboard();
-	        });
 	        this.updateCopyButton();
 	      }
 	    }
 	  }, {
 	    key: "copyColumnsToClipboard",
 	    value: function copyColumnsToClipboard() {
-	      var _this2 = this;
+	      var _this = this;
 
 	      var rows = [];
 	      $.each(this.getSelections(), function (index, row) {
 	        var cols = [];
-	        $.each(_this2.options.columns[0], function (indy, column) {
-	          if (column.field !== _this2.header.stateField && (!_this2.options.copyWithHidden || _this2.options.copyWithHidden && column.visible)) {
+	        $.each(_this.options.columns[0], function (indy, column) {
+	          if (column.field !== _this.header.stateField && (!_this.options.copyWithHidden || _this.options.copyWithHidden && column.visible)) {
 	            if (row[column.field] !== null) {
-	              cols.push(Utils.calculateObjectValue(column, _this2.header.formatters[indy], [row[column.field], row, index], row[column.field]));
+	              cols.push(Utils.calculateObjectValue(column, _this.header.formatters[indy], [row[column.field], row, index], row[column.field]));
 	            }
 	          }
 	        });
-	        rows.push(cols.join(_this2.options.copyDelimiter));
+	        rows.push(cols.join(_this.options.copyDelimiter));
 	      });
 	      copyText(rows.join(this.options.copyNewline));
 	    }
@@ -1105,7 +1169,7 @@
 	  }, {
 	    key: "updateCopyButton",
 	    value: function updateCopyButton() {
-	      if (this.options.showCopyRows) {
+	      if (this.options.showCopyRows && this.header.stateField && this.$copyButton) {
 	        this.$copyButton.prop('disabled', !this.getSelections().length);
 	      }
 	    }

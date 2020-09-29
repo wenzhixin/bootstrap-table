@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['ka-GE'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'იტვირთება, გთხოვთ მოიცადოთ'
   },

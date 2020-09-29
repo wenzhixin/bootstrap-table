@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['eu-EU'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Itxaron mesedez'
   },

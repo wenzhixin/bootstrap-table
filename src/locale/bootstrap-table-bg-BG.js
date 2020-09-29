@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['bg-BG'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Зареждане, моля изчакайте'
   },

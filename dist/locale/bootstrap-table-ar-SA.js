@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ar-SA'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'جاري التحميل, يرجى الإنتظار';
 	  },

@@ -1994,6 +1994,15 @@
 	  parseInt: _parseInt
 	});
 
+	var MATCH = wellKnownSymbol('match');
+
+	// `IsRegExp` abstract operation
+	// https://tc39.github.io/ecma262/#sec-isregexp
+	var isRegexp = function (it) {
+	  var isRegExp;
+	  return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : classofRaw(it) == 'RegExp');
+	};
+
 	// `RegExp.prototype.flags` getter implementation
 	// https://tc39.github.io/ecma262/#sec-get-regexp.prototype.flags
 	var regexpFlags = function () {
@@ -2033,6 +2042,101 @@
 		BROKEN_CARET: BROKEN_CARET
 	};
 
+	var SPECIES$3 = wellKnownSymbol('species');
+
+	var setSpecies = function (CONSTRUCTOR_NAME) {
+	  var Constructor = getBuiltIn(CONSTRUCTOR_NAME);
+	  var defineProperty = objectDefineProperty.f;
+
+	  if (descriptors && Constructor && !Constructor[SPECIES$3]) {
+	    defineProperty(Constructor, SPECIES$3, {
+	      configurable: true,
+	      get: function () { return this; }
+	    });
+	  }
+	};
+
+	var defineProperty$5 = objectDefineProperty.f;
+	var getOwnPropertyNames$1 = objectGetOwnPropertyNames.f;
+
+
+
+
+
+	var setInternalState$2 = internalState.set;
+
+
+
+	var MATCH$1 = wellKnownSymbol('match');
+	var NativeRegExp = global_1.RegExp;
+	var RegExpPrototype = NativeRegExp.prototype;
+	var re1 = /a/g;
+	var re2 = /a/g;
+
+	// "new" should create a new object, old webkit bug
+	var CORRECT_NEW = new NativeRegExp(re1) !== re1;
+
+	var UNSUPPORTED_Y$1 = regexpStickyHelpers.UNSUPPORTED_Y;
+
+	var FORCED$4 = descriptors && isForced_1('RegExp', (!CORRECT_NEW || UNSUPPORTED_Y$1 || fails(function () {
+	  re2[MATCH$1] = false;
+	  // RegExp constructor can alter flags and IsRegExp works correct with @@match
+	  return NativeRegExp(re1) != re1 || NativeRegExp(re2) == re2 || NativeRegExp(re1, 'i') != '/a/i';
+	})));
+
+	// `RegExp` constructor
+	// https://tc39.github.io/ecma262/#sec-regexp-constructor
+	if (FORCED$4) {
+	  var RegExpWrapper = function RegExp(pattern, flags) {
+	    var thisIsRegExp = this instanceof RegExpWrapper;
+	    var patternIsRegExp = isRegexp(pattern);
+	    var flagsAreUndefined = flags === undefined;
+	    var sticky;
+
+	    if (!thisIsRegExp && patternIsRegExp && pattern.constructor === RegExpWrapper && flagsAreUndefined) {
+	      return pattern;
+	    }
+
+	    if (CORRECT_NEW) {
+	      if (patternIsRegExp && !flagsAreUndefined) pattern = pattern.source;
+	    } else if (pattern instanceof RegExpWrapper) {
+	      if (flagsAreUndefined) flags = regexpFlags.call(pattern);
+	      pattern = pattern.source;
+	    }
+
+	    if (UNSUPPORTED_Y$1) {
+	      sticky = !!flags && flags.indexOf('y') > -1;
+	      if (sticky) flags = flags.replace(/y/g, '');
+	    }
+
+	    var result = inheritIfRequired(
+	      CORRECT_NEW ? new NativeRegExp(pattern, flags) : NativeRegExp(pattern, flags),
+	      thisIsRegExp ? this : RegExpPrototype,
+	      RegExpWrapper
+	    );
+
+	    if (UNSUPPORTED_Y$1 && sticky) setInternalState$2(result, { sticky: sticky });
+
+	    return result;
+	  };
+	  var proxy = function (key) {
+	    key in RegExpWrapper || defineProperty$5(RegExpWrapper, key, {
+	      configurable: true,
+	      get: function () { return NativeRegExp[key]; },
+	      set: function (it) { NativeRegExp[key] = it; }
+	    });
+	  };
+	  var keys$2 = getOwnPropertyNames$1(NativeRegExp);
+	  var index = 0;
+	  while (keys$2.length > index) proxy(keys$2[index++]);
+	  RegExpPrototype.constructor = RegExpWrapper;
+	  RegExpWrapper.prototype = RegExpPrototype;
+	  redefine(global_1, 'RegExp', RegExpWrapper);
+	}
+
+	// https://tc39.github.io/ecma262/#sec-get-regexp-@@species
+	setSpecies('RegExp');
+
 	var nativeExec = RegExp.prototype.exec;
 	// This always refers to the native implementation, because the
 	// String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
@@ -2049,18 +2153,18 @@
 	  return re1.lastIndex !== 0 || re2.lastIndex !== 0;
 	})();
 
-	var UNSUPPORTED_Y$1 = regexpStickyHelpers.UNSUPPORTED_Y || regexpStickyHelpers.BROKEN_CARET;
+	var UNSUPPORTED_Y$2 = regexpStickyHelpers.UNSUPPORTED_Y || regexpStickyHelpers.BROKEN_CARET;
 
 	// nonparticipating capturing group, copied from es5-shim's String#split patch.
 	var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
 
-	var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y$1;
+	var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y$2;
 
 	if (PATCH) {
 	  patchedExec = function exec(str) {
 	    var re = this;
 	    var lastIndex, reCopy, match, i;
-	    var sticky = UNSUPPORTED_Y$1 && re.sticky;
+	    var sticky = UNSUPPORTED_Y$2 && re.sticky;
 	    var flags = regexpFlags.call(re);
 	    var source = re.source;
 	    var charsAdded = 0;
@@ -2122,8 +2226,8 @@
 	});
 
 	var TO_STRING = 'toString';
-	var RegExpPrototype = RegExp.prototype;
-	var nativeToString = RegExpPrototype[TO_STRING];
+	var RegExpPrototype$1 = RegExp.prototype;
+	var nativeToString = RegExpPrototype$1[TO_STRING];
 
 	var NOT_GENERIC = fails(function () { return nativeToString.call({ source: 'a', flags: 'b' }) != '/a/b'; });
 	// FF44- RegExp#toString has a wrong name
@@ -2136,19 +2240,10 @@
 	    var R = anObject(this);
 	    var p = String(R.source);
 	    var rf = R.flags;
-	    var f = String(rf === undefined && R instanceof RegExp && !('flags' in RegExpPrototype) ? regexpFlags.call(R) : rf);
+	    var f = String(rf === undefined && R instanceof RegExp && !('flags' in RegExpPrototype$1) ? regexpFlags.call(R) : rf);
 	    return '/' + p + '/' + f;
 	  }, { unsafe: true });
 	}
-
-	var MATCH = wellKnownSymbol('match');
-
-	// `IsRegExp` abstract operation
-	// https://tc39.github.io/ecma262/#sec-isregexp
-	var isRegexp = function (it) {
-	  var isRegExp;
-	  return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : classofRaw(it) == 'RegExp');
-	};
 
 	var notARegexp = function (it) {
 	  if (isRegexp(it)) {
@@ -2156,7 +2251,7 @@
 	  } return it;
 	};
 
-	var MATCH$1 = wellKnownSymbol('match');
+	var MATCH$2 = wellKnownSymbol('match');
 
 	var correctIsRegexpLogic = function (METHOD_NAME) {
 	  var regexp = /./;
@@ -2164,7 +2259,7 @@
 	    '/./'[METHOD_NAME](regexp);
 	  } catch (e) {
 	    try {
-	      regexp[MATCH$1] = false;
+	      regexp[MATCH$2] = false;
 	      return '/./'[METHOD_NAME](regexp);
 	    } catch (f) { /* empty */ }
 	  } return false;
@@ -2209,13 +2304,13 @@
 
 
 	var STRING_ITERATOR = 'String Iterator';
-	var setInternalState$2 = internalState.set;
+	var setInternalState$3 = internalState.set;
 	var getInternalState$2 = internalState.getterFor(STRING_ITERATOR);
 
 	// `String.prototype[@@iterator]` method
 	// https://tc39.github.io/ecma262/#sec-string.prototype-@@iterator
 	defineIterator(String, 'String', function (iterated) {
-	  setInternalState$2(this, {
+	  setInternalState$3(this, {
 	    type: STRING_ITERATOR,
 	    string: String(iterated),
 	    index: 0
@@ -2233,7 +2328,7 @@
 	  return { value: point, done: false };
 	});
 
-	var SPECIES$3 = wellKnownSymbol('species');
+	var SPECIES$4 = wellKnownSymbol('species');
 
 	var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
 	  // #replace needs built-in support for named groups.
@@ -2287,7 +2382,7 @@
 	      // RegExp[@@split] doesn't call the regex's exec method, but first creates
 	      // a new one. We need to return the patched regex when creating the new one.
 	      re.constructor = {};
-	      re.constructor[SPECIES$3] = function () { return re; };
+	      re.constructor[SPECIES$4] = function () { return re; };
 	      re.flags = '';
 	      re[SYMBOL] = /./[SYMBOL];
 	    }
@@ -2515,14 +2610,14 @@
 	  ];
 	});
 
-	var SPECIES$4 = wellKnownSymbol('species');
+	var SPECIES$5 = wellKnownSymbol('species');
 
 	// `SpeciesConstructor` abstract operation
 	// https://tc39.github.io/ecma262/#sec-speciesconstructor
 	var speciesConstructor = function (O, defaultConstructor) {
 	  var C = anObject(O).constructor;
 	  var S;
-	  return C === undefined || (S = anObject(C)[SPECIES$4]) == undefined ? defaultConstructor : aFunction$1(S);
+	  return C === undefined || (S = anObject(C)[SPECIES$5]) == undefined ? defaultConstructor : aFunction$1(S);
 	};
 
 	var arrayPush = [].push;
@@ -2851,7 +2946,7 @@
 	  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 	}
 
-	var VERSION = '1.17.1';
+	var VERSION = '1.18.0';
 	var bootstrapVersion = 4;
 
 	try {
@@ -3017,6 +3112,7 @@
 	var DEFAULTS = {
 	  height: undefined,
 	  classes: 'table table-bordered table-hover',
+	  buttons: {},
 	  theadClasses: '',
 	  headerStyle: function headerStyle(column) {
 	    return {};
@@ -3061,6 +3157,7 @@
 	  totalField: 'total',
 	  totalNotFilteredField: 'totalNotFiltered',
 	  dataField: 'rows',
+	  footerField: 'footer',
 	  pagination: false,
 	  paginationParts: ['pageInfo', 'pageSize', 'pageList'],
 	  showExtendedPagination: false,
@@ -3087,8 +3184,10 @@
 	  paginationUseIntermediate: false,
 	  // Calculate intermediate pages for quick access
 	  search: false,
+	  searchHighlight: false,
 	  searchOnEnterKey: false,
 	  strictSearch: false,
+	  searchSelector: false,
 	  visibleSearch: false,
 	  showButtonIcons: true,
 	  showButtonText: false,
@@ -3346,10 +3445,11 @@
 	  footerFormatter: undefined,
 	  detailFormatter: undefined,
 	  searchFormatter: true,
+	  searchHighlightFormatter: false,
 	  escape: false,
 	  events: undefined
 	};
-	var METHODS = ['getOptions', 'refreshOptions', 'getData', 'getSelections', 'getAllSelections', 'load', 'append', 'prepend', 'remove', 'removeAll', 'insertRow', 'updateRow', 'getRowByUniqueId', 'updateByUniqueId', 'removeByUniqueId', 'updateCell', 'updateCellByUniqueId', 'showRow', 'hideRow', 'getHiddenRows', 'showColumn', 'hideColumn', 'getVisibleColumns', 'getHiddenColumns', 'showAllColumns', 'hideAllColumns', 'mergeCells', 'checkAll', 'uncheckAll', 'checkInvert', 'check', 'uncheck', 'checkBy', 'uncheckBy', 'refresh', 'destroy', 'resetView', 'showLoading', 'hideLoading', 'togglePagination', 'toggleFullscreen', 'toggleView', 'resetSearch', 'filterBy', 'scrollTo', 'getScrollPosition', 'selectPage', 'prevPage', 'nextPage', 'toggleDetailView', 'expandRow', 'collapseRow', 'expandRowByUniqueId', 'collapseRowByUniqueId', 'expandAllRows', 'collapseAllRows', 'updateColumnTitle', 'updateFormatText'];
+	var METHODS = ['getOptions', 'refreshOptions', 'getData', 'getSelections', 'load', 'append', 'prepend', 'remove', 'removeAll', 'insertRow', 'updateRow', 'getRowByUniqueId', 'updateByUniqueId', 'removeByUniqueId', 'updateCell', 'updateCellByUniqueId', 'showRow', 'hideRow', 'getHiddenRows', 'showColumn', 'hideColumn', 'getVisibleColumns', 'getHiddenColumns', 'showAllColumns', 'hideAllColumns', 'mergeCells', 'checkAll', 'uncheckAll', 'checkInvert', 'check', 'uncheck', 'checkBy', 'uncheckBy', 'refresh', 'destroy', 'resetView', 'showLoading', 'hideLoading', 'togglePagination', 'toggleFullscreen', 'toggleView', 'resetSearch', 'filterBy', 'scrollTo', 'getScrollPosition', 'selectPage', 'prevPage', 'nextPage', 'toggleDetailView', 'expandRow', 'collapseRow', 'expandRowByUniqueId', 'collapseRowByUniqueId', 'expandAllRows', 'collapseAllRows', 'updateColumnTitle', 'updateFormatText'];
 	var EVENTS = {
 	  'all.bs.table': 'onAll',
 	  'click-row.bs.table': 'onClickRow',
@@ -3470,6 +3570,13 @@
 	});
 
 	var Utils = {
+	  getSearchInput: function getSearchInput(that) {
+	    if (typeof that.options.searchSelector === 'string') {
+	      return $(that.options.searchSelector);
+	    }
+
+	    return that.$toolbar.find('.search input');
+	  },
 	  // it only does '%s', and return '' when arguments are undefined
 	  sprintf: function sprintf(_str) {
 	    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -3491,6 +3598,9 @@
 	    });
 
 	    return flag ? str : '';
+	  },
+	  isObject: function isObject(val) {
+	    return val instanceof Object && !Array.isArray(val);
 	  },
 	  isEmptyObject: function isEmptyObject() {
 	    var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -3589,12 +3699,10 @@
 	            r.colspanGroup = r.colspan;
 	          }
 
-	          for (var k = 0; k < rowspan; k++) {
-	            flag[_i + k][index] = true;
-	          }
-
-	          for (var _k = 0; _k < colspan; _k++) {
-	            flag[_i][index + _k] = true;
+	          for (var _j = 0; _j < rowspan; _j++) {
+	            for (var k = 0; k < colspan; k++) {
+	              flag[_i + _j][index + k] = true;
+	            }
 	          }
 	        }
 	      } catch (err) {
@@ -3613,8 +3721,12 @@
 	      }
 	    }
 	  },
-	  normalizeAccent: function normalizeAccent(string) {
-	    return string.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+	  normalizeAccent: function normalizeAccent(value) {
+	    if (typeof value !== 'string') {
+	      return value;
+	    }
+
+	    return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 	  },
 	  updateFieldGroup: function updateFieldGroup(columns) {
 	    var _ref;
@@ -3707,7 +3819,9 @@
 
 	    return this.cachedWidth;
 	  },
-	  calculateObjectValue: function calculateObjectValue(self, name, args, defaultValue) {
+	  calculateObjectValue: function calculateObjectValue(self, name) {
+	    var args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+	    var defaultValue = arguments.length > 3 ? arguments[3] : undefined;
 	    var func = name;
 
 	    if (typeof name === 'string') {
@@ -3879,14 +3993,17 @@
 	    var data = [];
 	    var m = [];
 	    $els.each(function (y, el) {
+	      var $el = $(el);
 	      var row = {}; // save tr's id, class and data-* attributes
 
-	      row._id = $(el).attr('id');
-	      row._class = $(el).attr('class');
-	      row._data = _this.getRealDataAttr($(el).data());
-	      $(el).find('>td,>th').each(function (_x, el) {
-	        var cspan = +$(el).attr('colspan') || 1;
-	        var rspan = +$(el).attr('rowspan') || 1;
+	      row._id = $el.attr('id');
+	      row._class = $el.attr('class');
+	      row._data = _this.getRealDataAttr($el.data());
+	      row._style = $el.attr('style');
+	      $el.find('>td,>th').each(function (_x, el) {
+	        var $el = $(el);
+	        var cspan = +$el.attr('colspan') || 1;
+	        var rspan = +$el.attr('rowspan') || 1;
 	        var x = _x; // skip already occupied cells in current row
 
 	        for (; m[y] && m[y][x]; x++) {} // ignore
@@ -3905,14 +4022,15 @@
 	        }
 
 	        var field = columns[x].field;
-	        row[field] = $(el).html().trim(); // save td's id, class and data-* attributes
+	        row[field] = $el.html().trim(); // save td's id, class and data-* attributes
 
-	        row["_".concat(field, "_id")] = $(el).attr('id');
-	        row["_".concat(field, "_class")] = $(el).attr('class');
-	        row["_".concat(field, "_rowspan")] = $(el).attr('rowspan');
-	        row["_".concat(field, "_colspan")] = $(el).attr('colspan');
-	        row["_".concat(field, "_title")] = $(el).attr('title');
-	        row["_".concat(field, "_data")] = _this.getRealDataAttr($(el).data());
+	        row["_".concat(field, "_id")] = $el.attr('id');
+	        row["_".concat(field, "_class")] = $el.attr('class');
+	        row["_".concat(field, "_rowspan")] = $el.attr('rowspan');
+	        row["_".concat(field, "_colspan")] = $el.attr('colspan');
+	        row["_".concat(field, "_title")] = $el.attr('title');
+	        row["_".concat(field, "_data")] = _this.getRealDataAttr($el.data());
+	        row["_".concat(field, "_style")] = $el.attr('style');
 	      });
 	      data.push(row);
 	    });
@@ -3964,13 +4082,16 @@
 
 	    return order;
 	  },
-	  getResizeEventName: function getResizeEventName() {
-	    var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	  getEventName: function getEventName(eventPrefix) {
+	    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 	    id = id || "".concat(+new Date()).concat(~~(Math.random() * 1000000));
-	    return "resize.bootstrap-table-".concat(id);
+	    return "".concat(eventPrefix, "-").concat(id);
 	  },
 	  hasDetailViewIcon: function hasDetailViewIcon(options) {
 	    return options.detailView && options.detailViewIcon && !options.cardView;
+	  },
+	  getDetailViewIndexOffset: function getDetailViewIndexOffset(options) {
+	    return this.hasDetailViewIcon(options) && options.detailViewAlign !== 'right' ? 1 : 0;
 	  },
 	  checkAutoMergeCells: function checkAutoMergeCells(data) {
 	    var _iteratorNormalCompletion9 = true;
@@ -4005,6 +4126,13 @@
 	    }
 
 	    return false;
+	  },
+	  deepCopy: function deepCopy(arg) {
+	    if (arg === undefined) {
+	      return arg;
+	    }
+
+	    return $.extend(true, Array.isArray(arg) ? [] : {}, arg);
 	  }
 	};
 
@@ -4171,7 +4299,6 @@
 	    this.$el_ = this.$el.clone();
 	    this.timeoutId_ = 0;
 	    this.timeoutFooter_ = 0;
-	    this.init();
 	  }
 
 	  _createClass(BootstrapTable, [{
@@ -4198,6 +4325,7 @@
 	      this.constants.theme = $.fn.bootstrapTable.theme;
 	      var buttonsPrefix = opts.buttonsPrefix ? "".concat(opts.buttonsPrefix, "-") : '';
 	      this.constants.buttonsClass = [opts.buttonsPrefix, buttonsPrefix + opts.buttonsClass, Utils.sprintf("".concat(buttonsPrefix, "%s"), opts.iconSize)].join(' ').trim();
+	      this.buttons = Utils.calculateObjectValue(this, opts.buttons, [], []);
 	    }
 	  }, {
 	    key: "initLocale",
@@ -4277,6 +4405,7 @@
 	      }
 
 	      this._headerTrClasses = [];
+	      this._headerTrStyles = [];
 	      this.$header.find('tr').each(function (i, el) {
 	        var $tr = $(el);
 	        var column = [];
@@ -4299,6 +4428,10 @@
 
 	        if ($tr.attr('class')) {
 	          _this._headerTrClasses.push($tr.attr('class'));
+	        }
+
+	        if ($tr.attr('style')) {
+	          _this._headerTrStyles.push($tr.attr('style'));
 	        }
 	      });
 
@@ -4332,7 +4465,9 @@
 	        }
 	      }
 
-	      this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr'));
+	      if (!(this.options.pagination && this.options.sidePagination !== 'server')) {
+	        this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr'));
+	      }
 
 	      if (this.footerData) {
 	        this.$el.find('tfoot').html('<tr></tr>');
@@ -4365,7 +4500,7 @@
 	      };
 	      Utils.updateFieldGroup(this.options.columns);
 	      this.options.columns.forEach(function (columns, i) {
-	        html.push("<tr".concat(Utils.sprintf(' class="%s"', _this2._headerTrClasses[i]), ">"));
+	        html.push("<tr".concat(Utils.sprintf(' class="%s"', _this2._headerTrClasses[i]), " ").concat(Utils.sprintf(' style="%s"', _this2._headerTrStyles[i]), ">"));
 	        var detailViewTemplate = '';
 
 	        if (i === 0 && Utils.hasDetailViewIcon(_this2.options)) {
@@ -4495,7 +4630,7 @@
 	          }
 	        }
 	      });
-	      var resizeEvent = Utils.getResizeEventName(this.$el.attr('id'));
+	      var resizeEvent = Utils.getEventName('resize.bootstrap-table', this.$el.attr('id'));
 	      $(window).off(resizeEvent);
 
 	      if (!this.options.showHeader || this.options.cardView) {
@@ -4531,7 +4666,7 @@
 	      } else if (type === 'prepend') {
 	        this.options.data = [].concat(data).concat(this.options.data);
 	      } else {
-	        data = data || this.options.data;
+	        data = data || Utils.deepCopy(this.options.data);
 	        this.options.data = Array.isArray(data) ? data : data[this.options.dataField];
 	      }
 
@@ -4679,63 +4814,153 @@
 	        opts.icons = Utils.calculateObjectValue(null, opts.icons);
 	      }
 
-	      var buttonsHtml = {
-	        paginationSwitch: "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"paginationSwitch\"\n        aria-label=\"Pagination Switch\" title=\"").concat(opts.formatPaginationSwitch(), "\">\n        ").concat(opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.paginationSwitchDown) : '', "\n        ").concat(opts.showButtonText ? opts.formatPaginationSwitchUp() : '', "\n        </button>"),
-	        refresh: "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"refresh\"\n        aria-label=\"Refresh\" title=\"").concat(opts.formatRefresh(), "\">\n        ").concat(opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.refresh) : '', "\n        ").concat(opts.showButtonText ? opts.formatRefresh() : '', "\n        </button>"),
-	        toggle: "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"toggle\"\n        aria-label=\"Toggle\" title=\"").concat(opts.formatToggle(), "\">\n        ").concat(opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.toggleOff) : '', "\n        ").concat(opts.showButtonText ? opts.formatToggleOn() : '', "\n        </button>"),
-	        fullscreen: "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"fullscreen\"\n        aria-label=\"Fullscreen\" title=\"").concat(opts.formatFullscreen(), "\">\n        ").concat(opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.fullscreen) : '', "\n        ").concat(opts.showButtonText ? opts.formatFullscreen() : '', "\n        </button>"),
-	        columns: function () {
-	          var html = [];
-	          html.push("<div class=\"keep-open ".concat(_this4.constants.classes.buttonsDropdown, "\" title=\"").concat(opts.formatColumns(), "\">\n          <button class=\"").concat(_this4.constants.buttonsClass, " dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\"\n          aria-label=\"Columns\" title=\"").concat(opts.formatColumns(), "\">\n          ").concat(opts.showButtonIcons ? Utils.sprintf(_this4.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : '', "\n          ").concat(opts.showButtonText ? opts.formatColumns() : '', "\n          ").concat(_this4.constants.html.dropdownCaret, "\n          </button>\n          ").concat(_this4.constants.html.toolbarDropdown[0]));
-
-	          if (opts.showColumnsSearch) {
-	            html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="text" class="%s" name="columnsSearch" placeholder="%s" autocomplete="off">', _this4.constants.classes.input, opts.formatSearch())));
-	            html.push(_this4.constants.html.toolbarDropdownSeparator);
-	          }
-
-	          if (opts.showColumnsToggleAll) {
-	            var allFieldsVisible = _this4.getVisibleColumns().length === _this4.columns.filter(function (column) {
-	              return !_this4.isSelectionColumn(column);
-	            }).length;
-
-	            html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>', allFieldsVisible ? 'checked="checked"' : '', opts.formatColumnsToggleAll())));
-	            html.push(_this4.constants.html.toolbarDropdownSeparator);
-	          }
-
-	          var visibleColumns = 0;
-
-	          _this4.columns.forEach(function (column, i) {
-	            if (column.visible) {
-	              visibleColumns++;
-	            }
-	          });
-
-	          _this4.columns.forEach(function (column, i) {
-	            if (_this4.isSelectionColumn(column)) {
-	              return;
-	            }
-
-	            if (opts.cardView && !column.cardVisible) {
-	              return;
-	            }
-
-	            var checked = column.visible ? ' checked="checked"' : '';
-	            var disabled = visibleColumns <= _this4.options.minimumCountColumns && checked ? ' disabled="disabled"' : '';
-
-	            if (column.switchable) {
-	              html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>', column.field, i, checked, disabled, column.title)));
-	              switchableCount++;
-	            }
-	          });
-
-	          html.push(_this4.constants.html.toolbarDropdown[1], '</div>');
-	          return html.join('');
-	        }()
-	      };
-
 	      if (typeof opts.buttonsOrder === 'string') {
 	        opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').toLowerCase().split(',');
 	      }
+
+	      this.buttons = Object.assign(this.buttons, {
+	        paginationSwitch: {
+	          text: opts.pagination ? opts.formatPaginationSwitchUp() : opts.formatPaginationSwitchDown(),
+	          icon: opts.pagination ? opts.icons.paginationSwitchDown : opts.icons.paginationSwitchUp,
+	          render: false,
+	          event: this.togglePagination,
+	          attributes: {
+	            'aria-label': opts.formatPaginationSwitch(),
+	            title: opts.formatPaginationSwitch()
+	          }
+	        },
+	        refresh: {
+	          text: opts.formatRefresh(),
+	          icon: opts.icons.refresh,
+	          render: false,
+	          event: this.refresh,
+	          attributes: {
+	            'aria-label': opts.formatRefresh(),
+	            title: opts.formatRefresh()
+	          }
+	        },
+	        toggle: {
+	          text: opts.formatToggle(),
+	          icon: opts.icons.toggleOff,
+	          render: false,
+	          event: this.toggleView,
+	          attributes: {
+	            'aria-label': opts.formatToggleOn(),
+	            title: opts.formatToggleOn()
+	          }
+	        },
+	        fullscreen: {
+	          text: opts.formatFullscreen(),
+	          icon: opts.icons.fullscreen,
+	          render: false,
+	          event: this.toggleFullscreen,
+	          attributes: {
+	            'aria-label': opts.formatFullscreen(),
+	            title: opts.formatFullscreen()
+	          }
+	        },
+	        columns: {
+	          render: false,
+	          html: function html() {
+	            var html = [];
+	            html.push("<div class=\"keep-open ".concat(_this4.constants.classes.buttonsDropdown, "\" title=\"").concat(opts.formatColumns(), "\">\n            <button class=\"").concat(_this4.constants.buttonsClass, " dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\"\n            aria-label=\"Columns\" title=\"").concat(opts.formatColumns(), "\">\n            ").concat(opts.showButtonIcons ? Utils.sprintf(_this4.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : '', "\n            ").concat(opts.showButtonText ? opts.formatColumns() : '', "\n            ").concat(_this4.constants.html.dropdownCaret, "\n            </button>\n            ").concat(_this4.constants.html.toolbarDropdown[0]));
+
+	            if (opts.showColumnsSearch) {
+	              html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="text" class="%s" name="columnsSearch" placeholder="%s" autocomplete="off">', _this4.constants.classes.input, opts.formatSearch())));
+	              html.push(_this4.constants.html.toolbarDropdownSeparator);
+	            }
+
+	            if (opts.showColumnsToggleAll) {
+	              var allFieldsVisible = _this4.getVisibleColumns().length === _this4.columns.filter(function (column) {
+	                return !_this4.isSelectionColumn(column);
+	              }).length;
+
+	              html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>', allFieldsVisible ? 'checked="checked"' : '', opts.formatColumnsToggleAll())));
+	              html.push(_this4.constants.html.toolbarDropdownSeparator);
+	            }
+
+	            var visibleColumns = 0;
+
+	            _this4.columns.forEach(function (column, i) {
+	              if (column.visible) {
+	                visibleColumns++;
+	              }
+	            });
+
+	            _this4.columns.forEach(function (column, i) {
+	              if (_this4.isSelectionColumn(column)) {
+	                return;
+	              }
+
+	              if (opts.cardView && !column.cardVisible) {
+	                return;
+	              }
+
+	              var checked = column.visible ? ' checked="checked"' : '';
+	              var disabled = visibleColumns <= opts.minimumCountColumns && checked ? ' disabled="disabled"' : '';
+
+	              if (column.switchable) {
+	                html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>', column.field, i, checked, disabled, column.title)));
+	                switchableCount++;
+	              }
+	            });
+
+	            html.push(_this4.constants.html.toolbarDropdown[1], '</div>');
+	            return html.join('');
+	          }
+	        }
+	      });
+	      var buttonsHtml = {};
+
+	      for (var _i2 = 0, _Object$entries2 = Object.entries(this.buttons); _i2 < _Object$entries2.length; _i2++) {
+	        var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+	            buttonName = _Object$entries2$_i[0],
+	            buttonConfig = _Object$entries2$_i[1];
+
+	        var buttonHtml = void 0;
+
+	        if (buttonConfig.hasOwnProperty('html')) {
+	          buttonHtml = Utils.calculateObjectValue(opts, buttonConfig.html);
+	        } else {
+	          buttonHtml = "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"").concat(buttonName, "\"");
+
+	          if (buttonConfig.hasOwnProperty('attributes')) {
+	            for (var _i4 = 0, _Object$entries4 = Object.entries(buttonConfig.attributes); _i4 < _Object$entries4.length; _i4++) {
+	              var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i4], 2),
+	                  attributeName = _Object$entries4$_i[0],
+	                  value = _Object$entries4$_i[1];
+
+	              buttonHtml += " ".concat(attributeName, "=\"").concat(Utils.calculateObjectValue(opts, value), "\"");
+	            }
+	          }
+
+	          buttonHtml += '>';
+
+	          if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
+	            var icon = Utils.calculateObjectValue(opts, buttonConfig.icon);
+	            buttonHtml += Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, icon) + ' ';
+	          }
+
+	          if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
+	            buttonHtml += Utils.calculateObjectValue(opts, buttonConfig.text);
+	          }
+
+	          buttonHtml += '</button>';
+	        }
+
+	        buttonsHtml[buttonName] = buttonHtml;
+	        var optionName = "show".concat(buttonName.charAt(0).toUpperCase()).concat(buttonName.substring(1));
+	        var showOption = opts[optionName];
+
+	        if ((!buttonConfig.hasOwnProperty('render') || buttonConfig.hasOwnProperty('render') && buttonConfig.render) && (showOption === undefined || showOption === true)) {
+	          opts[optionName] = true;
+	        }
+
+	        if (!opts.buttonsOrder.includes(buttonName)) {
+	          opts.buttonsOrder.push(buttonName);
+	        }
+	      } // Adding the button html to the final toolbar html when the showOption is true
+
 
 	      var _iteratorNormalCompletion = true;
 	      var _didIteratorError = false;
@@ -4744,8 +4969,9 @@
 	      try {
 	        for (var _iterator = opts.buttonsOrder[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	          var button = _step.value;
+	          var _showOption = opts["show".concat(button.charAt(0).toUpperCase()).concat(button.substring(1))];
 
-	          if (opts['show' + button.charAt(0).toUpperCase() + button.substring(1)]) {
+	          if (_showOption) {
 	            html.push(buttonsHtml[button]);
 	          }
 	        }
@@ -4770,28 +4996,42 @@
 	        this.$toolbar.append(html.join(''));
 	      }
 
-	      if (opts.showPaginationSwitch) {
-	        this.$toolbar.find('button[name="paginationSwitch"]').off('click').on('click', function () {
-	          return _this4.togglePagination();
-	        });
-	      }
+	      for (var _i3 = 0, _Object$entries3 = Object.entries(this.buttons); _i3 < _Object$entries3.length; _i3++) {
+	        var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i3], 2),
+	            _buttonName = _Object$entries3$_i[0],
+	            _buttonConfig = _Object$entries3$_i[1];
 
-	      if (opts.showFullscreen) {
-	        this.$toolbar.find('button[name="fullscreen"]').off('click').on('click', function () {
-	          return _this4.toggleFullscreen();
-	        });
-	      }
+	        if (_buttonConfig.hasOwnProperty('event')) {
+	          if (typeof _buttonConfig.event === 'function' || typeof _buttonConfig.event === 'string') {
+	            var _ret = function () {
+	              var event = typeof _buttonConfig.event === 'string' ? window[_buttonConfig.event] : _buttonConfig.event;
 
-	      if (opts.showRefresh) {
-	        this.$toolbar.find('button[name="refresh"]').off('click').on('click', function () {
-	          return _this4.refresh();
-	        });
-	      }
+	              _this4.$toolbar.find("button[name=\"".concat(_buttonName, "\"]")).off('click').on('click', function () {
+	                return event.call(_this4);
+	              });
 
-	      if (opts.showToggle) {
-	        this.$toolbar.find('button[name="toggle"]').off('click').on('click', function () {
-	          _this4.toggleView();
-	        });
+	              return "continue";
+	            }();
+
+	            if (_ret === "continue") continue;
+	          }
+
+	          var _loop = function _loop() {
+	            var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i5], 2),
+	                eventType = _Object$entries5$_i[0],
+	                eventFunction = _Object$entries5$_i[1];
+
+	            var event = typeof eventFunction === 'string' ? window[eventFunction] : eventFunction;
+
+	            _this4.$toolbar.find("button[name=\"".concat(_buttonName, "\"]")).off(eventType).on(eventType, function () {
+	              return event.call(_this4);
+	            });
+	          };
+
+	          for (var _i5 = 0, _Object$entries5 = Object.entries(_buttonConfig.event); _i5 < _Object$entries5.length; _i5++) {
+	            _loop();
+	          }
+	        }
 	      }
 
 	      if (opts.showColumns) {
@@ -4843,14 +5083,35 @@
 	            });
 	          });
 	        }
-	      } // Fix #4516: this.showSearchClearButton is for extensions
+	      }
+
+	      var handleInputEvent = function handleInputEvent($searchInput) {
+	        var eventTriggers = 'keyup drop blur mouseup';
+	        $searchInput.off(eventTriggers).on(eventTriggers, function (event) {
+	          if (opts.searchOnEnterKey && event.keyCode !== 13) {
+	            return;
+	          }
+
+	          if ([37, 38, 39, 40].includes(event.keyCode)) {
+	            return;
+	          }
+
+	          clearTimeout(timeoutId); // doesn't matter if it's 0
+
+	          timeoutId = setTimeout(function () {
+	            _this4.onSearch({
+	              currentTarget: event.currentTarget
+	            });
+	          }, opts.searchTimeOut);
+	        });
+	      }; // Fix #4516: this.showSearchClearButton is for extensions
 
 
-	      if (opts.search || this.showSearchClearButton) {
+	      if ((opts.search || this.showSearchClearButton) && typeof opts.searchSelector !== 'string') {
 	        html = [];
 	        var showSearchButton = Utils.sprintf(this.constants.html.searchButton, this.constants.buttonsClass, opts.formatSearch(), opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.search) : '', opts.showButtonText ? opts.formatSearch() : '');
 	        var showSearchClearButton = Utils.sprintf(this.constants.html.searchClearButton, this.constants.buttonsClass, opts.formatClearSearch(), opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.clearSearch) : '', opts.showButtonText ? opts.formatClearSearch() : '');
-	        var searchInputHtml = "<input class=\"".concat(this.constants.classes.input, "\n        ").concat(Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, opts.iconSize), "\n        search-input\" type=\"text\" placeholder=\"").concat(opts.formatSearch(), "\" autocomplete=\"off\">");
+	        var searchInputHtml = "<input class=\"".concat(this.constants.classes.input, "\n        ").concat(Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, opts.iconSize), "\n        search-input\" type=\"search\" placeholder=\"").concat(opts.formatSearch(), "\" autocomplete=\"off\">");
 	        var searchInputFinalHtml = searchInputHtml;
 
 	        if (opts.showSearchButton || opts.showSearchClearButton) {
@@ -4861,28 +5122,7 @@
 
 	        html.push(Utils.sprintf("\n        <div class=\"".concat(this.constants.classes.pull, "-").concat(opts.searchAlign, " search ").concat(this.constants.classes.inputGroup, "\">\n          %s\n        </div>\n      "), searchInputFinalHtml));
 	        this.$toolbar.append(html.join(''));
-	        var $searchInput = this.$toolbar.find('.search input');
-
-	        var handleInputEvent = function handleInputEvent() {
-	          var eventTriggers = "keyup drop blur ".concat(Utils.isIEBrowser() ? 'mouseup' : '');
-	          $searchInput.off(eventTriggers).on(eventTriggers, function (event) {
-	            if (opts.searchOnEnterKey && event.keyCode !== 13) {
-	              return;
-	            }
-
-	            if ([37, 38, 39, 40].includes(event.keyCode)) {
-	              return;
-	            }
-
-	            clearTimeout(timeoutId); // doesn't matter if it's 0
-
-	            timeoutId = setTimeout(function () {
-	              _this4.onSearch({
-	                currentTarget: event.currentTarget
-	              });
-	            }, opts.searchTimeOut);
-	          });
-	        };
+	        var $searchInput = Utils.getSearchInput(this);
 
 	        if (opts.showSearchButton) {
 	          this.$toolbar.find('.search button[name=search]').off('click').on('click', function (event) {
@@ -4896,10 +5136,10 @@
 	          });
 
 	          if (opts.searchOnEnterKey) {
-	            handleInputEvent();
+	            handleInputEvent($searchInput);
 	          }
 	        } else {
-	          handleInputEvent();
+	          handleInputEvent($searchInput);
 	        }
 
 	        if (opts.showSearchClearButton) {
@@ -4907,6 +5147,10 @@
 	            _this4.resetSearch();
 	          });
 	        }
+	      } else if (typeof opts.searchSelector === 'string') {
+	        var _$searchInput = Utils.getSearchInput(this);
+
+	        handleInputEvent(_$searchInput);
 	      }
 	    }
 	  }, {
@@ -4925,11 +5169,11 @@
 	          $(currentTarget).val(text);
 	        }
 
-	        if (this.searchText === text && text.length > 0) {
+	        if (this.searchText === text) {
 	          return;
 	        }
 
-	        if ($(currentTarget).hasClass('search-input')) {
+	        if (currentTarget === Utils.getSearchInput(this)[0] || $(currentTarget).hasClass('search-input')) {
 	          this.searchText = text;
 	          this.options.searchText = text;
 	        }
@@ -4961,6 +5205,11 @@
 	      if (this.options.sidePagination !== 'server') {
 	        if (this.options.customSearch) {
 	          this.data = Utils.calculateObjectValue(this.options, this.options.customSearch, [this.options.data, this.searchText, this.filterColumns]);
+
+	          if (this.options.sortReset) {
+	            this.unsortedData = _toConsumableArray(this.data);
+	          }
+
 	          return;
 	        }
 
@@ -5012,9 +5261,9 @@
 	              value = item;
 	              var props = key.split('.');
 
-	              for (var _i2 = 0; _i2 < props.length; _i2++) {
-	                if (value[props[_i2]] !== null) {
-	                  value = value[props[_i2]];
+	              for (var _i6 = 0; _i6 < props.length; _i6++) {
+	                if (value[props[_i6]] !== null) {
+	                  value = value[props[_i6]];
 	                }
 	              }
 	            } else {
@@ -5434,10 +5683,10 @@
 	      style = Utils.calculateObjectValue(this.options, this.options.rowStyle, [item, i], style);
 
 	      if (style && style.css) {
-	        for (var _i3 = 0, _Object$entries2 = Object.entries(style.css); _i3 < _Object$entries2.length; _i3++) {
-	          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i3], 2),
-	              key = _Object$entries2$_i[0],
-	              value = _Object$entries2$_i[1];
+	        for (var _i7 = 0, _Object$entries6 = Object.entries(style.css); _i7 < _Object$entries6.length; _i7++) {
+	          var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i7], 2),
+	              key = _Object$entries6$_i[0],
+	              value = _Object$entries6$_i[1];
 
 	          csses.push("".concat(key, ": ").concat(value));
 	        }
@@ -5446,20 +5695,20 @@
 	      attributes = Utils.calculateObjectValue(this.options, this.options.rowAttributes, [item, i], attributes);
 
 	      if (attributes) {
-	        for (var _i4 = 0, _Object$entries3 = Object.entries(attributes); _i4 < _Object$entries3.length; _i4++) {
-	          var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i4], 2),
-	              _key2 = _Object$entries3$_i[0],
-	              _value = _Object$entries3$_i[1];
+	        for (var _i8 = 0, _Object$entries7 = Object.entries(attributes); _i8 < _Object$entries7.length; _i8++) {
+	          var _Object$entries7$_i = _slicedToArray(_Object$entries7[_i8], 2),
+	              _key2 = _Object$entries7$_i[0],
+	              _value = _Object$entries7$_i[1];
 
 	          htmlAttributes.push("".concat(_key2, "=\"").concat(Utils.escapeHTML(_value), "\""));
 	        }
 	      }
 
 	      if (item._data && !Utils.isEmptyObject(item._data)) {
-	        for (var _i5 = 0, _Object$entries4 = Object.entries(item._data); _i5 < _Object$entries4.length; _i5++) {
-	          var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i5], 2),
-	              k = _Object$entries4$_i[0],
-	              v = _Object$entries4$_i[1];
+	        for (var _i9 = 0, _Object$entries8 = Object.entries(item._data); _i9 < _Object$entries8.length; _i9++) {
+	          var _Object$entries8$_i = _slicedToArray(_Object$entries8[_i9], 2),
+	              k = _Object$entries8$_i[0],
+	              v = _Object$entries8$_i[1];
 
 	          // ignore data-index
 	          if (k === 'index') {
@@ -5470,7 +5719,7 @@
 	        }
 	      }
 
-	      html.push('<tr', Utils.sprintf(' %s', htmlAttributes.length ? htmlAttributes.join(' ') : undefined), Utils.sprintf(' id="%s"', Array.isArray(item) ? undefined : item._id), Utils.sprintf(' class="%s"', style.classes || (Array.isArray(item) ? undefined : item._class)), " data-index=\"".concat(i, "\""), Utils.sprintf(' data-uniqueid="%s"', Utils.getItemField(item, this.options.uniqueId, false)), Utils.sprintf(' data-has-detail-view="%s"', this.options.detailView && Utils.calculateObjectValue(null, this.options.detailFilter, [i, item]) ? 'true' : undefined), Utils.sprintf('%s', data_), '>');
+	      html.push('<tr', Utils.sprintf(' %s', htmlAttributes.length ? htmlAttributes.join(' ') : undefined), Utils.sprintf(' id="%s"', Array.isArray(item) ? undefined : item._id), Utils.sprintf(' class="%s"', style.classes || (Array.isArray(item) ? undefined : item._class)), Utils.sprintf(' style="%s"', Array.isArray(item) ? undefined : item._style), " data-index=\"".concat(i, "\""), Utils.sprintf(' data-uniqueid="%s"', Utils.getItemField(item, this.options.uniqueId, false)), Utils.sprintf(' data-has-detail-view="%s"', this.options.detailView && Utils.calculateObjectValue(null, this.options.detailFilter, [i, item]) ? 'true' : undefined), Utils.sprintf('%s', data_), '>');
 
 	      if (this.options.cardView) {
 	        html.push("<td colspan=\"".concat(this.header.fields.length, "\"><div class=\"card-views\">"));
@@ -5501,6 +5750,7 @@
 	        var id_ = '';
 	        var class_ = _this7.header.classes[j];
 	        var style_ = '';
+	        var styleToAdd_ = '';
 	        var data_ = '';
 	        var rowspan_ = '';
 	        var colspan_ = '';
@@ -5523,11 +5773,21 @@
 
 	        if (column.escape) {
 	          value_ = Utils.escapeHTML(value_);
-	        }
+	        } // Style concat
+
 
 	        if (csses.concat([_this7.header.styles[j]]).length) {
-	          style_ = " style=\"".concat(csses.concat([_this7.header.styles[j]]).join('; '), "\"");
-	        } // handle id and class of td
+	          styleToAdd_ += "".concat(csses.concat([_this7.header.styles[j]]).join('; '));
+	        }
+
+	        if (item["_".concat(field, "_style")]) {
+	          styleToAdd_ += "".concat(item["_".concat(field, "_style")]);
+	        }
+
+	        if (styleToAdd_) {
+	          style_ = " style=\"".concat(styleToAdd_, "\"");
+	        } // Style concat
+	        // handle id and class of td
 
 
 	        if (item["_".concat(field, "_id")]) {
@@ -5559,10 +5819,10 @@
 	        if (cellStyle.css) {
 	          var csses_ = [];
 
-	          for (var _i6 = 0, _Object$entries5 = Object.entries(cellStyle.css); _i6 < _Object$entries5.length; _i6++) {
-	            var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i6], 2),
-	                _key3 = _Object$entries5$_i[0],
-	                _value2 = _Object$entries5$_i[1];
+	          for (var _i10 = 0, _Object$entries9 = Object.entries(cellStyle.css); _i10 < _Object$entries9.length; _i10++) {
+	            var _Object$entries9$_i = _slicedToArray(_Object$entries9[_i10], 2),
+	                _key3 = _Object$entries9$_i[0],
+	                _value2 = _Object$entries9$_i[1];
 
 	            csses_.push("".concat(_key3, ": ").concat(_value2));
 	          }
@@ -5572,11 +5832,15 @@
 
 	        value = Utils.calculateObjectValue(column, _this7.header.formatters[j], [value_, item, i, field], value_);
 
+	        if (_this7.searchText !== '' && _this7.options.searchHighlight) {
+	          value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, _this7.searchText], value.replace(new RegExp('(' + _this7.searchText + ')', 'gim'), '<mark>$1</mark>'));
+	        }
+
 	        if (item["_".concat(field, "_data")] && !Utils.isEmptyObject(item["_".concat(field, "_data")])) {
-	          for (var _i7 = 0, _Object$entries6 = Object.entries(item["_".concat(field, "_data")]); _i7 < _Object$entries6.length; _i7++) {
-	            var _Object$entries6$_i = _slicedToArray(_Object$entries6[_i7], 2),
-	                _k = _Object$entries6$_i[0],
-	                _v = _Object$entries6$_i[1];
+	          for (var _i11 = 0, _Object$entries10 = Object.entries(item["_".concat(field, "_data")]); _i11 < _Object$entries10.length; _i11++) {
+	            var _Object$entries10$_i = _slicedToArray(_Object$entries10[_i11], 2),
+	                _k = _Object$entries10$_i[0],
+	                _v = _Object$entries10$_i[1];
 
 	            // ignore data-index
 	            if (_k === 'index') {
@@ -5591,7 +5855,7 @@
 	          type = column.checkbox ? 'checkbox' : type;
 	          type = column.radio ? 'radio' : type;
 	          var c = column['class'] || '';
-	          var isChecked = (value === true || value_ || value && value.checked) && value !== false;
+	          var isChecked = Utils.isObject(value) && value.hasOwnProperty('checked') ? value.checked : (value === true || value_) && value !== false;
 	          var isDisabled = !column.checkboxEnabled || value && value.disabled;
 	          text = [_this7.options.cardView ? "<div class=\"card-view ".concat(c, "\">") : "<td class=\"bs-checkbox ".concat(c, "\"").concat(class_).concat(style_, ">"), "<label>\n            <input\n            data-index=\"".concat(i, "\"\n            name=\"").concat(_this7.options.selectItemName, "\"\n            type=\"").concat(type, "\"\n            ").concat(Utils.sprintf('value="%s"', item[_this7.options.idField]), "\n            ").concat(Utils.sprintf('checked="%s"', isChecked ? 'checked' : undefined), "\n            ").concat(Utils.sprintf('disabled="%s"', isDisabled ? 'disabled' : undefined), " />\n            <span></span>\n            </label>"), _this7.header.formatters[j] && typeof value === 'string' ? value : '', _this7.options.cardView ? '</div>' : '</td>'].join('');
 	          item[_this7.header.stateField] = value === true || !!value_ || value && value.checked;
@@ -5664,7 +5928,7 @@
 
 
 	      if (!hasTr) {
-	        this.$body.html("<tr class=\"no-records-found\">".concat(Utils.sprintf('<td colspan="%s">%s</td>', this.getVisibleFields().length, this.options.formatNoMatches()), "</tr>"));
+	        this.$body.html("<tr class=\"no-records-found\">".concat(Utils.sprintf('<td colspan="%s">%s</td>', this.getVisibleFields().length + Utils.getDetailViewIndexOffset(this.options), this.options.formatNoMatches()), "</tr>"));
 	      } else {
 	        if (!this.options.virtualScroll) {
 	          this.$body.html(trFragments);
@@ -5720,7 +5984,7 @@
 
 	        var fields = _this9.getVisibleFields();
 
-	        var field = fields[Utils.hasDetailViewIcon(_this9.options) && _this9.options.detailViewAlign !== 'right' ? index - 1 : index];
+	        var field = fields[index - Utils.getDetailViewIndexOffset(_this9.options)];
 	        var column = _this9.columns[_this9.fieldsColumnsIndex[field]];
 	        var value = Utils.getItemField(item, field, _this9.options.escape);
 
@@ -5783,11 +6047,9 @@
 	          return;
 	        }
 
-	        if (Utils.hasDetailViewIcon(_this9.options) && _this9.options.detailViewAlign !== 'right') {
-	          fieldIndex += 1;
-	        }
+	        fieldIndex += Utils.getDetailViewIndexOffset(_this9.options);
 
-	        var _loop = function _loop(key) {
+	        var _loop2 = function _loop2(key) {
 	          if (!events.hasOwnProperty(key)) {
 	            return "continue";
 	          }
@@ -5810,9 +6072,9 @@
 	        };
 
 	        for (var key in events) {
-	          var _ret = _loop(key);
+	          var _ret2 = _loop2(key);
 
-	          if (_ret === "continue") continue;
+	          if (_ret2 === "continue") continue;
 	        }
 	      });
 	    }
@@ -5964,7 +6226,7 @@
 	        this.searchText = '';
 
 	        if (this.options.searchText !== '') {
-	          var $search = this.$toolbar.find('.search input');
+	          var $search = Utils.getSearchInput(this);
 	          $search.val(this.options.searchText);
 	          this.onSearch({
 	            currentTarget: $search,
@@ -6037,7 +6299,7 @@
 	  }, {
 	    key: "trigger",
 	    value: function trigger(_name) {
-	      var _this$options;
+	      var _this$options, _this$options2;
 
 	      var name = "".concat(_name, ".bs.table");
 
@@ -6045,11 +6307,17 @@
 	        args[_key4 - 1] = arguments[_key4];
 	      }
 
-	      (_this$options = this.options)[BootstrapTable.EVENTS[name]].apply(_this$options, args);
+	      (_this$options = this.options)[BootstrapTable.EVENTS[name]].apply(_this$options, [].concat(args, [this]));
 
-	      this.$el.trigger($.Event(name), args);
-	      this.options.onAll(name, args);
-	      this.$el.trigger($.Event('all.bs.table'), [name, args]);
+	      this.$el.trigger($.Event(name, {
+	        sender: this
+	      }), args);
+
+	      (_this$options2 = this.options).onAll.apply(_this$options2, [name].concat([].concat(args, [this])));
+
+	      this.$el.trigger($.Event('all.bs.table', {
+	        sender: this
+	      }), [name, args]);
 	    }
 	  }, {
 	    key: "resetHeader",
@@ -6134,7 +6402,7 @@
 	          }
 	        }
 
-	        var index = Utils.hasDetailViewIcon(_this14.options) && _this14.options.detailViewAlign !== 'right' ? i - 1 : i;
+	        var index = i - Utils.getDetailViewIndexOffset(_this14.options);
 
 	        var $th = _this14.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]));
 
@@ -6181,7 +6449,7 @@
 	          var style = {};
 	          var class_ = Utils.sprintf(' class="%s"', column['class']);
 
-	          if (!column.visible) {
+	          if (!column.visible || this.footerData && this.footerData.length > 0 && !(column.field in this.footerData[0])) {
 	            continue;
 	          }
 
@@ -6194,12 +6462,12 @@
 	          style = Utils.calculateObjectValue(null, this.options.footerStyle, [column]);
 
 	          if (style && style.css) {
-	            for (var _i8 = 0, _Object$entries7 = Object.entries(style.css); _i8 < _Object$entries7.length; _i8++) {
-	              var _Object$entries7$_i = _slicedToArray(_Object$entries7[_i8], 2),
-	                  key = _Object$entries7$_i[0],
-	                  value = _Object$entries7$_i[1];
+	            for (var _i12 = 0, _Object$entries11 = Object.entries(style.css); _i12 < _Object$entries11.length; _i12++) {
+	              var _Object$entries11$_i = _slicedToArray(_Object$entries11[_i12], 2),
+	                  key = _Object$entries11$_i[0],
+	                  _value3 = _Object$entries11$_i[1];
 
-	              csses.push("".concat(key, ": ").concat(value));
+	              csses.push("".concat(key, ": ").concat(_value3));
 	            }
 	          }
 
@@ -6207,9 +6475,26 @@
 	            class_ = Utils.sprintf(' class="%s"', column['class'] ? [column['class'], style.classes].join(' ') : style.classes);
 	          }
 
-	          html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')), '>');
+	          html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')));
+	          var colspan = 0;
+
+	          if (this.footerData && this.footerData.length > 0) {
+	            colspan = this.footerData[0]['_' + column.field + '_colspan'] || 0;
+	          }
+
+	          if (colspan) {
+	            html.push(" colspan=\"".concat(colspan, "\" "));
+	          }
+
+	          html.push('>');
 	          html.push('<div class="th-inner">');
-	          html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data], this.footerData[0] && this.footerData[0][column.field] || ''));
+	          var value = '';
+
+	          if (this.footerData && this.footerData.length > 0) {
+	            value = this.footerData[0][column.field] || '';
+	          }
+
+	          html.push(Utils.calculateObjectValue(column, column.footerFormatter, [data, value], value));
 	          html.push('</div>');
 	          html.push('<div class="fht-cell"></div>');
 	          html.push('</div>');
@@ -6260,6 +6545,7 @@
 	      var visibleFields = this.getVisibleFields();
 	      var $ths = this.$tableFooter.find('th');
 	      var $tr = this.$body.find('>tr:first-child:not(.no-records-found)');
+	      $ths.find('.fht-cell').width('auto');
 
 	      while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
 	        $tr = $tr.next();
@@ -6378,7 +6664,7 @@
 
 	      var data = this.options.data;
 
-	      if ((this.searchText || this.options.customSearch || this.options.sortName || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) && (!params || !params.unfiltered)) {
+	      if ((this.searchText || this.options.customSearch || this.options.sortName !== undefined || !Utils.isEmptyObject(this.filterColumns) || !Utils.isEmptyObject(this.filterColumnsPartial)) && (!params || !params.unfiltered)) {
 	        data = this.data;
 	      }
 
@@ -6395,10 +6681,10 @@
 
 	      if (params && params.formatted) {
 	        data.forEach(function (row) {
-	          for (var _i9 = 0, _Object$entries8 = Object.entries(row); _i9 < _Object$entries8.length; _i9++) {
-	            var _Object$entries8$_i = _slicedToArray(_Object$entries8[_i9], 2),
-	                key = _Object$entries8$_i[0],
-	                value = _Object$entries8$_i[1];
+	          for (var _i13 = 0, _Object$entries12 = Object.entries(row); _i13 < _Object$entries12.length; _i13++) {
+	            var _Object$entries12$_i = _slicedToArray(_Object$entries12[_i13], 2),
+	                key = _Object$entries12$_i[0],
+	                value = _Object$entries12$_i[1];
 
 	            var column = _this17.columns[_this17.fieldsColumnsIndex[key]];
 
@@ -6418,18 +6704,8 @@
 	    value: function getSelections() {
 	      var _this18 = this;
 
-	      // fix #2424: from html with checkbox
-	      return this.data.filter(function (row) {
-	        return row[_this18.header.stateField] === true;
-	      });
-	    }
-	  }, {
-	    key: "getAllSelections",
-	    value: function getAllSelections() {
-	      var _this19 = this;
-
 	      return this.options.data.filter(function (row) {
-	        return row[_this19.header.stateField] === true;
+	        return row[_this18.header.stateField] === true;
 	      });
 	    }
 	  }, {
@@ -6440,10 +6716,8 @@
 
 	      if (this.options.pagination && this.options.sidePagination === 'server') {
 	        this.options.totalRows = data[this.options.totalField];
-	      }
-
-	      if (this.options.pagination && this.options.sidePagination === 'server') {
 	        this.options.totalNotFiltered = data[this.options.totalNotFilteredField];
+	        this.footerData = data[this.options.footerField] ? [data[this.options.footerField]] : undefined;
 	      }
 
 	      fixedScroll = data.fixedScroll;
@@ -6704,7 +6978,7 @@
 	  }, {
 	    key: "updateCellByUniqueId",
 	    value: function updateCellByUniqueId(params) {
-	      var _this20 = this;
+	      var _this19 = this;
 
 	      var allParams = Array.isArray(params) ? params : [params];
 	      allParams.forEach(function (_ref6) {
@@ -6712,13 +6986,13 @@
 	            field = _ref6.field,
 	            value = _ref6.value;
 
-	        var rowId = _this20.options.data.indexOf(_this20.getRowByUniqueId(id));
+	        var rowId = _this19.options.data.indexOf(_this19.getRowByUniqueId(id));
 
 	        if (rowId === -1) {
 	          return;
 	        }
 
-	        _this20.options.data[rowId][field] = value;
+	        _this19.options.data[rowId][field] = value;
 	      });
 
 	      if (params.reinit === false) {
@@ -6809,21 +7083,21 @@
 	  }, {
 	    key: "showColumn",
 	    value: function showColumn(field) {
-	      var _this21 = this;
+	      var _this20 = this;
 
 	      var fields = Array.isArray(field) ? field : [field];
 	      fields.forEach(function (field) {
-	        _this21._toggleColumn(_this21.fieldsColumnsIndex[field], true, true);
+	        _this20._toggleColumn(_this20.fieldsColumnsIndex[field], true, true);
 	      });
 	    }
 	  }, {
 	    key: "hideColumn",
 	    value: function hideColumn(field) {
-	      var _this22 = this;
+	      var _this21 = this;
 
 	      var fields = Array.isArray(field) ? field : [field];
 	      fields.forEach(function (field) {
-	        _this22._toggleColumn(_this22.fieldsColumnsIndex[field], false, true);
+	        _this21._toggleColumn(_this21.fieldsColumnsIndex[field], false, true);
 	      });
 	    }
 	  }, {
@@ -6854,10 +7128,10 @@
 	  }, {
 	    key: "getVisibleColumns",
 	    value: function getVisibleColumns() {
-	      var _this23 = this;
+	      var _this22 = this;
 
 	      return this.columns.filter(function (column) {
-	        return column.visible && !_this23.isSelectionColumn(column);
+	        return column.visible && !_this22.isSelectionColumn(column);
 	      });
 	    }
 	  }, {
@@ -6886,7 +7160,7 @@
 	  }, {
 	    key: "_toggleAllColumns",
 	    value: function _toggleAllColumns(visible) {
-	      var _this24 = this;
+	      var _this23 = this;
 
 	      var _iteratorNormalCompletion9 = true;
 	      var _didIteratorError9 = false;
@@ -6931,7 +7205,7 @@
 	          $items.prop('checked', visible);
 	        } else {
 	          $items.get().reverse().forEach(function (item) {
-	            if ($items.filter(':checked').length > _this24.options.minimumCountColumns) {
+	            if ($items.filter(':checked').length > _this23.options.minimumCountColumns) {
 	              $(item).prop('checked', visible);
 	            }
 	          });
@@ -6952,11 +7226,7 @@
 	      var i;
 	      var j;
 	      var $tr = this.$body.find('>tr');
-
-	      if (Utils.hasDetailViewIcon(this.options)) {
-	        col += 1;
-	      }
-
+	      col += Utils.getDetailViewIndexOffset(this.options);
 	      var $td = $tr.eq(row).find('>td').eq(col);
 
 	      if (row < 0 || col < 0 || row >= this.data.length) {
@@ -6988,6 +7258,7 @@
 	      this.$selectAll.add(this.$selectAll_).prop('checked', checked);
 	      this.$selectItem.filter(':enabled').prop('checked', checked);
 	      this.updateRows();
+	      this.updateSelected();
 	      var rowsAfter = this.getSelections();
 
 	      if (checked) {
@@ -7025,7 +7296,7 @@
 	    key: "_toggleCheck",
 	    value: function _toggleCheck(checked, index) {
 	      var $el = this.$selectItem.filter("[data-index=\"".concat(index, "\"]"));
-	      var row = this.data[index];
+	      var row = this.options.data[index];
 
 	      if ($el.is(':radio') || this.options.singleSelect || this.options.multipleSelectRow && !this.multipleSelectRowCtrlKey && !this.multipleSelectRowShiftKey) {
 	        var _iteratorNormalCompletion10 = true;
@@ -7089,7 +7360,7 @@
 	  }, {
 	    key: "_toggleCheckBy",
 	    value: function _toggleCheckBy(checked, obj) {
-	      var _this25 = this;
+	      var _this24 = this;
 
 	      if (!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
 	        return;
@@ -7102,7 +7373,7 @@
 	        }
 
 	        if (obj.values.includes(row[obj.field])) {
-	          var $el = _this25.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i));
+	          var $el = _this24.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i));
 
 	          $el = checked ? $el.not(':checked') : $el.filter(':checked');
 
@@ -7111,10 +7382,10 @@
 	          }
 
 	          $el.prop('checked', checked);
-	          row[_this25.header.stateField] = checked;
+	          row[_this24.header.stateField] = checked;
 	          rows.push(row);
 
-	          _this25.trigger(checked ? 'check' : 'uncheck', row, $el);
+	          _this24.trigger(checked ? 'check' : 'uncheck', row, $el);
 	        }
 	      });
 	      this.updateSelected();
@@ -7220,7 +7491,7 @@
 	  }, {
 	    key: "showLoading",
 	    value: function showLoading() {
-	      this.$tableLoading.css('display', 'flex');
+	      this.$tableLoading.toggleClass('open', true);
 	      var fontSize = this.options.loadingFontSize;
 
 	      if (this.options.loadingFontSize === 'auto') {
@@ -7235,7 +7506,7 @@
 	  }, {
 	    key: "hideLoading",
 	    value: function hideLoading() {
-	      this.$tableLoading.css('display', 'none');
+	      this.$tableLoading.toggleClass('open', false);
 	    }
 	  }, {
 	    key: "togglePagination",
@@ -7266,7 +7537,7 @@
 	  }, {
 	    key: "resetSearch",
 	    value: function resetSearch(text) {
-	      var $search = this.$toolbar.find('.search input');
+	      var $search = Utils.getSearchInput(this);
 	      $search.val(text || '');
 	      this.onSearch({
 	        currentTarget: $search
@@ -7284,10 +7555,6 @@
 	  }, {
 	    key: "scrollTo",
 	    value: function scrollTo(params) {
-	      if (typeof params === 'undefined') {
-	        return this.$tableBody.scrollTop();
-	      }
-
 	      var options = {
 	        unit: 'px',
 	        value: 0
@@ -7315,7 +7582,7 @@
 	  }, {
 	    key: "getScrollPosition",
 	    value: function getScrollPosition() {
-	      return this.scrollTo();
+	      return this.$tableBody.scrollTop();
 	    }
 	  }, {
 	    key: "selectPage",
@@ -7518,7 +7785,9 @@
 	    }
 
 	    if (!data) {
-	      $(el).data('bootstrap.table', data = new $.BootstrapTable(el, options));
+	      data = new $.BootstrapTable(el, options);
+	      $(el).data('bootstrap.table', data);
+	      data.init();
 	    }
 	  });
 	  return typeof value === 'undefined' ? this : value;

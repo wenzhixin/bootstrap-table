@@ -4,6 +4,12 @@
  */
 
 $.fn.bootstrapTable.locales['sr-Cyrl-RS'] = {
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+  formatPrint () {
+    return 'Print'
+  },
   formatLoadingMessage () {
     return 'Молим сачекај'
   },

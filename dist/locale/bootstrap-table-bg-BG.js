@@ -674,6 +674,12 @@
 	 */
 
 	$.fn.bootstrapTable.locales['bg-BG'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Зареждане, моля изчакайте';
 	  },
