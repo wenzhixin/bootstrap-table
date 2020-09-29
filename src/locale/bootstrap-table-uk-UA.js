@@ -3,7 +3,7 @@
  * Author: Vitaliy Timchenko <vitaliy.timchenko@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['uk-UA'] = {
+$.fn.bootstrapTable.locales['uk-UA'] = $.fn.bootstrapTable.locales['uk'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },
