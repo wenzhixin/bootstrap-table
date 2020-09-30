@@ -3,7 +3,7 @@
  * Author: Vladimir Kanazir (vladimir@kanazir.com)
  */
 
-$.fn.bootstrapTable.locales['sr-Cyrl-RS'] = {
+$.fn.bootstrapTable.locales['sr-Cyrl-RS'] = $.fn.bootstrapTable.locales['sr'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

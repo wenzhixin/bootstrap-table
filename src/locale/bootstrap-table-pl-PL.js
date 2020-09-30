@@ -1,6 +1,7 @@
 /**
  * Bootstrap Table Polish translation
- * Author: kerogos <kerog @ wp pl>
+ * Author: zergu <michal.zagdan @ gmail com>
+ * Update: kerogos <kerog @ wp pl>
  */
 
 $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
