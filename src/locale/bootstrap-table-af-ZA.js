@@ -3,7 +3,7 @@
  * Author: Phillip Kruger <phillip.kruger@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['af-ZA'] = {
+$.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

@@ -4,7 +4,7 @@
  * Author: Sercan Cakir <srcnckr@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['tr-TR'] = {
+$.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

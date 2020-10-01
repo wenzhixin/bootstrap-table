@@ -3,7 +3,7 @@
 * Author: Paul Mohr - Sopamo<p.mohr@sopamo.de>
 */
 
-$.fn.bootstrapTable.locales['de-DE'] = {
+$.fn.bootstrapTable.locales['de-DE'] = $.fn.bootstrapTable.locales['de'] = {
   formatCopyRows () {
     return 'Zeilen kopieren'
   },

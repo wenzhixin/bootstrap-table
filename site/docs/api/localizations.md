@@ -38,6 +38,15 @@ $('#table').bootstrapTable({
 })
 {% endhighlight %}
 
+You can use short code for the locale:
+{% highlight javascript %}
+$('#table').bootstrapTable({
+  locale: 'en'
+})
+{% endhighlight %}
+
+List of all existing translations with their short codes is on [Github](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/locale)
+
 You can custom the format localizations, the calling syntax:
 
 {% highlight javascript %}

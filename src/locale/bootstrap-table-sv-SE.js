@@ -3,7 +3,7 @@
  * Author: C Bratt <bratt@inix.se>
  */
 
-$.fn.bootstrapTable.locales['sv-SE'] = {
+$.fn.bootstrapTable.locales['sv-SE'] = $.fn.bootstrapTable.locales['sv'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },
