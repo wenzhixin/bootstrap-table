@@ -1181,7 +1181,7 @@ class BootstrapTable {
       ]
 
       pageList.forEach((page, i) => {
-        if (!opts.smartDisplay || i === 0 || pageList[i - 1] < opts.totalRows) {
+        if (!opts.smartDisplay || i === 0 || pageList[i - 1] < opts.totalRows || page === opts.formatAllRows()) {
           let active
 
           if (allSelected) {

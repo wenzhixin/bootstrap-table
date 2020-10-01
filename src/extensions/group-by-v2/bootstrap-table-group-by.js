@@ -60,7 +60,7 @@ BootstrapTable.prototype.initSort = function (...args) {
           this.data
         ])
       } else {
-        this.data.sort((a, b) => {
+        this.options.data.sort((a, b) => {
           const groupByFields = this.getGroupByFields()
           const fieldValuesA = []
           const fieldValuesB = []

@@ -460,17 +460,23 @@ export function createControls (that, header) {
     })
 
     if (header.find('.date-filter-control').length > 0) {
-      $.each(that.columns, (i, { filterControl, field, filterDatepickerOptions }) => {
+      $.each(that.columns, (i, { filterDefault, filterControl, field, filterDatepickerOptions }) => {
         if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
-          header.find(`.date-filter-control.bootstrap-table-filter-control-${field}`)
-            .datepicker(filterDatepickerOptions)
-            .on('changeDate', ({ currentTarget, keyCode }) => {
-              clearTimeout(currentTarget.timeoutId || 0)
-              currentTarget.timeoutId = setTimeout(() => {
-                syncControls(that)
-                that.onColumnSearch({ currentTarget, keyCode })
-              }, that.options.searchTimeOut)
-            })
+          const $datepicker = header.find(`.date-filter-control.bootstrap-table-filter-control-${field}`)
+
+          $datepicker.datepicker(filterDatepickerOptions)
+
+          if (filterDefault) {
+            $datepicker.datepicker('setDate', filterDefault)
+          }
+
+          $datepicker.on('changeDate', ({ currentTarget, keyCode }) => {
+            clearTimeout(currentTarget.timeoutId || 0)
+            currentTarget.timeoutId = setTimeout(() => {
+              syncControls(that)
+              that.onColumnSearch({ currentTarget, keyCode })
+            }, that.options.searchTimeOut)
+          })
         }
       })
     }
