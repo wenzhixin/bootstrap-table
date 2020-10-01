@@ -4,7 +4,7 @@
  * Author: Jakub Svestka <svestka1999@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['cs-CZ'] = {
+$.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

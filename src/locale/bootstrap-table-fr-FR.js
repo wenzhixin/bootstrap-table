@@ -5,7 +5,7 @@
  *         Nevets82 <Nevets82@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['fr-FR'] = {
+$.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

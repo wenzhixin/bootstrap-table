@@ -4,7 +4,7 @@
  *          Claudi Martinez<claudix.kernel@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['ca-ES'] = {
+$.fn.bootstrapTable.locales['ca-ES'] = $.fn.bootstrapTable.locales['ca'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

@@ -3,7 +3,7 @@
  * Author: Nagy Gergely <info@nagygergely.eu>
  */
 
-$.fn.bootstrapTable.locales['hu-HU'] = {
+$.fn.bootstrapTable.locales['hu-HU'] = $.fn.bootstrapTable.locales['hu'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

@@ -4,7 +4,7 @@
  * Author: Petra Štrbenac (petra.strbenac@gmail.com)
  */
 
-$.fn.bootstrapTable.locales['hr-HR'] = {
+$.fn.bootstrapTable.locales['hr-HR'] = $.fn.bootstrapTable.locales['hr'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

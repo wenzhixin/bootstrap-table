@@ -3,7 +3,7 @@
  * Author: Iker Ibarguren Berasaluze<ikerib@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['eu-EU'] = {
+$.fn.bootstrapTable.locales['eu-EU'] = $.fn.bootstrapTable.locales['eu'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },
