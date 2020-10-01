@@ -6,8 +6,11 @@ group: api
 toc: true
 ---
 
-To use event syntax:
+Events can be binded in two ways:
+- via the option object
+- via jquery event handler
 
+Binding via the option object:
 {% highlight html %}
 // Here you can expect to have as last parameter the boostrap-table object
 
@@ -16,13 +19,18 @@ $('#table').bootstrapTable({
     // ...
   }
 })
+{% endhighlight %}
 
+Binding via the jquery event handler:   
+{% highlight html %}
 // Here you can expect to have in the 'e' variable the sender property which is the boostrap-table object
 
 $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   // ...
 })
 {% endhighlight %}
+
+*Hint: if you use the jquery event handler, make sure to bind the event listener before the event was executed!*
 
 ## onAll
 
