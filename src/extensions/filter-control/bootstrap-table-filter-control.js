@@ -56,7 +56,7 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined, // input, select, datepicker
   filterDataCollector: undefined,
   filterData: undefined,
-  filterDatepickerOptions: undefined,
+  filterDatepickerOptions: {},
   filterStrictSearch: false,
   filterStartsWithSearch: false,
   filterControlPlaceholder: '',
