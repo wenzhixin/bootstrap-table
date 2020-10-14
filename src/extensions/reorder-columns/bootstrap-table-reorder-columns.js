@@ -6,10 +6,11 @@
  */
 
 $.akottr.dragtable.prototype._restoreState = function (persistObj) {
-  let i = 0;
+  let i = 0
+
   for (const [field, value] of Object.entries(persistObj)) {
     const $th = this.originalTable.el.find(`th[data-field="${field}"]`)
-    
+
     if (!$th.length) {
       i++
       continue
