@@ -182,37 +182,44 @@ $.BootstrapTable = class extends $.BootstrapTable {
       for (let i = 0; i < data.length; i++) {
         html.push('<tr>')
 
-        for (const columns of columnsArray) {
-          for (let j = 0; j < columns.length; j++) {
-            let rowspan = 0
-            let colspan = 0
+        const columns = columnsArray.flat(1)
 
-            if (this.mergedCells) {
-              for (let mc = 0; mc < this.mergedCells.length; mc++) {
-                const currentMergedCell = this.mergedCells[mc]
+        columns.sort((c1, c2) => {
+          return c1.colspanIndex - c2.colspanIndex
+        })
 
-                if (currentMergedCell.col === j && currentMergedCell.row === i) {
-                  rowspan = currentMergedCell.rowspan
-                  colspan = currentMergedCell.colspan
-                }
+        for (let j = 0; j < columns.length; j++) {
+          if (columns[j].colspanGroup > 0) continue
+
+          let rowspan = 0
+          let colspan = 0
+
+          if (this.mergedCells) {
+            for (let mc = 0; mc < this.mergedCells.length; mc++) {
+              const currentMergedCell = this.mergedCells[mc]
+
+              if (currentMergedCell.col === j && currentMergedCell.row === i) {
+                rowspan = currentMergedCell.rowspan
+                colspan = currentMergedCell.colspan
               }
             }
+          }
 
-            if (
-              !columns[j].printIgnore && columns[j].field &&
+          if (
+            !columns[j].printIgnore && columns[j].field &&
               (
                 !dontRender.includes(`${i },${ j}`) ||
                 (rowspan > 0 && colspan > 0)
               )
-            ) {
-              if (rowspan > 0 && colspan > 0) {
-                html.push(`<td ${Utils.sprintf(' rowspan="%s"', rowspan)} ${Utils.sprintf(' colspan="%s"', colspan)}>`, formatValue(data[i], i, columns[j]), '</td>')
-              } else {
-                html.push('<td>', formatValue(data[i], i, columns[j]), '</td>')
-              }
+          ) {
+            if (rowspan > 0 && colspan > 0) {
+              html.push(`<td ${Utils.sprintf(' rowspan="%s"', rowspan)} ${Utils.sprintf(' colspan="%s"', colspan)}>`, formatValue(data[i], i, columns[j]), '</td>')
+            } else {
+              html.push('<td>', formatValue(data[i], i, columns[j]), '</td>')
             }
           }
         }
+
 
         html.push('</tr>')
       }
@@ -269,9 +276,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const newWin = window.open('')
 
     newWin.document.write(this.options.printPageBuilder.call(this, table))
+    /*
     newWin.document.close()
     newWin.focus()
     newWin.print()
     newWin.close()
+
+     */
   }
 }
