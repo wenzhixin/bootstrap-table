@@ -56,7 +56,7 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined, // input, select, datepicker
   filterDataCollector: undefined,
   filterData: undefined,
-  filterDatepickerOptions: undefined,
+  filterDatepickerOptions: {},
   filterStrictSearch: false,
   filterStartsWithSearch: false,
   filterControlPlaceholder: '',
@@ -189,7 +189,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const fval = (fp[key] || '').toLowerCase()
-          let value = Utils.getItemField(item, key, false)
+          let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
 
           if (fval === '') {

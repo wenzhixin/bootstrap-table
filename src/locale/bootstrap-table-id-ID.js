@@ -3,7 +3,7 @@
  * Author: Andre Gardiner<andre@sirdre.com>
  */
 
-$.fn.bootstrapTable.locales['id-ID'] = {
+$.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

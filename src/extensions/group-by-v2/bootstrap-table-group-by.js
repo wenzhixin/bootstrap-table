@@ -60,7 +60,7 @@ BootstrapTable.prototype.initSort = function (...args) {
           this.data
         ])
       } else {
-        this.data.sort((a, b) => {
+        this.options.data.sort((a, b) => {
           const groupByFields = this.getGroupByFields()
           const fieldValuesA = []
           const fieldValuesB = []
@@ -190,9 +190,14 @@ BootstrapTable.prototype.initBody = function (...args) {
     if (this.options.groupByToggle) {
       this.$container.off('click', '.groupBy')
         .on('click', '.groupBy', function () {
-          $(this).toggleClass('expanded collapsed')
-          $(this).find('span').toggleClass(`${that.options.icons.collapseGroup} ${that.options.icons.expandGroup}`)
-          that.$body.find(`tr[data-parent-index=${$(this).closest('tr').data('group-index')}]`).toggleClass('hidden')
+          const $this = $(this)
+          const groupIndex = $this.closest('tr').data('group-index')
+          const $groupRows = that.$body.find(`tr[data-parent-index=${groupIndex}]`)
+
+          $this.toggleClass('expanded collapsed')
+          $this.find('span').toggleClass(`${that.options.icons.collapseGroup} ${that.options.icons.expandGroup}`)
+          $groupRows.toggleClass('hidden')
+          $groupRows.each((i, element) => that.collapseRow($(element).data('index')))
         })
     }
 

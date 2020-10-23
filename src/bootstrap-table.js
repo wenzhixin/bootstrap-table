@@ -1181,7 +1181,7 @@ class BootstrapTable {
       ]
 
       pageList.forEach((page, i) => {
-        if (!opts.smartDisplay || i === 0 || pageList[i - 1] < opts.totalRows) {
+        if (!opts.smartDisplay || i === 0 || pageList[i - 1] < opts.totalRows || page === opts.formatAllRows()) {
           let active
 
           if (allSelected) {
@@ -2352,7 +2352,8 @@ class BootstrapTable {
   }
 
   getSelections () {
-    return this.options.data.filter(row => row[this.header.stateField] === true)
+    return (this.options.maintainMetaData ? this.options.data : this.data)
+      .filter(row => row[this.header.stateField] === true)
   }
 
   load (_data) {
