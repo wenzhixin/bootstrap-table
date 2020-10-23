@@ -1559,8 +1559,11 @@ class BootstrapTable {
       value = Utils.calculateObjectValue(column,
         this.header.formatters[j], [value_, item, i, field], value_)
 
+      value = typeof value === 'undefined' || value === null ?
+        this.options.undefinedText : value
+
       if (this.searchText !== '' && this.options.searchHighlight) {
-        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.replace(new RegExp(`(${ this.searchText })`, 'gim'), '<mark>$1</mark>'))
+        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
       }
 
       if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
@@ -1602,9 +1605,6 @@ class BootstrapTable {
 
         item[this.header.stateField] = value === true || (!!value_ || (value && value.checked))
       } else {
-        value = typeof value === 'undefined' || value === null ?
-          this.options.undefinedText : value
-
         if (this.options.cardView) {
           const cardTitle = this.options.showHeader ?
             `<span class="card-view-title ${cellStyle.classes}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
