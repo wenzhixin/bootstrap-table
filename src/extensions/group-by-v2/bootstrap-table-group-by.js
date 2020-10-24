@@ -152,8 +152,8 @@ BootstrapTable.prototype.initBody = function (...args) {
 
       let formattedValue = item.name
 
-      if (typeof (that.options.groupByFormatter) === 'function') {
-        formattedValue = that.options.groupByFormatter(item.name, item.id, item.data)
+      if (!(that.options.groupByFormatter) === undefined) {
+        formattedValue = Utils.calculateObjectValue(item, that.options.groupByFormatter, [item.name, item.id, item.data])
       }
       html.push('<td',
         Utils.sprintf(' colspan="%s"', visibleColumns),
