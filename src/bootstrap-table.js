@@ -1604,19 +1604,17 @@ class BootstrapTable {
         ].join('')
 
         item[this.header.stateField] = value === true || (!!value_ || (value && value.checked))
-      } else {
-        if (this.options.cardView) {
-          const cardTitle = this.options.showHeader ?
-            `<span class="card-view-title ${cellStyle.classes}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
+      } else if (this.options.cardView) {
+        const cardTitle = this.options.showHeader ?
+          `<span class="card-view-title ${cellStyle.classes}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
 
-          text = `<div class="card-view">${cardTitle}<span class="card-view-value ${cellStyle.classes}"${style_}>${value}</span></div>`
+        text = `<div class="card-view">${cardTitle}<span class="card-view-value ${cellStyle.classes}"${style_}>${value}</span></div>`
 
-          if (this.options.smartDisplay && value === '') {
-            text = '<div class="card-view"></div>'
-          }
-        } else {
-          text = `<td${id_}${class_}${style_}${data_}${rowspan_}${colspan_}${title_}>${value}</td>`
+        if (this.options.smartDisplay && value === '') {
+          text = '<div class="card-view"></div>'
         }
+      } else {
+        text = `<td${id_}${class_}${style_}${data_}${rowspan_}${colspan_}${title_}>${value}</td>`
       }
 
       html.push(text)
