@@ -276,12 +276,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const newWin = window.open('')
 
     newWin.document.write(this.options.printPageBuilder.call(this, table))
-    /*
     newWin.document.close()
     newWin.focus()
     newWin.print()
     newWin.close()
-
-     */
   }
 }
