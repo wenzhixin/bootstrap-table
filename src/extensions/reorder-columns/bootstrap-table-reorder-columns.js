@@ -6,11 +6,18 @@
  */
 
 $.akottr.dragtable.prototype._restoreState = function (persistObj) {
+  let i = 0
+
   for (const [field, value] of Object.entries(persistObj)) {
     const $th = this.originalTable.el.find(`th[data-field="${field}"]`)
 
+    if (!$th.length) {
+      i++
+      continue
+    }
+
     this.originalTable.startIndex = $th.prevAll().length + 1
-    this.originalTable.endIndex = parseInt(value, 10) + 1
+    this.originalTable.endIndex = parseInt(value, 10) + 1 - i
     this._bubbleCols()
   }
 }
