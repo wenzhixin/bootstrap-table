@@ -3190,15 +3190,15 @@ class BootstrapTable {
       this.options.escape ? Utils.escapeHTML(params.title) : params.title
 
     if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
-      const header = this.options.height !== undefined ? this.$tableHeader : this.$header
-
-      header.find('th[data-field]').each((i, el) => {
+      this.$header.find('th[data-field]').each((i, el) => {
         if ($(el).data('field') === params.field) {
           $($(el).find('.th-inner')[0]).text(params.title)
           return false
         }
       })
     }
+
+    this.resetHeader()
   }
 
   updateFormatText (formatName, text) {
