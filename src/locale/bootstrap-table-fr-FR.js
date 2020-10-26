@@ -7,10 +7,10 @@
 
 $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Copier les lignes'
   },
   formatPrint () {
-    return 'Print'
+    return 'Imprimer'
   },
   formatLoadingMessage () {
     return 'Chargement en cours'
@@ -47,25 +47,25 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
     return 'Aucun résultat'
   },
   formatPaginationSwitch () {
-    return 'Cacher/Afficher pagination'
+    return 'Masquer/Afficher la pagination'
   },
   formatPaginationSwitchDown () {
-    return 'Afficher pagination'
+    return 'Afficher la pagination'
   },
   formatPaginationSwitchUp () {
-    return 'Cacher pagination'
+    return 'Masquer la pagination'
   },
   formatRefresh () {
-    return 'Rafraichir'
+    return 'Actualiser'
   },
   formatToggle () {
     return 'Basculer'
   },
   formatToggleOn () {
-    return 'Afficher vue carte'
+    return 'Afficher la vue carte'
   },
   formatToggleOff () {
-    return 'Cacher vue carte'
+    return 'Masquer la vue carte'
   },
   formatColumns () {
     return 'Colonnes'
@@ -80,13 +80,13 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
     return 'Tout'
   },
   formatAutoRefresh () {
-    return 'Rafraîchissement automatique'
+    return 'Actualisation automatique'
   },
   formatExport () {
     return 'Exporter les données'
   },
   formatJumpTo () {
-    return 'Aller à'
+    return 'ALLER'
   },
   formatAdvancedSearch () {
     return 'Recherche avancée'
@@ -95,13 +95,13 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
     return 'Fermer'
   },
   formatFilterControlSwitch () {
-    return 'Cacher/Afficher controls'
+    return 'Masquer/Afficher les contrôles'
   },
   formatFilterControlSwitchHide () {
-    return 'Cacher controls'
+    return 'Masquer les contrôles'
   },
   formatFilterControlSwitchShow () {
-    return 'Afficher controls'
+    return 'Afficher les contrôles'
   }
 }
 
