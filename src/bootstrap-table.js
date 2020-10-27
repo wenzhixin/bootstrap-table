@@ -568,7 +568,7 @@ class BootstrapTable {
     ].join(' ')}">`]
 
     if (typeof opts.buttonsOrder === 'string') {
-      opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').toLowerCase().split(',')
+      opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').split(',')
     }
 
     this.buttons = Object.assign(this.buttons, {
