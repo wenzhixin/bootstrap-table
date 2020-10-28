@@ -3196,9 +3196,9 @@ class BootstrapTable {
           return false
         }
       })
-    }
 
-    this.resetHeader()
+      this.resetView()
+    }
   }
 
   updateFormatText (formatName, text) {
