@@ -90,6 +90,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initBody (...args) {
     super.initBody(...args)
 
+    if (this.$fixedColumns && this.$fixedColumns.length) {
+      this.$fixedColumns.toggle(this.fixedColumnsSupported())
+    }
+    if (this.$fixedColumnsRight && this.$fixedColumnsRight.length) {
+      this.$fixedColumnsRight.toggle(this.fixedColumnsSupported())
+    }
+
     if (!this.fixedColumnsSupported()) {
       return
     }
