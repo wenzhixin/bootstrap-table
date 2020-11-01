@@ -1559,8 +1559,11 @@ class BootstrapTable {
       value = Utils.calculateObjectValue(column,
         this.header.formatters[j], [value_, item, i, field], value_)
 
+      value = typeof value === 'undefined' || value === null ?
+        this.options.undefinedText : value
+
       if (this.searchText !== '' && this.options.searchHighlight) {
-        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.replace(new RegExp(`(${ this.searchText })`, 'gim'), '<mark>$1</mark>'))
+        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
       }
 
       if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
@@ -1601,22 +1604,17 @@ class BootstrapTable {
         ].join('')
 
         item[this.header.stateField] = value === true || (!!value_ || (value && value.checked))
-      } else {
-        value = typeof value === 'undefined' || value === null ?
-          this.options.undefinedText : value
+      } else if (this.options.cardView) {
+        const cardTitle = this.options.showHeader ?
+          `<span class="card-view-title ${cellStyle.classes}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
 
-        if (this.options.cardView) {
-          const cardTitle = this.options.showHeader ?
-            `<span class="card-view-title ${cellStyle.classes}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
+        text = `<div class="card-view">${cardTitle}<span class="card-view-value ${cellStyle.classes}"${style_}>${value}</span></div>`
 
-          text = `<div class="card-view">${cardTitle}<span class="card-view-value ${cellStyle.classes}"${style_}>${value}</span></div>`
-
-          if (this.options.smartDisplay && value === '') {
-            text = '<div class="card-view"></div>'
-          }
-        } else {
-          text = `<td${id_}${class_}${style_}${data_}${rowspan_}${colspan_}${title_}>${value}</td>`
+        if (this.options.smartDisplay && value === '') {
+          text = '<div class="card-view"></div>'
         }
+      } else {
+        text = `<td${id_}${class_}${style_}${data_}${rowspan_}${colspan_}${title_}>${value}</td>`
       }
 
       html.push(text)
