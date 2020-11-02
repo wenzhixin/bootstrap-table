@@ -429,6 +429,8 @@ class BootstrapTable {
 
     this.data = [...this.options.data]
 
+    this.initDataUID()
+
     if (this.options.sortReset) {
       this.unsortedData = [...this.data]
     }
@@ -437,6 +439,15 @@ class BootstrapTable {
       return
     }
     this.initSort()
+  }
+
+  initDataUID () {
+    for (let i = 0; i < this.options.data.length; i++) {
+      const uid = Utils.getRowGUID()
+
+      this.options.data[i]._uid = uid
+      this.data[i]._uid = uid
+    }
   }
 
   initSort () {
@@ -1450,6 +1461,7 @@ class BootstrapTable {
       Utils.sprintf(' style="%s"', Array.isArray(item) ? undefined : item._style),
       ` data-index="${i}"`,
       Utils.sprintf(' data-uniqueid="%s"', Utils.getItemField(item, this.options.uniqueId, false)),
+      Utils.sprintf(' data-bs-row-id="%s"', item._uid),
       Utils.sprintf(' data-has-detail-view="%s"', (this.options.detailView && Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) ? 'true' : undefined),
       Utils.sprintf('%s', data_),
       '>'
@@ -2807,7 +2819,7 @@ class BootstrapTable {
 
   _toggleCheck (checked, index) {
     const $el = this.$selectItem.filter(`[data-index="${index}"]`)
-    const row = this.options.data[index]
+    const row = this.dataItem($el.parents('tr'))
 
     if (
       $el.is(':radio') ||
@@ -3211,6 +3223,12 @@ class BootstrapTable {
     this.initToolbar()
     this.initPagination()
     this.initBody()
+  }
+
+  dataItem ($tr) {
+    const uid = $tr.data('bsRowId')
+
+    return this.options.data.find(item => item._uid === uid)
   }
 }
 

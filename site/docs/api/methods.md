@@ -647,6 +647,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   Update the localizations format text.
 
 - **Example:** [Update Format Text](https://examples.bootstrap-table.com/#methods/update-format-text.html)
+
 ## updateRow
 
 - **Parameter:** `params`
@@ -660,3 +661,13 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `replace` (optional): set to `true` to replace the row instead of extending.
 
 - **Example:** [Update Row](https://examples.bootstrap-table.com/#methods/update-row.html)
+
+## dataItem
+
+- **Parameter:** `jQuery row element`
+
+- **Detail:**
+
+  Returns the data item to which the specified table row is bound.
+
+- **Example:** [Data Item](https://examples.bootstrap-table.com/#methods/data-item.html)
