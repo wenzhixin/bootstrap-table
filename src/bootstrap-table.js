@@ -443,7 +443,7 @@ class BootstrapTable {
 
   initDataUID () {
     for (let i = 0; i < this.options.data.length; i++) {
-      const uid = Utils.getRowGUID()
+      const uid = Utils.getRowUID()
 
       this.options.data[i]._uid = uid
       this.data[i]._uid = uid
