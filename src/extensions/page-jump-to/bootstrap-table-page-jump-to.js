@@ -27,10 +27,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if (!$jumpTo.length) {
         $jumpTo = $(`
           <div class="page-jump-to ${this.constants.classes.inputGroup}">
+          <div class="input-group">
           <input type="number" class="${this.constants.classes.input}${Utils.sprintf(' input-%s', this.options.iconSize)}" value="${this.options.pageNumber}">
+          <div class="input-group-append">
           <button class="${this.constants.buttonsClass}"  type="button">
           ${this.options.formatJumpTo()}
           </button>
+          </div>
+          </div>
           </div>
         `).appendTo($pageGroup)
 
