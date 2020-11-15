@@ -84,7 +84,7 @@ $.fn.bootstrapTable.locales['de-DE'] = $.fn.bootstrapTable.locales['de'] = {
     return 'Datenexport'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Springen'
   },
   formatAdvancedSearch () {
     return 'Erweiterte Suche'
