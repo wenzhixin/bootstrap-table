@@ -28,7 +28,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $jumpTo = $(`
           <div class="page-jump-to ${this.constants.classes.inputGroup}">
           <div class="input-group">
-          <input type="number" class="${this.constants.classes.input}${Utils.sprintf(' input-%s', this.options.iconSize)}" value="${this.options.pageNumber}">
+          <input type="number"
+            class="${this.constants.classes.input}${Utils.sprintf(' input-%s', this.options.iconSize)}"
+            value="${this.options.pageNumber}"
+            min="1"
+            max="${this.totalPages}">
           <div class="input-group-append">
           <button class="${this.constants.buttonsClass}"  type="button">
           ${this.options.formatJumpTo()}
@@ -38,8 +42,31 @@ $.BootstrapTable = class extends $.BootstrapTable {
           </div>
         `).appendTo($pageGroup)
 
-        $jumpTo.on('click', 'button', e => {
-          this.selectPage(+$(e.target).parent('.page-jump-to').find('input').val())
+        const $input = $jumpTo.find('input')
+
+        $jumpTo.find('button').click(() => {
+          this.selectPage(+$input.val())
+        })
+
+        $input.keyup(e => {
+          if ($input.val() === '') {
+            return
+          }
+          if (e.keyCode === 13) {
+            this.selectPage(+$input.val())
+            return
+          }
+          if (+$input.val() < +$input.attr('min')) {
+            $input.val($input.attr('min'))
+          } else if (+$input.val() > +$input.attr('max')) {
+            $input.val($input.attr('max'))
+          }
+        })
+
+        $input.blur(() => {
+          if ($input.val() === '') {
+            $input.val(this.options.pageNumber)
+          }
         })
       }
     }
