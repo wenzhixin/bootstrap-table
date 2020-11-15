@@ -2391,36 +2391,35 @@ class BootstrapTable {
   }
 
   remove (params) {
-    const len = this.options.data.length
-    let i
-    let row
+    let removed = 0
 
-    if (!params.hasOwnProperty('field') || !params.hasOwnProperty('values')) {
-      return
-    }
+    for (let i = this.options.data.length - 1; i >= 0; i--) {
 
-    for (i = len - 1; i >= 0; i--) {
-      let exists = false
-
-      row = this.options.data[i]
+      const row = this.options.data[i]
 
       if (!row.hasOwnProperty(params.field) && params.field !== '$index') {
         continue
-      } else if (!row.hasOwnProperty(params.field) && params.field === '$index') {
-        exists = params.values.includes(i)
-      } else {
-        exists = params.values.includes(row[params.field])
       }
-      if (exists) {
+
+      if (
+        !row.hasOwnProperty(params.field) &&
+        params.field === '$index' &&
+        params.values.includes(i) ||
+        params.values.includes(row[params.field])
+      ) {
+        removed++
+
         this.options.data.splice(i, 1)
-        if (this.options.sidePagination === 'server') {
-          this.options.totalRows -= 1
-        }
       }
     }
 
-    if (len === this.options.data.length) {
+    if (!removed) {
       return
+    }
+
+    if (this.options.sidePagination === 'server') {
+      this.options.totalRows -= removed
+      this.data = [...this.options.data]
     }
 
     this.initSearch()
@@ -2546,6 +2545,11 @@ class BootstrapTable {
 
     if (len === this.options.data.length) {
       return
+    }
+
+    if (this.options.sidePagination === 'server') {
+      this.options.totalRows -= 1
+      this.data = [...this.options.data]
     }
 
     this.initSearch()
@@ -2807,7 +2811,7 @@ class BootstrapTable {
 
   _toggleCheck (checked, index) {
     const $el = this.$selectItem.filter(`[data-index="${index}"]`)
-    const row = this.options.data[index]
+    const row = this.data[index]
 
     if (
       $el.is(':radio') ||
