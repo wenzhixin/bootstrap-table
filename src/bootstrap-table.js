@@ -2830,9 +2830,10 @@ class BootstrapTable {
 
     if (this.options.multipleSelectRow) {
       if (this.multipleSelectRowShiftKey && this.multipleSelectRowLastSelectedIndex >= 0) {
-        const indexes = [this.multipleSelectRowLastSelectedIndex, index].sort()
+        const [fromIndex, toIndex] = this.multipleSelectRowLastSelectedIndex < index ?
+          [this.multipleSelectRowLastSelectedIndex, index] : [index, this.multipleSelectRowLastSelectedIndex]
 
-        for (let i = indexes[0] + 1; i < indexes[1]; i++) {
+        for (let i = fromIndex + 1; i < toIndex; i++) {
           this.data[i][this.header.stateField] = true
           this.$selectItem.filter(`[data-index="${i}"]`).prop('checked', true)
         }
