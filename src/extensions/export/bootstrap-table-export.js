@@ -170,12 +170,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    if ($.fn.bootstrapTable.theme === 'foundation') {
-      this.$export.find('.dropdown-pane').attr('id', 'toolbar-export-id')
-    } else if ($.fn.bootstrapTable.theme === 'materialize') {
-      this.$export.find('.dropdown-content').attr('id', 'toolbar-export-id')
-    }
-
     if (super.handleToolbar) {
       super.handleToolbar()
     }
