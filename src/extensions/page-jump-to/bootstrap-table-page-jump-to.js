@@ -25,18 +25,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
       let $jumpTo = $pageGroup.find('.page-jump-to')
 
       if (!$jumpTo.length) {
-        $jumpTo = $(`
-          <div class="page-jump-to ${this.constants.classes.inputGroup}">
-          <input type="number"
-            class="${this.constants.classes.input}${Utils.sprintf(' input-%s', this.options.iconSize)}"
+        $jumpTo = $(Utils.sprintf(this.constants.html.inputGroup,
+          `<input type="number"
+            class="${this.constants.classes.input}${Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, this.options.iconSize)}"
             value="${this.options.pageNumber}"
             min="1"
-            max="${this.totalPages}">
-          <button class="${this.constants.buttonsClass}"  type="button">
+            max="${this.totalPages}">`,
+          `<button class="${this.constants.buttonsClass}"  type="button">
           ${this.options.formatJumpTo()}
-          </button>
-          </div>
-        `).appendTo($pageGroup)
+          </button>`)
+        ).addClass('page-jump-to').appendTo($pageGroup)
 
         const $input = $jumpTo.find('input')
 
