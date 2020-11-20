@@ -6,35 +6,35 @@
 
 $.fn.bootstrapTable.locales['es-CL'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Copiar Filas'
   },
   formatPrint () {
-    return 'Print'
+    return 'Imprimir'
   },
   formatLoadingMessage () {
     return 'Cargando, espere por favor'
   },
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} filas por p\u00E1gina`
+    return `${pageNumber} filas por página`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas (filtered from ${totalNotFiltered} total rows)`
+      return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas (filtrado de ${totalNotFiltered} filas totales)`
     }
 
     return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'página anterior'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `a la página ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'siguiente página'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Mostrando ${totalRows} filas`
   },
   formatClearSearch () {
     return 'Limpiar búsqueda'
@@ -46,13 +46,13 @@ $.fn.bootstrapTable.locales['es-CL'] = {
     return 'No se encontraron registros'
   },
   formatPaginationSwitch () {
-    return 'Ocultar/Mostrar paginaci\u00F3n'
+    return 'Ocultar/Mostrar paginación'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Mostrar paginación'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Ocultar paginación'
   },
   formatRefresh () {
     return 'Refrescar'
@@ -61,37 +61,37 @@ $.fn.bootstrapTable.locales['es-CL'] = {
     return 'Cambiar'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Mostrar vista de carta'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Ocultar vista de carta'
   },
   formatColumns () {
     return 'Columnas'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Cambiar todo'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Pantalla completa'
   },
   formatAllRows () {
     return 'Todo'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Auto Recargar'
   },
   formatExport () {
-    return 'Export data'
+    return 'Exportar datos'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'IR'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Búsqueda avanzada'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Cerrar'
   },
   formatFilterControlSwitch () {
     return 'Ocultar/Mostrar controles'
