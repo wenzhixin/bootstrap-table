@@ -38,7 +38,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.paginationDropdown = ''
     this.constants.classes.buttonActive = 'green'
 
-    this.constants.html.toolbarDropdown = ['<ul id="toolbar-columns-id" class="dropdown-content">', '</ul>']
+    this.constants.html.toolbarDropdown = ['<ul class="dropdown-content">', '</ul>']
     this.constants.html.toolbarDropdownItem = '<li class="dropdown-item-marker"><label>%s</label></li>'
     this.constants.html.toolbarDropdownSeparator = '<li class="divider" tabindex="-1"></li>'
     this.constants.html.pageDropdown = ['<ul id="pagination-list-id" class="dropdown-content">', '</ul>']
@@ -58,7 +58,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
   handleToolbar () {
     if (this.$toolbar.find('.dropdown-toggle').length) {
       this.$toolbar.find('.dropdown-toggle').each((i, el) => {
-        $(el).attr('data-target', $(el).next().attr('id'))
+        if (!$(el).next().length) {
+          return
+        }
+
+        const id = `toolbar-columns-id${i}`
+
+        $(el).next().attr('id', id)
+        $(el).attr('data-target', id)
           .dropdown({
             alignment: 'right',
             constrainWidth: false,

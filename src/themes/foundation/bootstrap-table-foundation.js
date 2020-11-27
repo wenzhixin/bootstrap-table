@@ -23,7 +23,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.constants.classes.paginationActive = 'current'
     this.constants.classes.buttonActive = 'success'
 
-    this.constants.html.toolbarDropdown = ['<div class="dropdown-pane" id="toolbar-columns-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
+    this.constants.html.toolbarDropdown = ['<div class="dropdown-pane" data-dropdown><ul class="vertical menu">', '</ul></div>']
     this.constants.html.toolbarDropdownItem = '<li class="dropdown-item-marker"><label class="dropdown-item">%s</label></li>'
     this.constants.html.toolbarDropdownSeparator = '<li><hr></li>'
     this.constants.html.pageDropdown = ['<div class="dropdown-pane" id="pagination-list-id" data-dropdown><ul class="vertical menu">', '</ul></div>']
@@ -43,7 +43,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
   handleToolbar () {
     if (this.$toolbar.find('.dropdown-toggle').length) {
       this.$toolbar.find('.dropdown-toggle').each((i, el) => {
-        $(el).attr('data-toggle', $(el).next().attr('id'))
+        if (!$(el).next().length) {
+          return
+        }
+
+        const id = `toolbar-columns-id${i}`
+
+        $(el).next().attr('id', id)
+        $(el).attr('data-toggle', id)
         const $pane = $(el).next()
           .attr('data-position', 'bottom')
           .attr('data-alignment', 'right')
