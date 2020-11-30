@@ -310,13 +310,9 @@
     }
 
     > .pagination {
+
       ul.pagination {
         margin: 0;
-
-        a {
-          padding: 6px 12px;
-          line-height: 1.428571429;
-        }
 
         li.page-intermediate {
           a {
@@ -349,6 +345,13 @@
     background: #fff;
     height: calc(100vh);
     overflow-y: scroll;
+  }
+
+  &.bootstrap4,
+  &.bootstrap5 {
+    .pagination-lg .page-link {
+      padding: .5rem 1rem;
+    }
   }
 }
 
