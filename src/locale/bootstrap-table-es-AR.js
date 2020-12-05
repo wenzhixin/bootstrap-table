@@ -6,10 +6,10 @@
 
 $.fn.bootstrapTable.locales['es-AR'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Copiar Filas'
   },
   formatPrint () {
-    return 'Print'
+    return 'Imprimir'
   },
   formatLoadingMessage () {
     return 'Cargando, espere por favor'
