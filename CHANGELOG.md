@@ -1,6 +1,38 @@
 ChangeLog
 ---------
 
+### 1.18.1
+
+#### Core
+
+- **New(locale):** Added short locales based on [ISO Language](http://www.lingoes.net/en/translator/langcode.htm).
+- **Update:** Updated `sk-SK`, `fr-FR`, `de-DE`, and `es-*` locales.
+- **Update:** Fixed `toggleCheck`, `getSelections` and `remove` bug.
+- **Update:** Fixed `buttons` option bug using in data attribute.
+- **Update:** Fixed custom `icons` option bug.
+- **Update:** Fixed `cellStyle` column option not work in card view.
+- **Update:** Fixed getSelection bug when using search.
+- **Update:** Fixed `pageList` option with `all` display bug using `smartDisplay`.
+- **Update:** Fixed search highlight cannot work bug when data field is number.
+- **Update:** Fixed `updateColumnTitle` is undo bug after pagination.
+- **Update:** Fixed `multipleSelectRow` option bug.
+- **Update:** Fixed `icon-size` option bug with pagination.
+
+#### Extensions
+
+- **New(page-jump-to):** Added `min`, `max` and enter support for jump input.
+- **Update(export):** Fixed export cannot work with `materialize` and `foundation` themes.
+- **Update(filter-control):** Updated `filterDatepickerOptions` to support datepicker option.
+- **Update(filter-control):** Fixed select bug when using `&` in the value.
+- **Update(fixed-columns):** Fixed `toggleView` display bug.
+- **Update(group-by):** Fixed not collapse detail view expanded row bug.
+- **Update(group-by):** Fixed display error using `formatter` column option.
+- **Update(group-by):** Fixed `groupByFormatter` option  bug using in data attribute.
+- **Update(multiple-sort):** Fixed cannot work bug using in server `sidePagination`.
+- **Update(page-jump-to):** Fixed page jump input and button bug with `icon-size` option.
+- **Update(print):** Fixed print with `rowspan` or `colspan`.
+- **Update(reorder-columns):** Fixed reorder column when a column is removed or added.
+
 ### 1.18.0
 
 #### Core
