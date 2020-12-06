@@ -673,7 +673,7 @@
 	 * Author: legshooter
 	 */
 
-	$.fn.bootstrapTable.locales['he-IL'] = {
+	$.fn.bootstrapTable.locales['he-IL'] = $.fn.bootstrapTable.locales['he'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

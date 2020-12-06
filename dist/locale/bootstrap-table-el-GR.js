@@ -673,7 +673,7 @@
 	 * Author: giannisdallas
 	 */
 
-	$.fn.bootstrapTable.locales['el-GR'] = {
+	$.fn.bootstrapTable.locales['el-GR'] = $.fn.bootstrapTable.locales['el'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

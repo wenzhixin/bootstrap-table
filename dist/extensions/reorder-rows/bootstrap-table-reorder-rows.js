@@ -870,12 +870,15 @@
 	  onDragClass: 'reorder_rows_onDragClass',
 	  dragHandle: '>tbody>tr>td',
 	  useRowAttrFunc: false,
+	  // eslint-disable-next-line no-unused-vars
 	  onReorderRowsDrag: function onReorderRowsDrag(row) {
 	    return false;
 	  },
+	  // eslint-disable-next-line no-unused-vars
 	  onReorderRowsDrop: function onReorderRowsDrop(row) {
 	    return false;
 	  },
+	  // eslint-disable-next-line no-unused-vars
 	  onReorderRow: function onReorderRow(newData) {
 	    return false;
 	  }

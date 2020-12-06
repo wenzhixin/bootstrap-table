@@ -2005,7 +2005,7 @@
 	  var options = getOptionsFromSelectControl(selectControl);
 
 	  for (var i = 0; i < options.length; i++) {
-	    if (options[i].value === value.toString()) {
+	    if (options[i].value === Utils.unescapeHTML(value.toString())) {
 	      // The value is not valid to add
 	      return true;
 	    }
@@ -2101,8 +2101,8 @@
 	  if (that.options.valuesFilterControl.length > 0) {
 	    //  Callback to apply after settings fields values
 	    var fieldToFocusCallback = null;
-	    searchControls.each(function (index, ele) {
-	      var $this = $(this);
+	    searchControls.each(function (i, el) {
+	      var $this = $(el);
 	      field = $this.closest('[data-field]').data('field');
 	      result = that.options.valuesFilterControl.filter(function (valueObj) {
 	        return valueObj.field === field;
@@ -2222,7 +2222,8 @@
 	            addOptionToSelectControl(selectControl, value, value, column.filterDefault);
 	          });
 	          continue;
-	        }
+	        } // eslint-disable-next-line guard-for-in
+
 
 	        for (var key in uniqueValues) {
 	          addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault);
@@ -2357,7 +2358,7 @@
 
 	      if (value && value.length > 0 && value.trim()) {
 	        $select.find('option[selected]').removeAttr('selected');
-	        $select.find('option[value="' + value + '"]').attr('selected', true);
+	        $select.find("option[value=\"".concat(value, "\"]")).attr('selected', true);
 	      } else {
 	        $select.find('option[selected]').removeAttr('selected');
 	      }
@@ -2410,12 +2411,20 @@
 
 	    if (header.find('.date-filter-control').length > 0) {
 	      $.each(that.columns, function (i, _ref8) {
-	        var filterControl = _ref8.filterControl,
+	        var filterDefault = _ref8.filterDefault,
+	            filterControl = _ref8.filterControl,
 	            field = _ref8.field,
 	            filterDatepickerOptions = _ref8.filterDatepickerOptions;
 
 	        if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
-	          header.find(".date-filter-control.bootstrap-table-filter-control-".concat(field)).datepicker(filterDatepickerOptions).on('changeDate', function (_ref9) {
+	          var $datepicker = header.find(".date-filter-control.bootstrap-table-filter-control-".concat(field));
+	          $datepicker.datepicker(filterDatepickerOptions);
+
+	          if (filterDefault) {
+	            $datepicker.datepicker('setDate', filterDefault);
+	          }
+
+	          $datepicker.on('changeDate', function (_ref9) {
 	            var currentTarget = _ref9.currentTarget,
 	                keyCode = _ref9.keyCode;
 	            clearTimeout(currentTarget.timeoutId || 0);
@@ -2487,7 +2496,7 @@
 	}
 	var filterDataMethods = {
 	  func: function func(filterDataSource, selectControl, filterOrderBy, selected) {
-	    var variableValues = window[filterDataSource].apply();
+	    var variableValues = window[filterDataSource].apply(); // eslint-disable-next-line guard-for-in
 
 	    for (var key in variableValues) {
 	      addOptionToSelectControl(selectControl, key, variableValues[key], selected);
@@ -2504,7 +2513,8 @@
 	      objectKeys.forEach(function (key) {
 	        variableValues = variableValues[key];
 	      });
-	    }
+	    } // eslint-disable-next-line guard-for-in
+
 
 	    for (var key in variableValues) {
 	      addOptionToSelectControl(selectControl, key, variableValues[key], selected);
@@ -2531,6 +2541,7 @@
 	      url: filterDataSource,
 	      dataType: 'json',
 	      success: function success(data) {
+	        // eslint-disable-next-line guard-for-in
 	        for (var key in data) {
 	          addOptionToSelectControl(selectControl, key, data[key], selected);
 	        }
@@ -2540,7 +2551,7 @@
 	    });
 	  },
 	  json: function json(filterDataSource, selectControl, filterOrderBy, selected) {
-	    var variableValues = JSON.parse(filterDataSource);
+	    var variableValues = JSON.parse(filterDataSource); // eslint-disable-next-line guard-for-in
 
 	    for (var key in variableValues) {
 	      addOptionToSelectControl(selectControl, key, variableValues[key], selected);
@@ -2554,6 +2565,7 @@
 	$.extend($.fn.bootstrapTable.defaults, {
 	  filterControl: false,
 	  filterControlVisible: true,
+	  // eslint-disable-next-line no-unused-vars
 	  onColumnSearch: function onColumnSearch(field, text) {
 	    return false;
 	  },
@@ -2584,7 +2596,7 @@
 	  // input, select, datepicker
 	  filterDataCollector: undefined,
 	  filterData: undefined,
-	  filterDatepickerOptions: undefined,
+	  filterDatepickerOptions: {},
 	  filterStrictSearch: false,
 	  filterStartsWithSearch: false,
 	  filterControlPlaceholder: '',
@@ -2727,7 +2739,7 @@
 	        keys.forEach(function (key) {
 	          var thisColumn = that.columns[that.fieldsColumnsIndex[key]];
 	          var fval = (fp[key] || '').toLowerCase();
-	          var value = Utils$1.getItemField(item, key, false);
+	          var value = Utils$1.unescapeHTML(Utils$1.getItemField(item, key, false));
 	          var tmpItemIsExpected;
 
 	          if (fval === '') {
@@ -2835,7 +2847,7 @@
 
 	      if (filterColumnsDefaults) {
 	        this.filterColumnsPartial = filterColumnsDefaults;
-	        this.updatePagination();
+	        this.updatePagination(); // eslint-disable-next-line guard-for-in
 
 	        for (var filter in filterColumnsDefaults) {
 	          this.trigger('column-search', filter, filterColumnsDefaults[filter]);
@@ -2882,12 +2894,12 @@
 	      if (this.options.showFilterControlSwitch) {
 	        this.buttons = Object.assign(this.buttons, {
 	          filterControlSwitch: {
-	            'text': this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow(),
-	            'icon': this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow,
-	            'event': this.toggleFilterControl,
-	            'attributes': {
+	            text: this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow(),
+	            icon: this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow,
+	            event: this.toggleFilterControl,
+	            attributes: {
 	              'aria-label': this.options.formatFilterControlSwitch(),
-	              'title': this.options.formatFilterControlSwitch()
+	              title: this.options.formatFilterControlSwitch()
 	            }
 	          }
 	        });
@@ -3011,7 +3023,7 @@
 
 	      var icon = this.options.showButtonIcons ? this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow : '';
 	      var text = this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : '';
-	      this.$toolbar.find('>.columns').find('.filter-control-switch').html(Utils$1.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) + ' ' + text);
+	      this.$toolbar.find('>.columns').find('.filter-control-switch').html("".concat(Utils$1.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon), " ").concat(text));
 	    }
 	  }]);
 
