@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.18.0
+        v1.18.1
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.18.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.18.1)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
@@ -1695,6 +1695,8 @@ Allows for fallback locales, if loaded, in the following order:</p>
     <p><strong>Detail:</strong></p>
 
     <p>When set pagination property, initialize the page size selecting list. If you include the <code class="highlighter-rouge">'all'</code> or <code class="highlighter-rouge">'unlimited'</code> option, all the records will be shown in your table.</p>
+
+    <p><em>Hint: If the table has lesser rows as the option(s), the options will be hidden automatically, to disable that feature you can set <a href="https://bootstrap-table.com/docs/api/table-options/#smartdisplay">smartDisplay</a> to <code class="highlighter-rouge">false</code></em></p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">[10, 25, 50, 100]</code></p>

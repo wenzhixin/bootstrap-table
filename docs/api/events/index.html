@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.18.0
+        v1.18.1
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.18.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.18.1)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
@@ -379,7 +379,13 @@
           <p class="bd-lead">The Events API of Bootstrap Table.</p>
           <div id="gg"></div>
 
-          <p>To use event syntax:</p>
+          <p>Events can be binded in two ways:</p>
+<ul>
+  <li>via the option object</li>
+  <li>via jquery event handler</li>
+</ul>
+
+<p>Binding via the option object:</p>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html">// Here you can expect to have as last parameter the boostrap-table object
 
@@ -387,13 +393,17 @@ $('#table').bootstrapTable({
   onEventName: function (arg1, arg2, ...) {
     // ...
   }
-})
+})</code></pre></figure>
 
-// Here you can expect to have in the 'e' variable the sender property which is the boostrap-table object
+<p>Binding via the jquery event handler:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">// Here you can expect to have in the 'e' variable the sender property which is the boostrap-table object
 
 $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   // ...
 })</code></pre></figure>
+
+<p><em>Hint: if you use the jquery event handler, make sure to bind the event listener before the event was executed!</em></p>
 
 <h2 id="onall">onAll</h2>
 

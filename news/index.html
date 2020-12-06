@@ -87,10 +87,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.18.0
+        v1.18.1
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.18.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.18.1)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
@@ -124,11 +124,49 @@
 </header>
 
 <main class="bd-content p-5" id="content" role="main">
-  <h2 id="bootstrap-table-1180">Bootstrap Table 1.18.0</h2>
+  <h2 id="bootstrap-table-1181">Bootstrap Table 1.18.1</h2>
+
+<p><span class="post-date">6 Dec 2020</span></p>
+
+<h4 id="core">Core</h4>
+
+<ul>
+  <li><strong>New(locale):</strong> Added short locales based on <a href="http://www.lingoes.net/en/translator/langcode.htm">ISO Language</a>.</li>
+  <li><strong>Update:</strong> Updated <code class="highlighter-rouge">sk-SK</code>, <code class="highlighter-rouge">fr-FR</code>, <code class="highlighter-rouge">de-DE</code>, and <code class="highlighter-rouge">es-*</code> locales.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">toggleCheck</code>, <code class="highlighter-rouge">getSelections</code> and <code class="highlighter-rouge">remove</code> bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">buttons</code> option bug using in data attribute.</li>
+  <li><strong>Update:</strong> Fixed custom <code class="highlighter-rouge">icons</code> option bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">cellStyle</code> column option not work in card view.</li>
+  <li><strong>Update:</strong> Fixed getSelection bug when using search.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">pageList</code> option with <code class="highlighter-rouge">all</code> display bug using <code class="highlighter-rouge">smartDisplay</code>.</li>
+  <li><strong>Update:</strong> Fixed search highlight cannot work bug when data field is number.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">updateColumnTitle</code> is undo bug after pagination.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">multipleSelectRow</code> option bug.</li>
+  <li><strong>Update:</strong> Fixed <code class="highlighter-rouge">icon-size</code> option bug with pagination.</li>
+</ul>
+
+<h4 id="extensions">Extensions</h4>
+
+<ul>
+  <li><strong>New(page-jump-to):</strong> Added <code class="highlighter-rouge">min</code>, <code class="highlighter-rouge">max</code> and enter support for jump input.</li>
+  <li><strong>Update(export):</strong> Fixed export cannot work with <code class="highlighter-rouge">materialize</code> and <code class="highlighter-rouge">foundation</code> themes.</li>
+  <li><strong>Update(filter-control):</strong> Updated <code class="highlighter-rouge">filterDatepickerOptions</code> to support datepicker option.</li>
+  <li><strong>Update(filter-control):</strong> Fixed select bug when using <code class="highlighter-rouge">&amp;</code> in the value.</li>
+  <li><strong>Update(fixed-columns):</strong> Fixed <code class="highlighter-rouge">toggleView</code> display bug.</li>
+  <li><strong>Update(group-by):</strong> Fixed not collapse detail view expanded row bug.</li>
+  <li><strong>Update(group-by):</strong> Fixed display error using <code class="highlighter-rouge">formatter</code> column option.</li>
+  <li><strong>Update(group-by):</strong> Fixed <code class="highlighter-rouge">groupByFormatter</code> option  bug using in data attribute.</li>
+  <li><strong>Update(multiple-sort):</strong> Fixed cannot work bug using in server <code class="highlighter-rouge">sidePagination</code>.</li>
+  <li><strong>Update(page-jump-to):</strong> Fixed page jump input and button bug with <code class="highlighter-rouge">icon-size</code> option.</li>
+  <li><strong>Update(print):</strong> Fixed print with <code class="highlighter-rouge">rowspan</code> or <code class="highlighter-rouge">colspan</code>.</li>
+  <li><strong>Update(reorder-columns):</strong> Fixed reorder column when a column is removed or added.</li>
+</ul>
+
+<h2 id="bootstrap-table-1180">Bootstrap Table 1.18.0</h2>
 
 <p><span class="post-date">20 Sep 2020</span></p>
 
-<h4 id="core">Core</h4>
+<h4 id="core-1">Core</h4>
 
 <ul>
   <li><strong>New(option):</strong> Added <code class="highlighter-rouge">buttons</code> to add custom buttons to the button bar.</li>
@@ -156,7 +194,7 @@
   <li><strong>Remove(method):</strong> Removed <code class="highlighter-rouge">getAllSelections</code> method.</li>
 </ul>
 
-<h4 id="extensions">Extensions</h4>
+<h4 id="extensions-1">Extensions</h4>
 
 <ul>
   <li><strong>New(addrbar):</strong> Added support for <code class="highlighter-rouge">client</code> side pagination.</li>
@@ -175,7 +213,7 @@
 
 <p><span class="post-date">11 Jul 2020</span></p>
 
-<h4 id="core-1">Core</h4>
+<h4 id="core-2">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">bootstrap-table</code> theme without any framework.</li>
@@ -209,7 +247,7 @@
   <li><strong>Remove:</strong> Removed accent neutralise extension and moved it to core.</li>
 </ul>
 
-<h4 id="extensions-1">Extensions</h4>
+<h4 id="extensions-2">Extensions</h4>
 
 <ul>
   <li><strong>New(cookie)</strong>: Added support for toggle all columns options.</li>
@@ -250,7 +288,7 @@
 
 <p><span class="post-date">11 Feb 2020</span></p>
 
-<h4 id="core-2">Core</h4>
+<h4 id="core-3">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">buttonsOrder</code> option.</li>
@@ -284,7 +322,7 @@
   <li><strong>Remove:</strong> Removed <code class="highlighter-rouge">resetWidth</code> method and use <code class="highlighter-rouge">resetView</code> instead.</li>
 </ul>
 
-<h4 id="extensions-2">Extensions</h4>
+<h4 id="extensions-3">Extensions</h4>
 
 <ul>
   <li><strong>New(cookie):</strong> Added new options to get/set/delete the values by a custom function.</li>
@@ -394,7 +432,7 @@
 
 <p><span class="post-date">24 Jun 2019</span></p>
 
-<h4 id="core-3">Core</h4>
+<h4 id="core-4">Core</h4>
 
 <ul>
   <li><strong>New:</strong> Added <code class="highlighter-rouge">virtualScroll</code> and <code class="highlighter-rouge">virtualScrollItemHeight</code> options to support large data.</li>
@@ -442,7 +480,7 @@
   <li><strong>Update:</strong> Fixed columns title error.</li>
 </ul>
 
-<h4 id="extensions-3">Extensions</h4>
+<h4 id="extensions-4">Extensions</h4>
 
 <ul>
   <li><strong>New(editable):</strong> Added <code class="highlighter-rouge">onExportSaved</code> event.</li>
@@ -666,7 +704,7 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.18.0, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.18.1, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>
