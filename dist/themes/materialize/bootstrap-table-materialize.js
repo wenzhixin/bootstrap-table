@@ -996,7 +996,7 @@
 	      this.constants.classes.input = '';
 	      this.constants.classes.paginationDropdown = '';
 	      this.constants.classes.buttonActive = 'green';
-	      this.constants.html.toolbarDropdown = ['<ul id="toolbar-columns-id" class="dropdown-content">', '</ul>'];
+	      this.constants.html.toolbarDropdown = ['<ul class="dropdown-content">', '</ul>'];
 	      this.constants.html.toolbarDropdownItem = '<li class="dropdown-item-marker"><label>%s</label></li>';
 	      this.constants.html.toolbarDropdownSeparator = '<li class="divider" tabindex="-1"></li>';
 	      this.constants.html.pageDropdown = ['<ul id="pagination-list-id" class="dropdown-content">', '</ul>'];
@@ -1019,7 +1019,13 @@
 	    value: function handleToolbar() {
 	      if (this.$toolbar.find('.dropdown-toggle').length) {
 	        this.$toolbar.find('.dropdown-toggle').each(function (i, el) {
-	          $(el).attr('data-target', $(el).next().attr('id')).dropdown({
+	          if (!$(el).next().length) {
+	            return;
+	          }
+
+	          var id = "toolbar-columns-id".concat(i);
+	          $(el).next().attr('id', id);
+	          $(el).attr('data-target', id).dropdown({
 	            alignment: 'right',
 	            constrainWidth: false,
 	            closeOnClick: false

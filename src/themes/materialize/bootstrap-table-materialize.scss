@@ -52,5 +52,10 @@
     .pagination li {
       height: 36px;
     }
+
+    .page-item a {
+      padding: 6px 12px;
+      line-height: 1.428571429;
+    }
   }
 }

@@ -1,11 +1,12 @@
 /**
  * Bootstrap Table Polish translation
  * Author: zergu <michal.zagdan @ gmail com>
+ * Update: kerogos <kerog @ wp pl>
  */
 
-$.fn.bootstrapTable.locales['pl-PL'] = {
+$.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Kopiuj wiersze'
   },
   formatPrint () {
     return 'Print'
@@ -24,19 +25,19 @@ $.fn.bootstrapTable.locales['pl-PL'] = {
     return `Wyświetlanie rekordów od ${pageFrom} do ${pageTo} z ${totalRows}`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'poprzednia strona'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `z ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'następna strona'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Wyświetla ${totalRows} wierszy`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'Wyczyść wyszukiwanie'
   },
   formatSearch () {
     return 'Szukaj'
@@ -45,13 +46,13 @@ $.fn.bootstrapTable.locales['pl-PL'] = {
     return 'Niestety, nic nie znaleziono'
   },
   formatPaginationSwitch () {
-    return 'Hide/Show pagination'
+    return 'Pokaż/ukryj stronicowanie'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Pokaż stronicowanie'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Ukryj stronicowanie'
   },
   formatRefresh () {
     return 'Odśwież'
@@ -60,46 +61,46 @@ $.fn.bootstrapTable.locales['pl-PL'] = {
     return 'Przełącz'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Pokaż układ karty'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Ukryj układ karty'
   },
   formatColumns () {
     return 'Kolumny'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Zaznacz wszystko'
   },
   formatFullscreen () {
     return 'Fullscreen'
   },
   formatAllRows () {
-    return 'All'
+    return 'Wszystkie'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Auto odświeżanie'
   },
   formatExport () {
-    return 'Export data'
+    return 'Eksport danych'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Przejdź'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Wyszukiwanie zaawansowane'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Zamknij'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Pokaż/Ukryj'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Pokaż'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Ukryj'
   }
 }
 

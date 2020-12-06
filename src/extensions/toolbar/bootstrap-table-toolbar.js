@@ -184,6 +184,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   idForm: 'advancedSearch',
   actionForm: '',
   idTable: undefined,
+  // eslint-disable-next-line no-unused-vars
   onColumnAdvancedSearch (field, text) {
     return false
   }
@@ -220,12 +221,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (o.search && o.advancedSearch && o.idTable) {
       this.buttons = Object.assign(this.buttons, {
         advancedSearch: {
-          'text': this.options.formatAdvancedSearch(),
-          'icon': this.options.icons.advancedSearchIcon,
-          'event': this.showAvdSearch,
-          'attributes': {
+          text: this.options.formatAdvancedSearch(),
+          icon: this.options.icons.advancedSearchIcon,
+          event: this.showAvdSearch,
+          attributes: {
             'aria-label': this.options.formatAdvancedSearch(),
-            'title': this.options.formatAdvancedSearch()
+            title: this.options.formatAdvancedSearch()
           }
         }
       })
@@ -236,7 +237,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   showAvdSearch () {
     const o = this.options
-    const modalSelector = '#avdSearchModal_' + o.idTable
+    const modalSelector = `#avdSearchModal_${ o.idTable}`
+
     if ($(modalSelector).length <= 0) {
       $('body').append(Utils.sprintf(theme.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()))
 
@@ -268,13 +270,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   showModal () {
-    const modalSelector = '#avdSearchModal_' + this.options.idTable
+    const modalSelector = `#avdSearchModal_${ this.options.idTable}`
+
     if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
       $(modalSelector).modal()
     } else if ($.fn.bootstrapTable.theme === 'bootstrap5') {
       if (!this.toolbarModal) {
       //   eslint-disable-next-line no-undef
-        this.toolbarModal = new bootstrap.Modal(document.getElementById('avdSearchModal_' + this.options.idTable), {})
+        this.toolbarModal = new bootstrap.Modal(document.getElementById(`avdSearchModal_${ this.options.idTable}`), {})
       }
       this.toolbarModal.show()
     } else if ($.fn.bootstrapTable.theme === 'bulma') {
@@ -296,7 +299,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   hideModal () {
     const $closeModalButton = $(`#avdSearchModal_${this.options.idTable}`)
-    const modalSelector = '#avdSearchModal_' + this.options.idTable
+    const modalSelector = `#avdSearchModal_${ this.options.idTable}`
+
     if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
       $closeModalButton.modal('hide')
     } else if ($.fn.bootstrapTable.theme === 'bootstrap5') {
@@ -356,6 +360,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const fval = v.toLowerCase()
         let value = item[key]
         const index = this.header.fields.indexOf(key)
+
         value = Utils.calculateObjectValue(this.header,
           this.header.formatters[index], [value, item, i], value)
 

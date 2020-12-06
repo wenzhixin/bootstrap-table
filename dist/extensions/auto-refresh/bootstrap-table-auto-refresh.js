@@ -1101,8 +1101,8 @@
 	      if (this.options.autoRefresh) {
 	        this.buttons = Object.assign(this.buttons, {
 	          autoRefresh: {
-	            'html': "\n            <button class=\"auto-refresh ".concat(this.constants.buttonsClass, "\n              ").concat(this.options.autoRefreshStatus ? " ".concat(this.constants.classes.buttonActive) : '', "\"\n              type=\"button\" name=\"autoRefresh\" title=\"").concat(this.options.formatAutoRefresh(), "\">\n              ").concat(this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : '', "\n              ").concat(this.options.showButtonText ? this.options.formatAutoRefresh() : '', "\n            </button>\n           "),
-	            'event': this.toggleAutoRefresh
+	            html: "\n            <button class=\"auto-refresh ".concat(this.constants.buttonsClass, "\n              ").concat(this.options.autoRefreshStatus ? " ".concat(this.constants.classes.buttonActive) : '', "\"\n              type=\"button\" name=\"autoRefresh\" title=\"").concat(this.options.formatAutoRefresh(), "\">\n              ").concat(this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : '', "\n              ").concat(this.options.showButtonText ? this.options.formatAutoRefresh() : '', "\n            </button>\n           "),
+	            event: this.toggleAutoRefresh
 	          }
 	        });
 	      }

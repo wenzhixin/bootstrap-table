@@ -673,7 +673,7 @@
 	 * Author: Levan Lotuashvili <l.lotuashvili@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['ka-GE'] = {
+	$.fn.bootstrapTable.locales['ka-GE'] = $.fn.bootstrapTable.locales['ka'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

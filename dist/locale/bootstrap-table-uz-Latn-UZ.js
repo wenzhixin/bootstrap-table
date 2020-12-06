@@ -673,7 +673,7 @@
 	 * Author: Nabijon Masharipov <mnabijonz@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['uz-Latn-UZ'] = {
+	$.fn.bootstrapTable.locales['uz-Latn-UZ'] = $.fn.bootstrapTable.locales['uz'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

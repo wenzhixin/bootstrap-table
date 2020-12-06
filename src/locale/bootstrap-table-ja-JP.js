@@ -3,7 +3,7 @@
  * Author: Azamshul Azizy <azamshul@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['ja-JP'] = {
+$.fn.bootstrapTable.locales['ja-JP'] = $.fn.bootstrapTable.locales['ja'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

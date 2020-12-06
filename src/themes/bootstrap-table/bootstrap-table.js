@@ -28,7 +28,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.constants.classes.dropup = 'dropdown-menu-up'
 
-    $('.modal').on('click', '[data-close]', (e) => {
+    $('.modal').on('click', '[data-close]', e => {
       $(e.delegateTarget).removeClass('show')
     })
   }
@@ -60,8 +60,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   _initDropdown () {
     const $dropdownToggles = $('.dropdown-toggle')
-    $dropdownToggles.off('click').on('click', (e) => {
+
+    $dropdownToggles.off('click').on('click', e => {
       let $target = $(e.currentTarget)
+
       if ($target.parents('.dropdown-toggle').length > 0) {
         $target = $target.parents('.dropdown-toggle')
       }
@@ -69,8 +71,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       $target.next('.dropdown-menu').toggleClass('open')
     })
 
-    $(window).off('click').on('click', (e) => {
+    $(window).off('click').on('click', e => {
       const $dropdownToggles = $('.dropdown-toggle')
+
       if ($(e.target).parents('.dropdown-toggle, .dropdown-menu').length === 0 && !$(e.target).hasClass('dropdown-toggle')) {
         $dropdownToggles.next('.dropdown-menu').removeClass('open')
       }

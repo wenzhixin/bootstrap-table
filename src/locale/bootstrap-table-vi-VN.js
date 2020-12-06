@@ -3,7 +3,7 @@
  * Author: Duc N. PHAM <pngduc@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['vi-VN'] = {
+$.fn.bootstrapTable.locales['vi-VN'] = $.fn.bootstrapTable.locales['vi'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

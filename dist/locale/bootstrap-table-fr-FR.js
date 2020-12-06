@@ -675,12 +675,12 @@
 	 *         Nevets82 <Nevets82@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['fr-FR'] = {
+	$.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	    return 'Copier les lignes';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return 'Imprimer';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Chargement en cours';
@@ -717,25 +717,25 @@
 	    return 'Aucun résultat';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Cacher/Afficher pagination';
+	    return 'Masquer/Afficher la pagination';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Afficher pagination';
+	    return 'Afficher la pagination';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Cacher pagination';
+	    return 'Masquer la pagination';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Rafraichir';
+	    return 'Actualiser';
 	  },
 	  formatToggle: function formatToggle() {
 	    return 'Basculer';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Afficher vue carte';
+	    return 'Afficher la vue carte';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Cacher vue carte';
+	    return 'Masquer la vue carte';
 	  },
 	  formatColumns: function formatColumns() {
 	    return 'Colonnes';
@@ -750,13 +750,13 @@
 	    return 'Tout';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Rafraîchissement automatique';
+	    return 'Actualisation automatique';
 	  },
 	  formatExport: function formatExport() {
 	    return 'Exporter les données';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'Aller à';
+	    return 'ALLER';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
 	    return 'Recherche avancée';
@@ -765,13 +765,13 @@
 	    return 'Fermer';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Cacher/Afficher controls';
+	    return 'Masquer/Afficher les contrôles';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Cacher controls';
+	    return 'Masquer les contrôles';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Afficher controls';
+	    return 'Afficher les contrôles';
 	  }
 	};
 	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-FR']);

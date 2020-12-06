@@ -673,7 +673,7 @@
 	 * Author: Mikhail Kalatchev <kalatchev[at]gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['bg-BG'] = {
+	$.fn.bootstrapTable.locales['bg-BG'] = $.fn.bootstrapTable.locales['bg'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

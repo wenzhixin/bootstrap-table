@@ -3,7 +3,7 @@
  * Author: Your Name Jan Borup Coyle, github@coyle.dk
  */
 
-$.fn.bootstrapTable.locales['da-DK'] = {
+$.fn.bootstrapTable.locales['da-DK'] = $.fn.bootstrapTable.locales['da'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

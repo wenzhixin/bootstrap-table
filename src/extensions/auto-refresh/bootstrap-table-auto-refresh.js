@@ -36,7 +36,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (this.options.autoRefresh && this.options.autoRefreshStatus) {
       this.options.autoRefreshFunction = setInterval(() => {
-        this.refresh({silent: this.options.autoRefreshSilent})
+        this.refresh({ silent: this.options.autoRefreshSilent })
       }, this.options.autoRefreshInterval * 1000)
     }
   }
@@ -45,7 +45,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.autoRefresh) {
       this.buttons = Object.assign(this.buttons, {
         autoRefresh: {
-          'html': `
+          html: `
             <button class="auto-refresh ${this.constants.buttonsClass}
               ${this.options.autoRefreshStatus ? ` ${this.constants.classes.buttonActive}` : ''}"
               type="button" name="autoRefresh" title="${this.options.formatAutoRefresh()}">
@@ -53,7 +53,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
               ${ this.options.showButtonText ? this.options.formatAutoRefresh() : ''}
             </button>
            `,
-          'event': this.toggleAutoRefresh
+          event: this.toggleAutoRefresh
         }
       })
     }
@@ -69,7 +69,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           .removeClass(this.constants.classes.buttonActive)
       } else {
         this.options.autoRefreshFunction = setInterval(() => {
-          this.refresh({silent: this.options.autoRefreshSilent})
+          this.refresh({ silent: this.options.autoRefreshSilent })
         }, this.options.autoRefreshInterval * 1000)
         this.$toolbar.find('>.columns .auto-refresh')
           .addClass(this.constants.classes.buttonActive)

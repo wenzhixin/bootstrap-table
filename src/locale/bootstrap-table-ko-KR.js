@@ -3,7 +3,7 @@
  * Author: Yi Tae-Hyeong (jsonobject@gmail.com)
  */
 
-$.fn.bootstrapTable.locales['ko-KR'] = {
+$.fn.bootstrapTable.locales['ko-KR'] = $.fn.bootstrapTable.locales['ko'] = {
   formatCopyRows () {
     return 'Copy Rows'
   },

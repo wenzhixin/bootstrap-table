@@ -1084,7 +1084,7 @@
 	  try {
 	    document.execCommand('copy');
 	  } catch (e) {
-	    console.log('Oops, unable to copy');
+	    console.warn('Oops, unable to copy');
 	  }
 
 	  $(textField).remove();
@@ -1117,12 +1117,12 @@
 	      if (this.options.showCopyRows && this.header.stateField) {
 	        this.buttons = Object.assign(this.buttons, {
 	          copyRows: {
-	            'text': this.options.formatCopyRows(),
-	            'icon': this.options.icons.copy,
-	            'event': this.copyColumnsToClipboard,
-	            'attributes': {
+	            text: this.options.formatCopyRows(),
+	            icon: this.options.icons.copy,
+	            event: this.copyColumnsToClipboard,
+	            attributes: {
 	              'aria-label': this.options.formatCopyRows(),
-	              'title': this.options.formatCopyRows()
+	              title: this.options.formatCopyRows()
 	            }
 	          }
 	        });

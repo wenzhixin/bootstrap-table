@@ -673,7 +673,7 @@
 	 * Author: Minna Lehtomäki <minna.j.lehtomaki@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['fi-FI'] = {
+	$.fn.bootstrapTable.locales['fi-FI'] = $.fn.bootstrapTable.locales['fi'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

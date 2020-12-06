@@ -27,7 +27,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const $toggle = this.$toolbar.find('button[name="toggle"]')
       const $paginationSwitch = this.$toolbar.find('button[name="paginationSwitch"]')
 
-      if (document.activeElement === $search.get(0) || !$.contains(document.activeElement ,this.$toolbar.get(0))) {
+      if (document.activeElement === $search.get(0) || !$.contains(document.activeElement, this.$toolbar.get(0))) {
         return true
       }
 

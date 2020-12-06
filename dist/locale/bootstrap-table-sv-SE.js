@@ -673,7 +673,7 @@
 	 * Author: C Bratt <bratt@inix.se>
 	 */
 
-	$.fn.bootstrapTable.locales['sv-SE'] = {
+	$.fn.bootstrapTable.locales['sv-SE'] = $.fn.bootstrapTable.locales['sv'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

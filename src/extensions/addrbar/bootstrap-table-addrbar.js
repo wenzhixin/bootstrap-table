@@ -44,7 +44,8 @@ function _buildUrl (dict, url = window.location.search) {
     // 搜索name=general这种形式的字符串(&是分隔符)
     const pattern = `${key}=([^&]*)`
     const targetStr = `${key}=${val}`
-    if (val === undefined )
+
+    if (val === undefined)
       continue
 
     /*
@@ -53,9 +54,11 @@ function _buildUrl (dict, url = window.location.search) {
      */
     if (url.match(pattern)) {
       const tmp = new RegExp(`(${key}=)([^&]*)`, 'gi')
+
       url = url.replace(tmp, targetStr)
     } else {
       const seperator = url.match('[?]') ? '&' : '?'
+
       url = url + seperator + targetStr
     }
   }
@@ -74,10 +77,11 @@ function _buildUrl (dict, url = window.location.search) {
 */
 function _updateHistoryState (table, _prefix) {
   const params = {}
-  params[`${_prefix}page`] = table.options.pageNumber,
-  params[`${_prefix}size`] = table.options.pageSize,
-  params[`${_prefix}order`] = table.options.sortOrder,
-  params[`${_prefix}sort`] = table.options.sortName,
+
+  params[`${_prefix}page`] = table.options.pageNumber
+  params[`${_prefix}size`] = table.options.pageSize
+  params[`${_prefix}order`] = table.options.sortOrder
+  params[`${_prefix}sort`] = table.options.sortName
   params[`${_prefix}search`] = table.options.searchText
   window.history.pushState({}, '', _buildUrl(params))
 }
