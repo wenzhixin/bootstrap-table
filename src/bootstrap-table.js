@@ -1559,8 +1559,10 @@ class BootstrapTable {
       value = Utils.calculateObjectValue(column,
         this.header.formatters[j], [value_, item, i, field], value_)
 
-      value = typeof value === 'undefined' || value === null ?
-        this.options.undefinedText : value
+      if (!(column.checkbox || column.radio)) {
+        value = typeof value === 'undefined' || value === null ?
+          this.options.undefinedText : value
+      }
 
       if (this.searchText !== '' && this.options.searchHighlight) {
         value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
