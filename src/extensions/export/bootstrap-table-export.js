@@ -195,6 +195,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
       })
 
       const data = this.getData()
+      
+      // Fix #5426
+      if(o.detailView && o.detailViewIcon){
+        if(o.exportOptions.ignoreColumn){
+          if(o.detailViewAlign == 'left')
+            o.exportOptions.ignoreColumn = $.merge([0], o.exportOptions.ignoreColumn)
+          else if(o.detailViewAlign == 'right')
+            o.exportOptions.ignoreColumn = $.merge([this.columns.length], o.exportOptions.ignoreColumn)
+        } else {
+          if(o.detailViewAlign == 'left')
+            o.exportOptions.ignoreColumn = [0]
+          else if(o.detailViewAlign == 'right')
+            o.exportOptions.ignoreColumn = [this.columns.length]
+        }
+      }
 
       if (o.exportFooter) {
         const $footerRow = this.$tableFooter.find('tr').first()
