@@ -1665,18 +1665,19 @@ class BootstrapTable {
       if (tr && typeof tr === 'string') {
 
         const uniqueId = this.options.uniqueId
+
         if (uniqueId && item.hasOwnProperty(uniqueId)) {
           const itemUniqueId = item[uniqueId]
 
           const oldTr = this.$body.find(Utils.sprintf('> tr[data-uniqueid="%s"][data-has-detail-view]', itemUniqueId))
+          const oldTrNext = oldTr.next()
 
-          if (oldTr.next().is('tr.detail-view')) {
+          if (oldTrNext.is('tr.detail-view')) {
 
             toExpand.push(i)
 
-            if (updatedUid && itemUniqueId === updatedUid) {
-            } else {
-              tr += oldTr.next()[0].outerHTML
+            if (!updatedUid || itemUniqueId !== updatedUid) {
+              tr += oldTrNext[0].outerHTML
             }
           }
         }
@@ -1713,7 +1714,7 @@ class BootstrapTable {
       })
     }
 
-    toExpand.forEach((index) => { this.expandRow(index) })
+    toExpand.forEach(index => { this.expandRow(index) })
 
     if (!fixedScroll) {
       this.scrollTo(0)
@@ -2533,7 +2534,7 @@ class BootstrapTable {
 
   updateByUniqueId (params) {
     const allParams = Array.isArray(params) ? params : [params]
-    var updatedUid = null
+    let updatedUid = null
 
     for (const params of allParams) {
       if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
