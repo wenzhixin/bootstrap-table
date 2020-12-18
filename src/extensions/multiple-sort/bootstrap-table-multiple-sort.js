@@ -679,6 +679,7 @@ BootstrapTable.prototype.destroy = function (...args) {
   _destroy.apply(this, Array.prototype.slice.apply(args))
 
   if (this.options.showMultiSort) {
+    this.enableCustomSort = false
     this.$sortModal.remove()
   }
 }
@@ -744,6 +745,7 @@ BootstrapTable.prototype.onMultipleSort = function () {
     return cmp(arr1, arr2)
   }
 
+  this.enableCustomSort = true
   this.data.sort((a, b) => arrayCmp(a, b))
 
   this.initBody()
