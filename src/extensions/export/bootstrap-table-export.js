@@ -196,6 +196,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       const data = this.getData()
 
+      if (o.detailView && o.detailViewIcon) {
+        const detailViewIndex = o.detailViewAlign === 'left' ? 0 : this.getVisibleFields().length + Utils.getDetailViewIndexOffset(this.options)
+
+        o.exportOptions.ignoreColumn = [detailViewIndex].concat(o.exportOptions.ignoreColumn || [])
+      }
+
       if (o.exportFooter) {
         const $footerRow = this.$tableFooter.find('tr').first()
         const footerData = {}
