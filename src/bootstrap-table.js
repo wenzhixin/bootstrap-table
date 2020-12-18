@@ -252,7 +252,10 @@ class BootstrapTable {
       let detailViewTemplate = ''
 
       if (i === 0 && Utils.hasDetailViewIcon(this.options)) {
-        detailViewTemplate = `<th class="detail" rowspan="${this.options.columns.length}">
+        const rowspan = this.options.columns.length > 1 ?
+          ` rowspan="${this.options.columns.length}"` : ''
+
+        detailViewTemplate = `<th class="detail"${rowspan}>
           <div class="fht-cell"></div>
           </th>`
       }
