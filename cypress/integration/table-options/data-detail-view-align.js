@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-describe('Check data detail view option functionality', () => {
+describe('Check data detail view align option functionality', () => {
   beforeEach(() => {
     cy.visit('./cypress/html/table-options/data-detail-view-align.html')
   })
