@@ -2342,6 +2342,7 @@ class BootstrapTable {
         this.searchText ||
         this.options.customSearch ||
         this.options.sortName !== undefined ||
+        this.enableCustomSort || // Fix #4616: this.enableCustomSort is for extensions
         !Utils.isEmptyObject(this.filterColumns) ||
         !Utils.isEmptyObject(this.filterColumnsPartial)
       ) && (!params || !params.unfiltered)
