@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!--JQUERY-->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <!--BOOTSTRAP 4-->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <!--BOOTSTRAP TABLE-->
+  <link href="/src/bootstrap-table.css" rel="stylesheet">
+  <script type="module" src="/src/bootstrap-table.js"></script>
+</head>
+
+<body>
+  <div class="toolbar">
+    <label class="checkbox-inline">
+      <input type="radio" id="radioLeft" name="detailViewAlign" value="left">
+      <code>left</code>
+    </label>
+    <label class="checkbox-inline">
+      <input type="radio" id="radioRight" checked name="detailViewAlign" value="right">
+      <code>right</code>
+    </label>
+  </div>
+
+  <table id="table" data-height="460" data-detail-view="true" data-detail-filter="detailFilter" data-show-footer="true"
+    data-toolbar=".toolbar" data-url="/cypress/json/data1.json">
+    <thead>
+      <tr>
+        <th data-field="id" data-valign="middle" rowspan="2" data-footer-formatter="idFormatter">ID</th>
+        <th colspan="2">Detail</th>
+      </tr>
+      <tr>
+        <th data-field="name" data-footer-formatter="footerFormatter">Item Name</th>
+        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents"
+          data-footer-formatter="footerFormatter">Action</th>
+      </tr>
+    </thead>
+  </table>
+
+  <script>
+    var $table = $('#table')
+
+    window.actionEvents = {
+      'click .btn': function () {
+        alert('Click')
+      }
+    }
+
+    $(function () {
+      $('.toolbar input').change(function () {
+        var detailViewAlign = $('.toolbar input:checked').val()
+
+        $table.bootstrapTable('refreshOptions', {
+          detailViewAlign: detailViewAlign
+        })
+      })
+
+      $table.bootstrapTable({
+        detailViewAlign: 'right'
+      })
+    })
+
+    function detailFilter(index) {
+      return index % 2 === 0
+    }
+
+    function idFormatter() {
+      return 'Total'
+    }
+
+    function footerFormatter(data) {
+      return data.length
+    }
+
+    function actionFormatter() {
+      return '<button class="btn btn-secondary">Click</>'
+    }
+  </script>
+</body>
+
+</html>
