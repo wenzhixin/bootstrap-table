@@ -893,9 +893,11 @@
 	$.extend($.fn.bootstrapTable.defaults, {
 	  usePipeline: false,
 	  pipelineSize: 1000,
+	  // eslint-disable-next-line no-unused-vars
 	  onCachedDataHit: function onCachedDataHit(data) {
 	    return false;
 	  },
+	  // eslint-disable-next-line no-unused-vars
 	  onCachedDataReset: function onCachedDataReset(data) {
 	    return false;
 	  }
@@ -906,7 +908,6 @@
 	});
 	var BootstrapTable = $.fn.bootstrapTable.Constructor;
 	var _init = BootstrapTable.prototype.init;
-	var _initServer = BootstrapTable.prototype.initServer;
 	var _onSearch = BootstrapTable.prototype.onSearch;
 	var _onSort = BootstrapTable.prototype.onSort;
 	var _onPageListChange = BootstrapTable.prototype.onPageListChange;
@@ -929,7 +930,7 @@
 	  this.resetCache = true;
 	};
 
-	BootstrapTable.prototype.onSearch = function (event) {
+	BootstrapTable.prototype.onSearch = function () {
 	  /* force a cache reset on search */
 	  if (this.options.usePipeline) {
 	    this.resetCache = true;
@@ -938,7 +939,7 @@
 	  _onSearch.apply(this, Array.prototype.slice.apply(arguments));
 	};
 
-	BootstrapTable.prototype.onSort = function (event) {
+	BootstrapTable.prototype.onSort = function () {
 	  /* force a cache reset on sort */
 	  if (this.options.usePipeline) {
 	    this.resetCache = true;
@@ -973,8 +974,8 @@
 	  for (var i = 0; i <= numWindows; i++) {
 	    var b = i * this.options.pipelineSize;
 	    this.cacheWindows[i] = {
-	      'lower': b,
-	      'upper': b + this.options.pipelineSize - 1
+	      lower: b,
+	      upper: b + this.options.pipelineSize - 1
 	    };
 	  }
 	};
@@ -1066,10 +1067,8 @@
 	            useAjax = false;
 	          }
 	        }
-	      } else {
-	        if (params.limit === 0) {
-	          delete params.limit;
-	        }
+	      } else if (params.limit === 0) {
+	        delete params.limit;
 	      }
 	    }
 	  } // force an ajax call - this is on search, sort or page size change

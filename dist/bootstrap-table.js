@@ -2946,7 +2946,9 @@
 	  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 	}
 
-	var VERSION = '1.18.0';
+	/* eslint-disable no-unused-vars */
+
+	var VERSION = '1.18.1';
 	var bootstrapVersion = 4;
 
 	try {
@@ -3413,7 +3415,7 @@
 	  field: undefined,
 	  title: undefined,
 	  titleTooltip: undefined,
-	  'class': undefined,
+	  class: undefined,
 	  width: undefined,
 	  widthUnit: 'px',
 	  rowspan: undefined,
@@ -3819,9 +3821,7 @@
 
 	    return this.cachedWidth;
 	  },
-	  calculateObjectValue: function calculateObjectValue(self, name) {
-	    var args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-	    var defaultValue = arguments.length > 3 ? arguments[3] : undefined;
+	  calculateObjectValue: function calculateObjectValue(self, name, args, defaultValue) {
 	    var func = name;
 
 	    if (typeof name === 'string') {
@@ -4325,7 +4325,15 @@
 	      this.constants.theme = $.fn.bootstrapTable.theme;
 	      var buttonsPrefix = opts.buttonsPrefix ? "".concat(opts.buttonsPrefix, "-") : '';
 	      this.constants.buttonsClass = [opts.buttonsPrefix, buttonsPrefix + opts.buttonsClass, Utils.sprintf("".concat(buttonsPrefix, "%s"), opts.iconSize)].join(' ').trim();
-	      this.buttons = Utils.calculateObjectValue(this, opts.buttons, [], []);
+	      this.buttons = Utils.calculateObjectValue(this, opts.buttons, [], {});
+
+	      if (_typeof(this.buttons) !== 'object') {
+	        this.buttons = {};
+	      }
+
+	      if (typeof opts.icons === 'string') {
+	        opts.icons = Utils.calculateObjectValue(null, opts.icons);
+	      }
 	    }
 	  }, {
 	    key: "initLocale",
@@ -4418,7 +4426,7 @@
 
 	          column.push($.extend({}, {
 	            title: $th.html(),
-	            'class': $th.attr('class'),
+	            class: $th.attr('class'),
 	            titleTooltip: $th.attr('title'),
 	            rowspan: $th.attr('rowspan') ? +$th.attr('rowspan') : undefined,
 	            colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined
@@ -4810,12 +4818,8 @@
 
 	      html = ["<div class=\"".concat(['columns', "columns-".concat(opts.buttonsAlign), this.constants.classes.buttonsGroup, "".concat(this.constants.classes.pull, "-").concat(opts.buttonsAlign)].join(' '), "\">")];
 
-	      if (typeof opts.icons === 'string') {
-	        opts.icons = Utils.calculateObjectValue(null, opts.icons);
-	      }
-
 	      if (typeof opts.buttonsOrder === 'string') {
-	        opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').toLowerCase().split(',');
+	        opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').split(',');
 	      }
 
 	      this.buttons = Object.assign(this.buttons, {
@@ -4881,7 +4885,7 @@
 
 	            var visibleColumns = 0;
 
-	            _this4.columns.forEach(function (column, i) {
+	            _this4.columns.forEach(function (column) {
 	              if (column.visible) {
 	                visibleColumns++;
 	              }
@@ -4920,7 +4924,11 @@
 	        var buttonHtml = void 0;
 
 	        if (buttonConfig.hasOwnProperty('html')) {
-	          buttonHtml = Utils.calculateObjectValue(opts, buttonConfig.html);
+	          if (typeof buttonConfig.html === 'function') {
+	            buttonHtml = buttonConfig.html();
+	          } else if (typeof buttonConfig.html === 'string') {
+	            buttonHtml = buttonConfig.html;
+	          }
 	        } else {
 	          buttonHtml = "<button class=\"".concat(this.constants.buttonsClass, "\" type=\"button\" name=\"").concat(buttonName, "\"");
 
@@ -4930,19 +4938,18 @@
 	                  attributeName = _Object$entries4$_i[0],
 	                  value = _Object$entries4$_i[1];
 
-	              buttonHtml += " ".concat(attributeName, "=\"").concat(Utils.calculateObjectValue(opts, value), "\"");
+	              buttonHtml += " ".concat(attributeName, "=\"").concat(value, "\"");
 	            }
 	          }
 
 	          buttonHtml += '>';
 
 	          if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
-	            var icon = Utils.calculateObjectValue(opts, buttonConfig.icon);
-	            buttonHtml += Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, icon) + ' ';
+	            buttonHtml += "".concat(Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon), " ");
 	          }
 
 	          if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
-	            buttonHtml += Utils.calculateObjectValue(opts, buttonConfig.text);
+	            buttonHtml += buttonConfig.text;
 	          }
 
 	          buttonHtml += '</button>';
@@ -5125,7 +5132,7 @@
 	        var $searchInput = Utils.getSearchInput(this);
 
 	        if (opts.showSearchButton) {
-	          this.$toolbar.find('.search button[name=search]').off('click').on('click', function (event) {
+	          this.$toolbar.find('.search button[name=search]').off('click').on('click', function () {
 	            clearTimeout(timeoutId); // doesn't matter if it's 0
 
 	            timeoutId = setTimeout(function () {
@@ -5217,11 +5224,11 @@
 	        var f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns; // Check filter
 
 	        if (typeof this.filterOptions.filterAlgorithm === 'function') {
-	          this.data = this.options.data.filter(function (item, i) {
+	          this.data = this.options.data.filter(function (item) {
 	            return _this5.filterOptions.filterAlgorithm.apply(null, [item, f]);
 	          });
 	        } else if (typeof this.filterOptions.filterAlgorithm === 'string') {
-	          this.data = f ? this.options.data.filter(function (item, i) {
+	          this.data = f ? this.options.data.filter(function (item) {
 	            var filterAlgorithm = _this5.filterOptions.filterAlgorithm;
 
 	            if (filterAlgorithm === 'and') {
@@ -5431,7 +5438,7 @@
 	        html.push('<span class="page-list">');
 	        var pageNumber = ["<span class=\"".concat(this.constants.classes.paginationDropdown, "\">\n        <button class=\"").concat(this.constants.buttonsClass, " dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">\n        <span class=\"page-size\">\n        ").concat(allSelected ? opts.formatAllRows() : opts.pageSize, "\n        </span>\n        ").concat(this.constants.html.dropdownCaret, "\n        </button>\n        ").concat(this.constants.html.pageDropdown[0])];
 	        pageList.forEach(function (page, i) {
-	          if (!opts.smartDisplay || i === 0 || pageList[i - 1] < opts.totalRows) {
+	          if (!opts.smartDisplay || i === 0 || pageList[i - 1] < opts.totalRows || page === opts.formatAllRows()) {
 	            var active;
 
 	            if (allSelected) {
@@ -5496,14 +5503,12 @@
 	          if (from - 1 === max + 1) {
 	            i = from - 1;
 	            html.push(pageItem(i));
-	          } else {
-	            if (from - 1 > max) {
-	              if (from - opts.paginationPagesBySide * 2 > opts.paginationPagesBySide && opts.paginationUseIntermediate) {
-	                i = Math.round((from - middleSize) / 2 + middleSize);
-	                html.push(pageItem(i, ' page-intermediate'));
-	              } else {
-	                html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-first-separator disabled', '', '...'));
-	              }
+	          } else if (from - 1 > max) {
+	            if (from - opts.paginationPagesBySide * 2 > opts.paginationPagesBySide && opts.paginationUseIntermediate) {
+	              i = Math.round((from - middleSize) / 2 + middleSize);
+	              html.push(pageItem(i, ' page-intermediate'));
+	            } else {
+	              html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-first-separator disabled', '', '...'));
 	            }
 	          }
 	        }
@@ -5519,14 +5524,12 @@
 	          if (to + 1 === min - 1) {
 	            i = to + 1;
 	            html.push(pageItem(i));
-	          } else {
-	            if (min > to + 1) {
-	              if (this.totalPages - to > opts.paginationPagesBySide * 2 && opts.paginationUseIntermediate) {
-	                i = Math.round((this.totalPages - middleSize - to) / 2 + to);
-	                html.push(pageItem(i, ' page-intermediate'));
-	              } else {
-	                html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-last-separator disabled', '', '...'));
-	              }
+	          } else if (min > to + 1) {
+	            if (this.totalPages - to > opts.paginationPagesBySide * 2 && opts.paginationUseIntermediate) {
+	              i = Math.round((this.totalPages - middleSize - to) / 2 + to);
+	              html.push(pageItem(i, ' page-intermediate'));
+	            } else {
+	              html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-last-separator disabled', '', '...'));
 	            }
 	          }
 
@@ -5663,7 +5666,8 @@
 	      this.options.pageNumber = +$(event.currentTarget).text();
 	      this.updatePagination(event);
 	      return false;
-	    }
+	    } // eslint-disable-next-line no-unused-vars
+
 	  }, {
 	    key: "initRow",
 	    value: function initRow(item, i, data, trFragments) {
@@ -5831,9 +5835,10 @@
 	        }
 
 	        value = Utils.calculateObjectValue(column, _this7.header.formatters[j], [value_, item, i, field], value_);
+	        value = typeof value === 'undefined' || value === null ? _this7.options.undefinedText : value;
 
 	        if (_this7.searchText !== '' && _this7.options.searchHighlight) {
-	          value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, _this7.searchText], value.replace(new RegExp('(' + _this7.searchText + ')', 'gim'), '<mark>$1</mark>'));
+	          value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, _this7.searchText], value.toString().replace(new RegExp("(".concat(_this7.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), ")"), 'gim'), '<mark>$1</mark>'));
 	        }
 
 	        if (item["_".concat(field, "_data")] && !Utils.isEmptyObject(item["_".concat(field, "_data")])) {
@@ -5859,19 +5864,15 @@
 	          var isDisabled = !column.checkboxEnabled || value && value.disabled;
 	          text = [_this7.options.cardView ? "<div class=\"card-view ".concat(c, "\">") : "<td class=\"bs-checkbox ".concat(c, "\"").concat(class_).concat(style_, ">"), "<label>\n            <input\n            data-index=\"".concat(i, "\"\n            name=\"").concat(_this7.options.selectItemName, "\"\n            type=\"").concat(type, "\"\n            ").concat(Utils.sprintf('value="%s"', item[_this7.options.idField]), "\n            ").concat(Utils.sprintf('checked="%s"', isChecked ? 'checked' : undefined), "\n            ").concat(Utils.sprintf('disabled="%s"', isDisabled ? 'disabled' : undefined), " />\n            <span></span>\n            </label>"), _this7.header.formatters[j] && typeof value === 'string' ? value : '', _this7.options.cardView ? '</div>' : '</td>'].join('');
 	          item[_this7.header.stateField] = value === true || !!value_ || value && value.checked;
-	        } else {
-	          value = typeof value === 'undefined' || value === null ? _this7.options.undefinedText : value;
+	        } else if (_this7.options.cardView) {
+	          var cardTitle = _this7.options.showHeader ? "<span class=\"card-view-title ".concat(cellStyle.classes, "\"").concat(style_, ">").concat(Utils.getFieldTitle(_this7.columns, field), "</span>") : '';
+	          text = "<div class=\"card-view\">".concat(cardTitle, "<span class=\"card-view-value ").concat(cellStyle.classes, "\"").concat(style_, ">").concat(value, "</span></div>");
 
-	          if (_this7.options.cardView) {
-	            var cardTitle = _this7.options.showHeader ? "<span class=\"card-view-title\"".concat(style_, ">").concat(Utils.getFieldTitle(_this7.columns, field), "</span>") : '';
-	            text = "<div class=\"card-view\">".concat(cardTitle, "<span class=\"card-view-value\">").concat(value, "</span></div>");
-
-	            if (_this7.options.smartDisplay && value === '') {
-	              text = '<div class="card-view"></div>';
-	            }
-	          } else {
-	            text = "<td".concat(id_).concat(class_).concat(style_).concat(data_).concat(rowspan_).concat(colspan_).concat(title_, ">").concat(value, "</td>");
+	          if (_this7.options.smartDisplay && value === '') {
+	            text = '<div class="card-view"></div>';
 	          }
+	        } else {
+	          text = "<td".concat(id_).concat(class_).concat(style_).concat(data_).concat(rowspan_).concat(colspan_).concat(title_, ">").concat(value, "</td>");
 	        }
 
 	        html.push(text);
@@ -5929,27 +5930,25 @@
 
 	      if (!hasTr) {
 	        this.$body.html("<tr class=\"no-records-found\">".concat(Utils.sprintf('<td colspan="%s">%s</td>', this.getVisibleFields().length + Utils.getDetailViewIndexOffset(this.options), this.options.formatNoMatches()), "</tr>"));
+	      } else if (!this.options.virtualScroll) {
+	        this.$body.html(trFragments);
 	      } else {
-	        if (!this.options.virtualScroll) {
-	          this.$body.html(trFragments);
-	        } else {
-	          if (this.virtualScroll) {
-	            this.virtualScroll.destroy();
-	          }
-
-	          this.virtualScroll = new VirtualScroll({
-	            rows: rows,
-	            fixedScroll: fixedScroll,
-	            scrollEl: this.$tableBody[0],
-	            contentEl: this.$body[0],
-	            itemHeight: this.options.virtualScrollItemHeight,
-	            callback: function callback() {
-	              _this8.fitHeader();
-
-	              _this8.initBodyEvent();
-	            }
-	          });
+	        if (this.virtualScroll) {
+	          this.virtualScroll.destroy();
 	        }
+
+	        this.virtualScroll = new VirtualScroll({
+	          rows: rows,
+	          fixedScroll: fixedScroll,
+	          scrollEl: this.$tableBody[0],
+	          contentEl: this.$body[0],
+	          itemHeight: this.options.virtualScrollItemHeight,
+	          callback: function callback() {
+	            _this8.fitHeader();
+
+	            _this8.initBodyEvent();
+	          }
+	        });
 	      }
 
 	      if (!fixedScroll) {
@@ -6479,7 +6478,7 @@
 	          var colspan = 0;
 
 	          if (this.footerData && this.footerData.length > 0) {
-	            colspan = this.footerData[0]['_' + column.field + '_colspan'] || 0;
+	            colspan = this.footerData[0]["_".concat(column.field, "_colspan")] || 0;
 	          }
 
 	          if (colspan) {
@@ -6542,7 +6541,6 @@
 	      var fixedBody = this.$tableBody.get(0);
 	      var scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth && fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ? Utils.getScrollBarWidth() : 0;
 	      this.$tableFooter.css('margin-right', scrollWidth).find('table').css('width', this.$el.outerWidth()).attr('class', this.$el.attr('class'));
-	      var visibleFields = this.getVisibleFields();
 	      var $ths = this.$tableFooter.find('th');
 	      var $tr = this.$body.find('>tr:first-child:not(.no-records-found)');
 	      $ths.find('.fht-cell').width('auto');
@@ -6704,7 +6702,7 @@
 	    value: function getSelections() {
 	      var _this18 = this;
 
-	      return this.options.data.filter(function (row) {
+	      return (this.options.maintainMetaData ? this.options.data : this.data).filter(function (row) {
 	        return row[_this18.header.stateField] === true;
 	      });
 	    }
@@ -6748,37 +6746,28 @@
 	  }, {
 	    key: "remove",
 	    value: function remove(params) {
-	      var len = this.options.data.length;
-	      var i;
-	      var row;
+	      var removed = 0;
 
-	      if (!params.hasOwnProperty('field') || !params.hasOwnProperty('values')) {
-	        return;
-	      }
-
-	      for (i = len - 1; i >= 0; i--) {
-	        var exists = false;
-	        row = this.options.data[i];
+	      for (var i = this.options.data.length - 1; i >= 0; i--) {
+	        var row = this.options.data[i];
 
 	        if (!row.hasOwnProperty(params.field) && params.field !== '$index') {
 	          continue;
-	        } else if (!row.hasOwnProperty(params.field) && params.field === '$index') {
-	          exists = params.values.includes(i);
-	        } else {
-	          exists = params.values.includes(row[params.field]);
 	        }
 
-	        if (exists) {
+	        if (!row.hasOwnProperty(params.field) && params.field === '$index' && params.values.includes(i) || params.values.includes(row[params.field])) {
+	          removed++;
 	          this.options.data.splice(i, 1);
-
-	          if (this.options.sidePagination === 'server') {
-	            this.options.totalRows -= 1;
-	          }
 	        }
 	      }
 
-	      if (len === this.options.data.length) {
+	      if (!removed) {
 	        return;
+	      }
+
+	      if (this.options.sidePagination === 'server') {
+	        this.options.totalRows -= removed;
+	        this.data = _toConsumableArray(this.options.data);
 	      }
 
 	      this.initSearch();
@@ -6953,6 +6942,11 @@
 
 	      if (len === this.options.data.length) {
 	        return;
+	      }
+
+	      if (this.options.sidePagination === 'server') {
+	        this.options.totalRows -= 1;
+	        this.data = _toConsumableArray(this.options.data);
 	      }
 
 	      this.initSearch();
@@ -7296,7 +7290,7 @@
 	    key: "_toggleCheck",
 	    value: function _toggleCheck(checked, index) {
 	      var $el = this.$selectItem.filter("[data-index=\"".concat(index, "\"]"));
-	      var row = this.options.data[index];
+	      var row = this.data[index];
 
 	      if ($el.is(':radio') || this.options.singleSelect || this.options.multipleSelectRow && !this.multipleSelectRowCtrlKey && !this.multipleSelectRowShiftKey) {
 	        var _iteratorNormalCompletion10 = true;
@@ -7330,9 +7324,12 @@
 
 	      if (this.options.multipleSelectRow) {
 	        if (this.multipleSelectRowShiftKey && this.multipleSelectRowLastSelectedIndex >= 0) {
-	          var indexes = [this.multipleSelectRowLastSelectedIndex, index].sort();
+	          var _ref8 = this.multipleSelectRowLastSelectedIndex < index ? [this.multipleSelectRowLastSelectedIndex, index] : [index, this.multipleSelectRowLastSelectedIndex],
+	              _ref9 = _slicedToArray(_ref8, 2),
+	              fromIndex = _ref9[0],
+	              toIndex = _ref9[1];
 
-	          for (var i = indexes[0] + 1; i < indexes[1]; i++) {
+	          for (var i = fromIndex + 1; i < toIndex; i++) {
 	            this.data[i][this.header.stateField] = true;
 	            this.$selectItem.filter("[data-index=\"".concat(i, "\"]")).prop('checked', true);
 	          }
@@ -7514,7 +7511,7 @@
 	      this.options.pagination = !this.options.pagination;
 	      var icon = this.options.showButtonIcons ? this.options.pagination ? this.options.icons.paginationSwitchDown : this.options.icons.paginationSwitchUp : '';
 	      var text = this.options.showButtonText ? this.options.pagination ? this.options.formatPaginationSwitchUp() : this.options.formatPaginationSwitchDown() : '';
-	      this.$toolbar.find('button[name="paginationSwitch"]').html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) + ' ' + text);
+	      this.$toolbar.find('button[name="paginationSwitch"]').html("".concat(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon), " ").concat(text));
 	      this.updatePagination();
 	    }
 	  }, {
@@ -7530,7 +7527,7 @@
 	      this.initHeader();
 	      var icon = this.options.showButtonIcons ? this.options.cardView ? this.options.icons.toggleOn : this.options.icons.toggleOff : '';
 	      var text = this.options.showButtonText ? this.options.cardView ? this.options.formatToggleOff() : this.options.formatToggleOn() : '';
-	      this.$toolbar.find('button[name="toggle"]').html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) + ' ' + text);
+	      this.$toolbar.find('button[name="toggle"]').html("".concat(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon), " ").concat(text));
 	      this.initBody();
 	      this.trigger('toggle', this.options.cardView);
 	    }
@@ -7713,13 +7710,13 @@
 	      this.columns[this.fieldsColumnsIndex[params.field]].title = this.options.escape ? Utils.escapeHTML(params.title) : params.title;
 
 	      if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
-	        var header = this.options.height !== undefined ? this.$tableHeader : this.$header;
-	        header.find('th[data-field]').each(function (i, el) {
+	        this.$header.find('th[data-field]').each(function (i, el) {
 	          if ($(el).data('field') === params.field) {
 	            $($(el).find('.th-inner')[0]).text(params.title);
 	            return false;
 	          }
 	        });
+	        this.resetView();
 	      }
 	    }
 	  }, {
