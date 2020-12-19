@@ -1224,6 +1224,14 @@
 
 	      (_get2 = _get(_getPrototypeOf(_class.prototype), "initBody", this)).call.apply(_get2, [this].concat(args));
 
+	      if (this.$fixedColumns && this.$fixedColumns.length) {
+	        this.$fixedColumns.toggle(this.fixedColumnsSupported());
+	      }
+
+	      if (this.$fixedColumnsRight && this.$fixedColumnsRight.length) {
+	        this.$fixedColumnsRight.toggle(this.fixedColumnsSupported());
+	      }
+
 	      if (!this.fixedColumnsSupported()) {
 	        return;
 	      }

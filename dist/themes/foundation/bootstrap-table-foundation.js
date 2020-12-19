@@ -981,7 +981,7 @@
 	      this.constants.classes.dropdownActive = 'is-active';
 	      this.constants.classes.paginationActive = 'current';
 	      this.constants.classes.buttonActive = 'success';
-	      this.constants.html.toolbarDropdown = ['<div class="dropdown-pane" id="toolbar-columns-id" data-dropdown><ul class="vertical menu">', '</ul></div>'];
+	      this.constants.html.toolbarDropdown = ['<div class="dropdown-pane" data-dropdown><ul class="vertical menu">', '</ul></div>'];
 	      this.constants.html.toolbarDropdownItem = '<li class="dropdown-item-marker"><label class="dropdown-item">%s</label></li>';
 	      this.constants.html.toolbarDropdownSeparator = '<li><hr></li>';
 	      this.constants.html.pageDropdown = ['<div class="dropdown-pane" id="pagination-list-id" data-dropdown><ul class="vertical menu">', '</ul></div>'];
@@ -1004,7 +1004,13 @@
 	    value: function handleToolbar() {
 	      if (this.$toolbar.find('.dropdown-toggle').length) {
 	        this.$toolbar.find('.dropdown-toggle').each(function (i, el) {
-	          $(el).attr('data-toggle', $(el).next().attr('id'));
+	          if (!$(el).next().length) {
+	            return;
+	          }
+
+	          var id = "toolbar-columns-id".concat(i);
+	          $(el).next().attr('id', id);
+	          $(el).attr('data-toggle', id);
 	          var $pane = $(el).next().attr('data-position', 'bottom').attr('data-alignment', 'right');
 	          new window.Foundation.Dropdown($pane);
 	        });

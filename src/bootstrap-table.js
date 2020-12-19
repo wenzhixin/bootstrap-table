@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.18.0
+ * version: 1.18.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -252,7 +252,10 @@ class BootstrapTable {
       let detailViewTemplate = ''
 
       if (i === 0 && Utils.hasDetailViewIcon(this.options)) {
-        detailViewTemplate = `<th class="detail" rowspan="${this.options.columns.length}">
+        const rowspan = this.options.columns.length > 1 ?
+          ` rowspan="${this.options.columns.length}"` : ''
+
+        detailViewTemplate = `<th class="detail"${rowspan}>
           <div class="fht-cell"></div>
           </th>`
       }
@@ -1549,8 +1552,10 @@ class BootstrapTable {
       value = Utils.calculateObjectValue(column,
         this.header.formatters[j], [value_, item, i, field], value_)
 
-      value = typeof value === 'undefined' || value === null ?
-        this.options.undefinedText : value
+      if (!(column.checkbox || column.radio)) {
+        value = typeof value === 'undefined' || value === null ?
+          this.options.undefinedText : value
+      }
 
       if (this.searchText !== '' && this.options.searchHighlight) {
         value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
@@ -2305,6 +2310,7 @@ class BootstrapTable {
         this.searchText ||
         this.options.customSearch ||
         this.options.sortName !== undefined ||
+        this.enableCustomSort || // Fix #4616: this.enableCustomSort is for extensions
         !Utils.isEmptyObject(this.filterColumns) ||
         !Utils.isEmptyObject(this.filterColumnsPartial)
       ) && (!params || !params.unfiltered)

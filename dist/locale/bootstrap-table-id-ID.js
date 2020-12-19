@@ -673,7 +673,7 @@
 	 * Author: Andre Gardiner<andre@sirdre.com>
 	 */
 
-	$.fn.bootstrapTable.locales['id-ID'] = {
+	$.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

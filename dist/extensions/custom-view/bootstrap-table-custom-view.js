@@ -1136,12 +1136,12 @@
 	      if (this.options.customView && this.options.showCustomViewButton) {
 	        this.buttons = Object.assign(this.buttons, {
 	          customView: {
-	            'text': this.options.formatToggleCustomView(),
-	            'icon': this.options.icons.customView,
-	            'event': this.toggleCustomView,
-	            'attributes': {
+	            text: this.options.formatToggleCustomView(),
+	            icon: this.options.icons.customView,
+	            event: this.toggleCustomView,
+	            attributes: {
 	              'aria-label': this.options.formatToggleCustomView(),
-	              'title': this.options.formatToggleCustomView()
+	              title: this.options.formatToggleCustomView()
 	            }
 	          }
 	        });

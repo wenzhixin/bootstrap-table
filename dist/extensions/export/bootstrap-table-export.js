@@ -2453,6 +2453,7 @@
 	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 	$.fn.bootstrapTable.methods.push('exportTable');
 	$.extend($.fn.bootstrapTable.defaults, {
+	  // eslint-disable-next-line no-unused-vars
 	  onExportSaved: function onExportSaved(exportedRows) {
 	    return false;
 	  }
@@ -2479,12 +2480,10 @@
 	          _this = this;
 
 	      var o = this.options;
+	      var exportTypes = o.exportTypes;
 	      this.showToolbar = this.showToolbar || o.showExport;
-	      var $btnGroup = this.$toolbar.find('>.columns');
 
 	      if (this.options.showExport) {
-	        var exportTypes = o.exportTypes;
-
 	        if (typeof exportTypes === 'string') {
 	          var types = exportTypes.slice(1, -1).replace(/ /g, '').split(',');
 	          exportTypes = types.map(function (t) {
@@ -2500,8 +2499,8 @@
 	        }
 
 	        this.buttons = Object.assign(this.buttons, {
-	          'export': {
-	            'html': exportTypes.length === 1 ? "\n            <div class=\"export ".concat(this.constants.classes.buttonsDropdown, "\"\n            data-type=\"").concat(exportTypes[0], "\">\n            <button class=\"").concat(this.constants.buttonsClass, "\"\n            aria-label=\"Export\"\n            type=\"button\"\n            title=\"").concat(o.formatExport(), "\">\n            ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : '', "\n            ").concat(o.showButtonText ? o.formatExport() : '', "\n            </button>\n            </div>\n          ") : "\n            <div class=\"export ".concat(this.constants.classes.buttonsDropdown, "\">\n            <button class=\"").concat(this.constants.buttonsClass, " dropdown-toggle\"\n            aria-label=\"Export\"\n            data-toggle=\"dropdown\"\n            type=\"button\"\n            title=\"").concat(o.formatExport(), "\">\n            ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : '', "\n            ").concat(o.showButtonText ? o.formatExport() : '', "\n            ").concat(this.constants.html.dropdownCaret, "\n            </button>\n            </div>\n          ")
+	          export: {
+	            html: exportTypes.length === 1 ? "\n            <div class=\"export ".concat(this.constants.classes.buttonsDropdown, "\"\n            data-type=\"").concat(exportTypes[0], "\">\n            <button class=\"").concat(this.constants.buttonsClass, "\"\n            aria-label=\"Export\"\n            type=\"button\"\n            title=\"").concat(o.formatExport(), "\">\n            ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : '', "\n            ").concat(o.showButtonText ? o.formatExport() : '', "\n            </button>\n            </div>\n          ") : "\n            <div class=\"export ".concat(this.constants.classes.buttonsDropdown, "\">\n            <button class=\"").concat(this.constants.buttonsClass, " dropdown-toggle\"\n            aria-label=\"Export\"\n            data-toggle=\"dropdown\"\n            type=\"button\"\n            title=\"").concat(o.formatExport(), "\">\n            ").concat(o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : '', "\n            ").concat(o.showButtonText ? o.formatExport() : '', "\n            ").concat(this.constants.html.dropdownCaret, "\n            </button>\n            </div>\n          ")
 	          }
 	        });
 	      }
@@ -2578,12 +2577,6 @@
 	    value: function handleToolbar() {
 	      if (!this.$export) {
 	        return;
-	      }
-
-	      if ($.fn.bootstrapTable.theme === 'foundation') {
-	        this.$export.find('.dropdown-pane').attr('id', 'toolbar-export-id');
-	      } else if ($.fn.bootstrapTable.theme === 'materialize') {
-	        this.$export.find('.dropdown-content').attr('id', 'toolbar-export-id');
 	      }
 
 	      if (_get(_getPrototypeOf(_class.prototype), "handleToolbar", this)) {

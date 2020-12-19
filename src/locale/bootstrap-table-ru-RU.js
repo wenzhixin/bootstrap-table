@@ -5,10 +5,10 @@
 
 $.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Скопировать строки'
   },
   formatPrint () {
-    return 'Print'
+    return 'Печать'
   },
   formatLoadingMessage () {
     return 'Пожалуйста, подождите, идёт загрузка'
@@ -18,22 +18,22 @@ $.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Записи с ${pageFrom} по ${pageTo} из ${totalRows} (filtered from ${totalNotFiltered} total rows)`
+      return `Записи с ${pageFrom} по ${pageTo} из ${totalRows} (отфильтровано, всего на сервере ${totalNotFiltered} записей)`
     }
 
     return `Записи с ${pageFrom} по ${pageTo} из ${totalRows}`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'предыдущая страница'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `перейти к странице ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'следующая страница'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Загружено ${totalRows} строк`
   },
   formatClearSearch () {
     return 'Очистить фильтры'
@@ -45,13 +45,13 @@ $.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
     return 'Ничего не найдено'
   },
   formatPaginationSwitch () {
-    return 'Hide/Show pagination'
+    return 'Скрыть/Показать постраничную навигацию'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Показать постраничную навигацию'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Скрыть постраничную навигацию'
   },
   formatRefresh () {
     return 'Обновить'
@@ -60,46 +60,46 @@ $.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
     return 'Переключить'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Показать записи в виде карточек'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Табличный режим просмотра'
   },
   formatColumns () {
     return 'Колонки'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Выбрать все'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Полноэкранный режим'
   },
   formatAllRows () {
-    return 'All'
+    return 'Все'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Автоматическое обновление'
   },
   formatExport () {
-    return 'Export data'
+    return 'Экспортировать данные'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Стр.'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Расширенный поиск'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Закрыть'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Скрыть/Показать панель инструментов'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Скрыть панель инструментов'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Показать панель инструментов'
   }
 }
 

@@ -1028,9 +1028,32 @@
 	        var $jumpTo = $pageGroup.find('.page-jump-to');
 
 	        if (!$jumpTo.length) {
-	          $jumpTo = $("\n          <div class=\"page-jump-to ".concat(this.constants.classes.inputGroup, "\">\n          <input type=\"number\" class=\"").concat(this.constants.classes.input).concat(Utils.sprintf(' input-%s', this.options.iconSize), "\" value=\"").concat(this.options.pageNumber, "\">\n          <button class=\"").concat(this.constants.buttonsClass, "\"  type=\"button\">\n          ").concat(this.options.formatJumpTo(), "\n          </button>\n          </div>\n        ")).appendTo($pageGroup);
-	          $jumpTo.on('click', 'button', function (e) {
-	            _this.selectPage(+$(e.target).parent('.page-jump-to').find('input').val());
+	          $jumpTo = $(Utils.sprintf(this.constants.html.inputGroup, "<input type=\"number\"\n            class=\"".concat(this.constants.classes.input).concat(Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, this.options.iconSize), "\"\n            value=\"").concat(this.options.pageNumber, "\"\n            min=\"1\"\n            max=\"").concat(this.totalPages, "\">"), "<button class=\"".concat(this.constants.buttonsClass, "\"  type=\"button\">\n          ").concat(this.options.formatJumpTo(), "\n          </button>"))).addClass('page-jump-to').appendTo($pageGroup);
+	          var $input = $jumpTo.find('input');
+	          $jumpTo.find('button').click(function () {
+	            _this.selectPage(+$input.val());
+	          });
+	          $input.keyup(function (e) {
+	            if ($input.val() === '') {
+	              return;
+	            }
+
+	            if (e.keyCode === 13) {
+	              _this.selectPage(+$input.val());
+
+	              return;
+	            }
+
+	            if (+$input.val() < +$input.attr('min')) {
+	              $input.val($input.attr('min'));
+	            } else if (+$input.val() > +$input.attr('max')) {
+	              $input.val($input.attr('max'));
+	            }
+	          });
+	          $input.blur(function () {
+	            if ($input.val() === '') {
+	              $input.val(_this.options.pageNumber);
+	            }
 	          });
 	        }
 	      }

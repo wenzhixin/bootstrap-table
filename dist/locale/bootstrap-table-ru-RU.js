@@ -673,7 +673,7 @@
 	 * Author: Dunaevsky Maxim <dunmaksim@yandex.ru>
 	 */
 
-	$.fn.bootstrapTable.locales['ru-RU'] = {
+	$.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

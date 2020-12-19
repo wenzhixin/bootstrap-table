@@ -1581,7 +1581,11 @@
 
 	function _updateHistoryState(table, _prefix) {
 	  var params = {};
-	  params["".concat(_prefix, "page")] = table.options.pageNumber, params["".concat(_prefix, "size")] = table.options.pageSize, params["".concat(_prefix, "order")] = table.options.sortOrder, params["".concat(_prefix, "sort")] = table.options.sortName, params["".concat(_prefix, "search")] = table.options.searchText;
+	  params["".concat(_prefix, "page")] = table.options.pageNumber;
+	  params["".concat(_prefix, "size")] = table.options.pageSize;
+	  params["".concat(_prefix, "order")] = table.options.sortOrder;
+	  params["".concat(_prefix, "sort")] = table.options.sortName;
+	  params["".concat(_prefix, "search")] = table.options.searchText;
 	  window.history.pushState({}, '', _buildUrl(params));
 	}
 

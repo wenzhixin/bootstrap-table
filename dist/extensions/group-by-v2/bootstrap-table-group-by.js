@@ -1285,7 +1285,7 @@
 	      if (this.options.customSort) {
 	        Utils.calculateObjectValue(this.options, this.options.customSort, [this.options.sortName, this.options.sortOrder, this.data]);
 	      } else {
-	        this.data.sort(function (a, b) {
+	        this.options.data.sort(function (a, b) {
 	          var groupByFields = _this.getGroupByFields();
 
 	          var fieldValuesA = [];
@@ -1354,10 +1354,8 @@
 	    this.columns.forEach(function (column) {
 	      if (column.checkbox) {
 	        checkBox = true;
-	      } else {
-	        if (column.visible) {
-	          visibleColumns += 1;
-	        }
+	      } else if (column.visible) {
+	        visibleColumns += 1;
 	      }
 	    });
 
@@ -1379,8 +1377,8 @@
 
 	      var formattedValue = item.name;
 
-	      if (typeof that.options.groupByFormatter === 'function') {
-	        formattedValue = that.options.groupByFormatter(item.name, item.id, item.data);
+	      if (that.options.groupByFormatter !== undefined) {
+	        formattedValue = Utils.calculateObjectValue(that.options, that.options.groupByFormatter, [item.name, item.id, item.data]);
 	      }
 
 	      html.push('<td', Utils.sprintf(' colspan="%s"', visibleColumns), '>', formattedValue);
@@ -1410,9 +1408,15 @@
 
 	    if (this.options.groupByToggle) {
 	      this.$container.off('click', '.groupBy').on('click', '.groupBy', function () {
-	        $(this).toggleClass('expanded collapsed');
-	        $(this).find('span').toggleClass("".concat(that.options.icons.collapseGroup, " ").concat(that.options.icons.expandGroup));
-	        that.$body.find("tr[data-parent-index=".concat($(this).closest('tr').data('group-index'), "]")).toggleClass('hidden');
+	        var $this = $(this);
+	        var groupIndex = $this.closest('tr').data('group-index');
+	        var $groupRows = that.$body.find("tr[data-parent-index=".concat(groupIndex, "]"));
+	        $this.toggleClass('expanded collapsed');
+	        $this.find('span').toggleClass("".concat(that.options.icons.collapseGroup, " ").concat(that.options.icons.expandGroup));
+	        $groupRows.toggleClass('hidden');
+	        $groupRows.each(function (i, element) {
+	          return that.collapseRow($(element).data('index'));
+	        });
 	      });
 	    }
 

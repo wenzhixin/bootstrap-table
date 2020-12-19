@@ -673,7 +673,7 @@
 	 * Author: Burnspirit<burnspirit@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['pt-PT'] = {
+	$.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },

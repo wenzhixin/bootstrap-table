@@ -1102,14 +1102,14 @@
 	          var $target = $(e.target);
 	          var value = $target.val();
 	          var field = $target.parents('th').data('field');
-	          var $coreTh = that.$header.find('th[data-field="' + field + '"]');
+	          var $coreTh = that.$header.find("th[data-field=\"".concat(field, "\"]"));
 
 	          if ($target.is('input')) {
 	            $coreTh.find('input').val(value);
 	          } else if ($target.is('select')) {
 	            var $select = $coreTh.find('select');
 	            $select.find('option[selected]').removeAttr('selected');
-	            $select.find('option[value="' + value + '"]').attr('selected', true);
+	            $select.find("option[value=\"".concat(value, "\"]")).attr('selected', true);
 	          }
 
 	          that.triggerSearch();

@@ -1143,14 +1143,22 @@
 	 */
 
 	$.akottr.dragtable.prototype._restoreState = function (persistObj) {
+	  var i = 0;
+
 	  for (var _i = 0, _Object$entries = Object.entries(persistObj); _i < _Object$entries.length; _i++) {
 	    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
 	        field = _Object$entries$_i[0],
 	        value = _Object$entries$_i[1];
 
 	    var $th = this.originalTable.el.find("th[data-field=\"".concat(field, "\"]"));
+
+	    if (!$th.length) {
+	      i++;
+	      continue;
+	    }
+
 	    this.originalTable.startIndex = $th.prevAll().length + 1;
-	    this.originalTable.endIndex = parseInt(value, 10) + 1;
+	    this.originalTable.endIndex = parseInt(value, 10) + 1 - i;
 
 	    this._bubbleCols();
 	  }
@@ -1198,6 +1206,7 @@
 	$.extend($.fn.bootstrapTable.defaults, {
 	  reorderableColumns: false,
 	  maxMovingRows: 10,
+	  // eslint-disable-next-line no-unused-vars
 	  onReorderColumn: function onReorderColumn(headerFields) {
 	    return false;
 	  },
@@ -1327,9 +1336,9 @@
 	          var columnIndex = -1;
 	          var optionsColumns = [];
 
-	          _this.$header.find('th:not(.detail)').each(function (i) {
-	            ths.push($(this).data('field'));
-	            formatters.push($(this).data('formatter'));
+	          _this.$header.find('th:not(.detail)').each(function (i, el) {
+	            ths.push($(el).data('field'));
+	            formatters.push($(el).data('formatter'));
 	          }); // Exist columns not shown
 
 
