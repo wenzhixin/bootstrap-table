@@ -66,7 +66,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   renderStickyHeader () {
-    if(!this.options.stickyHeader) return
+    if (!this.options.stickyHeader) return
 
     const that = this
 
