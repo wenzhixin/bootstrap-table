@@ -37,7 +37,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.$stickyEnd = this.$tableBody.find('.sticky_anchor_end')
     this.$stickyHeader = this.$header.clone(true, true)
 
-    if(this.options.stickyToolbar) this.$stickyToolbar = this.$toolbar.clone(true, true)
+    if (this.options.stickyToolbar) this.$stickyToolbar = this.$toolbar.clone(true, true)
 
     // render sticky on window scroll or resize
     const resizeEvent = Utils.getEventName('resize.sticky-header-table', this.$el.attr('id'))
@@ -121,12 +121,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$stickyTable.addClass(this.options.classes)
       // append cloned header to dom
       if (this.options.stickyToolbar) {
-          this.$stickyContainer.css('background-color', this.options.stickyBackgroundColor)
-          this.$stickyContainer.html(this.$stickyToolbar.append(this.$stickyTable.append(this.$stickyHeader)))
+        this.$stickyContainer.css('background-color', this.options.stickyBackgroundColor)
+        this.$stickyContainer.html(this.$stickyToolbar.append(this.$stickyTable.append(this.$stickyHeader)))
       } else {
-          this.$stickyContainer.html(this.$stickyTable.append(this.$stickyHeader))
+        this.$stickyContainer.html(this.$stickyTable.append(this.$stickyHeader))
       }
-        
+
       // match clone and source header positions when left-right scroll
       this.matchPositionX()
     } else {
