@@ -66,6 +66,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   renderStickyHeader () {
+    if(!this.options.stickyHeader) return
+
     const that = this
 
     this.$stickyHeader = this.$header.clone(true, true)
