@@ -225,18 +225,7 @@ export function isFilterDataNotGiven ({ filterData }) {
 export function hasSelectControlElement (selectControl) {
   return selectControl && selectControl.length > 0
 }
-export function getObjectValueByString (obj, memberpath) {
-  var pathComponents = memberpath.split('.')
-  for (var i = 0; i < pathComponents.length; ++i) {
-      var path = pathComponents[i]
-      if (path in obj) {
-          obj = obj[path]
-      } else {
-          return null
-      }
-  }
-  return obj;
-}
+
 export function initFilterSelectControls (that) {
   const data = that.data
   const z = that.options.pagination ?
@@ -259,7 +248,7 @@ export function initFilterSelectControls (that) {
 
       for (let i = 0; i < z; i++) {
         // Added a new value
-        let fieldValue = getObjectValueByString(data[i],field)
+        let fieldValue = Utils.getItemField(data[i],field,false)
         const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
         let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
 
