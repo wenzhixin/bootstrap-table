@@ -228,9 +228,9 @@ export function hasSelectControlElement (selectControl) {
 export function getObjectValueByString (obj, memberpath) {
   var pathComponents = memberpath.split('.')
   for (var i = 0; i < pathComponents.length; ++i) {
-      var k = pathComponents[i]
-      if (k in obj) {
-          obj = obj[k]
+      var path = pathComponents[i]
+      if (path in obj) {
+          obj = obj[path]
       } else {
           return null
       }
