@@ -52,6 +52,7 @@
     "css:build:banner": "foreach -g \"dist/**/*.min.css\" -x \"headr #{path} -o #{path} --version --homepage --author --license\"",
     "css:build": "run-s css:build:*",
     "clean": "rm -rf dist",
+    "prepare": "npm run build",
     "build": "run-s lint clean *:build",
     "pre-commit": "run-s lint docs:check"
   },
