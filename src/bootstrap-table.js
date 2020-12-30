@@ -1567,7 +1567,7 @@ class BootstrapTable {
           this.options.undefinedText : value
       }
 
-      if (this.searchText !== '' && this.options.searchHighlight) {
+      if (this.searchText && this.options.searchHighlight) {
         value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
       }
 
