@@ -9,10 +9,28 @@ jobs:
       node_js:
         - 12
       name: "Lint src and check docs"
+      cache:
+        npm: true
+        directories:
+          - ~/.cache
       script:
         - cd tools
         - git clone --depth=1 https://github.com/wenzhixin/bootstrap-table-examples
         - npm run pre-commit
+      if: branch != master AND type = pull_request
+
+    - stage: test
+      language: node_js
+      node_js:
+        - 12
+      name: "Cypress Test"
+      cache:
+        npm: true
+        directories:
+          - ~/.cache
+      script:
+        - git clone --depth=1 -b feature/cypress-test https://github.com/wenzhixin/bootstrap-table-examples cypress/html
+        - npm run test
       if: branch != master AND type = pull_request
 
     - stage: deploy
