@@ -144,9 +144,7 @@ const theme = {
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="%sLabel">%s</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <div class="bootstrap-table">
@@ -173,14 +171,14 @@ const theme = {
                     </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">%s</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">%s</button>
                 <button type="button" class="btn btn-primary multi-sort-order-button">%s</button>
               </div>
             </div>
           </div>
         </div>
       `,
-      multipleSortButton: '<button class="multi-sort btn btn-secondary" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
+      multipleSortButton: '<button class="multi-sort btn btn-secondary" type="button" data-bs-toggle="modal" data-target="#%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s form-control">'
     }
   },
