@@ -30,6 +30,7 @@ jobs:
           - ~/.cache
       script:
         - git clone --depth=1 -b feature/cypress-test https://github.com/wenzhixin/bootstrap-table-examples cypress/html
+        - npm run css:build:src
         - npm run test
       if: branch != master AND type = pull_request
 
