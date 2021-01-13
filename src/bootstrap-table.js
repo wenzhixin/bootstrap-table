@@ -37,6 +37,7 @@ class BootstrapTable {
 
     this.constants = Constants.CONSTANTS
     this.constants.theme = $.fn.bootstrapTable.theme
+    this.constants.dataToggle = this.constants.html.dataToggle || 'data-toggle'
 
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
 
@@ -229,7 +230,7 @@ class BootstrapTable {
 
   initHeader () {
     const visibleColumns = {}
-    const html = []
+    const headerHtml = []
 
     this.header = {
       fields: [],
@@ -247,6 +248,8 @@ class BootstrapTable {
     Utils.updateFieldGroup(this.options.columns)
 
     this.options.columns.forEach((columns, i) => {
+      const html = []
+
       html.push(`<tr${Utils.sprintf(' class="%s"', this._headerTrClasses[i])} ${Utils.sprintf(' style="%s"', this._headerTrStyles[i])}>`)
 
       let detailViewTemplate = ''
@@ -364,9 +367,13 @@ class BootstrapTable {
       }
 
       html.push('</tr>')
+
+      if (html.length > 3) {
+        headerHtml.push(html.join(''))
+      }
     })
 
-    this.$header.html(html.join(''))
+    this.$header.html(headerHtml.join(''))
     this.$header.find('th[data-field]').each((i, el) => {
       $(el).data(visibleColumns[$(el).data('field')])
     })
@@ -621,7 +628,7 @@ class BootstrapTable {
           const html = []
 
           html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
-            <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
+            <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown"
             aria-label="Columns" title="${opts.formatColumns()}">
             ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
             ${opts.showButtonText ? opts.formatColumns() : ''}
@@ -1174,7 +1181,7 @@ class BootstrapTable {
 
       const pageNumber = [
         `<span class="${this.constants.classes.paginationDropdown}">
-        <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown">
+        <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown">
         <span class="page-size">
         ${allSelected ? opts.formatAllRows() : opts.pageSize}
         </span>
@@ -1567,7 +1574,7 @@ class BootstrapTable {
           this.options.undefinedText : value
       }
 
-      if (this.searchText !== '' && this.options.searchHighlight) {
+      if (this.searchText && this.options.searchHighlight) {
         value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
       }
 

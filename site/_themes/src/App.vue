@@ -88,6 +88,14 @@ export default {
         ],
         css: [
           {
+            name: 'Bootstrap v5',
+            desc: 'The most popular HTML, CSS, and JavaScript framework.',
+            img: '/assets/images/bootstrap5.jpg',
+            url: '/themes/bootstrap5/',
+            demo: 'https://examples.bootstrap-table.com/index.html?bootstrap5',
+            price: ''
+          },
+          {
             name: 'Bootstrap v4',
             desc: 'The most popular HTML, CSS, and JavaScript framework.',
             img: '/assets/images/bootstrap4.jpg',

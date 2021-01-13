@@ -150,6 +150,7 @@ const CONSTANTS = {
       buttonActive: 'active'
     },
     html: {
+      dataToggle: 'data-bs-toggle',
       toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
       toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],
