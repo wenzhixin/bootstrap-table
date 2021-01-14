@@ -1575,7 +1575,21 @@ class BootstrapTable {
       }
 
       if (this.searchText && this.options.searchHighlight) {
-        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
+        let defValue = ''
+        const regExp = new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim')
+        const marker = '<mark>$1</mark>'
+        const isHTML = !/<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value.toString())
+
+        if (isHTML) {
+          // value can contains a HTML tags
+          const textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent
+
+          defValue = value.toString().replace(textContent, textContent.replace(regExp, marker))
+        } else {
+          // but usually not
+          defValue = value.toString().replace(regExp, marker)
+        }
+        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], defValue)
       }
 
       if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
