@@ -1574,11 +1574,11 @@ class BootstrapTable {
           this.options.undefinedText : value
       }
 
-      if (this.searchText && this.options.searchHighlight) {
+      if (column.searchable && this.searchText && this.options.searchHighlight) {
         let defValue = ''
         const regExp = new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim')
         const marker = '<mark>$1</mark>'
-        const isHTML = !/<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value.toString())
+        const isHTML = value && /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value)
 
         if (isHTML) {
           // value can contains a HTML tags
