@@ -1583,8 +1583,9 @@ class BootstrapTable {
         if (isHTML) {
           // value can contains a HTML tags
           const textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent
+          const textReplaced = textContent.replace(regExp, marker)
 
-          defValue = value.toString().replace(textContent, textContent.replace(regExp, marker))
+          defValue = value.replace(new RegExp(`(>\\s*)(${textContent})(\\s*)`, 'gm'), `$1${textReplaced}$3`)
         } else {
           // but usually not
           defValue = value.toString().replace(regExp, marker)
