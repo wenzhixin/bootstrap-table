@@ -9,7 +9,7 @@ toc: true
 ## Usage
 
 {% highlight html %}
-<link rel="stylesheet" src="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
 <script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
 {% endhighlight %}
 
@@ -60,8 +60,8 @@ toc: true
 * Not support `showFooter` option.
 * Need to import after sticky-header when using with sticky-header extension. For example:
 {% highlight html %}
-<link rel="stylesheet" src="extensions/sticky-header/bootstrap-table-sticky-header.css">
-<link rel="stylesheet" src="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<link rel="stylesheet" href="extensions/sticky-header/bootstrap-table-sticky-header.css">
+<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
 <script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
 <script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
 {% endhighlight %}
