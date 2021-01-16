@@ -9,7 +9,7 @@ toc: true
 ## Usage
 
 {% highlight html %}
-<link rel="stylesheet" src="extensions/group-by-v2/bootstrap-table-group-by.css">
+<link rel="stylesheet" href="extensions/group-by-v2/bootstrap-table-group-by.css">
 <script src="extensions/group-by-v2/bootstrap-table-group-by.js"></script>
 {% endhighlight %}
 
@@ -39,9 +39,9 @@ toc: true
 
 - **Detail:**
 
-   Set the field name(s) that you want to group the data.  
-   For a single field use a `String` e.g. `shape`.   
-   For a multiple fields use a `Array` e.g. `["shape", "color"]`.   
+   Set the field name(s) that you want to group the data.
+   For a single field use a `String` e.g. `shape`.
+   For a multiple fields use a `Array` e.g. `["shape", "color"]`.
 
 - **Default:** `''`
 
@@ -93,12 +93,12 @@ toc: true
 
 - **Detail:**
 
-  All group keys (which are in this array will be collapsed by default.   
+  All group keys (which are in this array will be collapsed by default.
   The value of this option can be:
   - A variable (array)
   - An Array string e.g. `["circle"]`
   - A function (returns an array) which gets as parameters:
      - The group key
-     - The entries of the group 
+     - The entries of the group
 
 - **Default:** `[]`
