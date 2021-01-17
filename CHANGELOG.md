@@ -1,6 +1,24 @@
 ChangeLog
 ---------
 
+### 1.18.2
+
+#### Core
+
+- **Update:** Fixed bootstrap5 cannot work bug.
+- **Update:** Fixed checkbox display bug when using `formatter`.
+- **Update:** Fixed search highlight bug.
+- **Update:** Updated `ru-RU` and `de-DE` locales.
+
+#### Extensions
+
+- **New(filter-control):** Added support for flat JSON.
+- **Update(cookie):** Fixed not deleted cookie bug when the sort was reset.
+- **Update(export):** Not export the detail view icon column.
+- **Update(filter-control):** Fixed not working when using `filterControlContainer`.
+- **Update(multiple-sort):** Fixed multiple-sort cannot work bug.
+- **Update(resizable):** Fixed resizable cannot work in modal.
+
 ### 1.18.1
 
 #### Core
