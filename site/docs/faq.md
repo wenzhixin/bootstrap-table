@@ -64,4 +64,4 @@ onClickRow: function (row, $element) {
 
 All your ideas and feedback are very appreciated! Please feel free to open issues on GitHub or send me an email.
 
-I'm also grateful for your donations: <a href="/donate">https://opencollective.com/bootstrap-table</a>.
+I'm also grateful for your donations: [https://opencollective.com/bootstrap-table](https://opencollective.com/bootstrap-table).
