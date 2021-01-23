@@ -333,6 +333,14 @@
   padding: .5rem 1rem;
 }
 
+.bootstrap-table.bootstrap5 .float-left {
+  float: left;
+}
+
+.bootstrap-table.bootstrap5 .float-right {
+  float: right;
+}
+
 /* calculate scrollbar width */
 div.fixed-table-scroll-inner {
   width: 100%;

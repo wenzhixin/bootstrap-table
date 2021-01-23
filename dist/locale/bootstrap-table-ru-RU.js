@@ -1,10 +1,12 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
 	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-	(global = global || self, factory(global.jQuery));
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var $__default = /*#__PURE__*/_interopDefaultLegacy($);
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -24,7 +26,7 @@
 	  check(typeof self == 'object' && self) ||
 	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
 	  // eslint-disable-next-line no-new-func
-	  Function('return this')();
+	  (function () { return this; })() || Function('return this')();
 
 	var fails = function (exec) {
 	  try {
@@ -36,7 +38,7 @@
 
 	// Thank's IE8 for his funny defineProperty
 	var descriptors = !fails(function () {
-	  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+	  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
 	});
 
 	var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
@@ -217,9 +219,9 @@
 	(module.exports = function (key, value) {
 	  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	})('versions', []).push({
-	  version: '3.6.0',
+	  version: '3.8.1',
 	  mode:  'global',
-	  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+	  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 	});
 	});
 
@@ -255,11 +257,12 @@
 	};
 
 	if (nativeWeakMap) {
-	  var store$1 = new WeakMap$1();
+	  var store$1 = sharedStore.state || (sharedStore.state = new WeakMap$1());
 	  var wmget = store$1.get;
 	  var wmhas = store$1.has;
 	  var wmset = store$1.set;
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    wmset.call(store$1, it, metadata);
 	    return metadata;
 	  };
@@ -273,6 +276,7 @@
 	  var STATE = sharedKey('state');
 	  hiddenKeys[STATE] = true;
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    createNonEnumerableProperty(it, STATE, metadata);
 	    return metadata;
 	  };
@@ -301,9 +305,15 @@
 	  var unsafe = options ? !!options.unsafe : false;
 	  var simple = options ? !!options.enumerable : false;
 	  var noTargetGet = options ? !!options.noTargetGet : false;
+	  var state;
 	  if (typeof value == 'function') {
-	    if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
-	    enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    if (typeof key == 'string' && !has(value, 'name')) {
+	      createNonEnumerableProperty(value, 'name', key);
+	    }
+	    state = enforceInternalState(value);
+	    if (!state.source) {
+	      state.source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    }
 	  }
 	  if (O === global_1) {
 	    if (simple) O[key] = value;
@@ -554,11 +564,11 @@
 	  // eslint-disable-next-line no-undef
 	  && !Symbol.sham
 	  // eslint-disable-next-line no-undef
-	  && typeof Symbol() == 'symbol';
+	  && typeof Symbol.iterator == 'symbol';
 
 	var WellKnownSymbolsStore = shared('wks');
 	var Symbol$1 = global_1.Symbol;
-	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : uid;
+	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid;
 
 	var wellKnownSymbol = function (name) {
 	  if (!has(WellKnownSymbolsStore, name)) {
@@ -584,7 +594,7 @@
 	  } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
 	};
 
-	var userAgent = getBuiltIn('navigator', 'userAgent') || '';
+	var engineUserAgent = getBuiltIn('navigator', 'userAgent') || '';
 
 	var process = global_1.process;
 	var versions = process && process.versions;
@@ -594,15 +604,15 @@
 	if (v8) {
 	  match = v8.split('.');
 	  version = match[0] + match[1];
-	} else if (userAgent) {
-	  match = userAgent.match(/Edge\/(\d+)/);
+	} else if (engineUserAgent) {
+	  match = engineUserAgent.match(/Edge\/(\d+)/);
 	  if (!match || match[1] >= 74) {
-	    match = userAgent.match(/Chrome\/(\d+)/);
+	    match = engineUserAgent.match(/Chrome\/(\d+)/);
 	    if (match) version = match[1];
 	  }
 	}
 
-	var v8Version = version && +version;
+	var engineV8Version = version && +version;
 
 	var SPECIES$1 = wellKnownSymbol('species');
 
@@ -610,7 +620,7 @@
 	  // We can't use this feature detection in V8 since it causes
 	  // deoptimization and serious performance degradation
 	  // https://github.com/zloirock/core-js/issues/677
-	  return v8Version >= 51 || !fails(function () {
+	  return engineV8Version >= 51 || !fails(function () {
 	    var array = [];
 	    var constructor = array.constructor = {};
 	    constructor[SPECIES$1] = function () {
@@ -627,7 +637,7 @@
 	// We can't use this feature detection in V8 since it causes
 	// deoptimization and serious performance degradation
 	// https://github.com/zloirock/core-js/issues/679
-	var IS_CONCAT_SPREADABLE_SUPPORT = v8Version >= 51 || !fails(function () {
+	var IS_CONCAT_SPREADABLE_SUPPORT = engineV8Version >= 51 || !fails(function () {
 	  var array = [];
 	  array[IS_CONCAT_SPREADABLE] = false;
 	  return array.concat()[0] !== array;
@@ -673,12 +683,12 @@
 	 * Author: Dunaevsky Maxim <dunmaksim@yandex.ru>
 	 */
 
-	$.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
+	$__default['default'].fn.bootstrapTable.locales['ru-RU'] = $__default['default'].fn.bootstrapTable.locales['ru'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	    return 'Скопировать строки';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return 'Печать';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Пожалуйста, подождите, идёт загрузка';
@@ -688,22 +698,22 @@
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows, " (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows, " (\u043E\u0442\u0444\u0438\u043B\u044C\u0442\u0440\u043E\u0432\u0430\u043D\u043E, \u0432\u0441\u0435\u0433\u043E \u043D\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0435 ").concat(totalNotFiltered, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439)");
 	    }
 
 	    return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows);
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'предыдущая страница';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "\u043F\u0435\u0440\u0435\u0439\u0442\u0438 \u043A \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'следующая страница';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	    return "\u0417\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u043E ".concat(totalRows, " \u0441\u0442\u0440\u043E\u043A");
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'Очистить фильтры';
@@ -715,13 +725,13 @@
 	    return 'Ничего не найдено';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Hide/Show pagination';
+	    return 'Скрыть/Показать постраничную навигацию';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Показать постраничную навигацию';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Скрыть постраничную навигацию';
 	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Обновить';
@@ -730,48 +740,48 @@
 	    return 'Переключить';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Показать записи в виде карточек';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Табличный режим просмотра';
 	  },
 	  formatColumns: function formatColumns() {
 	    return 'Колонки';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Выбрать все';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Полноэкранный режим';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'All';
+	    return 'Все';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Автоматическое обновление';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'Экспортировать данные';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'Стр.';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'Расширенный поиск';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'Закрыть';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
+	    return 'Скрыть/Показать панель инструментов';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
+	    return 'Скрыть панель инструментов';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
+	    return 'Показать панель инструментов';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ru-RU']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ru-RU']);
 
 })));

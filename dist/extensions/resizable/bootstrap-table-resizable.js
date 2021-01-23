@@ -1,10 +1,12 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
 	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-	(global = global || self, factory(global.jQuery));
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var $__default = /*#__PURE__*/_interopDefaultLegacy($);
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -24,7 +26,7 @@
 	  check(typeof self == 'object' && self) ||
 	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
 	  // eslint-disable-next-line no-new-func
-	  Function('return this')();
+	  (function () { return this; })() || Function('return this')();
 
 	var fails = function (exec) {
 	  try {
@@ -36,7 +38,7 @@
 
 	// Thank's IE8 for his funny defineProperty
 	var descriptors = !fails(function () {
-	  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+	  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
 	});
 
 	var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
@@ -217,9 +219,9 @@
 	(module.exports = function (key, value) {
 	  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	})('versions', []).push({
-	  version: '3.6.0',
+	  version: '3.8.1',
 	  mode:  'global',
-	  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+	  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 	});
 	});
 
@@ -255,11 +257,12 @@
 	};
 
 	if (nativeWeakMap) {
-	  var store$1 = new WeakMap$1();
+	  var store$1 = sharedStore.state || (sharedStore.state = new WeakMap$1());
 	  var wmget = store$1.get;
 	  var wmhas = store$1.has;
 	  var wmset = store$1.set;
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    wmset.call(store$1, it, metadata);
 	    return metadata;
 	  };
@@ -273,6 +276,7 @@
 	  var STATE = sharedKey('state');
 	  hiddenKeys[STATE] = true;
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    createNonEnumerableProperty(it, STATE, metadata);
 	    return metadata;
 	  };
@@ -301,9 +305,15 @@
 	  var unsafe = options ? !!options.unsafe : false;
 	  var simple = options ? !!options.enumerable : false;
 	  var noTargetGet = options ? !!options.noTargetGet : false;
+	  var state;
 	  if (typeof value == 'function') {
-	    if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
-	    enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    if (typeof key == 'string' && !has(value, 'name')) {
+	      createNonEnumerableProperty(value, 'name', key);
+	    }
+	    state = enforceInternalState(value);
+	    if (!state.source) {
+	      state.source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    }
 	  }
 	  if (O === global_1) {
 	    if (simple) O[key] = value;
@@ -532,6 +542,12 @@
 	  return classofRaw(arg) == 'Array';
 	};
 
+	// `ToObject` abstract operation
+	// https://tc39.github.io/ecma262/#sec-toobject
+	var toObject = function (argument) {
+	  return Object(requireObjectCoercible(argument));
+	};
+
 	var createProperty = function (object, key, value) {
 	  var propertyKey = toPrimitive(key);
 	  if (propertyKey in object) objectDefineProperty.f(object, propertyKey, createPropertyDescriptor(0, value));
@@ -548,11 +564,11 @@
 	  // eslint-disable-next-line no-undef
 	  && !Symbol.sham
 	  // eslint-disable-next-line no-undef
-	  && typeof Symbol() == 'symbol';
+	  && typeof Symbol.iterator == 'symbol';
 
 	var WellKnownSymbolsStore = shared('wks');
 	var Symbol$1 = global_1.Symbol;
-	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : uid;
+	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid;
 
 	var wellKnownSymbol = function (name) {
 	  if (!has(WellKnownSymbolsStore, name)) {
@@ -561,7 +577,24 @@
 	  } return WellKnownSymbolsStore[name];
 	};
 
-	var userAgent = getBuiltIn('navigator', 'userAgent') || '';
+	var SPECIES = wellKnownSymbol('species');
+
+	// `ArraySpeciesCreate` abstract operation
+	// https://tc39.github.io/ecma262/#sec-arrayspeciescreate
+	var arraySpeciesCreate = function (originalArray, length) {
+	  var C;
+	  if (isArray(originalArray)) {
+	    C = originalArray.constructor;
+	    // cross-realm fallback
+	    if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = undefined;
+	    else if (isObject(C)) {
+	      C = C[SPECIES];
+	      if (C === null) C = undefined;
+	    }
+	  } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
+	};
+
+	var engineUserAgent = getBuiltIn('navigator', 'userAgent') || '';
 
 	var process = global_1.process;
 	var versions = process && process.versions;
@@ -571,66 +604,210 @@
 	if (v8) {
 	  match = v8.split('.');
 	  version = match[0] + match[1];
-	} else if (userAgent) {
-	  match = userAgent.match(/Edge\/(\d+)/);
+	} else if (engineUserAgent) {
+	  match = engineUserAgent.match(/Edge\/(\d+)/);
 	  if (!match || match[1] >= 74) {
-	    match = userAgent.match(/Chrome\/(\d+)/);
+	    match = engineUserAgent.match(/Chrome\/(\d+)/);
 	    if (match) version = match[1];
 	  }
 	}
 
-	var v8Version = version && +version;
+	var engineV8Version = version && +version;
 
-	var SPECIES = wellKnownSymbol('species');
+	var SPECIES$1 = wellKnownSymbol('species');
 
 	var arrayMethodHasSpeciesSupport = function (METHOD_NAME) {
 	  // We can't use this feature detection in V8 since it causes
 	  // deoptimization and serious performance degradation
 	  // https://github.com/zloirock/core-js/issues/677
-	  return v8Version >= 51 || !fails(function () {
+	  return engineV8Version >= 51 || !fails(function () {
 	    var array = [];
 	    var constructor = array.constructor = {};
-	    constructor[SPECIES] = function () {
+	    constructor[SPECIES$1] = function () {
 	      return { foo: 1 };
 	    };
 	    return array[METHOD_NAME](Boolean).foo !== 1;
 	  });
 	};
 
-	var SPECIES$1 = wellKnownSymbol('species');
-	var nativeSlice = [].slice;
-	var max$1 = Math.max;
+	var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
+	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+	var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded';
 
-	// `Array.prototype.slice` method
-	// https://tc39.github.io/ecma262/#sec-array.prototype.slice
-	// fallback for not array-like ES3 strings and DOM objects
-	_export({ target: 'Array', proto: true, forced: !arrayMethodHasSpeciesSupport('slice') }, {
-	  slice: function slice(start, end) {
-	    var O = toIndexedObject(this);
-	    var length = toLength(O.length);
-	    var k = toAbsoluteIndex(start, length);
-	    var fin = toAbsoluteIndex(end === undefined ? length : end, length);
-	    // inline `ArraySpeciesCreate` for usage native `Array#slice` where it's possible
-	    var Constructor, result, n;
-	    if (isArray(O)) {
-	      Constructor = O.constructor;
-	      // cross-realm fallback
-	      if (typeof Constructor == 'function' && (Constructor === Array || isArray(Constructor.prototype))) {
-	        Constructor = undefined;
-	      } else if (isObject(Constructor)) {
-	        Constructor = Constructor[SPECIES$1];
-	        if (Constructor === null) Constructor = undefined;
-	      }
-	      if (Constructor === Array || Constructor === undefined) {
-	        return nativeSlice.call(O, k, fin);
+	// We can't use this feature detection in V8 since it causes
+	// deoptimization and serious performance degradation
+	// https://github.com/zloirock/core-js/issues/679
+	var IS_CONCAT_SPREADABLE_SUPPORT = engineV8Version >= 51 || !fails(function () {
+	  var array = [];
+	  array[IS_CONCAT_SPREADABLE] = false;
+	  return array.concat()[0] !== array;
+	});
+
+	var SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('concat');
+
+	var isConcatSpreadable = function (O) {
+	  if (!isObject(O)) return false;
+	  var spreadable = O[IS_CONCAT_SPREADABLE];
+	  return spreadable !== undefined ? !!spreadable : isArray(O);
+	};
+
+	var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT;
+
+	// `Array.prototype.concat` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.concat
+	// with adding support of @@isConcatSpreadable and @@species
+	_export({ target: 'Array', proto: true, forced: FORCED }, {
+	  concat: function concat(arg) { // eslint-disable-line no-unused-vars
+	    var O = toObject(this);
+	    var A = arraySpeciesCreate(O, 0);
+	    var n = 0;
+	    var i, k, length, len, E;
+	    for (i = -1, length = arguments.length; i < length; i++) {
+	      E = i === -1 ? O : arguments[i];
+	      if (isConcatSpreadable(E)) {
+	        len = toLength(E.length);
+	        if (n + len > MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+	        for (k = 0; k < len; k++, n++) if (k in E) createProperty(A, n, E[k]);
+	      } else {
+	        if (n >= MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+	        createProperty(A, n++, E);
 	      }
 	    }
-	    result = new (Constructor === undefined ? Array : Constructor)(max$1(fin - k, 0));
-	    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
-	    result.length = n;
-	    return result;
+	    A.length = n;
+	    return A;
 	  }
 	});
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	function _defineProperties(target, props) {
+	  for (var i = 0; i < props.length; i++) {
+	    var descriptor = props[i];
+	    descriptor.enumerable = descriptor.enumerable || false;
+	    descriptor.configurable = true;
+	    if ("value" in descriptor) descriptor.writable = true;
+	    Object.defineProperty(target, descriptor.key, descriptor);
+	  }
+	}
+
+	function _createClass(Constructor, protoProps, staticProps) {
+	  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+	  if (staticProps) _defineProperties(Constructor, staticProps);
+	  return Constructor;
+	}
+
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function");
+	  }
+
+	  subClass.prototype = Object.create(superClass && superClass.prototype, {
+	    constructor: {
+	      value: subClass,
+	      writable: true,
+	      configurable: true
+	    }
+	  });
+	  if (superClass) _setPrototypeOf(subClass, superClass);
+	}
+
+	function _getPrototypeOf(o) {
+	  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+	    return o.__proto__ || Object.getPrototypeOf(o);
+	  };
+	  return _getPrototypeOf(o);
+	}
+
+	function _setPrototypeOf(o, p) {
+	  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+	    o.__proto__ = p;
+	    return o;
+	  };
+
+	  return _setPrototypeOf(o, p);
+	}
+
+	function _isNativeReflectConstruct() {
+	  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+	  if (Reflect.construct.sham) return false;
+	  if (typeof Proxy === "function") return true;
+
+	  try {
+	    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+	    return true;
+	  } catch (e) {
+	    return false;
+	  }
+	}
+
+	function _assertThisInitialized(self) {
+	  if (self === void 0) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }
+
+	  return self;
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	  if (call && (typeof call === "object" || typeof call === "function")) {
+	    return call;
+	  }
+
+	  return _assertThisInitialized(self);
+	}
+
+	function _createSuper(Derived) {
+	  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+	  return function _createSuperInternal() {
+	    var Super = _getPrototypeOf(Derived),
+	        result;
+
+	    if (hasNativeReflectConstruct) {
+	      var NewTarget = _getPrototypeOf(this).constructor;
+
+	      result = Reflect.construct(Super, arguments, NewTarget);
+	    } else {
+	      result = Super.apply(this, arguments);
+	    }
+
+	    return _possibleConstructorReturn(this, result);
+	  };
+	}
+
+	function _superPropBase(object, property) {
+	  while (!Object.prototype.hasOwnProperty.call(object, property)) {
+	    object = _getPrototypeOf(object);
+	    if (object === null) break;
+	  }
+
+	  return object;
+	}
+
+	function _get(target, property, receiver) {
+	  if (typeof Reflect !== "undefined" && Reflect.get) {
+	    _get = Reflect.get;
+	  } else {
+	    _get = function _get(target, property, receiver) {
+	      var base = _superPropBase(target, property);
+
+	      if (!base) return;
+	      var desc = Object.getOwnPropertyDescriptor(base, property);
+
+	      if (desc.get) {
+	        return desc.get.call(receiver);
+	      }
+
+	      return desc.value;
+	    };
+	  }
+
+	  return _get(target, property, receiver || target);
+	}
 
 	/**
 	 * @author: Dennis Hernández
@@ -643,7 +820,7 @@
 	};
 
 	var initResizable = function initResizable(that) {
-	  if (that.options.resizable && !that.options.cardView && !isInit(that)) {
+	  if (that.options.resizable && !that.options.cardView && !isInit(that) && that.$el.is(':visible')) {
 	    that.$el.resizableColumns({
 	      store: window.store
 	    });
@@ -661,56 +838,75 @@
 	  initResizable(that);
 	};
 
-	$.extend($.fn.bootstrapTable.defaults, {
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, {
 	  resizable: false
 	});
-	var BootstrapTable = $.fn.bootstrapTable.Constructor;
-	var _initBody = BootstrapTable.prototype.initBody;
-	var _toggleView = BootstrapTable.prototype.toggleView;
-	var _resetView = BootstrapTable.prototype.resetView;
 
-	BootstrapTable.prototype.initBody = function () {
-	  var that = this;
+	$__default['default'].BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
+	  _inherits(_class, _$$BootstrapTable);
 
-	  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-	    args[_key] = arguments[_key];
+	  var _super = _createSuper(_class);
+
+	  function _class() {
+	    _classCallCheck(this, _class);
+
+	    return _super.apply(this, arguments);
 	  }
 
-	  _initBody.apply(this, Array.prototype.slice.apply(args));
+	  _createClass(_class, [{
+	    key: "initBody",
+	    value: function initBody() {
+	      var _get2,
+	          _this = this;
 
-	  that.$el.off('column-switch.bs.table page-change.bs.table').on('column-switch.bs.table page-change.bs.table', function () {
-	    reInitResizable(that);
-	  });
-	};
+	      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+	        args[_key] = arguments[_key];
+	      }
 
-	BootstrapTable.prototype.toggleView = function () {
-	  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	    args[_key2] = arguments[_key2];
-	  }
+	      (_get2 = _get(_getPrototypeOf(_class.prototype), "initBody", this)).call.apply(_get2, [this].concat(args));
 
-	  _toggleView.apply(this, Array.prototype.slice.apply(args));
+	      this.$el.off('column-switch.bs.table page-change.bs.table').on('column-switch.bs.table page-change.bs.table', function () {
+	        reInitResizable(_this);
+	      });
+	    }
+	  }, {
+	    key: "toggleView",
+	    value: function toggleView() {
+	      var _get3;
 
-	  if (this.options.resizable && this.options.cardView) {
-	    // Destroy the plugin
-	    destroy(this);
-	  }
-	};
+	      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	        args[_key2] = arguments[_key2];
+	      }
 
-	BootstrapTable.prototype.resetView = function () {
-	  var that = this;
+	      (_get3 = _get(_getPrototypeOf(_class.prototype), "toggleView", this)).call.apply(_get3, [this].concat(args));
 
-	  for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-	    args[_key3] = arguments[_key3];
-	  }
+	      if (this.options.resizable && this.options.cardView) {
+	        // Destroy the plugin
+	        destroy(this);
+	      }
+	    }
+	  }, {
+	    key: "resetView",
+	    value: function resetView() {
+	      var _get4,
+	          _this2 = this;
 
-	  _resetView.apply(this, Array.prototype.slice.apply(args));
+	      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+	        args[_key3] = arguments[_key3];
+	      }
 
-	  if (this.options.resizable) {
-	    // because in fitHeader function, we use setTimeout(func, 100);
-	    setTimeout(function () {
-	      initResizable(that);
-	    }, 100);
-	  }
-	};
+	      (_get4 = _get(_getPrototypeOf(_class.prototype), "resetView", this)).call.apply(_get4, [this].concat(args));
+
+	      if (this.options.resizable) {
+	        // because in fitHeader function, we use setTimeout(func, 100);
+	        setTimeout(function () {
+	          initResizable(_this2);
+	        }, 100);
+	      }
+	    }
+	  }]);
+
+	  return _class;
+	}($__default['default'].BootstrapTable);
 
 })));

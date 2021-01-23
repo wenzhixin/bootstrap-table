@@ -1,10 +1,12 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
 	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-	(global = global || self, factory(global.jQuery));
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var $__default = /*#__PURE__*/_interopDefaultLegacy($);
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -24,7 +26,7 @@
 	  check(typeof self == 'object' && self) ||
 	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
 	  // eslint-disable-next-line no-new-func
-	  Function('return this')();
+	  (function () { return this; })() || Function('return this')();
 
 	var fails = function (exec) {
 	  try {
@@ -36,7 +38,7 @@
 
 	// Thank's IE8 for his funny defineProperty
 	var descriptors = !fails(function () {
-	  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+	  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
 	});
 
 	var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
@@ -217,9 +219,9 @@
 	(module.exports = function (key, value) {
 	  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	})('versions', []).push({
-	  version: '3.6.0',
+	  version: '3.8.1',
 	  mode:  'global',
-	  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+	  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 	});
 	});
 
@@ -255,11 +257,12 @@
 	};
 
 	if (nativeWeakMap) {
-	  var store$1 = new WeakMap$1();
+	  var store$1 = sharedStore.state || (sharedStore.state = new WeakMap$1());
 	  var wmget = store$1.get;
 	  var wmhas = store$1.has;
 	  var wmset = store$1.set;
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    wmset.call(store$1, it, metadata);
 	    return metadata;
 	  };
@@ -273,6 +276,7 @@
 	  var STATE = sharedKey('state');
 	  hiddenKeys[STATE] = true;
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    createNonEnumerableProperty(it, STATE, metadata);
 	    return metadata;
 	  };
@@ -301,9 +305,15 @@
 	  var unsafe = options ? !!options.unsafe : false;
 	  var simple = options ? !!options.enumerable : false;
 	  var noTargetGet = options ? !!options.noTargetGet : false;
+	  var state;
 	  if (typeof value == 'function') {
-	    if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
-	    enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    if (typeof key == 'string' && !has(value, 'name')) {
+	      createNonEnumerableProperty(value, 'name', key);
+	    }
+	    state = enforceInternalState(value);
+	    if (!state.source) {
+	      state.source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    }
 	  }
 	  if (O === global_1) {
 	    if (simple) O[key] = value;
@@ -554,11 +564,11 @@
 	  // eslint-disable-next-line no-undef
 	  && !Symbol.sham
 	  // eslint-disable-next-line no-undef
-	  && typeof Symbol() == 'symbol';
+	  && typeof Symbol.iterator == 'symbol';
 
 	var WellKnownSymbolsStore = shared('wks');
 	var Symbol$1 = global_1.Symbol;
-	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : uid;
+	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid;
 
 	var wellKnownSymbol = function (name) {
 	  if (!has(WellKnownSymbolsStore, name)) {
@@ -584,7 +594,7 @@
 	  } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
 	};
 
-	var userAgent = getBuiltIn('navigator', 'userAgent') || '';
+	var engineUserAgent = getBuiltIn('navigator', 'userAgent') || '';
 
 	var process = global_1.process;
 	var versions = process && process.versions;
@@ -594,15 +604,15 @@
 	if (v8) {
 	  match = v8.split('.');
 	  version = match[0] + match[1];
-	} else if (userAgent) {
-	  match = userAgent.match(/Edge\/(\d+)/);
+	} else if (engineUserAgent) {
+	  match = engineUserAgent.match(/Edge\/(\d+)/);
 	  if (!match || match[1] >= 74) {
-	    match = userAgent.match(/Chrome\/(\d+)/);
+	    match = engineUserAgent.match(/Chrome\/(\d+)/);
 	    if (match) version = match[1];
 	  }
 	}
 
-	var v8Version = version && +version;
+	var engineV8Version = version && +version;
 
 	var SPECIES$1 = wellKnownSymbol('species');
 
@@ -610,7 +620,7 @@
 	  // We can't use this feature detection in V8 since it causes
 	  // deoptimization and serious performance degradation
 	  // https://github.com/zloirock/core-js/issues/677
-	  return v8Version >= 51 || !fails(function () {
+	  return engineV8Version >= 51 || !fails(function () {
 	    var array = [];
 	    var constructor = array.constructor = {};
 	    constructor[SPECIES$1] = function () {
@@ -627,7 +637,7 @@
 	// We can't use this feature detection in V8 since it causes
 	// deoptimization and serious performance degradation
 	// https://github.com/zloirock/core-js/issues/679
-	var IS_CONCAT_SPREADABLE_SUPPORT = v8Version >= 51 || !fails(function () {
+	var IS_CONCAT_SPREADABLE_SUPPORT = engineV8Version >= 51 || !fails(function () {
 	  var array = [];
 	  array[IS_CONCAT_SPREADABLE] = false;
 	  return array.concat()[0] !== array;
@@ -1008,6 +1018,14 @@
 	  }, { unsafe: true });
 	}
 
+	// TODO: Remove from `core-js@4` since it's moved to entry points
+
+
+
+
+
+
+
 	var SPECIES$3 = wellKnownSymbol('species');
 
 	var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
@@ -1027,6 +1045,15 @@
 	// https://stackoverflow.com/questions/6024666/getting-ie-to-replace-a-regex-with-the-literal-string-0
 	var REPLACE_KEEPS_$0 = (function () {
 	  return 'a'.replace(/./, '$0') === '$0';
+	})();
+
+	var REPLACE = wellKnownSymbol('replace');
+	// Safari <= 13.0.3(?) substitutes nth capture where n>m with an empty string
+	var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = (function () {
+	  if (/./[REPLACE]) {
+	    return /./[REPLACE]('a', '$0') === '';
+	  }
+	  return false;
 	})();
 
 	// Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
@@ -1076,7 +1103,11 @@
 	  if (
 	    !DELEGATES_TO_SYMBOL ||
 	    !DELEGATES_TO_EXEC ||
-	    (KEY === 'replace' && !(REPLACE_SUPPORTS_NAMED_GROUPS && REPLACE_KEEPS_$0)) ||
+	    (KEY === 'replace' && !(
+	      REPLACE_SUPPORTS_NAMED_GROUPS &&
+	      REPLACE_KEEPS_$0 &&
+	      !REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE
+	    )) ||
 	    (KEY === 'split' && !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC)
 	  ) {
 	    var nativeRegExpMethod = /./[SYMBOL];
@@ -1091,7 +1122,10 @@
 	        return { done: true, value: nativeMethod.call(str, regexp, arg2) };
 	      }
 	      return { done: false };
-	    }, { REPLACE_KEEPS_$0: REPLACE_KEEPS_$0 });
+	    }, {
+	      REPLACE_KEEPS_$0: REPLACE_KEEPS_$0,
+	      REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE: REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE
+	    });
 	    var stringMethod = methods[0];
 	    var regexMethod = methods[1];
 
@@ -1210,6 +1244,10 @@
 
 	// @@replace logic
 	fixRegexpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, maybeCallNative, reason) {
+	  var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = reason.REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE;
+	  var REPLACE_KEEPS_$0 = reason.REPLACE_KEEPS_$0;
+	  var UNSAFE_SUBSTITUTE = REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE ? '$' : '$0';
+
 	  return [
 	    // `String.prototype.replace` method
 	    // https://tc39.github.io/ecma262/#sec-string.prototype.replace
@@ -1223,7 +1261,10 @@
 	    // `RegExp.prototype[@@replace]` method
 	    // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@replace
 	    function (regexp, replaceValue) {
-	      if (reason.REPLACE_KEEPS_$0 || (typeof replaceValue === 'string' && replaceValue.indexOf('$0') === -1)) {
+	      if (
+	        (!REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE && REPLACE_KEEPS_$0) ||
+	        (typeof replaceValue === 'string' && replaceValue.indexOf(UNSAFE_SUBSTITUTE) === -1)
+	      ) {
 	        var res = maybeCallNative(nativeReplace, regexp, this, replaceValue);
 	        if (res.done) return res.value;
 	      }
@@ -1405,6 +1446,19 @@
 	  return _setPrototypeOf(o, p);
 	}
 
+	function _isNativeReflectConstruct() {
+	  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+	  if (Reflect.construct.sham) return false;
+	  if (typeof Proxy === "function") return true;
+
+	  try {
+	    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+	    return true;
+	  } catch (e) {
+	    return false;
+	  }
+	}
+
 	function _assertThisInitialized(self) {
 	  if (self === void 0) {
 	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -1419,6 +1473,25 @@
 	  }
 
 	  return _assertThisInitialized(self);
+	}
+
+	function _createSuper(Derived) {
+	  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+	  return function _createSuperInternal() {
+	    var Super = _getPrototypeOf(Derived),
+	        result;
+
+	    if (hasNativeReflectConstruct) {
+	      var NewTarget = _getPrototypeOf(this).constructor;
+
+	      result = Reflect.construct(Super, arguments, NewTarget);
+	    } else {
+	      result = Super.apply(this, arguments);
+	    }
+
+	    return _possibleConstructorReturn(this, result);
+	  };
 	}
 
 	function _superPropBase(object, property) {
@@ -1452,7 +1525,7 @@
 	}
 
 	function _slicedToArray(arr, i) {
-	  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+	  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 	}
 
 	function _arrayWithHoles(arr) {
@@ -1460,10 +1533,7 @@
 	}
 
 	function _iterableToArrayLimit(arr, i) {
-	  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-	    return;
-	  }
-
+	  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
 	  var _arr = [];
 	  var _n = true;
 	  var _d = false;
@@ -1489,8 +1559,25 @@
 	  return _arr;
 	}
 
+	function _unsupportedIterableToArray(o, minLen) {
+	  if (!o) return;
+	  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+	  var n = Object.prototype.toString.call(o).slice(8, -1);
+	  if (n === "Object" && o.constructor) n = o.constructor.name;
+	  if (n === "Map" || n === "Set") return Array.from(o);
+	  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+	}
+
+	function _arrayLikeToArray(arr, len) {
+	  if (len == null || len > arr.length) len = arr.length;
+
+	  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+	  return arr2;
+	}
+
 	function _nonIterableRest() {
-	  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+	  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 	}
 
 	/**
@@ -1589,20 +1676,20 @@
 	  window.history.pushState({}, '', _buildUrl(params));
 	}
 
-	$.extend($.fn.bootstrapTable.defaults, {
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, {
 	  addrbar: false,
 	  addrPrefix: ''
 	});
 
-	$.BootstrapTable =
-	/*#__PURE__*/
-	function (_$$BootstrapTable) {
+	$__default['default'].BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
 	  _inherits(_class, _$$BootstrapTable);
+
+	  var _super = _createSuper(_class);
 
 	  function _class() {
 	    _classCallCheck(this, _class);
 
-	    return _possibleConstructorReturn(this, _getPrototypeOf(_class).apply(this, arguments));
+	    return _super.apply(this, arguments);
 	  }
 
 	  _createClass(_class, [{
@@ -1662,15 +1749,15 @@
 	  }, {
 	    key: "getDefaultOptionValue",
 	    value: function getDefaultOptionValue(optionName, prefixName) {
-	      if (this.options[optionName] !== $.BootstrapTable.DEFAULTS[optionName]) {
+	      if (this.options[optionName] !== $__default['default'].BootstrapTable.DEFAULTS[optionName]) {
 	        return this.options[optionName];
 	      }
 
-	      return _GET("".concat(this.options.addrPrefix || '').concat(prefixName)) || $.BootstrapTable.DEFAULTS[optionName];
+	      return _GET("".concat(this.options.addrPrefix || '').concat(prefixName)) || $__default['default'].BootstrapTable.DEFAULTS[optionName];
 	    }
 	  }]);
 
 	  return _class;
-	}($.BootstrapTable);
+	}($__default['default'].BootstrapTable);
 
 })));

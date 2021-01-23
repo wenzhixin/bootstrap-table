@@ -7,7 +7,12 @@
 const isInit = that => that.$el.data('resizableColumns') !== undefined
 
 const initResizable = that => {
-  if (that.options.resizable && !that.options.cardView && !isInit(that)) {
+  if (
+    that.options.resizable &&
+    !that.options.cardView &&
+    !isInit(that) &&
+    that.$el.is(':visible')
+  ) {
     that.$el.resizableColumns({
       store: window.store
     })
@@ -29,41 +34,34 @@ $.extend($.fn.bootstrapTable.defaults, {
   resizable: false
 })
 
-const BootstrapTable = $.fn.bootstrapTable.Constructor
-const _initBody = BootstrapTable.prototype.initBody
-const _toggleView = BootstrapTable.prototype.toggleView
-const _resetView = BootstrapTable.prototype.resetView
+$.BootstrapTable = class extends $.BootstrapTable {
 
-BootstrapTable.prototype.initBody = function (...args) {
-  const that = this
+  initBody (...args) {
+    super.initBody(...args)
 
-  _initBody.apply(this, Array.prototype.slice.apply(args))
-
-  that.$el
-    .off('column-switch.bs.table page-change.bs.table')
-    .on('column-switch.bs.table page-change.bs.table', () => {
-      reInitResizable(that)
-    })
-}
-
-BootstrapTable.prototype.toggleView = function (...args) {
-  _toggleView.apply(this, Array.prototype.slice.apply(args))
-
-  if (this.options.resizable && this.options.cardView) {
-    // Destroy the plugin
-    destroy(this)
+    this.$el.off('column-switch.bs.table page-change.bs.table')
+      .on('column-switch.bs.table page-change.bs.table', () => {
+        reInitResizable(this)
+      })
   }
-}
 
-BootstrapTable.prototype.resetView = function (...args) {
-  const that = this
+  toggleView (...args) {
+    super.toggleView(...args)
 
-  _resetView.apply(this, Array.prototype.slice.apply(args))
+    if (this.options.resizable && this.options.cardView) {
+      // Destroy the plugin
+      destroy(this)
+    }
+  }
 
-  if (this.options.resizable) {
-    // because in fitHeader function, we use setTimeout(func, 100);
-    setTimeout(() => {
-      initResizable(that)
-    }, 100)
+  resetView (...args) {
+    super.resetView(...args)
+
+    if (this.options.resizable) {
+      // because in fitHeader function, we use setTimeout(func, 100);
+      setTimeout(() => {
+        initResizable(this)
+      }, 100)
+    }
   }
 }

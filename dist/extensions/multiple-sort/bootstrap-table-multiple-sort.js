@@ -1,10 +1,12 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
 	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-	(global = global || self, factory(global.jQuery));
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var $__default = /*#__PURE__*/_interopDefaultLegacy($);
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -24,7 +26,7 @@
 	  check(typeof self == 'object' && self) ||
 	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
 	  // eslint-disable-next-line no-new-func
-	  Function('return this')();
+	  (function () { return this; })() || Function('return this')();
 
 	var fails = function (exec) {
 	  try {
@@ -36,7 +38,7 @@
 
 	// Thank's IE8 for his funny defineProperty
 	var descriptors = !fails(function () {
-	  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+	  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
 	});
 
 	var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
@@ -217,9 +219,9 @@
 	(module.exports = function (key, value) {
 	  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	})('versions', []).push({
-	  version: '3.6.0',
+	  version: '3.8.1',
 	  mode:  'global',
-	  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+	  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 	});
 	});
 
@@ -255,11 +257,12 @@
 	};
 
 	if (nativeWeakMap) {
-	  var store$1 = new WeakMap$1();
+	  var store$1 = sharedStore.state || (sharedStore.state = new WeakMap$1());
 	  var wmget = store$1.get;
 	  var wmhas = store$1.has;
 	  var wmset = store$1.set;
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    wmset.call(store$1, it, metadata);
 	    return metadata;
 	  };
@@ -273,6 +276,7 @@
 	  var STATE = sharedKey('state');
 	  hiddenKeys[STATE] = true;
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    createNonEnumerableProperty(it, STATE, metadata);
 	    return metadata;
 	  };
@@ -301,9 +305,15 @@
 	  var unsafe = options ? !!options.unsafe : false;
 	  var simple = options ? !!options.enumerable : false;
 	  var noTargetGet = options ? !!options.noTargetGet : false;
+	  var state;
 	  if (typeof value == 'function') {
-	    if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
-	    enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    if (typeof key == 'string' && !has(value, 'name')) {
+	      createNonEnumerableProperty(value, 'name', key);
+	    }
+	    state = enforceInternalState(value);
+	    if (!state.source) {
+	      state.source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    }
 	  }
 	  if (O === global_1) {
 	    if (simple) O[key] = value;
@@ -554,11 +564,11 @@
 	  // eslint-disable-next-line no-undef
 	  && !Symbol.sham
 	  // eslint-disable-next-line no-undef
-	  && typeof Symbol() == 'symbol';
+	  && typeof Symbol.iterator == 'symbol';
 
 	var WellKnownSymbolsStore = shared('wks');
 	var Symbol$1 = global_1.Symbol;
-	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : uid;
+	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid;
 
 	var wellKnownSymbol = function (name) {
 	  if (!has(WellKnownSymbolsStore, name)) {
@@ -584,7 +594,7 @@
 	  } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
 	};
 
-	var userAgent = getBuiltIn('navigator', 'userAgent') || '';
+	var engineUserAgent = getBuiltIn('navigator', 'userAgent') || '';
 
 	var process = global_1.process;
 	var versions = process && process.versions;
@@ -594,15 +604,15 @@
 	if (v8) {
 	  match = v8.split('.');
 	  version = match[0] + match[1];
-	} else if (userAgent) {
-	  match = userAgent.match(/Edge\/(\d+)/);
+	} else if (engineUserAgent) {
+	  match = engineUserAgent.match(/Edge\/(\d+)/);
 	  if (!match || match[1] >= 74) {
-	    match = userAgent.match(/Chrome\/(\d+)/);
+	    match = engineUserAgent.match(/Chrome\/(\d+)/);
 	    if (match) version = match[1];
 	  }
 	}
 
-	var v8Version = version && +version;
+	var engineV8Version = version && +version;
 
 	var SPECIES$1 = wellKnownSymbol('species');
 
@@ -610,7 +620,7 @@
 	  // We can't use this feature detection in V8 since it causes
 	  // deoptimization and serious performance degradation
 	  // https://github.com/zloirock/core-js/issues/677
-	  return v8Version >= 51 || !fails(function () {
+	  return engineV8Version >= 51 || !fails(function () {
 	    var array = [];
 	    var constructor = array.constructor = {};
 	    constructor[SPECIES$1] = function () {
@@ -627,7 +637,7 @@
 	// We can't use this feature detection in V8 since it causes
 	// deoptimization and serious performance degradation
 	// https://github.com/zloirock/core-js/issues/679
-	var IS_CONCAT_SPREADABLE_SUPPORT = v8Version >= 51 || !fails(function () {
+	var IS_CONCAT_SPREADABLE_SUPPORT = engineV8Version >= 51 || !fails(function () {
 	  var array = [];
 	  array[IS_CONCAT_SPREADABLE] = false;
 	  return array.concat()[0] !== array;
@@ -675,7 +685,7 @@
 	};
 
 	// optional / simple context binding
-	var bindContext = function (fn, that, length) {
+	var functionBindContext = function (fn, that, length) {
 	  aFunction$1(fn);
 	  if (that === undefined) return fn;
 	  switch (length) {
@@ -699,22 +709,23 @@
 
 	var push = [].push;
 
-	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex }` methods implementation
+	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterOut }` methods implementation
 	var createMethod$1 = function (TYPE) {
 	  var IS_MAP = TYPE == 1;
 	  var IS_FILTER = TYPE == 2;
 	  var IS_SOME = TYPE == 3;
 	  var IS_EVERY = TYPE == 4;
 	  var IS_FIND_INDEX = TYPE == 6;
+	  var IS_FILTER_OUT = TYPE == 7;
 	  var NO_HOLES = TYPE == 5 || IS_FIND_INDEX;
 	  return function ($this, callbackfn, that, specificCreate) {
 	    var O = toObject($this);
 	    var self = indexedObject(O);
-	    var boundFunction = bindContext(callbackfn, that, 3);
+	    var boundFunction = functionBindContext(callbackfn, that, 3);
 	    var length = toLength(self.length);
 	    var index = 0;
 	    var create = specificCreate || arraySpeciesCreate;
-	    var target = IS_MAP ? create($this, length) : IS_FILTER ? create($this, 0) : undefined;
+	    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_OUT ? create($this, 0) : undefined;
 	    var value, result;
 	    for (;length > index; index++) if (NO_HOLES || index in self) {
 	      value = self[index];
@@ -726,7 +737,10 @@
 	          case 5: return value;             // find
 	          case 6: return index;             // findIndex
 	          case 2: push.call(target, value); // filter
-	        } else if (IS_EVERY) return false;  // every
+	        } else switch (TYPE) {
+	          case 4: return false;             // every
+	          case 7: push.call(target, value); // filterOut
+	        }
 	      }
 	    }
 	    return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : target;
@@ -754,7 +768,10 @@
 	  find: createMethod$1(5),
 	  // `Array.prototype.findIndex` method
 	  // https://tc39.github.io/ecma262/#sec-array.prototype.findIndex
-	  findIndex: createMethod$1(6)
+	  findIndex: createMethod$1(6),
+	  // `Array.prototype.filterOut` method
+	  // https://github.com/tc39/proposal-array-filtering
+	  filterOut: createMethod$1(7)
 	};
 
 	// `Object.keys` method
@@ -865,18 +882,45 @@
 	  ArrayPrototype[UNSCOPABLES][key] = true;
 	};
 
+	var defineProperty = Object.defineProperty;
+	var cache = {};
+
+	var thrower = function (it) { throw it; };
+
+	var arrayMethodUsesToLength = function (METHOD_NAME, options) {
+	  if (has(cache, METHOD_NAME)) return cache[METHOD_NAME];
+	  if (!options) options = {};
+	  var method = [][METHOD_NAME];
+	  var ACCESSORS = has(options, 'ACCESSORS') ? options.ACCESSORS : false;
+	  var argument0 = has(options, 0) ? options[0] : thrower;
+	  var argument1 = has(options, 1) ? options[1] : undefined;
+
+	  return cache[METHOD_NAME] = !!method && !fails(function () {
+	    if (ACCESSORS && !descriptors) return true;
+	    var O = { length: -1 };
+
+	    if (ACCESSORS) defineProperty(O, 1, { enumerable: true, get: thrower });
+	    else O[1] = 1;
+
+	    method.call(O, argument0, argument1);
+	  });
+	};
+
 	var $find = arrayIteration.find;
+
 
 
 	var FIND = 'find';
 	var SKIPS_HOLES = true;
+
+	var USES_TO_LENGTH = arrayMethodUsesToLength(FIND);
 
 	// Shouldn't skip holes
 	if (FIND in []) Array(1)[FIND](function () { SKIPS_HOLES = false; });
 
 	// `Array.prototype.find` method
 	// https://tc39.github.io/ecma262/#sec-array.prototype.find
-	_export({ target: 'Array', proto: true, forced: SKIPS_HOLES }, {
+	_export({ target: 'Array', proto: true, forced: SKIPS_HOLES || !USES_TO_LENGTH }, {
 	  find: function find(callbackfn /* , that = undefined */) {
 	    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
 	  }
@@ -885,9 +929,9 @@
 	// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
 	addToUnscopables(FIND);
 
-	var sloppyArrayMethod = function (METHOD_NAME, argument) {
+	var arrayMethodIsStrict = function (METHOD_NAME, argument) {
 	  var method = [][METHOD_NAME];
-	  return !method || !fails(function () {
+	  return !!method && fails(function () {
 	    // eslint-disable-next-line no-useless-call,no-throw-literal
 	    method.call(null, argument || function () { throw 1; }, 1);
 	  });
@@ -896,14 +940,16 @@
 	var $indexOf = arrayIncludes.indexOf;
 
 
+
 	var nativeIndexOf = [].indexOf;
 
 	var NEGATIVE_ZERO = !!nativeIndexOf && 1 / [1].indexOf(1, -0) < 0;
-	var SLOPPY_METHOD = sloppyArrayMethod('indexOf');
+	var STRICT_METHOD = arrayMethodIsStrict('indexOf');
+	var USES_TO_LENGTH$1 = arrayMethodUsesToLength('indexOf', { ACCESSORS: true, 1: 0 });
 
 	// `Array.prototype.indexOf` method
 	// https://tc39.github.io/ecma262/#sec-array.prototype.indexof
-	_export({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || SLOPPY_METHOD }, {
+	_export({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || !STRICT_METHOD || !USES_TO_LENGTH$1 }, {
 	  indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
 	    return NEGATIVE_ZERO
 	      // convert -0 to +0
@@ -918,18 +964,19 @@
 
 	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
 	// FF49- issue
-	var USES_TO_LENGTH = HAS_SPECIES_SUPPORT && !fails(function () {
-	  [].map.call({ length: -1, 0: 1 }, function (it) { throw it; });
-	});
+	var USES_TO_LENGTH$2 = arrayMethodUsesToLength('map');
 
 	// `Array.prototype.map` method
 	// https://tc39.github.io/ecma262/#sec-array.prototype.map
 	// with adding support of @@species
-	_export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+	_export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH$2 }, {
 	  map: function map(callbackfn /* , thisArg */) {
 	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
 	  }
 	});
+
+	var HAS_SPECIES_SUPPORT$1 = arrayMethodHasSpeciesSupport('slice');
+	var USES_TO_LENGTH$3 = arrayMethodUsesToLength('slice', { ACCESSORS: true, 0: 0, 1: 2 });
 
 	var SPECIES$2 = wellKnownSymbol('species');
 	var nativeSlice = [].slice;
@@ -938,7 +985,7 @@
 	// `Array.prototype.slice` method
 	// https://tc39.github.io/ecma262/#sec-array.prototype.slice
 	// fallback for not array-like ES3 strings and DOM objects
-	_export({ target: 'Array', proto: true, forced: !arrayMethodHasSpeciesSupport('slice') }, {
+	_export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT$1 || !USES_TO_LENGTH$3 }, {
 	  slice: function slice(start, end) {
 	    var O = toIndexedObject(this);
 	    var length = toLength(O.length);
@@ -978,9 +1025,9 @@
 	  test.sort(null);
 	});
 	// Old WebKit
-	var SLOPPY_METHOD$1 = sloppyArrayMethod('sort');
+	var STRICT_METHOD$1 = arrayMethodIsStrict('sort');
 
-	var FORCED$1 = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || SLOPPY_METHOD$1;
+	var FORCED$1 = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || !STRICT_METHOD$1;
 
 	// `Array.prototype.sort` method
 	// https://tc39.github.io/ecma262/#sec-array.prototype.sort
@@ -992,6 +1039,9 @@
 	  }
 	});
 
+	var HAS_SPECIES_SUPPORT$2 = arrayMethodHasSpeciesSupport('splice');
+	var USES_TO_LENGTH$4 = arrayMethodUsesToLength('splice', { ACCESSORS: true, 0: 0, 1: 2 });
+
 	var max$2 = Math.max;
 	var min$2 = Math.min;
 	var MAX_SAFE_INTEGER$1 = 0x1FFFFFFFFFFFFF;
@@ -1000,7 +1050,7 @@
 	// `Array.prototype.splice` method
 	// https://tc39.github.io/ecma262/#sec-array.prototype.splice
 	// with adding support of @@species
-	_export({ target: 'Array', proto: true, forced: !arrayMethodHasSpeciesSupport('splice') }, {
+	_export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT$2 || !USES_TO_LENGTH$4 }, {
 	  splice: function splice(start, deleteCount /* , ...items */) {
 	    var O = toObject(this);
 	    var len = toLength(O.length);
@@ -1050,16 +1100,16 @@
 	});
 
 	var nativeAssign = Object.assign;
-	var defineProperty = Object.defineProperty;
+	var defineProperty$1 = Object.defineProperty;
 
 	// `Object.assign` method
 	// https://tc39.github.io/ecma262/#sec-object.assign
 	var objectAssign = !nativeAssign || fails(function () {
 	  // should have correct order of operations (Edge bug)
-	  if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty({}, 'a', {
+	  if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty$1({}, 'a', {
 	    enumerable: true,
 	    get: function () {
-	      defineProperty(this, 'b', {
+	      defineProperty$1(this, 'b', {
 	        value: 3,
 	        enumerable: false
 	      });
@@ -1174,21 +1224,21 @@
 	var trim = stringTrim.trim;
 
 
-	var nativeParseFloat = global_1.parseFloat;
-	var FORCED$2 = 1 / nativeParseFloat(whitespaces + '-0') !== -Infinity;
+	var $parseFloat = global_1.parseFloat;
+	var FORCED$2 = 1 / $parseFloat(whitespaces + '-0') !== -Infinity;
 
 	// `parseFloat` method
 	// https://tc39.github.io/ecma262/#sec-parsefloat-string
-	var _parseFloat = FORCED$2 ? function parseFloat(string) {
+	var numberParseFloat = FORCED$2 ? function parseFloat(string) {
 	  var trimmedString = trim(String(string));
-	  var result = nativeParseFloat(trimmedString);
+	  var result = $parseFloat(trimmedString);
 	  return result === 0 && trimmedString.charAt(0) == '-' ? -0 : result;
-	} : nativeParseFloat;
+	} : $parseFloat;
 
 	// `parseFloat` method
 	// https://tc39.github.io/ecma262/#sec-parsefloat-string
-	_export({ global: true, forced: parseFloat != _parseFloat }, {
-	  parseFloat: _parseFloat
+	_export({ global: true, forced: parseFloat != numberParseFloat }, {
+	  parseFloat: numberParseFloat
 	});
 
 	// `RegExp.prototype.flags` getter implementation
@@ -1226,6 +1276,8 @@
 	}
 
 	function _typeof(obj) {
+	  "@babel/helpers - typeof";
+
 	  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
 	    _typeof = function (obj) {
 	      return typeof obj;
@@ -1247,8 +1299,8 @@
 	 */
 
 	var isSingleSort = false;
-	var Utils = $.fn.bootstrapTable.utils;
-	$.extend($.fn.bootstrapTable.defaults.icons, {
+	var Utils = $__default['default'].fn.bootstrapTable.utils;
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults.icons, {
 	  plus: {
 	    bootstrap3: 'glyphicon-plus',
 	    bootstrap4: 'fa-plus',
@@ -1258,7 +1310,7 @@
 	    foundation: 'fa-plus',
 	    bulma: 'fa-plus',
 	    'bootstrap-table': 'icon-plus'
-	  }[$.fn.bootstrapTable.theme] || 'fa-clock',
+	  }[$__default['default'].fn.bootstrapTable.theme] || 'fa-clock',
 	  minus: {
 	    bootstrap3: 'glyphicon-minus',
 	    bootstrap4: 'fa-minus',
@@ -1268,7 +1320,7 @@
 	    foundation: 'fa-minus',
 	    bulma: 'fa-minus',
 	    'bootstrap-table': 'icon-minus'
-	  }[$.fn.bootstrapTable.theme] || 'fa-clock',
+	  }[$__default['default'].fn.bootstrapTable.theme] || 'fa-clock',
 	  sort: {
 	    bootstrap3: 'glyphicon-sort',
 	    bootstrap4: 'fa-sort',
@@ -1278,7 +1330,7 @@
 	    foundation: 'fa-sort',
 	    bulma: 'fa-sort',
 	    'bootstrap-table': 'icon-sort-amount-asc'
-	  }[$.fn.bootstrapTable.theme] || 'fa-clock'
+	  }[$__default['default'].fn.bootstrapTable.theme] || 'fa-clock'
 	});
 	var theme = {
 	  bootstrap3: {
@@ -1297,8 +1349,8 @@
 	  },
 	  bootstrap5: {
 	    html: {
-	      multipleSortModal: "\n        <div class=\"modal fade\" id=\"%s\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"%sLabel\" aria-hidden=\"true\">\n          <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <h5 class=\"modal-title\" id=\"%sLabel\">%s</h5>\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n              </div>\n              <div class=\"modal-body\">\n                <div class=\"bootstrap-table\">\n                        <div class=\"fixed-table-toolbar\">\n                            <div class=\"bars\">\n                                <div id=\"toolbar\" class=\"pb-3\">\n                                     <button id=\"add\" type=\"button\" class=\"btn btn-secondary\">%s %s</button>\n                                     <button id=\"delete\" type=\"button\" class=\"btn btn-secondary\" disabled>%s %s</button>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"fixed-table-container\">\n                            <table id=\"multi-sort\" class=\"table\">\n                                <thead>\n                                    <tr>\n                                        <th></th>\n                                         <th><div class=\"th-inner\">%s</div></th>\n                                         <th><div class=\"th-inner\">%s</div></th>\n                                    </tr>\n                                </thead>\n                                <tbody></tbody>\n                            </table>\n                        </div>\n                    </div>\n              </div>\n              <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">%s</button>\n                <button type=\"button\" class=\"btn btn-primary multi-sort-order-button\">%s</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      ",
-	      multipleSortButton: '<button class="multi-sort btn btn-secondary" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
+	      multipleSortModal: "\n        <div class=\"modal fade\" id=\"%s\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"%sLabel\" aria-hidden=\"true\">\n          <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <h5 class=\"modal-title\" id=\"%sLabel\">%s</h5>\n                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n              </div>\n              <div class=\"modal-body\">\n                <div class=\"bootstrap-table\">\n                        <div class=\"fixed-table-toolbar\">\n                            <div class=\"bars\">\n                                <div id=\"toolbar\" class=\"pb-3\">\n                                     <button id=\"add\" type=\"button\" class=\"btn btn-secondary\">%s %s</button>\n                                     <button id=\"delete\" type=\"button\" class=\"btn btn-secondary\" disabled>%s %s</button>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"fixed-table-container\">\n                            <table id=\"multi-sort\" class=\"table\">\n                                <thead>\n                                    <tr>\n                                        <th></th>\n                                         <th><div class=\"th-inner\">%s</div></th>\n                                         <th><div class=\"th-inner\">%s</div></th>\n                                    </tr>\n                                </thead>\n                                <tbody></tbody>\n                            </table>\n                        </div>\n                    </div>\n              </div>\n              <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">%s</button>\n                <button type=\"button\" class=\"btn btn-primary multi-sort-order-button\">%s</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      ",
+	      multipleSortButton: '<button class="multi-sort btn btn-secondary" type="button" data-bs-toggle="modal" data-target="#%s" title="%s">%s</button>',
 	      multipleSortSelect: '<select class="%s %s form-control">'
 	    }
 	  },
@@ -1337,7 +1389,7 @@
 	      multipleSortSelect: '<select class="%s %s browser-default">'
 	    }
 	  }
-	}[$.fn.bootstrapTable.theme];
+	}[$__default['default'].fn.bootstrapTable.theme];
 
 	var showSortModal = function showSortModal(that) {
 	  var _selector = that.sortModalSelector;
@@ -1346,10 +1398,10 @@
 
 	  var o = that.options;
 
-	  if (!$(_id).hasClass('modal')) {
+	  if (!$__default['default'](_id).hasClass('modal')) {
 	    var sModal = Utils.sprintf(theme.html.multipleSortModal, _selector, _selector, _selector, that.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, o.icons.plus), that.options.formatAddLevel(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, o.icons.minus), that.options.formatDeleteLevel(), that.options.formatColumn(), that.options.formatOrder(), that.options.formatCancel(), that.options.formatSort());
-	    $('body').append($(sModal));
-	    that.$sortModal = $(_id);
+	    $__default['default']('body').append($__default['default'](sModal));
+	    that.$sortModal = $__default['default'](_id);
 	    var $rows = that.$sortModal.find('tbody > tr');
 	    that.$sortModal.off('click', '#add').on('click', '#add', function () {
 	      var total = that.$sortModal.find('.multi-sort-name:first option').length;
@@ -1376,8 +1428,8 @@
 	      var $alert = that.$sortModal.find('div.alert');
 	      var fields = [];
 	      var results = [];
-	      var sortPriority = $.map($rows, function (row) {
-	        var $row = $(row);
+	      var sortPriority = $__default['default'].map($rows, function (row) {
+	        var $row = $__default['default'](row);
 	        var name = $row.find('.multi-sort-name').val();
 	        var order = $row.find('.multi-sort-order').val();
 	        fields.push(name);
@@ -1397,14 +1449,14 @@
 	      if (results.length > 0) {
 	        if ($alert.length === 0) {
 	          $alert = "<div class=\"alert alert-danger\" role=\"alert\"><strong>".concat(that.options.formatDuplicateAlertTitle(), "</strong> ").concat(that.options.formatDuplicateAlertDescription(), "</div>");
-	          $($alert).insertBefore(that.$sortModal.find('.bars'));
+	          $__default['default']($alert).insertBefore(that.$sortModal.find('.bars'));
 	        }
 	      } else {
 	        if ($alert.length === 1) {
-	          $($alert).remove();
+	          $__default['default']($alert).remove();
 	        }
 
-	        if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
+	        if ($__default['default'].inArray($__default['default'].fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
 	          that.$sortModal.modal('hide');
 	        }
 
@@ -1435,9 +1487,9 @@
 	  }
 	};
 
-	$.fn.bootstrapTable.methods.push('multipleSort');
-	$.fn.bootstrapTable.methods.push('multiSort');
-	$.extend($.fn.bootstrapTable.defaults, {
+	$__default['default'].fn.bootstrapTable.methods.push('multipleSort');
+	$__default['default'].fn.bootstrapTable.methods.push('multiSort');
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, {
 	  showMultiSort: false,
 	  showMultiSortButton: true,
 	  multiSortStrictSort: false,
@@ -1446,10 +1498,10 @@
 	    return false;
 	  }
 	});
-	$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.Constructor.EVENTS, {
 	  'multiple-sort.bs.table': 'onMultipleSort'
 	});
-	$.extend($.fn.bootstrapTable.locales, {
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.locales, {
 	  formatMultipleSort: function formatMultipleSort() {
 	    return 'Multiple Sort';
 	  },
@@ -1490,8 +1542,8 @@
 	    };
 	  }
 	});
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
-	var BootstrapTable = $.fn.bootstrapTable.Constructor;
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales);
+	var BootstrapTable = $__default['default'].fn.bootstrapTable.Constructor;
 	var _initToolbar = BootstrapTable.prototype.initToolbar;
 	var _destroy = BootstrapTable.prototype.destroy;
 
@@ -1504,7 +1556,7 @@
 	  var sortModalId = "#".concat(sortModalSelector);
 	  var $multiSortBtn = this.$toolbar.find('div.multi-sort');
 	  var o = this.options;
-	  this.$sortModal = $(sortModalId);
+	  this.$sortModal = $__default['default'](sortModalId);
 	  this.sortModalSelector = sortModalSelector;
 
 	  if (that.options.sortPriority !== null) {
@@ -1536,34 +1588,34 @@
 
 	  if (this.options.showMultiSort) {
 	    if (!$multiSortBtn.length && this.options.showMultiSortButton) {
-	      if ($.fn.bootstrapTable.theme === 'semantic') {
+	      if ($__default['default'].fn.bootstrapTable.theme === 'semantic') {
 	        this.$toolbar.find('.multi-sort').on('click', function () {
-	          $(sortModalId).modal('show');
+	          $__default['default'](sortModalId).modal('show');
 	        });
-	      } else if ($.fn.bootstrapTable.theme === 'materialize') {
+	      } else if ($__default['default'].fn.bootstrapTable.theme === 'materialize') {
 	        this.$toolbar.find('.multi-sort').on('click', function () {
-	          $(sortModalId).modal();
+	          $__default['default'](sortModalId).modal();
 	        });
-	      } else if ($.fn.bootstrapTable.theme === 'bootstrap-table') {
+	      } else if ($__default['default'].fn.bootstrapTable.theme === 'bootstrap-table') {
 	        this.$toolbar.find('.multi-sort').on('click', function () {
-	          $(sortModalId).addClass('show');
+	          $__default['default'](sortModalId).addClass('show');
 	        });
-	      } else if ($.fn.bootstrapTable.theme === 'foundation') {
+	      } else if ($__default['default'].fn.bootstrapTable.theme === 'foundation') {
 	        this.$toolbar.find('.multi-sort').on('click', function () {
 	          if (!_this.foundationModal) {
 	            // eslint-disable-next-line no-undef
-	            _this.foundationModal = new Foundation.Reveal($(sortModalId));
+	            _this.foundationModal = new Foundation.Reveal($__default['default'](sortModalId));
 	          }
 
 	          _this.foundationModal.open();
 	        });
-	      } else if ($.fn.bootstrapTable.theme === 'bulma') {
+	      } else if ($__default['default'].fn.bootstrapTable.theme === 'bulma') {
 	        this.$toolbar.find('.multi-sort').on('click', function () {
-	          $('html').toggleClass('is-clipped');
-	          $(sortModalId).toggleClass('is-active');
-	          $('button[data-close]').one('click', function () {
-	            $('html').toggleClass('is-clipped');
-	            $(sortModalId).toggleClass('is-active');
+	          $__default['default']('html').toggleClass('is-clipped');
+	          $__default['default'](sortModalId).toggleClass('is-active');
+	          $__default['default']('button[data-close]').one('click', function () {
+	            $__default['default']('html').toggleClass('is-clipped');
+	            $__default['default'](sortModalId).toggleClass('is-active');
 	          });
 	        });
 	      }
@@ -1609,6 +1661,7 @@
 	  _destroy.apply(this, Array.prototype.slice.apply(args));
 
 	  if (this.options.showMultiSort) {
+	    this.enableCustomSort = false;
 	    this.$sortModal.remove();
 	  }
 	};
@@ -1644,8 +1697,8 @@
 	      var order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1;
 	      var aa = Utils.getItemField(a, fieldName);
 	      var bb = Utils.getItemField(b, fieldName);
-	      var value1 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb]);
-	      var value2 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa]);
+	      var value1 = $__default['default'].fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb]);
+	      var value2 = $__default['default'].fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa]);
 
 	      if (value1 !== undefined && value2 !== undefined) {
 	        arr1.push(order * value1);
@@ -1656,7 +1709,7 @@
 	      if (aa === undefined || aa === null) aa = '';
 	      if (bb === undefined || bb === null) bb = '';
 
-	      if ($.isNumeric(aa) && $.isNumeric(bb)) {
+	      if ($__default['default'].isNumeric(aa) && $__default['default'].isNumeric(bb)) {
 	        aa = parseFloat(aa);
 	        bb = parseFloat(bb);
 	      } else {
@@ -1676,6 +1729,7 @@
 	    return cmp(arr1, arr2);
 	  };
 
+	  this.enableCustomSort = true;
 	  this.data.sort(function (a, b) {
 	    return arrayCmp(a, b);
 	  });
@@ -1686,17 +1740,17 @@
 
 	BootstrapTable.prototype.addLevel = function (index, sortPriority) {
 	  var text = index === 0 ? this.options.formatSortBy() : this.options.formatThenBy();
-	  this.$sortModal.find('tbody').append($('<tr>').append($('<td>').text(text)).append($('<td>').append($(Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-name')))).append($('<td>').append($(Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-order')))));
+	  this.$sortModal.find('tbody').append($__default['default']('<tr>').append($__default['default']('<td>').text(text)).append($__default['default']('<td>').append($__default['default'](Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-name')))).append($__default['default']('<td>').append($__default['default'](Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-order')))));
 	  var $multiSortName = this.$sortModal.find('.multi-sort-name').last();
 	  var $multiSortOrder = this.$sortModal.find('.multi-sort-order').last();
-	  $.each(this.columns, function (i, column) {
+	  $__default['default'].each(this.columns, function (i, column) {
 	    if (column.sortable === false || column.visible === false) {
 	      return true;
 	    }
 
 	    $multiSortName.append("<option value=\"".concat(column.field, "\">").concat(column.title, "</option>"));
 	  });
-	  $.each(this.options.formatSortOrders(), function (value, order) {
+	  $__default['default'].each(this.options.formatSortOrders(), function (value, order) {
 	    $multiSortOrder.append("<option value=\"".concat(value, "\">").concat(order, "</option>"));
 	  });
 
@@ -1712,8 +1766,8 @@
 
 	  for (var i = 0; i < headers.length; i++) {
 	    for (var c = 0; c < that.options.sortPriority.length; c++) {
-	      if ($(headers[i]).data('field') === that.options.sortPriority[c].sortName) {
-	        $(headers[i]).find('.sortable').removeClass('desc asc').addClass(that.options.sortPriority[c].sortOrder);
+	      if ($__default['default'](headers[i]).data('field') === that.options.sortPriority[c].sortName) {
+	        $__default['default'](headers[i]).find('.sortable').removeClass('desc asc').addClass(that.options.sortPriority[c].sortOrder);
 	      }
 	    }
 	  }
@@ -1751,7 +1805,7 @@
 
 	    this.options.queryParams = function (params) {
 	      params.multiSort = _this2.options.sortPriority;
-	      return $.fn.bootstrapTable.utils.calculateObjectValue(_this2.options, queryParams, [params]);
+	      return $__default['default'].fn.bootstrapTable.utils.calculateObjectValue(_this2.options, queryParams, [params]);
 	    };
 
 	    isSingleSort = false;

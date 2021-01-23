@@ -138,7 +138,8 @@ const UtilsCookie = {
           encodeURIComponent(cookieName), '=',
           '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
           that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
-          that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : ''
+          that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
+          `;SameSite=${ that.options.cookieSameSite}`
         ].join('')
         break
       case 'localStorage':
@@ -374,6 +375,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   onSort (...args) {
     super.onSort(...args)
+
+    if (this.options.sortName === undefined || this.options.sortOrder === undefined) {
+      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
+      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
+      return
+    }
+
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder)
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName)
   }

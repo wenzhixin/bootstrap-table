@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.18.1
+ * version: 1.18.2
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -37,6 +37,7 @@ class BootstrapTable {
 
     this.constants = Constants.CONSTANTS
     this.constants.theme = $.fn.bootstrapTable.theme
+    this.constants.dataToggle = this.constants.html.dataToggle || 'data-toggle'
 
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
 
@@ -229,7 +230,7 @@ class BootstrapTable {
 
   initHeader () {
     const visibleColumns = {}
-    const html = []
+    const headerHtml = []
 
     this.header = {
       fields: [],
@@ -247,12 +248,17 @@ class BootstrapTable {
     Utils.updateFieldGroup(this.options.columns)
 
     this.options.columns.forEach((columns, i) => {
+      const html = []
+
       html.push(`<tr${Utils.sprintf(' class="%s"', this._headerTrClasses[i])} ${Utils.sprintf(' style="%s"', this._headerTrStyles[i])}>`)
 
       let detailViewTemplate = ''
 
       if (i === 0 && Utils.hasDetailViewIcon(this.options)) {
-        detailViewTemplate = `<th class="detail" rowspan="${this.options.columns.length}">
+        const rowspan = this.options.columns.length > 1 ?
+          ` rowspan="${this.options.columns.length}"` : ''
+
+        detailViewTemplate = `<th class="detail"${rowspan}>
           <div class="fht-cell"></div>
           </th>`
       }
@@ -361,9 +367,13 @@ class BootstrapTable {
       }
 
       html.push('</tr>')
+
+      if (html.length > 3) {
+        headerHtml.push(html.join(''))
+      }
     })
 
-    this.$header.html(html.join(''))
+    this.$header.html(headerHtml.join(''))
     this.$header.find('th[data-field]').each((i, el) => {
       $(el).data(visibleColumns[$(el).data('field')])
     })
@@ -618,7 +628,7 @@ class BootstrapTable {
           const html = []
 
           html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
-            <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
+            <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown"
             aria-label="Columns" title="${opts.formatColumns()}">
             ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
             ${opts.showButtonText ? opts.formatColumns() : ''}
@@ -1171,7 +1181,7 @@ class BootstrapTable {
 
       const pageNumber = [
         `<span class="${this.constants.classes.paginationDropdown}">
-        <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown">
+        <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown">
         <span class="page-size">
         ${allSelected ? opts.formatAllRows() : opts.pageSize}
         </span>
@@ -1559,11 +1569,28 @@ class BootstrapTable {
       value = Utils.calculateObjectValue(column,
         this.header.formatters[j], [value_, item, i, field], value_)
 
-      value = typeof value === 'undefined' || value === null ?
-        this.options.undefinedText : value
+      if (!(column.checkbox || column.radio)) {
+        value = typeof value === 'undefined' || value === null ?
+          this.options.undefinedText : value
+      }
 
-      if (this.searchText !== '' && this.options.searchHighlight) {
-        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
+      if (column.searchable && this.searchText && this.options.searchHighlight) {
+        let defValue = ''
+        const regExp = new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim')
+        const marker = '<mark>$1</mark>'
+        const isHTML = value && /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value)
+
+        if (isHTML) {
+          // value can contains a HTML tags
+          const textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent
+          const textReplaced = textContent.replace(regExp, marker)
+
+          defValue = value.replace(new RegExp(`(>\\s*)(${textContent})(\\s*)`, 'gm'), `$1${textReplaced}$3`)
+        } else {
+          // but usually not
+          defValue = value.toString().replace(regExp, marker)
+        }
+        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], defValue)
       }
 
       if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
@@ -2315,6 +2342,7 @@ class BootstrapTable {
         this.searchText ||
         this.options.customSearch ||
         this.options.sortName !== undefined ||
+        this.enableCustomSort || // Fix #4616: this.enableCustomSort is for extensions
         !Utils.isEmptyObject(this.filterColumns) ||
         !Utils.isEmptyObject(this.filterColumnsPartial)
       ) && (!params || !params.unfiltered)

@@ -123,7 +123,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
           // Avoid recreate the controls
           const $controlContainer = UtilsFilterControl.getControlContainer(this)
 
-          if ($controlContainer.find('select').length > 0 || $controlContainer.find('input:not([type="checkbox"]):not([type="radio"])').length > 0) {
+          if (
+            ($controlContainer.find('select').length > 0 || $controlContainer.find('input:not([type="checkbox"]):not([type="radio"])').length > 0) &&
+            !this.options.filterControlContainer
+          ) {
             return
           }
 
