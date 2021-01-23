@@ -1278,6 +1278,47 @@
 	// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
 	addToUnscopables(FIND);
 
+	// `FlattenIntoArray` abstract operation
+	// https://tc39.github.io/proposal-flatMap/#sec-FlattenIntoArray
+	var flattenIntoArray = function (target, original, source, sourceLen, start, depth, mapper, thisArg) {
+	  var targetIndex = start;
+	  var sourceIndex = 0;
+	  var mapFn = mapper ? bindContext(mapper, thisArg, 3) : false;
+	  var element;
+
+	  while (sourceIndex < sourceLen) {
+	    if (sourceIndex in source) {
+	      element = mapFn ? mapFn(source[sourceIndex], sourceIndex, original) : source[sourceIndex];
+
+	      if (depth > 0 && isArray(element)) {
+	        targetIndex = flattenIntoArray(target, original, element, toLength(element.length), targetIndex, depth - 1) - 1;
+	      } else {
+	        if (targetIndex >= 0x1FFFFFFFFFFFFF) throw TypeError('Exceed the acceptable array length');
+	        target[targetIndex] = element;
+	      }
+
+	      targetIndex++;
+	    }
+	    sourceIndex++;
+	  }
+	  return targetIndex;
+	};
+
+	var flattenIntoArray_1 = flattenIntoArray;
+
+	// `Array.prototype.flat` method
+	// https://github.com/tc39/proposal-flatMap
+	_export({ target: 'Array', proto: true }, {
+	  flat: function flat(/* depthArg = 1 */) {
+	    var depthArg = arguments.length ? arguments[0] : undefined;
+	    var O = toObject(this);
+	    var sourceLen = toLength(O.length);
+	    var A = arraySpeciesCreate(O, 0);
+	    A.length = flattenIntoArray_1(A, O, O, sourceLen, 0, depthArg === undefined ? 1 : toInteger(depthArg));
+	    return A;
+	  }
+	});
+
 	var $includes = arrayIncludes.includes;
 
 
@@ -1616,6 +1657,12 @@
 	      : nativeSort.call(toObject(this), aFunction$1(comparefn));
 	  }
 	});
+
+	// this method was added to unscopables after implementation
+	// in popular engines, so it's moved to a separate module
+
+
+	addToUnscopables('flat');
 
 	var nativeAssign = Object.assign;
 	var defineProperty$3 = Object.defineProperty;
@@ -2002,14 +2049,14 @@
 	      if (this.options.showPrint) {
 	        this.buttons = Object.assign(this.buttons, {
 	          print: {
-	            'text': this.options.formatPrint(),
-	            'icon': this.options.icons.print,
-	            'event': function event() {
+	            text: this.options.formatPrint(),
+	            icon: this.options.icons.print,
+	            event: function event() {
 	              _this.doPrint(_this.options.printAsFilteredAndSortedOnUI ? _this.getData() : _this.options.data.slice(0));
 	            },
-	            'attributes': {
+	            attributes: {
 	              'aria-label': this.options.formatPrint(),
-	              'title': this.options.formatPrint()
+	              title: this.options.formatPrint()
 	            }
 	          }
 	        });
@@ -2100,7 +2147,7 @@
 
 	              for (var cs = 0; cs < currentMergedCell.colspan; cs++) {
 	                var col = currentMergedCell.col + cs;
-	                dontRender.push(row + ',' + col);
+	                dontRender.push("".concat(row, ",").concat(col));
 	              }
 	            }
 	          }
@@ -2108,35 +2155,56 @@
 
 	        for (var i = 0; i < data.length; i++) {
 	          html.push('<tr>');
+	          var columns = columnsArray.flat(1);
+	          columns.sort(function (c1, c2) {
+	            return c1.colspanIndex - c2.colspanIndex;
+	          });
+
+	          for (var j = 0; j < columns.length; j++) {
+	            if (columns[j].colspanGroup > 0) continue;
+	            var rowspan = 0;
+	            var colspan = 0;
+
+	            if (_this2.mergedCells) {
+	              for (var _mc = 0; _mc < _this2.mergedCells.length; _mc++) {
+	                var _currentMergedCell = _this2.mergedCells[_mc];
+
+	                if (_currentMergedCell.col === j && _currentMergedCell.row === i) {
+	                  rowspan = _currentMergedCell.rowspan;
+	                  colspan = _currentMergedCell.colspan;
+	                }
+	              }
+	            }
+
+	            if (!columns[j].printIgnore && columns[j].field && (!dontRender.includes("".concat(i, ",").concat(j)) || rowspan > 0 && colspan > 0)) {
+	              if (rowspan > 0 && colspan > 0) {
+	                html.push("<td ".concat(Utils.sprintf(' rowspan="%s"', rowspan), " ").concat(Utils.sprintf(' colspan="%s"', colspan), ">"), formatValue(data[i], i, columns[j]), '</td>');
+	              } else {
+	                html.push('<td>', formatValue(data[i], i, columns[j]), '</td>');
+	              }
+	            }
+	          }
+
+	          html.push('</tr>');
+	        }
+
+	        html.push('</tbody>');
+
+	        if (_this2.options.showFooter) {
+	          html.push('<footer><tr>');
 	          var _iteratorNormalCompletion2 = true;
 	          var _didIteratorError2 = false;
 	          var _iteratorError2 = undefined;
 
 	          try {
 	            for (var _iterator2 = columnsArray[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	              var columns = _step2.value;
+	              var _columns = _step2.value;
 
-	              for (var j = 0; j < columns.length; j++) {
-	                var rowspan = 0;
-	                var colspan = 0;
-
-	                if (_this2.mergedCells) {
-	                  for (var _mc = 0; _mc < _this2.mergedCells.length; _mc++) {
-	                    var _currentMergedCell = _this2.mergedCells[_mc];
-
-	                    if (_currentMergedCell.col === j && _currentMergedCell.row === i) {
-	                      rowspan = _currentMergedCell.rowspan;
-	                      colspan = _currentMergedCell.colspan;
-	                    }
-	                  }
-	                }
-
-	                if (!columns[j].printIgnore && columns[j].field && (!dontRender.includes(i + ',' + j) || rowspan > 0 && colspan > 0)) {
-	                  if (rowspan > 0 && colspan > 0) {
-	                    html.push("<td ".concat(Utils.sprintf(' rowspan="%s"', rowspan), " ").concat(Utils.sprintf(' colspan="%s"', colspan), ">"), formatValue(data[i], i, columns[j]), '</td>');
-	                  } else {
-	                    html.push('<td>', formatValue(data[i], i, columns[j]), '</td>');
-	                  }
+	              for (var h = 0; h < _columns.length; h++) {
+	                if (!_columns[h].printIgnore) {
+	                  var footerData = Utils.trToData(_columns, _this2.$el.find('>tfoot>tr'));
+	                  var footerValue = Utils.calculateObjectValue(_columns[h], _columns[h].footerFormatter, [data], footerData[0] && footerData[0][_columns[h].field] || '');
+	                  html.push("<th>".concat(footerValue, "</th>"));
 	                }
 	              }
 	            }
@@ -2151,44 +2219,6 @@
 	            } finally {
 	              if (_didIteratorError2) {
 	                throw _iteratorError2;
-	              }
-	            }
-	          }
-
-	          html.push('</tr>');
-	        }
-
-	        html.push('</tbody>');
-
-	        if (_this2.options.showFooter) {
-	          html.push('<footer><tr>');
-	          var _iteratorNormalCompletion3 = true;
-	          var _didIteratorError3 = false;
-	          var _iteratorError3 = undefined;
-
-	          try {
-	            for (var _iterator3 = columnsArray[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	              var _columns = _step3.value;
-
-	              for (var h = 0; h < _columns.length; h++) {
-	                if (!_columns[h].printIgnore) {
-	                  var footerData = Utils.trToData(_columns, _this2.$el.find('>tfoot>tr'));
-	                  var footerValue = Utils.calculateObjectValue(_columns[h], _columns[h].footerFormatter, [data], footerData[0] && footerData[0][_columns[h].field] || '');
-	                  html.push("<th>".concat(footerValue, "</th>"));
-	                }
-	              }
-	            }
-	          } catch (err) {
-	            _didIteratorError3 = true;
-	            _iteratorError3 = err;
-	          } finally {
-	            try {
-	              if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-	                _iterator3.return();
-	              }
-	            } finally {
-	              if (_didIteratorError3) {
-	                throw _iteratorError3;
 	              }
 	            }
 	          }

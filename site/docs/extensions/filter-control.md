@@ -215,6 +215,8 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Detail:**
 
    Set the default value of the filter.
+   
+   If you use the datepicker, make sure your date format match the [format](https://bootstrap-datepicker.readthedocs.io/en/stable/options.html?highlight=format#format) of the datepicker. You can change the datepicker format using [filterDatepickerOptions](https://bootstrap-table.com/docs/extensions/filter-control/#filterdatepickeroptions).
 
 - **Default:** `undefined`
 

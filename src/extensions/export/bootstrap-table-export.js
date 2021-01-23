@@ -24,7 +24,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   exportDataType: 'basic', // basic, all, selected
   exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
   exportOptions: {
-    onCellHtmlData: function (cell, rowIndex, colIndex, htmlData) {
+    onCellHtmlData (cell, rowIndex, colIndex, htmlData) {
       if (cell.is('th')) {
         return cell.find('.th-inner').text()
       }
@@ -58,6 +58,7 @@ $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 $.fn.bootstrapTable.methods.push('exportTable')
 
 $.extend($.fn.bootstrapTable.defaults, {
+  // eslint-disable-next-line no-unused-vars
   onExportSaved (exportedRows) {
     return false
   }
@@ -70,15 +71,15 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar (...args) {
     const o = this.options
+    let exportTypes = o.exportTypes
 
     this.showToolbar = this.showToolbar || o.showExport
-    const $btnGroup = this.$toolbar.find('>.columns')
 
     if (this.options.showExport) {
-      var exportTypes = o.exportTypes
 
       if (typeof exportTypes === 'string') {
         const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
+
         exportTypes = types.map(t => t.slice(1, -1))
       }
 
@@ -89,8 +90,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       this.buttons = Object.assign(this.buttons, {
-        'export': {
-          'html': exportTypes.length === 1 ? `
+        export: {
+          html: exportTypes.length === 1 ? `
             <div class="export ${this.constants.classes.buttonsDropdown}"
             data-type="${exportTypes[0]}">
             <button class="${this.constants.buttonsClass}"
@@ -127,6 +128,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     let $menu = $(this.constants.html.toolbarDropdown.join(''))
     let $items = this.$export
+
     if (exportTypes.length > 1) {
       this.$export.append($menu)
 
@@ -138,6 +140,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         if (TYPE_NAME.hasOwnProperty(type)) {
           const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
             '', TYPE_NAME[type]))
+
           $item.attr('data-type', type)
           $menu.append($item)
         }
@@ -167,12 +170,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    if ($.fn.bootstrapTable.theme === 'foundation') {
-      this.$export.find('.dropdown-pane').attr('id', 'toolbar-export-id')
-    } else if ($.fn.bootstrapTable.theme === 'materialize') {
-      this.$export.find('.dropdown-content').attr('id', 'toolbar-export-id')
-    }
-
     if (super.handleToolbar) {
       super.handleToolbar()
     }
@@ -191,13 +188,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.toggleView()
       }
 
-      this.columns.forEach((row) => {
+      this.columns.forEach(row => {
         if (row.forceHide) {
           this.hideColumn(row.field)
         }
       })
 
       const data = this.getData()
+
       if (o.exportFooter) {
         const $footerRow = this.$tableFooter.find('tr').first()
         const footerData = {}
@@ -205,6 +203,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         $.each($footerRow.children(), (index, footerCell) => {
           const footerCellHtml = $(footerCell).children('.th-inner').first().html()
+
           footerData[this.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
 
           // grab footer cell text into cell index-based array
@@ -213,13 +212,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         this.$body.append(this.$body.children().last()[0].outerHTML)
         const $lastTableRow = this.$body.children().last()
+
         $.each($lastTableRow.children(), (index, lastTableRowCell) => {
           $(lastTableRowCell).html(footerHtml[index])
         })
       }
 
       const hiddenColumns = this.getHiddenColumns()
-      hiddenColumns.forEach((row) => {
+
+      hiddenColumns.forEach(row => {
         if (row.forceExport) {
           this.showColumn(row.field)
         }
@@ -242,13 +243,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
             this.toggleView()
           }
 
-          hiddenColumns.forEach((row) => {
+          hiddenColumns.forEach(row => {
             if (row.forceExport) {
               this.hideColumn(row.field)
             }
           })
 
-          this.columns.forEach((row) => {
+          this.columns.forEach(row => {
             if (row.forceHide) {
               this.showColumn(row.field)
             }
@@ -260,8 +261,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (o.exportDataType === 'all' && o.pagination) {
-      const eventName = o.sidePagination === 'server'
-        ? 'post-body.bs.table' : 'page-change.bs.table'
+      const eventName = o.sidePagination === 'server' ?
+        'post-body.bs.table' : 'page-change.bs.table'
       const virtualScroll = this.options.virtualScroll
 
       this.$el.one(eventName, () => {

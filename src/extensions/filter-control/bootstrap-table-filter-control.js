@@ -10,6 +10,7 @@ const Utils = $.fn.bootstrapTable.utils
 $.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,
   filterControlVisible: true,
+  // eslint-disable-next-line no-unused-vars
   onColumnSearch (field, text) {
     return false
   },
@@ -27,7 +28,7 @@ $.extend($.fn.bootstrapTable.defaults, {
       )
     },
 
-    select ({options}, field) {
+    select ({ options }, field) {
       return Utils.sprintf(
         '<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%;" dir="%s"></select>',
         field,
@@ -55,7 +56,7 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined, // input, select, datepicker
   filterDataCollector: undefined,
   filterData: undefined,
-  filterDatepickerOptions: undefined,
+  filterDatepickerOptions: {},
   filterStrictSearch: false,
   filterStartsWithSearch: false,
   filterControlPlaceholder: '',
@@ -121,6 +122,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
           // Avoid recreate the controls
           const $controlContainer = UtilsFilterControl.getControlContainer(this)
+
           if ($controlContainer.find('select').length > 0 || $controlContainer.find('input:not([type="checkbox"]):not([type="radio"])').length > 0) {
             return
           }
@@ -177,8 +179,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     // Check partial column filter
-    that.data = fp
-      ? that.data.filter((item, i) => {
+    that.data = fp ?
+      that.data.filter((item, i) => {
         const itemIsExpected = []
         const keys1 = Object.keys(item)
         const keys2 = Object.keys(fp)
@@ -187,7 +189,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const fval = (fp[key] || '').toLowerCase()
-          let value = Utils.getItemField(item, key, false)
+          let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
 
           if (fval === '') {
@@ -207,7 +209,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
               if (value === undefined || value === null) {
                 tmpItemIsExpected = false
               } else if (typeof value === 'object') {
-                value.forEach((objectValue) => {
+                value.forEach(objectValue => {
                   if (tmpItemIsExpected) {
                     return
                   }
@@ -231,14 +233,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
         })
 
         return !itemIsExpected.includes(false)
-      })
-      : that.data
+      }) :
+      that.data
 
     that.unsortedData = [...that.data]
   }
 
   isValueExpected (searchValue, value, column, key) {
     let tmpItemIsExpected = false
+
     if (column.filterStrictSearch) {
       tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
     } else if (column.filterStartsWithSearch) {
@@ -284,6 +287,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (column.filterCustomSearch) {
       const customSearchResult = Utils.calculateObjectValue(this, column.filterCustomSearch, [searchValue, value, key, this.options.data], true)
+
       if (customSearchResult !== null) {
         tmpItemIsExpected = customSearchResult
       }
@@ -299,13 +303,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.filterColumnsPartial = filterColumnsDefaults
       this.updatePagination()
 
+      // eslint-disable-next-line guard-for-in
       for (const filter in filterColumnsDefaults) {
         this.trigger('column-search', filter, filterColumnsDefaults[filter])
       }
     }
   }
 
-  onColumnSearch ({currentTarget, keyCode}) {
+  onColumnSearch ({ currentTarget, keyCode }) {
     if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
       return
     }
@@ -327,7 +332,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.options.pageNumber = 1
     this.enableControls(false)
-    this.onSearch({currentTarget}, false)
+    this.onSearch({ currentTarget }, false)
   }
 
   initToolbar () {
@@ -337,12 +342,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.showFilterControlSwitch) {
       this.buttons = Object.assign(this.buttons, {
         filterControlSwitch: {
-          'text': this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow(),
-          'icon': this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow,
-          'event': this.toggleFilterControl,
-          'attributes': {
+          text: this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow(),
+          icon: this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow,
+          event: this.toggleFilterControl,
+          attributes: {
             'aria-label': this.options.formatFilterControlSwitch(),
-            'title': this.options.formatFilterControlSwitch()
+            title: this.options.formatFilterControlSwitch()
           }
         }
       })
@@ -402,7 +407,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if (controls.length > 0) {
         this.filterColumnsPartial = {}
         $(controls[0]).trigger(
-          controls[0].tagName === 'INPUT' ? 'keyup' : 'change', {keyCode: 13}
+          controls[0].tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 }
         )
       } else {
         return
@@ -415,8 +420,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // use the default sort order if it exists. do nothing if it does not
       if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
         const sorter = this.$header.find(Utils.sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')))
+
         if (sorter.length > 0) {
-          that.onSort({type: 'keypress', currentTarget: sorter})
+          that.onSort({ type: 'keypress', currentTarget: sorter })
           $(sorter).find('.sortable').trigger('click')
         }
       }
@@ -428,6 +434,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     searchControls.each(function () {
       const el = $(this)
+
       if (el.is('select')) {
         el.change()
       } else {
@@ -451,6 +458,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   toggleFilterControl () {
     this.options.filterControlVisible = !this.options.filterControlVisible
     const $filterControls = UtilsFilterControl.getControlContainer(this).find('.filter-control, .no-filter-control')
+
     if (this.options.filterControlVisible) {
       $filterControls.show()
     } else {
@@ -459,7 +467,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
     const icon = this.options.showButtonIcons ? this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow : ''
     const text = this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''
+
     this.$toolbar.find('>.columns').find('.filter-control-switch')
-      .html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) + ' ' + text)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
   }
 }

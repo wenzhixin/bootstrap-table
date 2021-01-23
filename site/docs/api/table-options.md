@@ -846,6 +846,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   When set pagination property, initialize the page size selecting list. If you include the `'all'` or `'unlimited'` option, all the records will be shown in your table.
 
+  *Hint: If the table has lesser rows as the option(s), the options will be hidden automatically, to disable that feature you can set [smartDisplay](https://bootstrap-table.com/docs/api/table-options/#smartdisplay) to `false`*
+
 - **Default:** `[10, 25, 50, 100]`
 
 - **Example:** [Page List](https://examples.bootstrap-table.com/#options/page-list.html)

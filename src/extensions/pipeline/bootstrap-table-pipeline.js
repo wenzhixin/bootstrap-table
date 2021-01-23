@@ -52,9 +52,11 @@ const Utils = $.fn.bootstrapTable.utils
 $.extend($.fn.bootstrapTable.defaults, {
   usePipeline: false,
   pipelineSize: 1000,
+  // eslint-disable-next-line no-unused-vars
   onCachedDataHit (data) {
     return false
   },
+  // eslint-disable-next-line no-unused-vars
   onCachedDataReset (data) {
     return false
   }
@@ -67,7 +69,6 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _init = BootstrapTable.prototype.init
-const _initServer = BootstrapTable.prototype.initServer
 const _onSearch = BootstrapTable.prototype.onSearch
 const _onSort = BootstrapTable.prototype.onSort
 const _onPageListChange = BootstrapTable.prototype.onPageListChange
@@ -85,7 +86,7 @@ BootstrapTable.prototype.initPipeline = function () {
   this.resetCache = true
 }
 
-BootstrapTable.prototype.onSearch = function (event) {
+BootstrapTable.prototype.onSearch = function () {
   /* force a cache reset on search */
   if (this.options.usePipeline) {
     this.resetCache = true
@@ -93,7 +94,7 @@ BootstrapTable.prototype.onSearch = function (event) {
   _onSearch.apply(this, Array.prototype.slice.apply(arguments))
 }
 
-BootstrapTable.prototype.onSort = function (event) {
+BootstrapTable.prototype.onSort = function () {
   /* force a cache reset on sort */
   if (this.options.usePipeline) {
     this.resetCache = true
@@ -105,6 +106,7 @@ BootstrapTable.prototype.onPageListChange = function (event) {
   /* rebuild cache window on page size change */
   const target = $(event.currentTarget)
   const newPageSize = parseInt(target.text())
+
   this.options.pipelineSize = this.calculatePipelineSize(this.options.pipelineSize, newPageSize)
   this.resetCache = true
   _onPageListChange.apply(this, Array.prototype.slice.apply(arguments))
@@ -122,9 +124,11 @@ BootstrapTable.prototype.setCacheWindows = function () {
         * request and the pipelineSize */
   this.cacheWindows = []
   const numWindows = this.options.totalRows / this.options.pipelineSize
+
   for (let i = 0; i <= numWindows; i++) {
     const b = i * this.options.pipelineSize
-    this.cacheWindows[i] = {'lower': b, 'upper': b + this.options.pipelineSize - 1}
+
+    this.cacheWindows[i] = { lower: b, upper: b + this.options.pipelineSize - 1 }
   }
 }
 
@@ -144,6 +148,7 @@ BootstrapTable.prototype.drawFromCache = function (offset, limit) {
   const res = $.extend(true, {}, this.cacheRequestJSON)
   const drawStart = offset - this.cacheWindows[this.currWindow].lower
   const drawEnd = drawStart + limit
+
   res.rows = res.rows.slice(drawStart, drawEnd)
   return res
 }
@@ -171,8 +176,8 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
   }
 
   if (this.options.pagination && this.options.sidePagination === 'server') {
-    params.pageSize = this.options.pageSize === this.options.formatAllRows()
-      ? this.options.totalRows : this.options.pageSize
+    params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
+      this.options.totalRows : this.options.pageSize
     params.pageNumber = this.options.pageNumber
   }
 
@@ -181,6 +186,7 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
   }
 
   let useAjax = true
+
   if (this.options.queryParamsType === 'limit') {
     params = {
       searchText: params.searchText,
@@ -198,6 +204,7 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
           // cache exists: determine if the page request is entirely within the current cached window
         } else {
           const w = this.cacheWindows[this.currWindow]
+
           // case 1: reset cache but stay within current window (e.g. column sort)
           // case 2: move outside of the current window (e.g. search or paging)
           //  since each cache window is aligned with the current page size
@@ -217,10 +224,8 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
             useAjax = false
           }
         }
-      } else {
-        if (params.limit === 0) {
-          delete params.limit
-        }
+      } else if (params.limit === 0) {
+        delete params.limit
       }
     }
   }
@@ -241,6 +246,7 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
   // cached results can be used
   if (!useAjax) {
     const res = this.drawFromCache(params.offset, params.limit)
+
     this.load(res)
     this.trigger('load-success', res)
     this.trigger('cached-data-hit', res)
@@ -269,8 +275,8 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
   request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
     type: this.options.method,
     url: url || this.options.url,
-    data: this.options.contentType === 'application/json' && this.options.method === 'post'
-      ? JSON.stringify(data) : data,
+    data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
+      JSON.stringify(data) : data,
     cache: this.options.cache,
     contentType: this.options.contentType,
     dataType: this.options.dataType,
@@ -298,6 +304,7 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
     },
     error (res) {
       let data = []
+
       if (self.options.sidePagination === 'server') {
         data = {}
         data[self.options.totalField] = 0

@@ -2391,6 +2391,7 @@
 	  idForm: 'advancedSearch',
 	  actionForm: '',
 	  idTable: undefined,
+	  // eslint-disable-next-line no-unused-vars
 	  onColumnAdvancedSearch: function onColumnAdvancedSearch(field, text) {
 	    return false;
 	  }
@@ -2431,12 +2432,12 @@
 	      if (o.search && o.advancedSearch && o.idTable) {
 	        this.buttons = Object.assign(this.buttons, {
 	          advancedSearch: {
-	            'text': this.options.formatAdvancedSearch(),
-	            'icon': this.options.icons.advancedSearchIcon,
-	            'event': this.showAvdSearch,
-	            'attributes': {
+	            text: this.options.formatAdvancedSearch(),
+	            icon: this.options.icons.advancedSearchIcon,
+	            event: this.showAvdSearch,
+	            attributes: {
 	              'aria-label': this.options.formatAdvancedSearch(),
-	              'title': this.options.formatAdvancedSearch()
+	              title: this.options.formatAdvancedSearch()
 	            }
 	          }
 	        });
@@ -2450,7 +2451,7 @@
 	      var _this = this;
 
 	      var o = this.options;
-	      var modalSelector = '#avdSearchModal_' + o.idTable;
+	      var modalSelector = "#avdSearchModal_".concat(o.idTable);
 
 	      if ($(modalSelector).length <= 0) {
 	        $('body').append(Utils.sprintf(theme.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()));
@@ -2484,14 +2485,14 @@
 	  }, {
 	    key: "showModal",
 	    value: function showModal() {
-	      var modalSelector = '#avdSearchModal_' + this.options.idTable;
+	      var modalSelector = "#avdSearchModal_".concat(this.options.idTable);
 
 	      if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
 	        $(modalSelector).modal();
 	      } else if ($.fn.bootstrapTable.theme === 'bootstrap5') {
 	        if (!this.toolbarModal) {
 	          //   eslint-disable-next-line no-undef
-	          this.toolbarModal = new bootstrap.Modal(document.getElementById('avdSearchModal_' + this.options.idTable), {});
+	          this.toolbarModal = new bootstrap.Modal(document.getElementById("avdSearchModal_".concat(this.options.idTable)), {});
 	        }
 
 	        this.toolbarModal.show();
@@ -2515,7 +2516,7 @@
 	    key: "hideModal",
 	    value: function hideModal() {
 	      var $closeModalButton = $("#avdSearchModal_".concat(this.options.idTable));
-	      var modalSelector = '#avdSearchModal_' + this.options.idTable;
+	      var modalSelector = "#avdSearchModal_".concat(this.options.idTable);
 
 	      if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
 	        $closeModalButton.modal('hide');

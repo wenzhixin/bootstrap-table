@@ -2219,6 +2219,8 @@
 	  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 	}
 
+	/* eslint-disable no-unused-vars */
+
 	/**
 	 * @author zhixin wen <wenzhixin2010@gmail.com>
 	 * extensions: https://github.com/vitalets/x-editable

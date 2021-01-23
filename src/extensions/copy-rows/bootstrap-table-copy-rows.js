@@ -22,15 +22,15 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
 
 const copyText = text => {
   const textField = document.createElement('textarea')
+
   $(textField).html(text)
   document.body.appendChild(textField)
   textField.select()
 
   try {
     document.execCommand('copy')
-  }
-  catch (e) {
-    console.log('Oops, unable to copy')
+  } catch (e) {
+    console.warn('Oops, unable to copy')
   }
   $(textField).remove()
 }
@@ -52,12 +52,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.showCopyRows && this.header.stateField) {
       this.buttons = Object.assign(this.buttons, {
         copyRows: {
-          'text': this.options.formatCopyRows(),
-          'icon': this.options.icons.copy,
-          'event': this.copyColumnsToClipboard,
-          'attributes': {
+          text: this.options.formatCopyRows(),
+          icon: this.options.icons.copy,
+          event: this.copyColumnsToClipboard,
+          attributes: {
             'aria-label': this.options.formatCopyRows(),
-            'title': this.options.formatCopyRows()
+            title: this.options.formatCopyRows()
           }
         }
       })

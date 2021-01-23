@@ -57,12 +57,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.customView && this.options.showCustomViewButton) {
       this.buttons = Object.assign(this.buttons, {
         customView: {
-          'text': this.options.formatToggleCustomView(),
-          'icon': this.options.icons.customView,
-          'event': this.toggleCustomView,
-          'attributes': {
+          text: this.options.formatToggleCustomView(),
+          icon: this.options.icons.customView,
+          event: this.toggleCustomView,
+          attributes: {
             'aria-label': this.options.formatToggleCustomView(),
-            'title': this.options.formatToggleCustomView()
+            title: this.options.formatToggleCustomView()
           }
         }
       })
@@ -90,6 +90,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     const data = this.getData().slice(this.pageFrom - 1, this.pageTo)
     const value = Utils.calculateObjectValue(this, this.options.customView, [data], '')
+
     this.trigger('custom-view-pre-body', data, value)
     if ($customViewContainer.length === 1) {
       $customViewContainer.show().html(value)

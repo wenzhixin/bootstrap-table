@@ -15,12 +15,15 @@ $.extend($.fn.bootstrapTable.defaults, {
   onDragClass: 'reorder_rows_onDragClass',
   dragHandle: '>tbody>tr>td',
   useRowAttrFunc: false,
+  // eslint-disable-next-line no-unused-vars
   onReorderRowsDrag (row) {
     return false
   },
+  // eslint-disable-next-line no-unused-vars
   onReorderRowsDrop (row) {
     return false
   },
+  // eslint-disable-next-line no-unused-vars
   onReorderRow (newData) {
     return false
   }
@@ -42,6 +45,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     const onPostBody = this.options.onPostBody
+
     this.options.onPostBody = () => {
       setTimeout(() => {
         this.makeRowsReorderable()
@@ -73,8 +77,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
   onDrop (table) {
     this.$draggingTd.css('cursor', '')
     const newData = []
+
     for (let i = 0; i < table.tBodies[0].rows.length; i++) {
       const $tr = $(table.tBodies[0].rows[i])
+
       newData.push(this.data[$tr.data('index')])
       $tr.data('index', i)
     }
@@ -83,6 +89,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const droppedIndex = newData.indexOf(this.data[this.draggingIndex])
     const droppedRow = this.data[droppedIndex]
     const index = this.options.data.indexOf(this.data[droppedIndex])
+
     this.options.data.splice(this.options.data.indexOf(draggingRow), 1)
     this.options.data.splice(index, 0, draggingRow)
 

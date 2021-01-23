@@ -6,11 +6,13 @@
 
 const debounce = (func, wait) => {
   let timeout = 0
+
   return (...args) => {
     const later = () => {
       timeout = 0
       func(...args)
     }
+
     clearTimeout(timeout)
     timeout = setTimeout(later, wait)
   }
@@ -34,7 +36,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (this.options.minWidth < 100 && this.options.resizable) {
-      console.info('The minWidth when the resizable extension is active should be greater or equal than 100')
+      console.warn('The minWidth when the resizable extension is active should be greater or equal than 100')
       this.options.minWidth = 100
     }
 
@@ -68,6 +70,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.checkOnInit) {
       const width = $(window).width()
       const height = $(window).height()
+
       this.changeView(width, height)
       old = {
         width,
@@ -110,12 +113,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
       } else if ((width > this.options.minWidth) && (height > this.options.minHeight)) {
         this.conditionFullView()
       }
-    } else {
-      if (width <= this.options.minWidth) {
-        this.conditionCardView()
-      } else if (width > this.options.minWidth) {
-        this.conditionFullView()
-      }
+    } else if (width <= this.options.minWidth) {
+      this.conditionCardView()
+    } else if (width > this.options.minWidth) {
+      this.conditionFullView()
     }
 
     this.resetView()

@@ -36,6 +36,7 @@ const _resetView = BootstrapTable.prototype.resetView
 
 BootstrapTable.prototype.initBody = function (...args) {
   const that = this
+
   _initBody.apply(this, Array.prototype.slice.apply(args))
 
   that.$el
