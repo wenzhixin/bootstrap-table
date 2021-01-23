@@ -27,7 +27,7 @@ algolia:
   index_name:     bootstrap-table
 
 # Custom variables
-current_version:  1.18.1
+current_version:  1.18.2
 title:            "Bootstrap Table"
 description:      "An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"
 authors:          "Zhixin Wen, and Bootstrap Table contributors"

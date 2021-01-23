@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const VERSION = '1.18.1'
+const VERSION = '1.18.2'
 
 let bootstrapVersion = 4
 
