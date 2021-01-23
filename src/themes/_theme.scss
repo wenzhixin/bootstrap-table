@@ -353,6 +353,16 @@
       padding: .5rem 1rem;
     }
   }
+
+  &.bootstrap5 {
+    .float-left {
+      float: left;
+    }
+
+    .float-right {
+      float: right;
+    }
+  }
 }
 
 /* calculate scrollbar width */

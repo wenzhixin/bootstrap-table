@@ -248,7 +248,7 @@ export function initFilterSelectControls (that) {
 
       for (let i = 0; i < z; i++) {
         // Added a new value
-        let fieldValue = data[i][field]
+        let fieldValue = Utils.getItemField(data[i], field, false)
         const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
         let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
 
