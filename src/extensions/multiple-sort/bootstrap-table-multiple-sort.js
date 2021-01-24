@@ -178,7 +178,7 @@ const theme = {
           </div>
         </div>
       `,
-      multipleSortButton: '<button class="multi-sort %s" type="button" data-bs-toggle="modal" data-target="#%s" title="%s">%s</button>',
+      multipleSortButton: '<button class="multi-sort %s" type="button" data-bs-toggle="modal" data-bs-target="#%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s form-control">'
     }
   },
