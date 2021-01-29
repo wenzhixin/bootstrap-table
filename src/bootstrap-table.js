@@ -956,8 +956,7 @@ class BootstrapTable {
         return
       }
 
-      const s = this.searchText && (this.fromHtml ?
-        Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
+      const s = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
       const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
       // Check filter
@@ -1041,7 +1040,7 @@ class BootstrapTable {
               }
             } else {
               const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(-?\d+)?|(-?\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
-              const matches = largerSmallerEqualsRegex.exec(s)
+              const matches = largerSmallerEqualsRegex.exec(this.searchText)
               let comparisonCheck = false
 
               if (matches) {
