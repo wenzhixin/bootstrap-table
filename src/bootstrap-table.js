@@ -1040,7 +1040,7 @@ class BootstrapTable {
                 return true
               }
             } else {
-              const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+              const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(-?\d+)?|(-?\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
               const matches = largerSmallerEqualsRegex.exec(s)
               let comparisonCheck = false
 
