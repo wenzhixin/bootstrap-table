@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
 
@@ -10,6 +11,10 @@ export function getControlContainer (that) {
     return $(`${that.options.filterControlContainer}`)
   }
   return that.$header
+}
+
+export function isKeyAllowed (keyCode) {
+  return $.inArray(keyCode, [37, 38, 39, 40]) > -1
 }
 
 export function getSearchControls (that) {
@@ -73,8 +78,8 @@ export function sortSelectControl (selectControl, orderBy) {
   $selectControl.append($opts)
 }
 
-export function fixHeaderCSS ({ $tableHeader }) {
-  $tableHeader.css('height', '89px')
+export function fixHeaderCSS ({ $tableHeader }, pixels = '89px') {
+  $tableHeader.css('height', pixels)
 }
 
 export function getElementClass ($element) {
@@ -307,13 +312,14 @@ export function createControls (that, header) {
     if (!column.filterControl && !that.options.filterControlContainer) {
       html.push('<div class="no-filter-control"></div>')
     } else if (that.options.filterControlContainer) {
+      // Use a filter control container instead of th
       const $filterControls = $(`.bootstrap-table-filter-control-${column.field}`)
 
       $.each($filterControls, (_, filterControl) => {
         const $filterControl = $(filterControl)
 
         if (!$filterControl.is('[type=radio]')) {
-          const placeholder = column.filterControlPlaceholder ? column.filterControlPlaceholder : ''
+          const placeholder = column.filterControlPlaceholder || ''
 
           $filterControl.attr('placeholder', placeholder).val(column.filterDefault)
         }
@@ -323,6 +329,7 @@ export function createControls (that, header) {
 
       addedFilterControl = true
     } else {
+      // Create the control based on the html defined in the filterTemplate array.
       const nameControl = column.filterControl.toLowerCase()
 
       html.push('<div class="filter-control">')
@@ -342,6 +349,7 @@ export function createControls (that, header) {
       }
     }
 
+    // Filtering by default when it is set.
     if (!column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
       if ($.isEmptyObject(that.filterColumnsPartial)) {
         that.filterColumnsPartial = {}
@@ -350,7 +358,7 @@ export function createControls (that, header) {
       that.filterColumnsPartial[column.field] = column.filterDefault
     }
 
-    $.each(header.find('th'), (i, th) => {
+    $.each(header.find('th'), (_, th) => {
       const $th = $(th)
 
       if ($th.data('field') === column.field) {
@@ -360,19 +368,12 @@ export function createControls (that, header) {
     })
 
     if (column.filterData && column.filterData.toLowerCase() !== 'column') {
-      const filterDataType = getFilterDataMethod(
-        /* eslint-disable no-use-before-define */
-        filterDataMethods,
-        column.filterData.substring(0, column.filterData.indexOf(':'))
-      )
+      const filterDataType = getFilterDataMethod(filterDataMethods, column.filterData.substring(0, column.filterData.indexOf(':')))
       let filterDataSource
       let selectControl
 
       if (filterDataType) {
-        filterDataSource = column.filterData.substring(
-          column.filterData.indexOf(':') + 1,
-          column.filterData.length
-        )
+        filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length)
         selectControl = header.find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
         addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
@@ -388,8 +389,6 @@ export function createControls (that, header) {
 
   if (addedFilterControl) {
     header.off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
-      syncControls(that)
-      // Simulate enter key action from clear button
       keyCode = obj ? obj.keyCode : keyCode
 
       if (that.options.searchOnEnterKey && keyCode !== 13) {
@@ -413,15 +412,14 @@ export function createControls (that, header) {
     })
 
     header.off('change', 'select:not(".ms-offscreen")').on('change', 'select:not(".ms-offscreen")', ({ currentTarget, keyCode }) => {
-      syncControls(that)
-      const $select = $(currentTarget)
-      const value = $select.val()
+      const $selectControl = $(currentTarget)
+      const value = $selectControl.val()
 
       if (value && value.length > 0 && value.trim()) {
-        $select.find('option[selected]').removeAttr('selected')
-        $select.find(`option[value="${ value }"]`).attr('selected', true)
+        $selectControl.find('option[selected]').removeAttr('selected')
+        $selectControl.find(`option[value="${ value }"]`).attr('selected', true)
       } else {
-        $select.find('option[selected]').removeAttr('selected')
+        $selectControl.find('option[selected]').removeAttr('selected')
       }
 
       clearTimeout(currentTarget.timeoutId || 0)
@@ -439,7 +437,6 @@ export function createControls (that, header) {
       }
 
       setTimeout(() => {
-        syncControls(that)
         const newValue = $input.val()
 
         if (newValue === '') {
@@ -454,11 +451,11 @@ export function createControls (that, header) {
     header.off('change', 'input[type=radio]').on('change', 'input[type=radio]', ({ currentTarget, keyCode }) => {
       clearTimeout(currentTarget.timeoutId || 0)
       currentTarget.timeoutId = setTimeout(() => {
-        syncControls(that)
         that.onColumnSearch({ currentTarget, keyCode })
       }, that.options.searchTimeOut)
     })
 
+    // Consider support default date picker
     if (header.find('.date-filter-control').length > 0) {
       $.each(that.columns, (i, { filterDefault, filterControl, field, filterDatepickerOptions }) => {
         if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
@@ -473,7 +470,6 @@ export function createControls (that, header) {
           $datepicker.on('changeDate', ({ currentTarget, keyCode }) => {
             clearTimeout(currentTarget.timeoutId || 0)
             currentTarget.timeoutId = setTimeout(() => {
-              syncControls(that)
               that.onColumnSearch({ currentTarget, keyCode })
             }, that.options.searchTimeOut)
           })
@@ -507,32 +503,6 @@ export function getDirectionOfSelectOptions (_alignment) {
       return 'auto'
     default:
       return 'ltr'
-  }
-}
-
-export function syncControls (that) {
-  if (that.options.height) {
-    const controlsTableHeader = that.$tableHeader.find(searchControls)
-
-    that.$header.find(searchControls).each((_, control) => {
-      const $control = $(control)
-      const controlClass = getElementClass($control)
-      const foundControl = controlsTableHeader.filter((_, ele) => {
-        const eleClass = getElementClass($(ele))
-
-        return controlClass === eleClass
-      })
-
-      if (foundControl.length === 0) {
-        return
-      }
-      if ($control.is('select')) {
-        $control.find('option:selected').removeAttr('selected')
-        $control.find(`option[value='${foundControl.val()}']`).attr('selected', true)
-      } else {
-        $control.val(foundControl.val())
-      }
-    })
   }
 }
 

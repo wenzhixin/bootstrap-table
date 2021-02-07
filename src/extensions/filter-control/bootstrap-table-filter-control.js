@@ -1,7 +1,7 @@
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
- * @version: v2.3.0
+ * @version: v3.0.0
  */
 
 import * as UtilsFilterControl from './utils.js'
@@ -49,7 +49,8 @@ $.extend($.fn.bootstrapTable.defaults, {
   searchOnEnterKey: false,
   showFilterControlSwitch: false,
   // internal variables
-  valuesFilterControl: []
+  valuesFilterControl: [],
+  initialized: false
 })
 
 $.extend($.fn.bootstrapTable.columnDefaults, {
@@ -112,6 +113,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.filterControl) {
       // Make sure that the internal variables are set correctly
       this.options.valuesFilterControl = []
+      this.options.initialized = false
 
       this.$el
         .on('reset-view.bs.table', () => {
@@ -132,43 +134,128 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
           UtilsFilterControl.createControls(this, $controlContainer)
         })
-        .on('post-header.bs.table', () => {
-          UtilsFilterControl.setValues(this)
-        })
         .on('post-body.bs.table', () => {
           if (this.options.height && !this.options.filterControlContainer) {
             UtilsFilterControl.fixHeaderCSS(this)
           }
           this.$tableLoading.css('top', this.$header.outerHeight() + 1)
         })
-        .on('column-switch.bs.table', () => {
-          UtilsFilterControl.setValues(this)
-        })
-        .on('load-success.bs.table', () => {
-          this.enableControls(true)
-        })
-        .on('load-error.bs.table', () => {
-          this.enableControls(true)
-        })
     }
 
     super.init()
   }
 
+  initBody () {
+    super.initBody()
+  }
+
   initHeader () {
     super.initHeader()
-
-    if (!this.options.filterControl || this.options.height) {
+    if (!this.options.filterControl) {
       return
     }
 
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
   }
 
-  initBody () {
-    super.initBody()
-    UtilsFilterControl.syncControls(this)
-    UtilsFilterControl.initFilterSelectControls(this)
+  fitHeader () {
+    if (this.$el.is(':hidden')) {
+      this.timeoutId_ = setTimeout(() => this.fitHeader(), 100)
+      return
+    }
+
+    const fixedBody = this.$tableBody.get(0)
+    const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
+    fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
+      Utils.getScrollBarWidth() : 0
+
+    this.$el.css('margin-top', -this.$header.outerHeight())
+
+    const focused = $(':focus')
+
+    if (focused.length > 0) {
+      const $th = focused.parents('th')
+
+      if ($th.length > 0) {
+        const dataField = $th.attr('data-field')
+
+        if (dataField !== undefined) {
+          const $headerTh = this.$header.find(`[data-field='${dataField}']`)
+
+          if ($headerTh.length > 0) {
+            $headerTh.find(':input').addClass('focus-temp')
+          }
+        }
+      }
+    }
+
+    if (this.options.height && this.options.filterControl && this.options.initialized) {
+      this.$header_ = $('.fixed-table-header table thead').clone(true, true)
+    } else {
+      this.$header_ = this.$header.clone(true, true)
+      this.options.initialized = true
+    }
+    this.$selectAll_ = this.$header_.find('[name="btSelectAll"]')
+    this.$tableHeader
+      .css('margin-right', scrollWidth)
+      .find('table').css('width', this.$el.outerWidth())
+      .html('').attr('class', this.$el.attr('class'))
+      .append(this.$header_)
+
+    this.$tableLoading.css('width', this.$el.outerWidth())
+
+    const focusedTemp = $('.focus-temp:visible:eq(0)')
+
+    if (focusedTemp.length > 0) {
+      focusedTemp.focus()
+      this.$header.find('.focus-temp').removeClass('focus-temp')
+    }
+
+    // fix bug: $.data() is not working as expected after $.append()
+    this.$header.find('th[data-field]').each((i, el) => {
+      this.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data())
+    })
+
+    const visibleFields = this.getVisibleFields()
+    const $ths = this.$header_.find('th')
+    let $tr = this.$body.find('>tr:not(.no-records-found,.virtual-scroll-top)').eq(0)
+
+    while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
+      $tr = $tr.next()
+    }
+
+    const trLength = $tr.find('> *').length
+
+    $tr.find('> *').each((i, el) => {
+      const $this = $(el)
+
+      if (Utils.hasDetailViewIcon(this.options)) {
+        if (
+          i === 0 && this.options.detailViewAlign !== 'right' ||
+          i === trLength - 1 && this.options.detailViewAlign === 'right'
+        ) {
+          const $thDetail = $ths.filter('.detail')
+          const zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width()
+
+          $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
+          return
+        }
+      }
+
+      const index = i - Utils.getDetailViewIndexOffset(this.options)
+      let $th = this.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]))
+
+      if ($th.length > 1) {
+        $th = $($ths[$this[0].cellIndex])
+      }
+
+      const zoomWidth = $th.innerWidth() - $th.find('.fht-cell').width()
+
+      $th.find('.fht-cell').width($this.innerWidth() - zoomWidth)
+    })
+
+    this.horizontalScroll()
+    this.trigger('post-header')
   }
 
   initSearch () {
@@ -300,8 +387,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initColumnSearch (filterColumnsDefaults) {
-    UtilsFilterControl.copyValues(this)
-
     if (filterColumnsDefaults) {
       this.filterColumnsPartial = filterColumnsDefaults
       this.updatePagination()
@@ -311,31 +396,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.trigger('column-search', filter, filterColumnsDefaults[filter])
       }
     }
-  }
-
-  onColumnSearch ({ currentTarget, keyCode }) {
-    if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
-      return
-    }
-
-    UtilsFilterControl.copyValues(this)
-    const text = $.trim($(currentTarget).val())
-    const $field = $(currentTarget).closest('[data-field]').data('field')
-
-    this.trigger('column-search', $field, text)
-
-    if ($.isEmptyObject(this.filterColumnsPartial)) {
-      this.filterColumnsPartial = {}
-    }
-    if (text) {
-      this.filterColumnsPartial[$field] = text
-    } else {
-      delete this.filterColumnsPartial[$field]
-    }
-
-    this.options.pageNumber = 1
-    this.enableControls(false)
-    this.onSearch({ currentTarget }, false)
   }
 
   initToolbar () {
@@ -367,99 +427,104 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   clearFilterControl () {
-    if (this.options.filterControl) {
-      const that = this
-      const cookies = UtilsFilterControl.collectBootstrapCookies()
-      const table = this.$el.closest('table')
-      const controls = UtilsFilterControl.getSearchControls(that)
-      const search = Utils.getSearchInput(this)
-      let hasValues = false
-      let timeoutId = 0
-
-      $.each(that.options.valuesFilterControl, (i, item) => {
-        hasValues = hasValues ? true : item.value !== ''
-        item.value = ''
-      })
-
-      $.each(that.options.filterControls, (i, item) => {
-        item.text = ''
-      })
-
-      UtilsFilterControl.setValues(that)
-
-      // clear cookies once the filters are clean
-      clearTimeout(timeoutId)
-      timeoutId = setTimeout(() => {
-        if (cookies && cookies.length > 0) {
-          $.each(cookies, (i, item) => {
-            if (that.deleteCookie !== undefined) {
-              that.deleteCookie(item)
-            }
-          })
-        }
-      }, that.options.searchTimeOut)
-
-      // If there is not any value in the controls exit this method
-      if (!hasValues) {
-        return
-      }
-
-      // Clear each type of filter if it exists.
-      // Requires the body to reload each time a type of filter is found because we never know
-      // which ones are going to be present.
-      if (controls.length > 0) {
-        this.filterColumnsPartial = {}
-        $(controls[0]).trigger(
-          controls[0].tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 }
-        )
-      } else {
-        return
-      }
-
-      if (search.length > 0) {
-        that.resetSearch()
-      }
-
-      // use the default sort order if it exists. do nothing if it does not
-      if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
-        const sorter = this.$header.find(Utils.sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')))
-
-        if (sorter.length > 0) {
-          that.onSort({ type: 'keypress', currentTarget: sorter })
-          $(sorter).find('.sortable').trigger('click')
-        }
-      }
+    if (!this.options.filterControl) {
+      return
     }
-  }
 
-  triggerSearch () {
-    const searchControls = UtilsFilterControl.getSearchControls(this)
+    const that = this
+    const cookies = UtilsFilterControl.collectBootstrapCookies()
+    const table = this.$el.closest('table')
+    const controls = UtilsFilterControl.getSearchControls(that)
+    const search = Utils.getSearchInput(this)
+    let hasValues = false
+    let timeoutId = 0
 
-    searchControls.each(function () {
-      const el = $(this)
-
-      if (el.is('select')) {
-        el.change()
-      } else {
-        el.keyup()
-      }
+    $.each(that.options.valuesFilterControl, (i, item) => {
+      hasValues = hasValues ? true : item.value !== ''
+      item.value = ''
     })
-  }
 
-  enableControls (enable) {
-    if (this.options.disableControlWhenSearch && this.options.sidePagination === 'server') {
-      const searchControls = UtilsFilterControl.getSearchControls(this)
+    $.each(that.options.filterControls, (i, item) => {
+      item.text = ''
+    })
 
-      if (!enable) {
-        searchControls.prop('disabled', 'disabled')
-      } else {
-        searchControls.removeProp('disabled')
+    UtilsFilterControl.setValues(that)
+
+    // clear cookies once the filters are clean
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => {
+      if (cookies && cookies.length > 0) {
+        $.each(cookies, (i, item) => {
+          if (that.deleteCookie !== undefined) {
+            that.deleteCookie(item)
+          }
+        })
+      }
+    }, that.options.searchTimeOut)
+
+    // If there is not any value in the controls exit this method
+    if (!hasValues) {
+      return
+    }
+
+    // Clear each type of filter if it exists.
+    // Requires the body to reload each time a type of filter is found because we never know
+    // which ones are going to be present.
+    if (controls.length > 0) {
+      this.filterColumnsPartial = {}
+      $(controls[0]).trigger(
+        controls[0].tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 }
+      )
+    } else {
+      return
+    }
+
+    if (search.length > 0) {
+      that.resetSearch()
+    }
+
+    // use the default sort order if it exists. do nothing if it does not
+    if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
+      const sorter = this.$header.find(Utils.sprintf('[data-field="%s"]', $(controls[0]).closest('table').data('sortName')))
+
+      if (sorter.length > 0) {
+        that.onSort({ type: 'keypress', currentTarget: sorter })
+        $(sorter).find('.sortable').trigger('click')
       }
     }
+  }
+
+  // EVENTS
+  onColumnSearch ({ currentTarget, keyCode }) {
+    if (UtilsFilterControl.isKeyAllowed(keyCode)) {
+      return
+    }
+
+    const $currentTarget = $(currentTarget)
+
+    UtilsFilterControl.copyValues(this)
+    const text = $currentTarget.val().trim()
+    const $field = $currentTarget.closest('[data-field]').data('field')
+
+    this.trigger('column-search', $field, text)
+
+    if ($.isEmptyObject(this.filterColumnsPartial)) {
+      this.filterColumnsPartial = {}
+    }
+
+    if (text) {
+      this.filterColumnsPartial[$field] = text
+    } else {
+      delete this.filterColumnsPartial[$field]
+    }
+
+    this.options.pageNumber = 1
+    this.onSearch({ currentTarget }, false)
   }
 
   toggleFilterControl () {
     this.options.filterControlVisible = !this.options.filterControlVisible
+    // Controls in original header or container.
     const $filterControls = UtilsFilterControl.getControlContainer(this).find('.filter-control, .no-filter-control')
 
     if (this.options.filterControlVisible) {
@@ -468,10 +533,38 @@ $.BootstrapTable = class extends $.BootstrapTable {
       $filterControls.hide()
       this.clearFilterControl()
     }
+
+    // Controls in fixed header
+    if (this.options.height) {
+      const $fixedControls = $('.fixed-table-header table thead').find('.filter-control, .no-filter-control')
+
+      if (this.options.filterControlVisible) {
+        $fixedControls.show()
+      } else {
+        $fixedControls.hide()
+      }
+
+      UtilsFilterControl.fixHeaderCSS(this, '49px')
+    }
+
     const icon = this.options.showButtonIcons ? this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow : ''
     const text = this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''
 
     this.$toolbar.find('>.columns').find('.filter-control-switch')
       .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
+  }
+
+  triggerSearch () {
+    const searchControls = UtilsFilterControl.getSearchControls(this)
+
+    searchControls.each(function () {
+      const $element = $(this)
+
+      if ($element.is('select')) {
+        $element.trigger('change')
+      } else {
+        $element.trigger('keyup')
+      }
+    })
   }
 }
