@@ -10,6 +10,11 @@ export function getControlContainer (that) {
   if (that.options.filterControlContainer) {
     return $(`${that.options.filterControlContainer}`)
   }
+
+  if (that.options.height && that.options.initialized) {
+    return $('.fixed-table-header table thead')
+  }
+
   return that.$header
 }
 
@@ -87,24 +92,20 @@ export function getElementClass ($element) {
 }
 
 export function getCursorPosition (el) {
-  if (Utils.isIEBrowser()) {
-    if ($(el).is('input[type=text]')) {
-      let pos = 0
+  if ($(el).is('input[type=search]')) {
+    let pos = 0
 
-      if ('selectionStart' in el) {
-        pos = el.selectionStart
-      } else if ('selection' in document) {
-        el.focus()
-        const Sel = document.selection.createRange()
-        const SelLength = document.selection.createRange().text.length
+    if ('selectionStart' in el) {
+      pos = el.selectionStart
+    } else if ('selection' in document) {
+      el.focus()
+      const Sel = document.selection.createRange()
+      const SelLength = document.selection.createRange().text.length
 
-        Sel.moveStart('character', -el.value.length)
-        pos = Sel.text.length - SelLength
-      }
-      return pos
+      Sel.moveStart('character', -el.value.length)
+      pos = Sel.text.length - SelLength
     }
-    return -1
-
+    return pos
   }
   return -1
 }
@@ -113,7 +114,7 @@ export function setCursorPosition (el) {
   $(el).val(el.value)
 }
 
-export function copyValues (that) {
+export function cacheCaretAndFocus (that) {
   const searchControls = getSearchControls(that)
 
   that.options.valuesFilterControl = []
@@ -129,7 +130,6 @@ export function copyValues (that) {
 
     that.options.valuesFilterControl.push({
       field: $field.closest('[data-field]').data('field'),
-      value: $field.val(),
       position: getCursorPosition($field.get(0)),
       hasFocus: $field.is(':focus')
     })
@@ -152,12 +152,8 @@ export function setValues (that) {
       result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
 
       if (result.length > 0) {
-        if ($this.is('[type=radio]')) {
-          return
-        }
 
-        $this.val(result[0].value)
-        if (result[0].hasFocus && result[0].value !== '') {
+        if (result[0].hasFocus) {
           // set callback if the field had the focus.
           fieldToFocusCallback = ((fieldToFocus, carretPosition) => {
             // Closure here to capture the field and cursor position
@@ -395,7 +391,7 @@ export function createControls (that, header) {
         return
       }
 
-      if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
+      if (isKeyAllowed(keyCode)) {
         return
       }
 
@@ -504,6 +500,34 @@ export function getDirectionOfSelectOptions (_alignment) {
     default:
       return 'ltr'
   }
+}
+
+export function syncHeaders (that) {
+  if (!that.options.height) {
+    return
+  }
+  const fixedHeader = $('.fixed-table-header table thead')
+
+  if (fixedHeader.length === 0) {
+    return
+  }
+
+  that.$header.children().find('th[data-field]').each((_, element) => {
+    if (element.classList[0] !== 'bs-checkbox') {
+      const $element = $(element)
+      const $field = $element.data('field')
+      const $fixedField = $(`th[data-field='${$field}']`).not($element)
+
+      const input = $element.find('input')
+      const fixedInput = $fixedField.find('input')
+
+      if (input.length > 0 && fixedInput.length > 0) {
+        if (input.val() !== fixedInput.val()) {
+          input.val(fixedInput.val())
+        }
+      }
+    }
+  })
 }
 
 const filterDataMethods = {

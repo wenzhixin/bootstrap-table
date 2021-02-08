@@ -134,11 +134,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
           UtilsFilterControl.createControls(this, $controlContainer)
         })
+        .on('post-header.bs.table', () => {
+          UtilsFilterControl.setValues(this)
+        })
+        .on('column-switch.bs.table', () => {
+          UtilsFilterControl.setValues(this)
+          if (this.options.height) {
+            this.fitHeader()
+          }
+        })
         .on('post-body.bs.table', () => {
-          if (this.options.height && !this.options.filterControlContainer) {
+          if (this.options.height && !this.options.filterControlContainer && this.options.filterControlVisible) {
             UtilsFilterControl.fixHeaderCSS(this)
           }
           this.$tableLoading.css('top', this.$header.outerHeight() + 1)
+        })
+        .on('all.bs.table', () => {
+          UtilsFilterControl.syncHeaders(this)
         })
     }
 
@@ -156,106 +168,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
-  }
-
-  fitHeader () {
-    if (this.$el.is(':hidden')) {
-      this.timeoutId_ = setTimeout(() => this.fitHeader(), 100)
-      return
-    }
-
-    const fixedBody = this.$tableBody.get(0)
-    const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-    fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
-      Utils.getScrollBarWidth() : 0
-
-    this.$el.css('margin-top', -this.$header.outerHeight())
-
-    const focused = $(':focus')
-
-    if (focused.length > 0) {
-      const $th = focused.parents('th')
-
-      if ($th.length > 0) {
-        const dataField = $th.attr('data-field')
-
-        if (dataField !== undefined) {
-          const $headerTh = this.$header.find(`[data-field='${dataField}']`)
-
-          if ($headerTh.length > 0) {
-            $headerTh.find(':input').addClass('focus-temp')
-          }
-        }
-      }
-    }
-
-    if (this.options.height && this.options.filterControl && this.options.initialized) {
-      this.$header_ = $('.fixed-table-header table thead').clone(true, true)
-    } else {
-      this.$header_ = this.$header.clone(true, true)
-      this.options.initialized = true
-    }
-    this.$selectAll_ = this.$header_.find('[name="btSelectAll"]')
-    this.$tableHeader
-      .css('margin-right', scrollWidth)
-      .find('table').css('width', this.$el.outerWidth())
-      .html('').attr('class', this.$el.attr('class'))
-      .append(this.$header_)
-
-    this.$tableLoading.css('width', this.$el.outerWidth())
-
-    const focusedTemp = $('.focus-temp:visible:eq(0)')
-
-    if (focusedTemp.length > 0) {
-      focusedTemp.focus()
-      this.$header.find('.focus-temp').removeClass('focus-temp')
-    }
-
-    // fix bug: $.data() is not working as expected after $.append()
-    this.$header.find('th[data-field]').each((i, el) => {
-      this.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data())
-    })
-
-    const visibleFields = this.getVisibleFields()
-    const $ths = this.$header_.find('th')
-    let $tr = this.$body.find('>tr:not(.no-records-found,.virtual-scroll-top)').eq(0)
-
-    while ($tr.length && $tr.find('>td[colspan]:not([colspan="1"])').length) {
-      $tr = $tr.next()
-    }
-
-    const trLength = $tr.find('> *').length
-
-    $tr.find('> *').each((i, el) => {
-      const $this = $(el)
-
-      if (Utils.hasDetailViewIcon(this.options)) {
-        if (
-          i === 0 && this.options.detailViewAlign !== 'right' ||
-          i === trLength - 1 && this.options.detailViewAlign === 'right'
-        ) {
-          const $thDetail = $ths.filter('.detail')
-          const zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width()
-
-          $thDetail.find('.fht-cell').width($this.innerWidth() - zoomWidth)
-          return
-        }
-      }
-
-      const index = i - Utils.getDetailViewIndexOffset(this.options)
-      let $th = this.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]))
-
-      if ($th.length > 1) {
-        $th = $($ths[$this[0].cellIndex])
-      }
-
-      const zoomWidth = $th.innerWidth() - $th.find('.fht-cell').width()
-
-      $th.find('.fht-cell').width($this.innerWidth() - zoomWidth)
-    })
-
-    this.horizontalScroll()
-    this.trigger('post-header')
+    this.options.initialized = true
   }
 
   initSearch () {
@@ -387,6 +300,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initColumnSearch (filterColumnsDefaults) {
+    UtilsFilterControl.cacheCaretAndFocus(this)
+
     if (filterColumnsDefaults) {
       this.filterColumnsPartial = filterColumnsDefaults
       this.updatePagination()
@@ -499,10 +414,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (UtilsFilterControl.isKeyAllowed(keyCode)) {
       return
     }
+    UtilsFilterControl.cacheCaretAndFocus(this)
 
     const $currentTarget = $(currentTarget)
 
-    UtilsFilterControl.copyValues(this)
     const text = $currentTarget.val().trim()
     const $field = $currentTarget.closest('[data-field]').data('field')
 
