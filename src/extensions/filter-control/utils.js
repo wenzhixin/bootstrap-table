@@ -110,10 +110,6 @@ export function getCursorPosition (el) {
   return -1
 }
 
-export function setCursorPosition (el) {
-  $(el).val(el.value)
-}
-
 export function cacheCaretAndFocus (that) {
   const searchControls = getSearchControls(that)
 
@@ -134,6 +130,24 @@ export function cacheCaretAndFocus (that) {
       hasFocus: $field.is(':focus')
     })
   })
+}
+
+export function setCaretPosition (elem, caretPos) {
+  try {
+    if (elem) {
+      if (elem.createTextRange) {
+        const range = elem.createTextRange()
+
+        range.move('character', caretPos)
+        range.select()
+      } else {
+        elem.setSelectionRange(caretPos, caretPos)
+      }
+    }
+  }
+  catch (ex) {
+    // ignored
+  }
 }
 
 export function setValues (that) {
@@ -159,7 +173,7 @@ export function setValues (that) {
             // Closure here to capture the field and cursor position
             const closedCallback = () => {
               fieldToFocus.focus()
-              setCursorPosition(fieldToFocus, carretPosition)
+              setCaretPosition(fieldToFocus, carretPosition)
             }
 
             return closedCallback

@@ -135,7 +135,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
           UtilsFilterControl.createControls(this, $controlContainer)
         })
         .on('post-header.bs.table', () => {
-          UtilsFilterControl.setValues(this)
+          setTimeout(() => {
+            UtilsFilterControl.setValues(this)
+          }, 2)
         })
         .on('column-switch.bs.table', () => {
           UtilsFilterControl.setValues(this)
