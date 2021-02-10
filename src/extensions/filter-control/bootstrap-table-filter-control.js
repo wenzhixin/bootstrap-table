@@ -117,25 +117,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       this.$el
         .on('reset-view.bs.table', () => {
-          // Create controls on $tableHeader if the height is set
-          if (!this.options.height) {
-            return
+          setTimeout(() => {
+            UtilsFilterControl.initFilterSelectControls(this)
+            UtilsFilterControl.setValues(this)
+          }, 2)
+        })
+        .on('toggle.bs.table', (_, cardView) => {
+          this.options.initialized = false
+          if (!cardView) {
+            UtilsFilterControl.initFilterSelectControls(this)
+            UtilsFilterControl.setValues(this)
+            this.options.initialized = true
           }
-
-          // Avoid recreate the controls
-          const $controlContainer = UtilsFilterControl.getControlContainer(this)
-
-          if (
-            ($controlContainer.find('select').length > 0 || $controlContainer.find('input:not([type="checkbox"]):not([type="radio"])').length > 0) &&
-            !this.options.filterControlContainer
-          ) {
-            return
-          }
-
-          UtilsFilterControl.createControls(this, $controlContainer)
         })
         .on('post-header.bs.table', () => {
           setTimeout(() => {
+            UtilsFilterControl.initFilterSelectControls(this)
             UtilsFilterControl.setValues(this)
           }, 2)
         })
@@ -151,7 +148,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
           this.$tableLoading.css('top', this.$header.outerHeight() + 1)
         })
-        .on('all.bs.table', () => {
+        .on('all.bs.table', (event, name, args) => {
+          console.log('**********')
+          console.log(`EVENT:: ${name}`)
+          console.log('**********')
           UtilsFilterControl.syncHeaders(this)
         })
     }
@@ -161,6 +161,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initBody () {
     super.initBody()
+    setTimeout(() => {
+      UtilsFilterControl.initFilterSelectControls(this)
+      UtilsFilterControl.setValues(this)
+    }, 3)
   }
 
   initHeader () {
@@ -302,7 +306,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initColumnSearch (filterColumnsDefaults) {
-    UtilsFilterControl.cacheCaretAndFocus(this)
+    UtilsFilterControl.cacheValues(this)
 
     if (filterColumnsDefaults) {
       this.filterColumnsPartial = filterColumnsDefaults
@@ -416,11 +420,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (UtilsFilterControl.isKeyAllowed(keyCode)) {
       return
     }
-    UtilsFilterControl.cacheCaretAndFocus(this)
+    UtilsFilterControl.cacheValues(this)
 
     const $currentTarget = $(currentTarget)
+    const currentTargetValue = $currentTarget.val()
 
-    const text = $currentTarget.val().trim()
+    const text = currentTargetValue ? currentTargetValue.trim() : ''
     const $field = $currentTarget.closest('[data-field]').data('field')
 
     this.trigger('column-search', $field, text)

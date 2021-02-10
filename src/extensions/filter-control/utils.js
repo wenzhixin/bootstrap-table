@@ -110,7 +110,7 @@ export function getCursorPosition (el) {
   return -1
 }
 
-export function cacheCaretAndFocus (that) {
+export function cacheValues (that) {
   const searchControls = getSearchControls(that)
 
   that.options.valuesFilterControl = []
@@ -126,6 +126,7 @@ export function cacheCaretAndFocus (that) {
 
     that.options.valuesFilterControl.push({
       field: $field.closest('[data-field]').data('field'),
+      value: $field.val(),
       position: getCursorPosition($field.get(0)),
       hasFocus: $field.is(':focus')
     })
@@ -157,7 +158,7 @@ export function setValues (that) {
 
   if (that.options.valuesFilterControl.length > 0) {
     //  Callback to apply after settings fields values
-    let fieldToFocusCallback = null
+    const callbacks = []
 
     searchControls.each((i, el) => {
       const $this = $(el)
@@ -166,25 +167,29 @@ export function setValues (that) {
       result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
 
       if (result.length > 0) {
-
-        if (result[0].hasFocus) {
-          // set callback if the field had the focus.
-          fieldToFocusCallback = ((fieldToFocus, carretPosition) => {
-            // Closure here to capture the field and cursor position
+        if (result[0].hasFocus || result[0].value) {
+          const fieldToFocusCallback = ((element, cacheElementInfo) => {
+            // Closure here to capture the field information
             const closedCallback = () => {
-              fieldToFocus.focus()
-              setCaretPosition(fieldToFocus, carretPosition)
+              if (cacheElementInfo.hasFocus) {
+                element.focus()
+              }
+
+              element.value = cacheElementInfo.value
+              setCaretPosition(element, cacheElementInfo.position)
             }
 
             return closedCallback
-          })($this.get(0), result[0].position)
+          })($this.get(0), result[0])
+
+          callbacks.push(fieldToFocusCallback)
         }
       }
     })
 
     // Callback call.
-    if (fieldToFocusCallback !== null) {
-      fieldToFocusCallback()
+    if (callbacks.length > 0) {
+      callbacks.forEach(callback => callback())
     }
   }
 }
@@ -238,16 +243,11 @@ export function isFilterDataNotGiven ({ filterData }) {
 }
 
 export function hasSelectControlElement (selectControl) {
-  return selectControl && selectControl.length > 0
+  return selectControl && selectControl.length > 0 && selectControl.get(selectControl.length - 1).options.length === 0
 }
 
 export function initFilterSelectControls (that) {
-  const data = that.data
-  const z = that.options.pagination ?
-    that.options.sidePagination === 'server' ?
-      that.pageTo :
-      that.options.totalRows :
-    that.pageTo
+  const data = that.options.data
 
   $.each(that.header.fields, (j, field) => {
     const column = that.columns[that.fieldsColumnsIndex[field]]
@@ -261,7 +261,7 @@ export function initFilterSelectControls (that) {
 
       const uniqueValues = {}
 
-      for (let i = 0; i < z; i++) {
+      for (let i = 0; i < data.length; i++) {
         // Added a new value
         let fieldValue = Utils.getItemField(data[i], field, false)
         const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
