@@ -77,4 +77,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.autoRefreshStatus = !this.options.autoRefreshStatus
     }
   }
+
+  destroy () {
+    if (this.options.autoRefresh && this.options.autoRefreshStatus) {
+      clearInterval(this.options.autoRefreshFunction)
+    }
+
+    super.destroy()
+  }
 }
