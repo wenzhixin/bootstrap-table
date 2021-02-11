@@ -956,8 +956,12 @@ class BootstrapTable {
         return
       }
 
-      const s = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
+      let s = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
       const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
+
+      if (this.options.searchAccentNeutralise) {
+        s = Utils.normalizeAccent(s)
+      }
 
       // Check filter
       if (typeof this.filterOptions.filterAlgorithm === 'function') {
