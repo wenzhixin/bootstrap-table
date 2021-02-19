@@ -29,7 +29,7 @@ module.exports = (theme = '') => {
       const html = theme ? `modal-table-${theme}.html` : 'modal-table.html'
 
       cy.visit(`${baseUrl}${html}`)
-        .get('#button').wait(100).click()
+        .get('#button').wait(200).click()
         .get('.bootstrap-table').should('be.visible')
         .get('.fixed-table-container').should('have.css', 'height', '345px')
         .invoke('css', 'padding-bottom').then(str => parseInt(str)).should('be.greaterThan', 0)
