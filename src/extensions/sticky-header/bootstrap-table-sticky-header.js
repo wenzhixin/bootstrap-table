@@ -56,6 +56,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .on('scroll', () => this.renderStickyHeader())
   }
 
+  getCaret (...args) {
+    super.getCaret(...args)
+
+    if (this.$stickyHeader) {
+      const $ths = this.$stickyHeader.find('th')
+
+      this.$header.find('th').each((i, th) => {
+        $ths.eq(i).find('.sortable').attr('class', $(th).find('.sortable').attr('class'))
+      })
+    }
+  }
+
   horizontalScroll () {
     super.horizontalScroll()
     this.$tableBody.on('scroll', () => this.matchPositionX())
