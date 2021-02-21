@@ -121,8 +121,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
         stickyHeaderOffsetRight = 0
       }
       this.$stickyContainer.css('top', `${this.options.stickyHeaderOffsetY}px`)
-      this.$stickyContainer.css('left', `${stickyHeaderOffsetLeft}`)
-      this.$stickyContainer.css('right', `${stickyHeaderOffsetRight}`)
+      this.$stickyContainer.css('left', `${stickyHeaderOffsetLeft}px`)
+      this.$stickyContainer.css('right', `${stickyHeaderOffsetRight}px`)
       // create scrollable container for header
       this.$stickyTable = $('<table/>')
       this.$stickyTable.addClass(this.options.classes)
