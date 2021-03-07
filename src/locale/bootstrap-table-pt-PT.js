@@ -5,7 +5,7 @@
 
 $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Copiar Linhas'
   },
   formatPrint () {
     return 'Print'
@@ -24,19 +24,19 @@ $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
     return `A mostrar ${pageFrom} at&eacute; ${pageTo} de ${totalRows} linhas`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'p&aacute;gina anterior'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `ir para agina&ccedil&atilde;o ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'pr&oacute;xima p&aacute;gina'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Mostrando ${totalRows} linhas`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'Limpar Pesquisa'
   },
   formatSearch () {
     return 'Pesquisa'
@@ -48,13 +48,13 @@ $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
     return 'Esconder/Mostrar pagina&ccedil&atilde;o'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Mostra pagina&ccedil&atilde;o'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Esconder pagina&ccedil&atilde;o'
   },
   formatRefresh () {
-    return 'Atualizar'
+    return 'Actualizar'
   },
   formatToggle () {
     return 'Alternar'
@@ -69,37 +69,37 @@ $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
     return 'Colunas'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Activar tudo'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Ecr&atilde; completo'
   },
   formatAllRows () {
     return 'Tudo'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Actualiza&ccedil;&atilde;o autm&aacute;tica'
   },
   formatExport () {
-    return 'Export data'
+    return 'Exportar dados'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Avan&ccedil;ar'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Pesquisa avan&ccedil;ada'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Fechar'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Esconder/Exibir controlos'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Esconder controlos'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Exibir controlos'
   }
 }
 
