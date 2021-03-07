@@ -8,29 +8,29 @@ $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
     return 'Copiar Linhas'
   },
   formatPrint () {
-    return 'Print'
+    return 'Imprimir'
   },
   formatLoadingMessage () {
     return 'A carregar, por favor aguarde'
   },
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} registos por p&aacute;gina`
+    return `${pageNumber} registos por página`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `A mostrar ${pageFrom} at&eacute; ${pageTo} de ${totalRows} linhas (filtered from ${totalNotFiltered} total rows)`
     }
 
-    return `A mostrar ${pageFrom} at&eacute; ${pageTo} de ${totalRows} linhas`
+    return `A mostrar ${pageFrom} até ${pageTo} de ${totalRows} linhas`
   },
   formatSRPaginationPreText () {
-    return 'p&aacute;gina anterior'
+    return 'página anterior'
   },
   formatSRPaginationPageText (page) {
-    return `ir para agina&ccedil&atilde;o ${page}`
+    return `ir para página ${page}`
   },
   formatSRPaginationNextText () {
-    return 'pr&oacute;xima p&aacute;gina'
+    return 'próxima página'
   },
   formatDetailPagination (totalRows) {
     return `Mostrando ${totalRows} linhas`
@@ -45,13 +45,13 @@ $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
     return 'Nenhum registo encontrado'
   },
   formatPaginationSwitch () {
-    return 'Esconder/Mostrar pagina&ccedil&atilde;o'
+    return 'Esconder/Mostrar paginação'
   },
   formatPaginationSwitchDown () {
-    return 'Mostra pagina&ccedil&atilde;o'
+    return 'Mostrar página'
   },
   formatPaginationSwitchUp () {
-    return 'Esconder pagina&ccedil&atilde;o'
+    return 'Esconder página'
   },
   formatRefresh () {
     return 'Actualizar'
@@ -72,22 +72,22 @@ $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
     return 'Activar tudo'
   },
   formatFullscreen () {
-    return 'Ecr&atilde; completo'
+    return 'Ecrã completo'
   },
   formatAllRows () {
     return 'Tudo'
   },
   formatAutoRefresh () {
-    return 'Actualiza&ccedil;&atilde;o autm&aacute;tica'
+    return 'Actualização autmática'
   },
   formatExport () {
     return 'Exportar dados'
   },
   formatJumpTo () {
-    return 'Avan&ccedil;ar'
+    return 'Avançar'
   },
   formatAdvancedSearch () {
-    return 'Pesquisa avan&ccedil;ada'
+    return 'Pesquisa avançada'
   },
   formatAdvancedCloseButton () {
     return 'Fechar'
