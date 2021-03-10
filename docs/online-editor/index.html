@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Table Multiple Sort extension of Bootstrap Table.">
+<meta name="description" content="Online Editor Explanation.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
 <meta name="generator" content="Jekyll v3.8.7">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
 
-<title>Table Multiple Sort · Bootstrap Table</title>
+<title>Online Editor · Bootstrap Table</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
 
@@ -187,7 +187,7 @@
             Localizations
           </a>
         </li></ul>
-  </div><div class="bd-toc-item active">
+  </div><div class="bd-toc-item">
     <a class="bd-toc-link" href="/docs/extensions/addrbar/">
       Extensions
     </a>
@@ -248,7 +248,7 @@
           <a href="/docs/extensions/mobile/">
             Mobile
           </a>
-        </li><li class="active bd-sidenav-active">
+        </li><li>
           <a href="/docs/extensions/multiple-sort/">
             Multiple Sort
           </a>
@@ -311,7 +311,7 @@
             Component
           </a>
         </li></ul>
-  </div><div class="bd-toc-item">
+  </div><div class="bd-toc-item active">
     <a class="bd-toc-link" href="/docs/online-editor/">
       Online Editor
     </a>
@@ -352,356 +352,120 @@
         
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#usage">Usage</a></li>
-<li class="toc-entry toc-h2"><a href="#example">Example</a></li>
-<li class="toc-entry toc-h2"><a href="#options">Options</a>
+<li class="toc-entry toc-h2"><a href="#how-to-log-in">How to log in</a></li>
+<li class="toc-entry toc-h2"><a href="#base-functionality-and-page-structure">Base functionality and page structure</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#showmultisort">showMultiSort</a></li>
-<li class="toc-entry toc-h3"><a href="#showmultisortbutton">showMultiSortButton</a></li>
-<li class="toc-entry toc-h3"><a href="#multisortstrictsort">multiSortStrictSort</a></li>
-<li class="toc-entry toc-h3"><a href="#sortpriority">sortPriority</a></li>
-<li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
+<li class="toc-entry toc-h3"><a href="#top-navbar">Top Navbar</a></li>
+<li class="toc-entry toc-h3"><a href="#left-side">Left Side</a></li>
+<li class="toc-entry toc-h3"><a href="#right-side">Right Side</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#methods">methods</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#multiplesort">multipleSort</a></li>
-<li class="toc-entry toc-h3"><a href="#multisort">multiSort</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#localizations">Localizations</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#formataddlevel">formatAddLevel</a></li>
-<li class="toc-entry toc-h3"><a href="#formatcancel">formatCancel</a></li>
-<li class="toc-entry toc-h3"><a href="#formatcolumn">formatColumn</a></li>
-<li class="toc-entry toc-h3"><a href="#formatdeletelevel">formatDeleteLevel</a></li>
-<li class="toc-entry toc-h3"><a href="#formatduplicatealerttitle">formatDuplicateAlertTitle</a></li>
-<li class="toc-entry toc-h3"><a href="#formatduplicatealertdescription">formatDuplicateAlertDescription</a></li>
-<li class="toc-entry toc-h3"><a href="#formatmultiplesort">formatMultipleSort</a></li>
-<li class="toc-entry toc-h3"><a href="#formatorder">formatOrder</a></li>
-<li class="toc-entry toc-h3"><a href="#formatsort">formatSort</a></li>
-<li class="toc-entry toc-h3"><a href="#formatsortby">formatSortBy</a></li>
-<li class="toc-entry toc-h3"><a href="#formatsortorders">formatSortOrders</a></li>
-<li class="toc-entry toc-h3"><a href="#formatthenby">formatThenBy</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#events">Events</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#onmultiplesortmultiple-sortbstable">onMultipleSort(multiple-sort.bs.table)</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#workflow-for-issues">Workflow for Issues</a></li>
+<li class="toc-entry toc-h2"><a href="#workflow-for-pull-requests">Workflow for Pull requests</a></li>
 </ul>
           </div>
         
 
-        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content extensions" role="main">
-          <h1 class="bd-title" id="content">Table Multiple Sort</h1>
-          <p class="bd-lead">Table Multiple Sort extension of Bootstrap Table.</p>
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content online-editor" role="main">
+          <h1 class="bd-title" id="content">Online Editor</h1>
+          <p class="bd-lead">Online Editor Explanation.</p>
           <div id="gg"></div>
 
-          <h2 id="usage">Usage</h2>
+          <p>This page explains how to use our <a href="https://live.bootstrap-table.com/">Online Editor</a>.</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/multiple-sort/bootstrap-table-multiple-sort.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<p>The Online Editor should be used for each <strong>issue</strong> and <strong>pull request</strong>!</p>
 
-<h2 id="example">Example</h2>
+<p><img src="https://live.bootstrap-table.com/images/bootstrap-table-live.png" /></p>
 
-<p><a href="https://examples.bootstrap-table.com/#extensions/multiple-sort.html">Multiple Sort</a></p>
+<h2 id="how-to-log-in">How to log in</h2>
 
-<h2 id="options">Options</h2>
+<p>The login is quite easy, just press the <strong>Sign in with GitHub</strong> button on the top right and login via GitHub.</p>
 
-<h3 id="showmultisort">showMultiSort</h3>
+<h2 id="base-functionality-and-page-structure">Base functionality and page structure</h2>
 
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-show-multi-sort</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
+<p>Our online editor was designed to create easy examples/demos for the bootstrap-table.</p>
 
-    <p>Set true to allow the multiple sort.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
+<p>The page is structured as follows:</p>
 
-<h3 id="showmultisortbutton">showMultiSortButton</h3>
+<h3 id="top-navbar">Top Navbar</h3>
+
+<p>We have 5 buttons:</p>
 
 <ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-show-multi-sort-button</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set false to hide multiple sort UI button.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
-  </li>
-</ul>
-
-<h3 id="multisortstrictsort">multiSortStrictSort</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-multi-sort-strict-sort</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set true to enable strict sorting. This means that strings will be compared and ordered using toLowerCase.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
-<h3 id="sortpriority">sortPriority</h3>
-
-<ul>
-  <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-sort-priority</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Object</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set one or multiple sort priority. Example: ‘[{“sortName”: “forks_count”,”sortOrder”:”desc”},{“sortName”:”stargazers_count”,”sortOrder”:”desc”}]’</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong>null</p>
-  </li>
-</ul>
-
-<h3 id="icons">Icons</h3>
-<ul>
-  <li>sort: <code class="highlighter-rouge">glyphicon-sort</code></li>
-  <li>plus: <code class="highlighter-rouge">glyphicon-plus</code></li>
-  <li>minus: <code class="highlighter-rouge">glyphicon-minus</code></li>
-</ul>
-
-<h2 id="methods">methods</h2>
-
-<h3 id="multiplesort">multipleSort</h3>
-
-<ul>
-  <li>
-    <p><strong>parameters:</strong> none</p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Force multiple sort table (usable after manual data changes).</p>
-  </li>
-</ul>
-
-<h3 id="multisort">multiSort</h3>
-
-<ul>
-  <li>
-    <p><strong>parameters:</strong> sortPriority</p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set one or multiple sort priority</p>
-
-    <p>Example:</p>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
-  {
-    "sortName": "forks_count",
-    "sortOrder": "desc"
-  },
-  {
-    "sortName": "stargazers_count",
-    "sortOrder": "asc"
-  }
-]
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h2 id="localizations">Localizations</h2>
-
-<h3 id="formataddlevel">formatAddLevel</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the add level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Add Level" }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatcancel">formatCancel</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the delete level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Cancel" }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatcolumn">formatColumn</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of Column header</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Column" }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatdeletelevel">formatDeleteLevel</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the delete level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Delete Level" }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatduplicatealerttitle">formatDuplicateAlertTitle</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Title of the duplicate alert</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Duplicate(s) detected!" }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatduplicatealertdescription">formatDuplicateAlertDescription</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the duplicate alert</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Please remove or change any duplicate column." }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatmultiplesort">formatMultipleSort</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Title of the advanced search modal</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Multiple Sort" }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatorder">formatOrder</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the delete level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Order" }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatsort">formatSort</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the delete level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Sort" }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatsortby">formatSortBy</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the delete level button</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Sort by" }</code></p>
-  </li>
-</ul>
-
-<h3 id="formatsortorders">formatSortOrders</h3>
-
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Text of the sort orders</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong></p>
+  <li><strong>Run</strong>: The Run button shows the current version of your example.</li>
+  <li><strong>Save</strong>: The Save button saves your example. After you pressed save, the URL will be changed e.g. <code class="highlighter-rouge">https://live.bootstrap-table.com/code/&lt;username&gt;/&lt;ID&gt;</code>.</li>
+  <li><strong>Libraries</strong>: This button will open a configuration page. On this page you can configure the environment of the example:
     <ul>
-      <li>asc : <code class="highlighter-rouge">function () { return "Ascending" }</code></li>
-      <li>desc : <code class="highlighter-rouge">function () { return "Descending" }</code></li>
+      <li>Bootstrap Table source: This option defines which source of the version (CDN or from GitHub as source) should be used. If you choose <code class="highlighter-rouge">From GitHub src</code> you can set a branch that will be used for the example. For Issues, you normally always use <code class="highlighter-rouge">From Released CDN</code>.</li>
+      <li>Release CDN version: Here you can choose the version of the bootstrap-table to create an example for older bootstrap-table versions.</li>
+      <li>Theme: Here you can choose between our supported themes e.g. to show an issue with a certain theme.</li>
+      <li>Extensions: If you explain to use an extension, you can select it here easily. This means you don’t have to include it yourself on the example!</li>
     </ul>
   </li>
+  <li><strong>Load Examples</strong>: This option opens a page, here you can load existing examples (Its a “mirror” of our <a href="https://examples.bootstrap-table.com/">examples page</a>).</li>
+  <li><strong>Links</strong>: The last button just holds some links e.g. to our website, GitHub page, etc.</li>
 </ul>
 
-<h3 id="formatthenby">formatThenBy</h3>
+<h3 id="left-side">Left Side</h3>
 
-<ul>
-  <li>
-    <p><strong>Detail:</strong></p>
+<p>You can write your examples. Including HTML, CSS and JavaScript (css and javascript needs a <code class="highlighter-rouge">&lt;style&gt;&lt;/style&gt;</code> and/or <code class="highlighter-rouge">&lt;script&gt;&lt;/script&gt;</code> tag!</p>
 
-    <p>Text of the delete level button</p>
+<p>The basic template is:</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Includes custom css and js files --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://example.com/custom.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://example.com/custom.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="c">&lt;!-- Define custom style --&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+<span class="nt">&lt;/style&gt;</span>
+
+<span class="c">&lt;!-- No need to write &lt;html&gt; and &lt;body&gt; tags --&gt;</span>
+<span class="nt">&lt;table</span> <span class="na">id=</span><span class="s">"table"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">()</span>
+  <span class="p">})</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Note: <strong>You need to put the initialization function in <code class="highlighter-rouge">$(function () {})</code> to ensure that jquery and bootstrap-table have been loaded.</strong></p>
+
+<h3 id="right-side">Right Side</h3>
+
+<p>You can see your running example (after pressing on the <strong>Run</strong> button).</p>
+
+<p>You can also click the <strong>Result (Fullscreen)</strong> to toggle the fullscreen of the running example.</p>
+
+<h2 id="workflow-for-issues">Workflow for Issues</h2>
+
+<p>Each issue should contain an example (created on the <a href="https://live.bootstrap-table.com/">Online Editor</a>) of the problem.</p>
+
+<ol>
+  <li>Open the online editor.</li>
+  <li>Go to the Libraries page and configure the environment of the example.
+    <ul>
+      <li>Version</li>
+      <li>Theme</li>
+      <li>Extensions</li>
+    </ul>
   </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Then by" }</code></p>
-  </li>
-</ul>
+  <li>Write down your example (or copy it from your local project).</li>
+  <li>Check if you can reproduce your issue on the example.</li>
+  <li>Save the example (press on the Save button) and copy the URL.</li>
+  <li>Open an issue with the URL to the example.</li>
+</ol>
 
-<h2 id="events">Events</h2>
+<p>(Maybe you also can use our Load Examples button to load an existing example, instead of point 2 and 3).</p>
 
-<h3 id="onmultiplesortmultiple-sortbstable">onMultipleSort(multiple-sort.bs.table)</h3>
+<h2 id="workflow-for-pull-requests">Workflow for Pull requests</h2>
 
-<ul>
-  <li>Fires when sorting with one or multiple Sort Priority.</li>
-</ul>
+<p>The workflow for PR’s is quite similar to the workflow for Issues.</p>
+
+<p>The only difference is that you have to choose your branch (The editor will use your code to create the example). For that, you have to open the <code class="highlighter-rouge">Libraries page</code>, select <code class="highlighter-rouge">From GitHub src</code> on the <code class="highlighter-rouge">Bootstrap Table source</code> option and write your branch name in the <code class="highlighter-rouge">GitHub src branch</code> input.
+The syntax for the branch name is <code class="highlighter-rouge">&lt;username&gt;:&lt;branch&gt;</code>. You also can copy that string from the pull request page.
+<img src="http://i.epvpimg.com/NNhNbab.png" alt="" /></p>
 
         </main>
       </div>
