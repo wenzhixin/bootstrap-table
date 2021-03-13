@@ -148,7 +148,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
           this.$tableLoading.css('top', this.$header.outerHeight() + 1)
         })
-        .on('all.bs.table', (event, name, args) => {
+        .on('all.bs.table', (event, name) => {
           console.log('**********')
           console.log(`EVENT:: ${name}`)
           console.log('**********')
@@ -488,5 +488,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $element.trigger('keyup')
       }
     })
+  }
+
+  _toggleColumn (index, checked, needUpdate) {
+    this.options.initialized = false
+    super._toggleColumn(index, checked, needUpdate)
+    UtilsFilterControl.syncHeaders(this)
   }
 }
