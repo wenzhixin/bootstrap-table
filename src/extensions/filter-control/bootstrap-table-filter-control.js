@@ -462,11 +462,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       if (this.options.filterControlVisible) {
         $fixedControls.show()
+        UtilsFilterControl.fixHeaderCSS(this)
       } else {
         $fixedControls.hide()
+        UtilsFilterControl.fixHeaderCSS(this, '49px')
       }
-
-      UtilsFilterControl.fixHeaderCSS(this, '49px')
     }
 
     const icon = this.options.showButtonIcons ? this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow : ''
