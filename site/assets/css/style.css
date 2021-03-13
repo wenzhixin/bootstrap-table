@@ -168,3 +168,7 @@ header.themes .bd-lead {
   min-width: 48px;
   vertical-align: middle;
 }
+
+.online-editor img {
+  max-width: 100%;
+}
