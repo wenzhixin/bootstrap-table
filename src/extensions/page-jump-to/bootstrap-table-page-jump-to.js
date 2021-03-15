@@ -6,7 +6,8 @@
 const Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {
-  showJumpTo: false
+  showJumpTo: false,
+  showJumpToByPages: 0
 })
 
 $.extend($.fn.bootstrapTable.locales, {
@@ -20,7 +21,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initPagination (...args) {
     super.initPagination(...args)
 
-    if (this.options.showJumpTo) {
+    if (this.options.showJumpTo && this.totalPages >= this.options.showJumpToByPages) {
       const $pageGroup = this.$pagination.find('> .pagination')
       let $jumpTo = $pageGroup.find('.page-jump-to')
 
