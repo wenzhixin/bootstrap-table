@@ -39,7 +39,7 @@ $.extend($.fn.bootstrapTable.defaults, {
     },
     datepicker (that, field, value) {
       return Utils.sprintf(
-        '<input type="text" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%;" value="%s">',
+        '<input type="date" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%;" value="%s">',
         field,
         'undefined' === typeof value ? '' : value
       )

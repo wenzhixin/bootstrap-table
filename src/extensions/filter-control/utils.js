@@ -465,22 +465,36 @@ export function createControls (that, header) {
       }, that.options.searchTimeOut)
     })
 
-    // Consider support default date picker
+    // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
     if (header.find('.date-filter-control').length > 0) {
       $.each(that.columns, (i, { filterDefault, filterControl, field, filterDatepickerOptions }) => {
         if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
           const $datepicker = header.find(`.date-filter-control.bootstrap-table-filter-control-${field}`)
 
-          $datepicker.datepicker(filterDatepickerOptions)
-
           if (filterDefault) {
-            $datepicker.datepicker('setDate', filterDefault)
+            $datepicker.value(filterDefault)
           }
 
-          $datepicker.on('changeDate', ({ currentTarget, keyCode }) => {
+          if (filterDatepickerOptions.min) {
+            $datepicker.attr('min', filterDatepickerOptions.min)
+          }
+
+          if (filterDatepickerOptions.max) {
+            $datepicker.attr('max', filterDatepickerOptions.max)
+          }
+
+          if (filterDatepickerOptions.step) {
+            $datepicker.attr('step', filterDatepickerOptions.step)
+          }
+
+          if (filterDatepickerOptions.pattern) {
+            $datepicker.attr('pattern', filterDatepickerOptions.pattern)
+          }
+
+          $datepicker.on('change', ({ currentTarget }) => {
             clearTimeout(currentTarget.timeoutId || 0)
             currentTarget.timeoutId = setTimeout(() => {
-              that.onColumnSearch({ currentTarget, keyCode })
+              that.onColumnSearch({ currentTarget })
             }, that.options.searchTimeOut)
           })
         }
