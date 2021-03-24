@@ -113,7 +113,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       // match bootstrap table style
       this.$stickyContainer.show().addClass('fix-sticky fixed-table-container')
       // stick it in position
-      const coords = this.$tableBody.offset()
+      const coords = this.$tableBody[0].getBoundingClientRect()
       let width = '100%'
       let stickyHeaderOffsetLeft = this.options.stickyHeaderOffsetLeft
       let stickyHeaderOffsetRight = this.options.stickyHeaderOffsetRight
@@ -122,7 +122,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         stickyHeaderOffsetLeft = coords.left
       }
       if (!stickyHeaderOffsetRight) {
-        width = `${this.$tableBody.width()}px`
+        width = `${coords.width}px`
       }
       if (this.$el.closest('.bootstrap-table').hasClass('fullscreen')) {
         stickyHeaderOffsetLeft = 0
