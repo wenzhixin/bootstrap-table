@@ -31,6 +31,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // clone header just once, to be used as sticky header
     // deep clone header, using source header affects tbody>td width
     this.$stickyContainer = this.$tableBody.find('.sticky-header-container')
+    this.$stickyContainer.css('left', 0)
+    this.$stickyContainer.css('top', `${this.options.stickyHeaderOffsetY}px`)
     this.$stickyBegin = this.$tableBody.find('.sticky_anchor_begin')
     this.$stickyEnd = this.$tableBody.find('.sticky_anchor_end')
     this.$stickyHeader = this.$header.clone(true, true)
@@ -114,25 +116,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$stickyContainer.show().addClass('fix-sticky fixed-table-container')
       // stick it in position
       const coords = this.$tableBody[0].getBoundingClientRect()
-      let width = '100%'
-      let stickyHeaderOffsetLeft = this.options.stickyHeaderOffsetLeft
-      let stickyHeaderOffsetRight = this.options.stickyHeaderOffsetRight
+      const width = `${coords.width - this.options.stickyHeaderOffsetLeft - this.options.stickyHeaderOffsetRight}px`
+      const left = coords.left - this.options.stickyHeaderOffsetLeft
 
-      if (!stickyHeaderOffsetLeft) {
-        stickyHeaderOffsetLeft = coords.left
-      }
-      if (!stickyHeaderOffsetRight) {
-        width = `${coords.width}px`
-      }
-      if (this.$el.closest('.bootstrap-table').hasClass('fullscreen')) {
-        stickyHeaderOffsetLeft = 0
-        stickyHeaderOffsetRight = 0
-        width = '100%'
-      }
-      this.$stickyContainer.css('top', `${this.options.stickyHeaderOffsetY}px`)
-      this.$stickyContainer.css('left', `${stickyHeaderOffsetLeft}px`)
-      this.$stickyContainer.css('right', `${stickyHeaderOffsetRight}px`)
-      this.$stickyContainer.css('width', `${width}`)
+      this.$stickyContainer.css('transform', `translate(${left}px)`)
+      this.$stickyContainer.css('width', width)
       // create scrollable container for header
       this.$stickyTable = $('<table/>')
       this.$stickyTable.addClass(this.options.classes)
