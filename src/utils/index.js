@@ -60,28 +60,32 @@ export default {
         flag[i][j] = false
       }
     }
-
-    for (let i = 0; i < columns.length; i++) {
-      for (const r of columns[i]) {
+    for (let i = columns.length - 1; i >= 0; i--) {
+      for (let z = columns[i].length - 1; z >= 0; z--) {
+        const r = columns[i][z]
         const rowspan = r.rowspan || 1
         const colspan = r.colspan || 1
-        const index = flag[i].indexOf(false)
+        const index = flag[i].lastIndexOf(false)
+        let singleElementColspan = false
 
-        r.colspanIndex = index
+        r.colspanIndex = index - colspan + 1
+        if (columns.length - i > 1) {
+          singleElementColspan = columns[i + 1].some(column => column.colspanIndex === index)
+        }
 
-        if (colspan === 1) {
+        if (colspan === 1 && !singleElementColspan) {
           r.fieldIndex = index
           // when field is undefined, use index instead
           if (typeof r.field === 'undefined') {
             r.field = index
           }
         } else {
-          r.colspanGroup = r.colspan
+          r.colspanGroup = colspan
         }
 
         for (let j = 0; j < rowspan; j++) {
           for (let k = 0; k < colspan; k++) {
-            flag[i + j][index + k] = true
+            flag[i - j][index - k] = true
           }
         }
       }
@@ -100,7 +104,7 @@ export default {
 
     for (const c of columns) {
       for (const r of c) {
-        if (r.colspanGroup > 1) {
+        if (r.colspanGroup > 0) {
           let colspan = 0
 
           for (let i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
