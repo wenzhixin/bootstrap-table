@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-table",
   "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
-  "version": "1.18.2",
+  "version": "1.18.3",
   "main": "./dist/bootstrap-table.min.js",
   "directories": {
     "doc": "site"

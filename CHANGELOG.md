@@ -1,6 +1,24 @@
 ChangeLog
 ---------
 
+### 1.18.3
+
+#### Core
+
+- **Update:** Fixed negative number bug when searching with comparison.
+- **Update:** Fixed non-conform HTML-Standard problems.
+- **Update:** Fixed `td` width bug using card view.
+- **Update:** Fixed exact match problem when searching term with accent.
+- **Update:** Update `pt-PT` and `fa-IR` locales.
+
+#### Extensions
+
+- **New(page-jump-to):** Added `showJumpToByPages` option.
+- **Update(auth-refresh):** Fixed auto refresh not clear interval bug.
+- **Update(multiple-sort):** Fixed multiple-sort cannot support iconSize bug.
+- **Update(sticky-header):** Fixed `stickyHeaderOffsetY` option cannot work.
+- **Update(sticky-header):** Updated the stickyHeader `offset` options to number.
+
 ### 1.18.2
 
 #### Core
