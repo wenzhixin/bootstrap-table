@@ -48,7 +48,7 @@
     "js:build": "run-s js:build:*",
     "css:build:src": "node-sass --output-style expanded src -o src",
     "css:build:base": "node-sass --output-style expanded src -o dist",
-    "css:build:min": "foreach -g \"dist/**/*.css\" -x \"cleancss --level 1 #{path} -o #{dir}/#{name}.min.css\"",
+    "css:build:min": "foreach -g \"dist/**/*.css\" -x \"cleancss #{path} -o #{dir}/#{name}.min.css\"",
     "css:build:banner": "foreach -g \"dist/**/*.min.css\" -x \"headr #{path} -o #{path} --version --homepage --author --license\"",
     "css:build": "run-s css:build:*",
     "clean": "rm -rf dist",
