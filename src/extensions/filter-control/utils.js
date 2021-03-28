@@ -360,7 +360,7 @@ export function createControls (that, header) {
     }
 
     // Filtering by default when it is set.
-    if (!column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
+    if (column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
       if ($.isEmptyObject(that.filterColumnsPartial)) {
         that.filterColumnsPartial = {}
       }
@@ -501,7 +501,7 @@ export function createControls (that, header) {
       })
     }
 
-    if (that.options.sidePagination !== 'server' && !that.options.height) {
+    if (that.options.sidePagination !== 'server') {
       that.triggerSearch()
     }
 
