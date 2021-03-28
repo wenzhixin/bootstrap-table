@@ -31,6 +31,18 @@ toc: true
 
 - **Default:** `false`
 
+### showJumpToByPages
+
+- **attribute:** `data-show-jump-to-by-pages`
+
+- **type:** `Number`
+
+- **Detail:**
+
+   Show 'jump to page' only if the total page is greater than or equal to the set value.
+
+- **Default:** `0`
+
 ## Localizations
 
 ### formatJumpTo
