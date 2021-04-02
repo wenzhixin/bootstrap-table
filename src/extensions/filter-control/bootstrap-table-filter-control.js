@@ -30,9 +30,10 @@ $.extend($.fn.bootstrapTable.defaults, {
 
     select ({ options }, column) {
       return Utils.sprintf(
-        '<select class="form-control bootstrap-table-filter-control-%s %s" style="width: 100%;" dir="%s"></select>',
+        '<select class="form-control bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
         column.field,
         column.filterControlMultipleSelect ? 'fc-multipleselect' : '',
+        column.filterControlMultipleSelect ? '' : '',
         UtilsFilterControl.getDirectionOfSelectOptions(
           options.alignmentSelectControlOptions
         )
@@ -139,7 +140,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
             UtilsFilterControl.initFilterSelectControls(this)
             UtilsFilterControl.setValues(this)
             setTimeout(() => {
-              const multipleSelects = $('.fc-multipleselect')
+              const container = UtilsFilterControl.getControlContainer(this)
+              const multipleSelects = container.find('.fc-multipleselect')
 
               if (multipleSelects.length > 0 && $('.ms-parent').length === 0) {
                 multipleSelects.multipleSelect()
@@ -431,23 +433,37 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
     UtilsFilterControl.cacheValues(this)
-
-    const $currentTarget = $(currentTarget)
-    const currentTargetValue = $currentTarget.val()
-
-    const text = currentTargetValue ? currentTargetValue.trim() : ''
-    const $field = $currentTarget.closest('[data-field]').data('field')
-
-    this.trigger('column-search', $field, text)
-
     if ($.isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {}
     }
 
-    if (text) {
-      this.filterColumnsPartial[$field] = text
+    const $currentTarget = $(currentTarget)
+    const currentTargetValue = $currentTarget.val()
+
+    if (Array.isArray(currentTargetValue)) {
+      for (let i = 0; i < currentTargetValue.length; i++) {
+        const text = currentTargetValue[i] ? currentTargetValue[i].trim() : ''
+        const $field = $currentTarget.closest('[data-field]').data('field')
+
+        this.trigger('column-search', $field, text)
+
+        if (text) {
+          this.filterColumnsPartial[$field] = text
+        } else {
+          delete this.filterColumnsPartial[$field]
+        }
+      }
     } else {
-      delete this.filterColumnsPartial[$field]
+      const text = currentTargetValue ? currentTargetValue.trim() : ''
+      const $field = $currentTarget.closest('[data-field]').data('field')
+
+      this.trigger('column-search', $field, text)
+
+      if (text) {
+        this.filterColumnsPartial[$field] = text
+      } else {
+        delete this.filterColumnsPartial[$field]
+      }
     }
 
     this.options.pageNumber = 1
