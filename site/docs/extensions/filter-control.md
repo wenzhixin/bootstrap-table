@@ -192,6 +192,18 @@ toc: true
 
 - **Default:** `undefined`
 
+### filterMultipleSelectOptions
+
+- **Attribute:** `data-filter-multiple-select-options`
+
+- **type:** `Object`
+
+- **Detail:**
+
+   If the filterControlMultipleSelect option is set to true, use this option to configure the select with the native options. Use this way: `data-filter-multiple-select-options='{"property1":value1, "property2": value2, "property3": value3}'`.
+
+- **Default:** `undefined`
+
 ### filterDefault
 
 - **Attribute:** `data-filter-default`

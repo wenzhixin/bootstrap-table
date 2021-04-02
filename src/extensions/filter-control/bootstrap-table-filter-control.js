@@ -33,7 +33,7 @@ $.extend($.fn.bootstrapTable.defaults, {
         '<select class="form-control bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
         column.field,
         column.filterControlMultipleSelect ? 'fc-multipleselect' : '',
-        column.filterControlMultipleSelect ? '' : '',
+        column.filterControlMultipleSelect ? 'multiple="multiple"' : '',
         UtilsFilterControl.getDirectionOfSelectOptions(
           options.alignmentSelectControlOptions
         )
@@ -62,6 +62,7 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterDataCollector: undefined,
   filterData: undefined,
   filterDatepickerOptions: {},
+  filterMultipleSelectOptions: {},
   filterStrictSearch: false,
   filterStartsWithSearch: false,
   filterControlPlaceholder: '',
@@ -116,9 +117,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // Make sure that the filterControl option is set
     if (this.options.filterControl) {
       // Make sure that the internal variables are set correctly
-      this.options._valuesFilterControl = []
-      this.options._initialized = false
-      this.options._usingMultipleSelect = false
+      this._valuesFilterControl = []
+      this._initialized = false
+      this._usingMultipleSelect = false
 
       this.$el
         .on('reset-view.bs.table', () => {
@@ -128,11 +129,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }, 2)
         })
         .on('toggle.bs.table', (_, cardView) => {
-          this.options._initialized = false
+          this._initialized = false
           if (!cardView) {
             UtilsFilterControl.initFilterSelectControls(this)
             UtilsFilterControl.setValues(this)
-            this.options._initialized = true
+            this._initialized = true
           }
         })
         .on('post-header.bs.table', () => {
@@ -143,9 +144,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
               const container = UtilsFilterControl.getControlContainer(this)
               const multipleSelects = container.find('.fc-multipleselect')
 
-              if (multipleSelects.length > 0 && $('.ms-parent').length === 0) {
-                multipleSelects.multipleSelect()
-              }
+              multipleSelects.multipleSelect('destroy').multipleSelect()
             }, 2)
           }, 2)
         })
@@ -184,7 +183,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
-    this.options._initialized = true
+    this._initialized = true
   }
 
   initSearch () {
@@ -372,7 +371,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     let hasValues = false
     let timeoutId = 0
 
-    $.each(that.options._valuesFilterControl, (i, item) => {
+    $.each(that._valuesFilterControl, (i, item) => {
       hasValues = hasValues ? true : item.value !== ''
       item.value = ''
     })
@@ -441,17 +440,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const currentTargetValue = $currentTarget.val()
 
     if (Array.isArray(currentTargetValue)) {
+      const filterByArray = []
+      const $field = $currentTarget.closest('[data-field]').data('field')
+
       for (let i = 0; i < currentTargetValue.length; i++) {
         const text = currentTargetValue[i] ? currentTargetValue[i].trim() : ''
-        const $field = $currentTarget.closest('[data-field]').data('field')
 
         this.trigger('column-search', $field, text)
 
         if (text) {
-          this.filterColumnsPartial[$field] = text
-        } else {
-          delete this.filterColumnsPartial[$field]
+          filterByArray.push(text)
         }
+      }
+      if (filterByArray.length > 0) {
+        const filterObj = {}
+
+        filterObj[$field] = filterByArray
+        this.filterBy(filterObj)
       }
     } else {
       const text = currentTargetValue ? currentTargetValue.trim() : ''
@@ -517,7 +522,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   _toggleColumn (index, checked, needUpdate) {
-    this.options._initialized = false
+    this._initialized = false
     super._toggleColumn(index, checked, needUpdate)
     UtilsFilterControl.syncHeaders(this)
   }

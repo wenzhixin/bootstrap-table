@@ -11,7 +11,7 @@ export function getControlContainer (that) {
     return $(`${that.options.filterControlContainer}`)
   }
 
-  if (that.options.height && that.options._initialized) {
+  if (that.options.height && that._initialized) {
     return $('.fixed-table-header table thead')
   }
 
@@ -113,7 +113,7 @@ export function getCursorPosition (el) {
 export function cacheValues (that) {
   const searchControls = getSearchControls(that)
 
-  that.options._valuesFilterControl = []
+  that._valuesFilterControl = []
 
   searchControls.each(function () {
     let $field = $(this)
@@ -128,7 +128,7 @@ export function cacheValues (that) {
       $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
     }
 
-    that.options._valuesFilterControl.push({
+    that._valuesFilterControl.push({
       field: $field.closest('[data-field]').data('field'),
       value: $field.val(),
       position: getCursorPosition($field.get(0)),
@@ -160,7 +160,7 @@ export function setValues (that) {
   let result = []
   const searchControls = getSearchControls(that)
 
-  if (that.options._valuesFilterControl.length > 0) {
+  if (that._valuesFilterControl.length > 0) {
     //  Callback to apply after settings fields values
     const callbacks = []
 
@@ -168,7 +168,7 @@ export function setValues (that) {
       const $this = $(el)
 
       field = $this.closest('[data-field]').data('field')
-      result = that.options._valuesFilterControl.filter(valueObj => valueObj.field === field)
+      result = that._valuesFilterControl.filter(valueObj => valueObj.field === field)
 
       if (result.length > 0) {
         if (result[0].hasFocus || result[0].value) {
@@ -424,11 +424,18 @@ export function createControls (that, header) {
       }, that.options.searchTimeOut)
     })
 
-    header.off('change', 'select:not(".ms-offscreen")').on('change', 'select:not(".ms-offscreen")', ({ currentTarget, keyCode }) => {
+    header.off('change', 'select', '.fc-multipleselect').on('change', 'select', '.fc-multipleselect', ({ currentTarget, keyCode }) => {
       const $selectControl = $(currentTarget)
       const value = $selectControl.val()
 
-      if (value && value.length > 0 && value.trim()) {
+      if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+          if (value[i] && value[i].length > 0 && value[i].trim()) {
+            $selectControl.find(`option[value="${ value[i] }"]`).attr('selected', true)
+          }
+        }
+      }
+      else if (value && value.length > 0 && value.trim()) {
         $selectControl.find('option[selected]').removeAttr('selected')
         $selectControl.find(`option[value="${ value }"]`).attr('selected', true)
       } else {
