@@ -11,7 +11,7 @@ export function getControlContainer (that) {
     return $(`${that.options.filterControlContainer}`)
   }
 
-  if (that.options.height && that.options.initialized) {
+  if (that.options.height && that.options._initialized) {
     return $('.fixed-table-header table thead')
   }
 
@@ -113,7 +113,7 @@ export function getCursorPosition (el) {
 export function cacheValues (that) {
   const searchControls = getSearchControls(that)
 
-  that.options.valuesFilterControl = []
+  that.options._valuesFilterControl = []
 
   searchControls.each(function () {
     let $field = $(this)
@@ -128,7 +128,7 @@ export function cacheValues (that) {
       $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
     }
 
-    that.options.valuesFilterControl.push({
+    that.options._valuesFilterControl.push({
       field: $field.closest('[data-field]').data('field'),
       value: $field.val(),
       position: getCursorPosition($field.get(0)),
@@ -160,7 +160,7 @@ export function setValues (that) {
   let result = []
   const searchControls = getSearchControls(that)
 
-  if (that.options.valuesFilterControl.length > 0) {
+  if (that.options._valuesFilterControl.length > 0) {
     //  Callback to apply after settings fields values
     const callbacks = []
 
@@ -168,7 +168,7 @@ export function setValues (that) {
       const $this = $(el)
 
       field = $this.closest('[data-field]').data('field')
-      result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
+      result = that.options._valuesFilterControl.filter(valueObj => valueObj.field === field)
 
       if (result.length > 0) {
         if (result[0].hasFocus || result[0].value) {
@@ -348,12 +348,11 @@ export function createControls (that, header) {
 
       html.push('<div class="filter-control">')
       addedFilterControl = true
-
       if (column.searchable && that.options.filterTemplate[nameControl]) {
         html.push(
           that.options.filterTemplate[nameControl](
             that,
-            column.field,
+            column,
             column.filterControlPlaceholder ?
               column.filterControlPlaceholder :
               '',

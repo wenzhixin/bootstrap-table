@@ -19,28 +19,30 @@ $.extend($.fn.bootstrapTable.defaults, {
   },
   alignmentSelectControlOptions: undefined,
   filterTemplate: {
-    input (that, field, placeholder, value) {
+    input (that, column, placeholder, value) {
       return Utils.sprintf(
         '<input type="search" class="form-control bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
-        field,
+        column.field,
         'undefined' === typeof placeholder ? '' : placeholder,
         'undefined' === typeof value ? '' : value
       )
     },
 
-    select ({ options }, field) {
+    select ({ options }, column) {
       return Utils.sprintf(
-        '<select class="form-control bootstrap-table-filter-control-%s" style="width: 100%;" dir="%s"></select>',
-        field,
+        '<select class="form-control bootstrap-table-filter-control-%s %s" style="width: 100%;" dir="%s"></select>',
+        column.field,
+        column.filterControlMultipleSelect ? 'fc-multipleselect' : '',
         UtilsFilterControl.getDirectionOfSelectOptions(
           options.alignmentSelectControlOptions
         )
       )
     },
-    datepicker (that, field, value) {
+
+    datepicker (that, column, value) {
       return Utils.sprintf(
         '<input type="date" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%;" value="%s">',
-        field,
+        column.field,
         'undefined' === typeof value ? '' : value
       )
     }
@@ -48,12 +50,14 @@ $.extend($.fn.bootstrapTable.defaults, {
   searchOnEnterKey: false,
   showFilterControlSwitch: false,
   // internal variables
-  valuesFilterControl: [],
-  initialized: false
+  _valuesFilterControl: [],
+  _initialized: false,
+  _usingMultipleSelect: false
 })
 
 $.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined, // input, select, datepicker
+  filterControlMultipleSelect: false,
   filterDataCollector: undefined,
   filterData: undefined,
   filterDatepickerOptions: {},
@@ -111,8 +115,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // Make sure that the filterControl option is set
     if (this.options.filterControl) {
       // Make sure that the internal variables are set correctly
-      this.options.valuesFilterControl = []
-      this.options.initialized = false
+      this.options._valuesFilterControl = []
+      this.options._initialized = false
+      this.options._usingMultipleSelect = false
 
       this.$el
         .on('reset-view.bs.table', () => {
@@ -122,17 +127,24 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }, 2)
         })
         .on('toggle.bs.table', (_, cardView) => {
-          this.options.initialized = false
+          this.options._initialized = false
           if (!cardView) {
             UtilsFilterControl.initFilterSelectControls(this)
             UtilsFilterControl.setValues(this)
-            this.options.initialized = true
+            this.options._initialized = true
           }
         })
         .on('post-header.bs.table', () => {
           setTimeout(() => {
             UtilsFilterControl.initFilterSelectControls(this)
             UtilsFilterControl.setValues(this)
+            setTimeout(() => {
+              const multipleSelects = $('.fc-multipleselect')
+
+              if (multipleSelects.length > 0 && $('.ms-parent').length === 0) {
+                multipleSelects.multipleSelect()
+              }
+            }, 2)
           }, 2)
         })
         .on('column-switch.bs.table', () => {
@@ -170,7 +182,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
-    this.options.initialized = true
+    this.options._initialized = true
   }
 
   initSearch () {
@@ -358,7 +370,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     let hasValues = false
     let timeoutId = 0
 
-    $.each(that.options.valuesFilterControl, (i, item) => {
+    $.each(that.options._valuesFilterControl, (i, item) => {
       hasValues = hasValues ? true : item.value !== ''
       item.value = ''
     })
@@ -489,7 +501,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   _toggleColumn (index, checked, needUpdate) {
-    this.options.initialized = false
+    this.options._initialized = false
     super._toggleColumn(index, checked, needUpdate)
     UtilsFilterControl.syncHeaders(this)
   }

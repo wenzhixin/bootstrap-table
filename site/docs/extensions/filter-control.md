@@ -126,7 +126,7 @@ toc: true
 
 - **Detail:**
 
-   Set `input`: show an input control, `select`: show a select control, `datepicker`: show a html5 datepicker control.
+   Set `input`: show an input control, `select`: show a select control, `multipleselect`: show an advance select control. This options has a dependency with [multiple-select](http://multiple-select.wenzhixin.net.cn/examples) library, `datepicker`: show a html5 datepicker control.
 
 - **Default:** `undefined`
 
