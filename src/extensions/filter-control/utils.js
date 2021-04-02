@@ -118,10 +118,14 @@ export function cacheValues (that) {
   searchControls.each(function () {
     let $field = $(this)
 
-    if (that.options.height) {
+    if (that.options.height && !that.options.filterControlContainer) {
       const fieldClass = getElementClass($field)
 
       $field = $(`.fixed-table-header .${fieldClass}`)
+    } else {
+      const fieldClass = getElementClass($field)
+
+      $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
     }
 
     that.options.valuesFilterControl.push({

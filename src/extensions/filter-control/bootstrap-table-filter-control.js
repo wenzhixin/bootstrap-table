@@ -45,7 +45,6 @@ $.extend($.fn.bootstrapTable.defaults, {
       )
     }
   },
-  disableControlWhenSearch: false,
   searchOnEnterKey: false,
   showFilterControlSwitch: false,
   // internal variables
@@ -148,10 +147,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
           this.$tableLoading.css('top', this.$header.outerHeight() + 1)
         })
-        .on('all.bs.table', (event, name) => {
-          console.log('**********')
-          console.log(`EVENT:: ${name}`)
-          console.log('**********')
+        .on('all.bs.table', () => {
           UtilsFilterControl.syncHeaders(this)
         })
     }
