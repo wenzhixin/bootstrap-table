@@ -48,6 +48,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   * `field`: name of the field used to find records.
   * `values`: array of values for rows to check.
+  * `onlyCurrentPage (default false)`: If `true` only the visible dataset will be checked. If pagination is used the other pages will be ignored.
 
 - **Example:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
 
@@ -578,6 +579,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
   * `field`: name of the field used to find records.
   * `values`: array of values for rows to uncheck.
+  * `onlyCurrentPage (default false)`: If `true` only the visible dataset will be unchecked. If pagination is used the other pages will be ignored.
 
 - **Example:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
 

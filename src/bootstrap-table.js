@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.18.2
+ * version: 1.18.3
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -2906,10 +2906,11 @@ class BootstrapTable {
       if (obj.values.includes(row[obj.field])) {
         let $el = this.$selectItem.filter(':enabled')
           .filter(Utils.sprintf('[data-index="%s"]', i))
+        const onlyCurrentPage = obj.hasOwnProperty('onlyCurrentPage') ? obj.onlyCurrentPage : false
 
         $el = checked ? $el.not(':checked') : $el.filter(':checked')
 
-        if (!$el.length) {
+        if (!$el.length && onlyCurrentPage) {
           return
         }
 
