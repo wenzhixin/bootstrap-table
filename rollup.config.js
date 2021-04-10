@@ -51,6 +51,7 @@ if (process.env.NODE_ENV === 'production') {
 
 for (const file of files) {
   let out = `dist/${file.replace('src/', '')}`
+
   if (process.env.NODE_ENV === 'production') {
     out = out.replace(/.js$/, '.min.js')
   }
@@ -68,6 +69,7 @@ for (const file of files) {
 }
 
 let out = 'dist/bootstrap-table-locale-all.js'
+
 if (process.env.NODE_ENV === 'production') {
   out = out.replace(/.js$/, '.min.js')
 }
