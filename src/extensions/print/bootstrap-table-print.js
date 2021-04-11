@@ -134,7 +134,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   doPrint (data) {
     const formatValue = (row, i, column) => {
-      const value = Utils.calculateObjectValue(column, column.printFormatter,
+      const value = Utils.calculateObjectValue(column,
+        column.printFormatter || column.formatter,
         [row[column.field], row, i], row[column.field])
 
       return typeof value === 'undefined' || value === null ?

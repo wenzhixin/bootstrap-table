@@ -1943,6 +1943,7 @@ class BootstrapTable {
 
         if (
           this.options.sidePagination === 'server' &&
+          this.options.pageNumber > 1 &&
           res[this.options.totalField] > 0 &&
           !res[this.options.dataField].length
         ) {
