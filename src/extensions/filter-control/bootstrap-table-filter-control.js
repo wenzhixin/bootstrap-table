@@ -21,7 +21,8 @@ $.extend($.fn.bootstrapTable.defaults, {
   filterTemplate: {
     input (that, column, placeholder, value) {
       return Utils.sprintf(
-        '<input type="search" class="form-control bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
+        '<input type="search" class="%s bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
+        UtilsFilterControl.GetFormControlClass(that.options),
         column.field,
         'undefined' === typeof placeholder ? '' : placeholder,
         'undefined' === typeof value ? '' : value
@@ -30,7 +31,8 @@ $.extend($.fn.bootstrapTable.defaults, {
 
     select ({ options }, column) {
       return Utils.sprintf(
-        '<select class="form-control bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
+        '<select class="%s bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
+        UtilsFilterControl.GetFormControlClass(options),
         column.field,
         column.filterControlMultipleSelect ? 'fc-multipleselect' : '',
         column.filterControlMultipleSelectMultiple ? 'multiple="multiple"' : '',
@@ -42,7 +44,8 @@ $.extend($.fn.bootstrapTable.defaults, {
 
     datepicker (that, column, value) {
       return Utils.sprintf(
-        '<input type="date" class="form-control date-filter-control bootstrap-table-filter-control-%s" style="width: 100%;" value="%s">',
+        '<input type="date" class="%s date-filter-control bootstrap-table-filter-control-%s" style="width: 100%;" value="%s">',
+        UtilsFilterControl.GetFormControlClass(that.options),
         column.field,
         'undefined' === typeof value ? '' : value
       )
@@ -145,7 +148,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
               const container = UtilsFilterControl.getControlContainer(this)
               const multipleSelects = container.find('.fc-multipleselect')
 
-              multipleSelects.multipleSelect('destroy').multipleSelect()
+              if (multipleSelects.length > 0) {
+                multipleSelects.multipleSelect('destroy').multipleSelect()
+              }
             }, 2)
           }, 2)
         })
