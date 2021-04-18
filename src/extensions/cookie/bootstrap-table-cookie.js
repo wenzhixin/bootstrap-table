@@ -34,27 +34,18 @@ const UtilsCookie = {
 
     return searchControls
   },
-  cookieEnabled () {
+  isCookieSupportedByBrowser () {
     return !!(navigator.cookieEnabled)
   },
-  inArrayCookiesEnabled (cookieName, cookiesEnabled) {
-    let index = -1
-
-    for (let i = 0; i < cookiesEnabled.length; i++) {
-      if (cookieName.toLowerCase() === cookiesEnabled[i].toLowerCase()) {
-        index = i
-        break
-      }
-    }
-
-    return index
+  isCookieEnabled (that, cookieName) {
+    return that.options.cookiesEnabled.indexOf(cookieName) !== -1
   },
   setCookie (that, cookieName, cookieValue) {
-    if ((!that.options.cookie) || (!UtilsCookie.cookieEnabled()) || (that.options.cookieIdTable === '')) {
+    if (!that.options.cookie) {
       return
     }
 
-    if (UtilsCookie.inArrayCookiesEnabled(cookieName, that.options.cookiesEnabled) === -1) {
+    if (UtilsCookie.isCookieEnabled(that, cookieName)) {
       return
     }
 
@@ -99,7 +90,7 @@ const UtilsCookie = {
       return null
     }
 
-    if (UtilsCookie.inArrayCookiesEnabled(cookieName, that.options.cookiesEnabled) === -1) {
+    if (UtilsCookie.isCookieEnabled(that, cookieName)) {
       return null
     }
 
@@ -129,8 +120,8 @@ const UtilsCookie = {
         return null
     }
   },
-  deleteCookie (that, tableName, cookieName) {
-    cookieName = `${tableName}.${cookieName}`
+  deleteCookie (that, cookieName) {
+    cookieName = `${that.options.cookieIdTable}.${cookieName}`
 
     switch (that.options.cookieStorage) {
       case 'cookieStorage':
@@ -301,6 +292,9 @@ $.extend($.fn.bootstrapTable.utils, {
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
     if (this.options.cookie) {
+      if (this.options.cookieStorage === 'cookieStorage' && !UtilsCookie.isCookieSupportedByBrowser()) {
+        throw new Error('Cookies are not enabled in this browser.')
+      }
       // FilterBy logic
       const filterByCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy)
 
@@ -370,11 +364,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initTable (...args) {
     super.initTable(...args)
+    if (!this.options.cookie) {
+      return
+    }
     this.initCookie()
   }
 
   onSort (...args) {
     super.onSort(...args)
+
+    if (!this.options.cookie) {
+      return
+    }
 
     if (this.options.sortName === undefined || this.options.sortOrder === undefined) {
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
@@ -388,44 +389,66 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   onPageNumber (...args) {
     super.onPageNumber(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
   onPageListChange (...args) {
     super.onPageListChange(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList, this.options.pageSize)
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
   onPagePre (...args) {
     super.onPagePre(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
   onPageNext (...args) {
     super.onPageNext(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
   _toggleColumn (...args) {
     super._toggleColumn(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(column => column.field)))
   }
 
   _toggleAllColumns (...args) {
     super._toggleAllColumns(...args)
-
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(column => column.field)))
   }
 
   selectPage (page) {
     super.selectPage(page)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, page)
   }
 
   onSearch (event) {
-    super.onSearch(event)
-
+    super.onSearch(event, false)
+    if (!this.options.cookie) {
+      return
+    }
     if (this.options.search) {
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText)
     }
@@ -433,7 +456,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initHeader (...args) {
-    if (this.options.reorderableColumns) {
+    if (this.options.reorderableColumns && this.options.cookie) {
       this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.reorderColumns))
     }
     super.initHeader(...args)
@@ -445,6 +468,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   filterBy (...args) {
     super.filterBy(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.filterBy, JSON.stringify(this.filterColumns))
   }
 
@@ -453,7 +479,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    if ((this.options.cookieIdTable === '') || (this.options.cookieExpire === '') || (!UtilsCookie.cookieEnabled())) {
+    if ((this.options.cookieIdTable === '') || (this.options.cookieExpire === '')) {
       console.error('Configuration error. Please review the cookieIdTable and the cookieExpire property. If the properties are correct, then this browser does not support cookies.')
       this.options.cookie = false // Make sure that the cookie extension is disabled
       return
@@ -488,7 +514,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // pageSize
     this.options.pageSize = pageListCookie ? pageListCookie === this.options.formatAllRows() ? pageListCookie : +pageListCookie : this.options.pageSize
     // searchText
-    this.options.searchText = searchTextCookie ? searchTextCookie : ''
+    if (UtilsCookie.isCookieEnabled(this, 'bs.table.searchText') && this.options.searchText === '') {
+      this.options.searchText = searchTextCookie ? searchTextCookie : ''
+    }
 
     if (columnsCookie) {
       for (const column of this.columns) {
@@ -525,10 +553,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   deleteCookie (cookieName) {
-    if ((cookieName === '') || (!UtilsCookie.cookieEnabled())) {
+    if (!cookieName) {
       return
     }
 
-    UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds[cookieName])
+    UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds[cookieName])
   }
 }

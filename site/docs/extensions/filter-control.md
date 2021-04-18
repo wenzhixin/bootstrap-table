@@ -192,6 +192,30 @@ toc: true
 
 - **Default:** `undefined`
 
+### filterControlMultipleSelect
+
+- **Attribute:** `data-filter-multiple-select`
+
+- **type:** `boolean`
+
+- **Detail:**
+
+   Use this option to configure the select as multipleSelect.
+
+- **Default:** `false`
+
+### filterControlMultipleSelectMultiple
+
+- **Attribute:** `data-filter-multiple-select-multiple`
+
+- **type:** `boolean`
+
+- **Detail:**
+
+   If the filterControlMultipleSelect option is set to true, use this option to configure the select as multiple select.
+
+- **Default:** `false`
+
 ### filterMultipleSelectOptions
 
 - **Attribute:** `data-filter-multiple-select-options`

@@ -55,7 +55,9 @@ export function existOptionInSelectControl (selectControl, value) {
 }
 
 export function addOptionToSelectControl (selectControl, _value, text, selected) {
-  const value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
+  let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
+
+  value = value.replace(/(<([^>]+)>)/ig, '')
   const $selectControl = $(selectControl.get(selectControl.length - 1))
 
   if (!existOptionInSelectControl(selectControl, value)) {
@@ -84,6 +86,9 @@ export function sortSelectControl (selectControl, orderBy) {
 }
 
 export function fixHeaderCSS ({ $tableHeader }, pixels = '89px') {
+  if ($tableHeader.hasClass('table-sm') && pixels === '89px') {
+    $tableHeader.css('height', '49px')
+  }
   $tableHeader.css('height', pixels)
 }
 

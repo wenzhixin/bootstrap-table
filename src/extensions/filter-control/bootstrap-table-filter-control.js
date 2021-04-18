@@ -33,7 +33,7 @@ $.extend($.fn.bootstrapTable.defaults, {
         '<select class="form-control bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
         column.field,
         column.filterControlMultipleSelect ? 'fc-multipleselect' : '',
-        column.filterControlMultipleSelect ? 'multiple="multiple"' : '',
+        column.filterControlMultipleSelectMultiple ? 'multiple="multiple"' : '',
         UtilsFilterControl.getDirectionOfSelectOptions(
           options.alignmentSelectControlOptions
         )
@@ -59,10 +59,11 @@ $.extend($.fn.bootstrapTable.defaults, {
 $.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined, // input, select, datepicker
   filterControlMultipleSelect: false,
+  filterControlMultipleSelectMultiple: false,
+  filterMultipleSelectOptions: {},
   filterDataCollector: undefined,
   filterData: undefined,
   filterDatepickerOptions: {},
-  filterMultipleSelectOptions: {},
   filterStrictSearch: false,
   filterStartsWithSearch: false,
   filterControlPlaceholder: '',
@@ -170,10 +171,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initBody () {
     super.initBody()
-    setTimeout(() => {
-      UtilsFilterControl.initFilterSelectControls(this)
-      UtilsFilterControl.setValues(this)
-    }, 3)
+    if (this.options.filterControl) {
+      setTimeout(() => {
+        UtilsFilterControl.initFilterSelectControls(this)
+        UtilsFilterControl.setValues(this)
+      }, 3)
+    }
   }
 
   initHeader () {
@@ -457,6 +460,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         filterObj[$field] = filterByArray
         this.filterBy(filterObj)
+      } else {
+        this.filterBy({})
       }
     } else {
       const text = currentTargetValue ? currentTargetValue.trim() : ''
@@ -471,7 +476,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     }
 
-    this.options.pageNumber = 1
+    // Cookie support
+    if (!this.options.cookie) {
+      this.options.pageNumber = 1
+    }
+
     this.onSearch({ currentTarget }, false)
   }
 
