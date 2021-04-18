@@ -61,7 +61,7 @@ export function existOptionInSelectControl (selectControl, value) {
 export function addOptionToSelectControl (selectControl, _value, text, selected) {
   let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
 
-  value = value.replace(/(<([^>]+)>)/ig, '')
+  value = value.replace(/(<([^>]+)>)/ig, '').replace(/&[#A-Za-z0-9]+;/gi, '').trim()
   const $selectControl = $(selectControl.get(selectControl.length - 1))
 
   if (!existOptionInSelectControl(selectControl, value)) {
