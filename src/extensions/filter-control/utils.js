@@ -62,7 +62,11 @@ export function addOptionToSelectControl (selectControl, _value, text, selected)
   let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
 
   value = value.replace(/(<([^>]+)>)/ig, '').replace(/&[#A-Za-z0-9]+;/gi, '').trim()
-  const $selectControl = $(selectControl.get(selectControl.length - 1))
+
+  // Double check if the select control is a jquery object.
+  if (!(selectControl instanceof jQuery)) {
+    throw new Error ('SelectControl is not a jQuery instance.')
+  }
 
   if (!existOptionInSelectControl(selectControl, value)) {
     const option = $(`<option value="${value}">${text}</option>`)
@@ -71,7 +75,7 @@ export function addOptionToSelectControl (selectControl, _value, text, selected)
       option.attr('selected', true)
     }
 
-    $selectControl.append(option)
+    selectControl.append(option)
   }
 }
 
@@ -256,7 +260,7 @@ export function isFilterDataNotGiven ({ filterData }) {
 }
 
 export function hasSelectControlElement (selectControl) {
-  return selectControl && selectControl.length > 0 && selectControl.get(selectControl.length - 1).options.length === 0
+  return selectControl && selectControl.length > 0 // && selectControl.get(selectControl.length - 1).options.length === 0
 }
 
 export function initFilterSelectControls (that) {

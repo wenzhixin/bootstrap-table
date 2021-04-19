@@ -45,7 +45,7 @@ const UtilsCookie = {
       return
     }
 
-    if (UtilsCookie.isCookieEnabled(that, cookieName)) {
+    if (!UtilsCookie.isCookieEnabled(that, cookieName)) {
       return
     }
 
@@ -90,7 +90,7 @@ const UtilsCookie = {
       return null
     }
 
-    if (UtilsCookie.isCookieEnabled(that, cookieName)) {
+    if (!UtilsCookie.isCookieEnabled(that, cookieName)) {
       return null
     }
 
@@ -195,7 +195,7 @@ const UtilsCookie = {
     setTimeout(() => {
       const parsedCookieFilters = JSON.parse(UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
 
-      if (!bootstrapTable.options.filterControlValuesLoaded && parsedCookieFilters) {
+      if (!bootstrapTable._filterControlValuesLoaded && parsedCookieFilters) {
 
         const cachedFilters = {}
         const header = UtilsCookie.getCurrentHeader(bootstrapTable)
@@ -217,6 +217,7 @@ const UtilsCookie = {
               element.value = cookie.text
               cachedFilters[cookie.field] = cookie.text
             } else if (cookie.text !== '' && element.tagName === 'SELECT') {
+              cachedFilters[cookie.field] = cookie.text
               for (let i = 0; i < element.length; i++) {
                 const currentElement = element[i]
 
@@ -231,7 +232,6 @@ const UtilsCookie = {
               option.text = cookie.text
               element.add(option, element[1])
               element.selectedIndex = 1
-              cachedFilters[cookie.field] = cookie.text
             }
           })
         }
@@ -250,7 +250,7 @@ const UtilsCookie = {
         })
 
         bootstrapTable.initColumnSearch(cachedFilters)
-        bootstrapTable.options.filterControlValuesLoaded = true
+        bootstrapTable._filterControlValuesLoaded = true
         bootstrapTable.initServer()
       }
     }, 250)
@@ -277,8 +277,8 @@ $.extend($.fn.bootstrapTable.defaults, {
   cookieCustomStorageSet: null,
   cookieCustomStorageDelete: null,
   // internal variable
-  filterControls: [],
-  filterControlValuesLoaded: false
+  _filterControls: [],
+  _filterControlValuesLoaded: false
 })
 
 $.fn.bootstrapTable.methods.push('getCookies')
@@ -312,8 +312,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.filterColumns = filterByCookie ? filterByCookie : {}
 
       // FilterControl logic
-      this.options.filterControls = []
-      this.options.filterControlValuesLoaded = false
+      this._filterControls = []
+      this._filterControlValuesLoaded = false
 
       this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
         this.options.cookiesEnabled.replace('[', '').replace(']', '')
@@ -326,21 +326,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.$el.on('column-search.bs.table', (e, field, text) => {
           let isNewField = true
 
-          for (let i = 0; i < that.options.filterControls.length; i++) {
-            if (that.options.filterControls[i].field === field) {
-              that.options.filterControls[i].text = text
+          for (let i = 0; i < that._filterControls.length; i++) {
+            if (that._filterControls[i].field === field) {
+              that._filterControls[i].text = text
               isNewField = false
               break
             }
           }
           if (isNewField) {
-            that.options.filterControls.push({
+            that._filterControls.push({
               field,
               text
             })
           }
 
-          UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that.options.filterControls))
+          UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that._filterControls))
         }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(that))
       }
     }
@@ -351,7 +351,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (
       this.options.cookie &&
       this.options.filterControl &&
-      !this.options.filterControlValuesLoaded
+      !this._filterControlValuesLoaded
     ) {
       const cookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
 

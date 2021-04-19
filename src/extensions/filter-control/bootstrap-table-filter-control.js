@@ -440,6 +440,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
     UtilsFilterControl.cacheValues(this)
+
+    // Cookie extension support
+    if (!this.options.cookie) {
+      this.options.pageNumber = 1
+    } else {
+      // Force call the initServer method in Cookie extension
+      this._filterControlValuesLoaded = true
+    }
+
     if ($.isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {}
     }
@@ -479,11 +488,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       } else {
         delete this.filterColumnsPartial[$field]
       }
-    }
-
-    // Cookie support
-    if (!this.options.cookie) {
-      this.options.pageNumber = 1
     }
 
     this.onSearch({ currentTarget }, false)
