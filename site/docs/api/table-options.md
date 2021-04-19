@@ -538,6 +538,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   Defines the key of the footer Object (From data array or server response json).
   The footer Object can be used to set/define footer colspans and/or the value of the footer.
+  Only triggered when `data-pagination` is `true` and `data-side-pagination` is `server`.
+
 
   {% highlight javascript %}
     {
