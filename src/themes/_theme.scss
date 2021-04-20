@@ -136,11 +136,12 @@
             font-weight: bold;
             display: inline-block;
             min-width: 30%;
+            width: auto !important;
             text-align: left !important;
           }
 
           .card-view-value {
-            width: 100%;
+            width: 100% !important;
           }
         }
       }
@@ -351,6 +352,16 @@
   &.bootstrap5 {
     .pagination-lg .page-link {
       padding: .5rem 1rem;
+    }
+  }
+
+  &.bootstrap5 {
+    .float-left {
+      float: left;
+    }
+
+    .float-right {
+      float: right;
     }
   }
 }

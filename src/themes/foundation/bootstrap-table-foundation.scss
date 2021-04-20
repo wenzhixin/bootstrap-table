@@ -47,6 +47,10 @@
   }
 
   .fixed-table-pagination {
+    .page-list > div {
+      display: inline;
+    }
+
     .button {
       margin-bottom: 0;
     }

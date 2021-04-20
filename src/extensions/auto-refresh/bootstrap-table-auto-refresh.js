@@ -35,9 +35,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.init(...args)
 
     if (this.options.autoRefresh && this.options.autoRefreshStatus) {
-      this.options.autoRefreshFunction = setInterval(() => {
-        this.refresh({ silent: this.options.autoRefreshSilent })
-      }, this.options.autoRefreshInterval * 1000)
+      this.setupRefreshInterval()
     }
   }
 
@@ -68,13 +66,28 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.$toolbar.find('>.columns .auto-refresh')
           .removeClass(this.constants.classes.buttonActive)
       } else {
-        this.options.autoRefreshFunction = setInterval(() => {
-          this.refresh({ silent: this.options.autoRefreshSilent })
-        }, this.options.autoRefreshInterval * 1000)
+        this.setupRefreshInterval()
         this.$toolbar.find('>.columns .auto-refresh')
           .addClass(this.constants.classes.buttonActive)
       }
       this.options.autoRefreshStatus = !this.options.autoRefreshStatus
     }
+  }
+
+  destroy () {
+    if (this.options.autoRefresh && this.options.autoRefreshStatus) {
+      clearInterval(this.options.autoRefreshFunction)
+    }
+
+    super.destroy()
+  }
+
+  setupRefreshInterval () {
+    this.options.autoRefreshFunction = setInterval(() => {
+      if (!this.options.autoRefresh || !this.options.autoRefreshStatus) {
+        return
+      }
+      this.refresh({ silent: this.options.autoRefreshSilent })
+    }, this.options.autoRefreshInterval * 1000)
   }
 }

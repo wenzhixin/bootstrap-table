@@ -21,6 +21,7 @@
     - title: Auto Refresh
     - title: Cookie
     - title: Copy Rows
+    - title: Custom View
     - title: Defer URL
     - title: Editable
     - title: Export
@@ -47,6 +48,8 @@
     - title: Browser
     - title: Webpack
     - title: Component
+
+- title: Online Editor
 
 - title: FAQ
 

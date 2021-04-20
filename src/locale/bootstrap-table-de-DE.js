@@ -100,6 +100,45 @@ $.fn.bootstrapTable.locales['de-DE'] = $.fn.bootstrapTable.locales['de'] = {
   },
   formatFilterControlSwitchShow () {
     return 'Zeige Filter'
+  },
+  formatAddLevel () {
+    return 'Ebene hinzufügen'
+  },
+  formatCancel () {
+    return 'Abbrechen'
+  },
+  formatColumn () {
+    return 'Spalte'
+  },
+  formatDeleteLevel () {
+    return 'Ebene entfernen'
+  },
+  formatDuplicateAlertTitle () {
+    return 'Doppelte Einträge gefunden!'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Bitte doppelte Spalten entfenen oder ändern'
+  },
+  formatMultipleSort () {
+    return 'Mehrfachsortierung'
+  },
+  formatOrder () {
+    return 'Reihenfolge'
+  },
+  formatSort () {
+    return 'Sortieren'
+  },
+  formatSortBy () {
+    return 'Sortieren nach'
+  },
+  formatThenBy () {
+    return 'anschließend'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Aufsteigend',
+      desc: 'Absteigend'
+    }
   }
 }
 

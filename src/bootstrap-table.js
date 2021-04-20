@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.18.1
+ * version: 1.18.3
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -37,6 +37,7 @@ class BootstrapTable {
 
     this.constants = Constants.CONSTANTS
     this.constants.theme = $.fn.bootstrapTable.theme
+    this.constants.dataToggle = this.constants.html.dataToggle || 'data-toggle'
 
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
 
@@ -95,7 +96,7 @@ class BootstrapTable {
       ${loadingTemplate}
       </div>
       </div>
-      <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
+      <div class="fixed-table-footer"></div>
       </div>
       ${bottomPagination}
       </div>
@@ -229,7 +230,7 @@ class BootstrapTable {
 
   initHeader () {
     const visibleColumns = {}
-    const html = []
+    const headerHtml = []
 
     this.header = {
       fields: [],
@@ -247,6 +248,8 @@ class BootstrapTable {
     Utils.updateFieldGroup(this.options.columns)
 
     this.options.columns.forEach((columns, i) => {
+      const html = []
+
       html.push(`<tr${Utils.sprintf(' class="%s"', this._headerTrClasses[i])} ${Utils.sprintf(' style="%s"', this._headerTrStyles[i])}>`)
 
       let detailViewTemplate = ''
@@ -364,9 +367,13 @@ class BootstrapTable {
       }
 
       html.push('</tr>')
+
+      if (html.length > 3) {
+        headerHtml.push(html.join(''))
+      }
     })
 
-    this.$header.html(html.join(''))
+    this.$header.html(headerHtml.join(''))
     this.$header.find('th[data-field]').each((i, el) => {
       $(el).data(visibleColumns[$(el).data('field')])
     })
@@ -611,7 +618,7 @@ class BootstrapTable {
           const html = []
 
           html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
-            <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown"
+            <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown"
             aria-label="Columns" title="${opts.formatColumns()}">
             ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
             ${opts.showButtonText ? opts.formatColumns() : ''}
@@ -939,9 +946,12 @@ class BootstrapTable {
         return
       }
 
-      const s = this.searchText && (this.fromHtml ?
-        Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
+      let s = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
       const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
+
+      if (this.options.searchAccentNeutralise) {
+        s = Utils.normalizeAccent(s)
+      }
 
       // Check filter
       if (typeof this.filterOptions.filterAlgorithm === 'function') {
@@ -1023,8 +1033,8 @@ class BootstrapTable {
                 return true
               }
             } else {
-              const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
-              const matches = largerSmallerEqualsRegex.exec(s)
+              const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(-?\d+)?|(-?\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+              const matches = largerSmallerEqualsRegex.exec(this.searchText)
               let comparisonCheck = false
 
               if (matches) {
@@ -1160,11 +1170,11 @@ class BootstrapTable {
     }
 
     if (this.paginationParts.includes('pageSize')) {
-      html.push('<span class="page-list">')
+      html.push('<div class="page-list">')
 
       const pageNumber = [
-        `<span class="${this.constants.classes.paginationDropdown}">
-        <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" data-toggle="dropdown">
+        `<div class="${this.constants.classes.paginationDropdown}">
+        <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown">
         <span class="page-size">
         ${allSelected ? opts.formatAllRows() : opts.pageSize}
         </span>
@@ -1185,13 +1195,13 @@ class BootstrapTable {
           pageNumber.push(Utils.sprintf(this.constants.html.pageDropdownItem, active, page))
         }
       })
-      pageNumber.push(`${this.constants.html.pageDropdown[1]}</span>`)
+      pageNumber.push(`${this.constants.html.pageDropdown[1]}</div>`)
 
       html.push(opts.formatRecordsPerPage(pageNumber.join('')))
     }
 
     if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort') || this.paginationParts.includes('pageSize')) {
-      html.push('</span></div>')
+      html.push('</div></div>')
     }
 
     if (this.paginationParts.includes('pageList')) {
@@ -1288,7 +1298,7 @@ class BootstrapTable {
     const dropupClass = ['bottom', 'both'].includes(opts.paginationVAlign) ?
       ` ${this.constants.classes.dropup}` : ''
 
-    this.$pagination.last().find('.page-list > span').addClass(dropupClass)
+    this.$pagination.last().find('.page-list > div').addClass(dropupClass)
 
     if (!opts.onlyInfoPagination) {
       $pageList = this.$pagination.find('.page-list a')
@@ -1557,8 +1567,23 @@ class BootstrapTable {
           this.options.undefinedText : value
       }
 
-      if (this.searchText !== '' && this.options.searchHighlight) {
-        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
+      if (column.searchable && this.searchText && this.options.searchHighlight) {
+        let defValue = ''
+        const regExp = new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim')
+        const marker = '<mark>$1</mark>'
+        const isHTML = value && /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value)
+
+        if (isHTML) {
+          // value can contains a HTML tags
+          const textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent
+          const textReplaced = textContent.replace(regExp, marker)
+
+          defValue = value.replace(new RegExp(`(>\\s*)(${textContent})(\\s*)`, 'gm'), `$1${textReplaced}$3`)
+        } else {
+          // but usually not
+          defValue = value.toString().replace(regExp, marker)
+        }
+        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], defValue)
       }
 
       if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
@@ -1908,6 +1933,7 @@ class BootstrapTable {
 
         if (
           this.options.sidePagination === 'server' &&
+          this.options.pageNumber > 1 &&
           res[this.options.totalField] > 0 &&
           !res[this.options.dataField].length
         ) {
@@ -2185,6 +2211,10 @@ class BootstrapTable {
     if (!this.options.height && !this.$tableFooter.length) {
       this.$el.append('<tfoot><tr></tr></tfoot>')
       this.$tableFooter = this.$el.find('tfoot')
+    }
+
+    if (!this.$tableFooter.find('tr').length) {
+      this.$tableFooter.html('<table><thead><tr></tr></thead></table>')
     }
 
     this.$tableFooter.find('tr').html(html.join(''))
@@ -2867,10 +2897,11 @@ class BootstrapTable {
       if (obj.values.includes(row[obj.field])) {
         let $el = this.$selectItem.filter(':enabled')
           .filter(Utils.sprintf('[data-index="%s"]', i))
+        const onlyCurrentPage = obj.hasOwnProperty('onlyCurrentPage') ? obj.onlyCurrentPage : false
 
         $el = checked ? $el.not(':checked') : $el.filter(':checked')
 
-        if (!$el.length) {
+        if (!$el.length && onlyCurrentPage) {
           return
         }
 

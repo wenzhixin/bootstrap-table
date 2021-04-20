@@ -4,6 +4,46 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.18.3
+
+<span class="post-date">29 Mar 2021</span>
+
+#### Core
+
+- **Update:** Fixed negative number bug when searching with comparison.
+- **Update:** Fixed non-conform HTML-Standard problems.
+- **Update:** Fixed `td` width bug using card view.
+- **Update:** Fixed exact match problem when searching term with accent.
+- **Update:** Update `pt-PT` and `fa-IR` locales.
+
+#### Extensions
+
+- **New(page-jump-to):** Added `showJumpToByPages` option.
+- **Update(auth-refresh):** Fixed auto refresh not clear interval bug.
+- **Update(multiple-sort):** Fixed multiple-sort cannot support iconSize bug.
+- **Update(sticky-header):** Fixed `stickyHeaderOffsetY` option cannot work.
+- **Update(sticky-header):** Updated the stickyHeader `offset` options to number.
+
+## Bootstrap Table 1.18.2
+
+<span class="post-date">23 Jan 2021</span>
+
+#### Core
+
+- **Update:** Fixed bootstrap5 cannot work bug.
+- **Update:** Fixed checkbox display bug when using `formatter`.
+- **Update:** Fixed search highlight bug.
+- **Update:** Updated `ru-RU` and `de-DE` locales.
+
+#### Extensions
+
+- **New(filter-control):** Added support for flat JSON.
+- **Update(cookie):** Fixed not deleted cookie bug when the sort was reset.
+- **Update(export):** Not export the detail view icon column.
+- **Update(filter-control):** Fixed not working when using `filterControlContainer`.
+- **Update(multiple-sort):** Fixed multiple-sort cannot work bug.
+- **Update(resizable):** Fixed resizable cannot work in modal.
+
 ## Bootstrap Table 1.18.1
 
 <span class="post-date">6 Dec 2020</span>

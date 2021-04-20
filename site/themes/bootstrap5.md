@@ -1,37 +1,34 @@
 ---
 layout: simple
-title: Materialize
-description: A getting started of add Bootstrap Table to Materialize, how to download and use, basic templates, and more.
+title: Bootstrap v5
+description: A getting started of add Bootstrap Table to Bootstrap v5, how to download and use, basic templates, and more.
 group: themes
 toc: true
 ---
 
 ## Quick start
 
-Looking to quickly add Bootstrap Table to your <a href="https://materializecss.com/" target="_blank">Materialize</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
+Looking to quickly add Bootstrap Table to your <a href="https://getbootstrap.com/" target="_blank">Bootstrap v5</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
 
 ### CSS
 
 Copy-paste the stylesheet `<link>` into your `<head>` before all other stylesheets to load our CSS.
 
 {% highlight html %}
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.css">
 {% endhighlight %}
 
 ### JS
 
-Place the following `<script>`s near the end of your pages, right before the closing `</body>` tag, to enable them. jQuery must come first, then our JavaScript plugins.
+Place the following `<script>`s near the end of your pages, right before the closing `</body>` tag, to enable them. jQuery must come first, then Bootstrap.js, and then our JavaScript plugins.
 
 {% highlight html %}
 <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.js"></script>
 {% endhighlight %}
 
 ## Starter template
 
 Be sure to have your pages set up with the latest design and development standards. That means using an HTML5 doctype and including a viewport meta tag for proper responsive behaviors.
-
-For Materialize, we use [Material Design Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web) as the default icons, so need to import Material Icons link.
 
 Put it all together and your pages should look like this:
 
@@ -43,9 +40,8 @@ Put it all together and your pages should look like this:
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/materialize-css@1.0.0/dist/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.css">
 
     <title>Hello, Bootstrap Table!</title>
   </head>
@@ -73,9 +69,8 @@ Put it all together and your pages should look like this:
     </table>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/materialize-css@1.0.0/dist/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.js"></script>
   </body>
 </html>
 {% endhighlight %}

@@ -1,10 +1,12 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
 	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-	(global = global || self, factory(global.jQuery));
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
-	$ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var $__default = /*#__PURE__*/_interopDefaultLegacy($);
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -18,13 +20,13 @@
 
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 	var global_1 =
-	  // eslint-disable-next-line no-undef
+	  /* global globalThis -- safe */
 	  check(typeof globalThis == 'object' && globalThis) ||
 	  check(typeof window == 'object' && window) ||
 	  check(typeof self == 'object' && self) ||
 	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
-	  // eslint-disable-next-line no-new-func
-	  Function('return this')();
+	  // eslint-disable-next-line no-new-func -- fallback
+	  (function () { return this; })() || Function('return this')();
 
 	var fails = function (exec) {
 	  try {
@@ -34,26 +36,26 @@
 	  }
 	};
 
-	// Thank's IE8 for his funny defineProperty
+	// Detect IE8's incomplete defineProperty implementation
 	var descriptors = !fails(function () {
-	  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+	  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
 	});
 
 	var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
-	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+	var getOwnPropertyDescriptor$1 = Object.getOwnPropertyDescriptor;
 
 	// Nashorn ~ JDK8 bug
-	var NASHORN_BUG = getOwnPropertyDescriptor && !nativePropertyIsEnumerable.call({ 1: 2 }, 1);
+	var NASHORN_BUG = getOwnPropertyDescriptor$1 && !nativePropertyIsEnumerable.call({ 1: 2 }, 1);
 
 	// `Object.prototype.propertyIsEnumerable` method implementation
-	// https://tc39.github.io/ecma262/#sec-object.prototype.propertyisenumerable
-	var f = NASHORN_BUG ? function propertyIsEnumerable(V) {
-	  var descriptor = getOwnPropertyDescriptor(this, V);
+	// https://tc39.es/ecma262/#sec-object.prototype.propertyisenumerable
+	var f$4 = NASHORN_BUG ? function propertyIsEnumerable(V) {
+	  var descriptor = getOwnPropertyDescriptor$1(this, V);
 	  return !!descriptor && descriptor.enumerable;
 	} : nativePropertyIsEnumerable;
 
 	var objectPropertyIsEnumerable = {
-		f: f
+		f: f$4
 	};
 
 	var createPropertyDescriptor = function (bitmap, value) {
@@ -76,14 +78,14 @@
 	// fallback for non-array-like ES3 and non-enumerable old V8 strings
 	var indexedObject = fails(function () {
 	  // throws an error in rhino, see https://github.com/mozilla/rhino/issues/346
-	  // eslint-disable-next-line no-prototype-builtins
+	  // eslint-disable-next-line no-prototype-builtins -- safe
 	  return !Object('z').propertyIsEnumerable(0);
 	}) ? function (it) {
 	  return classofRaw(it) == 'String' ? split.call(it, '') : Object(it);
 	} : Object;
 
 	// `RequireObjectCoercible` abstract operation
-	// https://tc39.github.io/ecma262/#sec-requireobjectcoercible
+	// https://tc39.es/ecma262/#sec-requireobjectcoercible
 	var requireObjectCoercible = function (it) {
 	  if (it == undefined) throw TypeError("Can't call method on " + it);
 	  return it;
@@ -102,7 +104,7 @@
 	};
 
 	// `ToPrimitive` abstract operation
-	// https://tc39.github.io/ecma262/#sec-toprimitive
+	// https://tc39.es/ecma262/#sec-toprimitive
 	// instead of the ES6 spec version, we didn't implement @@toPrimitive case
 	// and the second argument - flag - preferred type is a string
 	var toPrimitive = function (input, PREFERRED_STRING) {
@@ -116,7 +118,7 @@
 
 	var hasOwnProperty = {}.hasOwnProperty;
 
-	var has = function (it, key) {
+	var has$1 = function (it, key) {
 	  return hasOwnProperty.call(it, key);
 	};
 
@@ -138,18 +140,18 @@
 	var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
 	// `Object.getOwnPropertyDescriptor` method
-	// https://tc39.github.io/ecma262/#sec-object.getownpropertydescriptor
-	var f$1 = descriptors ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
+	// https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
+	var f$3 = descriptors ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
 	  O = toIndexedObject(O);
 	  P = toPrimitive(P, true);
 	  if (ie8DomDefine) try {
 	    return nativeGetOwnPropertyDescriptor(O, P);
 	  } catch (error) { /* empty */ }
-	  if (has(O, P)) return createPropertyDescriptor(!objectPropertyIsEnumerable.f.call(O, P), O[P]);
+	  if (has$1(O, P)) return createPropertyDescriptor(!objectPropertyIsEnumerable.f.call(O, P), O[P]);
 	};
 
 	var objectGetOwnPropertyDescriptor = {
-		f: f$1
+		f: f$3
 	};
 
 	var anObject = function (it) {
@@ -161,7 +163,7 @@
 	var nativeDefineProperty = Object.defineProperty;
 
 	// `Object.defineProperty` method
-	// https://tc39.github.io/ecma262/#sec-object.defineproperty
+	// https://tc39.es/ecma262/#sec-object.defineproperty
 	var f$2 = descriptors ? nativeDefineProperty : function defineProperty(O, P, Attributes) {
 	  anObject(O);
 	  P = toPrimitive(P, true);
@@ -194,9 +196,9 @@
 	};
 
 	var SHARED = '__core-js_shared__';
-	var store = global_1[SHARED] || setGlobal(SHARED, {});
+	var store$1 = global_1[SHARED] || setGlobal(SHARED, {});
 
-	var sharedStore = store;
+	var sharedStore = store$1;
 
 	var functionToString = Function.toString;
 
@@ -209,17 +211,17 @@
 
 	var inspectSource = sharedStore.inspectSource;
 
-	var WeakMap = global_1.WeakMap;
+	var WeakMap$1 = global_1.WeakMap;
 
-	var nativeWeakMap = typeof WeakMap === 'function' && /native code/.test(inspectSource(WeakMap));
+	var nativeWeakMap = typeof WeakMap$1 === 'function' && /native code/.test(inspectSource(WeakMap$1));
 
 	var shared = createCommonjsModule(function (module) {
 	(module.exports = function (key, value) {
 	  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	})('versions', []).push({
-	  version: '3.6.0',
-	  mode:  'global',
-	  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+	  version: '3.9.1',
+	  mode: 'global',
+	  copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 	});
 	});
 
@@ -236,13 +238,13 @@
 	  return keys[key] || (keys[key] = uid(key));
 	};
 
-	var hiddenKeys = {};
+	var hiddenKeys$1 = {};
 
-	var WeakMap$1 = global_1.WeakMap;
-	var set, get, has$1;
+	var WeakMap = global_1.WeakMap;
+	var set, get, has;
 
 	var enforce = function (it) {
-	  return has$1(it) ? get(it) : set(it, {});
+	  return has(it) ? get(it) : set(it, {});
 	};
 
 	var getterFor = function (TYPE) {
@@ -255,39 +257,41 @@
 	};
 
 	if (nativeWeakMap) {
-	  var store$1 = new WeakMap$1();
-	  var wmget = store$1.get;
-	  var wmhas = store$1.has;
-	  var wmset = store$1.set;
+	  var store = sharedStore.state || (sharedStore.state = new WeakMap());
+	  var wmget = store.get;
+	  var wmhas = store.has;
+	  var wmset = store.set;
 	  set = function (it, metadata) {
-	    wmset.call(store$1, it, metadata);
+	    metadata.facade = it;
+	    wmset.call(store, it, metadata);
 	    return metadata;
 	  };
 	  get = function (it) {
-	    return wmget.call(store$1, it) || {};
+	    return wmget.call(store, it) || {};
 	  };
-	  has$1 = function (it) {
-	    return wmhas.call(store$1, it);
+	  has = function (it) {
+	    return wmhas.call(store, it);
 	  };
 	} else {
 	  var STATE = sharedKey('state');
-	  hiddenKeys[STATE] = true;
+	  hiddenKeys$1[STATE] = true;
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    createNonEnumerableProperty(it, STATE, metadata);
 	    return metadata;
 	  };
 	  get = function (it) {
-	    return has(it, STATE) ? it[STATE] : {};
+	    return has$1(it, STATE) ? it[STATE] : {};
 	  };
-	  has$1 = function (it) {
-	    return has(it, STATE);
+	  has = function (it) {
+	    return has$1(it, STATE);
 	  };
 	}
 
 	var internalState = {
 	  set: set,
 	  get: get,
-	  has: has$1,
+	  has: has,
 	  enforce: enforce,
 	  getterFor: getterFor
 	};
@@ -301,9 +305,15 @@
 	  var unsafe = options ? !!options.unsafe : false;
 	  var simple = options ? !!options.enumerable : false;
 	  var noTargetGet = options ? !!options.noTargetGet : false;
+	  var state;
 	  if (typeof value == 'function') {
-	    if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
-	    enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    if (typeof key == 'string' && !has$1(value, 'name')) {
+	      createNonEnumerableProperty(value, 'name', key);
+	    }
+	    state = enforceInternalState(value);
+	    if (!state.source) {
+	      state.source = TEMPLATE.join(typeof key == 'string' ? key : '');
+	    }
 	  }
 	  if (O === global_1) {
 	    if (simple) O[key] = value;
@@ -337,28 +347,28 @@
 	var floor = Math.floor;
 
 	// `ToInteger` abstract operation
-	// https://tc39.github.io/ecma262/#sec-tointeger
+	// https://tc39.es/ecma262/#sec-tointeger
 	var toInteger = function (argument) {
 	  return isNaN(argument = +argument) ? 0 : (argument > 0 ? floor : ceil)(argument);
 	};
 
-	var min = Math.min;
+	var min$1 = Math.min;
 
 	// `ToLength` abstract operation
-	// https://tc39.github.io/ecma262/#sec-tolength
+	// https://tc39.es/ecma262/#sec-tolength
 	var toLength = function (argument) {
-	  return argument > 0 ? min(toInteger(argument), 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
+	  return argument > 0 ? min$1(toInteger(argument), 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
 	};
 
 	var max = Math.max;
-	var min$1 = Math.min;
+	var min = Math.min;
 
 	// Helper for a popular repeating case of the spec:
 	// Let integer be ? ToInteger(index).
 	// If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
 	var toAbsoluteIndex = function (index, length) {
 	  var integer = toInteger(index);
-	  return integer < 0 ? max(integer + length, 0) : min$1(integer, length);
+	  return integer < 0 ? max(integer + length, 0) : min(integer, length);
 	};
 
 	// `Array.prototype.{ indexOf, includes }` methods implementation
@@ -369,10 +379,10 @@
 	    var index = toAbsoluteIndex(fromIndex, length);
 	    var value;
 	    // Array#includes uses SameValueZero equality algorithm
-	    // eslint-disable-next-line no-self-compare
+	    // eslint-disable-next-line no-self-compare -- NaN check
 	    if (IS_INCLUDES && el != el) while (length > index) {
 	      value = O[index++];
-	      // eslint-disable-next-line no-self-compare
+	      // eslint-disable-next-line no-self-compare -- NaN check
 	      if (value != value) return true;
 	    // Array#indexOf ignores holes, Array#includes - not
 	    } else for (;length > index; index++) {
@@ -383,10 +393,10 @@
 
 	var arrayIncludes = {
 	  // `Array.prototype.includes` method
-	  // https://tc39.github.io/ecma262/#sec-array.prototype.includes
+	  // https://tc39.es/ecma262/#sec-array.prototype.includes
 	  includes: createMethod(true),
 	  // `Array.prototype.indexOf` method
-	  // https://tc39.github.io/ecma262/#sec-array.prototype.indexof
+	  // https://tc39.es/ecma262/#sec-array.prototype.indexof
 	  indexOf: createMethod(false)
 	};
 
@@ -398,9 +408,9 @@
 	  var i = 0;
 	  var result = [];
 	  var key;
-	  for (key in O) !has(hiddenKeys, key) && has(O, key) && result.push(key);
+	  for (key in O) !has$1(hiddenKeys$1, key) && has$1(O, key) && result.push(key);
 	  // Don't enum bug & hidden keys
-	  while (names.length > i) if (has(O, key = names[i++])) {
+	  while (names.length > i) if (has$1(O, key = names[i++])) {
 	    ~indexOf(result, key) || result.push(key);
 	  }
 	  return result;
@@ -417,22 +427,22 @@
 	  'valueOf'
 	];
 
-	var hiddenKeys$1 = enumBugKeys.concat('length', 'prototype');
+	var hiddenKeys = enumBugKeys.concat('length', 'prototype');
 
 	// `Object.getOwnPropertyNames` method
-	// https://tc39.github.io/ecma262/#sec-object.getownpropertynames
-	var f$3 = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
-	  return objectKeysInternal(O, hiddenKeys$1);
+	// https://tc39.es/ecma262/#sec-object.getownpropertynames
+	var f$1 = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+	  return objectKeysInternal(O, hiddenKeys);
 	};
 
 	var objectGetOwnPropertyNames = {
-		f: f$3
+		f: f$1
 	};
 
-	var f$4 = Object.getOwnPropertySymbols;
+	var f = Object.getOwnPropertySymbols;
 
 	var objectGetOwnPropertySymbols = {
-		f: f$4
+		f: f
 	};
 
 	// all object keys, includes non-enumerable and symbols
@@ -448,7 +458,7 @@
 	  var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
 	  for (var i = 0; i < keys.length; i++) {
 	    var key = keys[i];
-	    if (!has(target, key)) defineProperty(target, key, getOwnPropertyDescriptor(source, key));
+	    if (!has$1(target, key)) defineProperty(target, key, getOwnPropertyDescriptor(source, key));
 	  }
 	};
 
@@ -472,7 +482,7 @@
 
 	var isForced_1 = isForced;
 
-	var getOwnPropertyDescriptor$1 = objectGetOwnPropertyDescriptor.f;
+	var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
 
 
 
@@ -508,7 +518,7 @@
 	  if (target) for (key in source) {
 	    sourceProperty = source[key];
 	    if (options.noTargetGet) {
-	      descriptor = getOwnPropertyDescriptor$1(target, key);
+	      descriptor = getOwnPropertyDescriptor(target, key);
 	      targetProperty = descriptor && descriptor.value;
 	    } else targetProperty = target[key];
 	    FORCED = isForced_1(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced);
@@ -527,13 +537,13 @@
 	};
 
 	// `IsArray` abstract operation
-	// https://tc39.github.io/ecma262/#sec-isarray
+	// https://tc39.es/ecma262/#sec-isarray
 	var isArray = Array.isArray || function isArray(arg) {
 	  return classofRaw(arg) == 'Array';
 	};
 
 	// `ToObject` abstract operation
-	// https://tc39.github.io/ecma262/#sec-toobject
+	// https://tc39.es/ecma262/#sec-toobject
 	var toObject = function (argument) {
 	  return Object(requireObjectCoercible(argument));
 	};
@@ -544,47 +554,9 @@
 	  else object[propertyKey] = value;
 	};
 
-	var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
-	  // Chrome 38 Symbol has incorrect toString conversion
-	  // eslint-disable-next-line no-undef
-	  return !String(Symbol());
-	});
+	var engineIsNode = classofRaw(global_1.process) == 'process';
 
-	var useSymbolAsUid = nativeSymbol
-	  // eslint-disable-next-line no-undef
-	  && !Symbol.sham
-	  // eslint-disable-next-line no-undef
-	  && typeof Symbol() == 'symbol';
-
-	var WellKnownSymbolsStore = shared('wks');
-	var Symbol$1 = global_1.Symbol;
-	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : uid;
-
-	var wellKnownSymbol = function (name) {
-	  if (!has(WellKnownSymbolsStore, name)) {
-	    if (nativeSymbol && has(Symbol$1, name)) WellKnownSymbolsStore[name] = Symbol$1[name];
-	    else WellKnownSymbolsStore[name] = createWellKnownSymbol('Symbol.' + name);
-	  } return WellKnownSymbolsStore[name];
-	};
-
-	var SPECIES = wellKnownSymbol('species');
-
-	// `ArraySpeciesCreate` abstract operation
-	// https://tc39.github.io/ecma262/#sec-arrayspeciescreate
-	var arraySpeciesCreate = function (originalArray, length) {
-	  var C;
-	  if (isArray(originalArray)) {
-	    C = originalArray.constructor;
-	    // cross-realm fallback
-	    if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = undefined;
-	    else if (isObject(C)) {
-	      C = C[SPECIES];
-	      if (C === null) C = undefined;
-	    }
-	  } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
-	};
-
-	var userAgent = getBuiltIn('navigator', 'userAgent') || '';
+	var engineUserAgent = getBuiltIn('navigator', 'userAgent') || '';
 
 	var process = global_1.process;
 	var versions = process && process.versions;
@@ -594,26 +566,70 @@
 	if (v8) {
 	  match = v8.split('.');
 	  version = match[0] + match[1];
-	} else if (userAgent) {
-	  match = userAgent.match(/Edge\/(\d+)/);
+	} else if (engineUserAgent) {
+	  match = engineUserAgent.match(/Edge\/(\d+)/);
 	  if (!match || match[1] >= 74) {
-	    match = userAgent.match(/Chrome\/(\d+)/);
+	    match = engineUserAgent.match(/Chrome\/(\d+)/);
 	    if (match) version = match[1];
 	  }
 	}
 
-	var v8Version = version && +version;
+	var engineV8Version = version && +version;
+
+	var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
+	  /* global Symbol -- required for testing */
+	  return !Symbol.sham &&
+	    // Chrome 38 Symbol has incorrect toString conversion
+	    // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
+	    (engineIsNode ? engineV8Version === 38 : engineV8Version > 37 && engineV8Version < 41);
+	});
+
+	var useSymbolAsUid = nativeSymbol
+	  /* global Symbol -- safe */
+	  && !Symbol.sham
+	  && typeof Symbol.iterator == 'symbol';
+
+	var WellKnownSymbolsStore = shared('wks');
+	var Symbol$1 = global_1.Symbol;
+	var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid;
+
+	var wellKnownSymbol = function (name) {
+	  if (!has$1(WellKnownSymbolsStore, name) || !(nativeSymbol || typeof WellKnownSymbolsStore[name] == 'string')) {
+	    if (nativeSymbol && has$1(Symbol$1, name)) {
+	      WellKnownSymbolsStore[name] = Symbol$1[name];
+	    } else {
+	      WellKnownSymbolsStore[name] = createWellKnownSymbol('Symbol.' + name);
+	    }
+	  } return WellKnownSymbolsStore[name];
+	};
 
 	var SPECIES$1 = wellKnownSymbol('species');
+
+	// `ArraySpeciesCreate` abstract operation
+	// https://tc39.es/ecma262/#sec-arrayspeciescreate
+	var arraySpeciesCreate = function (originalArray, length) {
+	  var C;
+	  if (isArray(originalArray)) {
+	    C = originalArray.constructor;
+	    // cross-realm fallback
+	    if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = undefined;
+	    else if (isObject(C)) {
+	      C = C[SPECIES$1];
+	      if (C === null) C = undefined;
+	    }
+	  } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
+	};
+
+	var SPECIES = wellKnownSymbol('species');
 
 	var arrayMethodHasSpeciesSupport = function (METHOD_NAME) {
 	  // We can't use this feature detection in V8 since it causes
 	  // deoptimization and serious performance degradation
 	  // https://github.com/zloirock/core-js/issues/677
-	  return v8Version >= 51 || !fails(function () {
+	  return engineV8Version >= 51 || !fails(function () {
 	    var array = [];
 	    var constructor = array.constructor = {};
-	    constructor[SPECIES$1] = function () {
+	    constructor[SPECIES] = function () {
 	      return { foo: 1 };
 	    };
 	    return array[METHOD_NAME](Boolean).foo !== 1;
@@ -627,7 +643,7 @@
 	// We can't use this feature detection in V8 since it causes
 	// deoptimization and serious performance degradation
 	// https://github.com/zloirock/core-js/issues/679
-	var IS_CONCAT_SPREADABLE_SUPPORT = v8Version >= 51 || !fails(function () {
+	var IS_CONCAT_SPREADABLE_SUPPORT = engineV8Version >= 51 || !fails(function () {
 	  var array = [];
 	  array[IS_CONCAT_SPREADABLE] = false;
 	  return array.concat()[0] !== array;
@@ -644,10 +660,11 @@
 	var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT;
 
 	// `Array.prototype.concat` method
-	// https://tc39.github.io/ecma262/#sec-array.prototype.concat
+	// https://tc39.es/ecma262/#sec-array.prototype.concat
 	// with adding support of @@isConcatSpreadable and @@species
 	_export({ target: 'Array', proto: true, forced: FORCED }, {
-	  concat: function concat(arg) { // eslint-disable-line no-unused-vars
+	  // eslint-disable-next-line no-unused-vars -- required for `.length`
+	  concat: function concat(arg) {
 	    var O = toObject(this);
 	    var A = arraySpeciesCreate(O, 0);
 	    var n = 0;
@@ -673,7 +690,7 @@
 	 * Author: Phillip Kruger <phillip.kruger@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
+	$__default['default'].fn.bootstrapTable.locales['af-ZA'] = $__default['default'].fn.bootstrapTable.locales['af'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -772,14 +789,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['af-ZA']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['af-ZA']);
 
 	/**
 	 * Bootstrap Table English translation
 	 * Author: Zhixin Wen<wenzhixin2010@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['ar-SA'] = $.fn.bootstrapTable.locales['ar'] = {
+	$__default['default'].fn.bootstrapTable.locales['ar-SA'] = $__default['default'].fn.bootstrapTable.locales['ar'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -879,14 +896,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ar-SA']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ar-SA']);
 
 	/**
 	 * Bootstrap Table English translation
 	 * Author: Mikhail Kalatchev <kalatchev[at]gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['bg-BG'] = $.fn.bootstrapTable.locales['bg'] = {
+	$__default['default'].fn.bootstrapTable.locales['bg-BG'] = $__default['default'].fn.bootstrapTable.locales['bg'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -985,7 +1002,7 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['bg-BG']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['bg-BG']);
 
 	/**
 	 * Bootstrap Table Catalan translation
@@ -993,7 +1010,7 @@
 	 *          Claudi Martinez<claudix.kernel@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['ca-ES'] = $.fn.bootstrapTable.locales['ca'] = {
+	$__default['default'].fn.bootstrapTable.locales['ca-ES'] = $__default['default'].fn.bootstrapTable.locales['ca'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -1092,7 +1109,7 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ca-ES']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ca-ES']);
 
 	/**
 	 * Bootstrap Table Czech translation
@@ -1100,7 +1117,7 @@
 	 * Author: Jakub Svestka <svestka1999@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
+	$__default['default'].fn.bootstrapTable.locales['cs-CZ'] = $__default['default'].fn.bootstrapTable.locales['cs'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -1199,14 +1216,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['cs-CZ']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['cs-CZ']);
 
 	/**
 	 * Bootstrap Table danish translation
 	 * Author: Your Name Jan Borup Coyle, github@coyle.dk
 	 */
 
-	$.fn.bootstrapTable.locales['da-DK'] = $.fn.bootstrapTable.locales['da'] = {
+	$__default['default'].fn.bootstrapTable.locales['da-DK'] = $__default['default'].fn.bootstrapTable.locales['da'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -1305,14 +1322,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['da-DK']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['da-DK']);
 
 	/**
 	* Bootstrap Table German translation
 	* Author: Paul Mohr - Sopamo<p.mohr@sopamo.de>
 	*/
 
-	$.fn.bootstrapTable.locales['de-DE'] = $.fn.bootstrapTable.locales['de'] = {
+	$__default['default'].fn.bootstrapTable.locales['de-DE'] = $__default['default'].fn.bootstrapTable.locales['de'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Zeilen kopieren';
 	  },
@@ -1409,16 +1426,55 @@
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
 	    return 'Zeige Filter';
+	  },
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Ebene hinzufügen';
+	  },
+	  formatCancel: function formatCancel() {
+	    return 'Abbrechen';
+	  },
+	  formatColumn: function formatColumn() {
+	    return 'Spalte';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Ebene entfernen';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Doppelte Einträge gefunden!';
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Bitte doppelte Spalten entfenen oder ändern';
+	  },
+	  formatMultipleSort: function formatMultipleSort() {
+	    return 'Mehrfachsortierung';
+	  },
+	  formatOrder: function formatOrder() {
+	    return 'Reihenfolge';
+	  },
+	  formatSort: function formatSort() {
+	    return 'Sortieren';
+	  },
+	  formatSortBy: function formatSortBy() {
+	    return 'Sortieren nach';
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'anschließend';
+	  },
+	  formatSortOrders: function formatSortOrders() {
+	    return {
+	      asc: 'Aufsteigend',
+	      desc: 'Absteigend'
+	    };
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['de-DE']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['de-DE']);
 
 	/**
 	 * Bootstrap Table Greek translation
 	 * Author: giannisdallas
 	 */
 
-	$.fn.bootstrapTable.locales['el-GR'] = $.fn.bootstrapTable.locales['el'] = {
+	$__default['default'].fn.bootstrapTable.locales['el-GR'] = $__default['default'].fn.bootstrapTable.locales['el'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -1517,14 +1573,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['el-GR']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['el-GR']);
 
 	/**
 	 * Bootstrap Table English translation
 	 * Author: Zhixin Wen<wenzhixin2010@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['en-US'] = $.fn.bootstrapTable.locales['en'] = {
+	$__default['default'].fn.bootstrapTable.locales['en-US'] = $__default['default'].fn.bootstrapTable.locales['en'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -1623,7 +1679,7 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['en-US']);
 
 	/**
 	 * Bootstrap Table Spanish (Argentina) translation
@@ -1631,7 +1687,7 @@
 	 * Edited by: DarkThinking (https://github.com/DarkThinking)
 	 */
 
-	$.fn.bootstrapTable.locales['es-AR'] = {
+	$__default['default'].fn.bootstrapTable.locales['es-AR'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copiar Filas';
 	  },
@@ -1730,7 +1786,7 @@
 	    return 'Mostrar controles';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-AR']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['es-AR']);
 
 	/**
 	 * Traducción de librería Bootstrap Table a Español (Chile)
@@ -1738,7 +1794,7 @@
 	 * email brianalvarezazocar@gmail.com
 	 */
 
-	$.fn.bootstrapTable.locales['es-CL'] = {
+	$__default['default'].fn.bootstrapTable.locales['es-CL'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copiar Filas';
 	  },
@@ -1837,14 +1893,14 @@
 	    return 'Mostrar controles';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-CL']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['es-CL']);
 
 	/**
 	 * Bootstrap Table Spanish (Costa Rica) translation
 	 * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
 	 */
 
-	$.fn.bootstrapTable.locales['es-CR'] = {
+	$__default['default'].fn.bootstrapTable.locales['es-CR'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -1943,14 +1999,14 @@
 	    return 'Mostrar controles';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-CR']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['es-CR']);
 
 	/**
 	 * Bootstrap Table Spanish Spain translation
 	 * Author: Marc Pina<iwalkalone69@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['es-ES'] = $.fn.bootstrapTable.locales['es'] = {
+	$__default['default'].fn.bootstrapTable.locales['es-ES'] = $__default['default'].fn.bootstrapTable.locales['es'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copiar filas';
 	  },
@@ -2049,7 +2105,7 @@
 	    return 'Mostrar controles';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-ES']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['es-ES']);
 
 	/**
 	 * Bootstrap Table Spanish (México) translation (Obtenido de traducción de Argentina)
@@ -2058,7 +2114,7 @@
 	 * Revisión: J Manuel Corona (jmcg92@gmail.com) (13/Feb/2018).
 	 */
 
-	$.fn.bootstrapTable.locales['es-MX'] = {
+	$__default['default'].fn.bootstrapTable.locales['es-MX'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -2157,14 +2213,14 @@
 	    return 'Mostrar controles';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-MX']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['es-MX']);
 
 	/**
 	 * Bootstrap Table Spanish (Nicaragua) translation
 	 * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
 	 */
 
-	$.fn.bootstrapTable.locales['es-NI'] = {
+	$__default['default'].fn.bootstrapTable.locales['es-NI'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -2263,14 +2319,14 @@
 	    return 'Mostrar controles';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-NI']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['es-NI']);
 
 	/**
 	 * Bootstrap Table Spanish (España) translation
 	 * Author: Antonio Pérez <anpegar@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['es-SP'] = {
+	$__default['default'].fn.bootstrapTable.locales['es-SP'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -2369,14 +2425,14 @@
 	    return 'Mostrar controles';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-SP']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['es-SP']);
 
 	/**
 	 * Bootstrap Table Estonian translation
 	 * Author: kristjan@logist.it>
 	 */
 
-	$.fn.bootstrapTable.locales['et-EE'] = $.fn.bootstrapTable.locales['et'] = {
+	$__default['default'].fn.bootstrapTable.locales['et-EE'] = $__default['default'].fn.bootstrapTable.locales['et'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -2475,14 +2531,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['et-EE']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['et-EE']);
 
 	/**
 	 * Bootstrap Table Basque (Basque Country) translation
 	 * Author: Iker Ibarguren Berasaluze<ikerib@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['eu-EU'] = $.fn.bootstrapTable.locales['eu'] = {
+	$__default['default'].fn.bootstrapTable.locales['eu-EU'] = $__default['default'].fn.bootstrapTable.locales['eu'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -2581,19 +2637,19 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['eu-EU']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['eu-EU']);
 
 	/**
 	 * Bootstrap Table Persian translation
 	 * Author: MJ Vakili <mjv.1989@Gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['fa-IR'] = $.fn.bootstrapTable.locales['fa'] = {
+	$__default['default'].fn.bootstrapTable.locales['fa-IR'] = $__default['default'].fn.bootstrapTable.locales['fa'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	    return 'کپی ردیف ها';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return 'پرینت';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'در حال بارگذاری, لطفا صبر کنید';
@@ -2609,19 +2665,19 @@
 	    return "\u0646\u0645\u0627\u06CC\u0634 ".concat(pageFrom, " \u062A\u0627 ").concat(pageTo, " \u0627\u0632 ").concat(totalRows, " \u0631\u062F\u06CC\u0641");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'صفحه قبلی';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "\u0628\u0647 \u0635\u0641\u062D\u0647 ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'صفحه بعدی';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	    return "\u0646\u0645\u0627\u06CC\u0634 ".concat(totalRows, " \u0633\u0637\u0631\u0647\u0627");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
+	    return 'پاک کردن جستجو';
 	  },
 	  formatSearch: function formatSearch() {
 	    return 'جستجو';
@@ -2633,10 +2689,10 @@
 	    return 'نمایش/مخفی صفحه بندی';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'نمایش صفحه بندی';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'پنهان کردن صفحه بندی';
 	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'به روز رسانی';
@@ -2654,47 +2710,47 @@
 	    return 'سطر ها';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'تغییر وضعیت همه';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'تمام صفحه';
 	  },
 	  formatAllRows: function formatAllRows() {
 	    return 'همه';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'رفرش اتوماتیک';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'خروجی دیتا';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'برو';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'جستجوی پیشرفته';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'بستن';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
+	    return 'پنهان/نمایش دادن کنترل ها';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
+	    return 'پنهان کردن کنترل ها';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
+	    return 'نمایش کنترل ها';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fa-IR']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['fa-IR']);
 
 	/**
 	 * Bootstrap Table Finnish translations
 	 * Author: Minna Lehtomäki <minna.j.lehtomaki@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['fi-FI'] = $.fn.bootstrapTable.locales['fi'] = {
+	$__default['default'].fn.bootstrapTable.locales['fi-FI'] = $__default['default'].fn.bootstrapTable.locales['fi'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -2793,7 +2849,7 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fi-FI']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['fi-FI']);
 
 	/**
 	 * Bootstrap Table French (Belgium) translation
@@ -2801,7 +2857,7 @@
 	 *         Nevets82 <Nevets82@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['fr-BE'] = {
+	$__default['default'].fn.bootstrapTable.locales['fr-BE'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -2900,14 +2956,14 @@
 	    return 'Afficher controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-BE']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['fr-BE']);
 
 	/**
 	 * Bootstrap Table French (Suisse) translation
 	 * Author: Nevets82 <Nevets82@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['fr-CH'] = {
+	$__default['default'].fn.bootstrapTable.locales['fr-CH'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -3006,7 +3062,7 @@
 	    return 'Afficher controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-CH']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['fr-CH']);
 
 	/**
 	 * Bootstrap Table French (France) translation
@@ -3015,7 +3071,7 @@
 	 *         Nevets82 <Nevets82@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
+	$__default['default'].fn.bootstrapTable.locales['fr-FR'] = $__default['default'].fn.bootstrapTable.locales['fr'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copier les lignes';
 	  },
@@ -3114,14 +3170,14 @@
 	    return 'Afficher les contrôles';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-FR']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['fr-FR']);
 
 	/**
 	 * Bootstrap Table French (Luxembourg) translation
 	 * Author: Nevets82 <Nevets82@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['fr-LU'] = {
+	$__default['default'].fn.bootstrapTable.locales['fr-LU'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -3220,14 +3276,14 @@
 	    return 'Afficher controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-LU']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['fr-LU']);
 
 	/**
 	 * Bootstrap Table Hebrew translation
 	 * Author: legshooter
 	 */
 
-	$.fn.bootstrapTable.locales['he-IL'] = $.fn.bootstrapTable.locales['he'] = {
+	$__default['default'].fn.bootstrapTable.locales['he-IL'] = $__default['default'].fn.bootstrapTable.locales['he'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -3326,7 +3382,7 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['he-IL']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['he-IL']);
 
 	/**
 	* Bootstrap Table Croatian translation
@@ -3334,7 +3390,7 @@
 	* Author: Petra Štrbenac (petra.strbenac@gmail.com)
 	*/
 
-	$.fn.bootstrapTable.locales['hr-HR'] = $.fn.bootstrapTable.locales['hr'] = {
+	$__default['default'].fn.bootstrapTable.locales['hr-HR'] = $__default['default'].fn.bootstrapTable.locales['hr'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -3433,14 +3489,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['hr-HR']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['hr-HR']);
 
 	/**
 	 * Bootstrap Table Hungarian translation
 	 * Author: Nagy Gergely <info@nagygergely.eu>
 	 */
 
-	$.fn.bootstrapTable.locales['hu-HU'] = $.fn.bootstrapTable.locales['hu'] = {
+	$__default['default'].fn.bootstrapTable.locales['hu-HU'] = $__default['default'].fn.bootstrapTable.locales['hu'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -3539,14 +3595,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['hu-HU']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['hu-HU']);
 
 	/**
 	 * Bootstrap Table Indonesian translation
 	 * Author: Andre Gardiner<andre@sirdre.com>
 	 */
 
-	$.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
+	$__default['default'].fn.bootstrapTable.locales['id-ID'] = $__default['default'].fn.bootstrapTable.locales['id'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -3645,7 +3701,7 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['id-ID']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['id-ID']);
 
 	/**
 	 * Bootstrap Table Italian translation
@@ -3654,7 +3710,7 @@
 	 * Author: Alessio Felicioni <alessio.felicioni@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['it-IT'] = $.fn.bootstrapTable.locales['it'] = {
+	$__default['default'].fn.bootstrapTable.locales['it-IT'] = $__default['default'].fn.bootstrapTable.locales['it'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -3753,14 +3809,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['it-IT']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['it-IT']);
 
 	/**
 	 * Bootstrap Table Japanese translation
 	 * Author: Azamshul Azizy <azamshul@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['ja-JP'] = $.fn.bootstrapTable.locales['ja'] = {
+	$__default['default'].fn.bootstrapTable.locales['ja-JP'] = $__default['default'].fn.bootstrapTable.locales['ja'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -3859,14 +3915,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ja-JP']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ja-JP']);
 
 	/**
 	 * Bootstrap Table Georgian translation
 	 * Author: Levan Lotuashvili <l.lotuashvili@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['ka-GE'] = $.fn.bootstrapTable.locales['ka'] = {
+	$__default['default'].fn.bootstrapTable.locales['ka-GE'] = $__default['default'].fn.bootstrapTable.locales['ka'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -3965,14 +4021,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ka-GE']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ka-GE']);
 
 	/**
 	 * Bootstrap Table Korean translation
 	 * Author: Yi Tae-Hyeong (jsonobject@gmail.com)
 	 */
 
-	$.fn.bootstrapTable.locales['ko-KR'] = $.fn.bootstrapTable.locales['ko'] = {
+	$__default['default'].fn.bootstrapTable.locales['ko-KR'] = $__default['default'].fn.bootstrapTable.locales['ko'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -4071,14 +4127,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ko-KR']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ko-KR']);
 
 	/**
 	 * Bootstrap Table Malay translation
 	 * Author: Azamshul Azizy <azamshul@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['ms-MY'] = $.fn.bootstrapTable.locales['ms'] = {
+	$__default['default'].fn.bootstrapTable.locales['ms-MY'] = $__default['default'].fn.bootstrapTable.locales['ms'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -4177,14 +4233,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ms-MY']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ms-MY']);
 
 	/**
 	 * Bootstrap Table norwegian translation
 	 * Author: Jim Nordbø, jim@nordb.no
 	 */
 
-	$.fn.bootstrapTable.locales['nb-NO'] = $.fn.bootstrapTable.locales['nb'] = {
+	$__default['default'].fn.bootstrapTable.locales['nb-NO'] = $__default['default'].fn.bootstrapTable.locales['nb'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -4283,14 +4339,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nb-NO']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['nb-NO']);
 
 	/**
 	 * Bootstrap Table Dutch (België) translation
 	 * Author: Nevets82 <Nevets82@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['nl-BE'] = {
+	$__default['default'].fn.bootstrapTable.locales['nl-BE'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -4389,7 +4445,7 @@
 	    return 'Toon controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-BE']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['nl-BE']);
 
 	/**
 	 * Bootstrap Table Dutch (Nederland) translation
@@ -4397,7 +4453,7 @@
 	 *         Nevets82 <Nevets82@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['nl-NL'] = $.fn.bootstrapTable.locales['nl'] = {
+	$__default['default'].fn.bootstrapTable.locales['nl-NL'] = $__default['default'].fn.bootstrapTable.locales['nl'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -4496,7 +4552,7 @@
 	    return 'Toon controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-NL']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['nl-NL']);
 
 	/**
 	 * Bootstrap Table Polish translation
@@ -4504,7 +4560,7 @@
 	 * Update: kerogos <kerog @ wp pl>
 	 */
 
-	$.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
+	$__default['default'].fn.bootstrapTable.locales['pl-PL'] = $__default['default'].fn.bootstrapTable.locales['pl'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Kopiuj wiersze';
 	  },
@@ -4603,7 +4659,7 @@
 	    return 'Ukryj';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pl-PL']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['pl-PL']);
 
 	/**
 	 * Bootstrap Table Brazilian Portuguese Translation
@@ -4613,7 +4669,7 @@
 	 * Update: Fernando Marcos Souza Silva<fernandomarcosss@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['pt-BR'] = {
+	$__default['default'].fn.bootstrapTable.locales['pt-BR'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -4712,47 +4768,47 @@
 	    return 'Exibir controles';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-BR']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['pt-BR']);
 
 	/**
 	 * Bootstrap Table Portuguese Portugal Translation
 	 * Author: Burnspirit<burnspirit@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
+	$__default['default'].fn.bootstrapTable.locales['pt-PT'] = $__default['default'].fn.bootstrapTable.locales['pt'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	    return 'Copiar Linhas';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return 'Imprimir';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'A carregar, por favor aguarde';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " registos por p&aacute;gina");
+	    return "".concat(pageNumber, " registos por p\xE1gina");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
 	      return "A mostrar ".concat(pageFrom, " at&eacute; ").concat(pageTo, " de ").concat(totalRows, " linhas (filtered from ").concat(totalNotFiltered, " total rows)");
 	    }
 
-	    return "A mostrar ".concat(pageFrom, " at&eacute; ").concat(pageTo, " de ").concat(totalRows, " linhas");
+	    return "A mostrar ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'página anterior';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "ir para p\xE1gina ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'próxima página';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	    return "Mostrando ".concat(totalRows, " linhas");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
+	    return 'Limpar Pesquisa';
 	  },
 	  formatSearch: function formatSearch() {
 	    return 'Pesquisa';
@@ -4761,16 +4817,16 @@
 	    return 'Nenhum registo encontrado';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Esconder/Mostrar pagina&ccedil&atilde;o';
+	    return 'Esconder/Mostrar paginação';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Mostrar página';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Esconder página';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Atualizar';
+	    return 'Actualizar';
 	  },
 	  formatToggle: function formatToggle() {
 	    return 'Alternar';
@@ -4785,47 +4841,47 @@
 	    return 'Colunas';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Activar tudo';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Ecrã completo';
 	  },
 	  formatAllRows: function formatAllRows() {
 	    return 'Tudo';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Actualização autmática';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'Exportar dados';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'Avançar';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'Pesquisa avançada';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'Fechar';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
+	    return 'Esconder/Exibir controlos';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
+	    return 'Esconder controlos';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
+	    return 'Exibir controlos';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-PT']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['pt-PT']);
 
 	/**
 	 * Bootstrap Table Romanian translation
 	 * Author: cristake <cristianiosif@me.com>
 	 */
 
-	$.fn.bootstrapTable.locales['ro-RO'] = $.fn.bootstrapTable.locales['ro'] = {
+	$__default['default'].fn.bootstrapTable.locales['ro-RO'] = $__default['default'].fn.bootstrapTable.locales['ro'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -4924,19 +4980,19 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ro-RO']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ro-RO']);
 
 	/**
 	 * Bootstrap Table Russian translation
 	 * Author: Dunaevsky Maxim <dunmaksim@yandex.ru>
 	 */
 
-	$.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
+	$__default['default'].fn.bootstrapTable.locales['ru-RU'] = $__default['default'].fn.bootstrapTable.locales['ru'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	    return 'Скопировать строки';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return 'Печать';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Пожалуйста, подождите, идёт загрузка';
@@ -4946,22 +5002,22 @@
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows, " (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows, " (\u043E\u0442\u0444\u0438\u043B\u044C\u0442\u0440\u043E\u0432\u0430\u043D\u043E, \u0432\u0441\u0435\u0433\u043E \u043D\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0435 ").concat(totalNotFiltered, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439)");
 	    }
 
 	    return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows);
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'предыдущая страница';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "\u043F\u0435\u0440\u0435\u0439\u0442\u0438 \u043A \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'следующая страница';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	    return "\u0417\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u043E ".concat(totalRows, " \u0441\u0442\u0440\u043E\u043A");
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'Очистить фильтры';
@@ -4973,13 +5029,13 @@
 	    return 'Ничего не найдено';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Hide/Show pagination';
+	    return 'Скрыть/Показать постраничную навигацию';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Показать постраничную навигацию';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Скрыть постраничную навигацию';
 	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Обновить';
@@ -4988,56 +5044,56 @@
 	    return 'Переключить';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Показать записи в виде карточек';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Табличный режим просмотра';
 	  },
 	  formatColumns: function formatColumns() {
 	    return 'Колонки';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Выбрать все';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Полноэкранный режим';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'All';
+	    return 'Все';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Автоматическое обновление';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'Экспортировать данные';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'Стр.';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'Расширенный поиск';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'Закрыть';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
+	    return 'Скрыть/Показать панель инструментов';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
+	    return 'Скрыть панель инструментов';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
+	    return 'Показать панель инструментов';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ru-RU']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ru-RU']);
 
 	/**
 	 * Bootstrap Table Slovak translation
 	 * Author: Jozef Dúc<jozef.d13@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['sk-SK'] = $.fn.bootstrapTable.locales['sk'] = {
+	$__default['default'].fn.bootstrapTable.locales['sk-SK'] = $__default['default'].fn.bootstrapTable.locales['sk'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Skopírovať riadky';
 	  },
@@ -5136,14 +5192,14 @@
 	    return 'Zobraziť tlačidlá';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sk-SK']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['sk-SK']);
 
 	/**
 	* Bootstrap Table Serbian Cyrilic RS translation
 	* Author: Vladimir Kanazir (vladimir@kanazir.com)
 	*/
 
-	$.fn.bootstrapTable.locales['sr-Cyrl-RS'] = $.fn.bootstrapTable.locales['sr'] = {
+	$__default['default'].fn.bootstrapTable.locales['sr-Cyrl-RS'] = $__default['default'].fn.bootstrapTable.locales['sr'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -5242,14 +5298,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sr-Cyrl-RS']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['sr-Cyrl-RS']);
 
 	/**
 	* Bootstrap Table Serbian Latin RS translation
 	* Author: Vladimir Kanazir (vladimir@kanazir.com)
 	*/
 
-	$.fn.bootstrapTable.locales['sr-Latn-RS'] = {
+	$__default['default'].fn.bootstrapTable.locales['sr-Latn-RS'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -5348,14 +5404,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sr-Latn-RS']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['sr-Latn-RS']);
 
 	/**
 	 * Bootstrap Table Swedish translation
 	 * Author: C Bratt <bratt@inix.se>
 	 */
 
-	$.fn.bootstrapTable.locales['sv-SE'] = $.fn.bootstrapTable.locales['sv'] = {
+	$__default['default'].fn.bootstrapTable.locales['sv-SE'] = $__default['default'].fn.bootstrapTable.locales['sv'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -5454,14 +5510,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sv-SE']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['sv-SE']);
 
 	/**
 	 * Bootstrap Table Thai translation
 	 * Author: Monchai S.<monchais@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['th-TH'] = $.fn.bootstrapTable.locales['th'] = {
+	$__default['default'].fn.bootstrapTable.locales['th-TH'] = $__default['default'].fn.bootstrapTable.locales['th'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -5560,7 +5616,7 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['th-TH']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['th-TH']);
 
 	/**
 	 * Bootstrap Table Turkish translation
@@ -5568,7 +5624,7 @@
 	 * Author: Sercan Cakir <srcnckr@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
+	$__default['default'].fn.bootstrapTable.locales['tr-TR'] = $__default['default'].fn.bootstrapTable.locales['tr'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -5667,14 +5723,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['tr-TR']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['tr-TR']);
 
 	/**
 	 * Bootstrap Table Ukrainian translation
 	 * Author: Vitaliy Timchenko <vitaliy.timchenko@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['uk-UA'] = $.fn.bootstrapTable.locales['uk'] = {
+	$__default['default'].fn.bootstrapTable.locales['uk-UA'] = $__default['default'].fn.bootstrapTable.locales['uk'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -5773,14 +5829,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['uk-UA']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['uk-UA']);
 
 	/**
 	 * Bootstrap Table Urdu translation
 	 * Author: Malik <me@malikrizwan.com>
 	 */
 
-	$.fn.bootstrapTable.locales['ur-PK'] = $.fn.bootstrapTable.locales['ur'] = {
+	$__default['default'].fn.bootstrapTable.locales['ur-PK'] = $__default['default'].fn.bootstrapTable.locales['ur'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -5879,14 +5935,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ur-PK']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['ur-PK']);
 
 	/**
 	 * Bootstrap Table Uzbek translation
 	 * Author: Nabijon Masharipov <mnabijonz@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['uz-Latn-UZ'] = $.fn.bootstrapTable.locales['uz'] = {
+	$__default['default'].fn.bootstrapTable.locales['uz-Latn-UZ'] = $__default['default'].fn.bootstrapTable.locales['uz'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -5985,14 +6041,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['uz-Latn-UZ']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['uz-Latn-UZ']);
 
 	/**
 	 * Bootstrap Table Vietnamese translation
 	 * Author: Duc N. PHAM <pngduc@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['vi-VN'] = $.fn.bootstrapTable.locales['vi'] = {
+	$__default['default'].fn.bootstrapTable.locales['vi-VN'] = $__default['default'].fn.bootstrapTable.locales['vi'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -6091,14 +6147,14 @@
 	    return 'Show controls';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['vi-VN']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['vi-VN']);
 
 	/**
 	 * Bootstrap Table Chinese translation
 	 * Author: Zhixin Wen<wenzhixin2010@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['zh-CN'] = $.fn.bootstrapTable.locales['zh'] = {
+	$__default['default'].fn.bootstrapTable.locales['zh-CN'] = $__default['default'].fn.bootstrapTable.locales['zh'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -6197,14 +6253,14 @@
 	    return '显示过滤控制';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['zh-CN']);
 
 	/**
 	 * Bootstrap Table Chinese translation
 	 * Author: Zhixin Wen<wenzhixin2010@gmail.com>
 	 */
 
-	$.fn.bootstrapTable.locales['zh-TW'] = {
+	$__default['default'].fn.bootstrapTable.locales['zh-TW'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -6303,6 +6359,6 @@
 	    return '顯示過濾控制';
 	  }
 	};
-	$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-TW']);
+	$__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, $__default['default'].fn.bootstrapTable.locales['zh-TW']);
 
 })));

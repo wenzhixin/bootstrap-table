@@ -240,15 +240,15 @@ export function initFilterSelectControls (that) {
 
     if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
       if (selectControl.get(selectControl.length - 1).options.length === 0) {
-        // Added the default option
-        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
+        // Added the default option, must use a non-breaking space(&nbsp;) to pass the W3C validator
+        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || '&nbsp;', column.filterDefault)
       }
 
       const uniqueValues = {}
 
       for (let i = 0; i < z; i++) {
         // Added a new value
-        let fieldValue = data[i][field]
+        let fieldValue = Utils.getItemField(data[i], field, false)
         const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
         let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
 

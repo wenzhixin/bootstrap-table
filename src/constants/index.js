@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const VERSION = '1.18.1'
+const VERSION = '1.18.3'
 
 let bootstrapVersion = 4
 
@@ -150,6 +150,7 @@ const CONSTANTS = {
       buttonActive: 'active'
     },
     html: {
+      dataToggle: 'data-bs-toggle',
       toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
       toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],

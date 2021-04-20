@@ -93,10 +93,26 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.data.splice(this.options.data.indexOf(draggingRow), 1)
     this.options.data.splice(index, 0, draggingRow)
 
+    this.initSearch()
+
     // Call the user defined function
     this.options.onReorderRowsDrop(droppedRow)
 
     // Call the event reorder-row
     this.trigger('reorder-row', newData, draggingRow, droppedRow)
+  }
+
+  initSearch () {
+    this.ignoreInitSort = true
+    super.initSearch()
+  }
+
+  initSort () {
+    if (this.ignoreInitSort) {
+      this.ignoreInitSort = false
+      return
+    }
+
+    super.initSort()
   }
 }
