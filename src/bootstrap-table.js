@@ -3072,7 +3072,7 @@ class BootstrapTable {
     const $search = Utils.getSearchInput(this)
 
     $search.val(text || '')
-    this.onSearch({ currentTarget: $search })
+    this.onSearch({ currentTarget: $search }, false)
   }
 
   filterBy (columns, options) {

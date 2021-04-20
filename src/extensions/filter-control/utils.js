@@ -2,7 +2,7 @@
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
 
-export function GetFormControlClass (options) {
+export function getFormControlClass (options) {
   return options.iconSize ? Utils.sprintf('form-control-%s', options.iconSize) : 'form-control'
 }
 
@@ -130,15 +130,14 @@ export function cacheValues (that) {
 
   searchControls.each(function () {
     let $field = $(this)
+    const fieldClass = getElementClass($field)
 
     if (that.options.height && !that.options.filterControlContainer) {
-      const fieldClass = getElementClass($field)
-
       $field = $(`.fixed-table-header .${fieldClass}`)
-    } else {
-      const fieldClass = getElementClass($field)
-
+    } else if (that.options.filterControlContainer) {
       $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
+    } else {
+      $field = $(`.${fieldClass}`)
     }
 
     that._valuesFilterControl.push({
@@ -209,40 +208,6 @@ export function setValues (that) {
       callbacks.forEach(callback => callback())
     }
   }
-}
-
-export function collectBootstrapCookies () {
-  const cookies = []
-  const foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g)
-  const foundLocalStorage = localStorage
-
-  if (foundCookies) {
-    $.each(foundCookies, (i, _cookie) => {
-      let cookie = _cookie
-
-      if (/./.test(cookie)) {
-        cookie = cookie.split('.').pop()
-      }
-
-      if ($.inArray(cookie, cookies) === -1) {
-        cookies.push(cookie)
-      }
-    })
-  }
-  if (foundLocalStorage) {
-    for (let i = 0; i < foundLocalStorage.length; i++) {
-      let cookie = foundLocalStorage.key(i)
-
-      if (/./.test(cookie)) {
-        cookie = cookie.split('.').pop()
-      }
-
-      if (!cookies.includes(cookie)) {
-        cookies.push(cookie)
-      }
-    }
-  }
-  return cookies
 }
 
 export function escapeID (id) {

@@ -22,7 +22,7 @@ $.extend($.fn.bootstrapTable.defaults, {
     input (that, column, placeholder, value) {
       return Utils.sprintf(
         '<input type="search" class="%s bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
-        UtilsFilterControl.GetFormControlClass(that.options),
+        UtilsFilterControl.getFormControlClass(that.options),
         column.field,
         'undefined' === typeof placeholder ? '' : placeholder,
         'undefined' === typeof value ? '' : value
@@ -32,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults, {
     select ({ options }, column) {
       return Utils.sprintf(
         '<select class="%s bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
-        UtilsFilterControl.GetFormControlClass(options),
+        UtilsFilterControl.getFormControlClass(options),
         column.field,
         column.filterControlMultipleSelect ? 'fc-multipleselect' : '',
         column.filterControlMultipleSelectMultiple ? 'multiple="multiple"' : '',
@@ -45,7 +45,7 @@ $.extend($.fn.bootstrapTable.defaults, {
     datepicker (that, column, value) {
       return Utils.sprintf(
         '<input type="date" class="%s date-filter-control bootstrap-table-filter-control-%s" style="width: 100%;" value="%s">',
-        UtilsFilterControl.GetFormControlClass(that.options),
+        UtilsFilterControl.getFormControlClass(that.options),
         column.field,
         'undefined' === typeof value ? '' : value
       )
@@ -372,33 +372,31 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     const that = this
-    const cookies = UtilsFilterControl.collectBootstrapCookies()
     const table = this.$el.closest('table')
     const controls = UtilsFilterControl.getSearchControls(that)
-    const search = Utils.getSearchInput(this)
+    // const search = Utils.getSearchInput(this)
     let hasValues = false
     let timeoutId = 0
 
+    // Clear cache values
     $.each(that._valuesFilterControl, (i, item) => {
       hasValues = hasValues ? true : item.value !== ''
       item.value = ''
     })
 
-    $.each(that.options.filterControls, (i, item) => {
-      item.text = ''
+    // Clear controls in UI
+    $.each(controls, (i, item) => {
+      item.value = ''
     })
 
+    // Cache controls again
     UtilsFilterControl.setValues(that)
 
-    // clear cookies once the filters are clean
+    // clear cookies once the filters are clean. Should clear only Filtercontrol cookie
     clearTimeout(timeoutId)
     timeoutId = setTimeout(() => {
-      if (cookies && cookies.length > 0) {
-        $.each(cookies, (i, item) => {
-          if (that.deleteCookie !== undefined) {
-            that.deleteCookie(item)
-          }
-        })
+      if (that.options.cookie) {
+        that.deleteCookie('filterControl')
       }
     }, that.options.searchTimeOut)
 
@@ -412,16 +410,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // which ones are going to be present.
     if (controls.length > 0) {
       this.filterColumnsPartial = {}
-      $(controls[0]).trigger(
-        controls[0].tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 }
-      )
+      controls.eq(0).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 })
+      /* controls.each(function () {
+        $(this).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 })
+      })*/
     } else {
       return
     }
 
-    if (search.length > 0) {
-      that.resetSearch()
-    }
+    /* if (search.length > 0) {
+      that.resetSearch('fc')
+    }*/
 
     // use the default sort order if it exists. do nothing if it does not
     if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {

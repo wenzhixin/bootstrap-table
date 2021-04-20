@@ -51,39 +51,7 @@ const UtilsCookie = {
 
     cookieName = `${that.options.cookieIdTable}.${cookieName}`
 
-    switch (that.options.cookieStorage) {
-      case 'cookieStorage':
-        document.cookie = [
-          cookieName, '=', encodeURIComponent(cookieValue),
-          `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
-          that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
-          that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-          that.options.cookieSecure ? '; secure' : '',
-          `;SameSite=${ that.options.cookieSameSite}`
-        ].join('')
-        break
-      case 'localStorage':
-        localStorage.setItem(cookieName, cookieValue)
-        break
-      case 'sessionStorage':
-        sessionStorage.setItem(cookieName, cookieValue)
-        break
-      case 'customStorage':
-        if (
-          !that.options.cookieCustomStorageSet ||
-          !that.options.cookieCustomStorageGet ||
-          !that.options.cookieCustomStorageDelete
-        ) {
-          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
-        }
-
-        Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageSet, [cookieName, cookieValue], '')
-        break
-      default:
-        return false
-    }
-
-    return true
+    return that._storage.setItem(cookieName, cookieValue)
   },
   getCookie (that, tableName, cookieName) {
     if (!cookieName) {
@@ -96,64 +64,12 @@ const UtilsCookie = {
 
     cookieName = `${tableName}.${cookieName}`
 
-    switch (that.options.cookieStorage) {
-      case 'cookieStorage':
-        const value = `; ${document.cookie}`
-        const parts = value.split(`; ${cookieName}=`)
-
-        return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null
-      case 'localStorage':
-        return localStorage.getItem(cookieName)
-      case 'sessionStorage':
-        return sessionStorage.getItem(cookieName)
-      case 'customStorage':
-        if (
-          !that.options.cookieCustomStorageSet ||
-          !that.options.cookieCustomStorageGet ||
-          !that.options.cookieCustomStorageDelete
-        ) {
-          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
-        }
-
-        return Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageGet, [cookieName], '')
-      default:
-        return null
-    }
+    return that._storage.getItem(cookieName)
   },
   deleteCookie (that, cookieName) {
     cookieName = `${that.options.cookieIdTable}.${cookieName}`
 
-    switch (that.options.cookieStorage) {
-      case 'cookieStorage':
-        document.cookie = [
-          encodeURIComponent(cookieName), '=',
-          '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
-          that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
-          that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-          `;SameSite=${ that.options.cookieSameSite}`
-        ].join('')
-        break
-      case 'localStorage':
-        localStorage.removeItem(cookieName)
-        break
-      case 'sessionStorage':
-        sessionStorage.removeItem(cookieName)
-        break
-      case 'customStorage':
-        if (
-          !that.options.cookieCustomStorageSet ||
-          !that.options.cookieCustomStorageGet ||
-          !that.options.cookieCustomStorageDelete
-        ) {
-          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
-        }
-
-        Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageDelete, [cookieName], '')
-        break
-      default:
-        return false
-    }
-    return true
+    return that._storage.removeItem(cookieName)
   },
   calculateExpiration (cookieExpire) {
     const time = cookieExpire.replace(/[0-9]*/, '') // s,mi,h,d,m,y
@@ -278,7 +194,12 @@ $.extend($.fn.bootstrapTable.defaults, {
   cookieCustomStorageDelete: null,
   // internal variable
   _filterControls: [],
-  _filterControlValuesLoaded: false
+  _filterControlValuesLoaded: false,
+  _storage: {
+    setItem: undefined,
+    getItem: undefined,
+    removeItem: undefined
+  }
 })
 
 $.fn.bootstrapTable.methods.push('getCookies')
@@ -295,6 +216,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if (this.options.cookieStorage === 'cookieStorage' && !UtilsCookie.isCookieSupportedByBrowser()) {
         throw new Error('Cookies are not enabled in this browser.')
       }
+
+      this.configureStorage()
+
       // FilterBy logic
       const filterByCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy)
 
@@ -364,9 +288,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initTable (...args) {
     super.initTable(...args)
-    if (!this.options.cookie) {
-      return
-    }
     this.initCookie()
   }
 
@@ -445,7 +366,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   onSearch (event) {
-    super.onSearch(event, false)
+    super.onSearch(event, arguments.length > 1 ? arguments[1] : true)
     if (!this.options.cookie) {
       return
     }
@@ -558,5 +479,84 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds[cookieName])
+  }
+
+  configureStorage () {
+    const that = this
+
+    this._storage = {}
+    switch (this.options.cookieStorage) {
+      case 'cookieStorage':
+        this._storage.setItem = function (cookieName, cookieValue) {
+          document.cookie = [
+            cookieName, '=', encodeURIComponent(cookieValue),
+            `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
+            that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
+            that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
+            that.options.cookieSecure ? '; secure' : '',
+            `;SameSite=${ that.options.cookieSameSite}`
+          ].join('')
+        }
+        this._storage.getItem = function (cookieName) {
+          const value = `; ${document.cookie}`
+          const parts = value.split(`; ${cookieName}=`)
+
+          return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null
+        }
+        this._storage.removeItem = function (cookieName) {
+          document.cookie = [
+            encodeURIComponent(cookieName), '=',
+            '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
+            that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
+            that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
+            `;SameSite=${ that.options.cookieSameSite}`
+          ].join('')
+        }
+        break
+      case 'localStorage':
+        this._storage.setItem = function (cookieName, cookieValue) {
+          localStorage.setItem(cookieName, cookieValue)
+        }
+        this._storage.getItem = function (cookieName) {
+          return localStorage.getItem(cookieName)
+        }
+        this._storage.removeItem = function (cookieName) {
+          localStorage.removeItem(cookieName)
+        }
+        break
+      case 'sessionStorage':
+        this._storage.setItem = function (cookieName, cookieValue) {
+          sessionStorage.setItem(cookieName, cookieValue)
+        }
+        this._storage.getItem = function (cookieName) {
+          return sessionStorage.getItem(cookieName)
+        }
+        this._storage.removeItem = function (cookieName) {
+          sessionStorage.removeItem(cookieName)
+        }
+        break
+      case 'customStorage':
+        if (
+          !this.options.cookieCustomStorageSet ||
+          !this.options.cookieCustomStorageGet ||
+          !this.options.cookieCustomStorageDelete
+        ) {
+          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
+        }
+
+        this._storage.setItem = function (cookieName, cookieValue) {
+          Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageSet, [cookieName, cookieValue], '')
+        }
+        this._storage.getItem = function (cookieName) {
+          return Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageGet, [cookieName], '')
+        }
+        this._storage.removeItem = function (cookieName) {
+          Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageDelete, [cookieName], '')
+        }
+
+        break
+      default:
+        throw new Error('Storage method not supported.')
+    }
   }
 }
