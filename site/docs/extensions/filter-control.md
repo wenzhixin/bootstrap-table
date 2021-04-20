@@ -126,7 +126,11 @@ toc: true
 
 - **Detail:**
 
-   Set `input`: show an input control, `select`: show a select control, `multipleselect`: show an advance select control. This options has a dependency with [multiple-select](http://multiple-select.wenzhixin.net.cn/examples) library, `datepicker`: show a html5 datepicker control.
+   This options defines which kind of filter the column should have:
+   * `input`: show an input control
+   * `select`: show a select control
+   * `multipleselect`: show an advanced select control. This options has a dependency with [multiple-select](http://multiple-select.wenzhixin.net.cn/examples) library
+   * `datepicker`: show a html5 datepicker control.
 
 - **Default:** `undefined`
 
@@ -212,7 +216,7 @@ toc: true
 
 - **Detail:**
 
-   If the filterControlMultipleSelect option is set to true, use this option to configure the select as multiple select.
+   If the `filterControlMultipleSelect` option is set to `true`, use this option to configure the select as multiple select.
 
 - **Default:** `false`
 
