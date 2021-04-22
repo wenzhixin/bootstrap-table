@@ -1296,7 +1296,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 ## showButtonIcons
 
-- **Attribute:** `show-button-icons`
+- **Attribute:** `data-show-button-icons`
 
 - **Type:** `Boolean`
 
@@ -1310,7 +1310,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 ## showButtonText
 
-- **Attribute:** `show-button-text`
+- **Attribute:** `data-show-button-text`
 
 - **Type:** `Boolean`
 
@@ -1842,7 +1842,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 ## visibleSearch
 
-- **Attribute:** `visible-search`
+- **Attribute:** `data-visible-search`
 
 - **Type:** `Boolean`
 
