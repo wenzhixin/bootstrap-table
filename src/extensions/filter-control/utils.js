@@ -191,7 +191,15 @@ export function setValues (that) {
                 element.focus()
               }
 
-              element.value = cacheElementInfo.value
+              if (Array.isArray(cacheElementInfo.value)) {
+                const $element = $(element)
+
+                $.each(cacheElementInfo.value, function (i, e) {
+                  $element.find(Utils.sprintf('option[value=\'%s\']', e)).prop('selected', true)
+                })
+              } else {
+                element.value = cacheElementInfo.value
+              }
               setCaretPosition(element, cacheElementInfo.position)
             }
 
@@ -225,7 +233,7 @@ export function isFilterDataNotGiven ({ filterData }) {
 }
 
 export function hasSelectControlElement (selectControl) {
-  return selectControl && selectControl.length > 0 // && selectControl.get(selectControl.length - 1).options.length === 0
+  return selectControl && selectControl.length > 0
 }
 
 export function initFilterSelectControls (that) {

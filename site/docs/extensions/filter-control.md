@@ -6,6 +6,8 @@ group: extensions
 toc: true
 ---
 
+Dependence if you use the multipleSelect option: [multiple-select](https://multiple-select.wenzhixin.net.cn/) >= v1.5.2
+
 ## Usage
 
 {% highlight html %}
@@ -126,7 +128,7 @@ toc: true
 
 - **Detail:**
 
-   Set `input`: show an input control, `select`: show a select control, `multipleselect`: show an advance select control. This options has a dependency with [multiple-select](http://multiple-select.wenzhixin.net.cn/examples) library, `datepicker`: show a html5 datepicker control.
+   Set `input`: show an input control, `select`: show a select control, `datepicker`: show a html5 datepicker control.
 
 - **Default:** `undefined`
 
@@ -188,7 +190,7 @@ toc: true
 
 - **Detail:**
 
-   If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"property1":value1, "property2": value2, "property3": value3}'`.
+   If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"max":value1, "min": value2, "step": value3}'`. For more information visit this [documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)
 
 - **Default:** `undefined`
 
@@ -204,18 +206,6 @@ toc: true
 
 - **Default:** `false`
 
-### filterControlMultipleSelectMultiple
-
-- **Attribute:** `data-filter-multiple-select-multiple`
-
-- **type:** `boolean`
-
-- **Detail:**
-
-   If the filterControlMultipleSelect option is set to true, use this option to configure the select as multiple select.
-
-- **Default:** `false`
-
 ### filterMultipleSelectOptions
 
 - **Attribute:** `data-filter-multiple-select-options`
@@ -224,7 +214,7 @@ toc: true
 
 - **Detail:**
 
-   If the filterControlMultipleSelect option is set to true, use this option to configure the select with the native options. Use this way: `data-filter-multiple-select-options='{"property1":value1, "property2": value2, "property3": value3}'`.
+   If the filterControlMultipleSelect option is set to true, use this option to configure the select with the native options. Use this way: `data-filter-multiple-select-options='{"property1":value1, "property2": value2, "property3": value3}'`. See this [documentation](https://multiple-select.wenzhixin.net.cn/docs/en/options)
 
 - **Default:** `undefined`
 
