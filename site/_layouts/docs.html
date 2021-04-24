@@ -21,7 +21,20 @@
         {% endif %}
 
         <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content {{ page.group }}" role="main">
-          <h1 class="bd-title" id="content">{{ page.title | smartify }}</h1>
+          <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between">
+            <a class="btn btn-sm btn-bd-light mb-2 mb-md-0"
+              {% if page.group == 'faq' or page.group == 'online-editor' %}
+              href="{{ site.repo }}/blob/develop/site/docs/{{ page.name }}"
+              {% else %}
+              href="{{ site.repo }}/blob/develop/site/docs/{{ page.group }}/{{ page.name }}"
+              {% endif %}
+              title="View and edit this file on GitHub" target="_blank" rel="noopener">
+              View on GitHub
+            </a>
+            <h1 class="bd-title" id="content">
+              {{ page.title | smartify }}
+            </h1>
+          </div>
           <p class="bd-lead">{{ page.description | smartify }}</p>
           {% include ads.html %}
           {{ content }}

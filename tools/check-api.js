@@ -7,6 +7,7 @@ let errorSum = 0
 const exampleFilesFolder = './bootstrap-table-examples/'
 const exampleFilesFound = fs.existsSync(exampleFilesFolder)
 let exampleFiles = []
+
 if (exampleFilesFound) {
   exampleFiles = [
     ...fs.readdirSync(exampleFilesFolder + 'welcomes'),
@@ -38,6 +39,7 @@ class API {
     const outLines = lines.slice(0, 1)
     const errors = []
     const exampleRegex = /\[.*\]\(.*\/(.*\.html)\)/m
+    const attributeRegex = /\*\*Attribute:\*\*\s`(.*)data-(.*)`/m
 
     for (const item of lines.slice(1)) {
       md[item.split('\n')[0]] = item
@@ -52,6 +54,7 @@ class API {
 
           for (let i = 0; i < this.attributes.length; i++) {
             const name = this.attributes[i]
+
             if (this.ignore && this.ignore[key] && this.ignore[key].includes(name)) {
               continue
             }
@@ -66,6 +69,13 @@ class API {
 
               if (!exampleFiles.includes(matches[1])) {
                 errors.push(chalk.red(`[${key}] example '${matches[1]}' could not be found`))
+              }
+            } else if (name === 'Attribute' && key !== 'columns') {
+              const attributeMatches = attributeRegex.exec(tmpDetails)
+
+              if (!attributeMatches) {
+                errors.push(chalk.red(`[${key}] missing or wrong formatted attribute`, `"${tmpDetails}"`))
+                continue
               }
             }
 
