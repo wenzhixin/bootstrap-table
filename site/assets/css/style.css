@@ -1,3 +1,8 @@
+.btn-bd-light {
+  color: #6c757d;
+  border-color: #dee2e6;
+}
+
 .api h2 {
   margin-top: 4rem !important;
   margin-bottom: 2rem;
