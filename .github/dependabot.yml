@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "21:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: rollup-plugin-vue
+    versions:
+    - ">= 6.a, < 7"
+  - dependency-name: clean-css-cli
+    versions:
+    - 5.0.0
