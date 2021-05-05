@@ -509,11 +509,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     // sortOrder
-    this.options.sortOrder = sortOrderCookie ? sortOrderCookie : this.options.sortOrder
+    this.options.sortOrder = sortOrderCookie && !this.options.sortPriority ? sortOrderCookie : this.options.sortOrder
     // sortName
-    this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : this.options.sortName
+    this.options.sortName = sortOrderNameCookie && !this.options.sortPriority ? sortOrderNameCookie : this.options.sortName
     // sortPriority
-    this.options.sortPriority = sortPriorityCookie ? sortPriorityCookie : this.options.sortPriority
+    this.options.sortPriority = sortPriorityCookie && (!this.options.sortOrder || this.options.sortName) ? sortPriorityCookie : this.options.sortPriority
     // pageNumber
     this.options.pageNumber = pageNumberCookie ? +pageNumberCookie : this.options.pageNumber
     // pageSize
