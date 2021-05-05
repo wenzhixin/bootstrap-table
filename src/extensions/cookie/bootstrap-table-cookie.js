@@ -8,6 +8,7 @@ const UtilsCookie = {
   cookieIds: {
     sortOrder: 'bs.table.sortOrder',
     sortName: 'bs.table.sortName',
+    sortPriority: 'bs.table.sortPriority',
     pageNumber: 'bs.table.pageNumber',
     pageList: 'bs.table.pageList',
     columns: 'bs.table.columns',
@@ -275,7 +276,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   cookieSameSite: 'Lax',
   cookieIdTable: '',
   cookiesEnabled: [
-    'bs.table.sortOrder', 'bs.table.sortName',
+    'bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority',
     'bs.table.pageNumber', 'bs.table.pageList',
     'bs.table.columns', 'bs.table.searchText',
     'bs.table.filterControl', 'bs.table.filterBy',
@@ -386,6 +387,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName)
   }
 
+  onMultipleSort (...args) {
+    super.onMultipleSort(...args)
+
+    if (this.options.sortPriority === undefined) {
+      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
+      return
+    }
+
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, this.options.sortPriority)
+  }
+
   onPageNumber (...args) {
     super.onPageNumber(...args)
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
@@ -461,6 +473,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     const sortOrderCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
     const sortOrderNameCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
+    const sortPriorityCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
     const pageNumberCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageNumber)
     const pageListCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageList)
     const searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText)
@@ -483,6 +496,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.options.sortOrder = sortOrderCookie ? sortOrderCookie : this.options.sortOrder
     // sortName
     this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : this.options.sortName
+    // sortPriority
+    this.options.sortPriority = sortPriorityCookie ? sortPriorityCookie : this.options.sortPriority
     // pageNumber
     this.options.pageNumber = pageNumberCookie ? +pageNumberCookie : this.options.pageNumber
     // pageSize
