@@ -522,12 +522,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if(this.options.sortOrder || this.options.sortName){
       // sortPriority
-      this.options.sortPriority = undefined
+      this.options.sortPriority = null
     } else {
       // sortPriority
       this.options.sortPriority = sortPriorityCookie  ? sortPriorityCookie : this.options.sortPriority
     }
-    
+
     // pageNumber
     this.options.pageNumber = pageNumberCookie ? +pageNumberCookie : this.options.pageNumber
     // pageSize
