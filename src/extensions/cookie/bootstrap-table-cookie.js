@@ -381,6 +381,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
       return
+    } else {
+      this.options.sortPriority = undefined
+      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
     }
 
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder)
@@ -393,6 +396,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.sortPriority === undefined) {
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
       return
+    } else {
+      this.options.sortName = undefined
+      this.options.sortOrder = undefined
+      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
+      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
     }
 
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
