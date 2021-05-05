@@ -403,7 +403,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
     }
 
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
+    let priority = this.options.sortPriority
+
+    if (typeof priority !== "string") {
+      priority = JSON.stringify(priority)
+    }
+
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, priority)
   }
 
   onPageNumber (...args) {
