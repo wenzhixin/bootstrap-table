@@ -395,7 +395,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, this.options.sortPriority)
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
   }
 
   onPageNumber (...args) {
