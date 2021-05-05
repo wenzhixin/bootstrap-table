@@ -405,11 +405,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     let priority = this.options.sortPriority
 
-    if (typeof priority !== "string") {
-      priority = JSON.stringify(priority)
-    }
-
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, priority)
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
   }
 
   onPageNumber (...args) {
@@ -487,7 +483,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     const sortOrderCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
     const sortOrderNameCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
-    const sortPriorityCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
+    let   sortPriorityCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
     const pageNumberCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageNumber)
     const pageListCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageList)
     const searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText)
@@ -504,6 +500,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       columnsCookie = JSON.parse(columnsCookieValue)
     } catch (e) {
       throw new Error('Could not parse the json of the columns cookie!', columnsCookieValue)
+    }
+
+    try {
+      sortPriorityCookie = JSON.parse(sortPriorityCookie)
+    } catch (e) {
+      throw new Error('Could not parse the json of the sortPriority cookie!', sortPriorityCookie)
     }
 
     // sortOrder
