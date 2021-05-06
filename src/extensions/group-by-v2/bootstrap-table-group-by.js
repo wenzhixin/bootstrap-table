@@ -21,10 +21,12 @@ const groupBy = (array, f) => {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   collapseGroup: {
     bootstrap3: 'glyphicon-chevron-up',
+    bootstrap5: 'bi-chevron-up',
     materialize: 'arrow_drop_down'
   }[$.fn.bootstrapTable.theme] || 'fa-angle-up',
   expandGroup: {
     bootstrap3: 'glyphicon-chevron-down',
+    bootstrap5: 'bi-chevron-down',
     materialize: 'arrow_drop_up'
   }[$.fn.bootstrapTable.theme] || 'fa-angle-down'
 })
