@@ -1,10 +1,11 @@
-**Bug fix?**
-<!-- yes/no -->
+**Type of Request**
+- [ ] **Bug fix**
+- [ ] **New feature**
+- [ ] **Improvement**
+- [ ] **Documentation**
+- [ ] **Other**
 
-**New Feature?**
-<!-- yes/no -->
-
-**Resolve an issue?**
+**Resolves an issue?**
 <!-- Please prefix each issue number with  "Fix #"  (e.g. Fix #200)  -->
 
 **Example(s)?**
