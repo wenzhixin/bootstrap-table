@@ -504,24 +504,24 @@ $.BootstrapTable = class extends $.BootstrapTable {
       throw new Error('Could not parse the json of the sortPriority cookie!', sortPriorityCookie)
     }
 
+    // sortOrder
+    this.options.sortOrder = undefined
+    // sortName
+    this.options.sortName = undefined
+
     if (!sortPriorityCookie) {
       // sortOrder
       this.options.sortOrder = sortOrderCookie ? sortOrderCookie : this.options.sortOrder
       // sortName
       this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : this.options.sortName
-    } else {
-      // sortOrder
-      this.options.sortOrder = undefined
-      // sortName
-      this.options.sortName = undefined
     }
+
+    // sortPriority
+    this.options.sortPriority = sortPriorityCookie ? sortPriorityCookie : this.options.sortPriority
 
     if (this.options.sortOrder || this.options.sortName) {
       // sortPriority
       this.options.sortPriority = null
-    } else {
-      // sortPriority
-      this.options.sortPriority = sortPriorityCookie ? sortPriorityCookie : this.options.sortPriority
     }
 
     // pageNumber
