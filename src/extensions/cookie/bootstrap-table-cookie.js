@@ -399,8 +399,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.sortOrder = undefined
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
-	  
-	  UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
+      
+      UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
     }
   }
 
@@ -504,9 +504,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       throw new Error('Could not parse the json of the sortPriority cookie!', sortPriorityCookie)
     }
 
-    if (!sortPriorityCookie){
+    if (!sortPriorityCookie) {
       // sortOrder
-      this.options.sortOrder = sortOrderCookie  ? sortOrderCookie : this.options.sortOrder
+      this.options.sortOrder = sortOrderCookie ? sortOrderCookie : this.options.sortOrder
       // sortName
       this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : this.options.sortName
     } else {
@@ -516,7 +516,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.sortName = undefined
     }
 
-    if (this.options.sortOrder || this.options.sortName){
+    if (this.options.sortOrder || this.options.sortName) {
       // sortPriority
       this.options.sortPriority = null
     } else {
