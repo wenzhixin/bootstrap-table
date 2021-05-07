@@ -380,14 +380,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.sortName === undefined || this.options.sortOrder === undefined) {
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
-      return
     } else {
       this.options.sortPriority = null
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
-    }
 
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder)
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName)
+      UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder)
+      UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName)
+    }
   }
 
   onMultipleSort (...args) {
@@ -395,17 +394,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (this.options.sortPriority === undefined) {
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
-      return
     } else {
       this.options.sortName = undefined
       this.options.sortOrder = undefined
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
+	  
+	  UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
     }
-
-    let priority = this.options.sortPriority
-
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
   }
 
   onPageNumber (...args) {
@@ -483,7 +479,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     const sortOrderCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
     const sortOrderNameCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
-    let   sortPriorityCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
+    let sortPriorityCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
     const pageNumberCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageNumber)
     const pageListCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageList)
     const searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText)
@@ -508,24 +504,24 @@ $.BootstrapTable = class extends $.BootstrapTable {
       throw new Error('Could not parse the json of the sortPriority cookie!', sortPriorityCookie)
     }
 
-    if(!sortPriorityCookie){
+    if (!sortPriorityCookie){
       // sortOrder
       this.options.sortOrder = sortOrderCookie  ? sortOrderCookie : this.options.sortOrder
       // sortName
       this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : this.options.sortName
     } else {
-       // sortOrder
-       this.options.sortOrder = undefined
-       // sortName
-       this.options.sortName = undefined
+      // sortOrder
+      this.options.sortOrder = undefined
+      // sortName
+      this.options.sortName = undefined
     }
 
-    if(this.options.sortOrder || this.options.sortName){
+    if (this.options.sortOrder || this.options.sortName){
       // sortPriority
       this.options.sortPriority = null
     } else {
       // sortPriority
-      this.options.sortPriority = sortPriorityCookie  ? sortPriorityCookie : this.options.sortPriority
+      this.options.sortPriority = sortPriorityCookie ? sortPriorityCookie : this.options.sortPriority
     }
 
     // pageNumber
