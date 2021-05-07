@@ -399,7 +399,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.sortOrder = undefined
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
-      
+
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
     }
   }
