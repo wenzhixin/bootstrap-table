@@ -76,11 +76,11 @@ This extension adds the ability to create a custom view to display the data.
 
 ## Events
 
-### onCustomViewPostBody(custom-view-post-body.bs.table)
+### onCustomViewPreBody(custom-view-pre-body.bs.table)
 
 * Fires before the custom view was rendered.
 
-### onCustomViewPreBody(custom-view-pre-body.bs.table)
+### onCustomViewPostBody(custom-view-post-body.bs.table)
 
 * Fires after the custom view was rendered.
 

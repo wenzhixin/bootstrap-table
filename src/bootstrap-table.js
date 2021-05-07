@@ -391,16 +391,6 @@ class BootstrapTable {
       }
     })
 
-    this.$header.children().children().off('keypress').on('keypress', e => {
-      if (this.options.sortable && $(e.currentTarget).data().sortable) {
-        const code = e.keyCode || e.which
-
-        if (code === 13) { // Enter keycode
-          this.onSort(e)
-        }
-      }
-    })
-
     const resizeEvent = Utils.getEventName('resize.bootstrap-table', this.$el.attr('id'))
 
     $(window).off(resizeEvent)
@@ -1951,6 +1941,12 @@ class BootstrapTable {
         }
       },
       error: jqXHR => {
+        // abort ajax by multiple request
+        if (jqXHR && jqXHR.status === 0 && this._xhrAbort) {
+          this._xhrAbort = false
+          return
+        }
+
         let data = []
 
         if (this.options.sidePagination === 'server') {
@@ -1968,6 +1964,7 @@ class BootstrapTable {
       Utils.calculateObjectValue(this, this.options.ajax, [request], null)
     } else {
       if (this._xhr && this._xhr.readyState !== 4) {
+        this._xhrAbort = true
         this._xhr.abort()
       }
       this._xhr = $.ajax(request)
