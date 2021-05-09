@@ -12,7 +12,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   plus: {
     bootstrap3: 'glyphicon-plus',
     bootstrap4: 'fa-plus',
-    bootstrap5: 'fa-plus',
+    bootstrap5: 'bi-plus',
     semantic: 'fa-plus',
     materialize: 'plus',
     foundation: 'fa-plus',
@@ -22,7 +22,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   minus: {
     bootstrap3: 'glyphicon-minus',
     bootstrap4: 'fa-minus',
-    bootstrap5: 'fa-minus',
+    bootstrap5: 'bi-dash',
     semantic: 'fa-minus',
     materialize: 'minus',
     foundation: 'fa-minus',
@@ -32,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   sort: {
     bootstrap3: 'glyphicon-sort',
     bootstrap4: 'fa-sort',
-    bootstrap5: 'fa-sort',
+    bootstrap5: 'bi-arrow-down-up',
     semantic: 'fa-sort',
     materialize: 'sort',
     foundation: 'fa-sort',

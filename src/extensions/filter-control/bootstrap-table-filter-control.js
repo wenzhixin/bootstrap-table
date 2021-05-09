@@ -70,15 +70,14 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
-  clear: {
-    bootstrap3: 'glyphicon-trash icon-clear'
-  }[$.fn.bootstrapTable.theme] || 'fa-trash',
   filterControlSwitchHide: {
     bootstrap3: 'glyphicon-zoom-out icon-zoom-out',
+    bootstrap5: 'bi-zoom-out',
     materialize: 'zoom_out'
   }[$.fn.bootstrapTable.theme] || 'fa-search-minus',
   filterControlSwitchShow: {
     bootstrap3: 'glyphicon-zoom-in icon-zoom-in',
+    bootstrap5: 'bi-zoom-in',
     materialize: 'zoom_in'
   }[$.fn.bootstrapTable.theme] || 'fa-search-plus'
 })
