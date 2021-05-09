@@ -2813,7 +2813,7 @@
       }
     },
     5: {
-      iconsPrefix: 'bi',
+      iconsPrefix: 'fa',
       icons: {
         paginationSwitchDown: 'fa-caret-square-down',
         paginationSwitchUp: 'fa-caret-square-up',
