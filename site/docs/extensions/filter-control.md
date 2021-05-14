@@ -196,7 +196,7 @@ Dependence if you use the multipleSelect option: [multiple-select](https://multi
 
 ### filterControlMultipleSelect
 
-- **Attribute:** `data-filter-multiple-select`
+- **Attribute:** `data-filter-control-multiple-select`
 
 - **type:** `boolean`
 
