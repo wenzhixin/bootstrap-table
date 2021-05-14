@@ -120,19 +120,19 @@ const CONSTANTS = {
     }
   },
   5: {
-    iconsPrefix: 'fa',
+    iconsPrefix: 'bi',
     icons: {
-      paginationSwitchDown: 'fa-caret-square-down',
-      paginationSwitchUp: 'fa-caret-square-up',
-      refresh: 'fa-sync',
-      toggleOff: 'fa-toggle-off',
-      toggleOn: 'fa-toggle-on',
-      columns: 'fa-th-list',
-      detailOpen: 'fa-plus',
-      detailClose: 'fa-minus',
-      fullscreen: 'fa-arrows-alt',
-      search: 'fa-search',
-      clearSearch: 'fa-trash'
+      paginationSwitchDown: 'bi-caret-down-square',
+      paginationSwitchUp: 'bi-caret-up-square',
+      refresh: 'bi-arrow-clockwise',
+      toggleOff: 'bi-toggle-off',
+      toggleOn: 'bi-toggle-on',
+      columns: 'bi-list-ul',
+      detailOpen: 'bi-plus',
+      detailClose: 'bi-dash',
+      fullscreen: 'bi-arrows-move',
+      search: 'bi-search',
+      clearSearch: 'bi-trash'
     },
     classes: {
       buttonsPrefix: 'btn',

@@ -43,6 +43,7 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   export: {
     bootstrap3: 'glyphicon-export icon-share',
+    bootstrap5: 'bi-download',
     materialize: 'file_download',
     'bootstrap-table': 'icon-download'
   }[$.fn.bootstrapTable.theme] || 'fa-download'

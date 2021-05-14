@@ -14,6 +14,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   customView: {
     bootstrap3: 'glyphicon glyphicon-eye-open',
+    bootstrap5: 'bi-eye',
     bootstrap4: 'fa fa-eye',
     semantic: 'fa fa-eye',
     foundation: 'fa fa-eye',
