@@ -1375,6 +1375,9 @@ class BootstrapTable {
   }
 
   onPagePre (event) {
+    if ($(event.target).hasClass('disabled')) {
+      return
+    }
     event.preventDefault()
     if ((this.options.pageNumber - 1) === 0) {
       this.options.pageNumber = this.options.totalPages
@@ -1386,6 +1389,9 @@ class BootstrapTable {
   }
 
   onPageNext (event) {
+    if ($(event.target).hasClass('disabled')) {
+      return
+    }
     event.preventDefault()
     if ((this.options.pageNumber + 1) > this.options.totalPages) {
       this.options.pageNumber = 1
