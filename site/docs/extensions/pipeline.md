@@ -1,6 +1,10 @@
-# Bootstrap Table Pipelining
-
-Use Plugin: [bootstrap-table-pipeline]
+---
+layout: docs
+title: Table Pipeline
+description: Table Pipeline extension of Bootstrap Table.
+group: extensions
+toc: true
+---
 
 This plugin enables client side data caching for server side requests which will
 eliminate the need to issue a new request every page change. This will allow
@@ -42,22 +46,24 @@ There are two new events:
 - cached-data-hit.bs.table: issued when cached data is used on a page change
 - cached-data-reset.bs.table: issued when the cached data is invalidated and new server side request is issued
 
-## Features
+## Usage
 
-* Created with Bootstrap 4
+{% highlight html %}
+<script src="extensions/pipeline/bootstrap-table-pipeline.js"></script>
+{% endhighlight %}
 
 ## Usage
 
-```
-<script src="extensions/pipeline/bootstrap-table-pipeline.js"></script>
-```
+## Example
+
+[Pipeline](https://examples.bootstrap-table.com/#extensions/pipeline.html)
 
 ## Options
 
 ## pipelineSize
 
-* type: Integer
-* description: Size of each cache window. Must be greater than 0
+* type: Number
+* description: Size of each cache window. Must be greater than 0.
 * default: `1000`
 
 ### usePipeline
