@@ -42,7 +42,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   Export data type, support: 'basic', 'all', 'selected'.
+   Export data type, support: `'basic'`, `'all'`, `'selected'`.
 
 - **Default:** `basic`
 
