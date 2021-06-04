@@ -30,7 +30,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   set `true` to show export button.
+   Set `true` to show export button.
 
 - **Default:** `false`
 
@@ -42,7 +42,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   export data type, support: 'basic', 'all', 'selected'.
+   Export data type, support: 'basic', 'all', 'selected'.
 
 - **Default:** `basic`
 
@@ -54,7 +54,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   set `true` to export the table footer.
+   Set `true` to export the table footer.
 
 - **Default:** `false`
 
@@ -66,7 +66,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
+   Export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
 
    `exportOptions.fileName` can be a string or a function, for example:
 
@@ -86,7 +86,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   export types, support types: 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'.
+   Export types, support types: `['json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf']`.
 
 - **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
 
