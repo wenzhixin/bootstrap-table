@@ -62,7 +62,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 $.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined, // input, select, datepicker
   filterControlMultipleSelect: false,
-  filterMultipleSelectOptions: {},
+  filterControlMultipleSelectOptions: {},
   filterDataCollector: undefined,
   filterData: undefined,
   filterDatepickerOptions: {},
@@ -147,7 +147,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
               const multipleSelects = container.find('.fc-multipleselect')
 
               if (multipleSelects.length > 0 && $.fn.multipleSelect) {
-                multipleSelects.multipleSelect('destroy').multipleSelect(this.options.filterMultipleSelectOptions)
+                multipleSelects.multipleSelect('destroy').multipleSelect(this.options.filterControlMultipleSelectOptions)
               }
             }, 2)
           }, 2)

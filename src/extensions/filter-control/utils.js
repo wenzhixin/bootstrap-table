@@ -244,7 +244,7 @@ export function initFilterSelectControls (that) {
     const selectControl = getControlContainer(that).find(`select.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
     if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
-      if (selectControl.get(selectControl.length - 1).options.length === 0) {
+      if (!selectControl[0].multiple && selectControl.get(selectControl.length - 1).options.length === 0) {
         // Added the default option, must use a non-breaking space(&nbsp;) to pass the W3C validator
         addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || '&nbsp;', column.filterDefault)
       }
