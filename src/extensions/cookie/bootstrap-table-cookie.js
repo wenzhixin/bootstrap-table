@@ -35,135 +35,42 @@ const UtilsCookie = {
 
     return searchControls
   },
-  cookieEnabled () {
+  isCookieSupportedByBrowser () {
     return !!(navigator.cookieEnabled)
   },
-  inArrayCookiesEnabled (cookieName, cookiesEnabled) {
-    let index = -1
-
-    for (let i = 0; i < cookiesEnabled.length; i++) {
-      if (cookieName.toLowerCase() === cookiesEnabled[i].toLowerCase()) {
-        index = i
-        break
-      }
-    }
-
-    return index
+  isCookieEnabled (that, cookieName) {
+    return that.options.cookiesEnabled.indexOf(cookieName) !== -1
   },
   setCookie (that, cookieName, cookieValue) {
-    if ((!that.options.cookie) || (!UtilsCookie.cookieEnabled()) || (that.options.cookieIdTable === '')) {
+    if (!that.options.cookie) {
       return
     }
 
-    if (UtilsCookie.inArrayCookiesEnabled(cookieName, that.options.cookiesEnabled) === -1) {
+    if (!UtilsCookie.isCookieEnabled(that, cookieName)) {
       return
     }
 
     cookieName = `${that.options.cookieIdTable}.${cookieName}`
 
-    switch (that.options.cookieStorage) {
-      case 'cookieStorage':
-        document.cookie = [
-          cookieName, '=', encodeURIComponent(cookieValue),
-          `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
-          that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
-          that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-          that.options.cookieSecure ? '; secure' : '',
-          `;SameSite=${ that.options.cookieSameSite}`
-        ].join('')
-        break
-      case 'localStorage':
-        localStorage.setItem(cookieName, cookieValue)
-        break
-      case 'sessionStorage':
-        sessionStorage.setItem(cookieName, cookieValue)
-        break
-      case 'customStorage':
-        if (
-          !that.options.cookieCustomStorageSet ||
-          !that.options.cookieCustomStorageGet ||
-          !that.options.cookieCustomStorageDelete
-        ) {
-          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
-        }
-
-        Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageSet, [cookieName, cookieValue], '')
-        break
-      default:
-        return false
-    }
-
-    return true
+    return that._storage.setItem(cookieName, cookieValue)
   },
   getCookie (that, tableName, cookieName) {
     if (!cookieName) {
       return null
     }
 
-    if (UtilsCookie.inArrayCookiesEnabled(cookieName, that.options.cookiesEnabled) === -1) {
+    if (!UtilsCookie.isCookieEnabled(that, cookieName)) {
       return null
     }
 
     cookieName = `${tableName}.${cookieName}`
 
-    switch (that.options.cookieStorage) {
-      case 'cookieStorage':
-        const value = `; ${document.cookie}`
-        const parts = value.split(`; ${cookieName}=`)
-
-        return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null
-      case 'localStorage':
-        return localStorage.getItem(cookieName)
-      case 'sessionStorage':
-        return sessionStorage.getItem(cookieName)
-      case 'customStorage':
-        if (
-          !that.options.cookieCustomStorageSet ||
-          !that.options.cookieCustomStorageGet ||
-          !that.options.cookieCustomStorageDelete
-        ) {
-          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
-        }
-
-        return Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageGet, [cookieName], '')
-      default:
-        return null
-    }
+    return that._storage.getItem(cookieName)
   },
-  deleteCookie (that, tableName, cookieName) {
-    cookieName = `${tableName}.${cookieName}`
+  deleteCookie (that, cookieName) {
+    cookieName = `${that.options.cookieIdTable}.${cookieName}`
 
-    switch (that.options.cookieStorage) {
-      case 'cookieStorage':
-        document.cookie = [
-          encodeURIComponent(cookieName), '=',
-          '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
-          that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
-          that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-          `;SameSite=${ that.options.cookieSameSite}`
-        ].join('')
-        break
-      case 'localStorage':
-        localStorage.removeItem(cookieName)
-        break
-      case 'sessionStorage':
-        sessionStorage.removeItem(cookieName)
-        break
-      case 'customStorage':
-        if (
-          !that.options.cookieCustomStorageSet ||
-          !that.options.cookieCustomStorageGet ||
-          !that.options.cookieCustomStorageDelete
-        ) {
-          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
-        }
-
-        Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageDelete, [cookieName], '')
-        break
-      default:
-        return false
-    }
-    return true
+    return that._storage.removeItem(cookieName)
   },
   calculateExpiration (cookieExpire) {
     const time = cookieExpire.replace(/[0-9]*/, '') // s,mi,h,d,m,y
@@ -205,7 +112,7 @@ const UtilsCookie = {
     setTimeout(() => {
       const parsedCookieFilters = JSON.parse(UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
 
-      if (!bootstrapTable.options.filterControlValuesLoaded && parsedCookieFilters) {
+      if (!bootstrapTable._filterControlValuesLoaded && parsedCookieFilters) {
 
         const cachedFilters = {}
         const header = UtilsCookie.getCurrentHeader(bootstrapTable)
@@ -227,6 +134,7 @@ const UtilsCookie = {
               element.value = cookie.text
               cachedFilters[cookie.field] = cookie.text
             } else if (cookie.text !== '' && element.tagName === 'SELECT') {
+              cachedFilters[cookie.field] = cookie.text
               for (let i = 0; i < element.length; i++) {
                 const currentElement = element[i]
 
@@ -241,7 +149,6 @@ const UtilsCookie = {
               option.text = cookie.text
               element.add(option, element[1])
               element.selectedIndex = 1
-              cachedFilters[cookie.field] = cookie.text
             }
           })
         }
@@ -260,7 +167,7 @@ const UtilsCookie = {
         })
 
         bootstrapTable.initColumnSearch(cachedFilters)
-        bootstrapTable.options.filterControlValuesLoaded = true
+        bootstrapTable._filterControlValuesLoaded = true
         bootstrapTable.initServer()
       }
     }, 250)
@@ -287,8 +194,13 @@ $.extend($.fn.bootstrapTable.defaults, {
   cookieCustomStorageSet: null,
   cookieCustomStorageDelete: null,
   // internal variable
-  filterControls: [],
-  filterControlValuesLoaded: false
+  _filterControls: [],
+  _filterControlValuesLoaded: false,
+  _storage: {
+    setItem: undefined,
+    getItem: undefined,
+    removeItem: undefined
+  }
 })
 
 $.fn.bootstrapTable.methods.push('getCookies')
@@ -302,6 +214,12 @@ $.extend($.fn.bootstrapTable.utils, {
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
     if (this.options.cookie) {
+      if (this.options.cookieStorage === 'cookieStorage' && !UtilsCookie.isCookieSupportedByBrowser()) {
+        throw new Error('Cookies are not enabled in this browser.')
+      }
+
+      this.configureStorage()
+
       // FilterBy logic
       const filterByCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy)
 
@@ -319,8 +237,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.filterColumns = filterByCookie ? filterByCookie : {}
 
       // FilterControl logic
-      this.options.filterControls = []
-      this.options.filterControlValuesLoaded = false
+      this._filterControls = []
+      this._filterControlValuesLoaded = false
 
       this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
         this.options.cookiesEnabled.replace('[', '').replace(']', '')
@@ -333,21 +251,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.$el.on('column-search.bs.table', (e, field, text) => {
           let isNewField = true
 
-          for (let i = 0; i < that.options.filterControls.length; i++) {
-            if (that.options.filterControls[i].field === field) {
-              that.options.filterControls[i].text = text
+          for (let i = 0; i < that._filterControls.length; i++) {
+            if (that._filterControls[i].field === field) {
+              that._filterControls[i].text = text
               isNewField = false
               break
             }
           }
           if (isNewField) {
-            that.options.filterControls.push({
+            that._filterControls.push({
               field,
               text
             })
           }
 
-          UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that.options.filterControls))
+          UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that._filterControls))
         }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(that))
       }
     }
@@ -358,7 +276,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (
       this.options.cookie &&
       this.options.filterControl &&
-      !this.options.filterControlValuesLoaded
+      !this._filterControlValuesLoaded
     ) {
       const cookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
 
@@ -376,6 +294,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   onSort (...args) {
     super.onSort(...args)
+
+    if (!this.options.cookie) {
+      return
+    }
 
     if (this.options.sortName === undefined || this.options.sortOrder === undefined) {
       UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
@@ -406,44 +328,66 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   onPageNumber (...args) {
     super.onPageNumber(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
   onPageListChange (...args) {
     super.onPageListChange(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList, this.options.pageSize)
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
   onPagePre (...args) {
     super.onPagePre(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
   onPageNext (...args) {
     super.onPageNext(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
   _toggleColumn (...args) {
     super._toggleColumn(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(column => column.field)))
   }
 
   _toggleAllColumns (...args) {
     super._toggleAllColumns(...args)
-
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(column => column.field)))
   }
 
   selectPage (page) {
     super.selectPage(page)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, page)
   }
 
   onSearch (event) {
-    super.onSearch(event)
-
+    super.onSearch(event, arguments.length > 1 ? arguments[1] : true)
+    if (!this.options.cookie) {
+      return
+    }
     if (this.options.search) {
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText)
     }
@@ -451,7 +395,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initHeader (...args) {
-    if (this.options.reorderableColumns) {
+    if (this.options.reorderableColumns && this.options.cookie) {
       this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.reorderColumns))
     }
     super.initHeader(...args)
@@ -463,6 +407,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   filterBy (...args) {
     super.filterBy(...args)
+    if (!this.options.cookie) {
+      return
+    }
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.filterBy, JSON.stringify(this.filterColumns))
   }
 
@@ -471,7 +418,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    if ((this.options.cookieIdTable === '') || (this.options.cookieExpire === '') || (!UtilsCookie.cookieEnabled())) {
+    if ((this.options.cookieIdTable === '') || (this.options.cookieExpire === '')) {
       console.error('Configuration error. Please review the cookieIdTable and the cookieExpire property. If the properties are correct, then this browser does not support cookies.')
       this.options.cookie = false // Make sure that the cookie extension is disabled
       return
@@ -529,7 +476,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // pageSize
     this.options.pageSize = pageListCookie ? pageListCookie === this.options.formatAllRows() ? pageListCookie : +pageListCookie : this.options.pageSize
     // searchText
-    this.options.searchText = searchTextCookie ? searchTextCookie : ''
+    if (UtilsCookie.isCookieEnabled(this, 'bs.table.searchText') && this.options.searchText === '') {
+      this.options.searchText = searchTextCookie ? searchTextCookie : ''
+    }
 
     if (columnsCookie) {
       for (const column of this.columns) {
@@ -566,10 +515,89 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   deleteCookie (cookieName) {
-    if ((cookieName === '') || (!UtilsCookie.cookieEnabled())) {
+    if (!cookieName) {
       return
     }
 
-    UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds[cookieName])
+    UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds[cookieName])
+  }
+
+  configureStorage () {
+    const that = this
+
+    this._storage = {}
+    switch (this.options.cookieStorage) {
+      case 'cookieStorage':
+        this._storage.setItem = function (cookieName, cookieValue) {
+          document.cookie = [
+            cookieName, '=', encodeURIComponent(cookieValue),
+            `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
+            that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
+            that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
+            that.options.cookieSecure ? '; secure' : '',
+            `;SameSite=${ that.options.cookieSameSite}`
+          ].join('')
+        }
+        this._storage.getItem = function (cookieName) {
+          const value = `; ${document.cookie}`
+          const parts = value.split(`; ${cookieName}=`)
+
+          return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null
+        }
+        this._storage.removeItem = function (cookieName) {
+          document.cookie = [
+            encodeURIComponent(cookieName), '=',
+            '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
+            that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
+            that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
+            `;SameSite=${ that.options.cookieSameSite}`
+          ].join('')
+        }
+        break
+      case 'localStorage':
+        this._storage.setItem = function (cookieName, cookieValue) {
+          localStorage.setItem(cookieName, cookieValue)
+        }
+        this._storage.getItem = function (cookieName) {
+          return localStorage.getItem(cookieName)
+        }
+        this._storage.removeItem = function (cookieName) {
+          localStorage.removeItem(cookieName)
+        }
+        break
+      case 'sessionStorage':
+        this._storage.setItem = function (cookieName, cookieValue) {
+          sessionStorage.setItem(cookieName, cookieValue)
+        }
+        this._storage.getItem = function (cookieName) {
+          return sessionStorage.getItem(cookieName)
+        }
+        this._storage.removeItem = function (cookieName) {
+          sessionStorage.removeItem(cookieName)
+        }
+        break
+      case 'customStorage':
+        if (
+          !this.options.cookieCustomStorageSet ||
+          !this.options.cookieCustomStorageGet ||
+          !this.options.cookieCustomStorageDelete
+        ) {
+          throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
+        }
+
+        this._storage.setItem = function (cookieName, cookieValue) {
+          Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageSet, [cookieName, cookieValue], '')
+        }
+        this._storage.getItem = function (cookieName) {
+          return Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageGet, [cookieName], '')
+        }
+        this._storage.removeItem = function (cookieName) {
+          Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageDelete, [cookieName], '')
+        }
+
+        break
+      default:
+        throw new Error('Storage method not supported.')
+    }
   }
 }
