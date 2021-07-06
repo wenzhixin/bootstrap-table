@@ -909,7 +909,7 @@ class BootstrapTable {
         $(currentTarget).val(text)
       }
 
-      if (this.searchText === text) {
+      if (this.searchText === text && !currentTarget.classList.contains('date-filter-control')) {
         return
       }
 
