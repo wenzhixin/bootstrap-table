@@ -1714,6 +1714,7 @@ class BootstrapTable {
         callback: () => {
           this.fitHeader()
           this.initBodyEvent()
+          this.updateSelected()
         }
       })
     }
@@ -2000,6 +2001,10 @@ class BootstrapTable {
   }
 
   updateSelected () {
+    if (!this.$selectItem.length) {
+      return
+    }
+
     const checkAll = this.$selectItem.filter(':enabled').length &&
       this.$selectItem.filter(':enabled').length ===
       this.$selectItem.filter(':enabled').filter(':checked').length
@@ -2815,6 +2820,13 @@ class BootstrapTable {
     this.$selectItem.filter(':enabled').prop('checked', checked)
     this.updateRows()
     this.updateSelected()
+
+    if (this.options.virtualScroll) {
+      for (const row of this.data) {
+        row[this.header.stateField] = checked
+      }
+      this.initBody(true)
+    }
 
     const rowsAfter = this.getSelections()
 
