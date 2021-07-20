@@ -209,6 +209,7 @@
         position: absolute;
         bottom: 0;
         width: 100%;
+        max-width: 100%;
         z-index: 1000;
         transition: visibility 0s, opacity 0.15s ease-in-out;
         opacity: 0;

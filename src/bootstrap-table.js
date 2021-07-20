@@ -1375,6 +1375,9 @@ class BootstrapTable {
   }
 
   onPagePre (event) {
+    if ($(event.target).hasClass('disabled')) {
+      return
+    }
     event.preventDefault()
     if ((this.options.pageNumber - 1) === 0) {
       this.options.pageNumber = this.options.totalPages
@@ -1386,6 +1389,9 @@ class BootstrapTable {
   }
 
   onPageNext (event) {
+    if ($(event.target).hasClass('disabled')) {
+      return
+    }
     event.preventDefault()
     if ((this.options.pageNumber + 1) > this.options.totalPages) {
       this.options.pageNumber = 1
@@ -1567,7 +1573,7 @@ class BootstrapTable {
           this.options.undefinedText : value
       }
 
-      if (column.searchable && this.searchText && this.options.searchHighlight) {
+      if (column.searchable && this.searchText && this.options.searchHighlight && !(column.checkbox || column.radio)) {
         let defValue = ''
         const regExp = new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim')
         const marker = '<mark>$1</mark>'
