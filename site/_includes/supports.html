@@ -42,7 +42,7 @@
           :title="'$' + support.totalDonations + ' by ' + support.name || support.slug"
           class="support-item"
           target="_blank"
-          rel="nofollow"
+          :rel="support.rel || 'nofollow'"
         >
           <img
             :class="rank.title"
