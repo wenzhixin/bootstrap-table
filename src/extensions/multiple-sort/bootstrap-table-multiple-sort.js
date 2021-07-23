@@ -665,7 +665,7 @@ BootstrapTable.prototype.initToolbar = function (...args) {
 
         that.assignSortableArrows()
       }
-      
+
       that.$sortModal.remove()
       showSortModal(that)
     })
