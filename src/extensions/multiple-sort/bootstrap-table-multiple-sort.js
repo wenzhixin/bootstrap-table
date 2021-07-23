@@ -656,13 +656,16 @@ BootstrapTable.prototype.initToolbar = function (...args) {
     })
 
     this.$el.on('column-switch.bs.table', (field, checked) => {
-      for (let i = 0; i < that.options.sortPriority.length; i++) {
-        if (that.options.sortPriority[i].sortName === checked) {
-          that.options.sortPriority.splice(i, 1)
+      if (that.options.sortPriority !== null && that.options.sortPriority.length > 0) {
+        for (let i = 0; i < that.options.sortPriority.length; i++) {
+          if (that.options.sortPriority[i].sortName === checked) {
+            that.options.sortPriority.splice(i, 1)
+          }
         }
-      }
 
-      that.assignSortableArrows()
+        that.assignSortableArrows()
+      }
+      
       that.$sortModal.remove()
       showSortModal(that)
     })
