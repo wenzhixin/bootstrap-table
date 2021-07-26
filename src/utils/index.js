@@ -193,6 +193,25 @@ export default {
     return true
   },
 
+  regexCompare (value, search) {
+    try {
+      const regexpParts = search.match(/^\/(.*?)\/([gim]*)$/)
+      let regex
+
+      if (regexpParts) {
+        regex = new RegExp(regexpParts[1], regexpParts[2])
+      } else {
+        regex = new RegExp(search)
+      }
+
+      if (value.toString().search(regex) !== -1) {
+        return true
+      }
+    } catch (e) {
+      return false
+    }
+  },
+
   escapeHTML (text) {
     if (typeof text === 'string') {
       return text
