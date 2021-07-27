@@ -1089,7 +1089,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Default:** `false`
 
-- **Example:** [Remember Order](https://examples.bootstrap-table.com/#options/regex-search.html)
+- **Example:** [Regex Search](https://examples.bootstrap-table.com/#options/regex-search.html)
 
 ## rememberOrder
 
