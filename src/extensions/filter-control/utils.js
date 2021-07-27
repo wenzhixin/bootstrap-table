@@ -174,9 +174,9 @@ export function setValues (that) {
   }
 }
 
-export function collectBootstrapCookies () {
+export function collectBootstrapTableFilterCookies () {
   const cookies = []
-  const foundCookies = document.cookie.match(/(?:bs.table.)(\w*)/g)
+  const foundCookies = document.cookie.match(/bs\.table\.(filterControl|searchText)/g)
   const foundLocalStorage = localStorage
 
   if (foundCookies) {
