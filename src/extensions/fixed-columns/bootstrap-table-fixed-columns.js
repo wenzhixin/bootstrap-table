@@ -225,6 +225,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const initFixedBody = ($fixedColumns, $fixedHeader) => {
       $fixedColumns.find('.fixed-table-body').remove()
       $fixedColumns.append(this.$tableBody.clone(true))
+      $fixedColumns.find('.fixed-table-body table').removeAttr('id')
 
       const $fixedBody = $fixedColumns.find('.fixed-table-body')
 
