@@ -7,7 +7,6 @@
     "no-descending-specificity": null,
     "declaration-bang-space-before": null,
     "number-leading-zero": null,
-    "rule-empty-line-before": null,
-    "no-irregular-whitespace": true
+    "rule-empty-line-before": null
   }
 }
