@@ -160,7 +160,7 @@ const CONSTANTS = {
       pagination: ['<ul class="pagination%s">', '</ul>'],
       paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       icon: '<i class="%s %s"></i>',
-      inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
+      inputGroup: '<div class="input-group">%s%s</div>',
       searchInput: '<input class="%s%s" type="text" placeholder="%s">',
       searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
       searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
