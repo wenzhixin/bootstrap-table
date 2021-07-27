@@ -201,7 +201,7 @@ export default {
       if (regexpParts) {
         regex = new RegExp(regexpParts[1], regexpParts[2])
       } else {
-        regex = new RegExp(search)
+        regex = new RegExp(search, 'gim')
       }
 
       if (value.toString().search(regex) !== -1) {
