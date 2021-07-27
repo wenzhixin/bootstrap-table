@@ -96,6 +96,22 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 Look at the [Change Log](https://github.com/wenzhixin/bootstrap-table/blob/master/CHANGELOG.md)
 
+## Local develop
+
+To develop bootstrap-table locally please run:
+
+```bash
+mkdir bootstrap-table-dev
+cd bootstrap-table-dev
+git clone https://github.com/wenzhixin/bootstrap-table
+git clone https://github.com/wenzhixin/bootstrap-table-examples
+
+yarn add http-server
+npx http-server
+```
+
+And then open: http://localhost:8081/bootstrap-table-examples
+
 ## Local build
 
 To build bootstrap-table locally please run:

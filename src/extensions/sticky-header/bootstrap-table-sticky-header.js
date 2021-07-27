@@ -56,6 +56,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .on('scroll', () => this.renderStickyHeader())
   }
 
+  getCaret (...args) {
+    super.getCaret(...args)
+
+    if (this.$stickyHeader) {
+      const $ths = this.$stickyHeader.find('th')
+
+      this.$header.find('th').each((i, th) => {
+        $ths.eq(i).find('.sortable').attr('class', $(th).find('.sortable').attr('class'))
+      })
+    }
+  }
+
   horizontalScroll () {
     super.horizontalScroll()
     this.$tableBody.on('scroll', () => this.matchPositionX())
@@ -95,22 +107,36 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // show sticky when top anchor touches header, and when bottom anchor not exceeded
     if (top > start && top <= end) {
       // ensure clone and source column widths are the same
-      this.$stickyHeader.find('tr:eq(0)').find('th').each((index, el) => {
-        $(el).css('min-width', this.$header.find('tr:eq(0)').find('th').eq(index).css('width'))
+      this.$stickyHeader.find('tr').each((indexRows, rows) => {
+        const columns = $(rows).find('th')
+
+        columns.each((indexColumns, celd) => {
+          $(celd).css('min-width', this.$header.find(`tr:eq(${indexRows})`).find(`th:eq(${indexColumns})`).css('width'))
+        })
       })
       // match bootstrap table style
       this.$stickyContainer.show().addClass('fix-sticky fixed-table-container')
       // stick it in position
+      const coords = this.$tableBody[0].getBoundingClientRect()
+      let width = '100%'
       let stickyHeaderOffsetLeft = this.options.stickyHeaderOffsetLeft
       let stickyHeaderOffsetRight = this.options.stickyHeaderOffsetRight
 
+      if (!stickyHeaderOffsetLeft) {
+        stickyHeaderOffsetLeft = coords.left
+      }
+      if (!stickyHeaderOffsetRight) {
+        width = `${coords.width}px`
+      }
       if (this.$el.closest('.bootstrap-table').hasClass('fullscreen')) {
         stickyHeaderOffsetLeft = 0
         stickyHeaderOffsetRight = 0
+        width = '100%'
       }
-      this.$stickyContainer.css('top', `${this.options.stickyHeaderOffsetY}`)
-      this.$stickyContainer.css('left', `${stickyHeaderOffsetLeft}`)
-      this.$stickyContainer.css('right', `${stickyHeaderOffsetRight}`)
+      this.$stickyContainer.css('top', `${this.options.stickyHeaderOffsetY}px`)
+      this.$stickyContainer.css('left', `${stickyHeaderOffsetLeft}px`)
+      this.$stickyContainer.css('right', `${stickyHeaderOffsetRight}px`)
+      this.$stickyContainer.css('width', `${width}`)
       // create scrollable container for header
       this.$stickyTable = $('<table/>')
       this.$stickyTable.addClass(this.options.classes)

@@ -5,10 +5,10 @@
 
 $.fn.bootstrapTable.locales['fa-IR'] = $.fn.bootstrapTable.locales['fa'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'کپی ردیف ها'
   },
   formatPrint () {
-    return 'Print'
+    return 'پرینت'
   },
   formatLoadingMessage () {
     return 'در حال بارگذاری, لطفا صبر کنید'
@@ -24,19 +24,19 @@ $.fn.bootstrapTable.locales['fa-IR'] = $.fn.bootstrapTable.locales['fa'] = {
     return `نمایش ${pageFrom} تا ${pageTo} از ${totalRows} ردیف`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'صفحه قبلی'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `به صفحه ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'صفحه بعدی'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `نمایش ${totalRows} سطرها`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'پاک کردن جستجو'
   },
   formatSearch () {
     return 'جستجو'
@@ -48,10 +48,10 @@ $.fn.bootstrapTable.locales['fa-IR'] = $.fn.bootstrapTable.locales['fa'] = {
     return 'نمایش/مخفی صفحه بندی'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'نمایش صفحه بندی'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'پنهان کردن صفحه بندی'
   },
   formatRefresh () {
     return 'به روز رسانی'
@@ -69,37 +69,37 @@ $.fn.bootstrapTable.locales['fa-IR'] = $.fn.bootstrapTable.locales['fa'] = {
     return 'سطر ها'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'تغییر وضعیت همه'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'تمام صفحه'
   },
   formatAllRows () {
     return 'همه'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'رفرش اتوماتیک'
   },
   formatExport () {
-    return 'Export data'
+    return 'خروجی دیتا'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'برو'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'جستجوی پیشرفته'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'بستن'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'پنهان/نمایش دادن کنترل ها'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'پنهان کردن کنترل ها'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'نمایش کنترل ها'
   }
 }
 

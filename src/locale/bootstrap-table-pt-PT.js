@@ -5,38 +5,38 @@
 
 $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Copiar Linhas'
   },
   formatPrint () {
-    return 'Print'
+    return 'Imprimir'
   },
   formatLoadingMessage () {
     return 'A carregar, por favor aguarde'
   },
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} registos por p&aacute;gina`
+    return `${pageNumber} registos por página`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `A mostrar ${pageFrom} at&eacute; ${pageTo} de ${totalRows} linhas (filtered from ${totalNotFiltered} total rows)`
     }
 
-    return `A mostrar ${pageFrom} at&eacute; ${pageTo} de ${totalRows} linhas`
+    return `A mostrar ${pageFrom} até ${pageTo} de ${totalRows} linhas`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'página anterior'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `ir para página ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'próxima página'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Mostrando ${totalRows} linhas`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'Limpar Pesquisa'
   },
   formatSearch () {
     return 'Pesquisa'
@@ -45,16 +45,16 @@ $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
     return 'Nenhum registo encontrado'
   },
   formatPaginationSwitch () {
-    return 'Esconder/Mostrar pagina&ccedil&atilde;o'
+    return 'Esconder/Mostrar paginação'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Mostrar página'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Esconder página'
   },
   formatRefresh () {
-    return 'Atualizar'
+    return 'Actualizar'
   },
   formatToggle () {
     return 'Alternar'
@@ -69,37 +69,37 @@ $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
     return 'Colunas'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Activar tudo'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Ecrã completo'
   },
   formatAllRows () {
     return 'Tudo'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Actualização autmática'
   },
   formatExport () {
-    return 'Export data'
+    return 'Exportar dados'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Avançar'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Pesquisa avançada'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Fechar'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Esconder/Exibir controlos'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Esconder controlos'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Exibir controlos'
   }
 }
 

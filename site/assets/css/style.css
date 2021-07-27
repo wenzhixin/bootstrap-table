@@ -1,3 +1,8 @@
+.btn-bd-light {
+  color: #6c757d;
+  border-color: #dee2e6;
+}
+
 .api h2 {
   margin-top: 4rem !important;
   margin-bottom: 2rem;
@@ -167,4 +172,8 @@ header.themes .bd-lead {
   min-height: 48px;
   min-width: 48px;
   vertical-align: middle;
+}
+
+.online-editor img {
+  max-width: 100%;
 }

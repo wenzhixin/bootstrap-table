@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-table",
-  "version": "1.18.1",
+  "version": "1.18.3",
   "title": "Bootstrap Table",
   "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
   "author": {

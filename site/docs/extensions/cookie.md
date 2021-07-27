@@ -178,9 +178,9 @@ toc: true
 
 - **Detail:**
 
-   Set this array with the table properties (sortOrder, sortName, pageNumber, pageList, columns, searchText, filterControl) that you want to save
+   Set this array with the table properties (sortOrder, sortName, sortPriority, pageNumber, pageList, columns, searchText, filterControl) that you want to save
 
-- **Default:** `['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']`
+- **Default:** `['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']`
 
 ## Methods
 
@@ -207,4 +207,5 @@ toc: true
 * Search text
 * Search filter control
 * Sort order
+* Multiple Sort order
 * Visible columns

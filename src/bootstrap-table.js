@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.18.1
+ * version: 1.18.3
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -96,7 +96,7 @@ class BootstrapTable {
       ${loadingTemplate}
       </div>
       </div>
-      <div class="fixed-table-footer"><table><thead><tr></tr></thead></table></div>
+      <div class="fixed-table-footer"></div>
       </div>
       ${bottomPagination}
       </div>
@@ -388,16 +388,6 @@ class BootstrapTable {
 
       if (this.options.sortable && $this.parent().data().sortable) {
         this.onSort(e)
-      }
-    })
-
-    this.$header.children().children().off('keypress').on('keypress', e => {
-      if (this.options.sortable && $(e.currentTarget).data().sortable) {
-        const code = e.keyCode || e.which
-
-        if (code === 13) { // Enter keycode
-          this.onSort(e)
-        }
       }
     })
 
@@ -956,9 +946,12 @@ class BootstrapTable {
         return
       }
 
-      const s = this.searchText && (this.fromHtml ?
-        Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
+      let s = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
       const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
+
+      if (this.options.searchAccentNeutralise) {
+        s = Utils.normalizeAccent(s)
+      }
 
       // Check filter
       if (typeof this.filterOptions.filterAlgorithm === 'function') {
@@ -1040,8 +1033,8 @@ class BootstrapTable {
                 return true
               }
             } else {
-              const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
-              const matches = largerSmallerEqualsRegex.exec(s)
+              const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(-?\d+)?|(-?\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+              const matches = largerSmallerEqualsRegex.exec(this.searchText)
               let comparisonCheck = false
 
               if (matches) {
@@ -1177,10 +1170,10 @@ class BootstrapTable {
     }
 
     if (this.paginationParts.includes('pageSize')) {
-      html.push('<span class="page-list">')
+      html.push('<div class="page-list">')
 
       const pageNumber = [
-        `<span class="${this.constants.classes.paginationDropdown}">
+        `<div class="${this.constants.classes.paginationDropdown}">
         <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown">
         <span class="page-size">
         ${allSelected ? opts.formatAllRows() : opts.pageSize}
@@ -1202,13 +1195,13 @@ class BootstrapTable {
           pageNumber.push(Utils.sprintf(this.constants.html.pageDropdownItem, active, page))
         }
       })
-      pageNumber.push(`${this.constants.html.pageDropdown[1]}</span>`)
+      pageNumber.push(`${this.constants.html.pageDropdown[1]}</div>`)
 
       html.push(opts.formatRecordsPerPage(pageNumber.join('')))
     }
 
     if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort') || this.paginationParts.includes('pageSize')) {
-      html.push('</span></div>')
+      html.push('</div></div>')
     }
 
     if (this.paginationParts.includes('pageList')) {
@@ -1305,7 +1298,7 @@ class BootstrapTable {
     const dropupClass = ['bottom', 'both'].includes(opts.paginationVAlign) ?
       ` ${this.constants.classes.dropup}` : ''
 
-    this.$pagination.last().find('.page-list > span').addClass(dropupClass)
+    this.$pagination.last().find('.page-list > div').addClass(dropupClass)
 
     if (!opts.onlyInfoPagination) {
       $pageList = this.$pagination.find('.page-list a')
@@ -1382,6 +1375,9 @@ class BootstrapTable {
   }
 
   onPagePre (event) {
+    if ($(event.target).hasClass('disabled')) {
+      return
+    }
     event.preventDefault()
     if ((this.options.pageNumber - 1) === 0) {
       this.options.pageNumber = this.options.totalPages
@@ -1393,6 +1389,9 @@ class BootstrapTable {
   }
 
   onPageNext (event) {
+    if ($(event.target).hasClass('disabled')) {
+      return
+    }
     event.preventDefault()
     if ((this.options.pageNumber + 1) > this.options.totalPages) {
       this.options.pageNumber = 1
@@ -1574,8 +1573,23 @@ class BootstrapTable {
           this.options.undefinedText : value
       }
 
-      if (this.searchText && this.options.searchHighlight) {
-        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], value.toString().replace(new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim'), '<mark>$1</mark>'))
+      if (column.searchable && this.searchText && this.options.searchHighlight && !(column.checkbox || column.radio)) {
+        let defValue = ''
+        const regExp = new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim')
+        const marker = '<mark>$1</mark>'
+        const isHTML = value && /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value)
+
+        if (isHTML) {
+          // value can contains a HTML tags
+          const textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent
+          const textReplaced = textContent.replace(regExp, marker)
+
+          defValue = value.replace(new RegExp(`(>\\s*)(${textContent})(\\s*)`, 'gm'), `$1${textReplaced}$3`)
+        } else {
+          // but usually not
+          defValue = value.toString().replace(regExp, marker)
+        }
+        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], defValue)
       }
 
       if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
@@ -1947,6 +1961,7 @@ class BootstrapTable {
 
         if (
           this.options.sidePagination === 'server' &&
+          this.options.pageNumber > 1 &&
           res[this.options.totalField] > 0 &&
           !res[this.options.dataField].length
         ) {
@@ -1954,6 +1969,12 @@ class BootstrapTable {
         }
       },
       error: jqXHR => {
+        // abort ajax by multiple request
+        if (jqXHR && jqXHR.status === 0 && this._xhrAbort) {
+          this._xhrAbort = false
+          return
+        }
+
         let data = []
 
         if (this.options.sidePagination === 'server') {
@@ -1971,6 +1992,7 @@ class BootstrapTable {
       Utils.calculateObjectValue(this, this.options.ajax, [request], null)
     } else {
       if (this._xhr && this._xhr.readyState !== 4) {
+        this._xhrAbort = true
         this._xhr.abort()
       }
       this._xhr = $.ajax(request)
@@ -2224,6 +2246,10 @@ class BootstrapTable {
     if (!this.options.height && !this.$tableFooter.length) {
       this.$el.append('<tfoot><tr></tr></tfoot>')
       this.$tableFooter = this.$el.find('tfoot')
+    }
+
+    if (!this.$tableFooter.find('tr').length) {
+      this.$tableFooter.html('<table><thead><tr></tr></thead></table>')
     }
 
     this.$tableFooter.find('tr').html(html.join(''))
@@ -2908,10 +2934,11 @@ class BootstrapTable {
       if (obj.values.includes(row[obj.field])) {
         let $el = this.$selectItem.filter(':enabled')
           .filter(Utils.sprintf('[data-index="%s"]', i))
+        const onlyCurrentPage = obj.hasOwnProperty('onlyCurrentPage') ? obj.onlyCurrentPage : false
 
         $el = checked ? $el.not(':checked') : $el.filter(':checked')
 
-        if (!$el.length) {
+        if (!$el.length && onlyCurrentPage) {
           return
         }
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const VERSION = '1.18.1'
+const VERSION = '1.18.3'
 
 let bootstrapVersion = 4
 
@@ -120,19 +120,19 @@ const CONSTANTS = {
     }
   },
   5: {
-    iconsPrefix: 'fa',
+    iconsPrefix: 'bi',
     icons: {
-      paginationSwitchDown: 'fa-caret-square-down',
-      paginationSwitchUp: 'fa-caret-square-up',
-      refresh: 'fa-sync',
-      toggleOff: 'fa-toggle-off',
-      toggleOn: 'fa-toggle-on',
-      columns: 'fa-th-list',
-      detailOpen: 'fa-plus',
-      detailClose: 'fa-minus',
-      fullscreen: 'fa-arrows-alt',
-      search: 'fa-search',
-      clearSearch: 'fa-trash'
+      paginationSwitchDown: 'bi-caret-down-square',
+      paginationSwitchUp: 'bi-caret-up-square',
+      refresh: 'bi-arrow-clockwise',
+      toggleOff: 'bi-toggle-off',
+      toggleOn: 'bi-toggle-on',
+      columns: 'bi-list-ul',
+      detailOpen: 'bi-plus',
+      detailClose: 'bi-dash',
+      fullscreen: 'bi-arrows-move',
+      search: 'bi-search',
+      clearSearch: 'bi-trash'
     },
     classes: {
       buttonsPrefix: 'btn',
@@ -160,7 +160,7 @@ const CONSTANTS = {
       pagination: ['<ul class="pagination%s">', '</ul>'],
       paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       icon: '<i class="%s %s"></i>',
-      inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
+      inputGroup: '<div class="input-group">%s%s</div>',
       searchInput: '<input class="%s%s" type="text" placeholder="%s">',
       searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
       searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'

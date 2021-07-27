@@ -15,6 +15,7 @@ $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 $.extend($.fn.bootstrapTable.defaults.icons, {
   copy: {
     bootstrap3: 'glyphicon-copy icon-pencil',
+    bootstrap5: 'bi-clipboard',
     materialize: 'content_copy',
     'bootstrap-table': 'icon-copy'
   }[$.fn.bootstrapTable.theme] || 'fa-copy'

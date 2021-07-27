@@ -12,7 +12,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   plus: {
     bootstrap3: 'glyphicon-plus',
     bootstrap4: 'fa-plus',
-    bootstrap5: 'fa-plus',
+    bootstrap5: 'bi-plus',
     semantic: 'fa-plus',
     materialize: 'plus',
     foundation: 'fa-plus',
@@ -22,7 +22,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   minus: {
     bootstrap3: 'glyphicon-minus',
     bootstrap4: 'fa-minus',
-    bootstrap5: 'fa-minus',
+    bootstrap5: 'bi-dash',
     semantic: 'fa-minus',
     materialize: 'minus',
     foundation: 'fa-minus',
@@ -32,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   sort: {
     bootstrap3: 'glyphicon-sort',
     bootstrap4: 'fa-sort',
-    bootstrap5: 'fa-sort',
+    bootstrap5: 'bi-arrow-down-up',
     semantic: 'fa-sort',
     materialize: 'sort',
     foundation: 'fa-sort',
@@ -84,7 +84,7 @@ const theme = {
         </div>
     </div>
       `,
-      multipleSortButton: '<button class="multi-sort btn btn-default" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
+      multipleSortButton: '<button class="multi-sort %s" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s form-control">'
     }
   },
@@ -132,7 +132,7 @@ const theme = {
           </div>
         </div>
       `,
-      multipleSortButton: '<button class="multi-sort btn btn-secondary" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
+      multipleSortButton: '<button class="multi-sort %s" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s form-control">'
     }
   },
@@ -178,7 +178,7 @@ const theme = {
           </div>
         </div>
       `,
-      multipleSortButton: '<button class="multi-sort btn btn-secondary" type="button" data-bs-toggle="modal" data-target="#%s" title="%s">%s</button>',
+      multipleSortButton: '<button class="multi-sort %s" type="button" data-bs-toggle="modal" data-bs-target="#%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s form-control">'
     }
   },
@@ -220,7 +220,7 @@ const theme = {
         </div>
       </div>
       `,
-      multipleSortButton: '<button class="multi-sort ui button" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
+      multipleSortButton: '<button class="multi-sort %s" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s">'
     }
   },
@@ -259,7 +259,7 @@ const theme = {
           </div>
         </div>
       `,
-      multipleSortButton: '<a href="#%s" class="multi-sort waves-effect waves-light btn modal-trigger" type="button" data-toggle="modal" title="%s">%s</a>',
+      multipleSortButton: '<a class="multi-sort %s modal-trigger" href="#%s" type="button" data-toggle="modal" title="%s">%s</a>',
       multipleSortSelect: '<select class="%s %s browser-default">'
     }
   },
@@ -301,7 +301,7 @@ const theme = {
             </div>
         </div>
       `,
-      multipleSortButton: '<button class="button multi-sort" data-open="%s" title="%s">%s</button>',
+      multipleSortButton: '<button class="multi-sort %s" data-open="%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s browser-default">'
     }
   },
@@ -341,7 +341,7 @@ const theme = {
           </div>
         </div>
       `,
-      multipleSortButton: '<button class="button multi-sort" data-target="%s" title="%s">%s</button>',
+      multipleSortButton: '<button class="multi-sort %s" data-target="%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s browser-default">'
     }
   },
@@ -383,7 +383,7 @@ const theme = {
           </div>
         </div>
       `,
-      multipleSortButton: '<button class="btn multi-sort" data-target="%s" title="%s">%s</button>',
+      multipleSortButton: '<button class="multi-sort %s" data-target="%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s browser-default">'
     }
   }
@@ -587,7 +587,9 @@ BootstrapTable.prototype.initToolbar = function (...args) {
   if (this.options.showMultiSortButton) {
     this.buttons = Object.assign(this.buttons, {
       multipleSort: {
-        html: Utils.sprintf(theme.html.multipleSortButton, that.sortModalSelector, this.options.formatMultipleSort(), Utils.sprintf(that.constants.html.icon, o.iconsPrefix, o.icons.sort))
+        html: Utils.sprintf(theme.html.multipleSortButton,
+          that.constants.buttonsClass, that.sortModalSelector, this.options.formatMultipleSort(),
+          Utils.sprintf(that.constants.html.icon, o.iconsPrefix, o.icons.sort))
       }
     })
   }
@@ -654,13 +656,16 @@ BootstrapTable.prototype.initToolbar = function (...args) {
     })
 
     this.$el.on('column-switch.bs.table', (field, checked) => {
-      for (let i = 0; i < that.options.sortPriority.length; i++) {
-        if (that.options.sortPriority[i].sortName === checked) {
-          that.options.sortPriority.splice(i, 1)
+      if (that.options.sortPriority !== null && that.options.sortPriority.length > 0) {
+        for (let i = 0; i < that.options.sortPriority.length; i++) {
+          if (that.options.sortPriority[i].sortName === checked) {
+            that.options.sortPriority.splice(i, 1)
+          }
         }
+
+        that.assignSortableArrows()
       }
 
-      that.assignSortableArrows()
       that.$sortModal.remove()
       showSortModal(that)
     })
