@@ -20,6 +20,7 @@
     "headr": "^0.0.4",
     "node-sass": "^6.0.0",
     "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
     "rollup": "^2.6.1",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.0",
@@ -51,7 +52,7 @@
     "css:build:min": "foreach -g \"dist/**/*.css\" -x \"cleancss #{path} -o #{dir}/#{name}.min.css\"",
     "css:build:banner": "foreach -g \"dist/**/*.min.css\" -x \"headr #{path} -o #{path} --version --homepage --author --license\"",
     "css:build": "run-s css:build:*",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "build": "run-s lint clean *:build",
     "pre-commit": "run-s lint docs:check"
   },
