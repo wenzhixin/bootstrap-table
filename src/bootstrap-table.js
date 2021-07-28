@@ -946,11 +946,12 @@ class BootstrapTable {
         return
       }
 
-      let s = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
+      const rawSearchText = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText)
+      let searchText = rawSearchText.toLowerCase()
       const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
       if (this.options.searchAccentNeutralise) {
-        s = Utils.normalizeAccent(s)
+        searchText = Utils.normalizeAccent(searchText)
       }
 
       // Check filter
@@ -994,7 +995,7 @@ class BootstrapTable {
 
       const visibleFields = this.getVisibleFields()
 
-      this.data = s ? this.data.filter((item, i) => {
+      this.data = searchText ? this.data.filter((item, i) => {
         for (let j = 0; j < this.header.fields.length; j++) {
           if (!this.header.searchables[j] || (this.options.visibleSearch && visibleFields.indexOf(this.header.fields[j]) === -1)) {
             continue
@@ -1028,50 +1029,51 @@ class BootstrapTable {
           }
 
           if (typeof value === 'string' || typeof value === 'number') {
-            if (this.options.strictSearch) {
-              if ((`${value}`).toLowerCase() === s) {
-                return true
-              }
-            } else {
-              const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(-?\d+)?|(-?\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
-              const matches = largerSmallerEqualsRegex.exec(this.searchText)
-              let comparisonCheck = false
+            if (
+              this.options.strictSearch && (`${value}`).toLowerCase() === searchText ||
+              (this.options.regexSearch && Utils.regexCompare(value, rawSearchText))
+            ) {
+              return true
+            }
 
-              if (matches) {
-                const operator = matches[1] || `${matches[5]}l`
-                const comparisonValue = matches[2] || matches[3]
-                const int = parseInt(value, 10)
-                const comparisonInt = parseInt(comparisonValue, 10)
+            const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(-?\d+)?|(-?\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+            const matches = largerSmallerEqualsRegex.exec(this.searchText)
+            let comparisonCheck = false
 
-                switch (operator) {
-                  case '>':
-                  case '<l':
-                    comparisonCheck = int > comparisonInt
-                    break
-                  case '<':
-                  case '>l':
-                    comparisonCheck = int < comparisonInt
-                    break
-                  case '<=':
-                  case '=<':
-                  case '>=l':
-                  case '=>l':
-                    comparisonCheck = int <= comparisonInt
-                    break
-                  case '>=':
-                  case '=>':
-                  case '<=l':
-                  case '=<l':
-                    comparisonCheck = int >= comparisonInt
-                    break
-                  default:
-                    break
-                }
-              }
+            if (matches) {
+              const operator = matches[1] || `${matches[5]}l`
+              const comparisonValue = matches[2] || matches[3]
+              const int = parseInt(value, 10)
+              const comparisonInt = parseInt(comparisonValue, 10)
 
-              if (comparisonCheck || (`${value}`).toLowerCase().includes(s)) {
-                return true
+              switch (operator) {
+                case '>':
+                case '<l':
+                  comparisonCheck = int > comparisonInt
+                  break
+                case '<':
+                case '>l':
+                  comparisonCheck = int < comparisonInt
+                  break
+                case '<=':
+                case '=<':
+                case '>=l':
+                case '=>l':
+                  comparisonCheck = int <= comparisonInt
+                  break
+                case '>=':
+                case '=>':
+                case '<=l':
+                case '=<l':
+                  comparisonCheck = int >= comparisonInt
+                  break
+                default:
+                  break
               }
+            }
+
+            if (comparisonCheck || (`${value}`).toLowerCase().includes(searchText)) {
+              return true
             }
           }
         }
