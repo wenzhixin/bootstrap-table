@@ -369,7 +369,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   clearFilterControl () {
     if (this.options.filterControl) {
       const that = this
-      const cookies = UtilsFilterControl.collectBootstrapCookies()
+      const cookies = UtilsFilterControl.collectBootstrapTableFilterCookies()
       const table = this.$el.closest('table')
       const controls = UtilsFilterControl.getSearchControls(that)
       const search = Utils.getSearchInput(this)
