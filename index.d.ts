@@ -202,6 +202,7 @@ interface BootstrapTableOptions{
     onColumnSwitch?: (field, checked) => boolean;
     searchSelector?: boolean;
     strictSearch?: boolean;
+    regexSearch?: boolean;
     multipleSelectRow?: boolean;
     onLoadError?: (status) => boolean;
     buttonsToolbar?: any;

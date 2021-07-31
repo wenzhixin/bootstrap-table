@@ -1,12 +1,12 @@
 {
-  'extends': 'stylelint-config-standard',
-  'rules': {
-    'indentation': null,
-    'selector-pseudo-element-colon-notation': null,
-    'function-comma-space-after': null,
-    'no-descending-specificity': null,
-    'declaration-bang-space-before': null,
-    'number-leading-zero': null,
-    'rule-empty-line-before': null
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "indentation": null,
+    "selector-pseudo-element-colon-notation": null,
+    "function-comma-space-after": null,
+    "no-descending-specificity": null,
+    "declaration-bang-space-before": null,
+    "number-leading-zero": null,
+    "rule-empty-line-before": null
   }
 }
