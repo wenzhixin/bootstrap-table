@@ -218,6 +218,40 @@ export function setValues (that) {
   }
 }
 
+export function collectBootstrapTableFilterCookies () {
+  const cookies = []
+  const foundCookies = document.cookie.match(/bs\.table\.(filterControl|searchText)/g)
+  const foundLocalStorage = localStorage
+
+  if (foundCookies) {
+    $.each(foundCookies, (i, _cookie) => {
+      let cookie = _cookie
+
+      if (/./.test(cookie)) {
+        cookie = cookie.split('.').pop()
+      }
+
+      if ($.inArray(cookie, cookies) === -1) {
+        cookies.push(cookie)
+      }
+    })
+  }
+  if (foundLocalStorage) {
+    for (let i = 0; i < foundLocalStorage.length; i++) {
+      let cookie = foundLocalStorage.key(i)
+
+      if (/./.test(cookie)) {
+        cookie = cookie.split('.').pop()
+      }
+
+      if (!cookies.includes(cookie)) {
+        cookies.push(cookie)
+      }
+    }
+  }
+  return cookies
+}
+
 export function escapeID (id) {
   // eslint-disable-next-line no-useless-escape
   return String(id).replace(/([:.\[\],])/g, '\\$1')
