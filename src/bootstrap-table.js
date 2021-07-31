@@ -947,7 +947,7 @@ class BootstrapTable {
       }
 
       const rawSearchText = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText)
-      let searchText = rawSearchText.toLowerCase()
+      let searchText = rawSearchText ? rawSearchText.toLowerCase() : ''
       const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
       if (this.options.searchAccentNeutralise) {
