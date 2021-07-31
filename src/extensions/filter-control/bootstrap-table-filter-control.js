@@ -371,6 +371,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     const that = this
     const table = this.$el.closest('table')
+    const cookies = UtilsFilterControl.collectBootstrapTableFilterCookies()
     const controls = UtilsFilterControl.getSearchControls(that)
     // const search = Utils.getSearchInput(this)
     let hasValues = false
@@ -390,11 +391,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // Cache controls again
     UtilsFilterControl.setValues(that)
 
-    // clear cookies once the filters are clean. Should clear only Filtercontrol cookie
+    // clear cookies once the filters are clean
     clearTimeout(timeoutId)
     timeoutId = setTimeout(() => {
-      if (that.options.cookie) {
-        that.deleteCookie('filterControl')
+      if (cookies && cookies.length > 0) {
+        $.each(cookies, (i, item) => {
+          if (that.deleteCookie !== undefined) {
+            that.deleteCookie(item)
+          }
+        })
       }
     }, that.options.searchTimeOut)
 
