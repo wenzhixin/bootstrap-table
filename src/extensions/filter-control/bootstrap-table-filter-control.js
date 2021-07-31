@@ -374,7 +374,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const table = this.$el.closest('table')
     const cookies = UtilsFilterControl.collectBootstrapTableFilterCookies()
     const controls = UtilsFilterControl.getSearchControls(that)
-    const cookies = UtilsFilterControl.collectBootstrapTableFilterCookies()
     // const search = Utils.getSearchInput(this)
     let hasValues = false
     let timeoutId = 0
