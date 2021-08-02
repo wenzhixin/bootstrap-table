@@ -154,6 +154,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.init()
   }
 
+  load (data) {
+    super.load(data)
+
+    UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
+  }
+
   initHeader () {
     super.initHeader()
 
