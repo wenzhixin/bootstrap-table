@@ -68,7 +68,21 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Default:** `false`
 
-### Icons
+## Column options
+
+### ignoreCopy
+
+- **Attribute:** `data-ignore-copy`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to ignore this column while copying.
+
+- **Default:** `false`
+
+## Icons
 
 - copy: 'fa-copy'
 
