@@ -43,6 +43,10 @@ $.extend($.fn.bootstrapTable.defaults, {
   copyNewline: '\n'
 })
 
+$.extend($.fn.bootstrapTable.columnDefaults, {
+  ignoreCopy: false
+})
+
 $.fn.bootstrapTable.methods.push(
   'copyColumnsToClipboard'
 )
@@ -81,8 +85,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       $.each(this.options.columns[0], (indy, column) => {
         if (
           column.field !== this.header.stateField &&
-          (!this.options.copyWithHidden ||
-          this.options.copyWithHidden && column.visible)
+          (!this.options.copyWithHidden || this.options.copyWithHidden && column.visible) &&
+          !column.ignoreCopy
         ) {
           if (row[column.field] !== null) {
             cols.push(Utils.calculateObjectValue(column, this.header.formatters[indy],
