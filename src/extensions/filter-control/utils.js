@@ -353,6 +353,8 @@ export function createControls (that, header) {
     $.each(header.find('th'), (i, th) => {
       const $th = $(th)
 
+      $th.find('.filter-control').remove()
+
       if ($th.data('field') === column.field) {
         $th.find('.fht-cell').append(html.join(''))
         return false
