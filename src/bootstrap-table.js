@@ -913,7 +913,11 @@ class BootstrapTable {
         return
       }
 
-      if (currentTarget === Utils.getSearchInput(this)[0] || $(currentTarget).hasClass('search-input')) {
+      if (
+        (currentTarget instanceof jQuery && currentTarget.is(Utils.getSearchInput(this))) ||
+        (!(currentTarget instanceof jQuery) && currentTarget === Utils.getSearchInput(this)[0]) ||
+        $(currentTarget).hasClass('search-input')
+      ) {
         this.searchText = text
         this.options.searchText = text
       }
