@@ -172,6 +172,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.init()
   }
 
+
   initBody () {
     super.initBody()
     if (this.options.filterControl) {
@@ -180,6 +181,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
         UtilsFilterControl.setValues(this)
       }, 3)
     }
+  }
+
+  load (data) {
+    super.load(data)
+
+    if (!this.options.filterControl) {
+      return
+    }
+
+    UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
   }
 
   initHeader () {
