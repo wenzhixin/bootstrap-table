@@ -44,7 +44,8 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.columnDefaults, {
-  ignoreCopy: false
+  ignoreCopy: false,
+  rawCopy: false
 })
 
 $.fn.bootstrapTable.methods.push(
@@ -89,8 +90,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
           !column.ignoreCopy
         ) {
           if (row[column.field] !== null) {
-            cols.push(Utils.calculateObjectValue(column, this.header.formatters[indy],
-              [row[column.field], row, index], row[column.field]))
+            const columnValue = column.rawCopy ? row[column.field] : Utils.calculateObjectValue(column, this.header.formatters[indy], [row[column.field], row, index], row[column.field])
+
+            cols.push(columnValue)
           }
         }
       })
