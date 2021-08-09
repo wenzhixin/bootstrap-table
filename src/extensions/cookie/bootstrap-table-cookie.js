@@ -11,6 +11,7 @@ const UtilsCookie = {
     sortPriority: 'bs.table.sortPriority',
     pageNumber: 'bs.table.pageNumber',
     pageList: 'bs.table.pageList',
+    hiddenColumns: 'bs.table.hiddenColumns',
     columns: 'bs.table.columns',
     searchText: 'bs.table.searchText',
     reorderColumns: 'bs.table.reorderColumns',
@@ -278,7 +279,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   cookiesEnabled: [
     'bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority',
     'bs.table.pageNumber', 'bs.table.pageList',
-    'bs.table.columns', 'bs.table.searchText',
+    'bs.table.hiddenColumns', 'bs.table.columns', 'bs.table.searchText',
     'bs.table.filterControl', 'bs.table.filterBy',
     'bs.table.reorderColumns'
   ],
@@ -427,13 +428,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   _toggleColumn (...args) {
     super._toggleColumn(...args)
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(column => column.field)))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.hiddenColumns, JSON.stringify(this.getHiddenColumns().map(column => column.field)))
   }
 
   _toggleAllColumns (...args) {
     super._toggleAllColumns(...args)
 
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(column => column.field)))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.hiddenColumns, JSON.stringify(this.getHiddenColumns().map(column => column.field)))
   }
 
   selectPage (page) {
@@ -485,6 +486,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText)
 
     const columnsCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.columns)
+    const hiddenColumnsCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.hiddenColumns)
 
     if (typeof columnsCookieValue === 'boolean' && !columnsCookieValue) {
       throw new Error('The cookie value of filterBy must be a json!')
@@ -497,7 +499,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     } catch (e) {
       throw new Error('Could not parse the json of the columns cookie!', columnsCookieValue)
     }
-
+ 
+    let hiddenColumnsCookie = {}
+ 
+    try {
+      hiddenColumnsCookie = JSON.parse(hiddenColumnsCookieValue)
+    } catch (e) {
+      throw new Error('Could not parse the json of the hidden columns cookie!', hiddenColumnsCookieValue)
+    }
+ 
     try {
       sortPriorityCookie = JSON.parse(sortPriorityCookie)
     } catch (e) {
@@ -531,7 +541,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // searchText
     this.options.searchText = searchTextCookie ? searchTextCookie : ''
 
-    if (columnsCookie) {
+    
+    if (hiddenColumnsCookie) {
+      for (const column of this.columns) {
+       column.visible = !hiddenColumnsCookie.filter(columnField => {
+         if (this.isSelectionColumn(column)) {
+          return true
+         }
+ 
+         return columnField === column.field
+       }).length > 0 || !column.switchable
+      }
+    } else if (columnsCookie) {
       for (const column of this.columns) {
         column.visible = columnsCookie.filter(columnField => {
           if (this.isSelectionColumn(column)) {
@@ -558,7 +579,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     $.each(UtilsCookie.cookieIds, (key, value) => {
       cookies[key] = UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, value)
-      if (key === 'columns') {
+      if (key === 'columns' || key === 'hiddenColumns' || key === 'sortPriority') {
         cookies[key] = JSON.parse(cookies[key])
       }
     })
