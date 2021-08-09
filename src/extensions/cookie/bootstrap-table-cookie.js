@@ -499,15 +499,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     } catch (e) {
       throw new Error('Could not parse the json of the columns cookie!', columnsCookieValue)
     }
- 
+
     let hiddenColumnsCookie = {}
- 
+
     try {
       hiddenColumnsCookie = JSON.parse(hiddenColumnsCookieValue)
     } catch (e) {
       throw new Error('Could not parse the json of the hidden columns cookie!', hiddenColumnsCookieValue)
     }
- 
+
     try {
       sortPriorityCookie = JSON.parse(sortPriorityCookie)
     } catch (e) {
@@ -544,13 +544,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
     
     if (hiddenColumnsCookie) {
       for (const column of this.columns) {
-       column.visible = !hiddenColumnsCookie.filter(columnField => {
-         if (this.isSelectionColumn(column)) {
-          return true
-         }
- 
-         return columnField === column.field
-       }).length > 0 || !column.switchable
+        column.visible = !hiddenColumnsCookie.filter(columnField => {
+          if (this.isSelectionColumn(column)) {
+            return true
+          }
+
+          return columnField === column.field
+        }).length > 0 || !column.switchable
       }
     } else if (columnsCookie) {
       for (const column of this.columns) {
