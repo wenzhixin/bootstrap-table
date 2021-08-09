@@ -541,7 +541,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // searchText
     this.options.searchText = searchTextCookie ? searchTextCookie : ''
 
-    
     if (hiddenColumnsCookie) {
       for (const column of this.columns) {
         column.visible = !hiddenColumnsCookie.filter(columnField => {
