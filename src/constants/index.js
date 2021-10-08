@@ -394,6 +394,9 @@ const DEFAULTS = {
   },
   onScrollBody () {
     return false
+  },
+  onTogglePagination (newState) {
+    return false
   }
 }
 
@@ -564,7 +567,8 @@ const EVENTS = {
   'refresh-options.bs.table': 'onRefreshOptions',
   'reset-view.bs.table': 'onResetView',
   'refresh.bs.table': 'onRefresh',
-  'scroll-body.bs.table': 'onScrollBody'
+  'scroll-body.bs.table': 'onScrollBody',
+  'toggle-pagination.bs.table': 'onTogglePagination'
 }
 
 Object.assign(DEFAULTS, EN)
