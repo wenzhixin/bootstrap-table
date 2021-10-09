@@ -3080,6 +3080,7 @@ class BootstrapTable {
     this.$toolbar.find('button[name="paginationSwitch"]')
       .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
     this.updatePagination()
+    this.trigger('toggle-pagination', this.options.pagination)
   }
 
   toggleFullscreen () {
