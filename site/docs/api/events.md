@@ -348,6 +348,18 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   * `cardView`: the cardView state of the table.
 
+## onTogglePagination
+
+- **jQuery Event:** `toggle-pagination.bs.table`
+
+- **Parameter:** `state`
+
+- **Detail:**
+
+  Fires when the pagination was toggled:
+
+  * `state`: the new pagination state (`true`-> Pagination is enabled, `false` -> Pagination is disabled )
+
 ## onUncheck
 
 - **jQuery Event:** `uncheck.bs.table`
