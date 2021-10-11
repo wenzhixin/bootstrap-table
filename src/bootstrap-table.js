@@ -1317,7 +1317,7 @@ class BootstrapTable {
 
       if (opts.smartDisplay) {
         if (pageList.length < 2 || opts.totalRows <= pageList[0]) {
-          this.$pagination.find('span.page-list').hide()
+          this.$pagination.find('div.page-list').hide()
         }
       }
 
