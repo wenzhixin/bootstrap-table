@@ -67,12 +67,22 @@ class BootstrapTable {
         parts[1] = parts[1].toUpperCase()
       }
 
+      let localesToExtend = {}
+
       if (locales[this.options.locale]) {
-        $.extend(this.options, locales[this.options.locale])
+        localesToExtend = locales[this.options.locale]
       } else if (locales[parts.join('-')]) {
-        $.extend(this.options, locales[parts.join('-')])
+        localesToExtend = locales[parts.join('-')]
       } else if (locales[parts[0]]) {
-        $.extend(this.options, locales[parts[0]])
+        localesToExtend = locales[parts[0]]
+      }
+
+      for (const [formatName, func] of Object.entries(localesToExtend)) {
+        if (this.options[formatName] !== BootstrapTable.DEFAULTS[formatName]) {
+          continue
+        }
+
+        this.options[formatName] = func
       }
     }
   }
