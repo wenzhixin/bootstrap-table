@@ -108,7 +108,7 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
    **Note: This option is mainly used to adapt to the `TableDnD` plugin. Under no special circumstances, please do not modify the default value.**
 
-- **Default:** `>tbody>tr>td`
+- **Default:** `>tbody>tr>td:not(.bs-checkbox)`
 
 ### useRowAttrFunc
 
