@@ -105,7 +105,7 @@ BootstrapTable.prototype.onSort = function () {
 BootstrapTable.prototype.onPageListChange = function (event) {
   /* rebuild cache window on page size change */
   const target = $(event.currentTarget)
-  const newPageSize = parseInt(target.text())
+  const newPageSize = parseInt(target.text(), 10)
 
   this.options.pipelineSize = this.calculatePipelineSize(this.options.pipelineSize, newPageSize)
   this.resetCache = true
