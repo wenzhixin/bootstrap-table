@@ -2569,7 +2569,7 @@ class BootstrapTable {
         id = id.toString()
       } else if (typeof rowUniqueId === 'number') {
         if ((Number(rowUniqueId) === rowUniqueId) && (rowUniqueId % 1 === 0)) {
-          id = parseInt(id)
+          id = parseInt(id, 10)
         } else if ((rowUniqueId === Number(rowUniqueId)) && (rowUniqueId !== 0)) {
           id = parseFloat(id)
         }
