@@ -92,30 +92,51 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       this.buttons = Object.assign(this.buttons, {
         export: {
-          html: exportTypes.length === 1 ? `
-            <div class="export ${this.constants.classes.buttonsDropdown}"
-            data-type="${exportTypes[0]}">
-            <button class="${this.constants.buttonsClass}"
-            aria-label="Export"
-            type="button"
-            title="${o.formatExport()}">
-            ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
-            ${o.showButtonText ? o.formatExport() : ''}
-            </button>
-            </div>
-          ` : `
-            <div class="export ${this.constants.classes.buttonsDropdown}">
-            <button class="${this.constants.buttonsClass} dropdown-toggle"
-            aria-label="Export"
-            ${this.constants.dataToggle}="dropdown"
-            type="button"
-            title="${o.formatExport()}">
-            ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
-            ${o.showButtonText ? o.formatExport() : ''}
-            ${this.constants.html.dropdownCaret}
-            </button>
-            </div>
-          `
+          html:
+            (() => {
+              if (exportTypes.length === 1) {
+                return `
+                  <div class="export ${this.constants.classes.buttonsDropdown}"
+                  data-type="${exportTypes[0]}">
+                  <button class="${this.constants.buttonsClass}"
+                  aria-label="Export"
+                  type="button"
+                  title="${o.formatExport()}">
+                  ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+                  ${o.showButtonText ? o.formatExport() : ''}
+                  </button>
+                  </div>
+                `
+              }
+
+              const html = []
+
+              html.push(`
+                <div class="export ${this.constants.classes.buttonsDropdown}">
+                <button class="${this.constants.buttonsClass} dropdown-toggle"
+                aria-label="Export"
+                ${this.constants.dataToggle}="dropdown"
+                type="button"
+                title="${o.formatExport()}">
+                ${o.showButtonIcons ? Utils.sprintf(this.constants.html.icon, o.iconsPrefix, o.icons.export) : ''}
+                ${o.showButtonText ? o.formatExport() : ''}
+                ${this.constants.html.dropdownCaret}
+                </button>
+                ${this.constants.html.toolbarDropdown[0]}
+              `)
+
+              for (const type of exportTypes) {
+                if (TYPE_NAME.hasOwnProperty(type)) {
+                  const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem, '', TYPE_NAME[type]))
+
+                  $item.attr('data-type', type)
+                  html.push($item.prop('outerHTML'))
+                }
+              }
+
+              html.push(this.constants.html.toolbarDropdown[1], '</div>')
+              return html.join('')
+            })
         }
       })
     }
@@ -127,32 +148,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    let $menu = $(this.constants.html.toolbarDropdown.join(''))
-    let $items = this.$export
-
-    if (exportTypes.length > 1) {
-      this.$export.append($menu)
-
-      // themes support
-      if ($menu.children().length) {
-        $menu = $menu.children().eq(0)
-      }
-      for (const type of exportTypes) {
-        if (TYPE_NAME.hasOwnProperty(type)) {
-          const $item = $(Utils.sprintf(this.constants.html.pageDropdownItem,
-            '', TYPE_NAME[type]))
-
-          $item.attr('data-type', type)
-          $menu.append($item)
-        }
-      }
-
-      $items = $menu.children()
-    }
-
     this.updateExportButton()
-
-    $items.click(e => {
+    this.$export.find('[data-type]').click(e => {
       e.preventDefault()
 
       const type = $(e.currentTarget).data('type')
