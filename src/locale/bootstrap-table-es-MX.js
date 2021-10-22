@@ -51,10 +51,10 @@ $.fn.bootstrapTable.locales['es-MX'] = {
     return 'Mostrar/ocultar paginación'
   },
   formatPaginationSwitchDown () {
-    return 'Mostrar pagination'
+    return 'Mostrar paginación'
   },
   formatPaginationSwitchUp () {
-    return 'Ocultar pagination'
+    return 'Ocultar paginación'
   },
   formatRefresh () {
     return 'Actualizar'
