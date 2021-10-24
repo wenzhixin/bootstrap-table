@@ -2532,7 +2532,7 @@ class BootstrapTable {
       }
 
       if (params.hasOwnProperty('replace') && params.replace) {
-        this.options.data[params.index] = params.row
+        this.data[params.index] = params.row
       } else {
         $.extend(this.data[params.index], params.row)
       }
