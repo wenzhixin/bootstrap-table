@@ -2532,7 +2532,13 @@ class BootstrapTable {
       }
 
       if (params.hasOwnProperty('replace') && params.replace) {
-        this.data[params.index] = params.row
+        const oldRow = this.data[params.index]
+
+        Object.keys(oldRow).forEach(function (key) {
+          oldRow[key] = null
+        })
+
+        $.extend(this.data[params.index], $.extend(oldRow, params.row))
       } else {
         $.extend(this.data[params.index], params.row)
       }
