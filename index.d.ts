@@ -1,3 +1,5 @@
+/// <reference types="jquery" />
+
 interface BootstrapTableClasses{
     buttons: string;
     buttonsGroup: string;
@@ -167,8 +169,8 @@ interface BootstrapAjaxParams{
     dataType: string;
     type: string;
     contentType: string;
-    error: (jqXHR: JQuery.jqXHR) => any;
-    success: (results: any, textStatus?: string, jqXHR?: JQuery.jqXHR) => any;
+    error: (jqXHR: JQueryXHR) => any;
+    success: (results: any, textStatus?: string, jqXHR?: JQueryXHR) => any;
 }
 
 interface BootstrapTableOptions{
