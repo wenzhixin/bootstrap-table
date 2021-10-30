@@ -1746,9 +1746,10 @@ class BootstrapTable {
         scrollEl: this.$tableBody[0],
         contentEl: this.$body[0],
         itemHeight: this.options.virtualScrollItemHeight,
-        callback: () => {
+        callback: (startIndex, endIndex) => {
           this.fitHeader()
           this.initBodyEvent()
+          this.trigger('virtual-scroll', startIndex, endIndex)
         }
       })
     }
@@ -2819,7 +2820,7 @@ class BootstrapTable {
     const colspan = options.colspan || 1
     let i
     let j
-    const $tr = this.$body.find('>tr')
+    const $tr = this.$body.find('>tr[data-index]')
 
     col += Utils.getDetailViewIndexOffset(this.options)
 
