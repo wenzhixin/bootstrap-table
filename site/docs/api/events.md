@@ -21,7 +21,7 @@ $('#table').bootstrapTable({
 })
 {% endhighlight %}
 
-Binding via the jquery event handler:   
+Binding via the jquery event handler:
 {% highlight html %}
 // Here you can expect to have in the 'e' variable the sender property which is the boostrap-table object
 
@@ -397,3 +397,16 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   Fires when user uncheck some rows, the parameters contain:
 
   * `rows`: array of records corresponding to previously checked rows.
+
+## onVirtualScroll
+
+- **jQuery Event:** `virtual-scroll.bs.table`
+
+- **Parameter:** `startIndex, endIndex`
+
+- **Detail:**
+
+  Fires when user scroll the virtual scroll, the parameters contain:
+
+  * `startIndex`: the start row index of the virtual scroll.
+  * `endIndex`: the end row index of the virtual scroll.

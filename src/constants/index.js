@@ -568,7 +568,8 @@ const EVENTS = {
   'reset-view.bs.table': 'onResetView',
   'refresh.bs.table': 'onRefresh',
   'scroll-body.bs.table': 'onScrollBody',
-  'toggle-pagination.bs.table': 'onTogglePagination'
+  'toggle-pagination.bs.table': 'onTogglePagination',
+  'virtual-scroll.bs.table': 'onVirtualScroll'
 }
 
 Object.assign(DEFAULTS, EN)
