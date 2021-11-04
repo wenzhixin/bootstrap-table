@@ -1761,9 +1761,9 @@ class BootstrapTable {
     }
 
     this.initBodyEvent()
-    this.updateSelected()
     this.initFooter()
     this.resetView()
+    this.updateSelected()
 
     if (this.options.sidePagination !== 'server') {
       this.options.totalRows = data.length
@@ -2997,9 +2997,6 @@ class BootstrapTable {
     if (params && params.height) {
       this.options.height = params.height
     }
-
-    this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
-      this.$selectItem.length === this.$selectItem.filter(':checked').length)
 
     this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
 
