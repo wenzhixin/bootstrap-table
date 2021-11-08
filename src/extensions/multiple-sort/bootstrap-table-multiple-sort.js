@@ -12,7 +12,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   plus: {
     bootstrap3: 'glyphicon-plus',
     bootstrap4: 'fa-plus',
-    bootstrap5: 'fa-plus',
+    bootstrap5: 'bi-plus',
     semantic: 'fa-plus',
     materialize: 'plus',
     foundation: 'fa-plus',
@@ -22,7 +22,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   minus: {
     bootstrap3: 'glyphicon-minus',
     bootstrap4: 'fa-minus',
-    bootstrap5: 'fa-minus',
+    bootstrap5: 'bi-dash',
     semantic: 'fa-minus',
     materialize: 'minus',
     foundation: 'fa-minus',
@@ -32,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   sort: {
     bootstrap3: 'glyphicon-sort',
     bootstrap4: 'fa-sort',
-    bootstrap5: 'fa-sort',
+    bootstrap5: 'bi-arrow-down-up',
     semantic: 'fa-sort',
     materialize: 'sort',
     foundation: 'fa-sort',
@@ -656,13 +656,16 @@ BootstrapTable.prototype.initToolbar = function (...args) {
     })
 
     this.$el.on('column-switch.bs.table', (field, checked) => {
-      for (let i = 0; i < that.options.sortPriority.length; i++) {
-        if (that.options.sortPriority[i].sortName === checked) {
-          that.options.sortPriority.splice(i, 1)
+      if (that.options.sortPriority !== null && that.options.sortPriority.length > 0) {
+        for (let i = 0; i < that.options.sortPriority.length; i++) {
+          if (that.options.sortPriority[i].sortName === checked) {
+            that.options.sortPriority.splice(i, 1)
+          }
         }
+
+        that.assignSortableArrows()
       }
 
-      that.assignSortableArrows()
       that.$sortModal.remove()
       showSortModal(that)
     })

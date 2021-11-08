@@ -3,36 +3,37 @@
  * Author: Felix Vera (felix.vera@gmail.com)
  * Copiado: Mauricio Vera (mauricioa.vera@gmail.com)
  * Revisión: J Manuel Corona (jmcg92@gmail.com) (13/Feb/2018).
+ * Revisión: Ricardo González (rickygzz85@gmail.com) (20/Oct/2021)
  */
 
 $.fn.bootstrapTable.locales['es-MX'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Copiar Filas'
   },
   formatPrint () {
-    return 'Print'
+    return 'Imprimir'
   },
   formatLoadingMessage () {
     return 'Cargando, espere por favor'
   },
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} registros por página`
+    return `${pageNumber} resultados por página`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas (filtered from ${totalNotFiltered} total rows)`
+      return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas (filtrado de ${totalNotFiltered} filas totales)`
     }
 
     return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'página anterior'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `ir a la página ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'página siguiente'
   },
   formatDetailPagination (totalRows) {
     return `Mostrando ${totalRows} filas`
@@ -50,10 +51,10 @@ $.fn.bootstrapTable.locales['es-MX'] = {
     return 'Mostrar/ocultar paginación'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Mostrar paginación'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Ocultar paginación'
   },
   formatRefresh () {
     return 'Actualizar'
@@ -62,16 +63,16 @@ $.fn.bootstrapTable.locales['es-MX'] = {
     return 'Cambiar vista'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Mostrar vista'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Ocultar vista'
   },
   formatColumns () {
     return 'Columnas'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Alternar todo'
   },
   formatFullscreen () {
     return 'Pantalla completa'
@@ -80,19 +81,19 @@ $.fn.bootstrapTable.locales['es-MX'] = {
     return 'Todo'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Auto actualizar'
   },
   formatExport () {
-    return 'Export data'
+    return 'Exportar datos'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'IR'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Búsqueda avanzada'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Cerrar'
   },
   formatFilterControlSwitch () {
     return 'Ocultar/Mostrar controles'

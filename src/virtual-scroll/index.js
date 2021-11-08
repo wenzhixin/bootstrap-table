@@ -21,7 +21,7 @@ class VirtualScroll {
     const onScroll = () => {
       if (this.lastCluster !== (this.lastCluster = this.getNum())) {
         this.initDOM(this.rows)
-        this.callback()
+        this.callback(this.startIndex, this.endIndex)
       }
     }
 
@@ -54,6 +54,8 @@ class VirtualScroll {
       if (data.bottomOffset) {
         html.push(this.getExtra('bottom', data.bottomOffset))
       }
+      this.startIndex = data.start
+      this.endIndex = data.end
       this.contentEl.innerHTML = html.join('')
 
       if (fixedScroll) {
@@ -104,6 +106,8 @@ class VirtualScroll {
       rows[i] && thisRows.push(rows[i])
     }
     return {
+      start,
+      end,
       topOffset,
       bottomOffset,
       rowsAbove,

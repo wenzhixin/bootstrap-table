@@ -75,9 +75,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initRow (item, idx, data, parentDom) {
     if (this.treeEnable) {
+      const parentId = parseInt(item[this.options.parentIdField], 10)
+
       if (
-        this.options.rootParentId === item[this.options.parentIdField] ||
-        !item[this.options.parentIdField]
+        this.options.rootParentId === parentId ||
+        !parentId
       ) {
         if (item._level === undefined) {
           item._level = 0

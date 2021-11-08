@@ -15,6 +15,7 @@ $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 $.extend($.fn.bootstrapTable.defaults.icons, {
   copy: {
     bootstrap3: 'glyphicon-copy icon-pencil',
+    bootstrap5: 'bi-clipboard',
     materialize: 'content_copy',
     'bootstrap-table': 'icon-copy'
   }[$.fn.bootstrapTable.theme] || 'fa-copy'
@@ -40,6 +41,11 @@ $.extend($.fn.bootstrapTable.defaults, {
   copyWithHidden: false,
   copyDelimiter: ', ',
   copyNewline: '\n'
+})
+
+$.extend($.fn.bootstrapTable.columnDefaults, {
+  ignoreCopy: false,
+  rawCopy: false
 })
 
 $.fn.bootstrapTable.methods.push(
@@ -80,12 +86,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       $.each(this.options.columns[0], (indy, column) => {
         if (
           column.field !== this.header.stateField &&
-          (!this.options.copyWithHidden ||
-          this.options.copyWithHidden && column.visible)
+          (!this.options.copyWithHidden || this.options.copyWithHidden && column.visible) &&
+          !column.ignoreCopy
         ) {
           if (row[column.field] !== null) {
-            cols.push(Utils.calculateObjectValue(column, this.header.formatters[indy],
-              [row[column.field], row, index], row[column.field]))
+            const columnValue = column.rawCopy ? row[column.field] : Utils.calculateObjectValue(column, this.header.formatters[indy], [row[column.field], row, index], row[column.field])
+
+            cols.push(columnValue)
           }
         }
       })

@@ -70,15 +70,14 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
-  clear: {
-    bootstrap3: 'glyphicon-trash icon-clear'
-  }[$.fn.bootstrapTable.theme] || 'fa-trash',
   filterControlSwitchHide: {
     bootstrap3: 'glyphicon-zoom-out icon-zoom-out',
+    bootstrap5: 'bi-zoom-out',
     materialize: 'zoom_out'
   }[$.fn.bootstrapTable.theme] || 'fa-search-minus',
   filterControlSwitchShow: {
     bootstrap3: 'glyphicon-zoom-in icon-zoom-in',
+    bootstrap5: 'bi-zoom-in',
     materialize: 'zoom_in'
   }[$.fn.bootstrapTable.theme] || 'fa-search-plus'
 })
@@ -155,6 +154,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.init()
   }
 
+  load (data) {
+    super.load(data)
+
+    if (!this.options.filterControl) {
+      return
+    }
+
+    UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
+  }
+
   initHeader () {
     super.initHeader()
 
@@ -173,29 +182,29 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initSearch () {
     const that = this
-    const fp = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial
+    const filterPartial = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial
 
     super.initSearch()
 
-    if (this.options.sidePagination === 'server' || fp === null) {
+    if (this.options.sidePagination === 'server' || filterPartial === null) {
       return
     }
 
     // Check partial column filter
-    that.data = fp ?
+    that.data = filterPartial ?
       that.data.filter((item, i) => {
         const itemIsExpected = []
         const keys1 = Object.keys(item)
-        const keys2 = Object.keys(fp)
+        const keys2 = Object.keys(filterPartial)
         const keys = keys1.concat(keys2.filter(item => !keys1.includes(item)))
 
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
-          const fval = (fp[key] || '').toLowerCase()
+          const filterValue = (filterPartial[key] || '').toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
 
-          if (fval === '') {
+          if (filterValue === '') {
             tmpItemIsExpected = true
           } else {
             // Fix #142: search use formatted data
@@ -220,14 +229,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
                   if (this.options.searchAccentNeutralise) {
                     objectValue = Utils.normalizeAccent(objectValue)
                   }
-
-                  tmpItemIsExpected = that.isValueExpected(fval, objectValue, thisColumn, key)
+                  tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
                 })
               } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
                 if (this.options.searchAccentNeutralise) {
                   value = Utils.normalizeAccent(value)
                 }
-                tmpItemIsExpected = that.isValueExpected(fval, value, thisColumn, key)
+                tmpItemIsExpected = that.isValueExpected(filterValue, value, thisColumn, key)
               }
             }
           }
@@ -249,6 +257,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
     } else if (column.filterStartsWithSearch) {
       tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(searchValue) === 0
+    } else if (this.options.regexSearch) {
+      tmpItemIsExpected = Utils.regexCompare(value, searchValue)
     } else {
       tmpItemIsExpected = (`${value}`).toLowerCase().includes(searchValue)
     }
@@ -369,7 +379,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   clearFilterControl () {
     if (this.options.filterControl) {
       const that = this
-      const cookies = UtilsFilterControl.collectBootstrapCookies()
+      const cookies = UtilsFilterControl.collectBootstrapTableFilterCookies()
       const table = this.$el.closest('table')
       const controls = UtilsFilterControl.getSearchControls(that)
       const search = Utils.getSearchInput(this)

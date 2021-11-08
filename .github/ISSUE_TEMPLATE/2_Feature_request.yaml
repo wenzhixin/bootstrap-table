@@ -1,0 +1,17 @@
+name: 🚀 Feature Request/Improvement
+description: Ideas for new features and improvements
+labels: feature-request
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Description of the desired new feature
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Love bootstrap-table? Please consider supporting our collective:
+        👉  https://opencollective.com/bootstrap-table/donate

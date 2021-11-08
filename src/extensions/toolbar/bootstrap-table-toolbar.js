@@ -69,7 +69,7 @@ const theme = {
   },
   bootstrap5: {
     icons: {
-      advancedSearchIcon: 'fa-chevron-down'
+      advancedSearchIcon: 'bi-chevron-down'
     },
     html: {
       modal: `

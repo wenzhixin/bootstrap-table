@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.18.3
+ * version: 1.19.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -67,12 +67,22 @@ class BootstrapTable {
         parts[1] = parts[1].toUpperCase()
       }
 
+      let localesToExtend = {}
+
       if (locales[this.options.locale]) {
-        $.extend(this.options, locales[this.options.locale])
+        localesToExtend = locales[this.options.locale]
       } else if (locales[parts.join('-')]) {
-        $.extend(this.options, locales[parts.join('-')])
+        localesToExtend = locales[parts.join('-')]
       } else if (locales[parts[0]]) {
-        $.extend(this.options, locales[parts[0]])
+        localesToExtend = locales[parts[0]]
+      }
+
+      for (const [formatName, func] of Object.entries(localesToExtend)) {
+        if (this.options[formatName] !== BootstrapTable.DEFAULTS[formatName]) {
+          continue
+        }
+
+        this.options[formatName] = func
       }
     }
   }
@@ -388,16 +398,6 @@ class BootstrapTable {
 
       if (this.options.sortable && $this.parent().data().sortable) {
         this.onSort(e)
-      }
-    })
-
-    this.$header.children().children().off('keypress').on('keypress', e => {
-      if (this.options.sortable && $(e.currentTarget).data().sortable) {
-        const code = e.keyCode || e.which
-
-        if (code === 13) { // Enter keycode
-          this.onSort(e)
-        }
       }
     })
 
@@ -923,7 +923,10 @@ class BootstrapTable {
         return
       }
 
-      if (currentTarget === Utils.getSearchInput(this)[0] || $(currentTarget).hasClass('search-input')) {
+      const $searchInput = Utils.getSearchInput(this)
+      const $currentTarget = currentTarget instanceof jQuery ? currentTarget : $(currentTarget)
+
+      if ($currentTarget.is($searchInput) || $currentTarget.hasClass('search-input')) {
         this.searchText = text
         this.options.searchText = text
       }
@@ -956,11 +959,12 @@ class BootstrapTable {
         return
       }
 
-      let s = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText).toLowerCase()
+      const rawSearchText = this.searchText && (this.fromHtml ? Utils.escapeHTML(this.searchText) : this.searchText)
+      let searchText = rawSearchText ? rawSearchText.toLowerCase() : ''
       const f = Utils.isEmptyObject(this.filterColumns) ? null : this.filterColumns
 
       if (this.options.searchAccentNeutralise) {
-        s = Utils.normalizeAccent(s)
+        searchText = Utils.normalizeAccent(searchText)
       }
 
       // Check filter
@@ -1004,7 +1008,7 @@ class BootstrapTable {
 
       const visibleFields = this.getVisibleFields()
 
-      this.data = s ? this.data.filter((item, i) => {
+      this.data = searchText ? this.data.filter((item, i) => {
         for (let j = 0; j < this.header.fields.length; j++) {
           if (!this.header.searchables[j] || (this.options.visibleSearch && visibleFields.indexOf(this.header.fields[j]) === -1)) {
             continue
@@ -1038,50 +1042,51 @@ class BootstrapTable {
           }
 
           if (typeof value === 'string' || typeof value === 'number') {
-            if (this.options.strictSearch) {
-              if ((`${value}`).toLowerCase() === s) {
-                return true
-              }
-            } else {
-              const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(-?\d+)?|(-?\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
-              const matches = largerSmallerEqualsRegex.exec(this.searchText)
-              let comparisonCheck = false
+            if (
+              this.options.strictSearch && (`${value}`).toLowerCase() === searchText ||
+              (this.options.regexSearch && Utils.regexCompare(value, rawSearchText))
+            ) {
+              return true
+            }
 
-              if (matches) {
-                const operator = matches[1] || `${matches[5]}l`
-                const comparisonValue = matches[2] || matches[3]
-                const int = parseInt(value, 10)
-                const comparisonInt = parseInt(comparisonValue, 10)
+            const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(-?\d+)?|(-?\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+            const matches = largerSmallerEqualsRegex.exec(this.searchText)
+            let comparisonCheck = false
 
-                switch (operator) {
-                  case '>':
-                  case '<l':
-                    comparisonCheck = int > comparisonInt
-                    break
-                  case '<':
-                  case '>l':
-                    comparisonCheck = int < comparisonInt
-                    break
-                  case '<=':
-                  case '=<':
-                  case '>=l':
-                  case '=>l':
-                    comparisonCheck = int <= comparisonInt
-                    break
-                  case '>=':
-                  case '=>':
-                  case '<=l':
-                  case '=<l':
-                    comparisonCheck = int >= comparisonInt
-                    break
-                  default:
-                    break
-                }
-              }
+            if (matches) {
+              const operator = matches[1] || `${matches[5]}l`
+              const comparisonValue = matches[2] || matches[3]
+              const int = parseInt(value, 10)
+              const comparisonInt = parseInt(comparisonValue, 10)
 
-              if (comparisonCheck || (`${value}`).toLowerCase().includes(s)) {
-                return true
+              switch (operator) {
+                case '>':
+                case '<l':
+                  comparisonCheck = int > comparisonInt
+                  break
+                case '<':
+                case '>l':
+                  comparisonCheck = int < comparisonInt
+                  break
+                case '<=':
+                case '=<':
+                case '>=l':
+                case '=>l':
+                  comparisonCheck = int <= comparisonInt
+                  break
+                case '>=':
+                case '=>':
+                case '<=l':
+                case '=<l':
+                  comparisonCheck = int >= comparisonInt
+                  break
+                default:
+                  break
               }
+            }
+
+            if (comparisonCheck || (`${value}`).toLowerCase().includes(searchText)) {
+              return true
             }
           }
         }
@@ -1322,7 +1327,7 @@ class BootstrapTable {
 
       if (opts.smartDisplay) {
         if (pageList.length < 2 || opts.totalRows <= pageList[0]) {
-          this.$pagination.find('span.page-list').hide()
+          this.$pagination.find('div.page-list').hide()
         }
       }
 
@@ -1385,6 +1390,9 @@ class BootstrapTable {
   }
 
   onPagePre (event) {
+    if ($(event.target).hasClass('disabled')) {
+      return
+    }
     event.preventDefault()
     if ((this.options.pageNumber - 1) === 0) {
       this.options.pageNumber = this.options.totalPages
@@ -1396,6 +1404,9 @@ class BootstrapTable {
   }
 
   onPageNext (event) {
+    if ($(event.target).hasClass('disabled')) {
+      return
+    }
     event.preventDefault()
     if ((this.options.pageNumber + 1) > this.options.totalPages) {
       this.options.pageNumber = 1
@@ -1577,7 +1588,7 @@ class BootstrapTable {
           this.options.undefinedText : value
       }
 
-      if (column.searchable && this.searchText && this.options.searchHighlight) {
+      if (column.searchable && this.searchText && this.options.searchHighlight && !(column.checkbox || column.radio)) {
         let defValue = ''
         const regExp = new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim')
         const marker = '<mark>$1</mark>'
@@ -1662,7 +1673,7 @@ class BootstrapTable {
     return html.join('')
   }
 
-  initBody (fixedScroll) {
+  initBody (fixedScroll, updatedUid) {
     const data = this.getData()
 
     this.trigger('pre-body', data)
@@ -1681,15 +1692,35 @@ class BootstrapTable {
     const rows = []
     const trFragments = $(document.createDocumentFragment())
     let hasTr = false
+    const toExpand = []
 
     this.autoMergeCells = Utils.checkAutoMergeCells(data.slice(this.pageFrom - 1, this.pageTo))
 
     for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
       const item = data[i]
-      const tr = this.initRow(item, i, data, trFragments)
+      let tr = this.initRow(item, i, data, trFragments)
 
       hasTr = hasTr || !!tr
       if (tr && typeof tr === 'string') {
+
+        const uniqueId = this.options.uniqueId
+
+        if (uniqueId && item.hasOwnProperty(uniqueId)) {
+          const itemUniqueId = item[uniqueId]
+
+          const oldTr = this.$body.find(Utils.sprintf('> tr[data-uniqueid="%s"][data-has-detail-view]', itemUniqueId))
+          const oldTrNext = oldTr.next()
+
+          if (oldTrNext.is('tr.detail-view')) {
+
+            toExpand.push(i)
+
+            if (!updatedUid || itemUniqueId !== updatedUid) {
+              tr += oldTrNext[0].outerHTML
+            }
+          }
+        }
+
         if (!this.options.virtualScroll) {
           trFragments.append(tr)
         } else {
@@ -1715,21 +1746,24 @@ class BootstrapTable {
         scrollEl: this.$tableBody[0],
         contentEl: this.$body[0],
         itemHeight: this.options.virtualScrollItemHeight,
-        callback: () => {
+        callback: (startIndex, endIndex) => {
           this.fitHeader()
           this.initBodyEvent()
+          this.trigger('virtual-scroll', startIndex, endIndex)
         }
       })
     }
+
+    toExpand.forEach(index => { this.expandRow(index) })
 
     if (!fixedScroll) {
       this.scrollTo(0)
     }
 
     this.initBodyEvent()
-    this.updateSelected()
     this.initFooter()
     this.resetView()
+    this.updateSelected()
 
     if (this.options.sidePagination !== 'server') {
       this.options.totalRows = data.length
@@ -1877,9 +1911,8 @@ class BootstrapTable {
       if (this.options.pagination && this.options.sidePagination === 'server') {
         params.offset = this.options.pageSize === this.options.formatAllRows() ?
           0 : this.options.pageSize * (this.options.pageNumber - 1)
-        params.limit = this.options.pageSize === this.options.formatAllRows() ?
-          this.options.totalRows : this.options.pageSize
-        if (params.limit === 0) {
+        params.limit = this.options.pageSize
+        if (params.limit === 0 || this.options.pageSize === this.options.formatAllRows()) {
           delete params.limit
         }
       }
@@ -1943,6 +1976,7 @@ class BootstrapTable {
 
         if (
           this.options.sidePagination === 'server' &&
+          this.options.pageNumber > 1 &&
           res[this.options.totalField] > 0 &&
           !res[this.options.dataField].length
         ) {
@@ -1950,6 +1984,12 @@ class BootstrapTable {
         }
       },
       error: jqXHR => {
+        // abort ajax by multiple request
+        if (jqXHR && jqXHR.status === 0 && this._xhrAbort) {
+          this._xhrAbort = false
+          return
+        }
+
         let data = []
 
         if (this.options.sidePagination === 'server') {
@@ -1967,6 +2007,7 @@ class BootstrapTable {
       Utils.calculateObjectValue(this, this.options.ajax, [request], null)
     } else {
       if (this._xhr && this._xhr.readyState !== 4) {
+        this._xhrAbort = true
         this._xhr.abort()
       }
       this._xhr = $.ajax(request)
@@ -2528,7 +2569,7 @@ class BootstrapTable {
         id = id.toString()
       } else if (typeof rowUniqueId === 'number') {
         if ((Number(rowUniqueId) === rowUniqueId) && (rowUniqueId % 1 === 0)) {
-          id = parseInt(id)
+          id = parseInt(id, 10)
         } else if ((rowUniqueId === Number(rowUniqueId)) && (rowUniqueId !== 0)) {
           id = parseFloat(id)
         }
@@ -2545,6 +2586,7 @@ class BootstrapTable {
 
   updateByUniqueId (params) {
     const allParams = Array.isArray(params) ? params : [params]
+    let updatedUid = null
 
     for (const params of allParams) {
       if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
@@ -2562,12 +2604,13 @@ class BootstrapTable {
       } else {
         $.extend(this.options.data[rowId], params.row)
       }
+      updatedUid = params.id
     }
 
     this.initSearch()
     this.initPagination()
     this.initSort()
-    this.initBody(true)
+    this.initBody(true, updatedUid)
   }
 
   removeByUniqueId (id) {
@@ -2777,7 +2820,7 @@ class BootstrapTable {
     const colspan = options.colspan || 1
     let i
     let j
-    const $tr = this.$body.find('>tr')
+    const $tr = this.$body.find('>tr[data-index]')
 
     col += Utils.getDetailViewIndexOffset(this.options)
 
@@ -2906,10 +2949,11 @@ class BootstrapTable {
       if (obj.values.includes(row[obj.field])) {
         let $el = this.$selectItem.filter(':enabled')
           .filter(Utils.sprintf('[data-index="%s"]', i))
+        const onlyCurrentPage = obj.hasOwnProperty('onlyCurrentPage') ? obj.onlyCurrentPage : false
 
         $el = checked ? $el.not(':checked') : $el.filter(':checked')
 
-        if (!$el.length) {
+        if (!$el.length && onlyCurrentPage) {
           return
         }
 
@@ -2953,9 +2997,6 @@ class BootstrapTable {
     if (params && params.height) {
       this.options.height = params.height
     }
-
-    this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
-      this.$selectItem.length === this.$selectItem.filter(':checked').length)
 
     this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
 
@@ -3046,6 +3087,7 @@ class BootstrapTable {
     this.$toolbar.find('button[name="paginationSwitch"]')
       .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
     this.updatePagination()
+    this.trigger('toggle-pagination', this.options.pagination)
   }
 
   toggleFullscreen () {
@@ -3145,12 +3187,12 @@ class BootstrapTable {
     const row = this.data[index]
     const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"][data-has-detail-view]', index))
 
-    if ($tr.next().is('tr.detail-view')) {
-      return
-    }
-
     if (this.options.detailViewIcon) {
       $tr.find('a.detail-icon').html(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailClose))
+    }
+
+    if ($tr.next().is('tr.detail-view')) {
+      return
     }
 
     $tr.after(Utils.sprintf('<tr class="detail-view"><td colspan="%s"></td></tr>', $tr.children('td').length))

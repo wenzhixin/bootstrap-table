@@ -43,6 +43,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .on('column-switch.bs.table page-change.bs.table', () => {
         reInitResizable(this)
       })
+
+    reInitResizable(this)
   }
 
   toggleView (...args) {

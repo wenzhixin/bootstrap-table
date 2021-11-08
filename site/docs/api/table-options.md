@@ -538,6 +538,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   Defines the key of the footer Object (From data array or server response json).
   The footer Object can be used to set/define footer colspans and/or the value of the footer.
+  Only triggered when `data-pagination` is `true` and `data-side-pagination` is `server`.
+
 
   {% highlight javascript %}
     {
@@ -1072,6 +1074,23 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Query Params Type](https://examples.bootstrap-table.com/#options/query-params-type.html)
 
+## regexSearch
+
+- **Attribute:** `data-regex-search`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to enable the regex search.
+  Is this option enabled, you can search with regex e.g. `[47a]$` for all items which ends with a `4`, `7` or `a`.     
+  The regex can be entered with `/[47a]$/gim` or without `[47a]$` flags, the default flags are `gim`.
+
+
+- **Default:** `false`
+
+- **Example:** [Regex Search](https://examples.bootstrap-table.com/#options/regex-search.html)
+
 ## rememberOrder
 
 - **Attribute:** `data-remember-order`
@@ -1159,7 +1178,9 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   - Comparisons (<, >, <=, =<, >=, =>).
     Example: 4 is larger than 3.
 
-  Note: If you want to use a custom search input use the [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector).
+  Notes:
+  - If you want to use a custom search input use the [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector).
+  - You can also search via regex using the [regexSearch](https://bootstrap-table.com/docs/api/table-options/#regexSearch) option.
 
 - **Default:** `false`
 
@@ -1294,7 +1315,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 ## showButtonIcons
 
-- **Attribute:** `show-button-icons`
+- **Attribute:** `data-show-button-icons`
 
 - **Type:** `Boolean`
 
@@ -1308,7 +1329,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 ## showButtonText
 
-- **Attribute:** `show-button-text`
+- **Attribute:** `data-show-button-text`
 
 - **Type:** `Boolean`
 
@@ -1840,7 +1861,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 ## visibleSearch
 
-- **Attribute:** `visible-search`
+- **Attribute:** `data-visible-search`
 
 - **Type:** `Boolean`
 
