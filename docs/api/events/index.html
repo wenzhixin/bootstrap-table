@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.18.3
+        v1.19.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.18.3)</a>
+        <a class="dropdown-item active" href="/">Latest (1.19.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
@@ -377,9 +377,11 @@
 <li class="toc-entry toc-h2"><a href="#onsearch">onSearch</a></li>
 <li class="toc-entry toc-h2"><a href="#onsort">onSort</a></li>
 <li class="toc-entry toc-h2"><a href="#ontoggle">onToggle</a></li>
+<li class="toc-entry toc-h2"><a href="#ontogglepagination">onTogglePagination</a></li>
 <li class="toc-entry toc-h2"><a href="#onuncheck">onUncheck</a></li>
 <li class="toc-entry toc-h2"><a href="#onuncheckall">onUncheckAll</a></li>
 <li class="toc-entry toc-h2"><a href="#onunchecksome">onUncheckSome</a></li>
+<li class="toc-entry toc-h2"><a href="#onvirtualscroll">onVirtualScroll</a></li>
 </ul>
           </div>
         
@@ -933,6 +935,26 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   </li>
 </ul>
 
+<h2 id="ontogglepagination">onTogglePagination</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">toggle-pagination.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">state</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when the pagination was toggled:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">state</code>: the new pagination state (<code class="highlighter-rouge">true</code>-&gt; Pagination is enabled, <code class="highlighter-rouge">false</code> -&gt; Pagination is disabled )</li>
+    </ul>
+  </li>
+</ul>
+
 <h2 id="onuncheck">onUncheck</h2>
 
 <ul>
@@ -991,6 +1013,27 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
     <ul>
       <li><code class="highlighter-rouge">rows</code>: array of records corresponding to previously checked rows.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="onvirtualscroll">onVirtualScroll</h2>
+
+<ul>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">virtual-scroll.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">startIndex, endIndex</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Fires when user scroll the virtual scroll, the parameters contain:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">startIndex</code>: the start row index of the virtual scroll.</li>
+      <li><code class="highlighter-rouge">endIndex</code>: the end row index of the virtual scroll.</li>
     </ul>
   </li>
 </ul>

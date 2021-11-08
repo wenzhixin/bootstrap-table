@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.18.3
+        v1.19.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.18.3)</a>
+        <a class="dropdown-item active" href="/">Latest (1.19.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
@@ -493,6 +493,7 @@
     <ul>
       <li><code class="highlighter-rouge">field</code>: name of the field used to find records.</li>
       <li><code class="highlighter-rouge">values</code>: array of values for rows to check.</li>
+      <li><code class="highlighter-rouge">onlyCurrentPage (default false)</code>: If <code class="highlighter-rouge">true</code> only the visible dataset will be checked. If pagination is used the other pages will be ignored.</li>
     </ul>
   </li>
   <li>
@@ -1344,6 +1345,7 @@ The parameter can be a string or a array of fields.</p>
     <ul>
       <li><code class="highlighter-rouge">field</code>: name of the field used to find records.</li>
       <li><code class="highlighter-rouge">values</code>: array of values for rows to uncheck.</li>
+      <li><code class="highlighter-rouge">onlyCurrentPage (default false)</code>: If <code class="highlighter-rouge">true</code> only the visible dataset will be unchecked. If pagination is used the other pages will be ignored.</li>
     </ul>
   </li>
   <li>

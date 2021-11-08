@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.18.3
+        v1.19.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.18.3)</a>
+        <a class="dropdown-item active" href="/">Latest (1.19.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
@@ -656,10 +656,10 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set this array with the table properties (sortOrder, sortName, pageNumber, pageList, columns, searchText, filterControl) that you want to save</p>
+    <p>Set this array with the table properties (sortOrder, sortName, sortPriority, pageNumber, pageList, columns, searchText, filterControl) that you want to save</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl', 'bs.table.cardView']</code></p>
   </li>
 </ul>
 
@@ -695,11 +695,14 @@
 
 <ul>
   <li>Page number</li>
-  <li>Page number from the list</li>
+  <li>Page size (Rows per page)</li>
   <li>Search text</li>
   <li>Search filter control</li>
   <li>Sort order</li>
+  <li>Sort name</li>
+  <li>Multiple Sort order</li>
   <li>Visible columns</li>
+  <li>Card view state</li>
 </ul>
 
         </main>

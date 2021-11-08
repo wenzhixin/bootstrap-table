@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.18.3
+        v1.19.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.18.3)</a>
+        <a class="dropdown-item active" href="/">Latest (1.19.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
@@ -360,9 +360,15 @@
 <li class="toc-entry toc-h3"><a href="#copydelimiter">copyDelimiter</a></li>
 <li class="toc-entry toc-h3"><a href="#copynewline">copyNewline</a></li>
 <li class="toc-entry toc-h3"><a href="#copywithhidden">copyWithHidden</a></li>
-<li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ignorecopy">ignoreCopy</a></li>
+<li class="toc-entry toc-h3"><a href="#rawcopy">rawCopy</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#icons">Icons</a></li>
 <li class="toc-entry toc-h2"><a href="#methods">Methods</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#copycolumnstoclipboard">copyColumnsToClipboard</a></li>
@@ -481,7 +487,48 @@
   </li>
 </ul>
 
-<h3 id="icons">Icons</h3>
+<h2 id="column-options">Column options</h2>
+
+<h3 id="ignorecopy">ignoreCopy</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-ignore-copy</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to ignore this column while copying.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="rawcopy">rawCopy</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-raw-copy</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to copy the raw value instead the formatted one. <br />
+If no formatter is used, this option has no effect.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="icons">Icons</h2>
 
 <ul>
   <li>copy: ‘fa-copy’</li>
