@@ -225,9 +225,10 @@
 
   // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
   var global_1 =
-    /* global globalThis -- safe */
+    // eslint-disable-next-line es/no-global-this -- safe
     check(typeof globalThis == 'object' && globalThis) ||
     check(typeof window == 'object' && window) ||
+    // eslint-disable-next-line no-restricted-globals -- safe
     check(typeof self == 'object' && self) ||
     check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
     // eslint-disable-next-line no-new-func -- fallback
@@ -243,21 +244,23 @@
 
   // Detect IE8's incomplete defineProperty implementation
   var descriptors = !fails(function () {
+    // eslint-disable-next-line es/no-object-defineproperty -- required for testing
     return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
   });
 
-  var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
+  var $propertyIsEnumerable = {}.propertyIsEnumerable;
+  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
   var getOwnPropertyDescriptor$1 = Object.getOwnPropertyDescriptor;
 
   // Nashorn ~ JDK8 bug
-  var NASHORN_BUG = getOwnPropertyDescriptor$1 && !nativePropertyIsEnumerable.call({ 1: 2 }, 1);
+  var NASHORN_BUG = getOwnPropertyDescriptor$1 && !$propertyIsEnumerable.call({ 1: 2 }, 1);
 
   // `Object.prototype.propertyIsEnumerable` method implementation
   // https://tc39.es/ecma262/#sec-object.prototype.propertyisenumerable
   var f$4 = NASHORN_BUG ? function propertyIsEnumerable(V) {
     var descriptor = getOwnPropertyDescriptor$1(this, V);
     return !!descriptor && descriptor.enumerable;
-  } : nativePropertyIsEnumerable;
+  } : $propertyIsEnumerable;
 
   var objectPropertyIsEnumerable = {
   	f: f$4
@@ -337,20 +340,22 @@
 
   // Thank's IE8 for his funny defineProperty
   var ie8DomDefine = !descriptors && !fails(function () {
+    // eslint-disable-next-line es/no-object-defineproperty -- requied for testing
     return Object.defineProperty(documentCreateElement('div'), 'a', {
       get: function () { return 7; }
     }).a != 7;
   });
 
-  var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
   // `Object.getOwnPropertyDescriptor` method
   // https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
-  var f$3 = descriptors ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
+  var f$3 = descriptors ? $getOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
     O = toIndexedObject(O);
     P = toPrimitive(P, true);
     if (ie8DomDefine) try {
-      return nativeGetOwnPropertyDescriptor(O, P);
+      return $getOwnPropertyDescriptor(O, P);
     } catch (error) { /* empty */ }
     if (has$1(O, P)) return createPropertyDescriptor(!objectPropertyIsEnumerable.f.call(O, P), O[P]);
   };
@@ -365,16 +370,17 @@
     } return it;
   };
 
-  var nativeDefineProperty = Object.defineProperty;
+  // eslint-disable-next-line es/no-object-defineproperty -- safe
+  var $defineProperty = Object.defineProperty;
 
   // `Object.defineProperty` method
   // https://tc39.es/ecma262/#sec-object.defineproperty
-  var f$2 = descriptors ? nativeDefineProperty : function defineProperty(O, P, Attributes) {
+  var f$2 = descriptors ? $defineProperty : function defineProperty(O, P, Attributes) {
     anObject(O);
     P = toPrimitive(P, true);
     anObject(Attributes);
     if (ie8DomDefine) try {
-      return nativeDefineProperty(O, P, Attributes);
+      return $defineProperty(O, P, Attributes);
     } catch (error) { /* empty */ }
     if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported');
     if ('value' in Attributes) O[P] = Attributes.value;
@@ -424,7 +430,7 @@
   (module.exports = function (key, value) {
     return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.9.1',
+    version: '3.10.1',
     mode: 'global',
     copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
   });
@@ -636,6 +642,7 @@
 
   // `Object.getOwnPropertyNames` method
   // https://tc39.es/ecma262/#sec-object.getownpropertynames
+  // eslint-disable-next-line es/no-object-getownpropertynames -- safe
   var f$1 = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
     return objectKeysInternal(O, hiddenKeys);
   };
@@ -644,6 +651,7 @@
   	f: f$1
   };
 
+  // eslint-disable-next-line es/no-object-getownpropertysymbols -- safe
   var f = Object.getOwnPropertySymbols;
 
   var objectGetOwnPropertySymbols = {
@@ -743,6 +751,7 @@
 
   // `IsArray` abstract operation
   // https://tc39.es/ecma262/#sec-isarray
+  // eslint-disable-next-line es/no-array-isarray -- safe
   var isArray = Array.isArray || function isArray(arg) {
     return classofRaw(arg) == 'Array';
   };
@@ -781,16 +790,19 @@
 
   var engineV8Version = version && +version;
 
+  // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
   var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
-    /* global Symbol -- required for testing */
+    // eslint-disable-next-line es/no-symbol -- required for testing
     return !Symbol.sham &&
       // Chrome 38 Symbol has incorrect toString conversion
       // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
       (engineIsNode ? engineV8Version === 38 : engineV8Version > 37 && engineV8Version < 41);
   });
 
+  /* eslint-disable es/no-symbol -- required for testing */
+
+
   var useSymbolAsUid = nativeSymbol
-    /* global Symbol -- safe */
     && !Symbol.sham
     && typeof Symbol.iterator == 'symbol';
 
@@ -931,7 +943,7 @@
     return RegExp(s, f);
   }
 
-  var UNSUPPORTED_Y$1 = fails(function () {
+  var UNSUPPORTED_Y$2 = fails(function () {
     // babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
     var re = RE('a', 'y');
     re.lastIndex = 2;
@@ -946,15 +958,12 @@
   });
 
   var regexpStickyHelpers = {
-  	UNSUPPORTED_Y: UNSUPPORTED_Y$1,
+  	UNSUPPORTED_Y: UNSUPPORTED_Y$2,
   	BROKEN_CARET: BROKEN_CARET
   };
 
   var nativeExec = RegExp.prototype.exec;
-  // This always refers to the native implementation, because the
-  // String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
-  // which loads this file before patching the method.
-  var nativeReplace = String.prototype.replace;
+  var nativeReplace = shared('native-string-replace', String.prototype.replace);
 
   var patchedExec = nativeExec;
 
@@ -966,19 +975,19 @@
     return re1.lastIndex !== 0 || re2.lastIndex !== 0;
   })();
 
-  var UNSUPPORTED_Y = regexpStickyHelpers.UNSUPPORTED_Y || regexpStickyHelpers.BROKEN_CARET;
+  var UNSUPPORTED_Y$1 = regexpStickyHelpers.UNSUPPORTED_Y || regexpStickyHelpers.BROKEN_CARET;
 
   // nonparticipating capturing group, copied from es5-shim's String#split patch.
   // eslint-disable-next-line regexp/no-assertion-capturing-group, regexp/no-empty-group -- required for testing
   var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
 
-  var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y;
+  var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y$1;
 
   if (PATCH) {
     patchedExec = function exec(str) {
       var re = this;
       var lastIndex, reCopy, match, i;
-      var sticky = UNSUPPORTED_Y && re.sticky;
+      var sticky = UNSUPPORTED_Y$1 && re.sticky;
       var flags = regexpFlags.call(re);
       var source = re.source;
       var charsAdded = 0;
@@ -1048,7 +1057,6 @@
 
 
 
-
   var SPECIES$1 = wellKnownSymbol('species');
 
   var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
@@ -1067,6 +1075,7 @@
   // IE <= 11 replaces $0 with the whole match, as if it was $&
   // https://stackoverflow.com/questions/6024666/getting-ie-to-replace-a-regex-with-the-literal-string-0
   var REPLACE_KEEPS_$0 = (function () {
+    // eslint-disable-next-line regexp/prefer-escape-replacement-dollar-char -- required for testing
     return 'a'.replace(/./, '$0') === '$0';
   })();
 
@@ -1136,7 +1145,7 @@
     ) {
       var nativeRegExpMethod = /./[SYMBOL];
       var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
-        if (regexp.exec === regexpExec) {
+        if (regexp.exec === RegExp.prototype.exec) {
           if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
             // The native String method already delegates to @@method (this
             // polyfilled function), leasing to infinite recursion.
@@ -1244,12 +1253,10 @@
     return regexpExec.call(R, S);
   };
 
+  var UNSUPPORTED_Y = regexpStickyHelpers.UNSUPPORTED_Y;
   var arrayPush = [].push;
   var min$1 = Math.min;
   var MAX_UINT32 = 0xFFFFFFFF;
-
-  // babel-minify transpiles RegExp('x', 'y') -> /x/y and it causes SyntaxError
-  var SUPPORTS_Y = !fails(function () { return !RegExp(MAX_UINT32, 'y'); });
 
   // @@split logic
   fixRegexpWellKnownSymbolLogic('split', 2, function (SPLIT, nativeSplit, maybeCallNative) {
@@ -1333,11 +1340,11 @@
         var flags = (rx.ignoreCase ? 'i' : '') +
                     (rx.multiline ? 'm' : '') +
                     (rx.unicode ? 'u' : '') +
-                    (SUPPORTS_Y ? 'y' : 'g');
+                    (UNSUPPORTED_Y ? 'g' : 'y');
 
         // ^(? + rx + ) is needed, in combination with some S slicing, to
         // simulate the 'y' flag.
-        var splitter = new C(SUPPORTS_Y ? rx : '^(?:' + rx.source + ')', flags);
+        var splitter = new C(UNSUPPORTED_Y ? '^(?:' + rx.source + ')' : rx, flags);
         var lim = limit === undefined ? MAX_UINT32 : limit >>> 0;
         if (lim === 0) return [];
         if (S.length === 0) return regexpExecAbstract(splitter, S) === null ? [S] : [];
@@ -1345,12 +1352,12 @@
         var q = 0;
         var A = [];
         while (q < S.length) {
-          splitter.lastIndex = SUPPORTS_Y ? q : 0;
-          var z = regexpExecAbstract(splitter, SUPPORTS_Y ? S : S.slice(q));
+          splitter.lastIndex = UNSUPPORTED_Y ? 0 : q;
+          var z = regexpExecAbstract(splitter, UNSUPPORTED_Y ? S.slice(q) : S);
           var e;
           if (
             z === null ||
-            (e = min$1(toLength(splitter.lastIndex + (SUPPORTS_Y ? 0 : q)), S.length)) === p
+            (e = min$1(toLength(splitter.lastIndex + (UNSUPPORTED_Y ? q : 0)), S.length)) === p
           ) {
             q = advanceStringIndex(S, q, unicodeMatching);
           } else {
@@ -1367,7 +1374,7 @@
         return A;
       }
     ];
-  }, !SUPPORTS_Y);
+  }, UNSUPPORTED_Y);
 
   var floor = Math.floor;
   var replace = ''.replace;
@@ -1632,6 +1639,7 @@
   // https://tc39.es/ecma262/#sec-array.prototype.foreach
   var arrayForEach = !STRICT_METHOD ? function forEach(callbackfn /* , thisArg */) {
     return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
   } : [].forEach;
 
   for (var COLLECTION_NAME in domIterables) {
@@ -1709,12 +1717,14 @@
 
   // `Object.keys` method
   // https://tc39.es/ecma262/#sec-object.keys
+  // eslint-disable-next-line es/no-object-keys -- safe
   var objectKeys = Object.keys || function keys(O) {
     return objectKeysInternal(O, enumBugKeys);
   };
 
   // `Object.defineProperties` method
   // https://tc39.es/ecma262/#sec-object.defineproperties
+  // eslint-disable-next-line es/no-object-defineproperties -- safe
   var objectDefineProperties = descriptors ? Object.defineProperties : function defineProperties(O, Properties) {
     anObject(O);
     var keys = objectKeys(Properties);
@@ -1865,6 +1875,7 @@
 
   // `SameValue` abstract operation
   // https://tc39.es/ecma262/#sec-samevalue
+  // eslint-disable-next-line es/no-object-is -- safe
   var sameValue = Object.is || function is(x, y) {
     // eslint-disable-next-line no-self-compare -- NaN check
     return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
@@ -1909,9 +1920,11 @@
     cookieIds: {
       sortOrder: 'bs.table.sortOrder',
       sortName: 'bs.table.sortName',
+      sortPriority: 'bs.table.sortPriority',
       pageNumber: 'bs.table.pageNumber',
       pageList: 'bs.table.pageList',
       columns: 'bs.table.columns',
+      cardView: 'bs.table.cardView',
       searchText: 'bs.table.searchText',
       reorderColumns: 'bs.table.reorderColumns',
       filterControl: 'bs.table.filterControl',
@@ -2167,7 +2180,7 @@
     cookieSecure: null,
     cookieSameSite: 'Lax',
     cookieIdTable: '',
-    cookiesEnabled: ['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl', 'bs.table.filterBy', 'bs.table.reorderColumns'],
+    cookiesEnabled: ['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl', 'bs.table.filterBy', 'bs.table.reorderColumns', 'bs.table.cardView'],
     cookieStorage: 'cookieStorage',
     // localStorage, sessionStorage, customStorage
     cookieCustomStorageGet: null,
@@ -2293,35 +2306,57 @@
         if (this.options.sortName === undefined || this.options.sortOrder === undefined) {
           UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName);
           UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder);
-          return;
+        } else {
+          this.options.sortPriority = null;
+          UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority);
+          UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder);
+          UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName);
         }
-
-        UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder);
-        UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName);
       }
     }, {
-      key: "onPageNumber",
-      value: function onPageNumber() {
+      key: "onMultipleSort",
+      value: function onMultipleSort() {
         var _get5;
 
         for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
           args[_key4] = arguments[_key4];
         }
 
-        (_get5 = _get(_getPrototypeOf(_class.prototype), "onPageNumber", this)).call.apply(_get5, [this].concat(args));
+        (_get5 = _get(_getPrototypeOf(_class.prototype), "onMultipleSort", this)).call.apply(_get5, [this].concat(args));
 
-        UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
+        if (this.options.sortPriority === undefined) {
+          UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority);
+        } else {
+          this.options.sortName = undefined;
+          this.options.sortOrder = undefined;
+          UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName);
+          UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder);
+          UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority));
+        }
       }
     }, {
-      key: "onPageListChange",
-      value: function onPageListChange() {
+      key: "onPageNumber",
+      value: function onPageNumber() {
         var _get6;
 
         for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
           args[_key5] = arguments[_key5];
         }
 
-        (_get6 = _get(_getPrototypeOf(_class.prototype), "onPageListChange", this)).call.apply(_get6, [this].concat(args));
+        (_get6 = _get(_getPrototypeOf(_class.prototype), "onPageNumber", this)).call.apply(_get6, [this].concat(args));
+
+        UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
+      }
+    }, {
+      key: "onPageListChange",
+      value: function onPageListChange() {
+        var _get7;
+
+        for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+          args[_key6] = arguments[_key6];
+        }
+
+        (_get7 = _get(_getPrototypeOf(_class.prototype), "onPageListChange", this)).call.apply(_get7, [this].concat(args));
 
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList, this.options.pageSize);
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
@@ -2329,39 +2364,39 @@
     }, {
       key: "onPagePre",
       value: function onPagePre() {
-        var _get7;
-
-        for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
-          args[_key6] = arguments[_key6];
-        }
-
-        (_get7 = _get(_getPrototypeOf(_class.prototype), "onPagePre", this)).call.apply(_get7, [this].concat(args));
-
-        UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
-      }
-    }, {
-      key: "onPageNext",
-      value: function onPageNext() {
         var _get8;
 
         for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
           args[_key7] = arguments[_key7];
         }
 
-        (_get8 = _get(_getPrototypeOf(_class.prototype), "onPageNext", this)).call.apply(_get8, [this].concat(args));
+        (_get8 = _get(_getPrototypeOf(_class.prototype), "onPagePre", this)).call.apply(_get8, [this].concat(args));
 
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
       }
     }, {
-      key: "_toggleColumn",
-      value: function _toggleColumn() {
+      key: "onPageNext",
+      value: function onPageNext() {
         var _get9;
 
         for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
           args[_key8] = arguments[_key8];
         }
 
-        (_get9 = _get(_getPrototypeOf(_class.prototype), "_toggleColumn", this)).call.apply(_get9, [this].concat(args));
+        (_get9 = _get(_getPrototypeOf(_class.prototype), "onPageNext", this)).call.apply(_get9, [this].concat(args));
+
+        UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
+      }
+    }, {
+      key: "_toggleColumn",
+      value: function _toggleColumn() {
+        var _get10;
+
+        for (var _len9 = arguments.length, args = new Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
+          args[_key9] = arguments[_key9];
+        }
+
+        (_get10 = _get(_getPrototypeOf(_class.prototype), "_toggleColumn", this)).call.apply(_get10, [this].concat(args));
 
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(function (column) {
           return column.field;
@@ -2370,17 +2405,24 @@
     }, {
       key: "_toggleAllColumns",
       value: function _toggleAllColumns() {
-        var _get10;
+        var _get11;
 
-        for (var _len9 = arguments.length, args = new Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
-          args[_key9] = arguments[_key9];
+        for (var _len10 = arguments.length, args = new Array(_len10), _key10 = 0; _key10 < _len10; _key10++) {
+          args[_key10] = arguments[_key10];
         }
 
-        (_get10 = _get(_getPrototypeOf(_class.prototype), "_toggleAllColumns", this)).call.apply(_get10, [this].concat(args));
+        (_get11 = _get(_getPrototypeOf(_class.prototype), "_toggleAllColumns", this)).call.apply(_get11, [this].concat(args));
 
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(function (column) {
           return column.field;
         })));
+      }
+    }, {
+      key: "toggleView",
+      value: function toggleView() {
+        _get(_getPrototypeOf(_class.prototype), "toggleView", this).call(this);
+
+        UtilsCookie.setCookie(this, UtilsCookie.cookieIds.cardView, this.options.cardView);
       }
     }, {
       key: "selectPage",
@@ -2403,17 +2445,17 @@
     }, {
       key: "initHeader",
       value: function initHeader() {
-        var _get11;
+        var _get12;
 
         if (this.options.reorderableColumns) {
           this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.reorderColumns));
         }
 
-        for (var _len10 = arguments.length, args = new Array(_len10), _key10 = 0; _key10 < _len10; _key10++) {
-          args[_key10] = arguments[_key10];
+        for (var _len11 = arguments.length, args = new Array(_len11), _key11 = 0; _key11 < _len11; _key11++) {
+          args[_key11] = arguments[_key11];
         }
 
-        (_get11 = _get(_getPrototypeOf(_class.prototype), "initHeader", this)).call.apply(_get11, [this].concat(args));
+        (_get12 = _get(_getPrototypeOf(_class.prototype), "initHeader", this)).call.apply(_get12, [this].concat(args));
       }
     }, {
       key: "persistReorderColumnsState",
@@ -2423,13 +2465,13 @@
     }, {
       key: "filterBy",
       value: function filterBy() {
-        var _get12;
+        var _get13;
 
-        for (var _len11 = arguments.length, args = new Array(_len11), _key11 = 0; _key11 < _len11; _key11++) {
-          args[_key11] = arguments[_key11];
+        for (var _len12 = arguments.length, args = new Array(_len12), _key12 = 0; _key12 < _len12; _key12++) {
+          args[_key12] = arguments[_key12];
         }
 
-        (_get12 = _get(_getPrototypeOf(_class.prototype), "filterBy", this)).call.apply(_get12, [this].concat(args));
+        (_get13 = _get(_getPrototypeOf(_class.prototype), "filterBy", this)).call.apply(_get13, [this].concat(args));
 
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.filterBy, JSON.stringify(this.filterColumns));
       }
@@ -2451,9 +2493,11 @@
 
         var sortOrderCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder);
         var sortOrderNameCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName);
+        var sortPriorityCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority);
         var pageNumberCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageNumber);
         var pageListCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageList);
         var searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText);
+        var cardViewCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.cardView);
         var columnsCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.columns);
 
         if (typeof columnsCookieValue === 'boolean' && !columnsCookieValue) {
@@ -2466,18 +2510,42 @@
           columnsCookie = JSON.parse(columnsCookieValue);
         } catch (e) {
           throw new Error('Could not parse the json of the columns cookie!', columnsCookieValue);
+        }
+
+        try {
+          sortPriorityCookie = JSON.parse(sortPriorityCookie);
+        } catch (e) {
+          throw new Error('Could not parse the json of the sortPriority cookie!', sortPriorityCookie);
         } // sortOrder
 
 
-        this.options.sortOrder = sortOrderCookie ? sortOrderCookie : this.options.sortOrder; // sortName
+        this.options.sortOrder = undefined; // sortName
 
-        this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : this.options.sortName; // pageNumber
+        this.options.sortName = undefined;
+
+        if (!sortPriorityCookie) {
+          // sortOrder
+          this.options.sortOrder = sortOrderCookie ? sortOrderCookie : this.options.sortOrder; // sortName
+
+          this.options.sortName = sortOrderNameCookie ? sortOrderNameCookie : this.options.sortName;
+        } // sortPriority
+
+
+        this.options.sortPriority = sortPriorityCookie ? sortPriorityCookie : this.options.sortPriority;
+
+        if (this.options.sortOrder || this.options.sortName) {
+          // sortPriority
+          this.options.sortPriority = null;
+        } // pageNumber
+
 
         this.options.pageNumber = pageNumberCookie ? +pageNumberCookie : this.options.pageNumber; // pageSize
 
         this.options.pageSize = pageListCookie ? pageListCookie === this.options.formatAllRows() ? pageListCookie : +pageListCookie : this.options.pageSize; // searchText
 
-        this.options.searchText = searchTextCookie ? searchTextCookie : '';
+        this.options.searchText = searchTextCookie ? searchTextCookie : ''; // cardView
+
+        this.options.cardView = cardViewCookie === 'true' ? cardViewCookie : false;
 
         if (columnsCookie) {
           var _iterator = _createForOfIteratorHelper(this.columns),
@@ -2486,7 +2554,7 @@
           try {
             var _loop = function _loop() {
               var column = _step.value;
-              column.visible = columnsCookie.filter(function (columnField) {
+              var filteredColumns = columnsCookie.filter(function (columnField) {
                 if (_this.isSelectionColumn(column)) {
                   return true;
                 }
@@ -2502,7 +2570,8 @@
                 }
 
                 return columnField === column.field;
-              }).length > 0 || !column.switchable;
+              });
+              column.visible = (filteredColumns.length > 0 || !column.switchable) && column.visible;
             };
 
             for (_iterator.s(); !(_step = _iterator.n()).done;) {

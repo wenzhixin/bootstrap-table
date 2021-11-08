@@ -280,9 +280,10 @@
 
   // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
   var global_1 =
-    /* global globalThis -- safe */
+    // eslint-disable-next-line es/no-global-this -- safe
     check(typeof globalThis == 'object' && globalThis) ||
     check(typeof window == 'object' && window) ||
+    // eslint-disable-next-line no-restricted-globals -- safe
     check(typeof self == 'object' && self) ||
     check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
     // eslint-disable-next-line no-new-func -- fallback
@@ -298,21 +299,23 @@
 
   // Detect IE8's incomplete defineProperty implementation
   var descriptors = !fails(function () {
+    // eslint-disable-next-line es/no-object-defineproperty -- required for testing
     return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
   });
 
-  var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
+  var $propertyIsEnumerable = {}.propertyIsEnumerable;
+  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
   var getOwnPropertyDescriptor$1 = Object.getOwnPropertyDescriptor;
 
   // Nashorn ~ JDK8 bug
-  var NASHORN_BUG = getOwnPropertyDescriptor$1 && !nativePropertyIsEnumerable.call({ 1: 2 }, 1);
+  var NASHORN_BUG = getOwnPropertyDescriptor$1 && !$propertyIsEnumerable.call({ 1: 2 }, 1);
 
   // `Object.prototype.propertyIsEnumerable` method implementation
   // https://tc39.es/ecma262/#sec-object.prototype.propertyisenumerable
   var f$4 = NASHORN_BUG ? function propertyIsEnumerable(V) {
     var descriptor = getOwnPropertyDescriptor$1(this, V);
     return !!descriptor && descriptor.enumerable;
-  } : nativePropertyIsEnumerable;
+  } : $propertyIsEnumerable;
 
   var objectPropertyIsEnumerable = {
   	f: f$4
@@ -392,20 +395,22 @@
 
   // Thank's IE8 for his funny defineProperty
   var ie8DomDefine = !descriptors && !fails(function () {
+    // eslint-disable-next-line es/no-object-defineproperty -- requied for testing
     return Object.defineProperty(documentCreateElement('div'), 'a', {
       get: function () { return 7; }
     }).a != 7;
   });
 
-  var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
   // `Object.getOwnPropertyDescriptor` method
   // https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
-  var f$3 = descriptors ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
+  var f$3 = descriptors ? $getOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
     O = toIndexedObject(O);
     P = toPrimitive(P, true);
     if (ie8DomDefine) try {
-      return nativeGetOwnPropertyDescriptor(O, P);
+      return $getOwnPropertyDescriptor(O, P);
     } catch (error) { /* empty */ }
     if (has$1(O, P)) return createPropertyDescriptor(!objectPropertyIsEnumerable.f.call(O, P), O[P]);
   };
@@ -420,16 +425,17 @@
     } return it;
   };
 
-  var nativeDefineProperty = Object.defineProperty;
+  // eslint-disable-next-line es/no-object-defineproperty -- safe
+  var $defineProperty = Object.defineProperty;
 
   // `Object.defineProperty` method
   // https://tc39.es/ecma262/#sec-object.defineproperty
-  var f$2 = descriptors ? nativeDefineProperty : function defineProperty(O, P, Attributes) {
+  var f$2 = descriptors ? $defineProperty : function defineProperty(O, P, Attributes) {
     anObject(O);
     P = toPrimitive(P, true);
     anObject(Attributes);
     if (ie8DomDefine) try {
-      return nativeDefineProperty(O, P, Attributes);
+      return $defineProperty(O, P, Attributes);
     } catch (error) { /* empty */ }
     if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported');
     if ('value' in Attributes) O[P] = Attributes.value;
@@ -479,7 +485,7 @@
   (module.exports = function (key, value) {
     return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.9.1',
+    version: '3.10.1',
     mode: 'global',
     copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
   });
@@ -691,6 +697,7 @@
 
   // `Object.getOwnPropertyNames` method
   // https://tc39.es/ecma262/#sec-object.getownpropertynames
+  // eslint-disable-next-line es/no-object-getownpropertynames -- safe
   var f$1 = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
     return objectKeysInternal(O, hiddenKeys);
   };
@@ -699,6 +706,7 @@
   	f: f$1
   };
 
+  // eslint-disable-next-line es/no-object-getownpropertysymbols -- safe
   var f = Object.getOwnPropertySymbols;
 
   var objectGetOwnPropertySymbols = {
@@ -836,10 +844,7 @@
   };
 
   var nativeExec = RegExp.prototype.exec;
-  // This always refers to the native implementation, because the
-  // String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
-  // which loads this file before patching the method.
-  var nativeReplace = String.prototype.replace;
+  var nativeReplace = shared('native-string-replace', String.prototype.replace);
 
   var patchedExec = nativeExec;
 
@@ -948,16 +953,19 @@
 
   var engineV8Version = version && +version;
 
+  // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
   var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
-    /* global Symbol -- required for testing */
+    // eslint-disable-next-line es/no-symbol -- required for testing
     return !Symbol.sham &&
       // Chrome 38 Symbol has incorrect toString conversion
       // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
       (engineIsNode ? engineV8Version === 38 : engineV8Version > 37 && engineV8Version < 41);
   });
 
+  /* eslint-disable es/no-symbol -- required for testing */
+
+
   var useSymbolAsUid = nativeSymbol
-    /* global Symbol -- safe */
     && !Symbol.sham
     && typeof Symbol.iterator == 'symbol';
 
@@ -982,7 +990,6 @@
 
 
 
-
   var SPECIES$2 = wellKnownSymbol('species');
 
   var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
@@ -1001,6 +1008,7 @@
   // IE <= 11 replaces $0 with the whole match, as if it was $&
   // https://stackoverflow.com/questions/6024666/getting-ie-to-replace-a-regex-with-the-literal-string-0
   var REPLACE_KEEPS_$0 = (function () {
+    // eslint-disable-next-line regexp/prefer-escape-replacement-dollar-char -- required for testing
     return 'a'.replace(/./, '$0') === '$0';
   })();
 
@@ -1070,7 +1078,7 @@
     ) {
       var nativeRegExpMethod = /./[SYMBOL];
       var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
-        if (regexp.exec === regexpExec) {
+        if (regexp.exec === RegExp.prototype.exec) {
           if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
             // The native String method already delegates to @@method (this
             // polyfilled function), leasing to infinite recursion.
@@ -1103,6 +1111,7 @@
 
   // `SameValue` abstract operation
   // https://tc39.es/ecma262/#sec-samevalue
+  // eslint-disable-next-line es/no-object-is -- safe
   var sameValue = Object.is || function is(x, y) {
     // eslint-disable-next-line no-self-compare -- NaN check
     return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
@@ -1157,6 +1166,7 @@
 
   // `Object.keys` method
   // https://tc39.es/ecma262/#sec-object.keys
+  // eslint-disable-next-line es/no-object-keys -- safe
   var objectKeys = Object.keys || function keys(O) {
     return objectKeysInternal(O, enumBugKeys);
   };
@@ -1167,14 +1177,16 @@
     return Object(requireObjectCoercible(argument));
   };
 
-  var nativeAssign = Object.assign;
+  // eslint-disable-next-line es/no-object-assign -- safe
+  var $assign = Object.assign;
+  // eslint-disable-next-line es/no-object-defineproperty -- required for testing
   var defineProperty = Object.defineProperty;
 
   // `Object.assign` method
   // https://tc39.es/ecma262/#sec-object.assign
-  var objectAssign = !nativeAssign || fails(function () {
+  var objectAssign = !$assign || fails(function () {
     // should have correct order of operations (Edge bug)
-    if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty({}, 'a', {
+    if (descriptors && $assign({ b: 1 }, $assign(defineProperty({}, 'a', {
       enumerable: true,
       get: function () {
         defineProperty(this, 'b', {
@@ -1186,12 +1198,12 @@
     // should work with symbols and should have deterministic property order (V8 bug)
     var A = {};
     var B = {};
-    /* global Symbol -- required for testing */
+    // eslint-disable-next-line es/no-symbol -- safe
     var symbol = Symbol();
     var alphabet = 'abcdefghijklmnopqrst';
     A[symbol] = 7;
     alphabet.split('').forEach(function (chr) { B[chr] = chr; });
-    return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
+    return $assign({}, A)[symbol] != 7 || objectKeys($assign({}, B)).join('') != alphabet;
   }) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
     var T = toObject(target);
     var argumentsLength = arguments.length;
@@ -1209,10 +1221,11 @@
         if (!descriptors || propertyIsEnumerable.call(S, key)) T[key] = S[key];
       }
     } return T;
-  } : nativeAssign;
+  } : $assign;
 
   // `Object.assign` method
   // https://tc39.es/ecma262/#sec-object.assign
+  // eslint-disable-next-line es/no-object-assign -- required for testing
   _export({ target: 'Object', stat: true, forced: Object.assign !== objectAssign }, {
     assign: objectAssign
   });
@@ -1269,6 +1282,7 @@
 
   // `IsArray` abstract operation
   // https://tc39.es/ecma262/#sec-isarray
+  // eslint-disable-next-line es/no-array-isarray -- safe
   var isArray = Array.isArray || function isArray(arg) {
     return classofRaw(arg) == 'Array';
   };
@@ -1359,6 +1373,7 @@
 
   // `Object.defineProperties` method
   // https://tc39.es/ecma262/#sec-object.defineproperties
+  // eslint-disable-next-line es/no-object-defineproperties -- safe
   var objectDefineProperties = descriptors ? Object.defineProperties : function defineProperties(O, Properties) {
     anObject(O);
     var keys = objectKeys(Properties);
@@ -1604,6 +1619,8 @@
     }
   });
 
+  /* eslint-disable es/no-array-prototype-indexof -- required for testing */
+
   var $indexOf = arrayIncludes.indexOf;
 
 
@@ -1754,7 +1771,7 @@
     },
     bootstrap5: {
       icons: {
-        advancedSearchIcon: 'fa-chevron-down'
+        advancedSearchIcon: 'bi-chevron-down'
       },
       html: {
         modal: "\n        <div id=\"avdSearchModal_%s\"  class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\n          <div class=\"modal-dialog modal-xs\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <h4 class=\"modal-title\">%s</h4>\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n              </div>\n              <div class=\"modal-body modal-body-custom\">\n                <div class=\"container-fluid\" id=\"avdSearchModalContent_%s\"\n                  style=\"padding-right: 0; padding-left: 0;\" >\n                </div>\n              </div>\n              <div class=\"modal-footer\">\n                <button type=\"button\" id=\"btnCloseAvd_%s\" class=\"btn btn-%s\">%s</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      "
