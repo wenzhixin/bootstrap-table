@@ -180,7 +180,7 @@ toc: true
 
    Set this array with the table properties (sortOrder, sortName, sortPriority, pageNumber, pageList, columns, searchText, filterControl) that you want to save
 
-- **Default:** `['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']`
+- **Default:** `['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl', 'bs.table.cardView']`
 
 ## Methods
 
@@ -203,9 +203,11 @@ toc: true
 ## This plugin saves
 
 * Page number
-* Page number from the list
+* Page size (Rows per page)
 * Search text
 * Search filter control
 * Sort order
+* Sort name
 * Multiple Sort order
 * Visible columns
+* Card view state

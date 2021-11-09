@@ -105,7 +105,7 @@ BootstrapTable.prototype.initSort = function (...args) {
         }
 
         if (this.isCollapsed(key, value)) {
-          item._class = 'hidden'
+          item._class += ' hidden'
         }
 
         item._data['parent-index'] = index

@@ -1,6 +1,52 @@
 ChangeLog
 ---------
 
+### 1.19.0
+
+#### Core
+
+- **New:** Added `onlyCurrentPage` param for `checkBy/uncheckBy` methods.
+- **New:** Used `bootstrap icons` as default icons for bootstrap v5.
+- **New:** Added `regexSearch` option which allows to filter the table using regex.
+- **New:** Added support for allow importing stylesheets.
+- **New:** Added `toggle-pagination` event.
+- **New:** Added `virtual-scroll` event.
+- **Update:** Fixed `vue` component cannot work.
+- **Update:** Fixed infinite loop error with wrong server-side pagination metadata.
+- **Update:** Improved the behavior of `ajax` abort.
+- **Update:** Fixed click bug when paginationLoop is false.
+- **Update:** Fixed the highlighting bug when using radio/checkboxes.
+- **Update:** Fixed width bug caused by loading css.
+- **Update:** Removed the `input-group-append` class for bootstrap v5.
+- **Update:** Fixed duplicate definition `id` bug.
+- **Update:** Fixed the comparison of search inputs.
+- **Update:** Fixed broken page-list selector.
+- **Update:** Fixed overwrite custom locale function bug.
+- **Update:** Fixed bug with server side pagination and the page size `all`.
+- **Update:** Fixed all checkbox not auto check after pagination changed.
+- **Update:** Updated the `es-MX` locate.
+
+#### Extensions
+
+- **New(cookie):** Added `Multiple Sort order` stored in cookie extension.
+- **New(cookie):** Added `Card view state` stored in cookie extension.
+- **New(copy):** Added `ignoreCopy` column option to prevent copying the column data.
+- **New(copy):** Added `rawCopy` column option to copy the raw value instead of the formatted value.
+- **Update(cookie):** Fixed `switchable` column bug with the cookie extension.
+- **Update(export):** Fixed the export dropdown cannot be closed bug.
+- **Update(filter-control):** Updated `filterMultipleSelectOptions` to `filterControlMultipleSelectOptions` option.
+- **Update(filter-control):** Fixed bug with cookie deletion of none filter cookies.
+- **Update(filter-control):** Fixed bug when using the `load` method.
+- **Update(group-by):** Fixed overwriting the column classes bug on group collapsed rows.
+- **Update(multiple-sort):** Fixed hide/show column error with no sortPriority defined.
+- **Update(page-jump-to):** Fixed jump-to display bug in bootstrap v3.
+- **Update(print):** Fixed print formatter bug.
+- **Update(reorder-rows):** Fixed `reorder-rows` not work property.
+- **Update(reorder-rows):** Fixed the drag selector to prevent a checkbox bug on mobile.
+- **Update(resizable):** Fixed the reinitialization after the table changed.
+- **Update(sticky-header):** Fixed sticky-header not work property with group header.
+- **Update(treegrid):** Fixed bug of treegrid from html.
+
 ### 1.18.3
 
 #### Core
