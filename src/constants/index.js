@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const VERSION = '1.18.3'
+const VERSION = '1.19.0'
 
 let bootstrapVersion = 4
 
@@ -394,6 +394,9 @@ const DEFAULTS = {
   },
   onScrollBody () {
     return false
+  },
+  onTogglePagination (newState) {
+    return false
   }
 }
 
@@ -564,7 +567,9 @@ const EVENTS = {
   'refresh-options.bs.table': 'onRefreshOptions',
   'reset-view.bs.table': 'onResetView',
   'refresh.bs.table': 'onRefresh',
-  'scroll-body.bs.table': 'onScrollBody'
+  'scroll-body.bs.table': 'onScrollBody',
+  'toggle-pagination.bs.table': 'onTogglePagination',
+  'virtual-scroll.bs.table': 'onVirtualScroll'
 }
 
 Object.assign(DEFAULTS, EN)

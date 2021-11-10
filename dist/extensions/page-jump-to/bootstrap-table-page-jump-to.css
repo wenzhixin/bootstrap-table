@@ -1,6 +1,9 @@
-.bootstrap-table.bootstrap3 .fixed-table-pagination > .pagination ul.pagination,
 .bootstrap-table.bootstrap3 .fixed-table-pagination > .pagination .page-jump-to {
-  display: inline;
+  display: inline-block;
+}
+
+.bootstrap-table.bootstrap3 .fixed-table-pagination > .pagination .input-group-btn {
+  width: auto;
 }
 
 .bootstrap-table .fixed-table-pagination > .pagination .page-jump-to input {

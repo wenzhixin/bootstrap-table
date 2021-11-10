@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.18.3
+ * version: 1.19.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -67,12 +67,22 @@ class BootstrapTable {
         parts[1] = parts[1].toUpperCase()
       }
 
+      let localesToExtend = {}
+
       if (locales[this.options.locale]) {
-        $.extend(this.options, locales[this.options.locale])
+        localesToExtend = locales[this.options.locale]
       } else if (locales[parts.join('-')]) {
-        $.extend(this.options, locales[parts.join('-')])
+        localesToExtend = locales[parts.join('-')]
       } else if (locales[parts[0]]) {
-        $.extend(this.options, locales[parts[0]])
+        localesToExtend = locales[parts[0]]
+      }
+
+      for (const [formatName, func] of Object.entries(localesToExtend)) {
+        if (this.options[formatName] !== BootstrapTable.DEFAULTS[formatName]) {
+          continue
+        }
+
+        this.options[formatName] = func
       }
     }
   }
@@ -913,7 +923,10 @@ class BootstrapTable {
         return
       }
 
-      if (currentTarget === Utils.getSearchInput(this)[0] || $(currentTarget).hasClass('search-input')) {
+      const $searchInput = Utils.getSearchInput(this)
+      const $currentTarget = currentTarget instanceof jQuery ? currentTarget : $(currentTarget)
+
+      if ($currentTarget.is($searchInput) || $currentTarget.hasClass('search-input')) {
         this.searchText = text
         this.options.searchText = text
       }
@@ -1314,7 +1327,7 @@ class BootstrapTable {
 
       if (opts.smartDisplay) {
         if (pageList.length < 2 || opts.totalRows <= pageList[0]) {
-          this.$pagination.find('span.page-list').hide()
+          this.$pagination.find('div.page-list').hide()
         }
       }
 
@@ -1733,9 +1746,10 @@ class BootstrapTable {
         scrollEl: this.$tableBody[0],
         contentEl: this.$body[0],
         itemHeight: this.options.virtualScrollItemHeight,
-        callback: () => {
+        callback: (startIndex, endIndex) => {
           this.fitHeader()
           this.initBodyEvent()
+          this.trigger('virtual-scroll', startIndex, endIndex)
         }
       })
     }
@@ -1747,9 +1761,9 @@ class BootstrapTable {
     }
 
     this.initBodyEvent()
-    this.updateSelected()
     this.initFooter()
     this.resetView()
+    this.updateSelected()
 
     if (this.options.sidePagination !== 'server') {
       this.options.totalRows = data.length
@@ -1897,9 +1911,8 @@ class BootstrapTable {
       if (this.options.pagination && this.options.sidePagination === 'server') {
         params.offset = this.options.pageSize === this.options.formatAllRows() ?
           0 : this.options.pageSize * (this.options.pageNumber - 1)
-        params.limit = this.options.pageSize === this.options.formatAllRows() ?
-          this.options.totalRows : this.options.pageSize
-        if (params.limit === 0) {
+        params.limit = this.options.pageSize
+        if (params.limit === 0 || this.options.pageSize === this.options.formatAllRows()) {
           delete params.limit
         }
       }
@@ -2556,7 +2569,7 @@ class BootstrapTable {
         id = id.toString()
       } else if (typeof rowUniqueId === 'number') {
         if ((Number(rowUniqueId) === rowUniqueId) && (rowUniqueId % 1 === 0)) {
-          id = parseInt(id)
+          id = parseInt(id, 10)
         } else if ((rowUniqueId === Number(rowUniqueId)) && (rowUniqueId !== 0)) {
           id = parseFloat(id)
         }
@@ -2807,7 +2820,7 @@ class BootstrapTable {
     const colspan = options.colspan || 1
     let i
     let j
-    const $tr = this.$body.find('>tr')
+    const $tr = this.$body.find('>tr[data-index]')
 
     col += Utils.getDetailViewIndexOffset(this.options)
 
@@ -2985,9 +2998,6 @@ class BootstrapTable {
       this.options.height = params.height
     }
 
-    this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
-      this.$selectItem.length === this.$selectItem.filter(':checked').length)
-
     this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
 
     if (!this.options.cardView && this.options.showHeader && this.options.height) {
@@ -3077,6 +3087,7 @@ class BootstrapTable {
     this.$toolbar.find('button[name="paginationSwitch"]')
       .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
     this.updatePagination()
+    this.trigger('toggle-pagination', this.options.pagination)
   }
 
   toggleFullscreen () {

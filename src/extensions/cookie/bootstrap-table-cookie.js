@@ -12,6 +12,7 @@ const UtilsCookie = {
     pageNumber: 'bs.table.pageNumber',
     pageList: 'bs.table.pageList',
     columns: 'bs.table.columns',
+    cardView: 'bs.table.cardView',
     searchText: 'bs.table.searchText',
     reorderColumns: 'bs.table.reorderColumns',
     filterControl: 'bs.table.filterControl',
@@ -187,7 +188,7 @@ $.extend($.fn.bootstrapTable.defaults, {
     'bs.table.pageNumber', 'bs.table.pageList',
     'bs.table.columns', 'bs.table.searchText',
     'bs.table.filterControl', 'bs.table.filterBy',
-    'bs.table.reorderColumns'
+    'bs.table.reorderColumns', 'bs.table.cardView'
   ],
   cookieStorage: 'cookieStorage', // localStorage, sessionStorage, customStorage
   cookieCustomStorageGet: null,
@@ -375,6 +376,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.getVisibleColumns().map(column => column.field)))
   }
 
+  toggleView () {
+    super.toggleView()
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.cardView, this.options.cardView)
+  }
+
   selectPage (page) {
     super.selectPage(page)
     if (!this.options.cookie) {
@@ -430,6 +436,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const pageNumberCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageNumber)
     const pageListCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageList)
     const searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText)
+    const cardViewCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.cardView)
 
     const columnsCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.columns)
 
@@ -479,10 +486,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (UtilsCookie.isCookieEnabled(this, 'bs.table.searchText') && this.options.searchText === '') {
       this.options.searchText = searchTextCookie ? searchTextCookie : ''
     }
+    // cardView
+    this.options.cardView = cardViewCookie === 'true' ? cardViewCookie : false
 
     if (columnsCookie) {
       for (const column of this.columns) {
-        column.visible = columnsCookie.filter(columnField => {
+        const filteredColumns = columnsCookie.filter(columnField => {
           if (this.isSelectionColumn(column)) {
             return true
           }
@@ -496,7 +505,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
 
           return columnField === column.field
-        }).length > 0 || !column.switchable
+        })
+
+        column.visible = (filteredColumns.length > 0 || !column.switchable) && column.visible
       }
     }
   }
