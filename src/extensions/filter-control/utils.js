@@ -355,7 +355,7 @@ export function createControls (that, header) {
 
       if ($th.data('field') === column.field) {
         $th.find('.filter-control').remove()
-        $th.find('.fht-cell').append(html.join(''))
+        $th.find('.fht-cell').html(html.join(''))
         return false
       }
     })
