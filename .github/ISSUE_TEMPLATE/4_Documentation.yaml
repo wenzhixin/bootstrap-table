@@ -1,13 +1,8 @@
-name: ⛔ Documentation & Examples
-description: Issues with the Documentation and/or the Examples
+name: ⛔ Documentation
+description: Issues with the Documentation
 labels: docs
 
 body:
-  - type: markdown
-    attributes:
-      value: |
-        We have our own dedicated repository for the examples. Please open your
-        documentation-related issue at https://github.com/wenzhixin/bootstrap-table-examples
   - type: textarea
     id: description
     attributes:
