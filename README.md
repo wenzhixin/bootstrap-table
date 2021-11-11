@@ -49,10 +49,10 @@ To get started, check out:
 
 Use [Releases page](https://github.com/wenzhixin/bootstrap-table/releases) or [the source](https://github.com/wenzhixin/bootstrap-table/archive/master.zip).
 
-### Bower
+### Yarn
 
 ```
-bower install bootstrap-table
+yarn add bootstrap-table
 ```
 
 ### Npm
