@@ -20,9 +20,10 @@
 
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 	var global_1 =
-	  /* global globalThis -- safe */
+	  // eslint-disable-next-line es/no-global-this -- safe
 	  check(typeof globalThis == 'object' && globalThis) ||
 	  check(typeof window == 'object' && window) ||
+	  // eslint-disable-next-line no-restricted-globals -- safe
 	  check(typeof self == 'object' && self) ||
 	  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
 	  // eslint-disable-next-line no-new-func -- fallback
@@ -38,21 +39,23 @@
 
 	// Detect IE8's incomplete defineProperty implementation
 	var descriptors = !fails(function () {
+	  // eslint-disable-next-line es/no-object-defineproperty -- required for testing
 	  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
 	});
 
-	var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
+	var $propertyIsEnumerable = {}.propertyIsEnumerable;
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
 	var getOwnPropertyDescriptor$1 = Object.getOwnPropertyDescriptor;
 
 	// Nashorn ~ JDK8 bug
-	var NASHORN_BUG = getOwnPropertyDescriptor$1 && !nativePropertyIsEnumerable.call({ 1: 2 }, 1);
+	var NASHORN_BUG = getOwnPropertyDescriptor$1 && !$propertyIsEnumerable.call({ 1: 2 }, 1);
 
 	// `Object.prototype.propertyIsEnumerable` method implementation
 	// https://tc39.es/ecma262/#sec-object.prototype.propertyisenumerable
 	var f$4 = NASHORN_BUG ? function propertyIsEnumerable(V) {
 	  var descriptor = getOwnPropertyDescriptor$1(this, V);
 	  return !!descriptor && descriptor.enumerable;
-	} : nativePropertyIsEnumerable;
+	} : $propertyIsEnumerable;
 
 	var objectPropertyIsEnumerable = {
 		f: f$4
@@ -132,20 +135,22 @@
 
 	// Thank's IE8 for his funny defineProperty
 	var ie8DomDefine = !descriptors && !fails(function () {
+	  // eslint-disable-next-line es/no-object-defineproperty -- requied for testing
 	  return Object.defineProperty(documentCreateElement('div'), 'a', {
 	    get: function () { return 7; }
 	  }).a != 7;
 	});
 
-	var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
 	// `Object.getOwnPropertyDescriptor` method
 	// https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
-	var f$3 = descriptors ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
+	var f$3 = descriptors ? $getOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
 	  O = toIndexedObject(O);
 	  P = toPrimitive(P, true);
 	  if (ie8DomDefine) try {
-	    return nativeGetOwnPropertyDescriptor(O, P);
+	    return $getOwnPropertyDescriptor(O, P);
 	  } catch (error) { /* empty */ }
 	  if (has$1(O, P)) return createPropertyDescriptor(!objectPropertyIsEnumerable.f.call(O, P), O[P]);
 	};
@@ -160,16 +165,17 @@
 	  } return it;
 	};
 
-	var nativeDefineProperty = Object.defineProperty;
+	// eslint-disable-next-line es/no-object-defineproperty -- safe
+	var $defineProperty = Object.defineProperty;
 
 	// `Object.defineProperty` method
 	// https://tc39.es/ecma262/#sec-object.defineproperty
-	var f$2 = descriptors ? nativeDefineProperty : function defineProperty(O, P, Attributes) {
+	var f$2 = descriptors ? $defineProperty : function defineProperty(O, P, Attributes) {
 	  anObject(O);
 	  P = toPrimitive(P, true);
 	  anObject(Attributes);
 	  if (ie8DomDefine) try {
-	    return nativeDefineProperty(O, P, Attributes);
+	    return $defineProperty(O, P, Attributes);
 	  } catch (error) { /* empty */ }
 	  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported');
 	  if ('value' in Attributes) O[P] = Attributes.value;
@@ -219,7 +225,7 @@
 	(module.exports = function (key, value) {
 	  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	})('versions', []).push({
-	  version: '3.9.1',
+	  version: '3.10.1',
 	  mode: 'global',
 	  copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 	});
@@ -431,6 +437,7 @@
 
 	// `Object.getOwnPropertyNames` method
 	// https://tc39.es/ecma262/#sec-object.getownpropertynames
+	// eslint-disable-next-line es/no-object-getownpropertynames -- safe
 	var f$1 = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 	  return objectKeysInternal(O, hiddenKeys);
 	};
@@ -439,6 +446,7 @@
 		f: f$1
 	};
 
+	// eslint-disable-next-line es/no-object-getownpropertysymbols -- safe
 	var f = Object.getOwnPropertySymbols;
 
 	var objectGetOwnPropertySymbols = {
@@ -538,6 +546,7 @@
 
 	// `IsArray` abstract operation
 	// https://tc39.es/ecma262/#sec-isarray
+	// eslint-disable-next-line es/no-array-isarray -- safe
 	var isArray = Array.isArray || function isArray(arg) {
 	  return classofRaw(arg) == 'Array';
 	};
@@ -576,16 +585,19 @@
 
 	var engineV8Version = version && +version;
 
+	// eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
 	var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
-	  /* global Symbol -- required for testing */
+	  // eslint-disable-next-line es/no-symbol -- required for testing
 	  return !Symbol.sham &&
 	    // Chrome 38 Symbol has incorrect toString conversion
 	    // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
 	    (engineIsNode ? engineV8Version === 38 : engineV8Version > 37 && engineV8Version < 41);
 	});
 
+	/* eslint-disable es/no-symbol -- required for testing */
+
+
 	var useSymbolAsUid = nativeSymbol
-	  /* global Symbol -- safe */
 	  && !Symbol.sham
 	  && typeof Symbol.iterator == 'symbol';
 
@@ -690,36 +702,37 @@
 	 * Author: Felix Vera (felix.vera@gmail.com)
 	 * Copiado: Mauricio Vera (mauricioa.vera@gmail.com)
 	 * Revisión: J Manuel Corona (jmcg92@gmail.com) (13/Feb/2018).
+	 * Revisión: Ricardo González (rickygzz85@gmail.com) (20/Oct/2021)
 	 */
 
 	$__default['default'].fn.bootstrapTable.locales['es-MX'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	    return 'Copiar Filas';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return 'Imprimir';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Cargando, espere por favor';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " registros por p\xE1gina");
+	    return "".concat(pageNumber, " resultados por p\xE1gina");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Mostrando ".concat(pageFrom, " a ").concat(pageTo, " de ").concat(totalRows, " filas (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "Mostrando ".concat(pageFrom, " a ").concat(pageTo, " de ").concat(totalRows, " filas (filtrado de ").concat(totalNotFiltered, " filas totales)");
 	    }
 
 	    return "Mostrando ".concat(pageFrom, " a ").concat(pageTo, " de ").concat(totalRows, " filas");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'página anterior';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "ir a la p\xE1gina ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'página siguiente';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
 	    return "Mostrando ".concat(totalRows, " filas");
@@ -737,10 +750,10 @@
 	    return 'Mostrar/ocultar paginación';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Mostrar paginación';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Ocultar paginación';
 	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Actualizar';
@@ -749,16 +762,16 @@
 	    return 'Cambiar vista';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Mostrar vista';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Ocultar vista';
 	  },
 	  formatColumns: function formatColumns() {
 	    return 'Columnas';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Alternar todo';
 	  },
 	  formatFullscreen: function formatFullscreen() {
 	    return 'Pantalla completa';
@@ -767,19 +780,19 @@
 	    return 'Todo';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Auto actualizar';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'Exportar datos';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'IR';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'Búsqueda avanzada';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'Cerrar';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
 	    return 'Ocultar/Mostrar controles';

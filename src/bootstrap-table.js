@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.18.3
+ * version: 1.19.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -1746,9 +1746,10 @@ class BootstrapTable {
         scrollEl: this.$tableBody[0],
         contentEl: this.$body[0],
         itemHeight: this.options.virtualScrollItemHeight,
-        callback: () => {
+        callback: (startIndex, endIndex) => {
           this.fitHeader()
           this.initBodyEvent()
+          this.trigger('virtual-scroll', startIndex, endIndex)
         }
       })
     }
@@ -1760,9 +1761,9 @@ class BootstrapTable {
     }
 
     this.initBodyEvent()
-    this.updateSelected()
     this.initFooter()
     this.resetView()
+    this.updateSelected()
 
     if (this.options.sidePagination !== 'server') {
       this.options.totalRows = data.length
@@ -2825,7 +2826,7 @@ class BootstrapTable {
     const colspan = options.colspan || 1
     let i
     let j
-    const $tr = this.$body.find('>tr')
+    const $tr = this.$body.find('>tr[data-index]')
 
     col += Utils.getDetailViewIndexOffset(this.options)
 
@@ -3002,9 +3003,6 @@ class BootstrapTable {
     if (params && params.height) {
       this.options.height = params.height
     }
-
-    this.$selectAll.prop('checked', this.$selectItem.length > 0 &&
-      this.$selectItem.length === this.$selectItem.filter(':checked').length)
 
     this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
 

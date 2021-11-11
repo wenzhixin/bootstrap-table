@@ -149,7 +149,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     this.updateExportButton()
-    this.$export.find('[data-type]').click(e => {
+    let $exportButtons = this.$export.find('[data-type]')
+
+    if (exportTypes.length === 1) {
+      $exportButtons = this.$export.find('button')
+    }
+
+    $exportButtons.click(e => {
       e.preventDefault()
 
       const type = $(e.currentTarget).data('type')
