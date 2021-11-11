@@ -34,7 +34,7 @@ export function existOptionInSelectControl (selectControl, value) {
   const options = getOptionsFromSelectControl(selectControl)
 
   for (let i = 0; i < options.length; i++) {
-    if (options[i].value === Utils.unescapeHTML(value.toString())) {
+    if (options[i].value === Utils.unescapeHTML(value)) {
       // The value is not valid to add
       return true
     }
