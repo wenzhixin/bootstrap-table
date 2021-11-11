@@ -206,29 +206,27 @@ export default {
   },
 
   escapeHTML (text) {
-    if (typeof text === 'string') {
+    if (!text) {
       return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;')
-        .replace(/`/g, '&#x60;')
     }
-    return text
+    return text.toString()
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
   },
 
   unescapeHTML (text) {
-    if (typeof text === 'string') {
+    if (!text) {
       return text
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#039;/g, '\'')
-        .replace(/&#x60;/g, '`')
     }
-    return text
+    return text.toString()
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, '\'')
   },
 
   getRealDataAttr (dataAttr) {
