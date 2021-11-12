@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.19.0
+        v1.19.1
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.19.0)</a>
+        <a class="dropdown-item active" href="/">Latest (1.19.1)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.18.3/" target="_blank">v1.18.3</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
@@ -361,6 +361,7 @@
 <li class="toc-entry toc-h3"><a href="#autorefreshinterval">autoRefreshInterval</a></li>
 <li class="toc-entry toc-h3"><a href="#autorefreshsilent">autoRefreshSilent</a></li>
 <li class="toc-entry toc-h3"><a href="#autorefreshstatus">autoRefreshStatus</a></li>
+<li class="toc-entry toc-h3"><a href="#showautorefresh">showAutoRefresh</a></li>
 <li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
 </ul>
 </li>
@@ -411,7 +412,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to enable auto refresh plugin. <strong>This does not mean enable auto refresh.</strong> This allows the user to enable/disable auto refresh by clicking the button.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to enable auto refresh plugin.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -469,6 +470,25 @@
     <p><strong>Detail:</strong></p>
 
     <p>Set <code class="highlighter-rouge">true</code> to enable auto refresh. This is the state auto refresh will be in when the table loads. Clicking the button toggles this property. This is simply the default state of auto refresh as the user can always change it by clicking the button.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
+<h3 id="showautorefresh">showAutoRefresh</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-show-auto-refresh</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">false</code> to hide the auto refresh button, as example if you want to disallow deactivating the auto fresh by the user.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
