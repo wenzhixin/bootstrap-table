@@ -1,6 +1,7 @@
 _gh_pages
 .github
 .sass-cache
+cypress
 site
 tools
 _config.yml

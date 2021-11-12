@@ -8,6 +8,7 @@ const Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {
   autoRefresh: false,
+  showAutoRefresh: true,
   autoRefreshInterval: 60,
   autoRefreshSilent: true,
   autoRefreshStatus: true,

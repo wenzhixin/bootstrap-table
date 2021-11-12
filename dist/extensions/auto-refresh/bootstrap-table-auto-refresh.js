@@ -1116,6 +1116,7 @@
   var Utils = $__default['default'].fn.bootstrapTable.utils;
   $__default['default'].extend($__default['default'].fn.bootstrapTable.defaults, {
     autoRefresh: false,
+    showAutoRefresh: true,
     autoRefreshInterval: 60,
     autoRefreshSilent: true,
     autoRefreshStatus: true,

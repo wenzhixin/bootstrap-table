@@ -4,6 +4,22 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.19.1
+
+<span class="post-date">12 Nov 2021</span>
+
+#### Core
+
+- **Update:** Fixed the CVE security problem.
+- **Update:** Fixed cannot search for special characters when using `searchHighlight`.
+
+#### Extensions
+
+- **Update(auto-refresh):** Updated the `showAutoRefresh` option as default.
+- **Update(export):** Fixed export with only one export type bug.
+- **Update(filter-control):** Fixed filter-control cannot work bug.
+- **Update(filter-control):** Prevent duplicated elements for filter-control.
+
 ## Bootstrap Table 1.19.0
 
 <span class="post-date">8 Nov 2021</span>
