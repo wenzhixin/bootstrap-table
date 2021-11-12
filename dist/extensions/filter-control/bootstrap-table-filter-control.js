@@ -2127,7 +2127,7 @@
     var options = getOptionsFromSelectControl(selectControl);
 
     for (var i = 0; i < options.length; i++) {
-      if (options[i].value === Utils$1.unescapeHTML(value.toString())) {
+      if (options[i].value === Utils$1.unescapeHTML(value)) {
         // The value is not valid to add
         return true;
       }
@@ -2416,10 +2416,10 @@
 
       $__default['default'].each(header.find('th'), function (i, th) {
         var $th = $__default['default'](th);
-        $th.find('.filter-control').remove();
 
         if ($th.data('field') === column.field) {
-          $th.find('.fht-cell').append(html.join(''));
+          $th.find('.filter-control').remove();
+          $th.find('.fht-cell').html(html.join(''));
           return false;
         }
       });
