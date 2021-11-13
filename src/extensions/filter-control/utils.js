@@ -7,7 +7,7 @@ export function getFormControlClass (options) {
 }
 
 export function getOptionsFromSelectControl (selectControl) {
-  return selectControl.get(selectControl.length - 1).options
+  return selectControl[0].options
 }
 
 export function getControlContainer (that) {
@@ -63,34 +63,42 @@ export function addOptionToSelectControl (selectControl, _value, text, selected)
 
   value = value.replace(/(<([^>]+)>)/ig, '').replace(/&[#A-Za-z0-9]+;/gi, '').trim()
 
-  // Double check if the select control is a jquery object.
-  if (!(selectControl instanceof jQuery)) {
-    throw new Error ('SelectControl is not a jQuery instance.')
+  if (existOptionInSelectControl(selectControl, value)) {
+    return
   }
 
-  if (!existOptionInSelectControl(selectControl, value)) {
-    const option = $(`<option value="${value}">${text}</option>`)
+  const option = new Option(text, value, false, value === selected)
 
-    if (value === selected) {
-      option.attr('selected', true)
-    }
-
-    selectControl.append(option)
-  }
+  selectControl.get(0).add(option)
 }
 
 export function sortSelectControl (selectControl, orderBy) {
-  const $selectControl = $(selectControl.get(selectControl.length - 1))
-  const $opts = $selectControl.find('option:gt(0)')
+  const $selectControl = selectControl.get(0)
 
-  if (orderBy !== 'server') {
-    $opts.sort((a, b) => {
-      return Utils.sort(a.textContent, b.textContent, orderBy === 'desc' ? -1 : 1)
-    })
+  if (orderBy === 'server') {
+    return
   }
 
-  $selectControl.find('option:gt(0)').remove()
-  $selectControl.append($opts)
+  const tmpAry = new Array()
+
+  for (let i = 0; i < $selectControl.options.length; i++) {
+    tmpAry[i] = new Array()
+    tmpAry[i][0] = $selectControl.options[i].text
+    tmpAry[i][1] = $selectControl.options[i].value
+  }
+
+  tmpAry.sort((a, b) => {
+    return Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1)
+  })
+  while ($selectControl.options.length > 0) {
+    $selectControl.options[0] = null
+  }
+
+  for (let i = 0; i < tmpAry.length; i++) {
+    const op = new Option(tmpAry[i][0], tmpAry[i][1])
+
+    $selectControl.add(op)
+  }
 }
 
 export function fixHeaderCSS ({ $tableHeader }, pixels = '89px') {
@@ -280,7 +288,7 @@ export function initFilterSelectControls (that) {
     if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
       if (!selectControl[0].multiple && selectControl.get(selectControl.length - 1).options.length === 0) {
         // Added the default option, must use a non-breaking space(&nbsp;) to pass the W3C validator
-        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || '&nbsp;', column.filterDefault)
+        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || ' ', column.filterDefault)
       }
 
       const uniqueValues = {}
@@ -313,7 +321,7 @@ export function initFilterSelectControls (that) {
         }
       }
 
-      sortSelectControl(selectControl, column.filterOrderBy)
+      // sortSelectControl(selectControl, column.filterOrderBy)
       if (that.options.hideUnusedSelectOptions) {
         hideUnusedSelectOptions(selectControl, uniqueValues)
       }

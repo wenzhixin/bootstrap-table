@@ -56,6 +56,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   // internal variables
   _valuesFilterControl: [],
   _initialized: false,
+  _isRendering: false,
   _usingMultipleSelect: false
 })
 
@@ -122,48 +123,37 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this._valuesFilterControl = []
       this._initialized = false
       this._usingMultipleSelect = false
+      this._isRendering = false
 
       this.$el
-        .on('reset-view.bs.table', () => {
-          setTimeout(() => {
-            UtilsFilterControl.initFilterSelectControls(this)
-            UtilsFilterControl.setValues(this)
-          }, 2)
-        })
-        .on('toggle.bs.table', (_, cardView) => {
+        .on('reset-view.bs.table', Utils.debounce(() => {
+          UtilsFilterControl.initFilterSelectControls(this)
+          UtilsFilterControl.setValues(this)
+        }, 3))
+        .on('toggle.bs.table', Utils.debounce((_, cardView) => {
           this._initialized = false
           if (!cardView) {
             UtilsFilterControl.initFilterSelectControls(this)
             UtilsFilterControl.setValues(this)
             this._initialized = true
           }
-        })
-        .on('post-header.bs.table', () => {
-          setTimeout(() => {
-            UtilsFilterControl.initFilterSelectControls(this)
-            UtilsFilterControl.setValues(this)
-            setTimeout(() => {
-              const container = UtilsFilterControl.getControlContainer(this)
-              const multipleSelects = container.find('.fc-multipleselect')
-
-              if (multipleSelects.length > 0 && $.fn.multipleSelect) {
-                multipleSelects.multipleSelect('destroy').multipleSelect(this.options.filterControlMultipleSelectOptions)
-              }
-            }, 2)
-          }, 2)
-        })
-        .on('column-switch.bs.table', () => {
+        }, 1))
+        .on('post-header.bs.table', Utils.debounce(() => {
+          UtilsFilterControl.initFilterSelectControls(this)
+          UtilsFilterControl.setValues(this)
+        }, 3))
+        .on('column-switch.bs.table', Utils.debounce(() => {
           UtilsFilterControl.setValues(this)
           if (this.options.height) {
             this.fitHeader()
           }
-        })
-        .on('post-body.bs.table', () => {
+        }, 1))
+        .on('post-body.bs.table', Utils.debounce(() => {
           if (this.options.height && !this.options.filterControlContainer && this.options.filterControlVisible) {
             UtilsFilterControl.fixHeaderCSS(this)
           }
           this.$tableLoading.css('top', this.$header.outerHeight() + 1)
-        })
+        }, 1))
         .on('all.bs.table', () => {
           UtilsFilterControl.syncHeaders(this)
         })
@@ -175,12 +165,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initBody () {
     super.initBody()
-    if (this.options.filterControl) {
-      setTimeout(() => {
-        UtilsFilterControl.initFilterSelectControls(this)
-        UtilsFilterControl.setValues(this)
-      }, 3)
+    if (!this.options.filterControl) {
+      return
     }
+    setTimeout(() => {
+      UtilsFilterControl.initFilterSelectControls(this)
+      UtilsFilterControl.setValues(this)
+    }, 3)
   }
 
   load (data) {
