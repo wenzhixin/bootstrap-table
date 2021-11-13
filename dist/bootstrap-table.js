@@ -2717,7 +2717,7 @@
 
   /* eslint-disable no-unused-vars */
 
-  var VERSION = '1.19.0';
+  var VERSION = '1.19.1';
   var bootstrapVersion = 4;
 
   try {
@@ -3660,18 +3660,18 @@
       }
     },
     escapeHTML: function escapeHTML(text) {
-      if (typeof text === 'string') {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;').replace(/`/g, '&#x60;');
+      if (!text) {
+        return text;
       }
 
-      return text;
+      return text.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     },
     unescapeHTML: function unescapeHTML(text) {
-      if (typeof text === 'string') {
-        return text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#039;/g, '\'').replace(/&#x60;/g, '`');
+      if (!text) {
+        return text;
       }
 
-      return text;
+      return text.toString().replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, '\'');
     },
     getRealDataAttr: function getRealDataAttr(dataAttr) {
       for (var _i3 = 0, _Object$entries = Object.entries(dataAttr); _i3 < _Object$entries.length; _i3++) {
@@ -5606,6 +5606,7 @@
               // value can contains a HTML tags
               var textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent;
               var textReplaced = textContent.replace(regExp, marker);
+              textContent = textContent.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
               defValue = value.replace(new RegExp("(>\\s*)(".concat(textContent, ")(\\s*)"), 'gm'), "$1".concat(textReplaced, "$3"));
             } else {
               // but usually not

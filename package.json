@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-table",
   "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
-  "version": "1.19.0",
+  "version": "1.19.1",
   "style": "dist/bootstrap-table.min.css",
   "sass": "src/bootstrap-table.scss",
   "main": "dist/bootstrap-table.min.js",
@@ -15,7 +15,7 @@
     "clean-css-cli": "^5.0.1",
     "core-js": "^3.1.4",
     "cross-env": "^7.0.2",
-    "cypress": "^8.6.0",
+    "cypress": "^9.0.0",
     "eslint": "^8.0.1",
     "esm": "^3.2.25",
     "foreach-cli": "^1.8.1",

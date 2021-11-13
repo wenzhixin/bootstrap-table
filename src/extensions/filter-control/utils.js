@@ -48,7 +48,7 @@ export function existOptionInSelectControl (selectControl, value) {
   const options = getOptionsFromSelectControl(selectControl)
 
   for (let i = 0; i < options.length; i++) {
-    if (options[i].value === Utils.unescapeHTML(value.toString())) {
+    if (options[i].value === Utils.unescapeHTML(value)) {
       // The value is not valid to add
       return true
     }
@@ -394,10 +394,9 @@ export function createControls (that, header) {
     $.each(header.find('th'), (_, th) => {
       const $th = $(th)
 
-      $th.find('.filter-control').remove()
-
       if ($th.data('field') === column.field) {
-        $th.find('.fht-cell').append(html.join(''))
+        $th.find('.filter-control').remove()
+        $th.find('.fht-cell').html(html.join(''))
         return false
       }
     })

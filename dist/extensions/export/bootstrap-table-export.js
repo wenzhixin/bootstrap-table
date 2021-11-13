@@ -2051,7 +2051,13 @@
         }
 
         this.updateExportButton();
-        this.$export.find('[data-type]').click(function (e) {
+        var $exportButtons = this.$export.find('[data-type]');
+
+        if (exportTypes.length === 1) {
+          $exportButtons = this.$export.find('button');
+        }
+
+        $exportButtons.click(function (e) {
           e.preventDefault();
           var type = $__default['default'](e.currentTarget).data('type');
           var exportOptions = {

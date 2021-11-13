@@ -26,7 +26,7 @@ toc: true
 
 - **Detail:**
 
-   Set `true` to enable auto refresh plugin. **This does not mean enable auto refresh.** This allows the user to enable/disable auto refresh by clicking the button.
+   Set `true` to enable auto refresh plugin.
 
 - **Default:** `false`
 
@@ -63,6 +63,18 @@ toc: true
 - **Detail:**
 
    Set `true` to enable auto refresh. This is the state auto refresh will be in when the table loads. Clicking the button toggles this property. This is simply the default state of auto refresh as the user can always change it by clicking the button.
+
+- **Default:** `true`
+
+### showAutoRefresh
+
+- **Attribute:** `data-show-auto-refresh`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set `false` to hide the auto refresh button, as example if you want to disallow deactivating the auto fresh by the user.
 
 - **Default:** `true`
 
