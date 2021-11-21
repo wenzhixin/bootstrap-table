@@ -329,6 +329,11 @@ export function createControls (that, header) {
       addedFilterControl = true
 
       if (column.searchable && that.options.filterTemplate[nameControl]) {
+        let value = column.filterDefault
+
+        if (that.filterColumnsPartial && that.filterColumnsPartial[column.field]) {
+          value = that.filterColumnsPartial[column.field]
+        }
         html.push(
           that.options.filterTemplate[nameControl](
             that,
@@ -336,7 +341,7 @@ export function createControls (that, header) {
             column.filterControlPlaceholder ?
               column.filterControlPlaceholder :
               '',
-            column.filterDefault
+            value
           )
         )
       }
@@ -377,7 +382,13 @@ export function createControls (that, header) {
         selectControl = header.find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
         addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
-        filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
+
+        let selected = column.filterDefault
+
+        if (that.filterColumnsPartial && that.filterColumnsPartial[column.field]) {
+          selected = that.filterColumnsPartial[column.field]
+        }
+        filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, selected)
       } else {
         throw new SyntaxError(
           'Error. You should use any of these allowed filter data methods: var, obj, json, url, func.' +
