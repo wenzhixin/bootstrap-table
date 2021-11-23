@@ -229,6 +229,16 @@ export default {
       .replace(/&#39;/g, '\'')
   },
 
+  removeHTML (text) {
+    if (!text) {
+      return text
+    }
+    return text.toString()
+      .replace(/(<([^>]+)>)/ig, '')
+      .replace(/&[#A-Za-z0-9]+;/gi, '')
+      .trim()
+  },
+
   getRealDataAttr (dataAttr) {
     for (const [attr, value] of Object.entries(dataAttr)) {
       const auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase()

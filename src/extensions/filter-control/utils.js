@@ -61,8 +61,8 @@ export function existOptionInSelectControl (selectControl, value) {
 export function addOptionToSelectControl (selectControl, _value, text, selected) {
   let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
 
-  value = value.replace(/(<([^>]+)>)/ig, '').replace(/&[#A-Za-z0-9]+;/gi, '').trim()
-  text = text.replace(/(<([^>]+)>)/ig, '').replace(/&[#A-Za-z0-9]+;/gi, '').trim()
+  value = Utils.removeHTML(value)
+  text = Utils.removeHTML(text)
 
   if (existOptionInSelectControl(selectControl, value)) {
     return
@@ -300,6 +300,11 @@ export function initFilterSelectControls (that) {
         const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
         let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
 
+        if (!fieldValue) {
+          fieldValue = formattedValue
+          column._forceFormatter = true
+        }
+
         if (column.filterDataCollector) {
           formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
         }
@@ -315,11 +320,11 @@ export function initFilterSelectControls (that) {
           })
           continue
         }
+      }
 
-        // eslint-disable-next-line guard-for-in
-        for (const key in uniqueValues) {
-          addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
-        }
+      // eslint-disable-next-line guard-for-in
+      for (const key in uniqueValues) {
+        addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
       }
 
       // sortSelectControl(selectControl, column.filterOrderBy)
