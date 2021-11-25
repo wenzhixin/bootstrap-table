@@ -458,42 +458,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.filterColumnsPartial = {}
     }
 
-    const $currentTarget = $(currentTarget)
-    const currentTargetValue = $currentTarget.val()
-
-    if (Array.isArray(currentTargetValue)) {
-      const filterByArray = []
-      const $field = $currentTarget.closest('[data-field]').data('field')
-
-      for (let i = 0; i < currentTargetValue.length; i++) {
-        const text = currentTargetValue[i] ? currentTargetValue[i].trim() : ''
-
-        this.trigger('column-search', $field, text)
-
-        if (text) {
-          filterByArray.push(text)
-        }
-      }
-      if (filterByArray.length > 0) {
-        const filterObj = {}
-
-        filterObj[$field] = filterByArray
-        this.filterBy(filterObj)
-      } else {
-        this.filterBy({})
-      }
-    } else {
-      const text = currentTargetValue ? currentTargetValue.trim() : ''
-      const $field = $currentTarget.closest('[data-field]').data('field')
-
+    // If searchOnEnterKey is set to true, then we need to iterate over all controls and grab their values.
+    const controls = this.options.searchOnEnterKey ? UtilsFilterControl.getSearchControls(this).toArray() : [currentTarget]
+    
+    controls.forEach((element) => {
+      const $element = $(element) 
+      const elementValue = $element.val()
+      const text = elementValue ? elementValue.trim() : ''
+      const $field = $element.closest('[data-field]').data('field')
+      
       this.trigger('column-search', $field, text)
-
+      
       if (text) {
         this.filterColumnsPartial[$field] = text
       } else {
         delete this.filterColumnsPartial[$field]
       }
-    }
+    });
 
     this.onSearch({ currentTarget }, false)
   }
