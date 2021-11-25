@@ -223,13 +223,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
             tmpItemIsExpected = true
           } else {
             // Fix #142: search use formatted data
-            if ((thisColumn && thisColumn.searchFormatter) || thisColumn._forceFormatter) {
-              value = $.fn.bootstrapTable.utils.calculateObjectValue(
-                that.header,
-                that.header.formatters[$.inArray(key, that.header.fields)],
-                [value, item, i],
-                value
-              )
+            if (thisColumn) {
+              if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
+                value = $.fn.bootstrapTable.utils.calculateObjectValue(
+                  that.header,
+                  that.header.formatters[$.inArray(key, that.header.fields)],
+                  [value, item, i],
+                  value
+                )
+              }
             }
 
             if ($.inArray(key, that.header.fields) !== -1) {

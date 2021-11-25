@@ -58,7 +58,7 @@ export function existOptionInSelectControl (selectControl, value) {
   return false
 }
 
-export function addOptionToSelectControl (selectControl, _value, text, selected) {
+export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
   let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
 
   value = Utils.removeHTML(value)
@@ -68,7 +68,9 @@ export function addOptionToSelectControl (selectControl, _value, text, selected)
     return
   }
 
-  const option = new Option(text, value, false, value === selected)
+  const isSelected = shouldCompareText ? (value === selected || text === selected) : value === selected
+
+  const option = new Option(text, value, false, isSelected)
 
   selectControl.get(0).add(option)
 }
@@ -86,6 +88,7 @@ export function sortSelectControl (selectControl, orderBy) {
     tmpAry[i] = new Array()
     tmpAry[i][0] = $selectControl.options[i].text
     tmpAry[i][1] = $selectControl.options[i].value
+    tmpAry[i][2] = $selectControl.options[i].selected
   }
 
   tmpAry.sort((a, b) => {
@@ -96,7 +99,7 @@ export function sortSelectControl (selectControl, orderBy) {
   }
 
   for (let i = 0; i < tmpAry.length; i++) {
-    const op = new Option(tmpAry[i][0], tmpAry[i][1])
+    const op = new Option(tmpAry[i][0], tmpAry[i][1], false, tmpAry[i][2])
 
     $selectControl.add(op)
   }
@@ -424,7 +427,7 @@ export function createControls (that, header) {
         filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length)
         selectControl = header.find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
-        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
+        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault, true)
         filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
       } else {
         throw new SyntaxError(
@@ -636,9 +639,9 @@ const filterDataMethods = {
 
     for (const key in variableValues) {
       if (isArray) {
-        addOptionToSelectControl(selectControl, variableValues[key], variableValues[key], selected)
+        addOptionToSelectControl(selectControl, variableValues[key], variableValues[key], selected, true)
       } else {
-        addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+        addOptionToSelectControl(selectControl, key, variableValues[key], selected, true)
       }
     }
     sortSelectControl(selectControl, filterOrderBy)
