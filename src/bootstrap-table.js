@@ -3113,6 +3113,7 @@ class BootstrapTable {
     const $search = Utils.getSearchInput(this)
 
     const textToUse = text || ''
+
     $search.val(textToUse)
     this.searchText = textToUse
     this.onSearch({ currentTarget: $search }, false)
