@@ -460,21 +460,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     // If searchOnEnterKey is set to true, then we need to iterate over all controls and grab their values.
     const controls = this.options.searchOnEnterKey ? UtilsFilterControl.getSearchControls(this).toArray() : [currentTarget]
-    
-    controls.forEach((element) => {
-      const $element = $(element) 
+
+    controls.forEach(element => {
+      const $element = $(element)
       const elementValue = $element.val()
       const text = elementValue ? elementValue.trim() : ''
       const $field = $element.closest('[data-field]').data('field')
-      
+
       this.trigger('column-search', $field, text)
-      
+
       if (text) {
         this.filterColumnsPartial[$field] = text
       } else {
         delete this.filterColumnsPartial[$field]
       }
-    });
+    })
 
     this.onSearch({ currentTarget }, false)
   }
