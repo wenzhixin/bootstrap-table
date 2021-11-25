@@ -6,8 +6,6 @@ group: extensions
 toc: true
 ---
 
-Dependence if you use the multipleSelect option: [multiple-select](https://multiple-select.wenzhixin.net.cn/) >= v1.5.2
-
 ## Usage
 
 {% highlight html %}
