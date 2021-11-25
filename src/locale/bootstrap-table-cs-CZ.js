@@ -6,10 +6,10 @@
 
 $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Kopírovat řádky'
   },
   formatPrint () {
-    return 'Print'
+    return 'Tisk'
   },
   formatLoadingMessage () {
     return 'Čekejte, prosím'
@@ -25,19 +25,19 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
     return `Zobrazena ${pageFrom}. - ${pageTo} . položka z celkových ${totalRows}`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'předchozí strana'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `na stranu ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'další strana'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Zobrazuji ${totalRows} řádek`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'Smazat hledání'
   },
   formatSearch () {
     return 'Vyhledávání'
@@ -49,10 +49,10 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
     return 'Skrýt/Zobrazit stránkování'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Zobrazit stránkování'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Skrýt stránkování'
   },
   formatRefresh () {
     return 'Aktualizovat'
@@ -61,46 +61,46 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
     return 'Přepni'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Zobrazit karty'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Zobrazit tabulku'
   },
   formatColumns () {
     return 'Sloupce'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Zobrazit/Skrýt vše'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Zapnout/Vypnout fullscreen'
   },
   formatAllRows () {
     return 'Vše'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Automatické obnovení'
   },
   formatExport () {
-    return 'Export data'
+    return 'Export dat'
   },
   formatJumpTo () {
     return 'GO'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Pokročilé hledání'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Zavřít'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Skrýt/Zobrazit ovladače'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Skrýt ovladače'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Zobrazit ovladače'
   }
 }
 
