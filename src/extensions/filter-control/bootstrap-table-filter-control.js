@@ -182,6 +182,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
+    UtilsFilterControl.setValues(this)
   }
 
   initHeader () {
