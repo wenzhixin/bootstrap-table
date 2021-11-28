@@ -74,6 +74,7 @@ $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   print: {
     bootstrap3: 'glyphicon-print icon-share',
+    bootstrap5: 'bi-printer',
     'bootstrap-table': 'icon-printer'
   }[$.fn.bootstrapTable.theme] || 'fa-print'
 })
