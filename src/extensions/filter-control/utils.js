@@ -329,11 +329,6 @@ export function initFilterSelectControls (that) {
       for (const key in uniqueValues) {
         addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
       }
-
-      // sortSelectControl(selectControl, column.filterOrderBy)
-      if (that.options.hideUnusedSelectOptions) {
-        hideUnusedSelectOptions(selectControl, uniqueValues)
-      }
     }
   })
 }
@@ -428,7 +423,7 @@ export function createControls (that, header) {
         selectControl = header.find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
         addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault, true)
-        filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
+        filterDataType(that, filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
       } else {
         throw new SyntaxError(
           'Error. You should use any of these allowed filter data methods: var, obj, json, url, func.' +
@@ -607,16 +602,21 @@ export function syncHeaders (that) {
 }
 
 const filterDataMethods = {
-  func (filterDataSource, selectControl, filterOrderBy, selected) {
+  func (that, filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource].apply()
 
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
-    sortSelectControl(selectControl, filterOrderBy)
+
+    if (that.options.sortSelectOptions) {
+      sortSelectControl(selectControl, filterOrderBy)
+    }
+
+    setValues(that)
   },
-  obj (filterDataSource, selectControl, filterOrderBy, selected) {
+  obj (that, filterDataSource, selectControl, filterOrderBy, selected) {
     const objectKeys = filterDataSource.split('.')
     const variableName = objectKeys.shift()
     let variableValues = window[variableName]
@@ -631,9 +631,14 @@ const filterDataMethods = {
     for (const key in variableValues) {
       addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
-    sortSelectControl(selectControl, filterOrderBy)
+
+    if (that.options.sortSelectOptions) {
+      sortSelectControl(selectControl, filterOrderBy)
+    }
+
+    setValues(that)
   },
-  var (filterDataSource, selectControl, filterOrderBy, selected) {
+  var (that, filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource]
     const isArray = Array.isArray(variableValues)
 
@@ -644,9 +649,14 @@ const filterDataMethods = {
         addOptionToSelectControl(selectControl, key, variableValues[key], selected, true)
       }
     }
-    sortSelectControl(selectControl, filterOrderBy)
+
+    if (that.options.sortSelectOptions) {
+      sortSelectControl(selectControl, filterOrderBy)
+    }
+
+    setValues(that)
   },
-  url (filterDataSource, selectControl, filterOrderBy, selected) {
+  url (that, filterDataSource, selectControl, filterOrderBy, selected) {
     $.ajax({
       url: filterDataSource,
       dataType: 'json',
@@ -655,17 +665,27 @@ const filterDataMethods = {
         for (const key in data) {
           addOptionToSelectControl(selectControl, key, data[key], selected)
         }
-        sortSelectControl(selectControl, filterOrderBy)
+
+        if (that.options.sortSelectOptions) {
+          sortSelectControl(selectControl, filterOrderBy)
+        }
+
+        setValues(that)
       }
     })
   },
-  json (filterDataSource, selectControl, filterOrderBy, selected) {
+  json (that, filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = JSON.parse(filterDataSource)
 
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
-    sortSelectControl(selectControl, filterOrderBy)
+
+    if (that.options.sortSelectOptions) {
+      sortSelectControl(selectControl, filterOrderBy)
+    }
+
+    setValues(that)
   }
 }

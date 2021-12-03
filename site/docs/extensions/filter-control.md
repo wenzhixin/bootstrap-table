@@ -80,18 +80,6 @@ toc: true
 
 - **Default:** `undefined`
 
-### hideUnusedSelectOptions
-
-- **Attribute:** `data-hide-unused-select-options`
-
-- **type:** `Boolean`
-
-- **Detail:**
-
-   Set to true in order to hide the options that are not in the table. This option does not work on server-side pagination.
-
-- **Default:** `false`
-
 ### searchOnEnterKey
 
 - **Attribute:** `data-search-on-enter-key`
@@ -113,6 +101,18 @@ toc: true
 - **Detail:**
 
    Set to `true` to show the filter control switch button.
+
+- **Default:** `false`
+
+### sortSelectOptions
+
+- **Attribute:** `data-sort-select-options`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set to `true` to sort the option elements of the select control.
 
 - **Default:** `false`
 
@@ -189,30 +189,6 @@ toc: true
 - **Detail:**
 
    If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"max":value1, "min": value2, "step": value3}'`. For more information visit this [documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)
-
-- **Default:** `undefined`
-
-### filterControlMultipleSelect
-
-- **Attribute:** `data-filter-control-multiple-select`
-
-- **type:** `boolean`
-
-- **Detail:**
-
-   Use this option to configure the select as multipleSelect.
-
-- **Default:** `false`
-
-### filterControlMultipleSelectOptions
-
-- **Attribute:** `data-filter-control-multiple-select-options`
-
-- **type:** `Object`
-
-- **Detail:**
-
-   If the filterControlMultipleSelect option is set to true, use this option to configure the select with the native options. Use this way: `data-filter-control-multiple-select-options='{"property1":value1, "property2": value2, "property3": value3}'`. See this [documentation](https://multiple-select.wenzhixin.net.cn/docs/en/options)
 
 - **Default:** `undefined`
 

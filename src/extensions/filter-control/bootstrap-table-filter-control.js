@@ -53,6 +53,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   },
   searchOnEnterKey: false,
   showFilterControlSwitch: false,
+  sortSelectOptions: false,
   // internal variables
   _valuesFilterControl: [],
   _initialized: false,
@@ -71,7 +72,8 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterStartsWithSearch: false,
   filterControlPlaceholder: '',
   filterDefault: '',
-  filterOrderBy: 'asc' // asc || desc
+  filterOrderBy: 'asc', // asc || desc
+  filterCustomSearch: undefined
 })
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
