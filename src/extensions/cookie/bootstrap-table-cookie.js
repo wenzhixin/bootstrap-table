@@ -263,6 +263,8 @@ const UtilsCookie = {
         bootstrapTable.initColumnSearch(cachedFilters)
         bootstrapTable.options.filterControlValuesLoaded = true
         bootstrapTable.initServer()
+      } else {
+        bootstrapTable.options.filterControlValuesLoaded = true
       }
     }, 250)
   }
