@@ -105,6 +105,6 @@ $.fn.bootstrapTable.locales['hi-IN'] = {
   formatFilterControlSwitchShow () {
     return 'दिखाओ कंट्रोल्स'
   }
-};
+}
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['hi-IN']);
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['hi-IN'])
