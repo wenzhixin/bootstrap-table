@@ -277,7 +277,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const table = buildTable(data, this.options.columns)
     const newWin = window.open('')
 
-    newWin.document.write(this.options.printPageBuilder.call(this, table))
+    const calculatedPrintPage = Utils.calculateObjectValue(this, this.options.printPageBuilder, [table], printPageBuilderDefault(table))
+
+    newWin.document.write(calculatedPrintPage)
     newWin.document.close()
     newWin.focus()
     newWin.print()
