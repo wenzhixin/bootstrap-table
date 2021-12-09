@@ -1,14 +1,15 @@
 /**
  * Bootstrap Table Korean translation
  * Author: Yi Tae-Hyeong (jsonobject@gmail.com)
+ * Revision: Abel Yeom (abel.yeom@gmail.com)
  */
 
 $.fn.bootstrapTable.locales['ko-KR'] = $.fn.bootstrapTable.locales['ko'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return '행 복사'
   },
   formatPrint () {
-    return 'Print'
+    return '프린트'
   },
   formatLoadingMessage () {
     return '데이터를 불러오는 중입니다'
@@ -18,25 +19,25 @@ $.fn.bootstrapTable.locales['ko-KR'] = $.fn.bootstrapTable.locales['ko'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력, (filtered from ${totalNotFiltered} total rows)`
+      return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력, (전체 ${totalNotFiltered} 행에서 필터됨)`
     }
 
     return `전체 ${totalRows}개 중 ${pageFrom}~${pageTo}번째 데이터 출력,`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return '이전 페이지'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `${page} 페이지로 이동`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return '다음 페이지'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `${totalRows} 행들 표시 중`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return '검색 초기화'
   },
   formatSearch () {
     return '검색'
@@ -45,13 +46,13 @@ $.fn.bootstrapTable.locales['ko-KR'] = $.fn.bootstrapTable.locales['ko'] = {
     return '조회된 데이터가 없습니다.'
   },
   formatPaginationSwitch () {
-    return 'Hide/Show pagination'
+    return '페이지 넘버 보기/숨기기'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return '페이지 넘버 보기'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return '페이지 넘버 숨기기'
   },
   formatRefresh () {
     return '새로 고침'
@@ -60,46 +61,46 @@ $.fn.bootstrapTable.locales['ko-KR'] = $.fn.bootstrapTable.locales['ko'] = {
     return '전환'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return '카드뷰 보기'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return '카드뷰 숨기기'
   },
   formatColumns () {
     return '컬럼 필터링'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return '전체 토글'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return '전체 화면'
   },
   formatAllRows () {
-    return 'All'
+    return '전체'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return '자동 갱신'
   },
   formatExport () {
-    return 'Export data'
+    return '데이터 추출'
   },
   formatJumpTo () {
-    return 'GO'
+    return '이동'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return '심화 검색'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return '닫기'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return '컨트롤 보기/숨기기'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return '컨트롤 숨기기'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return '컨트롤 보기'
   }
 }
 
