@@ -112,7 +112,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
   Set `true` to select checkbox or radiobox when clicking rows.
 
-- **Default:** `false`
+- **Default:** `true`
 
 - **Example:** [Click to Select](https://examples.bootstrap-table.com/#column-options/click-to-select.html)
 
