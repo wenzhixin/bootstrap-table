@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const VERSION = '1.19.1'
 
-let bootstrapVersion = 4
+let bootstrapVersion = 5
 
 try {
   const rawVersion = $.fn.dropdown.Constructor.VERSION
