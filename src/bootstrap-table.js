@@ -39,6 +39,14 @@ class BootstrapTable {
     this.constants.theme = $.fn.bootstrapTable.theme
     this.constants.dataToggle = this.constants.html.dataToggle || 'data-toggle'
 
+    // init iconsPrefix and icons
+    const iconsPrefix = Utils.getIconsPrefix($.fn.bootstrapTable.theme)
+    const icons = Utils.getIcons(iconsPrefix)
+
+    opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix
+    opts.icons = Object.assign(icons, $.fn.bootstrapTable.defaults.icons, opts.icons)
+
+    // init buttons class
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
 
     this.constants.buttonsClass = [
