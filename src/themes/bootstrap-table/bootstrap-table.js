@@ -5,23 +5,6 @@
 
 $.fn.bootstrapTable.theme = 'bootstrap-table'
 
-$.extend($.fn.bootstrapTable.defaults, {
-  iconsPrefix: 'icon',
-  icons: {
-    paginationSwitchDown: 'icon-arrow-up-circle',
-    paginationSwitchUp: 'icon-arrow-down-circle',
-    refresh: 'icon-refresh-cw',
-    toggleOff: 'icon-toggle-right',
-    toggleOn: 'icon-toggle-right',
-    columns: 'icon-list',
-    detailOpen: 'icon-plus',
-    detailClose: 'icon-minus',
-    fullscreen: 'icon-maximize',
-    search: 'icon-search',
-    clearSearch: 'icon-trash-2'
-  }
-})
-
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
     super.init()
