@@ -101,6 +101,45 @@ $.fn.bootstrapTable.locales['nl-NL'] = $.fn.bootstrapTable.locales['nl'] = {
   },
   formatFilterControlSwitchShow () {
     return 'Toon controls'
+  },
+  formatAddLevel () {
+    return 'Niveau toevoegen'
+  },
+  formatCancel () {
+    return 'Annuleren'
+  },
+  formatColumn () {
+    return 'Kolom'
+  },
+  formatDeleteLevel () {
+    return 'Niveau verwijderen'
+  },
+  formatDuplicateAlertTitle () {
+    return 'Duplicaten gevonden!'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Gelieve dubbele kolommen te verwijderen of wijzigen'
+  },
+  formatMultipleSort () {
+    return 'Meervoudige sortering'
+  },
+  formatOrder () {
+    return 'Volgorde'
+  },
+  formatSort () {
+    return 'Sorteren'
+  },
+  formatSortBy () {
+    return 'Sorteren op'
+  },
+  formatThenBy () {
+    return 'vervolgens'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Oplopend',
+      desc: 'Aflopend'
+    }
   }
 }
 

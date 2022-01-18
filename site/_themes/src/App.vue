@@ -91,7 +91,7 @@ export default {
             name: 'Bootstrap v5',
             desc: 'The most popular HTML, CSS, and JavaScript framework.',
             img: '/assets/images/bootstrap5.jpg',
-            url: '/themes/bootstrap5/',
+            url: '/docs/getting-started/introduction/',
             demo: 'https://examples.bootstrap-table.com/index.html?bootstrap5',
             price: ''
           },
@@ -99,7 +99,7 @@ export default {
             name: 'Bootstrap v4',
             desc: 'The most popular HTML, CSS, and JavaScript framework.',
             img: '/assets/images/bootstrap4.jpg',
-            url: '/docs/getting-started/introduction/',
+            url: '/themes/bootstrap4/',
             demo: 'https://examples.bootstrap-table.com/',
             price: ''
           },

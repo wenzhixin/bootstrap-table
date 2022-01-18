@@ -152,7 +152,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     let $exportButtons = this.$export.find('[data-type]')
 
     if (exportTypes.length === 1) {
-      $exportButtons = this.$export.find('button')
+      $exportButtons = this.$export
     }
 
     $exportButtons.click(e => {

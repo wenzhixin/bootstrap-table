@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.19.0
+ * version: 1.19.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -39,6 +39,14 @@ class BootstrapTable {
     this.constants.theme = $.fn.bootstrapTable.theme
     this.constants.dataToggle = this.constants.html.dataToggle || 'data-toggle'
 
+    // init iconsPrefix and icons
+    const iconsPrefix = Utils.getIconsPrefix($.fn.bootstrapTable.theme)
+    const icons = Utils.getIcons(iconsPrefix)
+
+    opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix
+    opts.icons = Object.assign(icons, $.fn.bootstrapTable.defaults.icons, opts.icons)
+
+    // init buttons class
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
 
     this.constants.buttonsClass = [
@@ -1596,9 +1604,10 @@ class BootstrapTable {
 
         if (isHTML) {
           // value can contains a HTML tags
-          const textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent
+          let textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent
           const textReplaced = textContent.replace(regExp, marker)
 
+          textContent = textContent.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
           defValue = value.replace(new RegExp(`(>\\s*)(${textContent})(\\s*)`, 'gm'), `$1${textReplaced}$3`)
         } else {
           // but usually not
