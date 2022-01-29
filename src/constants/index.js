@@ -337,6 +337,9 @@ const DEFAULTS = {
   },
   onTogglePagination (newState) {
     return false
+  },
+  onVirtualScroll (newState) {
+    return false
   }
 }
 
