@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: About
-description: Learn more about the team maintaining Bootstrap Table, how and why the project started, and how to get involved.
+description: Learn more about the Bootstrap Table team, how and why the project started, and how to get involved.
 redirect_from:
   - "/docs/about/"
 group: about
@@ -9,7 +9,7 @@ group: about
 
 ## Team
 
-Bootstrap Table is maintained by [wenzhixin](https://github.com/wenzhixin), [djhvscf](https://github.com/djhvscf) and [UtechtDustin](https://github.com/UtechtDustin) on GitHub. We're actively looking to grow this team and would love to hear from you if you're excited about CSS at scale, writing and maintaining vanilla JavaScript plugins, and improving build tooling processes for frontend code.
+Bootstrap Table is maintained by [wenzhixin](https://github.com/wenzhixin), [djhvscf](https://github.com/djhvscf) and [UtechtDustin](https://github.com/UtechtDustin) on GitHub. We're actively looking to grow this team. We would love to hear from you if you're excited about CSS at scale, writing and maintaining vanilla JavaScript plugins, and improving build tooling processes for frontend code.
 
 ## Get involved
 

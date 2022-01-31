@@ -10,7 +10,7 @@ redirect_from:
 toc: true
 ---
 
-## Quick start
+## Quickstart
 
 Looking to quickly add Bootstrap Table to your <a href="https://getbootstrap.com/" target="_blank">Bootstrap v5</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
 
@@ -32,11 +32,11 @@ Place the following `<script>`s near the end of your pages, right before the clo
 
 ## Starter template
 
-Be sure to have your pages set up with the latest design and development standards. That means using an HTML5 doctype and including a viewport meta tag for proper responsive behaviors.
+Be sure to have your pages set up with the latest design and development standards. That means using an HTML5 doctype and a viewport meta tag for proper responsive behaviors.
 
-For Bootstrap v5, we use [Bootstrap Icons](https://icons.getbootstrap.com/) as the default icons, so need to import Bootstrap Icons link.
+For Bootstrap v5, we use [Bootstrap Icons](https://icons.getbootstrap.com/) as the default icons, so we need to import the Bootstrap Icons link.
 
-Put it all together and your pages should look like this:
+Put it all together, and your pages should look like this:
 
 {% highlight html %}
 <!doctype html>

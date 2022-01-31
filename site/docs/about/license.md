@@ -28,7 +28,7 @@ Bootstrap Table is released under the MIT license and is copyright {{ site.time 
 
 #### It does not require you to:
 
-- Include the source of Bootstrap Table itself, or of any modifications you may have made to it, in any redistribution you may assemble that includes it
+- Include the source of Bootstrap Table itself or of any modifications, you may have made to it in any redistribution you may assemble that includes it
 - Submit changes that you make to Bootstrap Table back to the Bootstrap Table project (though such feedback is encouraged)
 
 The full Bootstrap Table license is located [in the project repository]({{ site.repo }}/blob/{{ site.current_version }}/LICENSE) for more information.
