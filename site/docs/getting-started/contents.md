@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Contents
-description: The Bootstrap Table source code download includes the pre-compiled CSS, JavaScript, locales, extensions, and provides both compiled and minified variations, along with documentation.
+description: The Bootstrap Table source code download includes the precompiled CSS, JavaScript, locales, extensions and provides both compiled and minified variations, along with documentation.
 group: getting-started
 toc: true
 ---
@@ -37,4 +37,4 @@ bootstrap-table/
     └── bootstrap-table.js
 {% endhighlight %}
 
-The `src/`, `locale/`, and `extensions/` are the source code for our CSS, JS. The `site/` folder includes the source code for our documentation. Beyond that, any other included file provides support for packages, license information, and development.
+The `src/`, `locale/`, and `extensions/` are the source code for our CSS, JS. The `site/` folder includes the source code for our documentation. Beyond that, any other included file supports packages, license information, and development.
