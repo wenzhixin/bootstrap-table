@@ -378,7 +378,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   onColumnAdvancedSearch (e) {
-    const text = $.trim($(e.currentTarget).val())
+    const text = $(e.currentTarget).val().trim()
     const $field = $(e.currentTarget)[0].id
 
     if ($.isEmptyObject(this.filterColumnsPartial)) {
@@ -392,7 +392,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (this.options.sidePagination !== 'server') {
       this.options.pageNumber = 1
-      this.onSearch(e)
+      this.initSearch()
       this.updatePagination()
       this.trigger('column-advanced-search', $field, text)
     }
