@@ -473,7 +473,7 @@ const showSortModal = that => {
           $($alert).remove()
         }
 
-        if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
+        if (['bootstrap3', 'bootstrap4', 'bootstrap5'].includes($.fn.bootstrapTable.theme)) {
           that.$sortModal.modal('hide')
         }
 
