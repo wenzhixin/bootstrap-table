@@ -216,7 +216,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
-          const rawFilterValue = (filterPartial[key] || '');
+          const rawFilterValue = (filterPartial[key] || '')
           const filterValue = rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
@@ -239,36 +239,31 @@ $.BootstrapTable = class extends $.BootstrapTable {
             if ($.inArray(key, that.header.fields) !== -1) {
               if (value === undefined || value === null) {
                 tmpItemIsExpected = false
+              } else if (typeof value === 'object' && thisColumn.filterCustomSearch) {
+                itemIsExpected.push(that.isValueExpected(rawFilterValue, value, thisColumn, key))
+                return
               } else if (typeof value === 'object' && Array.isArray(value)) {
-                if (thisColumn.filterCustomSearch) {
-                  tmpItemIsExpected = that.isValueExpected(rawFilterValue, value, thisColumn, key)
-                } else {
-                  value.forEach(objectValue => {
-                    if (tmpItemIsExpected) {
-                      return
-                    }
+                value.forEach(objectValue => {
+                  if (tmpItemIsExpected) {
+                    return
+                  }
 
-                    if (this.options.searchAccentNeutralise) {
-                      objectValue = Utils.normalizeAccent(objectValue)
-                    }
-                    tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
-                  })
-                }
+                  if (this.options.searchAccentNeutralise) {
+                    objectValue = Utils.normalizeAccent(objectValue)
+                  }
+                  tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
+                })
               } else if (typeof value === 'object' && !Array.isArray(value)) {
-                if (thisColumn.filterCustomSearch) {
-                  tmpItemIsExpected = that.isValueExpected(rawFilterValue, value, thisColumn, key)
-                } else {
-                  Object.values(value).forEach(objectValue => {
-                    if (tmpItemIsExpected) {
-                      return
-                    }
+                Object.values(value).forEach(objectValue => {
+                  if (tmpItemIsExpected) {
+                    return
+                  }
 
-                    if (this.options.searchAccentNeutralise) {
-                      objectValue = Utils.normalizeAccent(objectValue)
-                    }
-                    tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
-                  })
-                }
+                  if (this.options.searchAccentNeutralise) {
+                    objectValue = Utils.normalizeAccent(objectValue)
+                  }
+                  tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
+                })
               } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
                 if (this.options.searchAccentNeutralise) {
                   value = Utils.normalizeAccent(value)
