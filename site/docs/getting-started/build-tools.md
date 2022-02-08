@@ -10,11 +10,11 @@ toc: true
 
 Bootstrap Table uses [NPM scripts](https://docs.npmjs.com/misc/scripts) for its build system. Our [package.json]({{ site.repo }}/blob/{{ site.current_version }}/package.json) includes convenient methods for working with the framework, including linting code, compiling code, and more.
 
-To use our build system and run our documentation locally, you'll need a copy of Bootstrap Table's source files and Node. Follow these steps and you should be ready to rock:
+To use our build system and run our documentation locally, you'll need a copy of Bootstrap Table's source files and Node. Follow these steps, and you should be ready to rock:
 
 1. [Download and install Node.js](https://nodejs.org/en/download/), which we use to manage our dependencies.
 2. Navigate to the root `/bootstrap-table` directory and run `npm install` to install our local dependencies listed in [package.json]({{ site.repo }}/blob/{{ site.current_version }}/package.json).
-3. [Install Ruby][install-ruby], install [Bundler][gembundler] with `gem install bundler`, and finally run `bundle install`. This will install all Ruby dependencies, such as Jekyll and plugins.
+3. [Install Ruby][install-ruby], install [Bundler][gembundler] with `gem install bundler`, and finally run `bundle install`. It will install all Ruby dependencies, such as Jekyll and plugins.
   - **Windows users:** Read [this guide](https://jekyllrb.com/docs/windows/) to get Jekyll up and running without problems.
 
 When completed, you'll be able to run the various commands provided from the command line.
@@ -46,4 +46,4 @@ Learn more about using Jekyll by reading its [documentation](https://jekyllrb.co
 
 ## Troubleshooting
 
-Should you encounter problems with installing dependencies, uninstall all previous dependency versions (global and local). Then, rerun `npm install`.
+If you encounter installing dependencies, uninstall all previous dependency versions (global and local). Then, rerun `npm install`.

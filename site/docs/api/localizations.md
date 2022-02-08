@@ -45,7 +45,7 @@ $('#table').bootstrapTable({
 })
 {% endhighlight %}
 
-List of all existing translations with their short codes is on [Github](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/locale)
+List of all existing translations with their shortcodes is on [Github](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/locale)
 
 You can custom the format localizations, the calling syntax:
 
@@ -181,4 +181,3 @@ $('#table').bootstrapTable({
 - **Parameter:** `undefined`
 
 - **Default:** `'Show card view'`
-

@@ -1656,9 +1656,9 @@ class BootstrapTable {
         item[this.header.stateField] = value === true || (!!value_ || (value && value.checked))
       } else if (this.options.cardView) {
         const cardTitle = this.options.showHeader ?
-          `<span class="card-view-title ${cellStyle.classes}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
+          `<span class="card-view-title ${cellStyle.classes || ''}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
 
-        text = `<div class="card-view">${cardTitle}<span class="card-view-value ${cellStyle.classes}"${style_}>${value}</span></div>`
+        text = `<div class="card-view">${cardTitle}<span class="card-view-value ${cellStyle.classes || ''}"${style_}>${value}</span></div>`
 
         if (this.options.smartDisplay && value === '') {
           text = '<div class="card-view"></div>'
