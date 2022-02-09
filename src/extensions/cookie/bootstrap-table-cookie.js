@@ -19,59 +19,39 @@ const UtilsCookie = {
     filterBy: 'bs.table.filterBy'
   },
   getCurrentHeader (that) {
-    let header = that.$header
-
-    if (that.options.height) {
-      header = that.$tableHeader
-    }
-
-    return header
+    return that.options.height ? that.$tableHeader : that.$header
   },
   getCurrentSearchControls (that) {
-    let searchControls = 'select, input'
-
-    if (that.options.height) {
-      searchControls = 'table select, table input'
-    }
-
-    return searchControls
+    return that.options.height ? 'table select, table input' : 'select, input'
   },
   isCookieSupportedByBrowser () {
-    return !!(navigator.cookieEnabled)
+    return navigator.cookieEnabled
   },
   isCookieEnabled (that, cookieName) {
-    return that.options.cookiesEnabled.indexOf(cookieName) !== -1
+    return that.options.cookiesEnabled.includes(cookieName)
   },
   setCookie (that, cookieName, cookieValue) {
-    if (!that.options.cookie) {
+    if (
+      !that.options.cookie ||
+      !UtilsCookie.isCookieEnabled(that, cookieName)
+    ) {
       return
     }
 
-    if (!UtilsCookie.isCookieEnabled(that, cookieName)) {
-      return
-    }
-
-    cookieName = `${that.options.cookieIdTable}.${cookieName}`
-
-    return that._storage.setItem(cookieName, cookieValue)
+    return that._storage.setItem(`${that.options.cookieIdTable}.${cookieName}`, cookieValue)
   },
-  getCookie (that, tableName, cookieName) {
-    if (!cookieName) {
+  getCookie (that, cookieName) {
+    if (
+      !cookieName ||
+      !UtilsCookie.isCookieEnabled(that, cookieName)
+    ) {
       return null
     }
 
-    if (!UtilsCookie.isCookieEnabled(that, cookieName)) {
-      return null
-    }
-
-    cookieName = `${tableName}.${cookieName}`
-
-    return that._storage.getItem(cookieName)
+    return that._storage.getItem(`${that.options.cookieIdTable}.${cookieName}`)
   },
   deleteCookie (that, cookieName) {
-    cookieName = `${that.options.cookieIdTable}.${cookieName}`
-
-    return that._storage.removeItem(cookieName)
+    return that._storage.removeItem(`${that.options.cookieIdTable}.${cookieName}`)
   },
   calculateExpiration (cookieExpire) {
     const time = cookieExpire.replace(/[0-9]*/, '') // s,mi,h,d,m,y
@@ -111,43 +91,55 @@ const UtilsCookie = {
   },
   initCookieFilters (bootstrapTable) {
     setTimeout(() => {
-      const parsedCookieFilters = JSON.parse(UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
+      const parsedCookieFilters = JSON.parse(
+        UtilsCookie.getCookie(bootstrapTable, UtilsCookie.cookieIds.filterControl))
 
       if (!bootstrapTable._filterControlValuesLoaded && parsedCookieFilters) {
-
         const cachedFilters = {}
         const header = UtilsCookie.getCurrentHeader(bootstrapTable)
         const searchControls = UtilsCookie.getCurrentSearchControls(bootstrapTable)
 
         const applyCookieFilters = (element, filteredCookies) => {
           filteredCookies.forEach(cookie => {
-            if (cookie.text === '' || (element.type === 'radio' && element.value.toString() !== cookie.text.toString())) {
+            const value = element.value.toString()
+            const text = cookie.text
+
+            if (
+              text === '' ||
+              element.type === 'radio' &&
+              value !== text
+            ) {
               return
             }
 
-            if (element.tagName === 'INPUT' && element.type === 'radio' && element.value.toString() === cookie.text.toString()) {
+            if (
+              element.tagName === 'INPUT' &&
+              element.type === 'radio' &&
+              value === text
+            ) {
               element.checked = true
-              cachedFilters[cookie.field] = cookie.text
+              cachedFilters[cookie.field] = text
             } else if (element.tagName === 'INPUT') {
-              element.value = cookie.text
-              cachedFilters[cookie.field] = cookie.text
-            } else if (element.tagName === 'SELECT' && bootstrapTable.options.filterControlContainer) {
-              element.value = cookie.text
-              cachedFilters[cookie.field] = cookie.text
-            } else if (cookie.text !== '' && element.tagName === 'SELECT') {
-              cachedFilters[cookie.field] = cookie.text
-              for (let i = 0; i < element.length; i++) {
-                const currentElement = element[i]
-
-                if (currentElement.value === cookie.text) {
+              element.value = text
+              cachedFilters[cookie.field] = text
+            } else if (
+              element.tagName === 'SELECT' &&
+              bootstrapTable.options.filterControlContainer
+            ) {
+              element.value = text
+              cachedFilters[cookie.field] = text
+            } else if (text !== '' && element.tagName === 'SELECT') {
+              cachedFilters[cookie.field] = text
+              for (const currentElement of element) {
+                if (currentElement.value === text) {
                   currentElement.selected = true
                   return
                 }
               }
               const option = document.createElement('option')
 
-              option.value = cookie.text
-              option.text = cookie.text
+              option.value = text
+              option.text = text
               element.add(option, element[1])
               element.selectedIndex = 1
             }
@@ -222,7 +214,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.configureStorage()
 
       // FilterBy logic
-      const filterByCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterBy)
+      const filterByCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.filterBy)
 
       if (typeof filterByCookieValue === 'boolean' && !filterByCookieValue) {
         throw new Error('The cookie value of filterBy must be a json!')
@@ -279,7 +271,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.filterControl &&
       !this._filterControlValuesLoaded
     ) {
-      const cookie = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.filterControl))
+      const cookie = JSON.parse(UtilsCookie.getCookie(this, UtilsCookie.cookieIds.filterControl))
 
       if (cookie) {
         return
@@ -301,11 +293,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (this.options.sortName === undefined || this.options.sortOrder === undefined) {
-      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
-      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
+      UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds.sortName)
+      UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds.sortOrder)
     } else {
       this.options.sortPriority = null
-      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
+      UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds.sortPriority)
 
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortOrder, this.options.sortOrder)
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortName, this.options.sortName)
@@ -316,12 +308,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.onMultipleSort(...args)
 
     if (this.options.sortPriority === undefined) {
-      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
+      UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds.sortPriority)
     } else {
       this.options.sortName = undefined
       this.options.sortOrder = undefined
-      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
-      UtilsCookie.deleteCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
+      UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds.sortName)
+      UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds.sortOrder)
 
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.sortPriority, JSON.stringify(this.options.sortPriority))
     }
@@ -402,7 +394,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initHeader (...args) {
     if (this.options.reorderableColumns && this.options.cookie) {
-      this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.reorderColumns))
+      this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, UtilsCookie.cookieIds.reorderColumns))
     }
     super.initHeader(...args)
   }
@@ -430,15 +422,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    const sortOrderCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortOrder)
-    const sortOrderNameCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortName)
-    let sortPriorityCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.sortPriority)
-    const pageNumberCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageNumber)
-    const pageListCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.pageList)
-    const searchTextCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.searchText)
-    const cardViewCookie = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.cardView)
+    const sortOrderCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.sortOrder)
+    const sortOrderNameCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.sortName)
+    let sortPriorityCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.sortPriority)
+    const pageNumberCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.pageNumber)
+    const pageListCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.pageList)
+    const searchTextCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.searchText)
+    const cardViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.cardView)
 
-    const columnsCookieValue = UtilsCookie.getCookie(this, this.options.cookieIdTable, UtilsCookie.cookieIds.columns)
+    const columnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.columns)
 
     if (typeof columnsCookieValue === 'boolean' && !columnsCookieValue) {
       throw new Error('The cookie value of filterBy must be a json!')
@@ -515,7 +507,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const cookies = {}
 
     $.each(UtilsCookie.cookieIds, (key, value) => {
-      cookies[key] = UtilsCookie.getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, value)
+      cookies[key] = UtilsCookie.getCookie(bootstrapTable, value)
       if (key === 'columns') {
         cookies[key] = JSON.parse(cookies[key])
       }
