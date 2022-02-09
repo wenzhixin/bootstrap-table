@@ -105,11 +105,8 @@ export function sortSelectControl (selectControl, orderBy) {
   }
 }
 
-export function fixHeaderCSS ({ $tableHeader }, pixels = '89px') {
-  if ($tableHeader.hasClass('table-sm') && pixels === '89px') {
-    $tableHeader.css('height', '49px')
-  }
-  $tableHeader.css('height', pixels)
+export function fixHeaderCSS ({ $tableHeader }) {
+  $tableHeader.css('height', $tableHeader.find('table').outerHeight(true))
 }
 
 export function getElementClass ($element) {

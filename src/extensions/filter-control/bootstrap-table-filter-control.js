@@ -164,7 +164,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.init()
   }
 
-
   initBody () {
     super.initBody()
     if (!this.options.filterControl) {
@@ -500,13 +499,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.height) {
       const $fixedControls = $('.fixed-table-header table thead').find('.filter-control, .no-filter-control')
 
-      if (this.options.filterControlVisible) {
-        $fixedControls.show()
-        UtilsFilterControl.fixHeaderCSS(this)
-      } else {
-        $fixedControls.hide()
-        UtilsFilterControl.fixHeaderCSS(this, '49px')
-      }
+      $fixedControls.toggle(this.options.filterControlVisible)
+      UtilsFilterControl.fixHeaderCSS(this)
     }
 
     const icon = this.options.showButtonIcons ? this.options.filterControlVisible ? this.options.icons.filterControlSwitchHide : this.options.icons.filterControlSwitchShow : ''
