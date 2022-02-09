@@ -2098,7 +2098,7 @@ class BootstrapTable {
     }
 
     const fixedBody = this.$tableBody.get(0)
-    const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
+    const scrollWidth = this.hasScrollBar &&
     fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
       Utils.getScrollBarWidth() : 0
 
@@ -2288,8 +2288,8 @@ class BootstrapTable {
     }
 
     const fixedBody = this.$tableBody.get(0)
-    const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-    fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
+    const scrollWidth = this.hasScrollBar &&
+      fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
       Utils.getScrollBarWidth() : 0
 
     this.$tableFooter
@@ -3009,6 +3009,12 @@ class BootstrapTable {
 
     this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
 
+    if (this.options.height) {
+      const fixedBody = this.$tableBody.get(0)
+
+      this.hasScrollBar = fixedBody.scrollWidth > fixedBody.clientWidth
+    }
+
     if (!this.options.cardView && this.options.showHeader && this.options.height) {
       this.$tableHeader.show()
       this.resetHeader()
@@ -3046,7 +3052,7 @@ class BootstrapTable {
       if (this.$tableBorder && $bodyTable.is(':visible')) {
         let tableBorderHeight = height - tableHeight - 2
 
-        if (this.$tableBody[0].scrollWidth - this.$tableBody.innerWidth()) {
+        if (this.hasScrollBar) {
           tableBorderHeight -= Utils.getScrollBarWidth()
         }
         this.$tableBorder.css('width', `${$bodyTable.outerWidth()}px`)
