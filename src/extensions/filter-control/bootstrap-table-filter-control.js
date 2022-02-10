@@ -34,8 +34,8 @@ $.extend($.fn.bootstrapTable.defaults, {
         '<select class="%s bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
         UtilsFilterControl.getInputClass(that, true),
         column.field,
-        '', // column.filterControlMultipleSelect ? 'fc-multipleselect' : '',
-        '', // column.filterControlMultipleSelect ? 'multiple="multiple"' : '',
+        '',
+        '',
         UtilsFilterControl.getDirectionOfSelectOptions(
           that.options.alignmentSelectControlOptions
         )
