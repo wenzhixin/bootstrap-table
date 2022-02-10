@@ -216,7 +216,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
-          const filterValue = (filterPartial[key] || '').toLowerCase()
+          const rawFilterValue = (filterPartial[key] || '')
+          const filterValue = rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
 
@@ -238,8 +239,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
             if ($.inArray(key, that.header.fields) !== -1) {
               if (value === undefined || value === null) {
                 tmpItemIsExpected = false
-              } else if (typeof value === 'object') {
+              } else if (typeof value === 'object' && thisColumn.filterCustomSearch) {
+                itemIsExpected.push(that.isValueExpected(rawFilterValue, value, thisColumn, key))
+                return
+              } else if (typeof value === 'object' && Array.isArray(value)) {
                 value.forEach(objectValue => {
+                  if (tmpItemIsExpected) {
+                    return
+                  }
+
+                  if (this.options.searchAccentNeutralise) {
+                    objectValue = Utils.normalizeAccent(objectValue)
+                  }
+                  tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
+                })
+              } else if (typeof value === 'object' && !Array.isArray(value)) {
+                Object.values(value).forEach(objectValue => {
                   if (tmpItemIsExpected) {
                     return
                   }

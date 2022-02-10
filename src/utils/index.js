@@ -330,7 +330,7 @@ export default {
   },
 
   unescapeHTML (text) {
-    if (!text) {
+    if (typeof text !== 'string' || !text) {
       return text
     }
     return text.toString()
