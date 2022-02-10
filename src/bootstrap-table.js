@@ -940,7 +940,7 @@ class BootstrapTable {
       }
     }
 
-    if (!firedByInitSearchText) {
+    if (!firedByInitSearchText && !this.options.cookie) {
       this.options.pageNumber = 1
     }
     this.initSearch()
@@ -3126,8 +3126,11 @@ class BootstrapTable {
   resetSearch (text) {
     const $search = Utils.getSearchInput(this)
 
-    $search.val(text || '')
-    this.onSearch({ currentTarget: $search })
+    const textToUse = text || ''
+
+    $search.val(textToUse)
+    this.searchText = textToUse
+    this.onSearch({ currentTarget: $search }, false)
   }
 
   filterBy (columns, options) {

@@ -1,15 +1,29 @@
+/* eslint-disable no-use-before-define */
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
 
+export function getFormControlClass (options) {
+  return options.iconSize ? Utils.sprintf('form-control-%s', options.iconSize) : 'form-control'
+}
+
 export function getOptionsFromSelectControl (selectControl) {
-  return selectControl.get(selectControl.length - 1).options
+  return selectControl[0].options
 }
 
 export function getControlContainer (that) {
   if (that.options.filterControlContainer) {
     return $(`${that.options.filterControlContainer}`)
   }
+
+  if (that.options.height && that._initialized) {
+    return $('.fixed-table-header table thead')
+  }
+
   return that.$header
+}
+
+export function isKeyAllowed (keyCode) {
+  return $.inArray(keyCode, [37, 38, 39, 40]) > -1
 }
 
 export function getSearchControls (that) {
@@ -44,37 +58,55 @@ export function existOptionInSelectControl (selectControl, value) {
   return false
 }
 
-export function addOptionToSelectControl (selectControl, _value, text, selected) {
-  const value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
-  const $selectControl = $(selectControl.get(selectControl.length - 1))
+export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
+  let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
 
-  if (!existOptionInSelectControl(selectControl, value)) {
-    const option = $(`<option value="${value}">${text}</option>`)
+  value = Utils.removeHTML(value)
+  text = Utils.removeHTML(text)
 
-    if (value === selected) {
-      option.attr('selected', true)
-    }
-
-    $selectControl.append(option)
+  if (existOptionInSelectControl(selectControl, value)) {
+    return
   }
+
+  const isSelected = shouldCompareText ? (value === selected || text === selected) : value === selected
+
+  const option = new Option(text, value, false, isSelected)
+
+  selectControl.get(0).add(option)
 }
 
 export function sortSelectControl (selectControl, orderBy) {
-  const $selectControl = $(selectControl.get(selectControl.length - 1))
-  const $opts = $selectControl.find('option:gt(0)')
+  const $selectControl = selectControl.get(0)
 
-  if (orderBy !== 'server') {
-    $opts.sort((a, b) => {
-      return Utils.sort(a.textContent, b.textContent, orderBy === 'desc' ? -1 : 1)
-    })
+  if (orderBy === 'server') {
+    return
   }
 
-  $selectControl.find('option:gt(0)').remove()
-  $selectControl.append($opts)
+  const tmpAry = new Array()
+
+  for (let i = 0; i < $selectControl.options.length; i++) {
+    tmpAry[i] = new Array()
+    tmpAry[i][0] = $selectControl.options[i].text
+    tmpAry[i][1] = $selectControl.options[i].value
+    tmpAry[i][2] = $selectControl.options[i].selected
+  }
+
+  tmpAry.sort((a, b) => {
+    return Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1)
+  })
+  while ($selectControl.options.length > 0) {
+    $selectControl.options[0] = null
+  }
+
+  for (let i = 0; i < tmpAry.length; i++) {
+    const op = new Option(tmpAry[i][0], tmpAry[i][1], false, tmpAry[i][2])
+
+    $selectControl.add(op)
+  }
 }
 
 export function fixHeaderCSS ({ $tableHeader }) {
-  $tableHeader.css('height', '89px')
+  $tableHeader.css('height', $tableHeader.find('table').outerHeight(true))
 }
 
 export function getElementClass ($element) {
@@ -82,47 +114,42 @@ export function getElementClass ($element) {
 }
 
 export function getCursorPosition (el) {
-  if (Utils.isIEBrowser()) {
-    if ($(el).is('input[type=text]')) {
-      let pos = 0
+  if ($(el).is('input[type=search]')) {
+    let pos = 0
 
-      if ('selectionStart' in el) {
-        pos = el.selectionStart
-      } else if ('selection' in document) {
-        el.focus()
-        const Sel = document.selection.createRange()
-        const SelLength = document.selection.createRange().text.length
+    if ('selectionStart' in el) {
+      pos = el.selectionStart
+    } else if ('selection' in document) {
+      el.focus()
+      const Sel = document.selection.createRange()
+      const SelLength = document.selection.createRange().text.length
 
-        Sel.moveStart('character', -el.value.length)
-        pos = Sel.text.length - SelLength
-      }
-      return pos
+      Sel.moveStart('character', -el.value.length)
+      pos = Sel.text.length - SelLength
     }
-    return -1
-
+    return pos
   }
   return -1
 }
 
-export function setCursorPosition (el) {
-  $(el).val(el.value)
-}
-
-export function copyValues (that) {
+export function cacheValues (that) {
   const searchControls = getSearchControls(that)
 
-  that.options.valuesFilterControl = []
+  that._valuesFilterControl = []
 
   searchControls.each(function () {
     let $field = $(this)
+    const fieldClass = getElementClass($field)
 
-    if (that.options.height) {
-      const fieldClass = getElementClass($field)
-
+    if (that.options.height && !that.options.filterControlContainer) {
       $field = $(`.fixed-table-header .${fieldClass}`)
+    } else if (that.options.filterControlContainer) {
+      $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
+    } else {
+      $field = $(`.${fieldClass}`)
     }
 
-    that.options.valuesFilterControl.push({
+    that._valuesFilterControl.push({
       field: $field.closest('[data-field]').data('field'),
       value: $field.val(),
       position: getCursorPosition($field.get(0)),
@@ -131,45 +158,71 @@ export function copyValues (that) {
   })
 }
 
+export function setCaretPosition (elem, caretPos) {
+  try {
+    if (elem) {
+      if (elem.createTextRange) {
+        const range = elem.createTextRange()
+
+        range.move('character', caretPos)
+        range.select()
+      } else {
+        elem.setSelectionRange(caretPos, caretPos)
+      }
+    }
+  }
+  catch (ex) {
+    // ignored
+  }
+}
+
 export function setValues (that) {
   let field = null
   let result = []
   const searchControls = getSearchControls(that)
 
-  if (that.options.valuesFilterControl.length > 0) {
+  if (that._valuesFilterControl.length > 0) {
     //  Callback to apply after settings fields values
-    let fieldToFocusCallback = null
+    const callbacks = []
 
     searchControls.each((i, el) => {
       const $this = $(el)
 
       field = $this.closest('[data-field]').data('field')
-      result = that.options.valuesFilterControl.filter(valueObj => valueObj.field === field)
+      result = that._valuesFilterControl.filter(valueObj => valueObj.field === field)
 
       if (result.length > 0) {
-        if ($this.is('[type=radio]')) {
-          return
-        }
-
-        $this.val(result[0].value)
-        if (result[0].hasFocus && result[0].value !== '') {
-          // set callback if the field had the focus.
-          fieldToFocusCallback = ((fieldToFocus, carretPosition) => {
-            // Closure here to capture the field and cursor position
+        if (result[0].hasFocus || result[0].value) {
+          const fieldToFocusCallback = ((element, cacheElementInfo) => {
+            // Closure here to capture the field information
             const closedCallback = () => {
-              fieldToFocus.focus()
-              setCursorPosition(fieldToFocus, carretPosition)
+              if (cacheElementInfo.hasFocus) {
+                element.focus()
+              }
+
+              if (Array.isArray(cacheElementInfo.value)) {
+                const $element = $(element)
+
+                $.each(cacheElementInfo.value, function (i, e) {
+                  $element.find(Utils.sprintf('option[value=\'%s\']', e)).prop('selected', true)
+                })
+              } else {
+                element.value = cacheElementInfo.value
+              }
+              setCaretPosition(element, cacheElementInfo.position)
             }
 
             return closedCallback
-          })($this.get(0), result[0].position)
+          })($this.get(0), result[0])
+
+          callbacks.push(fieldToFocusCallback)
         }
       }
     })
 
     // Callback call.
-    if (fieldToFocusCallback !== null) {
-      fieldToFocusCallback()
+    if (callbacks.length > 0) {
+      callbacks.forEach(callback => callback())
     }
   }
 }
@@ -227,30 +280,30 @@ export function hasSelectControlElement (selectControl) {
 }
 
 export function initFilterSelectControls (that) {
-  const data = that.data
-  const z = that.options.pagination ?
-    that.options.sidePagination === 'server' ?
-      that.pageTo :
-      that.options.totalRows :
-    that.pageTo
+  const data = that.options.data
 
   $.each(that.header.fields, (j, field) => {
     const column = that.columns[that.fieldsColumnsIndex[field]]
     const selectControl = getControlContainer(that).find(`select.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
     if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
-      if (selectControl.get(selectControl.length - 1).options.length === 0) {
+      if (!selectControl[0].multiple && selectControl.get(selectControl.length - 1).options.length === 0) {
         // Added the default option, must use a non-breaking space(&nbsp;) to pass the W3C validator
-        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || '&nbsp;', column.filterDefault)
+        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || ' ', column.filterDefault)
       }
 
       const uniqueValues = {}
 
-      for (let i = 0; i < z; i++) {
+      for (let i = 0; i < data.length; i++) {
         // Added a new value
         let fieldValue = Utils.getItemField(data[i], field, false)
         const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
         let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
+
+        if (!fieldValue) {
+          fieldValue = formattedValue
+          column._forceFormatter = true
+        }
 
         if (column.filterDataCollector) {
           formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
@@ -267,16 +320,11 @@ export function initFilterSelectControls (that) {
           })
           continue
         }
-
-        // eslint-disable-next-line guard-for-in
-        for (const key in uniqueValues) {
-          addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
-        }
       }
 
-      sortSelectControl(selectControl, column.filterOrderBy)
-      if (that.options.hideUnusedSelectOptions) {
-        hideUnusedSelectOptions(selectControl, uniqueValues)
+      // eslint-disable-next-line guard-for-in
+      for (const key in uniqueValues) {
+        addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
       }
     }
   })
@@ -307,13 +355,14 @@ export function createControls (that, header) {
     if (!column.filterControl && !that.options.filterControlContainer) {
       html.push('<div class="no-filter-control"></div>')
     } else if (that.options.filterControlContainer) {
+      // Use a filter control container instead of th
       const $filterControls = $(`.bootstrap-table-filter-control-${column.field}`)
 
       $.each($filterControls, (_, filterControl) => {
         const $filterControl = $(filterControl)
 
         if (!$filterControl.is('[type=radio]')) {
-          const placeholder = column.filterControlPlaceholder ? column.filterControlPlaceholder : ''
+          const placeholder = column.filterControlPlaceholder || ''
 
           $filterControl.attr('placeholder', placeholder).val(column.filterDefault)
         }
@@ -323,16 +372,16 @@ export function createControls (that, header) {
 
       addedFilterControl = true
     } else {
+      // Create the control based on the html defined in the filterTemplate array.
       const nameControl = column.filterControl.toLowerCase()
 
       html.push('<div class="filter-control">')
       addedFilterControl = true
-
       if (column.searchable && that.options.filterTemplate[nameControl]) {
         html.push(
           that.options.filterTemplate[nameControl](
             that,
-            column.field,
+            column,
             column.filterControlPlaceholder ?
               column.filterControlPlaceholder :
               '',
@@ -342,7 +391,8 @@ export function createControls (that, header) {
       }
     }
 
-    if (!column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
+    // Filtering by default when it is set.
+    if (column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
       if ($.isEmptyObject(that.filterColumnsPartial)) {
         that.filterColumnsPartial = {}
       }
@@ -350,7 +400,7 @@ export function createControls (that, header) {
       that.filterColumnsPartial[column.field] = column.filterDefault
     }
 
-    $.each(header.find('th'), (i, th) => {
+    $.each(header.find('th'), (_, th) => {
       const $th = $(th)
 
       if ($th.data('field') === column.field) {
@@ -361,23 +411,16 @@ export function createControls (that, header) {
     })
 
     if (column.filterData && column.filterData.toLowerCase() !== 'column') {
-      const filterDataType = getFilterDataMethod(
-        /* eslint-disable no-use-before-define */
-        filterDataMethods,
-        column.filterData.substring(0, column.filterData.indexOf(':'))
-      )
+      const filterDataType = getFilterDataMethod(filterDataMethods, column.filterData.substring(0, column.filterData.indexOf(':')))
       let filterDataSource
       let selectControl
 
       if (filterDataType) {
-        filterDataSource = column.filterData.substring(
-          column.filterData.indexOf(':') + 1,
-          column.filterData.length
-        )
+        filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length)
         selectControl = header.find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
-        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault)
-        filterDataType(filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
+        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault, true)
+        filterDataType(that, filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
       } else {
         throw new SyntaxError(
           'Error. You should use any of these allowed filter data methods: var, obj, json, url, func.' +
@@ -389,15 +432,13 @@ export function createControls (that, header) {
 
   if (addedFilterControl) {
     header.off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
-      syncControls(that)
-      // Simulate enter key action from clear button
       keyCode = obj ? obj.keyCode : keyCode
 
       if (that.options.searchOnEnterKey && keyCode !== 13) {
         return
       }
 
-      if ($.inArray(keyCode, [37, 38, 39, 40]) > -1) {
+      if (isKeyAllowed(keyCode)) {
         return
       }
 
@@ -413,16 +454,22 @@ export function createControls (that, header) {
       }, that.options.searchTimeOut)
     })
 
-    header.off('change', 'select:not(".ms-offscreen")').on('change', 'select:not(".ms-offscreen")', ({ currentTarget, keyCode }) => {
-      syncControls(that)
-      const $select = $(currentTarget)
-      const value = $select.val()
+    header.off('change', 'select', '.fc-multipleselect').on('change', 'select', '.fc-multipleselect', ({ currentTarget, keyCode }) => {
+      const $selectControl = $(currentTarget)
+      const value = $selectControl.val()
 
-      if (value && value.length > 0 && value.trim()) {
-        $select.find('option[selected]').removeAttr('selected')
-        $select.find(`option[value="${ value }"]`).attr('selected', true)
+      if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+          if (value[i] && value[i].length > 0 && value[i].trim()) {
+            $selectControl.find(`option[value="${ value[i] }"]`).attr('selected', true)
+          }
+        }
+      }
+      else if (value && value.length > 0 && value.trim()) {
+        $selectControl.find('option[selected]').removeAttr('selected')
+        $selectControl.find(`option[value="${ value }"]`).attr('selected', true)
       } else {
-        $select.find('option[selected]').removeAttr('selected')
+        $selectControl.find('option[selected]').removeAttr('selected')
       }
 
       clearTimeout(currentTarget.timeoutId || 0)
@@ -440,7 +487,6 @@ export function createControls (that, header) {
       }
 
       setTimeout(() => {
-        syncControls(that)
         const newValue = $input.val()
 
         if (newValue === '') {
@@ -455,34 +501,47 @@ export function createControls (that, header) {
     header.off('change', 'input[type=radio]').on('change', 'input[type=radio]', ({ currentTarget, keyCode }) => {
       clearTimeout(currentTarget.timeoutId || 0)
       currentTarget.timeoutId = setTimeout(() => {
-        syncControls(that)
         that.onColumnSearch({ currentTarget, keyCode })
       }, that.options.searchTimeOut)
     })
 
+    // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
     if (header.find('.date-filter-control').length > 0) {
       $.each(that.columns, (i, { filterDefault, filterControl, field, filterDatepickerOptions }) => {
         if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
           const $datepicker = header.find(`.date-filter-control.bootstrap-table-filter-control-${field}`)
 
-          $datepicker.datepicker(filterDatepickerOptions)
-
           if (filterDefault) {
-            $datepicker.datepicker('setDate', filterDefault)
+            $datepicker.value(filterDefault)
           }
 
-          $datepicker.on('changeDate', ({ currentTarget, keyCode }) => {
+          if (filterDatepickerOptions.min) {
+            $datepicker.attr('min', filterDatepickerOptions.min)
+          }
+
+          if (filterDatepickerOptions.max) {
+            $datepicker.attr('max', filterDatepickerOptions.max)
+          }
+
+          if (filterDatepickerOptions.step) {
+            $datepicker.attr('step', filterDatepickerOptions.step)
+          }
+
+          if (filterDatepickerOptions.pattern) {
+            $datepicker.attr('pattern', filterDatepickerOptions.pattern)
+          }
+
+          $datepicker.on('change', ({ currentTarget }) => {
             clearTimeout(currentTarget.timeoutId || 0)
             currentTarget.timeoutId = setTimeout(() => {
-              syncControls(that)
-              that.onColumnSearch({ currentTarget, keyCode })
+              that.onColumnSearch({ currentTarget })
             }, that.options.searchTimeOut)
           })
         }
       })
     }
 
-    if (that.options.sidePagination !== 'server' && !that.options.height) {
+    if (that.options.sidePagination !== 'server') {
       that.triggerSearch()
     }
 
@@ -511,43 +570,50 @@ export function getDirectionOfSelectOptions (_alignment) {
   }
 }
 
-export function syncControls (that) {
-  if (that.options.height) {
-    const controlsTableHeader = that.$tableHeader.find(searchControls)
-
-    that.$header.find(searchControls).each((_, control) => {
-      const $control = $(control)
-      const controlClass = getElementClass($control)
-      const foundControl = controlsTableHeader.filter((_, ele) => {
-        const eleClass = getElementClass($(ele))
-
-        return controlClass === eleClass
-      })
-
-      if (foundControl.length === 0) {
-        return
-      }
-      if ($control.is('select')) {
-        $control.find('option:selected').removeAttr('selected')
-        $control.find(`option[value='${foundControl.val()}']`).attr('selected', true)
-      } else {
-        $control.val(foundControl.val())
-      }
-    })
+export function syncHeaders (that) {
+  if (!that.options.height) {
+    return
   }
+  const fixedHeader = $('.fixed-table-header table thead')
+
+  if (fixedHeader.length === 0) {
+    return
+  }
+
+  that.$header.children().find('th[data-field]').each((_, element) => {
+    if (element.classList[0] !== 'bs-checkbox') {
+      const $element = $(element)
+      const $field = $element.data('field')
+      const $fixedField = $(`th[data-field='${$field}']`).not($element)
+
+      const input = $element.find('input')
+      const fixedInput = $fixedField.find('input')
+
+      if (input.length > 0 && fixedInput.length > 0) {
+        if (input.val() !== fixedInput.val()) {
+          input.val(fixedInput.val())
+        }
+      }
+    }
+  })
 }
 
 const filterDataMethods = {
-  func (filterDataSource, selectControl, filterOrderBy, selected) {
+  func (that, filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource].apply()
 
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
-    sortSelectControl(selectControl, filterOrderBy)
+
+    if (that.options.sortSelectOptions) {
+      sortSelectControl(selectControl, filterOrderBy)
+    }
+
+    setValues(that)
   },
-  obj (filterDataSource, selectControl, filterOrderBy, selected) {
+  obj (that, filterDataSource, selectControl, filterOrderBy, selected) {
     const objectKeys = filterDataSource.split('.')
     const variableName = objectKeys.shift()
     let variableValues = window[variableName]
@@ -562,22 +628,32 @@ const filterDataMethods = {
     for (const key in variableValues) {
       addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
-    sortSelectControl(selectControl, filterOrderBy)
+
+    if (that.options.sortSelectOptions) {
+      sortSelectControl(selectControl, filterOrderBy)
+    }
+
+    setValues(that)
   },
-  var (filterDataSource, selectControl, filterOrderBy, selected) {
+  var (that, filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = window[filterDataSource]
     const isArray = Array.isArray(variableValues)
 
     for (const key in variableValues) {
       if (isArray) {
-        addOptionToSelectControl(selectControl, variableValues[key], variableValues[key], selected)
+        addOptionToSelectControl(selectControl, variableValues[key], variableValues[key], selected, true)
       } else {
-        addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+        addOptionToSelectControl(selectControl, key, variableValues[key], selected, true)
       }
     }
-    sortSelectControl(selectControl, filterOrderBy)
+
+    if (that.options.sortSelectOptions) {
+      sortSelectControl(selectControl, filterOrderBy)
+    }
+
+    setValues(that)
   },
-  url (filterDataSource, selectControl, filterOrderBy, selected) {
+  url (that, filterDataSource, selectControl, filterOrderBy, selected) {
     $.ajax({
       url: filterDataSource,
       dataType: 'json',
@@ -586,17 +662,27 @@ const filterDataMethods = {
         for (const key in data) {
           addOptionToSelectControl(selectControl, key, data[key], selected)
         }
-        sortSelectControl(selectControl, filterOrderBy)
+
+        if (that.options.sortSelectOptions) {
+          sortSelectControl(selectControl, filterOrderBy)
+        }
+
+        setValues(that)
       }
     })
   },
-  json (filterDataSource, selectControl, filterOrderBy, selected) {
+  json (that, filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = JSON.parse(filterDataSource)
 
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
       addOptionToSelectControl(selectControl, key, variableValues[key], selected)
     }
-    sortSelectControl(selectControl, filterOrderBy)
+
+    if (that.options.sortSelectOptions) {
+      sortSelectControl(selectControl, filterOrderBy)
+    }
+
+    setValues(that)
   }
 }

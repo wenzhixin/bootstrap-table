@@ -341,6 +341,16 @@ export default {
       .replace(/&#39;/g, '\'')
   },
 
+  removeHTML (text) {
+    if (!text) {
+      return text
+    }
+    return text.toString()
+      .replace(/(<([^>]+)>)/ig, '')
+      .replace(/&[#A-Za-z0-9]+;/gi, '')
+      .trim()
+  },
+
   getRealDataAttr (dataAttr) {
     for (const [attr, value] of Object.entries(dataAttr)) {
       const auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase()
@@ -506,5 +516,27 @@ export default {
       return arg
     }
     return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
+  },
+
+  debounce (func, wait, immediate) {
+    let timeout
+
+    return function executedFunction () {
+      const context = this
+      const args = arguments
+
+      const later = function () {
+        timeout = null
+        if (!immediate) func.apply(context, args)
+      }
+
+      const callNow = immediate && !timeout
+
+      clearTimeout(timeout)
+
+      timeout = setTimeout(later, wait)
+
+      if (callNow) func.apply(context, args)
+    }
   }
 }
