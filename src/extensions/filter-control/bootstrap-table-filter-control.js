@@ -22,22 +22,22 @@ $.extend($.fn.bootstrapTable.defaults, {
     input (that, column, placeholder, value) {
       return Utils.sprintf(
         '<input type="search" class="%s bootstrap-table-filter-control-%s search-input" style="width: 100%;" placeholder="%s" value="%s">',
-        UtilsFilterControl.getFormControlClass(that.options),
+        UtilsFilterControl.getInputClass(that),
         column.field,
         'undefined' === typeof placeholder ? '' : placeholder,
         'undefined' === typeof value ? '' : value
       )
     },
 
-    select ({ options }, column) {
+    select (that, column) {
       return Utils.sprintf(
         '<select class="%s bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
-        UtilsFilterControl.getFormControlClass(options),
+        UtilsFilterControl.getInputClass(that, true),
         column.field,
         '', // column.filterControlMultipleSelect ? 'fc-multipleselect' : '',
         '', // column.filterControlMultipleSelect ? 'multiple="multiple"' : '',
         UtilsFilterControl.getDirectionOfSelectOptions(
-          options.alignmentSelectControlOptions
+          that.options.alignmentSelectControlOptions
         )
       )
     },
@@ -45,7 +45,7 @@ $.extend($.fn.bootstrapTable.defaults, {
     datepicker (that, column, value) {
       return Utils.sprintf(
         '<input type="date" class="%s date-filter-control bootstrap-table-filter-control-%s" style="width: 100%;" value="%s">',
-        UtilsFilterControl.getFormControlClass(that.options),
+        UtilsFilterControl.getInputClass(that),
         column.field,
         'undefined' === typeof value ? '' : value
       )
