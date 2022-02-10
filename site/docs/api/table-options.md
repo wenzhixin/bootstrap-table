@@ -1802,7 +1802,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate a unique identifier for each row.
+  Indicate a unique identifier for each row.   
+  The Unique id should always be safe for html e.g. alphanumeric, it should not contain chars which can break html e.g. `"`. 
 
 - **Default:** `undefined`
 
