@@ -338,7 +338,7 @@ const DEFAULTS = {
   onTogglePagination (newState) {
     return false
   },
-  onVirtualScroll (newState) {
+  onVirtualScroll (startIndex, endIndex) {
     return false
   }
 }
