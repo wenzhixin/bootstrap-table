@@ -2,8 +2,10 @@
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
 
-export function getFormControlClass (options) {
-  return options.iconSize ? Utils.sprintf('form-control-%s', options.iconSize) : 'form-control'
+export function getInputClass (that, isSelect = false) {
+  const formControlClass = isSelect ? that.constants.classes.select : that.constants.classes.input
+
+  return that.options.iconSize ? Utils.sprintf('%s-%s', formControlClass, that.options.iconSize) : formControlClass
 }
 
 export function getOptionsFromSelectControl (selectControl) {
