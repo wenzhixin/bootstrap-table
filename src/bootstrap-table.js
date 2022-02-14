@@ -1852,6 +1852,10 @@ class BootstrapTable {
         events = Utils.calculateObjectValue(null, events)
       }
 
+      if (!events) {
+        throw new Error(`Unknown event in the scope: ${_events}`)
+      }
+
       const field = this.header.fields[i]
       let fieldIndex = this.getVisibleFields().indexOf(field)
 

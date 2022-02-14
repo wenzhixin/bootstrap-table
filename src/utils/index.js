@@ -280,6 +280,7 @@ export default {
     if (
       !func &&
       typeof name === 'string' &&
+      args &&
       this.sprintf(name, ...args)
     ) {
       return this.sprintf(name, ...args)
