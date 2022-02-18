@@ -5,10 +5,10 @@
 
 $.fn.bootstrapTable.locales['bg-BG'] = $.fn.bootstrapTable.locales['bg'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Копиране на редове'
   },
   formatPrint () {
-    return 'Print'
+    return 'Печат'
   },
   formatLoadingMessage () {
     return 'Зареждане, моля изчакайте'
@@ -18,10 +18,10 @@ $.fn.bootstrapTable.locales['bg-BG'] = $.fn.bootstrapTable.locales['bg'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Показани редове от ${pageFrom} до ${pageTo} от ${totalRows} реда (филтрирани от общо ${totalNotFiltered} реда)`
+      return `Показани редове от ${pageFrom} до ${pageTo} от ${totalRows} (филтрирани от общо ${totalNotFiltered})`
     }
 
-    return `Показани редове от ${pageFrom} до ${pageTo} от общо ${totalRows} реда`
+    return `Показани редове от ${pageFrom} до ${pageTo} от общо ${totalRows}`
   },
   formatSRPaginationPreText () {
     return 'предишна страница'
@@ -93,13 +93,13 @@ $.fn.bootstrapTable.locales['bg-BG'] = $.fn.bootstrapTable.locales['bg'] = {
     return 'Затваряне'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Скрива/показва контроли'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Скрива контроли'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Показва контроли'
   }
 }
 
