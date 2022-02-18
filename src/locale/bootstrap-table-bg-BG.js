@@ -1,5 +1,5 @@
 /**
- * Bootstrap Table English translation
+ * Bootstrap Table Bulgarian translation
  * Author: Mikhail Kalatchev <kalatchev[at]gmail.com>
  */
 
