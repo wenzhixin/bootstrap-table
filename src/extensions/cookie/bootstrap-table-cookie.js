@@ -497,7 +497,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           return columnField === column.field
         })
 
-        column.visible = (filteredColumns.length > 0 || !column.switchable) && column.visible
+        column.visible = (filteredColumns.length > 0 || !column.switchable)
       }
     }
   }
