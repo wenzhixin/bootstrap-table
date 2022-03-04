@@ -172,7 +172,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   getData (params) {
-    const data = super.getData(params)
+    const data = structuredClone(super.getData(params))
 
     if (params && params.escape) {
       for (const row of data) {
