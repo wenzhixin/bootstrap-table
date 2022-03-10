@@ -1512,8 +1512,9 @@ class BootstrapTable {
     }
 
     this.header.fields.forEach((field, j) => {
+      const column = this.columns[j]
       let text = ''
-      let value_ = Utils.getItemField(item, field, this.options.escape)
+      let value_ = Utils.getItemField(item, field, column.escape ?? this.options.escape)
       let value = ''
       let type = ''
       let cellStyle = {}
@@ -1525,7 +1526,6 @@ class BootstrapTable {
       let rowspan_ = ''
       let colspan_ = ''
       let title_ = ''
-      const column = this.columns[j]
 
       if ((this.fromHtml || this.autoMergeCells) && typeof value_ === 'undefined') {
         if ((!column.checkbox) && (!column.radio)) {
@@ -1794,7 +1794,7 @@ class BootstrapTable {
       const fields = this.getVisibleFields()
       const field = fields[index - Utils.getDetailViewIndexOffset(this.options)]
       const column = this.columns[this.fieldsColumnsIndex[field]]
-      const value = Utils.getItemField(item, field, this.options.escape)
+      const value = Utils.getItemField(item, field, column.escape ?? this.options.escape)
 
       if ($td.find('.detail-icon').length) {
         return
