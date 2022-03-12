@@ -156,7 +156,7 @@ Table bellow is sorted ascending by language code. If case of add new translatio
 | Central Kurdish                                                | ku-Arab        | ku         | missing        |
 | Central Kurdish (Iraq)                                         | ku-Arab-IQ     |            | missing        |
 | Kyrgyz (Kyrgyzstan)                                            | ky-KG          | ky         | missing        |
-| Luxembourgish (Luxembourg)                                     | lb-LU          | lb         | missing        |
+| Luxembourgish (Luxembourg)                                     | lb-LU          | lb         |                |
 | Lao (Lao P.D.R.)                                               | lo-LA          | lo         | missing        |
 | Lithuanian (Lithuania)                                         | lt-LT          | lt         | missing        |
 | Latvian (Latvia)                                               | lv-LV          | lv         | missing        |
