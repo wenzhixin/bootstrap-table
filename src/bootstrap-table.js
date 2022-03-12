@@ -3296,13 +3296,27 @@ class BootstrapTable {
       return
     }
 
-    this.columns[this.fieldsColumnsIndex[params.field]].title =
-      this.options.escape ? Utils.escapeHTML(params.title) : params.title
+    const column = this.columns[this.fieldsColumnsIndex[params.field]]
 
-    if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
+    column.title = this.options.escape ? Utils.escapeHTML(params.title) : params.title
+
+    if (params.hasOwnProperty('sortable')) {
+      column.sortable = params.sortable
+    }
+
+    if (column.visible) {
       this.$header.find('th[data-field]').each((i, el) => {
         if ($(el).data('field') === params.field) {
-          $($(el).find('.th-inner')[0]).text(params.title)
+          const $el = $($(el).find('.th-inner')[0]).text(params.title)
+
+          if (params.hasOwnProperty('sortable')) {
+            if (params.sortable) {
+              $el.addClass('sortable both')
+            } else {
+              $el.removeClass('sortable both asc desc')
+            }
+          }
+          $(el).data(column)
           return false
         }
       })
