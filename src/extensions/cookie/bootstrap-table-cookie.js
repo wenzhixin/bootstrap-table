@@ -481,7 +481,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (columnsCookie) {
       for (const column of this.columns) {
-        const filteredColumns = columnsCookie.filter(columnField => {
+        if (!column.switchable) {
+          continue
+        }
+
+        column.visible = columnsCookie.filter(columnField => {
           if (this.isSelectionColumn(column)) {
             return true
           }
@@ -495,9 +499,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
 
           return columnField === column.field
-        })
-
-        column.visible = (filteredColumns.length > 0 || !column.switchable) && column.visible
+        }).length > 0
       }
     }
   }
