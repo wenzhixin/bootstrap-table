@@ -296,6 +296,9 @@ const DEFAULTS = {
   onColumnSwitch (field, checked) {
     return false
   },
+  onColumnSwitchAll (checked) {
+    return false
+  },
   onPageChange (number, size) {
     return false
   },
@@ -498,6 +501,7 @@ const EVENTS = {
   'load-success.bs.table': 'onLoadSuccess',
   'load-error.bs.table': 'onLoadError',
   'column-switch.bs.table': 'onColumnSwitch',
+  'column-switch-all.bs.table': 'onColumnSwitchAll',
   'page-change.bs.table': 'onPageChange',
   'search.bs.table': 'onSearch',
   'toggle.bs.table': 'onToggle',
