@@ -156,7 +156,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
   Escapes a string for insertion into HTML, replacing &, <, >, ", \`, and ' characters.
 
-- **Default:** `false`
+- **Default:** `undefined`
 
 - **Example:** [Column Escape](https://examples.bootstrap-table.com/#column-options/escape.html)
 

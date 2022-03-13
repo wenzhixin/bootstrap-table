@@ -7,7 +7,7 @@ jobs:
     - stage: test
       language: node_js
       node_js:
-        - 12
+        - 14
       name: "Lint src and check docs"
       cache:
         npm: true
@@ -22,7 +22,7 @@ jobs:
     - stage: test
       language: node_js
       node_js:
-        - 12
+        - 14
       name: "Cypress Test"
       cache:
         npm: true
@@ -40,7 +40,7 @@ jobs:
       rvm:
         - 2.4.1
       before_install:
-        - nvm install 12
+        - nvm install 14
       script: ./deploy.sh
       if: branch = master AND type = push
       cache: bundler

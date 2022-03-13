@@ -144,7 +144,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const inputSelector = `[name="${this.options.selectItemName}"]`
       const $input = $el.find(inputSelector)
 
-      if (typeof index === undefined) {
+      if (typeof index === 'undefined') {
         return
       }
 

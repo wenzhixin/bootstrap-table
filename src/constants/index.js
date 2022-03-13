@@ -445,7 +445,7 @@ const COLUMN_DEFAULTS = {
   detailFormatter: undefined,
   searchFormatter: true,
   searchHighlightFormatter: false,
-  escape: false,
+  escape: undefined,
   events: undefined
 }
 
