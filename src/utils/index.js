@@ -364,8 +364,13 @@ export default {
     return dataAttr
   },
 
-  getItemField (item, field, escape) {
+  getItemField (item, field, escape, columnEscape = undefined) {
     let value = item
+
+    // use column escape if it is defined
+    if (typeof columnEscape !== 'undefined') {
+      escape = columnEscape
+    }
 
     if (typeof field !== 'string' || item.hasOwnProperty(field)) {
       return escape ? this.escapeHTML(item[field]) : item[field]

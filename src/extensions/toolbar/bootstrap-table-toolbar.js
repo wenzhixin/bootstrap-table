@@ -13,16 +13,17 @@ const theme = {
     icons: {
       advancedSearchIcon: 'glyphicon-chevron-down'
     },
+    classes: {},
     html: {
       modal: `
         <div id="avdSearchModal_%s"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-xs">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">%s</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
+                <h4 class="modal-title">%s</h4>
               </div>
               <div class="modal-body modal-body-custom">
                 <div class="container-fluid" id="avdSearchModalContent_%s"
@@ -42,6 +43,7 @@ const theme = {
     icons: {
       advancedSearchIcon: 'fa-chevron-down'
     },
+    classes: {},
     html: {
       modal: `
         <div id="avdSearchModal_%s"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -71,16 +73,17 @@ const theme = {
     icons: {
       advancedSearchIcon: 'bi-chevron-down'
     },
+    classes: {
+      formGroup: 'mb-3'
+    },
     html: {
       modal: `
-        <div id="avdSearchModal_%s"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div id="avdSearchModal_%s" class="modal fade" tabindex="-1" aria-labelledby="mySmallModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-xs">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">%s</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title">%s</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body modal-body-custom">
                 <div class="container-fluid" id="avdSearchModalContent_%s"
@@ -100,6 +103,7 @@ const theme = {
     icons: {
       advancedSearchIcon: 'fa-chevron-down'
     },
+    classes: {},
     html: {
       modal: `
         <div class="modal" id="avdSearchModal_%s">
@@ -122,6 +126,7 @@ const theme = {
     icons: {
       advancedSearchIcon: 'fa-chevron-down'
     },
+    classes: {},
     html: {
       modal: `
         <div class="reveal" id="avdSearchModal_%s" data-reveal>
@@ -142,6 +147,7 @@ const theme = {
     icons: {
       advancedSearchIcon: 'expand_more'
     },
+    classes: {},
     html: {
       modal: `
         <div id="avdSearchModal_%s" class="modal">
@@ -162,6 +168,7 @@ const theme = {
     icons: {
       advancedSearchIcon: 'fa-chevron-down'
     },
+    classes: {},
     html: {
       modal: `
         <div class="ui modal" id="avdSearchModal_%s">
@@ -331,7 +338,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     for (const column of this.columns) {
       if (!column.checkbox && column.visible && column.searchable) {
         html.push(`
-          <div class="form-group row">
+          <div class="form-group row ${theme.classes.formGroup || ''}">
             <label class="col-sm-4 control-label">${column.title}</label>
             <div class="col-sm-6">
               <input type="text" class="form-control ${this.constants.classes.input}" name="${column.field}" placeholder="${column.title}" id="${column.field}">
