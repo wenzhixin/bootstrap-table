@@ -2796,7 +2796,11 @@ class BootstrapTable {
   _toggleAllColumns (visible) {
     for (const column of this.columns.slice().reverse()) {
       if (column.switchable) {
-        if (!visible && this.options.showColumns && this.getVisibleColumns().length === this.options.minimumCountColumns) {
+        if (
+          !visible &&
+          this.options.showColumns &&
+          this.getVisibleColumns().filter(it => it.switchable).length === this.options.minimumCountColumns
+        ) {
           continue
         }
         column.visible = visible
