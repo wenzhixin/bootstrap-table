@@ -300,7 +300,9 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
       }
       self.load(res)
       self.trigger('load-success', res)
-      if (!silent) self.$tableLoading.hide()
+      if (!silent) {
+        self.hideLoading()
+      }
     },
     error (res) {
       let data = []
@@ -312,7 +314,9 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
       }
       self.load(data)
       self.trigger('load-error', res.status, res)
-      if (!silent) self.$tableLoading.hide()
+      if (!silent) {
+        self.hideLoading()
+      }
     }
   })
 
