@@ -78,7 +78,7 @@ const theme = {
     },
     html: {
       modal: `
-        <div id="avdSearchModal_%s" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div id="avdSearchModal_%s" class="modal fade" tabindex="-1" aria-labelledby="mySmallModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-xs">
             <div class="modal-content">
               <div class="modal-header">
