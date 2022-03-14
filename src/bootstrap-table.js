@@ -810,6 +810,7 @@ class BootstrapTable {
 
       $toggleAll.off('click').on('click', ({ currentTarget }) => {
         this._toggleAllColumns($(currentTarget).prop('checked'))
+        this.trigger('column-switch-all', $(currentTarget).prop('checked'))
       })
 
       if (opts.showColumnsSearch) {

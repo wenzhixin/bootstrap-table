@@ -139,6 +139,18 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   * `field`: the field name corresponding to the switch column.
   * `checked`: the checked state of the column.
 
+## onColumnSwitchAll
+
+- **jQuery Event:** `column-switch-all.bs.table`
+
+- **Parameter:** `checked`
+
+- **Detail:**
+
+  It fires when toogle all columns. The parameters contain:
+
+  * `checked`: the checked state of the column.
+
 ## onDblClickCell
 
 - **jQuery Event:** `dbl-click-cell.bs.table`

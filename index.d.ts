@@ -67,6 +67,7 @@ interface BootstrapTableEvents{
     'all.bs.table': string;
     'uncheck-all.bs.table': string;
     'column-switch.bs.table': string;
+    'column-switch-all.bs.table': string;
     'check.bs.table': string;
     'search.bs.table': string;
     'load-success.bs.table': string;
