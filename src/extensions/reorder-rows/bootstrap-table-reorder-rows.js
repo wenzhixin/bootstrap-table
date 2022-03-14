@@ -61,6 +61,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       onDragStyle: this.options.onDragStyle,
       onDropStyle: this.options.onDropStyle,
       onDragClass: this.options.onDragClass,
+      onAllowDrop: (hoveredRow, draggedRow) => this.onAllowDrop(hoveredRow, draggedRow),
+      onDragStop: (table, draggedRow) => this.onDragStop(table, draggedRow),
       onDragStart: (table, droppedRow) => this.onDropStart(table, droppedRow),
       onDrop: (table, droppedRow) => this.onDrop(table, droppedRow),
       dragHandle: this.options.dragHandle
@@ -72,6 +74,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.draggingIndex = $(this.$draggingTd.parent()).data('index')
     // Call the user defined function
     this.options.onReorderRowsDrag(this.data[this.draggingIndex])
+  }
+
+  onDragStop (table, draggedRow) {
+    const rowIndexDraggedRow = $(draggedRow).data('index')
+    const draggedRowItem = this.data[rowIndexDraggedRow]
+
+    this.options.onDragStop(table, draggedRowItem, draggedRow)
+  }
+
+  onAllowDrop (hoveredRow, draggedRow) {
+    const rowIndexDraggedRow = $(draggedRow).data('index')
+    const rowIndexHoveredRow = $(hoveredRow).data('index')
+    const draggedRowItem = this.data[rowIndexDraggedRow]
+    const hoveredRowItem = this.data[rowIndexHoveredRow]
+
+    return this.options.onAllowDrop(hoveredRowItem, draggedRowItem, hoveredRow, draggedRow)
   }
 
   onDrop (table) {
