@@ -2012,7 +2012,9 @@ class BootstrapTable {
         }
         this.load(data)
         this.trigger('load-error', jqXHR && jqXHR.status, jqXHR)
-        if (!silent) this.$tableLoading.hide()
+        if (!silent) {
+          this.hideLoading()
+        }
       }
     })
 
