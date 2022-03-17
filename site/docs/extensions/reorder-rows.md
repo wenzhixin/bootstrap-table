@@ -36,6 +36,35 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 - **Default:** `false`
 
+### onAllowDrop
+
+- **attribute:** `data-on-allow-drop`
+
+- **type:** `function`
+
+- **Detail:**
+
+  Pass a function that will be called as a row is over another row. If the function returns true, allow dropping on that row, otherwise not. The function takes 4 parameters:
+   - the dragged row data
+   - the data of the row under the cursor
+   - the dragged row
+   - the row under the cursor
+
+  It returns a boolean: true allows the drop, false doesn’t allow it.
+- **Default:** `null`
+
+### onDragStop
+
+- **attribute:** `data-on-drag-stop`
+
+- **type:** `function`
+
+- **Detail:**
+
+  Pass a function that will be called when the user stops dragging regardless of if the rows have been rearranged. The function takes 3 parameters: the table, the row data and the row which the user was dragging.
+
+- **Default:** `null`
+
 ### onDragStyle
 
 - **attribute:** `data-on-drag-style`
