@@ -2364,7 +2364,7 @@ class BootstrapTable {
     for (const field of this.header.fields) {
       const column = this.columns[this.fieldsColumnsIndex[field]]
 
-      if (!column || !column.visible) {
+      if (!column || !column.visible || (this.options.cardView && !column.cardVisible)) {
         continue
       }
       visibleFields.push(field)
