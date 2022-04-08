@@ -2571,7 +2571,7 @@
 
                 return columnField === column.field;
               });
-              column.visible = (filteredColumns.length > 0 || !column.switchable) && column.visible;
+              column.visible = (filteredColumns.length > 0 && column.switchable);
             };
 
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
