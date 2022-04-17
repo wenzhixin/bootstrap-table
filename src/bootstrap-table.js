@@ -597,7 +597,9 @@ class BootstrapTable {
         event: this.togglePagination,
         attributes: {
           'aria-label': opts.formatPaginationSwitch(),
-          title: opts.formatPaginationSwitch()
+          title: opts.formatPaginationSwitch(),
+          'data-bs-toggle': 'tooltip',
+          'data-bs-placement': 'bottom'
         }
       },
       refresh: {
@@ -607,7 +609,9 @@ class BootstrapTable {
         event: this.refresh,
         attributes: {
           'aria-label': opts.formatRefresh(),
-          title: opts.formatRefresh()
+          title: opts.formatRefresh(),
+          'data-bs-toggle': 'tooltip',
+          'data-bs-placement': 'bottom'
         }
       },
       toggle: {
@@ -617,7 +621,9 @@ class BootstrapTable {
         event: this.toggleView,
         attributes: {
           'aria-label': opts.formatToggleOn(),
-          title: opts.formatToggleOn()
+          title: opts.formatToggleOn(),
+          'data-bs-toggle': 'tooltip',
+          'data-bs-placement': 'bottom'
         }
       },
       fullscreen: {
@@ -627,7 +633,9 @@ class BootstrapTable {
         event: this.toggleFullscreen,
         attributes: {
           'aria-label': opts.formatFullscreen(),
-          title: opts.formatFullscreen()
+          title: opts.formatFullscreen(),
+          'data-bs-toggle': 'tooltip',
+          'data-bs-placement': 'bottom'
         }
       },
       columns: {
