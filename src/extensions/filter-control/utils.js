@@ -107,6 +107,49 @@ export function sortSelectControl (selectControl, orderBy) {
   }
 }
 
+/**
+ * 
+ * @param {HTMLOptGroupElement} optgroup 
+ * @param {*} orderBy 
+ */
+export function sortOptionToOptgroupSelectControl(optgroup, orderBy) {
+  var $optgroup = $(optgroup.get(optgroup.length - 1));
+  if (orderBy === 'server') {
+    return
+  }
+  var $opts = $optgroup.find('option');
+
+  $opts.sort(function (a, b) {
+    return Utils$1.sort(a.textContent, b.textContent, orderBy === 'desc' ? -1 : 1);
+  });
+  
+  $optgroup.find('option').remove();
+  $optgroup.append($opts);
+}
+
+/**
+ * 
+ * @param {HTMLSelectElement} selectControl 
+ * @param {string} orderBy 
+ */
+export function sortSelectOptgroupControl(selectControl, orderBy) {
+  var $selectControl = $__default['default'](selectControl.get(selectControl.length - 1));
+  var $opts = $selectControl.find('optgroup');
+  if (orderBy === 'server') {
+    return
+  }
+  $opts.sort(function (a, b) {
+    return Utils$1.sort(a.label, b.label, orderBy === 'desc' ? -1 : 1);
+  });
+  $selectControl.find('optgroup').remove();
+  $selectControl.append($opts);
+
+  //Order options
+  $.each($opts, function(index, opt){
+    sortOptionToOptgroupSelectControl($(opt),orderBy)
+  })
+}
+
 export function fixHeaderCSS ({ $tableHeader }) {
   $tableHeader.css('height', $tableHeader.find('table').outerHeight(true))
 }
@@ -675,14 +718,34 @@ const filterDataMethods = {
   },
   json (that, filterDataSource, selectControl, filterOrderBy, selected) {
     const variableValues = JSON.parse(filterDataSource)
-
+    let hasOptgroup = false
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
-      addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+      //addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+      if(variableValues[key] instanceof Object){
+        hasOptgroup = false
+        var optgroup = $("<optgroup></optgroup>")
+        optgroup.attr("label",variableValues[key]["label"])
+        var optgroupObj = variableValues[key]["options"]
+        for (var subElement in optgroupObj) {
+            var $option = $("<option></option>")
+            .attr("value", subElement)
+            .text($('<div />').html(optgroupObj[subElement]).text())
+            optgroup.append($option);
+        }
+        sortSelectControl(optgroup);
+        selectControl.append(optgroup)
+      }else{
+          addOptionToSelectControl(selectControl, key, variableValues[key], selected);
+      }
     }
 
     if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, filterOrderBy)
+      if(hasOptgroup){
+        sortSelectOptgroupControl(selectControl, filterOrderBy);
+      }else{
+        sortSelectControl(selectControl, filterOrderBy)
+      }
     }
 
     setValues(that)
