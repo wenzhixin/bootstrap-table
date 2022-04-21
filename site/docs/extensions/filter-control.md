@@ -176,6 +176,7 @@ toc: true
    - `obj:variable.key` to load from a object
    - `url:http://www.example.com/data.json` to load from a remote json file
    - `json:{key:data}` to load from a json string.
+   - `json:{[{'label':'labelOptgroup1',options:data}]}` to load from a json string with `optgroup`
    - `func:functionName` to load from a function.
 
 - **Default:** `undefined`
