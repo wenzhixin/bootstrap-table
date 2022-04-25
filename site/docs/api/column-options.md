@@ -30,7 +30,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  Set `false` to hide the columns item in card view state.
+  Set `false` to hide the columns item in the card view state.
 
 - **Default:** `true`
 
@@ -65,10 +65,10 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  Set `true` to show a checkbox. The checkbox column has fixed width.
+  Set `true` to show a checkbox. The checkbox column has a fixed width.
 
-  If a value is given the Checkbox is automatically checked.
-  Its also possible to check/uncheck the checkbox by use an formatter (return `true` to check, return `false` to uncheck).
+  If a value is given, the checkbox is automatically checked.
+  Its also possible to check/uncheck the checkbox by using a formatter (return `true` to check, return `false` to uncheck).
 
 - **Default:** `false`
 
@@ -82,7 +82,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  Set `false` to disable the the checkboxes/radioboxes.
+  Set `false` to disable the checkboxes/radio boxes.
 
 - **Default:** `true`
 
@@ -110,9 +110,9 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  Set `true` to select checkbox or radiobox when clicking rows.
+  Set `true` to select the checkbox or radio box when clicking rows.
 
-- **Default:** `false`
+- **Default:** `true`
 
 - **Example:** [Click to Select](https://examples.bootstrap-table.com/#column-options/click-to-select.html)
 
@@ -138,7 +138,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  Format your detail view when `detailView` and `detailViewByClick` is set to `true`. Return a `String` and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
+  Format your detail view when `detailView` and `detailViewByClick` is set to `true`. Return a `String` and it will be appended into the detail view cell, optionally render the element directly using the third parameter, which is a jQuery element of the target cell.
 
   Fallback is the detail-formatter of the table.
 
@@ -156,7 +156,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
   Escapes a string for insertion into HTML, replacing &, <, >, ", \`, and ' characters.
 
-- **Default:** `false`
+- **Default:** `undefined`
 
 - **Example:** [Column Escape](https://examples.bootstrap-table.com/#column-options/escape.html)
 
@@ -168,7 +168,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  The cell events listener when you use formatter function, take four parameters:
+  The cell events listener, when you use formatter function, take four parameters:
 
   * `event`: the jQuery event.
   * `value`: the field value.
@@ -230,9 +230,9 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   * `data`: Array of all the data rows.
   * `value`: If footer data is set, the value of the footer column.
 
-  the function should return a string with the text to show in the footer cell.
+  The function should return a string with the text to show in the footer cell.
 
-  If you fetch data from a server and tries to set the footer value from the server response, please use the `footerField` Option.
+  If you fetch data from a server and set the footer value from the server response, please use the `footerField` Option.
 
 - **Default:** `undefined`
 
@@ -295,10 +295,10 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  Set `true` to show a radio. The radio column has fixed width.
+  Set `true` to show a radio. The radio column has a fixed width.
 
-  If a value is given the Checkbox is automatically checked.
-  Its also possible to check/uncheck the radio by use an formatter (return `true` to check, return `false` to uncheck).
+  If a value is given, the checkbox is automatically checked.
+  Its also possible to check/uncheck the radio by using a formatter (return `true` to check, return `false` to uncheck).
 
 - **Default:** `false`
 
@@ -340,7 +340,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  Set `true` to search use formatted data.
+  Set `true` to search using formatted data.
 
 - **Default:** `true`
 
@@ -396,7 +396,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  The custom field sort function that used to do local sorting, take four parameters:
+  The custom field sort function that is used to do local sorting, take four parameters:
 
   * `fieldA`: the first field value.
   * `fieldB`: the second field value.
@@ -459,7 +459,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  The column title tooltip text. This option also support the title HTML attribute.
+  The column title tooltip text. This option also supports the title HTML attribute.
 
 - **Default:** `undefined`
 
@@ -502,7 +502,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Detail:**
 
-  The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this `'width'` might be ignored (use min/max-width via class or such then). The default used Unit is 'px', use `widthUnit` to change it!
+  The width of the column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small, this `'width'` might be ignored (use min/max-width via class or such then). The default used unit is 'px'. Use `widthUnit` to change it!
 
 - **Default:** `undefined`
 

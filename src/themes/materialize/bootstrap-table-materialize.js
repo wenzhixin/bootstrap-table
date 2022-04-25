@@ -7,22 +7,7 @@
 $.extend($.fn.bootstrapTable.defaults, {
   classes: 'table highlight',
   buttonsPrefix: '',
-  buttonsClass: 'waves-effect waves-light btn',
-  iconsPrefix: 'material-icons',
-  icons: {
-    paginationSwitchDown: 'grid_on',
-    paginationSwitchUp: 'grid_off',
-    refresh: 'refresh',
-    toggleOff: 'tablet',
-    toggleOn: 'tablet_android',
-    columns: 'view_list',
-    detailOpen: 'add',
-    detailClose: 'remove',
-    fullscreen: 'fullscreen',
-    sort: 'sort',
-    search: 'search',
-    clearSearch: 'delete'
-  }
+  buttonsClass: 'waves-effect waves-light btn'
 })
 
 $.fn.bootstrapTable.theme = 'materialize'

@@ -74,6 +74,7 @@ $.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
 $.extend($.fn.bootstrapTable.defaults.icons, {
   print: {
     bootstrap3: 'glyphicon-print icon-share',
+    bootstrap5: 'bi-printer',
     'bootstrap-table': 'icon-printer'
   }[$.fn.bootstrapTable.theme] || 'fa-print'
 })
@@ -276,7 +277,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const table = buildTable(data, this.options.columns)
     const newWin = window.open('')
 
-    newWin.document.write(this.options.printPageBuilder.call(this, table))
+    const calculatedPrintPage = Utils.calculateObjectValue(this, this.options.printPageBuilder, [table], printPageBuilderDefault(table))
+
+    newWin.document.write(calculatedPrintPage)
     newWin.document.close()
     newWin.focus()
     newWin.print()

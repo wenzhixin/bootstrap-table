@@ -6,8 +6,6 @@ group: extensions
 toc: true
 ---
 
-Dependence if you use the datepicker option: [bootstrap-datepicker](https://github.com/eternicode/bootstrap-datepicker) v1.4.0
-
 ## Usage
 
 {% highlight html %}
@@ -57,18 +55,6 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `undefined`
 
-### disableControlWhenSearch
-
-- **Attribute:** `data-disable-control-when-search`
-
-- **type:** `Boolean`
-
-- **Detail:**
-
-   Set to true if you want to disable the control while the server is responding the data. This options will work if the sidePagination is 'server'.
-
-- **Default:** `false`
-
 ### filterControlContainer
 
 - **Attribute:** `data-filter-control-container`
@@ -94,18 +80,6 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `undefined`
 
-### hideUnusedSelectOptions
-
-- **Attribute:** `data-hide-unused-select-options`
-
-- **type:** `Boolean`
-
-- **Detail:**
-
-   Set to true in order to hide the options that are not in the table. This option does not work on server-side pagination.
-
-- **Default:** `false`
-
 ### searchOnEnterKey
 
 - **Attribute:** `data-search-on-enter-key`
@@ -130,6 +104,18 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Default:** `false`
 
+### sortSelectOptions
+
+- **Attribute:** `data-sort-select-options`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set to `true` to sort the option elements of the select control.
+
+- **Default:** `false`
+
 ## Column options
 
 ### filterControl
@@ -140,7 +126,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   Set `input`: show an input control, `select`: show a select control, `datepicker`: show a datepicker control.
+   Set `input`: show an input control, `select`: show a select control, `datepicker`: show a html5 datepicker control.
 
 - **Default:** `undefined`
 
@@ -202,7 +188,7 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 
 - **Detail:**
 
-   If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"autoclose":true, "clearBtn": true, "todayHighlight": true}'`.
+   If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"max":value1, "min": value2, "step": value3}'`. For more information visit this [documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)
 
 - **Default:** `undefined`
 
@@ -215,8 +201,6 @@ Dependence if you use the datepicker option: [bootstrap-datepicker](https://gith
 - **Detail:**
 
    Set the default value of the filter.
-   
-   If you use the datepicker, make sure your date format match the [format](https://bootstrap-datepicker.readthedocs.io/en/stable/options.html?highlight=format#format) of the datepicker. You can change the datepicker format using [filterDatepickerOptions](https://bootstrap-table.com/docs/extensions/filter-control/#filterdatepickeroptions).
 
 - **Default:** `undefined`
 

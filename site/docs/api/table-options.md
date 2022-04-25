@@ -63,9 +63,9 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  This option allows creating/adding custom button(s) to "buttonbar" (top right of the table).  
-  This buttons can be sorted with the table option [buttonsOrder](https://bootstrap-table.com/docs/api/table-options/#buttonsorder), the used key/name for the event should be used for that!
-  
+  This option allows creating/adding custom button(s) to the "buttons bar" (top right of the table).
+  These buttons can be sorted with the table option [buttonsOrder](https://bootstrap-table.com/docs/api/table-options/#buttonsorder), the used key/name for the event should be used for that!
+
   The custom button is highly configurable, the following options exists:
   - `text`
     - Description: This options is used for the [showButtonText](https://bootstrap-table.com/docs/api/table-options/#showbuttontext) table option.
@@ -74,32 +74,32 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     - Description: This option is used for the [showButtonIcons](https://bootstrap-table.com/docs/api/table-options/#showbuttonicons) table option.
     - Type: `String` - Only needs the icon class e.g. `fa-users`
   - `render`
-    - Description: Set this option to `false` to hide the button by default, the button is visible again when you add the data attribute `data-show-BUTTONNAME="true"`.    
+    - Description: Set this option to `false` to hide the button by default, the button is visible again when you add the data attribute `data-show-BUTTONNAME="true"`.
   - `attributes`
     - Description: This option allows adding additional html attributes e.g. `title`
     - Type: `Object`
     - Example: `{title: 'Button title'}`
   - `html`
-    - Description: If you don't want to autogenerate the html, you can use this option to insert your custom html.   
-      The `event` option is only working if you custom html contains `name="BUTTONNAME"`.   
+    - Description: If you don't want to autogenerate the html, you can use this option to insert your custom html.
+      The `event` option only works if you custom HTML contains `name="BUTTONNAME"`.
       If this option is used the following options will be ignored:
       - `text`
       - `icon`
-      - `attributes`   
+      - `attributes`
     - Type: `Function|String`
   - `event`
     - Description: Should be used if you want to add an event to the button
     - Type: `Function|Object|String`
 
-   The `event` option can be configured in three ways.     
-   One event with `click` event:  
+   The `event` option can be configured in three ways.
+   One event with `click` event:
    ```javascript
    {
      'event': () => { }
    }
    ```
-  
-  One event with a self defined event type:   
+
+  One event with a self-defined event type:
   ```javascript
      {
        'event': {
@@ -107,8 +107,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
        }
      }
   ```
-  
-  Multiple events with self defined event types:   
+
+  Multiple events with self-defined event types:
     ```javascript
        {
          'event': {
@@ -118,11 +118,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
          }
        }
     ```
-  
-  **Hint:** Instead of inline functions you also can use function names.
-  
+
+  **Hint:** Instead of inline functions, you also can use function names.
+
   A configured custom button could look like this:
-  ``` javascript 
+  ``` javascript
   {
     btnRemoveEvenRows: {
       'text': 'Remove even Rows',
@@ -177,7 +177,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate how to custom order of the toolbar buttons.
+  Indicate how to custom order the toolbar buttons.
 
 - **Default:** `['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns']`
 
@@ -233,7 +233,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show card view table, for example mobile view.
+  Set `true` to show card view table, for example, mobile view.
 
 - **Default:** `false`
 
@@ -247,7 +247,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `false` to hide check-all checkbox in header row.
+  Set `false` to hide the check-all checkbox in the header row.
 
 - **Default:** `true`
 
@@ -275,7 +275,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to select checkbox or radiobox when clicking rows.
+  Set `true` to select the checkbox or radio box when clicking rows.
 
 - **Default:** `false`
 
@@ -289,7 +289,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The table columns config object, see column properties for more details.
+  The table columns config object. See column properties for more details.
 
 - **Default:** `[]`
 
@@ -317,7 +317,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The custom search function is executed instead of built-in search function, takes three parameters:
+  The custom search function is executed instead of the built-in search function, takes three parameters:
 
   * `data`: the table data.
   * `text`: the search text.
@@ -382,7 +382,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     ]
   })
   ```
-  If use this feature, the `data` is required to ensure that the format is correct.
+  If using this feature, the `data` is required to ensure that the format is correct.
 
 - **Default:** `[]`
 
@@ -396,7 +396,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Key in incoming json containing `'rows'` data list.
+  Key in incoming JSON containing `'rows'` data list.
 
 - **Default:** `'rows'`
 
@@ -424,7 +424,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Enable expansion per row when `detailView` is set to `true`. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.
+  Enable expansion per row when `detailView` is set to `true`. Return true, and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to allow expansion for all rows.
 
 - **Default:** `function(index, row) { return true }`
 
@@ -438,7 +438,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Format your detail view when `detailView` is set to `true`. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.
+  Format your detail view when `detailView` is set to `true`. Return a String, and it will be appended into the detail view cell, optionally render the element directly using the third parameter, which is a jQuery element of the target cell.
 
 - **Default:** `function(index, row, element) { return '' }`
 
@@ -452,7 +452,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show detail view table.
+  Set `true` to show a detailed view table.
 
 - **Default:** `false`
 
@@ -480,7 +480,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to toggle the detail view, when a cell is clicked.
+  Set `true` to toggle the detail view when a cell is clicked.
 
 - **Default:** `false`
 
@@ -522,7 +522,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Define the default filter options of algorithm, `filterAlgorithm: 'and'` means all given filter must match, `filterAlgorithm: 'or'` means one of the given filter must match.
+  Define the default filter options of the algorithm, `filterAlgorithm: 'and'` means all given filters must match, `filterAlgorithm: 'or'` means one of the given filters must match.
 
 - **Default:** `{ filterAlgorithm: 'and' }`
 
@@ -536,7 +536,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines the key of the footer Object (From data array or server response json).
+  Defines the key of the footer Object (From data array or server response JSON).
   The footer Object can be used to set/define footer colspans and/or the value of the footer.
   Only triggered when `data-pagination` is `true` and `data-side-pagination` is `server`.
 
@@ -625,7 +625,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The height of table, enable fixed header of table.
+  The height of the table, enables a fixed header of the table.
 
 - **Default:** `undefined`
 
@@ -681,7 +681,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines icon set name (`'glyphicon'` or `'fa'` for FontAwesome). By default `'fa'` is used for Bootstrap v4.
+  Defines icon set name (`'glyphicon'` or `'fa'` for FontAwesome). By default, `'fa'` is used for Bootstrap v4.
 
 - **Default:** `'fa'`
 
@@ -726,7 +726,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  To define the font size of the loading text, the default value is `'auto'`, it will be calculated automatically according to the table width, between 12px and 32px.
+  To define the font size of the loading text, the default value is `'auto'`, calculated automatically according to the table width, between 12px and 32px.
 
 - **Default:** `'auto'`
 
@@ -770,7 +770,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Allows for fallback locales, if loaded, in the following order:
 
   * First tries for the locale as specified,
-  * Then tries the locale with '_' translated to '-' and the region code upper cased,
+  * Then tries the locale with '_' translated to '-' and the region code uppercased,
   * Then tries the short locale code (i.e. `'zh'` instead of `'zh-CN'`),
   * And finally will use the last locale file loaded (or the default locale if no locales loaded).
 
@@ -788,7 +788,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to maintain the following meta data on change page and search:
+  Set `true` to maintain the following metadata on the change page and search:
    * selected rows
    * hidden rows
 
@@ -818,7 +818,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The minimum number of columns to hide from the columns drop down list.
+  The minimum number of columns to hide from the columns dropdown list.
 
 - **Default:** `1`
 
@@ -832,7 +832,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to enable the multiple selection row. Can use the ctrl+click to select one row or use shift+click to select a range of rows.
+  Set `true` to enable the multiple selection row. Can use the ctrl+click to select one row or shift+click to select a range of rows.
 
 - **Default:** `false`
 
@@ -846,9 +846,9 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  When set pagination property, initialize the page size selecting list. If you include the `'all'` or `'unlimited'` option, all the records will be shown in your table.
+  When setting the pagination property, initialize the page size by selecting the list. If you include the `'all'` or `'unlimited'` option, all the records will be shown in your table.
 
-  *Hint: If the table has lesser rows as the option(s), the options will be hidden automatically, to disable that feature you can set [smartDisplay](https://bootstrap-table.com/docs/api/table-options/#smartdisplay) to `false`*
+  *Hint: If the table has lesser rows as the option(s), the options will be hidden automatically. To disable that feature, you can set [smartDisplay](https://bootstrap-table.com/docs/api/table-options/#smartdisplay) to `false`*
 
 - **Default:** `[10, 25, 50, 100]`
 
@@ -862,7 +862,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  When set pagination property, initialize the page number.
+  When setting the pagination property, initialize the page number.
 
 - **Default:** `1`
 
@@ -876,7 +876,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  When set pagination property, initialize the page size.
+  When setting the pagination property, initialize the page size.
 
 - **Default:** `10`
 
@@ -890,7 +890,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show a pagination toolbar on table bottom.
+  Set `true` to show a pagination toolbar on the table bottom.
 
 - **Default:** `false`
 
@@ -976,7 +976,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   These options define which parts of the pagination should be visible.
   * `pageInfo` Shows which dataset will be displayed on the current page (e.g. `Showing 1 to 10 of 54 rows`).
-  * `pageInfoShort` Similar to `pageInfo`, but it only displays how much rows the table has (e.g. `Showing 54 rows`).
+  * `pageInfoShort` Similar to `pageInfo`, it only displays how many rows the table has (e.g. `Showing 54 rows`).
   * `pageSize` Shows the dropdown which defines how many rows should be displayed on the page.
   * `pageList` Shows the main part of the pagination (The list of the pages).
 
@@ -992,7 +992,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate the icon or text to be shown in the pagination detail, the previous button.
+  Indicate the icon or text shown in the pagination detail, the previous button.
 
 - **Default:** `'‹'`
 
@@ -1034,7 +1034,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate how to vertical align the pagination. `'top'`, `'bottom'`, `'both'` (put the pagination on top and bottom)  can be used.
+  Indicate how to vertical-align the pagination. `'top'`, `'bottom'`, `'both'` (put the pagination on top and bottom)  can be used.
 
 - **Default:** `'bottom'`
 
@@ -1083,8 +1083,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Set `true` to enable the regex search.
-  Is this option enabled, you can search with regex e.g. `[47a]$` for all items which ends with a `4`, `7` or `a`.     
-  The regex can be entered with `/[47a]$/gim` or without `[47a]$` flags, the default flags are `gim`.
+  If this option is enabled, you can search with regex, e.g. `[47a]$` for all items which end with a `4`, `7` or `a`.
+  The regex can be entered with `/[47a]$/gim` or without `[47a]$` flags. The default flags are `gim`.
 
 
 - **Default:** `false`
@@ -1113,7 +1113,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Before load remote data, handler the response data format, the parameters object contains:
+  Before loading remote data, handle the response data format. The parameters object contains:
 
   * `res`: the response data.
   * `jqXHR`: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
@@ -1170,7 +1170,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   Enable the search input.
 
-  There are 3 ways to search:
+  There are three ways to search:
   - The value contains the search query (Default).
     Example: Github contains git.
   - The value must be identical to the search query.
@@ -1179,7 +1179,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     Example: 4 is larger than 3.
 
   Notes:
-  - If you want to use a custom search input use the [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector).
+  - If you want to use a custom search input, use the [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector).
   - You can also search via regex using the [regexSearch](https://bootstrap-table.com/docs/api/table-options/#regexSearch) option.
 
 - **Default:** `false`
@@ -1194,7 +1194,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set to `true` if you want to use accent neutralise feature.
+  Set to `true` if you want to use the accent neutralize feature.
 
 - **Default:** `false`
 
@@ -1222,8 +1222,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set to `true` to highlight the searched text (using the `<mark>` html tag).
-  You can also define a [custom highlight formatter](https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter) e.g. for values with html or to use a custom highlight color.
+  Set to `true` to highlight the searched text (using the `<mark>` HTML tag).
+  You can also define a [custom highlight formatter](https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter), e.g., for values with HTML or to use a custom highlight color.
 
 - **Default:** `'false'`
 
@@ -1251,7 +1251,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  If this option is set (must be a valid dom selector e.g. `#customSearch`), the found dom element (should be an `input` element) will be used as table search instead of the built-in search input.
+  If this option is set (must be a valid dom selector, e.g. `#customSearch`), the found dom element (an `input` element) will be used as table search instead of the built-in search input.
 
 - **Default:** `false`
 
@@ -1265,7 +1265,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  When set search property, initialize the search text.
+  When setting search property, initialize the search text.
 
 - **Default:** `''`
 
@@ -1293,7 +1293,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The name of radio or checkbox input.
+  The name of the radio or checkbox input.
 
 - **Default:** `'btSelectItem'`
 
@@ -1307,7 +1307,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `false` to sort the data in the client side, only works when the `sidePagination` is `server`.
+  Set `false` to sort the data on the client-side, only works when the `sidePagination` is `server`.
 
 - **Default:** `true`
 
@@ -1321,7 +1321,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  All buttons will show icons on it
+  All buttons will show icons on them.
 
 - **Default:** `true`
 
@@ -1335,7 +1335,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  All buttons will show an text on it
+  All buttons will show text on them.
 
 - **Default:** `false`
 
@@ -1363,7 +1363,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show a search for the columns filter.
+  Set `true` to show a search for the column's filter.
 
 - **Default:** `false`
 
@@ -1391,8 +1391,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show a extended version of pagination (including the count of all rows with out filters).
-  If you use pagination on the server side pls use `totalNotFilteredField` to define the count.
+  Set `true` to show an extended version of pagination (including the count of all rows without filters).
+  If you use pagination on the server side, please use `totalNotFilteredField` to define the count.
 
 - **Default:** `false`
 
@@ -1477,7 +1477,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Set `true` to show a search Button behind the search input.
-  The Search will only be executed if the button is pressed (e.g. to prevent traffic or loading time).
+  The Search will only be executed if the button is pressed (e.g., to prevent traffic or loading time).
 
 - **Default:** `false`
 
@@ -1491,7 +1491,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show a clear Button behind the search input which will clear the search input (also all filter from filter-control (if enabled)).
+  Set `true` to show a clear Button behind the search input, which will clear the search input (also all filter from filter-control (if enabled)).
 
 - **Default:** `false`
 
@@ -1505,7 +1505,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show the toggle button to toggle table / card view.
+  Set `true` to show the toggle button to toggle table/card view.
 
 - **Default:** `false`
 
@@ -1520,7 +1520,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Defines the side pagination of the table, can only be `'client'` or `'server'`.
-  Using `'server'` side requires either setting the `'url'` or `'ajax'` option.
+  Using the `'server'` side requires setting the `'url'` or `'ajax'` option.
 
   Note that the required server response format is different depending on whether the  `'sidePagination'` option is set to `'client'` or `'server'`. See the following examples:
 
@@ -1553,7 +1553,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to allow checkbox selecting only one row.
+  Set `true` to allow a checkbox selecting only one row.
 
 - **Default:** `false`
 
@@ -1595,7 +1595,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The class name of the `td` elements which are sorted.
+  The class name of the `td` elements are sorted.
 
 - **Default:** `undefined`
 
@@ -1637,7 +1637,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to reset the sort on third click.
+  Set `true` to reset the sort on the third click.
 
 - **Default:** `false`
 
@@ -1680,7 +1680,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The class name of table thead. Bootstrap v4, use the modifier classes `.thead-light` or `.thead-dark` to make `thead`s appear light or dark gray.
+  The class name of table thead. Bootstrap v4, use the modifier classes `.thead-light` or `.thead-dark` to make `thead` appear light or dark gray.
 
 - **Default:** `''`
 
@@ -1722,7 +1722,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Key in incoming json containing `'total'` data.
+  Key in incoming JSON containing `'total'` data.
 
 - **Default:** `'total'`
 
@@ -1736,7 +1736,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  This property is mainly passed in by pagination server, which is easy to use.
+  This property is mainly passed in by the pagination server, which is easy to use.
 
 - **Default:** `0`
 
@@ -1748,7 +1748,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The field from the json response which will used for `showExtendedPagination`.
+  The field from the JSON response will be used for `showExtendedPagination`.
 
 - **Default:** `totalNotFiltered`
 
@@ -1762,7 +1762,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  This property is mainly passed in by pagination server, which is easy to use.
+  This property is mainly passed in by the pagination server, which is easy to use.
 
 - **Default:** `0`
 
@@ -1774,7 +1774,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to trim spaces in search field.
+  Set `true` to trim spaces in the search field.
 
 - **Default:** `true`
 
@@ -1802,7 +1802,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate an unique identifier for each row.
+  Indicate a unique identifier for each row.   
+  The Unique id should always be safe for html e.g. alphanumeric, it should not contain chars which can break html e.g. `"`. 
 
 - **Default:** `undefined`
 
@@ -1839,7 +1840,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to enable virtual scroll to displays a virtual, "infinite" list.
+  Set `true` to enable virtual scroll to display a virtual, "infinite" list.
 
 - **Default:** `false`
 
@@ -1853,9 +1854,9 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  If this option is not define, we will use the height of the first item by default.
+  If this option is not defined, we will use the height of the first item by default.
 
-  It is **important** to provide this if virtual item height will be significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized, and to help calculate the height of the scrollable area. This height value can only use `px` units.
+  It is **important** to provide this if the virtual item height is significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized and to help calculate the height of the scrollable area. This height value can only use `px` units.
 
 - **Default:** `undefined`
 
@@ -1867,7 +1868,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  set `true` to search only in visible column/data, if the data contains other values which are not displayed they will be ignored while searching.
+  Set `true` to search only in visible column/data. If the data contains other values which are not displayed, they will be ignored while searching.
 
 - **Default:** `false`
 

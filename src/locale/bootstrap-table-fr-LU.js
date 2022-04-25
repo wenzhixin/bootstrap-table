@@ -1,14 +1,15 @@
 /**
  * Bootstrap Table French (Luxembourg) translation
  * Author: Nevets82 <Nevets82@gmail.com>
+ * Editor: David Morais Ferreira (https://github.com/DavidMoraisFerreira/)
  */
 
 $.fn.bootstrapTable.locales['fr-LU'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Copier les lignes'
   },
   formatPrint () {
-    return 'Print'
+    return 'Imprimer'
   },
   formatLoadingMessage () {
     return 'Chargement en cours'

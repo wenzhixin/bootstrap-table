@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.19.1
+ * version: 1.20.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -39,6 +39,14 @@ class BootstrapTable {
     this.constants.theme = $.fn.bootstrapTable.theme
     this.constants.dataToggle = this.constants.html.dataToggle || 'data-toggle'
 
+    // init iconsPrefix and icons
+    const iconsPrefix = Utils.getIconsPrefix($.fn.bootstrapTable.theme)
+    const icons = Utils.getIcons(iconsPrefix)
+
+    opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix
+    opts.icons = Object.assign(icons, $.fn.bootstrapTable.defaults.icons, opts.icons)
+
+    // init buttons class
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
 
     this.constants.buttonsClass = [
@@ -802,6 +810,7 @@ class BootstrapTable {
 
       $toggleAll.off('click').on('click', ({ currentTarget }) => {
         this._toggleAllColumns($(currentTarget).prop('checked'))
+        this.trigger('column-switch-all', $(currentTarget).prop('checked'))
       })
 
       if (opts.showColumnsSearch) {
@@ -932,7 +941,7 @@ class BootstrapTable {
       }
     }
 
-    if (!firedByInitSearchText) {
+    if (!firedByInitSearchText && !this.options.cookie) {
       this.options.pageNumber = 1
     }
     this.initSearch()
@@ -1504,8 +1513,9 @@ class BootstrapTable {
     }
 
     this.header.fields.forEach((field, j) => {
+      const column = this.columns[j]
       let text = ''
-      let value_ = Utils.getItemField(item, field, this.options.escape)
+      let value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
       let value = ''
       let type = ''
       let cellStyle = {}
@@ -1517,7 +1527,6 @@ class BootstrapTable {
       let rowspan_ = ''
       let colspan_ = ''
       let title_ = ''
-      const column = this.columns[j]
 
       if ((this.fromHtml || this.autoMergeCells) && typeof value_ === 'undefined') {
         if ((!column.checkbox) && (!column.radio)) {
@@ -1648,9 +1657,9 @@ class BootstrapTable {
         item[this.header.stateField] = value === true || (!!value_ || (value && value.checked))
       } else if (this.options.cardView) {
         const cardTitle = this.options.showHeader ?
-          `<span class="card-view-title ${cellStyle.classes}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
+          `<span class="card-view-title ${cellStyle.classes || ''}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
 
-        text = `<div class="card-view">${cardTitle}<span class="card-view-value ${cellStyle.classes}"${style_}>${value}</span></div>`
+        text = `<div class="card-view">${cardTitle}<span class="card-view-value ${cellStyle.classes || ''}"${style_}>${value}</span></div>`
 
         if (this.options.smartDisplay && value === '') {
           text = '<div class="card-view"></div>'
@@ -1786,7 +1795,7 @@ class BootstrapTable {
       const fields = this.getVisibleFields()
       const field = fields[index - Utils.getDetailViewIndexOffset(this.options)]
       const column = this.columns[this.fieldsColumnsIndex[field]]
-      const value = Utils.getItemField(item, field, this.options.escape)
+      const value = Utils.getItemField(item, field, this.options.escape, column.escape)
 
       if ($td.find('.detail-icon').length) {
         return
@@ -1842,6 +1851,10 @@ class BootstrapTable {
       // fix bug, if events is defined with namespace
       if (typeof events === 'string') {
         events = Utils.calculateObjectValue(null, events)
+      }
+
+      if (!events) {
+        throw new Error(`Unknown event in the scope: ${_events}`)
       }
 
       const field = this.header.fields[i]
@@ -2000,7 +2013,9 @@ class BootstrapTable {
         }
         this.load(data)
         this.trigger('load-error', jqXHR && jqXHR.status, jqXHR)
-        if (!silent) this.$tableLoading.hide()
+        if (!silent) {
+          this.hideLoading()
+        }
       }
     })
 
@@ -2090,7 +2105,7 @@ class BootstrapTable {
     }
 
     const fixedBody = this.$tableBody.get(0)
-    const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
+    const scrollWidth = this.hasScrollBar &&
     fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
       Utils.getScrollBarWidth() : 0
 
@@ -2280,8 +2295,8 @@ class BootstrapTable {
     }
 
     const fixedBody = this.$tableBody.get(0)
-    const scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-    fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
+    const scrollWidth = this.hasScrollBar &&
+      fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
       Utils.getScrollBarWidth() : 0
 
     this.$tableFooter
@@ -2349,7 +2364,7 @@ class BootstrapTable {
     for (const field of this.header.fields) {
       const column = this.columns[this.fieldsColumnsIndex[field]]
 
-      if (!column || !column.visible) {
+      if (!column || !column.visible || (this.options.cardView && !column.cardVisible)) {
         continue
       }
       visibleFields.push(field)
@@ -2784,7 +2799,11 @@ class BootstrapTable {
   _toggleAllColumns (visible) {
     for (const column of this.columns.slice().reverse()) {
       if (column.switchable) {
-        if (!visible && this.options.showColumns && this.getVisibleColumns().length === this.options.minimumCountColumns) {
+        if (
+          !visible &&
+          this.options.showColumns &&
+          this.getVisibleColumns().filter(it => it.switchable).length === this.options.minimumCountColumns
+        ) {
           continue
         }
         column.visible = visible
@@ -3001,6 +3020,12 @@ class BootstrapTable {
 
     this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
 
+    if (this.options.height) {
+      const fixedBody = this.$tableBody.get(0)
+
+      this.hasScrollBar = fixedBody.scrollWidth > fixedBody.clientWidth
+    }
+
     if (!this.options.cardView && this.options.showHeader && this.options.height) {
       this.$tableHeader.show()
       this.resetHeader()
@@ -3038,7 +3063,7 @@ class BootstrapTable {
       if (this.$tableBorder && $bodyTable.is(':visible')) {
         let tableBorderHeight = height - tableHeight - 2
 
-        if (this.$tableBody[0].scrollWidth - this.$tableBody.innerWidth()) {
+        if (this.hasScrollBar) {
           tableBorderHeight -= Utils.getScrollBarWidth()
         }
         this.$tableBorder.css('width', `${$bodyTable.outerWidth()}px`)
@@ -3112,8 +3137,11 @@ class BootstrapTable {
   resetSearch (text) {
     const $search = Utils.getSearchInput(this)
 
-    $search.val(text || '')
-    this.onSearch({ currentTarget: $search })
+    const textToUse = text || ''
+
+    $search.val(textToUse)
+    this.searchText = textToUse
+    this.onSearch({ currentTarget: $search }, false)
   }
 
   filterBy (columns, options) {

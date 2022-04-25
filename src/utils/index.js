@@ -1,4 +1,116 @@
 export default {
+  getBootstrapVersion () {
+    let bootstrapVersion = 5
+
+    try {
+      const rawVersion = $.fn.dropdown.Constructor.VERSION
+
+      // Only try to parse VERSION if it is defined.
+      // It is undefined in older versions of Bootstrap (tested with 3.1.1).
+      if (rawVersion !== undefined) {
+        bootstrapVersion = parseInt(rawVersion, 10)
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    try {
+      // eslint-disable-next-line no-undef
+      const rawVersion = bootstrap.Tooltip.VERSION
+
+      if (rawVersion !== undefined) {
+        bootstrapVersion = parseInt(rawVersion, 10)
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    return bootstrapVersion
+  },
+
+  getIconsPrefix (theme) {
+    return {
+      bootstrap3: 'glyphicon',
+      bootstrap4: 'fa',
+      bootstrap5: 'bi',
+      'bootstrap-table': 'icon',
+      bulma: 'fa',
+      foundation: 'fa',
+      materialize: 'material-icons',
+      semantic: 'fa'
+    }[theme] || 'fa'
+  },
+
+  getIcons (prefix) {
+    return {
+      glyphicon: {
+        paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+        paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
+        refresh: 'glyphicon-refresh icon-refresh',
+        toggleOff: 'glyphicon-list-alt icon-list-alt',
+        toggleOn: 'glyphicon-list-alt icon-list-alt',
+        columns: 'glyphicon-th icon-th',
+        detailOpen: 'glyphicon-plus icon-plus',
+        detailClose: 'glyphicon-minus icon-minus',
+        fullscreen: 'glyphicon-fullscreen',
+        search: 'glyphicon-search',
+        clearSearch: 'glyphicon-trash'
+      },
+      fa: {
+        paginationSwitchDown: 'fa-caret-square-down',
+        paginationSwitchUp: 'fa-caret-square-up',
+        refresh: 'fa-sync',
+        toggleOff: 'fa-toggle-off',
+        toggleOn: 'fa-toggle-on',
+        columns: 'fa-th-list',
+        detailOpen: 'fa-plus',
+        detailClose: 'fa-minus',
+        fullscreen: 'fa-arrows-alt',
+        search: 'fa-search',
+        clearSearch: 'fa-trash'
+      },
+      bi: {
+        paginationSwitchDown: 'bi-caret-down-square',
+        paginationSwitchUp: 'bi-caret-up-square',
+        refresh: 'bi-arrow-clockwise',
+        toggleOff: 'bi-toggle-off',
+        toggleOn: 'bi-toggle-on',
+        columns: 'bi-list-ul',
+        detailOpen: 'bi-plus',
+        detailClose: 'bi-dash',
+        fullscreen: 'bi-arrows-move',
+        search: 'bi-search',
+        clearSearch: 'bi-trash'
+      },
+      icon: {
+        paginationSwitchDown: 'icon-arrow-up-circle',
+        paginationSwitchUp: 'icon-arrow-down-circle',
+        refresh: 'icon-refresh-cw',
+        toggleOff: 'icon-toggle-right',
+        toggleOn: 'icon-toggle-right',
+        columns: 'icon-list',
+        detailOpen: 'icon-plus',
+        detailClose: 'icon-minus',
+        fullscreen: 'icon-maximize',
+        search: 'icon-search',
+        clearSearch: 'icon-trash-2'
+      },
+      'material-icons': {
+        paginationSwitchDown: 'grid_on',
+        paginationSwitchUp: 'grid_off',
+        refresh: 'refresh',
+        toggleOff: 'tablet',
+        toggleOn: 'tablet_android',
+        columns: 'view_list',
+        detailOpen: 'add',
+        detailClose: 'remove',
+        fullscreen: 'fullscreen',
+        sort: 'sort',
+        search: 'search',
+        clearSearch: 'delete'
+      }
+    }[prefix]
+  },
 
   getSearchInput (that) {
     if (typeof that.options.searchSelector === 'string') {
@@ -168,6 +280,7 @@ export default {
     if (
       !func &&
       typeof name === 'string' &&
+      args &&
       this.sprintf(name, ...args)
     ) {
       return this.sprintf(name, ...args)
@@ -218,7 +331,7 @@ export default {
   },
 
   unescapeHTML (text) {
-    if (!text) {
+    if (typeof text !== 'string' || !text) {
       return text
     }
     return text.toString()
@@ -227,6 +340,16 @@ export default {
       .replace(/&gt;/g, '>')
       .replace(/&quot;/g, '"')
       .replace(/&#39;/g, '\'')
+  },
+
+  removeHTML (text) {
+    if (!text) {
+      return text
+    }
+    return text.toString()
+      .replace(/(<([^>]+)>)/ig, '')
+      .replace(/&[#A-Za-z0-9]+;/gi, '')
+      .trim()
   },
 
   getRealDataAttr (dataAttr) {
@@ -241,8 +364,13 @@ export default {
     return dataAttr
   },
 
-  getItemField (item, field, escape) {
+  getItemField (item, field, escape, columnEscape = undefined) {
     let value = item
+
+    // use column escape if it is defined
+    if (typeof columnEscape !== 'undefined') {
+      escape = columnEscape
+    }
 
     if (typeof field !== 'string' || item.hasOwnProperty(field)) {
       return escape ? this.escapeHTML(item[field]) : item[field]
@@ -394,5 +522,27 @@ export default {
       return arg
     }
     return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
+  },
+
+  debounce (func, wait, immediate) {
+    let timeout
+
+    return function executedFunction () {
+      const context = this
+      const args = arguments
+
+      const later = function () {
+        timeout = null
+        if (!immediate) func.apply(context, args)
+      }
+
+      const callNow = immediate && !timeout
+
+      clearTimeout(timeout)
+
+      timeout = setTimeout(later, wait)
+
+      if (callNow) func.apply(context, args)
+    }
   }
 }
