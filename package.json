@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-table",
   "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
-  "version": "1.19.1",
+  "version": "1.20.0",
   "style": "dist/bootstrap-table.min.css",
   "sass": "src/bootstrap-table.scss",
   "main": "dist/bootstrap-table.min.js",

@@ -1,6 +1,39 @@
 ChangeLog
 ---------
 
+### 1.20.0
+
+#### Core
+
+- **New:** Used `bootstrap5` as the default theme.
+- **New:** Added column-switch-all event of toggle all columns.
+- **New:** Added hi-IN and lb-LU locales.
+- **Update:** Fixed the toolbar cannot refresh search bug.
+- **Update:** Fixed the card view align style bug.
+- **Update:** Fixed custom search filter bug if the value is Object.
+- **Update:** Fixed table border displays bug when setting height.
+- **Update:** Fixed error when the column events are undefined.
+- **Update:** Fixed escape column option doesn't override table option bug.
+- **Update:** Fixed toggle all columns error when column switchable is false.
+- **Update:** Fixed check if the column is visible on card view.
+- **Update:** Fixed hide loading bug when canceling the request.
+- **Update:** Fixed default value of `clickToSelect` column option.
+- **Update:** Fixed `onVirtualScroll` not define default method.
+- **Update:** Updated cs-CZ, ko-KR, nl-NL, nl-BE, bg-BG, fr-LU locales.
+
+##### Extensions
+
+- **New(filter-control):** New version of filter-control with new features.
+- **New(reorder-rows):**: Added `onAllowDrop` and `onDragStop` options.
+- **Update(cookie):** Fixed `sortName` and `sortOrder` bug with cookie.
+- **Update(cookie):** Fixed the toggle column bug with the cookie.
+- **Update(export):** Fixed selector error if only one export type is defined.
+- **Update(filter-control):** Fixed new input class `form-select` of bootstrap 5.
+- **Update(multiple-sort):** Fixed the modal cannot close after sorting.
+- **Update(print):** Fixed missing print button for bootstrap 5.
+- **Update(print):** Fixed `printPageBuilder` option cannot define in html attribute.
+- **Update(toolbar):** Fixed toolbar extension modal bug with bootstrap 5.
+
 ### 1.19.1
 
 #### Core
