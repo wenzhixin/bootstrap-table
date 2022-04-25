@@ -2408,6 +2408,7 @@ class BootstrapTable {
         this.options.sortName !== undefined ||
         this.enableCustomSort || // Fix #4616: this.enableCustomSort is for extensions
         !Utils.isEmptyObject(this.filterColumns) ||
+        typeof this.options.filterOptions.filterAlgorithm === 'function' ||
         !Utils.isEmptyObject(this.filterColumnsPartial)
       ) && (!params || !params.unfiltered)
     ) {
