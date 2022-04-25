@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.19.1
+        v1.20.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.19.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.20.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.18.3/" target="_blank">v1.18.3</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
@@ -360,12 +360,11 @@
 <li class="toc-entry toc-h3"><a href="#filtercontrol">filterControl</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercontrolvisible">filterControlVisible</a></li>
 <li class="toc-entry toc-h3"><a href="#alignmentselectcontroloptions">alignmentSelectControlOptions</a></li>
-<li class="toc-entry toc-h3"><a href="#disablecontrolwhensearch">disableControlWhenSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercontrolcontainer">filterControlContainer</a></li>
 <li class="toc-entry toc-h3"><a href="#filterdatacollector">filterDataCollector</a></li>
-<li class="toc-entry toc-h3"><a href="#hideunusedselectoptions">hideUnusedSelectOptions</a></li>
 <li class="toc-entry toc-h3"><a href="#searchonenterkey">searchOnEnterKey</a></li>
 <li class="toc-entry toc-h3"><a href="#showfiltercontrolswitch">showFilterControlSwitch</a></li>
+<li class="toc-entry toc-h3"><a href="#sortselectoptions">sortSelectOptions</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#column-options">Column options</a>
@@ -423,9 +422,7 @@
           <p class="bd-lead">Table Filter Control extension of Bootstrap Table.</p>
           <div id="gg"></div>
 
-          <p>Dependence if you use the datepicker option: <a href="https://github.com/eternicode/bootstrap-datepicker">bootstrap-datepicker</a> v1.4.0</p>
-
-<h2 id="usage">Usage</h2>
+          <h2 id="usage">Usage</h2>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"extensions/filter-control/bootstrap-table-filter-control.css"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"extensions/filter-control/bootstrap-table-filter-control.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
@@ -493,25 +490,6 @@
   </li>
 </ul>
 
-<h3 id="disablecontrolwhensearch">disableControlWhenSearch</h3>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-disable-control-when-search</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set to true if you want to disable the control while the server is responding the data. This options will work if the sidePagination is ‘server’.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
-  </li>
-</ul>
-
 <h3 id="filtercontrolcontainer">filterControlContainer</h3>
 
 <ul>
@@ -548,25 +526,6 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
-  </li>
-</ul>
-
-<h3 id="hideunusedselectoptions">hideUnusedSelectOptions</h3>
-
-<ul>
-  <li>
-    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-hide-unused-select-options</code></p>
-  </li>
-  <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>Set to true in order to hide the options that are not in the table. This option does not work on server-side pagination.</p>
-  </li>
-  <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
 </ul>
 
@@ -608,6 +567,25 @@
   </li>
 </ul>
 
+<h3 id="sortselectoptions">sortSelectOptions</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-select-options</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">true</code> to sort the option elements of the select control.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
 <h2 id="column-options">Column options</h2>
 
 <h3 id="filtercontrol-1">filterControl</h3>
@@ -622,7 +600,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">input</code>: show an input control, <code class="highlighter-rouge">select</code>: show a select control, <code class="highlighter-rouge">datepicker</code>: show a datepicker control.</p>
+    <p>Set <code class="highlighter-rouge">input</code>: show an input control, <code class="highlighter-rouge">select</code>: show a select control, <code class="highlighter-rouge">datepicker</code>: show a html5 datepicker control.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -714,7 +692,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: <code class="highlighter-rouge">data-filter-datepicker-options='{"autoclose":true, "clearBtn": true, "todayHighlight": true}'</code>.</p>
+    <p>If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: <code class="highlighter-rouge">data-filter-datepicker-options='{"max":value1, "min": value2, "step": value3}'</code>. For more information visit this <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date">documentation</a></p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -734,8 +712,6 @@
     <p><strong>Detail:</strong></p>
 
     <p>Set the default value of the filter.</p>
-
-    <p>If you use the datepicker, make sure your date format match the <a href="https://bootstrap-datepicker.readthedocs.io/en/stable/options.html?highlight=format#format">format</a> of the datepicker. You can change the datepicker format using <a href="https://bootstrap-table.com/docs/extensions/filter-control/#filterdatepickeroptions">filterDatepickerOptions</a>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>

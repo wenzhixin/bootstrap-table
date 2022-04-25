@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.19.1
+        v1.20.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.19.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.20.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.18.3/" target="_blank">v1.18.3</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
@@ -568,8 +568,8 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>This option allows creating/adding custom button(s) to “buttonbar” (top right of the table).<br />
-This buttons can be sorted with the table option <a href="https://bootstrap-table.com/docs/api/table-options/#buttonsorder">buttonsOrder</a>, the used key/name for the event should be used for that!</p>
+    <p>This option allows creating/adding custom button(s) to the “buttons bar” (top right of the table).
+These buttons can be sorted with the table option <a href="https://bootstrap-table.com/docs/api/table-options/#buttonsorder">buttonsOrder</a>, the used key/name for the event should be used for that!</p>
 
     <p>The custom button is highly configurable, the following options exists:</p>
     <ul>
@@ -599,8 +599,8 @@ This buttons can be sorted with the table option <a href="https://bootstrap-tabl
       </li>
       <li><code class="highlighter-rouge">html</code>
         <ul>
-          <li>Description: If you don’t want to autogenerate the html, you can use this option to insert your custom html. <br />
-The <code class="highlighter-rouge">event</code> option is only working if you custom html contains <code class="highlighter-rouge">name="BUTTONNAME"</code>. <br />
+          <li>Description: If you don’t want to autogenerate the html, you can use this option to insert your custom html.
+The <code class="highlighter-rouge">event</code> option only works if you custom HTML contains <code class="highlighter-rouge">name="BUTTONNAME"</code>.
 If this option is used the following options will be ignored:
             <ul>
               <li><code class="highlighter-rouge">text</code></li>
@@ -619,14 +619,14 @@ If this option is used the following options will be ignored:
       </li>
     </ul>
 
-    <p>The <code class="highlighter-rouge">event</code> option can be configured in three ways.   <br />
+    <p>The <code class="highlighter-rouge">event</code> option can be configured in three ways.
  One event with <code class="highlighter-rouge">click</code> event:</p>
     <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="p">{</span>
    <span class="dl">'</span><span class="s1">event</span><span class="dl">'</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">}</span>
  <span class="p">}</span>
 </code></pre></div>    </div>
 
-    <p>One event with a self defined event type:</p>
+    <p>One event with a self-defined event type:</p>
     <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="p">{</span>
      <span class="dl">'</span><span class="s1">event</span><span class="dl">'</span><span class="p">:</span> <span class="p">{</span>
        <span class="dl">'</span><span class="s1">mouseenter</span><span class="dl">'</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">}</span>
@@ -634,7 +634,7 @@ If this option is used the following options will be ignored:
    <span class="p">}</span>
 </code></pre></div>    </div>
 
-    <p>Multiple events with self defined event types:</p>
+    <p>Multiple events with self-defined event types:</p>
     <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="p">{</span>
        <span class="dl">'</span><span class="s1">event</span><span class="dl">'</span><span class="p">:</span> <span class="p">{</span>
          <span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">},</span>
@@ -644,7 +644,7 @@ If this option is used the following options will be ignored:
      <span class="p">}</span>
 </code></pre></div>    </div>
 
-    <p><strong>Hint:</strong> Instead of inline functions you also can use function names.</p>
+    <p><strong>Hint:</strong> Instead of inline functions, you also can use function names.</p>
 
     <p>A configured custom button could look like this:</p>
     <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
@@ -725,7 +725,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Indicate how to custom order of the toolbar buttons.</p>
+    <p>Indicate how to custom order the toolbar buttons.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns']</code></p>
@@ -813,7 +813,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show card view table, for example mobile view.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show card view table, for example, mobile view.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -835,7 +835,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">false</code> to hide check-all checkbox in header row.</p>
+    <p>Set <code class="highlighter-rouge">false</code> to hide the check-all checkbox in the header row.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
@@ -879,7 +879,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to select checkbox or radiobox when clicking rows.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to select the checkbox or radio box when clicking rows.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -901,7 +901,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The table columns config object, see column properties for more details.</p>
+    <p>The table columns config object. See column properties for more details.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
@@ -945,7 +945,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The custom search function is executed instead of built-in search function, takes three parameters:</p>
+    <p>The custom search function is executed instead of the built-in search function, takes three parameters:</p>
 
     <ul>
       <li><code class="highlighter-rouge">data</code>: the table data.</li>
@@ -1031,7 +1031,7 @@ If this option is used the following options will be ignored:
   <span class="p">]</span>
 <span class="p">})</span>
 </code></pre></div>    </div>
-    <p>If use this feature, the <code class="highlighter-rouge">data</code> is required to ensure that the format is correct.</p>
+    <p>If using this feature, the <code class="highlighter-rouge">data</code> is required to ensure that the format is correct.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
@@ -1053,7 +1053,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Key in incoming json containing <code class="highlighter-rouge">'rows'</code> data list.</p>
+    <p>Key in incoming JSON containing <code class="highlighter-rouge">'rows'</code> data list.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'rows'</code></p>
@@ -1097,7 +1097,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Enable expansion per row when <code class="highlighter-rouge">detailView</code> is set to <code class="highlighter-rouge">true</code>. Return true and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to enable expansion for all rows.</p>
+    <p>Enable expansion per row when <code class="highlighter-rouge">detailView</code> is set to <code class="highlighter-rouge">true</code>. Return true, and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to allow expansion for all rows.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">function(index, row) { return true }</code></p>
@@ -1119,7 +1119,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Format your detail view when <code class="highlighter-rouge">detailView</code> is set to <code class="highlighter-rouge">true</code>. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</p>
+    <p>Format your detail view when <code class="highlighter-rouge">detailView</code> is set to <code class="highlighter-rouge">true</code>. Return a String, and it will be appended into the detail view cell, optionally render the element directly using the third parameter, which is a jQuery element of the target cell.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">function(index, row, element) { return '' }</code></p>
@@ -1141,7 +1141,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show detail view table.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show a detailed view table.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -1185,7 +1185,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to toggle the detail view, when a cell is clicked.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to toggle the detail view when a cell is clicked.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -1251,7 +1251,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Define the default filter options of algorithm, <code class="highlighter-rouge">filterAlgorithm: 'and'</code> means all given filter must match, <code class="highlighter-rouge">filterAlgorithm: 'or'</code> means one of the given filter must match.</p>
+    <p>Define the default filter options of the algorithm, <code class="highlighter-rouge">filterAlgorithm: 'and'</code> means all given filters must match, <code class="highlighter-rouge">filterAlgorithm: 'or'</code> means one of the given filters must match.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">{ filterAlgorithm: 'and' }</code></p>
@@ -1273,7 +1273,7 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Defines the key of the footer Object (From data array or server response json).
+    <p>Defines the key of the footer Object (From data array or server response JSON).
 The footer Object can be used to set/define footer colspans and/or the value of the footer.
 Only triggered when <code class="highlighter-rouge">data-pagination</code> is <code class="highlighter-rouge">true</code> and <code class="highlighter-rouge">data-side-pagination</code> is <code class="highlighter-rouge">server</code>.</p>
   </li>
@@ -1395,7 +1395,7 @@ Only triggered when <code class="highlighter-rouge">data-pagination</code> is <c
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The height of table, enable fixed header of table.</p>
+    <p>The height of the table, enables a fixed header of the table.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -1475,7 +1475,7 @@ Only triggered when <code class="highlighter-rouge">data-pagination</code> is <c
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Defines icon set name (<code class="highlighter-rouge">'glyphicon'</code> or <code class="highlighter-rouge">'fa'</code> for FontAwesome). By default <code class="highlighter-rouge">'fa'</code> is used for Bootstrap v4.</p>
+    <p>Defines icon set name (<code class="highlighter-rouge">'glyphicon'</code> or <code class="highlighter-rouge">'fa'</code> for FontAwesome). By default, <code class="highlighter-rouge">'fa'</code> is used for Bootstrap v4.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'fa'</code></p>
@@ -1540,7 +1540,7 @@ Only triggered when <code class="highlighter-rouge">data-pagination</code> is <c
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>To define the font size of the loading text, the default value is <code class="highlighter-rouge">'auto'</code>, it will be calculated automatically according to the table width, between 12px and 32px.</p>
+    <p>To define the font size of the loading text, the default value is <code class="highlighter-rouge">'auto'</code>, calculated automatically according to the table width, between 12px and 32px.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'auto'</code></p>
@@ -1599,7 +1599,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
 
     <ul>
       <li>First tries for the locale as specified,</li>
-      <li>Then tries the locale with ‘_’ translated to ‘-‘ and the region code upper cased,</li>
+      <li>Then tries the locale with ‘_’ translated to ‘-‘ and the region code uppercased,</li>
       <li>Then tries the short locale code (i.e. <code class="highlighter-rouge">'zh'</code> instead of <code class="highlighter-rouge">'zh-CN'</code>),</li>
       <li>And finally will use the last locale file loaded (or the default locale if no locales loaded).</li>
     </ul>
@@ -1626,7 +1626,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to maintain the following meta data on change page and search:</p>
+    <p>Set <code class="highlighter-rouge">true</code> to maintain the following metadata on the change page and search:</p>
     <ul>
       <li>selected rows</li>
       <li>hidden rows</li>
@@ -1674,7 +1674,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The minimum number of columns to hide from the columns drop down list.</p>
+    <p>The minimum number of columns to hide from the columns dropdown list.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">1</code></p>
@@ -1696,7 +1696,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to enable the multiple selection row. Can use the ctrl+click to select one row or use shift+click to select a range of rows.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to enable the multiple selection row. Can use the ctrl+click to select one row or shift+click to select a range of rows.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -1718,9 +1718,9 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>When set pagination property, initialize the page size selecting list. If you include the <code class="highlighter-rouge">'all'</code> or <code class="highlighter-rouge">'unlimited'</code> option, all the records will be shown in your table.</p>
+    <p>When setting the pagination property, initialize the page size by selecting the list. If you include the <code class="highlighter-rouge">'all'</code> or <code class="highlighter-rouge">'unlimited'</code> option, all the records will be shown in your table.</p>
 
-    <p><em>Hint: If the table has lesser rows as the option(s), the options will be hidden automatically, to disable that feature you can set <a href="https://bootstrap-table.com/docs/api/table-options/#smartdisplay">smartDisplay</a> to <code class="highlighter-rouge">false</code></em></p>
+    <p><em>Hint: If the table has lesser rows as the option(s), the options will be hidden automatically. To disable that feature, you can set <a href="https://bootstrap-table.com/docs/api/table-options/#smartdisplay">smartDisplay</a> to <code class="highlighter-rouge">false</code></em></p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">[10, 25, 50, 100]</code></p>
@@ -1742,7 +1742,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>When set pagination property, initialize the page number.</p>
+    <p>When setting the pagination property, initialize the page number.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">1</code></p>
@@ -1764,7 +1764,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>When set pagination property, initialize the page size.</p>
+    <p>When setting the pagination property, initialize the page size.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">10</code></p>
@@ -1786,7 +1786,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show a pagination toolbar on table bottom.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show a pagination toolbar on the table bottom.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -1921,7 +1921,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
     <p>These options define which parts of the pagination should be visible.</p>
     <ul>
       <li><code class="highlighter-rouge">pageInfo</code> Shows which dataset will be displayed on the current page (e.g. <code class="highlighter-rouge">Showing 1 to 10 of 54 rows</code>).</li>
-      <li><code class="highlighter-rouge">pageInfoShort</code> Similar to <code class="highlighter-rouge">pageInfo</code>, but it only displays how much rows the table has (e.g. <code class="highlighter-rouge">Showing 54 rows</code>).</li>
+      <li><code class="highlighter-rouge">pageInfoShort</code> Similar to <code class="highlighter-rouge">pageInfo</code>, it only displays how many rows the table has (e.g. <code class="highlighter-rouge">Showing 54 rows</code>).</li>
       <li><code class="highlighter-rouge">pageSize</code> Shows the dropdown which defines how many rows should be displayed on the page.</li>
       <li><code class="highlighter-rouge">pageList</code> Shows the main part of the pagination (The list of the pages).</li>
     </ul>
@@ -1946,7 +1946,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Indicate the icon or text to be shown in the pagination detail, the previous button.</p>
+    <p>Indicate the icon or text shown in the pagination detail, the previous button.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'‹'</code></p>
@@ -2012,7 +2012,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Indicate how to vertical align the pagination. <code class="highlighter-rouge">'top'</code>, <code class="highlighter-rouge">'bottom'</code>, <code class="highlighter-rouge">'both'</code> (put the pagination on top and bottom)  can be used.</p>
+    <p>Indicate how to vertical-align the pagination. <code class="highlighter-rouge">'top'</code>, <code class="highlighter-rouge">'bottom'</code>, <code class="highlighter-rouge">'both'</code> (put the pagination on top and bottom)  can be used.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'bottom'</code></p>
@@ -2085,8 +2085,8 @@ Allows for fallback locales, if loaded, in the following order:</p>
     <p><strong>Detail:</strong></p>
 
     <p>Set <code class="highlighter-rouge">true</code> to enable the regex search.
-Is this option enabled, you can search with regex e.g. <code class="highlighter-rouge">[47a]$</code> for all items which ends with a <code class="highlighter-rouge">4</code>, <code class="highlighter-rouge">7</code> or <code class="highlighter-rouge">a</code>.   <br />
-The regex can be entered with <code class="highlighter-rouge">/[47a]$/gim</code> or without <code class="highlighter-rouge">[47a]$</code> flags, the default flags are <code class="highlighter-rouge">gim</code>.</p>
+If this option is enabled, you can search with regex, e.g. <code class="highlighter-rouge">[47a]$</code> for all items which end with a <code class="highlighter-rouge">4</code>, <code class="highlighter-rouge">7</code> or <code class="highlighter-rouge">a</code>.
+The regex can be entered with <code class="highlighter-rouge">/[47a]$/gim</code> or without <code class="highlighter-rouge">[47a]$</code> flags. The default flags are <code class="highlighter-rouge">gim</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2130,7 +2130,7 @@ The regex can be entered with <code class="highlighter-rouge">/[47a]$/gim</code>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Before load remote data, handler the response data format, the parameters object contains:</p>
+    <p>Before loading remote data, handle the response data format. The parameters object contains:</p>
 
     <ul>
       <li><code class="highlighter-rouge">res</code>: the response data.</li>
@@ -2217,7 +2217,7 @@ The regex can be entered with <code class="highlighter-rouge">/[47a]$/gim</code>
 
     <p>Enable the search input.</p>
 
-    <p>There are 3 ways to search:</p>
+    <p>There are three ways to search:</p>
     <ul>
       <li>The value contains the search query (Default).
 Example: Github contains git.</li>
@@ -2229,7 +2229,7 @@ Example: 4 is larger than 3.</li>
 
     <p>Notes:</p>
     <ul>
-      <li>If you want to use a custom search input use the <a href="https://bootstrap-table.com/docs/api/table-options/#searchSelector">searchSelector</a>.</li>
+      <li>If you want to use a custom search input, use the <a href="https://bootstrap-table.com/docs/api/table-options/#searchSelector">searchSelector</a>.</li>
       <li>You can also search via regex using the <a href="https://bootstrap-table.com/docs/api/table-options/#regexSearch">regexSearch</a> option.</li>
     </ul>
   </li>
@@ -2253,7 +2253,7 @@ Example: 4 is larger than 3.</li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set to <code class="highlighter-rouge">true</code> if you want to use accent neutralise feature.</p>
+    <p>Set to <code class="highlighter-rouge">true</code> if you want to use the accent neutralize feature.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2297,8 +2297,8 @@ Example: 4 is larger than 3.</li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set to <code class="highlighter-rouge">true</code> to highlight the searched text (using the <code class="highlighter-rouge">&lt;mark&gt;</code> html tag).
-You can also define a <a href="https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter">custom highlight formatter</a> e.g. for values with html or to use a custom highlight color.</p>
+    <p>Set to <code class="highlighter-rouge">true</code> to highlight the searched text (using the <code class="highlighter-rouge">&lt;mark&gt;</code> HTML tag).
+You can also define a <a href="https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter">custom highlight formatter</a>, e.g., for values with HTML or to use a custom highlight color.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'false'</code></p>
@@ -2342,7 +2342,7 @@ You can also define a <a href="https://bootstrap-table.com/docs/api/column-optio
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>If this option is set (must be a valid dom selector e.g. <code class="highlighter-rouge">#customSearch</code>), the found dom element (should be an <code class="highlighter-rouge">input</code> element) will be used as table search instead of the built-in search input.</p>
+    <p>If this option is set (must be a valid dom selector, e.g. <code class="highlighter-rouge">#customSearch</code>), the found dom element (an <code class="highlighter-rouge">input</code> element) will be used as table search instead of the built-in search input.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2364,7 +2364,7 @@ You can also define a <a href="https://bootstrap-table.com/docs/api/column-optio
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>When set search property, initialize the search text.</p>
+    <p>When setting search property, initialize the search text.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
@@ -2408,7 +2408,7 @@ You can also define a <a href="https://bootstrap-table.com/docs/api/column-optio
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The name of radio or checkbox input.</p>
+    <p>The name of the radio or checkbox input.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'btSelectItem'</code></p>
@@ -2430,7 +2430,7 @@ You can also define a <a href="https://bootstrap-table.com/docs/api/column-optio
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">false</code> to sort the data in the client side, only works when the <code class="highlighter-rouge">sidePagination</code> is <code class="highlighter-rouge">server</code>.</p>
+    <p>Set <code class="highlighter-rouge">false</code> to sort the data on the client-side, only works when the <code class="highlighter-rouge">sidePagination</code> is <code class="highlighter-rouge">server</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
@@ -2452,7 +2452,7 @@ You can also define a <a href="https://bootstrap-table.com/docs/api/column-optio
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>All buttons will show icons on it</p>
+    <p>All buttons will show icons on them.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
@@ -2474,7 +2474,7 @@ You can also define a <a href="https://bootstrap-table.com/docs/api/column-optio
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>All buttons will show an text on it</p>
+    <p>All buttons will show text on them.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2518,7 +2518,7 @@ You can also define a <a href="https://bootstrap-table.com/docs/api/column-optio
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show a search for the columns filter.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show a search for the column’s filter.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2562,8 +2562,8 @@ You can also define a <a href="https://bootstrap-table.com/docs/api/column-optio
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show a extended version of pagination (including the count of all rows with out filters).
-If you use pagination on the server side pls use <code class="highlighter-rouge">totalNotFilteredField</code> to define the count.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show an extended version of pagination (including the count of all rows without filters).
+If you use pagination on the server side, please use <code class="highlighter-rouge">totalNotFilteredField</code> to define the count.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2696,7 +2696,7 @@ If you use pagination on the server side pls use <code class="highlighter-rouge"
     <p><strong>Detail:</strong></p>
 
     <p>Set <code class="highlighter-rouge">true</code> to show a search Button behind the search input.
-The Search will only be executed if the button is pressed (e.g. to prevent traffic or loading time).</p>
+The Search will only be executed if the button is pressed (e.g., to prevent traffic or loading time).</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2718,7 +2718,7 @@ The Search will only be executed if the button is pressed (e.g. to prevent traff
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show a clear Button behind the search input which will clear the search input (also all filter from filter-control (if enabled)).</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show a clear Button behind the search input, which will clear the search input (also all filter from filter-control (if enabled)).</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2740,7 +2740,7 @@ The Search will only be executed if the button is pressed (e.g. to prevent traff
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show the toggle button to toggle table / card view.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show the toggle button to toggle table/card view.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2763,7 +2763,7 @@ The Search will only be executed if the button is pressed (e.g. to prevent traff
     <p><strong>Detail:</strong></p>
 
     <p>Defines the side pagination of the table, can only be <code class="highlighter-rouge">'client'</code> or <code class="highlighter-rouge">'server'</code>.
-Using <code class="highlighter-rouge">'server'</code> side requires either setting the <code class="highlighter-rouge">'url'</code> or <code class="highlighter-rouge">'ajax'</code> option.</p>
+Using the <code class="highlighter-rouge">'server'</code> side requires setting the <code class="highlighter-rouge">'url'</code> or <code class="highlighter-rouge">'ajax'</code> option.</p>
 
     <p>Note that the required server response format is different depending on whether the  <code class="highlighter-rouge">'sidePagination'</code> option is set to <code class="highlighter-rouge">'client'</code> or <code class="highlighter-rouge">'server'</code>. See the following examples:</p>
 
@@ -2814,7 +2814,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to allow checkbox selecting only one row.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to allow a checkbox selecting only one row.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -2880,7 +2880,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The class name of the <code class="highlighter-rouge">td</code> elements which are sorted.</p>
+    <p>The class name of the <code class="highlighter-rouge">td</code> elements are sorted.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -2946,7 +2946,7 @@ Using <code class="highlighter-rouge">'server'</code> side requires either setti
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to reset the sort on third click.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to reset the sort on the third click.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -3013,7 +3013,7 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The class name of table thead. Bootstrap v4, use the modifier classes <code class="highlighter-rouge">.thead-light</code> or <code class="highlighter-rouge">.thead-dark</code> to make <code class="highlighter-rouge">thead</code>s appear light or dark gray.</p>
+    <p>The class name of table thead. Bootstrap v4, use the modifier classes <code class="highlighter-rouge">.thead-light</code> or <code class="highlighter-rouge">.thead-dark</code> to make <code class="highlighter-rouge">thead</code> appear light or dark gray.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
@@ -3079,7 +3079,7 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Key in incoming json containing <code class="highlighter-rouge">'total'</code> data.</p>
+    <p>Key in incoming JSON containing <code class="highlighter-rouge">'total'</code> data.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'total'</code></p>
@@ -3101,7 +3101,7 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>This property is mainly passed in by pagination server, which is easy to use.</p>
+    <p>This property is mainly passed in by the pagination server, which is easy to use.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">0</code></p>
@@ -3120,7 +3120,7 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The field from the json response which will used for <code class="highlighter-rouge">showExtendedPagination</code>.</p>
+    <p>The field from the JSON response will be used for <code class="highlighter-rouge">showExtendedPagination</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">totalNotFiltered</code></p>
@@ -3142,7 +3142,7 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>This property is mainly passed in by pagination server, which is easy to use.</p>
+    <p>This property is mainly passed in by the pagination server, which is easy to use.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">0</code></p>
@@ -3161,7 +3161,7 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to trim spaces in search field.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to trim spaces in the search field.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
@@ -3205,7 +3205,8 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Indicate an unique identifier for each row.</p>
+    <p>Indicate a unique identifier for each row. <br />
+The Unique id should always be safe for html e.g. alphanumeric, it should not contain chars which can break html e.g. <code class="highlighter-rouge">"</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -3261,7 +3262,7 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to enable virtual scroll to displays a virtual, “infinite” list.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to enable virtual scroll to display a virtual, “infinite” list.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -3283,9 +3284,9 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>If this option is not define, we will use the height of the first item by default.</p>
+    <p>If this option is not defined, we will use the height of the first item by default.</p>
 
-    <p>It is <strong>important</strong> to provide this if virtual item height will be significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized, and to help calculate the height of the scrollable area. This height value can only use <code class="highlighter-rouge">px</code> units.</p>
+    <p>It is <strong>important</strong> to provide this if the virtual item height is significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized and to help calculate the height of the scrollable area. This height value can only use <code class="highlighter-rouge">px</code> units.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -3304,7 +3305,7 @@ Disables the comparison checks.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>set <code class="highlighter-rouge">true</code> to search only in visible column/data, if the data contains other values which are not displayed they will be ignored while searching.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to search only in visible column/data. If the data contains other values which are not displayed, they will be ignored while searching.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>

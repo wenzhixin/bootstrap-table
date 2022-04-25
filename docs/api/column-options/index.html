@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.19.1
+        v1.20.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.19.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.20.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.18.3/" target="_blank">v1.18.3</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
@@ -442,7 +442,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">false</code> to hide the columns item in card view state.</p>
+    <p>Set <code class="highlighter-rouge">false</code> to hide the columns item in the card view state.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
@@ -495,10 +495,10 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show a checkbox. The checkbox column has fixed width.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show a checkbox. The checkbox column has a fixed width.</p>
 
-    <p>If a value is given the Checkbox is automatically checked.
-Its also possible to check/uncheck the checkbox by use an formatter (return <code class="highlighter-rouge">true</code> to check, return <code class="highlighter-rouge">false</code> to uncheck).</p>
+    <p>If a value is given, the checkbox is automatically checked.
+Its also possible to check/uncheck the checkbox by using a formatter (return <code class="highlighter-rouge">true</code> to check, return <code class="highlighter-rouge">false</code> to uncheck).</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -520,7 +520,7 @@ Its also possible to check/uncheck the checkbox by use an formatter (return <cod
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">false</code> to disable the the checkboxes/radioboxes.</p>
+    <p>Set <code class="highlighter-rouge">false</code> to disable the checkboxes/radio boxes.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
@@ -564,10 +564,10 @@ Its also possible to check/uncheck the checkbox by use an formatter (return <cod
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to select checkbox or radiobox when clicking rows.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to select the checkbox or radio box when clicking rows.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/click-to-select.html">Click to Select</a></p>
@@ -608,7 +608,7 @@ Its also possible to check/uncheck the checkbox by use an formatter (return <cod
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Format your detail view when <code class="highlighter-rouge">detailView</code> and <code class="highlighter-rouge">detailViewByClick</code> is set to <code class="highlighter-rouge">true</code>. Return a <code class="highlighter-rouge">String</code> and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</p>
+    <p>Format your detail view when <code class="highlighter-rouge">detailView</code> and <code class="highlighter-rouge">detailViewByClick</code> is set to <code class="highlighter-rouge">true</code>. Return a <code class="highlighter-rouge">String</code> and it will be appended into the detail view cell, optionally render the element directly using the third parameter, which is a jQuery element of the target cell.</p>
 
     <p>Fallback is the detail-formatter of the table.</p>
   </li>
@@ -635,7 +635,7 @@ Its also possible to check/uncheck the checkbox by use an formatter (return <cod
     <p>Escapes a string for insertion into HTML, replacing &amp;, &lt;, &gt;, “, `, and ‘ characters.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/escape.html">Column Escape</a></p>
@@ -654,7 +654,7 @@ Its also possible to check/uncheck the checkbox by use an formatter (return <cod
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The cell events listener when you use formatter function, take four parameters:</p>
+    <p>The cell events listener, when you use formatter function, take four parameters:</p>
 
     <ul>
       <li><code class="highlighter-rouge">event</code>: the jQuery event.</li>
@@ -740,9 +740,9 @@ Its also possible to check/uncheck the checkbox by use an formatter (return <cod
       <li><code class="highlighter-rouge">value</code>: If footer data is set, the value of the footer column.</li>
     </ul>
 
-    <p>the function should return a string with the text to show in the footer cell.</p>
+    <p>The function should return a string with the text to show in the footer cell.</p>
 
-    <p>If you fetch data from a server and tries to set the footer value from the server response, please use the <code class="highlighter-rouge">footerField</code> Option.</p>
+    <p>If you fetch data from a server and set the footer value from the server response, please use the <code class="highlighter-rouge">footerField</code> Option.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -839,10 +839,10 @@ Its also possible to check/uncheck the checkbox by use an formatter (return <cod
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show a radio. The radio column has fixed width.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show a radio. The radio column has a fixed width.</p>
 
-    <p>If a value is given the Checkbox is automatically checked.
-Its also possible to check/uncheck the radio by use an formatter (return <code class="highlighter-rouge">true</code> to check, return <code class="highlighter-rouge">false</code> to uncheck).</p>
+    <p>If a value is given, the checkbox is automatically checked.
+Its also possible to check/uncheck the radio by using a formatter (return <code class="highlighter-rouge">true</code> to check, return <code class="highlighter-rouge">false</code> to uncheck).</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -908,7 +908,7 @@ Its also possible to check/uncheck the radio by use an formatter (return <code c
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to search use formatted data.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to search using formatted data.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
@@ -996,7 +996,7 @@ Its also possible to check/uncheck the radio by use an formatter (return <code c
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The custom field sort function that used to do local sorting, take four parameters:</p>
+    <p>The custom field sort function that is used to do local sorting, take four parameters:</p>
 
     <ul>
       <li><code class="highlighter-rouge">fieldA</code>: the first field value.</li>
@@ -1093,7 +1093,7 @@ Its also possible to check/uncheck the radio by use an formatter (return <code c
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The column title tooltip text. This option also support the title HTML attribute.</p>
+    <p>The column title tooltip text. This option also supports the title HTML attribute.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -1159,7 +1159,7 @@ Its also possible to check/uncheck the radio by use an formatter (return <code c
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this <code class="highlighter-rouge">'width'</code> might be ignored (use min/max-width via class or such then). The default used Unit is ‘px’, use <code class="highlighter-rouge">widthUnit</code> to change it!</p>
+    <p>The width of the column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small, this <code class="highlighter-rouge">'width'</code> might be ignored (use min/max-width via class or such then). The default used unit is ‘px’. Use <code class="highlighter-rouge">widthUnit</code> to change it!</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>

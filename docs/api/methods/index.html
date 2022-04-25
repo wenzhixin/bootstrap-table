@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.19.1
+        v1.20.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.19.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.20.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.18.3/" target="_blank">v1.18.3</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
@@ -441,7 +441,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Append the <code class="highlighter-rouge">data</code> to table.</p>
+    <p>Append the <code class="highlighter-rouge">data</code> to the table.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/append.html">Append</a></p>
@@ -457,7 +457,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Check a row, the row <code class="highlighter-rouge">index</code> start with 0.</p>
+    <p>Check a row. The row <code class="highlighter-rouge">index</code> starts with 0.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/check-uncheck.html">Check/Uncheck</a></p>
@@ -489,12 +489,12 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Check a row by array of values, the params contain:</p>
+    <p>Check a row by an array of values, the params contain:</p>
 
     <ul>
       <li><code class="highlighter-rouge">field</code>: name of the field used to find records.</li>
       <li><code class="highlighter-rouge">values</code>: array of values for rows to check.</li>
-      <li><code class="highlighter-rouge">onlyCurrentPage (default false)</code>: If <code class="highlighter-rouge">true</code> only the visible dataset will be checked. If pagination is used the other pages will be ignored.</li>
+      <li><code class="highlighter-rouge">onlyCurrentPage (default false)</code>: If <code class="highlighter-rouge">true</code>, only the visible dataset will be checked. If pagination is used, the other pages will be ignored.</li>
     </ul>
   </li>
   <li>
@@ -543,7 +543,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Collapse the row that has the <code class="highlighter-rouge">index</code> passed by parameter if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
+    <p>Collapse the row with the <code class="highlighter-rouge">index</code> passed by parameter if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/expand-collapse-row.html">Expand/Collapse Row</a></p>
@@ -559,7 +559,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Collapse the row that has the <code class="highlighter-rouge">uniqueId</code> passed by parameter if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
+    <p>Collapse the row with the <code class="highlighter-rouge">uniqueId</code> passed by parameter if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/expand-collapse-row-by-uniqueid.html">Expand/Collapse Row by uniqueId</a></p>
@@ -623,7 +623,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Expand the row that has the <code class="highlighter-rouge">uniqueId</code> passed by parameter if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
+    <p>Expand the row with the <code class="highlighter-rouge">uniqueId</code> passed by parameter if the detail view option is set to <code class="highlighter-rouge">true</code>.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/expand-collapse-row-by-uniqueid.html">Expand/Collapse Row by uniqueId</a></p>
@@ -649,7 +649,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>(Can use only in client-side) Filter data in table.
+    <p>(Can used only in client-side) Filter data in the table.
 There are multiple ways to filter:</p>
     <ul>
       <li>Leave the options blank to use the <code class="highlighter-rouge">and</code> filter.</li>
@@ -696,12 +696,12 @@ There are multiple ways to filter:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Get the loaded data of table at the moment that this method is called</p>
+    <p>Get the loaded data of the table at the moment that this method is called</p>
 
     <ul>
-      <li><code class="highlighter-rouge">useCurrentPage</code>: if set to true the method will return the data only in the current page.</li>
-      <li><code class="highlighter-rouge">includeHiddenRows</code>: if set to true the method will include the hidden rows.</li>
-      <li><code class="highlighter-rouge">unfiltered</code>: if set to true the method will include all data (unfiltered).</li>
+      <li><code class="highlighter-rouge">useCurrentPage</code>: if set to true, the method will return the data only on the current page.</li>
+      <li><code class="highlighter-rouge">includeHiddenRows</code>: if set to true, the method will include the hidden rows.</li>
+      <li><code class="highlighter-rouge">unfiltered</code>: if set to true, the method will include all data (unfiltered).</li>
       <li><code class="highlighter-rouge">formatted</code>: get the formatted value from the defined <a href="https://bootstrap-table.com/docs/api/column-options/#formatter">formatter</a>.</li>
     </ul>
   </li>
@@ -735,7 +735,7 @@ There are multiple ways to filter:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Get all rows hidden and if you pass the <code class="highlighter-rouge">show</code> parameter <code class="highlighter-rouge">true</code> the rows will be shown again, otherwise, the method only will return the rows hidden.</p>
+    <p>Get all rows hidden, and if you pass the <code class="highlighter-rouge">show</code> parameter <code class="highlighter-rouge">true</code>, the rows will be shown again. Otherwise, the method only will return the rows hidden.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-hidden-rows.html">Get Hidden Rows</a></p>
@@ -767,7 +767,7 @@ There are multiple ways to filter:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Get data from table, the row that contains the <code class="highlighter-rouge">id</code> passed by parameter.</p>
+    <p>Get data from the table, the row that contains the <code class="highlighter-rouge">id</code> passed by parameter.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html">Get Row By Unique Id</a></p>
@@ -783,7 +783,7 @@ There are multiple ways to filter:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Get the current scroll position, the unit is <code class="highlighter-rouge">'px'</code>.</p>
+    <p>Get the current scroll position. The unit is <code class="highlighter-rouge">'px'</code>.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-scroll-position.html">Get Scroll Position</a></p>
@@ -799,8 +799,8 @@ There are multiple ways to filter:</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Return selected rows, when no record selected, an empty array will return.
-The selected rows will be unselected while some actions happens e.g. searching or page change, if you want to maintain the selections please use <a href="https://bootstrap-table.com/docs/api/table-options/#maintainmetadata">maintainMetaData</a>.</p>
+    <p>Return selected rows. When no record is selected, an empty array will return.
+The selected rows will be unselected while some actions, e.g., searching or page change. If you want to maintain the selections, please use <a href="https://bootstrap-table.com/docs/api/table-options/#maintainmetadata">maintainMetaData</a>.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-selections.html">Get Selections</a></p>
@@ -849,7 +849,7 @@ The selected rows will be unselected while some actions happens e.g. searching o
     <p><strong>Detail:</strong></p>
 
     <p>Hide the specified <code class="highlighter-rouge">field</code> column.
-The parameter can be a string or a array of fields.</p>
+The parameter can be a string or an array of fields.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-column.html">Show/Hide Column</a></p>
@@ -902,7 +902,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Insert a new row, the params contain following properties:</p>
+    <p>Insert a new row. The params contain the following properties:</p>
 
     <ul>
       <li><code class="highlighter-rouge">index</code>: the row index to insert into.</li>
@@ -923,7 +923,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Load the <code class="highlighter-rouge">data</code> to table, the old rows will be removed.</p>
+    <p>Load the <code class="highlighter-rouge">data</code> to the table. The old rows will be removed.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/load.html">Load</a></p>
@@ -939,7 +939,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Merge some cells to one cell, the params contain following properties:</p>
+    <p>Merge some cells into one cell. The params contain the following properties:</p>
 
     <ul>
       <li><code class="highlighter-rouge">index</code>: the row index.</li>
@@ -962,7 +962,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Go to next page.</p>
+    <p>Go to the next page.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/select-prev-next-page.html">Select/Prev/Next Page</a></p>
@@ -978,7 +978,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Prepend the <code class="highlighter-rouge">data</code> to table.</p>
+    <p>Prepend the <code class="highlighter-rouge">data</code> to the table.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/prepend.html">Prepend</a></p>
@@ -994,7 +994,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Go to previous page.</p>
+    <p>Go to the previous page.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/select-prev-next-page.html">Select/Prev/Next Page</a></p>
@@ -1042,11 +1042,11 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Remove data from table, the params contain two properties:</p>
+    <p>Remove data from the table. The params contain two properties:</p>
 
     <ul>
       <li><code class="highlighter-rouge">field</code>: the field name of remove rows. If <code class="highlighter-rouge">$index</code> is not in your fields, you can use this special field <code class="highlighter-rouge">$index</code> to remove rows by row index.</li>
-      <li><code class="highlighter-rouge">values</code>: the array of values for rows which should be removed. If you use the special field <code class="highlighter-rouge">$index</code>, you can pass an array of indexes.</li>
+      <li><code class="highlighter-rouge">values</code>: the array of values for rows that should be removed. If you use the special field <code class="highlighter-rouge">$index</code>, you can pass an array of indexes.</li>
     </ul>
   </li>
   <li>
@@ -1063,7 +1063,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Remove all data from table.</p>
+    <p>Remove all data from the table.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/remove-all.html">Remove All</a></p>
@@ -1079,7 +1079,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Remove data from table, the row that contains the <code class="highlighter-rouge">id</code> passed by parameter.</p>
+    <p>Remove data from the table, the row that contains the <code class="highlighter-rouge">id</code> passed by parameter.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/remove-by-unique-id.html">Remove By Unique Id</a></p>
@@ -1111,7 +1111,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Reset the Bootstrap Table view, for example reset the table height, the params contain:</p>
+    <p>Reset the Bootstrap Table view. For example, reset the table height, the params contain:</p>
 
     <ul>
       <li><code class="highlighter-rouge">height</code>: the height of the table.</li>
@@ -1159,7 +1159,7 @@ Default: <code class="highlighter-rouge">{unit: 'px', value: 0}</code></li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Go to the a specified <code class="highlighter-rouge">page</code>.</p>
+    <p>Go to the specified <code class="highlighter-rouge">page</code>.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/select-prev-next-page.html">Select/Prev/Next Page</a></p>
@@ -1192,7 +1192,7 @@ Default: <code class="highlighter-rouge">{unit: 'px', value: 0}</code></li>
     <p><strong>Detail:</strong></p>
 
     <p>Show the specified <code class="highlighter-rouge">field</code> column.
-The parameter can be a string or a array of fields.</p>
+The parameter can be a string or an array of fields.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-column.html">Show/Hide Column</a></p>
@@ -1309,7 +1309,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Uncheck a row, the row <code class="highlighter-rouge">index</code> start with 0.</p>
+    <p>Uncheck a row. The row <code class="highlighter-rouge">index</code> starts with 0.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/check-uncheck.html">Check/Uncheck</a></p>
@@ -1341,12 +1341,12 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Uncheck a row by array of values, the params contain:</p>
+    <p>Uncheck a row by an array of values. The params contain:</p>
 
     <ul>
       <li><code class="highlighter-rouge">field</code>: name of the field used to find records.</li>
       <li><code class="highlighter-rouge">values</code>: array of values for rows to uncheck.</li>
-      <li><code class="highlighter-rouge">onlyCurrentPage (default false)</code>: If <code class="highlighter-rouge">true</code> only the visible dataset will be unchecked. If pagination is used the other pages will be ignored.</li>
+      <li><code class="highlighter-rouge">onlyCurrentPage (default false)</code>: If <code class="highlighter-rouge">true</code>, only the visible dataset will be unchecked. If pagination is used, the other pages will be ignored.</li>
     </ul>
   </li>
   <li>
@@ -1363,7 +1363,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Update the specified row(s), each params contain following properties:</p>
+    <p>Update the specified row(s). Each param contains the following properties:</p>
 
     <ul>
       <li><code class="highlighter-rouge">id</code>: a row id where the id should be the <code class="highlighter-rouge">uniqueId</code> field assigned to the table.</li>
@@ -1385,7 +1385,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Update one cell, the params contain following properties:</p>
+    <p>Update one cell. The params contain the following properties:</p>
 
     <ul>
       <li><code class="highlighter-rouge">index</code>: the row index.</li>
@@ -1393,7 +1393,7 @@ The parameter can be a string or a array of fields.</p>
       <li><code class="highlighter-rouge">value</code>: the new field value.</li>
     </ul>
 
-    <p>To disable table re-initialization you can set <code class="highlighter-rouge">{reinit: false}</code>.</p>
+    <p>To disable table re-initialization, you can set <code class="highlighter-rouge">{reinit: false}</code>.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/update-cell.html">Update Cell</a></p>
@@ -1409,12 +1409,12 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Update the specified cell(s), each params contain following properties:</p>
+    <p>Update the specified cell(s). Each param contains the following properties:</p>
 
     <ul>
       <li><code class="highlighter-rouge">id</code>: row id where the id should be the <code class="highlighter-rouge">uniqueId</code> field assigned to the table.</li>
       <li><code class="highlighter-rouge">field</code>: field name of the cell to be updated.</li>
-      <li><code class="highlighter-rouge">value</code>: new value of the cell.</li>
+      <li><code class="highlighter-rouge">value</code>: the new value of the cell.</li>
     </ul>
   </li>
   <li>
@@ -1431,7 +1431,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Update the field title of column, the params contain following properties:</p>
+    <p>Update the field title of the column. The params contain the following properties:</p>
 
     <ul>
       <li><code class="highlighter-rouge">field</code>: the field name.</li>
@@ -1463,7 +1463,7 @@ The parameter can be a string or a array of fields.</p>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Update the specified row(s), each params contain following properties:</p>
+    <p>Update the specified row(s). Each param contains the following properties:</p>
 
     <ul>
       <li><code class="highlighter-rouge">index</code>: the row index to be updated.</li>
