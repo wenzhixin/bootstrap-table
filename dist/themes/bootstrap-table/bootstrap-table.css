@@ -143,6 +143,7 @@
 
 .bootstrap-table .fixed-table-container .table tbody tr .card-view .card-view-value {
   width: 100% !important;
+  text-align: left !important;
 }
 
 .bootstrap-table .fixed-table-container .table .bs-checkbox {
