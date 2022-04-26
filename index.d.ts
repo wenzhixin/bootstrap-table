@@ -1,22 +1,5 @@
 /// <reference types="jquery" />
 
-interface BootstrapTableClasses{
-    buttons: string;
-    buttonsGroup: string;
-    inputGroup: string;
-    buttonsPrefix: string;
-    paginationActive: string;
-    buttonActive: string;
-    dropdownActive: string;
-    pull: string;
-    input: string;
-    dropup: string;
-    buttonsDropdown: string;
-    paginationDropdown: string;
-    inputPrefix: string
-}
-
-// eslint-disable-next-line no-unused-vars
 interface BootstrapTableHtml{
     searchInput: string;
     searchButton: string;
@@ -289,7 +272,7 @@ interface BootstrapTableOptions{
     pagination?: boolean;
     queryParams?: (params: any) => any;
     paginationSuccessivelySize?: number;
-    classes?: BootstrapTableClasses;
+    classes?: string;
     rememberOrder?: boolean;
     paginationPagesBySide?: number;
     trimOnSearch?: boolean;
