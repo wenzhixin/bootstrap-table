@@ -84,6 +84,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
         exportTypes = types.map(t => t.slice(1, -1))
       }
 
+      if (typeof o.exportOptions === 'string') {
+        o.exportOptions = Utils.calculateObjectValue(null, o.exportOptions)
+      }
+
       this.$export = this.$toolbar.find('>.columns div.export')
       if (this.$export.length) {
         this.updateExportButton()
