@@ -13,21 +13,22 @@ interface BootstrapTableHtml{
     toolbarDropdownSeparator: string;
     dropdownCaret: string;
     searchClearButton: string;
-    toolbarDropdownItem: string
+    toolbarDropdownItem: string;
 }
 
 interface BootstrapTableIcons{
-    toggleOff: string;
-    clearSearch: string;
-    detailOpen: string;
-    search: string;
-    fullscreen: string;
-    columns: string;
-    detailClose: string;
-    refresh: string;
-    paginationSwitchDown: string;
-    paginationSwitchUp: string;
-    toggleOn: string
+    toggleOff?: string;
+    clearSearch?: string;
+    detailOpen?: string;
+    search?: string;
+    fullscreen?: string;
+    columns?: string;
+    detailClose?: string;
+    refresh?: string;
+    paginationSwitchDown?: string;
+    paginationSwitchUp?: string;
+    toggleOn?: string;
+    autoRefresh?: string;
 }
 
 interface BootstrapTableEvents{
@@ -59,7 +60,7 @@ interface BootstrapTableEvents{
     'post-header.bs.table': string;
     'toggle.bs.table': string;
     'sort.bs.table': string;
-    'scroll-body.bs.table': string
+    'scroll-body.bs.table': string;
 }
 
 interface BootstrapTableColumn{
@@ -95,7 +96,7 @@ interface BootstrapTableColumn{
     width?: any;
     clickToSelect?: boolean;
     searchHighlightFormatter?: boolean;
-    cardVisible?: boolean
+    cardVisible?: boolean;
 }
 
 interface BootstrapTableLocale{
@@ -122,6 +123,7 @@ interface BootstrapTableLocale{
     formatFullscreen?: () => string;
 
     formatShowingRows?: (pageFrom: number, pageTo: number, totalRows: number, totalNotFiltered: number) => string;
+
     formatSRPaginationPageText?: (page: number) => string;
 
     formatClearSearch?: () => string;
@@ -138,7 +140,7 @@ interface BootstrapTableLocale{
 
     formatToggleOn?: () => string;
 
-    formatRecordsPerPage(pageNumber: number): string
+    formatRecordsPerPage(pageNumber: number): string;
 }
 
 interface BootstrapAjaxParams{
