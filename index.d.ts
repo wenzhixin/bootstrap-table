@@ -1,22 +1,6 @@
 /// <reference types="jquery" />
 
-interface BootstrapTableHtml{
-    searchInput: string;
-    searchButton: string;
-    pagination: string[];
-    pageDropdown: string[];
-    inputGroup: string;
-    toolbarDropdown: string[];
-    icon: string;
-    pageDropdownItem: string;
-    paginationItem: string;
-    toolbarDropdownSeparator: string;
-    dropdownCaret: string;
-    searchClearButton: string;
-    toolbarDropdownItem: string
-}
-
-interface BootstrapTableIcons{
+interface BootstrapTableIcons {
     toggleOff: string;
     clearSearch: string;
     detailOpen: string;
@@ -30,7 +14,7 @@ interface BootstrapTableIcons{
     toggleOn: string
 }
 
-interface BootstrapTableEvents{
+interface BootstrapTableEvents {
     'refresh.bs.table': string;
     'load-error.bs.table': string;
     'click-row.bs.table': string;
@@ -62,7 +46,7 @@ interface BootstrapTableEvents{
     'scroll-body.bs.table': string
 }
 
-interface BootstrapTableColumn{
+export interface BootstrapTableColumn {
     sortName?: any;
     widthUnit?: string;
     sorter?: any;
@@ -98,7 +82,7 @@ interface BootstrapTableColumn{
     cardVisible?: boolean
 }
 
-interface BootstrapTableLocale{
+export interface BootstrapTableLocale {
     formatPaginationSwitchDown?: () => string;
 
     formatColumns?: () => string;
@@ -141,7 +125,7 @@ interface BootstrapTableLocale{
     formatRecordsPerPage(pageNumber: number): string
 }
 
-interface BootstrapAjaxParams{
+export interface BootstrapAjaxParams {
     cache: boolean;
     data: {
         search: string;
@@ -157,7 +141,7 @@ interface BootstrapAjaxParams{
     success: (results: any, textStatus?: string, jqXHR?: JQueryXHR) => any;
 }
 
-interface BootstrapTableOptions{
+export interface BootstrapTableOptions {
     onCheck?: (row: any, $element: JQuery<HTMLElement>) => boolean | undefined;
     loadingFontSize?: string;
     onDblClickCell?: (field: string, value: any, row: any, $element: JQuery<HTMLElement>) => boolean | undefined;
