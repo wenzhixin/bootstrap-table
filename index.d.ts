@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 
-interface BootstrapTableIcons {
+export interface BootstrapTableIcons {
     toggleOff: string;
     clearSearch: string;
     detailOpen: string;
@@ -14,7 +14,7 @@ interface BootstrapTableIcons {
     toggleOn: string
 }
 
-interface BootstrapTableEvents {
+export interface BootstrapTableEvents {
     'refresh.bs.table': string;
     'load-error.bs.table': string;
     'click-row.bs.table': string;
@@ -285,8 +285,10 @@ export interface BootstrapTableOptions {
     pageList?: number[];
 }
 
-interface JQuery{
-    bootstrapTable(options: BootstrapTableOptions): JQuery;
+declare global {
+    interface JQuery {
+        bootstrapTable(options: BootstrapTableOptions): JQuery;
 
-    bootstrapTable(method: string, ...parameters: any[]): JQuery | any;
+        bootstrapTable(method: string, ...parameters: any[]): JQuery | any;
+    }
 }
