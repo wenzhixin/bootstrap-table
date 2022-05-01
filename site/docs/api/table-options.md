@@ -452,11 +452,11 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show a detailed view table.
+  Set `true` to show a detailed view table. You can set the `uniqueId` option to maintain the detail view state when refreshing the table.
 
 - **Default:** `false`
 
-- **Example:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)
+- **Example:** [Detail View UniqueId](https://examples.bootstrap-table.com/#options/detail-view-unique-id.html)
 
 ## detailViewAlign
 
@@ -1802,8 +1802,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate a unique identifier for each row.   
-  The Unique id should always be safe for html e.g. alphanumeric, it should not contain chars which can break html e.g. `"`. 
+  Indicate a unique identifier for each row.
+  The Unique id should always be safe for html e.g. alphanumeric, it should not contain chars which can break html e.g. `"`.
 
 - **Default:** `undefined`
 
