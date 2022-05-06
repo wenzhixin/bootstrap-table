@@ -20,7 +20,7 @@ jobs:
       - name: Build theme with node
         run: |
           cd ${{ github.workspace }}/site/_themes
-          yarn
+          yarn install --frozen-lockfile
           yarn build
           mv dist/js ../assets/js/themes
           cd ../assets/js/themes
