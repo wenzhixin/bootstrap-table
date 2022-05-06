@@ -263,7 +263,7 @@ class BootstrapTable {
       searchables: []
     }
 
-    Utils.updateFieldGroup(this.options.columns)
+    Utils.updateFieldGroup(this.options.columns, this.columns)
 
     this.options.columns.forEach((columns, i) => {
       const html = []
