@@ -1,0 +1,56 @@
+name: Deploy Site
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+          cache-dependency-path: site/_themes/yarn.lock
+
+      - name: Build theme with node
+        run: |
+          cd ${{ github.workspace }}/site/_themes
+          yarn
+          yarn build
+          mv dist/js ../assets/js/themes
+          cd ../assets/js/themes
+          FILE=../../../_includes/themes.html
+          echo "" > $FILE
+          for f in *.js; do
+            echo "<script src=/assets/js/themes/$f></script>" >> $FILE
+          done
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+
+      - name: Build page with Jekyll
+        run: bundle exec jekyll build
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v3
+        with:
+          ref: 'gh-pages'
+          path: './gh-pages'
+
+      - name: Move versions to _gh_pages
+        run: |
+          mv gh-pages/versions _gh_pages
+          rm -rf gh-pages
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: _gh_pages
