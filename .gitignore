@@ -21,8 +21,8 @@ check.js
 # Common IDE files
 nbproject
 .~lock.*
+Gemfile.lock
 package-lock.json
-*.lock
 .buildpath
 .idea
 .project

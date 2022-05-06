@@ -1,0 +1,31 @@
+name: Test
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - uses: actions/checkout@v3
+        with:
+          repository: 'wenzhixin/bootstrap-table-examples'
+          path: './tools/bootstrap-table-examples'
+
+      - name: Lint src and check docs
+        run: |
+          yarn install --frozen-lockfile
+          yarn pre-commit
+
+      - name: Cypress Test
+        run: |
+          mv ./tools/bootstrap-table-examples cypress/html
+          yarn css:build:src
+          yarn test
