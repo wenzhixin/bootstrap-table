@@ -43,6 +43,10 @@ class BootstrapTable {
     const iconsPrefix = Utils.getIconsPrefix($.fn.bootstrapTable.theme)
     const icons = Utils.getIcons(iconsPrefix)
 
+    if (typeof opts.icons === 'string') {
+      opts.icons = Utils.calculateObjectValue(null, opts.icons)
+    }
+
     opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix
     opts.icons = Object.assign(icons, $.fn.bootstrapTable.defaults.icons, opts.icons)
 
@@ -58,10 +62,6 @@ class BootstrapTable {
     this.buttons = Utils.calculateObjectValue(this, opts.buttons, [], {})
     if (typeof this.buttons !== 'object') {
       this.buttons = {}
-    }
-
-    if (typeof opts.icons === 'string') {
-      opts.icons = Utils.calculateObjectValue(null, opts.icons)
     }
   }
 
