@@ -307,6 +307,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
   onMultipleSort (...args) {
     super.onMultipleSort(...args)
 
+    if (!this.options.cookie) {
+      return
+    }
+
     if (this.options.sortPriority === undefined) {
       UtilsCookie.deleteCookie(this, UtilsCookie.cookieIds.sortPriority)
     } else {
