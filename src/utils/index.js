@@ -207,7 +207,7 @@ export default {
     return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   },
 
-  updateFieldGroup (columns) {
+  updateFieldGroup (columns, fieldColumns) {
     const allColumns = [].concat(...columns)
 
     for (const c of columns) {
@@ -224,6 +224,20 @@ export default {
           }
           r.colspan = colspan
           r.visible = colspan > 0
+        }
+      }
+    }
+
+    if (columns.length < 2) {
+      return
+    }
+
+    for (const column of fieldColumns) {
+      const sameColumns = allColumns.filter(col => col.fieldIndex === column.fieldIndex)
+
+      if (sameColumns.length > 1) {
+        for (const c of sameColumns) {
+          c.visible = column.visible
         }
       }
     }
