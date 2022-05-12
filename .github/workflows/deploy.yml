@@ -15,7 +15,6 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-          cache-dependency-path: site/_themes/yarn.lock
 
       - name: Build theme with node
         run: |
