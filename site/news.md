@@ -4,6 +4,22 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.20.1
+
+<span class="post-date">12 May 2022</span>
+
+### Core
+
+- **Update:** Fixed toggle column bug with complex headers.
+- **Update:** Fixed icons option cannot work bug when it's a string.
+- **Update:** Updated TypeScript definitions.
+
+##### Extensions
+
+- **Update(cookie):** Fixed cookie extension error with multiple-sort.
+- **Update(export):** Fixed the `exportOptions` option cannot support the data attribute.
+- **Update(reorder-rows):**  Fixed reorder-rows cannot work because of missing default functions.
+
 ## Bootstrap Table 1.20.0
 
 <span class="post-date">25 Apr 2022</span>
