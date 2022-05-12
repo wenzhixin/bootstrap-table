@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.20.0
+ * version: 1.20.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -43,6 +43,10 @@ class BootstrapTable {
     const iconsPrefix = Utils.getIconsPrefix($.fn.bootstrapTable.theme)
     const icons = Utils.getIcons(iconsPrefix)
 
+    if (typeof opts.icons === 'string') {
+      opts.icons = Utils.calculateObjectValue(null, opts.icons)
+    }
+
     opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix
     opts.icons = Object.assign(icons, $.fn.bootstrapTable.defaults.icons, opts.icons)
 
@@ -58,10 +62,6 @@ class BootstrapTable {
     this.buttons = Utils.calculateObjectValue(this, opts.buttons, [], {})
     if (typeof this.buttons !== 'object') {
       this.buttons = {}
-    }
-
-    if (typeof opts.icons === 'string') {
-      opts.icons = Utils.calculateObjectValue(null, opts.icons)
     }
   }
 
@@ -263,7 +263,7 @@ class BootstrapTable {
       searchables: []
     }
 
-    Utils.updateFieldGroup(this.options.columns)
+    Utils.updateFieldGroup(this.options.columns, this.columns)
 
     this.options.columns.forEach((columns, i) => {
       const html = []
@@ -2408,6 +2408,7 @@ class BootstrapTable {
         this.options.sortName !== undefined ||
         this.enableCustomSort || // Fix #4616: this.enableCustomSort is for extensions
         !Utils.isEmptyObject(this.filterColumns) ||
+        typeof this.options.filterOptions.filterAlgorithm === 'function' ||
         !Utils.isEmptyObject(this.filterColumnsPartial)
       ) && (!params || !params.unfiltered)
     ) {

@@ -48,7 +48,7 @@
   padding: 3px 20px;
   clear: both;
   font-weight: normal;
-  line-height: 1.428571429;
+  line-height: 1.4286;
 }
 
 .bootstrap-table .fixed-table-toolbar .columns-left {
@@ -237,7 +237,7 @@
   content: "";
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
-  animation-name: LOADING;
+  animation-name: loading;
   background: #363636;
   border-radius: 50%;
   display: block;
@@ -309,11 +309,11 @@
 }
 
 .bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.page-intermediate a::before {
-  content: '\2B05';
+  content: "\2B05";
 }
 
 .bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.page-intermediate a::after {
-  content: '\27A1';
+  content: "\27A1";
 }
 
 .bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.disabled a {
@@ -359,7 +359,7 @@ div.fixed-table-scroll-outer {
   overflow: hidden;
 }
 
-@keyframes LOADING {
+@keyframes loading {
   0% {
     opacity: 0;
   }

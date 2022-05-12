@@ -26,6 +26,10 @@ $.extend($.fn.bootstrapTable.defaults, {
   // eslint-disable-next-line no-unused-vars
   onReorderRow (newData) {
     return false
+  },
+  onDragStop () {},
+  onAllowDrop () {
+    return true
   }
 })
 
