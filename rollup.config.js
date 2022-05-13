@@ -1,11 +1,11 @@
 import glob from 'glob'
-import babel from 'rollup-plugin-babel'
-import resolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
+import { babel } from '@rollup/plugin-babel'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
-import inject from 'rollup-plugin-inject'
+import inject from '@rollup/plugin-inject'
 import copy from 'rollup-plugin-copy'
-import multiEntry from 'rollup-plugin-multi-entry'
+import multiEntry from '@rollup/plugin-multi-entry'
 import vue from 'rollup-plugin-vue'
 
 const files = glob.sync('src/**/*.js', {
@@ -27,9 +27,10 @@ const plugins = [
     exclude: 'node_modules/**',
     $: 'jquery'
   }),
-  resolve(),
+  nodeResolve(),
   commonjs(),
   babel({
+    babelHelpers: 'bundled',
     exclude: 'node_modules/**'
   }),
   copy({
