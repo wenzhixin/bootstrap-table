@@ -149,51 +149,51 @@ export interface BootstrapAjaxParams {
 }
 
 export interface BootstrapTableOptions {
-  onCheck?: (row: any, $element: JQuery<HTMLElement>) => boolean | undefined;
+  onCheck?: (row: any, $element: JQuery<HTMLElement>) => boolean | void;
   loadingFontSize?: string;
   onDblClickCell?: (
     field: string,
     value: any,
     row: any,
     $element: JQuery<HTMLElement>
-  ) => boolean | undefined;
+  ) => boolean | void;
   rowStyle?: (row: any, index: number) => {};
   showColumnsToggleAll?: boolean;
   footerStyle?: (column: BootstrapTableColumn) => {};
-  onUncheck?: (row: any, $element: JQuery<HTMLElement>) => boolean | undefined;
+  onUncheck?: (row: any, $element: JQuery<HTMLElement>) => boolean | void;
   pageSize?: number;
   footerField?: string;
   showFullscreen?: boolean;
   sortStable?: boolean;
   searchAlign?: string;
   ajax?: (params: BootstrapAjaxParams) => any;
-  onAll?: (name: string, args: any) => boolean | undefined;
+  onAll?: (name: string, args: any) => boolean | void;
   onClickRow?: (
     row: any,
     $element: JQuery<HTMLElement>,
     field: string
-  ) => boolean | undefined;
+  ) => boolean | void;
   ajaxOptions?: {};
-  onCheckSome?: (rows: any[]) => boolean | undefined;
+  onCheckSome?: (rows: any[]) => boolean | void;
   customSort?: any;
   iconSize?: any;
   onCollapseRow?: (
     index: number,
     row: any,
     detailView: any
-  ) => boolean | undefined;
+  ) => boolean | void;
   searchHighlight?: boolean;
   height?: any;
-  onUncheckSome?: (rows: any[]) => boolean | undefined;
-  onToggle?: (cardView: boolean) => boolean | undefined;
+  onUncheckSome?: (rows: any[]) => boolean | void;
+  onToggle?: (cardView: boolean) => boolean | void;
   ignoreClickToSelectOn?: ({ tagName }?: { tagName: any }) => any;
   cache?: boolean;
   method?: string;
-  onColumnSwitch?: (field: string, checked: boolean) => boolean | undefined;
+  onColumnSwitch?: (field: string, checked: boolean) => boolean | void;
   searchSelector?: boolean;
   strictSearch?: boolean;
   multipleSelectRow?: boolean;
-  onLoadError?: (status: string, jqXHR: JQuery.jqXHR) => boolean | undefined;
+  onLoadError?: (status: string, jqXHR: JQuery.jqXHR) => boolean | void;
   buttonsToolbar?: any;
   paginationVAlign?: string;
   showColumnsSearch?: boolean;
@@ -205,9 +205,9 @@ export interface BootstrapTableOptions {
   showButtonText?: boolean;
   sortName?: any;
   columns?: BootstrapTableColumn[];
-  onScrollBody?: () => boolean | undefined;
+  onScrollBody?: () => boolean | void;
   iconsPrefix?: string;
-  onPostBody?: () => boolean | undefined;
+  onPostBody?: () => boolean | void;
   search?: boolean;
   searchOnEnterKey?: boolean;
   searchText?: string;
@@ -229,7 +229,7 @@ export interface BootstrapTableOptions {
     row: any,
     $element: JQuery<HTMLElement>,
     field: string
-  ) => boolean | undefined;
+  ) => boolean | void;
   paginationNextText?: string;
   buttonsPrefix?: string;
   loadingTemplate?: (loadingMessage: string) => string;
@@ -238,37 +238,37 @@ export interface BootstrapTableOptions {
     data: any,
     status: string,
     jqXHR: JQuery.jqXHR
-  ) => boolean | undefined;
+  ) => boolean | void;
   url?: any;
   toolbar?: any;
-  onPostHeader?: () => boolean | undefined;
+  onPostHeader?: () => boolean | void;
   sidePagination?: string;
   clickToSelect?: boolean;
   virtualScrollItemHeight?: any;
   rowAttributes?: (row: any, index: number) => {};
   dataField?: string;
   idField?: string;
-  onSort?: (name: string, order: number) => boolean | undefined;
+  onSort?: (name: string, order: number) => boolean | void;
   pageNumber?: number;
   data?: any[];
   totalNotFilteredField?: string;
   undefinedText?: string;
-  onSearch?: (text: string) => boolean | undefined;
-  onPageChange?: (number: number, size: number) => boolean | undefined;
+  onSearch?: (text: string) => boolean | void;
+  onPageChange?: (number: number, size: number) => boolean | void;
   paginationUseIntermediate?: boolean;
   searchAccentNeutralise?: boolean;
   singleSelect?: boolean;
   showButtonIcons?: boolean;
   showPaginationSwitch?: boolean;
-  onPreBody?: (data: any) => boolean | undefined;
-  detailFilter?: (index: number, row: any) => boolean | undefined;
+  onPreBody?: (data: any) => boolean | void;
+  detailFilter?: (index: number, row: any) => boolean | void;
   detailViewByClick?: boolean;
   totalField?: string;
   contentType?: string;
   showColumns?: boolean;
   totalNotFiltered?: number;
   checkboxHeader?: boolean;
-  onRefresh?: (params: any[]) => boolean | undefined;
+  onRefresh?: (params: any[]) => boolean | void;
   dataType?: string;
   paginationPreText?: string;
   showToggle?: boolean;
@@ -276,13 +276,13 @@ export interface BootstrapTableOptions {
   serverSort?: boolean;
   totalRows?: number;
   silentSort?: boolean;
-  onPostFooter?: () => boolean | undefined;
+  onPostFooter?: () => boolean | void;
   selectItemName?: string;
   detailViewIcon?: boolean;
   detailViewAlign?: string;
   minimumCountColumns?: number;
   uniqueId?: any;
-  onResetView?: () => boolean | undefined;
+  onResetView?: () => boolean | void;
   paginationHAlign?: string;
   sortClass?: any;
   pagination?: boolean;
@@ -294,18 +294,18 @@ export interface BootstrapTableOptions {
   trimOnSearch?: boolean;
   showRefresh?: boolean;
   locale?: BootstrapTableLocale;
-  onCheckAll?: (rowsAfter: any[], rowsBefore: any[]) => boolean | undefined;
+  onCheckAll?: (rowsAfter: any[], rowsBefore: any[]) => boolean | void;
   showFooter?: boolean;
   headerStyle?: (column: BootstrapTableColumn) => {};
   maintainMetaData?: boolean;
-  onRefreshOptions?: (options: BootstrapTableOptions) => boolean | undefined;
+  onRefreshOptions?: (options: BootstrapTableOptions) => boolean | void;
   showExtendedPagination?: boolean;
   smartDisplay?: boolean;
   paginationLoop?: boolean;
   virtualScroll?: boolean;
   sortReset?: boolean;
   filterOptions?: { filterAlgorithm: string };
-  onUncheckAll?: (rowsAfter: any[], rowsBefore: any[]) => boolean | undefined;
+  onUncheckAll?: (rowsAfter: any[], rowsBefore: any[]) => boolean | void;
   showSearchClearButton?: boolean;
   buttons?: {};
   showHeader?: boolean;
@@ -314,14 +314,14 @@ export interface BootstrapTableOptions {
     value: any,
     row: any,
     $element: JQuery<HTMLElement>
-  ) => boolean | undefined;
+  ) => boolean | void;
   sortable?: boolean;
   icons?: BootstrapTableIcons;
   onExpandRow?: (
     index: number,
     row: any,
     $detail: JQuery<HTMLElement>
-  ) => boolean | undefined;
+  ) => boolean | void;
   buttonsClass?: string;
   pageList?: number[];
 }
