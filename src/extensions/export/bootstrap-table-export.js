@@ -198,7 +198,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         o.exportOptions.ignoreColumn = [detailViewIndex].concat(o.exportOptions.ignoreColumn || [])
       }
 
-      if (o.exportFooter) {
+      if (o.exportFooter && o.height) {
         const $footerRow = this.$tableFooter.find('tr').first()
         const footerData = {}
         const footerHtml = []

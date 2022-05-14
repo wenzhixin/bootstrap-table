@@ -3,13 +3,13 @@ ChangeLog
 
 ### 1.20.1
 
-### Core
+#### Core
 
 - **Update:** Fixed toggle column bug with complex headers.
 - **Update:** Fixed icons option cannot work bug when it's a string.
 - **Update:** Updated TypeScript definitions.
 
-##### Extensions
+#### Extensions
 
 - **Update(cookie):** Fixed cookie extension error with multiple-sort.
 - **Update(export):** Fixed the `exportOptions` option cannot support the data attribute.
@@ -36,7 +36,7 @@ ChangeLog
 - **Update:** Fixed `onVirtualScroll` not define default method.
 - **Update:** Updated cs-CZ, ko-KR, nl-NL, nl-BE, bg-BG, fr-LU locales.
 
-##### Extensions
+#### Extensions
 
 - **New(filter-control):** New version of filter-control with new features.
 - **New(reorder-rows):**: Added `onAllowDrop` and `onDragStop` options.
