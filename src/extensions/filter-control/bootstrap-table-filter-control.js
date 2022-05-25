@@ -291,7 +291,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     } else if (column.filterStartsWithSearch) {
       tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(searchValue) === 0
     } else if (column.filterControl === 'datepicker') {
-      tmpItemIsExpected = new Date(value) === new Date(searchValue)
+      tmpItemIsExpected = new Date(value).getTime() === new Date(searchValue).getTime()
     } else if (this.options.regexSearch) {
       tmpItemIsExpected = Utils.regexCompare(value, searchValue)
     } else {

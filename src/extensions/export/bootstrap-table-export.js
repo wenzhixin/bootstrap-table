@@ -23,15 +23,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   showExport: false,
   exportDataType: 'basic', // basic, all, selected
   exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
-  exportOptions: {
-    onCellHtmlData (cell, rowIndex, colIndex, htmlData) {
-      if (cell.is('th')) {
-        return cell.find('.th-inner').text()
-      }
-
-      return htmlData
-    }
-  },
+  exportOptions: {},
   exportFooter: false
 })
 
@@ -162,13 +154,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     $exportButtons.click(e => {
       e.preventDefault()
 
-      const type = $(e.currentTarget).data('type')
-      const exportOptions = {
-        type,
-        escape: false
-      }
-
-      this.exportTable(exportOptions)
+      this.exportTable({
+        type: $(e.currentTarget).data('type')
+      })
     })
     this.handleToolbar()
   }
@@ -210,7 +198,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         o.exportOptions.ignoreColumn = [detailViewIndex].concat(o.exportOptions.ignoreColumn || [])
       }
 
-      if (o.exportFooter) {
+      if (o.exportFooter && o.height) {
         const $footerRow = this.$tableFooter.find('tr').first()
         const footerData = {}
         const footerHtml = []

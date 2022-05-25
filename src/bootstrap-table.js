@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.20.1
+ * version: 1.20.2
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -1786,6 +1786,11 @@ class BootstrapTable {
     // click to select by column
     this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', e => {
       const $td = $(e.currentTarget)
+
+      if ($td.find('.detail-icon').length) {
+        return
+      }
+
       const $tr = $td.parent()
       const $cardViewArr = $(e.target).parents('.card-views').children()
       const $cardViewTarget = $(e.target).parents('.card-view')
@@ -1796,10 +1801,6 @@ class BootstrapTable {
       const field = fields[index - Utils.getDetailViewIndexOffset(this.options)]
       const column = this.columns[this.fieldsColumnsIndex[field]]
       const value = Utils.getItemField(item, field, this.options.escape, column.escape)
-
-      if ($td.find('.detail-icon').length) {
-        return
-      }
 
       this.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td)
       this.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr, field)
@@ -3010,6 +3011,10 @@ class BootstrapTable {
     this.$el.html(this.$el_.html())
       .css('margin-top', '0')
       .attr('class', this.$el_.attr('class') || '') // reset the class
+
+    const resizeEvent = Utils.getEventName('resize.bootstrap-table', this.$el.attr('id'))
+
+    $(window).off(resizeEvent)
   }
 
   resetView (params) {
