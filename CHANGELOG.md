@@ -1,6 +1,19 @@
 ChangeLog
 ---------
 
+### 1.20.2
+
+#### Core
+
+- **Update:** Fixed small memory leak.
+- **Update:** Fixed the detail view bug with the `td` instead of `icon`.
+
+#### Extensions
+
+- **Update(export):** Fixed XSS vulnerability bug by onCellHtmlData.
+- **Update(export):** Fixed export footer bug without setting height.
+- **Update(filter-control):** Fixed the comparison of dates when using the `datepicker`.
+
 ### 1.20.1
 
 #### Core

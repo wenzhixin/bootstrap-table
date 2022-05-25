@@ -4,6 +4,21 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.20.2
+
+<span class="post-date">25 May 2022</span>
+
+#### Core
+
+- **Update:** Fixed small memory leak.
+- **Update:** Fixed the detail view bug with the `td` instead of `icon`.
+
+#### Extensions
+
+- **Update(export):** Fixed XSS vulnerability bug by onCellHtmlData.
+- **Update(export):** Fixed export footer bug without setting height.
+- **Update(filter-control):** Fixed the comparison of dates when using the `datepicker`.
+
 ## Bootstrap Table 1.20.1
 
 <span class="post-date">12 May 2022</span>
