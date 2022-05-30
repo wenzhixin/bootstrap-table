@@ -1036,7 +1036,7 @@ class BootstrapTable {
                 value = value[props[i]]
               } else {
                 value = null
-                break;
+                break
               }
             }
           } else {
