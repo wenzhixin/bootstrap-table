@@ -2125,10 +2125,10 @@ cssesc@^3.0.0:
   resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
   integrity sha1-N3QZGZA7hoVl4cCep0dEXNGJg+4=
 
-cypress@^9.6.1:
-  version "9.7.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-9.7.0.tgz#bf55b2afd481f7a113ef5604aa8b693564b5e744"
-  integrity sha512-+1EE1nuuuwIt/N1KXRR2iWHU+OiIt7H28jJDyyI4tiUftId/DrXYEwoDa5+kH2pki1zxnA0r6HrUGHV5eLbF5Q==
+cypress@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-10.0.0.tgz#5211052b665af8b2d5323ee2475db088447cd61d"
+  integrity sha512-OdND7TaYZcDD+UYBlL6VCEMZcsclliG9TY/T6zLzeGtwOf5dwi+41nU9XAZzSbByoqturb8HS4G/+XD8PthN5w==
   dependencies:
     "@cypress/request" "^2.88.10"
     "@cypress/xvfb" "^1.2.4"
