@@ -112,7 +112,12 @@ export function fixHeaderCSS ({ $tableHeader }) {
 }
 
 export function getElementClass ($element) {
-  return $element.attr('class').replace('form-control', '').replace('focus-temp', '').replace('search-input', '').trim()
+  return $element.attr('class')
+    .replace('form-control', '')
+    .replace('form-select', '')
+    .replace('focus-temp', '')
+    .replace('search-input', '')
+    .trim()
 }
 
 export function getCursorPosition (el) {
