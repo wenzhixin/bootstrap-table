@@ -1790,7 +1790,10 @@ class BootstrapTable {
     this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', e => {
       const $td = $(e.currentTarget)
 
-      if ($td.find('.detail-icon').length) {
+      if (
+        $td.find('.detail-icon').length ||
+        $td.index() - Utils.getDetailViewIndexOffset(this.options) < 0
+      ) {
         return
       }
 
