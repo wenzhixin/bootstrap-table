@@ -105,6 +105,11 @@
           background-position: right;
           background-repeat: no-repeat;
           padding-right: 30px !important;
+
+          &.sortable-center {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+          }
         }
 
         .both {

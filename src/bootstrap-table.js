@@ -290,7 +290,8 @@ class BootstrapTable {
         const unitWidth = column.widthUnit
         const width = parseFloat(column.width)
 
-        const halign = Utils.sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
+        const columnHalign = column.halign ? column.halign : column.align
+        const halign = Utils.sprintf('text-align: %s; ', columnHalign)
         const align = Utils.sprintf('text-align: %s; ', column.align)
         let style = Utils.sprintf('vertical-align: %s; ', column.valign)
 
@@ -351,8 +352,8 @@ class BootstrapTable {
           j === 0 && i > 0 ? ' data-not-first-th' : '',
           '>')
 
-        html.push(Utils.sprintf('<div class="th-inner %s">', this.options.sortable && column.sortable ?
-          'sortable both' : ''))
+        html.push(Utils.sprintf('<div class="th-inner %s">',
+          this.options.sortable && column.sortable ? `sortable${columnHalign === 'center' ? ' sortable-center' : ''} both` : ''))
 
         let text = this.options.escape ? Utils.escapeHTML(column.title) : column.title
 
