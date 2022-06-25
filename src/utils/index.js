@@ -330,6 +330,7 @@ export default {
     } catch (e) {
       return false
     }
+    return false
   },
 
   escapeHTML (text) {
