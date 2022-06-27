@@ -335,8 +335,8 @@ export function initFilterSelectControls (that) {
       }
 
       if (that.options.sortSelectOptions) {
-        sortSelectControl(selectControl, 'asc');
-      }  
+        sortSelectControl(selectControl, 'asc')
+      }
     }
   })
 }
