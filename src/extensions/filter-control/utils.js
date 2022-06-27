@@ -333,6 +333,10 @@ export function initFilterSelectControls (that) {
       for (const key in uniqueValues) {
         addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
       }
+
+      if (that.options.sortSelectOptions) {
+        sortSelectControl(selectControl, 'asc');
+      }  
     }
   })
 }
