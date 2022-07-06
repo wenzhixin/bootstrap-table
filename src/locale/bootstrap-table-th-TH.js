@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['th-TH'] = $.fn.bootstrapTable.locales['th'] = {
   formatRefresh () {
     return 'รีเฟรส'
   },
-  formatToggle () {
-    return 'สลับมุมมอง'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

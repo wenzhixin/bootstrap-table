@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['da-DK'] = $.fn.bootstrapTable.locales['da'] = {
   formatRefresh () {
     return 'Opdater'
   },
-  formatToggle () {
-    return 'Skift'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

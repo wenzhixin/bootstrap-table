@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['ur-PK'] = $.fn.bootstrapTable.locales['ur'] = {
   formatRefresh () {
     return 'تازہ کریں'
   },
-  formatToggle () {
-    return 'تبدیل کریں'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

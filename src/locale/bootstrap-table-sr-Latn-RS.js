@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['sr-Latn-RS'] = {
   formatRefresh () {
     return 'Osveži'
   },
-  formatToggle () {
-    return 'Promeni prikaz'
-  },
   formatToggleOn () {
     return 'Prikaži kartice'
   },

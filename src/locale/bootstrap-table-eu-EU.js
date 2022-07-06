@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['eu-EU'] = $.fn.bootstrapTable.locales['eu'] = {
   formatRefresh () {
     return 'Eguneratu'
   },
-  formatToggle () {
-    return 'Ezkutatu/Erakutsi'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

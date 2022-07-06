@@ -57,9 +57,6 @@ $.fn.bootstrapTable.locales['es-CL'] = {
   formatRefresh () {
     return 'Refrescar'
   },
-  formatToggle () {
-    return 'Cambiar'
-  },
   formatToggleOn () {
     return 'Mostrar vista de carta'
   },

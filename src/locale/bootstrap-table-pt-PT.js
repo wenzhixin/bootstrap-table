@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
   formatRefresh () {
     return 'Actualizar'
   },
-  formatToggle () {
-    return 'Alternar'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

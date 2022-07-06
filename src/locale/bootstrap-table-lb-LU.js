@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['lb-LU'] = $.fn.bootstrapTable.locales['lb'] = {
   formatRefresh () {
     return 'Nei lueden'
   },
-  formatToggle () {
-    return 'Ëmschalten'
-  },
   formatToggleOn () {
     return 'Kaartenusiicht uweisen'
   },
