@@ -5845,9 +5845,9 @@ vue-runtime-helpers@^1.1.2:
   integrity sha1-RGt7ggiIqwxSZNLDoyRo5y5BAPM=
 
 vue-template-compiler@^2.6.14:
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.7.2.tgz#656c2ccfd53696c52a9740645b7a9fda421d84e6"
-  integrity sha512-3PDLIPankm7b1YZHk6/mTz9kMZaDSd1Vhp1tFPITot5uW9WjnIyv6zRax3+j1kwF0DHmvfIVXMX8G+Rn/BHfaQ==
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.7.3.tgz#3ca434a5898ef4eed6122101066e416dae1aefd8"
+  integrity sha512-QKcV4vj9akZ2zSD1+F7tci3aXpRe5DXU3TZ/ZWJPE9gInXD5UoV+Q2PrCaplj4IGIK8JXRHYaSvOXkOn7tg9Og==
   dependencies:
     de-indent "^1.0.2"
     he "^1.2.0"
