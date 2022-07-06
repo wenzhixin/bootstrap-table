@@ -1219,38 +1219,38 @@
 
 	$__default["default"].fn.bootstrapTable.locales['uk-UA'] = $__default["default"].fn.bootstrapTable.locales['uk'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Скопіювати рядки';
+	    return 'Copy Rows';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Друк';
+	    return 'Print';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return 'Завантаження, будь ласка, зачекайте';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " рядків на сторінку");
+	    return "".concat(pageNumber, " \u0437\u0430\u043F\u0438\u0441\u0456\u0432 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Відображено рядки з ".concat(pageFrom, " по ").concat(pageTo, " з ").concat(totalRows, " загалом (відфільтровано з ").concat(totalNotFiltered, " рядків)");
+	      return "\u041F\u043E\u043A\u0430\u0437\u0430\u043D\u043E \u0437 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, ". \u0412\u0441\u044C\u043E\u0433\u043E: ").concat(totalRows, " (filtered from ").concat(totalNotFiltered, " total rows)");
 	    }
 
-	    return "Відображено рядки з ".concat(pageFrom, " по ").concat(pageTo, "з ").concat(totalRows, " загалом");
+	    return "\u041F\u043E\u043A\u0430\u0437\u0430\u043D\u043E \u0437 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, ". \u0412\u0441\u044C\u043E\u0433\u043E: ").concat(totalRows);
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'попередня сторінка';
+	    return 'previous page';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "на сторінку ".concat(page);
+	    return "to page ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'наступна сторінка';
+	    return 'next page';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Відображено ".concat(totalRows, " записів");
+	    return "Showing ".concat(totalRows, " rows");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Скинути фільтри';
+	    return 'Очистити фільтри';
 	  },
 	  formatSearch: function formatSearch() {
 	    return 'Пошук';
@@ -1259,13 +1259,13 @@
 	    return 'Не знайдено жодного запису';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Сховати/Показати пагінацію';
+	    return 'Hide/Show pagination';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Показати пагінацію';
+	    return 'Show pagination';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Сховати пагінацію';
+	    return 'Hide pagination';
 	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Оновити';
@@ -1274,46 +1274,46 @@
 	    return 'Змінити';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Відобразити у вигляді карток';
+	    return 'Show card view';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Вимкнути відображення у вигляді карток';
+	    return 'Hide card view';
 	  },
 	  formatColumns: function formatColumns() {
 	    return 'Стовпці';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Переключити усі';
+	    return 'Toggle all';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Повноекранний режим';
+	    return 'Fullscreen';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'Усі';
+	    return 'All';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Автооновлення';
+	    return 'Auto Refresh';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Експортувати дані';
+	    return 'Export data';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'Швидкий перехід до';
+	    return 'GO';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Розширений пошук';
+	    return 'Advanced search';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Закрити';
+	    return 'Close';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Сховати/Показати елементи керування';
+	    return 'Hide/Show controls';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Сховати елементи керування';
+	    return 'Hide controls';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Показати елементи керування';
+	    return 'Show controls';
 	  }
 	};
 	$__default["default"].extend($__default["default"].fn.bootstrapTable.defaults, $__default["default"].fn.bootstrapTable.locales['uk-UA']);
