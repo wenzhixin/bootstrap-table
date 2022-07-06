@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['nl-BE'] = {
   formatRefresh () {
     return 'Vernieuwen'
   },
-  formatToggle () {
-    return 'Omschakelen'
-  },
   formatToggleOn () {
     return 'Toon kaartweergave'
   },

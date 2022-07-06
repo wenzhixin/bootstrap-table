@@ -58,9 +58,6 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   formatRefresh () {
     return 'Actualiser'
   },
-  formatToggle () {
-    return 'Basculer'
-  },
   formatToggleOn () {
     return 'Afficher la vue carte'
   },

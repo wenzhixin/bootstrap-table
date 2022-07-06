@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['zh-CN'] = $.fn.bootstrapTable.locales['zh'] = {
   formatRefresh () {
     return '刷新'
   },
-  formatToggle () {
-    return '切换'
-  },
   formatToggleOn () {
     return '显示卡片视图'
   },

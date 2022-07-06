@@ -393,9 +393,6 @@ const EN = {
   formatRefresh () {
     return 'Refresh'
   },
-  formatToggle () {
-    return 'Toggle'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

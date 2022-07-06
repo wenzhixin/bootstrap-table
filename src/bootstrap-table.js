@@ -612,7 +612,7 @@ class BootstrapTable {
         }
       },
       toggle: {
-        text: opts.formatToggle(),
+        text: opts.formatToggleOn(),
         icon: opts.icons.toggleOff,
         render: false,
         event: this.toggleView,
@@ -723,7 +723,7 @@ class BootstrapTable {
         buttonHtml += '>'
 
         if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
-          buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon) } `
+          buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon)} `
         }
 
         if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
@@ -1603,7 +1603,7 @@ class BootstrapTable {
 
       if (column.searchable && this.searchText && this.options.searchHighlight && !(column.checkbox || column.radio)) {
         let defValue = ''
-        const regExp = new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim')
+        const regExp = new RegExp(`(${this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gim')
         const marker = '<mark>$1</mark>'
         const isHTML = value && /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value)
 
@@ -2255,7 +2255,7 @@ class BootstrapTable {
       let colspan = 0
 
       if (this.footerData && this.footerData.length > 0) {
-        colspan = this.footerData[0][`_${ column.field }_colspan`] || 0
+        colspan = this.footerData[0][`_${column.field}_colspan`] || 0
       }
       if (colspan) {
         html.push(` colspan="${colspan}" `)
@@ -3124,7 +3124,7 @@ class BootstrapTable {
     const text = this.options.showButtonText ? this.options.pagination ? this.options.formatPaginationSwitchUp() : this.options.formatPaginationSwitchDown() : ''
 
     this.$toolbar.find('button[name="paginationSwitch"]')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
     this.updatePagination()
     this.trigger('toggle-pagination', this.options.pagination)
   }
@@ -3142,7 +3142,10 @@ class BootstrapTable {
     const text = this.options.showButtonText ? this.options.cardView ? this.options.formatToggleOff() : this.options.formatToggleOn() : ''
 
     this.$toolbar.find('button[name="toggle"]')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
+      .attr('aria-label', text)
+      .attr('title', text)
+
     this.initBody()
     this.trigger('toggle', this.options.cardView)
   }

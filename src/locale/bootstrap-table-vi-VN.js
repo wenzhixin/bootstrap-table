@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['vi-VN'] = $.fn.bootstrapTable.locales['vi'] = {
   formatRefresh () {
     return 'Refresh'
   },
-  formatToggle () {
-    return 'Toggle'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

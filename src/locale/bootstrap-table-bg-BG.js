@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['bg-BG'] = $.fn.bootstrapTable.locales['bg'] = {
   formatRefresh () {
     return 'Обновяване'
   },
-  formatToggle () {
-    return 'Превключване'
-  },
   formatToggleOn () {
     return 'Показване на изглед карта'
   },

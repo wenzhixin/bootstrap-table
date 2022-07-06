@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['fi-FI'] = $.fn.bootstrapTable.locales['fi'] = {
   formatRefresh () {
     return 'Päivitä'
   },
-  formatToggle () {
-    return 'Valitse'
-  },
   formatToggleOn () {
     return 'Show card view'
   },
