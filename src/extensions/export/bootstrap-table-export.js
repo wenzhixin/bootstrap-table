@@ -54,11 +54,15 @@ $.extend($.fn.bootstrapTable.defaults, {
   // eslint-disable-next-line no-unused-vars
   onExportSaved (exportedRows) {
     return false
+  },
+  onExportStarted () {
+    return false
   }
 })
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-  'export-saved.bs.table': 'onExportSaved'
+  'export-saved.bs.table': 'onExportSaved',
+  'export-started.bs.table': 'onExportStarted'
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
@@ -177,6 +181,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const isCardView = o.cardView
 
     const doExport = callback => {
+      this.trigger('export-started')
       if (stateField) {
         this.hideColumn(stateField)
       }
