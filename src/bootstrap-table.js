@@ -1519,7 +1519,7 @@ class BootstrapTable {
     this.header.fields.forEach((field, j) => {
       const column = this.columns[j]
       let text = ''
-      let value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
+      const value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
       let value = ''
       let type = ''
       let cellStyle = {}
@@ -1544,10 +1544,6 @@ class BootstrapTable {
 
       if (this.options.cardView && (!column.cardVisible)) {
         return
-      }
-
-      if (column.escape) {
-        value_ = Utils.escapeHTML(value_)
       }
 
       // Style concat
