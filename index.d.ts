@@ -119,8 +119,6 @@ export interface BootstrapTableLocale {
 
   formatPaginationSwitchUp?: () => string;
 
-  formatToggle?: () => string;
-
   formatToggleOff?: () => string;
 
   formatColumnsToggleAll?: () => string;
