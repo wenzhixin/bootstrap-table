@@ -217,9 +217,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const rawFilterValue = (filterPartial[key] || '')
-          const filterValue = rawFilterValue.toLowerCase()
+          let filterValue = rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
+
+          if (this.options.searchAccentNeutralise) {
+            filterValue = Utils.normalizeAccent(filterValue)
+          }
 
           if (filterValue === '') {
             tmpItemIsExpected = true
