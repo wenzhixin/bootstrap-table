@@ -89,7 +89,7 @@ export function sortSelectControl (selectControl, orderBy) {
   for (let i = 0; i < $selectControl.options.length; i++) {
     tmpAry[i] = new Array()
     tmpAry[i][0] = $selectControl.options[i].text
-    tmpAry[i][1] = $selectControl.options[i].value
+    tmpAry[i][1] = "test"
     tmpAry[i][2] = $selectControl.options[i].selected
   }
 
