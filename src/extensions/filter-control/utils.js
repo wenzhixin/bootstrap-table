@@ -79,6 +79,7 @@ export function addOptionToSelectControl (selectControl, _value, text, selected,
 
 export function sortSelectControl (selectControl, orderBy) {
   const $selectControl = selectControl.get(0)
+console.log("TEST");
 
   if (orderBy === 'server') {
     return
