@@ -584,7 +584,7 @@ BootstrapTable.prototype.initToolbar = function (...args) {
     that.onMultipleSort()
   }
 
-  if (this.options.showMultiSortButton) {
+  if (this.options.showMultiSort && this.options.showMultiSortButton) {
     this.buttons = Object.assign(this.buttons, {
       multipleSort: {
         html: Utils.sprintf(theme.html.multipleSortButton,
