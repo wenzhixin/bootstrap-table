@@ -459,7 +459,7 @@ const METHODS = [
   'insertRow', 'updateRow',
   'getRowByUniqueId', 'updateByUniqueId', 'removeByUniqueId',
   'updateCell', 'updateCellByUniqueId',
-  'showRow', 'hideRow', 'getHiddenRows',
+  'showRow', 'hideRow', 'showRows', 'hideRows', 'toggleRows', 'getHiddenRows',
   'showColumn', 'hideColumn',
   'getVisibleColumns', 'getHiddenColumns',
   'showAllColumns', 'hideAllColumns',

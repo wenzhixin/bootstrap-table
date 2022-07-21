@@ -285,18 +285,18 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Example:** [Show/Hide Loading](https://examples.bootstrap-table.com/#methods/show-hide-loading.html)
 
-## hideRow
+## hideRows
 
 - **Parameter:** `params`
 
 - **Detail:**
 
-  Hide the specified row. The params must contain at least one of the following properties:
+  Hide the specified row(s). The params must contain at least one of the following properties:
 
-  * `index`: the row index.
-  * `uniqueId`: the value of the uniqueId for that row.
+  * `indexes`: the array of row indexes.
+  * `uniqueIds`: the array of uniqueIds for rows.
 
-- **Example:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
+- **Example:** [Show/Hide Rows](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
 
 ## insertRow
 
@@ -496,18 +496,18 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Example:** [Show/Hide Loading](https://examples.bootstrap-table.com/#methods/show-hide-loading.html)
 
-## showRow
+## showRows
 
 - **Parameter:** `params`
 
 - **Detail:**
 
-  Show the specified row. The params must contain at least one of the following properties:
+  Show the specified row(s). The params must contain at least one of the following properties:
 
-  * `index`: the row index.
-  * `uniqueId`: the value of the uniqueId for that row.
+  * `indexes`: the array of row indexes.
+  * `uniqueIds`: the array of uniqueIds for rows.
 
-- **Example:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
+- **Example:** [Show/Hide Rows](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
 
 ## toggleDetailView
 
@@ -538,6 +538,20 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   Toggle the pagination option.
 
 - **Example:** [Toggle Pagination](https://examples.bootstrap-table.com/#methods/toggle-pagination.html)
+
+## toggleRows
+
+- **Parameter:** `params`
+
+- **Detail:**
+
+  Toggle the specified row(s). The params must contain at least one of the following properties:
+
+  * `indexes`: the array of row indexes.
+  * `uniqueIds`: the array of uniqueIds for rows.
+
+- **Example:** [Show/Hide Rows](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
+
 
 ## toggleView
 

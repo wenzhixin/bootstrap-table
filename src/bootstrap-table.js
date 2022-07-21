@@ -2691,36 +2691,58 @@ class BootstrapTable {
   }
 
   showRow (params) {
-    this._toggleRow(params, true)
+    this.toggleRows(params, true)
   }
 
   hideRow (params) {
-    this._toggleRow(params, false)
+    this.toggleRows(params, false)
   }
 
-  _toggleRow (params, visible) {
+  showRows (params) {
+    this.toggleRows(params, true)
+  }
+
+  hideRows (params) {
+    this.toggleRows(params, false)
+  }
+
+  toggleRows (params, visible) {
     let row
 
     if (params.hasOwnProperty('index')) {
       row = this.getData()[params.index]
+      this._toggleRow(row, visible)
     } else if (params.hasOwnProperty('uniqueId')) {
       row = this.getRowByUniqueId(params.uniqueId)
-    }
-
-    if (!row) {
-      return
-    }
-
-    const index = Utils.findIndex(this.hiddenRows, row)
-
-    if (!visible && index === -1) {
-      this.hiddenRows.push(row)
-    } else if (visible && index > -1) {
-      this.hiddenRows.splice(index, 1)
+      this._toggleRow(row, visible)
+    } else if (params.hasOwnProperty('indexes')) {
+      for (const index of params.indexes) {
+        row = this.getData()[index]
+        this._toggleRow(row, visible)
+      }
+    } else if (params.hasOwnProperty('uniqueIds')) {
+      for (const uniqueId of params.uniqueIds) {
+        row = this.getRowByUniqueId(uniqueId)
+        this._toggleRow(row, visible)
+      }
     }
 
     this.initBody(true)
     this.initPagination()
+  }
+
+  _toggleRow (row, visible) {
+    if (!row) {
+      return
+    }
+    const index = Utils.findIndex(this.hiddenRows, row)
+
+    if ((visible === undefined || !visible) && index === -1) {
+      this.hiddenRows.push(row)
+    }
+    else if ((visible === undefined || visible) && index > -1) {
+      this.hiddenRows.splice(index, 1)
+    }
   }
 
   getHiddenRows (show) {
