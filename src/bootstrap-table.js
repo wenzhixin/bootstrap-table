@@ -2493,8 +2493,9 @@ class BootstrapTable {
     for (let i = this.options.data.length - 1; i >= 0; i--) {
 
       const row = this.options.data[i]
+      const value = Utils.getItemField(row, params.field, this.options.escape, row.escape)
 
-      if (!row.hasOwnProperty(params.field) && params.field !== '$index') {
+      if (value === undefined && params.field !== '$index') {
         continue
       }
 
@@ -2502,7 +2503,7 @@ class BootstrapTable {
         !row.hasOwnProperty(params.field) &&
         params.field === '$index' &&
         params.values.includes(i) ||
-        params.values.includes(row[params.field])
+        params.values.includes(value)
       ) {
         removed++
 
@@ -2573,16 +2574,12 @@ class BootstrapTable {
     let dataRow = null
     let i
     let row
-    let rowUniqueId
 
     for (i = len - 1; i >= 0; i--) {
       row = this.options.data[i]
+      const rowUniqueId = Utils.getItemField(row, uniqueId, this.options.escape, row.escape)
 
-      if (row.hasOwnProperty(uniqueId)) { // uniqueId is a column
-        rowUniqueId = row[uniqueId]
-      } else if (row._data && row._data.hasOwnProperty(uniqueId)) { // uniqueId is a row data property
-        rowUniqueId = row._data[uniqueId]
-      } else {
+      if (rowUniqueId === undefined) {
         continue
       }
 
