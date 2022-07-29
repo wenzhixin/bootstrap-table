@@ -133,10 +133,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
     })
   }
 
-    doPrint(data) {
-      var _this2 = this
-      const formatValue = (row, i, column) => {
-      let value_ = Utils.getItemField(row, column.field, _this2.options.escape, column.escape);
+  doPrint (data) {
+    const _this2 = this
+    const formatValue = (row, i, column) => {
+      const value_ = Utils.getItemField(row, column.field, _this2.options.escape, column.escape)
       const value = Utils.calculateObjectValue(column,
         column.printFormatter || column.formatter,
         [value_, row, i], value_)
