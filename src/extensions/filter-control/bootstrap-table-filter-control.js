@@ -290,7 +290,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
   isValueExpected (searchValue, value, column, key) {
     let tmpItemIsExpected = false
 
-    if (column.filterStrictSearch) {
+    if (
+      column.filterStrictSearch ||
+      (column.filterControl === 'select' && column.passed.filterStrictSearch !== false)
+    ) {
       tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
     } else if (column.filterStartsWithSearch) {
       tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(searchValue) === 0
