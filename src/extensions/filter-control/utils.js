@@ -149,11 +149,11 @@ export function cacheValues (that) {
     const fieldClass = getElementClass($field)
 
     if (that.options.height && !that.options.filterControlContainer) {
-      $field = $(`.fixed-table-header .${fieldClass}`)
+      $field = that.$el.find(`.fixed-table-header .${fieldClass}`)
     } else if (that.options.filterControlContainer) {
       $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
     } else {
-      $field = $(`.${fieldClass}`)
+      $field = that.$el.find(`.${fieldClass}`)
     }
 
     that._valuesFilterControl.push({
