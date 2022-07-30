@@ -252,9 +252,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
                     return
                   }
 
-                  if (this.options.searchAccentNeutralise) {
-                    objectValue = Utils.normalizeAccent(objectValue)
-                  }
                   tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
                 })
               } else if (typeof value === 'object' && !Array.isArray(value)) {
@@ -263,15 +260,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
                     return
                   }
 
-                  if (this.options.searchAccentNeutralise) {
-                    objectValue = Utils.normalizeAccent(objectValue)
-                  }
                   tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
                 })
               } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-                if (this.options.searchAccentNeutralise) {
-                  value = Utils.normalizeAccent(value)
-                }
                 tmpItemIsExpected = that.isValueExpected(filterValue, value, thisColumn, key)
               }
             }
