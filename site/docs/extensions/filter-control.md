@@ -80,7 +80,7 @@ toc: true
 
 - **Default:** `undefined`
 
-### filterControlMultipleSearchDelimiter
+### filterControlMultipleSearch
 
 - **Attribute:** `data-filter-control-multiple-search`
 
@@ -88,7 +88,7 @@ toc: true
 
 - **Detail:**
 
-  Set to `true` to allow searching multiple values at one.   
+  Set to `true` to allow searching multiple values at once.   
   The values will be splitted by a delimiter, see option `filterControlMultipleSearchDelimiter`.
 
 - **Default:** `false`
