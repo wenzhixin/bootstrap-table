@@ -210,7 +210,7 @@ class BootstrapTable {
 
     this.options.columns.forEach((columns, i) => {
       columns.forEach((_column, j) => {
-        const column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column)
+        const column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column, { passed: _column })
 
         if (typeof column.fieldIndex !== 'undefined') {
           this.columns[column.fieldIndex] = column
