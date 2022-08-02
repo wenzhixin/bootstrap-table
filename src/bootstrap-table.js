@@ -1606,7 +1606,7 @@ class BootstrapTable {
           const match = indexRegex.exec(Utils.normalizeAccent(value))
 
           if (match) {
-            searchText = value.substring(match.index, match.index + searchText.length);
+            searchText = value.substring(match.index, match.index + searchText.length)
           }
         }
 
