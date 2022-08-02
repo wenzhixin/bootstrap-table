@@ -1599,7 +1599,18 @@ class BootstrapTable {
 
       if (column.searchable && this.searchText && this.options.searchHighlight && !(column.checkbox || column.radio)) {
         let defValue = ''
-        const regExp = new RegExp(`(${this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gim')
+        let searchText = this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+        if (this.options.searchAccentNeutralise) {
+          const indexRegex = new RegExp(`${Utils.normalizeAccent(searchText)}`, 'gmi')
+          const match = indexRegex.exec(Utils.normalizeAccent(value))
+
+          if (match) {
+            searchText = value.substring(match.index, match.index + searchText.length);
+          }
+        }
+
+        const regExp = new RegExp(`(${searchText})`, 'gim')
         const marker = '<mark>$1</mark>'
         const isHTML = value && /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value)
 
