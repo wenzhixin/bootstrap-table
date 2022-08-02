@@ -80,6 +80,31 @@ toc: true
 
 - **Default:** `undefined`
 
+### filterControlMultipleSearch
+
+- **Attribute:** `data-filter-control-multiple-search`
+
+- **type:** `bool`
+
+- **Detail:**
+
+  Set to `true` to allow searching multiple values at once.   
+  The values will be splitted by a delimiter, see option `filterControlMultipleSearchDelimiter`.
+
+- **Default:** `false`
+
+### filterControlMultipleSearchDelimiter
+
+- **Attribute:** `data-filter-control-multiple-search-delimiter`
+
+- **type:** `String`
+
+- **Detail:**
+
+  Defines the delimiter which will be used to split the search values in the option `filterControlMultipleSearchDelimiter`.
+
+- **Default:** `,`
+
 ### searchOnEnterKey
 
 - **Attribute:** `data-search-on-enter-key`
