@@ -7,8 +7,7 @@ const Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {
   customView: false,
-  showCustomView: false,
-  showCustomViewButton: false
+  customViewDefaultView: false
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
@@ -49,13 +48,13 @@ $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
 $.BootstrapTable = class extends $.BootstrapTable {
 
   init () {
-    this.showCustomView = this.options.showCustomView
+    this.customViewDefaultView = this.options.customViewDefaultView
 
     super.init()
   }
 
   initToolbar (...args) {
-    if (this.options.customView && this.options.showCustomViewButton) {
+    if (this.options.customView) {
       this.buttons = Object.assign(this.buttons, {
         customView: {
           text: this.options.formatToggleCustomView(),
@@ -84,7 +83,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     $table.hide()
     $customViewContainer.hide()
-    if (!this.options.customView || !this.showCustomView) {
+    if (!this.options.customView || !this.customViewDefaultView) {
       $table.show()
       return
     }
@@ -103,7 +102,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   toggleCustomView () {
-    this.showCustomView = !this.showCustomView
+    this.customViewDefaultView = !this.customViewDefaultView
     this.initBody()
   }
 }

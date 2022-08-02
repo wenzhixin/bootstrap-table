@@ -34,9 +34,9 @@ This extension adds the ability to create a custom view to display the data.
 
 - **Default:** `false`
 
-### showCustomView
+### customViewDefaultView
 
-- **Attribute:** `data-show-custom-view`
+- **Attribute:** `data-custom-view-default-view`
 
 - **Type:** `Boolean`
 
@@ -46,9 +46,9 @@ This extension adds the ability to create a custom view to display the data.
 
 - **Default:** `false`
 
-### showCustomViewButton
+### showCustomView
 
-- **Attribute:** `data-show-custom-view-button`
+- **Attribute:** `data-show-custom-view`
 
 - **Type:** `Boolean`
 
