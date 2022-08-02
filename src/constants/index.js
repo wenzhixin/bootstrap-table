@@ -129,6 +129,7 @@ const DEFAULTS = {
   sortable: true,
   sortClass: undefined,
   silentSort: true,
+  sortEmptyLast: false,
   sortName: undefined,
   sortOrder: undefined,
   sortReset: false,

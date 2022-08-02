@@ -1601,6 +1601,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Sort Class](https://examples.bootstrap-table.com/#options/sort-class.html)
 
+## sortEmptyLast
+
+- **Attribute:** `data-sort-empty-last`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to sort `<empty string>`, `undefined` and `null` as last value.
+
+- **Default:** `false`
+
+- **Example:** [Sort Empty Last](https://examples.bootstrap-table.com/#options/sort-empty-last.html)
+
 ## sortName
 
 - **Attribute:** `data-sort-name`

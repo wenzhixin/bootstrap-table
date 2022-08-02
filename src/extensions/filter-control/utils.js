@@ -77,7 +77,7 @@ export function addOptionToSelectControl (selectControl, _value, text, selected,
   selectControl.get(0).add(option)
 }
 
-export function sortSelectControl (selectControl, orderBy) {
+export function sortSelectControl (selectControl, orderBy, options) {
   const $selectControl = selectControl.get(0)
 
   if (orderBy === 'server') {
@@ -94,7 +94,7 @@ export function sortSelectControl (selectControl, orderBy) {
   }
 
   tmpAry.sort((a, b) => {
-    return Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1)
+    return Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1, options)
   })
   while ($selectControl.options.length > 0) {
     $selectControl.options[0] = null
@@ -335,7 +335,7 @@ export function initFilterSelectControls (that) {
       }
 
       if (that.options.sortSelectOptions) {
-        sortSelectControl(selectControl, 'asc')
+        sortSelectControl(selectControl, 'asc', that.options)
       }
     }
   })
@@ -619,7 +619,7 @@ const filterDataMethods = {
     }
 
     if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, filterOrderBy)
+      sortSelectControl(selectControl, filterOrderBy, that.options)
     }
 
     setValues(that)
@@ -641,7 +641,7 @@ const filterDataMethods = {
     }
 
     if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, filterOrderBy)
+      sortSelectControl(selectControl, filterOrderBy, that.options)
     }
 
     setValues(that)
@@ -659,7 +659,7 @@ const filterDataMethods = {
     }
 
     if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, filterOrderBy)
+      sortSelectControl(selectControl, filterOrderBy, that.options)
     }
 
     setValues(that)
@@ -675,7 +675,7 @@ const filterDataMethods = {
         }
 
         if (that.options.sortSelectOptions) {
-          sortSelectControl(selectControl, filterOrderBy)
+          sortSelectControl(selectControl, filterOrderBy, that.options)
         }
 
         setValues(that)
@@ -691,7 +691,7 @@ const filterDataMethods = {
     }
 
     if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, filterOrderBy)
+      sortSelectControl(selectControl, filterOrderBy, that.options)
     }
 
     setValues(that)
