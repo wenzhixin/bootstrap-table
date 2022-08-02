@@ -240,6 +240,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
               return
             }
 
+            filterValue = filterValue.trim()
+
             if (filterValue === '') {
               tmpItemIsExpected = true
             } else {
