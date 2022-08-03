@@ -114,9 +114,18 @@ And then open: http://localhost:8081/bootstrap-table-examples
 
 ## Local build
 
+Be sure to use a current version of yarn/npm.
 To build bootstrap-table locally please run:
 
+### Yarn
 ```
+yarn install
+yarn build
+```
+
+### Npm
+```
+npm install
 npm run build
 ```
 
