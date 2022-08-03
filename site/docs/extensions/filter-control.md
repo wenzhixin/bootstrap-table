@@ -273,13 +273,37 @@ toc: true
 
 ## Events
 
-### onColumnSearch(column-search.bs.table)
+### onColumnSearch
 
-* Fired when we are searching into the column data
+- **jQuery Event:** `column-search.bs.table`
 
-### onCreatedControls(created-controls.bs.table)
+- **Parameter:** ``
 
-* Fired when we are searching into the column data
+- **Detail:**
+
+  Fired when we are searching into the column data.
+
+### onCreatedControls
+
+- **jQuery Event:** `created-controls.bs.table`
+
+- **Parameter:** ``
+
+- **Detail:**
+
+  Fired when we are searching into the column data.
+
+### onOptionsAdded
+
+- **jQuery Event:** `options-added.bs.table`
+
+- **Parameter:** `selectControl`
+
+- **Detail:**
+
+  Fired when the options are added to a select control. The parameters contain:
+
+    * `selectControl`: the select control where the options were added.
 
 ## Methods
 

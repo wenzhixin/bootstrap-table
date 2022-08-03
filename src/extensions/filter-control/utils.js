@@ -338,6 +338,8 @@ export function initFilterSelectControls (that) {
       addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
     }
 
+    that.trigger('options-added', selectControl)
+
     if (that.options.sortSelectOptions) {
       sortSelectControl(selectControl, 'asc', that.options)
     }

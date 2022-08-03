@@ -80,7 +80,8 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'column-search.bs.table': 'onColumnSearch',
-  'created-controls.bs.table': 'onCreatedControls'
+  'created-controls.bs.table': 'onCreatedControls',
+  'options-added.bs.table': 'onOptionsAdded'
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
