@@ -359,7 +359,10 @@ export function createControls (that, header) {
   $.each(that.columns, (_, column) => {
     html = []
 
-    if (!column.visible) {
+    if (
+      !column.visible &&
+      !(that.options.filterControlContainer && $(`.bootstrap-table-filter-control-${column.field}`).length >= 1)
+    ) {
       return
     }
 
