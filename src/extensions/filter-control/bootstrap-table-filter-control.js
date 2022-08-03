@@ -171,10 +171,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (!this.options.filterControl) {
       return
     }
-    setTimeout(() => {
+    Utils.debounce(() => {
       UtilsFilterControl.initFilterSelectControls(this)
       UtilsFilterControl.setValues(this)
-    }, 3)
+    }, 3)()
   }
 
   load (data) {
@@ -412,7 +412,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const controls = UtilsFilterControl.getSearchControls(that)
     // const search = Utils.getSearchInput(this)
     let hasValues = false
-    let timeoutId = 0
 
     // Clear cache values
     $.each(that._valuesFilterControl, (i, item) => {
@@ -429,8 +428,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsFilterControl.setValues(that)
 
     // clear cookies once the filters are clean
-    clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => {
+    Utils.debounce(() => {
       if (cookies && cookies.length > 0) {
         $.each(cookies, (i, item) => {
           if (that.deleteCookie !== undefined) {
@@ -438,7 +436,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
         })
       }
-    }, that.options.searchTimeOut)
+    }, that.options.searchTimeOut)()
 
     // If there is not any value in the controls exit this method
     if (!hasValues) {

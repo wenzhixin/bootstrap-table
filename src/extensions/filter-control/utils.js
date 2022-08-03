@@ -48,12 +48,16 @@ export function hideUnusedSelectOptions (selectControl, uniqueValues) {
 
 export function existOptionInSelectControl (selectControl, value) {
   const options = getOptionsFromSelectControl(selectControl)
+  const _value = Utils.unescapeHTML(value)
+  const len = options.length
+  let i = 0
 
-  for (let i = 0; i < options.length; i++) {
-    if (options[i].value === Utils.unescapeHTML(value)) {
+  while (i < len) {
+    if (options[i].value === _value) {
       // The value is not valid to add
       return true
     }
+    i++
   }
 
   // If we get here, the value is valid to add
@@ -61,9 +65,8 @@ export function existOptionInSelectControl (selectControl, value) {
 }
 
 export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
-  let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
+  const value = (_value === undefined || _value === null) ? '' : Utils.removeHTML(_value.toString().trim())
 
-  value = Utils.removeHTML(value)
   text = Utils.removeHTML(text)
 
   if (existOptionInSelectControl(selectControl, value)) {
@@ -293,50 +296,50 @@ export function initFilterSelectControls (that) {
     const column = that.columns[that.fieldsColumnsIndex[field]]
     const selectControl = getControlContainer(that).find(`select.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
-    if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
-      if (!selectControl[0].multiple && selectControl.get(selectControl.length - 1).options.length === 0) {
-        // Added the default option, must use a non-breaking space(&nbsp;) to pass the W3C validator
-        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || ' ', column.filterDefault)
+    if (!isColumnSearchableViaSelect(column) || !isFilterDataNotGiven(column) || !hasSelectControlElement(selectControl)) {
+      return
+    }
+
+    if (!selectControl[0].multiple && selectControl[0].options.length === 0) {
+      // Added the default option, must use a non-breaking space(&nbsp;) to pass the W3C validator
+      addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || ' ', column.filterDefault)
+    }
+
+    const uniqueValues = {}
+
+    for (let i = 0; i < data.length; i++) {
+      // Added a new value
+      let fieldValue = Utils.getItemField(data[i], field, false)
+      const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
+      let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
+
+      if (!fieldValue) {
+        fieldValue = formattedValue
+        column._forceFormatter = true
       }
 
-      const uniqueValues = {}
-
-      for (let i = 0; i < data.length; i++) {
-        // Added a new value
-        let fieldValue = Utils.getItemField(data[i], field, false)
-        const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
-        let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
-
-        if (!fieldValue) {
-          fieldValue = formattedValue
-          column._forceFormatter = true
-        }
-
-        if (column.filterDataCollector) {
-          formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
-        }
-
-        if (column.searchFormatter) {
-          fieldValue = formattedValue
-        }
-        uniqueValues[formattedValue] = fieldValue
-
-        if (typeof formattedValue === 'object' && formattedValue !== null) {
-          formattedValue.forEach(value => {
-            addOptionToSelectControl(selectControl, value, value, column.filterDefault)
-          })
-          continue
-        }
+      if (column.filterDataCollector) {
+        formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
       }
 
-      // eslint-disable-next-line guard-for-in
-      for (const key in uniqueValues) {
-        addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
+      if (column.searchFormatter) {
+        fieldValue = formattedValue
       }
+      uniqueValues[formattedValue] = fieldValue
 
-      if (that.options.sortSelectOptions) {
-        sortSelectControl(selectControl, 'asc', that.options)
+      if (typeof formattedValue === 'object' && formattedValue !== null) {
+        formattedValue.forEach(value => {
+          addOptionToSelectControl(selectControl, value, value, column.filterDefault)
+        })
       }
+    }
+
+    for (const key of Object.keys(uniqueValues)) {
+      addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
+    }
+
+    if (that.options.sortSelectOptions) {
+      sortSelectControl(selectControl, 'asc', that.options)
     }
   })
 }
@@ -459,10 +462,9 @@ export function createControls (that, header) {
         return
       }
 
-      clearTimeout(currentTarget.timeoutId || 0)
-      currentTarget.timeoutId = setTimeout(() => {
+      Utils.debounce(() => {
         that.onColumnSearch({ currentTarget, keyCode })
-      }, that.options.searchTimeOut)
+      }, that.options.searchTimeOut)()
     })
 
     header.off('change', 'select', '.fc-multipleselect').on('change', 'select', '.fc-multipleselect', ({ currentTarget, keyCode }) => {
@@ -483,10 +485,9 @@ export function createControls (that, header) {
         $selectControl.find('option[selected]').removeAttr('selected')
       }
 
-      clearTimeout(currentTarget.timeoutId || 0)
-      currentTarget.timeoutId = setTimeout(() => {
+      Utils.debounce(() => {
         that.onColumnSearch({ currentTarget, keyCode })
-      }, that.options.searchTimeOut)
+      }, that.options.searchTimeOut)()
     })
 
     header.off('mouseup', 'input:not([type=radio])').on('mouseup', 'input:not([type=radio])', ({ currentTarget, keyCode }) => {
@@ -497,23 +498,21 @@ export function createControls (that, header) {
         return
       }
 
-      setTimeout(() => {
+      Utils.debounce(() => {
         const newValue = $input.val()
 
         if (newValue === '') {
-          clearTimeout(currentTarget.timeoutId || 0)
-          currentTarget.timeoutId = setTimeout(() => {
+          Utils.debounce(() => {
             that.onColumnSearch({ currentTarget, keyCode })
           }, that.options.searchTimeOut)
         }
-      }, 1)
+      }, 1)()
     })
 
     header.off('change', 'input[type=radio]').on('change', 'input[type=radio]', ({ currentTarget, keyCode }) => {
-      clearTimeout(currentTarget.timeoutId || 0)
-      currentTarget.timeoutId = setTimeout(() => {
+      Utils.debounce(() => {
         that.onColumnSearch({ currentTarget, keyCode })
-      }, that.options.searchTimeOut)
+      }, that.options.searchTimeOut)()
     })
 
     // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
@@ -543,10 +542,9 @@ export function createControls (that, header) {
           }
 
           $datepicker.on('change', ({ currentTarget }) => {
-            clearTimeout(currentTarget.timeoutId || 0)
-            currentTarget.timeoutId = setTimeout(() => {
+            Utils.debounce(() => {
               that.onColumnSearch({ currentTarget })
-            }, that.options.searchTimeOut)
+            }, that.options.searchTimeOut)()
           })
         }
       })
