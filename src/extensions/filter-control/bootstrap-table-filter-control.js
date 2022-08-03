@@ -1,6 +1,5 @@
 /**
  * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
  * @version: v3.0.0
  */
 
