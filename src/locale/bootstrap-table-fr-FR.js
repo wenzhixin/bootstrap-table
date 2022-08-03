@@ -1,6 +1,6 @@
 /**
  * Bootstrap Table French (France) translation
- * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
+ * Author: Dennis Hernández
  *         Tidalf (https://github.com/TidalfFR)
  *         Nevets82 <Nevets82@gmail.com>
  */

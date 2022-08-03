@@ -1,6 +1,5 @@
 /**
  * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
  * @update: https://github.com/wenzhixin
  * @version: v1.2.0
  */

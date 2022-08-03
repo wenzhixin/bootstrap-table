@@ -2,7 +2,7 @@
  * @author: aperez <aperez@datadec.es>
  * @version: v2.0.0
  *
- * @update Dennis Hernández <http://djhvscf.github.io/Blog>
+ * @update Dennis Hernández
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
