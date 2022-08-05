@@ -965,6 +965,8 @@ class BootstrapTable {
         if (this.options.sortReset) {
           this.unsortedData = [...this.data]
         }
+
+        this.initSort()
         return
       }
 
