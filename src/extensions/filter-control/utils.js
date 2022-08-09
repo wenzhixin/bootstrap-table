@@ -411,7 +411,9 @@ export function createControls (that, header) {
         that.filterColumnsPartial = {}
       }
 
-      that.filterColumnsPartial[column.field] = column.filterDefault
+      if (!(column.field in that.filterColumnsPartial)) {
+        that.filterColumnsPartial[column.field] = column.filterDefault
+      }
     }
 
     $.each(header.find('th'), (_, th) => {
