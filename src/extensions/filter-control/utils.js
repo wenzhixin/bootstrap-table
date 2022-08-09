@@ -63,8 +63,8 @@ export function existOptionInSelectControl (selectControl, value) {
 export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
   let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
 
-  value = Utils.removeHTML(value)
-  text = Utils.removeHTML(text)
+  value = Utils.removeHTML(Utils.unescapeHTML(value))
+  text = Utils.removeHTML(Utils.unescapeHTML(text))
 
   if (existOptionInSelectControl(selectControl, value)) {
     return
@@ -79,7 +79,6 @@ export function addOptionToSelectControl (selectControl, _value, text, selected,
 
 export function sortSelectControl (selectControl, orderBy) {
   const $selectControl = selectControl.get(0)
-console.log("TEST");
 
   if (orderBy === 'server') {
     return
@@ -90,7 +89,7 @@ console.log("TEST");
   for (let i = 0; i < $selectControl.options.length; i++) {
     tmpAry[i] = new Array()
     tmpAry[i][0] = $selectControl.options[i].text
-    tmpAry[i][1] = "test"
+    tmpAry[i][1] = $selectControl.options[i].value;
     tmpAry[i][2] = $selectControl.options[i].selected
   }
 
