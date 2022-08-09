@@ -63,8 +63,8 @@ export function existOptionInSelectControl (selectControl, value) {
 export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
   let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
 
-  value = Utils.removeHTML(value)
-  text = Utils.removeHTML(text)
+  value = Utils.removeHTML(Utils.unescapeHTML(value))
+  text = Utils.removeHTML(Utils.unescapeHTML(text))
 
   if (existOptionInSelectControl(selectControl, value)) {
     return
