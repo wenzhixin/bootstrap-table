@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.20.2
+        v1.21.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.20.2)</a>
+        <a class="dropdown-item active" href="/">Latest (1.21.0)</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.19.1/" target="_blank">v1.19.1</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.18.3/" target="_blank">v1.18.3</a>
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
@@ -363,6 +363,8 @@
 <li class="toc-entry toc-h3"><a href="#alignmentselectcontroloptions">alignmentSelectControlOptions</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercontrolcontainer">filterControlContainer</a></li>
 <li class="toc-entry toc-h3"><a href="#filterdatacollector">filterDataCollector</a></li>
+<li class="toc-entry toc-h3"><a href="#filtercontrolmultiplesearch">filterControlMultipleSearch</a></li>
+<li class="toc-entry toc-h3"><a href="#filtercontrolmultiplesearchdelimiter">filterControlMultipleSearchDelimiter</a></li>
 <li class="toc-entry toc-h3"><a href="#searchonenterkey">searchOnEnterKey</a></li>
 <li class="toc-entry toc-h3"><a href="#showfiltercontrolswitch">showFilterControlSwitch</a></li>
 <li class="toc-entry toc-h3"><a href="#sortselectoptions">sortSelectOptions</a></li>
@@ -527,6 +529,45 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+</ul>
+
+<h3 id="filtercontrolmultiplesearch">filterControlMultipleSearch</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-control-multiple-search</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">bool</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">true</code> to allow searching multiple values at once. <br />
+The values will be splitted by a delimiter, see option <code class="highlighter-rouge">filterControlMultipleSearchDelimiter</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="filtercontrolmultiplesearchdelimiter">filterControlMultipleSearchDelimiter</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-control-multiple-search-delimiter</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Defines the delimiter which will be used to split the search values in the option <code class="highlighter-rouge">filterControlMultipleSearchDelimiter</code>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">,</code></p>
   </li>
 </ul>
 
