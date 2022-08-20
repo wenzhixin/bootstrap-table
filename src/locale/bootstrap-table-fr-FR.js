@@ -16,26 +16,26 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
     return 'Chargement en cours'
   },
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} lignes par page`
+    return '${pageNumber} lignes par page'
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrés à partir de ${totalNotFiltered} lignes)`
+      return 'Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrées à partir de ${totalNotFiltered} lignes)'
     }
 
-    return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
+    return 'Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes'
   },
   formatSRPaginationPreText () {
     return 'page précédente'
   },
   formatSRPaginationPageText (page) {
-    return `vers la page ${page}`
+    return 'vers la page ${page}'
   },
   formatSRPaginationNextText () {
     return 'page suivante'
   },
   formatDetailPagination (totalRows) {
-    return `Affiche ${totalRows} lignes`
+    return 'Affichage de ${totalRows} lignes'
   },
   formatClearSearch () {
     return 'Effacer la recherche'
