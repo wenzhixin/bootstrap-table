@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.20.2
+ * version: 1.21.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -210,7 +210,7 @@ class BootstrapTable {
 
     this.options.columns.forEach((columns, i) => {
       columns.forEach((_column, j) => {
-        const column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column)
+        const column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column, { passed: _column })
 
         if (typeof column.fieldIndex !== 'undefined') {
           this.columns[column.fieldIndex] = column
@@ -290,7 +290,8 @@ class BootstrapTable {
         const unitWidth = column.widthUnit
         const width = parseFloat(column.width)
 
-        const halign = Utils.sprintf('text-align: %s; ', column.halign ? column.halign : column.align)
+        const columnHalign = column.halign ? column.halign : column.align
+        const halign = Utils.sprintf('text-align: %s; ', columnHalign)
         const align = Utils.sprintf('text-align: %s; ', column.align)
         let style = Utils.sprintf('vertical-align: %s; ', column.valign)
 
@@ -351,8 +352,8 @@ class BootstrapTable {
           j === 0 && i > 0 ? ' data-not-first-th' : '',
           '>')
 
-        html.push(Utils.sprintf('<div class="th-inner %s">', this.options.sortable && column.sortable ?
-          'sortable both' : ''))
+        html.push(Utils.sprintf('<div class="th-inner %s">',
+          this.options.sortable && column.sortable ? `sortable${columnHalign === 'center' ? ' sortable-center' : ''} both` : ''))
 
         let text = this.options.escape ? Utils.escapeHTML(column.title) : column.title
 
@@ -494,8 +495,7 @@ class BootstrapTable {
             return order * value
           }
 
-          return Utils.sort(aa, bb, order, this.options.sortStable,
-            a._position, b._position)
+          return Utils.sort(aa, bb, order, this.options, a._position, b._position)
         })
       }
 
@@ -611,7 +611,7 @@ class BootstrapTable {
         }
       },
       toggle: {
-        text: opts.formatToggle(),
+        text: opts.formatToggleOn(),
         icon: opts.icons.toggleOff,
         render: false,
         event: this.toggleView,
@@ -722,7 +722,7 @@ class BootstrapTable {
         buttonHtml += '>'
 
         if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
-          buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon) } `
+          buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon)} `
         }
 
         if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
@@ -965,6 +965,8 @@ class BootstrapTable {
         if (this.options.sortReset) {
           this.unsortedData = [...this.data]
         }
+
+        this.initSort()
         return
       }
 
@@ -1034,6 +1036,9 @@ class BootstrapTable {
             for (let i = 0; i < props.length; i++) {
               if (value[props[i]] !== null) {
                 value = value[props[i]]
+              } else {
+                value = null
+                break
               }
             }
           } else {
@@ -1515,7 +1520,7 @@ class BootstrapTable {
     this.header.fields.forEach((field, j) => {
       const column = this.columns[j]
       let text = ''
-      let value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
+      const value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
       let value = ''
       let type = ''
       let cellStyle = {}
@@ -1540,10 +1545,6 @@ class BootstrapTable {
 
       if (this.options.cardView && (!column.cardVisible)) {
         return
-      }
-
-      if (column.escape) {
-        value_ = Utils.escapeHTML(value_)
       }
 
       // Style concat
@@ -1599,7 +1600,18 @@ class BootstrapTable {
 
       if (column.searchable && this.searchText && this.options.searchHighlight && !(column.checkbox || column.radio)) {
         let defValue = ''
-        const regExp = new RegExp(`(${ this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') })`, 'gim')
+        let searchText = this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+        if (this.options.searchAccentNeutralise) {
+          const indexRegex = new RegExp(`${Utils.normalizeAccent(searchText)}`, 'gmi')
+          const match = indexRegex.exec(Utils.normalizeAccent(value))
+
+          if (match) {
+            searchText = value.substring(match.index, match.index + searchText.length)
+          }
+        }
+
+        const regExp = new RegExp(`(${searchText})`, 'gim')
         const marker = '<mark>$1</mark>'
         const isHTML = value && /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value)
 
@@ -1787,7 +1799,10 @@ class BootstrapTable {
     this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', e => {
       const $td = $(e.currentTarget)
 
-      if ($td.find('.detail-icon').length) {
+      if (
+        $td.find('.detail-icon').length ||
+        $td.index() - Utils.getDetailViewIndexOffset(this.options) < 0
+      ) {
         return
       }
 
@@ -2248,7 +2263,7 @@ class BootstrapTable {
       let colspan = 0
 
       if (this.footerData && this.footerData.length > 0) {
-        colspan = this.footerData[0][`_${ column.field }_colspan`] || 0
+        colspan = this.footerData[0][`_${column.field}_colspan`] || 0
       }
       if (colspan) {
         html.push(` colspan="${colspan}" `)
@@ -2490,8 +2505,9 @@ class BootstrapTable {
     for (let i = this.options.data.length - 1; i >= 0; i--) {
 
       const row = this.options.data[i]
+      const value = Utils.getItemField(row, params.field, this.options.escape, row.escape)
 
-      if (!row.hasOwnProperty(params.field) && params.field !== '$index') {
+      if (value === undefined && params.field !== '$index') {
         continue
       }
 
@@ -2499,7 +2515,7 @@ class BootstrapTable {
         !row.hasOwnProperty(params.field) &&
         params.field === '$index' &&
         params.values.includes(i) ||
-        params.values.includes(row[params.field])
+        params.values.includes(value)
       ) {
         removed++
 
@@ -2570,16 +2586,12 @@ class BootstrapTable {
     let dataRow = null
     let i
     let row
-    let rowUniqueId
 
     for (i = len - 1; i >= 0; i--) {
       row = this.options.data[i]
+      const rowUniqueId = Utils.getItemField(row, uniqueId, this.options.escape, row.escape)
 
-      if (row.hasOwnProperty(uniqueId)) { // uniqueId is a column
-        rowUniqueId = row[uniqueId]
-      } else if (row._data && row._data.hasOwnProperty(uniqueId)) { // uniqueId is a row data property
-        rowUniqueId = row._data[uniqueId]
-      } else {
+      if (rowUniqueId === undefined) {
         continue
       }
 
@@ -3117,7 +3129,7 @@ class BootstrapTable {
     const text = this.options.showButtonText ? this.options.pagination ? this.options.formatPaginationSwitchUp() : this.options.formatPaginationSwitchDown() : ''
 
     this.$toolbar.find('button[name="paginationSwitch"]')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
     this.updatePagination()
     this.trigger('toggle-pagination', this.options.pagination)
   }
@@ -3135,7 +3147,10 @@ class BootstrapTable {
     const text = this.options.showButtonText ? this.options.cardView ? this.options.formatToggleOff() : this.options.formatToggleOn() : ''
 
     this.$toolbar.find('button[name="toggle"]')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
+      .attr('aria-label', text)
+      .attr('title', text)
+
     this.initBody()
     this.trigger('toggle', this.options.cardView)
   }

@@ -63,8 +63,8 @@ export function existOptionInSelectControl (selectControl, value) {
 export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
   let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
 
-  value = Utils.removeHTML(value)
-  text = Utils.removeHTML(text)
+  value = Utils.removeHTML(Utils.unescapeHTML(value))
+  text = Utils.removeHTML(Utils.unescapeHTML(text))
 
   if (existOptionInSelectControl(selectControl, value)) {
     return
@@ -77,7 +77,7 @@ export function addOptionToSelectControl (selectControl, _value, text, selected,
   selectControl.get(0).add(option)
 }
 
-export function sortSelectControl (selectControl, orderBy) {
+export function sortSelectControl (selectControl, orderBy, options) {
   const $selectControl = selectControl.get(0)
 
   if (orderBy === 'server') {
@@ -94,7 +94,7 @@ export function sortSelectControl (selectControl, orderBy) {
   }
 
   tmpAry.sort((a, b) => {
-    return Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1)
+    return Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1, options)
   })
   while ($selectControl.options.length > 0) {
     $selectControl.options[0] = null
@@ -112,7 +112,12 @@ export function fixHeaderCSS ({ $tableHeader }) {
 }
 
 export function getElementClass ($element) {
-  return $element.attr('class').replace('form-control', '').replace('focus-temp', '').replace('search-input', '').trim()
+  return $element.attr('class')
+    .replace('form-control', '')
+    .replace('form-select', '')
+    .replace('focus-temp', '')
+    .replace('search-input', '')
+    .trim()
 }
 
 export function getCursorPosition (el) {
@@ -144,11 +149,11 @@ export function cacheValues (that) {
     const fieldClass = getElementClass($field)
 
     if (that.options.height && !that.options.filterControlContainer) {
-      $field = $(`.fixed-table-header .${fieldClass}`)
+      $field = that.$el.find(`.fixed-table-header .${fieldClass}`)
     } else if (that.options.filterControlContainer) {
       $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
     } else {
-      $field = $(`.${fieldClass}`)
+      $field = that.$el.find(`.${fieldClass}`)
     }
 
     that._valuesFilterControl.push({
@@ -328,6 +333,10 @@ export function initFilterSelectControls (that) {
       for (const key in uniqueValues) {
         addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
       }
+
+      if (that.options.sortSelectOptions) {
+        sortSelectControl(selectControl, 'asc', that.options)
+      }
     }
   })
 }
@@ -350,7 +359,10 @@ export function createControls (that, header) {
   $.each(that.columns, (_, column) => {
     html = []
 
-    if (!column.visible) {
+    if (
+      !column.visible &&
+      !(that.options.filterControlContainer && $(`.bootstrap-table-filter-control-${column.field}`).length >= 1)
+    ) {
       return
     }
 
@@ -399,7 +411,9 @@ export function createControls (that, header) {
         that.filterColumnsPartial = {}
       }
 
-      that.filterColumnsPartial[column.field] = column.filterDefault
+      if (!(column.field in that.filterColumnsPartial)) {
+        that.filterColumnsPartial[column.field] = column.filterDefault
+      }
     }
 
     $.each(header.find('th'), (_, th) => {
@@ -610,7 +624,7 @@ const filterDataMethods = {
     }
 
     if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, filterOrderBy)
+      sortSelectControl(selectControl, filterOrderBy, that.options)
     }
 
     setValues(that)
@@ -632,7 +646,7 @@ const filterDataMethods = {
     }
 
     if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, filterOrderBy)
+      sortSelectControl(selectControl, filterOrderBy, that.options)
     }
 
     setValues(that)
@@ -650,7 +664,7 @@ const filterDataMethods = {
     }
 
     if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, filterOrderBy)
+      sortSelectControl(selectControl, filterOrderBy, that.options)
     }
 
     setValues(that)
@@ -666,7 +680,7 @@ const filterDataMethods = {
         }
 
         if (that.options.sortSelectOptions) {
-          sortSelectControl(selectControl, filterOrderBy)
+          sortSelectControl(selectControl, filterOrderBy, that.options)
         }
 
         setValues(that)
@@ -682,7 +696,7 @@ const filterDataMethods = {
     }
 
     if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, filterOrderBy)
+      sortSelectControl(selectControl, filterOrderBy, that.options)
     }
 
     setValues(that)

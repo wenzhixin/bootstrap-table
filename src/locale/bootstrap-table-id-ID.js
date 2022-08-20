@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   formatRefresh () {
     return 'Muat ulang'
   },
-  formatToggle () {
-    return 'Beralih'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

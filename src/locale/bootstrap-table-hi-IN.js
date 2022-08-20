@@ -60,9 +60,6 @@ $.fn.bootstrapTable.locales['hi-IN'] = {
   formatRefresh () {
     return 'रिफ्रेश'
   },
-  formatToggle () {
-    return 'टॉगल'
-  },
   formatToggleOn () {
     return 'कार्ड दृश्य दिखाएं'
   },

@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['ja-JP'] = $.fn.bootstrapTable.locales['ja'] = {
   formatRefresh () {
     return '更新'
   },
-  formatToggle () {
-    return 'トグル'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

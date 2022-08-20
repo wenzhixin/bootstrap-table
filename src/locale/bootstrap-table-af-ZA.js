@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
   formatRefresh () {
     return 'Herlaai'
   },
-  formatToggle () {
-    return 'Wissel'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

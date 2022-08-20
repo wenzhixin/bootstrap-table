@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['uz-Latn-UZ'] = $.fn.bootstrapTable.locales['uz'] = 
   formatRefresh () {
     return 'Yangilash'
   },
-  formatToggle () {
-    return 'Ko\'rinish'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

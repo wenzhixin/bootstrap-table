@@ -1,6 +1,5 @@
 /**
  * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
  * @version: v3.0.0
  */
 
@@ -10,6 +9,8 @@ const Utils = $.fn.bootstrapTable.utils
 $.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,
   filterControlVisible: true,
+  filterControlMultipleSearch: false,
+  filterControlMultipleSearchDelimiter: ',',
   // eslint-disable-next-line no-unused-vars
   onColumnSearch (field, text) {
     return false
@@ -217,61 +218,71 @@ $.BootstrapTable = class extends $.BootstrapTable {
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const rawFilterValue = (filterPartial[key] || '')
-          const filterValue = rawFilterValue.toLowerCase()
+          let filterValue = rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
 
-          if (filterValue === '') {
-            tmpItemIsExpected = true
-          } else {
-            // Fix #142: search use formatted data
-            if (thisColumn) {
-              if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
-                value = $.fn.bootstrapTable.utils.calculateObjectValue(
-                  that.header,
-                  that.header.formatters[$.inArray(key, that.header.fields)],
-                  [value, item, i],
-                  value
-                )
-              }
-            }
-
-            if ($.inArray(key, that.header.fields) !== -1) {
-              if (value === undefined || value === null) {
-                tmpItemIsExpected = false
-              } else if (typeof value === 'object' && thisColumn.filterCustomSearch) {
-                itemIsExpected.push(that.isValueExpected(rawFilterValue, value, thisColumn, key))
-                return
-              } else if (typeof value === 'object' && Array.isArray(value)) {
-                value.forEach(objectValue => {
-                  if (tmpItemIsExpected) {
-                    return
-                  }
-
-                  if (this.options.searchAccentNeutralise) {
-                    objectValue = Utils.normalizeAccent(objectValue)
-                  }
-                  tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
-                })
-              } else if (typeof value === 'object' && !Array.isArray(value)) {
-                Object.values(value).forEach(objectValue => {
-                  if (tmpItemIsExpected) {
-                    return
-                  }
-
-                  if (this.options.searchAccentNeutralise) {
-                    objectValue = Utils.normalizeAccent(objectValue)
-                  }
-                  tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
-                })
-              } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-                if (this.options.searchAccentNeutralise) {
-                  value = Utils.normalizeAccent(value)
-                }
-                tmpItemIsExpected = that.isValueExpected(filterValue, value, thisColumn, key)
-              }
-            }
+          if (this.options.searchAccentNeutralise) {
+            filterValue = Utils.normalizeAccent(filterValue)
           }
+
+          let filterValues = [filterValue]
+
+          if (
+            this.options.filterControlMultipleSearch
+          ) {
+            filterValues = filterValue.split(this.options.filterControlMultipleSearchDelimiter)
+          }
+
+          filterValues.forEach(filterValue => {
+            if (tmpItemIsExpected === true) {
+              return
+            }
+
+            filterValue = filterValue.trim()
+
+            if (filterValue === '') {
+              tmpItemIsExpected = true
+            } else {
+              // Fix #142: search use formatted data
+              if (thisColumn) {
+                if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
+                  value = $.fn.bootstrapTable.utils.calculateObjectValue(
+                    that.header,
+                    that.header.formatters[$.inArray(key, that.header.fields)],
+                    [value, item, i],
+                    value
+                  )
+                }
+              }
+
+              if ($.inArray(key, that.header.fields) !== -1) {
+                if (value === undefined || value === null) {
+                  tmpItemIsExpected = false
+                } else if (typeof value === 'object' && thisColumn.filterCustomSearch) {
+                  itemIsExpected.push(that.isValueExpected(rawFilterValue, value, thisColumn, key))
+                } else if (typeof value === 'object' && Array.isArray(value)) {
+                  value.forEach(objectValue => {
+                    if (tmpItemIsExpected) {
+                      return
+                    }
+
+                    tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
+                  })
+                } else if (typeof value === 'object' && !Array.isArray(value)) {
+                  Object.values(value).forEach(objectValue => {
+                    if (tmpItemIsExpected) {
+                      return
+                    }
+
+                    tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
+                  })
+                } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+                  tmpItemIsExpected = that.isValueExpected(filterValue, value, thisColumn, key)
+                }
+              }
+            }
+          })
 
           itemIsExpected.push(tmpItemIsExpected)
         })
@@ -286,7 +297,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
   isValueExpected (searchValue, value, column, key) {
     let tmpItemIsExpected = false
 
-    if (column.filterStrictSearch) {
+    if (
+      column.filterStrictSearch ||
+      (column.filterControl === 'select' && column.passed.filterStrictSearch !== false)
+    ) {
       tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
     } else if (column.filterStartsWithSearch) {
       tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(searchValue) === 0

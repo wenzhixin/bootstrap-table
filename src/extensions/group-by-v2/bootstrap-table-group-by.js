@@ -84,7 +84,9 @@ BootstrapTable.prototype.initSort = function (...args) {
       const groupValues = []
 
       $.each(groupByFields, (i, field) => {
-        groupValues.push(item[field])
+        const value_ = Utils.getItemField(item, field, that.options.escape, item.escape)
+
+        groupValues.push(value_)
       })
 
       return groupValues.join(', ')

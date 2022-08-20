@@ -134,10 +134,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   doPrint (data) {
+    const _this2 = this
     const formatValue = (row, i, column) => {
+      const value_ = Utils.getItemField(row, column.field, _this2.options.escape, column.escape)
       const value = Utils.calculateObjectValue(column,
         column.printFormatter || column.formatter,
-        [row[column.field], row, i], row[column.field])
+        [value_, row, i], value_)
 
       return typeof value === 'undefined' || value === null ?
         this.options.undefinedText : value
@@ -150,7 +152,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       for (const columns of columnsArray) {
         html.push('<tr>')
         for (let h = 0; h < columns.length; h++) {
-          if (!columns[h].printIgnore) {
+          if (!columns[h].printIgnore && columns[h].visible) {
             html.push(
               `<th
               ${Utils.sprintf(' rowspan="%s"', columns[h].rowspan)}
@@ -208,7 +210,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
 
           if (
-            !columns[j].printIgnore && columns[j].field &&
+            !columns[j].printIgnore && columns[j].visible && columns[j].field &&
               (
                 !dontRender.includes(`${i },${ j}`) ||
                 (rowspan > 0 && colspan > 0)
@@ -232,7 +234,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         for (const columns of columnsArray) {
           for (let h = 0; h < columns.length; h++) {
-            if (!columns[h].printIgnore) {
+            if (!columns[h].printIgnore && columns[h].visible) {
               const footerData = Utils.trToData(columns, this.$el.find('>tfoot>tr'))
               const footerValue = Utils.calculateObjectValue(columns[h], columns[h].footerFormatter, [data], footerData[0] && footerData[0][columns[h].field] || '')
 

@@ -1,6 +1,6 @@
 /**
  * Bootstrap Table Spanish (Costa Rica) translation
- * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
+ * Author: Dennis Hernández
  */
 
 $.fn.bootstrapTable.locales['es-CR'] = {
@@ -55,9 +55,6 @@ $.fn.bootstrapTable.locales['es-CR'] = {
   },
   formatRefresh () {
     return 'Refrescar'
-  },
-  formatToggle () {
-    return 'Alternar'
   },
   formatToggleOn () {
     return 'Show card view'

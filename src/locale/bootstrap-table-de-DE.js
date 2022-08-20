@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['de-DE'] = $.fn.bootstrapTable.locales['de'] = {
   formatRefresh () {
     return 'Neu laden'
   },
-  formatToggle () {
-    return 'Umschalten'
-  },
   formatToggleOn () {
     return 'Normale Ansicht'
   },

@@ -1,6 +1,6 @@
 /**
  * Bootstrap Table French (France) translation
- * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
+ * Author: Dennis Hernández
  *         Tidalf (https://github.com/TidalfFR)
  *         Nevets82 <Nevets82@gmail.com>
  */
@@ -57,9 +57,6 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   },
   formatRefresh () {
     return 'Actualiser'
-  },
-  formatToggle () {
-    return 'Basculer'
   },
   formatToggleOn () {
     return 'Afficher la vue carte'

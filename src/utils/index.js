@@ -330,6 +330,7 @@ export default {
     } catch (e) {
       return false
     }
+    return false
   },
 
   escapeHTML (text) {
@@ -464,7 +465,7 @@ export default {
     return data
   },
 
-  sort (a, b, order, sortStable, aPosition, bPosition) {
+  sort (a, b, order, options, aPosition, bPosition) {
     if (a === undefined || a === null) {
       a = ''
     }
@@ -472,7 +473,7 @@ export default {
       b = ''
     }
 
-    if (sortStable && a === b) {
+    if (options.sortStable && a === b) {
       a = aPosition
       b = bPosition
     }
@@ -489,6 +490,16 @@ export default {
         return order
       }
       return 0
+    }
+
+    if (options.sortEmptyLast) {
+      if (a === '') {
+        return 1
+      }
+
+      if (b === '') {
+        return -1
+      }
     }
 
     if (a === b) {

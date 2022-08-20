@@ -57,9 +57,6 @@ $.fn.bootstrapTable.locales['hr-HR'] = $.fn.bootstrapTable.locales['hr'] = {
   formatRefresh () {
     return 'Osvježi'
   },
-  formatToggle () {
-    return 'Promijeni prikaz'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

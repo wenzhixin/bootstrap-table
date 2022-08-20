@@ -136,6 +136,16 @@ This is an important link to check out as some file types may require extra step
 
   * `exportedRows`: The exported rows (depends on exportDataType)
 
+### onExportStarted
+
+- **jQuery Event:** `export-started.bs.table`
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+  Fired before the data will be collected and exported.
+
 ## Methods
 
 ### exportTable

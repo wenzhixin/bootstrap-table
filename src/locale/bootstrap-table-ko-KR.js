@@ -57,9 +57,6 @@ $.fn.bootstrapTable.locales['ko-KR'] = $.fn.bootstrapTable.locales['ko'] = {
   formatRefresh () {
     return '새로 고침'
   },
-  formatToggle () {
-    return '전환'
-  },
   formatToggleOn () {
     return '카드뷰 보기'
   },

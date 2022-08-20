@@ -57,9 +57,6 @@ $.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
   formatRefresh () {
     return 'Yenile'
   },
-  formatToggle () {
-    return 'Değiştir'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

@@ -56,9 +56,6 @@ $.fn.bootstrapTable.locales['he-IL'] = $.fn.bootstrapTable.locales['he'] = {
   formatRefresh () {
     return 'רענן'
   },
-  formatToggle () {
-    return 'החלף תצוגה'
-  },
   formatToggleOn () {
     return 'Show card view'
   },

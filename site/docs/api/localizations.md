@@ -164,12 +164,6 @@ $('#table').bootstrapTable({
 
 - **Default:** `'previous page'`
 
-## formatToggle
-
-- **Parameter:** `undefined`
-
-- **Default:** `'Toggle'`
-
 ## formatToggleOff
 
 - **Parameter:** `undefined`

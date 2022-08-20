@@ -63,7 +63,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       column.formatter = column.formatter || (value => value)
       column._formatter = column._formatter ? column._formatter : column.formatter
-      column.formatter = (value, row, index) => {
+      column.formatter = (value, row, index, field) => {
         let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
 
         result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
@@ -86,7 +86,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           column.editable, [index, row], {})
 
         if (editableOpts.hasOwnProperty('noEditFormatter')) {
-          noEditFormatter = editableOpts.noEditFormatter(value, row, index)
+          noEditFormatter = editableOpts.noEditFormatter(value, row, index, field)
         }
 
         if (noEditFormatter === false) {
