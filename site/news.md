@@ -6,41 +6,41 @@ description: News and announcements for all things Bootstrap Table, including ne
 
 ## Bootstrap Table 1.21.0
 
-<span class="post-date">19 Aug 2022</span>
+<span class="post-date">20 Aug 2022</span>
 
 #### Core
 
-- **New:** Added sortEmptyLast option to allow sorting empty data.
+- **New:** Added `sortEmptyLast` option to allow sorting empty data.
 - **Update:** Fixed bug on nested search with null child.
 - **Update:** Fixed detail view with filter click error.
-- **Update:** Fixed header not center correctly for sortable column.
-- **Update:** Fixed regexpCompare bug when filter columns.
-- **Update:** Fixed showToogle title display error.
-- **Update:** Fixed remove and removeByUnqiueId using object path bug.
-- **Update:** Fixed searchHighlight bug while using searchAccentNeutralise.
-- **Update:** Fixed missing sort for customSearch.
+- **Update:** Fixed header does not center correctly for the sortable column.
+- **Update:** Fixed `regexpCompare` bug when filtering columns.
+- **Update:** Fixed `showToogle` title display error.
+- **Update:** Fixed `remove` and `removeByUnqiueId` using object param bug.
+- **Update:** Fixed `searchHighlight` bug while using `searchAccentNeutralise`.
+- **Update:** Fixed missing sort for `customSearch` option.
 - **Update:** Removed duplicated escaping of the column value.
-- **Update:** Updated uk-UA locale.
+- **Update:** Updated `uk-UA` locale.
 
 #### Extensions
 
-- **New(cookie):** : Added hiddenColumns cookie to prevent issues with new added columns.
-- **New(editable):** Added field param to noEditFormatter option.
+- **New(cookie):** : Added `hiddenColumns` cookie to prevent issues with new added columns.
+- **New(editable):** Added `field` param to `noEditFormatter` option.
 - **New(export):** Added `onExportStarted` event.
 - **New(filter-control):** Added accent normalization check.
-- **New(filter-control):** Added filterControlMultipleSearch and filterControlMultipleSearchDelimiter options.
+- **New(filter-control):** Added `filterControlMultipleSearch` and `filterControlMultipleSearchDelimiter` options.
 - **Update(custom-by):** Fixed the custom view attributes.
 - **Update(group-by):** Fixed not handle complex objects bug.
 - **Update(filter-control):** Fixed select values not clear bug after search.
 - **Update(filter-control):** Fixed the select sorting error.
 - **Update(filter-control):** Fixed wrong selector for caching values with multiple tables.
-- **Update(filter-control):** Fixed the filterDefault option bug as filter if multiple filters exists.
+- **Update(filter-control):** Fixed the `filterDefault` option bug as filter if multiple filters exists.
 - **Update(filter-control):** Fixed filter control special char.
-- **Update(filter-control):** Updated default value to false of filterStrictSearch.
-- **Update(filter-control):** Supported not visible columns when option using filterControlContainer.
-- **Update(multiple-sort):** Fixed showMultiSortButton option bug.
+- **Update(filter-control):** Updated default value to false of `filterStrictSearch`.
+- **Update(filter-control):** Supported not visible columns when using `filterControlContainer` option.
+- **Update(multiple-sort):** Fixed `showMultiSortButton` option bug.
 - **Update(print):** Fixed not handle complex objects bug.
-- **Update(print):** Removed switched off columns from printed table.
+- **Update(print):** Removed switched-off columns from printed table.
 
 ## Bootstrap Table 1.20.2
 

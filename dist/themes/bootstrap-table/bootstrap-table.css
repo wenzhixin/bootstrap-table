@@ -109,6 +109,11 @@
   padding-right: 30px !important;
 }
 
+.bootstrap-table .fixed-table-container .table thead th .sortable.sortable-center {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
 .bootstrap-table .fixed-table-container .table thead th .both {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azioNZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4euts6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC");
 }
