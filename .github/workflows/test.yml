@@ -19,6 +19,15 @@ jobs:
           repository: 'wenzhixin/bootstrap-table-examples'
           path: './tools/bootstrap-table-examples'
 
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v28
+
+      - name: Check if changelog was changed
+        continue-on-error: true
+        if: contains(steps.changed-files.outputs.all_changed_files, 'CHANGELOG.md') == false
+        run: exit 1
+
       - name: Lint src and check docs
         run: |
           yarn install --frozen-lockfile
