@@ -5,8 +5,9 @@
  */
 
 const Utils = $.fn.bootstrapTable.utils
+const { assign } = Object
 
-$.extend($.fn.bootstrapTable.defaults, {
+assign($.fn.bootstrapTable.defaults, {
   autoRefresh: false,
   showAutoRefresh: true,
   autoRefreshInterval: 60,
@@ -15,7 +16,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   autoRefreshFunction: null
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+assign($.fn.bootstrapTable.defaults.icons, {
   autoRefresh: {
     bootstrap3: 'glyphicon-time icon-time',
     bootstrap5: 'bi-clock',
@@ -24,13 +25,13 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-clock'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+assign($.fn.bootstrapTable.locales, {
   formatAutoRefresh () {
     return 'Auto Refresh'
   }
 })
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.BootstrapTable = class extends $.BootstrapTable {
   init (...args) {
@@ -43,7 +44,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initToolbar (...args) {
     if (this.options.autoRefresh) {
-      this.buttons = Object.assign(this.buttons, {
+      this.buttons = assign(this.buttons, {
         autoRefresh: {
           html: `
             <button class="auto-refresh ${this.constants.buttonsClass}
