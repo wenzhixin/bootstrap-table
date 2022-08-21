@@ -637,7 +637,7 @@ class BootstrapTable {
 
           html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
             <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown"
-            aria-label="Columns" title="${opts.formatColumns()}">
+            aria-label="${opts.formatColumns()}" title="${opts.formatColumns()}">
             ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
             ${opts.showButtonText ? opts.formatColumns() : ''}
             ${this.constants.html.dropdownCaret}
