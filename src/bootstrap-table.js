@@ -2665,15 +2665,36 @@ class BootstrapTable {
     this.initBody(true)
   }
 
+  _updateCellOnly (field, index) {
+    const rowHtml = this.initRow(this.options.data[index], index)
+    let fieldIndex = this.getVisibleFields().indexOf(field)
+
+    if (fieldIndex === -1) {
+      return
+    }
+
+    fieldIndex += Utils.getDetailViewIndexOffset(this.options)
+
+    this.$body.find(`>tr[data-index=${index}]`)
+      .find(`>td:eq(${fieldIndex})`)
+      .replaceWith($(rowHtml).find(`>td:eq(${fieldIndex})`))
+
+    this.initBodyEvent()
+    this.initFooter()
+    this.resetView()
+    this.updateSelected()
+  }
+
   updateCell (params) {
     if (!params.hasOwnProperty('index') ||
       !params.hasOwnProperty('field') ||
       !params.hasOwnProperty('value')) {
       return
     }
-    this.data[params.index][params.field] = params.value
+    this.options.data[params.index][params.field] = params.value
 
     if (params.reinit === false) {
+      this._updateCellOnly(params.field, params.index)
       return
     }
     this.initSort()
@@ -2684,15 +2705,17 @@ class BootstrapTable {
     const allParams = Array.isArray(params) ? params : [params]
 
     allParams.forEach(({ id, field, value }) => {
-      const rowId = this.options.data.indexOf(this.getRowByUniqueId(id))
+      const index = this.options.data.indexOf(this.getRowByUniqueId(id))
 
-      if (rowId === -1) {
+      if (index === -1) {
         return
       }
-      this.options.data[rowId][field] = value
+      this.options.data[index][field] = value
     })
 
     if (params.reinit === false) {
+      this._updateCellOnly(params.field,
+        this.options.data.indexOf(this.getRowByUniqueId(params.id)))
       return
     }
     this.initSort()

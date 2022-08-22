@@ -1,6 +1,18 @@
 ChangeLog
 ---------
 
+### 1.21.1
+
+#### Core
+
+- **Update:** Improved `updateCell` to update one HTML cell only.
+- **Update:** Updated `fr-FR` locale.
+- **Update:** Added missing locales for aria-label.
+
+#### Extensions
+
+- **Update(export):** Added missing locales for aria-label.
+
 ### 1.21.0
 
 #### Core
