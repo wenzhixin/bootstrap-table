@@ -5075,7 +5075,7 @@
       value: function isValueExpected(searchValue, value, column, key) {
         var tmpItemIsExpected = false;
 
-        if (column.filterStrictSearch || column.filterControl === 'select' && column.passed.filterStrictSearch !== false) {
+        if (column.filterStrictSearch || column.filterControl === 'select' && column.filterStrictSearch !== false) {
           tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase();
         } else if (column.filterStartsWithSearch) {
           tmpItemIsExpected = "".concat(value).toLowerCase().indexOf(searchValue) === 0;
