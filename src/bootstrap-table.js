@@ -521,20 +521,15 @@ class BootstrapTable {
 
     if (this.options.sortName === $this.data('field')) {
       const currentSortOrder = this.options.sortOrder
+      const initialSortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder ||
+        this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
 
       if (currentSortOrder === undefined) {
         this.options.sortOrder = 'asc'
       } else if (currentSortOrder === 'asc') {
-        this.options.sortOrder = 'desc'
+        this.options.sortOrder = this.options.sortReset ? (initialSortOrder === 'asc' ? 'desc' : undefined) : 'desc'
       } else if (this.options.sortOrder === 'desc') {
-        if (this.options.sortReset) {
-          const initialSortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder ||
-            this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
-          this.options.sortOrder = initialSortOrder === 'desc' ? 'asc' : undefined
-        } else {
-          this.options.sortOrder = 'asc'
-        }
-        // this.options.sortOrder = this.options.sortReset ? undefined : 'asc'
+        this.options.sortOrder = this.options.sortReset ? (initialSortOrder === 'desc' ? 'asc' : undefined) : 'asc'
       }
 
       if (this.options.sortOrder === undefined) {
