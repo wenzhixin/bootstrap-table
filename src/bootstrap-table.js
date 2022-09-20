@@ -527,7 +527,14 @@ class BootstrapTable {
       } else if (currentSortOrder === 'asc') {
         this.options.sortOrder = 'desc'
       } else if (this.options.sortOrder === 'desc') {
-        this.options.sortOrder = this.options.sortReset ? undefined : 'asc'
+        if (this.options.sortReset) {
+          const initialSortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder ||
+            this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
+          this.options.sortOrder = initialSortOrder === 'desc' ? 'asc' : undefined
+        } else {
+          this.options.sortOrder = 'asc'
+        }
+        // this.options.sortOrder = this.options.sortReset ? undefined : 'asc'
       }
 
       if (this.options.sortOrder === undefined) {
