@@ -551,13 +551,20 @@ class BootstrapTable {
     // Assign the correct sortable arrow
     this.getCaret()
 
+    // if (this.options.sidePagination === 'server' && this.options.serverSort) {
+    //   this.options.pageNumber = 1
+    //   this.initServer(this.options.silentSort)
+    //   return
+    // }
+
     if (this.options.pagination) {
       this.options.pageNumber = 1
-    }
-
-    if (this.options.sidePagination === 'server' && this.options.serverSort) {
-      this.initServer(this.options.silentSort)
-      return
+      if (this.options.sidePagination === 'server' && this.options.serverSort) {
+        this.initServer(this.options.silentSort)
+        return
+      } else {
+        this.initPagination()
+      }
     }
 
     this.initSort()
