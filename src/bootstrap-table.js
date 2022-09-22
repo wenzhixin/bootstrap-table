@@ -943,7 +943,7 @@ class BootstrapTable {
       }
     }
 
-    if (!firedByInitSearchText && !this.options.cookie) {
+    if (!firedByInitSearchText) {
       this.options.pageNumber = 1
     }
     this.initSearch()

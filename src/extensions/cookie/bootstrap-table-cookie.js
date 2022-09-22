@@ -393,7 +393,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.search) {
       UtilsCookie.setCookie(this, UtilsCookie.cookieIds.searchText, this.searchText)
     }
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, 1)
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
   initHeader (...args) {
