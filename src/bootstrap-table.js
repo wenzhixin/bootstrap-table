@@ -556,9 +556,8 @@ class BootstrapTable {
       if (this.options.sidePagination === 'server' && this.options.serverSort) {
         this.initServer(this.options.silentSort)
         return
-      } else {
-        this.initPagination()
       }
+      this.initPagination()
     }
 
     this.initSort()
