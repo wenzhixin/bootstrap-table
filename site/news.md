@@ -4,6 +4,20 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.21.1
+
+<span class="post-date">22 Sep 2022</span>
+
+#### Core
+
+- **Update:** Improved `updateCell` to update one HTML cell only.
+- **Update:** Updated `fr-FR` locale.
+- **Update:** Added missing locales for aria-label.
+
+#### Extensions
+
+- **Update(export):** Added missing locales for aria-label.
+
 ## Bootstrap Table 1.21.0
 
 <span class="post-date">20 Aug 2022</span>

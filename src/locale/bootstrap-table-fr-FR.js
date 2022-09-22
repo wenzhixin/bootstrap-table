@@ -20,10 +20,10 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrés à partir de ${totalNotFiltered} lignes)`
+      return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrés à partir de ${totalNotFiltered} lignes)`
     }
 
-    return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
+    return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
   },
   formatSRPaginationPreText () {
     return 'page précédente'
@@ -35,7 +35,7 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
     return 'page suivante'
   },
   formatDetailPagination (totalRows) {
-    return `Affiche ${totalRows} lignes`
+    return `Affichage de ${totalRows} lignes`
   },
   formatClearSearch () {
     return 'Effacer la recherche'

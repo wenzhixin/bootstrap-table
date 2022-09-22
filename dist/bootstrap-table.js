@@ -4773,7 +4773,7 @@
     }
   };
 
-  var VERSION = '1.21.0';
+  var VERSION = '1.21.1';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -6027,7 +6027,7 @@
             render: false,
             html: function html() {
               var html = [];
-              html.push("<div class=\"keep-open ".concat(_this4.constants.classes.buttonsDropdown, "\" title=\"").concat(opts.formatColumns(), "\">\n            <button class=\"").concat(_this4.constants.buttonsClass, " dropdown-toggle\" type=\"button\" ").concat(_this4.constants.dataToggle, "=\"dropdown\"\n            aria-label=\"Columns\" title=\"").concat(opts.formatColumns(), "\">\n            ").concat(opts.showButtonIcons ? Utils.sprintf(_this4.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : '', "\n            ").concat(opts.showButtonText ? opts.formatColumns() : '', "\n            ").concat(_this4.constants.html.dropdownCaret, "\n            </button>\n            ").concat(_this4.constants.html.toolbarDropdown[0]));
+              html.push("<div class=\"keep-open ".concat(_this4.constants.classes.buttonsDropdown, "\" title=\"").concat(opts.formatColumns(), "\">\n            <button class=\"").concat(_this4.constants.buttonsClass, " dropdown-toggle\" type=\"button\" ").concat(_this4.constants.dataToggle, "=\"dropdown\"\n            aria-label=\"").concat(opts.formatColumns(), "\" title=\"").concat(opts.formatColumns(), "\">\n            ").concat(opts.showButtonIcons ? Utils.sprintf(_this4.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : '', "\n            ").concat(opts.showButtonText ? opts.formatColumns() : '', "\n            ").concat(_this4.constants.html.dropdownCaret, "\n            </button>\n            ").concat(_this4.constants.html.toolbarDropdown[0]));
 
               if (opts.showColumnsSearch) {
                 html.push(Utils.sprintf(_this4.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="text" class="%s" name="columnsSearch" placeholder="%s" autocomplete="off">', _this4.constants.classes.input, opts.formatSearch())));
@@ -8137,15 +8137,34 @@
         this.initBody(true);
       }
     }, {
+      key: "_updateCellOnly",
+      value: function _updateCellOnly(field, index) {
+        var rowHtml = this.initRow(this.options.data[index], index);
+        var fieldIndex = this.getVisibleFields().indexOf(field);
+
+        if (fieldIndex === -1) {
+          return;
+        }
+
+        fieldIndex += Utils.getDetailViewIndexOffset(this.options);
+        this.$body.find(">tr[data-index=".concat(index, "]")).find(">td:eq(".concat(fieldIndex, ")")).replaceWith($__default["default"](rowHtml).find(">td:eq(".concat(fieldIndex, ")")));
+        this.initBodyEvent();
+        this.initFooter();
+        this.resetView();
+        this.updateSelected();
+      }
+    }, {
       key: "updateCell",
       value: function updateCell(params) {
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('field') || !params.hasOwnProperty('value')) {
           return;
         }
 
-        this.data[params.index][params.field] = params.value;
+        this.options.data[params.index][params.field] = params.value;
 
         if (params.reinit === false) {
+          this._updateCellOnly(params.field, params.index);
+
           return;
         }
 
@@ -8163,16 +8182,18 @@
               field = _ref6.field,
               value = _ref6.value;
 
-          var rowId = _this19.options.data.indexOf(_this19.getRowByUniqueId(id));
+          var index = _this19.options.data.indexOf(_this19.getRowByUniqueId(id));
 
-          if (rowId === -1) {
+          if (index === -1) {
             return;
           }
 
-          _this19.options.data[rowId][field] = value;
+          _this19.options.data[index][field] = value;
         });
 
         if (params.reinit === false) {
+          this._updateCellOnly(params.field, this.options.data.indexOf(this.getRowByUniqueId(params.id)));
+
           return;
         }
 

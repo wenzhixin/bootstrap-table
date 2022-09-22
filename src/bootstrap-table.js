@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.21.0
+ * version: 1.21.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -637,7 +637,7 @@ class BootstrapTable {
 
           html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
             <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown"
-            aria-label="Columns" title="${opts.formatColumns()}">
+            aria-label="${opts.formatColumns()}" title="${opts.formatColumns()}">
             ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
             ${opts.showButtonText ? opts.formatColumns() : ''}
             ${this.constants.html.dropdownCaret}
@@ -2665,15 +2665,36 @@ class BootstrapTable {
     this.initBody(true)
   }
 
+  _updateCellOnly (field, index) {
+    const rowHtml = this.initRow(this.options.data[index], index)
+    let fieldIndex = this.getVisibleFields().indexOf(field)
+
+    if (fieldIndex === -1) {
+      return
+    }
+
+    fieldIndex += Utils.getDetailViewIndexOffset(this.options)
+
+    this.$body.find(`>tr[data-index=${index}]`)
+      .find(`>td:eq(${fieldIndex})`)
+      .replaceWith($(rowHtml).find(`>td:eq(${fieldIndex})`))
+
+    this.initBodyEvent()
+    this.initFooter()
+    this.resetView()
+    this.updateSelected()
+  }
+
   updateCell (params) {
     if (!params.hasOwnProperty('index') ||
       !params.hasOwnProperty('field') ||
       !params.hasOwnProperty('value')) {
       return
     }
-    this.data[params.index][params.field] = params.value
+    this.options.data[params.index][params.field] = params.value
 
     if (params.reinit === false) {
+      this._updateCellOnly(params.field, params.index)
       return
     }
     this.initSort()
@@ -2684,15 +2705,17 @@ class BootstrapTable {
     const allParams = Array.isArray(params) ? params : [params]
 
     allParams.forEach(({ id, field, value }) => {
-      const rowId = this.options.data.indexOf(this.getRowByUniqueId(id))
+      const index = this.options.data.indexOf(this.getRowByUniqueId(id))
 
-      if (rowId === -1) {
+      if (index === -1) {
         return
       }
-      this.options.data[rowId][field] = value
+      this.options.data[index][field] = value
     })
 
     if (params.reinit === false) {
+      this._updateCellOnly(params.field,
+        this.options.data.indexOf(this.getRowByUniqueId(params.id)))
       return
     }
     this.initSort()

@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-table",
   "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
-  "version": "1.21.0",
+  "version": "1.21.1",
   "style": "dist/bootstrap-table.min.css",
   "sass": "src/bootstrap-table.scss",
   "main": "dist/bootstrap-table.min.js",
@@ -15,7 +15,7 @@
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-inject": "^4.0.4",
     "@rollup/plugin-multi-entry": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-node-resolve": "^14.0.0",
     "chalk": "^4.0.0",
     "clean-css-cli": "^5.6.0",
     "core-js": "^3.22.5",
