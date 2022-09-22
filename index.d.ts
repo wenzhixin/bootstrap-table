@@ -189,6 +189,7 @@ export interface BootstrapTableOptions {
   method?: string;
   onColumnSwitch?: (field: string, checked: boolean) => boolean | void;
   searchSelector?: boolean;
+  searchClearButtonSelector?: boolean;
   strictSearch?: boolean;
   multipleSelectRow?: boolean;
   onLoadError?: (status: string, jqXHR: JQuery.jqXHR) => boolean | void;

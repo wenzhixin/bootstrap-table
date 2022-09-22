@@ -919,6 +919,12 @@ class BootstrapTable {
       const $searchInput = Utils.getSearchInput(this)
 
       handleInputEvent($searchInput)
+
+      if (typeof opts.searchClearButtonSelector === 'string') {
+        $(opts.searchClearButtonSelector).click(() => {
+          this.resetSearch()
+        })
+      }
     }
   }
 

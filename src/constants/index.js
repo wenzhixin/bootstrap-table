@@ -183,6 +183,7 @@ const DEFAULTS = {
   strictSearch: false,
   regexSearch: false,
   searchSelector: false,
+  searchClearButtonSelector: false,
   visibleSearch: false,
   showButtonIcons: true,
   showButtonText: false,
