@@ -1180,6 +1180,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   Notes:
   - If you want to use a custom search input, use the [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector).
+    In that case you can also use a custom search clear button using [searchClearSelector](https://bootstrap-table.com/docs/api/table-options/#searchClearSelector).
   - You can also search via regex using the [regexSearch](https://bootstrap-table.com/docs/api/table-options/#regexSearch) option.
 
 - **Default:** `false`
@@ -1256,6 +1257,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `false`
 
 - **Example:** [Search Selector](https://examples.bootstrap-table.com/#options/search-selector.html)
+
+## searchClearSelector
+
+- **Attribute:** `data-search-clear-selector`
+
+- **Type:** `Boolean|String`
+
+- **Detail:**
+
+  If this option is set (must be a valid dom selector, e.g. `#customSearchClear`), the found dom element will be used to clear the search input when clicked. Only effective when used in combination with [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector)
+
+- **Default:** `false`
+
+- **Example:** [Search Selector](https://examples.bootstrap-table.com/#options/search-clear-selector.html)
 
 ## searchText
 

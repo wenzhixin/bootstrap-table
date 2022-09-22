@@ -920,8 +920,8 @@ class BootstrapTable {
 
       handleInputEvent($searchInput)
 
-      if (typeof opts.searchClearButtonSelector === 'string') {
-        $(opts.searchClearButtonSelector).click(() => {
+      if (typeof opts.searchClearSelector === 'string') {
+        $(opts.searchClearSelector).click(() => {
           this.resetSearch()
         })
       }
