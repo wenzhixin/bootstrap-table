@@ -1,6 +1,6 @@
 /**
  * @author: Dennis Hernández
- * @version: v3.0.0
+ * @version: v3.0.1
  */
 
 import * as UtilsFilterControl from './utils.js'
@@ -248,7 +248,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
               if (thisColumn) {
                 if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
                   value = $.fn.bootstrapTable.utils.calculateObjectValue(
-                    that.header,
+                    thisColumn,
                     that.header.formatters[$.inArray(key, that.header.fields)],
                     [value, item, i],
                     value
@@ -348,7 +348,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (column.filterCustomSearch) {
-      const customSearchResult = Utils.calculateObjectValue(this, column.filterCustomSearch, [searchValue, value, key, this.options.data], true)
+      const customSearchResult = Utils.calculateObjectValue(column, column.filterCustomSearch, [searchValue, value, key, this.options.data], true)
 
       if (customSearchResult !== null) {
         tmpItemIsExpected = customSearchResult
