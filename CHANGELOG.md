@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+### 1.21.2
+
+#### Extensions
+
+- **Update(custom-view):** Fixed `showCustomView` option cannot work.
+
 ### 1.21.1
 
 #### Core
