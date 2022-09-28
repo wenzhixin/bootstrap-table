@@ -7,6 +7,7 @@ const Utils = $.fn.bootstrapTable.utils
 
 $.extend($.fn.bootstrapTable.defaults, {
   customView: false,
+  showCustomView: false,
   customViewDefaultView: false
 })
 
@@ -54,7 +55,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initToolbar (...args) {
-    if (this.options.customView) {
+    if (this.options.customView && this.options.showCustomView) {
       this.buttons = Object.assign(this.buttons, {
         customView: {
           text: this.options.formatToggleCustomView(),

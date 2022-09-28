@@ -22,7 +22,7 @@
 
 **☑️Self Check before Merge**
 
-⚠️ Please check all items below before review. ⚠️
+⚠️ Please check all items below before reviewing. ⚠️
 
 - [ ] Doc is updated/provided or not needed
 - [ ] Demo is updated/provided or not needed
