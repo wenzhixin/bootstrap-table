@@ -235,7 +235,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
         this.options.cookiesEnabled.replace('[', '').replace(']', '')
-          .replace(/'/g, '').replace(/ /g, '').toLowerCase().split(',') :
+          .replace(/'/g, '').replace(/ /g, '').split(',') :
         this.options.cookiesEnabled
 
       if (this.options.filterControl) {
@@ -486,7 +486,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // pageSize
     this.options.pageSize = pageListCookie ? pageListCookie === this.options.formatAllRows() ? pageListCookie : +pageListCookie : this.options.pageSize
     // searchText
-    if (UtilsCookie.isCookieEnabled(this, 'bs.table.searchText') && this.options.searchText === '') {
+    if (UtilsCookie.isCookieEnabled(this, UtilsCookie.cookieIds.searchText) && this.options.searchText === '') {
       this.options.searchText = searchTextCookie ? searchTextCookie : ''
     }
     // cardView
