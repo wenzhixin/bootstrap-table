@@ -1521,7 +1521,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   Defines the side pagination of the table, can only be `'client'` or `'server'`.
   Using the `'server'` side requires setting the `'url'` or `'ajax'` option.
-  
+ 
   Note that the required server response format is different depending on whether the  `'sidePagination'` option is set to `'client'` or `'server'`. See the following examples:
 
   * [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
