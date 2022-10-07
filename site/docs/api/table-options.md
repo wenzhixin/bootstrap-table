@@ -1665,7 +1665,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to reset the page number when sorting
+  Set `true` to reset the page number when sorting.
 
 - **Default:** `false`
 
