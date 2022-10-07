@@ -1657,6 +1657,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Sort Reset](https://examples.bootstrap-table.com/#options/sort-reset.html)
 
+## sortResetPage
+
+- **Attribute:** `data-sort-reset-page`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to reset the page number when sorting
+
+- **Default:** `false`
+
+- **Example:** [Sort Reset Page](https://examples.bootstrap-table.com/#options/sort-reset-page.html)
+
 ## sortStable
 
 - **Attribute:** `data-sort-stable`

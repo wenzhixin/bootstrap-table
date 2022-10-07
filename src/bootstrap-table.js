@@ -557,6 +557,10 @@ class BootstrapTable {
       return
     }
 
+    if (this.options.pagination && this.options.sortResetPage) {
+      this.options.pageNumber = 1
+    }
+
     this.initSort()
     this.initBody()
   }
