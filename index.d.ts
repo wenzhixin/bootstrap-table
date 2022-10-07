@@ -162,7 +162,7 @@ export interface BootstrapTableOptions {
   pageSize?: number;
   footerField?: string;
   showFullscreen?: boolean;
-  sortPageReset?: boolean;
+  sortResetPage?: boolean;
   sortStable?: boolean;
   searchAlign?: string;
   ajax?: (params: BootstrapAjaxParams) => any;
