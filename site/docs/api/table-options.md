@@ -1529,7 +1529,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **URL parameters:**
 
-  When `sidePagination` is set to `server`, bootstrap table will make calls to the `data-url` with the following URL parameters:
+  When `sidePagination` is set to `server`, the bootstrap table will make calls to the `url` with the following URL parameters:
   
   - `offset` with a value between 0 and `total` - 1, indicating the first record to include.
   - `limit` with a value indicating the number of rows per page.
@@ -1849,7 +1849,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **URL parameters:**
 
-  When `sidePagination` is set to `server`, bootstrap table will make calls to the `data-url` with the following URL parameters:
+  When `sidePagination` is set to `server`, the bootstrap table will make calls to the `url` with the following URL parameters:
   
   - `offset` with a value between 0 and `total` - 1, indicating the first record to include.
   - `limit` with a value indicating the number of rows per page.
