@@ -134,6 +134,7 @@ const DEFAULTS = {
   sortOrder: undefined,
   sortReset: false,
   sortStable: false,
+  sortResetPage: false,
   rememberOrder: false,
   serverSort: true,
   customSort: undefined,
