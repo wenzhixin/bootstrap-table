@@ -3392,7 +3392,7 @@ $.fn.bootstrapTable = function (option, ...args) {
 
   this.each((i, el) => {
     let data = $(el).data('bootstrap.table')
-    const options = $.extend({}, BootstrapTable.DEFAULTS, $(el).data(),
+    const options = $.extend(true, {}, BootstrapTable.DEFAULTS, $(el).data(),
       typeof option === 'object' && option)
 
     if (typeof option === 'string') {
