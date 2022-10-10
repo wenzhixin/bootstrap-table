@@ -14,7 +14,7 @@
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-inject": "^4.0.4",
-    "@rollup/plugin-multi-entry": "^4.1.0",
+    "@rollup/plugin-multi-entry": "^5.0.0",
     "@rollup/plugin-node-resolve": "^14.0.0",
     "chalk": "^4.0.0",
     "clean-css-cli": "^5.6.0",

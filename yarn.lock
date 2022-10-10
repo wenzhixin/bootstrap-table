@@ -1212,13 +1212,13 @@
     estree-walker "^2.0.1"
     magic-string "^0.25.7"
 
-"@rollup/plugin-multi-entry@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@rollup%2fplugin-multi-entry/-/plugin-multi-entry-4.1.0.tgz#e531511d4a9f490f766dbee1f10d6d94d26b3863"
-  integrity sha512-nellK5pr50W0JA2+bDJbG8F79GBP802J40YRoC0wyfpTAeAn5mJ4eaFiB/MN+YoX9hgb/6RJoZl9leDjZnUFKw==
+"@rollup/plugin-multi-entry@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-multi-entry/-/plugin-multi-entry-5.0.0.tgz#7c7f02806a90db2efd83241c7e8221929e434cd8"
+  integrity sha512-87E2ceF5iVsROeq/RS2dnhJXX+O9MPfdUwxaFG6M9hHzeUvZyXqyBZZXX/w6L73SHmYhcjD8kriZ95X+1AhIVQ==
   dependencies:
     "@rollup/plugin-virtual" "^2.0.3"
-    matched "^5.0.0"
+    matched "^5.0.1"
 
 "@rollup/plugin-node-resolve@^14.0.0":
   version "14.1.0"
@@ -3966,10 +3966,10 @@ map-obj@^4.0.0:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.3.0.tgz#9304f906e93faae70880da102a9f1df0ea8bb05a"
   integrity sha1-kwT5Buk/qucIgNoQKp8d8OqLsFo=
 
-matched@^5.0.0:
+matched@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/matched/-/matched-5.0.1.tgz#620606d9dac6b7f4e955354b82e02ef4e3a62dc3"
-  integrity sha1-YgYG2drGt/TpVTVLguAu9OOmLcM=
+  integrity sha512-E1fhSTPRyhAlNaNvGXAgZQlq1hL0bgYMTk/6bktVlIhzUnX/SZs7296ACdVeNJE8xFNGSuvd9IpI7vSnmcqLvw==
   dependencies:
     glob "^7.1.6"
     picomatch "^2.2.1"
