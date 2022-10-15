@@ -1527,7 +1527,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   * [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
   * [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
 
-- **URL parameters:**
+  **URL parameters:**
 
   When `sidePagination` is set to `server`, the bootstrap table will make calls to the `url` with the following URL parameters:
   
@@ -1847,7 +1847,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   * [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
   * [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
 
-- **URL parameters:**
+  **URL parameters:**
 
   When `sidePagination` is set to `server`, the bootstrap table will make calls to the `url` with the following URL parameters:
   
