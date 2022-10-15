@@ -1527,6 +1527,15 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   * [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
   * [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
 
+  **URL parameters:**
+
+  When `sidePagination` is set to `server`, the bootstrap table will make calls to the `url` with the following URL parameters:
+  
+  - `offset` with a value between 0 and `total` - 1, indicating the first record to include.
+  - `limit` with a value indicating the number of rows per page.
+
+  When implementing server-side pagination, you must implement a JSON view in a format like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data). That view must take the URL parameter values indicated above and return records starting at the `offset` index and returns the number of records indicated by `limit`.  For example, if you want records 11-20, your view must obtain the `offset=10` and `limit=10` from the URL string and return records like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10).
+
 - **Default:** `'client'`
 
 - **Example:** [Client Side Pagination](https://examples.bootstrap-table.com/#options/client-side-pagination.html) and [Server Side Pagination](https://examples.bootstrap-table.com/#options/server-side-pagination.html)
@@ -1851,6 +1860,15 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   * [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
   * [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
+
+  **URL parameters:**
+
+  When `sidePagination` is set to `server`, the bootstrap table will make calls to the `url` with the following URL parameters:
+  
+  - `offset` with a value between 0 and `total` - 1, indicating the first record to include.
+  - `limit` with a value indicating the number of rows per page.
+
+  When implementing server-side pagination, you must implement a JSON view in a format like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data). That view must take the URL parameter values indicated above and return records starting at the `offset` index and returns the number of records indicated by `limit`.  For example, if you want records 11-20, your view must obtain the `offset=10` and `limit=10` from the URL string and return records like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10).
 
 - **Default:** `undefined`
 
