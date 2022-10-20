@@ -82,7 +82,7 @@ $.fn.bootstrapTable.locales['es-CR'] = {
         return 'Exportar'
     },
     formatJumpTo () {
-        return 'Ir a'
+        return 'Ver'
     },
     formatAdvancedSearch () {
         return 'Búsqueda avanzada'
