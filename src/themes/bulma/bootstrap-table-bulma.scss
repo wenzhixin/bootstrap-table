@@ -4,8 +4,8 @@
  * theme: https://github.com/jgthms/bulma/
  */
 
- @import './variables.scss';
- @import '../theme.scss';
+@import "./variables";
+@import "../theme";
 
 .box {
   background-color: #fff;
@@ -67,7 +67,7 @@
       vertical-align: middle;
     }
 
-    .is-up .fa-angle-down:before {
+    .is-up .fa-angle-down::before {
       content: "\f106";
     }
 
@@ -76,7 +76,7 @@
       border-color: #dbdbdb;
       box-shadow: none;
       color: #7a7a7a;
-      opacity: .5;
+      opacity: 0.5;
       cursor: not-allowed;
     }
   }

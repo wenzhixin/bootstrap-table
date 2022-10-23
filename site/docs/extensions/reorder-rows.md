@@ -87,7 +87,7 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
    This class is added for the duration of the drag and then removed when the row is dropped. It is more flexible than using onDragStyle since it can be inherited by the row cells and other content.
 
-- **Default:** `reorder_rows_onDragClass`
+- **Default:** `reorder-rows-on-drag-class`
 
 ### onDropStyle
 

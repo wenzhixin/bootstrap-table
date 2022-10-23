@@ -1,4 +1,4 @@
-@import url("./variables.scss");
+@import "./variables";
 
 .bootstrap-table {
   .fixed-table-toolbar {
@@ -320,7 +320,6 @@
     }
 
     > .pagination {
-
       ul.pagination {
         margin: 0;
 
@@ -360,7 +359,7 @@
   &.bootstrap4,
   &.bootstrap5 {
     .pagination-lg .page-link {
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
     }
   }
 

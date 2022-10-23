@@ -4,8 +4,8 @@
  * theme: https://github.com/jgthms/bulma/
  */
 
- @import './variables.scss';
- @import '../theme.scss';
+@import "./variables";
+@import "../theme";
 
 .bootstrap-table {
   .float-left {
@@ -33,7 +33,6 @@
     }
 
     .keep-open {
-
       li label {
         padding-top: 13px;
       }
@@ -59,7 +58,7 @@
 
     .page-item a {
       padding: 6px 12px;
-      line-height: 1.428571429;
+      line-height: 1.4286;
     }
   }
 }

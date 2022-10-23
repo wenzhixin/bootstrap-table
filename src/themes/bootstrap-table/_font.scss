@@ -1,11 +1,11 @@
 @font-face {
-  font-family: 'bootstrap-table';
-  src: url('fonts/bootstrap-table.eot?gmdfsp');
+  font-family: bootstrap-table;
+  src: url("fonts/bootstrap-table.eot?gmdfsp");
   src:
-  url('fonts/bootstrap-table.eot') format('embedded-opentype'),
-  url('fonts/bootstrap-table.ttf') format('truetype'),
-  url('fonts/bootstrap-table.woff') format('woff'),
-  url('fonts/bootstrap-table.svg') format('svg');
+    url("fonts/bootstrap-table.eot") format("embedded-opentype"),
+    url("fonts/bootstrap-table.ttf") format("truetype"),
+    url("fonts/bootstrap-table.woff") format("woff"),
+    url("fonts/bootstrap-table.svg") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -14,7 +14,7 @@
 [class^="icon-"],
 [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'bootstrap-table', sans-serif !important;
+  font-family: bootstrap-table, sans-serif !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -27,57 +27,74 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-down-circle:before {
+.icon-arrow-down-circle::before {
   content: "\e907";
 }
-.icon-arrow-up-circle:before {
+
+.icon-arrow-up-circle::before {
   content: "\e908";
 }
-.icon-chevron-left:before {
+
+.icon-chevron-left::before {
   content: "\e900";
 }
-.icon-chevron-right:before {
+
+.icon-chevron-right::before {
   content: "\e901";
 }
-.icon-clock:before {
+
+.icon-clock::before {
   content: "\e90c";
 }
-.icon-copy:before {
+
+.icon-copy::before {
   content: "\e909";
 }
-.icon-download:before {
+
+.icon-download::before {
   content: "\e90d";
 }
-.icon-list:before {
+
+.icon-list::before {
   content: "\e902";
 }
-.icon-maximize:before {
+
+.icon-maximize::before {
   content: "\1f5ce";
 }
-.icon-minus:before {
+
+.icon-minus::before {
   content: "\e90f";
 }
-.icon-move:before {
+
+.icon-move::before {
   content: "\e903";
 }
-.icon-plus:before {
+
+.icon-plus::before {
   content: "\e90e";
 }
-.icon-printer:before {
+
+.icon-printer::before {
   content: "\e90b";
 }
-.icon-refresh-cw:before {
+
+.icon-refresh-cw::before {
   content: "\e904";
 }
-.icon-search:before {
+
+.icon-search::before {
   content: "\e90a";
 }
-.icon-toggle-right:before {
+
+.icon-toggle-right::before {
   content: "\e905";
 }
-.icon-trash-2:before {
+
+.icon-trash-2::before {
   content: "\e906";
 }
-.icon-sort-amount-asc:before {
+
+.icon-sort-amount-asc::before {
   content: "\ea4c";
 }
