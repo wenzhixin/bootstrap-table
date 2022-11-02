@@ -2,9 +2,9 @@
  * @author Dustin Utecht
  * https://github.com/wenzhixin/bootstrap-table/
  */
-@import 'variables';
-@import '../theme.scss';
-@import './font.scss';
+@import "./variables";
+@import "../theme";
+@import "./font";
 
 .bootstrap-table {
   * {
@@ -145,8 +145,7 @@
     margin-top: 2px;
     border: 1px solid $btn-border;
     border-radius: 4px;
-    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .175);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.175);
 
     .dropdown-item {
       color: $color;
@@ -179,6 +178,7 @@
 
   .pagination-detail {
     float: left;
+
     .dropdown-item {
       min-width: 45px;
       text-align: center;
@@ -231,7 +231,7 @@
       background-color: $background;
       border-radius: 4px;
       margin: 2px;
-      padding: 5px 2px 5px 2px;
+      padding: 5px 2px;
 
       &:hover {
         background-color: $background-hover;
@@ -239,7 +239,7 @@
 
       .page-link {
         padding: 6px 12px;
-        line-height: 1.428571429;
+        line-height: 1.4286;
         color: $color;
         text-decoration: none;
         outline: none;
@@ -330,7 +330,7 @@
     bottom: 0;
     right: 0;
     z-index: 998;
-    background-color: rgba(10,10,10,.86);
+    background-color: rgba(10, 10, 10, 0.86);
   }
 
   .modal-content {

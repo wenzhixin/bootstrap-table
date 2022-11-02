@@ -4,14 +4,14 @@
  * theme: https://github.com/Semantic-Org/Semantic-UI
  */
 
- @import './variables.scss';
- @import '../theme.scss';
+@import "./variables";
+@import "../theme";
 
 .bootstrap-table {
   .fixed-table-container.fixed-height:not(.has-footer),
   .fixed-table-body {
-    border-bottom-left-radius: .28571429rem;
-    border-bottom-right-radius: .28571429rem;
+    border-bottom-left-radius: 0.2857rem;
+    border-bottom-right-radius: 0.2857rem;
   }
 
   .float-left {
@@ -24,8 +24,8 @@
 
   .fixed-table-toolbar {
     .search input {
-      padding-top: 0.60714286rem;
-      padding-bottom: 0.60714286rem;
+      padding-top: 0.6071rem;
+      padding-bottom: 0.6071rem;
     }
 
     .button.dropdown {
@@ -38,8 +38,8 @@
     }
 
     .ui.buttons .button:last-child .button {
-      border-top-right-radius: 0.285714rem;
-      border-bottom-right-radius: .28571429rem;
+      border-top-right-radius: 0.2857rem;
+      border-bottom-right-radius: 0.2857rem;
     }
   }
 
@@ -53,11 +53,11 @@
     background: transparent;
 
     thead th[data-not-first-th] {
-      border-left: 1px solid $border-color!important;
+      border-left: 1px solid $border-color !important;
     }
   }
 
-  .dropup i.icon.dropdown:before {
+  .dropup i.icon.dropdown::before {
     content: "\f0d8";
   }
 }
