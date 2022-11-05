@@ -1206,10 +1206,10 @@
     estree-walker "^2.0.2"
     magic-string "^0.26.4"
 
-"@rollup/plugin-multi-entry@^5.0.0":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-multi-entry/-/plugin-multi-entry-5.0.1.tgz#84d9f9124470386f0a9b77243776978f278611e7"
-  integrity sha512-bNvaoFkRDQvtoAJYvgiUTfFVA4OaQu3QH1IJahEOnnHR3lI41eLDfwXjAYxbuxi7pZF8U41OkLxhvnVdBT+Ytg==
+"@rollup/plugin-multi-entry@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-multi-entry/-/plugin-multi-entry-6.0.0.tgz#51dab86a6953787ca2d3ac5416aa71dd46b59f0a"
+  integrity sha512-msBgVncGQwh/ahxeP/rc8MXVZNBOjoVCsBuDk6uqyFzDv/SZN7jksfAsu6DJ2w4r5PaBX3/OXOjVPeCxya2waA==
   dependencies:
     "@rollup/plugin-virtual" "^3.0.0"
     matched "^5.0.1"
