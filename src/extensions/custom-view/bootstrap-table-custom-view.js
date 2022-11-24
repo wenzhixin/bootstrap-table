@@ -29,6 +29,9 @@ $.extend($.fn.bootstrapTable.defaults, {
   },
   onCustomViewPreBody () {
     return false
+  },
+  onToggleCustomView () {
+    return false
   }
 })
 
@@ -43,7 +46,8 @@ $.fn.bootstrapTable.methods.push('toggleCustomView')
 
 $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'custom-view-post-body.bs.table': 'onCustomViewPostBody',
-  'custom-view-pre-body.bs.table': 'onCustomViewPreBody'
+  'custom-view-pre-body.bs.table': 'onCustomViewPreBody',
+  'toggle-custom-view.bs.table': 'onToggleCustomView'
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
@@ -105,5 +109,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
   toggleCustomView () {
     this.customViewDefaultView = !this.customViewDefaultView
     this.initBody()
+    this.trigger('toggle-custom-view', this.customViewDefaultView)
   }
 }
