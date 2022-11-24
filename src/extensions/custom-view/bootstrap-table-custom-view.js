@@ -12,7 +12,16 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
-  customView: {
+  customViewOn: {
+    bootstrap3: 'glyphicon glyphicon-eye-open',
+    bootstrap5: 'bi-eye',
+    bootstrap4: 'fa fa-eye',
+    semantic: 'fa fa-eye',
+    foundation: 'fa fa-eye',
+    bulma: 'fa fa-eye',
+    materialize: 'remove_red_eye'
+  }[$.fn.bootstrapTable.theme] || 'fa-eye',
+  customViewOff: {
     bootstrap3: 'glyphicon glyphicon-eye-open',
     bootstrap5: 'bi-eye',
     bootstrap4: 'fa fa-eye',
@@ -37,7 +46,13 @@ $.extend($.fn.bootstrapTable.defaults, {
 
 $.extend($.fn.bootstrapTable.locales, {
   formatToggleCustomView () {
-    return 'Toggle custom view'
+    return 'Hide/Show custom view'
+  },
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
+  },
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   }
 })
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
@@ -62,8 +77,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.customView && this.options.showCustomView) {
       this.buttons = Object.assign(this.buttons, {
         customView: {
-          text: this.options.formatToggleCustomView(),
-          icon: this.options.icons.customView,
+          text: this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn(),
+          icon: this.options.customViewDefaultView ? this.options.icons.customViewOn : this.options.icons.customViewOff,
           event: this.toggleCustomView,
           attributes: {
             'aria-label': this.options.formatToggleCustomView(),
@@ -108,6 +123,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   toggleCustomView () {
     this.customViewDefaultView = !this.customViewDefaultView
+
+    const icon = this.options.showButtonIcons ? this.customViewDefaultView ? this.options.icons.customViewOn : this.options.icons.customViewOff : ''
+    const text = this.options.showButtonText ? this.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn() : ''
+
+    this.$toolbar.find('button[name="customView"]')
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
+      .attr('aria-label', text)
+      .attr('title', text)
+
     this.initBody()
     this.trigger('toggle-custom-view', this.customViewDefaultView)
   }
