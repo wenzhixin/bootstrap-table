@@ -107,12 +107,6 @@ This extension adds the ability to create a custom view to display the data.
 
 ## Localizations
 
-### formatToggleCustomView
-
-- **type:** `Function`
-
-- **Default:** `function () { return "Hide/Show custom view" }`
-
 ### formatToggleCustomViewOn
 
 - **type:** `Function`

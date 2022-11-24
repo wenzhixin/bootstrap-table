@@ -45,9 +45,6 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.locales, {
-  formatToggleCustomView () {
-    return 'Hide/Show custom view'
-  },
   formatToggleCustomViewOn () {
     return 'Show custom view'
   },
@@ -81,8 +78,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
           icon: this.options.customViewDefaultView ? this.options.icons.customViewOn : this.options.icons.customViewOff,
           event: this.toggleCustomView,
           attributes: {
-            'aria-label': this.options.formatToggleCustomView(),
-            title: this.options.formatToggleCustomView()
+            'aria-label': this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn(),
+            title: this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn()
           }
         }
       })
