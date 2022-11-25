@@ -13,23 +13,23 @@ $.extend($.fn.bootstrapTable.defaults, {
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
   customViewOn: {
-    bootstrap3: 'glyphicon glyphicon-eye-open',
-    bootstrap5: 'bi-eye',
-    bootstrap4: 'fa fa-eye',
-    semantic: 'fa fa-eye',
-    foundation: 'fa fa-eye',
-    bulma: 'fa fa-eye',
-    materialize: 'remove_red_eye'
-  }[$.fn.bootstrapTable.theme] || 'fa-eye',
+    bootstrap3: 'glyphicon glyphicon-list',
+    bootstrap5: 'bi-list',
+    bootstrap4: 'fa fa-list',
+    semantic: 'fa fa-list',
+    foundation: 'fa fa-list',
+    bulma: 'fa fa-list',
+    materialize: 'list'
+  }[$.fn.bootstrapTable.theme] || 'fa-list',
   customViewOff: {
-    bootstrap3: 'glyphicon glyphicon-eye-open',
-    bootstrap5: 'bi-eye',
-    bootstrap4: 'fa fa-eye',
-    semantic: 'fa fa-eye',
-    foundation: 'fa fa-eye',
-    bulma: 'fa fa-eye',
-    materialize: 'remove_red_eye'
-  }[$.fn.bootstrapTable.theme] || 'fa-eye'
+    bootstrap3: 'glyphicon glyphicon-thumbnails',
+    bootstrap5: 'bi-grid',
+    bootstrap4: 'fa fa-th',
+    semantic: 'fa fa-th',
+    foundation: 'fa fa-th',
+    bulma: 'fa fa-th',
+    materialize: 'grid_on'
+  }[$.fn.bootstrapTable.theme] || 'fa-th'
 })
 
 $.extend($.fn.bootstrapTable.defaults, {
