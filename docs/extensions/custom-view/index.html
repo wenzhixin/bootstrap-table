@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.21.1
+        v1.21.2
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.21.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.21.2)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.20.2/" target="_blank">v1.20.2</a>
         
@@ -380,8 +380,9 @@
 </li>
 <li class="toc-entry toc-h2"><a href="#events">Events</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#oncustomviewprebodycustom-view-pre-bodybstable">onCustomViewPreBody(custom-view-pre-body.bs.table)</a></li>
-<li class="toc-entry toc-h3"><a href="#oncustomviewpostbodycustom-view-post-bodybstable">onCustomViewPostBody(custom-view-post-body.bs.table)</a></li>
+<li class="toc-entry toc-h3"><a href="#oncustomviewprebody">onCustomViewPreBody</a></li>
+<li class="toc-entry toc-h3"><a href="#oncustomviewpostbody">onCustomViewPostBody</a></li>
+<li class="toc-entry toc-h3"><a href="#ontogglecustomview">onToggleCustomView</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#localizations">Localizations</a>
@@ -505,16 +506,59 @@ Set to <code class="highlighter-rouge">function</code> to format your custom vie
 
 <h2 id="events">Events</h2>
 
-<h3 id="oncustomviewprebodycustom-view-pre-bodybstable">onCustomViewPreBody(custom-view-pre-body.bs.table)</h3>
+<h3 id="oncustomviewprebody">onCustomViewPreBody</h3>
 
 <ul>
-  <li>Fires before the custom view was rendered.</li>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">custom-view-pre-body.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>It fires before the custom view was rendered.</p>
+  </li>
 </ul>
 
-<h3 id="oncustomviewpostbodycustom-view-post-bodybstable">onCustomViewPostBody(custom-view-post-body.bs.table)</h3>
+<h3 id="oncustomviewpostbody">onCustomViewPostBody</h3>
 
 <ul>
-  <li>Fires after the custom view was rendered.</li>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">custom-view-post-body.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">undefined</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>It fires after the custom view was rendered.</p>
+  </li>
+</ul>
+
+<h3 id="ontogglecustomview">onToggleCustomView</h3>
+
+<ul>
+  <li>
+    <p>It fires when the custom view is toggled.</p>
+  </li>
+  <li>
+    <p><strong>jQuery Event:</strong> <code class="highlighter-rouge">toggle-custom-view.bs.table</code></p>
+  </li>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">state</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>It fires when the custom view is toggled:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">state</code>: the new custom view state (<code class="highlighter-rouge">true</code>-&gt; Custom view is enabled, <code class="highlighter-rouge">false</code> -&gt; Custom view is disabled )</li>
+    </ul>
+  </li>
 </ul>
 
 <h2 id="localizations">Localizations</h2>

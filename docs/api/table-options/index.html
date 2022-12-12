@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.21.1
+        v1.21.2
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.21.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.21.2)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.20.2/" target="_blank">v1.20.2</a>
         
@@ -462,6 +462,7 @@
 <li class="toc-entry toc-h2"><a href="#sortname">sortName</a></li>
 <li class="toc-entry toc-h2"><a href="#sortorder">sortOrder</a></li>
 <li class="toc-entry toc-h2"><a href="#sortreset">sortReset</a></li>
+<li class="toc-entry toc-h2"><a href="#sortresetpage">sortResetPage</a></li>
 <li class="toc-entry toc-h2"><a href="#sortstable">sortStable</a></li>
 <li class="toc-entry toc-h2"><a href="#strictsearch">strictSearch</a></li>
 <li class="toc-entry toc-h2"><a href="#theadclasses">theadClasses</a></li>
@@ -2781,6 +2782,17 @@ Using the <code class="highlighter-rouge">'server'</code> side requires setting 
       <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
       <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
     </ul>
+
+    <p><strong>URL parameters:</strong></p>
+
+    <p>When <code class="highlighter-rouge">sidePagination</code> is set to <code class="highlighter-rouge">server</code>, the bootstrap table will make calls to the <code class="highlighter-rouge">url</code> with the following URL parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">offset</code> with a value between 0 and <code class="highlighter-rouge">total</code> - 1, indicating the first record to include.</li>
+      <li><code class="highlighter-rouge">limit</code> with a value indicating the number of rows per page.</li>
+    </ul>
+
+    <p>When implementing server-side pagination, you must implement a JSON view in a format like <a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data">this example</a>. That view must take the URL parameter values indicated above and return records starting at the <code class="highlighter-rouge">offset</code> index and returns the number of records indicated by <code class="highlighter-rouge">limit</code>.  For example, if you want records 11-20, your view must obtain the <code class="highlighter-rouge">offset=10</code> and <code class="highlighter-rouge">limit=10</code> from the URL string and return records like <a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&amp;limit=10">this example</a>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'client'</code></p>
@@ -2985,6 +2997,28 @@ Using the <code class="highlighter-rouge">'server'</code> side requires setting 
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-reset.html">Sort Reset</a></p>
+  </li>
+</ul>
+
+<h2 id="sortresetpage">sortResetPage</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-sort-reset-page</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to reset the page number when sorting.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-reset-page.html">Sort Reset Page</a></p>
   </li>
 </ul>
 
@@ -3268,6 +3302,17 @@ The Unique id should always be safe for html e.g. alphanumeric, it should not co
       <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
       <li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
     </ul>
+
+    <p><strong>URL parameters:</strong></p>
+
+    <p>When <code class="highlighter-rouge">sidePagination</code> is set to <code class="highlighter-rouge">server</code>, the bootstrap table will make calls to the <code class="highlighter-rouge">url</code> with the following URL parameters:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">offset</code> with a value between 0 and <code class="highlighter-rouge">total</code> - 1, indicating the first record to include.</li>
+      <li><code class="highlighter-rouge">limit</code> with a value indicating the number of rows per page.</li>
+    </ul>
+
+    <p>When implementing server-side pagination, you must implement a JSON view in a format like <a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data">this example</a>. That view must take the URL parameter values indicated above and return records starting at the <code class="highlighter-rouge">offset</code> index and returns the number of records indicated by <code class="highlighter-rouge">limit</code>.  For example, if you want records 11-20, your view must obtain the <code class="highlighter-rouge">offset=10</code> and <code class="highlighter-rouge">limit=10</code> from the URL string and return records like <a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&amp;limit=10">this example</a>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
