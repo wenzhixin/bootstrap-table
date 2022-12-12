@@ -3,6 +3,8 @@
  * https://github.com/wenzhixin/bootstrap-table/
  * theme: https://github.com/Semantic-Org/Semantic-UI
  */
+/* stylelint-disable annotation-no-unknown, max-line-length */
+/* stylelint-enable annotation-no-unknown, max-line-length */
 .bootstrap-table .fixed-table-toolbar::after {
   content: "";
   display: block;
@@ -339,7 +341,7 @@
 }
 
 .bootstrap-table.bootstrap4 .pagination-lg .page-link, .bootstrap-table.bootstrap5 .pagination-lg .page-link {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .bootstrap-table.bootstrap5 .float-left {
@@ -372,15 +374,15 @@ div.fixed-table-scroll-outer {
   50% {
     opacity: 1;
   }
-  to {
+  100% {
     opacity: 0;
   }
 }
 
 .bootstrap-table .fixed-table-container.fixed-height:not(.has-footer),
 .bootstrap-table .fixed-table-body {
-  border-bottom-left-radius: .28571429rem;
-  border-bottom-right-radius: .28571429rem;
+  border-bottom-left-radius: 0.2857rem;
+  border-bottom-right-radius: 0.2857rem;
 }
 
 .bootstrap-table .float-left {
@@ -392,8 +394,8 @@ div.fixed-table-scroll-outer {
 }
 
 .bootstrap-table .fixed-table-toolbar .search input {
-  padding-top: 0.60714286rem;
-  padding-bottom: 0.60714286rem;
+  padding-top: 0.6071rem;
+  padding-bottom: 0.6071rem;
 }
 
 .bootstrap-table .fixed-table-toolbar .button.dropdown {
@@ -406,8 +408,8 @@ div.fixed-table-scroll-outer {
 }
 
 .bootstrap-table .fixed-table-toolbar .ui.buttons .button:last-child .button {
-  border-top-right-radius: 0.285714rem;
-  border-bottom-right-radius: .28571429rem;
+  border-top-right-radius: 0.2857rem;
+  border-bottom-right-radius: 0.2857rem;
 }
 
 .bootstrap-table .fixed-table-header .table {
@@ -424,6 +426,6 @@ div.fixed-table-scroll-outer {
   border-left: 1px solid rgba(34, 36, 38, 0.1) !important;
 }
 
-.bootstrap-table .dropup i.icon.dropdown:before {
+.bootstrap-table .dropup i.icon.dropdown::before {
   content: "\f0d8";
 }

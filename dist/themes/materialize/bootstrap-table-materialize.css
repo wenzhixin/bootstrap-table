@@ -3,6 +3,8 @@
  * https://github.com/wenzhixin/bootstrap-table/
  * theme: https://github.com/jgthms/bulma/
  */
+/* stylelint-disable annotation-no-unknown, max-line-length */
+/* stylelint-enable annotation-no-unknown, max-line-length */
 .bootstrap-table .fixed-table-toolbar::after {
   content: "";
   display: block;
@@ -339,7 +341,7 @@
 }
 
 .bootstrap-table.bootstrap4 .pagination-lg .page-link, .bootstrap-table.bootstrap5 .pagination-lg .page-link {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .bootstrap-table.bootstrap5 .float-left {
@@ -372,7 +374,7 @@ div.fixed-table-scroll-outer {
   50% {
     opacity: 1;
   }
-  to {
+  100% {
     opacity: 0;
   }
 }
@@ -422,5 +424,5 @@ div.fixed-table-scroll-outer {
 
 .bootstrap-table .fixed-table-pagination .page-item a {
   padding: 6px 12px;
-  line-height: 1.428571429;
+  line-height: 1.4286;
 }
