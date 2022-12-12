@@ -3,9 +3,22 @@ ChangeLog
 
 ### 1.21.2
 
+#### Core
+
+- **New:** Added `sortResetPage` option to reset the page number when sorting.
+- **Update:** Fixed overwrite default option bug.
+- **Update:** Updated es-ES, es-CR locale.
+- **Update:** Improved scss style and lint.
+- **Update:** Used scss vars for sorting background image URLs.
+
 #### Extensions
 
+- **New(custom-view):** Added `onToggleCustomView` event.
+- **Update(cookie):** Fixed cookie name compare bug on using `cookiesEnabled` option.
 - **Update(custom-view):** Fixed `showCustomView` option cannot work.
+- **Update(filter-control):** Fixed bug while using a select filter and set `searchFormatter` to false.
+- **Update(filter-control):** Fixed missing class when specifying `iconSize`.
+- **Update(reorder-rows):** Updated default value to `reorder-rows-on-drag-class` of `onDragClass` option.
 
 ### 1.21.1
 
