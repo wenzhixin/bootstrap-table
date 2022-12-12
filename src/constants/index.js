@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Utils from '../utils/index.js'
 
-const VERSION = '1.21.1'
+const VERSION = '1.21.2'
 
 const bootstrapVersion = Utils.getBootstrapVersion()
 
@@ -134,6 +134,7 @@ const DEFAULTS = {
   sortOrder: undefined,
   sortReset: false,
   sortStable: false,
+  sortResetPage: false,
   rememberOrder: false,
   serverSort: true,
   customSort: undefined,

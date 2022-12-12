@@ -1,12 +1,11 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": "stylelint-config-standard-scss",
   "rules": {
-    "indentation": null,
-    "selector-pseudo-element-colon-notation": null,
-    "function-comma-space-after": null,
+    "alpha-value-notation": null,
+    "color-function-notation": null,
+    "hue-degree-notation": null,
     "no-descending-specificity": null,
-    "declaration-bang-space-before": null,
-    "number-leading-zero": null,
-    "rule-empty-line-before": null
+    "scss/no-global-function-names": null,
+    "selector-not-notation": null
   }
 }

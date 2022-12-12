@@ -142,7 +142,7 @@ BootstrapTable.prototype.initBody = function (...args) {
     this.tableGroups.forEach(item => {
       const html = []
 
-      html.push(Utils.sprintf('<tr class="info groupBy %s" data-group-index="%s">', this.options.groupByToggle ? 'expanded' : '', item.id))
+      html.push(Utils.sprintf('<tr class="info group-by %s" data-group-index="%s">', this.options.groupByToggle ? 'expanded' : '', item.id))
       if (that.options.detailView && !that.options.cardView) {
         html.push('<td class="detail"></td>')
       }
@@ -192,8 +192,8 @@ BootstrapTable.prototype.initBody = function (...args) {
     })
 
     if (this.options.groupByToggle) {
-      this.$container.off('click', '.groupBy')
-        .on('click', '.groupBy', function () {
+      this.$container.off('click', '.group-by')
+        .on('click', '.group-by', function () {
           const $this = $(this)
           const groupIndex = $this.closest('tr').data('group-index')
           const $groupRows = that.$body.find(`tr[data-parent-index=${groupIndex}]`)
@@ -297,13 +297,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if (options.unit === 'rows') {
         let scrollTo = 0
 
-        this.$body.find(`> tr:not(.groupBy):lt(${options.value})`).each((i, el) => {
+        this.$body.find(`> tr:not(.group-by):lt(${options.value})`).each((i, el) => {
           scrollTo += $(el).outerHeight(true)
         })
 
-        const $targetColumn = this.$body.find(`> tr:not(.groupBy):eq(${options.value})`)
+        const $targetColumn = this.$body.find(`> tr:not(.group-by):eq(${options.value})`)
 
-        $targetColumn.prevAll('.groupBy').each((i, el) => {
+        $targetColumn.prevAll('.group-by').each((i, el) => {
           scrollTo += $(el).outerHeight(true)
         })
 

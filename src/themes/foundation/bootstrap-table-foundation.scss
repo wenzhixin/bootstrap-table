@@ -4,8 +4,8 @@
  * theme: https://github.com/jgthms/bulma/
  */
 
- @import './variables.scss';
- @import '../theme.scss';
+@import "./variables";
+@import "../theme";
 
 .bootstrap-table {
   .float-left {
@@ -55,13 +55,13 @@
       margin-bottom: 0;
     }
 
-    .dropup .fa-angle-down:before {
+    .dropup .fa-angle-down::before {
       content: "\f106";
     }
 
     .page-item {
       padding: 6px 12px;
-      line-height: 1.428571429;
+      line-height: 1.4286;
     }
   }
 

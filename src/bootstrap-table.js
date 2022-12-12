@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.21.1
+ * version: 1.21.2
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -521,13 +521,15 @@ class BootstrapTable {
 
     if (this.options.sortName === $this.data('field')) {
       const currentSortOrder = this.options.sortOrder
+      const initialSortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder ||
+        this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
 
       if (currentSortOrder === undefined) {
         this.options.sortOrder = 'asc'
       } else if (currentSortOrder === 'asc') {
-        this.options.sortOrder = 'desc'
+        this.options.sortOrder = this.options.sortReset ? (initialSortOrder === 'asc' ? 'desc' : undefined) : 'desc'
       } else if (this.options.sortOrder === 'desc') {
-        this.options.sortOrder = this.options.sortReset ? undefined : 'asc'
+        this.options.sortOrder = this.options.sortReset ? (initialSortOrder === 'desc' ? 'asc' : undefined) : 'asc'
       }
 
       if (this.options.sortOrder === undefined) {
@@ -553,6 +555,11 @@ class BootstrapTable {
       this.options.pageNumber = 1
       this.initServer(this.options.silentSort)
       return
+    }
+
+    if (this.options.pagination && this.options.sortResetPage) {
+      this.options.pageNumber = 1
+      this.initPagination()
     }
 
     this.initSort()
@@ -3385,7 +3392,7 @@ $.fn.bootstrapTable = function (option, ...args) {
 
   this.each((i, el) => {
     let data = $(el).data('bootstrap.table')
-    const options = $.extend({}, BootstrapTable.DEFAULTS, $(el).data(),
+    const options = $.extend(true, {}, BootstrapTable.DEFAULTS, $(el).data(),
       typeof option === 'object' && option)
 
     if (typeof option === 'string') {

@@ -5,7 +5,7 @@ const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])
 export function getInputClass (that, isSelect = false) {
   const formControlClass = isSelect ? that.constants.classes.select : that.constants.classes.input
 
-  return that.options.iconSize ? Utils.sprintf('%s-%s', formControlClass, that.options.iconSize) : formControlClass
+  return that.options.iconSize ? Utils.sprintf('%s %s-%s', formControlClass, formControlClass, that.options.iconSize) : formControlClass
 }
 
 export function getOptionsFromSelectControl (selectControl) {
@@ -307,7 +307,7 @@ export function initFilterSelectControls (that) {
         const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
         let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
 
-        if (!fieldValue) {
+        if (fieldValue === undefined || fieldValue === null) {
           fieldValue = formattedValue
           column._forceFormatter = true
         }

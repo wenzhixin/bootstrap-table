@@ -76,13 +76,39 @@ This extension adds the ability to create a custom view to display the data.
 
 ## Events
 
-### onCustomViewPreBody(custom-view-pre-body.bs.table)
+### onCustomViewPreBody
 
-* Fires before the custom view was rendered.
+- **jQuery Event:** `custom-view-pre-body.bs.table`
 
-### onCustomViewPostBody(custom-view-post-body.bs.table)
+- **Parameter:** `undefined`
 
-* Fires after the custom view was rendered.
+- **Detail:**
+
+  It fires before the custom view was rendered.
+
+### onCustomViewPostBody
+
+- **jQuery Event:** `custom-view-post-body.bs.table`
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+  It fires after the custom view was rendered.
+
+### onToggleCustomView
+
+* It fires when the custom view is toggled.
+
+- **jQuery Event:** `toggle-custom-view.bs.table`
+
+- **Parameter:** `state`
+
+- **Detail:**
+
+  It fires when the custom view is toggled:
+
+  * `state`: the new custom view state (`true`-> Custom view is enabled, `false` -> Custom view is disabled )
 
 ## Localizations
 

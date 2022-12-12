@@ -11,7 +11,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   reorderableRows: false,
   onDragStyle: null,
   onDropStyle: null,
-  onDragClass: 'reorder_rows_onDragClass',
+  onDragClass: 'reorder-rows-on-drag-class',
   dragHandle: '>tbody>tr>td:not(.bs-checkbox)',
   useRowAttrFunc: false,
   // eslint-disable-next-line no-unused-vars
