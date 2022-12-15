@@ -649,6 +649,7 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   Update the localizations format text.
 
 - **Example:** [Update Format Text](https://examples.bootstrap-table.com/#methods/update-format-text.html)
+
 ## updateRow
 
 - **Parameter:** `params`
