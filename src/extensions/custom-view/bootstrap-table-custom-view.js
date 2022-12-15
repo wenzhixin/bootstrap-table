@@ -12,15 +12,24 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.defaults.icons, {
-  customView: {
-    bootstrap3: 'glyphicon glyphicon-eye-open',
-    bootstrap5: 'bi-eye',
-    bootstrap4: 'fa fa-eye',
-    semantic: 'fa fa-eye',
-    foundation: 'fa fa-eye',
-    bulma: 'fa fa-eye',
-    materialize: 'remove_red_eye'
-  }[$.fn.bootstrapTable.theme] || 'fa-eye'
+  customViewOn: {
+    bootstrap3: 'glyphicon glyphicon-list',
+    bootstrap5: 'bi-list',
+    bootstrap4: 'fa fa-list',
+    semantic: 'fa fa-list',
+    foundation: 'fa fa-list',
+    bulma: 'fa fa-list',
+    materialize: 'list'
+  }[$.fn.bootstrapTable.theme] || 'fa-list',
+  customViewOff: {
+    bootstrap3: 'glyphicon glyphicon-thumbnails',
+    bootstrap5: 'bi-grid',
+    bootstrap4: 'fa fa-th',
+    semantic: 'fa fa-th',
+    foundation: 'fa fa-th',
+    bulma: 'fa fa-th',
+    materialize: 'grid_on'
+  }[$.fn.bootstrapTable.theme] || 'fa-th'
 })
 
 $.extend($.fn.bootstrapTable.defaults, {
@@ -36,8 +45,11 @@ $.extend($.fn.bootstrapTable.defaults, {
 })
 
 $.extend($.fn.bootstrapTable.locales, {
-  formatToggleCustomView () {
-    return 'Toggle custom view'
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
+  },
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   }
 })
 $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
@@ -62,12 +74,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.customView && this.options.showCustomView) {
       this.buttons = Object.assign(this.buttons, {
         customView: {
-          text: this.options.formatToggleCustomView(),
-          icon: this.options.icons.customView,
+          text: this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn(),
+          icon: this.options.customViewDefaultView ? this.options.icons.customViewOn : this.options.icons.customViewOff,
           event: this.toggleCustomView,
           attributes: {
-            'aria-label': this.options.formatToggleCustomView(),
-            title: this.options.formatToggleCustomView()
+            'aria-label': this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn(),
+            title: this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn()
           }
         }
       })
@@ -108,6 +120,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   toggleCustomView () {
     this.customViewDefaultView = !this.customViewDefaultView
+
+    const icon = this.options.showButtonIcons ? this.customViewDefaultView ? this.options.icons.customViewOn : this.options.icons.customViewOff : ''
+    const text = this.options.showButtonText ? this.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn() : ''
+
+    this.$toolbar.find('button[name="customView"]')
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
+      .attr('aria-label', text)
+      .attr('title', text)
+
     this.initBody()
     this.trigger('toggle-custom-view', this.customViewDefaultView)
   }

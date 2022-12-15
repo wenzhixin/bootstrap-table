@@ -60,13 +60,22 @@ This extension adds the ability to create a custom view to display the data.
 
 ### Icons
 
-- Toggle custom view:
-    * Bootstrap3: `glyphicon glyphicon-eye-open`
+- customViewOn: 
+    * Bootstrap3: `glyphicon glyphicon-list`
     * Bootstrap4: `fa fa-eye`
+    * bootstrap5: 'bi-eye',
     * Semantic: `fa fa-eye`
     * Foundation: `fa fa-eye`
     * Bulma: `fa fa-eye`
     * Materialize: `remove_red_eye`
+- customViewOff:
+    * Bootstrap3: `glyphicon glyphicon-thumbnails`
+    * Bootstrap4: `fa fa-th`
+    * bootstrap5: 'bi-grid',
+    * Semantic: `fa fa-th`
+    * Foundation: `fa fa-th`
+    * Bulma: `fa fa-th`
+    * Materialize: `grid_on`
 
 ## Methods
 
@@ -112,8 +121,14 @@ This extension adds the ability to create a custom view to display the data.
 
 ## Localizations
 
-### formatToggleCustomView
+### formatToggleCustomViewOn
 
 - **type:** `Function`
 
-- **Default:** `function () { return "Toggle custom view" }`
+- **Default:** `function () { return "Show custom view" }`
+
+### formatToggleCustomViewOff
+
+- **type:** `Function`
+
+- **Default:** `function () { return "Hide custom view" }`
