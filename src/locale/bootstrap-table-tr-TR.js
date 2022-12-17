@@ -101,4 +101,4 @@ $.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['tr-TR'])
+$.fn.bootstrapTable.utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['tr-TR'])

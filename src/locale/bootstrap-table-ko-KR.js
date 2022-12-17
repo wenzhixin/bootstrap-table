@@ -101,4 +101,4 @@ $.fn.bootstrapTable.locales['ko-KR'] = $.fn.bootstrapTable.locales['ko'] = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ko-KR'])
+$.fn.bootstrapTable.utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ko-KR'])

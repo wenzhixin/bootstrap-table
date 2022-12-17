@@ -48,14 +48,14 @@ function printPageBuilderDefault (table) {
   </html>`
 }
 
-$.extend($.fn.bootstrapTable.locales, {
+Utils.extend($.fn.bootstrapTable.locales, {
   formatPrint () {
     return 'Print'
   }
 })
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   showPrint: false,
   printAsFilteredAndSortedOnUI: true,
   printSortColumn: undefined,
@@ -65,13 +65,13 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
+Utils.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
   printFilter: undefined,
   printIgnore: false,
   printFormatter: undefined
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Utils.extend($.fn.bootstrapTable.defaults.icons, {
   print: {
     bootstrap3: 'glyphicon-print icon-share',
     bootstrap5: 'bi-printer',

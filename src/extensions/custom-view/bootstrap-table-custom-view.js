@@ -5,13 +5,13 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   customView: false,
   showCustomView: false,
   customViewDefaultView: false
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Utils.extend($.fn.bootstrapTable.defaults.icons, {
   customViewOn: {
     bootstrap3: 'glyphicon glyphicon-list',
     bootstrap5: 'bi-list',
@@ -32,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-th'
 })
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   onCustomViewPostBody () {
     return false
   },
@@ -44,7 +44,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Utils.extend($.fn.bootstrapTable.locales, {
   formatToggleCustomViewOn () {
     return 'Show custom view'
   },
@@ -52,11 +52,11 @@ $.extend($.fn.bootstrapTable.locales, {
     return 'Hide custom view'
   }
 })
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.fn.bootstrapTable.methods.push('toggleCustomView')
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Utils.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'custom-view-post-body.bs.table': 'onCustomViewPostBody',
   'custom-view-pre-body.bs.table': 'onCustomViewPreBody',
   'toggle-custom-view.bs.table': 'onToggleCustomView'

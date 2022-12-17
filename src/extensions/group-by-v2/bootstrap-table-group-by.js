@@ -3,6 +3,7 @@
  * @version: v1.1.0
  */
 
+const Utils = $.fn.bootstrapTable.utils
 let initBodyCaller
 
 const groupBy = (array, f) => {
@@ -18,7 +19,7 @@ const groupBy = (array, f) => {
   return tmpGroups
 }
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Utils.extend($.fn.bootstrapTable.defaults.icons, {
   collapseGroup: {
     bootstrap3: 'glyphicon-chevron-up',
     bootstrap5: 'bi-chevron-up',
@@ -31,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-angle-down'
 })
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   groupBy: false,
   groupByField: '',
   groupByFormatter: undefined,
@@ -40,7 +41,6 @@ $.extend($.fn.bootstrapTable.defaults, {
   groupByCollapsedGroups: []
 })
 
-const Utils = $.fn.bootstrapTable.utils
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initSort = BootstrapTable.prototype.initSort
 const _initBody = BootstrapTable.prototype.initBody

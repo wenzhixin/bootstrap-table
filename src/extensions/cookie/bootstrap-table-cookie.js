@@ -167,7 +167,7 @@ const UtilsCookie = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   cookie: false,
   cookieExpire: '2h',
   cookiePath: null,
@@ -199,7 +199,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 $.fn.bootstrapTable.methods.push('getCookies')
 $.fn.bootstrapTable.methods.push('deleteCookie')
 
-$.extend($.fn.bootstrapTable.utils, {
+Utils.extend($.fn.bootstrapTable.utils, {
   setCookie: UtilsCookie.setCookie,
   getCookie: UtilsCookie.getCookie
 })

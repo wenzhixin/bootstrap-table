@@ -4,6 +4,8 @@
  * @version: v1.2.0
  */
 
+const Utils = $.fn.bootstrapTable.utils
+
 $.akottr.dragtable.prototype._restoreState = function (persistObj) {
   let i = 0
 
@@ -59,7 +61,7 @@ const filterFn = () => {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   reorderableColumns: false,
   maxMovingRows: 10,
   // eslint-disable-next-line no-unused-vars
@@ -69,7 +71,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   dragaccept: null
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Utils.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'reorder-column.bs.table': 'onReorderColumn'
 })
 

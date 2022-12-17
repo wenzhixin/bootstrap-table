@@ -6,7 +6,7 @@
 import * as UtilsFilterControl from './utils.js'
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   filterControl: false,
   filterControlVisible: true,
   filterControlMultipleSearch: false,
@@ -62,7 +62,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   _usingMultipleSelect: false
 })
 
-$.extend($.fn.bootstrapTable.columnDefaults, {
+Utils.extend($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined, // input, select, datepicker
   filterControlMultipleSelect: false,
   filterControlMultipleSelectOptions: {},
@@ -77,12 +77,12 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterCustomSearch: undefined
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Utils.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'column-search.bs.table': 'onColumnSearch',
   'created-controls.bs.table': 'onCreatedControls'
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Utils.extend($.fn.bootstrapTable.defaults.icons, {
   filterControlSwitchHide: {
     bootstrap3: 'glyphicon-zoom-out icon-zoom-out',
     bootstrap5: 'bi-zoom-out',
@@ -95,7 +95,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-search-plus'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Utils.extend($.fn.bootstrapTable.locales, {
   formatFilterControlSwitch () {
     return 'Hide/Show controls'
   },
@@ -106,9 +106,9 @@ $.extend($.fn.bootstrapTable.locales, {
     return 'Show controls'
   }
 })
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   formatClearSearch () {
     return 'Clear filters'
   }

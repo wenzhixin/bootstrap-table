@@ -100,4 +100,4 @@ $.fn.bootstrapTable.locales['zh-TW'] = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-TW'])
+$.fn.bootstrapTable.utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-TW'])

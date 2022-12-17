@@ -180,7 +180,7 @@ class BootstrapTable {
         if (typeof $th.data('field') !== 'undefined') {
           $th.data('field', `${$th.data('field')}`)
         }
-        column.push($.extend({}, {
+        column.push(Utils.extend({}, {
           title: $th.html(),
           class: $th.attr('class'),
           titleTooltip: $th.attr('title'),
@@ -202,7 +202,7 @@ class BootstrapTable {
       this.options.columns = [this.options.columns]
     }
 
-    this.options.columns = $.extend(true, [], columns, this.options.columns)
+    this.options.columns = Utils.extend(true, [], columns, this.options.columns)
     this.columns = []
     this.fieldsColumnsIndex = []
 
@@ -210,7 +210,7 @@ class BootstrapTable {
 
     this.options.columns.forEach((columns, i) => {
       columns.forEach((_column, j) => {
-        const column = $.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column, { passed: _column })
+        const column = Utils.extend({}, BootstrapTable.COLUMN_DEFAULTS, _column, { passed: _column })
 
         if (typeof column.fieldIndex !== 'undefined') {
           this.columns[column.fieldIndex] = column
@@ -1981,7 +1981,7 @@ class BootstrapTable {
       params.filter = JSON.stringify(this.filterColumnsPartial, null)
     }
 
-    $.extend(params, query || {})
+    Utils.extend(params, query || {})
 
     data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
 
@@ -1993,7 +1993,7 @@ class BootstrapTable {
     if (!silent) {
       this.showLoading()
     }
-    const request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
+    const request = Utils.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
       type: this.options.method,
       url: url || this.options.url,
       data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
@@ -2404,10 +2404,10 @@ class BootstrapTable {
 
   getOptions () {
     // deep copy and remove data
-    const options = $.extend({}, this.options)
+    const options = Utils.extend({}, this.options)
 
     delete options.data
-    return $.extend(true, {}, options)
+    return Utils.extend(true, {}, options)
   }
 
   refreshOptions (options) {
@@ -2415,7 +2415,7 @@ class BootstrapTable {
     if (Utils.compareObjects(this.options, options, true)) {
       return
     }
-    this.options = $.extend(this.options, options)
+    this.options = Utils.extend(this.options, options)
     this.trigger('refresh-options', this.options)
     this.destroy()
     this.init()
@@ -2576,7 +2576,7 @@ class BootstrapTable {
       if (params.hasOwnProperty('replace') && params.replace) {
         this.options.data[params.index] = params.row
       } else {
-        $.extend(this.options.data[params.index], params.row)
+        Utils.extend(this.options.data[params.index], params.row)
       }
     }
 
@@ -2639,7 +2639,7 @@ class BootstrapTable {
       if (params.hasOwnProperty('replace') && params.replace) {
         this.options.data[rowId] = params.row
       } else {
-        $.extend(this.options.data[rowId], params.row)
+        Utils.extend(this.options.data[rowId], params.row)
       }
       updatedUid = params.id
     }
@@ -3196,7 +3196,7 @@ class BootstrapTable {
   }
 
   filterBy (columns, options) {
-    this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions : $.extend(this.options.filterOptions, options)
+    this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions : Utils.extend(this.options.filterOptions, options)
     this.filterColumns = Utils.isEmptyObject(columns) ? {} : columns
     this.options.pageNumber = 1
     this.initSearch()
@@ -3392,8 +3392,6 @@ $.fn.bootstrapTable = function (option, ...args) {
 
   this.each((i, el) => {
     let data = $(el).data('bootstrap.table')
-    const options = $.extend(true, {}, BootstrapTable.DEFAULTS, $(el).data(),
-      typeof option === 'object' && option)
 
     if (typeof option === 'string') {
       if (!Constants.METHODS.includes(option)) {
@@ -3409,7 +3407,11 @@ $.fn.bootstrapTable = function (option, ...args) {
       if (option === 'destroy') {
         $(el).removeData('bootstrap.table')
       }
+      return
     }
+
+    const options = Utils.extend(true, {}, BootstrapTable.DEFAULTS, $(el).data(),
+      typeof option === 'object' && option)
 
     if (!data) {
       data = new $.BootstrapTable(el, options)
