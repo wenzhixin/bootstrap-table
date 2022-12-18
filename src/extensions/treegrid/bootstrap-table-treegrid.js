@@ -3,7 +3,9 @@
  * @update: zhixin wen <wenzhixin2010@gmail.com>
  */
 
-$.extend($.fn.bootstrapTable.defaults, {
+const Utils = $.fn.bootstrapTable.utils
+
+Utils.extend($.fn.bootstrapTable.defaults, {
   treeEnable: false,
   treeShowField: null,
   idField: 'id',
@@ -49,7 +51,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     for (let i = 0; i <= len; i++) {
       const node = nodes[i]
-      const defaultItem = $.extend(true, {}, item)
+      const defaultItem = Utils.extend(true, {}, item)
 
       node._level = defaultItem._level + 1
       node._parent = defaultItem

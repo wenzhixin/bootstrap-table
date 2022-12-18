@@ -55,7 +55,7 @@ function normalizeWheel (event) {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   fixedColumns: false,
   fixedNumber: 0,
   fixedRightNumber: 0

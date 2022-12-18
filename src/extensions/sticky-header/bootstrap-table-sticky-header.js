@@ -6,7 +6,7 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   stickyHeader: false,
   stickyHeaderOffsetY: 0,
   stickyHeaderOffsetLeft: 0,

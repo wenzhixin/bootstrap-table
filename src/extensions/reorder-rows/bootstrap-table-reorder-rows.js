@@ -3,11 +3,12 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
+const Utils = $.fn.bootstrapTable.utils
 const rowAttr = (row, index) => ({
   id: `customId_${index}`
 })
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   reorderableRows: false,
   onDragStyle: null,
   onDropStyle: null,
@@ -32,7 +33,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Utils.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'reorder-row.bs.table': 'onReorderRow'
 })
 

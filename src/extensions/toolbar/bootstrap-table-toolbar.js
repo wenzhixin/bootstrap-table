@@ -186,7 +186,7 @@ const theme = {
   }
 }[$.fn.bootstrapTable.theme]
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   advancedSearch: false,
   idForm: 'advancedSearch',
   actionForm: '',
@@ -197,15 +197,15 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Utils.extend($.fn.bootstrapTable.defaults.icons, {
   advancedSearchIcon: theme.icons.advancedSearchIcon
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Utils.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Utils.extend($.fn.bootstrapTable.locales, {
   formatAdvancedSearch () {
     return 'Advanced search'
   },
@@ -214,7 +214,7 @@ $.extend($.fn.bootstrapTable.locales, {
   }
 })
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar () {

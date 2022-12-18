@@ -13,7 +13,9 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-$.extend($.fn.bootstrapTable.defaults, {
+const Utils = $.fn.bootstrapTable.utils
+
+Utils.extend($.fn.bootstrapTable.defaults, {
   deferUrl: undefined
 })
 

@@ -3,6 +3,7 @@
  * @version: v2.0.0
  */
 
+const Utils = $.fn.bootstrapTable.utils
 const isInit = that => that.$el.data('resizableColumns') !== undefined
 
 const initResizable = that => {
@@ -29,7 +30,7 @@ const reInitResizable = that => {
   initResizable(that)
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   resizable: false
 })
 

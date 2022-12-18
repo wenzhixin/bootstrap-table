@@ -90,8 +90,6 @@ This is an important link to check out as some file types may require extra step
 
 - **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
 
-- **Default:** `{}`
-
 ### Icons
 
 - export: `'glyphicon-export icon-share'`

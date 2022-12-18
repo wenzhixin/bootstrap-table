@@ -49,7 +49,7 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.extend($.fn.bootstrapTable.defaults, {
   usePipeline: false,
   pipelineSize: 1000,
   // eslint-disable-next-line no-unused-vars
@@ -62,7 +62,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Utils.extend($.fn.bootstrapTable.Constructor.EVENTS, {
   'cached-data-hit.bs.table': 'onCachedDataHit',
   'cached-data-reset.bs.table': 'onCachedDataReset'
 })
@@ -145,7 +145,7 @@ BootstrapTable.prototype.setCurrWindow = function (offset) {
 
 BootstrapTable.prototype.drawFromCache = function (offset, limit) {
   /* draw rows from the cache using offset and limit */
-  const res = $.extend(true, {}, this.cacheRequestJSON)
+  const res = Utils.extend(true, {}, this.cacheRequestJSON)
   const drawStart = offset - this.cacheWindows[this.currWindow].lower
   const drawEnd = drawStart + limit
 
@@ -260,7 +260,7 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
 
   data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
 
-  $.extend(data, query || {})
+  Utils.extend(data, query || {})
 
   // false to stop request
   if (data === false) {
@@ -272,7 +272,7 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
   }
   const self = this
 
-  request = $.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
+  request = Utils.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
     type: this.options.method,
     url: url || this.options.url,
     data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
@@ -285,7 +285,7 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
       // cache results if using pipelining
       if (self.options.usePipeline) {
         // store entire request in cache
-        self.cacheRequestJSON = $.extend(true, {}, res)
+        self.cacheRequestJSON = Utils.extend(true, {}, res)
         // this gets set in load() also but needs to be set before
         // setting cacheWindows
         self.options.totalRows = res[self.options.totalField]
