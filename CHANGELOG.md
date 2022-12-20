@@ -1,6 +1,16 @@
 ChangeLog
 ---------
 
+### 1.21.3
+
+- **Update:** Updated extend util instead of `$.extend`.
+- **Update:** - Fixed overwriting the `filterOptions` after rebuild.
+
+#### Extensions
+
+- **Update(export):** Fixed `exportTypes` option not working bug.
+- **Update(treegrid):** Fixed treegrid not working when id is text.
+
 ### 1.21.2
 
 #### Core
