@@ -18,7 +18,7 @@ export function getControlContainer (that) {
   }
 
   if (that.options.height && that._initialized) {
-    return $('.fixed-table-header table thead')
+    return that.$tableContainer.find('.fixed-table-header table thead')
   }
 
   return that.$header
@@ -590,7 +590,7 @@ export function syncHeaders (that) {
   if (!that.options.height) {
     return
   }
-  const fixedHeader = $('.fixed-table-header table thead')
+  const fixedHeader = that.$tableContainer.find('.fixed-table-header table thead')
 
   if (fixedHeader.length === 0) {
     return
@@ -600,7 +600,7 @@ export function syncHeaders (that) {
     if (element.classList[0] !== 'bs-checkbox') {
       const $element = $(element)
       const $field = $element.data('field')
-      const $fixedField = $(`th[data-field='${$field}']`).not($element)
+      const $fixedField = that.$tableContainer.find(`th[data-field='${$field}']`).not($element)
 
       const input = $element.find('input')
       const fixedInput = $fixedField.find('input')

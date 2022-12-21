@@ -526,7 +526,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     // Controls in fixed header
     if (this.options.height) {
-      const $fixedControls = $('.fixed-table-header table thead').find('.filter-control, .no-filter-control')
+      const $fixedControls = this.$tableContainer.find('.fixed-table-header table thead').find('.filter-control, .no-filter-control')
 
       $fixedControls.toggle(this.options.filterControlVisible)
       UtilsFilterControl.fixHeaderCSS(this)
