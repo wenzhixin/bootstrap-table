@@ -295,7 +295,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   isValueExpected (searchValue, value, column, key) {
-    let tmpItemIsExpected = false
+    let tmpItemIsExpected
+
+    if (column.filterControl === 'select') {
+      value = Utils.removeHTML(value.toString().toLowerCase())
+    }
 
     if (
       column.filterStrictSearch ||
