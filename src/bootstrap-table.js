@@ -180,7 +180,16 @@ class BootstrapTable {
         if (typeof $th.data('field') !== 'undefined') {
           $th.data('field', `${$th.data('field')}`)
         }
+        const _data = Object.assign({}, Utils.getRealDataAttr($th.data()))
+
+        for (const key in _data) {
+          if ($.fn.bootstrapTable.columnDefaults.hasOwnProperty(key)) {
+            delete _data[key]
+          }
+        }
+
         column.push(Utils.extend({}, {
+          _data,
           title: $th.html(),
           class: $th.attr('class'),
           titleTooltip: $th.attr('title'),
@@ -305,6 +314,7 @@ class BootstrapTable {
 
         const headerStyle = Utils.calculateObjectValue(null, this.options.headerStyle, [column])
         const csses = []
+        const data_ = []
         let classes = ''
 
         if (headerStyle && headerStyle.css) {
@@ -340,6 +350,12 @@ class BootstrapTable {
           visibleColumns[column.field] = column
         }
 
+        if (Object.keys(column._data || {}).length > 0) {
+          for (const [k, v] of Object.entries(column._data)) {
+            data_.push(`data-${k}='${typeof v === 'object' ? JSON.stringify(v) : v}'`)
+          }
+        }
+
         html.push(`<th${Utils.sprintf(' title="%s"', column.titleTooltip)}`,
           column.checkbox || column.radio ?
             Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') :
@@ -350,6 +366,7 @@ class BootstrapTable {
           Utils.sprintf(' data-field="%s"', column.field),
           // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
           j === 0 && i > 0 ? ' data-not-first-th' : '',
+          data_.length > 0 ? data_.join(' ') : '',
           '>')
 
         html.push(Utils.sprintf('<div class="th-inner %s">',
