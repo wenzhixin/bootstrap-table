@@ -355,7 +355,7 @@ class BootstrapTable {
         html.push(Utils.sprintf('<div class="th-inner %s">',
           this.options.sortable && column.sortable ? `sortable${columnHalign === 'center' ? ' sortable-center' : ''} both` : ''))
 
-        let text = this.options.escape ? Utils.escapeHTML(column.title) : column.title
+        let text = this.options.escape && this.options.escapeTitle ? Utils.escapeHTML(column.title) : column.title
 
         const title = text
 
@@ -3347,7 +3347,7 @@ class BootstrapTable {
     }
 
     this.columns[this.fieldsColumnsIndex[params.field]].title =
-      this.options.escape ? Utils.escapeHTML(params.title) : params.title
+      this.options.escape && this.options.escapeTitle ? Utils.escapeHTML(params.title) : params.title
 
     if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
       this.$header.find('th[data-field]').each((i, el) => {
