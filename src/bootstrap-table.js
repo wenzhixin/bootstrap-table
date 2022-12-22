@@ -880,7 +880,7 @@ class BootstrapTable {
       )
       const searchInputHtml = `<input class="${this.constants.classes.input}
         ${Utils.sprintf(' %s%s', this.constants.classes.inputPrefix, opts.iconSize)}
-        search-input" type="search" placeholder="${opts.formatSearch()}" autocomplete="off">`
+        search-input" type="search" aria-label="${opts.formatSearch()}" placeholder="${opts.formatSearch()}" autocomplete="off">`
       let searchInputFinalHtml = searchInputHtml
 
       if (opts.showSearchButton || opts.showSearchClearButton) {
