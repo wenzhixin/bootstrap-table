@@ -509,10 +509,25 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Escapes a string for insertion into HTML, replacing &, <, >, ", `, and ' characters.
+  To disable it for the column titles check the `escapeTitle` option.
 
 - **Default:** `false`
 
 - **Example:** [Table Escape](https://examples.bootstrap-table.com/#options/table-escape.html)
+
+## escapeTitle
+
+- **Attribute:** `data-escape-title`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Toggles if the `escape` option should be applied to the column titles.
+
+- **Default:** `true`
+
+- **Example:** [Table Escape title](https://examples.bootstrap-table.com/#options/table-escape-title.html)
 
 ## filterOptions
 

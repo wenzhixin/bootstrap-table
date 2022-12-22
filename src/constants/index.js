@@ -210,6 +210,7 @@ const DEFAULTS = {
   showFullscreen: false,
   smartDisplay: true,
   escape: false,
+  escapeTitle: true,
   filterOptions: {
     filterAlgorithm: 'and'
   },
