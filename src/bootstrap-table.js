@@ -2151,7 +2151,7 @@ class BootstrapTable {
 
     this.$el.css('margin-top', -this.$header.outerHeight())
 
-    const focused = $(':focus')
+    const focused = this.$tableHeader.find(':focus')
 
     if (focused.length > 0) {
       const $th = focused.parents('th')
