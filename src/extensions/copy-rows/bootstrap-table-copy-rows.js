@@ -40,7 +40,9 @@ Utils.extend($.fn.bootstrapTable.defaults, {
   showCopyRows: false,
   copyWithHidden: false,
   copyDelimiter: ', ',
-  copyNewline: '\n'
+  copyNewline: '\n',
+  copyUnique: false,
+  copyToLowerCase: false
 })
 
 Utils.extend($.fn.bootstrapTable.columnDefaults, {
@@ -90,13 +92,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
           !column.ignoreCopy
         ) {
           if (row[column.field] !== null) {
-            const columnValue = column.rawCopy ? row[column.field] : Utils.calculateObjectValue(column, this.header.formatters[indy], [row[column.field], row, index], row[column.field])
+            let columnValue = column.rawCopy ? row[column.field] : Utils.calculateObjectValue(column, this.header.formatters[indy], [row[column.field], row, index], row[column.field])
 
-            cols.push(columnValue)
+            if (this.options.copyToLowerCase) {
+              columnValue = columnValue.toLowerCase()
+            }
+            if (!this.options.copyUnique) {
+              cols.push(columnValue)
+            } else if (columnValue !== '' && rows.indexOf(columnValue) === -1) {
+              rows.push(columnValue)
+            }
           }
         }
       })
-      rows.push(cols.join(this.options.copyDelimiter))
+      if (!this.options.copyUnique) {
+        rows.push(cols.join(this.options.copyDelimiter))
+      }
     })
 
     copyText(rows.join(this.options.copyNewline))

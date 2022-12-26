@@ -56,6 +56,33 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Default:** `'\n'`
 
+### copyToLowerCase
+
+- **Attribute:** `data-copy-to-lower-case`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to convert values to lowercase when copying.
+
+- **Default:** `false`
+
+### copyUnique
+
+- **Attribute:** `data-copy-unique`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+   Set `true` to copy unique values only.
+   The value of [copyNewline](https://bootstrap-table.com/docs/extensions/copy-rows#copynewline)
+   will be used as delimiter between values.
+   Empty values will be ignored and not included during copying.
+
+- **Default:** `false`
+
 ### copyWithHidden
 
 - **Attribute:** `data-copy-width-hidden`
