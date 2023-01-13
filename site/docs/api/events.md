@@ -40,7 +40,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **Detail:**
 
-  It fires when all events trigger. The parameters contain:
+  It fires when any event triggers. The parameters contain:
 
   * `name`: the event name,
   * `args`: the event data.
