@@ -6,7 +6,7 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-Utils.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   autoRefresh: false,
   showAutoRefresh: true,
   autoRefreshInterval: 60,
@@ -15,7 +15,7 @@ Utils.extend($.fn.bootstrapTable.defaults, {
   autoRefreshFunction: null
 })
 
-Utils.extend($.fn.bootstrapTable.defaults.icons, {
+Object.assign($.fn.bootstrapTable.defaults.icons, {
   autoRefresh: {
     bootstrap3: 'glyphicon-time icon-time',
     bootstrap5: 'bi-clock',
@@ -24,13 +24,13 @@ Utils.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-clock'
 })
 
-Utils.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatAutoRefresh () {
     return 'Auto Refresh'
   }
 })
 
-Utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.BootstrapTable = class extends $.BootstrapTable {
   init (...args) {
