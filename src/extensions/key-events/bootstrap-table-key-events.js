@@ -5,7 +5,7 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-Utils.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   keyEvents: false
 })
 

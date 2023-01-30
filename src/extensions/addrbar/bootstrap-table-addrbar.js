@@ -6,8 +6,6 @@
  * @update: zhixin wen <wenzhixin2010@gmail.com>
  */
 
-const Utils = $.fn.bootstrapTable.utils
-
 /*
  * function: 获取浏览器地址栏中的指定参数.
  * key: 参数名
@@ -88,7 +86,7 @@ function _updateHistoryState (table, _prefix) {
   window.history.pushState({}, '', _buildUrl(params))
 }
 
-Utils.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   addrbar: false,
   addrPrefix: ''
 })

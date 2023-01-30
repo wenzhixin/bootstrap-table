@@ -19,7 +19,7 @@ const TYPE_NAME = {
   pdf: 'PDF'
 }
 
-Utils.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   showExport: false,
   exportDataType: 'basic', // basic, all, selected
   exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
@@ -27,12 +27,12 @@ Utils.extend($.fn.bootstrapTable.defaults, {
   exportFooter: false
 })
 
-Utils.extend($.fn.bootstrapTable.columnDefaults, {
+Object.assign($.fn.bootstrapTable.columnDefaults, {
   forceExport: false,
   forceHide: false
 })
 
-Utils.extend($.fn.bootstrapTable.defaults.icons, {
+Object.assign($.fn.bootstrapTable.defaults.icons, {
   export: {
     bootstrap3: 'glyphicon-export icon-share',
     bootstrap5: 'bi-download',
@@ -41,16 +41,16 @@ Utils.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-download'
 })
 
-Utils.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatExport () {
     return 'Export data'
   }
 })
-Utils.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.fn.bootstrapTable.methods.push('exportTable')
 
-Utils.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   // eslint-disable-next-line no-unused-vars
   onExportSaved (exportedRows) {
     return false
@@ -60,7 +60,7 @@ Utils.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-Utils.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'export-saved.bs.table': 'onExportSaved',
   'export-started.bs.table': 'onExportStarted'
 })

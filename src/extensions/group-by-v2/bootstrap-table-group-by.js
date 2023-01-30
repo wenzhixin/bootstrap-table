@@ -19,7 +19,7 @@ const groupBy = (array, f) => {
   return tmpGroups
 }
 
-Utils.extend($.fn.bootstrapTable.defaults.icons, {
+Object.assign($.fn.bootstrapTable.defaults.icons, {
   collapseGroup: {
     bootstrap3: 'glyphicon-chevron-up',
     bootstrap5: 'bi-chevron-up',
@@ -32,7 +32,7 @@ Utils.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-angle-down'
 })
 
-Utils.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   groupBy: false,
   groupByField: '',
   groupByFormatter: undefined,

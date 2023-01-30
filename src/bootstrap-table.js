@@ -180,7 +180,7 @@ class BootstrapTable {
         if (typeof $th.data('field') !== 'undefined') {
           $th.data('field', `${$th.data('field')}`)
         }
-        const _data = Object.assign({}, Utils.getRealDataAttr($th.data()))
+        const _data = Object.assign({}, $th.data())
 
         for (const key in _data) {
           if ($.fn.bootstrapTable.columnDefaults.hasOwnProperty(key)) {
@@ -189,7 +189,7 @@ class BootstrapTable {
         }
 
         column.push(Utils.extend({}, {
-          _data,
+          _data: Utils.getRealDataAttr(_data),
           title: $th.html(),
           class: $th.attr('class'),
           titleTooltip: $th.attr('title'),

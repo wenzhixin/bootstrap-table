@@ -3,7 +3,6 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-const Utils = $.fn.bootstrapTable.utils
 const debounce = (func, wait) => {
   let timeout = 0
 
@@ -18,7 +17,7 @@ const debounce = (func, wait) => {
   }
 }
 
-Utils.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   mobileResponsive: false,
   minWidth: 562,
   minHeight: undefined,
