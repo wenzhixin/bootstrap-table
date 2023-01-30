@@ -77,7 +77,7 @@ Object.assign($.fn.bootstrapTable.columnDefaults, {
   filterCustomSearch: undefined
 })
 
-Object.assign($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'column-search.bs.table': 'onColumnSearch',
   'created-controls.bs.table': 'onCreatedControls'
 })

@@ -517,7 +517,7 @@ Object.assign($.fn.bootstrapTable.defaults, {
   }
 })
 
-Object.assign($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'multiple-sort.bs.table': 'onMultipleSort'
 })
 

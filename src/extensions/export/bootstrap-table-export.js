@@ -60,7 +60,7 @@ Object.assign($.fn.bootstrapTable.defaults, {
   }
 })
 
-Object.assign($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'export-saved.bs.table': 'onExportSaved',
   'export-started.bs.table': 'onExportStarted'
 })

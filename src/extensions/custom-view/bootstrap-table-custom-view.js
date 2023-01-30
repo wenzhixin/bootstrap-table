@@ -56,7 +56,7 @@ Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.fn.bootstrapTable.methods.push('toggleCustomView')
 
-Object.assign($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'custom-view-post-body.bs.table': 'onCustomViewPostBody',
   'custom-view-pre-body.bs.table': 'onCustomViewPreBody',
   'toggle-custom-view.bs.table': 'onToggleCustomView'

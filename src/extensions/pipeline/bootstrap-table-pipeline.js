@@ -62,7 +62,7 @@ Object.assign($.fn.bootstrapTable.defaults, {
   }
 })
 
-Object.assign($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'cached-data-hit.bs.table': 'onCachedDataHit',
   'cached-data-reset.bs.table': 'onCachedDataReset'
 })

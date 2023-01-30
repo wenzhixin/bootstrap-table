@@ -69,7 +69,7 @@ Object.assign($.fn.bootstrapTable.defaults, {
   dragaccept: null
 })
 
-Object.assign($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'reorder-column.bs.table': 'onReorderColumn'
 })
 

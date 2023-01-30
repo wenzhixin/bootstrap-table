@@ -26,7 +26,7 @@ Object.assign($.fn.bootstrapTable.columnDefaults, {
   alwaysUseFormatter: false
 })
 
-Object.assign($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'editable-init.bs.table': 'onEditableInit',
   'editable-save.bs.table': 'onEditableSave',
   'editable-shown.bs.table': 'onEditableShown',

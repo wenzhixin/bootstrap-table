@@ -201,7 +201,7 @@ Object.assign($.fn.bootstrapTable.defaults.icons, {
   advancedSearchIcon: theme.icons.advancedSearchIcon
 })
 
-Object.assign($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
 })
 
