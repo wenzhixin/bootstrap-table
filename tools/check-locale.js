@@ -1,6 +1,6 @@
-const fs = require('fs')
-const _ = require('lodash')
-const chalk = require('chalk')
+import fs from 'fs'
+import chalk from 'chalk'
+import _ from 'lodash'
 
 const DIR = '../src/locale/'
 const readKeys = text => {
