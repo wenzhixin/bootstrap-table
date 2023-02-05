@@ -93,7 +93,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.buttons = Object.assign(this.buttons, {
         export: {
           html:
-            (() => {
+            () => {
               if (exportTypes.length === 1) {
                 return `
                   <div class="export ${this.constants.classes.buttonsDropdown}"
@@ -136,7 +136,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
               html.push(this.constants.html.toolbarDropdown[1], '</div>')
               return html.join('')
-            })
+            }
         }
       })
     }

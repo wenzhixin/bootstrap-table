@@ -254,7 +254,7 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
   }
   // cached results can't be used
   // continue base initServer code
-  if (!($.isEmptyObject(this.filterColumnsPartial))) {
+  if (!$.isEmptyObject(this.filterColumnsPartial)) {
     params.filter = JSON.stringify(this.filterColumnsPartial, null)
   }
 

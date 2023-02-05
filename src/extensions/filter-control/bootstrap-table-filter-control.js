@@ -214,7 +214,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
-          const rawFilterValue = (filterPartial[key] || '')
+          const rawFilterValue = filterPartial[key] || ''
           let filterValue = rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
@@ -300,17 +300,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (
       column.filterStrictSearch ||
-      (column.filterControl === 'select' && column.passed.filterStrictSearch !== false)
+      column.filterControl === 'select' && column.passed.filterStrictSearch !== false
     ) {
       tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
     } else if (column.filterStartsWithSearch) {
-      tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(searchValue) === 0
+      tmpItemIsExpected = `${value}`.toLowerCase().indexOf(searchValue) === 0
     } else if (column.filterControl === 'datepicker') {
       tmpItemIsExpected = new Date(value).getTime() === new Date(searchValue).getTime()
     } else if (this.options.regexSearch) {
       tmpItemIsExpected = Utils.regexCompare(value, searchValue)
     } else {
-      tmpItemIsExpected = (`${value}`).toLowerCase().includes(searchValue)
+      tmpItemIsExpected = `${value}`.toLowerCase().includes(searchValue)
     }
 
     const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
@@ -537,7 +537,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const text = this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''
 
     this.$toolbar.find('>.columns').find('.filter-control-switch')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
   }
 
   triggerSearch () {

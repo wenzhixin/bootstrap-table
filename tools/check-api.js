@@ -1,8 +1,7 @@
-// eslint-disable-next-line no-global-assign
-require = require('esm')(module)
-const fs = require('fs')
-const chalk = require('chalk')
-const Constants = require('../src/constants/index.js').default
+import fs from 'fs'
+import chalk from 'chalk'
+import Constants from '../src/constants/index.js'
+
 let errorSum = 0
 const exampleFilesFolder = './bootstrap-table-examples/'
 const exampleFilesFound = fs.existsSync(exampleFilesFolder)

@@ -177,7 +177,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
             for (let cs = 0; cs < currentMergedCell.colspan; cs++) {
               const col = currentMergedCell.col + cs
 
-              dontRender.push(`${row },${ col}`)
+              dontRender.push(`${row},${col}`)
             }
           }
         }
@@ -212,8 +212,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
           if (
             !columns[j].printIgnore && columns[j].visible && columns[j].field &&
               (
-                !dontRender.includes(`${i },${ j}`) ||
-                (rowspan > 0 && colspan > 0)
+                !dontRender.includes(`${i},${j}`) ||
+                rowspan > 0 && colspan > 0
               )
           ) {
             if (rowspan > 0 && colspan > 0) {
@@ -255,8 +255,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
       let reverse = sortOrder !== 'asc'
 
-      reverse = -((+reverse) || -1)
-      return data.sort((a, b) => reverse * (a[colName].localeCompare(b[colName])))
+      reverse = -(+reverse || -1)
+      return data.sort((a, b) => reverse * a[colName].localeCompare(b[colName]))
     }
 
     const filterRow = (row, filters) => {
