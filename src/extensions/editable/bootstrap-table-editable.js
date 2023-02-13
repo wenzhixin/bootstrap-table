@@ -48,7 +48,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       const editableOptions = {}
-      const editableDataMarkup = []
       const editableDataPrefix = 'editable-'
       const processDataOptions = (key, value) => {
         // Replace camel case with dashes.
@@ -77,26 +76,26 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         $.each(column, processDataOptions)
 
-        $.each(editableOptions, (key, value) => {
-          editableDataMarkup.push(` ${key}="${value}"`)
-        })
-
-        let noEditFormatter = false
         const editableOpts = Utils.calculateObjectValue(column,
           column.editable, [index, row], {})
+        let noEditFormatter = editableOpts.hasOwnProperty("noEditFormatter") &&
+                              editableOpts.noEditFormatter(value, row, index, field);
 
-        if (editableOpts.hasOwnProperty('noEditFormatter')) {
-          noEditFormatter = editableOpts.noEditFormatter(value, row, index, field)
+        if (noEditFormatter) {
+            return noEditFormatter
         }
 
-        if (noEditFormatter === false) {
-          return `<a href="javascript:void(0)"
-            data-name="${column.field}"
-            data-pk="${row[this.options.idField]}"
-            data-value="${result}"
-            ${editableDataMarkup.join('')}></a>`
-        }
-        return noEditFormatter
+        let editableDataMarkup = ""
+        $.each(editableOptions, (key, value) => {
+          editableDataMarkup += ` ${key}="${value}"`
+        })
+
+        return `<a href="javascript:void(0)"
+          data-name="${column.field}"
+          data-pk="${row[this.options.idField]}"
+          data-value="${value || ""}"
+          data-value="${result}"
+          ${editableDataMarkup}>${result}</a>` // expand all data-editable-XXX
       }
     })
   }
