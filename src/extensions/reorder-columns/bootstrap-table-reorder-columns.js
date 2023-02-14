@@ -83,7 +83,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this.makeRowsReorderable()
+    this.makeColumnsReorderable()
   }
 
   _toggleColumn (...args) {
@@ -93,7 +93,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this.makeRowsReorderable()
+    this.makeColumnsReorderable()
   }
 
   toggleView (...args) {
@@ -107,7 +107,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this.makeRowsReorderable()
+    this.makeColumnsReorderable()
   }
 
   resetView (...args) {
@@ -117,10 +117,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this.makeRowsReorderable()
+    this.makeColumnsReorderable()
   }
 
-  makeRowsReorderable (order = null) {
+  makeColumnsReorderable (order = null) {
     try {
       $(this.$el).dragtable('destroy')
     } catch (e) {
@@ -207,6 +207,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   orderColumns (order) {
     this.columnsSortOrder = order
-    this.makeRowsReorderable()
+    this.makeColumnsReorderable()
   }
 }
