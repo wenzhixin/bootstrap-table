@@ -496,7 +496,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       for (const column of this.columns) {
         column.visible = !hiddenColumnsCookie.filter(columnField => {
           if (this.isSelectionColumn(column)) {
-            return true
+            return false
           }
 
           return columnField === column.field
