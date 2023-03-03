@@ -2913,14 +2913,14 @@ glob@^8.0.1, glob@^8.0.3:
     once "^1.3.0"
 
 glob@^9.1.2:
-  version "9.1.2"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-9.1.2.tgz#6587a51675a7273191654e0a912a22a0e4ca7a44"
-  integrity sha512-AcvrjOR0OSiS8p+1SInzhCHJ11NHV8P/nN1BDuk6gEjIHSR60SXktPzi/HJt8Z3NIyK4qSO1hZ9jpsasFZENpA==
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-9.2.1.tgz#f47e34e1119e7d4f93a546e75851ba1f1e68de50"
+  integrity sha512-Pxxgq3W0HyA3XUvSXcFhRSs+43Jsx0ddxcFrbjxNGkL2Ak5BAUBxLqI5G6ADDeCHLfzzXFhe0b1yYcctGmytMA==
   dependencies:
     fs.realpath "^1.0.0"
     minimatch "^7.4.1"
     minipass "^4.2.4"
-    path-scurry "^1.5.0"
+    path-scurry "^1.6.1"
 
 glob@~7.1.1:
   version "7.1.7"
@@ -4354,10 +4354,10 @@ path-parse@^1.0.7:
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
   integrity sha1-+8EUtgykKzDZ2vWFjkvWi77bZzU=
 
-path-scurry@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/path-scurry/-/path-scurry-1.5.0.tgz#ffc479e688064d16fc80fa8890389c56182c6463"
-  integrity sha512-hJ8rODLI9B2qwsYAd32rrI76gwVUPeu5kq/do6URDj2bJCVH3ilyT978Mv/NLuFMaqzHrn3XtiDLMZHaTTh4vA==
+path-scurry@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/path-scurry/-/path-scurry-1.6.1.tgz#dab45f7bb1d3f45a0e271ab258999f4ab7e23132"
+  integrity sha512-OW+5s+7cw6253Q4E+8qQ/u1fVvcJQCJo/VFD8pje+dbJCF1n5ZRMV2AEHbGp+5Q7jxQIYJxkHopnj6nzdGeZLA==
   dependencies:
     lru-cache "^7.14.1"
     minipass "^4.0.2"
