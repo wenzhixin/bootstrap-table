@@ -1,4 +1,4 @@
-import glob from 'glob'
+import { globSync } from 'glob'
 import { babel } from '@rollup/plugin-babel'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
@@ -8,7 +8,7 @@ import copy from 'rollup-plugin-copy'
 import multiEntry from '@rollup/plugin-multi-entry'
 import vue from 'rollup-plugin-vue'
 
-const files = glob.sync('src/**/*.js', {
+const files = globSync('src/**/*.js', {
   ignore: [
     'src/constants/**',
     'src/utils/**',
