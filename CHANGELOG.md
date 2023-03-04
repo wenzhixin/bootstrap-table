@@ -3,13 +3,26 @@ ChangeLog
 
 ### 1.21.3
 
+#### Core
+
+- **New:** Added `escapeTitle` table option.
+- **Update:** Added Aria Label to the search input for screenreaders.
+- **Update:** Persist data attributes for the header(`th`).
+- **Update:** Fixed wrong condition for searching with server-side pagination.
+- **Update:** Fixed overwriting the `filterOptions` after rebuild.
+- **Update:** Fixed apostrophe issue when table via `html`.
 - **Update:** Updated extend util instead of `$.extend`.
-- **Update:** - Fixed overwriting the `filterOptions` after rebuild.
+- **Update:** Updated Constructor.EVENTS to events.
+- **Update:** Updated packages to the latest version.
 
 #### Extensions
 
+- **Update(cookie):** Fixed issue with hidden and radio/checkbox columns.
 - **Update(export):** Fixed `exportTypes` option not working bug.
-- **Update(treegrid):** Fixed treegrid not working when id is text.
+- **Update(filter-control):** Fixed selector scope issues with multiple tables.
+- **Update(filter-control):** Fixed filtering values issue of select with `html` value.
+- **Update(reorder-columns):** Fixed same internal function name with `reorder-rows`.
+- **Update(treegrid):** Fixed `treegrid` not working when id is text.
 
 ### 1.21.2
 
