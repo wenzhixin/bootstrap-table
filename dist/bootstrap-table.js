@@ -4882,7 +4882,7 @@
     }
   };
 
-  var VERSION = '1.21.2';
+  var VERSION = '1.21.3';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
