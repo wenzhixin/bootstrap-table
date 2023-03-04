@@ -390,6 +390,7 @@
 <li class="toc-entry toc-h2"><a href="#detailviewbyclick">detailViewByClick</a></li>
 <li class="toc-entry toc-h2"><a href="#detailviewicon">detailViewIcon</a></li>
 <li class="toc-entry toc-h2"><a href="#escape">escape</a></li>
+<li class="toc-entry toc-h2"><a href="#escapetitle">escapeTitle</a></li>
 <li class="toc-entry toc-h2"><a href="#filteroptions">filterOptions</a></li>
 <li class="toc-entry toc-h2"><a href="#footerfield">footerField</a></li>
 <li class="toc-entry toc-h2"><a href="#footerstyle">footerStyle</a></li>
@@ -1240,13 +1241,36 @@ If this option is used the following options will be ignored:
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Escapes a string for insertion into HTML, replacing &amp;, &lt;, &gt;, “, `, and ‘ characters.</p>
+    <p>Escapes a string for insertion into HTML, replacing &amp;, &lt;, &gt;, “, <code class="highlighter-rouge">, and ' characters.
+To disable it for the column titles check the </code>escapeTitle` option.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-escape.html">Table Escape</a></p>
+  </li>
+</ul>
+
+<h2 id="escapetitle">escapeTitle</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-escape-title</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Toggles if the <code class="highlighter-rouge">escape</code> option should be applied to the column titles.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-escape-title.html">Table Escape title</a></p>
   </li>
 </ul>
 

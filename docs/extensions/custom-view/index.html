@@ -387,7 +387,8 @@
 </li>
 <li class="toc-entry toc-h2"><a href="#localizations">Localizations</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#formattogglecustomview">formatToggleCustomView</a></li>
+<li class="toc-entry toc-h3"><a href="#formattogglecustomviewon">formatToggleCustomViewOn</a></li>
+<li class="toc-entry toc-h3"><a href="#formattogglecustomviewoff">formatToggleCustomViewOff</a></li>
 </ul>
 </li>
 </ul>
@@ -484,14 +485,26 @@ Set to <code class="highlighter-rouge">function</code> to format your custom vie
 <h3 id="icons">Icons</h3>
 
 <ul>
-  <li>Toggle custom view:
+  <li>customViewOn:
     <ul>
-      <li>Bootstrap3: <code class="highlighter-rouge">glyphicon glyphicon-eye-open</code></li>
+      <li>Bootstrap3: <code class="highlighter-rouge">glyphicon glyphicon-list</code></li>
       <li>Bootstrap4: <code class="highlighter-rouge">fa fa-eye</code></li>
+      <li>bootstrap5: ‘bi-eye’,</li>
       <li>Semantic: <code class="highlighter-rouge">fa fa-eye</code></li>
       <li>Foundation: <code class="highlighter-rouge">fa fa-eye</code></li>
       <li>Bulma: <code class="highlighter-rouge">fa fa-eye</code></li>
       <li>Materialize: <code class="highlighter-rouge">remove_red_eye</code></li>
+    </ul>
+  </li>
+  <li>customViewOff:
+    <ul>
+      <li>Bootstrap3: <code class="highlighter-rouge">glyphicon glyphicon-thumbnails</code></li>
+      <li>Bootstrap4: <code class="highlighter-rouge">fa fa-th</code></li>
+      <li>bootstrap5: ‘bi-grid’,</li>
+      <li>Semantic: <code class="highlighter-rouge">fa fa-th</code></li>
+      <li>Foundation: <code class="highlighter-rouge">fa fa-th</code></li>
+      <li>Bulma: <code class="highlighter-rouge">fa fa-th</code></li>
+      <li>Materialize: <code class="highlighter-rouge">grid_on</code></li>
     </ul>
   </li>
 </ul>
@@ -563,14 +576,25 @@ Set to <code class="highlighter-rouge">function</code> to format your custom vie
 
 <h2 id="localizations">Localizations</h2>
 
-<h3 id="formattogglecustomview">formatToggleCustomView</h3>
+<h3 id="formattogglecustomviewon">formatToggleCustomViewOn</h3>
 
 <ul>
   <li>
     <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Toggle custom view" }</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Show custom view" }</code></p>
+  </li>
+</ul>
+
+<h3 id="formattogglecustomviewoff">formatToggleCustomViewOff</h3>
+
+<ul>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">function () { return "Hide custom view" }</code></p>
   </li>
 </ul>
 
