@@ -4,10 +4,6 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
 })(this, (function ($) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var $__default = /*#__PURE__*/_interopDefaultLegacy($);
-
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
@@ -19,7 +15,7 @@
       descriptor.enumerable = descriptor.enumerable || false;
       descriptor.configurable = true;
       if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
+      Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
     }
   }
   function _createClass(Constructor, protoProps, staticProps) {
@@ -98,15 +94,29 @@
       return _possibleConstructorReturn(this, result);
     };
   }
+  function _toPrimitive(input, hint) {
+    if (typeof input !== "object" || input === null) return input;
+    var prim = input[Symbol.toPrimitive];
+    if (prim !== undefined) {
+      var res = prim.call(input, hint || "default");
+      if (typeof res !== "object") return res;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return (hint === "string" ? String : Number)(input);
+  }
+  function _toPropertyKey(arg) {
+    var key = _toPrimitive(arg, "string");
+    return typeof key === "symbol" ? key : String(key);
+  }
 
   /**
    * @author: Jewway
    * @update zhixin wen <wenzhixin2010@gmail.com>
    */
 
-  $__default["default"].fn.bootstrapTable.methods.push('changeTitle');
-  $__default["default"].fn.bootstrapTable.methods.push('changeLocale');
-  $__default["default"].BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
+  $.fn.bootstrapTable.methods.push('changeTitle');
+  $.fn.bootstrapTable.methods.push('changeLocale');
+  $.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
     _inherits(_class, _$$BootstrapTable);
     var _super = _createSuper(_class);
     function _class() {
@@ -116,8 +126,8 @@
     _createClass(_class, [{
       key: "changeTitle",
       value: function changeTitle(locale) {
-        $__default["default"].each(this.options.columns, function (idx, columnList) {
-          $__default["default"].each(columnList, function (idx, column) {
+        $.each(this.options.columns, function (idx, columnList) {
+          $.each(columnList, function (idx, column) {
             if (column.field) {
               column.title = locale[column.field];
             }
@@ -138,6 +148,6 @@
       }
     }]);
     return _class;
-  }($__default["default"].BootstrapTable);
+  }($.BootstrapTable);
 
 }));

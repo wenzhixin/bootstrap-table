@@ -4,10 +4,6 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
 })(this, (function ($$4) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var $__default = /*#__PURE__*/_interopDefaultLegacy($$4);
-
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
@@ -19,7 +15,7 @@
       descriptor.enumerable = descriptor.enumerable || false;
       descriptor.configurable = true;
       if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
+      Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
     }
   }
   function _createClass(Constructor, protoProps, staticProps) {
@@ -121,6 +117,20 @@
     }
     return _get.apply(this, arguments);
   }
+  function _toPrimitive(input, hint) {
+    if (typeof input !== "object" || input === null) return input;
+    var prim = input[Symbol.toPrimitive];
+    if (prim !== undefined) {
+      var res = prim.call(input, hint || "default");
+      if (typeof res !== "object") return res;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return (hint === "string" ? String : Number)(input);
+  }
+  function _toPropertyKey(arg) {
+    var key = _toPrimitive(arg, "string");
+    return typeof key === "symbol" ? key : String(key);
+  }
 
   var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -205,37 +215,27 @@
   var call$4 = FunctionPrototype$1.call;
   var uncurryThisWithBind = NATIVE_BIND$1 && FunctionPrototype$1.bind.bind(call$4, call$4);
 
-  var functionUncurryThisRaw = function (fn) {
-    return NATIVE_BIND$1 ? uncurryThisWithBind(fn) : function () {
+  var functionUncurryThis = NATIVE_BIND$1 ? uncurryThisWithBind : function (fn) {
+    return function () {
       return call$4.apply(fn, arguments);
     };
   };
 
-  var uncurryThisRaw$1 = functionUncurryThisRaw;
+  var uncurryThis$e = functionUncurryThis;
 
-  var toString$2 = uncurryThisRaw$1({}.toString);
-  var stringSlice = uncurryThisRaw$1(''.slice);
+  var toString$2 = uncurryThis$e({}.toString);
+  var stringSlice$1 = uncurryThis$e(''.slice);
 
   var classofRaw$2 = function (it) {
-    return stringSlice(toString$2(it), 8, -1);
+    return stringSlice$1(toString$2(it), 8, -1);
   };
 
-  var classofRaw$1 = classofRaw$2;
-  var uncurryThisRaw = functionUncurryThisRaw;
-
-  var functionUncurryThis = function (fn) {
-    // Nashorn bug:
-    //   https://github.com/zloirock/core-js/issues/1128
-    //   https://github.com/zloirock/core-js/issues/1130
-    if (classofRaw$1(fn) === 'Function') return uncurryThisRaw(fn);
-  };
-
-  var uncurryThis$b = functionUncurryThis;
+  var uncurryThis$d = functionUncurryThis;
   var fails$9 = fails$c;
   var classof$4 = classofRaw$2;
 
   var $Object$3 = Object;
-  var split = uncurryThis$b(''.split);
+  var split = uncurryThis$d(''.split);
 
   // fallback for non-array-like ES3 and non-enumerable old V8 strings
   var indexedObject = fails$9(function () {
@@ -274,6 +274,7 @@
   var documentAll$2 = typeof document == 'object' && document.all;
 
   // https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot
+  // eslint-disable-next-line unicorn/no-typeof-undefined -- required for testing
   var IS_HTMLDDA = typeof documentAll$2 == 'undefined' && documentAll$2 !== undefined;
 
   var documentAll_1 = {
@@ -311,17 +312,15 @@
     return isCallable$a(argument) ? argument : undefined;
   };
 
-  var getBuiltIn$5 = function (namespace, method) {
+  var getBuiltIn$4 = function (namespace, method) {
     return arguments.length < 2 ? aFunction(global$9[namespace]) : global$9[namespace] && global$9[namespace][method];
   };
 
-  var uncurryThis$a = functionUncurryThis;
+  var uncurryThis$c = functionUncurryThis;
 
-  var objectIsPrototypeOf = uncurryThis$a({}.isPrototypeOf);
+  var objectIsPrototypeOf = uncurryThis$c({}.isPrototypeOf);
 
-  var getBuiltIn$4 = getBuiltIn$5;
-
-  var engineUserAgent = getBuiltIn$4('navigator', 'userAgent') || '';
+  var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
 
   var global$8 = global$a;
   var userAgent = engineUserAgent;
@@ -374,7 +373,7 @@
     && !Symbol.sham
     && typeof Symbol.iterator == 'symbol';
 
-  var getBuiltIn$3 = getBuiltIn$5;
+  var getBuiltIn$3 = getBuiltIn$4;
   var isCallable$9 = isCallable$c;
   var isPrototypeOf = objectIsPrototypeOf;
   var USE_SYMBOL_AS_UID$1 = useSymbolAsUid;
@@ -388,11 +387,11 @@
     return isCallable$9($Symbol) && isPrototypeOf($Symbol.prototype, $Object$2(it));
   };
 
-  var $String$1 = String;
+  var $String$2 = String;
 
   var tryToString$1 = function (argument) {
     try {
-      return $String$1(argument);
+      return $String$2(argument);
     } catch (error) {
       return 'Object';
     }
@@ -435,7 +434,11 @@
     throw $TypeError$4("Can't convert object to primitive value");
   };
 
-  var shared$3 = {exports: {}};
+  var sharedExports = {};
+  var shared$3 = {
+    get exports(){ return sharedExports; },
+    set exports(v){ sharedExports = v; },
+  };
 
   var global$7 = global$a;
 
@@ -463,10 +466,10 @@
   (shared$3.exports = function (key, value) {
     return store$2[key] || (store$2[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.25.5',
+    version: '3.29.0',
     mode: 'global',
-    copyright: '© 2014-2022 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.25.5/LICENSE',
+    copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
+    license: 'https://github.com/zloirock/core-js/blob/v3.29.0/LICENSE',
     source: 'https://github.com/zloirock/core-js'
   });
 
@@ -480,10 +483,10 @@
     return $Object$1(requireObjectCoercible(argument));
   };
 
-  var uncurryThis$9 = functionUncurryThis;
+  var uncurryThis$b = functionUncurryThis;
   var toObject$3 = toObject$4;
 
-  var hasOwnProperty = uncurryThis$9({}.hasOwnProperty);
+  var hasOwnProperty = uncurryThis$b({}.hasOwnProperty);
 
   // `HasOwnProperty` abstract operation
   // https://tc39.es/ecma262/#sec-hasownproperty
@@ -492,38 +495,32 @@
     return hasOwnProperty(toObject$3(it), key);
   };
 
-  var uncurryThis$8 = functionUncurryThis;
+  var uncurryThis$a = functionUncurryThis;
 
   var id = 0;
   var postfix = Math.random();
-  var toString$1 = uncurryThis$8(1.0.toString);
+  var toString$1 = uncurryThis$a(1.0.toString);
 
   var uid$2 = function (key) {
     return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$1(++id + postfix, 36);
   };
 
   var global$5 = global$a;
-  var shared$2 = shared$3.exports;
+  var shared$2 = sharedExports;
   var hasOwn$6 = hasOwnProperty_1;
   var uid$1 = uid$2;
   var NATIVE_SYMBOL = symbolConstructorDetection;
   var USE_SYMBOL_AS_UID = useSymbolAsUid;
 
-  var WellKnownSymbolsStore = shared$2('wks');
   var Symbol$1 = global$5.Symbol;
-  var symbolFor = Symbol$1 && Symbol$1['for'];
-  var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
+  var WellKnownSymbolsStore = shared$2('wks');
+  var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1['for'] || Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
 
   var wellKnownSymbol$8 = function (name) {
-    if (!hasOwn$6(WellKnownSymbolsStore, name) || !(NATIVE_SYMBOL || typeof WellKnownSymbolsStore[name] == 'string')) {
-      var description = 'Symbol.' + name;
-      if (NATIVE_SYMBOL && hasOwn$6(Symbol$1, name)) {
-        WellKnownSymbolsStore[name] = Symbol$1[name];
-      } else if (USE_SYMBOL_AS_UID && symbolFor) {
-        WellKnownSymbolsStore[name] = symbolFor(description);
-      } else {
-        WellKnownSymbolsStore[name] = createWellKnownSymbol(description);
-      }
+    if (!hasOwn$6(WellKnownSymbolsStore, name)) {
+      WellKnownSymbolsStore[name] = NATIVE_SYMBOL && hasOwn$6(Symbol$1, name)
+        ? Symbol$1[name]
+        : createWellKnownSymbol('Symbol.' + name);
     } return WellKnownSymbolsStore[name];
   };
 
@@ -626,13 +623,13 @@
 
   var isObject$4 = isObject$8;
 
-  var $String = String;
+  var $String$1 = String;
   var $TypeError$2 = TypeError;
 
   // `Assert: Type(argument) is Object`
   var anObject$4 = function (argument) {
     if (isObject$4(argument)) return argument;
-    throw $TypeError$2($String(argument) + ' is not an object');
+    throw $TypeError$2($String$1(argument) + ' is not an object');
   };
 
   var DESCRIPTORS$5 = descriptors;
@@ -690,7 +687,11 @@
     return object;
   };
 
-  var makeBuiltIn$2 = {exports: {}};
+  var makeBuiltInExports = {};
+  var makeBuiltIn$2 = {
+    get exports(){ return makeBuiltInExports; },
+    set exports(v){ makeBuiltInExports = v; },
+  };
 
   var DESCRIPTORS$3 = descriptors;
   var hasOwn$4 = hasOwnProperty_1;
@@ -710,11 +711,11 @@
     CONFIGURABLE: CONFIGURABLE
   };
 
-  var uncurryThis$7 = functionUncurryThis;
+  var uncurryThis$9 = functionUncurryThis;
   var isCallable$6 = isCallable$c;
   var store$1 = sharedStore;
 
-  var functionToString = uncurryThis$7(Function.toString);
+  var functionToString = uncurryThis$9(Function.toString);
 
   // this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
   if (!isCallable$6(store$1.inspectSource)) {
@@ -732,7 +733,7 @@
 
   var weakMapBasicDetection = isCallable$5(WeakMap$1) && /native code/.test(String(WeakMap$1));
 
-  var shared$1 = shared$3.exports;
+  var shared$1 = sharedExports;
   var uid = uid$2;
 
   var keys = shared$1('keys');
@@ -814,6 +815,7 @@
     getterFor: getterFor
   };
 
+  var uncurryThis$8 = functionUncurryThis;
   var fails$5 = fails$c;
   var isCallable$4 = isCallable$c;
   var hasOwn$2 = hasOwnProperty_1;
@@ -824,8 +826,12 @@
 
   var enforceInternalState = InternalStateModule.enforce;
   var getInternalState = InternalStateModule.get;
+  var $String = String;
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$2 = Object.defineProperty;
+  var stringSlice = uncurryThis$8(''.slice);
+  var replace = uncurryThis$8(''.replace);
+  var join = uncurryThis$8([].join);
 
   var CONFIGURABLE_LENGTH = DESCRIPTORS$2 && !fails$5(function () {
     return defineProperty$2(function () { /* empty */ }, 'length', { value: 8 }).length !== 8;
@@ -834,8 +840,8 @@
   var TEMPLATE = String(String).split('String');
 
   var makeBuiltIn$1 = makeBuiltIn$2.exports = function (value, name, options) {
-    if (String(name).slice(0, 7) === 'Symbol(') {
-      name = '[' + String(name).replace(/^Symbol\(([^)]*)\)/, '$1') + ']';
+    if (stringSlice($String(name), 0, 7) === 'Symbol(') {
+      name = '[' + replace($String(name), /^Symbol\(([^)]*)\)/, '$1') + ']';
     }
     if (options && options.getter) name = 'get ' + name;
     if (options && options.setter) name = 'set ' + name;
@@ -854,7 +860,7 @@
     } catch (error) { /* empty */ }
     var state = enforceInternalState(value);
     if (!hasOwn$2(state, 'source')) {
-      state.source = TEMPLATE.join(typeof name == 'string' ? name : '');
+      state.source = join(TEMPLATE, typeof name == 'string' ? name : '');
     } return value;
   };
 
@@ -866,7 +872,7 @@
 
   var isCallable$3 = isCallable$c;
   var definePropertyModule$3 = objectDefineProperty;
-  var makeBuiltIn = makeBuiltIn$2.exports;
+  var makeBuiltIn = makeBuiltInExports;
   var defineGlobalProperty$1 = defineGlobalProperty$3;
 
   var defineBuiltIn$2 = function (O, key, value, options) {
@@ -979,13 +985,13 @@
     indexOf: createMethod$1(false)
   };
 
-  var uncurryThis$6 = functionUncurryThis;
+  var uncurryThis$7 = functionUncurryThis;
   var hasOwn$1 = hasOwnProperty_1;
   var toIndexedObject$2 = toIndexedObject$5;
   var indexOf = arrayIncludes.indexOf;
   var hiddenKeys$2 = hiddenKeys$4;
 
-  var push$1 = uncurryThis$6([].push);
+  var push$1 = uncurryThis$7([].push);
 
   var objectKeysInternal = function (object, names) {
     var O = toIndexedObject$2(object);
@@ -1028,13 +1034,13 @@
   // eslint-disable-next-line es/no-object-getownpropertysymbols -- safe
   objectGetOwnPropertySymbols.f = Object.getOwnPropertySymbols;
 
-  var getBuiltIn$2 = getBuiltIn$5;
-  var uncurryThis$5 = functionUncurryThis;
+  var getBuiltIn$2 = getBuiltIn$4;
+  var uncurryThis$6 = functionUncurryThis;
   var getOwnPropertyNamesModule = objectGetOwnPropertyNames;
   var getOwnPropertySymbolsModule$1 = objectGetOwnPropertySymbols;
   var anObject$2 = anObject$4;
 
-  var concat$1 = uncurryThis$5([].concat);
+  var concat$1 = uncurryThis$6([].concat);
 
   // all object keys, includes non-enumerable and symbols
   var ownKeys$1 = getBuiltIn$2('Reflect', 'ownKeys') || function ownKeys(it) {
@@ -1149,7 +1155,7 @@
   };
 
   var DESCRIPTORS$1 = descriptors;
-  var uncurryThis$4 = functionUncurryThis;
+  var uncurryThis$5 = functionUncurryThis;
   var call = functionCall;
   var fails$3 = fails$c;
   var objectKeys$1 = objectKeys$2;
@@ -1162,7 +1168,7 @@
   var $assign = Object.assign;
   // eslint-disable-next-line es/no-object-defineproperty -- required for testing
   var defineProperty$1 = Object.defineProperty;
-  var concat = uncurryThis$4([].concat);
+  var concat = uncurryThis$5([].concat);
 
   // `Object.assign` method
   // https://tc39.es/ecma262/#sec-object.assign
@@ -1253,14 +1259,14 @@
 
   var TO_STRING_TAG_SUPPORT$2 = toStringTagSupport;
   var isCallable$1 = isCallable$c;
-  var classofRaw = classofRaw$2;
+  var classofRaw$1 = classofRaw$2;
   var wellKnownSymbol$5 = wellKnownSymbol$8;
 
   var TO_STRING_TAG = wellKnownSymbol$5('toStringTag');
   var $Object = Object;
 
   // ES3 wrong here
-  var CORRECT_ARGUMENTS = classofRaw(function () { return arguments; }()) == 'Arguments';
+  var CORRECT_ARGUMENTS = classofRaw$1(function () { return arguments; }()) == 'Arguments';
 
   // fallback for IE11 Script Access Denied error
   var tryGet = function (it, key) {
@@ -1270,29 +1276,29 @@
   };
 
   // getting tag from ES6+ `Object.prototype.toString`
-  var classof$2 = TO_STRING_TAG_SUPPORT$2 ? classofRaw : function (it) {
+  var classof$2 = TO_STRING_TAG_SUPPORT$2 ? classofRaw$1 : function (it) {
     var O, tag, result;
     return it === undefined ? 'Undefined' : it === null ? 'Null'
       // @@toStringTag case
       : typeof (tag = tryGet(O = $Object(it), TO_STRING_TAG)) == 'string' ? tag
       // builtinTag case
-      : CORRECT_ARGUMENTS ? classofRaw(O)
+      : CORRECT_ARGUMENTS ? classofRaw$1(O)
       // ES3 arguments fallback
-      : (result = classofRaw(O)) == 'Object' && isCallable$1(O.callee) ? 'Arguments' : result;
+      : (result = classofRaw$1(O)) == 'Object' && isCallable$1(O.callee) ? 'Arguments' : result;
   };
 
-  var uncurryThis$3 = functionUncurryThis;
+  var uncurryThis$4 = functionUncurryThis;
   var fails$2 = fails$c;
   var isCallable = isCallable$c;
   var classof$1 = classof$2;
-  var getBuiltIn$1 = getBuiltIn$5;
+  var getBuiltIn$1 = getBuiltIn$4;
   var inspectSource = inspectSource$2;
 
   var noop = function () { /* empty */ };
   var empty = [];
   var construct = getBuiltIn$1('Reflect', 'construct');
   var constructorRegExp = /^\s*(?:class|function)\b/;
-  var exec = uncurryThis$3(constructorRegExp.exec);
+  var exec = uncurryThis$4(constructorRegExp.exec);
   var INCORRECT_TO_STRING = !constructorRegExp.exec(noop);
 
   var isConstructorModern = function isConstructor(argument) {
@@ -1409,15 +1415,13 @@
     return array.concat()[0] !== array;
   });
 
-  var SPECIES_SUPPORT = arrayMethodHasSpeciesSupport$1('concat');
-
   var isConcatSpreadable = function (O) {
     if (!isObject$1(O)) return false;
     var spreadable = O[IS_CONCAT_SPREADABLE];
     return spreadable !== undefined ? !!spreadable : isArray$1(O);
   };
 
-  var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT;
+  var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !arrayMethodHasSpeciesSupport$1('concat');
 
   // `Array.prototype.concat` method
   // https://tc39.es/ecma262/#sec-array.prototype.concat
@@ -1445,7 +1449,17 @@
     }
   });
 
-  var uncurryThis$2 = functionUncurryThis;
+  var classofRaw = classofRaw$2;
+  var uncurryThis$3 = functionUncurryThis;
+
+  var functionUncurryThisClause = function (fn) {
+    // Nashorn bug:
+    //   https://github.com/zloirock/core-js/issues/1128
+    //   https://github.com/zloirock/core-js/issues/1130
+    if (classofRaw(fn) === 'Function') return uncurryThis$3(fn);
+  };
+
+  var uncurryThis$2 = functionUncurryThisClause;
   var aCallable = aCallable$2;
   var NATIVE_BIND = functionBindNative;
 
@@ -1556,7 +1570,7 @@
     return O;
   };
 
-  var getBuiltIn = getBuiltIn$5;
+  var getBuiltIn = getBuiltIn$4;
 
   var html$1 = getBuiltIn('document', 'documentElement');
 
@@ -1764,24 +1778,33 @@
    * @github: https://github.com/UtechtDustin
    */
 
-  var Utils = $__default["default"].fn.bootstrapTable.utils;
-  $__default["default"].extend($__default["default"].fn.bootstrapTable.defaults, {
+  var Utils = $$4.fn.bootstrapTable.utils;
+  Object.assign($$4.fn.bootstrapTable.defaults, {
     customView: false,
     showCustomView: false,
     customViewDefaultView: false
   });
-  $__default["default"].extend($__default["default"].fn.bootstrapTable.defaults.icons, {
-    customView: {
-      bootstrap3: 'glyphicon glyphicon-eye-open',
-      bootstrap5: 'bi-eye',
-      bootstrap4: 'fa fa-eye',
-      semantic: 'fa fa-eye',
-      foundation: 'fa fa-eye',
-      bulma: 'fa fa-eye',
-      materialize: 'remove_red_eye'
-    }[$__default["default"].fn.bootstrapTable.theme] || 'fa-eye'
+  Object.assign($$4.fn.bootstrapTable.defaults.icons, {
+    customViewOn: {
+      bootstrap3: 'glyphicon glyphicon-list',
+      bootstrap5: 'bi-list',
+      bootstrap4: 'fa fa-list',
+      semantic: 'fa fa-list',
+      foundation: 'fa fa-list',
+      bulma: 'fa fa-list',
+      materialize: 'list'
+    }[$$4.fn.bootstrapTable.theme] || 'fa-list',
+    customViewOff: {
+      bootstrap3: 'glyphicon glyphicon-thumbnails',
+      bootstrap5: 'bi-grid',
+      bootstrap4: 'fa fa-th',
+      semantic: 'fa fa-th',
+      foundation: 'fa fa-th',
+      bulma: 'fa fa-th',
+      materialize: 'grid_on'
+    }[$$4.fn.bootstrapTable.theme] || 'fa-th'
   });
-  $__default["default"].extend($__default["default"].fn.bootstrapTable.defaults, {
+  Object.assign($$4.fn.bootstrapTable.defaults, {
     onCustomViewPostBody: function onCustomViewPostBody() {
       return false;
     },
@@ -1792,19 +1815,22 @@
       return false;
     }
   });
-  $__default["default"].extend($__default["default"].fn.bootstrapTable.locales, {
-    formatToggleCustomView: function formatToggleCustomView() {
-      return 'Toggle custom view';
+  Object.assign($$4.fn.bootstrapTable.locales, {
+    formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+      return 'Show custom view';
+    },
+    formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+      return 'Hide custom view';
     }
   });
-  $__default["default"].extend($__default["default"].fn.bootstrapTable.defaults, $__default["default"].fn.bootstrapTable.locales);
-  $__default["default"].fn.bootstrapTable.methods.push('toggleCustomView');
-  $__default["default"].extend($__default["default"].fn.bootstrapTable.Constructor.EVENTS, {
+  Object.assign($$4.fn.bootstrapTable.defaults, $$4.fn.bootstrapTable.locales);
+  $$4.fn.bootstrapTable.methods.push('toggleCustomView');
+  Object.assign($$4.fn.bootstrapTable.events, {
     'custom-view-post-body.bs.table': 'onCustomViewPostBody',
     'custom-view-pre-body.bs.table': 'onCustomViewPreBody',
     'toggle-custom-view.bs.table': 'onToggleCustomView'
   });
-  $__default["default"].BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
+  $$4.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
     _inherits(_class, _$$BootstrapTable);
     var _super = _createSuper(_class);
     function _class() {
@@ -1824,12 +1850,12 @@
         if (this.options.customView && this.options.showCustomView) {
           this.buttons = Object.assign(this.buttons, {
             customView: {
-              text: this.options.formatToggleCustomView(),
-              icon: this.options.icons.customView,
+              text: this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn(),
+              icon: this.options.customViewDefaultView ? this.options.icons.customViewOn : this.options.icons.customViewOff,
               event: this.toggleCustomView,
               attributes: {
-                'aria-label': this.options.formatToggleCustomView(),
-                title: this.options.formatToggleCustomView()
+                'aria-label': this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn(),
+                title: this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn()
               }
             }
           });
@@ -1868,11 +1894,14 @@
       key: "toggleCustomView",
       value: function toggleCustomView() {
         this.customViewDefaultView = !this.customViewDefaultView;
+        var icon = this.options.showButtonIcons ? this.customViewDefaultView ? this.options.icons.customViewOn : this.options.icons.customViewOff : '';
+        var text = this.options.showButtonText ? this.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn() : '';
+        this.$toolbar.find('button[name="customView"]').html("".concat(Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon), " ").concat(text)).attr('aria-label', text).attr('title', text);
         this.initBody();
         this.trigger('toggle-custom-view', this.customViewDefaultView);
       }
     }]);
     return _class;
-  }($__default["default"].BootstrapTable);
+  }($$4.BootstrapTable);
 
 }));
