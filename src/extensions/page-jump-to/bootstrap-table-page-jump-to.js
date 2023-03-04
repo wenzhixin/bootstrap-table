@@ -5,17 +5,17 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   showJumpTo: false,
   showJumpToByPages: 0
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatJumpTo () {
     return 'GO'
   }
 })
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.BootstrapTable = class extends $.BootstrapTable {
   initPagination (...args) {

@@ -167,7 +167,7 @@ const UtilsCookie = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   cookie: false,
   cookieExpire: '2h',
   cookiePath: null,
@@ -199,7 +199,7 @@ $.extend($.fn.bootstrapTable.defaults, {
 $.fn.bootstrapTable.methods.push('getCookies')
 $.fn.bootstrapTable.methods.push('deleteCookie')
 
-$.extend($.fn.bootstrapTable.utils, {
+Object.assign($.fn.bootstrapTable.utils, {
   setCookie: UtilsCookie.setCookie,
   getCookie: UtilsCookie.getCookie
 })
@@ -420,7 +420,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    if ((this.options.cookieIdTable === '') || (this.options.cookieExpire === '')) {
+    if (this.options.cookieIdTable === '' || this.options.cookieExpire === '') {
       console.error('Configuration error. Please review the cookieIdTable and the cookieExpire property. If the properties are correct, then this browser does not support cookies.')
       this.options.cookie = false // Make sure that the cookie extension is disabled
       return
@@ -496,7 +496,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       for (const column of this.columns) {
         column.visible = !hiddenColumnsCookie.filter(columnField => {
           if (this.isSelectionColumn(column)) {
-            return true
+            return false
           }
 
           return columnField === column.field
@@ -561,7 +561,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
             that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
             that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
             that.options.cookieSecure ? '; secure' : '',
-            `;SameSite=${ that.options.cookieSameSite}`
+            `;SameSite=${that.options.cookieSameSite}`
           ].join('')
         }
         this._storage.getItem = function (cookieName) {
@@ -576,7 +576,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
             '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
             that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
             that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-            `;SameSite=${ that.options.cookieSameSite}`
+            `;SameSite=${that.options.cookieSameSite}`
           ].join('')
         }
         break

@@ -18,7 +18,7 @@ export function getControlContainer (that) {
   }
 
   if (that.options.height && that._initialized) {
-    return $('.fixed-table-header table thead')
+    return that.$tableContainer.find('.fixed-table-header table thead')
   }
 
   return that.$header
@@ -61,7 +61,7 @@ export function existOptionInSelectControl (selectControl, value) {
 }
 
 export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
-  let value = (_value === undefined || _value === null) ? '' : _value.toString().trim()
+  let value = _value === undefined || _value === null ? '' : _value.toString().trim()
 
   value = Utils.removeHTML(Utils.unescapeHTML(value))
   text = Utils.removeHTML(Utils.unescapeHTML(text))
@@ -70,7 +70,7 @@ export function addOptionToSelectControl (selectControl, _value, text, selected,
     return
   }
 
-  const isSelected = shouldCompareText ? (value === selected || text === selected) : value === selected
+  const isSelected = shouldCompareText ? value === selected || text === selected : value === selected
 
   const option = new Option(text, value, false, isSelected)
 
@@ -177,8 +177,7 @@ export function setCaretPosition (elem, caretPos) {
         elem.setSelectionRange(caretPos, caretPos)
       }
     }
-  }
-  catch (ex) {
+  } catch (ex) {
     // ignored
   }
 }
@@ -477,13 +476,12 @@ export function createControls (that, header) {
       if (Array.isArray(value)) {
         for (let i = 0; i < value.length; i++) {
           if (value[i] && value[i].length > 0 && value[i].trim()) {
-            $selectControl.find(`option[value="${ value[i] }"]`).attr('selected', true)
+            $selectControl.find(`option[value="${value[i]}"]`).attr('selected', true)
           }
         }
-      }
-      else if (value && value.length > 0 && value.trim()) {
+      } else if (value && value.length > 0 && value.trim()) {
         $selectControl.find('option[selected]').removeAttr('selected')
-        $selectControl.find(`option[value="${ value }"]`).attr('selected', true)
+        $selectControl.find(`option[value="${value}"]`).attr('selected', true)
       } else {
         $selectControl.find('option[selected]').removeAttr('selected')
       }
@@ -590,7 +588,7 @@ export function syncHeaders (that) {
   if (!that.options.height) {
     return
   }
-  const fixedHeader = $('.fixed-table-header table thead')
+  const fixedHeader = that.$tableContainer.find('.fixed-table-header table thead')
 
   if (fixedHeader.length === 0) {
     return
@@ -600,7 +598,7 @@ export function syncHeaders (that) {
     if (element.classList[0] !== 'bs-checkbox') {
       const $element = $(element)
       const $field = $element.data('field')
-      const $fixedField = $(`th[data-field='${$field}']`).not($element)
+      const $fixedField = that.$tableContainer.find(`th[data-field='${$field}']`).not($element)
 
       const input = $element.find('input')
       const fixedInput = $fixedField.find('input')

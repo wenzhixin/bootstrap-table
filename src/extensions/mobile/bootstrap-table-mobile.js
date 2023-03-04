@@ -17,7 +17,7 @@ const debounce = (func, wait) => {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   mobileResponsive: false,
   minWidth: 562,
   minHeight: undefined,
@@ -107,9 +107,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   changeView (width, height) {
     if (this.options.minHeight) {
-      if ((width <= this.options.minWidth) && (height <= this.options.minHeight)) {
+      if (width <= this.options.minWidth && height <= this.options.minHeight) {
         this.conditionCardView()
-      } else if ((width > this.options.minWidth) && (height > this.options.minHeight)) {
+      } else if (width > this.options.minWidth && height > this.options.minHeight) {
         this.conditionFullView()
       }
     } else if (width <= this.options.minWidth) {

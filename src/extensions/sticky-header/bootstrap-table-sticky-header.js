@@ -6,7 +6,7 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   stickyHeader: false,
   stickyHeaderOffsetY: 0,
   stickyHeaderOffsetLeft: 0,
@@ -83,7 +83,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const $target = $(e.target)
         const value = $target.val()
         const field = $target.parents('th').data('field')
-        const $coreTh = that.$header.find(`th[data-field="${ field }"]`)
+        const $coreTh = that.$header.find(`th[data-field="${field}"]`)
 
         if ($target.is('input')) {
           $coreTh.find('input').val(value)
@@ -91,7 +91,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           const $select = $coreTh.find('select')
 
           $select.find('option[selected]').removeAttr('selected')
-          $select.find(`option[value="${ value }"]`).attr('selected', true)
+          $select.find(`option[value="${value}"]`).attr('selected', true)
         }
 
         that.triggerSearch()

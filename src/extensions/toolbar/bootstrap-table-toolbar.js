@@ -186,7 +186,7 @@ const theme = {
   }
 }[$.fn.bootstrapTable.theme]
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   advancedSearch: false,
   idForm: 'advancedSearch',
   actionForm: '',
@@ -197,15 +197,15 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Object.assign($.fn.bootstrapTable.defaults.icons, {
   advancedSearchIcon: theme.icons.advancedSearchIcon
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatAdvancedSearch () {
     return 'Advanced search'
   },
@@ -214,16 +214,16 @@ $.extend($.fn.bootstrapTable.locales, {
   }
 })
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar () {
     const o = this.options
 
     this.showToolbar = this.showToolbar ||
-      (o.search &&
+      o.search &&
       o.advancedSearch &&
-      o.idTable)
+      o.idTable
 
     if (o.search && o.advancedSearch && o.idTable) {
       this.buttons = Object.assign(this.buttons, {
@@ -244,7 +244,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   showAvdSearch () {
     const o = this.options
-    const modalSelector = `#avdSearchModal_${ o.idTable}`
+    const modalSelector = `#avdSearchModal_${o.idTable}`
 
     if ($(modalSelector).length <= 0) {
       $('body').append(Utils.sprintf(theme.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()))
@@ -277,14 +277,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   showModal () {
-    const modalSelector = `#avdSearchModal_${ this.options.idTable}`
+    const modalSelector = `#avdSearchModal_${this.options.idTable}`
 
     if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
       $(modalSelector).modal()
     } else if ($.fn.bootstrapTable.theme === 'bootstrap5') {
       if (!this.toolbarModal) {
       //   eslint-disable-next-line no-undef
-        this.toolbarModal = new bootstrap.Modal(document.getElementById(`avdSearchModal_${ this.options.idTable}`), {})
+        this.toolbarModal = new bootstrap.Modal(document.getElementById(`avdSearchModal_${this.options.idTable}`), {})
       }
       this.toolbarModal.show()
     } else if ($.fn.bootstrapTable.theme === 'bulma') {
@@ -306,7 +306,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   hideModal () {
     const $closeModalButton = $(`#avdSearchModal_${this.options.idTable}`)
-    const modalSelector = `#avdSearchModal_${ this.options.idTable}`
+    const modalSelector = `#avdSearchModal_${this.options.idTable}`
 
     if ($.inArray($.fn.bootstrapTable.theme, ['bootstrap3', 'bootstrap4']) !== -1) {
       $closeModalButton.modal('hide')
@@ -374,7 +374,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         if (
           !(index !== -1 &&
           (typeof value === 'string' || typeof value === 'number') &&
-          (`${value}`).toLowerCase().includes(fval))
+          `${value}`.toLowerCase().includes(fval))
         ) {
           return false
         }

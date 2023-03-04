@@ -6,7 +6,7 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   editable: true,
   onEditableInit () {
     return false
@@ -22,11 +22,11 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.columnDefaults, {
+Object.assign($.fn.bootstrapTable.columnDefaults, {
   alwaysUseFormatter: false
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'editable-init.bs.table': 'onEditableInit',
   'editable-save.bs.table': 'onEditableSave',
   'editable-shown.bs.table': 'onEditableShown',

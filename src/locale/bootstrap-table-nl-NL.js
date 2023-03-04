@@ -19,10 +19,10 @@ $.fn.bootstrapTable.locales['nl-NL'] = $.fn.bootstrapTable.locales['nl'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${(totalRows > 1) ? 's' : ''} (gefilterd van ${totalNotFiltered} records in totaal)`
+      return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${totalRows > 1 ? 's' : ''} (gefilterd van ${totalNotFiltered} records in totaal)`
     }
 
-    return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${(totalRows > 1) ? 's' : ''}`
+    return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${totalRows > 1 ? 's' : ''}`
   },
   formatSRPaginationPreText () {
     return 'vorige pagina'
@@ -34,7 +34,7 @@ $.fn.bootstrapTable.locales['nl-NL'] = $.fn.bootstrapTable.locales['nl'] = {
     return 'volgende pagina'
   },
   formatDetailPagination (totalRows) {
-    return `Toon ${totalRows} record${(totalRows > 1) ? 's' : ''}`
+    return `Toon ${totalRows} record${totalRows > 1 ? 's' : ''}`
   },
   formatClearSearch () {
     return 'Verwijder filters'
@@ -140,4 +140,4 @@ $.fn.bootstrapTable.locales['nl-NL'] = $.fn.bootstrapTable.locales['nl'] = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-NL'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-NL'])

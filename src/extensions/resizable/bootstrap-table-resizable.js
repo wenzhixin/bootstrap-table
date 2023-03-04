@@ -29,7 +29,7 @@ const reInitResizable = that => {
   initResizable(that)
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   resizable: false
 })
 

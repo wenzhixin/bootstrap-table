@@ -3,6 +3,7 @@
  * @version: v1.1.0
  */
 
+const Utils = $.fn.bootstrapTable.utils
 let initBodyCaller
 
 const groupBy = (array, f) => {
@@ -18,7 +19,7 @@ const groupBy = (array, f) => {
   return tmpGroups
 }
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Object.assign($.fn.bootstrapTable.defaults.icons, {
   collapseGroup: {
     bootstrap3: 'glyphicon-chevron-up',
     bootstrap5: 'bi-chevron-up',
@@ -31,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-angle-down'
 })
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   groupBy: false,
   groupByField: '',
   groupByFormatter: undefined,
@@ -40,7 +41,6 @@ $.extend($.fn.bootstrapTable.defaults, {
   groupByCollapsedGroups: []
 })
 
-const Utils = $.fn.bootstrapTable.utils
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initSort = BootstrapTable.prototype.initSort
 const _initBody = BootstrapTable.prototype.initBody
@@ -53,8 +53,8 @@ BootstrapTable.prototype.initSort = function (...args) {
 
   this.tableGroups = []
 
-  if ((this.options.groupBy) && (this.options.groupByField !== '')) {
-    if ((this.options.sortName !== this.options.groupByField)) {
+  if (this.options.groupBy && this.options.groupByField !== '') {
+    if (this.options.sortName !== this.options.groupByField) {
       if (this.options.customSort) {
         Utils.calculateObjectValue(this.options, this.options.customSort, [
           this.options.sortName,
@@ -122,7 +122,7 @@ BootstrapTable.prototype.initBody = function (...args) {
   initBodyCaller = true
   _initBody.apply(this, Array.prototype.slice.apply(args))
 
-  if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+  if (this.options.groupBy && this.options.groupByField !== '') {
     const that = this
     let checkBox = false
     let visibleColumns = 0
@@ -185,8 +185,8 @@ BootstrapTable.prototype.initBody = function (...args) {
       that.$selectGroup.push({
         group: self,
         item: that.$selectItem.filter(function () {
-          return ($(this).closest('tr').data('parent-index') ===
-            self.closest('tr').data('group-index'))
+          return $(this).closest('tr').data('parent-index') ===
+            self.closest('tr').data('group-index')
         })
       })
     })
@@ -224,7 +224,7 @@ BootstrapTable.prototype.updateSelected = function (...args) {
   if (!initBodyCaller) {
     _updateSelected.apply(this, Array.prototype.slice.apply(args))
 
-    if ((this.options.groupBy) && (this.options.groupByField !== '')) {
+    if (this.options.groupBy && this.options.groupByField !== '') {
       this.$selectGroup.forEach(item => {
         const checkGroup = item.item.filter(':enabled').length ===
           item.item.filter(':enabled').filter(':checked').length
@@ -258,7 +258,7 @@ BootstrapTable.prototype.isCollapsed = function (groupKey, items) {
 BootstrapTable.prototype.checkGroup_ = function (index, checked) {
   const rowsBefore = this.getSelections()
   const filter = function () {
-    return ($(this).closest('tr').data('parent-index') === index)
+    return $(this).closest('tr').data('parent-index') === index
   }
 
   this.$selectItem.filter(filter).prop('checked', checked)

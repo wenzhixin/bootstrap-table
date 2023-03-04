@@ -8,7 +8,7 @@
 let isSingleSort = false
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Object.assign($.fn.bootstrapTable.defaults.icons, {
   plus: {
     bootstrap3: 'glyphicon-plus',
     bootstrap4: 'fa-plus',
@@ -507,7 +507,7 @@ const showSortModal = that => {
 $.fn.bootstrapTable.methods.push('multipleSort')
 $.fn.bootstrapTable.methods.push('multiSort')
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   showMultiSort: false,
   showMultiSortButton: true,
   multiSortStrictSort: false,
@@ -517,11 +517,11 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'multiple-sort.bs.table': 'onMultipleSort'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatMultipleSort () {
     return 'Multiple Sort'
   },
@@ -563,7 +563,7 @@ $.extend($.fn.bootstrapTable.locales, {
   }
 })
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initToolbar = BootstrapTable.prototype.initToolbar

@@ -7,7 +7,7 @@ const rowAttr = (row, index) => ({
   id: `customId_${index}`
 })
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   reorderableRows: false,
   onDragStyle: null,
   onDropStyle: null,
@@ -32,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'reorder-row.bs.table': 'onReorderRow'
 })
 

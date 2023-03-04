@@ -119,6 +119,80 @@ export default {
     return that.$toolbar.find('.search input')
   },
 
+  // $.extend: https://github.com/jquery/jquery/blob/3.6.2/src/core.js#L132
+  extend (...args) {
+    let target = args[0] || {}
+    let i = 1
+    let deep = false
+    let clone
+
+    // Handle a deep copy situation
+    if (typeof target === 'boolean') {
+      deep = target
+
+      // Skip the boolean and the target
+      target = args[i] || {}
+      i++
+    }
+
+    // Handle case when target is a string or something (possible in deep copy)
+    if (typeof target !== 'object' && typeof target !== 'function') {
+      target = {}
+    }
+
+    for (; i < args.length; i++) {
+      const options = args[i]
+
+      // Ignore undefined/null values
+      if (typeof options === 'undefined' || options === null) {
+        continue
+      }
+
+      // Extend the base object
+      // eslint-disable-next-line guard-for-in
+      for (const name in options) {
+        const copy = options[name]
+
+        // Prevent Object.prototype pollution
+        // Prevent never-ending loop
+        if (name === '__proto__' || target === copy) {
+          continue
+        }
+
+        const copyIsArray = Array.isArray(copy)
+
+        // Recurse if we're merging plain objects or arrays
+        if (deep && copy && (this.isObject(copy) || copyIsArray)) {
+          const src = target[name]
+
+          if (copyIsArray && Array.isArray(src)) {
+            if (src.every(it => !this.isObject(it) && !Array.isArray(it))) {
+              target[name] = copy
+              continue
+            }
+          }
+
+          if (copyIsArray && !Array.isArray(src)) {
+            clone = []
+          } else if (!copyIsArray && !this.isObject(src)) {
+            clone = {}
+          } else {
+            clone = src
+          }
+
+          // Never move original objects, clone them
+          target[name] = this.extend(deep, clone, copy)
+
+        // Don't bring in undefined values
+        } else if (copy !== undefined) {
+          target[name] = copy
+        }
+      }
+    }
+
+    return target
+  },
+
   // it only does '%s', and return '' when arguments are undefined
   sprintf (_str, ...args) {
     let flag = true
@@ -137,8 +211,8 @@ export default {
     return flag ? str : ''
   },
 
-  isObject (val) {
-    return val instanceof Object && !Array.isArray(val)
+  isObject (obj) {
+    return typeof obj === 'object' && obj !== null && !Array.isArray(obj)
   },
 
   isEmptyObject (obj = {}) {
@@ -333,6 +407,11 @@ export default {
     return false
   },
 
+  escapeApostrophe (value) {
+    return value.toString()
+      .replace(/'/g, '&#39;')
+  },
+
   escapeHTML (text) {
     if (!text) {
       return text
@@ -450,7 +529,7 @@ export default {
 
         const field = columns[x].field
 
-        row[field] = $el.html().trim()
+        row[field] = this.escapeApostrophe($el.html().trim())
         // save td's id, class and data-* attributes
         row[`_${field}_id`] = $el.attr('id')
         row[`_${field}_class`] = $el.attr('class')
@@ -546,7 +625,7 @@ export default {
     if (arg === undefined) {
       return arg
     }
-    return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
+    return this.extend(true, Array.isArray(arg) ? [] : {}, arg)
   },
 
   debounce (func, wait, immediate) {

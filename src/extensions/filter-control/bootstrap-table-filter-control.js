@@ -6,7 +6,7 @@
 import * as UtilsFilterControl from './utils.js'
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   filterControl: false,
   filterControlVisible: true,
   filterControlMultipleSearch: false,
@@ -62,7 +62,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   _usingMultipleSelect: false
 })
 
-$.extend($.fn.bootstrapTable.columnDefaults, {
+Object.assign($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined, // input, select, datepicker
   filterControlMultipleSelect: false,
   filterControlMultipleSelectOptions: {},
@@ -77,12 +77,12 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterCustomSearch: undefined
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'column-search.bs.table': 'onColumnSearch',
   'created-controls.bs.table': 'onCreatedControls'
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Object.assign($.fn.bootstrapTable.defaults.icons, {
   filterControlSwitchHide: {
     bootstrap3: 'glyphicon-zoom-out icon-zoom-out',
     bootstrap5: 'bi-zoom-out',
@@ -95,7 +95,7 @@ $.extend($.fn.bootstrapTable.defaults.icons, {
   }[$.fn.bootstrapTable.theme] || 'fa-search-plus'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatFilterControlSwitch () {
     return 'Hide/Show controls'
   },
@@ -104,15 +104,12 @@ $.extend($.fn.bootstrapTable.locales, {
   },
   formatFilterControlSwitchShow () {
     return 'Show controls'
-  }
-})
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
-
-$.extend($.fn.bootstrapTable.defaults, {
+  },
   formatClearSearch () {
     return 'Clear filters'
   }
 })
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.fn.bootstrapTable.methods.push('triggerSearch')
 $.fn.bootstrapTable.methods.push('clearFilterControl')
@@ -217,7 +214,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
-          const rawFilterValue = (filterPartial[key] || '')
+          const rawFilterValue = filterPartial[key] || ''
           let filterValue = rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
@@ -295,21 +292,25 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   isValueExpected (searchValue, value, column, key) {
-    let tmpItemIsExpected = false
+    let tmpItemIsExpected
+
+    if (column.filterControl === 'select') {
+      value = Utils.removeHTML(value.toString().toLowerCase())
+    }
 
     if (
       column.filterStrictSearch ||
-      (column.filterControl === 'select' && column.passed.filterStrictSearch !== false)
+      column.filterControl === 'select' && column.passed.filterStrictSearch !== false
     ) {
       tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
     } else if (column.filterStartsWithSearch) {
-      tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(searchValue) === 0
+      tmpItemIsExpected = `${value}`.toLowerCase().indexOf(searchValue) === 0
     } else if (column.filterControl === 'datepicker') {
       tmpItemIsExpected = new Date(value).getTime() === new Date(searchValue).getTime()
     } else if (this.options.regexSearch) {
       tmpItemIsExpected = Utils.regexCompare(value, searchValue)
     } else {
-      tmpItemIsExpected = (`${value}`).toLowerCase().includes(searchValue)
+      tmpItemIsExpected = `${value}`.toLowerCase().includes(searchValue)
     }
 
     const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
@@ -526,7 +527,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     // Controls in fixed header
     if (this.options.height) {
-      const $fixedControls = $('.fixed-table-header table thead').find('.filter-control, .no-filter-control')
+      const $fixedControls = this.$tableContainer.find('.fixed-table-header table thead').find('.filter-control, .no-filter-control')
 
       $fixedControls.toggle(this.options.filterControlVisible)
       UtilsFilterControl.fixHeaderCSS(this)
@@ -536,7 +537,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const text = this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''
 
     this.$toolbar.find('>.columns').find('.filter-control-switch')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
   }
 
   triggerSearch () {

@@ -4,7 +4,9 @@
  * theme: https://github.com/zurb/foundation-sites
  */
 
-$.extend($.fn.bootstrapTable.defaults, {
+const Utils = $.fn.bootstrapTable.utils
+
+Utils.extend($.fn.bootstrapTable.defaults, {
   classes: 'table hover',
   buttonsPrefix: '',
   buttonsClass: 'button'

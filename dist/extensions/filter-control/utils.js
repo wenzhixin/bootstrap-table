@@ -4,10 +4,6 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.BootstrapTable = {}, global.jQuery));
 })(this, (function (exports, $$a) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var $__default = /*#__PURE__*/_interopDefaultLegacy($$a);
-
   function _typeof(obj) {
     "@babel/helpers - typeof";
 
@@ -101,37 +97,27 @@
   var call$9 = FunctionPrototype$2.call;
   var uncurryThisWithBind = NATIVE_BIND$2 && FunctionPrototype$2.bind.bind(call$9, call$9);
 
-  var functionUncurryThisRaw = function (fn) {
-    return NATIVE_BIND$2 ? uncurryThisWithBind(fn) : function () {
+  var functionUncurryThis = NATIVE_BIND$2 ? uncurryThisWithBind : function (fn) {
+    return function () {
       return call$9.apply(fn, arguments);
     };
   };
 
-  var uncurryThisRaw$1 = functionUncurryThisRaw;
+  var uncurryThis$l = functionUncurryThis;
 
-  var toString$9 = uncurryThisRaw$1({}.toString);
-  var stringSlice$4 = uncurryThisRaw$1(''.slice);
+  var toString$9 = uncurryThis$l({}.toString);
+  var stringSlice$5 = uncurryThis$l(''.slice);
 
   var classofRaw$2 = function (it) {
-    return stringSlice$4(toString$9(it), 8, -1);
+    return stringSlice$5(toString$9(it), 8, -1);
   };
 
-  var classofRaw$1 = classofRaw$2;
-  var uncurryThisRaw = functionUncurryThisRaw;
-
-  var functionUncurryThis = function (fn) {
-    // Nashorn bug:
-    //   https://github.com/zloirock/core-js/issues/1128
-    //   https://github.com/zloirock/core-js/issues/1130
-    if (classofRaw$1(fn) === 'Function') return uncurryThisRaw(fn);
-  };
-
-  var uncurryThis$i = functionUncurryThis;
+  var uncurryThis$k = functionUncurryThis;
   var fails$j = fails$m;
   var classof$6 = classofRaw$2;
 
   var $Object$3 = Object;
-  var split = uncurryThis$i(''.split);
+  var split = uncurryThis$k(''.split);
 
   // fallback for non-array-like ES3 and non-enumerable old V8 strings
   var indexedObject = fails$j(function () {
@@ -170,6 +156,7 @@
   var documentAll$2 = typeof document == 'object' && document.all;
 
   // https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot
+  // eslint-disable-next-line unicorn/no-typeof-undefined -- required for testing
   var IS_HTMLDDA = typeof documentAll$2 == 'undefined' && documentAll$2 !== undefined;
 
   var documentAll_1 = {
@@ -207,17 +194,15 @@
     return isCallable$c(argument) ? argument : undefined;
   };
 
-  var getBuiltIn$5 = function (namespace, method) {
+  var getBuiltIn$4 = function (namespace, method) {
     return arguments.length < 2 ? aFunction(global$d[namespace]) : global$d[namespace] && global$d[namespace][method];
   };
 
-  var uncurryThis$h = functionUncurryThis;
+  var uncurryThis$j = functionUncurryThis;
 
-  var objectIsPrototypeOf = uncurryThis$h({}.isPrototypeOf);
+  var objectIsPrototypeOf = uncurryThis$j({}.isPrototypeOf);
 
-  var getBuiltIn$4 = getBuiltIn$5;
-
-  var engineUserAgent = getBuiltIn$4('navigator', 'userAgent') || '';
+  var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
 
   var global$c = global$e;
   var userAgent$2 = engineUserAgent;
@@ -270,7 +255,7 @@
     && !Symbol.sham
     && typeof Symbol.iterator == 'symbol';
 
-  var getBuiltIn$3 = getBuiltIn$5;
+  var getBuiltIn$3 = getBuiltIn$4;
   var isCallable$b = isCallable$e;
   var isPrototypeOf$1 = objectIsPrototypeOf;
   var USE_SYMBOL_AS_UID$1 = useSymbolAsUid;
@@ -284,11 +269,11 @@
     return isCallable$b($Symbol) && isPrototypeOf$1($Symbol.prototype, $Object$2(it));
   };
 
-  var $String$2 = String;
+  var $String$3 = String;
 
   var tryToString$2 = function (argument) {
     try {
-      return $String$2(argument);
+      return $String$3(argument);
     } catch (error) {
       return 'Object';
     }
@@ -331,7 +316,11 @@
     throw $TypeError$6("Can't convert object to primitive value");
   };
 
-  var shared$4 = {exports: {}};
+  var sharedExports = {};
+  var shared$4 = {
+    get exports(){ return sharedExports; },
+    set exports(v){ sharedExports = v; },
+  };
 
   var global$b = global$e;
 
@@ -359,10 +348,10 @@
   (shared$4.exports = function (key, value) {
     return store$2[key] || (store$2[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.25.5',
+    version: '3.29.0',
     mode: 'global',
-    copyright: '© 2014-2022 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.25.5/LICENSE',
+    copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
+    license: 'https://github.com/zloirock/core-js/blob/v3.29.0/LICENSE',
     source: 'https://github.com/zloirock/core-js'
   });
 
@@ -376,10 +365,10 @@
     return $Object$1(requireObjectCoercible$4(argument));
   };
 
-  var uncurryThis$g = functionUncurryThis;
+  var uncurryThis$i = functionUncurryThis;
   var toObject$5 = toObject$6;
 
-  var hasOwnProperty = uncurryThis$g({}.hasOwnProperty);
+  var hasOwnProperty = uncurryThis$i({}.hasOwnProperty);
 
   // `HasOwnProperty` abstract operation
   // https://tc39.es/ecma262/#sec-hasownproperty
@@ -388,38 +377,32 @@
     return hasOwnProperty(toObject$5(it), key);
   };
 
-  var uncurryThis$f = functionUncurryThis;
+  var uncurryThis$h = functionUncurryThis;
 
   var id = 0;
   var postfix = Math.random();
-  var toString$8 = uncurryThis$f(1.0.toString);
+  var toString$8 = uncurryThis$h(1.0.toString);
 
   var uid$2 = function (key) {
     return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$8(++id + postfix, 36);
   };
 
   var global$9 = global$e;
-  var shared$3 = shared$4.exports;
+  var shared$3 = sharedExports;
   var hasOwn$7 = hasOwnProperty_1;
   var uid$1 = uid$2;
   var NATIVE_SYMBOL = symbolConstructorDetection;
   var USE_SYMBOL_AS_UID = useSymbolAsUid;
 
-  var WellKnownSymbolsStore = shared$3('wks');
   var Symbol$1 = global$9.Symbol;
-  var symbolFor = Symbol$1 && Symbol$1['for'];
-  var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
+  var WellKnownSymbolsStore = shared$3('wks');
+  var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1['for'] || Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
 
   var wellKnownSymbol$9 = function (name) {
-    if (!hasOwn$7(WellKnownSymbolsStore, name) || !(NATIVE_SYMBOL || typeof WellKnownSymbolsStore[name] == 'string')) {
-      var description = 'Symbol.' + name;
-      if (NATIVE_SYMBOL && hasOwn$7(Symbol$1, name)) {
-        WellKnownSymbolsStore[name] = Symbol$1[name];
-      } else if (USE_SYMBOL_AS_UID && symbolFor) {
-        WellKnownSymbolsStore[name] = symbolFor(description);
-      } else {
-        WellKnownSymbolsStore[name] = createWellKnownSymbol(description);
-      }
+    if (!hasOwn$7(WellKnownSymbolsStore, name)) {
+      WellKnownSymbolsStore[name] = NATIVE_SYMBOL && hasOwn$7(Symbol$1, name)
+        ? Symbol$1[name]
+        : createWellKnownSymbol('Symbol.' + name);
     } return WellKnownSymbolsStore[name];
   };
 
@@ -522,13 +505,13 @@
 
   var isObject$3 = isObject$7;
 
-  var $String$1 = String;
+  var $String$2 = String;
   var $TypeError$4 = TypeError;
 
   // `Assert: Type(argument) is Object`
   var anObject$9 = function (argument) {
     if (isObject$3(argument)) return argument;
-    throw $TypeError$4($String$1(argument) + ' is not an object');
+    throw $TypeError$4($String$2(argument) + ' is not an object');
   };
 
   var DESCRIPTORS$4 = descriptors;
@@ -586,7 +569,11 @@
     return object;
   };
 
-  var makeBuiltIn$2 = {exports: {}};
+  var makeBuiltInExports = {};
+  var makeBuiltIn$2 = {
+    get exports(){ return makeBuiltInExports; },
+    set exports(v){ makeBuiltInExports = v; },
+  };
 
   var DESCRIPTORS$2 = descriptors;
   var hasOwn$5 = hasOwnProperty_1;
@@ -606,11 +593,11 @@
     CONFIGURABLE: CONFIGURABLE
   };
 
-  var uncurryThis$e = functionUncurryThis;
+  var uncurryThis$g = functionUncurryThis;
   var isCallable$8 = isCallable$e;
   var store$1 = sharedStore;
 
-  var functionToString = uncurryThis$e(Function.toString);
+  var functionToString = uncurryThis$g(Function.toString);
 
   // this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
   if (!isCallable$8(store$1.inspectSource)) {
@@ -628,7 +615,7 @@
 
   var weakMapBasicDetection = isCallable$7(WeakMap$1) && /native code/.test(String(WeakMap$1));
 
-  var shared$2 = shared$4.exports;
+  var shared$2 = sharedExports;
   var uid = uid$2;
 
   var keys = shared$2('keys');
@@ -710,6 +697,7 @@
     getterFor: getterFor
   };
 
+  var uncurryThis$f = functionUncurryThis;
   var fails$f = fails$m;
   var isCallable$6 = isCallable$e;
   var hasOwn$3 = hasOwnProperty_1;
@@ -720,8 +708,12 @@
 
   var enforceInternalState = InternalStateModule.enforce;
   var getInternalState$1 = InternalStateModule.get;
+  var $String$1 = String;
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$1 = Object.defineProperty;
+  var stringSlice$4 = uncurryThis$f(''.slice);
+  var replace$3 = uncurryThis$f(''.replace);
+  var join = uncurryThis$f([].join);
 
   var CONFIGURABLE_LENGTH = DESCRIPTORS$1 && !fails$f(function () {
     return defineProperty$1(function () { /* empty */ }, 'length', { value: 8 }).length !== 8;
@@ -730,8 +722,8 @@
   var TEMPLATE = String(String).split('String');
 
   var makeBuiltIn$1 = makeBuiltIn$2.exports = function (value, name, options) {
-    if (String(name).slice(0, 7) === 'Symbol(') {
-      name = '[' + String(name).replace(/^Symbol\(([^)]*)\)/, '$1') + ']';
+    if (stringSlice$4($String$1(name), 0, 7) === 'Symbol(') {
+      name = '[' + replace$3($String$1(name), /^Symbol\(([^)]*)\)/, '$1') + ']';
     }
     if (options && options.getter) name = 'get ' + name;
     if (options && options.setter) name = 'set ' + name;
@@ -750,7 +742,7 @@
     } catch (error) { /* empty */ }
     var state = enforceInternalState(value);
     if (!hasOwn$3(state, 'source')) {
-      state.source = TEMPLATE.join(typeof name == 'string' ? name : '');
+      state.source = join(TEMPLATE, typeof name == 'string' ? name : '');
     } return value;
   };
 
@@ -762,7 +754,7 @@
 
   var isCallable$5 = isCallable$e;
   var definePropertyModule$3 = objectDefineProperty;
-  var makeBuiltIn = makeBuiltIn$2.exports;
+  var makeBuiltIn = makeBuiltInExports;
   var defineGlobalProperty$1 = defineGlobalProperty$3;
 
   var defineBuiltIn$4 = function (O, key, value, options) {
@@ -875,13 +867,13 @@
     indexOf: createMethod$3(false)
   };
 
-  var uncurryThis$d = functionUncurryThis;
+  var uncurryThis$e = functionUncurryThis;
   var hasOwn$2 = hasOwnProperty_1;
   var toIndexedObject$2 = toIndexedObject$5;
   var indexOf$1 = arrayIncludes.indexOf;
   var hiddenKeys$2 = hiddenKeys$4;
 
-  var push$3 = uncurryThis$d([].push);
+  var push$3 = uncurryThis$e([].push);
 
   var objectKeysInternal = function (object, names) {
     var O = toIndexedObject$2(object);
@@ -924,13 +916,13 @@
   // eslint-disable-next-line es/no-object-getownpropertysymbols -- safe
   objectGetOwnPropertySymbols.f = Object.getOwnPropertySymbols;
 
-  var getBuiltIn$2 = getBuiltIn$5;
-  var uncurryThis$c = functionUncurryThis;
+  var getBuiltIn$2 = getBuiltIn$4;
+  var uncurryThis$d = functionUncurryThis;
   var getOwnPropertyNamesModule = objectGetOwnPropertyNames;
   var getOwnPropertySymbolsModule = objectGetOwnPropertySymbols;
   var anObject$7 = anObject$9;
 
-  var concat$1 = uncurryThis$c([].concat);
+  var concat$1 = uncurryThis$d([].concat);
 
   // all object keys, includes non-enumerable and symbols
   var ownKeys$1 = getBuiltIn$2('Reflect', 'ownKeys') || function ownKeys(it) {
@@ -1034,7 +1026,17 @@
     }
   };
 
-  var uncurryThis$b = functionUncurryThis;
+  var classofRaw$1 = classofRaw$2;
+  var uncurryThis$c = functionUncurryThis;
+
+  var functionUncurryThisClause = function (fn) {
+    // Nashorn bug:
+    //   https://github.com/zloirock/core-js/issues/1128
+    //   https://github.com/zloirock/core-js/issues/1130
+    if (classofRaw$1(fn) === 'Function') return uncurryThis$c(fn);
+  };
+
+  var uncurryThis$b = functionUncurryThisClause;
   var aCallable$1 = aCallable$3;
   var NATIVE_BIND$1 = functionBindNative;
 
@@ -1100,7 +1102,7 @@
   var fails$d = fails$m;
   var isCallable$2 = isCallable$e;
   var classof$3 = classof$4;
-  var getBuiltIn$1 = getBuiltIn$5;
+  var getBuiltIn$1 = getBuiltIn$4;
   var inspectSource = inspectSource$2;
 
   var noop = function () { /* empty */ };
@@ -1287,7 +1289,7 @@
     return O;
   };
 
-  var getBuiltIn = getBuiltIn$5;
+  var getBuiltIn = getBuiltIn$4;
 
   var html$1 = getBuiltIn('document', 'documentElement');
 
@@ -1456,16 +1458,15 @@
   var whitespaces$1 = whitespaces$2;
 
   var replace$2 = uncurryThis$8(''.replace);
-  var whitespace = '[' + whitespaces$1 + ']';
-  var ltrim = RegExp('^' + whitespace + whitespace + '*');
-  var rtrim = RegExp(whitespace + whitespace + '*$');
+  var ltrim = RegExp('^[' + whitespaces$1 + ']+');
+  var rtrim = RegExp('(^|[^' + whitespaces$1 + '])[' + whitespaces$1 + ']+$');
 
   // `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
   var createMethod$1 = function (TYPE) {
     return function ($this) {
       var string = toString$5(requireObjectCoercible$3($this));
       if (TYPE & 1) string = replace$2(string, ltrim, '');
-      if (TYPE & 2) string = replace$2(string, rtrim, '');
+      if (TYPE & 2) string = replace$2(string, rtrim, '$1');
       return string;
     };
   };
@@ -1701,7 +1702,7 @@
     test.sort(null);
   });
   // Old WebKit
-  var STRICT_METHOD$3 = arrayMethodIsStrict$3('sort');
+  var STRICT_METHOD$1 = arrayMethodIsStrict$3('sort');
 
   var STABLE_SORT = !fails$9(function () {
     // feature detection can be too slow, so check engines versions
@@ -1738,7 +1739,7 @@
     return result !== 'DGBEFHACIJK';
   });
 
-  var FORCED$1 = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || !STRICT_METHOD$3 || !STABLE_SORT;
+  var FORCED$3 = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || !STRICT_METHOD$1 || !STABLE_SORT;
 
   var getSortCompare = function (comparefn) {
     return function (x, y) {
@@ -1751,7 +1752,7 @@
 
   // `Array.prototype.sort` method
   // https://tc39.es/ecma262/#sec-array.prototype.sort
-  $$7({ target: 'Array', proto: true, forced: FORCED$1 }, {
+  $$7({ target: 'Array', proto: true, forced: FORCED$3 }, {
     sort: function sort(comparefn) {
       if (comparefn !== undefined) aCallable(comparefn);
 
@@ -1840,7 +1841,7 @@
   var toString$3 = toString$6;
   var regexpFlags = regexpFlags$1;
   var stickyHelpers = regexpStickyHelpers;
-  var shared = shared$4.exports;
+  var shared = sharedExports;
   var create = objectCreate;
   var getInternalState = internalState.get;
   var UNSUPPORTED_DOT_ALL = regexpUnsupportedDotAll;
@@ -1972,7 +1973,7 @@
 
   // TODO: Remove from `core-js@4` since it's moved to entry points
 
-  var uncurryThis$5 = functionUncurryThis;
+  var uncurryThis$5 = functionUncurryThisClause;
   var defineBuiltIn = defineBuiltIn$4;
   var regexpExec$1 = regexpExec$2;
   var fails$5 = fails$m;
@@ -2096,6 +2097,7 @@
   var charAt = uncurryThis$3(''.charAt);
   var replace = uncurryThis$3(''.replace);
   var stringSlice$1 = uncurryThis$3(''.slice);
+  // eslint-disable-next-line redos/no-vulnerable -- safe
   var SUBSTITUTION_SYMBOLS = /\$([$&'`]|\d{1,2}|<[^>]*>)/g;
   var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'`]|\d{1,2})/g;
 
@@ -2344,20 +2346,18 @@
     return array.concat()[0] !== array;
   });
 
-  var SPECIES_SUPPORT = arrayMethodHasSpeciesSupport$1('concat');
-
   var isConcatSpreadable = function (O) {
     if (!isObject(O)) return false;
     var spreadable = O[IS_CONCAT_SPREADABLE];
     return spreadable !== undefined ? !!spreadable : isArray(O);
   };
 
-  var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT;
+  var FORCED$2 = !IS_CONCAT_SPREADABLE_SUPPORT || !arrayMethodHasSpeciesSupport$1('concat');
 
   // `Array.prototype.concat` method
   // https://tc39.es/ecma262/#sec-array.prototype.concat
   // with adding support of @@isConcatSpreadable and @@species
-  $$5({ target: 'Array', proto: true, arity: 1, forced: FORCED }, {
+  $$5({ target: 'Array', proto: true, arity: 1, forced: FORCED$2 }, {
     // eslint-disable-next-line no-unused-vars -- required for `.length`
     concat: function concat(arg) {
       var O = toObject$1(this);
@@ -2450,6 +2450,7 @@
 
   // FF99+ bug
   var BROKEN_ON_SPARSE = fails$1(function () {
+    // eslint-disable-next-line es/no-array-prototype-includes -- detection
     return !Array(1).includes();
   });
 
@@ -2511,11 +2512,11 @@
   var $forEach = arrayIteration.forEach;
   var arrayMethodIsStrict$2 = arrayMethodIsStrict$4;
 
-  var STRICT_METHOD$2 = arrayMethodIsStrict$2('forEach');
+  var STRICT_METHOD = arrayMethodIsStrict$2('forEach');
 
   // `Array.prototype.forEach` method implementation
   // https://tc39.es/ecma262/#sec-array.prototype.foreach
-  var arrayForEach = !STRICT_METHOD$2 ? function forEach(callbackfn /* , thisArg */) {
+  var arrayForEach = !STRICT_METHOD ? function forEach(callbackfn /* , thisArg */) {
     return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   // eslint-disable-next-line es/no-array-prototype-foreach -- safe
   } : [].forEach;
@@ -2567,11 +2568,11 @@
   var nativeJoin = uncurryThis$1([].join);
 
   var ES3_STRINGS = IndexedObject != Object;
-  var STRICT_METHOD$1 = arrayMethodIsStrict$1('join', ',');
+  var FORCED$1 = ES3_STRINGS || !arrayMethodIsStrict$1('join', ',');
 
   // `Array.prototype.join` method
   // https://tc39.es/ecma262/#sec-array.prototype.join
-  $$1({ target: 'Array', proto: true, forced: ES3_STRINGS || !STRICT_METHOD$1 }, {
+  $$1({ target: 'Array', proto: true, forced: FORCED$1 }, {
     join: function join(separator) {
       return nativeJoin(toIndexedObject(this), separator === undefined ? ',' : separator);
     }
@@ -2579,18 +2580,18 @@
 
   /* eslint-disable es/no-array-prototype-indexof -- required for testing */
   var $ = _export;
-  var uncurryThis = functionUncurryThis;
+  var uncurryThis = functionUncurryThisClause;
   var $indexOf = arrayIncludes.indexOf;
   var arrayMethodIsStrict = arrayMethodIsStrict$4;
 
   var nativeIndexOf = uncurryThis([].indexOf);
 
   var NEGATIVE_ZERO = !!nativeIndexOf && 1 / nativeIndexOf([1], 1, -0) < 0;
-  var STRICT_METHOD = arrayMethodIsStrict('indexOf');
+  var FORCED = NEGATIVE_ZERO || !arrayMethodIsStrict('indexOf');
 
   // `Array.prototype.indexOf` method
   // https://tc39.es/ecma262/#sec-array.prototype.indexof
-  $({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || !STRICT_METHOD }, {
+  $({ target: 'Array', proto: true, forced: FORCED }, {
     indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
       var fromIndex = arguments.length > 1 ? arguments[1] : undefined;
       return NEGATIVE_ZERO
@@ -2601,7 +2602,7 @@
   });
 
   /* eslint-disable no-use-before-define */
-  var Utils = $__default["default"].fn.bootstrapTable.utils;
+  var Utils = $$a.fn.bootstrapTable.utils;
   var searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])';
   function getInputClass(that) {
     var isSelect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -2613,15 +2614,15 @@
   }
   function getControlContainer(that) {
     if (that.options.filterControlContainer) {
-      return $__default["default"]("".concat(that.options.filterControlContainer));
+      return $$a("".concat(that.options.filterControlContainer));
     }
     if (that.options.height && that._initialized) {
-      return $__default["default"]('.fixed-table-header table thead');
+      return that.$tableContainer.find('.fixed-table-header table thead');
     }
     return that.$header;
   }
   function isKeyAllowed(keyCode) {
-    return $__default["default"].inArray(keyCode, [37, 38, 39, 40]) > -1;
+    return $$a.inArray(keyCode, [37, 38, 39, 40]) > -1;
   }
   function getSearchControls(that) {
     return getControlContainer(that).find(searchControls);
@@ -2692,7 +2693,7 @@
     return $element.attr('class').replace('form-control', '').replace('form-select', '').replace('focus-temp', '').replace('search-input', '').trim();
   }
   function getCursorPosition(el) {
-    if ($__default["default"](el).is('input[type=search]')) {
+    if ($$a(el).is('input[type=search]')) {
       var pos = 0;
       if ('selectionStart' in el) {
         pos = el.selectionStart;
@@ -2711,12 +2712,12 @@
     var searchControls = getSearchControls(that);
     that._valuesFilterControl = [];
     searchControls.each(function () {
-      var $field = $__default["default"](this);
+      var $field = $$a(this);
       var fieldClass = getElementClass($field);
       if (that.options.height && !that.options.filterControlContainer) {
         $field = that.$el.find(".fixed-table-header .".concat(fieldClass));
       } else if (that.options.filterControlContainer) {
-        $field = $__default["default"]("".concat(that.options.filterControlContainer, " .").concat(fieldClass));
+        $field = $$a("".concat(that.options.filterControlContainer, " .").concat(fieldClass));
       } else {
         $field = that.$el.find(".".concat(fieldClass));
       }
@@ -2751,7 +2752,7 @@
       //  Callback to apply after settings fields values
       var callbacks = [];
       searchControls.each(function (i, el) {
-        var $this = $__default["default"](el);
+        var $this = $$a(el);
         field = $this.closest('[data-field]').data('field');
         result = that._valuesFilterControl.filter(function (valueObj) {
           return valueObj.field === field;
@@ -2765,8 +2766,8 @@
                   element.focus();
                 }
                 if (Array.isArray(cacheElementInfo.value)) {
-                  var $element = $__default["default"](element);
-                  $__default["default"].each(cacheElementInfo.value, function (i, e) {
+                  var $element = $$a(element);
+                  $$a.each(cacheElementInfo.value, function (i, e) {
                     $element.find(Utils.sprintf('option[value=\'%s\']', e)).prop('selected', true);
                   });
                 } else {
@@ -2794,12 +2795,12 @@
     var foundCookies = document.cookie.match(/bs\.table\.(filterControl|searchText)/g);
     var foundLocalStorage = localStorage;
     if (foundCookies) {
-      $__default["default"].each(foundCookies, function (i, _cookie) {
+      $$a.each(foundCookies, function (i, _cookie) {
         var cookie = _cookie;
         if (/./.test(cookie)) {
           cookie = cookie.split('.').pop();
         }
-        if ($__default["default"].inArray(cookie, cookies) === -1) {
+        if ($$a.inArray(cookie, cookies) === -1) {
           cookies.push(cookie);
         }
       });
@@ -2835,7 +2836,7 @@
   }
   function initFilterSelectControls(that) {
     var data = that.options.data;
-    $__default["default"].each(that.header.fields, function (j, field) {
+    $$a.each(that.header.fields, function (j, field) {
       var column = that.columns[that.fieldsColumnsIndex[field]];
       var selectControl = getControlContainer(that).find("select.bootstrap-table-filter-control-".concat(escapeID(column.field)));
       if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
@@ -2890,18 +2891,18 @@
   function createControls(that, header) {
     var addedFilterControl = false;
     var html;
-    $__default["default"].each(that.columns, function (_, column) {
+    $$a.each(that.columns, function (_, column) {
       html = [];
-      if (!column.visible && !(that.options.filterControlContainer && $__default["default"](".bootstrap-table-filter-control-".concat(column.field)).length >= 1)) {
+      if (!column.visible && !(that.options.filterControlContainer && $$a(".bootstrap-table-filter-control-".concat(column.field)).length >= 1)) {
         return;
       }
       if (!column.filterControl && !that.options.filterControlContainer) {
         html.push('<div class="no-filter-control"></div>');
       } else if (that.options.filterControlContainer) {
         // Use a filter control container instead of th
-        var $filterControls = $__default["default"](".bootstrap-table-filter-control-".concat(column.field));
-        $__default["default"].each($filterControls, function (_, filterControl) {
-          var $filterControl = $__default["default"](filterControl);
+        var $filterControls = $$a(".bootstrap-table-filter-control-".concat(column.field));
+        $$a.each($filterControls, function (_, filterControl) {
+          var $filterControl = $$a(filterControl);
           if (!$filterControl.is('[type=radio]')) {
             var placeholder = column.filterControlPlaceholder || '';
             $filterControl.attr('placeholder', placeholder).val(column.filterDefault);
@@ -2921,15 +2922,15 @@
 
       // Filtering by default when it is set.
       if (column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
-        if ($__default["default"].isEmptyObject(that.filterColumnsPartial)) {
+        if ($$a.isEmptyObject(that.filterColumnsPartial)) {
           that.filterColumnsPartial = {};
         }
         if (!(column.field in that.filterColumnsPartial)) {
           that.filterColumnsPartial[column.field] = column.filterDefault;
         }
       }
-      $__default["default"].each(header.find('th'), function (_, th) {
-        var $th = $__default["default"](th);
+      $$a.each(header.find('th'), function (_, th) {
+        var $th = $$a(th);
         if ($th.data('field') === column.field) {
           $th.find('.filter-control').remove();
           $th.find('.fht-cell').html(html.join(''));
@@ -2961,7 +2962,7 @@
         if (isKeyAllowed(keyCode)) {
           return;
         }
-        var $currentTarget = $__default["default"](currentTarget);
+        var $currentTarget = $$a(currentTarget);
         if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio')) {
           return;
         }
@@ -2976,7 +2977,7 @@
       header.off('change', 'select', '.fc-multipleselect').on('change', 'select', '.fc-multipleselect', function (_ref5) {
         var currentTarget = _ref5.currentTarget,
           keyCode = _ref5.keyCode;
-        var $selectControl = $__default["default"](currentTarget);
+        var $selectControl = $$a(currentTarget);
         var value = $selectControl.val();
         if (Array.isArray(value)) {
           for (var i = 0; i < value.length; i++) {
@@ -3001,7 +3002,7 @@
       header.off('mouseup', 'input:not([type=radio])').on('mouseup', 'input:not([type=radio])', function (_ref6) {
         var currentTarget = _ref6.currentTarget,
           keyCode = _ref6.keyCode;
-        var $input = $__default["default"](currentTarget);
+        var $input = $$a(currentTarget);
         var oldValue = $input.val();
         if (oldValue === '') {
           return;
@@ -3033,7 +3034,7 @@
 
       // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
       if (header.find('.date-filter-control').length > 0) {
-        $__default["default"].each(that.columns, function (i, _ref8) {
+        $$a.each(that.columns, function (i, _ref8) {
           var filterDefault = _ref8.filterDefault,
             filterControl = _ref8.filterControl,
             field = _ref8.field,
@@ -3095,15 +3096,15 @@
     if (!that.options.height) {
       return;
     }
-    var fixedHeader = $__default["default"]('.fixed-table-header table thead');
+    var fixedHeader = that.$tableContainer.find('.fixed-table-header table thead');
     if (fixedHeader.length === 0) {
       return;
     }
     that.$header.children().find('th[data-field]').each(function (_, element) {
       if (element.classList[0] !== 'bs-checkbox') {
-        var $element = $__default["default"](element);
+        var $element = $$a(element);
         var $field = $element.data('field');
-        var $fixedField = $__default["default"]("th[data-field='".concat($field, "']")).not($element);
+        var $fixedField = that.$tableContainer.find("th[data-field='".concat($field, "']")).not($element);
         var input = $element.find('input');
         var fixedInput = $fixedField.find('input');
         if (input.length > 0 && fixedInput.length > 0) {
@@ -3162,7 +3163,7 @@
       setValues(that);
     },
     url: function url(that, filterDataSource, selectControl, filterOrderBy, selected) {
-      $__default["default"].ajax({
+      $$a.ajax({
         url: filterDataSource,
         dataType: 'json',
         success: function success(data) {
@@ -3216,7 +3217,5 @@
   exports.setValues = setValues;
   exports.sortSelectControl = sortSelectControl;
   exports.syncHeaders = syncHeaders;
-
-  Object.defineProperty(exports, '__esModule', { value: true });
 
 }));

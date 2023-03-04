@@ -100,4 +100,4 @@ $.fn.bootstrapTable.locales['he-IL'] = $.fn.bootstrapTable.locales['he'] = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['he-IL'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['he-IL'])

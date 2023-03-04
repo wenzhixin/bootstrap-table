@@ -18,10 +18,10 @@ $.fn.bootstrapTable.locales['da-DK'] = $.fn.bootstrapTable.locales['da'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${(totalRows > 1) ? 'r' : ''} (filtered from ${totalNotFiltered} total rows)`
+      return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${totalRows > 1 ? 'r' : ''} (filtered from ${totalNotFiltered} total rows)`
     }
 
-    return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${(totalRows > 1) ? 'r' : ''}`
+    return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${totalRows > 1 ? 'r' : ''}`
   },
   formatSRPaginationPreText () {
     return 'previous page'
@@ -33,7 +33,7 @@ $.fn.bootstrapTable.locales['da-DK'] = $.fn.bootstrapTable.locales['da'] = {
     return 'next page'
   },
   formatDetailPagination (totalRows) {
-    return `Viser ${totalRows} række${(totalRows > 1) ? 'r' : ''}`
+    return `Viser ${totalRows} række${totalRows > 1 ? 'r' : ''}`
   },
   formatClearSearch () {
     return 'Ryd filtre'
@@ -100,4 +100,4 @@ $.fn.bootstrapTable.locales['da-DK'] = $.fn.bootstrapTable.locales['da'] = {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['da-DK'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['da-DK'])

@@ -86,7 +86,7 @@ function _updateHistoryState (table, _prefix) {
   window.history.pushState({}, '', _buildUrl(params))
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   addrbar: false,
   addrPrefix: ''
 })

@@ -8,7 +8,7 @@ const deepCopy = arg => {
   if (arg === undefined) {
     return arg
   }
-  return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
+  return $.fn.bootstrapTable.utils.extend(true, Array.isArray(arg) ? [] : {}, arg)
 };
 
 var script = {

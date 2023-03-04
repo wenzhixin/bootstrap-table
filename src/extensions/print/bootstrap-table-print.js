@@ -48,14 +48,14 @@ function printPageBuilderDefault (table) {
   </html>`
 }
 
-$.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatPrint () {
     return 'Print'
   }
 })
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   showPrint: false,
   printAsFilteredAndSortedOnUI: true,
   printSortColumn: undefined,
@@ -65,13 +65,13 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.COLUMN_DEFAULTS, {
+Object.assign($.fn.bootstrapTable.columnDefaults, {
   printFilter: undefined,
   printIgnore: false,
   printFormatter: undefined
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Object.assign($.fn.bootstrapTable.defaults.icons, {
   print: {
     bootstrap3: 'glyphicon-print icon-share',
     bootstrap5: 'bi-printer',
@@ -177,7 +177,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
             for (let cs = 0; cs < currentMergedCell.colspan; cs++) {
               const col = currentMergedCell.col + cs
 
-              dontRender.push(`${row },${ col}`)
+              dontRender.push(`${row},${col}`)
             }
           }
         }
@@ -212,8 +212,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
           if (
             !columns[j].printIgnore && columns[j].visible && columns[j].field &&
               (
-                !dontRender.includes(`${i },${ j}`) ||
-                (rowspan > 0 && colspan > 0)
+                !dontRender.includes(`${i},${j}`) ||
+                rowspan > 0 && colspan > 0
               )
           ) {
             if (rowspan > 0 && colspan > 0) {
@@ -255,8 +255,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
       let reverse = sortOrder !== 'asc'
 
-      reverse = -((+reverse) || -1)
-      return data.sort((a, b) => reverse * (a[colName].localeCompare(b[colName])))
+      reverse = -(+reverse || -1)
+      return data.sort((a, b) => reverse * a[colName].localeCompare(b[colName]))
     }
 
     const filterRow = (row, filters) => {

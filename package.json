@@ -2,6 +2,7 @@
   "name": "bootstrap-table",
   "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
   "version": "1.21.2",
+  "type": "module",
   "style": "dist/bootstrap-table.min.css",
   "sass": "src/bootstrap-table.scss",
   "main": "dist/bootstrap-table.min.js",
@@ -9,33 +10,34 @@
     "doc": "site"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/preset-env": "^7.17.10",
-    "@rollup/plugin-babel": "^6.0.0",
-    "@rollup/plugin-commonjs": "^23.0.0",
-    "@rollup/plugin-inject": "^5.0.0",
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-inject": "^5.0.3",
     "@rollup/plugin-multi-entry": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.0",
-    "chalk": "^4.0.0",
-    "clean-css-cli": "^5.6.0",
-    "core-js": "^3.22.5",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@vue/compiler-sfc": "^3.2.47",
+    "chalk": "^5.2.0",
+    "clean-css-cli": "^5.6.2",
+    "core-js": "^3.29.0",
     "cross-env": "^7.0.3",
-    "cypress": "^9.6.1",
-    "eslint": "^8.15.0",
+    "cypress": "^12.7.0",
+    "eslint": "^8.35.0",
     "esm": "^3.2.25",
     "foreach-cli": "^1.8.1",
-    "glob": "^8.0.2",
+    "glob": "^9.2.1",
     "headr": "^0.0.4",
     "node-sass": "^8.0.0",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.72.1",
+    "rimraf": "^4.2.0",
+    "rollup": "^3.18.0",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-vue": "5.1.9",
-    "stylelint": "^14.12.1",
-    "stylelint-config-standard-scss": "^6.0.0",
-    "vue-template-compiler": "^2.6.14"
+    "stylelint": "^15.2.0",
+    "stylelint-config-standard-scss": "^7.0.1",
+    "vue-template-compiler": "^2.7.14"
   },
   "scripts": {
     "lint:js": "eslint src",
@@ -61,7 +63,7 @@
     "pre-commit": "run-s lint docs:check"
   },
   "peerDependencies": {
-    "jquery": "1.9.1 - 3"
+    "jquery": "3"
   },
   "repository": {
     "type": "git",

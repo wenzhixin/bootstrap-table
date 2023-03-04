@@ -5,14 +5,14 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatCopyRows () {
     return 'Copy Rows'
   }
 })
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
+Object.assign($.fn.bootstrapTable.defaults.icons, {
   copy: {
     bootstrap3: 'glyphicon-copy icon-pencil',
     bootstrap5: 'bi-clipboard',
@@ -36,14 +36,14 @@ const copyText = text => {
   $(textField).remove()
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   showCopyRows: false,
   copyWithHidden: false,
   copyDelimiter: ', ',
   copyNewline: '\n'
 })
 
-$.extend($.fn.bootstrapTable.columnDefaults, {
+Object.assign($.fn.bootstrapTable.columnDefaults, {
   ignoreCopy: false,
   rawCopy: false
 })
