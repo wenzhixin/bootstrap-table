@@ -6,8 +6,8 @@ ChangeLog
 #### Core
 
 - **New:** Added `escapeTitle` table option.
-- **Update:** Added Aria Label to the search input for screenreaders.
-- **Update:** Persist data attributes for the header(`th`).
+- **New:** Added Aria Label to the search input for screenreaders.
+- **New:** Persist data attributes for the header(`th`).
 - **Update:** Fixed wrong condition for searching with server-side pagination.
 - **Update:** Fixed overwriting the `filterOptions` after rebuild.
 - **Update:** Fixed apostrophe issue when table via `html`.
