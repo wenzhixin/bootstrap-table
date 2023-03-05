@@ -3429,14 +3429,17 @@ $.fn.bootstrapTable = function (option, ...args) {
       return
     }
 
+    if (data) {
+      console.warn('You cannot initialize the table more than once!')
+      return
+    }
+
     const options = Utils.extend(true, {}, BootstrapTable.DEFAULTS, $(el).data(),
       typeof option === 'object' && option)
 
-    if (!data) {
-      data = new $.BootstrapTable(el, options)
-      $(el).data('bootstrap.table', data)
-      data.init()
-    }
+    data = new $.BootstrapTable(el, options)
+    $(el).data('bootstrap.table', data)
+    data.init()
   })
 
   return typeof value === 'undefined' ? this : value
