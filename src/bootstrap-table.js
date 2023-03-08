@@ -2457,14 +2457,14 @@ class BootstrapTable {
       data = this.data
     }
 
-    if (params && params.useCurrentPage) {
-      data = data.slice(this.pageFrom - 1, this.pageTo)
-    }
-
     if (params && !params.includeHiddenRows) {
       const hiddenRows = this.getHiddenRows()
 
       data = data.filter(row => Utils.findIndex(hiddenRows, row) === -1)
+    }
+
+    if (params && params.useCurrentPage) {
+      data = data.slice(this.pageFrom - 1, this.pageTo)
     }
 
     if (params && params.formatted) {
