@@ -6,6 +6,7 @@ ChangeLog
 #### Core
 
 - **Update:** Fixed Maximum call stack size exceeded error.
+- **Update:** Fixed getData bug with hidden rows.
 
 ### 1.21.3
 
