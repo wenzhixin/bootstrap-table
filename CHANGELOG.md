@@ -8,6 +8,10 @@ ChangeLog
 - **Update:** Fixed Maximum call stack size exceeded error.
 - **Update:** Fixed getData bug with hidden rows.
 
+#### Extensions
+
+- **Update(filter-control):** Fixed inputs losing their content when using nested attributes.
+
 ### 1.21.3
 
 #### Core
