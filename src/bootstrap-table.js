@@ -1977,6 +1977,7 @@ class BootstrapTable {
     if (
       this.options.search &&
       this.options.sidePagination === 'server' &&
+      this.options.searchable &&
       this.columns.filter(column => column.searchable).length
     ) {
       params.searchable = []
