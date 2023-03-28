@@ -859,7 +859,7 @@ class BootstrapTable {
       }
     }
     const handleInputEvent = $searchInput => {
-      const eventTriggers = 'keyup drop blur mouseup'
+      const eventTriggers = $searchInput.is('select') ? 'change' : 'keyup drop blur mouseup'
 
       $searchInput.off(eventTriggers).on(eventTriggers, event => {
         if (opts.searchOnEnterKey && event.keyCode !== 13) {
