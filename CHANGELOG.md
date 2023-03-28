@@ -7,6 +7,7 @@ ChangeLog
 
 - **Update:** Fixed Maximum call stack size exceeded error.
 - **Update:** Fixed getData bug with hidden rows.
+- **Update:** Added support for `select` form to the `searchSelector` option.
 
 #### Extensions
 
