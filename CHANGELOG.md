@@ -12,6 +12,7 @@ ChangeLog
 #### Extensions
 
 - **Update(filter-control):** Fixed inputs losing their content when using nested attributes.
+- **Update(reorder-rows):** Fixed reorder row bug when side-pagination is server.
 
 ### 1.21.3
 
