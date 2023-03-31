@@ -1196,10 +1196,25 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Notes:
   - If you want to use a custom search input, use the [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector).
   - You can also search via regex using the [regexSearch](https://bootstrap-table.com/docs/api/table-options/#regexSearch) option.
+  - If you want to send searchable params to server-side pagination, use the [searchable](https://bootstrap-table.com/docs/api/table-options/#searchable) option.
 
 - **Default:** `false`
 
 - **Example:** [Table Search](https://examples.bootstrap-table.com/#options/table-search.html)
+
+## searchable
+
+- **Attribute:** `data-searchable`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to send [searchable params](https://bootstrap-table.com/docs/api/column-options/#searchable) to the server while using server-side pagination.
+
+- **Default:** `false`
+
+- **Example:** [Searchable](https://examples.bootstrap-table.com/#options/searchable.html)
 
 ## searchAccentNeutralise
 

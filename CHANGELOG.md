@@ -5,6 +5,7 @@ ChangeLog
 
 #### Core
 
+- **New:** Added searchable table option to enable sending searchable (columns) parameters.
 - **Update:** Fixed Maximum call stack size exceeded error.
 - **Update:** Fixed getData bug with hidden rows.
 - **Update:** Added support for `select` form to the `searchSelector` option.

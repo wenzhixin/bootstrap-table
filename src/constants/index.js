@@ -179,6 +179,7 @@ const DEFAULTS = {
   paginationPagesBySide: 1, // Number of pages on each side (right, left) of the current page.
   paginationUseIntermediate: false, // Calculate intermediate pages for quick access
   search: false,
+  searchable: false,
   searchHighlight: false,
   searchOnEnterKey: false,
   strictSearch: false,
