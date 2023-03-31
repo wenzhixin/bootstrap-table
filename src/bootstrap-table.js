@@ -530,6 +530,12 @@ class BootstrapTable {
     }
   }
 
+  sortBy (params) {
+    this.options.sortName = params.field
+    this.options.sortOrder = params.hasOwnProperty('sortOrder') ? params.sortOrder : 'asc'
+    this._sort()
+  }
+
   onSort ({ type, currentTarget }) {
     const $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent()
     const $this_ = this.$header.find('th').eq($this.index())
@@ -561,12 +567,17 @@ class BootstrapTable {
           this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
       }
     }
-    this.trigger('sort', this.options.sortName, this.options.sortOrder)
 
     $this.add($this_).data('order', this.options.sortOrder)
 
     // Assign the correct sortable arrow
     this.getCaret()
+
+    this._sort()
+  }
+
+  _sort () {
+    this.trigger('sort', this.options.sortName, this.options.sortOrder)
 
     if (this.options.sidePagination === 'server' && this.options.serverSort) {
       this.options.pageNumber = 1
