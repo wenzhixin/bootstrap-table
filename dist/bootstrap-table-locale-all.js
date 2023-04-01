@@ -1527,109 +1527,6 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['ar-SA']);
 
 	/**
-	 * Bootstrap Table Catalan translation
-	 * Authors: Marc Pina<iwalkalone69@gmail.com>
-	 *          Claudi Martinez<claudix.kernel@gmail.com>
-	 */
-
-	$$2.fn.bootstrapTable.locales['ca-ES'] = $$2.fn.bootstrapTable.locales['ca'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Espereu, si us plau';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " resultats per p\xE0gina");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Mostrant de ".concat(pageFrom, " fins ").concat(pageTo, " - total ").concat(totalRows, " resultats (filtered from ").concat(totalNotFiltered, " total rows)");
-	    }
-	    return "Mostrant de ".concat(pageFrom, " fins ").concat(pageTo, " - total ").concat(totalRows, " resultats");
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Cerca';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'No s\'han trobat resultats';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Amaga/Mostra paginació';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Refresca';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Columnes';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Tots';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Export data';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['ca-ES']);
-
-	/**
 	 * Bootstrap Table Bulgarian translation
 	 * Author: Mikhail Kalatchev <kalatchev[at]gmail.com>
 	 */
@@ -1835,6 +1732,211 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['cs-CZ']);
 
 	/**
+	 * Bootstrap Table Catalan translation
+	 * Authors: Marc Pina<iwalkalone69@gmail.com>
+	 *          Claudi Martinez<claudix.kernel@gmail.com>
+	 */
+
+	$$2.fn.bootstrapTable.locales['ca-ES'] = $$2.fn.bootstrapTable.locales['ca'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Espereu, si us plau';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " resultats per p\xE0gina");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Mostrant de ".concat(pageFrom, " fins ").concat(pageTo, " - total ").concat(totalRows, " resultats (filtered from ").concat(totalNotFiltered, " total rows)");
+	    }
+	    return "Mostrant de ".concat(pageFrom, " fins ").concat(pageTo, " - total ").concat(totalRows, " resultats");
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'previous page';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "to page ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'next page';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Showing ".concat(totalRows, " rows");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Clear Search';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Cerca';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'No s\'han trobat resultats';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Amaga/Mostra paginació';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Show pagination';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Hide pagination';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Refresca';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Show card view';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Hide card view';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Columnes';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Toggle all';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Fullscreen';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Tots';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Auto Refresh';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Export data';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'GO';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Advanced search';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Close';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Hide/Show controls';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Hide controls';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Show controls';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['ca-ES']);
+
+	/**
+	 * Bootstrap Table danish translation
+	 * Author: Your Name Jan Borup Coyle, github@coyle.dk
+	 */
+
+	$$2.fn.bootstrapTable.locales['da-DK'] = $$2.fn.bootstrapTable.locales['da'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Indlæser, vent venligst';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " poster pr side");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Viser ".concat(pageFrom, " til ").concat(pageTo, " af ").concat(totalRows, " r\xE6kke").concat(totalRows > 1 ? 'r' : '', " (filtered from ").concat(totalNotFiltered, " total rows)");
+	    }
+	    return "Viser ".concat(pageFrom, " til ").concat(pageTo, " af ").concat(totalRows, " r\xE6kke").concat(totalRows > 1 ? 'r' : '');
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'previous page';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "to page ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'next page';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Viser ".concat(totalRows, " r\xE6kke").concat(totalRows > 1 ? 'r' : '');
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Ryd filtre';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Søg';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Ingen poster fundet';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Skjul/vis nummerering';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Show pagination';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Hide pagination';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Opdater';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Show card view';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Hide card view';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Kolonner';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Toggle all';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Fullscreen';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Alle';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Auto Refresh';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Eksporter';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'GO';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Advanced search';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Close';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Hide/Show controls';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Hide controls';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Show controls';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['da-DK']);
+
+	/**
 	* Bootstrap Table German translation
 	* Author: Paul Mohr - Sopamo<p.mohr@sopamo.de>
 	*/
@@ -1974,108 +2076,6 @@
 	  }
 	};
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['de-DE']);
-
-	/**
-	 * Bootstrap Table danish translation
-	 * Author: Your Name Jan Borup Coyle, github@coyle.dk
-	 */
-
-	$$2.fn.bootstrapTable.locales['da-DK'] = $$2.fn.bootstrapTable.locales['da'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Indlæser, vent venligst';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " poster pr side");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Viser ".concat(pageFrom, " til ").concat(pageTo, " af ").concat(totalRows, " r\xE6kke").concat(totalRows > 1 ? 'r' : '', " (filtered from ").concat(totalNotFiltered, " total rows)");
-	    }
-	    return "Viser ".concat(pageFrom, " til ").concat(pageTo, " af ").concat(totalRows, " r\xE6kke").concat(totalRows > 1 ? 'r' : '');
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Viser ".concat(totalRows, " r\xE6kke").concat(totalRows > 1 ? 'r' : '');
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Ryd filtre';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Søg';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Ingen poster fundet';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Skjul/vis nummerering';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Opdater';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Kolonner';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Alle';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Eksporter';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['da-DK']);
 
 	/**
 	 * Bootstrap Table Greek translation
@@ -3002,108 +3002,6 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['es-SP']);
 
 	/**
-	 * Bootstrap Table Estonian translation
-	 * Author: kristjan@logist.it>
-	 */
-
-	$$2.fn.bootstrapTable.locales['et-EE'] = $$2.fn.bootstrapTable.locales['et'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Päring käib, palun oota';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " rida lehe kohta");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "N\xE4itan tulemusi ".concat(pageFrom, " kuni ").concat(pageTo, " - kokku ").concat(totalRows, " tulemust (filtered from ").concat(totalNotFiltered, " total rows)");
-	    }
-	    return "N\xE4itan tulemusi ".concat(pageFrom, " kuni ").concat(pageTo, " - kokku ").concat(totalRows, " tulemust");
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Otsi';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Päringu tingimustele ei vastanud ühtegi tulemust';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Näita/Peida lehtedeks jagamine';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Värskenda';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Veerud';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Kõik';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Export data';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['et-EE']);
-
-	/**
 	 * Bootstrap Table Basque (Basque Country) translation
 	 * Author: Iker Ibarguren Berasaluze<ikerib@gmail.com>
 	 */
@@ -3204,6 +3102,108 @@
 	  }
 	};
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['eu-EU']);
+
+	/**
+	 * Bootstrap Table Estonian translation
+	 * Author: kristjan@logist.it>
+	 */
+
+	$$2.fn.bootstrapTable.locales['et-EE'] = $$2.fn.bootstrapTable.locales['et'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Päring käib, palun oota';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " rida lehe kohta");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "N\xE4itan tulemusi ".concat(pageFrom, " kuni ").concat(pageTo, " - kokku ").concat(totalRows, " tulemust (filtered from ").concat(totalNotFiltered, " total rows)");
+	    }
+	    return "N\xE4itan tulemusi ".concat(pageFrom, " kuni ").concat(pageTo, " - kokku ").concat(totalRows, " tulemust");
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'previous page';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "to page ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'next page';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Showing ".concat(totalRows, " rows");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Clear Search';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Otsi';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Päringu tingimustele ei vastanud ühtegi tulemust';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Näita/Peida lehtedeks jagamine';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Show pagination';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Hide pagination';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Värskenda';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Show card view';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Hide card view';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Veerud';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Toggle all';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Fullscreen';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Kõik';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Auto Refresh';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Export data';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'GO';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Advanced search';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Close';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Hide/Show controls';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Hide controls';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Show controls';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['et-EE']);
 
 	/**
 	 * Bootstrap Table Persian translation
@@ -3615,6 +3615,109 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['fr-CH']);
 
 	/**
+	 * Bootstrap Table French (Luxembourg) translation
+	 * Author: Nevets82 <Nevets82@gmail.com>
+	 * Editor: David Morais Ferreira (https://github.com/DavidMoraisFerreira/)
+	 */
+
+	$$2.fn.bootstrapTable.locales['fr-LU'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copier les lignes';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Imprimer';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Chargement en cours';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " lignes par page");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9s \xE0 partir de ").concat(totalNotFiltered, " lignes)");
+	    }
+	    return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'page précédente';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "vers la page ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'page suivante';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Affiche ".concat(totalRows, " lignes");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Effacer la recherche';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Recherche';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Pas de lignes trouvés';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Cacher/Afficher pagination';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Afficher pagination';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Cacher pagination';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Rafraichir';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Afficher vue carte';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Cacher vue carte';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Colonnes';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Tout basculer';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Plein écran';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Tout';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Rafraîchissement automatique';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Exporter les données';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Aller à';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Recherche avancée';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Fermer';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Cacher/Afficher controls';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Cacher controls';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Afficher controls';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['fr-LU']);
+
+	/**
 	 * Bootstrap Table French (France) translation
 	 * Author: Dennis Hernández
 	 *         Tidalf (https://github.com/TidalfFR)
@@ -3821,109 +3924,6 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['he-IL']);
 
 	/**
-	 * Bootstrap Table French (Luxembourg) translation
-	 * Author: Nevets82 <Nevets82@gmail.com>
-	 * Editor: David Morais Ferreira (https://github.com/DavidMoraisFerreira/)
-	 */
-
-	$$2.fn.bootstrapTable.locales['fr-LU'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copier les lignes';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Imprimer';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Chargement en cours';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " lignes par page");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9s \xE0 partir de ").concat(totalNotFiltered, " lignes)");
-	    }
-	    return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'page précédente';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "vers la page ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'page suivante';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Affiche ".concat(totalRows, " lignes");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Effacer la recherche';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Recherche';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Pas de lignes trouvés';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Cacher/Afficher pagination';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Afficher pagination';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Cacher pagination';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Rafraichir';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Afficher vue carte';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Cacher vue carte';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Colonnes';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Tout basculer';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Plein écran';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Tout';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Rafraîchissement automatique';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Exporter les données';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Aller à';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Recherche avancée';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Fermer';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Cacher/Afficher controls';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Cacher controls';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Afficher controls';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['fr-LU']);
-
-	/**
 	 * Bootstrap Table Hindi translation
 	 * Author: Saurabh Sharma <saurabhsharma2u@gmail.com>
 	 */
@@ -4024,108 +4024,6 @@
 	  }
 	};
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['hi-IN']);
-
-	/**
-	 * Bootstrap Table Hungarian translation
-	 * Author: Nagy Gergely <info@nagygergely.eu>
-	 */
-
-	$$2.fn.bootstrapTable.locales['hu-HU'] = $$2.fn.bootstrapTable.locales['hu'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Betöltés, kérem várjon';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " rekord per oldal");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Megjelen\xEDtve ".concat(pageFrom, " - ").concat(pageTo, " / ").concat(totalRows, " \xF6sszesen (filtered from ").concat(totalNotFiltered, " total rows)");
-	    }
-	    return "Megjelen\xEDtve ".concat(pageFrom, " - ").concat(pageTo, " / ").concat(totalRows, " \xF6sszesen");
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Keresés';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Nincs találat';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Lapozó elrejtése/megjelenítése';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Frissítés';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Oszlopok';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Összes';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Export data';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['hu-HU']);
 
 	/**
 	* Bootstrap Table Croatian translation
@@ -4231,11 +4129,11 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['hr-HR']);
 
 	/**
-	 * Bootstrap Table Indonesian translation
-	 * Author: Andre Gardiner<andre@sirdre.com>
+	 * Bootstrap Table Hungarian translation
+	 * Author: Nagy Gergely <info@nagygergely.eu>
 	 */
 
-	$$2.fn.bootstrapTable.locales['id-ID'] = $$2.fn.bootstrapTable.locales['id'] = {
+	$$2.fn.bootstrapTable.locales['hu-HU'] = $$2.fn.bootstrapTable.locales['hu'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -4243,16 +4141,16 @@
 	    return 'Print';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Memuat, mohon tunggu';
+	    return 'Betöltés, kérem várjon';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " baris per halaman");
+	    return "".concat(pageNumber, " rekord per oldal");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Menampilkan ".concat(pageFrom, " sampai ").concat(pageTo, " dari ").concat(totalRows, " baris (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "Megjelen\xEDtve ".concat(pageFrom, " - ").concat(pageTo, " / ").concat(totalRows, " \xF6sszesen (filtered from ").concat(totalNotFiltered, " total rows)");
 	    }
-	    return "Menampilkan ".concat(pageFrom, " sampai ").concat(pageTo, " dari ").concat(totalRows, " baris");
+	    return "Megjelen\xEDtve ".concat(pageFrom, " - ").concat(pageTo, " / ").concat(totalRows, " \xF6sszesen");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
 	    return 'previous page';
@@ -4267,16 +4165,16 @@
 	    return "Showing ".concat(totalRows, " rows");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Bersihkan filter';
+	    return 'Clear Search';
 	  },
 	  formatSearch: function formatSearch() {
-	    return 'Pencarian';
+	    return 'Keresés';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return 'Tidak ditemukan data yang cocok';
+	    return 'Nincs találat';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Sembunyikan/Tampilkan halaman';
+	    return 'Lapozó elrejtése/megjelenítése';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
 	    return 'Show pagination';
@@ -4285,7 +4183,7 @@
 	    return 'Hide pagination';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Muat ulang';
+	    return 'Frissítés';
 	  },
 	  formatToggleOn: function formatToggleOn() {
 	    return 'Show card view';
@@ -4294,7 +4192,7 @@
 	    return 'Hide card view';
 	  },
 	  formatColumns: function formatColumns() {
-	    return 'kolom';
+	    return 'Oszlopok';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
 	    return 'Toggle all';
@@ -4303,13 +4201,13 @@
 	    return 'Fullscreen';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'Semua';
+	    return 'Összes';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
 	    return 'Auto Refresh';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Ekspor data';
+	    return 'Export data';
 	  },
 	  formatJumpTo: function formatJumpTo() {
 	    return 'GO';
@@ -4330,7 +4228,7 @@
 	    return 'Show controls';
 	  }
 	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['id-ID']);
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['hu-HU']);
 
 	/**
 	 * Bootstrap Table Italian translation
@@ -4437,11 +4335,11 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['it-IT']);
 
 	/**
-	 * Bootstrap Table Japanese translation
-	 * Author: Azamshul Azizy <azamshul@gmail.com>
+	 * Bootstrap Table Indonesian translation
+	 * Author: Andre Gardiner<andre@sirdre.com>
 	 */
 
-	$$2.fn.bootstrapTable.locales['ja-JP'] = $$2.fn.bootstrapTable.locales['ja'] = {
+	$$2.fn.bootstrapTable.locales['id-ID'] = $$2.fn.bootstrapTable.locales['id'] = {
 	  formatCopyRows: function formatCopyRows() {
 	    return 'Copy Rows';
 	  },
@@ -4449,16 +4347,16 @@
 	    return 'Print';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return '読み込み中です。少々お待ちください。';
+	    return 'Memuat, mohon tunggu';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "\u30DA\u30FC\u30B8\u5F53\u305F\u308A\u6700\u5927".concat(pageNumber, "\u4EF6");
+	    return "".concat(pageNumber, " baris per halaman");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "\u5168".concat(totalRows, "\u4EF6\u304B\u3089\u3001").concat(pageFrom, "\u304B\u3089").concat(pageTo, "\u4EF6\u76EE\u307E\u3067\u8868\u793A\u3057\u3066\u3044\u307E\u3059 (filtered from ").concat(totalNotFiltered, " total rows)");
+	      return "Menampilkan ".concat(pageFrom, " sampai ").concat(pageTo, " dari ").concat(totalRows, " baris (filtered from ").concat(totalNotFiltered, " total rows)");
 	    }
-	    return "\u5168".concat(totalRows, "\u4EF6\u304B\u3089\u3001").concat(pageFrom, "\u304B\u3089").concat(pageTo, "\u4EF6\u76EE\u307E\u3067\u8868\u793A\u3057\u3066\u3044\u307E\u3059");
+	    return "Menampilkan ".concat(pageFrom, " sampai ").concat(pageTo, " dari ").concat(totalRows, " baris");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
 	    return 'previous page';
@@ -4473,16 +4371,16 @@
 	    return "Showing ".concat(totalRows, " rows");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
+	    return 'Bersihkan filter';
 	  },
 	  formatSearch: function formatSearch() {
-	    return '検索';
+	    return 'Pencarian';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return '該当するレコードが見つかりません';
+	    return 'Tidak ditemukan data yang cocok';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'ページ数を表示・非表示';
+	    return 'Sembunyikan/Tampilkan halaman';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
 	    return 'Show pagination';
@@ -4491,7 +4389,7 @@
 	    return 'Hide pagination';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return '更新';
+	    return 'Muat ulang';
 	  },
 	  formatToggleOn: function formatToggleOn() {
 	    return 'Show card view';
@@ -4500,7 +4398,7 @@
 	    return 'Hide card view';
 	  },
 	  formatColumns: function formatColumns() {
-	    return '列';
+	    return 'kolom';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
 	    return 'Toggle all';
@@ -4509,13 +4407,13 @@
 	    return 'Fullscreen';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'すべて';
+	    return 'Semua';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
 	    return 'Auto Refresh';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'Ekspor data';
 	  },
 	  formatJumpTo: function formatJumpTo() {
 	    return 'GO';
@@ -4536,7 +4434,7 @@
 	    return 'Show controls';
 	  }
 	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['ja-JP']);
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['id-ID']);
 
 	/**
 	 * Bootstrap Table Georgian translation
@@ -4744,106 +4642,106 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['ko-KR']);
 
 	/**
-	 * Bootstrap Table Luxembourgish translation
-	 * Author: David Morais Ferreira (https://github.com/DavidMoraisFerreira)
+	 * Bootstrap Table Japanese translation
+	 * Author: Azamshul Azizy <azamshul@gmail.com>
 	 */
 
-	$$2.fn.bootstrapTable.locales['lb-LU'] = $$2.fn.bootstrapTable.locales['lb'] = {
+	$$2.fn.bootstrapTable.locales['ja-JP'] = $$2.fn.bootstrapTable.locales['ja'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Zeilen kopéieren';
+	    return 'Copy Rows';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Drécken';
+	    return 'Print';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Gëtt gelueden, gedellëgt Iech wannechgelift ee Moment';
+	    return '読み込み中です。少々お待ちください。';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " Zeilen per S\xE4it");
+	    return "\u30DA\u30FC\u30B8\u5F53\u305F\u308A\u6700\u5927".concat(pageNumber, "\u4EF6");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Weist Zeil ".concat(pageFrom, " bis ").concat(pageTo, " vun ").concat(totalRows, " Zeil").concat(totalRows > 1 ? 'en' : '', " (gefiltert vun insgesamt ").concat(totalNotFiltered, " Zeil").concat(totalRows > 1 ? 'en' : '', ")");
+	      return "\u5168".concat(totalRows, "\u4EF6\u304B\u3089\u3001").concat(pageFrom, "\u304B\u3089").concat(pageTo, "\u4EF6\u76EE\u307E\u3067\u8868\u793A\u3057\u3066\u3044\u307E\u3059 (filtered from ").concat(totalNotFiltered, " total rows)");
 	    }
-	    return "Weist Zeil ".concat(pageFrom, " bis ").concat(pageTo, " vun ").concat(totalRows, " Zeil").concat(totalRows > 1 ? 'en' : '');
+	    return "\u5168".concat(totalRows, "\u4EF6\u304B\u3089\u3001").concat(pageFrom, "\u304B\u3089").concat(pageTo, "\u4EF6\u76EE\u307E\u3067\u8868\u793A\u3057\u3066\u3044\u307E\u3059");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'viregt Säit';
+	    return 'previous page';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "op S\xE4it ".concat(page);
+	    return "to page ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'nächst Säit';
+	    return 'next page';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Weist ".concat(totalRows, " Zeilen");
+	    return "Showing ".concat(totalRows, " rows");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Sich réckgängeg maachen';
+	    return 'Clear Search';
 	  },
 	  formatSearch: function formatSearch() {
-	    return 'Sich';
+	    return '検索';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return 'Keng passend Anträg fonnt';
+	    return '該当するレコードが見つかりません';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Paginatioun uweisen/verstoppen';
+	    return 'ページ数を表示・非表示';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Paginatioun uweisen';
+	    return 'Show pagination';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Paginatioun verstoppen';
+	    return 'Hide pagination';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Nei lueden';
+	    return '更新';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Kaartenusiicht uweisen';
+	    return 'Show card view';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Kaartenusiicht verstoppen';
+	    return 'Hide card view';
 	  },
 	  formatColumns: function formatColumns() {
-	    return 'Kolonnen';
+	    return '列';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'All ëmschalten';
+	    return 'Toggle all';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Vollbild';
+	    return 'Fullscreen';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'All';
+	    return 'すべて';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Automatescht neilueden';
+	    return 'Auto Refresh';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Daten exportéieren';
+	    return 'Export data';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'Sprangen';
+	    return 'GO';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Erweidert Sich';
+	    return 'Advanced search';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Zoumaachen';
+	    return 'Close';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Schaltelementer uweisen/verstoppen';
+	    return 'Hide/Show controls';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Schaltelementer verstoppen';
+	    return 'Hide controls';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Schaltelementer uweisen';
+	    return 'Show controls';
 	  }
 	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['lb-LU']);
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['ja-JP']);
 
 	/**
 	 * Bootstrap Table Malay translation
@@ -4948,6 +4846,108 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['ms-MY']);
 
 	/**
+	 * Bootstrap Table Luxembourgish translation
+	 * Author: David Morais Ferreira (https://github.com/DavidMoraisFerreira)
+	 */
+
+	$$2.fn.bootstrapTable.locales['lb-LU'] = $$2.fn.bootstrapTable.locales['lb'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Zeilen kopéieren';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Drécken';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Gëtt gelueden, gedellëgt Iech wannechgelift ee Moment';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " Zeilen per S\xE4it");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Weist Zeil ".concat(pageFrom, " bis ").concat(pageTo, " vun ").concat(totalRows, " Zeil").concat(totalRows > 1 ? 'en' : '', " (gefiltert vun insgesamt ").concat(totalNotFiltered, " Zeil").concat(totalRows > 1 ? 'en' : '', ")");
+	    }
+	    return "Weist Zeil ".concat(pageFrom, " bis ").concat(pageTo, " vun ").concat(totalRows, " Zeil").concat(totalRows > 1 ? 'en' : '');
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'viregt Säit';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "op S\xE4it ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'nächst Säit';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Weist ".concat(totalRows, " Zeilen");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Sich réckgängeg maachen';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Sich';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Keng passend Anträg fonnt';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Paginatioun uweisen/verstoppen';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Paginatioun uweisen';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Paginatioun verstoppen';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Nei lueden';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Kaartenusiicht uweisen';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Kaartenusiicht verstoppen';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Kolonnen';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'All ëmschalten';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Vollbild';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'All';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Automatescht neilueden';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Daten exportéieren';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Sprangen';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Erweidert Sich';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Zoumaachen';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Schaltelementer uweisen/verstoppen';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Schaltelementer verstoppen';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Schaltelementer uweisen';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['lb-LU']);
+
+	/**
 	 * Bootstrap Table norwegian translation
 	 * Author: Jim Nordbø, jim@nordb.no
 	 */
@@ -5048,355 +5048,6 @@
 	  }
 	};
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['nb-NO']);
-
-	/**
-	 * Bootstrap Table Dutch (België) translation
-	 * Author: Nevets82 <Nevets82@gmail.com>
-	 */
-
-	$$2.fn.bootstrapTable.locales['nl-BE'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Laden, even geduld';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " records per pagina");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '', " (gefilterd van ").concat(totalNotFiltered, " records in totaal)");
-	    }
-	    return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'vorige pagina';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "tot pagina ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'volgende pagina';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Toon ".concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Verwijder filters';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Zoeken';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Geen resultaten gevonden';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Verberg/Toon paginering';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Toon paginering';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Verberg paginering';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Vernieuwen';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Toon kaartweergave';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Verberg kaartweergave';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Kolommen';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Allen omschakelen';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Volledig scherm';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Alle';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Automatisch vernieuwen';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Exporteer gegevens';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GA';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Geavanceerd zoeken';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Sluiten';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Verberg/Toon controls';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Verberg controls';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Toon controls';
-	  },
-	  formatAddLevel: function formatAddLevel() {
-	    return 'Niveau toevoegen';
-	  },
-	  formatCancel: function formatCancel() {
-	    return 'Annuleren';
-	  },
-	  formatColumn: function formatColumn() {
-	    return 'Kolom';
-	  },
-	  formatDeleteLevel: function formatDeleteLevel() {
-	    return 'Niveau verwijderen';
-	  },
-	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-	    return 'Duplicaten gevonden!';
-	  },
-	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-	    return 'Gelieve dubbele kolommen te verwijderen of wijzigen';
-	  },
-	  formatMultipleSort: function formatMultipleSort() {
-	    return 'Meervoudige sortering';
-	  },
-	  formatOrder: function formatOrder() {
-	    return 'Volgorde';
-	  },
-	  formatSort: function formatSort() {
-	    return 'Sorteren';
-	  },
-	  formatSortBy: function formatSortBy() {
-	    return 'Sorteren op';
-	  },
-	  formatThenBy: function formatThenBy() {
-	    return 'vervolgens';
-	  },
-	  formatSortOrders: function formatSortOrders() {
-	    return {
-	      asc: 'Oplopend',
-	      desc: 'Aflopend'
-	    };
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['nl-BE']);
-
-	/**
-	 * Bootstrap Table Polish translation
-	 * Author: zergu <michal.zagdan @ gmail com>
-	 * Update: kerogos <kerog @ wp pl>
-	 */
-
-	$$2.fn.bootstrapTable.locales['pl-PL'] = $$2.fn.bootstrapTable.locales['pl'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Kopiuj wiersze';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Ładowanie, proszę czekać';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " rekord\xF3w na stron\u0119");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Wy\u015Bwietlanie rekord\xF3w od ".concat(pageFrom, " do ").concat(pageTo, " z ").concat(totalRows, " (filtered from ").concat(totalNotFiltered, " total rows)");
-	    }
-	    return "Wy\u015Bwietlanie rekord\xF3w od ".concat(pageFrom, " do ").concat(pageTo, " z ").concat(totalRows);
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'poprzednia strona';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "z ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'następna strona';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Wy\u015Bwietla ".concat(totalRows, " wierszy");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Wyczyść wyszukiwanie';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Szukaj';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Niestety, nic nie znaleziono';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Pokaż/ukryj stronicowanie';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Pokaż stronicowanie';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Ukryj stronicowanie';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Odśwież';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Pokaż układ karty';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Ukryj układ karty';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Kolumny';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Zaznacz wszystko';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Wszystkie';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto odświeżanie';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Eksport danych';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Przejdź';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Wyszukiwanie zaawansowane';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Zamknij';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Pokaż/Ukryj';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Pokaż';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Ukryj';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['pl-PL']);
-
-	/**
-	 * Bootstrap Table Brazilian Portuguese Translation
-	 * Author: Eduardo Cerqueira<egcerqueira@gmail.com>
-	 * Update: João Mello<jmello@hotmail.com.br>
-	 * Update: Leandro Felizari<lfelizari@gmail.com>
-	 * Update: Fernando Marcos Souza Silva<fernandomarcosss@gmail.com>
-	 */
-
-	$$2.fn.bootstrapTable.locales['pt-BR'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Carregando, aguarde';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " registros por p\xE1gina");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Exibindo ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas (filtradas de um total de ").concat(totalNotFiltered, " linhas)");
-	    }
-	    return "Exibindo ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas");
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'página anterior';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "Para a p\xE1gina ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'próxima página';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Mostrando ".concat(totalRows, " linhas");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Limpar Pesquisa';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Pesquisar';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Nenhum registro encontrado';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Ocultar/Exibir paginação';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Mostrar Paginação';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Esconder Paginação';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Recarregar';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Colunas';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Alternar tudo';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Tela cheia';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Tudo';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Atualização Automática';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Exportar dados';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'IR';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Pesquisa Avançada';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Fechar';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Ocultar/Exibir controles';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Ocultar controles';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Exibir controles';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['pt-BR']);
 
 	/**
 	 * Bootstrap Table Dutch (Nederland) translation
@@ -5541,6 +5192,355 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['nl-NL']);
 
 	/**
+	 * Bootstrap Table Polish translation
+	 * Author: zergu <michal.zagdan @ gmail com>
+	 * Update: kerogos <kerog @ wp pl>
+	 */
+
+	$$2.fn.bootstrapTable.locales['pl-PL'] = $$2.fn.bootstrapTable.locales['pl'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Kopiuj wiersze';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Ładowanie, proszę czekać';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " rekord\xF3w na stron\u0119");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Wy\u015Bwietlanie rekord\xF3w od ".concat(pageFrom, " do ").concat(pageTo, " z ").concat(totalRows, " (filtered from ").concat(totalNotFiltered, " total rows)");
+	    }
+	    return "Wy\u015Bwietlanie rekord\xF3w od ".concat(pageFrom, " do ").concat(pageTo, " z ").concat(totalRows);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'poprzednia strona';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "z ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'następna strona';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Wy\u015Bwietla ".concat(totalRows, " wierszy");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Wyczyść wyszukiwanie';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Szukaj';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Niestety, nic nie znaleziono';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Pokaż/ukryj stronicowanie';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Pokaż stronicowanie';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Ukryj stronicowanie';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Odśwież';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Pokaż układ karty';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Ukryj układ karty';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Kolumny';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Zaznacz wszystko';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Fullscreen';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Wszystkie';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Auto odświeżanie';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Eksport danych';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Przejdź';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Wyszukiwanie zaawansowane';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Zamknij';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Pokaż/Ukryj';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Pokaż';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Ukryj';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['pl-PL']);
+
+	/**
+	 * Bootstrap Table Dutch (België) translation
+	 * Author: Nevets82 <Nevets82@gmail.com>
+	 */
+
+	$$2.fn.bootstrapTable.locales['nl-BE'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Laden, even geduld';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " records per pagina");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '', " (gefilterd van ").concat(totalNotFiltered, " records in totaal)");
+	    }
+	    return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'vorige pagina';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "tot pagina ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'volgende pagina';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Toon ".concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Verwijder filters';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Zoeken';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Geen resultaten gevonden';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Verberg/Toon paginering';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Toon paginering';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Verberg paginering';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Vernieuwen';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Toon kaartweergave';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Verberg kaartweergave';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Kolommen';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Allen omschakelen';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Volledig scherm';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Alle';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Automatisch vernieuwen';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Exporteer gegevens';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'GA';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Geavanceerd zoeken';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Sluiten';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Verberg/Toon controls';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Verberg controls';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Toon controls';
+	  },
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Niveau toevoegen';
+	  },
+	  formatCancel: function formatCancel() {
+	    return 'Annuleren';
+	  },
+	  formatColumn: function formatColumn() {
+	    return 'Kolom';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Niveau verwijderen';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplicaten gevonden!';
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Gelieve dubbele kolommen te verwijderen of wijzigen';
+	  },
+	  formatMultipleSort: function formatMultipleSort() {
+	    return 'Meervoudige sortering';
+	  },
+	  formatOrder: function formatOrder() {
+	    return 'Volgorde';
+	  },
+	  formatSort: function formatSort() {
+	    return 'Sorteren';
+	  },
+	  formatSortBy: function formatSortBy() {
+	    return 'Sorteren op';
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'vervolgens';
+	  },
+	  formatSortOrders: function formatSortOrders() {
+	    return {
+	      asc: 'Oplopend',
+	      desc: 'Aflopend'
+	    };
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['nl-BE']);
+
+	/**
+	 * Bootstrap Table Brazilian Portuguese Translation
+	 * Author: Eduardo Cerqueira<egcerqueira@gmail.com>
+	 * Update: João Mello<jmello@hotmail.com.br>
+	 * Update: Leandro Felizari<lfelizari@gmail.com>
+	 * Update: Fernando Marcos Souza Silva<fernandomarcosss@gmail.com>
+	 */
+
+	$$2.fn.bootstrapTable.locales['pt-BR'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Carregando, aguarde';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " registros por p\xE1gina");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Exibindo ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas (filtradas de um total de ").concat(totalNotFiltered, " linhas)");
+	    }
+	    return "Exibindo ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linhas");
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'página anterior';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "Para a p\xE1gina ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'próxima página';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Mostrando ".concat(totalRows, " linhas");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Limpar Pesquisa';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Pesquisar';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Nenhum registro encontrado';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Ocultar/Exibir paginação';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Mostrar Paginação';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Esconder Paginação';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Recarregar';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Show card view';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Hide card view';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Colunas';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Alternar tudo';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Tela cheia';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Tudo';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Atualização Automática';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Exportar dados';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'IR';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Pesquisa Avançada';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Fechar';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Ocultar/Exibir controles';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Ocultar controles';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Exibir controles';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['pt-BR']);
+
+	/**
 	 * Bootstrap Table Portuguese Portugal Translation
 	 * Author: Burnspirit<burnspirit@gmail.com>
 	 */
@@ -5641,108 +5641,6 @@
 	  }
 	};
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['pt-PT']);
-
-	/**
-	 * Bootstrap Table Russian translation
-	 * Author: Dunaevsky Maxim <dunmaksim@yandex.ru>
-	 */
-
-	$$2.fn.bootstrapTable.locales['ru-RU'] = $$2.fn.bootstrapTable.locales['ru'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Скопировать строки';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Печать';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Пожалуйста, подождите, идёт загрузка';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows, " (\u043E\u0442\u0444\u0438\u043B\u044C\u0442\u0440\u043E\u0432\u0430\u043D\u043E, \u0432\u0441\u0435\u0433\u043E \u043D\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0435 ").concat(totalNotFiltered, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439)");
-	    }
-	    return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows);
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'предыдущая страница';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "\u043F\u0435\u0440\u0435\u0439\u0442\u0438 \u043A \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'следующая страница';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "\u0417\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u043E ".concat(totalRows, " \u0441\u0442\u0440\u043E\u043A");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Очистить фильтры';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Поиск';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Ничего не найдено';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Скрыть/Показать постраничную навигацию';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Показать постраничную навигацию';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Скрыть постраничную навигацию';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Обновить';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Показать записи в виде карточек';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Табличный режим просмотра';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Колонки';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Выбрать все';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Полноэкранный режим';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Все';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Автоматическое обновление';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Экспортировать данные';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Стр.';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Расширенный поиск';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Закрыть';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Скрыть/Показать панель инструментов';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Скрыть панель инструментов';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Показать панель инструментов';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['ru-RU']);
 
 	/**
 	 * Bootstrap Table Romanian translation
@@ -5949,6 +5847,108 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['sk-SK']);
 
 	/**
+	 * Bootstrap Table Russian translation
+	 * Author: Dunaevsky Maxim <dunmaksim@yandex.ru>
+	 */
+
+	$$2.fn.bootstrapTable.locales['ru-RU'] = $$2.fn.bootstrapTable.locales['ru'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Скопировать строки';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Печать';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Пожалуйста, подождите, идёт загрузка';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows, " (\u043E\u0442\u0444\u0438\u043B\u044C\u0442\u0440\u043E\u0432\u0430\u043D\u043E, \u0432\u0441\u0435\u0433\u043E \u043D\u0430 \u0441\u0435\u0440\u0432\u0435\u0440\u0435 ").concat(totalNotFiltered, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439)");
+	    }
+	    return "\u0417\u0430\u043F\u0438\u0441\u0438 \u0441 ".concat(pageFrom, " \u043F\u043E ").concat(pageTo, " \u0438\u0437 ").concat(totalRows);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'предыдущая страница';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "\u043F\u0435\u0440\u0435\u0439\u0442\u0438 \u043A \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'следующая страница';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "\u0417\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u043E ".concat(totalRows, " \u0441\u0442\u0440\u043E\u043A");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Очистить фильтры';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Поиск';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Ничего не найдено';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Скрыть/Показать постраничную навигацию';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Показать постраничную навигацию';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Скрыть постраничную навигацию';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Обновить';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Показать записи в виде карточек';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Табличный режим просмотра';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Колонки';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Выбрать все';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Полноэкранный режим';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Все';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Автоматическое обновление';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Экспортировать данные';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Стр.';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Расширенный поиск';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Закрыть';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Скрыть/Показать панель инструментов';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Скрыть панель инструментов';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Показать панель инструментов';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['ru-RU']);
+
+	/**
 	* Bootstrap Table Serbian Cyrilic RS translation
 	* Author: Vladimir Kanazir (vladimir@kanazir.com)
 	*/
@@ -6153,108 +6153,6 @@
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['sr-Latn-RS']);
 
 	/**
-	 * Bootstrap Table Swedish translation
-	 * Author: C Bratt <bratt@inix.se>
-	 */
-
-	$$2.fn.bootstrapTable.locales['sv-SE'] = $$2.fn.bootstrapTable.locales['sv'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Laddar, vänligen vänta';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " rader per sida");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Visa ".concat(pageFrom, " till ").concat(pageTo, " av ").concat(totalRows, " rader (filtered from ").concat(totalNotFiltered, " total rows)");
-	    }
-	    return "Visa ".concat(pageFrom, " till ").concat(pageTo, " av ").concat(totalRows, " rader");
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Sök';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Inga matchande resultat funna.';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Hide/Show pagination';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Uppdatera';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'kolumn';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'All';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Export data';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['sv-SE']);
-
-	/**
 	 * Bootstrap Table Thai translation
 	 * Author: Monchai S.<monchais@gmail.com>
 	 */
@@ -6355,6 +6253,108 @@
 	  }
 	};
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['th-TH']);
+
+	/**
+	 * Bootstrap Table Swedish translation
+	 * Author: C Bratt <bratt@inix.se>
+	 */
+
+	$$2.fn.bootstrapTable.locales['sv-SE'] = $$2.fn.bootstrapTable.locales['sv'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Laddar, vänligen vänta';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " rader per sida");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Visa ".concat(pageFrom, " till ").concat(pageTo, " av ").concat(totalRows, " rader (filtered from ").concat(totalNotFiltered, " total rows)");
+	    }
+	    return "Visa ".concat(pageFrom, " till ").concat(pageTo, " av ").concat(totalRows, " rader");
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'previous page';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "to page ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'next page';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Showing ".concat(totalRows, " rows");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Clear Search';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Sök';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Inga matchande resultat funna.';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Hide/Show pagination';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Show pagination';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Hide pagination';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Uppdatera';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Show card view';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Hide card view';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'kolumn';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Toggle all';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Fullscreen';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'All';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Auto Refresh';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Export data';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'GO';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Advanced search';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Close';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Hide/Show controls';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Hide controls';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Show controls';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['sv-SE']);
 
 	/**
 	 * Bootstrap Table Turkish translation
@@ -6560,108 +6560,6 @@
 	  }
 	};
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['uk-UA']);
-
-	/**
-	 * Bootstrap Table Uzbek translation
-	 * Author: Nabijon Masharipov <mnabijonz@gmail.com>
-	 */
-
-	$$2.fn.bootstrapTable.locales['uz-Latn-UZ'] = $$2.fn.bootstrapTable.locales['uz'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
-	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
-	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Yuklanyapti, iltimos kuting';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " qator har sahifada");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Ko'rsatypati ".concat(pageFrom, " dan ").concat(pageTo, " gacha ").concat(totalRows, " qatorlarni (filtered from ").concat(totalNotFiltered, " total rows)");
-	    }
-	    return "Ko'rsatypati ".concat(pageFrom, " dan ").concat(pageTo, " gacha ").concat(totalRows, " qatorlarni");
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Filtrlarni tozalash';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Qidirish';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Hech narsa topilmadi';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Sahifalashni yashirish/ko\'rsatish';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Yangilash';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Ustunlar';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Hammasi';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Eksport';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
-	  }
-	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['uz-Latn-UZ']);
 
 	/**
 	 * Bootstrap Table Urdu translation
@@ -6968,6 +6866,108 @@
 	  }
 	};
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['zh-CN']);
+
+	/**
+	 * Bootstrap Table Uzbek translation
+	 * Author: Nabijon Masharipov <mnabijonz@gmail.com>
+	 */
+
+	$$2.fn.bootstrapTable.locales['uz-Latn-UZ'] = $$2.fn.bootstrapTable.locales['uz'] = {
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Yuklanyapti, iltimos kuting';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " qator har sahifada");
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Ko'rsatypati ".concat(pageFrom, " dan ").concat(pageTo, " gacha ").concat(totalRows, " qatorlarni (filtered from ").concat(totalNotFiltered, " total rows)");
+	    }
+	    return "Ko'rsatypati ".concat(pageFrom, " dan ").concat(pageTo, " gacha ").concat(totalRows, " qatorlarni");
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'previous page';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "to page ".concat(page);
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'next page';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Showing ".concat(totalRows, " rows");
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Filtrlarni tozalash';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Qidirish';
+	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Hech narsa topilmadi';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Sahifalashni yashirish/ko\'rsatish';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Show pagination';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Hide pagination';
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Yangilash';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Show card view';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Hide card view';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Ustunlar';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Toggle all';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Fullscreen';
+	  },
+	  formatAllRows: function formatAllRows() {
+	    return 'Hammasi';
+	  },
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Auto Refresh';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Eksport';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'GO';
+	  },
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Advanced search';
+	  },
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Close';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Hide/Show controls';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Hide controls';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Show controls';
+	  }
+	};
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['uz-Latn-UZ']);
 
 	/**
 	 * Bootstrap Table Chinese translation
