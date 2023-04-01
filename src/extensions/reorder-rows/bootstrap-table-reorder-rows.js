@@ -116,6 +116,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.initSearch()
 
+    if (this.options.sidePagination === 'server') {
+      this.data = [...this.options.data]
+    }
+
     // Call the user defined function
     this.options.onReorderRowsDrop(droppedRow)
 

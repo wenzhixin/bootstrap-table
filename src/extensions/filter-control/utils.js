@@ -146,7 +146,7 @@ export function cacheValues (that) {
 
   searchControls.each(function () {
     let $field = $(this)
-    const fieldClass = getElementClass($field)
+    const fieldClass = escapeID(getElementClass($field))
 
     if (that.options.height && !that.options.filterControlContainer) {
       $field = that.$el.find(`.fixed-table-header .${fieldClass}`)
@@ -360,7 +360,7 @@ export function createControls (that, header) {
 
     if (
       !column.visible &&
-      !(that.options.filterControlContainer && $(`.bootstrap-table-filter-control-${column.field}`).length >= 1)
+      !(that.options.filterControlContainer && $(`.bootstrap-table-filter-control-${escapeID(column.field)}`).length >= 1)
     ) {
       return
     }
@@ -369,7 +369,7 @@ export function createControls (that, header) {
       html.push('<div class="no-filter-control"></div>')
     } else if (that.options.filterControlContainer) {
       // Use a filter control container instead of th
-      const $filterControls = $(`.bootstrap-table-filter-control-${column.field}`)
+      const $filterControls = $(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
       $.each($filterControls, (_, filterControl) => {
         const $filterControl = $(filterControl)
@@ -523,7 +523,7 @@ export function createControls (that, header) {
     if (header.find('.date-filter-control').length > 0) {
       $.each(that.columns, (i, { filterDefault, filterControl, field, filterDatepickerOptions }) => {
         if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
-          const $datepicker = header.find(`.date-filter-control.bootstrap-table-filter-control-${field}`)
+          const $datepicker = header.find(`.date-filter-control.bootstrap-table-filter-control-${escapeID(field)}`)
 
           if (filterDefault) {
             $datepicker.value(filterDefault)

@@ -2713,7 +2713,7 @@
     that._valuesFilterControl = [];
     searchControls.each(function () {
       var $field = $$a(this);
-      var fieldClass = getElementClass($field);
+      var fieldClass = escapeID(getElementClass($field));
       if (that.options.height && !that.options.filterControlContainer) {
         $field = that.$el.find(".fixed-table-header .".concat(fieldClass));
       } else if (that.options.filterControlContainer) {
@@ -2893,14 +2893,14 @@
     var html;
     $$a.each(that.columns, function (_, column) {
       html = [];
-      if (!column.visible && !(that.options.filterControlContainer && $$a(".bootstrap-table-filter-control-".concat(column.field)).length >= 1)) {
+      if (!column.visible && !(that.options.filterControlContainer && $$a(".bootstrap-table-filter-control-".concat(escapeID(column.field))).length >= 1)) {
         return;
       }
       if (!column.filterControl && !that.options.filterControlContainer) {
         html.push('<div class="no-filter-control"></div>');
       } else if (that.options.filterControlContainer) {
         // Use a filter control container instead of th
-        var $filterControls = $$a(".bootstrap-table-filter-control-".concat(column.field));
+        var $filterControls = $$a(".bootstrap-table-filter-control-".concat(escapeID(column.field)));
         $$a.each($filterControls, function (_, filterControl) {
           var $filterControl = $$a(filterControl);
           if (!$filterControl.is('[type=radio]')) {
@@ -3040,7 +3040,7 @@
             field = _ref8.field,
             filterDatepickerOptions = _ref8.filterDatepickerOptions;
           if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
-            var $datepicker = header.find(".date-filter-control.bootstrap-table-filter-control-".concat(field));
+            var $datepicker = header.find(".date-filter-control.bootstrap-table-filter-control-".concat(escapeID(field)));
             if (filterDefault) {
               $datepicker.value(filterDefault);
             }

@@ -1,6 +1,20 @@
 ChangeLog
 ---------
 
+### 1.21.4
+
+#### Core
+
+- **New:** Added searchable table option to enable sending searchable (columns) parameters.
+- **Update:** Fixed Maximum call stack size exceeded error.
+- **Update:** Fixed getData bug with hidden rows.
+- **Update:** Added support for `select` form to the `searchSelector` option.
+
+#### Extensions
+
+- **Update(filter-control):** Fixed inputs losing their content when using nested attributes.
+- **Update(reorder-rows):** Fixed reorder row bug when side-pagination is server.
+
 ### 1.21.3
 
 #### Core
