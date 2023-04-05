@@ -132,6 +132,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.init(...args)
   }
 
+  resetSearch (text) {
+    super.resetSearch(text)
+    this.options.searchText = text || ''
+  }
+
   /*
    * Priority order:
    * The value specified by the user has the highest priority.

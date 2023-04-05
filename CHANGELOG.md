@@ -7,6 +7,10 @@ ChangeLog
 
 - **New:** Added `sortBy` method.
 
+#### Extensions
+
+- **Update(addrbar):** Fixed clear search bug when clicking clearSearch button.
+
 ### 1.21.4
 
 #### Core
