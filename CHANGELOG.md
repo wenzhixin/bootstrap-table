@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+### 1.22.0
+
+#### Core
+
+- **New:** Added `sortBy` method.
+
 ### 1.21.4
 
 #### Core
