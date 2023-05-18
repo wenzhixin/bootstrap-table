@@ -91,7 +91,7 @@ const CONSTANTS = {
     },
     html: {
       dataToggle: 'data-bs-toggle',
-      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
+      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-end">', '</div>'],
       toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],
       pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
