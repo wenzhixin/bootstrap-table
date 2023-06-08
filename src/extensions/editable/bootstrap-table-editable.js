@@ -94,7 +94,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
           data-name="${column.field}"
           data-pk="${row[this.options.idField]}"
           data-value="${value || ""}"
-          data-value="${result}"
           ${editableDataMarkup}>${result}</a>` // expand all data-editable-XXX
       }
     })
