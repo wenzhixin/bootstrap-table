@@ -78,14 +78,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         const editableOpts = Utils.calculateObjectValue(column,
           column.editable, [index, row], {})
-        const noEditFormatter = editableOpts.hasOwnProperty("noEditFormatter") &&
-                                editableOpts.noEditFormatter(value, row, index, field);
+        const noEditFormatter = editableOpts.hasOwnProperty('noEditFormatter') &&
+                                editableOpts.noEditFormatter(value, row, index, field)
 
         if (noEditFormatter) {
-            return noEditFormatter
+          return noEditFormatter
         }
 
-        let editableDataMarkup = ""
+        let editableDataMarkup = ''
+
         $.each(editableOptions, (key, value) => {
           editableDataMarkup += ` ${key}="${value}"`
         })
@@ -93,7 +94,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return `<a href="javascript:void(0)"
           data-name="${column.field}"
           data-pk="${row[this.options.idField]}"
-          data-value="${value || ""}"
+          data-value="${value || ''}"
           ${editableDataMarkup}>${result}</a>` // expand all data-editable-XXX
       }
     })
