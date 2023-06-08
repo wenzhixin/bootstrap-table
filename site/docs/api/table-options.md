@@ -1379,7 +1379,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to show the columns drop down list. We can set the [`switchable`](/docs/api/column-options/#switchable) column option to `false` to hide the columns item in the drop down list.
+  Set `true` to show the columns drop down list. We can set the [`switchable`](/docs/api/column-options/#switchable) column option to `false` to hide the columns item in the drop down list. The minimum number of selected columns can be controlled with the [minimumCountColumns](/docs/api/table-options/#minimumcountcolumns) table option.
 
 - **Default:** `false`
 
