@@ -379,7 +379,7 @@ class BootstrapTable {
         if (column.checkbox) {
           text = ''
           if (!this.options.singleSelect && this.options.checkboxHeader) {
-            text = '<label><input name="btSelectAll" type="checkbox" /><span></span></label>'
+            text = '<label><input name="btSelectAll" type="checkbox" class="form-check-input" /><span></span></label>'
           }
           this.header.stateField = column.field
         }
@@ -693,7 +693,7 @@ class BootstrapTable {
 
             html.push(
               Utils.sprintf(this.constants.html.toolbarDropdownItem,
-                Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>',
+                Utils.sprintf('<div class="form-check"><input type="checkbox" class="toggle-all form-check-input" %s> <span>%s</span></div>',
                   allFieldsVisible ? 'checked="checked"' : '', opts.formatColumnsToggleAll())
               )
             )
@@ -723,7 +723,7 @@ class BootstrapTable {
 
             if (column.switchable) {
               html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
-                Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
+                Utils.sprintf('<div class="form-check"><input type="checkbox" class="form-check-input" data-field="%s" value="%s"%s%s> <span>%s</span></div>',
                   column.field, i, checked, disabled, column.title)))
               switchableCount++
             }
@@ -1689,6 +1689,7 @@ class BootstrapTable {
             `<td class="bs-checkbox ${c}"${class_}${style_}>`,
           `<label>
             <input
+            class="form-check-input"
             data-index="${i}"
             name="${this.options.selectItemName}"
             type="${type}"
