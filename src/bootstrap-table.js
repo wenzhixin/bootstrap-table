@@ -754,6 +754,9 @@ class BootstrapTable {
 
         if (buttonConfig.hasOwnProperty('attributes')) {
           for (const [attributeName, value] of Object.entries(buttonConfig.attributes)) {
+            if (attributeName === 'class') {
+              continue
+            }
             buttonHtml += ` ${attributeName}="${value}"`
           }
         }
