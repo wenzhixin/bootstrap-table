@@ -747,6 +747,7 @@ class BootstrapTable {
         }
       } else {
         let buttonClass = this.constants.buttonsClass
+
         if (buttonConfig.hasOwnProperty('attributes') && buttonConfig.attributes.class) {
           buttonClass += ` ${buttonConfig.attributes.class}`
         }
