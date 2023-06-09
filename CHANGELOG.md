@@ -6,6 +6,7 @@ ChangeLog
 #### Core
 
 - **New:** Added `sortBy` method.
+- **Update** Added support for `class` attribute in toolbar buttons.
 
 #### Extensions
 
