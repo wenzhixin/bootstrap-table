@@ -746,7 +746,11 @@ class BootstrapTable {
           buttonHtml = buttonConfig.html
         }
       } else {
-        buttonHtml = `<button class="${this.constants.buttonsClass}" type="button" name="${buttonName}"`
+        if (buttonConfig.hasOwnProperty('attributes')) {
+          let buttonClass = buttonConfig.attributes.class || ''
+        }
+        buttonClass += ` ${this.constants.buttonsClass}`
+        buttonHtml = `<button class="${buttonClass}" type="button" name="${buttonName}"`
 
         if (buttonConfig.hasOwnProperty('attributes')) {
           for (const [attributeName, value] of Object.entries(buttonConfig.attributes)) {
