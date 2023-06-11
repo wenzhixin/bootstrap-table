@@ -437,6 +437,21 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Example:** [Column Switchable](https://examples.bootstrap-table.com/#column-options/switchable.html)
 
+## switchableLabel
+
+- **Attribute:** `data-switchable-label`
+
+- **Type:** `String`
+
+- **Detail:**
+
+  The label of the switchable column in the dropdown. If not specified uses the column title.
+
+- **Default:** `undefined`
+
+- **Example:** [Column Switchable](https://examples.bootstrap-table.com/#column-options/switchable.html)
+
+
 ## title
 
 - **Attribute:** `data-title`

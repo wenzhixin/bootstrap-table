@@ -442,6 +442,7 @@ const COLUMN_DEFAULTS = {
   sorter: undefined,
   visible: true,
   switchable: true,
+  switchableLabel: undefined,
   cardVisible: true,
   searchable: true,
   formatter: undefined,
