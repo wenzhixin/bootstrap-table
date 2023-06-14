@@ -63,6 +63,7 @@ export interface BootstrapTableColumn {
   checkbox?: boolean;
   halign?: any;
   switchable?: boolean;
+  switchableLabel?: string;
   class?: any;
   escape?: boolean;
   events?: BootstrapTableEvents;
