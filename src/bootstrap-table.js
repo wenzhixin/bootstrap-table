@@ -670,7 +670,7 @@ class BootstrapTable {
         html: () => {
           const html = []
 
-          html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
+          html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}">
             <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown"
             aria-label="${opts.formatColumns()}" title="${opts.formatColumns()}">
             ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
@@ -724,7 +724,7 @@ class BootstrapTable {
             if (column.switchable) {
               html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
                 Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
-                  column.field, i, checked, disabled, column.title)))
+                  column.field, i, checked, disabled, column.switchableLabel ? column.switchableLabel : column.title)))
               switchableCount++
             }
           })

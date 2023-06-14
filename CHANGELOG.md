@@ -6,6 +6,7 @@ ChangeLog
 #### Core
 
 - **New:** Added `sortBy` method.
+- **New:** Added `switchableLabel` column option.
 - **Update** Added support for `class` attribute in toolbar buttons.
 
 #### Extensions
