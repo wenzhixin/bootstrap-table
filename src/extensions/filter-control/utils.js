@@ -113,11 +113,10 @@ export function fixHeaderCSS ({ $tableHeader }) {
 
 export function getElementClass ($element) {
   return $element.attr('class')
-    .replace('form-control', '')
-    .replace('form-select', '')
-    .replace('focus-temp', '')
-    .replace('search-input', '')
-    .trim()
+    .split(' ')
+    .filter(function (className) {
+      return className.startsWith('bootstrap-table-filter-control-')
+    })
 }
 
 export function getCursorPosition (el) {

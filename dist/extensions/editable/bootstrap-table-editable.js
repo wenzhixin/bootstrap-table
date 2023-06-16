@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
   typeof define === 'function' && define.amd ? define(['jquery'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
-})(this, (function ($$7) { 'use strict';
+})(this, (function ($$6) { 'use strict';
 
   function _iterableToArrayLimit(arr, i) {
     var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
@@ -321,21 +321,21 @@
     };
   };
 
-  var uncurryThis$l = functionUncurryThis;
+  var uncurryThis$k = functionUncurryThis;
 
-  var toString$6 = uncurryThis$l({}.toString);
-  var stringSlice$5 = uncurryThis$l(''.slice);
+  var toString$6 = uncurryThis$k({}.toString);
+  var stringSlice$5 = uncurryThis$k(''.slice);
 
   var classofRaw$2 = function (it) {
     return stringSlice$5(toString$6(it), 8, -1);
   };
 
-  var uncurryThis$k = functionUncurryThis;
+  var uncurryThis$j = functionUncurryThis;
   var fails$f = fails$i;
   var classof$6 = classofRaw$2;
 
   var $Object$3 = Object;
-  var split = uncurryThis$k(''.split);
+  var split = uncurryThis$j(''.split);
 
   // fallback for non-array-like ES3 and non-enumerable old V8 strings
   var indexedObject = fails$f(function () {
@@ -364,11 +364,11 @@
   };
 
   // toObject with fallback for non-array-like ES3 strings
-  var IndexedObject$3 = indexedObject;
+  var IndexedObject$2 = indexedObject;
   var requireObjectCoercible$3 = requireObjectCoercible$4;
 
-  var toIndexedObject$6 = function (it) {
-    return IndexedObject$3(requireObjectCoercible$3(it));
+  var toIndexedObject$5 = function (it) {
+    return IndexedObject$2(requireObjectCoercible$3(it));
   };
 
   var documentAll$2 = typeof document == 'object' && document.all;
@@ -416,9 +416,9 @@
     return arguments.length < 2 ? aFunction(global$c[namespace]) : global$c[namespace] && global$c[namespace][method];
   };
 
-  var uncurryThis$j = functionUncurryThis;
+  var uncurryThis$i = functionUncurryThis;
 
-  var objectIsPrototypeOf = uncurryThis$j({}.isPrototypeOf);
+  var objectIsPrototypeOf = uncurryThis$i({}.isPrototypeOf);
 
   var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
 
@@ -583,10 +583,10 @@
     return $Object$1(requireObjectCoercible$2(argument));
   };
 
-  var uncurryThis$i = functionUncurryThis;
+  var uncurryThis$h = functionUncurryThis;
   var toObject$4 = toObject$5;
 
-  var hasOwnProperty = uncurryThis$i({}.hasOwnProperty);
+  var hasOwnProperty = uncurryThis$h({}.hasOwnProperty);
 
   // `HasOwnProperty` abstract operation
   // https://tc39.es/ecma262/#sec-hasownproperty
@@ -595,11 +595,11 @@
     return hasOwnProperty(toObject$4(it), key);
   };
 
-  var uncurryThis$h = functionUncurryThis;
+  var uncurryThis$g = functionUncurryThis;
 
   var id = 0;
   var postfix = Math.random();
-  var toString$5 = uncurryThis$h(1.0.toString);
+  var toString$5 = uncurryThis$g(1.0.toString);
 
   var uid$2 = function (key) {
     return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$5(++id + postfix, 36);
@@ -687,7 +687,7 @@
   var call$5 = functionCall;
   var propertyIsEnumerableModule$1 = objectPropertyIsEnumerable;
   var createPropertyDescriptor$2 = createPropertyDescriptor$3;
-  var toIndexedObject$5 = toIndexedObject$6;
+  var toIndexedObject$4 = toIndexedObject$5;
   var toPropertyKey$2 = toPropertyKey$3;
   var hasOwn$5 = hasOwnProperty_1;
   var IE8_DOM_DEFINE$1 = ie8DomDefine;
@@ -698,7 +698,7 @@
   // `Object.getOwnPropertyDescriptor` method
   // https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
   objectGetOwnPropertyDescriptor.f = DESCRIPTORS$8 ? $getOwnPropertyDescriptor$1 : function getOwnPropertyDescriptor(O, P) {
-    O = toIndexedObject$5(O);
+    O = toIndexedObject$4(O);
     P = toPropertyKey$2(P);
     if (IE8_DOM_DEFINE$1) try {
       return $getOwnPropertyDescriptor$1(O, P);
@@ -811,11 +811,11 @@
     CONFIGURABLE: CONFIGURABLE
   };
 
-  var uncurryThis$g = functionUncurryThis;
+  var uncurryThis$f = functionUncurryThis;
   var isCallable$8 = isCallable$e;
   var store$1 = sharedStore;
 
-  var functionToString = uncurryThis$g(Function.toString);
+  var functionToString = uncurryThis$f(Function.toString);
 
   // this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
   if (!isCallable$8(store$1.inspectSource)) {
@@ -915,7 +915,7 @@
     getterFor: getterFor
   };
 
-  var uncurryThis$f = functionUncurryThis;
+  var uncurryThis$e = functionUncurryThis;
   var fails$b = fails$i;
   var isCallable$6 = isCallable$e;
   var hasOwn$2 = hasOwnProperty_1;
@@ -929,9 +929,9 @@
   var $String$1 = String;
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$2 = Object.defineProperty;
-  var stringSlice$4 = uncurryThis$f(''.slice);
-  var replace$2 = uncurryThis$f(''.replace);
-  var join = uncurryThis$f([].join);
+  var stringSlice$4 = uncurryThis$e(''.slice);
+  var replace$2 = uncurryThis$e(''.replace);
+  var join = uncurryThis$e([].join);
 
   var CONFIGURABLE_LENGTH = DESCRIPTORS$3 && !fails$b(function () {
     return defineProperty$2(function () { /* empty */ }, 'length', { value: 8 }).length !== 8;
@@ -1052,14 +1052,14 @@
     return toLength$1(obj.length);
   };
 
-  var toIndexedObject$4 = toIndexedObject$6;
+  var toIndexedObject$3 = toIndexedObject$5;
   var toAbsoluteIndex = toAbsoluteIndex$1;
   var lengthOfArrayLike$2 = lengthOfArrayLike$3;
 
   // `Array.prototype.{ indexOf, includes }` methods implementation
   var createMethod$3 = function (IS_INCLUDES) {
     return function ($this, el, fromIndex) {
-      var O = toIndexedObject$4($this);
+      var O = toIndexedObject$3($this);
       var length = lengthOfArrayLike$2(O);
       var index = toAbsoluteIndex(fromIndex, length);
       var value;
@@ -1085,16 +1085,16 @@
     indexOf: createMethod$3(false)
   };
 
-  var uncurryThis$e = functionUncurryThis;
+  var uncurryThis$d = functionUncurryThis;
   var hasOwn$1 = hasOwnProperty_1;
-  var toIndexedObject$3 = toIndexedObject$6;
+  var toIndexedObject$2 = toIndexedObject$5;
   var indexOf$1 = arrayIncludes.indexOf;
   var hiddenKeys$2 = hiddenKeys$4;
 
-  var push$3 = uncurryThis$e([].push);
+  var push$3 = uncurryThis$d([].push);
 
   var objectKeysInternal = function (object, names) {
-    var O = toIndexedObject$3(object);
+    var O = toIndexedObject$2(object);
     var i = 0;
     var result = [];
     var key;
@@ -1135,12 +1135,12 @@
   objectGetOwnPropertySymbols.f = Object.getOwnPropertySymbols;
 
   var getBuiltIn$2 = getBuiltIn$4;
-  var uncurryThis$d = functionUncurryThis;
+  var uncurryThis$c = functionUncurryThis;
   var getOwnPropertyNamesModule = objectGetOwnPropertyNames;
   var getOwnPropertySymbolsModule$1 = objectGetOwnPropertySymbols;
   var anObject$5 = anObject$7;
 
-  var concat$2 = uncurryThis$d([].concat);
+  var concat$2 = uncurryThis$c([].concat);
 
   // all object keys, includes non-enumerable and symbols
   var ownKeys$1 = getBuiltIn$2('Reflect', 'ownKeys') || function ownKeys(it) {
@@ -1255,20 +1255,20 @@
   };
 
   var DESCRIPTORS$2 = descriptors;
-  var uncurryThis$c = functionUncurryThis;
+  var uncurryThis$b = functionUncurryThis;
   var call$4 = functionCall;
   var fails$9 = fails$i;
   var objectKeys$2 = objectKeys$3;
   var getOwnPropertySymbolsModule = objectGetOwnPropertySymbols;
   var propertyIsEnumerableModule = objectPropertyIsEnumerable;
   var toObject$3 = toObject$5;
-  var IndexedObject$2 = indexedObject;
+  var IndexedObject$1 = indexedObject;
 
   // eslint-disable-next-line es/no-object-assign -- safe
   var $assign = Object.assign;
   // eslint-disable-next-line es/no-object-defineproperty -- required for testing
   var defineProperty$1 = Object.defineProperty;
-  var concat$1 = uncurryThis$c([].concat);
+  var concat$1 = uncurryThis$b([].concat);
 
   // `Object.assign` method
   // https://tc39.es/ecma262/#sec-object.assign
@@ -1299,7 +1299,7 @@
     var getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
     var propertyIsEnumerable = propertyIsEnumerableModule.f;
     while (argumentsLength > index) {
-      var S = IndexedObject$2(arguments[index++]);
+      var S = IndexedObject$1(arguments[index++]);
       var keys = getOwnPropertySymbols ? concat$1(objectKeys$2(S), getOwnPropertySymbols(S)) : objectKeys$2(S);
       var length = keys.length;
       var j = 0;
@@ -1311,13 +1311,13 @@
     } return T;
   } : $assign;
 
-  var $$6 = _export;
+  var $$5 = _export;
   var assign = objectAssign;
 
   // `Object.assign` method
   // https://tc39.es/ecma262/#sec-object.assign
   // eslint-disable-next-line es/no-object-assign -- required for testing
-  $$6({ target: 'Object', stat: true, arity: 2, forced: Object.assign !== assign }, {
+  $$5({ target: 'Object', stat: true, arity: 2, forced: Object.assign !== assign }, {
     assign: assign
   });
 
@@ -1424,7 +1424,7 @@
   var V8_PROTOTYPE_DEFINE_BUG = v8PrototypeDefineBug;
   var definePropertyModule$1 = objectDefineProperty;
   var anObject$3 = anObject$7;
-  var toIndexedObject$2 = toIndexedObject$6;
+  var toIndexedObject$1 = toIndexedObject$5;
   var objectKeys$1 = objectKeys$3;
 
   // `Object.defineProperties` method
@@ -1432,7 +1432,7 @@
   // eslint-disable-next-line es/no-object-defineproperties -- safe
   objectDefineProperties.f = DESCRIPTORS$1 && !V8_PROTOTYPE_DEFINE_BUG ? Object.defineProperties : function defineProperties(O, Properties) {
     anObject$3(O);
-    var props = toIndexedObject$2(Properties);
+    var props = toIndexedObject$1(Properties);
     var keys = objectKeys$1(Properties);
     var length = keys.length;
     var index = 0;
@@ -1556,7 +1556,7 @@
   /* eslint-disable regexp/no-empty-capturing-group, regexp/no-empty-group, regexp/no-lazy-ends -- testing */
   /* eslint-disable regexp/no-useless-quantifier -- testing */
   var call$3 = functionCall;
-  var uncurryThis$b = functionUncurryThis;
+  var uncurryThis$a = functionUncurryThis;
   var toString$3 = toString$4;
   var regexpFlags = regexpFlags$1;
   var stickyHelpers = regexpStickyHelpers;
@@ -1569,10 +1569,10 @@
   var nativeReplace = shared('native-string-replace', String.prototype.replace);
   var nativeExec = RegExp.prototype.exec;
   var patchedExec = nativeExec;
-  var charAt$3 = uncurryThis$b(''.charAt);
-  var indexOf = uncurryThis$b(''.indexOf);
-  var replace$1 = uncurryThis$b(''.replace);
-  var stringSlice$3 = uncurryThis$b(''.slice);
+  var charAt$3 = uncurryThis$a(''.charAt);
+  var indexOf = uncurryThis$a(''.indexOf);
+  var replace$1 = uncurryThis$a(''.replace);
+  var stringSlice$3 = uncurryThis$a(''.slice);
 
   var UPDATES_LAST_INDEX_WRONG = (function () {
     var re1 = /a/;
@@ -1670,12 +1670,12 @@
 
   var regexpExec$2 = patchedExec;
 
-  var $$5 = _export;
+  var $$4 = _export;
   var exec$1 = regexpExec$2;
 
   // `RegExp.prototype.exec` method
   // https://tc39.es/ecma262/#sec-regexp.prototype.exec
-  $$5({ target: 'RegExp', proto: true, forced: /./.exec !== exec$1 }, {
+  $$4({ target: 'RegExp', proto: true, forced: /./.exec !== exec$1 }, {
     exec: exec$1
   });
 
@@ -1691,18 +1691,18 @@
   });
 
   var classofRaw = classofRaw$2;
-  var uncurryThis$a = functionUncurryThis;
+  var uncurryThis$9 = functionUncurryThis;
 
   var functionUncurryThisClause = function (fn) {
     // Nashorn bug:
     //   https://github.com/zloirock/core-js/issues/1128
     //   https://github.com/zloirock/core-js/issues/1130
-    if (classofRaw(fn) === 'Function') return uncurryThis$a(fn);
+    if (classofRaw(fn) === 'Function') return uncurryThis$9(fn);
   };
 
   // TODO: Remove from `core-js@4` since it's moved to entry points
 
-  var uncurryThis$9 = functionUncurryThisClause;
+  var uncurryThis$8 = functionUncurryThisClause;
   var defineBuiltIn$1 = defineBuiltIn$3;
   var regexpExec$1 = regexpExec$2;
   var fails$5 = fails$i;
@@ -1751,9 +1751,9 @@
       !DELEGATES_TO_EXEC ||
       FORCED
     ) {
-      var uncurriedNativeRegExpMethod = uncurryThis$9(/./[SYMBOL]);
+      var uncurriedNativeRegExpMethod = uncurryThis$8(/./[SYMBOL]);
       var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
-        var uncurriedNativeMethod = uncurryThis$9(nativeMethod);
+        var uncurriedNativeMethod = uncurryThis$8(nativeMethod);
         var $exec = regexp.exec;
         if ($exec === regexpExec$1 || $exec === RegExpPrototype.exec) {
           if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
@@ -1774,14 +1774,14 @@
     if (SHAM) createNonEnumerableProperty(RegExpPrototype[SYMBOL], 'sham', true);
   };
 
-  var uncurryThis$8 = functionUncurryThis;
+  var uncurryThis$7 = functionUncurryThis;
   var toIntegerOrInfinity$1 = toIntegerOrInfinity$4;
   var toString$2 = toString$4;
   var requireObjectCoercible$1 = requireObjectCoercible$4;
 
-  var charAt$2 = uncurryThis$8(''.charAt);
-  var charCodeAt = uncurryThis$8(''.charCodeAt);
-  var stringSlice$2 = uncurryThis$8(''.slice);
+  var charAt$2 = uncurryThis$7(''.charAt);
+  var charCodeAt = uncurryThis$7(''.charCodeAt);
+  var stringSlice$2 = uncurryThis$7(''.slice);
 
   var createMethod$2 = function (CONVERT_TO_STRING) {
     return function ($this, pos) {
@@ -1819,13 +1819,13 @@
     return index + (unicode ? charAt$1(S, index).length : 1);
   };
 
-  var uncurryThis$7 = functionUncurryThis;
+  var uncurryThis$6 = functionUncurryThis;
   var toObject$2 = toObject$5;
 
   var floor = Math.floor;
-  var charAt = uncurryThis$7(''.charAt);
-  var replace = uncurryThis$7(''.replace);
-  var stringSlice$1 = uncurryThis$7(''.slice);
+  var charAt = uncurryThis$6(''.charAt);
+  var replace = uncurryThis$6(''.replace);
+  var stringSlice$1 = uncurryThis$6(''.slice);
   // eslint-disable-next-line redos/no-vulnerable -- safe
   var SUBSTITUTION_SYMBOLS = /\$([$&'`]|\d{1,2}|<[^>]*>)/g;
   var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'`]|\d{1,2})/g;
@@ -1888,7 +1888,7 @@
 
   var apply = functionApply;
   var call = functionCall;
-  var uncurryThis$6 = functionUncurryThis;
+  var uncurryThis$5 = functionUncurryThis;
   var fixRegExpWellKnownSymbolLogic = fixRegexpWellKnownSymbolLogic;
   var fails$4 = fails$i;
   var anObject = anObject$7;
@@ -1907,10 +1907,10 @@
   var REPLACE = wellKnownSymbol$4('replace');
   var max = Math.max;
   var min = Math.min;
-  var concat = uncurryThis$6([].concat);
-  var push$2 = uncurryThis$6([].push);
-  var stringIndexOf = uncurryThis$6(''.indexOf);
-  var stringSlice = uncurryThis$6(''.slice);
+  var concat = uncurryThis$5([].concat);
+  var push$2 = uncurryThis$5([].push);
+  var stringIndexOf = uncurryThis$5(''.indexOf);
+  var stringSlice = uncurryThis$5(''.slice);
 
   var maybeToString = function (it) {
     return it === undefined ? it : String(it);
@@ -2025,7 +2025,7 @@
 
   var fails$3 = fails$i;
 
-  var arrayMethodIsStrict$2 = function (METHOD_NAME, argument) {
+  var arrayMethodIsStrict$1 = function (METHOD_NAME, argument) {
     var method = [][METHOD_NAME];
     return !!method && fails$3(function () {
       // eslint-disable-next-line no-useless-call -- required for testing
@@ -2034,19 +2034,19 @@
   };
 
   /* eslint-disable es/no-array-prototype-indexof -- required for testing */
-  var $$4 = _export;
-  var uncurryThis$5 = functionUncurryThisClause;
+  var $$3 = _export;
+  var uncurryThis$4 = functionUncurryThisClause;
   var $indexOf = arrayIncludes.indexOf;
-  var arrayMethodIsStrict$1 = arrayMethodIsStrict$2;
+  var arrayMethodIsStrict = arrayMethodIsStrict$1;
 
-  var nativeIndexOf = uncurryThis$5([].indexOf);
+  var nativeIndexOf = uncurryThis$4([].indexOf);
 
   var NEGATIVE_ZERO = !!nativeIndexOf && 1 / nativeIndexOf([1], 1, -0) < 0;
-  var FORCED$2 = NEGATIVE_ZERO || !arrayMethodIsStrict$1('indexOf');
+  var FORCED$1 = NEGATIVE_ZERO || !arrayMethodIsStrict('indexOf');
 
   // `Array.prototype.indexOf` method
   // https://tc39.es/ecma262/#sec-array.prototype.indexof
-  $$4({ target: 'Array', proto: true, forced: FORCED$2 }, {
+  $$3({ target: 'Array', proto: true, forced: FORCED$1 }, {
     indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
       var fromIndex = arguments.length > 1 ? arguments[1] : undefined;
       return NEGATIVE_ZERO
@@ -2083,7 +2083,7 @@
     else object[propertyKey] = value;
   };
 
-  var uncurryThis$4 = functionUncurryThis;
+  var uncurryThis$3 = functionUncurryThis;
   var fails$2 = fails$i;
   var isCallable = isCallable$e;
   var classof$1 = classof$5;
@@ -2094,7 +2094,7 @@
   var empty = [];
   var construct = getBuiltIn('Reflect', 'construct');
   var constructorRegExp = /^\s*(?:class|function)\b/;
-  var exec = uncurryThis$4(constructorRegExp.exec);
+  var exec = uncurryThis$3(constructorRegExp.exec);
   var INCORRECT_TO_STRING = !constructorRegExp.exec(noop);
 
   var isConstructorModern = function isConstructor(argument) {
@@ -2187,7 +2187,7 @@
     });
   };
 
-  var $$3 = _export;
+  var $$2 = _export;
   var fails = fails$i;
   var isArray = isArray$2;
   var isObject = isObject$7;
@@ -2217,12 +2217,12 @@
     return spreadable !== undefined ? !!spreadable : isArray(O);
   };
 
-  var FORCED$1 = !IS_CONCAT_SPREADABLE_SUPPORT || !arrayMethodHasSpeciesSupport('concat');
+  var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !arrayMethodHasSpeciesSupport('concat');
 
   // `Array.prototype.concat` method
   // https://tc39.es/ecma262/#sec-array.prototype.concat
   // with adding support of @@isConcatSpreadable and @@species
-  $$3({ target: 'Array', proto: true, arity: 1, forced: FORCED$1 }, {
+  $$2({ target: 'Array', proto: true, arity: 1, forced: FORCED }, {
     // eslint-disable-next-line no-unused-vars -- required for `.length`
     concat: function concat(arg) {
       var O = toObject$1(this);
@@ -2242,25 +2242,6 @@
       }
       A.length = n;
       return A;
-    }
-  });
-
-  var $$2 = _export;
-  var uncurryThis$3 = functionUncurryThis;
-  var IndexedObject$1 = indexedObject;
-  var toIndexedObject$1 = toIndexedObject$6;
-  var arrayMethodIsStrict = arrayMethodIsStrict$2;
-
-  var nativeJoin = uncurryThis$3([].join);
-
-  var ES3_STRINGS = IndexedObject$1 != Object;
-  var FORCED = ES3_STRINGS || !arrayMethodIsStrict('join', ',');
-
-  // `Array.prototype.join` method
-  // https://tc39.es/ecma262/#sec-array.prototype.join
-  $$2({ target: 'Array', proto: true, forced: FORCED }, {
-    join: function join(separator) {
-      return nativeJoin(toIndexedObject$1(this), separator === undefined ? ',' : separator);
     }
   });
 
@@ -2416,7 +2397,7 @@
   var DESCRIPTORS = descriptors;
   var uncurryThis = functionUncurryThis;
   var objectKeys = objectKeys$3;
-  var toIndexedObject = toIndexedObject$6;
+  var toIndexedObject = toIndexedObject$5;
   var $propertyIsEnumerable = objectPropertyIsEnumerable.f;
 
   var propertyIsEnumerable = uncurryThis($propertyIsEnumerable);
@@ -2467,8 +2448,8 @@
    * extensions: https://github.com/vitalets/x-editable
    */
 
-  var Utils = $$7.fn.bootstrapTable.utils;
-  Object.assign($$7.fn.bootstrapTable.defaults, {
+  var Utils = $$6.fn.bootstrapTable.utils;
+  Object.assign($$6.fn.bootstrapTable.defaults, {
     editable: true,
     onEditableInit: function onEditableInit() {
       return false;
@@ -2483,16 +2464,16 @@
       return false;
     }
   });
-  Object.assign($$7.fn.bootstrapTable.columnDefaults, {
+  Object.assign($$6.fn.bootstrapTable.columnDefaults, {
     alwaysUseFormatter: false
   });
-  Object.assign($$7.fn.bootstrapTable.events, {
+  Object.assign($$6.fn.bootstrapTable.events, {
     'editable-init.bs.table': 'onEditableInit',
     'editable-save.bs.table': 'onEditableSave',
     'editable-shown.bs.table': 'onEditableShown',
     'editable-hidden.bs.table': 'onEditableHidden'
   });
-  $$7.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
+  $$6.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
     _inherits(_class, _$$BootstrapTable);
     var _super = _createSuper(_class);
     function _class() {
@@ -2508,12 +2489,11 @@
           return;
         }
         this.editedCells = [];
-        $$7.each(this.columns, function (i, column) {
+        $$6.each(this.columns, function (i, column) {
           if (!column.editable) {
             return;
           }
           var editableOptions = {};
-          var editableDataMarkup = [];
           var editableDataPrefix = 'editable-';
           var processDataOptions = function processDataOptions(key, value) {
             // Replace camel case with dashes.
@@ -2524,7 +2504,7 @@
               editableOptions[dashKey.replace(editableDataPrefix, 'data-')] = value;
             }
           };
-          $$7.each(_this.options, processDataOptions);
+          $$6.each(_this.options, processDataOptions);
           column.formatter = column.formatter || function (value) {
             return value;
           };
@@ -2534,23 +2514,21 @@
             result = typeof result === 'undefined' || result === null ? _this.options.undefinedText : result;
             if (_this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
               var uniqueId = Utils.getItemField(row, _this.options.uniqueId, false);
-              if ($$7.inArray(column.field + uniqueId, _this.editedCells) !== -1) {
+              if ($$6.inArray(column.field + uniqueId, _this.editedCells) !== -1) {
                 result = value;
               }
             }
-            $$7.each(column, processDataOptions);
-            $$7.each(editableOptions, function (key, value) {
-              editableDataMarkup.push(" ".concat(key, "=\"").concat(value, "\""));
-            });
-            var noEditFormatter = false;
+            $$6.each(column, processDataOptions);
             var editableOpts = Utils.calculateObjectValue(column, column.editable, [index, row], {});
-            if (editableOpts.hasOwnProperty('noEditFormatter')) {
-              noEditFormatter = editableOpts.noEditFormatter(value, row, index, field);
+            var noEditFormatter = editableOpts.hasOwnProperty('noEditFormatter') && editableOpts.noEditFormatter(value, row, index, field);
+            if (noEditFormatter) {
+              return noEditFormatter;
             }
-            if (noEditFormatter === false) {
-              return "<a href=\"javascript:void(0)\"\n            data-name=\"".concat(column.field, "\"\n            data-pk=\"").concat(row[_this.options.idField], "\"\n            data-value=\"").concat(result, "\"\n            ").concat(editableDataMarkup.join(''), "></a>");
-            }
-            return noEditFormatter;
+            var editableDataMarkup = '';
+            $$6.each(editableOptions, function (key, value) {
+              editableDataMarkup += " ".concat(key, "=\"").concat(value, "\"");
+            });
+            return "<a href=\"javascript:void(0)\"\n          data-name=\"".concat(column.field, "\"\n          data-pk=\"").concat(row[_this.options.idField], "\"\n          data-value=\"").concat(value || '', "\"\n          ").concat(editableDataMarkup, ">").concat(result, "</a>"); // expand all data-editable-XXX
           };
         });
       }
@@ -2562,7 +2540,7 @@
         if (!this.options.editable) {
           return;
         }
-        $$7.each(this.columns, function (i, column) {
+        $$6.each(this.columns, function (i, column) {
           if (!column.editable) {
             return;
           }
@@ -2571,7 +2549,7 @@
           });
           var $field = _this2.$body.find("a[data-name=\"".concat(column.field, "\"]"));
           $field.each(function (i, element) {
-            var $element = $$7(element);
+            var $element = $$6(element);
             var $tr = $element.closest('tr');
             var index = $tr.data('index');
             var row = data[index];
@@ -2581,14 +2559,14 @@
           $field.off('save').on('save', function (_ref, _ref2) {
             var currentTarget = _ref.currentTarget;
             var submitValue = _ref2.submitValue;
-            var $this = $$7(currentTarget);
+            var $this = $$6(currentTarget);
             var data = _this2.getData();
             var rowIndex = $this.parents('tr[data-index]').data('index');
             var row = data[rowIndex];
             var oldValue = row[column.field];
             if (_this2.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
               var uniqueId = Utils.getItemField(row, _this2.options.uniqueId, false);
-              if ($$7.inArray(column.field + uniqueId, _this2.editedCells) === -1) {
+              if ($$6.inArray(column.field + uniqueId, _this2.editedCells) === -1) {
                 _this2.editedCells.push(column.field + uniqueId);
               }
             }
@@ -2600,7 +2578,7 @@
           });
           $field.off('shown').on('shown', function (_ref3, editable) {
             var currentTarget = _ref3.currentTarget;
-            var $this = $$7(currentTarget);
+            var $this = $$6(currentTarget);
             var data = _this2.getData();
             var rowIndex = $this.parents('tr[data-index]').data('index');
             var row = data[rowIndex];
@@ -2608,7 +2586,7 @@
           });
           $field.off('hidden').on('hidden', function (_ref4, reason) {
             var currentTarget = _ref4.currentTarget;
-            var $this = $$7(currentTarget);
+            var $this = $$6(currentTarget);
             var data = _this2.getData();
             var rowIndex = $this.parents('tr[data-index]').data('index');
             var row = data[rowIndex];
@@ -2644,6 +2622,6 @@
       }
     }]);
     return _class;
-  }($$7.BootstrapTable);
+  }($$6.BootstrapTable);
 
 }));

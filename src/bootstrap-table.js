@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.21.4
+ * version: 1.22.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -530,6 +530,12 @@ class BootstrapTable {
     }
   }
 
+  sortBy (params) {
+    this.options.sortName = params.field
+    this.options.sortOrder = params.hasOwnProperty('sortOrder') ? params.sortOrder : 'asc'
+    this._sort()
+  }
+
   onSort ({ type, currentTarget }) {
     const $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent()
     const $this_ = this.$header.find('th').eq($this.index())
@@ -561,12 +567,17 @@ class BootstrapTable {
           this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
       }
     }
-    this.trigger('sort', this.options.sortName, this.options.sortOrder)
 
     $this.add($this_).data('order', this.options.sortOrder)
 
     // Assign the correct sortable arrow
     this.getCaret()
+
+    this._sort()
+  }
+
+  _sort () {
+    this.trigger('sort', this.options.sortName, this.options.sortOrder)
 
     if (this.options.sidePagination === 'server' && this.options.serverSort) {
       this.options.pageNumber = 1
@@ -659,7 +670,7 @@ class BootstrapTable {
         html: () => {
           const html = []
 
-          html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}" title="${opts.formatColumns()}">
+          html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}">
             <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown"
             aria-label="${opts.formatColumns()}" title="${opts.formatColumns()}">
             ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
@@ -713,7 +724,7 @@ class BootstrapTable {
             if (column.switchable) {
               html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
                 Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
-                  column.field, i, checked, disabled, column.title)))
+                  column.field, i, checked, disabled, column.switchableLabel ? column.switchableLabel : column.title)))
               switchableCount++
             }
           })
@@ -735,10 +746,18 @@ class BootstrapTable {
           buttonHtml = buttonConfig.html
         }
       } else {
-        buttonHtml = `<button class="${this.constants.buttonsClass}" type="button" name="${buttonName}"`
+        let buttonClass = this.constants.buttonsClass
+
+        if (buttonConfig.hasOwnProperty('attributes') && buttonConfig.attributes.class) {
+          buttonClass += ` ${buttonConfig.attributes.class}`
+        }
+        buttonHtml = `<button class="${buttonClass}" type="button" name="${buttonName}"`
 
         if (buttonConfig.hasOwnProperty('attributes')) {
           for (const [attributeName, value] of Object.entries(buttonConfig.attributes)) {
+            if (attributeName === 'class') {
+              continue
+            }
             buttonHtml += ` ${attributeName}="${value}"`
           }
         }

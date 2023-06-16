@@ -4,6 +4,22 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.22.0
+
+<span class="post-date">16 Jun 2023</span>
+
+#### Core
+
+- **New:** Added `sortBy` method.
+- **New:** Added `switchableLabel` column option.
+- **New:** Added support for `class` attribute in toolbar buttons.
+- **Update:** Removed title from columns button.
+
+#### Extensions
+
+- **Update(addrbar):** Fixed clear search bug when clicking clearSearch button.
+- **Update(filter-control):** Fixed pagination server side not working bug.
+
 ## Bootstrap Table 1.21.4
 
 <span class="post-date">1 Apr 2023</span>

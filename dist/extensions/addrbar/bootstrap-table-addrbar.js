@@ -2785,6 +2785,12 @@
         }
         (_get2 = _get(_getPrototypeOf(_class.prototype), "init", this)).call.apply(_get2, [this].concat(args));
       }
+    }, {
+      key: "resetSearch",
+      value: function resetSearch(text) {
+        _get(_getPrototypeOf(_class.prototype), "resetSearch", this).call(this, text);
+        this.options.searchText = text || '';
+      }
 
       /*
        * Priority order:

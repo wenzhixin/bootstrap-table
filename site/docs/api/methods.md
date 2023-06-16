@@ -509,6 +509,20 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Example:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
 
+## sortBy
+
+- **Parameter:** `params`
+
+- **Detail:**
+
+  Sorts the table by the specified field. The params must contain at least one of the following properties:
+
+  * `field`: the field name.
+  * `sortOrder`: the sort order, can only be 'asc' or 'desc'.
+
+- **Example:** [Sort By](https://examples.bootstrap-table.com/#methods/sort-by.html)
+
+
 ## toggleDetailView
 
 - **Parameter:** `index`

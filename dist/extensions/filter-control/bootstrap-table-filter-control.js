@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
   typeof define === 'function' && define.amd ? define(['jquery'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
-})(this, (function ($$k) { 'use strict';
+})(this, (function ($$l) { 'use strict';
 
   function _typeof(obj) {
     "@babel/helpers - typeof";
@@ -222,15 +222,15 @@
 
   var $propertyIsEnumerable$1 = {}.propertyIsEnumerable;
   // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-  var getOwnPropertyDescriptor$2 = Object.getOwnPropertyDescriptor;
+  var getOwnPropertyDescriptor$3 = Object.getOwnPropertyDescriptor;
 
   // Nashorn ~ JDK8 bug
-  var NASHORN_BUG = getOwnPropertyDescriptor$2 && !$propertyIsEnumerable$1.call({ 1: 2 }, 1);
+  var NASHORN_BUG = getOwnPropertyDescriptor$3 && !$propertyIsEnumerable$1.call({ 1: 2 }, 1);
 
   // `Object.prototype.propertyIsEnumerable` method implementation
   // https://tc39.es/ecma262/#sec-object.prototype.propertyisenumerable
   objectPropertyIsEnumerable.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
-    var descriptor = getOwnPropertyDescriptor$2(this, V);
+    var descriptor = getOwnPropertyDescriptor$3(this, V);
     return !!descriptor && descriptor.enumerable;
   } : $propertyIsEnumerable$1;
 
@@ -255,21 +255,21 @@
     };
   };
 
-  var uncurryThis$s = functionUncurryThis;
+  var uncurryThis$t = functionUncurryThis;
 
-  var toString$c = uncurryThis$s({}.toString);
-  var stringSlice$6 = uncurryThis$s(''.slice);
+  var toString$d = uncurryThis$t({}.toString);
+  var stringSlice$7 = uncurryThis$t(''.slice);
 
   var classofRaw$2 = function (it) {
-    return stringSlice$6(toString$c(it), 8, -1);
+    return stringSlice$7(toString$d(it), 8, -1);
   };
 
-  var uncurryThis$r = functionUncurryThis;
+  var uncurryThis$s = functionUncurryThis;
   var fails$n = fails$q;
   var classof$9 = classofRaw$2;
 
   var $Object$3 = Object;
-  var split = uncurryThis$r(''.split);
+  var split = uncurryThis$s(''.split);
 
   // fallback for non-array-like ES3 and non-enumerable old V8 strings
   var indexedObject = fails$n(function () {
@@ -292,17 +292,17 @@
 
   // `RequireObjectCoercible` abstract operation
   // https://tc39.es/ecma262/#sec-requireobjectcoercible
-  var requireObjectCoercible$8 = function (it) {
+  var requireObjectCoercible$9 = function (it) {
     if (isNullOrUndefined$6(it)) throw $TypeError$g("Can't call method on " + it);
     return it;
   };
 
   // toObject with fallback for non-array-like ES3 strings
   var IndexedObject$3 = indexedObject;
-  var requireObjectCoercible$7 = requireObjectCoercible$8;
+  var requireObjectCoercible$8 = requireObjectCoercible$9;
 
   var toIndexedObject$6 = function (it) {
-    return IndexedObject$3(requireObjectCoercible$7(it));
+    return IndexedObject$3(requireObjectCoercible$8(it));
   };
 
   var documentAll$2 = typeof document == 'object' && document.all;
@@ -350,9 +350,9 @@
     return arguments.length < 2 ? aFunction(global$j[namespace]) : global$j[namespace] && global$j[namespace][method];
   };
 
-  var uncurryThis$q = functionUncurryThis;
+  var uncurryThis$r = functionUncurryThis;
 
-  var objectIsPrototypeOf = uncurryThis$q({}.isPrototypeOf);
+  var objectIsPrototypeOf = uncurryThis$r({}.isPrototypeOf);
 
   var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
 
@@ -507,20 +507,20 @@
     source: 'https://github.com/zloirock/core-js'
   });
 
-  var requireObjectCoercible$6 = requireObjectCoercible$8;
+  var requireObjectCoercible$7 = requireObjectCoercible$9;
 
   var $Object$1 = Object;
 
   // `ToObject` abstract operation
   // https://tc39.es/ecma262/#sec-toobject
   var toObject$7 = function (argument) {
-    return $Object$1(requireObjectCoercible$6(argument));
+    return $Object$1(requireObjectCoercible$7(argument));
   };
 
-  var uncurryThis$p = functionUncurryThis;
+  var uncurryThis$q = functionUncurryThis;
   var toObject$6 = toObject$7;
 
-  var hasOwnProperty = uncurryThis$p({}.hasOwnProperty);
+  var hasOwnProperty = uncurryThis$q({}.hasOwnProperty);
 
   // `HasOwnProperty` abstract operation
   // https://tc39.es/ecma262/#sec-hasownproperty
@@ -529,14 +529,14 @@
     return hasOwnProperty(toObject$6(it), key);
   };
 
-  var uncurryThis$o = functionUncurryThis;
+  var uncurryThis$p = functionUncurryThis;
 
   var id = 0;
   var postfix = Math.random();
-  var toString$b = uncurryThis$o(1.0.toString);
+  var toString$c = uncurryThis$p(1.0.toString);
 
   var uid$2 = function (key) {
-    return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$b(++id + postfix, 36);
+    return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$c(++id + postfix, 36);
   };
 
   var global$f = global$k;
@@ -745,11 +745,11 @@
     CONFIGURABLE: CONFIGURABLE
   };
 
-  var uncurryThis$n = functionUncurryThis;
+  var uncurryThis$o = functionUncurryThis;
   var isCallable$d = isCallable$j;
   var store$1 = sharedStore;
 
-  var functionToString = uncurryThis$n(Function.toString);
+  var functionToString = uncurryThis$o(Function.toString);
 
   // this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
   if (!isCallable$d(store$1.inspectSource)) {
@@ -849,7 +849,7 @@
     getterFor: getterFor
   };
 
-  var uncurryThis$m = functionUncurryThis;
+  var uncurryThis$n = functionUncurryThis;
   var fails$j = fails$q;
   var isCallable$b = isCallable$j;
   var hasOwn$5 = hasOwnProperty_1;
@@ -863,9 +863,9 @@
   var $String$2 = String;
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$4 = Object.defineProperty;
-  var stringSlice$5 = uncurryThis$m(''.slice);
-  var replace$3 = uncurryThis$m(''.replace);
-  var join = uncurryThis$m([].join);
+  var stringSlice$6 = uncurryThis$n(''.slice);
+  var replace$3 = uncurryThis$n(''.replace);
+  var join = uncurryThis$n([].join);
 
   var CONFIGURABLE_LENGTH = DESCRIPTORS$4 && !fails$j(function () {
     return defineProperty$4(function () { /* empty */ }, 'length', { value: 8 }).length !== 8;
@@ -874,7 +874,7 @@
   var TEMPLATE = String(String).split('String');
 
   var makeBuiltIn$2 = makeBuiltIn$3.exports = function (value, name, options) {
-    if (stringSlice$5($String$2(name), 0, 7) === 'Symbol(') {
+    if (stringSlice$6($String$2(name), 0, 7) === 'Symbol(') {
       name = '[' + replace$3($String$2(name), /^Symbol\(([^)]*)\)/, '$1') + ']';
     }
     if (options && options.getter) name = 'get ' + name;
@@ -958,32 +958,32 @@
   var toIntegerOrInfinity$3 = toIntegerOrInfinity$4;
 
   var max$2 = Math.max;
-  var min$3 = Math.min;
+  var min$4 = Math.min;
 
   // Helper for a popular repeating case of the spec:
   // Let integer be ? ToInteger(index).
   // If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
   var toAbsoluteIndex$2 = function (index, length) {
     var integer = toIntegerOrInfinity$3(index);
-    return integer < 0 ? max$2(integer + length, 0) : min$3(integer, length);
+    return integer < 0 ? max$2(integer + length, 0) : min$4(integer, length);
   };
 
   var toIntegerOrInfinity$2 = toIntegerOrInfinity$4;
 
-  var min$2 = Math.min;
+  var min$3 = Math.min;
 
   // `ToLength` abstract operation
   // https://tc39.es/ecma262/#sec-tolength
-  var toLength$4 = function (argument) {
-    return argument > 0 ? min$2(toIntegerOrInfinity$2(argument), 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
+  var toLength$5 = function (argument) {
+    return argument > 0 ? min$3(toIntegerOrInfinity$2(argument), 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
   };
 
-  var toLength$3 = toLength$4;
+  var toLength$4 = toLength$5;
 
   // `LengthOfArrayLike` abstract operation
   // https://tc39.es/ecma262/#sec-lengthofarraylike
   var lengthOfArrayLike$6 = function (obj) {
-    return toLength$3(obj.length);
+    return toLength$4(obj.length);
   };
 
   var toIndexedObject$4 = toIndexedObject$6;
@@ -1019,13 +1019,13 @@
     indexOf: createMethod$4(false)
   };
 
-  var uncurryThis$l = functionUncurryThis;
+  var uncurryThis$m = functionUncurryThis;
   var hasOwn$4 = hasOwnProperty_1;
   var toIndexedObject$3 = toIndexedObject$6;
   var indexOf$1 = arrayIncludes.indexOf;
   var hiddenKeys$2 = hiddenKeys$4;
 
-  var push$5 = uncurryThis$l([].push);
+  var push$5 = uncurryThis$m([].push);
 
   var objectKeysInternal = function (object, names) {
     var O = toIndexedObject$3(object);
@@ -1069,12 +1069,12 @@
   objectGetOwnPropertySymbols.f = Object.getOwnPropertySymbols;
 
   var getBuiltIn$5 = getBuiltIn$7;
-  var uncurryThis$k = functionUncurryThis;
+  var uncurryThis$l = functionUncurryThis;
   var getOwnPropertyNamesModule = objectGetOwnPropertyNames;
   var getOwnPropertySymbolsModule$1 = objectGetOwnPropertySymbols;
   var anObject$e = anObject$g;
 
-  var concat$2 = uncurryThis$k([].concat);
+  var concat$2 = uncurryThis$l([].concat);
 
   // all object keys, includes non-enumerable and symbols
   var ownKeys$1 = getBuiltIn$5('Reflect', 'ownKeys') || function ownKeys(it) {
@@ -1124,7 +1124,7 @@
   var isForced_1 = isForced$2;
 
   var global$b = global$k;
-  var getOwnPropertyDescriptor$1 = objectGetOwnPropertyDescriptor.f;
+  var getOwnPropertyDescriptor$2 = objectGetOwnPropertyDescriptor.f;
   var createNonEnumerableProperty$2 = createNonEnumerableProperty$4;
   var defineBuiltIn$5 = defineBuiltIn$6;
   var defineGlobalProperty = defineGlobalProperty$3;
@@ -1161,7 +1161,7 @@
     if (target) for (key in source) {
       sourceProperty = source[key];
       if (options.dontCallGetSet) {
-        descriptor = getOwnPropertyDescriptor$1(target, key);
+        descriptor = getOwnPropertyDescriptor$2(target, key);
         targetProperty = descriptor && descriptor.value;
       } else targetProperty = target[key];
       FORCED = isForced$1(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced);
@@ -1189,7 +1189,7 @@
   };
 
   var DESCRIPTORS$3 = descriptors;
-  var uncurryThis$j = functionUncurryThis;
+  var uncurryThis$k = functionUncurryThis;
   var call$e = functionCall;
   var fails$h = fails$q;
   var objectKeys$2 = objectKeys$3;
@@ -1202,7 +1202,7 @@
   var $assign = Object.assign;
   // eslint-disable-next-line es/no-object-defineproperty -- required for testing
   var defineProperty$3 = Object.defineProperty;
-  var concat$1 = uncurryThis$j([].concat);
+  var concat$1 = uncurryThis$k([].concat);
 
   // `Object.assign` method
   // https://tc39.es/ecma262/#sec-object.assign
@@ -1245,31 +1245,31 @@
     } return T;
   } : $assign;
 
-  var $$j = _export;
+  var $$k = _export;
   var assign = objectAssign;
 
   // `Object.assign` method
   // https://tc39.es/ecma262/#sec-object.assign
   // eslint-disable-next-line es/no-object-assign -- required for testing
-  $$j({ target: 'Object', stat: true, arity: 2, forced: Object.assign !== assign }, {
+  $$k({ target: 'Object', stat: true, arity: 2, forced: Object.assign !== assign }, {
     assign: assign
   });
 
   var classofRaw$1 = classofRaw$2;
-  var uncurryThis$i = functionUncurryThis;
+  var uncurryThis$j = functionUncurryThis;
 
   var functionUncurryThisClause = function (fn) {
     // Nashorn bug:
     //   https://github.com/zloirock/core-js/issues/1128
     //   https://github.com/zloirock/core-js/issues/1130
-    if (classofRaw$1(fn) === 'Function') return uncurryThis$i(fn);
+    if (classofRaw$1(fn) === 'Function') return uncurryThis$j(fn);
   };
 
-  var uncurryThis$h = functionUncurryThisClause;
+  var uncurryThis$i = functionUncurryThisClause;
   var aCallable$7 = aCallable$9;
   var NATIVE_BIND$1 = functionBindNative;
 
-  var bind$5 = uncurryThis$h(uncurryThis$h.bind);
+  var bind$5 = uncurryThis$i(uncurryThis$i.bind);
 
   // optional / simple context binding
   var functionBindContext = function (fn, that) {
@@ -1327,7 +1327,7 @@
       : (result = classofRaw(O)) == 'Object' && isCallable$8(O.callee) ? 'Arguments' : result;
   };
 
-  var uncurryThis$g = functionUncurryThis;
+  var uncurryThis$h = functionUncurryThis;
   var fails$g = fails$q;
   var isCallable$7 = isCallable$j;
   var classof$6 = classof$7;
@@ -1338,7 +1338,7 @@
   var empty = [];
   var construct = getBuiltIn$4('Reflect', 'construct');
   var constructorRegExp = /^\s*(?:class|function)\b/;
-  var exec$3 = uncurryThis$g(constructorRegExp.exec);
+  var exec$3 = uncurryThis$h(constructorRegExp.exec);
   var INCORRECT_TO_STRING = !constructorRegExp.exec(noop);
 
   var isConstructorModern = function isConstructor(argument) {
@@ -1412,13 +1412,13 @@
   };
 
   var bind$4 = functionBindContext;
-  var uncurryThis$f = functionUncurryThis;
+  var uncurryThis$g = functionUncurryThis;
   var IndexedObject$1 = indexedObject;
   var toObject$4 = toObject$7;
   var lengthOfArrayLike$4 = lengthOfArrayLike$6;
   var arraySpeciesCreate$1 = arraySpeciesCreate$2;
 
-  var push$4 = uncurryThis$f([].push);
+  var push$4 = uncurryThis$g([].push);
 
   // `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
   var createMethod$3 = function (TYPE) {
@@ -1505,7 +1505,7 @@
     });
   };
 
-  var $$i = _export;
+  var $$j = _export;
   var $filter = arrayIteration.filter;
   var arrayMethodHasSpeciesSupport$1 = arrayMethodHasSpeciesSupport$2;
 
@@ -1514,7 +1514,7 @@
   // `Array.prototype.filter` method
   // https://tc39.es/ecma262/#sec-array.prototype.filter
   // with adding support of @@species
-  $$i({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+  $$j({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
     filter: function filter(callbackfn /* , thisArg */) {
       return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
     }
@@ -1531,15 +1531,15 @@
 
   var TO_STRING_TAG_SUPPORT = toStringTagSupport;
   var defineBuiltIn$4 = defineBuiltIn$6;
-  var toString$a = objectToString;
+  var toString$b = objectToString;
 
   // `Object.prototype.toString` method
   // https://tc39.es/ecma262/#sec-object.prototype.tostring
   if (!TO_STRING_TAG_SUPPORT) {
-    defineBuiltIn$4(Object.prototype, 'toString', toString$a, { unsafe: true });
+    defineBuiltIn$4(Object.prototype, 'toString', toString$b, { unsafe: true });
   }
 
-  var $$h = _export;
+  var $$i = _export;
   var toObject$3 = toObject$7;
   var nativeKeys = objectKeys$3;
   var fails$e = fails$q;
@@ -1548,7 +1548,7 @@
 
   // `Object.keys` method
   // https://tc39.es/ecma262/#sec-object.keys
-  $$h({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
+  $$i({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
     keys: function keys(it) {
       return nativeKeys(toObject$3(it));
     }
@@ -1572,7 +1572,7 @@
     else object[propertyKey] = value;
   };
 
-  var $$g = _export;
+  var $$h = _export;
   var fails$d = fails$q;
   var isArray = isArray$2;
   var isObject$3 = isObject$a;
@@ -1607,7 +1607,7 @@
   // `Array.prototype.concat` method
   // https://tc39.es/ecma262/#sec-array.prototype.concat
   // with adding support of @@isConcatSpreadable and @@species
-  $$g({ target: 'Array', proto: true, arity: 1, forced: FORCED$4 }, {
+  $$h({ target: 'Array', proto: true, arity: 1, forced: FORCED$4 }, {
     // eslint-disable-next-line no-unused-vars -- required for `.length`
     concat: function concat(arg) {
       var O = toObject$2(this);
@@ -1763,7 +1763,7 @@
     ArrayPrototype$1[UNSCOPABLES][key] = true;
   };
 
-  var $$f = _export;
+  var $$g = _export;
   var $includes = arrayIncludes.includes;
   var fails$c = fails$q;
   var addToUnscopables$1 = addToUnscopables$2;
@@ -1776,7 +1776,7 @@
 
   // `Array.prototype.includes` method
   // https://tc39.es/ecma262/#sec-array.prototype.includes
-  $$f({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
+  $$g({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
     includes: function includes(el /* , fromIndex = 0 */) {
       return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
     }
@@ -1812,7 +1812,7 @@
 
   var $String$1 = String;
 
-  var toString$9 = function (argument) {
+  var toString$a = function (argument) {
     if (classof$3(argument) === 'Symbol') throw TypeError('Cannot convert a Symbol value to a string');
     return $String$1(argument);
   };
@@ -1833,22 +1833,22 @@
     } return false;
   };
 
-  var $$e = _export;
-  var uncurryThis$e = functionUncurryThis;
-  var notARegExp = notARegexp;
-  var requireObjectCoercible$5 = requireObjectCoercible$8;
-  var toString$8 = toString$9;
-  var correctIsRegExpLogic = correctIsRegexpLogic;
+  var $$f = _export;
+  var uncurryThis$f = functionUncurryThis;
+  var notARegExp$1 = notARegexp;
+  var requireObjectCoercible$6 = requireObjectCoercible$9;
+  var toString$9 = toString$a;
+  var correctIsRegExpLogic$1 = correctIsRegexpLogic;
 
-  var stringIndexOf$1 = uncurryThis$e(''.indexOf);
+  var stringIndexOf$1 = uncurryThis$f(''.indexOf);
 
   // `String.prototype.includes` method
   // https://tc39.es/ecma262/#sec-string.prototype.includes
-  $$e({ target: 'String', proto: true, forced: !correctIsRegExpLogic('includes') }, {
+  $$f({ target: 'String', proto: true, forced: !correctIsRegExpLogic$1('includes') }, {
     includes: function includes(searchString /* , position = 0 */) {
       return !!~stringIndexOf$1(
-        toString$8(requireObjectCoercible$5(this)),
-        toString$8(notARegExp(searchString)),
+        toString$9(requireObjectCoercible$6(this)),
+        toString$9(notARegExp$1(searchString)),
         arguments.length > 1 ? arguments[1] : undefined
       );
     }
@@ -2018,8 +2018,8 @@
   /* eslint-disable regexp/no-empty-capturing-group, regexp/no-empty-group, regexp/no-lazy-ends -- testing */
   /* eslint-disable regexp/no-useless-quantifier -- testing */
   var call$d = functionCall;
-  var uncurryThis$d = functionUncurryThis;
-  var toString$7 = toString$9;
+  var uncurryThis$e = functionUncurryThis;
+  var toString$8 = toString$a;
   var regexpFlags = regexpFlags$1;
   var stickyHelpers$1 = regexpStickyHelpers;
   var shared = sharedExports;
@@ -2031,10 +2031,10 @@
   var nativeReplace = shared('native-string-replace', String.prototype.replace);
   var nativeExec = RegExp.prototype.exec;
   var patchedExec = nativeExec;
-  var charAt$3 = uncurryThis$d(''.charAt);
-  var indexOf = uncurryThis$d(''.indexOf);
-  var replace$2 = uncurryThis$d(''.replace);
-  var stringSlice$4 = uncurryThis$d(''.slice);
+  var charAt$3 = uncurryThis$e(''.charAt);
+  var indexOf = uncurryThis$e(''.indexOf);
+  var replace$2 = uncurryThis$e(''.replace);
+  var stringSlice$5 = uncurryThis$e(''.slice);
 
   var UPDATES_LAST_INDEX_WRONG = (function () {
     var re1 = /a/;
@@ -2055,7 +2055,7 @@
     patchedExec = function exec(string) {
       var re = this;
       var state = getInternalState(re);
-      var str = toString$7(string);
+      var str = toString$8(string);
       var raw = state.raw;
       var result, reCopy, lastIndex, match, i, object, group;
 
@@ -2079,7 +2079,7 @@
           flags += 'g';
         }
 
-        strCopy = stringSlice$4(str, re.lastIndex);
+        strCopy = stringSlice$5(str, re.lastIndex);
         // Support anchored sticky behavior.
         if (re.lastIndex > 0 && (!re.multiline || re.multiline && charAt$3(str, re.lastIndex - 1) !== '\n')) {
           source = '(?: ' + source + ')';
@@ -2100,8 +2100,8 @@
 
       if (sticky) {
         if (match) {
-          match.input = stringSlice$4(match.input, charsAdded);
-          match[0] = stringSlice$4(match[0], charsAdded);
+          match.input = stringSlice$5(match.input, charsAdded);
+          match[0] = stringSlice$5(match[0], charsAdded);
           match.index = re.lastIndex;
           re.lastIndex += match[0].length;
         } else re.lastIndex = 0;
@@ -2132,12 +2132,12 @@
 
   var regexpExec$3 = patchedExec;
 
-  var $$d = _export;
+  var $$e = _export;
   var exec$2 = regexpExec$3;
 
   // `RegExp.prototype.exec` method
   // https://tc39.es/ecma262/#sec-regexp.prototype.exec
-  $$d({ target: 'RegExp', proto: true, forced: /./.exec !== exec$2 }, {
+  $$e({ target: 'RegExp', proto: true, forced: /./.exec !== exec$2 }, {
     exec: exec$2
   });
 
@@ -2154,7 +2154,7 @@
 
   // TODO: Remove from `core-js@4` since it's moved to entry points
 
-  var uncurryThis$c = functionUncurryThisClause;
+  var uncurryThis$d = functionUncurryThisClause;
   var defineBuiltIn$3 = defineBuiltIn$6;
   var regexpExec$2 = regexpExec$3;
   var fails$7 = fails$q;
@@ -2203,9 +2203,9 @@
       !DELEGATES_TO_EXEC ||
       FORCED
     ) {
-      var uncurriedNativeRegExpMethod = uncurryThis$c(/./[SYMBOL]);
+      var uncurriedNativeRegExpMethod = uncurryThis$d(/./[SYMBOL]);
       var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
-        var uncurriedNativeMethod = uncurryThis$c(nativeMethod);
+        var uncurriedNativeMethod = uncurryThis$d(nativeMethod);
         var $exec = regexp.exec;
         if ($exec === regexpExec$2 || $exec === RegExpPrototype$2.exec) {
           if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
@@ -2252,18 +2252,18 @@
     return C === undefined || isNullOrUndefined$4(S = anObject$a(C)[SPECIES$2]) ? defaultConstructor : aConstructor(S);
   };
 
-  var uncurryThis$b = functionUncurryThis;
+  var uncurryThis$c = functionUncurryThis;
   var toIntegerOrInfinity$1 = toIntegerOrInfinity$4;
-  var toString$6 = toString$9;
-  var requireObjectCoercible$4 = requireObjectCoercible$8;
+  var toString$7 = toString$a;
+  var requireObjectCoercible$5 = requireObjectCoercible$9;
 
-  var charAt$2 = uncurryThis$b(''.charAt);
-  var charCodeAt = uncurryThis$b(''.charCodeAt);
-  var stringSlice$3 = uncurryThis$b(''.slice);
+  var charAt$2 = uncurryThis$c(''.charAt);
+  var charCodeAt = uncurryThis$c(''.charCodeAt);
+  var stringSlice$4 = uncurryThis$c(''.slice);
 
   var createMethod$2 = function (CONVERT_TO_STRING) {
     return function ($this, pos) {
-      var S = toString$6(requireObjectCoercible$4($this));
+      var S = toString$7(requireObjectCoercible$5($this));
       var position = toIntegerOrInfinity$1(pos);
       var size = S.length;
       var first, second;
@@ -2275,7 +2275,7 @@
             ? charAt$2(S, position)
             : first
           : CONVERT_TO_STRING
-            ? stringSlice$3(S, position, position + 2)
+            ? stringSlice$4(S, position, position + 2)
             : (first - 0xD800 << 10) + (second - 0xDC00) + 0x10000;
     };
   };
@@ -2337,16 +2337,16 @@
 
   var apply$2 = functionApply;
   var call$a = functionCall;
-  var uncurryThis$a = functionUncurryThis;
+  var uncurryThis$b = functionUncurryThis;
   var fixRegExpWellKnownSymbolLogic$2 = fixRegexpWellKnownSymbolLogic;
   var anObject$8 = anObject$g;
   var isNullOrUndefined$3 = isNullOrUndefined$7;
   var isRegExp = isRegexp;
-  var requireObjectCoercible$3 = requireObjectCoercible$8;
+  var requireObjectCoercible$4 = requireObjectCoercible$9;
   var speciesConstructor$1 = speciesConstructor$2;
   var advanceStringIndex$2 = advanceStringIndex$3;
-  var toLength$2 = toLength$4;
-  var toString$5 = toString$9;
+  var toLength$3 = toLength$5;
+  var toString$6 = toString$a;
   var getMethod$4 = getMethod$6;
   var arraySlice$3 = arraySliceSimple;
   var callRegExpExec = regexpExecAbstract;
@@ -2356,11 +2356,11 @@
 
   var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y;
   var MAX_UINT32 = 0xFFFFFFFF;
-  var min$1 = Math.min;
+  var min$2 = Math.min;
   var $push = [].push;
-  var exec$1 = uncurryThis$a(/./.exec);
-  var push$3 = uncurryThis$a($push);
-  var stringSlice$2 = uncurryThis$a(''.slice);
+  var exec$1 = uncurryThis$b(/./.exec);
+  var push$3 = uncurryThis$b($push);
+  var stringSlice$3 = uncurryThis$b(''.slice);
 
   // Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
   // Weex JS has frozen built-in prototypes, so use try / catch wrapper
@@ -2388,7 +2388,7 @@
     ) {
       // based on es5-shim implementation, need to rework it
       internalSplit = function (separator, limit) {
-        var string = toString$5(requireObjectCoercible$3(this));
+        var string = toString$6(requireObjectCoercible$4(this));
         var lim = limit === undefined ? MAX_UINT32 : limit >>> 0;
         if (lim === 0) return [];
         if (separator === undefined) return [string];
@@ -2408,7 +2408,7 @@
         while (match = call$a(regexpExec, separatorCopy, string)) {
           lastIndex = separatorCopy.lastIndex;
           if (lastIndex > lastLastIndex) {
-            push$3(output, stringSlice$2(string, lastLastIndex, match.index));
+            push$3(output, stringSlice$3(string, lastLastIndex, match.index));
             if (match.length > 1 && match.index < string.length) apply$2($push, output, arraySlice$3(match, 1));
             lastLength = match[0].length;
             lastLastIndex = lastIndex;
@@ -2418,7 +2418,7 @@
         }
         if (lastLastIndex === string.length) {
           if (lastLength || !exec$1(separatorCopy, '')) push$3(output, '');
-        } else push$3(output, stringSlice$2(string, lastLastIndex));
+        } else push$3(output, stringSlice$3(string, lastLastIndex));
         return output.length > lim ? arraySlice$3(output, 0, lim) : output;
       };
     // Chakra, V8
@@ -2432,11 +2432,11 @@
       // `String.prototype.split` method
       // https://tc39.es/ecma262/#sec-string.prototype.split
       function split(separator, limit) {
-        var O = requireObjectCoercible$3(this);
+        var O = requireObjectCoercible$4(this);
         var splitter = isNullOrUndefined$3(separator) ? undefined : getMethod$4(separator, SPLIT);
         return splitter
           ? call$a(splitter, separator, O, limit)
-          : call$a(internalSplit, toString$5(O), separator, limit);
+          : call$a(internalSplit, toString$6(O), separator, limit);
       },
       // `RegExp.prototype[@@split]` method
       // https://tc39.es/ecma262/#sec-regexp.prototype-@@split
@@ -2445,7 +2445,7 @@
       // the 'y' flag.
       function (string, limit) {
         var rx = anObject$8(this);
-        var S = toString$5(string);
+        var S = toString$6(string);
         var res = maybeCallNative(internalSplit, rx, S, limit, internalSplit !== nativeSplit);
 
         if (res.done) return res.value;
@@ -2469,15 +2469,15 @@
         var A = [];
         while (q < S.length) {
           splitter.lastIndex = UNSUPPORTED_Y ? 0 : q;
-          var z = callRegExpExec(splitter, UNSUPPORTED_Y ? stringSlice$2(S, q) : S);
+          var z = callRegExpExec(splitter, UNSUPPORTED_Y ? stringSlice$3(S, q) : S);
           var e;
           if (
             z === null ||
-            (e = min$1(toLength$2(splitter.lastIndex + (UNSUPPORTED_Y ? q : 0)), S.length)) === p
+            (e = min$2(toLength$3(splitter.lastIndex + (UNSUPPORTED_Y ? q : 0)), S.length)) === p
           ) {
             q = advanceStringIndex$2(S, q, unicodeMatching);
           } else {
-            push$3(A, stringSlice$2(S, p, q));
+            push$3(A, stringSlice$3(S, p, q));
             if (A.length === lim) return A;
             for (var i = 1; i <= z.length - 1; i++) {
               push$3(A, z[i]);
@@ -2486,7 +2486,7 @@
             q = p = e;
           }
         }
-        push$3(A, stringSlice$2(S, p));
+        push$3(A, stringSlice$3(S, p));
         return A;
       }
     ];
@@ -2496,19 +2496,19 @@
   var whitespaces$3 = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002' +
     '\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
 
-  var uncurryThis$9 = functionUncurryThis;
-  var requireObjectCoercible$2 = requireObjectCoercible$8;
-  var toString$4 = toString$9;
+  var uncurryThis$a = functionUncurryThis;
+  var requireObjectCoercible$3 = requireObjectCoercible$9;
+  var toString$5 = toString$a;
   var whitespaces$2 = whitespaces$3;
 
-  var replace$1 = uncurryThis$9(''.replace);
+  var replace$1 = uncurryThis$a(''.replace);
   var ltrim = RegExp('^[' + whitespaces$2 + ']+');
   var rtrim = RegExp('(^|[^' + whitespaces$2 + '])[' + whitespaces$2 + ']+$');
 
   // `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
   var createMethod$1 = function (TYPE) {
     return function ($this) {
-      var string = toString$4(requireObjectCoercible$2($this));
+      var string = toString$5(requireObjectCoercible$3($this));
       if (TYPE & 1) string = replace$1(string, ltrim, '');
       if (TYPE & 2) string = replace$1(string, rtrim, '$1');
       return string;
@@ -2543,26 +2543,26 @@
     });
   };
 
-  var $$c = _export;
+  var $$d = _export;
   var $trim = stringTrim.trim;
   var forcedStringTrimMethod = stringTrimForced;
 
   // `String.prototype.trim` method
   // https://tc39.es/ecma262/#sec-string.prototype.trim
-  $$c({ target: 'String', proto: true, forced: forcedStringTrimMethod('trim') }, {
+  $$d({ target: 'String', proto: true, forced: forcedStringTrimMethod('trim') }, {
     trim: function trim() {
       return $trim(this);
     }
   });
 
   var DESCRIPTORS$1 = descriptors;
-  var uncurryThis$8 = functionUncurryThis;
+  var uncurryThis$9 = functionUncurryThis;
   var objectKeys = objectKeys$3;
   var toIndexedObject$1 = toIndexedObject$6;
   var $propertyIsEnumerable = objectPropertyIsEnumerable.f;
 
-  var propertyIsEnumerable = uncurryThis$8($propertyIsEnumerable);
-  var push$2 = uncurryThis$8([].push);
+  var propertyIsEnumerable = uncurryThis$9($propertyIsEnumerable);
+  var push$2 = uncurryThis$9([].push);
 
   // `Object.{ entries, values }` methods implementation
   var createMethod = function (TO_ENTRIES) {
@@ -2592,12 +2592,12 @@
     values: createMethod(false)
   };
 
-  var $$b = _export;
+  var $$c = _export;
   var $values = objectToArray.values;
 
   // `Object.values` method
   // https://tc39.es/ecma262/#sec-object.values
-  $$b({ target: 'Object', stat: true }, {
+  $$c({ target: 'Object', stat: true }, {
     values: function values(O) {
       return $values(O);
     }
@@ -2619,7 +2619,7 @@
   var PROPER_FUNCTION_NAME = functionName.PROPER;
   var defineBuiltIn$2 = defineBuiltIn$6;
   var anObject$7 = anObject$g;
-  var $toString = toString$9;
+  var $toString = toString$a;
   var fails$4 = fails$q;
   var getRegExpFlags = regexpGetFlags;
 
@@ -2643,19 +2643,19 @@
   }
 
   /* eslint-disable es/no-array-prototype-indexof -- required for testing */
-  var $$a = _export;
-  var uncurryThis$7 = functionUncurryThisClause;
+  var $$b = _export;
+  var uncurryThis$8 = functionUncurryThisClause;
   var $indexOf = arrayIncludes.indexOf;
   var arrayMethodIsStrict$2 = arrayMethodIsStrict$4;
 
-  var nativeIndexOf = uncurryThis$7([].indexOf);
+  var nativeIndexOf = uncurryThis$8([].indexOf);
 
   var NEGATIVE_ZERO = !!nativeIndexOf && 1 / nativeIndexOf([1], 1, -0) < 0;
   var FORCED$3 = NEGATIVE_ZERO || !arrayMethodIsStrict$2('indexOf');
 
   // `Array.prototype.indexOf` method
   // https://tc39.es/ecma262/#sec-array.prototype.indexof
-  $$a({ target: 'Array', proto: true, forced: FORCED$3 }, {
+  $$b({ target: 'Array', proto: true, forced: FORCED$3 }, {
     indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
       var fromIndex = arguments.length > 1 ? arguments[1] : undefined;
       return NEGATIVE_ZERO
@@ -2667,8 +2667,8 @@
 
   var global$6 = global$k;
   var fails$3 = fails$q;
-  var uncurryThis$6 = functionUncurryThis;
-  var toString$3 = toString$9;
+  var uncurryThis$7 = functionUncurryThis;
+  var toString$4 = toString$a;
   var trim = stringTrim.trim;
   var whitespaces = whitespaces$3;
 
@@ -2676,7 +2676,7 @@
   var Symbol$1 = global$6.Symbol;
   var ITERATOR$3 = Symbol$1 && Symbol$1.iterator;
   var hex = /^[+-]?0x/i;
-  var exec = uncurryThis$6(hex.exec);
+  var exec = uncurryThis$7(hex.exec);
   var FORCED$2 = $parseInt$1(whitespaces + '08') !== 8 || $parseInt$1(whitespaces + '0x16') !== 22
     // MS Edge 18- broken with boxed symbols
     || (ITERATOR$3 && !fails$3(function () { $parseInt$1(Object(ITERATOR$3)); }));
@@ -2684,20 +2684,20 @@
   // `parseInt` method
   // https://tc39.es/ecma262/#sec-parseint-string-radix
   var numberParseInt = FORCED$2 ? function parseInt(string, radix) {
-    var S = trim(toString$3(string));
+    var S = trim(toString$4(string));
     return $parseInt$1(S, (radix >>> 0) || (exec(hex, S) ? 16 : 10));
   } : $parseInt$1;
 
-  var $$9 = _export;
+  var $$a = _export;
   var $parseInt = numberParseInt;
 
   // `parseInt` method
   // https://tc39.es/ecma262/#sec-parseint-string-radix
-  $$9({ global: true, forced: parseInt != $parseInt }, {
+  $$a({ global: true, forced: parseInt != $parseInt }, {
     parseInt: $parseInt
   });
 
-  var $$8 = _export;
+  var $$9 = _export;
   var $find = arrayIteration.find;
   var addToUnscopables = addToUnscopables$2;
 
@@ -2709,7 +2709,7 @@
 
   // `Array.prototype.find` method
   // https://tc39.es/ecma262/#sec-array.prototype.find
-  $$8({ target: 'Array', proto: true, forced: SKIPS_HOLES }, {
+  $$9({ target: 'Array', proto: true, forced: SKIPS_HOLES }, {
     find: function find(callbackfn /* , that = undefined */) {
       return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
     }
@@ -2722,13 +2722,13 @@
 
   var engineIsNode = typeof process != 'undefined' && classof$1(process) == 'process';
 
-  var uncurryThis$5 = functionUncurryThis;
+  var uncurryThis$6 = functionUncurryThis;
   var aCallable$6 = aCallable$9;
 
   var functionUncurryThisAccessor = function (object, key, method) {
     try {
       // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-      return uncurryThis$5(aCallable$6(Object.getOwnPropertyDescriptor(object, key)[method]));
+      return uncurryThis$6(aCallable$6(Object.getOwnPropertyDescriptor(object, key)[method]));
     } catch (error) { /* empty */ }
   };
 
@@ -2819,9 +2819,9 @@
     throw $TypeError$5('Incorrect invocation');
   };
 
-  var uncurryThis$4 = functionUncurryThis;
+  var uncurryThis$5 = functionUncurryThis;
 
-  var arraySlice$2 = uncurryThis$4([].slice);
+  var arraySlice$2 = uncurryThis$5([].slice);
 
   var $TypeError$4 = TypeError;
 
@@ -2987,7 +2987,7 @@
 
   var global$4 = global$k;
   var bind$2 = functionBindContext;
-  var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
+  var getOwnPropertyDescriptor$1 = objectGetOwnPropertyDescriptor.f;
   var macrotask = task$1.set;
   var Queue$1 = queue$1;
   var IS_IOS = engineIsIos;
@@ -3000,7 +3000,7 @@
   var process$2 = global$4.process;
   var Promise$1 = global$4.Promise;
   // Node.js 11 shows ExperimentalWarning on getting `queueMicrotask`
-  var queueMicrotaskDescriptor = getOwnPropertyDescriptor(global$4, 'queueMicrotask');
+  var queueMicrotaskDescriptor = getOwnPropertyDescriptor$1(global$4, 'queueMicrotask');
   var microtask$1 = queueMicrotaskDescriptor && queueMicrotaskDescriptor.value;
   var notify$1, toggle, node, promise, then;
 
@@ -3164,7 +3164,7 @@
     return new PromiseCapability(C);
   };
 
-  var $$7 = _export;
+  var $$8 = _export;
   var IS_NODE = engineIsNode;
   var global$1 = global$k;
   var call$8 = functionCall;
@@ -3444,7 +3444,7 @@
     }
   }
 
-  $$7({ global: true, constructor: true, wrap: true, forced: FORCED_PROMISE_CONSTRUCTOR$4 }, {
+  $$8({ global: true, constructor: true, wrap: true, forced: FORCED_PROMISE_CONSTRUCTOR$4 }, {
     Promise: PromiseConstructor
   });
 
@@ -3632,7 +3632,7 @@
     NativePromiseConstructor$1.all(iterable).then(undefined, function () { /* empty */ });
   });
 
-  var $$6 = _export;
+  var $$7 = _export;
   var call$4 = functionCall;
   var aCallable$2 = aCallable$9;
   var newPromiseCapabilityModule$2 = newPromiseCapability$2;
@@ -3642,7 +3642,7 @@
 
   // `Promise.all` method
   // https://tc39.es/ecma262/#sec-promise.all
-  $$6({ target: 'Promise', stat: true, forced: PROMISE_STATICS_INCORRECT_ITERATION$1 }, {
+  $$7({ target: 'Promise', stat: true, forced: PROMISE_STATICS_INCORRECT_ITERATION$1 }, {
     all: function all(iterable) {
       var C = this;
       var capability = newPromiseCapabilityModule$2.f(C);
@@ -3671,7 +3671,7 @@
     }
   });
 
-  var $$5 = _export;
+  var $$6 = _export;
   var FORCED_PROMISE_CONSTRUCTOR$2 = promiseConstructorDetection.CONSTRUCTOR;
   var NativePromiseConstructor = promiseNativeConstructor;
   var getBuiltIn$1 = getBuiltIn$7;
@@ -3682,7 +3682,7 @@
 
   // `Promise.prototype.catch` method
   // https://tc39.es/ecma262/#sec-promise.prototype.catch
-  $$5({ target: 'Promise', proto: true, forced: FORCED_PROMISE_CONSTRUCTOR$2, real: true }, {
+  $$6({ target: 'Promise', proto: true, forced: FORCED_PROMISE_CONSTRUCTOR$2, real: true }, {
     'catch': function (onRejected) {
       return this.then(undefined, onRejected);
     }
@@ -3696,7 +3696,7 @@
     }
   }
 
-  var $$4 = _export;
+  var $$5 = _export;
   var call$3 = functionCall;
   var aCallable$1 = aCallable$9;
   var newPromiseCapabilityModule$1 = newPromiseCapability$2;
@@ -3706,7 +3706,7 @@
 
   // `Promise.race` method
   // https://tc39.es/ecma262/#sec-promise.race
-  $$4({ target: 'Promise', stat: true, forced: PROMISE_STATICS_INCORRECT_ITERATION }, {
+  $$5({ target: 'Promise', stat: true, forced: PROMISE_STATICS_INCORRECT_ITERATION }, {
     race: function race(iterable) {
       var C = this;
       var capability = newPromiseCapabilityModule$1.f(C);
@@ -3722,14 +3722,14 @@
     }
   });
 
-  var $$3 = _export;
+  var $$4 = _export;
   var call$2 = functionCall;
   var newPromiseCapabilityModule = newPromiseCapability$2;
   var FORCED_PROMISE_CONSTRUCTOR$1 = promiseConstructorDetection.CONSTRUCTOR;
 
   // `Promise.reject` method
   // https://tc39.es/ecma262/#sec-promise.reject
-  $$3({ target: 'Promise', stat: true, forced: FORCED_PROMISE_CONSTRUCTOR$1 }, {
+  $$4({ target: 'Promise', stat: true, forced: FORCED_PROMISE_CONSTRUCTOR$1 }, {
     reject: function reject(r) {
       var capability = newPromiseCapabilityModule.f(this);
       call$2(capability.reject, undefined, r);
@@ -3750,7 +3750,7 @@
     return promiseCapability.promise;
   };
 
-  var $$2 = _export;
+  var $$3 = _export;
   var getBuiltIn = getBuiltIn$7;
   var FORCED_PROMISE_CONSTRUCTOR = promiseConstructorDetection.CONSTRUCTOR;
   var promiseResolve = promiseResolve$1;
@@ -3759,7 +3759,7 @@
 
   // `Promise.resolve` method
   // https://tc39.es/ecma262/#sec-promise.resolve
-  $$2({ target: 'Promise', stat: true, forced: FORCED_PROMISE_CONSTRUCTOR }, {
+  $$3({ target: 'Promise', stat: true, forced: FORCED_PROMISE_CONSTRUCTOR }, {
     resolve: function resolve(x) {
       return promiseResolve(this, x);
     }
@@ -3834,13 +3834,13 @@
 
   var engineWebkitVersion = !!webkit && +webkit[1];
 
-  var $$1 = _export;
-  var uncurryThis$3 = functionUncurryThis;
+  var $$2 = _export;
+  var uncurryThis$4 = functionUncurryThis;
   var aCallable = aCallable$9;
   var toObject$1 = toObject$7;
   var lengthOfArrayLike = lengthOfArrayLike$6;
   var deletePropertyOrThrow = deletePropertyOrThrow$1;
-  var toString$2 = toString$9;
+  var toString$3 = toString$a;
   var fails$1 = fails$q;
   var internalSort = arraySort;
   var arrayMethodIsStrict$1 = arrayMethodIsStrict$4;
@@ -3850,8 +3850,8 @@
   var WEBKIT = engineWebkitVersion;
 
   var test = [];
-  var nativeSort = uncurryThis$3(test.sort);
-  var push$1 = uncurryThis$3(test.push);
+  var nativeSort = uncurryThis$4(test.sort);
+  var push$1 = uncurryThis$4(test.push);
 
   // IE8-
   var FAILS_ON_UNDEFINED = fails$1(function () {
@@ -3906,13 +3906,13 @@
       if (y === undefined) return -1;
       if (x === undefined) return 1;
       if (comparefn !== undefined) return +comparefn(x, y) || 0;
-      return toString$2(x) > toString$2(y) ? 1 : -1;
+      return toString$3(x) > toString$3(y) ? 1 : -1;
     };
   };
 
   // `Array.prototype.sort` method
   // https://tc39.es/ecma262/#sec-array.prototype.sort
-  $$1({ target: 'Array', proto: true, forced: FORCED$1 }, {
+  $$2({ target: 'Array', proto: true, forced: FORCED$1 }, {
     sort: function sort(comparefn) {
       if (comparefn !== undefined) aCallable(comparefn);
 
@@ -3938,6 +3938,89 @@
 
       return array;
     }
+  });
+
+  var $$1 = _export;
+  var uncurryThis$3 = functionUncurryThisClause;
+  var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
+  var toLength$2 = toLength$5;
+  var toString$2 = toString$a;
+  var notARegExp = notARegexp;
+  var requireObjectCoercible$2 = requireObjectCoercible$9;
+  var correctIsRegExpLogic = correctIsRegexpLogic;
+
+  // eslint-disable-next-line es/no-string-prototype-startswith -- safe
+  var nativeStartsWith = uncurryThis$3(''.startsWith);
+  var stringSlice$2 = uncurryThis$3(''.slice);
+  var min$1 = Math.min;
+
+  var CORRECT_IS_REGEXP_LOGIC = correctIsRegExpLogic('startsWith');
+  // https://github.com/zloirock/core-js/pull/702
+  var MDN_POLYFILL_BUG = !CORRECT_IS_REGEXP_LOGIC && !!function () {
+    var descriptor = getOwnPropertyDescriptor(String.prototype, 'startsWith');
+    return descriptor && !descriptor.writable;
+  }();
+
+  // `String.prototype.startsWith` method
+  // https://tc39.es/ecma262/#sec-string.prototype.startswith
+  $$1({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC }, {
+    startsWith: function startsWith(searchString /* , position = 0 */) {
+      var that = toString$2(requireObjectCoercible$2(this));
+      notARegExp(searchString);
+      var index = toLength$2(min$1(arguments.length > 1 ? arguments[1] : undefined, that.length));
+      var search = toString$2(searchString);
+      return nativeStartsWith
+        ? nativeStartsWith(that, search, index)
+        : stringSlice$2(that, index, index + search.length) === search;
+    }
+  });
+
+  var call$1 = functionCall;
+  var fixRegExpWellKnownSymbolLogic$1 = fixRegexpWellKnownSymbolLogic;
+  var anObject$1 = anObject$g;
+  var isNullOrUndefined$1 = isNullOrUndefined$7;
+  var toLength$1 = toLength$5;
+  var toString$1 = toString$a;
+  var requireObjectCoercible$1 = requireObjectCoercible$9;
+  var getMethod$1 = getMethod$6;
+  var advanceStringIndex$1 = advanceStringIndex$3;
+  var regExpExec$1 = regexpExecAbstract;
+
+  // @@match logic
+  fixRegExpWellKnownSymbolLogic$1('match', function (MATCH, nativeMatch, maybeCallNative) {
+    return [
+      // `String.prototype.match` method
+      // https://tc39.es/ecma262/#sec-string.prototype.match
+      function match(regexp) {
+        var O = requireObjectCoercible$1(this);
+        var matcher = isNullOrUndefined$1(regexp) ? undefined : getMethod$1(regexp, MATCH);
+        return matcher ? call$1(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString$1(O));
+      },
+      // `RegExp.prototype[@@match]` method
+      // https://tc39.es/ecma262/#sec-regexp.prototype-@@match
+      function (string) {
+        var rx = anObject$1(this);
+        var S = toString$1(string);
+        var res = maybeCallNative(nativeMatch, rx, S);
+
+        if (res.done) return res.value;
+
+        if (!rx.global) return regExpExec$1(rx, S);
+
+        var fullUnicode = rx.unicode;
+        rx.lastIndex = 0;
+        var A = [];
+        var n = 0;
+        var result;
+        while ((result = regExpExec$1(rx, S)) !== null) {
+          var matchStr = toString$1(result[0]);
+          A[n] = matchStr;
+          if (matchStr === '') rx.lastIndex = advanceStringIndex$1(S, toLength$1(rx.lastIndex), fullUnicode);
+          n++;
+        }
+        return n === 0 ? null : A;
+      }
+    ];
   });
 
   var uncurryThis$2 = functionUncurryThis;
@@ -3987,21 +4070,21 @@
   };
 
   var apply = functionApply;
-  var call$1 = functionCall;
+  var call = functionCall;
   var uncurryThis$1 = functionUncurryThis;
-  var fixRegExpWellKnownSymbolLogic$1 = fixRegexpWellKnownSymbolLogic;
+  var fixRegExpWellKnownSymbolLogic = fixRegexpWellKnownSymbolLogic;
   var fails = fails$q;
-  var anObject$1 = anObject$g;
+  var anObject = anObject$g;
   var isCallable = isCallable$j;
-  var isNullOrUndefined$1 = isNullOrUndefined$7;
+  var isNullOrUndefined = isNullOrUndefined$7;
   var toIntegerOrInfinity = toIntegerOrInfinity$4;
-  var toLength$1 = toLength$4;
-  var toString$1 = toString$9;
-  var requireObjectCoercible$1 = requireObjectCoercible$8;
-  var advanceStringIndex$1 = advanceStringIndex$3;
-  var getMethod$1 = getMethod$6;
+  var toLength = toLength$5;
+  var toString = toString$a;
+  var requireObjectCoercible = requireObjectCoercible$9;
+  var advanceStringIndex = advanceStringIndex$3;
+  var getMethod = getMethod$6;
   var getSubstitution = getSubstitution$1;
-  var regExpExec$1 = regexpExecAbstract;
+  var regExpExec = regexpExecAbstract;
   var wellKnownSymbol = wellKnownSymbol$i;
 
   var REPLACE = wellKnownSymbol('replace');
@@ -4043,24 +4126,24 @@
   });
 
   // @@replace logic
-  fixRegExpWellKnownSymbolLogic$1('replace', function (_, nativeReplace, maybeCallNative) {
+  fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNative) {
     var UNSAFE_SUBSTITUTE = REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE ? '$' : '$0';
 
     return [
       // `String.prototype.replace` method
       // https://tc39.es/ecma262/#sec-string.prototype.replace
       function replace(searchValue, replaceValue) {
-        var O = requireObjectCoercible$1(this);
-        var replacer = isNullOrUndefined$1(searchValue) ? undefined : getMethod$1(searchValue, REPLACE);
+        var O = requireObjectCoercible(this);
+        var replacer = isNullOrUndefined(searchValue) ? undefined : getMethod(searchValue, REPLACE);
         return replacer
-          ? call$1(replacer, searchValue, O, replaceValue)
-          : call$1(nativeReplace, toString$1(O), searchValue, replaceValue);
+          ? call(replacer, searchValue, O, replaceValue)
+          : call(nativeReplace, toString(O), searchValue, replaceValue);
       },
       // `RegExp.prototype[@@replace]` method
       // https://tc39.es/ecma262/#sec-regexp.prototype-@@replace
       function (string, replaceValue) {
-        var rx = anObject$1(this);
-        var S = toString$1(string);
+        var rx = anObject(this);
+        var S = toString(string);
 
         if (
           typeof replaceValue == 'string' &&
@@ -4072,7 +4155,7 @@
         }
 
         var functionalReplace = isCallable(replaceValue);
-        if (!functionalReplace) replaceValue = toString$1(replaceValue);
+        if (!functionalReplace) replaceValue = toString(replaceValue);
 
         var global = rx.global;
         if (global) {
@@ -4081,14 +4164,14 @@
         }
         var results = [];
         while (true) {
-          var result = regExpExec$1(rx, S);
+          var result = regExpExec(rx, S);
           if (result === null) break;
 
           push(results, result);
           if (!global) break;
 
-          var matchStr = toString$1(result[0]);
-          if (matchStr === '') rx.lastIndex = advanceStringIndex$1(S, toLength$1(rx.lastIndex), fullUnicode);
+          var matchStr = toString(result[0]);
+          if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
         }
 
         var accumulatedResult = '';
@@ -4096,7 +4179,7 @@
         for (var i = 0; i < results.length; i++) {
           result = results[i];
 
-          var matched = toString$1(result[0]);
+          var matched = toString(result[0]);
           var position = max(min(toIntegerOrInfinity(result.index), S.length), 0);
           var captures = [];
           // NOTE: This is equivalent to
@@ -4109,7 +4192,7 @@
           if (functionalReplace) {
             var replacerArgs = concat([matched], captures, position, S);
             if (namedCaptures !== undefined) push(replacerArgs, namedCaptures);
-            var replacement = toString$1(apply(replaceValue, undefined, replacerArgs));
+            var replacement = toString(apply(replaceValue, undefined, replacerArgs));
           } else {
             replacement = getSubstitution(matched, S, position, captures, namedCaptures, replaceValue);
           }
@@ -4122,54 +4205,6 @@
       }
     ];
   }, !REPLACE_SUPPORTS_NAMED_GROUPS || !REPLACE_KEEPS_$0 || REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE);
-
-  var call = functionCall;
-  var fixRegExpWellKnownSymbolLogic = fixRegexpWellKnownSymbolLogic;
-  var anObject = anObject$g;
-  var isNullOrUndefined = isNullOrUndefined$7;
-  var toLength = toLength$4;
-  var toString = toString$9;
-  var requireObjectCoercible = requireObjectCoercible$8;
-  var getMethod = getMethod$6;
-  var advanceStringIndex = advanceStringIndex$3;
-  var regExpExec = regexpExecAbstract;
-
-  // @@match logic
-  fixRegExpWellKnownSymbolLogic('match', function (MATCH, nativeMatch, maybeCallNative) {
-    return [
-      // `String.prototype.match` method
-      // https://tc39.es/ecma262/#sec-string.prototype.match
-      function match(regexp) {
-        var O = requireObjectCoercible(this);
-        var matcher = isNullOrUndefined(regexp) ? undefined : getMethod(regexp, MATCH);
-        return matcher ? call(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString(O));
-      },
-      // `RegExp.prototype[@@match]` method
-      // https://tc39.es/ecma262/#sec-regexp.prototype-@@match
-      function (string) {
-        var rx = anObject(this);
-        var S = toString(string);
-        var res = maybeCallNative(nativeMatch, rx, S);
-
-        if (res.done) return res.value;
-
-        if (!rx.global) return regExpExec(rx, S);
-
-        var fullUnicode = rx.unicode;
-        rx.lastIndex = 0;
-        var A = [];
-        var n = 0;
-        var result;
-        while ((result = regExpExec(rx, S)) !== null) {
-          var matchStr = toString(result[0]);
-          A[n] = matchStr;
-          if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
-          n++;
-        }
-        return n === 0 ? null : A;
-      }
-    ];
-  });
 
   var $ = _export;
   var uncurryThis = functionUncurryThis;
@@ -4191,7 +4226,7 @@
   });
 
   /* eslint-disable no-use-before-define */
-  var Utils$1 = $$k.fn.bootstrapTable.utils;
+  var Utils$1 = $$l.fn.bootstrapTable.utils;
   var searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])';
   function getInputClass(that) {
     var isSelect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -4203,7 +4238,7 @@
   }
   function getControlContainer(that) {
     if (that.options.filterControlContainer) {
-      return $$k("".concat(that.options.filterControlContainer));
+      return $$l("".concat(that.options.filterControlContainer));
     }
     if (that.options.height && that._initialized) {
       return that.$tableContainer.find('.fixed-table-header table thead');
@@ -4211,7 +4246,7 @@
     return that.$header;
   }
   function isKeyAllowed(keyCode) {
-    return $$k.inArray(keyCode, [37, 38, 39, 40]) > -1;
+    return $$l.inArray(keyCode, [37, 38, 39, 40]) > -1;
   }
   function getSearchControls(that) {
     return getControlContainer(that).find(searchControls);
@@ -4267,10 +4302,12 @@
     $tableHeader.css('height', $tableHeader.find('table').outerHeight(true));
   }
   function getElementClass($element) {
-    return $element.attr('class').replace('form-control', '').replace('form-select', '').replace('focus-temp', '').replace('search-input', '').trim();
+    return $element.attr('class').split(' ').filter(function (className) {
+      return className.startsWith('bootstrap-table-filter-control-');
+    });
   }
   function getCursorPosition(el) {
-    if ($$k(el).is('input[type=search]')) {
+    if ($$l(el).is('input[type=search]')) {
       var pos = 0;
       if ('selectionStart' in el) {
         pos = el.selectionStart;
@@ -4289,12 +4326,12 @@
     var searchControls = getSearchControls(that);
     that._valuesFilterControl = [];
     searchControls.each(function () {
-      var $field = $$k(this);
+      var $field = $$l(this);
       var fieldClass = escapeID(getElementClass($field));
       if (that.options.height && !that.options.filterControlContainer) {
         $field = that.$el.find(".fixed-table-header .".concat(fieldClass));
       } else if (that.options.filterControlContainer) {
-        $field = $$k("".concat(that.options.filterControlContainer, " .").concat(fieldClass));
+        $field = $$l("".concat(that.options.filterControlContainer, " .").concat(fieldClass));
       } else {
         $field = that.$el.find(".".concat(fieldClass));
       }
@@ -4329,7 +4366,7 @@
       //  Callback to apply after settings fields values
       var callbacks = [];
       searchControls.each(function (i, el) {
-        var $this = $$k(el);
+        var $this = $$l(el);
         field = $this.closest('[data-field]').data('field');
         result = that._valuesFilterControl.filter(function (valueObj) {
           return valueObj.field === field;
@@ -4343,8 +4380,8 @@
                   element.focus();
                 }
                 if (Array.isArray(cacheElementInfo.value)) {
-                  var $element = $$k(element);
-                  $$k.each(cacheElementInfo.value, function (i, e) {
+                  var $element = $$l(element);
+                  $$l.each(cacheElementInfo.value, function (i, e) {
                     $element.find(Utils$1.sprintf('option[value=\'%s\']', e)).prop('selected', true);
                   });
                 } else {
@@ -4372,12 +4409,12 @@
     var foundCookies = document.cookie.match(/bs\.table\.(filterControl|searchText)/g);
     var foundLocalStorage = localStorage;
     if (foundCookies) {
-      $$k.each(foundCookies, function (i, _cookie) {
+      $$l.each(foundCookies, function (i, _cookie) {
         var cookie = _cookie;
         if (/./.test(cookie)) {
           cookie = cookie.split('.').pop();
         }
-        if ($$k.inArray(cookie, cookies) === -1) {
+        if ($$l.inArray(cookie, cookies) === -1) {
           cookies.push(cookie);
         }
       });
@@ -4413,7 +4450,7 @@
   }
   function initFilterSelectControls(that) {
     var data = that.options.data;
-    $$k.each(that.header.fields, function (j, field) {
+    $$l.each(that.header.fields, function (j, field) {
       var column = that.columns[that.fieldsColumnsIndex[field]];
       var selectControl = getControlContainer(that).find("select.bootstrap-table-filter-control-".concat(escapeID(column.field)));
       if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
@@ -4468,18 +4505,18 @@
   function createControls(that, header) {
     var addedFilterControl = false;
     var html;
-    $$k.each(that.columns, function (_, column) {
+    $$l.each(that.columns, function (_, column) {
       html = [];
-      if (!column.visible && !(that.options.filterControlContainer && $$k(".bootstrap-table-filter-control-".concat(escapeID(column.field))).length >= 1)) {
+      if (!column.visible && !(that.options.filterControlContainer && $$l(".bootstrap-table-filter-control-".concat(escapeID(column.field))).length >= 1)) {
         return;
       }
       if (!column.filterControl && !that.options.filterControlContainer) {
         html.push('<div class="no-filter-control"></div>');
       } else if (that.options.filterControlContainer) {
         // Use a filter control container instead of th
-        var $filterControls = $$k(".bootstrap-table-filter-control-".concat(escapeID(column.field)));
-        $$k.each($filterControls, function (_, filterControl) {
-          var $filterControl = $$k(filterControl);
+        var $filterControls = $$l(".bootstrap-table-filter-control-".concat(escapeID(column.field)));
+        $$l.each($filterControls, function (_, filterControl) {
+          var $filterControl = $$l(filterControl);
           if (!$filterControl.is('[type=radio]')) {
             var placeholder = column.filterControlPlaceholder || '';
             $filterControl.attr('placeholder', placeholder).val(column.filterDefault);
@@ -4499,15 +4536,15 @@
 
       // Filtering by default when it is set.
       if (column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
-        if ($$k.isEmptyObject(that.filterColumnsPartial)) {
+        if ($$l.isEmptyObject(that.filterColumnsPartial)) {
           that.filterColumnsPartial = {};
         }
         if (!(column.field in that.filterColumnsPartial)) {
           that.filterColumnsPartial[column.field] = column.filterDefault;
         }
       }
-      $$k.each(header.find('th'), function (_, th) {
-        var $th = $$k(th);
+      $$l.each(header.find('th'), function (_, th) {
+        var $th = $$l(th);
         if ($th.data('field') === column.field) {
           $th.find('.filter-control').remove();
           $th.find('.fht-cell').html(html.join(''));
@@ -4539,7 +4576,7 @@
         if (isKeyAllowed(keyCode)) {
           return;
         }
-        var $currentTarget = $$k(currentTarget);
+        var $currentTarget = $$l(currentTarget);
         if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio')) {
           return;
         }
@@ -4554,7 +4591,7 @@
       header.off('change', 'select', '.fc-multipleselect').on('change', 'select', '.fc-multipleselect', function (_ref5) {
         var currentTarget = _ref5.currentTarget,
           keyCode = _ref5.keyCode;
-        var $selectControl = $$k(currentTarget);
+        var $selectControl = $$l(currentTarget);
         var value = $selectControl.val();
         if (Array.isArray(value)) {
           for (var i = 0; i < value.length; i++) {
@@ -4579,7 +4616,7 @@
       header.off('mouseup', 'input:not([type=radio])').on('mouseup', 'input:not([type=radio])', function (_ref6) {
         var currentTarget = _ref6.currentTarget,
           keyCode = _ref6.keyCode;
-        var $input = $$k(currentTarget);
+        var $input = $$l(currentTarget);
         var oldValue = $input.val();
         if (oldValue === '') {
           return;
@@ -4611,7 +4648,7 @@
 
       // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
       if (header.find('.date-filter-control').length > 0) {
-        $$k.each(that.columns, function (i, _ref8) {
+        $$l.each(that.columns, function (i, _ref8) {
           var filterDefault = _ref8.filterDefault,
             filterControl = _ref8.filterControl,
             field = _ref8.field,
@@ -4679,7 +4716,7 @@
     }
     that.$header.children().find('th[data-field]').each(function (_, element) {
       if (element.classList[0] !== 'bs-checkbox') {
-        var $element = $$k(element);
+        var $element = $$l(element);
         var $field = $element.data('field');
         var $fixedField = that.$tableContainer.find("th[data-field='".concat($field, "']")).not($element);
         var input = $element.find('input');
@@ -4740,7 +4777,7 @@
       setValues(that);
     },
     url: function url(that, filterDataSource, selectControl, filterOrderBy, selected) {
-      $$k.ajax({
+      $$l.ajax({
         url: filterDataSource,
         dataType: 'json',
         success: function success(data) {
@@ -4769,8 +4806,8 @@
     }
   };
 
-  var Utils = $$k.fn.bootstrapTable.utils;
-  Object.assign($$k.fn.bootstrapTable.defaults, {
+  var Utils = $$l.fn.bootstrapTable.utils;
+  Object.assign($$l.fn.bootstrapTable.defaults, {
     filterControl: false,
     filterControlVisible: true,
     filterControlMultipleSearch: false,
@@ -4803,7 +4840,7 @@
     _isRendering: false,
     _usingMultipleSelect: false
   });
-  Object.assign($$k.fn.bootstrapTable.columnDefaults, {
+  Object.assign($$l.fn.bootstrapTable.columnDefaults, {
     filterControl: undefined,
     // input, select, datepicker
     filterControlMultipleSelect: false,
@@ -4819,23 +4856,23 @@
     // asc || desc
     filterCustomSearch: undefined
   });
-  Object.assign($$k.fn.bootstrapTable.events, {
+  Object.assign($$l.fn.bootstrapTable.events, {
     'column-search.bs.table': 'onColumnSearch',
     'created-controls.bs.table': 'onCreatedControls'
   });
-  Object.assign($$k.fn.bootstrapTable.defaults.icons, {
+  Object.assign($$l.fn.bootstrapTable.defaults.icons, {
     filterControlSwitchHide: {
       bootstrap3: 'glyphicon-zoom-out icon-zoom-out',
       bootstrap5: 'bi-zoom-out',
       materialize: 'zoom_out'
-    }[$$k.fn.bootstrapTable.theme] || 'fa-search-minus',
+    }[$$l.fn.bootstrapTable.theme] || 'fa-search-minus',
     filterControlSwitchShow: {
       bootstrap3: 'glyphicon-zoom-in icon-zoom-in',
       bootstrap5: 'bi-zoom-in',
       materialize: 'zoom_in'
-    }[$$k.fn.bootstrapTable.theme] || 'fa-search-plus'
+    }[$$l.fn.bootstrapTable.theme] || 'fa-search-plus'
   });
-  Object.assign($$k.fn.bootstrapTable.locales, {
+  Object.assign($$l.fn.bootstrapTable.locales, {
     formatFilterControlSwitch: function formatFilterControlSwitch() {
       return 'Hide/Show controls';
     },
@@ -4849,11 +4886,11 @@
       return 'Clear filters';
     }
   });
-  Object.assign($$k.fn.bootstrapTable.defaults, $$k.fn.bootstrapTable.locales);
-  $$k.fn.bootstrapTable.methods.push('triggerSearch');
-  $$k.fn.bootstrapTable.methods.push('clearFilterControl');
-  $$k.fn.bootstrapTable.methods.push('toggleFilterControl');
-  $$k.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
+  Object.assign($$l.fn.bootstrapTable.defaults, $$l.fn.bootstrapTable.locales);
+  $$l.fn.bootstrapTable.methods.push('triggerSearch');
+  $$l.fn.bootstrapTable.methods.push('clearFilterControl');
+  $$l.fn.bootstrapTable.methods.push('toggleFilterControl');
+  $$l.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
     _inherits(_class, _$$BootstrapTable);
     var _super = _createSuper(_class);
     function _class() {
@@ -4938,7 +4975,7 @@
       value: function initSearch() {
         var _this3 = this;
         var that = this;
-        var filterPartial = $$k.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial;
+        var filterPartial = $$l.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial;
         _get(_getPrototypeOf(_class.prototype), "initSearch", this).call(this);
         if (this.options.sidePagination === 'server' || filterPartial === null) {
           return;
@@ -4976,10 +5013,10 @@
                 // Fix #142: search use formatted data
                 if (thisColumn) {
                   if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
-                    value = $$k.fn.bootstrapTable.utils.calculateObjectValue(thisColumn, that.header.formatters[$$k.inArray(key, that.header.fields)], [value, item, i], value);
+                    value = $$l.fn.bootstrapTable.utils.calculateObjectValue(thisColumn, that.header.formatters[$$l.inArray(key, that.header.fields)], [value, item, i], value);
                   }
                 }
-                if ($$k.inArray(key, that.header.fields) !== -1) {
+                if ($$l.inArray(key, that.header.fields) !== -1) {
                   if (value === undefined || value === null) {
                     tmpItemIsExpected = false;
                   } else if (_typeof(value) === 'object' && thisColumn.filterCustomSearch) {
@@ -5123,13 +5160,13 @@
         var timeoutId = 0;
 
         // Clear cache values
-        $$k.each(that._valuesFilterControl, function (i, item) {
+        $$l.each(that._valuesFilterControl, function (i, item) {
           hasValues = hasValues ? true : item.value !== '';
           item.value = '';
         });
 
         // Clear controls in UI
-        $$k.each(controls, function (i, item) {
+        $$l.each(controls, function (i, item) {
           item.value = '';
         });
 
@@ -5140,7 +5177,7 @@
         clearTimeout(timeoutId);
         timeoutId = setTimeout(function () {
           if (cookies && cookies.length > 0) {
-            $$k.each(cookies, function (i, item) {
+            $$l.each(cookies, function (i, item) {
               if (that.deleteCookie !== undefined) {
                 that.deleteCookie(item);
               }
@@ -5174,13 +5211,13 @@
 
         // use the default sort order if it exists. do nothing if it does not
         if (that.options.sortName !== table.data('sortName') || that.options.sortOrder !== table.data('sortOrder')) {
-          var sorter = this.$header.find(Utils.sprintf('[data-field="%s"]', $$k(controls[0]).closest('table').data('sortName')));
+          var sorter = this.$header.find(Utils.sprintf('[data-field="%s"]', $$l(controls[0]).closest('table').data('sortName')));
           if (sorter.length > 0) {
             that.onSort({
               type: 'keypress',
               currentTarget: sorter
             });
-            $$k(sorter).find('.sortable').trigger('click');
+            $$l(sorter).find('.sortable').trigger('click');
           }
         }
       }
@@ -5204,14 +5241,14 @@
           // Force call the initServer method in Cookie extension
           this._filterControlValuesLoaded = true;
         }
-        if ($$k.isEmptyObject(this.filterColumnsPartial)) {
+        if ($$l.isEmptyObject(this.filterColumnsPartial)) {
           this.filterColumnsPartial = {};
         }
 
         // If searchOnEnterKey is set to true, then we need to iterate over all controls and grab their values.
         var controls = this.options.searchOnEnterKey ? getSearchControls(this).toArray() : [currentTarget];
         controls.forEach(function (element) {
-          var $element = $$k(element);
+          var $element = $$l(element);
           var elementValue = $element.val();
           var text = elementValue ? elementValue.trim() : '';
           var $field = $element.closest('[data-field]').data('field');
@@ -5254,7 +5291,7 @@
       value: function triggerSearch() {
         var searchControls = getSearchControls(this);
         searchControls.each(function () {
-          var $element = $$k(this);
+          var $element = $$l(this);
           if ($element.is('select')) {
             $element.trigger('change');
           } else {
@@ -5271,6 +5308,6 @@
       }
     }]);
     return _class;
-  }($$k.BootstrapTable);
+  }($$l.BootstrapTable);
 
 }));

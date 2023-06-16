@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Utils from '../utils/index.js'
 
-const VERSION = '1.21.4'
+const VERSION = '1.22.0'
 
 const bootstrapVersion = Utils.getBootstrapVersion()
 
@@ -91,7 +91,7 @@ const CONSTANTS = {
     },
     html: {
       dataToggle: 'data-bs-toggle',
-      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
+      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-end">', '</div>'],
       toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
       pageDropdown: ['<div class="dropdown-menu">', '</div>'],
       pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
@@ -442,6 +442,7 @@ const COLUMN_DEFAULTS = {
   sorter: undefined,
   visible: true,
   switchable: true,
+  switchableLabel: undefined,
   cardVisible: true,
   searchable: true,
   formatter: undefined,
@@ -478,6 +479,7 @@ const METHODS = [
   'togglePagination', 'toggleFullscreen', 'toggleView',
   'resetSearch',
   'filterBy',
+  'sortBy',
   'scrollTo', 'getScrollPosition',
   'selectPage', 'prevPage', 'nextPage',
   'toggleDetailView',

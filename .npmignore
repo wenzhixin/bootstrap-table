@@ -7,6 +7,7 @@ tools
 _config.yml
 .browserslistrc
 .eslintrc.js
+.ncurc.json
 .stylelintrc
 .travis.yml
 CONTRIBUTING.md
@@ -15,3 +16,4 @@ deploy.sh
 DONATORS.md
 Gemfile
 Gemfile.lock
+release.*
