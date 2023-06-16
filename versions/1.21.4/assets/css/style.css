@@ -1,0 +1,179 @@
+.btn-bd-light {
+  color: #6c757d;
+  border-color: #dee2e6;
+}
+
+.api h2 {
+  margin-top: 4rem !important;
+  margin-bottom: 2rem;
+}
+
+.extensions h3 {
+  margin-bottom: 2rem;
+}
+
+.donate img {
+  max-height: 200px;
+}
+
+.donate th,
+.donate td {
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.donate svg.navbar-nav-svg {
+  width: 96px;
+}
+
+#share-buttons {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#share-buttons>a {
+  position: relative;
+  text-align: left;
+  height: 36px;
+  width: 32px;
+  float: left;
+  text-align: center;
+  color: silver;
+}
+
+#share-buttons>a {
+  position: relative;
+  text-align: left;
+  height: 36px;
+  width: 32px;
+  float: left;
+  text-align: center;
+  color: silver;
+}
+
+#share-buttons>a>svg {
+  height: 18px;
+  fill: #d5d5d5;
+  margin-top: 9px;
+}
+
+#share-buttons>.github:hover,
+#share-buttons>.github:hover svg {
+  color: #000;
+  fill: #000;
+}
+
+#share-buttons>.twitter:hover,
+#share-buttons>.twitter:hover svg {
+  color: #55acee;
+  fill: #55acee;
+}
+
+#share-buttons>.facebook:hover,
+#share-buttons>.facebook:hover svg {
+  color: #3b5998;
+  fill: #3b5998;
+}
+
+#share-buttons>.linkedin:hover,
+#share-buttons>.linkedin:hover svg {
+  color: #0077b5;
+  fill: #0077b5;
+}
+
+#share-buttons>.mail:hover,
+#share-buttons>.mail:hover svg {
+  color: #7d7d7d;
+  fill: #7d7d7d;
+}
+
+.share-desc {
+  font-size: 12px;
+  color: #777;
+  text-align: left;
+}
+
+.post-date {
+  display: block;
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
+  color: #767676;
+}
+
+.btn-brand {
+  background: #7952B3;
+  color: #ffffff;
+}
+
+.btn-brand:hover {
+  background: #614092;
+  color: #ffffff;
+}
+
+.fa-link {
+  font-size: 20px;
+  color: #333;
+}
+
+header.themes .bd-lead {
+  max-width: 100%;
+}
+
+.supports-container {
+  text-align: center;
+}
+
+.supports {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 0 .5em 1em;
+}
+
+.support-description {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin-bottom: 1em;
+}
+
+.support-item {
+  position: relative;
+  display: inline-block;
+  margin: 3px;
+  padding: .25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: .25rem;
+}
+
+.support-item:hover {
+  background-color: rgba(108,117,125,.25098);
+}
+
+.support-avatar.Gold {
+  max-height: 96px;
+  max-width: 288px;
+}
+
+.support-avatar.Bronze {
+  max-height: 64px;
+  max-width: 192px;
+}
+
+.support-avatar {
+  max-height: 48px;
+  max-width: 144px;
+  min-height: 48px;
+  min-width: 48px;
+  vertical-align: middle;
+}
+
+.online-editor img {
+  max-width: 100%;
+}
