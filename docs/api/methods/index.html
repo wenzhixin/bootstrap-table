@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.21.4
+        v1.22.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.21.4)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.20.2/" target="_blank">v1.20.2</a>
         
@@ -406,6 +406,7 @@
 <li class="toc-entry toc-h2"><a href="#showcolumn">showColumn</a></li>
 <li class="toc-entry toc-h2"><a href="#showloading">showLoading</a></li>
 <li class="toc-entry toc-h2"><a href="#showrow">showRow</a></li>
+<li class="toc-entry toc-h2"><a href="#sortby">sortBy</a></li>
 <li class="toc-entry toc-h2"><a href="#toggledetailview">toggleDetailView</a></li>
 <li class="toc-entry toc-h2"><a href="#togglefullscreen">toggleFullscreen</a></li>
 <li class="toc-entry toc-h2"><a href="#togglepagination">togglePagination</a></li>
@@ -1242,6 +1243,27 @@ The parameter can be a string or an array of fields.</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/show-hide-row.html">Show/Hide Row</a></p>
+  </li>
+</ul>
+
+<h2 id="sortby">sortBy</h2>
+
+<ul>
+  <li>
+    <p><strong>Parameter:</strong> <code class="highlighter-rouge">params</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Sorts the table by the specified field. The params must contain at least one of the following properties:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">field</code>: the field name.</li>
+      <li><code class="highlighter-rouge">sortOrder</code>: the sort order, can only be ‘asc’ or ‘desc’.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/sort-by.html">Sort By</a></p>
   </li>
 </ul>
 
