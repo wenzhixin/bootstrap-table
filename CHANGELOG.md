@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+### 1.22.1
+
+#### Core
+
+- **Update:** Fixed maximum call stack size exceeded error.
+
 ### 1.22.0
 
 #### Core
