@@ -6,6 +6,7 @@ ChangeLog
 #### Core
 
 - **Update:** Fixed maximum call stack size exceeded error.
+- **Update:** Updated `ca-ES` locale.
 
 ### 1.22.0
 
