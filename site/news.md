@@ -4,6 +4,15 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.22.1
+
+<span class="post-date">6 Jul 2023</span>
+
+#### Core
+
+- **Update:** Fixed maximum call stack size exceeded error.
+- **Update:** Updated `ca-ES` locale.
+
 ## Bootstrap Table 1.22.0
 
 <span class="post-date">16 Jun 2023</span>
