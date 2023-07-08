@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+### 1.22.2
+
+#### Extensions
+
+- **Update(filter-control):** Fixed `searchAccentNeutralise` option not work.
+
 ### 1.22.1
 
 #### Core
