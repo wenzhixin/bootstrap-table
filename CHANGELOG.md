@@ -5,6 +5,7 @@ ChangeLog
 
 #### Extensions
 
+- **Update(editable):** Fixed `export-saved` event error when `exportDataType` is `all`.
 - **Update(filter-control):** Fixed `searchAccentNeutralise` option not work.
 
 ### 1.22.1

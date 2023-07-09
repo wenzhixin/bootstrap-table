@@ -274,15 +274,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       this.$el.one(eventName, () => {
         setTimeout(() => {
+          const data = this.getData()
+
           doExport(() => {
             this.options.virtualScroll = virtualScroll
             this.togglePagination()
           })
+          this.trigger('export-saved', data)
         }, 0)
       })
       this.options.virtualScroll = false
       this.togglePagination()
-      this.trigger('export-saved', this.getData())
     } else if (o.exportDataType === 'selected') {
       let data = this.getData()
       let selectedData = this.getSelections()
