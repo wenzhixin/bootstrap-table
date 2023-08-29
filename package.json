@@ -22,7 +22,7 @@
     "clean-css-cli": "^5.6.2",
     "core-js": "^3.29.0",
     "cross-env": "^7.0.3",
-    "cypress": "^12.7.0",
+    "cypress": "^13.0.0",
     "eslint": "^8.35.0",
     "esm": "^3.2.25",
     "foreach-cli": "^1.8.1",
