@@ -479,12 +479,8 @@ export function createControls (that, header) {
           }
         }
       } else if (value && value.length > 0 && value.trim()) {
-        for (let i = 0; i < currentTarget.options.length; i++) {
-          currentTarget.options[i].seleted = false;
-          if (currentTarget.options[i].value === "value") {
-          currentTarget.options[i].seleted = true;
-         }
-       }
+        $selectControl.find('option[selected]').removeAttr('selected')
+        $selectControl.find(`option[value="${value}"]`).attr('selected', true)
       } else {
         $selectControl.find('option[selected]').removeAttr('selected')
       }
