@@ -12,7 +12,7 @@ Events can be bound in two ways:
 
 Binding via the options object:
 {% highlight html %}
-// Here, you can expect to have as the last parameter the boostrap-table object
+// Here, you can expect to have as the last parameter the bootstrap-table object
 
 $('#table').bootstrapTable({
   onEventName: function (arg1, arg2, ...) {
@@ -23,7 +23,7 @@ $('#table').bootstrapTable({
 
 Binding via the jquery event handler:
 {% highlight html %}
-// Here, you can expect to have in the 'e' variable the sender property, which is the boostrap-table object
+// Here, you can expect to have in the 'e' variable the sender property, which is the bootstrap-table object
 
 $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   // ...
@@ -147,7 +147,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
 - **Detail:**
 
-  It fires when toogle all columns. The parameters contain:
+  It fires when toggle all columns. The parameters contain:
 
   * `checked`: the checked state of the column.
 

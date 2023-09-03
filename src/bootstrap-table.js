@@ -1403,7 +1403,6 @@ class BootstrapTable {
       if (allSelected) {
         opts.pageSize = opts.formatAllRows()
       }
-      // removed the events for last and first, onPageNumber executeds the same logic
       $pageList.off('click').on('click', e => this.onPageListChange(e))
       $pre.off('click').on('click', e => this.onPagePre(e))
       $next.off('click').on('click', e => this.onPageNext(e))

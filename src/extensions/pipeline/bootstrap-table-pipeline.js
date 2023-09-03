@@ -209,7 +209,7 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
           // case 2: move outside of the current window (e.g. search or paging)
           //  since each cache window is aligned with the current page size
           //  checking if params.offset is outside the current window is sufficient.
-          //  need to requery for preceding or succeeding cache window
+          //  need to re-query for preceding or succeeding cache window
           //  also handle case
           if (this.resetCache || (params.offset < w.lower || params.offset > w.upper)) {
             useAjax = true

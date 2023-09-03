@@ -108,10 +108,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (top > start && top <= end) {
       // ensure clone and source column widths are the same
       this.$stickyHeader.find('tr').each((indexRows, rows) => {
-        const columns = $(rows).find('th')
-
-        columns.each((indexColumns, celd) => {
-          $(celd).css('min-width', this.$header.find(`tr:eq(${indexRows})`).find(`th:eq(${indexColumns})`).css('width'))
+        $(rows).find('th').each((index, el) => {
+          $(el).css('min-width', this.$header.find(`tr:eq(${indexRows})`).find(`th:eq(${index})`).css('width'))
         })
       })
       // match bootstrap table style

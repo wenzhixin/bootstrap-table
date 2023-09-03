@@ -88,8 +88,8 @@ toc: true
 
 - **Detail:**
 
-  Set to `true` to allow searching multiple values at once.   
-  The values will be splitted by a delimiter, see option `filterControlMultipleSearchDelimiter`.
+  Set to `true` to allow searching multiple values at once.
+  The values will be split by a delimiter, see option `filterControlMultipleSearchDelimiter`.
 
 - **Default:** `false`
 

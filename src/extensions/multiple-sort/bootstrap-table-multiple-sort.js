@@ -1,8 +1,7 @@
 /**
  * @author Nadim Basalamah <dimbslmh@gmail.com>
  * @version: v1.1.0
- * https://github.com/dimbslmh/bootstrap-table/tree/master/src/extensions/multiple-sort/bootstrap-table-multiple-sort.js
- * Modification: ErwannNevou <https://github.com/ErwannNevou>
+ * @update: ErwannNevou <https://github.com/ErwannNevou>
  */
 
 let isSingleSort = false

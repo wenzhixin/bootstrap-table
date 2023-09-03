@@ -364,7 +364,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.data = fp ? this.data.filter((item, i) => {
       for (const [key, v] of Object.entries(fp)) {
-        const fval = v.toLowerCase()
+        const val = v.toLowerCase()
         let value = item[key]
         const index = this.header.fields.indexOf(key)
 
@@ -374,7 +374,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         if (
           !(index !== -1 &&
           (typeof value === 'string' || typeof value === 'number') &&
-          `${value}`.toLowerCase().includes(fval))
+          `${value}`.toLowerCase().includes(val))
         ) {
           return false
         }
