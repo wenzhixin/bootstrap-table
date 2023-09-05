@@ -518,8 +518,8 @@ export default {
 
       $el.find('>td,>th').each((_x, el) => {
         const $el = $(el)
-        const cspan = +$el.attr('colspan') || 1
-        const rspan = +$el.attr('rowspan') || 1
+        const colspan = +$el.attr('colspan') || 1
+        const rowspan = +$el.attr('rowspan') || 1
         let x = _x
 
         // skip already occupied cells in current row
@@ -528,8 +528,8 @@ export default {
         }
 
         // mark matrix elements occupied by current cell with true
-        for (let tx = x; tx < x + cspan; tx++) {
-          for (let ty = y; ty < y + rspan; ty++) {
+        for (let tx = x; tx < x + colspan; tx++) {
+          for (let ty = y; ty < y + rowspan; ty++) {
             if (!m[ty]) { // fill missing rows
               m[ty] = []
             }

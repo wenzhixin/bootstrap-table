@@ -165,7 +165,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       html.push('</thead><tbody>')
 
-      const dontRender = []
+      const notRender = []
 
       if (this.mergedCells) {
         for (let mc = 0; mc < this.mergedCells.length; mc++) {
@@ -177,7 +177,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
             for (let cs = 0; cs < currentMergedCell.colspan; cs++) {
               const col = currentMergedCell.col + cs
 
-              dontRender.push(`${row},${col}`)
+              notRender.push(`${row},${col}`)
             }
           }
         }
@@ -212,7 +212,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           if (
             !columns[j].printIgnore && columns[j].visible && columns[j].field &&
               (
-                !dontRender.includes(`${i},${j}`) ||
+                !notRender.includes(`${i},${j}`) ||
                 rowspan > 0 && colspan > 0
               )
           ) {

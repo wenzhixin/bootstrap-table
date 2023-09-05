@@ -29,10 +29,10 @@ function _GET (key, url = window.location.search) {
 
 /*
  * function: 根据给定参数生成url地址
- * var dic = {name: 'genreal', age: 24}
+ * var dic = {name: 'general', age: 24}
  * var url = 'https://www.baidu.com?age=22';
  * _buildUrl(dic, url);
- * 将得到"https://www.baidu.com?age=24&name=genreal"
+ * 将得到"https://www.baidu.com?age=24&name=general"
  * 哦, 忽略先后顺序吧...
  *
  * 补充: 可以参考浏览器URLSearchParams对象, 更加方便和强大.
@@ -57,9 +57,9 @@ function _buildUrl (dict, url = window.location.search) {
 
       url = url.replace(tmp, targetStr)
     } else {
-      const seperator = url.match('[?]') ? '&' : '?'
+      const separator = url.match('[?]') ? '&' : '?'
 
-      url = url + seperator + targetStr
+      url = url + separator + targetStr
     }
   }
   if (location.hash) {

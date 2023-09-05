@@ -22,6 +22,7 @@
     "clean-css-cli": "^5.6.2",
     "core-js": "^3.29.0",
     "cross-env": "^7.0.3",
+    "cspell": "^7.3.2",
     "cypress": "^13.1.0",
     "eslint": "^8.35.0",
     "esm": "^3.2.25",
@@ -42,6 +43,7 @@
   "scripts": {
     "lint:js": "eslint src",
     "lint:css": "stylelint src/**/*.scss",
+    "lint:spell": "cspell lint --no-progress 'src/**/*.{js,json,vue,scss}' '**/*.md'",
     "lint": "run-s lint:*",
     "test": "cypress run --headless",
     "docs:check:api": "cd tools && node check-api.js",
@@ -92,5 +94,29 @@
     "url": "https://github.com/wenzhixin/bootstrap-table/issues"
   },
   "homepage": "https://bootstrap-table.com",
-  "types": "./index.d.ts"
+  "types": "./index.d.ts",
+  "cspell": {
+    "dictionaries": [
+      "cspell-words"
+    ],
+    "dictionaryDefinitions": [
+      {
+        "name": "cspell-words",
+        "path": "./.cspell-words.txt",
+        "addWords": true
+      }
+    ],
+    "ignoreRegExpList": [
+      "/.*data:image/png;base64.*/g",
+      "/ * @author.*/g",
+      "/ * @update.*/g",
+      "/ +\"name\": \".*\",/"
+    ],
+    "ignorePaths": [
+      "src/locale/**",
+      "site/_themes/node_modules/**",
+      "tools/**",
+      "DONATORS.md"
+    ]
+  }
 }

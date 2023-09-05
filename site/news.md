@@ -52,7 +52,7 @@ description: News and announcements for all things Bootstrap Table, including ne
 #### Core
 
 - **New:** Added `escapeTitle` table option.
-- **New:** Added Aria Label to the search input for screenreaders.
+- **New:** Added Aria Label to the search input for screen readers.
 - **New:** Persist data attributes for the header(`th`).
 - **Update:** Fixed wrong condition for searching with server-side pagination.
 - **Update:** Fixed overwriting the `filterOptions` after rebuild.
@@ -116,8 +116,8 @@ description: News and announcements for all things Bootstrap Table, including ne
 - **Update:** Fixed detail view with filter click error.
 - **Update:** Fixed header does not center correctly for the sortable column.
 - **Update:** Fixed `regexpCompare` bug when filtering columns.
-- **Update:** Fixed `showToogle` title display error.
-- **Update:** Fixed `remove` and `removeByUnqiueId` using object param bug.
+- **Update:** Fixed `showToggle` title display error.
+- **Update:** Fixed `remove` and `removeByUniqueId` using object param bug.
 - **Update:** Fixed `searchHighlight` bug while using `searchAccentNeutralise`.
 - **Update:** Fixed missing sort for `customSearch` option.
 - **Update:** Removed duplicated escaping of the column value.
@@ -698,7 +698,7 @@ description: News and announcements for all things Bootstrap Table, including ne
 - **Update(js):** Fixed `detailView` find td elements bug.
 - **Update(js):** Fixed `showColumns` close dropdown bug when item label clicking.
 - **Update(js):** Fixed reset width error after `toggleFullscreen`.
-- **Update(js):** Fixed `cardview` click event bug.
+- **Update(js):** Fixed `cardView` click event bug.
 
 ## Bootstrap Table 1.13.5
 
@@ -733,9 +733,9 @@ description: News and announcements for all things Bootstrap Table, including ne
 <span class="post-date">28 Jan 2019</span>
 
 - **New(js):** Supported full table classes of bootstrap v4.
-- **New(css):** Rewrited bootstrap-table.css to scss.
-- **New(accent-neutralise extension):** Rewrited accent-neutralise extension to ES6.
-- **New(addrbar extension):** Rewrited addrbar extension to ES6 and supported attribute option.
+- **New(css):** Updated bootstrap-table.css to scss.
+- **New(accent-neutralise extension):** Updated accent-neutralise extension to ES6.
+- **New(addrbar extension):** Updated addrbar extension to ES6 and supported attribute option.
 - **New(group-by-v2 extension):** New `groupByFormatter` option.
 - **New(pipeline extension):** New pipeline extension `bootstrap-table-pipeline`.
 - **Remove(js):** Removed `striped` option and use classes instead.
@@ -751,7 +751,7 @@ description: News and announcements for all things Bootstrap Table, including ne
 <span class="post-date">18 Jan 2019</span>
 
 - **New(js):** Added `paginationSuccessivelySize`, `paginationPagesBySide` and `paginationUseIntermediate` pagination options.
-- **New(cookie extension):** Rewrited cookie extension to ES6.
+- **New(cookie extension):** Updated cookie extension to ES6.
 - **New(cookie extension):** Saved `filterBy` method.
 - **New(filter-control extension):** Added `placeholder` as a empty option to the select controls.
 - **New(filter-control extension):** Added `clearFilterControl` method in order to clear all filter controls.
@@ -786,11 +786,11 @@ Here are the highlights of what’s new and updated in new website.
 
 <span class="post-date">01 Jan 2019</span>
 
-- **New(js):** Added `theadClasses` option to supoort bootstrap v4.
+- **New(js):** Added `theadClasses` option to support bootstrap v4.
 - **New(js):** Updated the default icons to font-awesome 5.
-- **New(locale):** Rewrited all locales to ES6.
-- **New(editable extension):** Rewrited `bootstrap-table-editable` to ES6.
-- **New(filter-control extension):** Rewrited `bootstrap-table-filter-control` to ES6.
+- **New(locale):** Updated all locales to ES6.
+- **New(editable extension):** Updated `bootstrap-table-editable` to ES6.
+- **New(filter-control extension):** Updated `bootstrap-table-filter-control` to ES6.
 - **New(treegrid extension):** Added `rootParentId` option.
 - **Update(js):** Fixed `getHiddenRows` method bug.
 - **Update(js):** Fixed `getOptions` method to remove data property.
@@ -806,14 +806,14 @@ Here are the highlights of what’s new and updated in new website.
 
 <span class="post-date">27 Dec 2019</span>
 
-- **New(js):** Rewrited bootstrap-table to ES6.
+- **New(js):** Updated bootstrap-table to ES6.
 - **New(locale):** Added `fi-FI.js` locale.
 - **New(build):** Used babel instead of grunt.
 - **New(filter-control):** Added `created-controls.bs.table` event to filter-control.
-- **New(export extension):** Rewrited export extension to ES6.
+- **New(export extension):** Updated export extension to ES6.
 - **New(export extension):** Added export extension support bootstrap v4.
 - **New(export extension):** Added `exportTable` method.
-- **New(toolbar extension):** Rewrited toolbar extension to ES6.
+- **New(toolbar extension):** Updated toolbar extension to ES6.
 - **New(toolbar extension):** Added toolbar extension supports bootstrap v4.
 - **New(toolbar extension):** Added server sidePagination support
 - **New(resizable extension):** Released new resizable extension version 2.0.0.
@@ -825,9 +825,9 @@ Here are the highlights of what’s new and updated in new website.
 - **Update(js):** Added `customSearch` support data attribute.
 - **Update(js):** Fixed can't search data with formatter.
 - **Update(js):** Fixed `getRowByUniqueId` error when row unique id is undefined.
-- **Update(js):** Fxied older bootstrap version bug.
+- **Update(js):** Fixed older bootstrap version bug.
 - **Update(css):** Removed toolbar line-height.
-- **Update(css):** Limitted fullscreen CSS rule scope.
+- **Update(css):** Limited fullscreen CSS rule scope.
 - **Update(editable extension):** Fixed editable formatter bug.
 - **Update(extension):** Fixed bug with export extension together.
 - **Update(extension):** Removed click-edit-row and flat-json extensions.
