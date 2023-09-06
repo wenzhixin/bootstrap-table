@@ -6064,9 +6064,9 @@ rimraf@^5.0.0:
     glob "^10.2.5"
 
 rollup-plugin-copy@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-copy/-/rollup-plugin-copy-3.4.0.tgz#f1228a3ffb66ffad8606e2f3fb7ff23141ed3286"
-  integrity sha1-8SKKP/tm/62GBuLz+3/yMUHtMoY=
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-copy/-/rollup-plugin-copy-3.5.0.tgz#7ffa2a7a8303e143876fa64fb5eed9022d304eeb"
+  integrity sha512-wI8D5dvYovRMx/YYKtUNt3Yxaw4ORC9xo6Gt9t22kveWz1enG9QrhVlagzwrxSC455xD1dHMKhIJkbsQ7d48BA==
   dependencies:
     "@types/fs-extra" "^8.0.1"
     colorette "^1.1.0"
