@@ -100,9 +100,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     const top = $(window).scrollTop()
     // top anchor scroll position, minus header height
-    const start = this.$stickyBegin.offset().top - this.options.stickyHeaderOffsetY
+    const start = this.hasOwnProperty('$stickyBegin') ? this.$stickyBegin.offset().top - this.options.stickyHeaderOffsetY : 0
     // bottom anchor scroll position, minus header height, minus sticky height
-    const end = this.$stickyEnd.offset().top - this.options.stickyHeaderOffsetY - this.$header.height()
+    const end = this.hasOwnProperty('$stickyEnd') ? this.$stickyEnd.offset().top - this.options.stickyHeaderOffsetY - this.$header.height() : 0
 
     // show sticky when top anchor touches header, and when bottom anchor not exceeded
     if (top > start && top <= end) {
@@ -144,7 +144,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$stickyContainer.html(this.$stickyTable.append(this.$stickyHeader))
       // match clone and source header positions when left-right scroll
       this.matchPositionX()
-    } else {
+    } else if (this.$stickyContainer !== undefined) {
       this.$stickyContainer.removeClass('fix-sticky').hide()
     }
   }
