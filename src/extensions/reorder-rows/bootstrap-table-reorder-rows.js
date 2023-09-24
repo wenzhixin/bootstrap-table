@@ -112,7 +112,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const draggingRow = this.data[this.draggingIndex]
     const droppedIndex = newData.indexOf(this.data[this.draggingIndex])
     const droppedRow = this.data[droppedIndex]
-    const index = ((pageNum - 1)*pageSize) + this.options.data.indexOf(this.data[droppedIndex])
+    const index = (pageNum - 1) * pageSize + this.options.data.indexOf(this.data[droppedIndex])
 
     this.options.data.splice(this.options.data.indexOf(draggingRow), 1)
     this.options.data.splice(index, 0, draggingRow)
