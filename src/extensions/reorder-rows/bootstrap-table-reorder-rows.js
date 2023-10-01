@@ -97,7 +97,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   onDrop (table) {
     this.$draggingTd.css('cursor', '')
-    const pageNum = $(table).bootstrapTable('getOptions').pageNumber;
     const pageNum = this.options.pageNumber
     const pageSize = this.options.pageSize
     const newData = []
