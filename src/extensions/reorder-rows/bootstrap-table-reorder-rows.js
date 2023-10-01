@@ -97,6 +97,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   onDrop (table) {
     this.$draggingTd.css('cursor', '')
+    const pageNum = this.options.pageNumber
+    const pageSize = this.options.pageSize
     const newData = []
 
     for (let i = 0; i < table.tBodies[0].rows.length; i++) {
@@ -109,7 +111,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const draggingRow = this.data[this.draggingIndex]
     const droppedIndex = newData.indexOf(this.data[this.draggingIndex])
     const droppedRow = this.data[droppedIndex]
-    const index = this.options.data.indexOf(this.data[droppedIndex])
+    const index = (pageNum - 1) * pageSize + this.options.data.indexOf(this.data[droppedIndex])
 
     this.options.data.splice(this.options.data.indexOf(draggingRow), 1)
     this.options.data.splice(index, 0, draggingRow)
