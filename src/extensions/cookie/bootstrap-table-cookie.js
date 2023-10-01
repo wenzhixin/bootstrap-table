@@ -490,7 +490,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.searchText = searchTextCookie ? searchTextCookie : ''
     }
     // cardView
-    this.options.cardView = cardViewCookie === 'true' ? cardViewCookie : false
+    if (cardViewCookie !== null) {
+      this.options.cardView = cardViewCookie === 'true' ? cardViewCookie : false
+    }
 
     if (hiddenColumnsCookie) {
       for (const column of this.columns) {
