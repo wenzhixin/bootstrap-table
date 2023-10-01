@@ -333,7 +333,7 @@ export function initFilterSelectControls (that) {
       }
 
       if (that.options.sortSelectOptions) {
-        sortSelectControl(selectControl, 'asc', that.options)
+        sortSelectControl(selectControl, column.filterOrderBy, that.options)
       }
     }
   })
