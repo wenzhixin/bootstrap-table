@@ -2292,7 +2292,7 @@ class BootstrapTable {
       falign = Utils.sprintf('text-align: %s; ', column.falign ? column.falign : column.align)
       valign = Utils.sprintf('vertical-align: %s; ', column.valign)
 
-      style = Utils.calculateObjectValue(null, this.options.footerStyle, [column])
+      style = Utils.calculateObjectValue(null, column.footerStyle || this.options.footerStyle, [column])
 
       if (style && style.css) {
         for (const [key, value] of Object.entries(style.css)) {

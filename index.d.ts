@@ -75,6 +75,7 @@ export interface BootstrapTableColumn {
   cellStyle?: any;
   searchable?: boolean;
   footerFormatter?: any;
+  footerStyle?: any;
   formatter?: any;
   checkboxEnabled?: boolean;
   field?: any;

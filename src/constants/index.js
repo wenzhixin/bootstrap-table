@@ -447,6 +447,7 @@ const COLUMN_DEFAULTS = {
   searchable: true,
   formatter: undefined,
   footerFormatter: undefined,
+  footerStyle: undefined,
   detailFormatter: undefined,
   searchFormatter: true,
   searchHighlightFormatter: false,
