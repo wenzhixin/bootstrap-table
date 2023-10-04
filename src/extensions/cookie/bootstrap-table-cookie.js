@@ -13,6 +13,7 @@ const UtilsCookie = {
     columns: 'bs.table.columns',
     hiddenColumns: 'bs.table.hiddenColumns',
     cardView: 'bs.table.cardView',
+    customView: 'bs.table.customView',
     searchText: 'bs.table.searchText',
     reorderColumns: 'bs.table.reorderColumns',
     filterControl: 'bs.table.filterControl',
@@ -180,7 +181,7 @@ Object.assign($.fn.bootstrapTable.defaults, {
     'bs.table.pageNumber', 'bs.table.pageList',
     'bs.table.hiddenColumns', 'bs.table.columns', 'bs.table.searchText',
     'bs.table.filterControl', 'bs.table.filterBy',
-    'bs.table.reorderColumns', 'bs.table.cardView'
+    'bs.table.reorderColumns', 'bs.table.cardView', 'bs.table.customView'
   ],
   cookieStorage: 'cookieStorage', // localStorage, sessionStorage, customStorage
   cookieCustomStorageGet: null,
@@ -377,6 +378,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.cardView, this.options.cardView)
   }
 
+  toggleCustomView () {
+    super.toggleCustomView()
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.customView, this.customViewDefaultView)
+  }
+
   selectPage (page) {
     super.selectPage(page)
     if (!this.options.cookie) {
@@ -433,6 +439,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const pageListCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.pageList)
     const searchTextCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.searchText)
     const cardViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.cardView)
+    const customViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.customView)
 
     const columnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.columns)
     const hiddenColumnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.hiddenColumns)
@@ -493,6 +500,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (cardViewCookie !== null) {
       this.options.cardView = cardViewCookie === 'true' ? cardViewCookie : false
     }
+    this.customViewDefaultView = customViewCookie === 'true'
 
     if (hiddenColumnsCookie) {
       for (const column of this.columns) {
