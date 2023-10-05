@@ -1674,9 +1674,9 @@
     magic-string "^0.27.0"
 
 "@rollup/plugin-multi-entry@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-multi-entry/-/plugin-multi-entry-6.0.0.tgz#51dab86a6953787ca2d3ac5416aa71dd46b59f0a"
-  integrity sha512-msBgVncGQwh/ahxeP/rc8MXVZNBOjoVCsBuDk6uqyFzDv/SZN7jksfAsu6DJ2w4r5PaBX3/OXOjVPeCxya2waA==
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-multi-entry/-/plugin-multi-entry-6.0.1.tgz#0f969706ea705dc76c4566ee1318251247832549"
+  integrity sha512-AXm6toPyTSfbYZWghQGbom1Uh7dHXlrGa+HoiYNhQtDUE3Q7LqoUYdVQx9E1579QWS1uOiu+cZRSE4okO7ySgw==
   dependencies:
     "@rollup/plugin-virtual" "^3.0.0"
     matched "^5.0.1"
