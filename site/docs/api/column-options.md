@@ -238,6 +238,33 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 - **Example:** [Footer Formatter](https://examples.bootstrap-table.com/#column-options/footer-formatter.html)
 
+## footerStyle
+
+- **Attribute:** `data-footer-style`
+
+- **Type:** `Function`
+
+- **Detail:**
+
+  The footer style formatter function, takes one parameter:
+
+  * `column`: the column object.
+
+  Support `classes` or `css`. Example usage:
+
+  {% highlight javascript %}
+  function footerStyle(column) {
+    return {
+      css: { 'font-weight': 'normal' },
+      classes: 'my-class'
+    }
+  }
+  {% endhighlight %}
+
+- **Default:** `{}`
+
+- **Example:** [Footer Style](https://examples.bootstrap-table.com/#options/footer-style.html)
+
 ## formatter
 
 - **Attribute:** `data-formatter`
