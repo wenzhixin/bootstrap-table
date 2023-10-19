@@ -1,42 +1,43 @@
 /**
- * Bootstrap Table English translation
- * Author: Zhixin Wen<wenzhixin2010@gmail.com>
+ * Bootstrap Table Arabic translation
+ * Author: Othman Ali Modaes<othman2004_ye@yahoo.com>
  */
 
 $.fn.bootstrapTable.locales['ar-SA'] = $.fn.bootstrapTable.locales['ar'] = {
+
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'نسخ الصفوف'
   },
   formatPrint () {
-    return 'Print'
+    return 'طباعة'
   },
   formatLoadingMessage () {
-    return 'جاري التحميل, يرجى الإنتظار'
+    return 'جارٍ التحميل، يرجى الانتظار...'
   },
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} سجل لكل صفحة`
+    return `${pageNumber} صف لكل صفحة`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل ${totalNotFiltered} total rows)`
+      return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل ${totalNotFiltered} إجمالي الصفوف)`
     }
 
     return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'الصفحة السابقة'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `إلى الصفحة ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'الصفحة التالية'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `عرض ${totalRows} أعمدة`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'مسح مربع البحث'
   },
   formatSearch () {
     return 'بحث'
@@ -45,58 +46,58 @@ $.fn.bootstrapTable.locales['ar-SA'] = $.fn.bootstrapTable.locales['ar'] = {
     return 'لا توجد نتائج مطابقة للبحث'
   },
   formatPaginationSwitch () { /* eslint-disable no-useless-escape */
-    return 'إخفاء\إظهار ترقيم الصفحات'
+    return 'إخفاء/إظهار ترقيم الصفحات'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'إظهار ترقيم الصفحات'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'إخفاء ترقيم الصفحات'
   },
   formatRefresh () {
     return 'تحديث'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'إظهار كبطاقات'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'إلغاء البطاقات'
   },
   formatColumns () {
     return 'أعمدة'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'تبديل الكل'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'الشاشة كاملة'
   },
   formatAllRows () {
-    return 'All'
+    return 'الكل'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'تحديث تلقائي'
   },
   formatExport () {
-    return 'Export data'
+    return 'تصدير البيانات'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'قفز'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'بحث متقدم'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'إغلاق'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'عرض/إخفاء عناصر التصفية'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'إخفاء عناصر التصفية'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'عرض عناصر التصفية'
   }
 }
 
