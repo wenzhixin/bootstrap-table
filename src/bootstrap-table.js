@@ -577,8 +577,6 @@ class BootstrapTable {
   }
 
   _sort () {
-    this.trigger('sort', this.options.sortName, this.options.sortOrder)
-
     if (this.options.sidePagination === 'server' && this.options.serverSort) {
       this.options.pageNumber = 1
       this.initServer(this.options.silentSort)
@@ -589,6 +587,8 @@ class BootstrapTable {
       this.options.pageNumber = 1
       this.initPagination()
     }
+
+    this.trigger('sort', this.options.sortName, this.options.sortOrder)
 
     this.initSort()
     this.initBody()
