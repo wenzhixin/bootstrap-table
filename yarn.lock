@@ -1840,47 +1840,47 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@vue/compiler-core@3.3.6":
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.3.6.tgz#ffc14517e0a7269983b9a93994df9669e9e03506"
-  integrity sha512-2JNjemwaNwf+MkkatATVZi7oAH1Hx0B04DdPH3ZoZ8vKC1xZVP7nl4HIsk8XYd3r+/52sqqoz9TWzYc3yE9dqA==
+"@vue/compiler-core@3.3.8":
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.3.8.tgz#301bb60d0245265a88ed5b30e200fbf223acb313"
+  integrity sha512-hN/NNBUECw8SusQvDSqqcVv6gWq8L6iAktUR0UF3vGu2OhzRqcOiAno0FmBJWwxhYEXRlQJT5XnoKsVq1WZx4g==
   dependencies:
     "@babel/parser" "^7.23.0"
-    "@vue/shared" "3.3.6"
+    "@vue/shared" "3.3.8"
     estree-walker "^2.0.2"
     source-map-js "^1.0.2"
 
-"@vue/compiler-dom@3.3.6":
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.3.6.tgz#683420cc201c3a48cb0841467bf19a433ffbede6"
-  integrity sha512-1MxXcJYMHiTPexjLAJUkNs/Tw2eDf2tY3a0rL+LfuWyiKN2s6jvSwywH3PWD8bKICjfebX3GWx2Os8jkRDq3Ng==
+"@vue/compiler-dom@3.3.8":
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.3.8.tgz#09d832514b9b8d9415a3816b065d69dbefcc7e9b"
+  integrity sha512-+PPtv+p/nWDd0AvJu3w8HS0RIm/C6VGBIRe24b9hSyNWOAPEUosFZ5diwawwP8ip5sJ8n0Pe87TNNNHnvjs0FQ==
   dependencies:
-    "@vue/compiler-core" "3.3.6"
-    "@vue/shared" "3.3.6"
+    "@vue/compiler-core" "3.3.8"
+    "@vue/shared" "3.3.8"
 
 "@vue/compiler-sfc@^3.2.47":
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.3.6.tgz#00dce2e7aa569101009c5eedec4a69e2f831d8cc"
-  integrity sha512-/Kms6du2h1VrXFreuZmlvQej8B1zenBqIohP0690IUBkJjsFvJxY0crcvVRJ0UhMgSR9dewB+khdR1DfbpArJA==
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.3.8.tgz#40b18e48aa00260950964d1d72157668521be0e1"
+  integrity sha512-WMzbUrlTjfYF8joyT84HfwwXo+8WPALuPxhy+BZ6R4Aafls+jDBnSz8PDz60uFhuqFbl3HxRfxvDzrUf3THwpA==
   dependencies:
     "@babel/parser" "^7.23.0"
-    "@vue/compiler-core" "3.3.6"
-    "@vue/compiler-dom" "3.3.6"
-    "@vue/compiler-ssr" "3.3.6"
-    "@vue/reactivity-transform" "3.3.6"
-    "@vue/shared" "3.3.6"
+    "@vue/compiler-core" "3.3.8"
+    "@vue/compiler-dom" "3.3.8"
+    "@vue/compiler-ssr" "3.3.8"
+    "@vue/reactivity-transform" "3.3.8"
+    "@vue/shared" "3.3.8"
     estree-walker "^2.0.2"
     magic-string "^0.30.5"
     postcss "^8.4.31"
     source-map-js "^1.0.2"
 
-"@vue/compiler-ssr@3.3.6":
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.3.6.tgz#d767602563f2596a03b44b3dea4a32c715f64915"
-  integrity sha512-QTIHAfDCHhjXlYGkUg5KH7YwYtdUM1vcFl/FxFDlD6d0nXAmnjizka3HITp8DGudzHndv2PjKVS44vqqy0vP4w==
+"@vue/compiler-ssr@3.3.8":
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.3.8.tgz#136eed54411e4694815d961048a237191063fbce"
+  integrity sha512-hXCqQL/15kMVDBuoBYpUnSYT8doDNwsjvm3jTefnXr+ytn294ySnT8NlsFHmTgKNjwpuFy7XVV8yTeLtNl/P6w==
   dependencies:
-    "@vue/compiler-dom" "3.3.6"
-    "@vue/shared" "3.3.6"
+    "@vue/compiler-dom" "3.3.8"
+    "@vue/shared" "3.3.8"
 
 "@vue/component-compiler-utils@^3.0.0", "@vue/component-compiler-utils@^3.1.2":
   version "3.3.0"
@@ -1914,21 +1914,21 @@
     sass "^1.18.0"
     stylus "^0.54.5"
 
-"@vue/reactivity-transform@3.3.6":
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/@vue/reactivity-transform/-/reactivity-transform-3.3.6.tgz#29d615455992d253b8f21b47d084445b5d3f916d"
-  integrity sha512-RlJl4dHfeO7EuzU1iJOsrlqWyJfHTkJbvYz/IOJWqu8dlCNWtxWX377WI0VsbAgBizjwD+3ZjdnvSyyFW1YVng==
+"@vue/reactivity-transform@3.3.8":
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity-transform/-/reactivity-transform-3.3.8.tgz#6d07649013b0be5c670f0ab6cc7ddd3150ad03f2"
+  integrity sha512-49CvBzmZNtcHua0XJ7GdGifM8GOXoUMOX4dD40Y5DxI3R8OUhMlvf2nvgUAcPxaXiV5MQQ1Nwy09ADpnLQUqRw==
   dependencies:
     "@babel/parser" "^7.23.0"
-    "@vue/compiler-core" "3.3.6"
-    "@vue/shared" "3.3.6"
+    "@vue/compiler-core" "3.3.8"
+    "@vue/shared" "3.3.8"
     estree-walker "^2.0.2"
     magic-string "^0.30.5"
 
-"@vue/shared@3.3.6":
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.3.6.tgz#bd97c22972c6519250069297d01cbed077054b7e"
-  integrity sha512-Xno5pEqg8SVhomD0kTSmfh30ZEmV/+jZtyh39q6QflrjdJCXah5lrnOLi9KB6a5k5aAHXMXjoMnxlzUkCNfWLQ==
+"@vue/shared@3.3.8":
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.3.8.tgz#f044942142e1d3a395f24132e6203a784838542d"
+  integrity sha512-8PGwybFwM4x8pcfgqEQFy70NaQxASvOC5DJwLQfpArw1UDfUXrJkdxD3BhVTMS+0Lef/TU7YO0Jvr0jJY8T+mw==
 
 abbrev@1:
   version "1.1.1"
