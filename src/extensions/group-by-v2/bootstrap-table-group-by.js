@@ -197,9 +197,15 @@ BootstrapTable.prototype.initBody = function (...args) {
           const $this = $(this)
           const groupIndex = $this.closest('tr').data('group-index')
           const $groupRows = that.$body.find(`tr[data-parent-index=${groupIndex}]`)
+          let $groupIcon
 
           $this.toggleClass('expanded collapsed')
-          $this.find('span').toggleClass(`${that.options.icons.collapseGroup} ${that.options.icons.expandGroup}`)
+          if (that.options.iconsPrefix.includes('fa-')) {
+            $groupIcon = $this.find('svg')
+          } else {
+            $groupIcon = $this.find('span')
+          }
+          $groupIcon.toggleClass(`${that.options.icons.collapseGroup} ${that.options.icons.expandGroup}`)
           $groupRows.toggleClass('hidden')
           $groupRows.each((i, element) => that.collapseRow($(element).data('index')))
         })
