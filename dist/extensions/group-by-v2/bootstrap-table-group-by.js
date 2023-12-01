@@ -2251,7 +2251,7 @@
       var checkBox = false;
       var visibleColumns = 0;
       this.columns.forEach(function (column) {
-        if (column.checkbox) {
+        if (column.checkbox && !that.options.singleSelect) {
           checkBox = true;
         } else if (column.visible) {
           visibleColumns += 1;
@@ -2299,8 +2299,14 @@
           var $this = $$7(this);
           var groupIndex = $this.closest('tr').data('group-index');
           var $groupRows = that.$body.find("tr[data-parent-index=".concat(groupIndex, "]"));
+          var $groupIcon;
           $this.toggleClass('expanded collapsed');
-          $this.find('span').toggleClass("".concat(that.options.icons.collapseGroup, " ").concat(that.options.icons.expandGroup));
+          if (that.options.iconsPrefix.includes('fa-')) {
+            $groupIcon = $this.find('svg')
+          } else {
+            $groupIcon = $this.find('span')
+          }
+          $groupIcon.toggleClass("".concat(that.options.icons.collapseGroup, " ").concat(that.options.icons.expandGroup));
           $groupRows.toggleClass('hidden');
           $groupRows.each(function (i, element) {
             return that.collapseRow($$7(element).data('index'));
