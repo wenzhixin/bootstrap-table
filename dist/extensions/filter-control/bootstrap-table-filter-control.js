@@ -4394,6 +4394,10 @@
             callbacks.push(fieldToFocusCallback);
           }
         }
+        // fix #5713
+        if ($this[0] === document.activeElement) {
+          setCaretPosition($this[0], $this[0].value.length);
+        }
       });
 
       // Callback call.
