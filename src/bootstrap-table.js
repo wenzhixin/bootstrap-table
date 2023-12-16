@@ -360,7 +360,7 @@ class BootstrapTable {
           column.checkbox || column.radio ?
             Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') :
             classes || class_,
-          Utils.sprintf(' style="%s"', halign + style + csses.join('; ')),
+          Utils.sprintf(' style="%s"', halign + style + csses.join('; ') || undefined),
           Utils.sprintf(' rowspan="%s"', column.rowspan),
           Utils.sprintf(' colspan="%s"', column.colspan),
           Utils.sprintf(' data-field="%s"', column.field),
@@ -2304,7 +2304,7 @@ class BootstrapTable {
           [column['class'], style.classes].join(' ') : style.classes)
       }
 
-      html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')))
+      html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ') || undefined))
       let colspan = 0
 
       if (this.footerData && this.footerData.length > 0) {
