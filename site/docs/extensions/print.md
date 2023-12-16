@@ -28,7 +28,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-   Set true to show the Print button on the toolbar.
+  Set true to show the Print button on the toolbar.
 
 - **Default:** `false`
 
@@ -40,7 +40,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-   When true - print table as sorted and filtered on UI. Please note that if true is set, along with explicit predefined print options for filtering and sorting (printFilter, printSortOrder, printSortColumn)- then they will be applied on data already filtered and sorted by UI controls. For printing data as filtered and sorted on UI - do not set these 3 options: printFilter, printSortOrder, printSortColumn
+  When true - print table as sorted and filtered on UI. Please note that if true is set, along with explicit predefined print options for filtering and sorting (printFilter, printSortOrder, printSortColumn)- then they will be applied on data already filtered and sorted by UI controls. For printing data as filtered and sorted on UI - do not set these 3 options: printFilter, printSortOrder, printSortColumn
 
 - **Default:** `true`
 
@@ -52,9 +52,55 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-   Receive html `<table>` element as string parameter, returns html string for printing. Used for styling and adding header or footer.
+  Receive html `<table>` element as string parameter, returns html string for printing. Used for styling and adding header or footer.
 
-- **Default:** `function(table){return printPageBuilderDefault(table)}`
+- **Default:**
+{% highlight javascript %}
+printPageBuilder: function(table) {
+  return `
+    <html>
+    <head>
+    <style type="text/css" media="print">
+    @page {
+      size: auto;
+      margin: 25px 0 25px 0;
+    }
+    </style>
+    <style type="text/css" media="all">
+    table {
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    table, th, td {
+      border: 1px solid grey;
+    }
+    th, td {
+      text-align: center;
+      vertical-align: middle;
+    }
+    p {
+      font-weight: bold;
+      margin-left:20px;
+    }
+    table {
+      width: 94%;
+      margin-left: 3%;
+      margin-right: 3%;
+    }
+    div.bs-table-print {
+      text-align:center;
+    }
+    </style>
+    </head>
+    <title>Print Table</title>
+    <body>
+    <p>Printed on: ${new Date} </p>
+    <div class="bs-table-print">${table}</div>
+    </body>
+    </html>
+  `
+}
+{% endhighlight %}
 
 ### printSortColumn
 
@@ -64,7 +110,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-   set column field name to sort by for the printed table
+  set column field name to sort by for the printed table
 
 - **Default:** `undefined`
 
@@ -76,7 +122,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-   Valid values: 'asc', 'desc'. Relevant only if printSortColumn is set
+  Valid values: 'asc', 'desc'. Relevant only if printSortColumn is set
 
 - **Default:** `'asc'`
 
@@ -94,7 +140,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-   set value to filter the printed data by this column.
+  set value to filter the printed data by this column.
 
 - **Default:** `undefined`
 
@@ -106,7 +152,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-   function(value, row, index) - returns a string. Formats the cell values for this column in the printed table. Function behavior is similar to the 'formatter' column option
+  function(value, row, index) - returns a string. Formats the cell values for this column in the printed table. Function behavior is similar to the 'formatter' column option
 
 - **Default:** `undefined`
 
@@ -118,7 +164,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-   set true to hide this column in the printed page.
+  set true to hide this column in the printed page.
 
 - **Default:** `false`
 
