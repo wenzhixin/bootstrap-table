@@ -128,7 +128,7 @@ BootstrapTable.prototype.initBody = function (...args) {
     let visibleColumns = 0
 
     this.columns.forEach(column => {
-      if (column.checkbox) {
+      if (column.checkbox && !that.options.singleSelect) {
         checkBox = true
       } else if (column.visible) {
         visibleColumns += 1
