@@ -1325,101 +1325,102 @@
 	 * Bootstrap Table Turkish translation
 	 * Author: Emin Şen
 	 * Author: Sercan Cakir <srcnckr@gmail.com>
+	 * Update From: Sait KURT <bilgi@ientegre.com> <https://github.com/xDeSwa>
 	 */
 
 	$$2.fn.bootstrapTable.locales['tr-TR'] = $$2.fn.bootstrapTable.locales['tr'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	    return 'Sat\u0131rlar\u0131 Kopyala';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return 'Yazd\u0131r';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Yükleniyor, lütfen bekleyin';
+	    return 'Y\u00FCkleniyor, l\u00FCtfen bekleyin';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
 	    return "Sayfa ba\u015F\u0131na ".concat(pageNumber, " kay\u0131t.");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "".concat(totalRows, " kay\u0131ttan ").concat(pageFrom, "-").concat(pageTo, " aras\u0131 g\xF6steriliyor (filtered from ").concat(totalNotFiltered, " total rows).");
+	      return "".concat(totalRows, " kay\u0131ttan ").concat(pageFrom, "-").concat(pageTo, " aras\u0131 g\xF6steriliyor (").concat(totalNotFiltered, " toplam sat\u0131r filtrelendi).");
 	    }
 	    return "".concat(totalRows, " kay\u0131ttan ").concat(pageFrom, "-").concat(pageTo, " aras\u0131 g\xF6steriliyor.");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return '\xF6nceki sayfa';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "sayfa ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'sonraki sayfa';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	    return "".concat(totalRows, " sat\u0131r g\xF6steriliyor");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
+	    return 'Aramay\u0131 Temizle';
 	  },
 	  formatSearch: function formatSearch() {
 	    return 'Ara';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return 'Eşleşen kayıt bulunamadı.';
+	    return 'E\u015Fle\u015Fen kay\u015F\u0131t bulunamad\u0131.';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Hide/Show pagination';
+	    return 'Sayfalamay\u0131 Gizle/G\xF6ster';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Sayfalamay\u0131 G\xF6ster';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Sayfalamay\u0131 Gizle';
 	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Yenile';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Kart G\xF6r\u00FCn\u00FCm\u00FCn\u00FC G\xF6ster';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Kart G\xF6r\u00FCn\u00FCm\u00FCn\u00FC Gizle';
 	  },
 	  formatColumns: function formatColumns() {
-	    return 'Sütunlar';
+	    return 'S\u00FCtunlar';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'T\u00FCm\u00FCn\u00FC Kapat';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Tam Ekran';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'Tüm Satırlar';
+	    return 'T\u00FCm Sat\u0131rlar';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Otomatik Yenileme';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'Verileri D\u0131\u015Fa Aktar';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'Git';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'Geli\u015Fmi\u015F Arama';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'Kapat';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
+	    return 'Kontrolleri Gizle/G\xF6ster';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
+	    return 'Kontrolleri Gizle';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
+	    return 'Kontrolleri G\xF6ster';
 	  }
 	};
 	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['tr-TR']);
