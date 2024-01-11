@@ -205,8 +205,7 @@
     }
 
     .fixed-table-body {
-      overflow-x: auto;
-      overflow-y: auto;
+      overflow: auto auto;
       height: 100%;
 
       .fixed-table-loading {

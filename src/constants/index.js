@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Utils from '../utils/index.js'
 
-const VERSION = '1.22.1'
+const VERSION = '1.22.2'
 
 const bootstrapVersion = Utils.getBootstrapVersion()
 
@@ -447,6 +447,7 @@ const COLUMN_DEFAULTS = {
   searchable: true,
   formatter: undefined,
   footerFormatter: undefined,
+  footerStyle: undefined,
   detailFormatter: undefined,
   searchFormatter: true,
   searchHighlightFormatter: false,

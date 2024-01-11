@@ -298,6 +298,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
       value = Utils.removeHTML(value.toString().toLowerCase())
     }
 
+    if (this.options.searchAccentNeutralise) {
+      value = Utils.normalizeAccent(value)
+    }
+
     if (
       column.filterStrictSearch ||
       column.filterControl === 'select' && column.passed.filterStrictSearch !== false

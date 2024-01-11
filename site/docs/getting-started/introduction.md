@@ -10,7 +10,7 @@ redirect_from:
 toc: true
 ---
 
-## Quickstart
+## Quick Start
 
 Looking to quickly add Bootstrap Table to your <a href="https://getbootstrap.com/" target="_blank">Bootstrap v5</a> project? Use CDN, provided for free by the folks at UNPKG. Using a package manager or need to download the source files? [Head to the downloads page]({{ site.baseurl }}/docs/getting-started/download/).
 

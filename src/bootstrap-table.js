@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.22.1
+ * version: 1.22.2
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -360,7 +360,7 @@ class BootstrapTable {
           column.checkbox || column.radio ?
             Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') :
             classes || class_,
-          Utils.sprintf(' style="%s"', halign + style + csses.join('; ')),
+          Utils.sprintf(' style="%s"', halign + style + csses.join('; ') || undefined),
           Utils.sprintf(' rowspan="%s"', column.rowspan),
           Utils.sprintf(' colspan="%s"', column.colspan),
           Utils.sprintf(' data-field="%s"', column.field),
@@ -577,8 +577,6 @@ class BootstrapTable {
   }
 
   _sort () {
-    this.trigger('sort', this.options.sortName, this.options.sortOrder)
-
     if (this.options.sidePagination === 'server' && this.options.serverSort) {
       this.options.pageNumber = 1
       this.initServer(this.options.silentSort)
@@ -589,6 +587,8 @@ class BootstrapTable {
       this.options.pageNumber = 1
       this.initPagination()
     }
+
+    this.trigger('sort', this.options.sortName, this.options.sortOrder)
 
     this.initSort()
     this.initBody()
@@ -1403,7 +1403,6 @@ class BootstrapTable {
       if (allSelected) {
         opts.pageSize = opts.formatAllRows()
       }
-      // removed the events for last and first, onPageNumber executeds the same logic
       $pageList.off('click').on('click', e => this.onPageListChange(e))
       $pre.off('click').on('click', e => this.onPagePre(e))
       $next.off('click').on('click', e => this.onPageNext(e))
@@ -2293,7 +2292,7 @@ class BootstrapTable {
       falign = Utils.sprintf('text-align: %s; ', column.falign ? column.falign : column.align)
       valign = Utils.sprintf('vertical-align: %s; ', column.valign)
 
-      style = Utils.calculateObjectValue(null, this.options.footerStyle, [column])
+      style = Utils.calculateObjectValue(null, column.footerStyle || this.options.footerStyle, [column])
 
       if (style && style.css) {
         for (const [key, value] of Object.entries(style.css)) {
@@ -2305,7 +2304,7 @@ class BootstrapTable {
           [column['class'], style.classes].join(' ') : style.classes)
       }
 
-      html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ')))
+      html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ') || undefined))
       let colspan = 0
 
       if (this.footerData && this.footerData.length > 0) {

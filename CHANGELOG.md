@@ -1,6 +1,31 @@
 ChangeLog
 ---------
 
+### 1.22.2
+
+#### Core
+
+- **New:** Added `footerStyle` column option.
+- **Update:** Fixed empty style in header and footer bug.
+- **Update:** Fixed the trigger order of `sort` event.
+- **Update:** Updated `ar-SA` locale.
+
+#### Extensions
+
+- **New(cookie):** Added cookie support for custom view extension.
+- **Update(cookie):** Fixed cookie bug when using `cardView` option.
+- **Update(cookie):** Fixed cookie bug with column switchable.
+- **Update(editable):** Fixed `export-saved` event error when `exportDataType` is `all`.
+- **Update(filter-control):** Fixed `searchAccentNeutralise` option not work.
+- **Update(filter-control):** Fixed `filterOrderBy` not work bug for select.
+- **Update(group-by):** Fixed group by bug when using `singleSelect` option.
+- **Update(reorder-rows):** Fixed reorder bug when using pagination.
+
+#### Documentation
+
+- **Update:** Improved the parameter of `updateCellByUniqueId` method.
+- **Update:** Improved the print docs.
+
 ### 1.22.1
 
 #### Core
@@ -41,7 +66,7 @@ ChangeLog
 #### Core
 
 - **New:** Added `escapeTitle` table option.
-- **New:** Added Aria Label to the search input for screenreaders.
+- **New:** Added Aria Label to the search input for screen readers.
 - **New:** Persist data attributes for the header(`th`).
 - **Update:** Fixed wrong condition for searching with server-side pagination.
 - **Update:** Fixed overwriting the `filterOptions` after rebuild.
@@ -99,8 +124,8 @@ ChangeLog
 - **Update:** Fixed detail view with filter click error.
 - **Update:** Fixed header does not center correctly for the sortable column.
 - **Update:** Fixed `regexpCompare` bug when filtering columns.
-- **Update:** Fixed `showToogle` title display error.
-- **Update:** Fixed `remove` and `removeByUnqiueId` using object param bug.
+- **Update:** Fixed `showToggle` title display error.
+- **Update:** Fixed `remove` and `removeByUniqueId` using object param bug.
 - **Update:** Fixed `searchHighlight` bug while using `searchAccentNeutralise`.
 - **Update:** Fixed missing sort for `customSearch` option.
 - **Update:** Removed duplicated escaping of the column value.
@@ -951,7 +976,7 @@ ChangeLog
 - [bug] Fix #936 Sort carets should not be inline-styled by JS.
 - [bug] Fix table header width bug when setting table to no bordered.
 - [bug] Fix #938, fix #940: Multiple Sort and Hide/Show column.
-- [bug] Fix #970: `click`and `dblclick` bug on no-rows table.
+- [bug] Fix #970: `click` and `dblclick` bug on no-rows table.
 - [bug] Fix #967: unselected column while column sorted display error.
 - [enh] Support title feature in cells.
 - [enh] Improved cookie, mobile extension.

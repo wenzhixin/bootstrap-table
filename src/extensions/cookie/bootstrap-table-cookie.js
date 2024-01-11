@@ -10,9 +10,9 @@ const UtilsCookie = {
     sortPriority: 'bs.table.sortPriority',
     pageNumber: 'bs.table.pageNumber',
     pageList: 'bs.table.pageList',
-    columns: 'bs.table.columns',
     hiddenColumns: 'bs.table.hiddenColumns',
     cardView: 'bs.table.cardView',
+    customView: 'bs.table.customView',
     searchText: 'bs.table.searchText',
     reorderColumns: 'bs.table.reorderColumns',
     filterControl: 'bs.table.filterControl',
@@ -89,15 +89,15 @@ const UtilsCookie = {
     d.setTime(d.getTime() + cookieExpire * 1000)
     return d.toGMTString()
   },
-  initCookieFilters (bootstrapTable) {
+  initCookieFilters (that) {
     setTimeout(() => {
       const parsedCookieFilters = JSON.parse(
-        UtilsCookie.getCookie(bootstrapTable, UtilsCookie.cookieIds.filterControl))
+        UtilsCookie.getCookie(that, UtilsCookie.cookieIds.filterControl))
 
-      if (!bootstrapTable._filterControlValuesLoaded && parsedCookieFilters) {
+      if (!that._filterControlValuesLoaded && parsedCookieFilters) {
         const cachedFilters = {}
-        const header = UtilsCookie.getCurrentHeader(bootstrapTable)
-        const searchControls = UtilsCookie.getCurrentSearchControls(bootstrapTable)
+        const header = UtilsCookie.getCurrentHeader(that)
+        const searchControls = UtilsCookie.getCurrentSearchControls(that)
 
         const applyCookieFilters = (element, filteredCookies) => {
           filteredCookies.forEach(cookie => {
@@ -124,7 +124,7 @@ const UtilsCookie = {
               cachedFilters[cookie.field] = text
             } else if (
               element.tagName === 'SELECT' &&
-              bootstrapTable.options.filterControlContainer
+              that.options.filterControlContainer
             ) {
               element.value = text
               cachedFilters[cookie.field] = text
@@ -148,8 +148,8 @@ const UtilsCookie = {
 
         let filterContainer = header
 
-        if (bootstrapTable.options.filterControlContainer) {
-          filterContainer = $(`${bootstrapTable.options.filterControlContainer}`)
+        if (that.options.filterControlContainer) {
+          filterContainer = $(`${that.options.filterControlContainer}`)
         }
 
         filterContainer.find(searchControls).each(function () {
@@ -159,9 +159,9 @@ const UtilsCookie = {
           applyCookieFilters(this, filteredCookies)
         })
 
-        bootstrapTable.initColumnSearch(cachedFilters)
-        bootstrapTable._filterControlValuesLoaded = true
-        bootstrapTable.initServer()
+        that.initColumnSearch(cachedFilters)
+        that._filterControlValuesLoaded = true
+        that.initServer()
       }
     }, 250)
   }
@@ -178,9 +178,9 @@ Object.assign($.fn.bootstrapTable.defaults, {
   cookiesEnabled: [
     'bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority',
     'bs.table.pageNumber', 'bs.table.pageList',
-    'bs.table.hiddenColumns', 'bs.table.columns', 'bs.table.searchText',
+    'bs.table.hiddenColumns', 'bs.table.searchText',
     'bs.table.filterControl', 'bs.table.filterBy',
-    'bs.table.reorderColumns', 'bs.table.cardView'
+    'bs.table.reorderColumns', 'bs.table.cardView', 'bs.table.customView'
   ],
   cookieStorage: 'cookieStorage', // localStorage, sessionStorage, customStorage
   cookieCustomStorageGet: null,
@@ -207,7 +207,10 @@ Object.assign($.fn.bootstrapTable.utils, {
 $.BootstrapTable = class extends $.BootstrapTable {
   init () {
     if (this.options.cookie) {
-      if (this.options.cookieStorage === 'cookieStorage' && !UtilsCookie.isCookieSupportedByBrowser()) {
+      if (
+        this.options.cookieStorage === 'cookieStorage' &&
+        !UtilsCookie.isCookieSupportedByBrowser()
+      ) {
         throw new Error('Cookies are not enabled in this browser.')
       }
 
@@ -377,6 +380,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.cardView, this.options.cardView)
   }
 
+  toggleCustomView () {
+    super.toggleCustomView()
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.customView, this.customViewDefaultView)
+  }
+
   selectPage (page) {
     super.selectPage(page)
     if (!this.options.cookie) {
@@ -433,21 +441,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const pageListCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.pageList)
     const searchTextCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.searchText)
     const cardViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.cardView)
-
-    const columnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.columns)
+    const customViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.customView)
     const hiddenColumnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.hiddenColumns)
-
-    if (typeof columnsCookieValue === 'boolean' && !columnsCookieValue) {
-      throw new Error('The cookie value of filterBy must be a json!')
-    }
-
-    let columnsCookie = {}
-
-    try {
-      columnsCookie = JSON.parse(columnsCookieValue)
-    } catch (e) {
-      throw new Error('Could not parse the json of the columns cookie!', columnsCookieValue)
-    }
 
     let hiddenColumnsCookie = {}
 
@@ -490,39 +485,19 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.searchText = searchTextCookie ? searchTextCookie : ''
     }
     // cardView
-    this.options.cardView = cardViewCookie === 'true' ? cardViewCookie : false
+    if (cardViewCookie !== null) {
+      this.options.cardView = cardViewCookie === 'true' ? cardViewCookie : false
+    }
+    this.customViewDefaultView = customViewCookie === 'true'
 
     if (hiddenColumnsCookie) {
-      for (const column of this.columns) {
-        column.visible = !hiddenColumnsCookie.filter(columnField => {
-          if (this.isSelectionColumn(column)) {
-            return false
-          }
-
-          return columnField === column.field
-        }).length > 0 || !column.switchable
-      }
-    } else if (columnsCookie) {
-      /**
-       * This is needed for the old saved cookies!
-       * It can be removed in 2-3 Versions Later!!
-       * TODO: Remove this part (column cookie) some versions later e.g. 1.22.0
-       */
       for (const column of this.columns) {
         if (!column.switchable) {
           continue
         }
 
-        column.visible = columnsCookie.filter(columnField => {
-          if (this.isSelectionColumn(column)) {
-            return true
-          }
-          if (columnField instanceof Object) {
-            return columnField.field === column.field
-          }
-
-          return columnField === column.field
-        }).length > 0
+        column.visible = this.isSelectionColumn(column) ||
+          !hiddenColumnsCookie.includes(column.field)
       }
     }
   }

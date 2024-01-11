@@ -639,6 +639,8 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
   * `field`: field name of the cell to be updated.
   * `value`: the new value of the cell.
 
+  To disable table re-initialization, you can set `{reinit: false}`.
+
 - **Example:** [Update Cell By Unique Id](https://examples.bootstrap-table.com/#methods/update-cell-by-unique-id.html)
 
 ## updateColumnTitle

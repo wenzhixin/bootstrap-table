@@ -74,14 +74,14 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     - Description: This option is used for the [showButtonIcons](https://bootstrap-table.com/docs/api/table-options/#showbuttonicons) table option.
     - Type: `String` - Only needs the icon class e.g. `fa-users`
   - `render`
-    - Description: Set this option to `false` to hide the button by default, the button is visible again when you add the data attribute `data-show-BUTTONNAME="true"`.
+    - Description: Set this option to `false` to hide the button by default, the button is visible again when you add the data attribute `data-show-button-name="true"`.
   - `attributes`
     - Description: This option allows adding additional html attributes e.g. `title`
     - Type: `Object`
     - Example: `{title: 'Button title'}`
   - `html`
     - Description: If you don't want to autogenerate the html, you can use this option to insert your custom html.
-      The `event` option only works if you custom HTML contains `name="BUTTONNAME"`.
+      The `event` option only works if you custom HTML contains `name="button-name"`.
       If this option is used the following options will be ignored:
       - `text`
       - `icon`
@@ -552,7 +552,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Detail:**
 
   Defines the key of the footer Object (From data array or server response JSON).
-  The footer Object can be used to set/define footer colspans and/or the value of the footer.
+  The footer Object can be used to set/define footer colspan and/or the value of the footer.
   Only triggered when `data-pagination` is `true` and `data-side-pagination` is `server`.
 
 
@@ -709,7 +709,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Indicate which field will be used as checkbox/radiobox value, its the counterpart to [selectItemName](https://bootstrap-table.com/docs/api/table-options/#selectitemname).
+  Indicate which field will be used as checkbox/radio value, its the counterpart to [selectItemName](https://bootstrap-table.com/docs/api/table-options/#selectitemname).
 
 - **Default:** `undefined`
 
@@ -785,7 +785,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   Allows for fallback locales, if loaded, in the following order:
 
   * First tries for the locale as specified,
-  * Then tries the locale with '_' translated to '-' and the region code uppercased,
+  * Then tries the locale with '_' translated to '-' and the region code upper cased,
   * Then tries the short locale code (i.e. `'zh'` instead of `'zh-CN'`),
   * And finally will use the last locale file loaded (or the default locale if no locales loaded).
 
@@ -1560,7 +1560,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   **URL parameters:**
 
   When `sidePagination` is set to `server`, the bootstrap table will make calls to the `url` with the following URL parameters:
-  
+
   - `offset` with a value between 0 and `total` - 1, indicating the first record to include.
   - `limit` with a value indicating the number of rows per page.
 
@@ -1894,7 +1894,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
   **URL parameters:**
 
   When `sidePagination` is set to `server`, the bootstrap table will make calls to the `url` with the following URL parameters:
-  
+
   - `offset` with a value between 0 and `total` - 1, indicating the first record to include.
   - `limit` with a value indicating the number of rows per page.
 
