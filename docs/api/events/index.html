@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.1
+        v1.22.2
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.2)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.20.2/" target="_blank">v1.20.2</a>
         
@@ -421,7 +421,7 @@
 
 <p>Binding via the options object:</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html">// Here, you can expect to have as the last parameter the boostrap-table object
+<figure class="highlight"><pre><code class="language-html" data-lang="html">// Here, you can expect to have as the last parameter the bootstrap-table object
 
 $('#table').bootstrapTable({
   onEventName: function (arg1, arg2, ...) {
@@ -431,7 +431,7 @@ $('#table').bootstrapTable({
 
 <p>Binding via the jquery event handler:</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html">// Here, you can expect to have in the 'e' variable the sender property, which is the boostrap-table object
+<figure class="highlight"><pre><code class="language-html" data-lang="html">// Here, you can expect to have in the 'e' variable the sender property, which is the bootstrap-table object
 
 $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   // ...
@@ -622,7 +622,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>It fires when toogle all columns. The parameters contain:</p>
+    <p>It fires when toggle all columns. The parameters contain:</p>
 
     <ul>
       <li><code class="highlighter-rouge">checked</code>: the checked state of the column.</li>

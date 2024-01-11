@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.1
+        v1.22.2
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.2)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.20.2/" target="_blank">v1.20.2</a>
         
@@ -376,6 +376,7 @@
 <li class="toc-entry toc-h2"><a href="#falign">falign</a></li>
 <li class="toc-entry toc-h2"><a href="#field">field</a></li>
 <li class="toc-entry toc-h2"><a href="#footerformatter">footerFormatter</a></li>
+<li class="toc-entry toc-h2"><a href="#footerstyle">footerStyle</a></li>
 <li class="toc-entry toc-h2"><a href="#formatter">formatter</a></li>
 <li class="toc-entry toc-h2"><a href="#halign">halign</a></li>
 <li class="toc-entry toc-h2"><a href="#order">order</a></li>
@@ -759,6 +760,45 @@ Its also possible to check/uncheck the checkbox by using a formatter (return <co
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#column-options/footer-formatter.html">Footer Formatter</a></p>
+  </li>
+</ul>
+
+<h2 id="footerstyle">footerStyle</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-footer-style</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>The footer style formatter function, takes one parameter:</p>
+
+    <ul>
+      <li><code class="highlighter-rouge">column</code>: the column object.</li>
+    </ul>
+
+    <p>Support <code class="highlighter-rouge">classes</code> or <code class="highlighter-rouge">css</code>. Example usage:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">function</span> <span class="nx">footerStyle</span><span class="p">(</span><span class="nx">column</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">css</span><span class="p">:</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">font-weight</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">normal</span><span class="dl">'</span> <span class="p">},</span>
+      <span class="na">classes</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-class</span><span class="dl">'</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  </code></pre></figure>
+
+<ul>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/footer-style.html">Footer Style</a></p>
   </li>
 </ul>
 

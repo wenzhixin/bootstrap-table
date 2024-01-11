@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.1
+        v1.22.2
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.2)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.20.2/" target="_blank">v1.20.2</a>
         
@@ -471,9 +471,54 @@
     <p>Receive html <code class="highlighter-rouge">&lt;table&gt;</code> element as string parameter, returns html string for printing. Used for styling and adding header or footer.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">function(table){return printPageBuilderDefault(table)}</code></p>
+    <p><strong>Default:</strong></p>
   </li>
 </ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">printPageBuilder</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">table</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="s2">`
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;style type="text/css" media="print"&gt;
+    @page {
+      size: auto;
+      margin: 25px 0 25px 0;
+    }
+    &lt;/style&gt;
+    &lt;style type="text/css" media="all"&gt;
+    table {
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    table, th, td {
+      border: 1px solid grey;
+    }
+    th, td {
+      text-align: center;
+      vertical-align: middle;
+    }
+    p {
+      font-weight: bold;
+      margin-left:20px;
+    }
+    table {
+      width: 94%;
+      margin-left: 3%;
+      margin-right: 3%;
+    }
+    div.bs-table-print {
+      text-align:center;
+    }
+    &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;title&gt;Print Table&lt;/title&gt;
+    &lt;body&gt;
+    &lt;p&gt;Printed on: </span><span class="p">${</span><span class="k">new</span> <span class="nb">Date</span><span class="p">}</span><span class="s2"> &lt;/p&gt;
+    &lt;div class="bs-table-print"&gt;</span><span class="p">${</span><span class="nx">table</span><span class="p">}</span><span class="s2">&lt;/div&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+  `</span>
+<span class="p">}</span></code></pre></figure>
 
 <h3 id="printsortcolumn">printSortColumn</h3>
 

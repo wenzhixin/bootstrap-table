@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.1
+        v1.22.2
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.1)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.2)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.20.2/" target="_blank">v1.20.2</a>
         
@@ -600,7 +600,7 @@ These buttons can be sorted with the table option <a href="https://bootstrap-tab
       </li>
       <li><code class="highlighter-rouge">render</code>
         <ul>
-          <li>Description: Set this option to <code class="highlighter-rouge">false</code> to hide the button by default, the button is visible again when you add the data attribute <code class="highlighter-rouge">data-show-BUTTONNAME="true"</code>.</li>
+          <li>Description: Set this option to <code class="highlighter-rouge">false</code> to hide the button by default, the button is visible again when you add the data attribute <code class="highlighter-rouge">data-show-button-name="true"</code>.</li>
         </ul>
       </li>
       <li><code class="highlighter-rouge">attributes</code>
@@ -613,7 +613,7 @@ These buttons can be sorted with the table option <a href="https://bootstrap-tab
       <li><code class="highlighter-rouge">html</code>
         <ul>
           <li>Description: If you don’t want to autogenerate the html, you can use this option to insert your custom html.
-The <code class="highlighter-rouge">event</code> option only works if you custom HTML contains <code class="highlighter-rouge">name="BUTTONNAME"</code>.
+The <code class="highlighter-rouge">event</code> option only works if you custom HTML contains <code class="highlighter-rouge">name="button-name"</code>.
 If this option is used the following options will be ignored:
             <ul>
               <li><code class="highlighter-rouge">text</code></li>
@@ -1310,7 +1310,7 @@ To disable it for the column titles check the </code>escapeTitle` option.</p>
     <p><strong>Detail:</strong></p>
 
     <p>Defines the key of the footer Object (From data array or server response JSON).
-The footer Object can be used to set/define footer colspans and/or the value of the footer.
+The footer Object can be used to set/define footer colspan and/or the value of the footer.
 Only triggered when <code class="highlighter-rouge">data-pagination</code> is <code class="highlighter-rouge">true</code> and <code class="highlighter-rouge">data-side-pagination</code> is <code class="highlighter-rouge">server</code>.</p>
   </li>
 </ul>
@@ -1528,7 +1528,7 @@ Only triggered when <code class="highlighter-rouge">data-pagination</code> is <c
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Indicate which field will be used as checkbox/radiobox value, its the counterpart to <a href="https://bootstrap-table.com/docs/api/table-options/#selectitemname">selectItemName</a>.</p>
+    <p>Indicate which field will be used as checkbox/radio value, its the counterpart to <a href="https://bootstrap-table.com/docs/api/table-options/#selectitemname">selectItemName</a>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -1635,7 +1635,7 @@ Allows for fallback locales, if loaded, in the following order:</p>
 
     <ul>
       <li>First tries for the locale as specified,</li>
-      <li>Then tries the locale with ‘_’ translated to ‘-‘ and the region code uppercased,</li>
+      <li>Then tries the locale with ‘_’ translated to ‘-‘ and the region code upper cased,</li>
       <li>Then tries the short locale code (i.e. <code class="highlighter-rouge">'zh'</code> instead of <code class="highlighter-rouge">'zh-CN'</code>),</li>
       <li>And finally will use the last locale file loaded (or the default locale if no locales loaded).</li>
     </ul>
