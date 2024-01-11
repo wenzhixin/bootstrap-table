@@ -1820,47 +1820,47 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@vue/compiler-core@3.4.8":
-  version "3.4.8"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.4.8.tgz#c6d96030692724f257751068e2997c9665244f0f"
-  integrity sha512-GjAwOydZV6UyVBi1lYW5v4jjfU6wOeyi3vBATKJOwV7muYF0/nZi4kfdJc0pwdT5lXwbbx57lyA2Y356rFpw1A==
+"@vue/compiler-core@3.4.10":
+  version "3.4.10"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.4.10.tgz#1da03a0b8df05f2054add983f7ad9171e5fbb7aa"
+  integrity sha512-53vxh7K9qbx+JILnGEhrFRyr7H7e4NdT8RuTNU3m6HhJKFvcAqFTNXpYMHnyuAzzRGdsbsYHBgQC3H6xEXTG6w==
   dependencies:
     "@babel/parser" "^7.23.6"
-    "@vue/shared" "3.4.8"
+    "@vue/shared" "3.4.10"
     entities "^4.5.0"
     estree-walker "^2.0.2"
     source-map-js "^1.0.2"
 
-"@vue/compiler-dom@3.4.8":
-  version "3.4.8"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.4.8.tgz#5acd8de409d3f623c80e81fbf22f2ce53eee6562"
-  integrity sha512-GsPyji42zmkSJlaDFKXvwB97ukTlHzlFH/iVzPFYz/APnSzuhu/CMFQbsYmrtsnc2yscF39eC4rKzvKR27aBug==
+"@vue/compiler-dom@3.4.10":
+  version "3.4.10"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.4.10.tgz#aaed699125ea6da2daf540bf8f68ade08e95086b"
+  integrity sha512-QAALBJksIFpXGYuo74rtMgnwpVZDvd3kYbUa4gYX9s/5QiqEvZSgbKtOdUGydXcxKPt3ifC+0/bhPVHXN2694A==
   dependencies:
-    "@vue/compiler-core" "3.4.8"
-    "@vue/shared" "3.4.8"
+    "@vue/compiler-core" "3.4.10"
+    "@vue/shared" "3.4.10"
 
 "@vue/compiler-sfc@^3.3.11":
-  version "3.4.8"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.4.8.tgz#1e4b1d8786abcbb3da205e1c996b01f281a64d1b"
-  integrity sha512-3ZcurOa6bQdZ6VZLtMqYSUZqpsMqfX0MC3oCxQG0VIJFCqouZAgRYJN1c8QvGs7HW5wW8aXVvUOQU0ILVlYHKA==
+  version "3.4.10"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.4.10.tgz#3ff0abf204d7a24317ad2111e087b7b775970f6b"
+  integrity sha512-sTOssaQySgrMjrhZxmAqdp6n+E51VteIVIDaOR537H2P63DyzMmig21U0XXFxiXmMIfrK91lAInnc+bIAYemGw==
   dependencies:
     "@babel/parser" "^7.23.6"
-    "@vue/compiler-core" "3.4.8"
-    "@vue/compiler-dom" "3.4.8"
-    "@vue/compiler-ssr" "3.4.8"
-    "@vue/shared" "3.4.8"
+    "@vue/compiler-core" "3.4.10"
+    "@vue/compiler-dom" "3.4.10"
+    "@vue/compiler-ssr" "3.4.10"
+    "@vue/shared" "3.4.10"
     estree-walker "^2.0.2"
     magic-string "^0.30.5"
     postcss "^8.4.32"
     source-map-js "^1.0.2"
 
-"@vue/compiler-ssr@3.4.8":
-  version "3.4.8"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.4.8.tgz#36a5611883672d451d4f2050db7c26ed1bb36071"
-  integrity sha512-nxN79LHeAemhBpIa2PQ6rz57cW7W4C/XIJCOMSn2g49u6q2ekirmJI0osAOTErQPApOR0KwP2QyeTexX4zQCrw==
+"@vue/compiler-ssr@3.4.10":
+  version "3.4.10"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.4.10.tgz#526a55c718249de43e13914b0df03ddadfcc3cb1"
+  integrity sha512-Y90TL1abretWbUiK5rv+9smS1thCHE5sSuhZgiLh6cxgZ2Pcy3BEvDd3reID0iwNcTdMbTeE6NI3Aq4Mux6hqQ==
   dependencies:
-    "@vue/compiler-dom" "3.4.8"
-    "@vue/shared" "3.4.8"
+    "@vue/compiler-dom" "3.4.10"
+    "@vue/shared" "3.4.10"
 
 "@vue/component-compiler-utils@^3.0.0", "@vue/component-compiler-utils@^3.1.2":
   version "3.3.0"
@@ -1894,10 +1894,10 @@
     sass "^1.18.0"
     stylus "^0.54.5"
 
-"@vue/shared@3.4.8":
-  version "3.4.8"
-  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.4.8.tgz#160687109233a1e4ad1b8fe1c4762f9019599fa8"
-  integrity sha512-ChLCWzXiJboQ009oVkemhEoUdrxHme7v3ip+Kh+/kDDeF1WtHWGt0knRLGm1Y4YqCRTSs9QxsZIY8paJj5Szrw==
+"@vue/shared@3.4.10":
+  version "3.4.10"
+  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.4.10.tgz#d2399901586bdb1bc727c8d61f0e543b25b2461c"
+  integrity sha512-C0mIVhwW1xQLMFyqMJxnhq6fWyE02lCgcE+TDdtGpg6B3H6kh/0YcqS54qYc76UJNlWegf3VgsLqgk6D9hBmzQ==
 
 abbrev@1:
   version "1.1.1"
