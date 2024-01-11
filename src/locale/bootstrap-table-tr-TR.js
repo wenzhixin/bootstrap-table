@@ -2,14 +2,15 @@
  * Bootstrap Table Turkish translation
  * Author: Emin Şen
  * Author: Sercan Cakir <srcnckr@gmail.com>
+ * Update From: Sait KURT <bilgi@ientegre.com> <https://github.com/xDeSwa>
  */
 
 $.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Satırları Kopyala'
   },
   formatPrint () {
-    return 'Print'
+    return 'Yazdır'
   },
   formatLoadingMessage () {
     return 'Yükleniyor, lütfen bekleyin'
@@ -19,25 +20,25 @@ $.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor (filtered from ${totalNotFiltered} total rows).`
+      return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor (${totalNotFiltered} toplam satır filtrelendi).`
     }
 
     return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor.`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'önceki sayfa'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `sayfa ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'sonraki sayfa'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `${totalRows} satır gösteriliyor`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'Aramayı Temizle'
   },
   formatSearch () {
     return 'Ara'
@@ -46,58 +47,58 @@ $.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
     return 'Eşleşen kayıt bulunamadı.'
   },
   formatPaginationSwitch () {
-    return 'Hide/Show pagination'
+    return 'Sayfalamayı Gizle/Göster'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Sayfalamayı Göster'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Sayfalamayı Gizle'
   },
   formatRefresh () {
     return 'Yenile'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Kart Görünümünü Göster'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Kart Görünümünü Gizle'
   },
   formatColumns () {
     return 'Sütunlar'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Tümünü Kapat'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Tam Ekran'
   },
   formatAllRows () {
     return 'Tüm Satırlar'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Otomatik Yenileme'
   },
   formatExport () {
-    return 'Export data'
+    return 'Verileri Dışa Aktar'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Git'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Gelişmiş Arama'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Kapat'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Kontrolleri Gizle/Göster'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Kontrolleri Gizle'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Kontrolleri Göster'
   }
 }
 
