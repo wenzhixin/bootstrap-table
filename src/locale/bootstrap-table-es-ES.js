@@ -1,6 +1,7 @@
 /**
  * Bootstrap Table Spanish Spain translation
  * Author: Marc Pina<iwalkalone69@gmail.com>
+ * Update: @misteregis <misteregis@gmail.com>
  */
 
 $.fn.bootstrapTable.locales['es-ES'] = $.fn.bootstrapTable.locales['es'] = {
@@ -17,11 +18,13 @@ $.fn.bootstrapTable.locales['es-ES'] = $.fn.bootstrapTable.locales['es'] = {
     return `${pageNumber} resultados por página`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    const plural = totalRows > 1 ? 's' : ''
+
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Mostrando desde ${pageFrom} hasta ${pageTo} - En total ${totalRows} resultados (filtrado de ${totalNotFiltered} filas totales)`
+      return `Mostrando desde ${pageFrom} hasta ${pageTo} - En total ${totalRows} resultado${plural} (filtrado de un total de ${totalNotFiltered} fila${plural})`
     }
 
-    return `Mostrando desde ${pageFrom} hasta ${pageTo} - En total ${totalRows} resultados`
+    return `Mostrando desde ${pageFrom} hasta ${pageTo} - En total ${totalRows} resultado${plural}`
   },
   formatSRPaginationPreText () {
     return 'página anterior'
@@ -33,7 +36,7 @@ $.fn.bootstrapTable.locales['es-ES'] = $.fn.bootstrapTable.locales['es'] = {
     return 'siguiente página'
   },
   formatDetailPagination (totalRows) {
-    return `Mostrando ${totalRows} filas`
+    return `Mostrando ${totalRows} fila${totalRows > 1 ? 's' : ''}`
   },
   formatClearSearch () {
     return 'Limpiar búsqueda'
@@ -42,7 +45,7 @@ $.fn.bootstrapTable.locales['es-ES'] = $.fn.bootstrapTable.locales['es'] = {
     return 'Buscar'
   },
   formatNoMatches () {
-    return 'No se encontraron resultados'
+    return 'No se encontraron resultados coincidentes'
   },
   formatPaginationSwitch () {
     return 'Ocultar/Mostrar paginación'
@@ -90,13 +93,52 @@ $.fn.bootstrapTable.locales['es-ES'] = $.fn.bootstrapTable.locales['es'] = {
     return 'Cerrar'
   },
   formatFilterControlSwitch () {
-    return 'Ocultar/Mostrar controles'
+    return 'Ocultar/Exibir controles'
   },
   formatFilterControlSwitchHide () {
     return 'Ocultar controles'
   },
   formatFilterControlSwitchShow () {
     return 'Mostrar controles'
+  },
+  formatAddLevel () {
+    return 'Agregar nivel'
+  },
+  formatCancel () {
+    return 'Cancelar'
+  },
+  formatColumn () {
+    return 'Columna'
+  },
+  formatDeleteLevel () {
+    return 'Eliminar nivel'
+  },
+  formatDuplicateAlertTitle () {
+    return '¡Se encontraron entradas duplicadas!'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Por favor, elimine o modifique las columnas duplicadas'
+  },
+  formatMultipleSort () {
+    return 'Ordenación múltiple'
+  },
+  formatOrder () {
+    return 'Orden'
+  },
+  formatSort () {
+    return 'Ordenar'
+  },
+  formatSortBy () {
+    return 'Ordenar por'
+  },
+  formatThenBy () {
+    return 'a continuación'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Ascendente',
+      desc: 'Descendente'
+    }
   }
 }
 
