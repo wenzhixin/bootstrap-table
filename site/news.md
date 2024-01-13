@@ -4,6 +4,33 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.22.2
+
+<span class="post-date">11 Jan 2024</span>
+
+#### Core
+
+- **New:** Added `footerStyle` column option.
+- **Update:** Fixed empty style in header and footer bug.
+- **Update:** Fixed the trigger order of `sort` event.
+- **Update:** Updated `ar-SA` locale.
+
+#### Extensions
+
+- **New(cookie):** Added cookie support for custom view extension.
+- **Update(cookie):** Fixed cookie bug when using `cardView` option.
+- **Update(cookie):** Fixed cookie bug with column switchable.
+- **Update(editable):** Fixed `export-saved` event error when `exportDataType` is `all`.
+- **Update(filter-control):** Fixed `searchAccentNeutralise` option not work.
+- **Update(filter-control):** Fixed `filterOrderBy` not work bug for select.
+- **Update(group-by):** Fixed group by bug when using `singleSelect` option.
+- **Update(reorder-rows):** Fixed reorder bug when using pagination.
+
+#### Documentation
+
+- **Update:** Improved the parameter of `updateCellByUniqueId` method.
+- **Update:** Improved the print docs.
+
 ## Bootstrap Table 1.22.1
 
 <span class="post-date">6 Jul 2023</span>
