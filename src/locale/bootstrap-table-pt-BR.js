@@ -4,14 +4,15 @@
  * Update: João Mello<jmello@hotmail.com.br>
  * Update: Leandro Felizari<lfelizari@gmail.com>
  * Update: Fernando Marcos Souza Silva<fernandomarcosss@gmail.com>
+ * Update: @misteregis <misteregis@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['pt-BR'] = {
+$.fn.bootstrapTable.locales['pt-BR'] = $.fn.bootstrapTable.locales['br'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Copiar linhas'
   },
   formatPrint () {
-    return 'Print'
+    return 'Imprimir'
   },
   formatLoadingMessage () {
     return 'Carregando, aguarde'
@@ -20,23 +21,25 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
     return `${pageNumber} registros por página`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    const plural = totalRows > 1 ? 's' : ''
+
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linhas (filtradas de um total de ${totalNotFiltered} linhas)`
+      return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linha${plural} (filtrado de um total de ${totalNotFiltered} linha${plural})`
     }
 
-    return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linhas`
+    return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linha${plural}`
   },
   formatSRPaginationPreText () {
     return 'página anterior'
   },
   formatSRPaginationPageText (page) {
-    return `Para a página ${page}`
+    return `ir para a página ${page}`
   },
   formatSRPaginationNextText () {
     return 'próxima página'
   },
   formatDetailPagination (totalRows) {
-    return `Mostrando ${totalRows} linhas`
+    return `Mostrando ${totalRows} linha${totalRows > 1 ? 's' : ''}`
   },
   formatClearSearch () {
     return 'Limpar Pesquisa'
@@ -60,7 +63,7 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
     return 'Recarregar'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Mostrar visualização de cartão'
   },
   formatToggleOff () {
     return 'Hide card view'
@@ -84,7 +87,7 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
     return 'Exportar dados'
   },
   formatJumpTo () {
-    return 'IR'
+    return 'Ir'
   },
   formatAdvancedSearch () {
     return 'Pesquisa Avançada'
@@ -100,6 +103,45 @@ $.fn.bootstrapTable.locales['pt-BR'] = {
   },
   formatFilterControlSwitchShow () {
     return 'Exibir controles'
+  },
+  formatAddLevel () {
+    return 'Adicionar nível'
+  },
+  formatCancel () {
+    return 'Cancelar'
+  },
+  formatColumn () {
+    return 'Coluna'
+  },
+  formatDeleteLevel () {
+    return 'Remover nível'
+  },
+  formatDuplicateAlertTitle () {
+    return 'Encontradas entradas duplicadas!'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Por favor, remova ou altere as colunas duplicadas'
+  },
+  formatMultipleSort () {
+    return 'Ordenação múltipla'
+  },
+  formatOrder () {
+    return 'Ordem'
+  },
+  formatSort () {
+    return 'Ordenar'
+  },
+  formatSortBy () {
+    return 'Ordenar por'
+  },
+  formatThenBy () {
+    return 'em seguida'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Crescente',
+      desc: 'Decrescente'
+    }
   }
 }
 
