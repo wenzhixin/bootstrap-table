@@ -1072,7 +1072,7 @@ class BootstrapTable {
           const column = this.columns[this.fieldsColumnsIndex[key]]
           let value
 
-          if (typeof key === 'string') {
+          if (typeof key === 'string' && !item.hasOwnProperty(key)) {
             value = item
             const props = key.split('.')
 
