@@ -41,14 +41,13 @@ class BootstrapTable {
 
     // init iconsPrefix and icons
     const iconsPrefix = Utils.getIconsPrefix($.fn.bootstrapTable.theme)
-    const icons = Utils.getIcons(iconsPrefix)
 
     if (typeof opts.icons === 'string') {
       opts.icons = Utils.calculateObjectValue(null, opts.icons)
     }
 
     opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix
-    opts.icons = Object.assign(icons, $.fn.bootstrapTable.defaults.icons, opts.icons)
+    opts.icons = Object.assign(Utils.getIcons(opts.iconsPrefix), $.fn.bootstrapTable.defaults.icons, opts.icons)
 
     // init buttons class
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
@@ -957,9 +956,7 @@ class BootstrapTable {
         })
       }
     } else if (typeof opts.searchSelector === 'string') {
-      const $searchInput = Utils.getSearchInput(this)
-
-      handleInputEvent($searchInput)
+      handleInputEvent(Utils.getSearchInput(this))
     }
   }
 
