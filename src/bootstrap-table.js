@@ -2516,7 +2516,7 @@ class BootstrapTable {
       this.footerData = data[this.options.footerField] ? [data[this.options.footerField]] : undefined
     }
 
-    fixedScroll = data.fixedScroll
+    fixedScroll = this.options.fixedScroll || data.fixedScroll
     data = Array.isArray(data) ? data : data[this.options.dataField]
 
     this.initData(data)
