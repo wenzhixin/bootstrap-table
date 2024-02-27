@@ -1,6 +1,21 @@
 ChangeLog
 ---------
 
+### 1.22.3
+
+#### Core
+
+- **New:** Added `fixedScroll` option.
+- **New:** Added support for setting icons automatically by `iconsPrefix`.
+- **Update:** Fixed search bug when the field has `.` character.
+- **Update:** Updated `tr-TR`, `es-ES`, `pt-BR` and `pt-PT` locales.
+
+#### Extensions
+
+- **New(addrbar):** Fixed addrbar bug when using `sortReset` option.
+- **Update(jump-to):** Fixed page jump to bug when using both pagination display.
+- **Update(print):** Fixed print bug when field is not set.
+
 ### 1.22.2
 
 #### Core
