@@ -6,86 +6,6 @@
  * @update: zhixin wen <wenzhixin2010@gmail.com>
  */
 
-/*
- * function: 获取浏览器地址栏中的指定参数.
- * key: 参数名
- * url: 默认为当前地址栏
- */
-function _GET (key, url = window.location.search) {
-  /*
-   * 注意这里正则表达式的书写方法
-   * (^|&)key匹配: 直接以key开始或以&key开始的字符串
-   * 同理(&|$)表示以&结束或是直接结束的字符串
-   * ...当然, 我并不知道这种用法.
-   */
-  const reg = new RegExp(`(^|&)${key}=([^&]*)(&|$)`)
-  const result = url.substr(1).match(reg)
-
-  if (result) {
-    return decodeURIComponent(result[2])
-  }
-  return null
-}
-
-/*
- * function: 根据给定参数生成url地址
- * var dic = {name: 'general', age: 24}
- * var url = 'https://www.baidu.com?age=22';
- * _buildUrl(dic, url);
- * 将得到"https://www.baidu.com?age=24&name=general"
- * 哦, 忽略先后顺序吧...
- *
- * 补充: 可以参考浏览器URLSearchParams对象, 更加方便和强大.
- * 考虑到兼容性, 暂时不使用这个工具.
- */
-
-function _buildUrl (dict, url = window.location.search) {
-  for (const [key, val] of Object.entries(dict)) {
-    // 搜索name=general这种形式的字符串(&是分隔符)
-    const pattern = `${key}=([^&]*)`
-    const targetStr = `${key}=${val}`
-
-    if (val === undefined)
-      continue
-
-    /*
-     * 如果目标url中包含了key键, 我们需要将它替换成我们自己的val
-     * 不然就直接添加好了.
-     */
-    if (url.match(pattern)) {
-      const tmp = new RegExp(`(${key}=)([^&]*)`, 'gi')
-
-      url = url.replace(tmp, targetStr)
-    } else {
-      const separator = url.match('[?]') ? '&' : '?'
-
-      url = url + separator + targetStr
-    }
-  }
-  if (location.hash) {
-    url += location.hash
-  }
-  return url
-}
-
-/*
-* function: _updateHistoryState
-* var _prefix = this.options.addrPrefix || ''
-* var table = this
-* _updateHistoryState( table,_prefix)
-* returns void
-*/
-function _updateHistoryState (table, _prefix) {
-  const params = {}
-
-  params[`${_prefix}page`] = table.options.pageNumber
-  params[`${_prefix}size`] = table.options.pageSize
-  params[`${_prefix}order`] = table.options.sortOrder
-  params[`${_prefix}sort`] = table.options.sortName
-  params[`${_prefix}search`] = table.options.searchText
-  window.history.pushState({}, '', _buildUrl(params))
-}
-
 Object.assign($.fn.bootstrapTable.defaults, {
   addrbar: false,
   addrPrefix: ''
@@ -97,44 +17,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.pagination &&
       this.options.addrbar
     ) {
-      // 标志位, 初始加载后关闭
-      this.addrbarInit = true
-
-      this.options.pageNumber = +this.getDefaultOptionValue('pageNumber', 'page')
-      this.options.pageSize = +this.getDefaultOptionValue('pageSize', 'size')
-      this.options.sortOrder = this.getDefaultOptionValue('sortOrder', 'order')
-      this.options.sortName = this.getDefaultOptionValue('sortName', 'sort')
-      this.options.searchText = this.getDefaultOptionValue('searchText', 'search')
-
-      const _prefix = this.options.addrPrefix || ''
-      const _onLoadSuccess = this.options.onLoadSuccess
-      const _onPageChange = this.options.onPageChange
-
-      this.options.onLoadSuccess = data => {
-        if (this.addrbarInit) {
-          this.addrbarInit = false
-        } else {
-          _updateHistoryState(this, _prefix)
-        }
-
-        if (_onLoadSuccess) {
-          _onLoadSuccess.call(this, data)
-        }
-      }
-      this.options.onPageChange = (number, size) => {
-        _updateHistoryState(this, _prefix)
-
-        if (_onPageChange) {
-          _onPageChange.call(this, number, size)
-        }
-      }
+      this.initAddrbar()
     }
     super.init(...args)
-  }
-
-  resetSearch (text) {
-    super.resetSearch(text)
-    this.options.searchText = text || ''
   }
 
   /*
@@ -148,7 +33,73 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return this.options[optionName]
     }
 
-    return _GET(`${this.options.addrPrefix || ''}${prefixName}`) ||
+    return this.searchParams.get(`${this.options.addrPrefix || ''}${prefixName}`) ||
       $.BootstrapTable.DEFAULTS[optionName]
+  }
+
+  initAddrbar () {
+    // 标志位, 初始加载后关闭
+    this.addrbarInit = true
+
+    this.searchParams = new URLSearchParams(window.location.search.substring(1))
+    this.options.pageNumber = +this.getDefaultOptionValue('pageNumber', 'page')
+    this.options.pageSize = +this.getDefaultOptionValue('pageSize', 'size')
+    this.options.sortOrder = this.getDefaultOptionValue('sortOrder', 'order')
+    this.options.sortName = this.getDefaultOptionValue('sortName', 'sort')
+    this.options.searchText = this.getDefaultOptionValue('searchText', 'search')
+
+    const prefix = this.options.addrPrefix || ''
+    const onLoadSuccess = this.options.onLoadSuccess
+    const onPageChange = this.options.onPageChange
+
+    this.options.onLoadSuccess = data => {
+      if (this.addrbarInit) {
+        this.addrbarInit = false
+      } else {
+        this.updateHistoryState(prefix)
+      }
+
+      if (onLoadSuccess) {
+        onLoadSuccess.call(this, data)
+      }
+    }
+    this.options.onPageChange = (number, size) => {
+      this.updateHistoryState(prefix)
+
+      if (onPageChange) {
+        onPageChange.call(this, number, size)
+      }
+    }
+  }
+
+  updateHistoryState (prefix) {
+    const params = {}
+
+    params[`${prefix}page`] = this.options.pageNumber
+    params[`${prefix}size`] = this.options.pageSize
+    params[`${prefix}order`] = this.options.sortOrder
+    params[`${prefix}sort`] = this.options.sortName
+    params[`${prefix}search`] = this.options.searchText
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value === undefined) {
+        this.searchParams.delete(key)
+      } else {
+        this.searchParams.set(key, value)
+      }
+    }
+
+    let url = `?${this.searchParams.toString()}`
+
+    if (location.hash) {
+      url += location.hash
+    }
+
+    window.history.pushState({}, '', url)
+  }
+
+  resetSearch (text) {
+    super.resetSearch(text)
+    this.options.searchText = text || ''
   }
 }

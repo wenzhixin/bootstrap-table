@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.22.2
+ * version: 1.22.3
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -41,14 +41,13 @@ class BootstrapTable {
 
     // init iconsPrefix and icons
     const iconsPrefix = Utils.getIconsPrefix($.fn.bootstrapTable.theme)
-    const icons = Utils.getIcons(iconsPrefix)
 
     if (typeof opts.icons === 'string') {
       opts.icons = Utils.calculateObjectValue(null, opts.icons)
     }
 
     opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix
-    opts.icons = Object.assign(icons, $.fn.bootstrapTable.defaults.icons, opts.icons)
+    opts.icons = Object.assign(Utils.getIcons(opts.iconsPrefix), $.fn.bootstrapTable.defaults.icons, opts.icons)
 
     // init buttons class
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
@@ -957,9 +956,7 @@ class BootstrapTable {
         })
       }
     } else if (typeof opts.searchSelector === 'string') {
-      const $searchInput = Utils.getSearchInput(this)
-
-      handleInputEvent($searchInput)
+      handleInputEvent(Utils.getSearchInput(this))
     }
   }
 
@@ -1072,7 +1069,7 @@ class BootstrapTable {
           const column = this.columns[this.fieldsColumnsIndex[key]]
           let value
 
-          if (typeof key === 'string') {
+          if (typeof key === 'string' && !item.hasOwnProperty(key)) {
             value = item
             const props = key.split('.')
 
@@ -2519,7 +2516,7 @@ class BootstrapTable {
       this.footerData = data[this.options.footerField] ? [data[this.options.footerField]] : undefined
     }
 
-    fixedScroll = data.fixedScroll
+    fixedScroll = this.options.fixedScroll || data.fixedScroll
     data = Array.isArray(data) ? data : data[this.options.dataField]
 
     this.initData(data)

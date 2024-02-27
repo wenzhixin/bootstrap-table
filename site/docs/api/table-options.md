@@ -543,6 +543,20 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Filter Options](https://examples.bootstrap-table.com/#options/filter-options.html)
 
+## fixedScroll
+
+- **Attribute:** `data-fixed-scroll`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to enable the fixed scrollbar position of the table when loading data.
+
+- **Default:** `false`
+
+- **Example:** [Fixed Scroll](https://examples.bootstrap-table.com/#options/fixed-scroll.html)
+
 ## footerField
 
 - **Attribute:** `data-footer-field`
