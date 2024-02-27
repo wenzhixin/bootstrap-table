@@ -16,7 +16,7 @@ src/**/*.css.map
 docs_
 
 # check the locale file on README
-check.js
+release.*
 
 # Common IDE files
 nbproject
