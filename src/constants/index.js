@@ -247,6 +247,7 @@ const DEFAULTS = {
   iconsPrefix: undefined, // init in initConstants
   icons: {}, // init in initConstants
   iconSize: undefined,
+  fixedScroll: false,
   loadingFontSize: 'auto',
   loadingTemplate (loadingMessage) {
     return `<span class="loading-wrap">

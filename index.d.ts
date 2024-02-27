@@ -325,6 +325,7 @@ export interface BootstrapTableOptions {
   ) => boolean | void;
   buttonsClass?: string;
   pageList?: number[];
+  fixedScroll?: boolean;
 }
 
 declare global {
