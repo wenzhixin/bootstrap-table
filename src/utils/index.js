@@ -300,7 +300,7 @@ export default {
           let colspan = 0
 
           for (let i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
-            let underColumns = allColumns.filter(col => col.fieldIndex === i)
+            const underColumns = allColumns.filter(col => col.fieldIndex === i)
             const column = underColumns[underColumns.length - 1]
 
             if(underColumns.length > 1){
