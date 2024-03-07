@@ -303,8 +303,8 @@ export default {
             const underColumns = allColumns.filter(col => col.fieldIndex === i)
             const column = underColumns[underColumns.length - 1]
 
-            if(underColumns.length > 1){
-              for(let j = 0; j < underColumns.length - 1; j++){
+            if (underColumns.length > 1) {
+              for (let j = 0; j < underColumns.length - 1; j++) {
                 underColumns[j].visible = column.visible
               }
             }
