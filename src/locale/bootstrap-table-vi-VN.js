@@ -1,14 +1,15 @@
 /**
  * Bootstrap Table Vietnamese translation
  * Author: Duc N. PHAM <pngduc@gmail.com>
+ * Revision: Le Ngo Duc Manh <myt@nnsvn.me> (07/Mar/2024)
  */
 
 $.fn.bootstrapTable.locales['vi-VN'] = $.fn.bootstrapTable.locales['vi'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Sao chép hàng'
   },
   formatPrint () {
-    return 'Print'
+    return 'In'
   },
   formatLoadingMessage () {
     return 'Đang tải'
@@ -18,25 +19,25 @@ $.fn.bootstrapTable.locales['vi-VN'] = $.fn.bootstrapTable.locales['vi'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Hiển thị từ trang ${pageFrom} đến ${pageTo} của ${totalRows} bảng ghi (filtered from ${totalNotFiltered} total rows)`
+      return `Hiển thị từ trang ${pageFrom} đến ${pageTo} của ${totalRows} bản ghi (được lọc từ tổng ${totalNotFiltered} hàng)`
     }
 
-    return `Hiển thị từ trang ${pageFrom} đến ${pageTo} của ${totalRows} bảng ghi`
+    return `Hiển thị từ trang ${pageFrom} đến ${pageTo} của ${totalRows} bản ghi`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'trang trước'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `đến trang ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'trang sau'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Đang hiện ${totalRows} hàng`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'Xoá tìm kiếm'
   },
   formatSearch () {
     return 'Tìm kiếm'
@@ -45,58 +46,58 @@ $.fn.bootstrapTable.locales['vi-VN'] = $.fn.bootstrapTable.locales['vi'] = {
     return 'Không có dữ liệu'
   },
   formatPaginationSwitch () {
-    return 'Hide/Show pagination'
+    return 'Ẩn/Hiện phân trang'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Hiện phân trang'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Ẩn phân trang'
   },
   formatRefresh () {
-    return 'Refresh'
+    return 'Làm mới'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Hiển thị các thẻ'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Ẩn các thẻ'
   },
   formatColumns () {
-    return 'Columns'
+    return 'Cột'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Hiện tất cả'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Toàn màn hình'
   },
   formatAllRows () {
-    return 'All'
+    return 'Tất cả'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Tự động làm mới'
   },
   formatExport () {
-    return 'Export data'
+    return 'Xuất dữ liệu'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Đến'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Tìm kiếm nâng cao'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Đóng'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Ẩn/Hiện điều khiển'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Ẩn điều khiển'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Hiện điều khiển'
   }
 }
 
