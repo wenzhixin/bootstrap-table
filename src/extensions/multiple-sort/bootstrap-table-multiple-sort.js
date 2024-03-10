@@ -715,8 +715,8 @@ BootstrapTable.prototype.onMultipleSort = function () {
       const order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1
       let aa = Utils.getItemField(a, fieldName)
       let bb = Utils.getItemField(b, fieldName)
-      const value1 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb])
-      const value2 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa])
+      const value1 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb, a, b])
+      const value2 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa, b, a])
 
       if (value1 !== undefined && value2 !== undefined) {
         arr1.push(order * value1)
