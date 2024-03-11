@@ -40,7 +40,10 @@ Object.assign($.fn.bootstrapTable.defaults, {
   showCopyRows: false,
   copyWithHidden: false,
   copyDelimiter: ', ',
-  copyNewline: '\n'
+  copyNewline: '\n',
+  copyRowsHandler (text) {
+    return text
+  }
 })
 
 Object.assign($.fn.bootstrapTable.columnDefaults, {
@@ -80,26 +83,31 @@ $.BootstrapTable = class extends $.BootstrapTable {
   copyColumnsToClipboard () {
     const rows = []
 
-    $.each(this.getSelections(), (index, row) => {
+    for (const row of this.getSelections()) {
       const cols = []
 
-      $.each(this.options.columns[0], (indy, column) => {
+      this.options.columns[0].forEach((column, index) => {
         if (
           column.field !== this.header.stateField &&
           (!this.options.copyWithHidden || this.options.copyWithHidden && column.visible) &&
           !column.ignoreCopy
         ) {
           if (row[column.field] !== null) {
-            const columnValue = column.rawCopy ? row[column.field] : Utils.calculateObjectValue(column, this.header.formatters[indy], [row[column.field], row, index], row[column.field])
+            const columnValue = column.rawCopy ? row[column.field] :
+              Utils.calculateObjectValue(column, this.header.formatters[index], [row[column.field], row, index], row[column.field])
 
             cols.push(columnValue)
           }
         }
       })
       rows.push(cols.join(this.options.copyDelimiter))
-    })
+    }
 
-    copyText(rows.join(this.options.copyNewline))
+    let text = rows.join(this.options.copyNewline)
+
+    text = Utils.calculateObjectValue(this.options, this.options.copyRowsHandler, [text], text)
+
+    copyText(text)
   }
 
   updateSelected () {
