@@ -710,9 +710,22 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines icon set name (`'glyphicon'` or `'fa'` for FontAwesome). By default, `'fa'` is used for Bootstrap v4.
+  Defines icon set name. By default, this option is automatically calculated by the theme.
 
-- **Default:** `'fa'`
+  ```js
+  {
+    bootstrap3: 'glyphicon',
+    bootstrap4: 'fa',
+    bootstrap5: 'bi',
+    'bootstrap-table': 'icon',
+    bulma: 'fa',
+    foundation: 'fa',
+    materialize: 'material-icons',
+    semantic: 'fa'
+  }
+  ```
+
+- **Default:** `undefined`
 
 - **Example:** [Icons Prefix](https://examples.bootstrap-table.com/#options/icons-prefix.html)
 ## idField
