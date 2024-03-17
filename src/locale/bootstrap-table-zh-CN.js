@@ -5,10 +5,10 @@
 
 $.fn.bootstrapTable.locales['zh-CN'] = $.fn.bootstrapTable.locales['zh'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return '复制行'
   },
   formatPrint () {
-    return 'Print'
+    return '打印'
   },
   formatLoadingMessage () {
     return '正在努力地加载数据中，请稍候'
