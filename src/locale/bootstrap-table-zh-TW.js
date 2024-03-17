@@ -5,10 +5,10 @@
 
 $.fn.bootstrapTable.locales['zh-TW'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return '複製行'
   },
   formatPrint () {
-    return 'Print'
+    return '列印'
   },
   formatLoadingMessage () {
     return '正在努力地載入資料，請稍候'
