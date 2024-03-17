@@ -84,12 +84,17 @@ class BootstrapTable {
         localesToExtend = locales[parts[0]]
       }
 
+      this._defaultLocales = this._defaultLocales || {}
       for (const [formatName, func] of Object.entries(localesToExtend)) {
-        if (this.options[formatName] !== BootstrapTable.DEFAULTS[formatName]) {
+        const defaultLocale = this._defaultLocales.hasOwnProperty(formatName) ?
+          this._defaultLocales[formatName] : BootstrapTable.DEFAULTS[formatName]
+
+        if (this.options[formatName] !== defaultLocale) {
           continue
         }
 
         this.options[formatName] = func
+        this._defaultLocales[formatName] = func
       }
     }
   }
