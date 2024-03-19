@@ -1,6 +1,6 @@
 /**
  * @author doug-the-guy
- * @version v1.0.0
+ * @update zhixin wen <wenzhixin2010@gmail.com>
  *
  * Bootstrap Table Pipeline
  * -----------------------
@@ -114,14 +114,14 @@ BootstrapTable.prototype.onPageListChange = function (event) {
 
 BootstrapTable.prototype.calculatePipelineSize = (pipelineSize, pageSize) => {
   /* calculate pipeline size by rounding up to the nearest value evenly divisible
-        * by the pageSize */
+   * by the pageSize */
   if (pageSize === 0) return 0
   return Math.ceil(pipelineSize / pageSize) * pageSize
 }
 
 BootstrapTable.prototype.setCacheWindows = function () {
   /* set cache windows based on the total number of rows returned by server side
-        * request and the pipelineSize */
+   * request and the pipelineSize */
   this.cacheWindows = []
   const numWindows = this.options.totalRows / this.options.pipelineSize
 
@@ -155,10 +155,10 @@ BootstrapTable.prototype.drawFromCache = function (offset, limit) {
 
 BootstrapTable.prototype.initServer = function (silent, query, url) {
   /* determine if requested data is in cache (on paging) or if
-        * a new ajax request needs to be issued (sorting, searching, paging
-        * moving outside of cached data, page size change)
-        * initial version of this extension will entirely override base initServer
-        **/
+   * a new ajax request needs to be issued (sorting, searching, paging
+   * moving outside of cached data, page size change)
+   * initial version of this extension will entirely override base initServer
+   */
 
   let data = {}
   const index = this.header.fields.indexOf(this.options.sortName)
@@ -268,9 +268,8 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
   }
 
   if (!silent) {
-    this.$tableLoading.show()
+    this.$showLoading()
   }
-  const self = this
 
   request = Utils.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
     type: this.options.method,
@@ -280,42 +279,42 @@ BootstrapTable.prototype.initServer = function (silent, query, url) {
     cache: this.options.cache,
     contentType: this.options.contentType,
     dataType: this.options.dataType,
-    success (res) {
-      res = Utils.calculateObjectValue(self.options, self.options.responseHandler, [res], res)
+    success: res => {
+      res = Utils.calculateObjectValue(this.options, this.options.responseHandler, [res], res)
       // cache results if using pipelining
-      if (self.options.usePipeline) {
+      if (this.options.usePipeline) {
         // store entire request in cache
-        self.cacheRequestJSON = Utils.extend(true, {}, res)
+        this.cacheRequestJSON = Utils.extend(true, {}, res)
         // this gets set in load() also but needs to be set before
         // setting cacheWindows
-        self.options.totalRows = res[self.options.totalField]
+        this.options.totalRows = res[this.options.totalField]
         // if this is a search, potentially less results will be returned
         // so cache windows need to be rebuilt. Otherwise it
         // will come out the same
-        self.setCacheWindows()
-        self.setCurrWindow(params.drawOffset)
+        this.setCacheWindows()
+        this.setCurrWindow(params.drawOffset)
         // just load data for the page
-        res = self.drawFromCache(params.drawOffset, params.drawLimit)
-        self.trigger('cached-data-reset', res)
+        res = this.drawFromCache(params.drawOffset, params.drawLimit)
+        this.trigger('cached-data-reset', res)
       }
-      self.load(res)
-      self.trigger('load-success', res)
+      this.load(res)
+      this.trigger('load-success', res)
       if (!silent) {
-        self.hideLoading()
+        this.hideLoading()
       }
     },
-    error (res) {
+    error: res => {
       let data = []
 
-      if (self.options.sidePagination === 'server') {
+      if (this.options.sidePagination === 'server') {
         data = {}
-        data[self.options.totalField] = 0
-        data[self.options.dataField] = []
+        data[this.options.totalField] = 0
+        data[this.options.dataField] = []
       }
-      self.load(data)
-      self.trigger('load-error', res.status, res)
+      this.load(data)
+      this.trigger('load-error', res.status, res)
       if (!silent) {
-        self.hideLoading()
+        this.hideLoading()
       }
     }
   })
