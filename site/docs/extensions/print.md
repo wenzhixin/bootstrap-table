@@ -6,7 +6,7 @@ group: extensions
 toc: true
 ---
 
-Adds a button to the toolbar for printing the table in a predefined configurable format.
+Adds a button to the toolbar to print the table in a predefined configurable format.
 
 ## Usage
 
@@ -28,7 +28,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-  Set true to show the Print button on the toolbar.
+  Set `true` to show the Print button on the toolbar.
 
 - **Default:** `false`
 
@@ -40,7 +40,7 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-  When true - print table as sorted and filtered on UI. Please note that if true is set, along with explicit predefined print options for filtering and sorting (printFilter, printSortOrder, printSortColumn)- then they will be applied on data already filtered and sorted by UI controls. For printing data as filtered and sorted on UI - do not set these 3 options: printFilter, printSortOrder, printSortColumn
+  Set `true` to print table as sorted and filtered on UI. If `true` is set, explicit predefined print options for filtering and sorting (`printFilter`, `printSortOrder`, `printSortColumn`). They will be applied to data already filtered and sorted by UI controls. For printing data as filtered and sorted on UI - do not set these three options: `printFilter`, `printSortOrder`, `printSortColumn`.
 
 - **Default:** `true`
 
@@ -52,14 +52,15 @@ Adds a button to the toolbar for printing the table in a predefined configurable
 
 - **Detail:**
 
-  Receive html `<table>` element as string parameter, returns html string for printing. Used for styling and adding header or footer.
+  Receive HTML `<table>` element as a string parameter, returns HTML string for printing. This option is used for styling and adding a header or footer.
 
 - **Default:**
 {% highlight javascript %}
-printPageBuilder: function(table) {
+printPageBuilder: function(table, styles) {
   return `
     <html>
     <head>
+    ${styles}
     <style type="text/css" media="print">
     @page {
       size: auto;
@@ -88,7 +89,7 @@ printPageBuilder: function(table) {
       margin-right: 3%;
     }
     div.bs-table-print {
-      text-align:center;
+      text-align: center;
     }
     </style>
     </head>
@@ -110,7 +111,7 @@ printPageBuilder: function(table) {
 
 - **Detail:**
 
-  set column field name to sort by for the printed table
+  Set column field name to sort by for the printed table.
 
 - **Default:** `undefined`
 
@@ -122,13 +123,25 @@ printPageBuilder: function(table) {
 
 - **Detail:**
 
-  Valid values: 'asc', 'desc'. Relevant only if printSortColumn is set
+  Valid values: 'asc', 'desc'. Relevant only if `printSortColumn` is set.
 
 - **Default:** `'asc'`
 
+### printStyles
+
+- **attribute:** `data-print-styles`
+
+- **type:** `Array`
+
+- **Detail:**
+
+  Add styles to the printed page, such as custom icons.
+
+- **Default:** `[]`
+
 ### Icons
 
-* print: `'glyphicon-print icon-share'`
+* print: `'fa-print'`
 
 ## Column options
 
@@ -140,7 +153,7 @@ printPageBuilder: function(table) {
 
 - **Detail:**
 
-  set value to filter the printed data by this column.
+  Set the value to filter the printed data by this column.
 
 - **Default:** `undefined`
 
@@ -152,7 +165,7 @@ printPageBuilder: function(table) {
 
 - **Detail:**
 
-  function(value, row, index) - returns a string. Formats the cell values for this column in the printed table. Function behavior is similar to the 'formatter' column option
+  A custom `function(value, row, index)` - returns a string. Formats the cell values for this column in the printed table. Function behavior is similar to the 'formatter' column option.
 
 - **Default:** `undefined`
 
@@ -164,7 +177,7 @@ printPageBuilder: function(table) {
 
 - **Detail:**
 
-  set true to hide this column in the printed page.
+  Set `true` to hide this column on the printed page.
 
 - **Default:** `false`
 
