@@ -157,7 +157,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     $exportButtons.click(e => {
       e.preventDefault()
-
+      this.trigger('export-started')
       this.exportTable({
         type: $(e.currentTarget).data('type')
       })
@@ -181,7 +181,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const isCardView = o.cardView
 
     const doExport = callback => {
-      this.trigger('export-started')
       if (stateField) {
         this.hideColumn(stateField)
       }
