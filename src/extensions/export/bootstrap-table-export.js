@@ -181,7 +181,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const isCardView = o.cardView
 
     const doExport = callback => {
-     
       if (stateField) {
         this.hideColumn(stateField)
       }
