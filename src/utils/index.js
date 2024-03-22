@@ -109,7 +109,7 @@ export default {
         search: 'search',
         clearSearch: 'delete'
       }
-    }[prefix]
+    }[prefix] || {}
   },
 
   getSearchInput (that) {
