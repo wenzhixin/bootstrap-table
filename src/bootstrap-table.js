@@ -1236,7 +1236,9 @@ class BootstrapTable {
     }
 
     if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort')) {
-      const paginationInfo = this.paginationParts.includes('pageInfoShort') ? opts.formatDetailPagination(opts.totalRows) : opts.formatShowingRows(this.pageFrom, this.pageTo, opts.totalRows, opts.totalNotFiltered)
+      const paginationInfo = this.paginationParts.includes('pageInfoShort') ?
+        opts.formatDetailPagination(opts.totalRows) :
+        opts.formatShowingRows(this.pageFrom, this.pageTo, opts.totalRows, opts.totalNotFiltered)
 
       html.push(`<span class="pagination-info">
       ${paginationInfo}
