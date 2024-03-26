@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.3
+        v1.22.4
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.3)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.4)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -373,6 +373,7 @@
 <li class="toc-entry toc-h3"><a href="#printpagebuilder">printPageBuilder</a></li>
 <li class="toc-entry toc-h3"><a href="#printsortcolumn">printSortColumn</a></li>
 <li class="toc-entry toc-h3"><a href="#printsortorder">printSortOrder</a></li>
+<li class="toc-entry toc-h3"><a href="#printstyles">printStyles</a></li>
 <li class="toc-entry toc-h3"><a href="#icons">Icons</a></li>
 </ul>
 </li>
@@ -408,7 +409,7 @@
           <p class="bd-lead">Table Print extension of Bootstrap Table.</p>
           <div id="gg"></div>
 
-          <p>Adds a button to the toolbar for printing the table in a predefined configurable format.</p>
+          <p>Adds a button to the toolbar to print the table in a predefined configurable format.</p>
 
 <h2 id="usage">Usage</h2>
 
@@ -432,7 +433,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set true to show the Print button on the toolbar.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to show the Print button on the toolbar.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -451,7 +452,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>When true - print table as sorted and filtered on UI. Please note that if true is set, along with explicit predefined print options for filtering and sorting (printFilter, printSortOrder, printSortColumn)- then they will be applied on data already filtered and sorted by UI controls. For printing data as filtered and sorted on UI - do not set these 3 options: printFilter, printSortOrder, printSortColumn</p>
+    <p>Set <code class="highlighter-rouge">true</code> to print table as sorted and filtered on UI. If <code class="highlighter-rouge">true</code> is set, explicit predefined print options for filtering and sorting (<code class="highlighter-rouge">printFilter</code>, <code class="highlighter-rouge">printSortOrder</code>, <code class="highlighter-rouge">printSortColumn</code>). They will be applied to data already filtered and sorted by UI controls. For printing data as filtered and sorted on UI - do not set these three options: <code class="highlighter-rouge">printFilter</code>, <code class="highlighter-rouge">printSortOrder</code>, <code class="highlighter-rouge">printSortColumn</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
@@ -470,17 +471,18 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Receive html <code class="highlighter-rouge">&lt;table&gt;</code> element as string parameter, returns html string for printing. Used for styling and adding header or footer.</p>
+    <p>Receive HTML <code class="highlighter-rouge">&lt;table&gt;</code> element as a string parameter, returns HTML string for printing. This option is used for styling and adding a header or footer.</p>
   </li>
   <li>
     <p><strong>Default:</strong></p>
   </li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">printPageBuilder</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">table</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">printPageBuilder</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">table</span><span class="p">,</span> <span class="nx">styles</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="s2">`
     &lt;html&gt;
     &lt;head&gt;
+    </span><span class="p">${</span><span class="nx">styles</span><span class="p">}</span><span class="s2">
     &lt;style type="text/css" media="print"&gt;
     @page {
       size: auto;
@@ -509,7 +511,7 @@
       margin-right: 3%;
     }
     div.bs-table-print {
-      text-align:center;
+      text-align: center;
     }
     &lt;/style&gt;
     &lt;/head&gt;
@@ -534,7 +536,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>set column field name to sort by for the printed table</p>
+    <p>Set column field name to sort by for the printed table.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -553,17 +555,36 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Valid values: ‘asc’, ‘desc’. Relevant only if printSortColumn is set</p>
+    <p>Valid values: ‘asc’, ‘desc’. Relevant only if <code class="highlighter-rouge">printSortColumn</code> is set.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">'asc'</code></p>
   </li>
 </ul>
 
+<h3 id="printstyles">printStyles</h3>
+
+<ul>
+  <li>
+    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-print-styles</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">Array</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Add styles to the printed page, such as custom icons.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
+  </li>
+</ul>
+
 <h3 id="icons">Icons</h3>
 
 <ul>
-  <li>print: <code class="highlighter-rouge">'glyphicon-print icon-share'</code></li>
+  <li>print: <code class="highlighter-rouge">'fa-print'</code></li>
 </ul>
 
 <h2 id="column-options">Column options</h2>
@@ -580,7 +601,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>set value to filter the printed data by this column.</p>
+    <p>Set the value to filter the printed data by this column.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -599,7 +620,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>function(value, row, index) - returns a string. Formats the cell values for this column in the printed table. Function behavior is similar to the ‘formatter’ column option</p>
+    <p>A custom <code class="highlighter-rouge">function(value, row, index)</code> - returns a string. Formats the cell values for this column in the printed table. Function behavior is similar to the ‘formatter’ column option.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -618,7 +639,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>set true to hide this column in the printed page.</p>
+    <p>Set <code class="highlighter-rouge">true</code> to hide this column on the printed page.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>

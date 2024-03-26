@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.3
+        v1.22.4
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.3)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.4)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -417,6 +417,7 @@
 <li class="toc-entry toc-h2"><a href="#pagination">pagination</a></li>
 <li class="toc-entry toc-h2"><a href="#paginationdetailhalign">paginationDetailHAlign</a></li>
 <li class="toc-entry toc-h2"><a href="#paginationhalign">paginationHAlign</a></li>
+<li class="toc-entry toc-h2"><a href="#paginationloadmore">paginationLoadMore</a></li>
 <li class="toc-entry toc-h2"><a href="#paginationloop">paginationLoop</a></li>
 <li class="toc-entry toc-h2"><a href="#paginationnexttext">paginationNextText</a></li>
 <li class="toc-entry toc-h2"><a href="#paginationpagesbyside">paginationPagesBySide</a></li>
@@ -1536,10 +1537,22 @@ Only triggered when <code class="highlighter-rouge">data-pagination</code> is <c
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Defines icon set name (<code class="highlighter-rouge">'glyphicon'</code> or <code class="highlighter-rouge">'fa'</code> for FontAwesome). By default, <code class="highlighter-rouge">'fa'</code> is used for Bootstrap v4.</p>
+    <p>Defines icon set name. By default, this option is automatically calculated by the theme.</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">bootstrap3</span><span class="p">:</span> <span class="dl">'</span><span class="s1">glyphicon</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">bootstrap4</span><span class="p">:</span> <span class="dl">'</span><span class="s1">fa</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">bootstrap5</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bi</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">bootstrap-table</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">icon</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">bulma</span><span class="p">:</span> <span class="dl">'</span><span class="s1">fa</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">foundation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">fa</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">materialize</span><span class="p">:</span> <span class="dl">'</span><span class="s1">material-icons</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">semantic</span><span class="p">:</span> <span class="dl">'</span><span class="s1">fa</span><span class="dl">'</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">'fa'</code></p>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
   </li>
   <li><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/icons-prefix.html">Icons Prefix</a>
     <h2 id="idfield">idField</h2>
@@ -1898,6 +1911,30 @@ Allows for fallback locales, if loaded, in the following order:</p>
   </li>
   <li>
     <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-h-align.html">Pagination H Align</a></p>
+  </li>
+</ul>
+
+<h2 id="paginationloadmore">paginationLoadMore</h2>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-pagination-load-more</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set <code class="highlighter-rouge">true</code> to enable loading more data through pagination. It is only used in the client-side pagination. In general, to implement the “load more” functionality, it is often necessary to combine it with a <code class="highlighter-rouge">responseHandler</code> to process the returned data.</p>
+
+    <p>It is primarily used in scenarios where the total number of pages is unknown. In such cases, it is not possible to display the exact total count or calculate the total number of pages. Instead, a display format such as “100+” can be utilized to indicate the presence of additional items beyond the displayed count. As the user navigates to the last page, more data is loaded, along with an update to the pagination information. This process continues until all data loading is complete.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+  <li>
+    <p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-load-more.html">Pagination Load More</a></p>
   </li>
 </ul>
 
