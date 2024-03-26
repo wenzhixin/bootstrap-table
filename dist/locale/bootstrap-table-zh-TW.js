@@ -1312,10 +1312,10 @@
 
 	$$2.fn.bootstrapTable.locales['zh-TW'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	    return '複製行';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return '列印';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
 	    return '正在努力地載入資料，請稍候';

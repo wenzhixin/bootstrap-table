@@ -4280,7 +4280,7 @@
           search: 'search',
           clearSearch: 'delete'
         }
-      }[prefix];
+      }[prefix] || {};
     },
     getSearchInput: function getSearchInput(that) {
       if (typeof that.options.searchSelector === 'string') {
@@ -4488,9 +4488,15 @@
               if (r.colspanGroup > 1) {
                 var colspan = 0;
                 var _loop = function _loop(i) {
-                  var column = allColumns.find(function (col) {
+                  var underColumns = allColumns.filter(function (col) {
                     return col.fieldIndex === i;
                   });
+                  var column = underColumns[underColumns.length - 1];
+                  if (underColumns.length > 1) {
+                    for (var j = 0; j < underColumns.length - 1; j++) {
+                      underColumns[j].visible = column.visible;
+                    }
+                  }
                   if (column.visible) {
                     colspan++;
                   }
@@ -4853,7 +4859,7 @@
     }
   };
 
-  var VERSION = '1.22.3';
+  var VERSION = '1.22.4';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -5033,6 +5039,7 @@
     // Number of pages on each side (right, left) of the current page.
     paginationUseIntermediate: false,
     // Calculate intermediate pages for quick access
+    paginationLoadMore: false,
     search: false,
     searchable: false,
     searchHighlight: false,
@@ -5558,14 +5565,17 @@
           } else if (locales[parts[0]]) {
             localesToExtend = locales[parts[0]];
           }
+          this._defaultLocales = this._defaultLocales || {};
           for (var _i = 0, _Object$entries = Object.entries(localesToExtend); _i < _Object$entries.length; _i++) {
             var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
               formatName = _Object$entries$_i[0],
               func = _Object$entries$_i[1];
-            if (this.options[formatName] !== BootstrapTable.DEFAULTS[formatName]) {
+            var defaultLocale = this._defaultLocales.hasOwnProperty(formatName) ? this._defaultLocales[formatName] : BootstrapTable.DEFAULTS[formatName];
+            if (this.options[formatName] !== defaultLocale) {
               continue;
             }
             this.options[formatName] = func;
+            this._defaultLocales[formatName] = func;
           }
         }
       }
@@ -6504,7 +6514,8 @@
           html.push("<div class=\"".concat(this.constants.classes.pull, "-").concat(opts.paginationDetailHAlign, " pagination-detail\">"));
         }
         if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort')) {
-          var paginationInfo = this.paginationParts.includes('pageInfoShort') ? opts.formatDetailPagination(opts.totalRows) : opts.formatShowingRows(this.pageFrom, this.pageTo, opts.totalRows, opts.totalNotFiltered);
+          var totalRows = this.options.totalRows + (this.options.sidePagination === 'client' && this.options.paginationLoadMore && !this._paginationLoaded ? ' +' : '');
+          var paginationInfo = this.paginationParts.includes('pageInfoShort') ? opts.formatDetailPagination(totalRows) : opts.formatShowingRows(this.pageFrom, this.pageTo, totalRows, opts.totalNotFiltered);
           html.push("<span class=\"pagination-info\">\n      ".concat(paginationInfo, "\n      </span>"));
         }
         if (this.paginationParts.includes('pageSize')) {
@@ -6651,7 +6662,7 @@
         }
         this.initPagination();
         this.trigger('page-change', this.options.pageNumber, this.options.pageSize);
-        if (this.options.sidePagination === 'server') {
+        if (this.options.sidePagination === 'server' || this.options.sidePagination === 'client' && this.options.paginationLoadMore && !this._paginationLoaded && this.options.pageNumber === this.totalPages) {
           this.initServer();
         } else {
           this.initBody();
@@ -7157,6 +7168,9 @@
           dataType: this.options.dataType,
           success: function success(_res, textStatus, jqXHR) {
             var res = Utils.calculateObjectValue(_this10.options, _this10.options.responseHandler, [_res, jqXHR], _res);
+            if (_this10.options.sidePagination === 'client' && _this10.options.paginationLoadMore) {
+              _this10._paginationLoaded = _this10.data.length === res.length;
+            }
             _this10.load(res);
             _this10.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR);
             if (!silent) {

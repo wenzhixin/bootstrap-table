@@ -4,6 +4,27 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.22.4
+
+<span class="post-date">26 Mar 2024</span>
+
+#### Core
+
+- **New:** Added `paginationLoadMore` option.
+- **Update:** Fixed change visibility of multiple headers with the same index.
+- **Update:** Fixed footer height bug when setting `table-sm`.
+- **Update:** Fixed the `locale` not changed bug using the `refreshOptions` method.
+- **Update:** Fixed custom iconPrefix and icons bugs.
+- **Update:** Updated `vi-VN`, `zh-CN` and `zh-TW` locales.
+
+#### Extensions
+
+- **New(copy-rows):** Added `copyRowsHandler` option to handle the copy rows data.
+- **New(print):** Added `printStyles` option.
+- **Update(export):** Updated the trigger timing for export-started.
+- **Update(multiple-sort):** Fixed the missing parameters error of the `sorter` function.
+- **Update(pipeline):** Fixed loading message not display bug.
+
 ## Bootstrap Table 1.22.3
 
 <span class="post-date">27 Feb 2024</span>
