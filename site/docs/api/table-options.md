@@ -710,9 +710,22 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines icon set name (`'glyphicon'` or `'fa'` for FontAwesome). By default, `'fa'` is used for Bootstrap v4.
+  Defines icon set name. By default, this option is automatically calculated by the theme.
 
-- **Default:** `'fa'`
+  ```js
+  {
+    bootstrap3: 'glyphicon',
+    bootstrap4: 'fa',
+    bootstrap5: 'bi',
+    'bootstrap-table': 'icon',
+    bulma: 'fa',
+    foundation: 'fa',
+    materialize: 'material-icons',
+    semantic: 'fa'
+  }
+  ```
+
+- **Default:** `undefined`
 
 - **Example:** [Icons Prefix](https://examples.bootstrap-table.com/#options/icons-prefix.html)
 ## idField
@@ -952,6 +965,23 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 - **Default:** `'right'`
 
 - **Example:** [Pagination H Align](https://examples.bootstrap-table.com/#options/pagination-h-align.html)
+
+## paginationLoadMore
+
+- **Attribute:** `data-pagination-load-more`
+
+- **Type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to enable loading more data through pagination. It is only used in the client-side pagination. In general, to implement the "load more" functionality, it is often necessary to combine it with a `responseHandler` to process the returned data.
+
+  It is primarily used in scenarios where the total number of pages is unknown. In such cases, it is not possible to display the exact total count or calculate the total number of pages. Instead, a display format such as "100+" can be utilized to indicate the presence of additional items beyond the displayed count. As the user navigates to the last page, more data is loaded, along with an update to the pagination information. This process continues until all data loading is complete.
+
+- **Default:** `false`
+
+- **Example:** [Pagination Load More](https://examples.bootstrap-table.com/#options/pagination-load-more.html)
+
 
 ## paginationLoop
 

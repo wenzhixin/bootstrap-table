@@ -28,7 +28,7 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Detail:**
 
-   Set `true` to show the copy button. This button copy the contents of the selected rows to the clipboard.
+  Set `true` to show the copy button. This button copy the contents of the selected rows to the clipboard.
 
 - **Default:** `false`
 
@@ -52,7 +52,7 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Detail:**
 
-   This newline will be inserted in-between the row values when copying.
+  This newline will be inserted in-between the row values when copying.
 
 - **Default:** `'\n'`
 
@@ -64,9 +64,23 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Detail:**
 
-   Set `true` to copy with hidden columns.
+  Set `true` to copy with hidden columns.
 
 - **Default:** `false`
+
+### copyRowsHandler
+
+- **Attribute:** `data-copy-rows-handler
+
+- **type:** `Function`
+
+- **Detail:**
+
+  Before copying rows, handle the copying rows data. The parameters object contains:
+
+  * `text`: the copy rows data.
+
+- **Default:** `function(text) { return text }`
 
 ## Column options
 
@@ -90,7 +104,7 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Detail:**
 
-  Set `true` to copy the raw value instead the formatted one.   
+  Set `true` to copy the raw value instead the formatted one.
   If no formatter is used, this option has no effect.
 
 - **Default:** `false`

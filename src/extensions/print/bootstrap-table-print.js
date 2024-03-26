@@ -4,10 +4,11 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-function printPageBuilderDefault (table) {
+function printPageBuilderDefault (table, styles) {
   return `
     <html>
     <head>
+    ${styles}
     <style type="text/css" media="print">
     @page {
       size: auto;
@@ -36,7 +37,7 @@ function printPageBuilderDefault (table) {
       margin-right: 3%;
     }
     div.bs-table-print {
-      text-align:center;
+      text-align: center;
     }
     </style>
     </head>
@@ -61,8 +62,9 @@ Object.assign($.fn.bootstrapTable.defaults, {
   printAsFilteredAndSortedOnUI: true,
   printSortColumn: undefined,
   printSortOrder: 'asc',
-  printPageBuilder (table) {
-    return printPageBuilderDefault(table)
+  printStyles: [],
+  printPageBuilder (table, styles) {
+    return printPageBuilderDefault(table, styles)
   }
 })
 
@@ -281,13 +283,30 @@ $.BootstrapTable = class extends $.BootstrapTable {
     data = sortRows(data, this.options.printSortColumn, this.options.printSortOrder)
     const table = buildTable(data, this.options.columns)
     const newWin = window.open('')
+    const printStyles = typeof this.options.printStyles === 'string' ?
+      this.options.printStyles.replace(/\[|\]| /g, '').toLowerCase().split(',') :
+      this.options.printStyles
+    const styles = printStyles.map(it =>
+      `<link rel="stylesheet" href="${it}" />`).join('')
 
-    const calculatedPrintPage = Utils.calculateObjectValue(this, this.options.printPageBuilder, [table], printPageBuilderDefault(table))
+    const calculatedPrintPage = Utils.calculateObjectValue(this, this.options.printPageBuilder,
+      [table, styles], printPageBuilderDefault(table, styles))
+    const startPrint = () => {
+      newWin.focus()
+      newWin.print()
+      newWin.close()
+    }
 
     newWin.document.write(calculatedPrintPage)
     newWin.document.close()
-    newWin.focus()
-    newWin.print()
-    newWin.close()
+
+    if (printStyles.length) {
+      const links = document.getElementsByTagName('link')
+      const lastLink = links[links.length - 1]
+
+      lastLink.onload = startPrint
+    } else {
+      startPrint()
+    }
   }
 }

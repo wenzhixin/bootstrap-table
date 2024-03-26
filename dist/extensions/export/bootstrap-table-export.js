@@ -2625,6 +2625,7 @@
         }
         $exportButtons.click(function (e) {
           e.preventDefault();
+          _this.trigger('export-started');
           _this.exportTable({
             type: $$7(e.currentTarget).data('type')
           });
@@ -2649,7 +2650,6 @@
         var stateField = this.header.stateField;
         var isCardView = o.cardView;
         var doExport = function doExport(callback) {
-          _this2.trigger('export-started');
           if (stateField) {
             _this2.hideColumn(stateField);
           }

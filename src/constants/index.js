@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Utils from '../utils/index.js'
 
-const VERSION = '1.22.3'
+const VERSION = '1.22.4'
 
 const bootstrapVersion = Utils.getBootstrapVersion()
 
@@ -178,6 +178,7 @@ const DEFAULTS = {
   paginationSuccessivelySize: 5, // Maximum successively number of pages in a row
   paginationPagesBySide: 1, // Number of pages on each side (right, left) of the current page.
   paginationUseIntermediate: false, // Calculate intermediate pages for quick access
+  paginationLoadMore: false,
   search: false,
   searchable: false,
   searchHighlight: false,

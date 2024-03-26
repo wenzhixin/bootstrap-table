@@ -117,6 +117,70 @@
     }
     return _get.apply(this, arguments);
   }
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+    return arr2;
+  }
+  function _createForOfIteratorHelper(o, allowArrayLike) {
+    var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
+    if (!it) {
+      if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+        if (it) o = it;
+        var i = 0;
+        var F = function () {};
+        return {
+          s: F,
+          n: function () {
+            if (i >= o.length) return {
+              done: true
+            };
+            return {
+              done: false,
+              value: o[i++]
+            };
+          },
+          e: function (e) {
+            throw e;
+          },
+          f: F
+        };
+      }
+      throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+    var normalCompletion = true,
+      didErr = false,
+      err;
+    return {
+      s: function () {
+        it = it.call(o);
+      },
+      n: function () {
+        var step = it.next();
+        normalCompletion = step.done;
+        return step;
+      },
+      e: function (e) {
+        didErr = true;
+        err = e;
+      },
+      f: function () {
+        try {
+          if (!normalCompletion && it.return != null) it.return();
+        } finally {
+          if (didErr) throw err;
+        }
+      }
+    };
+  }
 
   var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -125,7 +189,7 @@
   };
 
   // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-  var global$a =
+  var global$b =
     // eslint-disable-next-line es/no-global-this -- safe
     check(typeof globalThis == 'object' && globalThis) ||
     check(typeof window == 'object' && window) ||
@@ -276,7 +340,7 @@
     return typeof it == 'object' ? it !== null : isCallable$b(it);
   };
 
-  var global$9 = global$a;
+  var global$a = global$b;
   var isCallable$a = isCallable$c;
 
   var aFunction = function (argument) {
@@ -284,7 +348,7 @@
   };
 
   var getBuiltIn$4 = function (namespace, method) {
-    return arguments.length < 2 ? aFunction(global$9[namespace]) : global$9[namespace] && global$9[namespace][method];
+    return arguments.length < 2 ? aFunction(global$a[namespace]) : global$a[namespace] && global$a[namespace][method];
   };
 
   var uncurryThis$c = functionUncurryThis;
@@ -293,11 +357,11 @@
 
   var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
 
-  var global$8 = global$a;
+  var global$9 = global$b;
   var userAgent = engineUserAgent;
 
-  var process = global$8.process;
-  var Deno = global$8.Deno;
+  var process = global$9.process;
+  var Deno = global$9.Deno;
   var versions = process && process.versions || Deno && Deno.version;
   var v8 = versions && versions.v8;
   var match, version;
@@ -324,9 +388,9 @@
   /* eslint-disable es/no-symbol -- required for testing */
   var V8_VERSION$2 = engineV8Version;
   var fails$9 = fails$d;
-  var global$7 = global$a;
+  var global$8 = global$b;
 
-  var $String$3 = global$7.String;
+  var $String$3 = global$8.String;
 
   // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
   var symbolConstructorDetection = !!Object.getOwnPropertySymbols && !fails$9(function () {
@@ -410,20 +474,20 @@
 
   var sharedStore = {exports: {}};
 
-  var global$6 = global$a;
+  var global$7 = global$b;
 
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$3 = Object.defineProperty;
 
   var defineGlobalProperty$3 = function (key, value) {
     try {
-      defineProperty$3(global$6, key, { value: value, configurable: true, writable: true });
+      defineProperty$3(global$7, key, { value: value, configurable: true, writable: true });
     } catch (error) {
-      global$6[key] = value;
+      global$7[key] = value;
     } return value;
   };
 
-  var globalThis$1 = global$a;
+  var globalThis$1 = global$b;
   var defineGlobalProperty$2 = defineGlobalProperty$3;
 
   var SHARED = '__core-js_shared__';
@@ -477,14 +541,14 @@
     return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$1(++id + postfix, 36);
   };
 
-  var global$5 = global$a;
+  var global$6 = global$b;
   var shared$2 = shared$3;
   var hasOwn$6 = hasOwnProperty_1;
   var uid$1 = uid$2;
   var NATIVE_SYMBOL = symbolConstructorDetection;
   var USE_SYMBOL_AS_UID = useSymbolAsUid;
 
-  var Symbol$1 = global$5.Symbol;
+  var Symbol$1 = global$6.Symbol;
   var WellKnownSymbolsStore = shared$2('wks');
   var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1['for'] || Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
 
@@ -532,20 +596,20 @@
     return isSymbol(key) ? key : key + '';
   };
 
-  var global$4 = global$a;
+  var global$5 = global$b;
   var isObject$4 = isObject$7;
 
-  var document$1 = global$4.document;
+  var document$1 = global$5.document;
   // typeof document.createElement is 'object' in old IE
   var EXISTS$1 = isObject$4(document$1) && isObject$4(document$1.createElement);
 
-  var documentCreateElement$1 = function (it) {
+  var documentCreateElement$2 = function (it) {
     return EXISTS$1 ? document$1.createElement(it) : {};
   };
 
   var DESCRIPTORS$9 = descriptors;
   var fails$8 = fails$d;
-  var createElement = documentCreateElement$1;
+  var createElement = documentCreateElement$2;
 
   // Thanks to IE8 for its funny defineProperty
   var ie8DomDefine = !DESCRIPTORS$9 && !fails$8(function () {
@@ -652,7 +716,7 @@
   var definePropertyModule$4 = objectDefineProperty;
   var createPropertyDescriptor$1 = createPropertyDescriptor$3;
 
-  var createNonEnumerableProperty$2 = DESCRIPTORS$5 ? function (object, key, value) {
+  var createNonEnumerableProperty$3 = DESCRIPTORS$5 ? function (object, key, value) {
     return definePropertyModule$4.f(object, key, createPropertyDescriptor$1(1, value));
   } : function (object, key, value) {
     object[key] = value;
@@ -694,10 +758,10 @@
 
   var inspectSource$2 = store$1.inspectSource;
 
-  var global$3 = global$a;
+  var global$4 = global$b;
   var isCallable$5 = isCallable$c;
 
-  var WeakMap$1 = global$3.WeakMap;
+  var WeakMap$1 = global$4.WeakMap;
 
   var weakMapBasicDetection = isCallable$5(WeakMap$1) && /native code/.test(String(WeakMap$1));
 
@@ -713,17 +777,17 @@
   var hiddenKeys$4 = {};
 
   var NATIVE_WEAK_MAP = weakMapBasicDetection;
-  var global$2 = global$a;
+  var global$3 = global$b;
   var isObject$2 = isObject$7;
-  var createNonEnumerableProperty$1 = createNonEnumerableProperty$2;
+  var createNonEnumerableProperty$2 = createNonEnumerableProperty$3;
   var hasOwn$3 = hasOwnProperty_1;
   var shared = sharedStoreExports;
   var sharedKey$1 = sharedKey$2;
   var hiddenKeys$3 = hiddenKeys$4;
 
   var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-  var TypeError$1 = global$2.TypeError;
-  var WeakMap = global$2.WeakMap;
+  var TypeError$1 = global$3.TypeError;
+  var WeakMap = global$3.WeakMap;
   var set, get, has;
 
   var enforce = function (it) {
@@ -764,7 +828,7 @@
     set = function (it, metadata) {
       if (hasOwn$3(it, STATE)) throw new TypeError$1(OBJECT_ALREADY_INITIALIZED);
       metadata.facade = it;
-      createNonEnumerableProperty$1(it, STATE, metadata);
+      createNonEnumerableProperty$2(it, STATE, metadata);
       return metadata;
     };
     get = function (it) {
@@ -1061,9 +1125,9 @@
 
   var isForced_1 = isForced$1;
 
-  var global$1 = global$a;
+  var global$2 = global$b;
   var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
-  var createNonEnumerableProperty = createNonEnumerableProperty$2;
+  var createNonEnumerableProperty$1 = createNonEnumerableProperty$3;
   var defineBuiltIn$1 = defineBuiltIn$2;
   var defineGlobalProperty = defineGlobalProperty$3;
   var copyConstructorProperties = copyConstructorProperties$1;
@@ -1090,11 +1154,11 @@
     var STATIC = options.stat;
     var FORCED, target, key, targetProperty, sourceProperty, descriptor;
     if (GLOBAL) {
-      target = global$1;
+      target = global$2;
     } else if (STATIC) {
-      target = global$1[TARGET] || defineGlobalProperty(TARGET, {});
+      target = global$2[TARGET] || defineGlobalProperty(TARGET, {});
     } else {
-      target = global$1[TARGET] && global$1[TARGET].prototype;
+      target = global$2[TARGET] && global$2[TARGET].prototype;
     }
     if (target) for (key in source) {
       sourceProperty = source[key];
@@ -1110,7 +1174,7 @@
       }
       // add a flag to not completely full polyfills
       if (options.sham || (targetProperty && targetProperty.sham)) {
-        createNonEnumerableProperty(sourceProperty, 'sham', true);
+        createNonEnumerableProperty$1(sourceProperty, 'sham', true);
       }
       defineBuiltIn$1(target, key, sourceProperty, options);
     }
@@ -1483,7 +1547,7 @@
   var enumBugKeys = enumBugKeys$3;
   var hiddenKeys = hiddenKeys$4;
   var html = html$1;
-  var documentCreateElement = documentCreateElement$1;
+  var documentCreateElement$1 = documentCreateElement$2;
   var sharedKey = sharedKey$2;
 
   var GT = '>';
@@ -1510,7 +1574,7 @@
   // Create object with fake `null` prototype: use iframe Object with cleared prototype
   var NullProtoObjectViaIFrame = function () {
     // Thrash, waste and sodomy: IE GC bug
-    var iframe = documentCreateElement('iframe');
+    var iframe = documentCreateElement$1('iframe');
     var JS = 'java' + SCRIPT + ':';
     var iframeDocument;
     iframe.style.display = 'none';
@@ -1606,7 +1670,7 @@
 
   var fails$1 = fails$d;
 
-  var arrayMethodIsStrict$1 = function (METHOD_NAME, argument) {
+  var arrayMethodIsStrict$2 = function (METHOD_NAME, argument) {
     var method = [][METHOD_NAME];
     return !!method && fails$1(function () {
       // eslint-disable-next-line no-useless-call -- required for testing
@@ -1618,12 +1682,12 @@
   var uncurryThis$1 = functionUncurryThis;
   var IndexedObject$1 = indexedObject;
   var toIndexedObject = toIndexedObject$5;
-  var arrayMethodIsStrict = arrayMethodIsStrict$1;
+  var arrayMethodIsStrict$1 = arrayMethodIsStrict$2;
 
   var nativeJoin = uncurryThis$1([].join);
 
   var ES3_STRINGS = IndexedObject$1 !== Object;
-  var FORCED = ES3_STRINGS || !arrayMethodIsStrict('join', ',');
+  var FORCED = ES3_STRINGS || !arrayMethodIsStrict$1('join', ',');
 
   // `Array.prototype.join` method
   // https://tc39.es/ecma262/#sec-array.prototype.join
@@ -1719,6 +1783,85 @@
     defineBuiltIn(Object.prototype, 'toString', toString, { unsafe: true });
   }
 
+  // iterable DOM collections
+  // flag - `iterable` interface - 'entries', 'keys', 'values', 'forEach' methods
+  var domIterables = {
+    CSSRuleList: 0,
+    CSSStyleDeclaration: 0,
+    CSSValueList: 0,
+    ClientRectList: 0,
+    DOMRectList: 0,
+    DOMStringList: 0,
+    DOMTokenList: 1,
+    DataTransferItemList: 0,
+    FileList: 0,
+    HTMLAllCollection: 0,
+    HTMLCollection: 0,
+    HTMLFormElement: 0,
+    HTMLSelectElement: 0,
+    MediaList: 0,
+    MimeTypeArray: 0,
+    NamedNodeMap: 0,
+    NodeList: 1,
+    PaintRequestList: 0,
+    Plugin: 0,
+    PluginArray: 0,
+    SVGLengthList: 0,
+    SVGNumberList: 0,
+    SVGPathSegList: 0,
+    SVGPointList: 0,
+    SVGStringList: 0,
+    SVGTransformList: 0,
+    SourceBufferList: 0,
+    StyleSheetList: 0,
+    TextTrackCueList: 0,
+    TextTrackList: 0,
+    TouchList: 0
+  };
+
+  // in old WebKit versions, `element.classList` is not an instance of global `DOMTokenList`
+  var documentCreateElement = documentCreateElement$2;
+
+  var classList = documentCreateElement('span').classList;
+  var DOMTokenListPrototype$1 = classList && classList.constructor && classList.constructor.prototype;
+
+  var domTokenListPrototype = DOMTokenListPrototype$1 === Object.prototype ? undefined : DOMTokenListPrototype$1;
+
+  var $forEach = arrayIteration.forEach;
+  var arrayMethodIsStrict = arrayMethodIsStrict$2;
+
+  var STRICT_METHOD = arrayMethodIsStrict('forEach');
+
+  // `Array.prototype.forEach` method implementation
+  // https://tc39.es/ecma262/#sec-array.prototype.foreach
+  var arrayForEach = !STRICT_METHOD ? function forEach(callbackfn /* , thisArg */) {
+    return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
+  } : [].forEach;
+
+  var global$1 = global$b;
+  var DOMIterables = domIterables;
+  var DOMTokenListPrototype = domTokenListPrototype;
+  var forEach = arrayForEach;
+  var createNonEnumerableProperty = createNonEnumerableProperty$3;
+
+  var handlePrototype = function (CollectionPrototype) {
+    // some Chrome versions have non-configurable methods on DOMTokenList
+    if (CollectionPrototype && CollectionPrototype.forEach !== forEach) try {
+      createNonEnumerableProperty(CollectionPrototype, 'forEach', forEach);
+    } catch (error) {
+      CollectionPrototype.forEach = forEach;
+    }
+  };
+
+  for (var COLLECTION_NAME in DOMIterables) {
+    if (DOMIterables[COLLECTION_NAME]) {
+      handlePrototype(global$1[COLLECTION_NAME] && global$1[COLLECTION_NAME].prototype);
+    }
+  }
+
+  handlePrototype(DOMTokenListPrototype);
+
   /**
    * @author Homer Glascock <HopGlascock@gmail.com>
    * @update zhixin wen <wenzhixin2010@gmail.com>
@@ -1755,7 +1898,10 @@
     showCopyRows: false,
     copyWithHidden: false,
     copyDelimiter: ', ',
-    copyNewline: '\n'
+    copyNewline: '\n',
+    copyRowsHandler: function copyRowsHandler(text) {
+      return text;
+    }
   });
   Object.assign($$4.fn.bootstrapTable.columnDefaults, {
     ignoreCopy: false,
@@ -1799,19 +1945,33 @@
       value: function copyColumnsToClipboard() {
         var _this = this;
         var rows = [];
-        $$4.each(this.getSelections(), function (index, row) {
-          var cols = [];
-          $$4.each(_this.options.columns[0], function (indy, column) {
-            if (column.field !== _this.header.stateField && (!_this.options.copyWithHidden || _this.options.copyWithHidden && column.visible) && !column.ignoreCopy) {
-              if (row[column.field] !== null) {
-                var columnValue = column.rawCopy ? row[column.field] : Utils.calculateObjectValue(column, _this.header.formatters[indy], [row[column.field], row, index], row[column.field]);
-                cols.push(columnValue);
+        var _iterator = _createForOfIteratorHelper(this.getSelections()),
+          _step;
+        try {
+          var _loop = function _loop() {
+            var row = _step.value;
+            var cols = [];
+            _this.options.columns[0].forEach(function (column, index) {
+              if (column.field !== _this.header.stateField && (!_this.options.copyWithHidden || _this.options.copyWithHidden && column.visible) && !column.ignoreCopy) {
+                if (row[column.field] !== null) {
+                  var columnValue = column.rawCopy ? row[column.field] : Utils.calculateObjectValue(column, _this.header.formatters[index], [row[column.field], row, index], row[column.field]);
+                  cols.push(columnValue);
+                }
               }
-            }
-          });
-          rows.push(cols.join(_this.options.copyDelimiter));
-        });
-        copyText(rows.join(this.options.copyNewline));
+            });
+            rows.push(cols.join(_this.options.copyDelimiter));
+          };
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            _loop();
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+        var text = rows.join(this.options.copyNewline);
+        text = Utils.calculateObjectValue(this.options, this.options.copyRowsHandler, [text], text);
+        copyText(text);
       }
     }, {
       key: "updateSelected",

@@ -2477,8 +2477,8 @@
         var order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1;
         var aa = Utils.getItemField(a, fieldName);
         var bb = Utils.getItemField(b, fieldName);
-        var value1 = $$a.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb]);
-        var value2 = $$a.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa]);
+        var value1 = $$a.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb, a, b]);
+        var value2 = $$a.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa, b, a]);
         if (value1 !== undefined && value2 !== undefined) {
           arr1.push(order * value1);
           arr2.push(order * value2);

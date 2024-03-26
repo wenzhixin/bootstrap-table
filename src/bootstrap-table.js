@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.22.3
+ * version: 1.22.4
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -84,12 +84,17 @@ class BootstrapTable {
         localesToExtend = locales[parts[0]]
       }
 
+      this._defaultLocales = this._defaultLocales || {}
       for (const [formatName, func] of Object.entries(localesToExtend)) {
-        if (this.options[formatName] !== BootstrapTable.DEFAULTS[formatName]) {
+        const defaultLocale = this._defaultLocales.hasOwnProperty(formatName) ?
+          this._defaultLocales[formatName] : BootstrapTable.DEFAULTS[formatName]
+
+        if (this.options[formatName] !== defaultLocale) {
           continue
         }
 
         this.options[formatName] = func
+        this._defaultLocales[formatName] = func
       }
     }
   }
@@ -1231,7 +1236,13 @@ class BootstrapTable {
     }
 
     if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort')) {
-      const paginationInfo = this.paginationParts.includes('pageInfoShort') ? opts.formatDetailPagination(opts.totalRows) : opts.formatShowingRows(this.pageFrom, this.pageTo, opts.totalRows, opts.totalNotFiltered)
+      const totalRows = this.options.totalRows +
+        (this.options.sidePagination === 'client' &&
+        this.options.paginationLoadMore &&
+        !this._paginationLoaded ? ' +' : '')
+      const paginationInfo = this.paginationParts.includes('pageInfoShort') ?
+        opts.formatDetailPagination(totalRows) :
+        opts.formatShowingRows(this.pageFrom, this.pageTo, totalRows, opts.totalNotFiltered)
 
       html.push(`<span class="pagination-info">
       ${paginationInfo}
@@ -1421,7 +1432,13 @@ class BootstrapTable {
 
     this.trigger('page-change', this.options.pageNumber, this.options.pageSize)
 
-    if (this.options.sidePagination === 'server') {
+    if (
+      this.options.sidePagination === 'server' ||
+      this.options.sidePagination === 'client' &&
+      this.options.paginationLoadMore &&
+      !this._paginationLoaded &&
+      this.options.pageNumber === this.totalPages
+    ) {
       this.initServer()
     } else {
       this.initBody()
@@ -2039,6 +2056,13 @@ class BootstrapTable {
       success: (_res, textStatus, jqXHR) => {
         const res = Utils.calculateObjectValue(this.options,
           this.options.responseHandler, [_res, jqXHR], _res)
+
+        if (
+          this.options.sidePagination === 'client' &&
+          this.options.paginationLoadMore
+        ) {
+          this._paginationLoaded = this.data.length === res.length
+        }
 
         this.load(res)
         this.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR)

@@ -109,7 +109,7 @@ export default {
         search: 'search',
         clearSearch: 'delete'
       }
-    }[prefix]
+    }[prefix] || {}
   },
 
   getSearchInput (that) {
@@ -300,7 +300,14 @@ export default {
           let colspan = 0
 
           for (let i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
-            const column = allColumns.find(col => col.fieldIndex === i)
+            const underColumns = allColumns.filter(col => col.fieldIndex === i)
+            const column = underColumns[underColumns.length - 1]
+
+            if (underColumns.length > 1) {
+              for (let j = 0; j < underColumns.length - 1; j++) {
+                underColumns[j].visible = column.visible
+              }
+            }
 
             if (column.visible) {
               colspan++
