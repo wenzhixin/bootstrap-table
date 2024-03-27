@@ -2662,12 +2662,12 @@ class BootstrapTable {
       }
 
       if (typeof rowUniqueId === 'string') {
-        id = id.toString()
+        id = _id.toString()
       } else if (typeof rowUniqueId === 'number') {
         if (Number(rowUniqueId) === rowUniqueId && rowUniqueId % 1 === 0) {
-          id = parseInt(id, 10)
+          id = parseInt(_id, 10)
         } else if (rowUniqueId === Number(rowUniqueId) && rowUniqueId !== 0) {
-          id = parseFloat(id)
+          id = parseFloat(_id)
         }
       }
 
