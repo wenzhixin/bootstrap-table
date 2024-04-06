@@ -15,7 +15,7 @@ Looking to quickly add Bootstrap Table to your <a href="http://semantic-ui.com" 
 Copy-paste the stylesheet `<link>` into your `<head>` before all other stylesheets to load our CSS.
 
 {% highlight html %}
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/semantic/bootstrap-table-semantic.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/themes/semantic/bootstrap-table-semantic.min.css">
 {% endhighlight %}
 
 ### JS
@@ -23,8 +23,8 @@ Copy-paste the stylesheet `<link>` into your `<head>` before all other styleshee
 Place the following `<script>`s near the end of your pages, right before the closing `</body>` tag, to enable them. jQuery must come first, then Semantic.js, and then our JavaScript plugins.
 
 {% highlight html %}
-<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/semantic/bootstrap-table-semantic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/themes/semantic/bootstrap-table-semantic.min.js"></script>
 {% endhighlight %}
 
 ## Starter template
@@ -43,9 +43,9 @@ Put it all together and your pages should look like this:
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/semantic/bootstrap-table-semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/themes/semantic/bootstrap-table-semantic.min.css">
 
     <title>Hello, Bootstrap Table!</title>
   </head>
@@ -73,9 +73,9 @@ Put it all together and your pages should look like this:
     </table>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/semantic/bootstrap-table-semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/themes/semantic/bootstrap-table-semantic.min.js"></script>
   </body>
 </html>
 {% endhighlight %}

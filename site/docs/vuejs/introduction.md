@@ -27,10 +27,10 @@ npm install bootstrap-table
 
 ### UNPKG
 
-The folks over at [UNPKG](https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/) graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these links.
+The folks over at [UNPKG](https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/) graciously provide CDN support for CSS and JavaScript of Bootstrap table. Just use these links.
 
 {% highlight html %}
-https://unpkg.com/bootstrap-table@{{ site.current_version }}
+https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}
 {% endhighlight %}
 
 ## Build Files
