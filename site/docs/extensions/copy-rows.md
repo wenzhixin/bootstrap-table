@@ -52,13 +52,13 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Detail:**
 
-  This newline will be inserted in-between the row values when copying.
+  This newline will be inserted in between the row values when copying.
 
 - **Default:** `'\n'`
 
 ### copyWithHidden
 
-- **Attribute:** `data-copy-width-hidden`
+- **Attribute:** `data-copy-with-hidden`
 
 - **type:** `Boolean`
 
