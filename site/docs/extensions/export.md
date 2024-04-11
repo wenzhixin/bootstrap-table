@@ -30,7 +30,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   Set `true` to show export button.
+  Set `true` to show the export button.
 
 - **Default:** `false`
 
@@ -42,7 +42,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   Export data type, support: `'basic'`, `'all'`, `'selected'`.
+  Export data type, support: `'basic'`, `'all'`, `'selected'`.
 
 - **Default:** `basic`
 
@@ -54,7 +54,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   Set `true` to export the table footer.
+  Set `true` to export the table footer.
 
 - **Default:** `false`
 
@@ -66,17 +66,17 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   Export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
+  Export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
 
-   `exportOptions.fileName` can be a string or a function, for example:
+  `exportOptions.fileName` can be a string or a function, for example:
 
-   ```js
-   exportOptions: {
-      fileName: function () {
-         return 'exportName'
-      }
-   }
-   ```
+  ```js
+  exportOptions: {
+    fileName: function () {
+      return 'exportName'
+    }
+  }
+  ```
 
 ### exportTypes
 
@@ -86,7 +86,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   Export types, support types: `['json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf']`.
+  Export types, support types: `['json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf']`.
 
 - **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
 
@@ -104,7 +104,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   Set `true` to force export a column e.g. hidden columns.
+  Set `true` to force export a column e.g. hidden columns.
 
 - **Default:** `false`
 
@@ -116,7 +116,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   Set `true` to force hide a column e.g. for icon columns.
+  Set `true` to force hide a column e.g. for icon columns.
 
 - **Default:** `false`
 
@@ -152,7 +152,7 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-   Export table with custom options.
+  Export table with custom options.
 
 ## Localizations
 

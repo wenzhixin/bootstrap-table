@@ -26,7 +26,7 @@ toc: true
 
 - **Detail:**
 
-   Set true to check the window size on init.
+  Set true to check the window size on init.
 
 - **Default:** `true`
 
@@ -38,7 +38,7 @@ toc: true
 
 - **Detail:**
 
-   Set the columns fields in this array in order to hide those columns in the cardView mode. Use this way in `data-*` configuration: ` data-columns-hidden="['name', 'description']"` or this way in javascript configuration: `columnsHidden = ['name', 'description']`.
+  Set the columns fields in this array to hide those columns in the card view mode. Use this way in `data-*` configuration: ` data-columns-hidden="['name', 'description']"` or this way in the JavaScript configuration: `columnsHidden = ['name', 'description']`.
 
 - **Default:** `undefined`
 
@@ -50,7 +50,7 @@ toc: true
 
 - **Detail:**
 
-   Set the minimum height when the table will change the view.
+  Set the minimum height when the table will change the view.
 
 - **Default:** `undefined`
 
@@ -62,7 +62,7 @@ toc: true
 
 - **Detail:**
 
-   Set the minimum width when the table will change the view.
+  Set the minimum width when the table will change the view.
 
 - **Default:** `562`
 
@@ -74,6 +74,6 @@ toc: true
 
 - **Detail:**
 
-   Set true to change the view between card and table view depending on width and height given.
+  Set true to change the view between the card and table view depending on the width and height given.
 
 - **Default:** `false`

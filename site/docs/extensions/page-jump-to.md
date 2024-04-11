@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Table Page Jump To
-description: Table Page Jump To extension of Bootstrap Table.
+description: Table Page Jump To the extension of Bootstrap Table.
 group: extensions
 toc: true
 ---
@@ -27,7 +27,7 @@ toc: true
 
 - **Detail:**
 
-   Set true to enable show 'jump to page'. Can be defined via `data-show-jump-to` HTML attributes.
+  Set true to enable show 'jump to page'. Can be defined via `data-show-jump-to` HTML attributes.
 
 - **Default:** `false`
 
@@ -39,7 +39,7 @@ toc: true
 
 - **Detail:**
 
-   Show 'jump to page' only if the total page is greater than or equal to the set value.
+  Show 'jump to page' only if the total page is greater than or equal to the set value.
 
 - **Default:** `0`
 

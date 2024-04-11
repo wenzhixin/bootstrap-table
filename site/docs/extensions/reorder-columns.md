@@ -7,7 +7,7 @@ toc: true
 ---
 
 Dependence:
-* [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must include the css file)
+* [dragTable](https://github.com/akottr/dragtable/) v2.0.14 (must include the CSS file)
 * [jquery-ui](https://code.jquery.com/ui/) v1.11
 
 
@@ -34,7 +34,7 @@ Dependence:
 
 - **Detail:**
 
-   Set true to allow the reorder feature.
+  Set true to allow the reorder feature.
 
 - **Default:** `false`
 
@@ -46,7 +46,7 @@ Dependence:
 
 - **Detail:**
 
-   Allow to drag only the rows that have the css class as attribute.
+  Allow to drag only the rows that have the CSS class as an attribute.
 
 - **Default:** `null`
 
@@ -58,7 +58,7 @@ Dependence:
 
 - **Detail:**
 
-   Moving only the header. Recommended for very large tables (cells > 1000)
+  Moving only the header. Recommended for very large tables (cells > 1000)
 
 - **Default:** `10`
 
@@ -66,7 +66,7 @@ Dependence:
 
 ### onReorderColumn(reorder-column.bs.table)
 
-Fired when the column was dropped, receive as parameter the new header fields order.
+Fired when the column was dropped, receive as a parameter the new header fields order.
 
 ## Methods
 
@@ -76,5 +76,5 @@ Fired when the column was dropped, receive as parameter the new header fields or
 
 - **Detail:**
 
-   Reorders the the columns by the given object.
-   The Object key has to be the [field](https://bootstrap-table.com/docs/api/column-options/#field) and the value is the column index (starts by 0).
+  Reorders the columns by the given object.
+  The Object key has to be the [field](https://bootstrap-table.com/docs/api/column-options/#field) and the value is the column index (starts with 0).

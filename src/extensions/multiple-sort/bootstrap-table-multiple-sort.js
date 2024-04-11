@@ -49,15 +49,15 @@ const theme = {
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                     <h4 class="modal-title" id="%sLabel">%s</h4>
+                    <h4 class="modal-title" id="%sLabel">%s</h4>
                 </div>
                 <div class="modal-body">
                     <div class="bootstrap-table">
                         <div class="fixed-table-toolbar">
                             <div class="bars">
                                 <div id="toolbar">
-                                     <button id="add" type="button" class="btn btn-default">%s %s</button>
-                                     <button id="delete" type="button" class="btn btn-default" disabled>%s %s</button>
+                                  <button id="add" type="button" class="btn btn-default">%s %s</button>
+                                  <button id="delete" type="button" class="btn btn-default" disabled>%s %s</button>
                                 </div>
                             </div>
                         </div>
@@ -65,9 +65,9 @@ const theme = {
                             <table id="multi-sort" class="table">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                         <th><div class="th-inner">%s</div></th>
-                                         <th><div class="th-inner">%s</div></th>
+                                      <th></th>
+                                      <th><div class="th-inner">%s</div></th>
+                                      <th><div class="th-inner">%s</div></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -76,8 +76,8 @@ const theme = {
                     </div>
                 </div>
                 <div class="modal-footer">
-                     <button type="button" class="btn btn-default" data-dismiss="modal">%s</button>
-                     <button type="button" class="btn btn-primary multi-sort-order-button">%s</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">%s</button>
+                  <button type="button" class="btn btn-primary multi-sort-order-button">%s</button>
                 </div>
             </div>
         </div>
@@ -104,8 +104,8 @@ const theme = {
                         <div class="fixed-table-toolbar">
                             <div class="bars">
                                 <div id="toolbar" class="pb-3">
-                                     <button id="add" type="button" class="btn btn-secondary">%s %s</button>
-                                     <button id="delete" type="button" class="btn btn-secondary" disabled>%s %s</button>
+                                  <button id="add" type="button" class="btn btn-secondary">%s %s</button>
+                                  <button id="delete" type="button" class="btn btn-secondary" disabled>%s %s</button>
                                 </div>
                             </div>
                         </div>
@@ -113,9 +113,9 @@ const theme = {
                             <table id="multi-sort" class="table">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                         <th><div class="th-inner">%s</div></th>
-                                         <th><div class="th-inner">%s</div></th>
+                                      <th></th>
+                                      <th><div class="th-inner">%s</div></th>
+                                      <th><div class="th-inner">%s</div></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -150,8 +150,8 @@ const theme = {
                         <div class="fixed-table-toolbar">
                             <div class="bars">
                                 <div id="toolbar" class="pb-3">
-                                     <button id="add" type="button" class="btn btn-secondary">%s %s</button>
-                                     <button id="delete" type="button" class="btn btn-secondary" disabled>%s %s</button>
+                                  <button id="add" type="button" class="btn btn-secondary">%s %s</button>
+                                  <button id="delete" type="button" class="btn btn-secondary" disabled>%s %s</button>
                                 </div>
                             </div>
                         </div>
@@ -159,9 +159,9 @@ const theme = {
                             <table id="multi-sort" class="table">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                         <th><div class="th-inner">%s</div></th>
-                                         <th><div class="th-inner">%s</div></th>
+                                      <th></th>
+                                      <th><div class="th-inner">%s</div></th>
+                                      <th><div class="th-inner">%s</div></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

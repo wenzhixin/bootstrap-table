@@ -27,7 +27,7 @@ toc: true
 
 - **Detail:**
 
-   Set true to group the data by the field passed.
+  Set true to group the data by the field passed.
 
 - **Default:** `false`
 
@@ -39,9 +39,9 @@ toc: true
 
 - **Detail:**
 
-   Set the field name(s) that you want to group the data.
-   For a single field use a `String` e.g. `shape`.
-   For a multiple fields use a `Array` e.g. `["shape", "color"]`.
+  Set the field name(s) that you want to group the data.
+  For a single field use a `String` e.g. `shape`.
+  For a multiple fields use a `Array` e.g. `["shape", "color"]`.
 
 - **Default:** `''`
 
@@ -53,11 +53,11 @@ toc: true
 
 - **Detail:**
 
-   The group row formatter function, takes three parameters:
+  The group row formatter function, takes three parameters:
 
-   * `value`: the group by value.
-   * `idx`: the index of the group.
-   * `data`: an array of rows in the group.
+  * `value`: the group by value.
+  * `idx`: the index of the group.
+  * `data`: an array of rows in the group.
 
 - **Default:** `undefined`
 
@@ -69,7 +69,7 @@ toc: true
 
 - **Detail:**
 
-   Set `true` to allow collapse/expand groups.
+  Set `true` to allow collapse/expand groups.
 
 - **Default:** `false`
 
@@ -81,7 +81,7 @@ toc: true
 
 - **Detail:**
 
-   Set `true` to show icons if the group is collapsed or expanded (see groupByToggle).
+  Set `true` to show icons if the group is collapsed or expanded (see groupByToggle).
 
 - **Default:** `false`
 
@@ -98,7 +98,7 @@ toc: true
   - A variable (array)
   - An Array string e.g. `["circle"]`
   - A function (returns an array) which gets as parameters:
-     - The group key
-     - The entries of the group
+    - The group key
+    - The entries of the group
 
 - **Default:** `[]`
