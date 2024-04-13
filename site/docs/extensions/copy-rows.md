@@ -6,7 +6,7 @@ group: extensions
 toc: true
 ---
 
-This extension adds functionality for copying selected rows to the clipboard. Currently works on all desktop browsers except safari.
+This extension adds functionality for copying selected rows to the clipboard. Currently works on all desktop browsers except Safari.
 
 ## Usage
 
@@ -28,7 +28,7 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Detail:**
 
-  Set `true` to show the copy button. This button copy the contents of the selected rows to the clipboard.
+  Set `true` to show the copy button. This button copies the contents of the selected rows to the clipboard.
 
 - **Default:** `false`
 
@@ -40,7 +40,7 @@ This extension adds functionality for copying selected rows to the clipboard. Cu
 
 - **Detail:**
 
-   This delimiter will be inserted in-between the column values when copying.
+  This delimiter will be inserted in between the column values when copying.
 
 - **Default:** `', '`
 

@@ -1,6 +1,6 @@
 module.exports = (theme = '') => {
     const baseUrl = require('../../common/utils')(theme, 'for-tests/extensions/filter-control')
-  
+
     describe('Test basic filter control', () => {
       it('Test basic filter control', () => {
         cy.visit(`${baseUrl}filter-control.html`)
@@ -41,4 +41,3 @@ module.exports = (theme = '') => {
       })
     })
   }
-  

@@ -29,7 +29,7 @@ This extension adds the ability to create a custom view to display the data.
 
 - **Detail:**
 
-  Set to `false` to disable this extension.  
+  Set to `false` to disable this extension.
   Set to `function` to format your custom view.
 
 - **Default:** `false`
@@ -42,7 +42,7 @@ This extension adds the ability to create a custom view to display the data.
 
 - **Detail:**
 
-  Set to `true` to show the custom view as default view.
+  Set to `true` to show the custom view as the default view.
 
 - **Default:** `false`
 
@@ -60,7 +60,7 @@ This extension adds the ability to create a custom view to display the data.
 
 ### Icons
 
-- customViewOn: 
+- customViewOn:
     * Bootstrap3: `glyphicon glyphicon-list`
     * Bootstrap4: `fa fa-eye`
     * bootstrap5: 'bi-eye',
@@ -93,7 +93,7 @@ This extension adds the ability to create a custom view to display the data.
 
 - **Detail:**
 
-  It fires before the custom view was rendered.
+  It fires before the custom view is rendered.
 
 ### onCustomViewPostBody
 
@@ -103,7 +103,7 @@ This extension adds the ability to create a custom view to display the data.
 
 - **Detail:**
 
-  It fires after the custom view was rendered.
+  It fires after the custom view is rendered.
 
 ### onToggleCustomView
 

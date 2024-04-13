@@ -26,7 +26,7 @@ toc: true
 
 - **Detail:**
 
-   Set true to allow the advanced search.
+  Set true to allow the advanced search.
 
 - **Default:** `false`
 
@@ -38,7 +38,7 @@ toc: true
 
 - **Detail:**
 
-   Set the action of the form (pop-up).
+  Set the action of the form (pop-up).
 
 - **Default:** `''`
 
@@ -50,7 +50,7 @@ toc: true
 
 - **Detail:**
 
-   Must be set to know the id form.
+  Must be set to know the id form.
 
 - **Default:** `advancedSearch`
 
@@ -62,7 +62,7 @@ toc: true
 
 - **Detail:**
 
-   Set the id of the table to create the pop-up form. Required.
+  Set the id of the table to create the pop-up form. Required.
 
 - **Default:** `''`
 
@@ -78,7 +78,7 @@ toc: true
 
 - **Detail:**
 
-   Text of the close button
+  Text of the close button
 
 - **Default:** `function () { return "Close" }`
 
@@ -86,6 +86,6 @@ toc: true
 
 - **Detail:**
 
-   Title of the advanced search modal
+  Title of the advanced search modal
 
 - **Default:** `function () { return "Advanced search" }`

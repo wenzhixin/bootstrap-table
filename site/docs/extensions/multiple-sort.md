@@ -26,7 +26,7 @@ toc: true
 
 - **Detail:**
 
-   Set true to allow the multiple sort.
+  Set true to allow the multiple sort.
 
 - **Default:** `false`
 
@@ -38,7 +38,7 @@ toc: true
 
 - **Detail:**
 
-   Set false to hide multiple sort UI button.
+  Set false to hide multiple sort UI button.
 
 - **Default:** `true`
 
@@ -50,7 +50,7 @@ toc: true
 
 - **Detail:**
 
-   Set true to enable strict sorting. This means that strings will be compared and ordered using toLowerCase.
+  Set true to enable strict sorting. This means that strings will be compared and ordered using toLowerCase.
 
 - **Default:** `false`
 
@@ -62,7 +62,7 @@ toc: true
 
 - **Detail:**
 
-   Set one or multiple sort priority. Example: '[{"sortName": "forks_count","sortOrder":"desc"},{"sortName":"stargazers_count","sortOrder":"desc"}]'
+  Set one or multiple sort priority. Example: '[{"sortName": "forks_count","sortOrder":"desc"},{"sortName":"stargazers_count","sortOrder":"desc"}]'
 
 - **Default:**null
 
@@ -79,7 +79,7 @@ toc: true
 
 - **Detail:**
 
-   Force multiple sort table (usable after manual data changes).
+  Force multiple sort table (usable after manual data changes).
 
 
 ### multiSort
@@ -88,19 +88,19 @@ toc: true
 
 - **Detail:**
 
-   Set one or multiple sort priority
+  Set one or multiple sort priority
 
-   Example:
-   ```
+  Example:
+  ```
   [
-    {
-      "sortName": "forks_count",
-      "sortOrder": "desc"
-    },
-    {
-      "sortName": "stargazers_count",
-      "sortOrder": "asc"
-    }
+  {
+  "sortName": "forks_count",
+  "sortOrder": "desc"
+  },
+  {
+  "sortName": "stargazers_count",
+  "sortOrder": "asc"
+  }
   ]
   ```
 

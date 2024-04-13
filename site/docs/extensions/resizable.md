@@ -28,10 +28,10 @@ Dependence: [jquery-resizable-columns](https://github.com/dobtco/jquery-resizabl
 
 - **Detail:**
 
-   Set true to allow the resize in each column.
+  Set true to allow the resize in each column.
 
 - **Default:** `false`
 
 ## Known issues
 
-- **This plugin does not work when data-height is set.**
+- **This plugin does not work when the `height` is set.**
