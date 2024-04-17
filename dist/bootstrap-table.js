@@ -8461,7 +8461,7 @@
         if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
           this.$header.find('th[data-field]').each(function (i, el) {
             if ($$p(el).data('field') === params.field) {
-              $$p($$p(el).find('.th-inner')[0]).html(params.title);
+              $$p($$p(el).find('.th-inner')[0]).text(params.title);
               return false;
             }
           });
