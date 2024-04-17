@@ -3412,7 +3412,7 @@ class BootstrapTable {
     if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
       this.$header.find('th[data-field]').each((i, el) => {
         if ($(el).data('field') === params.field) {
-          $($(el).find('.th-inner')[0]).text(params.title)
+          $($(el).find('.th-inner')[0]).html(params.title)
           return false
         }
       })
