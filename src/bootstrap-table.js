@@ -729,7 +729,7 @@ class BootstrapTable {
             if (column.switchable) {
               html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
                 Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
-                  column.field, i, checked, disabled, column.switchableLabel ? column.switchableLabel : column.title)))
+                  column.field, i, checked, disabled, column.switchableLabel || column.title)))
               switchableCount++
             }
           })
