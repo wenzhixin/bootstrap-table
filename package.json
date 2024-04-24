@@ -44,7 +44,7 @@
   "scripts": {
     "lint:js": "eslint src",
     "lint:css": "stylelint src/**/*.scss",
-    "lint:spell": "cspell lint --no-progress 'src/**/*.{js,json,vue,scss}' '**/*.md'",
+    "lint:spell": "cspell lint --no-progress 'src/**/*.{js,json,vue,scss}' 'site/**/*.md' '*.md'",
     "lint:editor": "editorconfig-checker -exclude dist",
     "lint": "run-s lint:*",
     "test": "cypress run --headless",
