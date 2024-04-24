@@ -3,7 +3,7 @@
  * Author: Ales Hotko <ales.hotko@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['en-US'] = $.fn.bootstrapTable.locales['en'] = {
+$.fn.bootstrapTable.locales['sl-SI'] = $.fn.bootstrapTable.locales['sl'] = {
   formatCopyRows () {
     return 'Kopiraj vrstice'
   },
