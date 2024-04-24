@@ -506,12 +506,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const bootstrapTable = this
     const cookies = {}
 
-    $.each(UtilsCookie.cookieIds, (key, value) => {
+    for (const [key, value] of Object.entries(UtilsCookie.cookieIds)) {
       cookies[key] = UtilsCookie.getCookie(bootstrapTable, value)
       if (key === 'columns' || key === 'hiddenColumns' || key === 'sortPriority') {
         cookies[key] = JSON.parse(cookies[key])
       }
-    })
+    }
     return cookies
   }
 
