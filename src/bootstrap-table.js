@@ -2065,10 +2065,8 @@ class BootstrapTable {
           this._paginationLoaded = this.data.length === res.length
         }
 
-        // 'load-success' event handler allows to process data (clean up, convert, sort, etc), before it will be actually loaded into the table.
-        this.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR)
         this.load(res)
-
+        this.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR)
         if (!silent) {
           this.hideLoading()
         }
