@@ -12,11 +12,11 @@
 
 <title>Foundation · Bootstrap Table</title>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"><!-- Documentation extras -->
 
 
-<link href="/assets/css/docs.min.css" rel="stylesheet">
-<link href="/assets/css/style.css?m=9" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/docs.min.css">
+<link rel="stylesheet" href="/assets/css/style.css?m=9">
 
 <!-- Favicons -->
 <link rel="icon" href="/favicon.png">
@@ -87,10 +87,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.4
+        v1.22.5
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.4)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.5)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -143,14 +143,14 @@
 
 <p>Copy-paste the stylesheet <code class="highlighter-rouge">&lt;link&gt;</code> into your <code class="highlighter-rouge">&lt;head&gt;</code> before all other stylesheets to load our CSS.</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.22.4/dist/themes/foundation/bootstrap-table-foundation.min.css"</span><span class="nt">&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.5/dist/themes/foundation/bootstrap-table-foundation.min.css"</span><span class="nt">&gt;</span></code></pre></figure>
 
 <h3 id="js">JS</h3>
 
 <p>Place the following <code class="highlighter-rouge">&lt;script&gt;</code>s near the end of your pages, right before the closing <code class="highlighter-rouge">&lt;/body&gt;</code> tag, to enable them. jQuery must come first, then our JavaScript plugins.</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.22.4/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.22.4/dist/themes/foundation/bootstrap-table-foundation.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.5/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.5/dist/themes/foundation/bootstrap-table-foundation.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
 <h2 id="starter-template">Starter template</h2>
 
@@ -167,9 +167,9 @@
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1, shrink-to-fit=no"</span><span class="nt">&gt;</span>
 
-    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css"</span> <span class="na">integrity=</span><span class="s">"sha256-xpOKVlYXzQ3P03j397+jWFZLMBXLES3IiryeClgU5og= sha384-gP4DhqyoT9b1vaikoHi9XQ8If7UNLO73JFOOlQV1RATrA7D0O7TjJZifac6NwPps sha512-AKwIib1E+xDeXe0tCgbc9uSvPwVYl6Awj7xl0FoaPFostZHOuDQ1abnDNCYtxL/HWEnVOMrFyf91TDgLPi9pNg=="</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://use.fontawesome.com/releases/v5.6.3/css/all.css"</span> <span class="na">integrity=</span><span class="s">"sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/bootstrap-table@1.22.4/dist/themes/foundation/bootstrap-table-foundation.min.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.5/dist/themes/foundation/bootstrap-table-foundation.min.css"</span><span class="nt">&gt;</span>
 
     <span class="nt">&lt;title&gt;</span>Hello, Bootstrap Table!<span class="nt">&lt;/title&gt;</span>
   <span class="nt">&lt;/head&gt;</span>
@@ -197,9 +197,9 @@
     <span class="nt">&lt;/table&gt;</span>
 
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js"</span> <span class="na">integrity=</span><span class="s">"sha256-/PFxCnsMh+nTuM0k3VJCRch1gwnCfKjaP8rJNq5SoBg= sha384-9ksAFjQjZnpqt6VtpjMjlp2S0qrGbcwF/rvrLUg2vciMhwc1UJJeAAOLuJ96w+Nj sha512-UMSn6RHqqJeJcIfV1eS2tPKCjzaHkU/KqgAnQ7Nzn0mLicFxaVhm9vq7zG5+0LALt15j1ljlg8Fp9PT1VGNmDw=="</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.22.4/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/bootstrap-table@1.22.4/dist/themes/foundation/bootstrap-table-foundation.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.5/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.5/dist/themes/foundation/bootstrap-table-foundation.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span></code></pre></figure>
 
@@ -241,14 +241,14 @@
       This fork is developed and maintained by <a href="https://github.com/wenzhixin">@wenzhixin</a>.
     </p>
     <p>
-      Currently v1.22.4, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
+      Currently v1.22.5, Code licensed <a href="https://github.com/wenzhixin/bootstrap-table/blob/master/LICENSE" target="_blank">MIT</a>,
       docs <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
   </div>
 </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script><script src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script>
 <script src="/assets/js/docs.min.js?m=1"></script>
 
@@ -262,7 +262,7 @@
 </script>
 
 <script src=/assets/js/themes/app.a5fc1402.js></script>
-<script src=/assets/js/themes/chunk-vendors.6cf452cb.js></script>
+<script src=/assets/js/themes/chunk-vendors.62c41f60.js></script>
 
   </body>
 </html>

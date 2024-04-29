@@ -12,13 +12,13 @@
 
 <title>Events · Bootstrap Table</title>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"><!-- Documentation extras -->
 
-<link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 
 
-<link href="/assets/css/docs.min.css" rel="stylesheet">
-<link href="/assets/css/style.css?m=9" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/docs.min.css">
+<link rel="stylesheet" href="/assets/css/style.css?m=9">
 
 <!-- Favicons -->
 <link rel="icon" href="/favicon.png">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.4
+        v1.22.5
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.4)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.5)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -735,7 +735,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     <p>It fires when remote data is loaded successfully. The parameters contain:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">data</code>: the remote data.</li>
+      <li><code class="highlighter-rouge">data</code>: the remote data loaded into the table. (Note: this data cannot be modified once it’s loaded into the table. If you need to process received data before using it in the table, write your custom <a href="/docs/api/table-options/#responsehandler">responseHandler</a> instead.)</li>
       <li><code class="highlighter-rouge">status</code>: the status code of <code class="highlighter-rouge">jqXHR</code>.</li>
       <li><code class="highlighter-rouge">jqXHR</code>: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
     </ul>
@@ -1076,8 +1076,8 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
 $(function () {

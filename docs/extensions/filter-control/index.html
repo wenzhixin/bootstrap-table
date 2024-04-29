@@ -12,13 +12,13 @@
 
 <title>Table Filter Control · Bootstrap Table</title>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"><!-- Documentation extras -->
 
-<link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 
 
-<link href="/assets/css/docs.min.css" rel="stylesheet">
-<link href="/assets/css/style.css?m=9" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/docs.min.css">
+<link rel="stylesheet" href="/assets/css/style.css?m=9">
 
 <!-- Favicons -->
 <link rel="icon" href="/favicon.png">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.4
+        v1.22.5
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.4)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.5)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -496,7 +496,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set the alignment of the select control options. Use Use <code class="highlighter-rouge">left</code>, <code class="highlighter-rouge">right</code> or <code class="highlighter-rouge">auto</code>.</p>
+    <p>Set the alignment of the select control options. Use <code class="highlighter-rouge">left</code>, <code class="highlighter-rouge">right</code> or <code class="highlighter-rouge">auto</code>.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -515,8 +515,8 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set to e.g. <code class="highlighter-rouge">#filter</code> to allow custom input filter in a element with the id <code class="highlighter-rouge">filter</code>.
- Each filter element (input or select) must have the following class <code class="highlighter-rouge">bootstrap-table-filter-control-&lt;FieldName&gt;</code> (<FieldName> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).</FieldName></p>
+    <p>Set to e.g. <code class="highlighter-rouge">#filter</code> to allow custom input filter in an element with the id <code class="highlighter-rouge">filter</code>.
+Each filter element (input or select) must have the following class <code class="highlighter-rouge">bootstrap-table-filter-control-&lt;FieldName&gt;</code> (<FieldName> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).</FieldName></p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -535,7 +535,7 @@
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Collect data which will added to the select filter, to filter through e.g. labels which are comma separated and displayed with a formatter.</p>
+    <p>Collect data which will added to the select filter, to filter through e.g. labels that are comma separated and displayed with a formatter.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -593,7 +593,7 @@ The values will be split by a delimiter, see option <code class="highlighter-rou
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set to true to fire the search action when the user press the enter key.</p>
+    <p>Set to true to fire the search action when the user presses the enter key.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -671,7 +671,7 @@ The values will be split by a delimiter, see option <code class="highlighter-rou
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set this in order to show a placeholder only in the input filter control.</p>
+    <p>Set this to show a placeholder only in the input filter control.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
@@ -690,18 +690,18 @@ The values will be split by a delimiter, see option <code class="highlighter-rou
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>The custom search function is executed instead of built-in search function, takes four parameters:</p>
+    <p>The custom search function is executed instead of the built-in search function and takes four parameters:</p>
 
     <ul>
       <li><code class="highlighter-rouge">text</code>: the search text.</li>
-      <li><code class="highlighter-rouge">value</code>: the the value of the column to compare.</li>
+      <li><code class="highlighter-rouge">value</code>: the value of the column to compare.</li>
       <li><code class="highlighter-rouge">field</code>: the column field name.</li>
       <li><code class="highlighter-rouge">data</code>: the table data.</li>
     </ul>
 
     <p>Return <code class="highlighter-rouge">false</code> to filter out the current column/row.
- Return <code class="highlighter-rouge">true</code> to not filter out the current column/row.
- Return <code class="highlighter-rouge">null</code> to skip the custom search for the current value.</p>
+Return <code class="highlighter-rouge">true</code> to not filter out the current column/row.
+Return <code class="highlighter-rouge">null</code> to skip the custom search for the current value.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -721,11 +721,11 @@ The values will be split by a delimiter, see option <code class="highlighter-rou
     <p><strong>Detail:</strong></p>
 
     <p>Set custom select filter values, use
- <code class="highlighter-rouge">var:variable</code> to load from a variable
- <code class="highlighter-rouge">obj:variable.key</code> to load from a object
- <code class="highlighter-rouge">url:http://www.example.com/data.json</code> to load from a remote json file
- <code class="highlighter-rouge">json:{key:data}</code> to load from a json string.
- <code class="highlighter-rouge">func:functionName</code> to load from a function.</p>
+<code class="highlighter-rouge">var:variable</code> to load from a variable
+<code class="highlighter-rouge">obj:variable.key</code> to load from an object
+<code class="highlighter-rouge">url:http://www.example.com/data.json</code> to load from a remote JSON file
+<code class="highlighter-rouge">json:{key:data}</code> to load from a JSON string.
+<code class="highlighter-rouge">func:functionName</code> to load from a function.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
@@ -860,7 +860,7 @@ The values will be split by a delimiter, see option <code class="highlighter-rou
 <h3 id="clearfiltercontrol">clearFilterControl</h3>
 
 <ul>
-  <li>Clear all the controls added by this plugin (similar to showSearchClearButton option).</li>
+  <li>Clear all the controls added by this plugin (similar to <code class="highlighter-rouge">showSearchClearButton</code> option).</li>
 </ul>
 
 <h3 id="togglefiltercontrol">toggleFilterControl</h3>
@@ -920,8 +920,8 @@ The values will be split by a delimiter, see option <code class="highlighter-rou
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
 $(function () {

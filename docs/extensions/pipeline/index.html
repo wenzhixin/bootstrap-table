@@ -12,13 +12,13 @@
 
 <title>Table Pipeline · Bootstrap Table</title>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"><!-- Documentation extras -->
 
-<link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 
 
-<link href="/assets/css/docs.min.css" rel="stylesheet">
-<link href="/assets/css/style.css?m=9" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/docs.min.css">
+<link rel="stylesheet" href="/assets/css/style.css?m=9">
 
 <!-- Favicons -->
 <link rel="icon" href="/favicon.png">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.4
+        v1.22.5
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.4)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.5)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -399,35 +399,35 @@
           <p class="bd-lead">Table Pipeline extension of Bootstrap Table.</p>
           <div id="gg"></div>
 
-          <p>This plugin enables client side data caching for server side requests which will
+          <p>This plugin enables client-side data caching for server-side requests which will
 eliminate the need to issue a new request every page change. This will allow
 for a performance balance for a large data set between returning all data at once
-(client side paging) and a new server side request (server side paging).</p>
+(client-side paging) and a new server-side request (server-side paging).</p>
 
 <p>There are two new options:</p>
 <ul>
-  <li>usePipeline: enables this feature</li>
-  <li>pipelineSize: the size of each cache window</li>
+  <li><code class="highlighter-rouge">usePipeline</code>: enables this feature</li>
+  <li><code class="highlighter-rouge">pipelineSize</code>: the size of each cache window</li>
 </ul>
 
 <p>The size of the pipeline must be evenly divisible by the current page size. This is
 assured by rounding up to the nearest evenly divisible value. For example, if
-the pipeline size is 4990 and the current page size is 25, then pipeline size will
+the pipeline size is 4990 and the current page size is 25, then the pipeline size will
 be dynamically set to 5000.</p>
 
 <p>The cache windows are computed based on the pipeline size and the total number of rows
-returned by the server side query. For example, with pipeline size 500 and total rows
+returned by the server-side query. For example, with pipeline size 500 and total rows
 1300, the cache windows will be:</p>
 
 <p>[{‘lower’: 0, ‘upper’: 499}, {‘lower’: 500, ‘upper’: 999}, {‘lower’: 1000, ‘upper’: 1499}]</p>
 
-<p>Using the limit (i.e. the pipelineSize) and offset parameters, the server side request
+<p>Using the limit (i.e. the <code class="highlighter-rouge">pipelineSize</code>) and offset parameters, the server-side request
 <strong>MUST</strong> return only the data in the requested cache window <strong>AND</strong> the total number of rows.
-To wit, the server side code must use the offset and limit parameters to prepare the response
+To wit, the server-side code must use the offset and limit parameters to prepare the response
 data.</p>
 
 <p>On a page change, the new offset is checked if it is within the current cache window. If so,
-the requested page data is returned from the cached data set. Otherwise, a new server side
+the requested page data is returned from the cached data set. Otherwise, a new server-side
 request will be issued for the new cache window.</p>
 
 <p>The current cached data is only invalidated on these events:</p>
@@ -441,8 +441,8 @@ request will be issued for the new cache window.</p>
 
 <p>There are two new events:</p>
 <ul>
-  <li>cached-data-hit.bs.table: issued when cached data is used on a page change</li>
-  <li>cached-data-reset.bs.table: issued when the cached data is invalidated and new server side request is issued</li>
+  <li><code class="highlighter-rouge">cached-data-hit.bs.table</code>: issued when cached data is used on a page change</li>
+  <li><code class="highlighter-rouge">cached-data-reset.bs.table</code>: issued when the cached data is invalidated and the new server-side request is issued</li>
 </ul>
 
 <h2 id="usage">Usage</h2>
@@ -478,13 +478,13 @@ request will be issued for the new cache window.</p>
 <h3 id="oncacheddatahitcached-data-hitbstable">onCachedDataHit(cached-data-hit.bs.table)</h3>
 
 <ul>
-  <li>Fires when paging was able to use the locally cached data.</li>
+  <li>Fires when paging can use the locally cached data.</li>
 </ul>
 
 <h3 id="oncacheddataresetcached-data-resetbstable">onCachedDataReset(cached-data-reset.bs.table)</h3>
 
 <ul>
-  <li>Fires when the locally cached data needed to be reset (i.e. on sorting, searching, page size change or paged out of current cache window)</li>
+  <li>Fires when the locally cached data needs to be reset (i.e. on sorting, searching, page size change or page out of the current cache window).</li>
 </ul>
 
         </main>
@@ -492,8 +492,8 @@ request will be issued for the new cache window.</p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
 $(function () {

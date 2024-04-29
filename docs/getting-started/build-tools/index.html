@@ -12,13 +12,13 @@
 
 <title>Build tools · Bootstrap Table</title>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><!-- Documentation extras -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"><!-- Documentation extras -->
 
-<link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 
 
-<link href="/assets/css/docs.min.css" rel="stylesheet">
-<link href="/assets/css/style.css?m=9" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/docs.min.css">
+<link rel="stylesheet" href="/assets/css/style.css?m=9">
 
 <!-- Favicons -->
 <link rel="icon" href="/favicon.png">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.4
+        v1.22.5
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.4)</a>
+        <a class="dropdown-item active" href="/">Latest (1.22.5)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -390,13 +390,13 @@
 
           <h2 id="tooling-setup">Tooling setup</h2>
 
-<p>Bootstrap Table uses <a href="https://docs.npmjs.com/misc/scripts">NPM scripts</a> for its build system. Our <a href="https://github.com/wenzhixin/bootstrap-table/blob/1.22.4/package.json">package.json</a> includes convenient methods for working with the framework, including linting code, compiling code, and more.</p>
+<p>Bootstrap Table uses <a href="https://docs.npmjs.com/misc/scripts">NPM scripts</a> for its build system. Our <a href="https://github.com/wenzhixin/bootstrap-table/blob/1.22.5/package.json">package.json</a> includes convenient methods for working with the framework, including linting code, compiling code, and more.</p>
 
 <p>To use our build system and run our documentation locally, you’ll need a copy of Bootstrap Table’s source files and Node. Follow these steps, and you should be ready to rock:</p>
 
 <ol>
   <li><a href="https://nodejs.org/en/download/">Download and install Node.js</a>, which we use to manage our dependencies.</li>
-  <li>Navigate to the root <code class="highlighter-rouge">/bootstrap-table</code> directory and run <code class="highlighter-rouge">npm install</code> to install our local dependencies listed in <a href="https://github.com/wenzhixin/bootstrap-table/blob/1.22.4/package.json">package.json</a>.</li>
+  <li>Navigate to the root <code class="highlighter-rouge">/bootstrap-table</code> directory and run <code class="highlighter-rouge">npm install</code> to install our local dependencies listed in <a href="https://github.com/wenzhixin/bootstrap-table/blob/1.22.5/package.json">package.json</a>.</li>
   <li><a href="https://www.ruby-lang.org/en/documentation/installation/">Install Ruby</a>, install <a href="https://bundler.io/">Bundler</a> with <code class="highlighter-rouge">gem install bundler</code>, and finally run <code class="highlighter-rouge">bundle install</code>. It will install all Ruby dependencies, such as Jekyll and plugins.
     <ul>
       <li><strong>Windows users:</strong> Read <a href="https://jekyllrb.com/docs/windows/">this guide</a> to get Jekyll up and running without problems.</li>
@@ -408,7 +408,7 @@
 
 <h2 id="using-npm-scripts">Using NPM scripts</h2>
 
-<p>Our <a href="https://github.com/wenzhixin/bootstrap-table/blob/1.22.4/package.json">package.json</a> includes the following commands and tasks:</p>
+<p>Our <a href="https://github.com/wenzhixin/bootstrap-table/blob/1.22.5/package.json">package.json</a> includes the following commands and tasks:</p>
 
 <table>
   <thead>
@@ -456,8 +456,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
 $(function () {
