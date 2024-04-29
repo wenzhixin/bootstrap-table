@@ -27,7 +27,7 @@
   }
   function _toPropertyKey(t) {
     var i = _toPrimitive(t, "string");
-    return "symbol" == typeof i ? i : String(i);
+    return "symbol" == typeof i ? i : i + "";
   }
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -430,10 +430,10 @@
   var store$3 = sharedStore.exports = globalThis$1[SHARED] || defineGlobalProperty$2(SHARED, {});
 
   (store$3.versions || (store$3.versions = [])).push({
-    version: '3.36.0',
+    version: '3.36.1',
     mode: 'global',
     copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.36.0/LICENSE',
+    license: 'https://github.com/zloirock/core-js/blob/v3.36.1/LICENSE',
     source: 'https://github.com/zloirock/core-js'
   });
 
@@ -1447,12 +1447,12 @@
     resizable: false
   });
   $$2.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
-    _inherits(_class, _$$BootstrapTable);
     function _class() {
       _classCallCheck(this, _class);
       return _callSuper(this, _class, arguments);
     }
-    _createClass(_class, [{
+    _inherits(_class, _$$BootstrapTable);
+    return _createClass(_class, [{
       key: "initBody",
       value: function initBody() {
         var _get2,
@@ -1496,7 +1496,6 @@
         }
       }
     }]);
-    return _class;
   }($$2.BootstrapTable);
 
 }));

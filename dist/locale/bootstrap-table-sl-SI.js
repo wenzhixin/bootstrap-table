@@ -1306,106 +1306,105 @@
 	});
 
 	/**
-	 * Bootstrap Table French (Luxembourg) translation
-	 * Author: Nevets82 <Nevets82@gmail.com>
-	 * Editor: David Morais Ferreira (https://github.com/DavidMoraisFerreira/)
+	 * Bootstrap Table Slovenian translation
+	 * Author: Ales Hotko <ales.hotko@gmail.com>
 	 */
 
-	$$2.fn.bootstrapTable.locales['fr-LU'] = {
+	$$2.fn.bootstrapTable.locales['sl-SI'] = $$2.fn.bootstrapTable.locales['sl'] = {
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copier les lignes';
+	    return 'Kopiraj vrstice';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Imprimer';
+	    return 'Natisni';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Chargement en cours';
+	    return 'Prosim počakajte...';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " lignes par page");
+	    return "".concat(pageNumber, " vrstic na stran");
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9s \xE0 partir de ").concat(totalNotFiltered, " lignes)");
+	      return "Prikaz ".concat(pageFrom, " do ").concat(pageTo, " od ").concat(totalRows, " vrstic (filtrirano od skupno ").concat(totalNotFiltered, " vrstic)");
 	    }
-	    return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
+	    return "Prikaz ".concat(pageFrom, " do ").concat(pageTo, " od ").concat(totalRows, " vrstic");
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'page précédente';
+	    return 'prejšnja stran';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "vers la page ".concat(page);
+	    return "na stran ".concat(page);
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'page suivante';
+	    return 'na slednja stran';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Affiche ".concat(totalRows, " lignes");
+	    return "Prikaz ".concat(totalRows, " vrstic");
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Effacer la recherche';
+	    return 'Počisti';
 	  },
 	  formatSearch: function formatSearch() {
-	    return 'Recherche';
+	    return 'Iskanje';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return 'Pas de lignes trouvés';
+	    return 'Ni najdenih rezultatov';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Cacher/Afficher pagination';
+	    return 'Skrij/Pokaži oštevilčevanje strani';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Afficher pagination';
+	    return 'Pokaži oštevilčevanje strani';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Cacher pagination';
+	    return 'Skrij oštevilčevanje strani';
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Rafraichir';
+	    return 'Osveži';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Afficher vue carte';
+	    return 'Prikaži kartični pogled';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Cacher vue carte';
+	    return 'Skrij kartični pogled';
 	  },
 	  formatColumns: function formatColumns() {
-	    return 'Colonnes';
+	    return 'Stolpci';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Tout basculer';
+	    return 'Preklopi vse';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Plein écran';
+	    return 'Celozaslonski prikaz';
 	  },
 	  formatAllRows: function formatAllRows() {
-	    return 'Tout';
+	    return 'Vse';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Rafraîchissement automatique';
+	    return 'Samodejna osvežitev';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Exporter les données';
+	    return 'Izvoz podatkov';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'Aller à';
+	    return 'GO';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Recherche avancée';
+	    return 'Napredno iskanje';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Fermer';
+	    return 'Zapri';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Cacher/Afficher controls';
+	    return 'Skrij/Pokaži kontrole';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Cacher controls';
+	    return 'Skrij kontrole';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Afficher controls';
+	    return 'Pokaži kontrole';
 	  }
 	};
-	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['fr-LU']);
+	Object.assign($$2.fn.bootstrapTable.defaults, $$2.fn.bootstrapTable.locales['sl-SI']);
 
 }));
