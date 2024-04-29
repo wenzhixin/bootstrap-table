@@ -1,12 +1,12 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
 {%- if page.layout == "docs" or page.layout != "examples" -%}
 <!-- Documentation extras -->
 {% if page.layout == "docs" %}
-<link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 {% endif %}
 {% if page.layout != "examples" %}
-<link href="{{ site.baseurl }}/assets/css/docs.min.css" rel="stylesheet">
-<link href="{{ site.baseurl }}/assets/css/style.css?m=9" rel="stylesheet">
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/docs.min.css">
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css?m=9">
 {% endif %}
 {%- endif -%}

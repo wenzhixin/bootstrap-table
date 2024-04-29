@@ -217,7 +217,7 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   It fires when remote data is loaded successfully. The parameters contain:
 
-  * `data`: the remote data.
+  * `data`: the remote data loaded into the table. (Note: this data cannot be modified once it’s loaded into the table. If you need to process received data before using it in the table, write your custom [responseHandler](/docs/api/table-options/#responsehandler) instead.)
   * `status`: the status code of `jqXHR`.
   * `jqXHR`: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
 

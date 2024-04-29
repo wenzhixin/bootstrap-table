@@ -27,7 +27,7 @@ toc: true
 
 - **Detail:**
 
-   Set to `true` to add an `input` or `select` into the column.
+  Set to `true` to add an `input` or `select` into the column.
 
 - **Default:** `false`
 
@@ -39,7 +39,7 @@ toc: true
 
 - **Detail:**
 
-   Set to `false` to hide the filter controls.
+  Set to `false` to hide the filter controls.
 
 - **Default:** `true`
 
@@ -51,7 +51,7 @@ toc: true
 
 - **Detail:**
 
-   Set the alignment of the select control options. Use Use `left`, `right` or `auto`.
+  Set the alignment of the select control options. Use `left`, `right` or `auto`.
 
 - **Default:** `undefined`
 
@@ -63,8 +63,8 @@ toc: true
 
 - **Detail:**
 
-   Set to e.g. `#filter` to allow custom input filter in a element with the id `filter`.
-   Each filter element (input or select) must have the following class `bootstrap-table-filter-control-<FieldName>` (<FieldName> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).
+  Set to e.g. `#filter` to allow custom input filter in an element with the id `filter`.
+  Each filter element (input or select) must have the following class `bootstrap-table-filter-control-<FieldName>` (<FieldName> must be replaced with the defined [Field](https://bootstrap-table.com/docs/api/column-options/#field) name).
 
 - **Default:** `false`
 
@@ -76,7 +76,7 @@ toc: true
 
 - **Detail:**
 
-   Collect data which will added to the select filter, to filter through e.g. labels which are comma separated and displayed with a formatter.
+  Collect data which will added to the select filter, to filter through e.g. labels that are comma separated and displayed with a formatter.
 
 - **Default:** `undefined`
 
@@ -113,7 +113,7 @@ toc: true
 
 - **Detail:**
 
-   Set to true to fire the search action when the user press the enter key.
+  Set to true to fire the search action when the user presses the enter key.
 
 - **Default:** `false`
 
@@ -125,7 +125,7 @@ toc: true
 
 - **Detail:**
 
-   Set to `true` to show the filter control switch button.
+  Set to `true` to show the filter control switch button.
 
 - **Default:** `false`
 
@@ -137,7 +137,7 @@ toc: true
 
 - **Detail:**
 
-   Set to `true` to sort the option elements of the select control.
+  Set to `true` to sort the option elements of the select control.
 
 - **Default:** `false`
 
@@ -151,7 +151,7 @@ toc: true
 
 - **Detail:**
 
-   Set `input`: show an input control, `select`: show a select control, `datepicker`: show a html5 datepicker control.
+  Set `input`: show an input control, `select`: show a select control, `datepicker`: show a html5 datepicker control.
 
 - **Default:** `undefined`
 
@@ -163,7 +163,7 @@ toc: true
 
 - **Detail:**
 
-   Set this in order to show a placeholder only in the input filter control.
+  Set this to show a placeholder only in the input filter control.
 
 - **Default:** `''`
 
@@ -175,16 +175,16 @@ toc: true
 
 - **Detail:**
 
-   The custom search function is executed instead of built-in search function, takes four parameters:
+  The custom search function is executed instead of the built-in search function and takes four parameters:
 
-     * `text`: the search text.
-     * `value`: the the value of the column to compare.
-     * `field`: the column field name.
-     * `data`: the table data.
+    * `text`: the search text.
+    * `value`: the value of the column to compare.
+    * `field`: the column field name.
+    * `data`: the table data.
 
-   Return `false` to filter out the current column/row.
-   Return `true` to not filter out the current column/row.
-   Return `null` to skip the custom search for the current value.
+  Return `false` to filter out the current column/row.
+  Return `true` to not filter out the current column/row.
+  Return `null` to skip the custom search for the current value.
 
 - **Default:** `undefined`
 
@@ -196,12 +196,12 @@ toc: true
 
 - **Detail:**
 
-   Set custom select filter values, use
-   `var:variable` to load from a variable
-   `obj:variable.key` to load from a object
-   `url:http://www.example.com/data.json` to load from a remote json file
-   `json:{key:data}` to load from a json string.
-   `func:functionName` to load from a function.
+  Set custom select filter values, use
+  `var:variable` to load from a variable
+  `obj:variable.key` to load from an object
+  `url:http://www.example.com/data.json` to load from a remote JSON file
+  `json:{key:data}` to load from a JSON string.
+  `func:functionName` to load from a function.
 
 - **Default:** `undefined`
 
@@ -213,7 +213,7 @@ toc: true
 
 - **Detail:**
 
-   If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"max":value1, "min": value2, "step": value3}'`. For more information visit this [documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)
+  If the datepicker option is set use this option to configure the datepicker with the native options. Use this way: `data-filter-datepicker-options='{"max":value1, "min": value2, "step": value3}'`. For more information visit this [documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)
 
 - **Default:** `undefined`
 
@@ -225,7 +225,7 @@ toc: true
 
 - **Detail:**
 
-   Set the default value of the filter.
+  Set the default value of the filter.
 
 - **Default:** `undefined`
 
@@ -237,7 +237,7 @@ toc: true
 
 - **Detail:**
 
-   Set this to order the options in a select control whether ascending (`'asc'`), descending (`'desc'`) or in the order provided by the server (`'server'`).
+  Set this to order the options in a select control whether ascending (`'asc'`), descending (`'desc'`) or in the order provided by the server (`'server'`).
 
 - **Default:** `'asc'`
 
@@ -249,7 +249,7 @@ toc: true
 
 - **Detail:**
 
-   Set to true if you want to use the starts with search mode.
+  Set to true if you want to use the starts with search mode.
 
 - **Default:** `false`
 
@@ -261,7 +261,7 @@ toc: true
 
 - **Detail:**
 
-   Set to true if you want to use the strict search mode.
+  Set to true if you want to use the strict search mode.
 
 - **Default:** `false`
 
@@ -289,7 +289,7 @@ toc: true
 
 ### clearFilterControl
 
-* Clear all the controls added by this plugin (similar to showSearchClearButton option).
+* Clear all the controls added by this plugin (similar to `showSearchClearButton` option).
 
 ### toggleFilterControl
 

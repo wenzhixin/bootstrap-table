@@ -28,7 +28,7 @@ Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 - **Detail:**
 
-   Set `true` to enable the tree grid.
+  Set `true` to enable the tree grid.
 
 - **Default:** `false`
 
@@ -40,7 +40,7 @@ Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 - **Detail:**
 
-   Overwrite the default idField to `'id'`.
+  Overwrite the default idField to `'id'`.
 
 - **Default:** `'id'`
 

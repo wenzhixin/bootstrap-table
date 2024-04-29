@@ -27,7 +27,7 @@
   }
   function _toPropertyKey(t) {
     var i = _toPrimitive(t, "string");
-    return "symbol" == typeof i ? i : String(i);
+    return "symbol" == typeof i ? i : i + "";
   }
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -430,10 +430,10 @@
   var store$3 = sharedStore.exports = globalThis$1[SHARED] || defineGlobalProperty$2(SHARED, {});
 
   (store$3.versions || (store$3.versions = [])).push({
-    version: '3.36.0',
+    version: '3.36.1',
     mode: 'global',
     copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.36.0/LICENSE',
+    license: 'https://github.com/zloirock/core-js/blob/v3.36.1/LICENSE',
     source: 'https://github.com/zloirock/core-js'
   });
 
@@ -1720,12 +1720,12 @@
   });
   Object.assign($$3.fn.bootstrapTable.defaults, $$3.fn.bootstrapTable.locales);
   $$3.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
-    _inherits(_class, _$$BootstrapTable);
     function _class() {
       _classCallCheck(this, _class);
       return _callSuper(this, _class, arguments);
     }
-    _createClass(_class, [{
+    _inherits(_class, _$$BootstrapTable);
+    return _createClass(_class, [{
       key: "init",
       value: function init() {
         var _get2;
@@ -1744,7 +1744,7 @@
         if (this.options.autoRefresh) {
           this.buttons = Object.assign(this.buttons, {
             autoRefresh: {
-              html: "\n            <button class=\"auto-refresh ".concat(this.constants.buttonsClass, "\n              ").concat(this.options.autoRefreshStatus ? " ".concat(this.constants.classes.buttonActive) : '', "\"\n              type=\"button\" name=\"autoRefresh\" title=\"").concat(this.options.formatAutoRefresh(), "\">\n              ").concat(this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : '', "\n              ").concat(this.options.showButtonText ? this.options.formatAutoRefresh() : '', "\n            </button>\n           "),
+              html: "\n            <button class=\"auto-refresh ".concat(this.constants.buttonsClass, "\n              ").concat(this.options.autoRefreshStatus ? " ".concat(this.constants.classes.buttonActive) : '', "\"\n              type=\"button\" name=\"autoRefresh\" title=\"").concat(this.options.formatAutoRefresh(), "\">\n              ").concat(this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : '', "\n              ").concat(this.options.showButtonText ? this.options.formatAutoRefresh() : '', "\n            </button>\n          "),
               event: this.toggleAutoRefresh
             }
           });
@@ -1790,7 +1790,6 @@
         }, this.options.autoRefreshInterval * 1000);
       }
     }]);
-    return _class;
   }($$3.BootstrapTable);
 
 }));

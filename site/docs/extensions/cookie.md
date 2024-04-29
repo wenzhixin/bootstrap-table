@@ -26,7 +26,7 @@ toc: true
 
 - **Detail:**
 
-   Set `true` to save the state of a table (its paging position, ordering state, records per page).
+  Set `true` to save the state of a table (its paging position, ordering state, and records per page).
 
 - **Default:** `false`
 
@@ -38,12 +38,12 @@ toc: true
 
 - **parameter**
 
-  - cookieName - The name of the value e.g. the search
+  - `cookieName` - The name of the value e.g. the search
 
 - **Detail:**
 
-   This option allows to delete values with your custom function.
-   This option is only required if you use `customStorage` on the `cookieStorage` option!
+  This option allows deleting values with your custom function.
+  This option is only required if you use `customStorage` on the `cookieStorage` option!
 
 - **Default:** `undefined`
 
@@ -55,12 +55,12 @@ toc: true
 
 - **parameter**
 
-  - cookieName - The name of the value e.g. the search
+  - `cookieName` - The name of the value e.g. the search
 
 - **Detail:**
 
-   This option allows to get the saved value from your custom function.
-   This option is only required if you use `customStorage` on the `cookieStorage` option!
+  This option allows getting the saved value from your custom function.
+  This option is only required if you use `customStorage` on the `cookieStorage` option!
 
 - **Default:** `undefined`
 
@@ -72,13 +72,13 @@ toc: true
 
 - **parameter**
 
-  - cookieName - The name of the value e.g. the search
-  - value - The value which will be saved
+  - `cookieName` - The name of the value e.g. the search
+  - `value` - The value that will be saved
 
 - **Detail:**
 
-   This option allows to save values with your custom function.
-   This option is only required if you use `customStorage` on the `cookieStorage` option!
+  This option allows saving values with your custom function.
+  This option is only required if you use `customStorage` on the `cookieStorage` option!
 
 - **Default:** `undefined`
 
@@ -90,7 +90,7 @@ toc: true
 
 - **Detail:**
 
-   This is the website domain, with the www. prefix removed.
+  This is the website domain, with the www. prefix removed.
 
 - **Default:** `null`
 
@@ -102,7 +102,7 @@ toc: true
 
 - **Detail:**
 
-   You must set this property if cookie option is enable to know when will expire the cookie created. Must use this format: `'number{letter}'` like `'2h'`, in the letter position you can use: `'s'`, `'mi'`, `'h'`, `'d'`, `'m'`, `'y'`, these means: `'seconds'`, `'minutes'`, `'hours'`, `'days'`, `'months'`, `'years'`.
+  You must set this property if the cookie option is enabled to know when will expire the cookie. Must use this format: `'number{letter}'` like `'2h'`, in the letter position you can use: `'s'`, `'mi'`, `'h'`, `'d'`, `'m'`, `'y'`, these means: `'seconds'`, `'minutes'`, `'hours'`, `'days'`, `'months'`, `'years'`.
 
 - **Default:** `2h`
 
@@ -114,7 +114,7 @@ toc: true
 
 - **Detail:**
 
-   You must set this property if the cookie property is enabled to set an unique cookie with an identifier for each table in your page or project. You must set this property because we need create cookies with an identifier.
+  You must set this property if the cookie property is enabled to set a unique cookie with an identifier for each table in your page or project. You must set this property because we need to create cookies with an identifier.
 
 - **Default:** `''`
 
@@ -126,7 +126,7 @@ toc: true
 
 - **Detail:**
 
-   you can tell the browser what path the cookie belongs to. By default, the cookie belongs to the current page.
+  you can tell the browser what path the cookie belongs to. By default, the cookie belongs to the current page.
 
 - **Default:** `null`
 
@@ -138,7 +138,7 @@ toc: true
 
 - **Detail:**
 
-   This property keeps cookie communication limited to encrypted transmission, directing browsers to use cookies only via secure/encrypted connections.
+  This property keeps cookie communication limited to encrypted transmission, directing browsers to use cookies only via secure/encrypted connections.
 
 - **Default:** `null`
 
@@ -150,7 +150,7 @@ toc: true
 
 - **Detail:**
 
-   This property defines the value of the `SameSite` cookie attribute, for more information please check the [SameSite Documentation](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Set-Cookie/SameSite).
+  This property defines the value of the `SameSite` cookie attribute, for more information please check the [SameSite Documentation](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Set-Cookie/SameSite).
 
 - **Default:** `Lax`
 
@@ -163,10 +163,10 @@ toc: true
 
 - **Detail:**
 
-   Set the storage that this extension will use. Use `cookieStorage` or `localStorage` or `sessionStorage` or `customStorage`.
+  Set the storage that this extension will use. Use `cookieStorage`, `localStorage`, `sessionStorage`, or `customStorage`.
 
-   Info for `customStorage`:
-   You have use `cookieCustomStorageGet`, `cookieCustomStorageSet` and `cookieCustomStorageDelete`.
+  Info for `customStorage`:
+  You have use `cookieCustomStorageGet`, `cookieCustomStorageSet` and `cookieCustomStorageDelete`.
 
 - **Default:** `cookieStorage`
 
@@ -178,7 +178,7 @@ toc: true
 
 - **Detail:**
 
-   Set this array with the table properties (sortOrder, sortName, sortPriority, pageNumber, pageList, hiddenColumns, searchText, filterControl) that you want to save
+  Set this array with the table properties (`sortOrder`, `sortName`, `sortPriority`, `pageNumber`, `pageList`, `hiddenColumns`, `searchText`, `filterControl`) that you want to save
 
 - **Default:** `['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.hiddenColumns', 'bs.table.searchText', 'bs.table.filterControl', 'bs.table.cardView', 'bs.table.customView']`
 
@@ -190,7 +190,7 @@ toc: true
 
 - **Detail:**
 
-   Delete the saved cookie by cookie name.
+  Delete the saved cookie by cookie name.
 
 ### getCookies
 
@@ -198,7 +198,7 @@ toc: true
 
 - **Detail:**
 
-   Return the saved cookies.
+  Return the saved cookies.
 
 ## This plugin saves
 

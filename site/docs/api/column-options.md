@@ -177,7 +177,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
   Example code:
 
-   {% highlight html %}
+  {% highlight html %}
   <th .. data-events="operateEvent">
   var operateEvents = {
     'click .like': function (e, value, row, index) {}

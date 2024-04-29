@@ -91,33 +91,33 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
     - Description: Should be used if you want to add an event to the button
     - Type: `Function|Object|String`
 
-   The `event` option can be configured in three ways.
-   One event with `click` event:
-   ```javascript
-   {
-     'event': () => { }
-   }
-   ```
+  The `event` option can be configured in three ways.
+  One event with `click` event:
+  ```javascript
+  {
+    'event': () => { }
+  }
+  ```
 
   One event with a self-defined event type:
   ```javascript
-     {
-       'event': {
-         'mouseenter': () => { }
-       }
-     }
+    {
+      'event': {
+        'mouseenter': () => { }
+      }
+    }
   ```
 
   Multiple events with self-defined event types:
-    ```javascript
-       {
-         'event': {
-           'click': () => { },
-           'mouseenter': () => { },
-           'mouseleave': () => { }
-         }
-       }
-    ```
+  ```javascript
+    {
+      'event': {
+        'click': () => { },
+        'mouseenter': () => { },
+        'mouseleave': () => { }
+      }
+    }
+  ```
 
   **Hint:** Instead of inline functions, you also can use function names.
 

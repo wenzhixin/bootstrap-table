@@ -15,7 +15,7 @@ Looking to quickly add Bootstrap Table to your <a href="https://materializecss.c
 Copy-paste the stylesheet `<link>` into your `<head>` before all other stylesheets to load our CSS.
 
 {% highlight html %}
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.css">
 {% endhighlight %}
 
 ### JS
@@ -23,8 +23,8 @@ Copy-paste the stylesheet `<link>` into your `<head>` before all other styleshee
 Place the following `<script>`s near the end of your pages, right before the closing `</body>` tag, to enable them. jQuery must come first, then our JavaScript plugins.
 
 {% highlight html %}
-<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.js"></script>
 {% endhighlight %}
 
 ## Starter template
@@ -44,8 +44,8 @@ Put it all together and your pages should look like this:
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/materialize-css@1.0.0/dist/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.css">
 
     <title>Hello, Bootstrap Table!</title>
   </head>
@@ -74,8 +74,8 @@ Put it all together and your pages should look like this:
 
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/materialize-css@1.0.0/dist/js/materialize.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/themes/materialize/bootstrap-table-materialize.min.js"></script>
   </body>
 </html>
 {% endhighlight %}

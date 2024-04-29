@@ -20,19 +20,20 @@ toc: true
 
 ### changeLocale
 
-* Change table locale.
+Change table locale.
 
-  * Parameters
-	* String : localeId
-  * Example: <code> $table.bootstrapTable('changeLocale', 'zh_TW')</code>
+* Parameters: `localeId`
+* Example: <code> $table.bootstrapTable('changeLocale', 'zh_TW')</code>
 
 ### changeTitle
 
-* Change column's title.
-  * Parameters
-	* Object : object's key is column field , value is new title.
-  * Example: <code>
-  	$table.bootstrapTable('changeTitle', {
-      columnA.field: 'New column A title.',
-      columnB.field: 'New column B title.'
-    })</code>
+Change the column's title.
+
+* Parameters: `object`, the object's key is a column field, value is the new title.
+* Example:
+{% highlight html %}
+$table.bootstrapTable('changeTitle', {
+  columnA.field: 'New column A title.',
+  columnB.field: 'New column B title.'
+})
+{% endhighlight %}

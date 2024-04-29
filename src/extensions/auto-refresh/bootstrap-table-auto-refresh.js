@@ -52,7 +52,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
               ${this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : ''}
               ${this.options.showButtonText ? this.options.formatAutoRefresh() : ''}
             </button>
-           `,
+          `,
           event: this.toggleAutoRefresh
         }
       })

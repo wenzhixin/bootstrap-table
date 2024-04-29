@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.22.4
+ * version: 1.22.5
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -583,6 +583,8 @@ class BootstrapTable {
   _sort () {
     if (this.options.sidePagination === 'server' && this.options.serverSort) {
       this.options.pageNumber = 1
+
+      this.trigger('sort', this.options.sortName, this.options.sortOrder)
       this.initServer(this.options.silentSort)
       return
     }
@@ -593,7 +595,6 @@ class BootstrapTable {
     }
 
     this.trigger('sort', this.options.sortName, this.options.sortOrder)
-
     this.initSort()
     this.initBody()
   }
@@ -728,7 +729,7 @@ class BootstrapTable {
             if (column.switchable) {
               html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
                 Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
-                  column.field, i, checked, disabled, column.switchableLabel ? column.switchableLabel : column.title)))
+                  column.field, i, checked, disabled, column.switchableLabel || column.title)))
               switchableCount++
             }
           })
@@ -2662,12 +2663,12 @@ class BootstrapTable {
       }
 
       if (typeof rowUniqueId === 'string') {
-        id = id.toString()
+        id = _id.toString()
       } else if (typeof rowUniqueId === 'number') {
         if (Number(rowUniqueId) === rowUniqueId && rowUniqueId % 1 === 0) {
-          id = parseInt(id, 10)
+          id = parseInt(_id, 10)
         } else if (rowUniqueId === Number(rowUniqueId) && rowUniqueId !== 0) {
-          id = parseFloat(id)
+          id = parseFloat(_id)
         }
       }
 
@@ -3411,7 +3412,7 @@ class BootstrapTable {
     if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
       this.$header.find('th[data-field]').each((i, el) => {
         if ($(el).data('field') === params.field) {
-          $($(el).find('.th-inner')[0]).text(params.title)
+          $($(el).find('.th-inner')[0]).html(params.title)
           return false
         }
       })
