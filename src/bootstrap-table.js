@@ -2596,6 +2596,7 @@ class BootstrapTable {
 
     if (this.options.sidePagination === 'server') {
       this.options.totalRows -= removed
+      this.options.pageSize -= removed
       this.data = [...this.options.data]
     }
 
@@ -2619,6 +2620,10 @@ class BootstrapTable {
       return
     }
     this.options.data.splice(params.index, 0, params.row)
+    if (this.options.sidePagination === 'server') {
+      this.options.totalRows += 1;
+      this.options.pageSize += 1;
+    }
     this.initSearch()
     this.initPagination()
     this.initSort()
@@ -2724,6 +2729,7 @@ class BootstrapTable {
 
     if (this.options.sidePagination === 'server') {
       this.options.totalRows -= 1
+      this.options.pageSize -= 1
       this.data = [...this.options.data]
     }
 
