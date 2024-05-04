@@ -1980,11 +1980,12 @@ class BootstrapTable {
       params.sortName = this.header.sortNames[index]
     }
 
+    if (this.options.hasOwnProperty("backUpPageSizeServer")) {
+      this.options.pageSize = this.options.backUpPageSizeServer // reset pageSize
+      delete this.options.backUpPageSizeServer
+    }
+
     if (this.options.pagination && this.options.sidePagination === 'server') {
-      if (this.options.hasOwnProperty("backUpPageSizeServer")) {
-        this.options.pageSize = this.options.backUpPageSizeServer // reset pageSize
-        delete this.options.backUpPageSizeServer
-      }
       params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
         this.options.totalRows : this.options.pageSize
       params.pageNumber = this.options.pageNumber
