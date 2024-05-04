@@ -2536,6 +2536,10 @@ class BootstrapTable {
 
     // #431: support pagination
     if (this.options.pagination && this.options.sidePagination === 'server') {
+      if (this.options.hasOwnProperty("backUpPageSizeServer")) {
+        this.options.pageSize = this.options.backUpPageSizeServer // reset pageSize
+        delete this.options.backUpPageSizeServer
+      }
       this.options.totalRows = data[this.options.totalField]
       this.options.totalNotFiltered = data[this.options.totalNotFilteredField]
       this.footerData = data[this.options.footerField] ? [data[this.options.footerField]] : undefined
@@ -2594,12 +2598,7 @@ class BootstrapTable {
       return
     }
 
-    if (this.options.sidePagination === 'server') {
-      this.options.totalRows -= removed
-      this.options.pageSize -= removed
-      this.data = [...this.options.data]
-    }
-
+    this.updateServerPagination(-removed)
     this.initSearch()
     this.initPagination()
     this.initSort()
@@ -2620,10 +2619,7 @@ class BootstrapTable {
       return
     }
     this.options.data.splice(params.index, 0, params.row)
-    if (this.options.sidePagination === 'server') {
-      this.options.totalRows += 1
-      this.options.pageSize += 1
-    }
+    this.updateServerPagination(1)
     this.initSearch()
     this.initPagination()
     this.initSort()
@@ -2727,12 +2723,7 @@ class BootstrapTable {
       return
     }
 
-    if (this.options.sidePagination === 'server') {
-      this.options.totalRows -= 1
-      this.options.pageSize -= 1
-      this.data = [...this.options.data]
-    }
-
+    this.updateServerPagination(-1)
     this.initSearch()
     this.initPagination()
     this.initBody(true)
@@ -3439,6 +3430,17 @@ class BootstrapTable {
     this.initToolbar()
     this.initPagination()
     this.initBody()
+  }
+
+  updateServerPagination (rowChange) {
+    if (this.options.sidePagination === 'server') {
+      this.options.totalRows += rowChange
+      if (!this.options.hasOwnProperty("backUpPageSizeServer")) {
+        this.options.backUpPageSizeServer = this.options.pageSize
+      }
+      this.options.pageSize += rowChange
+      this.data = [...this.options.data]
+    }
   }
 }
 
