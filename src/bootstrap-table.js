@@ -1981,6 +1981,10 @@ class BootstrapTable {
     }
 
     if (this.options.pagination && this.options.sidePagination === 'server') {
+      if (this.options.hasOwnProperty("backUpPageSizeServer")) {
+        this.options.pageSize = this.options.backUpPageSizeServer // reset pageSize
+        delete this.options.backUpPageSizeServer
+      }
       params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
         this.options.totalRows : this.options.pageSize
       params.pageNumber = this.options.pageNumber
@@ -2536,10 +2540,6 @@ class BootstrapTable {
 
     // #431: support pagination
     if (this.options.pagination && this.options.sidePagination === 'server') {
-      if (this.options.hasOwnProperty("backUpPageSizeServer")) {
-        this.options.pageSize = this.options.backUpPageSizeServer // reset pageSize
-        delete this.options.backUpPageSizeServer
-      }
       this.options.totalRows = data[this.options.totalField]
       this.options.totalNotFiltered = data[this.options.totalNotFilteredField]
       this.footerData = data[this.options.footerField] ? [data[this.options.footerField]] : undefined
