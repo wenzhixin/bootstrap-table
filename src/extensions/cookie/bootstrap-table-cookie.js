@@ -339,7 +339,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (!this.options.cookie) {
       return
     }
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList, this.options.pageSize)
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageList,
+      this.options.pageSize === this.options.formatAllRows() ? 'all' : this.options.pageSize)
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
@@ -479,7 +480,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // pageNumber
     this.options.pageNumber = pageNumberCookie ? +pageNumberCookie : this.options.pageNumber
     // pageSize
-    this.options.pageSize = pageListCookie ? pageListCookie === this.options.formatAllRows() ? pageListCookie : +pageListCookie : this.options.pageSize
+    this.options.pageSize = pageListCookie ? pageListCookie === 'all' ?
+      this.options.formatAllRows() : +pageListCookie : this.options.pageSize
     // searchText
     if (UtilsCookie.isCookieEnabled(this, UtilsCookie.cookieIds.searchText) && this.options.searchText === '') {
       this.options.searchText = searchTextCookie ? searchTextCookie : ''
