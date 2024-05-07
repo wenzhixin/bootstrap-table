@@ -218,14 +218,12 @@ Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar () {
-    const o = this.options
-
     this.showToolbar = this.showToolbar ||
-      o.search &&
-      o.advancedSearch &&
-      o.idTable
+      this.options.search &&
+      this.options.advancedSearch &&
+      this.options.idTable
 
-    if (o.search && o.advancedSearch && o.idTable) {
+    if (this.options.search && this.options.advancedSearch && this.options.idTable) {
       this.buttons = Object.assign(this.buttons, {
         advancedSearch: {
           text: this.options.formatAdvancedSearch(),
@@ -243,28 +241,30 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   showAvdSearch () {
-    const o = this.options
-    const modalSelector = `#avdSearchModal_${o.idTable}`
+    const modalSelector = `#avdSearchModal_${this.options.idTable}`
 
     if ($(modalSelector).length <= 0) {
-      $('body').append(Utils.sprintf(theme.html.modal, o.idTable, o.formatAdvancedSearch(), o.idTable, o.idTable, o.buttonsClass, o.formatAdvancedCloseButton()))
+      $('body').append(Utils.sprintf(theme.html.modal,
+        this.options.idTable, this.options.formatAdvancedSearch(),
+        this.options.idTable, this.options.idTable, this.options.buttonsClass,
+        this.options.formatAdvancedCloseButton()))
 
       let timeoutId = 0
 
-      $(`#avdSearchModalContent_${o.idTable}`).append(this.createFormAvd().join(''))
+      $(`#avdSearchModalContent_${this.options.idTable}`).append(this.createFormAvd().join(''))
 
-      $(`#${o.idForm}`).off('keyup blur', 'input').on('keyup blur', 'input', e => {
-        if (o.sidePagination === 'server') {
+      $(`#${this.options.idForm}`).off('keyup blur', 'input').on('keyup blur', 'input', e => {
+        if (this.options.sidePagination === 'server') {
           this.onColumnAdvancedSearch(e)
         } else {
           clearTimeout(timeoutId)
           timeoutId = setTimeout(() => {
             this.onColumnAdvancedSearch(e)
-          }, o.searchTimeOut)
+          }, this.options.searchTimeOut)
         }
       })
 
-      $(`#btnCloseAvd_${o.idTable}`).click(() => this.hideModal())
+      $(`#btnCloseAvd_${this.options.idTable}`).click(() => this.hideModal())
 
       if ($.fn.bootstrapTable.theme === 'bulma') {
         $(modalSelector).find('.delete').off('click').on('click', () => this.hideModal())
@@ -330,18 +330,19 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-
   createFormAvd () {
-    const o = this.options
-    const html = [`<form class="form-horizontal" id="${o.idForm}" action="${o.actionForm}">`]
+    const html = [`<form class="form-horizontal" id="${this.options.idForm}" action="${this.options.actionForm}">`]
 
     for (const column of this.columns) {
       if (!column.checkbox && column.visible && column.searchable) {
+        const title = $('<div/>').html(column.title).text()
+
         html.push(`
           <div class="form-group row ${theme.classes.formGroup || ''}">
-            <label class="col-sm-4 control-label">${column.title}</label>
+            <label class="col-sm-4 control-label">${title}</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control ${this.constants.classes.input}" name="${column.field}" placeholder="${column.title}" id="${column.field}">
+              <input type="text" class="form-control ${this.constants.classes.input}"
+                name="${column.field}" placeholder="${title}" id="${column.field}">
             </div>
           </div>
         `)
@@ -360,7 +361,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    const fp = $.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial
+    const fp = Utils.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial
 
     this.data = fp ? this.data.filter((item, i) => {
       for (const [key, v] of Object.entries(fp)) {
@@ -388,7 +389,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const text = $(e.currentTarget).val().trim()
     const $field = $(e.currentTarget)[0].id
 
-    if ($.isEmptyObject(this.filterColumnsPartial)) {
+    if (Utils.isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {}
     }
     if (text) {
