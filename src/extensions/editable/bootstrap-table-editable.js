@@ -63,7 +63,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       column.formatter = column.formatter || (value => value)
       column._formatter = column._formatter ? column._formatter : column.formatter
       column.formatter = (value, row, index, field) => {
-        let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
+        let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index, field], value)
 
         result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
         if (this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
