@@ -4,6 +4,7 @@ _gh_pages
 cypress
 site
 tools
+tests
 _config.yml
 .browserslistrc
 .eslintrc.js

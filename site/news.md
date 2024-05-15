@@ -4,6 +4,18 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.22.6
+
+<span class="post-date">15 May 2024</span>
+
+#### Extensions
+
+- **Update(cookie):** Fixed cookie does not work bug with pagination ALL list.
+- **Update(editable):** Fixed the `formatter` function does not include the `field` parameter bug.
+- **Update(toolbar):** Fixed toolbar display bug when using an HTML title.
+- **Update(toolbar):** Fixed toolbar does not update bug when column visible updated.
+- **Update(toolbar):** Fixed toolbar does not update bug when the locale is changed.
+
 ## Bootstrap Table 1.22.5
 
 <span class="post-date">29 Apr 2024</span>

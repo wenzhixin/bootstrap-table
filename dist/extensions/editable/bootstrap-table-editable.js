@@ -2529,7 +2529,7 @@
           };
           column._formatter = column._formatter ? column._formatter : column.formatter;
           column.formatter = function (value, row, index, field) {
-            var result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value);
+            var result = Utils.calculateObjectValue(column, column._formatter, [value, row, index, field], value);
             result = typeof result === 'undefined' || result === null ? _this.options.undefinedText : result;
             if (_this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
               var uniqueId = Utils.getItemField(row, _this.options.uniqueId, false);
