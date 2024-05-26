@@ -6,9 +6,12 @@
  * @update: zhixin wen <wenzhixin2010@gmail.com>
  */
 
+const Utils = $.fn.bootstrapTable.utils
+
 Object.assign($.fn.bootstrapTable.defaults, {
   addrbar: false,
-  addrPrefix: ''
+  addrPrefix: '',
+  addrCustomParams: {}
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
@@ -87,6 +90,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       } else {
         this.searchParams.set(key, value)
       }
+    }
+
+    const customParams = Utils.calculateObjectValue(this.options, this.options.addrCustomParams, [], {})
+
+    for (const [key, value] of Object.entries(customParams)) {
+      this.searchParams.set(key, value)
     }
 
     let url = `?${this.searchParams.toString()}`
