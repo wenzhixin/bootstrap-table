@@ -44,6 +44,7 @@ Every time when changing page, sorting and searching operation, it will change t
   The `key` is the GET parameter name, and the `value` is the value of the GET parameter.
 
 - **Default:** `{}`
+
 ### addrPrefix
 
 - **Attribute:** `data-addr-prefix`
