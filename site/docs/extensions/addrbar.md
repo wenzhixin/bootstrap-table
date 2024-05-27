@@ -40,8 +40,8 @@ Every time when changing page, sorting and searching operation, it will change t
 
 - **Detail:**
 
-  Define an Object which key and values pairs will be added as custom/additional get params to the url, for example custom filters.
-  The `key` is the GET parameter name and the `value` is the value of the GET parameter.
+  Define an object in which key and value pairs will be added as custom/additional get parameters to the URL, for example, custom filters.
+  The `key` is the GET parameter name, and the `value` is the value of the GET parameter.
 
 - **Default:** `{}`
 
