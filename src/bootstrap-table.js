@@ -1971,7 +1971,7 @@ class BootstrapTable {
     })
   }
 
-  initServer (silent, query, url) {
+  initServer (silent) {
     let data = {}
     const index = this.header.fields.indexOf(this.options.sortName)
 
@@ -1991,7 +1991,7 @@ class BootstrapTable {
       params.pageNumber = this.options.pageNumber
     }
 
-    if (!(url || this.options.url) && !this.options.ajax) {
+    if (!this.options.url && !this.options.ajax) {
       return
     }
 
@@ -2039,8 +2039,6 @@ class BootstrapTable {
       params.filter = JSON.stringify(this.filterColumnsPartial, null)
     }
 
-    Utils.extend(params, query || {})
-
     data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
 
     // false to stop request
@@ -2053,7 +2051,7 @@ class BootstrapTable {
     }
     const request = Utils.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
       type: this.options.method,
-      url: url || this.options.url,
+      url: this.options.url,
       data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
         JSON.stringify(data) : data,
       cache: this.options.cache,
@@ -3119,8 +3117,19 @@ class BootstrapTable {
     if (params && params.pageSize) {
       this.options.pageSize = params.pageSize
     }
-    this.trigger('refresh', this.initServer(params && params.silent,
-      params && params.query, params && params.url))
+
+    if (params && params.query) {
+      const url = new URL(this.options.url)
+      const urlParams = new URLSearchParams(url.search)
+
+      for (const [key, value] of Object.entries(params.query)) {
+        urlParams.set(key, value)
+      }
+      url.search = urlParams.toString()
+      this.options.url = url.toString()
+    }
+
+    this.trigger('refresh', this.initServer(params && params.silent))
   }
 
   destroy () {
