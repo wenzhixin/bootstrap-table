@@ -518,7 +518,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   deleteCookie (cookieName) {
-    if (!cookieName) {
+    if (!cookieName || !this.options.cookie) {
       return
     }
 
