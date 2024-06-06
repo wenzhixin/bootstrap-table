@@ -3153,9 +3153,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 editorconfig-checker@^5.1.5:
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/editorconfig-checker/-/editorconfig-checker-5.1.5.tgz#1d2ae86c0899e05a3296b89db91f14adb7b41d65"
-  integrity sha512-l2QifQhu33enwAauVdwT0oBPz8xdCHOZ7jImuUNV/3AR3Dg26jPAVPdHeKzuf1qpMZTfnuOONqLlpSIEFP33Ig==
+  version "5.1.8"
+  resolved "https://registry.yarnpkg.com/editorconfig-checker/-/editorconfig-checker-5.1.8.tgz#8fdc7d93573f240b74ba27c15ccb062a03b972ea"
+  integrity sha512-GM/qCbXA8GajSqqjXiWZN49i0nizQV5PjkVKIwWB9rtsm/pztjnBC+4dts5wW2KdrP2zyMPEltWHtWQwoCadqg==
 
 electron-to-chromium@^1.4.601:
   version "1.4.612"
