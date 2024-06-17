@@ -2514,7 +2514,7 @@ class BootstrapTable {
           const column = this.columns[this.fieldsColumnsIndex[key]]
 
           if (!column) {
-            return
+            continue
           }
 
           row[key] = Utils.calculateObjectValue(column, this.header.formatters[column.fieldIndex], [value, row, row.index, column.field], value)
