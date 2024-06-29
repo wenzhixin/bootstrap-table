@@ -85,7 +85,7 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   formatToggleCustomViewOn () {
     return 'Afficher la vue personnalisée'
   },
-  formatToggleCustomViewOff() {
+  formatToggleCustomViewOff () {
     return 'Cacher la vue personnalisée'
   },
 
@@ -98,7 +98,7 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   formatClearFilters () {
     return 'Retirer les filtres'
   },
-  formatFilterControlSwitch() {
+  formatFilterControlSwitch () {
     return 'Masquer/Afficher les contrôles'
   },
   formatFilterControlSwitchHide () {

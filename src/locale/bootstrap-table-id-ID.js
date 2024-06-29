@@ -83,7 +83,7 @@ $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   formatToggleCustomViewOn () {
     return 'Menampilkan tampilan khusus'
   },
-  formatToggleCustomViewOff() {
+  formatToggleCustomViewOff () {
     return 'Menyembunyikan tampilan khusus'
   },
 
@@ -96,7 +96,7 @@ $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   formatClearFilters () {
     return 'Menghapus filter'
   },
-  formatFilterControlSwitch() {
+  formatFilterControlSwitch () {
     return 'Menyembunyikan/Menampilkan kontrol'
   },
   formatFilterControlSwitchHide () {

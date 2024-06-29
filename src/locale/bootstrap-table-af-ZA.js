@@ -83,7 +83,7 @@ $.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
   formatToggleCustomViewOn () {
     return 'Wys pasgemaakte aansig'
   },
-  formatToggleCustomViewOff() {
+  formatToggleCustomViewOff () {
     return 'Versteek pasgemaakte aansig'
   },
 
@@ -96,7 +96,7 @@ $.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
   formatClearFilters () {
     return 'Verwyder filters'
   },
-  formatFilterControlSwitch() {
+  formatFilterControlSwitch () {
     return 'Versteek/Wys kontroles'
   },
   formatFilterControlSwitchHide () {
