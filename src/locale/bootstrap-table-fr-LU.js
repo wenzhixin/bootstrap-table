@@ -90,7 +90,7 @@ $.fn.bootstrapTable.locales['fr-LU'] = {
 
   // Extension: Export.
   formatExport () {
-    return 'Exporter les données'
+    return 'Exporter'
   },
 
   // Extension: Filter Control.
