@@ -4,99 +4,165 @@
  */
 
 $.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
-  formatCopyRows () {
-    return 'Copy Rows'
-  },
-  formatPrint () {
-    return 'Print'
-  },
-  formatLoadingMessage () {
-    return 'Besig om te laai, wag asseblief'
-  },
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} rekords per bladsy`
-  },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Resultate ${pageFrom} tot ${pageTo} van ${totalRows} rye (filtered from ${totalNotFiltered} total rows)`
-    }
-
-    return `Resultate ${pageFrom} tot ${pageTo} van ${totalRows} rye`
-  },
-  formatSRPaginationPreText () {
-    return 'previous page'
-  },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
-  },
-  formatSRPaginationNextText () {
-    return 'next page'
-  },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+  // General.
+  formatAllRows () {
+    return 'Alles'
   },
   formatClearSearch () {
-    return 'Clear Search'
-  },
-  formatSearch () {
-    return 'Soek'
-  },
-  formatNoMatches () {
-    return 'Geen rekords gevind nie'
-  },
-  formatPaginationSwitch () {
-    return 'Wys/verberg bladsy nummering'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Herlaai'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
-  formatToggleOff () {
-    return 'Hide card view'
+    return 'Duidelike soektog'
   },
   formatColumns () {
     return 'Kolomme'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Wys alles'
+  },
+  formatDetailPagination (totalRows) {
+    return `${totalRows}-reël vertoon`
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Volskerm'
   },
-  formatAllRows () {
-    return 'All'
+  formatLoadingMessage () {
+    return 'Laai tans'
   },
+  formatNoMatches () {
+    return 'Geen resultate nie'
+  },
+  formatPaginationSwitch () {
+    return 'Versteek/Wys paginasie'
+  },
+  formatPaginationSwitchDown () {
+    return 'Wys paginasie'
+  },
+  formatPaginationSwitchUp () {
+    return 'Versteek paginasie'
+  },
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} reëls per bladsy`
+  },
+  formatRefresh () {
+    return 'Verfris'
+  },
+  formatSearch () {
+    return 'Navorsing'
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Wys ${pageFrom} tot ${pageTo} van ${totalRows} lyne (gefiltreer vanaf ${totalNotFiltered} lyne)`
+    }
+    return `Wys ${pageFrom} tot ${pageTo} van ${totalRows} lyne`
+  },
+  formatSRPaginationNextText () {
+    return 'volgende bladsy'
+  },
+  formatSRPaginationPageText (page) {
+    return `na bladsy ${page}`
+  },
+  formatSRPaginationPreText () {
+    return 'vorige bladsy'
+  },
+  formatToggleOn () {
+    return 'Wys kaartaansig'
+  },
+  formatToggleOff () {
+    return 'Versteek kaartaansig'
+  },
+
+  // Extension: Auto Refresh.
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Verfris outomaties'
   },
+
+  // Extension: Copy Rows.
+  formatCopyRows () {
+    return 'Kopieer lyne'
+  },
+
+  // Extension: Custom View.
+  formatToggleCustomViewOn () {
+    return 'Wys pasgemaakte aansig'
+  },
+  formatToggleCustomViewOff() {
+    return 'Versteek pasgemaakte aansig'
+  },
+
+  // Extension: Export.
   formatExport () {
-    return 'Export data'
+    return 'Voer data uit'
   },
-  formatJumpTo () {
-    return 'GO'
+
+  // Extension: Filter Control.
+  formatClearFilters () {
+    return 'Verwyder filters'
   },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+  formatFilterControlSwitch() {
+    return 'Versteek/Wys kontroles'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Versteek kontroles'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Wys kontroles'
+  },
+
+  // Extension: Multiple Sort.
+  formatAddLevel () {
+    return 'Voeg \'n vlak by'
+  },
+  formatCancel () {
+    return 'Kanselleer'
+  },
+  formatColumn () {
+    return 'Kolom'
+  },
+  formatDeleteLevel () {
+    return 'Vee \'n vlak uit'
+  },
+  formatDuplicateAlertTitle () {
+    return 'Duplikaatinskrywings is gevind!'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Verwyder of wysig asseblief duplikaatinskrywings'
+  },
+  formatMultipleSort () {
+    return 'Multi-sorteer'
+  },
+  formatOrder () {
+    return 'Bestelling'
+  },
+  formatSort () {
+    return 'Rangskik'
+  },
+  formatSortBy () {
+    return 'Sorteer volgens'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Stygende',
+      desc: 'Dalende'
+    }
+  },
+  formatThenBy () {
+    return 'Dan deur'
+  },
+
+  // Extension: Page Jump To.
+  formatJumpTo () {
+    return 'Gaan na'
+  },
+
+  // Extension: Print.
+  formatPrint () {
+    return 'Druk uit'
+  },
+
+  // Extension: Toolbar.
+  formatAdvancedCloseButton () {
+    return 'Maak'
+  },
+  formatAdvancedSearch () {
+    return 'Gevorderde soektog'
   }
 }
 

@@ -6,42 +6,27 @@
  */
 
 $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
-  formatCopyRows () {
-    return 'Copier les lignes'
-  },
-  formatPrint () {
-    return 'Imprimer'
-  },
-  formatLoadingMessage () {
-    return 'Chargement en cours'
-  },
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} lignes par page`
-  },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrés à partir de ${totalNotFiltered} lignes)`
-    }
-
-    return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
-  },
-  formatSRPaginationPreText () {
-    return 'page précédente'
-  },
-  formatSRPaginationPageText (page) {
-    return `vers la page ${page}`
-  },
-  formatSRPaginationNextText () {
-    return 'page suivante'
-  },
-  formatDetailPagination (totalRows) {
-    return `Affichage de ${totalRows} lignes`
+  // General.
+  formatAllRows () {
+    return 'Tout'
   },
   formatClearSearch () {
     return 'Effacer la recherche'
   },
-  formatSearch () {
-    return 'Recherche'
+  formatColumns () {
+    return 'Colonnes'
+  },
+  formatColumnsToggleAll () {
+    return 'Tout afficher'
+  },
+  formatDetailPagination (totalRows) {
+    return `Affichage de ${totalRows} lignes`
+  },
+  formatFullscreen () {
+    return 'Plein écran'
+  },
+  formatLoadingMessage () {
+    return 'Chargement en cours'
   },
   formatNoMatches () {
     return 'Aucun résultat'
@@ -55,43 +40,65 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   formatPaginationSwitchUp () {
     return 'Masquer la pagination'
   },
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} lignes par page`
+  },
   formatRefresh () {
     return 'Actualiser'
   },
+  formatSearch () {
+    return 'Rechercher'
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrées à partir de ${totalNotFiltered} lignes)`
+    }
+    return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
+  },
+  formatSRPaginationNextText () {
+    return 'page suivante'
+  },
+  formatSRPaginationPageText (page) {
+    return `vers la page ${page}`
+  },
+  formatSRPaginationPreText () {
+    return 'page précédente'
+  },
   formatToggleOn () {
-    return 'Afficher la vue carte'
+    return 'Afficher la vue en cartes'
   },
   formatToggleOff () {
-    return 'Masquer la vue carte'
+    return 'Cacher la vue en cartes'
   },
-  formatColumns () {
-    return 'Colonnes'
-  },
-  formatColumnsToggleAll () {
-    return 'Tout basculer'
-  },
-  formatFullscreen () {
-    return 'Plein écran'
-  },
-  formatAllRows () {
-    return 'Tout'
-  },
+
+  // Extension: Auto Refresh.
   formatAutoRefresh () {
-    return 'Actualisation automatique'
+    return 'Actualiser automatiquement'
   },
+
+  // Extension: Copy Rows.
+  formatCopyRows () {
+    return 'Copier les lignes'
+  },
+
+  // Extension: Custom View.
+  formatToggleCustomViewOn () {
+    return 'Afficher la vue personnalisée'
+  },
+  formatToggleCustomViewOff() {
+    return 'Cacher la vue personnalisée'
+  },
+
+  // Extension: Export.
   formatExport () {
-    return 'Exporter les données'
+    return 'Exporter'
   },
-  formatJumpTo () {
-    return 'ALLER'
+
+  // Extension: Filter Control.
+  formatClearFilters () {
+    return 'Retirer les filtres'
   },
-  formatAdvancedSearch () {
-    return 'Recherche avancée'
-  },
-  formatAdvancedCloseButton () {
-    return 'Fermer'
-  },
-  formatFilterControlSwitch () {
+  formatFilterControlSwitch() {
     return 'Masquer/Afficher les contrôles'
   },
   formatFilterControlSwitchHide () {
@@ -99,6 +106,65 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   },
   formatFilterControlSwitchShow () {
     return 'Afficher les contrôles'
+  },
+
+  // Extension: Multiple Sort.
+  formatAddLevel () {
+    return 'Ajouter un niveau'
+  },
+  formatCancel () {
+    return 'Annuler'
+  },
+  formatColumn () {
+    return 'Colonne'
+  },
+  formatDeleteLevel () {
+    return 'Supprimer un niveau'
+  },
+  formatDuplicateAlertTitle () {
+    return 'Des entrées en double ont été trouvées !'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Veuillez supprimer ou modifier les entrées en double'
+  },
+  formatMultipleSort () {
+    return 'Tri multiple'
+  },
+  formatOrder () {
+    return 'Ordre'
+  },
+  formatSort () {
+    return 'Trier'
+  },
+  formatSortBy () {
+    return 'Trier par'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Ascendant',
+      desc: 'Descendant'
+    }
+  },
+  formatThenBy () {
+    return 'Puis par'
+  },
+
+  // Extension: Page Jump To.
+  formatJumpTo () {
+    return 'Aller à'
+  },
+
+  // Extension: Print.
+  formatPrint () {
+    return 'Imprimer'
+  },
+
+  // Extension: Toolbar.
+  formatAdvancedCloseButton () {
+    return 'Fermer'
+  },
+  formatAdvancedSearch () {
+    return 'Recherche avancée'
   }
 }
 

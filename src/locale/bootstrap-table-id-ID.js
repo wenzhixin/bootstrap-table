@@ -4,99 +4,165 @@
  */
 
 $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
-  formatCopyRows () {
-    return 'Copy Rows'
+  // General.
+  formatAllRows () {
+    return 'Semua'
   },
-  formatPrint () {
-    return 'Print'
+  formatClearSearch () {
+    return 'Menghapus pencarian'
+  },
+  formatColumns () {
+    return 'Kolom'
+  },
+  formatColumnsToggleAll () {
+    return 'Tampilkan semua'
+  },
+  formatDetailPagination (totalRows) {
+    return `Tampilan ${totalRows} baris`
+  },
+  formatFullscreen () {
+    return 'Layar penuh'
   },
   formatLoadingMessage () {
-    return 'Memuat, mohon tunggu'
+    return 'Pemuatan sedang berlangsung'
+  },
+  formatNoMatches () {
+    return 'Tidak ada hasil'
+  },
+  formatPaginationSwitch () {
+    return 'Sembunyikan/Tampilkan penomoran halaman'
+  },
+  formatPaginationSwitchDown () {
+    return 'Tampilkan penomoran halaman'
+  },
+  formatPaginationSwitchUp () {
+    return 'Sembunyikan penomoran halaman'
   },
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} baris per halaman`
   },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris (filtered from ${totalNotFiltered} total rows)`
-    }
-
-    return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris`
-  },
-  formatSRPaginationPreText () {
-    return 'previous page'
-  },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
-  },
-  formatSRPaginationNextText () {
-    return 'next page'
-  },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
-  },
-  formatClearSearch () {
-    return 'Bersihkan filter'
+  formatRefresh () {
+    return 'Segarkan'
   },
   formatSearch () {
     return 'Pencarian'
   },
-  formatNoMatches () {
-    return 'Tidak ditemukan data yang cocok'
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris (difilter dari ${totalNotFiltered} baris)`
+    }
+    return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris`
   },
-  formatPaginationSwitch () {
-    return 'Sembunyikan/Tampilkan halaman'
+  formatSRPaginationNextText () {
+    return 'halaman berikutnya'
   },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
+  formatSRPaginationPageText (page) {
+    return `ke halaman ${page}`
   },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Muat ulang'
+  formatSRPaginationPreText () {
+    return 'halaman sebelumnya'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Menampilkan tampilan peta'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Menyembunyikan tampilan peta'
   },
-  formatColumns () {
-    return 'kolom'
-  },
-  formatColumnsToggleAll () {
-    return 'Toggle all'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
-  formatAllRows () {
-    return 'Semua'
-  },
+
+  // Extension: Auto Refresh.
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Penyegaran otomatis'
   },
+
+  // Extension: Copy Rows.
+  formatCopyRows () {
+    return 'Salin baris'
+  },
+
+  // Extension: Custom View.
+  formatToggleCustomViewOn () {
+    return 'Menampilkan tampilan khusus'
+  },
+  formatToggleCustomViewOff() {
+    return 'Menyembunyikan tampilan khusus'
+  },
+
+  // Extension: Export.
   formatExport () {
-    return 'Ekspor data'
+    return 'Mengekspor data'
   },
-  formatJumpTo () {
-    return 'GO'
+
+  // Extension: Filter Control.
+  formatClearFilters () {
+    return 'Menghapus filter'
   },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+  formatFilterControlSwitch() {
+    return 'Menyembunyikan/Menampilkan kontrol'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Menyembunyikan kontrol'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Menampilkan kontrol'
+  },
+
+  // Extension: Multiple Sort.
+  formatAddLevel () {
+    return 'Menambahkan level'
+  },
+  formatCancel () {
+    return 'Batal'
+  },
+  formatColumn () {
+    return 'Kolom'
+  },
+  formatDeleteLevel () {
+    return 'Menghapus level'
+  },
+  formatDuplicateAlertTitle () {
+    return 'Entri duplikat telah ditemukan!'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Harap hapus atau ubah entri duplikat'
+  },
+  formatMultipleSort () {
+    return 'Penyortiran ganda'
+  },
+  formatOrder () {
+    return 'Urutan'
+  },
+  formatSort () {
+    return 'Penyortiran'
+  },
+  formatSortBy () {
+    return 'Urutkan berdasarkan'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Menaik',
+      desc: 'Menurun'
+    }
+  },
+  formatThenBy () {
+    return 'Kemudian oleh'
+  },
+
+  // Extension: Page Jump To.
+  formatJumpTo () {
+    return 'Pergi ke'
+  },
+
+  // Extension: Print.
+  formatPrint () {
+    return 'Mencetak'
+  },
+
+  // Extension: Toolbar.
+  formatAdvancedCloseButton () {
+    return 'Tutup'
+  },
+  formatAdvancedSearch () {
+    return 'Pencarian lanjutan'
   }
 }
 
