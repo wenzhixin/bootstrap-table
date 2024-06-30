@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.6
+        v1.23.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.6)</a>
+        <a class="dropdown-item active" href="/">Latest (1.23.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -375,6 +375,7 @@
 <li class="toc-entry toc-h3"><a href="#filterdatacollector">filterDataCollector</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercontrolmultiplesearch">filterControlMultipleSearch</a></li>
 <li class="toc-entry toc-h3"><a href="#filtercontrolmultiplesearchdelimiter">filterControlMultipleSearchDelimiter</a></li>
+<li class="toc-entry toc-h3"><a href="#filtercontrolsearchclear">filterControlSearchClear</a></li>
 <li class="toc-entry toc-h3"><a href="#searchonenterkey">searchOnEnterKey</a></li>
 <li class="toc-entry toc-h3"><a href="#showfiltercontrolswitch">showFilterControlSwitch</a></li>
 <li class="toc-entry toc-h3"><a href="#sortselectoptions">sortSelectOptions</a></li>
@@ -581,6 +582,25 @@ The values will be split by a delimiter, see option <code class="highlighter-rou
   </li>
 </ul>
 
+<h3 id="filtercontrolsearchclear">filterControlSearchClear</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-filter-control-search-clear</code></p>
+  </li>
+  <li>
+    <p><strong>type:</strong> <code class="highlighter-rouge">bool</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Set to <code class="highlighter-rouge">true</code> to clear the filter control filters using the table option <a href="/docs/api/table-options/#showsearchbutton">showSearchButton</a>.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">true</code></p>
+  </li>
+</ul>
+
 <h3 id="searchonenterkey">searchOnEnterKey</h3>
 
 <ul>
@@ -593,7 +613,7 @@ The values will be split by a delimiter, see option <code class="highlighter-rou
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set to true to fire the search action when the user presses the enter key.</p>
+    <p>Set to <code class="highlighter-rouge">true</code> to fire the search action when the user presses the enter key.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -801,7 +821,7 @@ Return <code class="highlighter-rouge">null</code> to skip the custom search for
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set to true if you want to use the starts with search mode.</p>
+    <p>Set to <code class="highlighter-rouge">true</code> if you want to use the starts with search mode.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
@@ -820,7 +840,7 @@ Return <code class="highlighter-rouge">null</code> to skip the custom search for
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set to true if you want to use the strict search mode.</p>
+    <p>Set to <code class="highlighter-rouge">true</code> if you want to use the strict search mode.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>

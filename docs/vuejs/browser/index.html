@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Learn how to use Bootstrap Table Vue Component in your project using browser.">
+<meta name="description" content="Learn how to use Bootstrap Table Vue Component in your project using the browser.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
 <meta name="generator" content="Jekyll v3.8.7">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.6
+        v1.23.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.6)</a>
+        <a class="dropdown-item active" href="/">Latest (1.23.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -384,29 +384,30 @@
               Browser
             </h1>
           </div>
-          <p class="bd-lead">Learn how to use Bootstrap Table Vue Component in your project using browser.</p>
+          <p class="bd-lead">Learn how to use Bootstrap Table Vue Component in your project using the browser.</p>
           <div id="gg"></div>
 
           <h2 id="vuejs-javascript">VueJS JavaScript</h2>
 
-<p>In addition to the files that <a href="/docs/getting-started/introduction/#quick-start">Quick start</a> mentions, you also need to include our vue component file.</p>
+<p>In addition to the files that <a href="/docs/getting-started/introduction/#quick-start">Quick Start</a> mentions, you also need to include our vue component file.</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table-vue.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.0/dist/bootstrap-table-vue.umd.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
 <h2 id="usage">Usage</h2>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"table"</span><span class="nt">&gt;</span>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;bootstrap-table</span> <span class="na">:columns=</span><span class="s">"columns"</span> <span class="na">:data=</span><span class="s">"data"</span> <span class="na">:options=</span><span class="s">"options"</span><span class="nt">&gt;&lt;/bootstrap-table&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
 
 <span class="nt">&lt;script&gt;</span>
-  <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
-    <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
-      <span class="dl">'</span><span class="s1">BootstrapTable</span><span class="dl">'</span><span class="p">:</span> <span class="nx">BootstrapTable</span>
-    <span class="p">},</span>
-    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
-      <span class="na">columns</span><span class="p">:</span> <span class="p">[</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">createApp</span><span class="p">,</span> <span class="nx">ref</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">Vue</span>
+  <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">createApp</span><span class="p">({</span>
+    <span class="nx">setup</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">columns</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([</span>
+        <span class="p">{</span>
+          <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">state</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">checkbox</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
         <span class="p">{</span>
           <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item ID</span><span class="dl">'</span><span class="p">,</span>
           <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span>
@@ -414,24 +415,72 @@
         <span class="p">{</span>
           <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span>
           <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Name</span><span class="dl">'</span>
-        <span class="p">},</span> <span class="p">{</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
           <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">price</span><span class="dl">'</span><span class="p">,</span>
           <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Price</span><span class="dl">'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">action</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Actions</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">align</span><span class="p">:</span> <span class="dl">'</span><span class="s1">center</span><span class="dl">'</span><span class="p">,</span>
+          <span class="nx">formatter</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="dl">'</span><span class="s1">&lt;a href="javascript:" class="like"&gt;&lt;i class="fa fa-star"&gt;&lt;/i&gt;&lt;/a&gt;</span><span class="dl">'</span>
+          <span class="p">},</span>
+          <span class="na">events</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">'</span><span class="s1">click .like</span><span class="dl">'</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">row</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">alert</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">row</span><span class="p">))</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="na">data</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">])</span>
+      <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([</span>
+        <span class="p">{</span>
+          <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 0</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$0</span><span class="dl">'</span>
+        <span class="p">},</span>
         <span class="p">{</span>
           <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
           <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 1</span><span class="dl">'</span><span class="p">,</span>
           <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$1</span><span class="dl">'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 2</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$2</span><span class="dl">'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 3</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$3</span><span class="dl">'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="na">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 4</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$4</span><span class="dl">'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="na">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 5</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$5</span><span class="dl">'</span>
         <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="p">])</span>
+      <span class="kd">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">({</span>
         <span class="na">search</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="na">showColumns</span><span class="p">:</span> <span class="kc">true</span>
+      <span class="p">})</span>
+
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">columns</span><span class="p">,</span>
+        <span class="nx">data</span><span class="p">,</span>
+        <span class="nx">options</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">})</span>
+
+  <span class="nx">app</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">BootstrapTable</span><span class="dl">'</span><span class="p">,</span> <span class="nx">BootstrapTable</span><span class="p">)</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
 <span class="nt">&lt;/script&gt;</span></code></pre></figure>
 
 <h2 id="starter-template">Starter template</h2>
@@ -446,26 +495,27 @@
 
     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.0/dist/bootstrap-table.min.css"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;/head&gt;</span>
   <span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"table"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
       <span class="nt">&lt;bootstrap-table</span> <span class="na">:columns=</span><span class="s">"columns"</span> <span class="na">:data=</span><span class="s">"data"</span> <span class="na">:options=</span><span class="s">"options"</span><span class="nt">&gt;&lt;/bootstrap-table&gt;</span>
     <span class="nt">&lt;/div&gt;</span>
 
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table-vue.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.0/dist/bootstrap-table.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.0/dist/bootstrap-table-vue.umd.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;script&gt;</span>
-      <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
-        <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#table</span><span class="dl">'</span><span class="p">,</span>
-        <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
-          <span class="dl">'</span><span class="s1">BootstrapTable</span><span class="dl">'</span><span class="p">:</span> <span class="nx">BootstrapTable</span>
-        <span class="p">},</span>
-        <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
-          <span class="na">columns</span><span class="p">:</span> <span class="p">[</span>
+      <span class="kd">const</span> <span class="p">{</span> <span class="nx">createApp</span><span class="p">,</span> <span class="nx">ref</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">Vue</span>
+      <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">createApp</span><span class="p">({</span>
+        <span class="nx">setup</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="kd">const</span> <span class="nx">columns</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([</span>
+            <span class="p">{</span>
+              <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">state</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">checkbox</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">},</span>
             <span class="p">{</span>
               <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item ID</span><span class="dl">'</span><span class="p">,</span>
               <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span>
@@ -473,12 +523,31 @@
             <span class="p">{</span>
               <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span>
               <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Name</span><span class="dl">'</span>
-            <span class="p">},</span> <span class="p">{</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
               <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">price</span><span class="dl">'</span><span class="p">,</span>
               <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item Price</span><span class="dl">'</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+              <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">action</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Actions</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">align</span><span class="p">:</span> <span class="dl">'</span><span class="s1">center</span><span class="dl">'</span><span class="p">,</span>
+              <span class="nx">formatter</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="dl">'</span><span class="s1">&lt;a href="javascript:" class="like"&gt;&lt;i class="fa fa-star"&gt;&lt;/i&gt;&lt;/a&gt;</span><span class="dl">'</span>
+              <span class="p">},</span>
+              <span class="na">events</span><span class="p">:</span> <span class="p">{</span>
+                <span class="dl">'</span><span class="s1">click .like</span><span class="dl">'</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">row</span><span class="p">)</span> <span class="p">{</span>
+                  <span class="nx">alert</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">row</span><span class="p">))</span>
+                <span class="p">}</span>
+              <span class="p">}</span>
             <span class="p">}</span>
-          <span class="p">],</span>
-          <span class="na">data</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">])</span>
+          <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([</span>
+            <span class="p">{</span>
+              <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+              <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 0</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$0</span><span class="dl">'</span>
+            <span class="p">},</span>
             <span class="p">{</span>
               <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
               <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 1</span><span class="dl">'</span><span class="p">,</span>
@@ -504,13 +573,22 @@
               <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Item 5</span><span class="dl">'</span><span class="p">,</span>
               <span class="na">price</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$5</span><span class="dl">'</span>
             <span class="p">}</span>
-          <span class="p">],</span>
-          <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+          <span class="p">])</span>
+          <span class="kd">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">({</span>
             <span class="na">search</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
             <span class="na">showColumns</span><span class="p">:</span> <span class="kc">true</span>
+          <span class="p">})</span>
+
+          <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">columns</span><span class="p">,</span>
+            <span class="nx">data</span><span class="p">,</span>
+            <span class="nx">options</span>
           <span class="p">}</span>
         <span class="p">}</span>
       <span class="p">})</span>
+
+      <span class="nx">app</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">BootstrapTable</span><span class="dl">'</span><span class="p">,</span> <span class="nx">BootstrapTable</span><span class="p">)</span>
+      <span class="nx">app</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span></code></pre></figure>

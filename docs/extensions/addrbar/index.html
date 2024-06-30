@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.6
+        v1.23.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.6)</a>
+        <a class="dropdown-item active" href="/">Latest (1.23.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -369,6 +369,7 @@
 <li class="toc-entry toc-h2"><a href="#options">Options</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#addrbar">addrbar</a></li>
+<li class="toc-entry toc-h3"><a href="#addrcustomparams">addrCustomParams</a></li>
 <li class="toc-entry toc-h3"><a href="#addrprefix">addrPrefix</a></li>
 </ul>
 </li>
@@ -421,6 +422,26 @@
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h3 id="addrcustomparams">addrCustomParams</h3>
+
+<ul>
+  <li>
+    <p><strong>Attribute:</strong> <code class="highlighter-rouge">data-addr-custom-params</code></p>
+  </li>
+  <li>
+    <p><strong>Type:</strong> <code class="highlighter-rouge">Function|Object</code></p>
+  </li>
+  <li>
+    <p><strong>Detail:</strong></p>
+
+    <p>Define an object in which key and value pairs will be added as custom/additional get parameters to the URL, for example, custom filters.
+The <code class="highlighter-rouge">key</code> is the GET parameter name, and the <code class="highlighter-rouge">value</code> is the value of the GET parameter.</p>
+  </li>
+  <li>
+    <p><strong>Default:</strong> <code class="highlighter-rouge">{}</code></p>
   </li>
 </ul>
 

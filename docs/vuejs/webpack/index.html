@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.22.6
+        v1.23.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.22.6)</a>
+        <a class="dropdown-item active" href="/">Latest (1.23.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -392,19 +392,19 @@
 
 <p>Import Bootstrap Table’s JavaScript by adding this line to your app’s entry point (usually <code class="highlighter-rouge">index.js</code> or <code class="highlighter-rouge">app.js</code>):</p>
 
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/bootstrap-table.js</span><span class="dl">'</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table</span><span class="dl">'</span></code></pre></figure>
 
 <p>Of course, you can also import themes, locales or extensions you need:</p>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// import theme</span>
-<span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/themes/materialize/bootstrap-table-materialize.js</span><span class="dl">'</span>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/themes/materialize/bootstrap-table-materialize.min.js</span><span class="dl">'</span>
 
 <span class="c1">// import locale</span>
-<span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/locale/bootstrap-table-zh-CN.js</span><span class="dl">'</span>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js</span><span class="dl">'</span>
 
 <span class="c1">// import extension and dependencies</span>
 <span class="k">import</span> <span class="dl">'</span><span class="s1">tableexport.jquery.plugin</span><span class="dl">'</span>
-<span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/extensions/export/bootstrap-table-export.js</span><span class="dl">'</span></code></pre></figure>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js</span><span class="dl">'</span></code></pre></figure>
 
 <p>By default, Bootstrap Table is dependent on <a href="https://jquery.com/">jQuery</a>, <a href="https://getbootstrap.com">Bootstrap</a> and <a href="https://popper.js.org/">Popper</a>, these are defined as peerDependencies, this means that you will have to make sure to add both of them to your <code class="highlighter-rouge">package.json</code> using <code class="highlighter-rouge">npm install --save jquery bootstrap popper.js</code>.</p>
 
@@ -433,7 +433,7 @@
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="nx">BootstrapTable</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/bootstrap-table-vue.esm.js</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">BootstrapTable</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/bootstrap-table-vue.js</span><span class="dl">'</span>
 
 <span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
   <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
