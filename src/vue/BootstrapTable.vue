@@ -31,6 +31,11 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      initTimer: 0
+    }
+  },
   mounted () {
     this.$table = $(this.$el)
 
@@ -41,10 +46,17 @@ export default {
       this.$emit(eventName, ...args)
     })
 
-    this._initTable()
+    this._doInitTable()
   },
   methods: {
     _initTable () {
+      clearTimeout(this.initTimer)
+      // Avoid init too frequently
+      this.initTimer = setTimeout(() => {
+        this._doInitTable()
+      }, 20)
+    },
+    _doInitTable () {
       const options = {
         ...deepCopy(this.options),
         columns: deepCopy(this.columns),
