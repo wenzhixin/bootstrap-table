@@ -234,7 +234,8 @@ export function setValues (that) {
 
 export function collectBootstrapTableFilterCookies () {
   const cookies = []
-  const foundCookies = document.cookie.match(/bs\.table\.(filterControl|searchText)/g)
+  const cookieRegex = /bs\.table\.(filterControl|searchText)/g
+  const foundCookies = document.cookie.match(cookieRegex)
   const foundLocalStorage = localStorage
 
   if (foundCookies) {
@@ -250,19 +251,22 @@ export function collectBootstrapTableFilterCookies () {
       }
     })
   }
-  if (foundLocalStorage) {
-    for (let i = 0; i < foundLocalStorage.length; i++) {
-      let cookie = foundLocalStorage.key(i)
 
-      if (/./.test(cookie)) {
-        cookie = cookie.split('.').pop()
-      }
-
-      if (!cookies.includes(cookie)) {
-        cookies.push(cookie)
-      }
-    }
+  if (!foundLocalStorage) {
+    return cookies
   }
+
+  Object.keys(localStorage).forEach(function (cookie) {
+    if (!cookieRegex.test(cookie)) {
+      return
+    }
+
+    cookie = cookie.split('.').pop()
+    if (!cookies.includes(cookie)) {
+      cookies.push(cookie)
+    }
+  })
+
   return cookies
 }
 

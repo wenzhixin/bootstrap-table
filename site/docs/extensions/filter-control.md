@@ -105,6 +105,18 @@ toc: true
 
 - **Default:** `,`
 
+### filterControlSearchClear
+
+- **Attribute:** `data-filter-control-search-clear`
+
+- **type:** `bool`
+
+- **Detail:**
+
+  Set to `true` to clear the filter control filters using the table option [showSearchButton](/docs/api/table-options/#showsearchbutton).
+
+- **Default:** `true`
+
 ### searchOnEnterKey
 
 - **Attribute:** `data-search-on-enter-key`
@@ -113,7 +125,7 @@ toc: true
 
 - **Detail:**
 
-  Set to true to fire the search action when the user presses the enter key.
+  Set to `true` to fire the search action when the user presses the enter key.
 
 - **Default:** `false`
 
@@ -249,7 +261,7 @@ toc: true
 
 - **Detail:**
 
-  Set to true if you want to use the starts with search mode.
+  Set to `true` if you want to use the starts with search mode.
 
 - **Default:** `false`
 
@@ -261,7 +273,7 @@ toc: true
 
 - **Detail:**
 
-  Set to true if you want to use the strict search mode.
+  Set to `true` if you want to use the strict search mode.
 
 - **Default:** `false`
 

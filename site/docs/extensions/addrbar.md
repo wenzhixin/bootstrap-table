@@ -32,6 +32,19 @@ Every time when changing page, sorting and searching operation, it will change t
 
 - **Default:** `false`
 
+### addrCustomParams
+
+- **Attribute:** `data-addr-custom-params`
+
+- **Type:** `Function|Object`
+
+- **Detail:**
+
+  Define an object in which key and value pairs will be added as custom/additional get parameters to the URL, for example, custom filters.
+  The `key` is the GET parameter name, and the `value` is the value of the GET parameter.
+
+- **Default:** `{}`
+
 ### addrPrefix
 
 - **Attribute:** `data-addr-prefix`

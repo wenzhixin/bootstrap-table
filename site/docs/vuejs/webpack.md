@@ -11,21 +11,21 @@ toc: true
 Import Bootstrap Table’s JavaScript by adding this line to your app’s entry point (usually `index.js` or `app.js`):
 
 {% highlight js %}
-import 'bootstrap-table/dist/bootstrap-table.js'
+import 'bootstrap-table'
 {% endhighlight %}
 
 Of course, you can also import themes, locales or extensions you need:
 
 {% highlight js %}
 // import theme
-import 'bootstrap-table/dist/themes/materialize/bootstrap-table-materialize.js'
+import 'bootstrap-table/dist/themes/materialize/bootstrap-table-materialize.min.js'
 
 // import locale
-import 'bootstrap-table/dist/locale/bootstrap-table-zh-CN.js'
+import 'bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js'
 
 // import extension and dependencies
 import 'tableexport.jquery.plugin'
-import 'bootstrap-table/dist/extensions/export/bootstrap-table-export.js'
+import 'bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js'
 {% endhighlight %}
 
 By default, Bootstrap Table is dependent on [jQuery](https://jquery.com/), [Bootstrap](https://getbootstrap.com) and [Popper](https://popper.js.org/), these are defined as peerDependencies, this means that you will have to make sure to add both of them to your `package.json` using `npm install --save jquery bootstrap popper.js`.
@@ -60,7 +60,7 @@ import 'bootstrap-table/dist/extensions/fixed-columns/bootstrap-table-fixed-colu
 </template>
 
 <script>
-import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.esm.js'
+import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.js'
 
 export default {
   components: {

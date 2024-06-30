@@ -813,7 +813,6 @@ BootstrapTable.prototype.multiSort = function (sortPriority) {
     }
     isSingleSort = false
     this.initServer(this.options.silentSort)
-    return
   }
 
   this.onMultipleSort()

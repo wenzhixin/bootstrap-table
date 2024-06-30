@@ -11,6 +11,7 @@ Object.assign($.fn.bootstrapTable.defaults, {
   filterControlVisible: true,
   filterControlMultipleSearch: false,
   filterControlMultipleSearchDelimiter: ',',
+  filterControlSearchClear: true,
   // eslint-disable-next-line no-unused-vars
   onColumnSearch (field, text) {
     return false
@@ -399,7 +400,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   resetSearch (text) {
-    if (this.options.filterControl && this.options.showSearchClearButton) {
+    if (this.options.filterControl && this.options.filterControlSearchClear && this.options.showSearchClearButton) {
       this.clearFilterControl()
     }
     super.resetSearch(text)

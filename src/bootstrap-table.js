@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.22.6
+ * version: 1.23.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -2509,15 +2509,16 @@ class BootstrapTable {
     }
 
     if (params && params.formatted) {
-      data.forEach(row => {
+      return data.map(row => {
         for (const [key, value] of Object.entries(row)) {
           const column = this.columns[this.fieldsColumnsIndex[key]]
 
           if (!column) {
-            return
+            continue
           }
 
-          row[key] = Utils.calculateObjectValue(column, this.header.formatters[column.fieldIndex], [value, row, row.index, column.field], value)
+          return Utils.calculateObjectValue(column, this.header.formatters[column.fieldIndex],
+            [value, row, row.index, column.field], value)
         }
       })
     }
@@ -2858,7 +2859,7 @@ class BootstrapTable {
   }
 
   _toggleColumn (index, checked, needUpdate) {
-    if (index === -1 || this.columns[index].visible === checked) {
+    if (index === undefined || this.columns[index].visible === checked) {
       return
     }
     this.columns[index].visible = checked
