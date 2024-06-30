@@ -1,34 +1,35 @@
 ---
 layout: docs
 title: Browser
-description: Learn how to use Bootstrap Table Vue Component in your project using browser.
+description: Learn how to use Bootstrap Table Vue Component in your project using the browser.
 group: vuejs
 toc: true
 ---
 
 ## VueJS JavaScript
 
-In addition to the files that [Quick start](/docs/getting-started/introduction/#quick-start) mentions, you also need to include our vue component file.
+In addition to the files that [Quick Start](/docs/getting-started/introduction/#quick-start) mentions, you also need to include our vue component file.
 
 {% highlight html %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-vue.umd.js"></script>
 {% endhighlight %}
 
 ## Usage
 
 {% highlight html %}
-<div id="table">
+<div id="app">
   <bootstrap-table :columns="columns" :data="data" :options="options"></bootstrap-table>
 </div>
 
 <script>
-  new Vue({
-    el: '#table',
-    components: {
-      'BootstrapTable': BootstrapTable
-    },
-    data: {
-      columns: [
+  const { createApp, ref } = Vue
+  const app = createApp({
+    setup () {
+      const columns = ref([
+        {
+          field: 'state',
+          checkbox: true
+        },
         {
           title: 'Item ID',
           field: 'id'
@@ -36,24 +37,72 @@ In addition to the files that [Quick start](/docs/getting-started/introduction/#
         {
           field: 'name',
           title: 'Item Name'
-        }, {
+        },
+        {
           field: 'price',
           title: 'Item Price'
+        },
+        {
+          field: 'action',
+          title: 'Actions',
+          align: 'center',
+          formatter () {
+            return '<a href="javascript:" class="like"><i class="fa fa-star"></i></a>'
+          },
+          events: {
+            'click .like' (e, value, row) {
+              alert(JSON.stringify(row))
+            }
+          }
         }
-      ],
-      data: [
+      ])
+      const data = ref([
+        {
+          id: 0,
+          name: 'Item 0',
+          price: '$0'
+        },
         {
           id: 1,
           name: 'Item 1',
           price: '$1'
+        },
+        {
+          id: 2,
+          name: 'Item 2',
+          price: '$2'
+        },
+        {
+          id: 3,
+          name: 'Item 3',
+          price: '$3'
+        },
+        {
+          id: 4,
+          name: 'Item 4',
+          price: '$4'
+        },
+        {
+          id: 5,
+          name: 'Item 5',
+          price: '$5'
         }
-      ],
-      options: {
+      ])
+      const options = ref({
         search: true,
         showColumns: true
+      })
+
+      return {
+        columns,
+        data,
+        options
       }
     }
   })
+
+  app.component('BootstrapTable', BootstrapTable)
+  app.mount('#app')
 </script>
 {% endhighlight %}
 
@@ -73,7 +122,7 @@ In addition to the files that [Quick start](/docs/getting-started/introduction/#
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.css">
   </head>
   <body>
-    <div id="table">
+    <div id="app">
       <bootstrap-table :columns="columns" :data="data" :options="options"></bootstrap-table>
     </div>
 
@@ -81,15 +130,16 @@ In addition to the files that [Quick start](/docs/getting-started/introduction/#
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@{{ site.current_version }}/dist/bootstrap-table-vue.umd.js"></script>
     <script>
-      new Vue({
-        el: '#table',
-        components: {
-          'BootstrapTable': BootstrapTable
-        },
-        data: {
-          columns: [
+      const { createApp, ref } = Vue
+      const app = createApp({
+        setup () {
+          const columns = ref([
+            {
+              field: 'state',
+              checkbox: true
+            },
             {
               title: 'Item ID',
               field: 'id'
@@ -97,12 +147,31 @@ In addition to the files that [Quick start](/docs/getting-started/introduction/#
             {
               field: 'name',
               title: 'Item Name'
-            }, {
+            },
+            {
               field: 'price',
               title: 'Item Price'
+            },
+            {
+              field: 'action',
+              title: 'Actions',
+              align: 'center',
+              formatter () {
+                return '<a href="javascript:" class="like"><i class="fa fa-star"></i></a>'
+              },
+              events: {
+                'click .like' (e, value, row) {
+                  alert(JSON.stringify(row))
+                }
+              }
             }
-          ],
-          data: [
+          ])
+          const data = ref([
+            {
+              id: 0,
+              name: 'Item 0',
+              price: '$0'
+            },
             {
               id: 1,
               name: 'Item 1',
@@ -128,13 +197,22 @@ In addition to the files that [Quick start](/docs/getting-started/introduction/#
               name: 'Item 5',
               price: '$5'
             }
-          ],
-          options: {
+          ])
+          const options = ref({
             search: true,
             showColumns: true
+          })
+
+          return {
+            columns,
+            data,
+            options
           }
         }
       })
+
+      app.component('BootstrapTable', BootstrapTable)
+      app.mount('#app')
     </script>
   </body>
 </html>
