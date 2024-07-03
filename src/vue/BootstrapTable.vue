@@ -33,7 +33,7 @@ export default {
   },
   data () {
     return {
-      initTimer: 0
+      optionsChangedIdx: 0
     }
   },
   mounted () {
@@ -46,17 +46,10 @@ export default {
       this.$emit(eventName, ...args)
     })
 
-    this._doInitTable()
+    this._initTable()
   },
   methods: {
     _initTable () {
-      clearTimeout(this.initTimer)
-      // Avoid init too frequently
-      this.initTimer = setTimeout(() => {
-        this._doInitTable()
-      }, 20)
-    },
-    _doInitTable () {
       const options = {
         ...deepCopy(this.options),
         columns: deepCopy(this.columns),
@@ -82,15 +75,18 @@ export default {
   watch: {
     options: {
       handler () {
-        this._initTable()
+        this.optionsChangedIdx++
       },
       deep: true
     },
     columns: {
       handler () {
-        this._initTable()
+        this.optionsChangedIdx++
       },
       deep: true
+    },
+    optionsChangedIdx () {
+      this._initTable()
     },
     data: {
       handler () {
