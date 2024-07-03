@@ -4,27 +4,41 @@
  */
 
 $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
-  // General.
-  formatAllRows () {
-    return 'Semua'
+  formatCopyRows () {
+    return 'Salin baris'
   },
-  formatClearSearch () {
-    return 'Menghapus pencarian'
+  formatPrint () {
+    return 'Mencetak'
   },
-  formatColumns () {
-    return 'Kolom'
+  formatLoadingMessage () {
+    return 'Pemuatan sedang berlangsung'
   },
-  formatColumnsToggleAll () {
-    return 'Tampilkan semua'
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} baris per halaman`
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris (difilter dari ${totalNotFiltered} baris)`
+    }
+    return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris`
+  },
+  formatSRPaginationPreText () {
+    return 'halaman sebelumnya'
+  },
+  formatSRPaginationPageText (page) {
+    return `ke halaman ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'halaman berikutnya'
   },
   formatDetailPagination (totalRows) {
     return `Tampilan ${totalRows} baris`
   },
-  formatFullscreen () {
-    return 'Layar penuh'
+  formatClearSearch () {
+    return 'Menghapus pencarian'
   },
-  formatLoadingMessage () {
-    return 'Pemuatan sedang berlangsung'
+  formatSearch () {
+    return 'Pencarian'
   },
   formatNoMatches () {
     return 'Tidak ada hasil'
@@ -38,29 +52,8 @@ $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   formatPaginationSwitchUp () {
     return 'Sembunyikan penomoran halaman'
   },
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} baris per halaman`
-  },
   formatRefresh () {
     return 'Segarkan'
-  },
-  formatSearch () {
-    return 'Pencarian'
-  },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris (difilter dari ${totalNotFiltered} baris)`
-    }
-    return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris`
-  },
-  formatSRPaginationNextText () {
-    return 'halaman berikutnya'
-  },
-  formatSRPaginationPageText (page) {
-    return `ke halaman ${page}`
-  },
-  formatSRPaginationPreText () {
-    return 'halaman sebelumnya'
   },
   formatToggleOn () {
     return 'Menampilkan tampilan peta'
@@ -68,33 +61,32 @@ $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   formatToggleOff () {
     return 'Menyembunyikan tampilan peta'
   },
-
-  // Extension: Auto Refresh.
+  formatColumns () {
+    return 'Kolom'
+  },
+  formatColumnsToggleAll () {
+    return 'Tampilkan semua'
+  },    
+  formatFullscreen () {
+    return 'Layar penuh'
+  },
+  formatAllRows () {
+    return 'Semua'
+  },
   formatAutoRefresh () {
     return 'Penyegaran otomatis'
   },
-
-  // Extension: Copy Rows.
-  formatCopyRows () {
-    return 'Salin baris'
-  },
-
-  // Extension: Custom View.
-  formatToggleCustomViewOn () {
-    return 'Menampilkan tampilan khusus'
-  },
-  formatToggleCustomViewOff () {
-    return 'Menyembunyikan tampilan khusus'
-  },
-
-  // Extension: Export.
   formatExport () {
     return 'Mengekspor data'
   },
-
-  // Extension: Filter Control.
-  formatClearFilters () {
-    return 'Menghapus filter'
+  formatJumpTo () {
+    return 'Pergi ke'
+  },
+  formatAdvancedSearch () {
+    return 'Pencarian lanjutan'
+  },
+  formatAdvancedCloseButton () {
+    return 'Tutup'
   },
   formatFilterControlSwitch () {
     return 'Menyembunyikan/Menampilkan kontrol'
@@ -105,8 +97,15 @@ $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   formatFilterControlSwitchShow () {
     return 'Menampilkan kontrol'
   },
-
-  // Extension: Multiple Sort.
+  formatToggleCustomViewOn () {
+    return 'Menampilkan tampilan khusus'
+  },
+  formatToggleCustomViewOff () {
+    return 'Menyembunyikan tampilan khusus'
+  },
+  formatClearFilters () {
+    return 'Menghapus filter'
+  },
   formatAddLevel () {
     return 'Menambahkan level'
   },
@@ -145,24 +144,6 @@ $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   },
   formatThenBy () {
     return 'Kemudian oleh'
-  },
-
-  // Extension: Page Jump To.
-  formatJumpTo () {
-    return 'Pergi ke'
-  },
-
-  // Extension: Print.
-  formatPrint () {
-    return 'Mencetak'
-  },
-
-  // Extension: Toolbar.
-  formatAdvancedCloseButton () {
-    return 'Tutup'
-  },
-  formatAdvancedSearch () {
-    return 'Pencarian lanjutan'
   }
 }
 

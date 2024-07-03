@@ -6,27 +6,41 @@
  */
 
 $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
-  // General.
-  formatAllRows () {
-    return 'Tout'
+  formatCopyRows () {
+    return 'Copier les lignes'
   },
-  formatClearSearch () {
-    return 'Effacer la recherche'
+  formatPrint () {
+    return 'Imprimer'
   },
-  formatColumns () {
-    return 'Colonnes'
+  formatLoadingMessage () {
+    return 'Chargement en cours'
   },
-  formatColumnsToggleAll () {
-    return 'Tout afficher'
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} lignes par page`
+  },
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrées à partir de ${totalNotFiltered} lignes)`
+    }
+    return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
+  },
+  formatSRPaginationPreText () {
+    return 'page précédente'
+  },
+  formatSRPaginationPageText (page) {
+    return `vers la page ${page}`
+  },
+  formatSRPaginationNextText () {
+    return 'page suivante'
   },
   formatDetailPagination (totalRows) {
     return `Affichage de ${totalRows} lignes`
   },
-  formatFullscreen () {
-    return 'Plein écran'
+  formatClearSearch () {
+    return 'Effacer la recherche'
   },
-  formatLoadingMessage () {
-    return 'Chargement en cours'
+  formatSearch () {
+    return 'Rechercher'
   },
   formatNoMatches () {
     return 'Aucun résultat'
@@ -40,29 +54,8 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   formatPaginationSwitchUp () {
     return 'Masquer la pagination'
   },
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} lignes par page`
-  },
   formatRefresh () {
     return 'Actualiser'
-  },
-  formatSearch () {
-    return 'Rechercher'
-  },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrées à partir de ${totalNotFiltered} lignes)`
-    }
-    return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
-  },
-  formatSRPaginationNextText () {
-    return 'page suivante'
-  },
-  formatSRPaginationPageText (page) {
-    return `vers la page ${page}`
-  },
-  formatSRPaginationPreText () {
-    return 'page précédente'
   },
   formatToggleOn () {
     return 'Afficher la vue en cartes'
@@ -70,33 +63,32 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   formatToggleOff () {
     return 'Cacher la vue en cartes'
   },
-
-  // Extension: Auto Refresh.
+  formatColumns () {
+    return 'Colonnes'
+  },
+  formatColumnsToggleAll () {
+    return 'Tout afficher'
+  },    
+  formatFullscreen () {
+    return 'Plein écran'
+  },
+  formatAllRows () {
+    return 'Tout'
+  },
   formatAutoRefresh () {
     return 'Actualiser automatiquement'
   },
-
-  // Extension: Copy Rows.
-  formatCopyRows () {
-    return 'Copier les lignes'
-  },
-
-  // Extension: Custom View.
-  formatToggleCustomViewOn () {
-    return 'Afficher la vue personnalisée'
-  },
-  formatToggleCustomViewOff () {
-    return 'Cacher la vue personnalisée'
-  },
-
-  // Extension: Export.
   formatExport () {
     return 'Exporter'
   },
-
-  // Extension: Filter Control.
-  formatClearFilters () {
-    return 'Retirer les filtres'
+  formatJumpTo () {
+    return 'Aller à'
+  },
+  formatAdvancedSearch () {
+    return 'Recherche avancée'
+  },
+  formatAdvancedCloseButton () {
+    return 'Fermer'
   },
   formatFilterControlSwitch () {
     return 'Masquer/Afficher les contrôles'
@@ -107,8 +99,15 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   formatFilterControlSwitchShow () {
     return 'Afficher les contrôles'
   },
-
-  // Extension: Multiple Sort.
+  formatToggleCustomViewOn () {
+    return 'Afficher la vue personnalisée'
+  },
+  formatToggleCustomViewOff () {
+    return 'Cacher la vue personnalisée'
+  },
+  formatClearFilters () {
+    return 'Retirer les filtres'
+  },
   formatAddLevel () {
     return 'Ajouter un niveau'
   },
@@ -147,24 +146,6 @@ $.fn.bootstrapTable.locales['fr-FR'] = $.fn.bootstrapTable.locales['fr'] = {
   },
   formatThenBy () {
     return 'Puis par'
-  },
-
-  // Extension: Page Jump To.
-  formatJumpTo () {
-    return 'Aller à'
-  },
-
-  // Extension: Print.
-  formatPrint () {
-    return 'Imprimer'
-  },
-
-  // Extension: Toolbar.
-  formatAdvancedCloseButton () {
-    return 'Fermer'
-  },
-  formatAdvancedSearch () {
-    return 'Recherche avancée'
   }
 }
 
