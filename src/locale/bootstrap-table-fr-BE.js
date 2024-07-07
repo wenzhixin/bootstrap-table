@@ -67,7 +67,7 @@ $.fn.bootstrapTable.locales['fr-BE'] = {
   },
   formatColumnsToggleAll () {
     return 'Tout afficher'
-  },    
+  },
   formatFullscreen () {
     return 'Plein écran'
   },
