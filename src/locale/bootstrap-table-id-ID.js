@@ -66,7 +66,7 @@ $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   },
   formatColumnsToggleAll () {
     return 'Tampilkan semua'
-  },    
+  },
   formatFullscreen () {
     return 'Layar penuh'
   },
