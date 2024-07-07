@@ -66,7 +66,7 @@ $.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
   },
   formatColumnsToggleAll () {
     return 'Wys alles'
-  },    
+  },
   formatFullscreen () {
     return 'Volskerm'
   },
