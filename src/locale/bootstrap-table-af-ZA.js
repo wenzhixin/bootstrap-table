@@ -5,98 +5,145 @@
 
 $.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Kopieer lyne'
   },
   formatPrint () {
-    return 'Print'
+    return 'Druk uit'
   },
   formatLoadingMessage () {
-    return 'Besig om te laai, wag asseblief'
+    return 'Laai tans'
   },
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} rekords per bladsy`
+    return `${pageNumber} reëls per bladsy`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Resultate ${pageFrom} tot ${pageTo} van ${totalRows} rye (filtered from ${totalNotFiltered} total rows)`
+      return `Wys ${pageFrom} tot ${pageTo} van ${totalRows} lyne (gefiltreer vanaf ${totalNotFiltered} lyne)`
     }
-
-    return `Resultate ${pageFrom} tot ${pageTo} van ${totalRows} rye`
+    return `Wys ${pageFrom} tot ${pageTo} van ${totalRows} lyne`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'vorige bladsy'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `na bladsy ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'volgende bladsy'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `${totalRows}-reël vertoon`
   },
   formatClearSearch () {
-    return 'Clear Search'
+    return 'Duidelike soektog'
   },
   formatSearch () {
-    return 'Soek'
+    return 'Navorsing'
   },
   formatNoMatches () {
-    return 'Geen rekords gevind nie'
+    return 'Geen resultate nie'
   },
   formatPaginationSwitch () {
-    return 'Wys/verberg bladsy nummering'
+    return 'Versteek/Wys paginasie'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Wys paginasie'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Versteek paginasie'
   },
   formatRefresh () {
-    return 'Herlaai'
+    return 'Verfris'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Wys kaartaansig'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Versteek kaartaansig'
   },
   formatColumns () {
     return 'Kolomme'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Wys alles'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Volskerm'
   },
   formatAllRows () {
-    return 'All'
+    return 'Alles'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Verfris outomaties'
   },
   formatExport () {
-    return 'Export data'
+    return 'Voer data uit'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Gaan na'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Gevorderde soektog'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Maak'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Versteek/Wys kontroles'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Versteek kontroles'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Wys kontroles'
+  },
+  formatToggleCustomViewOn () {
+    return 'Wys pasgemaakte aansig'
+  },
+  formatToggleCustomViewOff () {
+    return 'Versteek pasgemaakte aansig'
+  },
+  formatClearFilters () {
+    return 'Verwyder filters'
+  },
+  formatAddLevel () {
+    return 'Voeg \'n vlak by'
+  },
+  formatCancel () {
+    return 'Kanselleer'
+  },
+  formatColumn () {
+    return 'Kolom'
+  },
+  formatDeleteLevel () {
+    return 'Vee \'n vlak uit'
+  },
+  formatDuplicateAlertTitle () {
+    return 'Duplikaatinskrywings is gevind!'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Verwyder of wysig asseblief duplikaatinskrywings'
+  },
+  formatMultipleSort () {
+    return 'Multi-sorteer'
+  },
+  formatOrder () {
+    return 'Bestelling'
+  },
+  formatSort () {
+    return 'Rangskik'
+  },
+  formatSortBy () {
+    return 'Sorteer volgens'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Stygende',
+      desc: 'Dalende'
+    }
+  },
+  formatThenBy () {
+    return 'Dan deur'
   }
 }
 

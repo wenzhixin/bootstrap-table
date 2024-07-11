@@ -5,98 +5,145 @@
 
 $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Salin baris'
   },
   formatPrint () {
-    return 'Print'
+    return 'Mencetak'
   },
   formatLoadingMessage () {
-    return 'Memuat, mohon tunggu'
+    return 'Pemuatan sedang berlangsung'
   },
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} baris per halaman`
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris (filtered from ${totalNotFiltered} total rows)`
+      return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris (difilter dari ${totalNotFiltered} baris)`
     }
-
-    return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris`
+    return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris`
   },
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'halaman sebelumnya'
   },
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `ke halaman ${page}`
   },
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'halaman berikutnya'
   },
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    return `Tampilan ${totalRows} baris`
   },
   formatClearSearch () {
-    return 'Bersihkan filter'
+    return 'Menghapus pencarian'
   },
   formatSearch () {
     return 'Pencarian'
   },
   formatNoMatches () {
-    return 'Tidak ditemukan data yang cocok'
+    return 'Tidak ada hasil'
   },
   formatPaginationSwitch () {
-    return 'Sembunyikan/Tampilkan halaman'
+    return 'Sembunyikan/Tampilkan penomoran halaman'
   },
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Tampilkan penomoran halaman'
   },
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Sembunyikan penomoran halaman'
   },
   formatRefresh () {
-    return 'Muat ulang'
+    return 'Segarkan'
   },
   formatToggleOn () {
-    return 'Show card view'
+    return 'Menampilkan tampilan peta'
   },
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Menyembunyikan tampilan peta'
   },
   formatColumns () {
-    return 'kolom'
+    return 'Kolom'
   },
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Tampilkan semua'
   },
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Layar penuh'
   },
   formatAllRows () {
     return 'Semua'
   },
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Penyegaran otomatis'
   },
   formatExport () {
-    return 'Ekspor data'
+    return 'Mengekspor data'
   },
   formatJumpTo () {
-    return 'GO'
+    return 'Pergi ke'
   },
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Pencarian lanjutan'
   },
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Tutup'
   },
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Menyembunyikan/Menampilkan kontrol'
   },
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Menyembunyikan kontrol'
   },
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Menampilkan kontrol'
+  },
+  formatToggleCustomViewOn () {
+    return 'Menampilkan tampilan khusus'
+  },
+  formatToggleCustomViewOff () {
+    return 'Menyembunyikan tampilan khusus'
+  },
+  formatClearFilters () {
+    return 'Menghapus filter'
+  },
+  formatAddLevel () {
+    return 'Menambahkan level'
+  },
+  formatCancel () {
+    return 'Batal'
+  },
+  formatColumn () {
+    return 'Kolom'
+  },
+  formatDeleteLevel () {
+    return 'Menghapus level'
+  },
+  formatDuplicateAlertTitle () {
+    return 'Entri duplikat telah ditemukan!'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Harap hapus atau ubah entri duplikat'
+  },
+  formatMultipleSort () {
+    return 'Penyortiran ganda'
+  },
+  formatOrder () {
+    return 'Urutan'
+  },
+  formatSort () {
+    return 'Penyortiran'
+  },
+  formatSortBy () {
+    return 'Urutkan berdasarkan'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Menaik',
+      desc: 'Menurun'
+    }
+  },
+  formatThenBy () {
+    return 'Kemudian oleh'
   }
 }
 
