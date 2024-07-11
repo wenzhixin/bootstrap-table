@@ -148,10 +148,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   matchPositionX () {
-    if (!this.options.stickyHeader) {
-      return
-    }
-
     this.$stickyContainer.scrollLeft(this.$tableBody.scrollLeft())
   }
 }
