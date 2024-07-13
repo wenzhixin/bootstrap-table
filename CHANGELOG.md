@@ -1,6 +1,18 @@
 ChangeLog
 ---------
 
+### 1.23.1
+
+### Core
+
+- **Update:** Improved vue component init twice without `setTimeout`.
+- **Update:** Updated `af-ZA`, `fr-BE`, `fr-CH`, `fr-FR`, `fr-LU`, and `id-ID` locales.
+
+### Extensions
+
+- **Update(editable):** Fixed editable display bug of select type.
+- **Update(sticky-header):** Fixed issue if sticky-header extension is loaded but not enabled.
+
 ### 1.23.0
 
 #### Core
