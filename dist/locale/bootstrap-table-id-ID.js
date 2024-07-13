@@ -11,97 +11,145 @@
 
   $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
     formatCopyRows: function formatCopyRows() {
-      return 'Copy Rows';
+      return 'Salin baris';
     },
     formatPrint: function formatPrint() {
-      return 'Print';
+      return 'Mencetak';
     },
     formatLoadingMessage: function formatLoadingMessage() {
-      return 'Memuat, mohon tunggu';
+      return 'Pemuatan sedang berlangsung';
     },
     formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
       return "".concat(pageNumber, " baris per halaman");
     },
     formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
       if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-        return "Menampilkan ".concat(pageFrom, " sampai ").concat(pageTo, " dari ").concat(totalRows, " baris (filtered from ").concat(totalNotFiltered, " total rows)");
+        return "Menampilkan dari ".concat(pageFrom, " hingga ").concat(pageTo, " pada ").concat(totalRows, " baris (difilter dari ").concat(totalNotFiltered, " baris)");
       }
-      return "Menampilkan ".concat(pageFrom, " sampai ").concat(pageTo, " dari ").concat(totalRows, " baris");
+      return "Menampilkan dari ".concat(pageFrom, " hingga ").concat(pageTo, " pada ").concat(totalRows, " baris");
     },
     formatSRPaginationPreText: function formatSRPaginationPreText() {
-      return 'previous page';
+      return 'halaman sebelumnya';
     },
     formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-      return "to page ".concat(page);
+      return "ke halaman ".concat(page);
     },
     formatSRPaginationNextText: function formatSRPaginationNextText() {
-      return 'next page';
+      return 'halaman berikutnya';
     },
     formatDetailPagination: function formatDetailPagination(totalRows) {
-      return "Showing ".concat(totalRows, " rows");
+      return "Tampilan ".concat(totalRows, " baris");
     },
     formatClearSearch: function formatClearSearch() {
-      return 'Bersihkan filter';
+      return 'Menghapus pencarian';
     },
     formatSearch: function formatSearch() {
       return 'Pencarian';
     },
     formatNoMatches: function formatNoMatches() {
-      return 'Tidak ditemukan data yang cocok';
+      return 'Tidak ada hasil';
     },
     formatPaginationSwitch: function formatPaginationSwitch() {
-      return 'Sembunyikan/Tampilkan halaman';
+      return 'Sembunyikan/Tampilkan penomoran halaman';
     },
     formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-      return 'Show pagination';
+      return 'Tampilkan penomoran halaman';
     },
     formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-      return 'Hide pagination';
+      return 'Sembunyikan penomoran halaman';
     },
     formatRefresh: function formatRefresh() {
-      return 'Muat ulang';
+      return 'Segarkan';
     },
     formatToggleOn: function formatToggleOn() {
-      return 'Show card view';
+      return 'Menampilkan tampilan peta';
     },
     formatToggleOff: function formatToggleOff() {
-      return 'Hide card view';
+      return 'Menyembunyikan tampilan peta';
     },
     formatColumns: function formatColumns() {
-      return 'kolom';
+      return 'Kolom';
     },
     formatColumnsToggleAll: function formatColumnsToggleAll() {
-      return 'Toggle all';
+      return 'Tampilkan semua';
     },
     formatFullscreen: function formatFullscreen() {
-      return 'Fullscreen';
+      return 'Layar penuh';
     },
     formatAllRows: function formatAllRows() {
       return 'Semua';
     },
     formatAutoRefresh: function formatAutoRefresh() {
-      return 'Auto Refresh';
+      return 'Penyegaran otomatis';
     },
     formatExport: function formatExport() {
-      return 'Ekspor data';
+      return 'Mengekspor data';
     },
     formatJumpTo: function formatJumpTo() {
-      return 'GO';
+      return 'Pergi ke';
     },
     formatAdvancedSearch: function formatAdvancedSearch() {
-      return 'Advanced search';
+      return 'Pencarian lanjutan';
     },
     formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-      return 'Close';
+      return 'Tutup';
     },
     formatFilterControlSwitch: function formatFilterControlSwitch() {
-      return 'Hide/Show controls';
+      return 'Menyembunyikan/Menampilkan kontrol';
     },
     formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-      return 'Hide controls';
+      return 'Menyembunyikan kontrol';
     },
     formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-      return 'Show controls';
+      return 'Menampilkan kontrol';
+    },
+    formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+      return 'Menampilkan tampilan khusus';
+    },
+    formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+      return 'Menyembunyikan tampilan khusus';
+    },
+    formatClearFilters: function formatClearFilters() {
+      return 'Menghapus filter';
+    },
+    formatAddLevel: function formatAddLevel() {
+      return 'Menambahkan level';
+    },
+    formatCancel: function formatCancel() {
+      return 'Batal';
+    },
+    formatColumn: function formatColumn() {
+      return 'Kolom';
+    },
+    formatDeleteLevel: function formatDeleteLevel() {
+      return 'Menghapus level';
+    },
+    formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+      return 'Entri duplikat telah ditemukan!';
+    },
+    formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+      return 'Harap hapus atau ubah entri duplikat';
+    },
+    formatMultipleSort: function formatMultipleSort() {
+      return 'Penyortiran ganda';
+    },
+    formatOrder: function formatOrder() {
+      return 'Urutan';
+    },
+    formatSort: function formatSort() {
+      return 'Penyortiran';
+    },
+    formatSortBy: function formatSortBy() {
+      return 'Urutkan berdasarkan';
+    },
+    formatSortOrders: function formatSortOrders() {
+      return {
+        asc: 'Menaik',
+        desc: 'Menurun'
+      };
+    },
+    formatThenBy: function formatThenBy() {
+      return 'Kemudian oleh';
     }
   };
   Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['id-ID']);

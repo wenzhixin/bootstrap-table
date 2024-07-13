@@ -242,6 +242,7 @@
               editableOptions[dashKey.replace(editableDataPrefix, 'data-')] = value;
             }
           };
+          var formatterIsSet = column.formatter ? true : false;
           $.each(_this.options, processDataOptions);
           column.formatter = column.formatter || function (value) {
             return value;
@@ -266,7 +267,7 @@
             $.each(editableOptions, function (key, value) {
               editableDataMarkup += " ".concat(key, "=\"").concat(value, "\"");
             });
-            return "<a href=\"javascript:void(0)\"\n          data-name=\"".concat(column.field, "\"\n          data-pk=\"").concat(row[_this.options.idField], "\"\n          data-value=\"").concat(value || '', "\"\n          ").concat(editableDataMarkup, ">").concat(result, "</a>"); // expand all data-editable-XXX
+            return "<a href=\"javascript:void(0)\"\n          data-name=\"".concat(column.field, "\"\n          data-pk=\"").concat(row[_this.options.idField], "\"\n          data-value=\"").concat(value || '', "\"\n          ").concat(editableDataMarkup, ">").concat(formatterIsSet ? result : '', "</a>"); // expand all data-editable-XXX
           };
         });
       }

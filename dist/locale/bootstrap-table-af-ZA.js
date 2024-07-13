@@ -11,97 +11,145 @@
 
   $.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
     formatCopyRows: function formatCopyRows() {
-      return 'Copy Rows';
+      return 'Kopieer lyne';
     },
     formatPrint: function formatPrint() {
-      return 'Print';
+      return 'Druk uit';
     },
     formatLoadingMessage: function formatLoadingMessage() {
-      return 'Besig om te laai, wag asseblief';
+      return 'Laai tans';
     },
     formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-      return "".concat(pageNumber, " rekords per bladsy");
+      return "".concat(pageNumber, " re\xEBls per bladsy");
     },
     formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
       if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-        return "Resultate ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " rye (filtered from ").concat(totalNotFiltered, " total rows)");
+        return "Wys ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " lyne (gefiltreer vanaf ").concat(totalNotFiltered, " lyne)");
       }
-      return "Resultate ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " rye");
+      return "Wys ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " lyne");
     },
     formatSRPaginationPreText: function formatSRPaginationPreText() {
-      return 'previous page';
+      return 'vorige bladsy';
     },
     formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-      return "to page ".concat(page);
+      return "na bladsy ".concat(page);
     },
     formatSRPaginationNextText: function formatSRPaginationNextText() {
-      return 'next page';
+      return 'volgende bladsy';
     },
     formatDetailPagination: function formatDetailPagination(totalRows) {
-      return "Showing ".concat(totalRows, " rows");
+      return "".concat(totalRows, "-re\xEBl vertoon");
     },
     formatClearSearch: function formatClearSearch() {
-      return 'Clear Search';
+      return 'Duidelike soektog';
     },
     formatSearch: function formatSearch() {
-      return 'Soek';
+      return 'Navorsing';
     },
     formatNoMatches: function formatNoMatches() {
-      return 'Geen rekords gevind nie';
+      return 'Geen resultate nie';
     },
     formatPaginationSwitch: function formatPaginationSwitch() {
-      return 'Wys/verberg bladsy nummering';
+      return 'Versteek/Wys paginasie';
     },
     formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-      return 'Show pagination';
+      return 'Wys paginasie';
     },
     formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-      return 'Hide pagination';
+      return 'Versteek paginasie';
     },
     formatRefresh: function formatRefresh() {
-      return 'Herlaai';
+      return 'Verfris';
     },
     formatToggleOn: function formatToggleOn() {
-      return 'Show card view';
+      return 'Wys kaartaansig';
     },
     formatToggleOff: function formatToggleOff() {
-      return 'Hide card view';
+      return 'Versteek kaartaansig';
     },
     formatColumns: function formatColumns() {
       return 'Kolomme';
     },
     formatColumnsToggleAll: function formatColumnsToggleAll() {
-      return 'Toggle all';
+      return 'Wys alles';
     },
     formatFullscreen: function formatFullscreen() {
-      return 'Fullscreen';
+      return 'Volskerm';
     },
     formatAllRows: function formatAllRows() {
-      return 'All';
+      return 'Alles';
     },
     formatAutoRefresh: function formatAutoRefresh() {
-      return 'Auto Refresh';
+      return 'Verfris outomaties';
     },
     formatExport: function formatExport() {
-      return 'Export data';
+      return 'Voer data uit';
     },
     formatJumpTo: function formatJumpTo() {
-      return 'GO';
+      return 'Gaan na';
     },
     formatAdvancedSearch: function formatAdvancedSearch() {
-      return 'Advanced search';
+      return 'Gevorderde soektog';
     },
     formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-      return 'Close';
+      return 'Maak';
     },
     formatFilterControlSwitch: function formatFilterControlSwitch() {
-      return 'Hide/Show controls';
+      return 'Versteek/Wys kontroles';
     },
     formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-      return 'Hide controls';
+      return 'Versteek kontroles';
     },
     formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-      return 'Show controls';
+      return 'Wys kontroles';
+    },
+    formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+      return 'Wys pasgemaakte aansig';
+    },
+    formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+      return 'Versteek pasgemaakte aansig';
+    },
+    formatClearFilters: function formatClearFilters() {
+      return 'Verwyder filters';
+    },
+    formatAddLevel: function formatAddLevel() {
+      return 'Voeg \'n vlak by';
+    },
+    formatCancel: function formatCancel() {
+      return 'Kanselleer';
+    },
+    formatColumn: function formatColumn() {
+      return 'Kolom';
+    },
+    formatDeleteLevel: function formatDeleteLevel() {
+      return 'Vee \'n vlak uit';
+    },
+    formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+      return 'Duplikaatinskrywings is gevind!';
+    },
+    formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+      return 'Verwyder of wysig asseblief duplikaatinskrywings';
+    },
+    formatMultipleSort: function formatMultipleSort() {
+      return 'Multi-sorteer';
+    },
+    formatOrder: function formatOrder() {
+      return 'Bestelling';
+    },
+    formatSort: function formatSort() {
+      return 'Rangskik';
+    },
+    formatSortBy: function formatSortBy() {
+      return 'Sorteer volgens';
+    },
+    formatSortOrders: function formatSortOrders() {
+      return {
+        asc: 'Stygende',
+        desc: 'Dalende'
+      };
+    },
+    formatThenBy: function formatThenBy() {
+      return 'Dan deur';
     }
   };
   Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['af-ZA']);
