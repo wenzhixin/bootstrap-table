@@ -16,7 +16,6 @@ Object.assign($.fn.bootstrapTable.defaults, {
 $.BootstrapTable = class extends $.BootstrapTable {
   initHeader (...args) {
     super.initHeader(...args)
-
     if (!this.options.stickyHeader) {
       return
     }
@@ -46,11 +45,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   onColumnSearch ({ currentTarget, keyCode }) {
     super.onColumnSearch({ currentTarget, keyCode })
+    if (!this.options.stickyHeader) {
+      return
+    }
+
     this.renderStickyHeader()
   }
 
   resetView (...args) {
     super.resetView(...args)
+    if (!this.options.stickyHeader) {
+      return
+    }
 
     $('.bootstrap-table.fullscreen').off('scroll')
       .on('scroll', () => this.renderStickyHeader())
@@ -58,6 +64,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   getCaret (...args) {
     super.getCaret(...args)
+    if (!this.options.stickyHeader) {
+      return
+    }
 
     if (this.$stickyHeader) {
       const $ths = this.$stickyHeader.find('th')
@@ -70,6 +79,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   horizontalScroll () {
     super.horizontalScroll()
+    if (!this.options.stickyHeader) {
+      return
+    }
+
     this.$tableBody.on('scroll', () => this.matchPositionX())
   }
 

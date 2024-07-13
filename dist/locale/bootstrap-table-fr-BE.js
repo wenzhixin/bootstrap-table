@@ -12,10 +12,10 @@
 
   $.fn.bootstrapTable.locales['fr-BE'] = {
     formatCopyRows: function formatCopyRows() {
-      return 'Copy Rows';
+      return 'Copier les lignes';
     },
     formatPrint: function formatPrint() {
-      return 'Print';
+      return 'Imprimer';
     },
     formatLoadingMessage: function formatLoadingMessage() {
       return 'Chargement en cours';
@@ -25,9 +25,9 @@
     },
     formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
       if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-        return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9s \xE0 partir de ").concat(totalNotFiltered, " lignes)");
+        return "Affichage de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9es \xE0 partir de ").concat(totalNotFiltered, " lignes)");
       }
-      return "Affiche de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
+      return "Affichage de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
     },
     formatSRPaginationPreText: function formatSRPaginationPreText() {
       return 'page précédente';
@@ -39,40 +39,40 @@
       return 'page suivante';
     },
     formatDetailPagination: function formatDetailPagination(totalRows) {
-      return "Affiche ".concat(totalRows, " lignes");
+      return "Affichage de ".concat(totalRows, " lignes");
     },
     formatClearSearch: function formatClearSearch() {
       return 'Effacer la recherche';
     },
     formatSearch: function formatSearch() {
-      return 'Recherche';
+      return 'Rechercher';
     },
     formatNoMatches: function formatNoMatches() {
-      return 'Pas de lignes trouvés';
+      return 'Aucun résultat';
     },
     formatPaginationSwitch: function formatPaginationSwitch() {
-      return 'Cacher/Afficher pagination';
+      return 'Masquer/Afficher la pagination';
     },
     formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-      return 'Afficher pagination';
+      return 'Afficher la pagination';
     },
     formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-      return 'Cacher pagination';
+      return 'Masquer la pagination';
     },
     formatRefresh: function formatRefresh() {
-      return 'Rafraichir';
+      return 'Actualiser';
     },
     formatToggleOn: function formatToggleOn() {
-      return 'Afficher vue carte';
+      return 'Afficher la vue en cartes';
     },
     formatToggleOff: function formatToggleOff() {
-      return 'Cacher vue carte';
+      return 'Cacher la vue en cartes';
     },
     formatColumns: function formatColumns() {
       return 'Colonnes';
     },
     formatColumnsToggleAll: function formatColumnsToggleAll() {
-      return 'Tout basculer';
+      return 'Tout afficher';
     },
     formatFullscreen: function formatFullscreen() {
       return 'Plein écran';
@@ -81,10 +81,10 @@
       return 'Tout';
     },
     formatAutoRefresh: function formatAutoRefresh() {
-      return 'Rafraîchissement automatique';
+      return 'Actualiser automatiquement';
     },
     formatExport: function formatExport() {
-      return 'Exporter les données';
+      return 'Exporter';
     },
     formatJumpTo: function formatJumpTo() {
       return 'Aller à';
@@ -96,13 +96,61 @@
       return 'Fermer';
     },
     formatFilterControlSwitch: function formatFilterControlSwitch() {
-      return 'Cacher/Afficher controls';
+      return 'Masquer/Afficher les contrôles';
     },
     formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-      return 'Cacher controls';
+      return 'Masquer les contrôles';
     },
     formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-      return 'Afficher controls';
+      return 'Afficher les contrôles';
+    },
+    formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+      return 'Afficher la vue personnalisée';
+    },
+    formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+      return 'Cacher la vue personnalisée';
+    },
+    formatClearFilters: function formatClearFilters() {
+      return 'Retirer les filtres';
+    },
+    formatAddLevel: function formatAddLevel() {
+      return 'Ajouter un niveau';
+    },
+    formatCancel: function formatCancel() {
+      return 'Annuler';
+    },
+    formatColumn: function formatColumn() {
+      return 'Colonne';
+    },
+    formatDeleteLevel: function formatDeleteLevel() {
+      return 'Supprimer un niveau';
+    },
+    formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+      return 'Des entrées en double ont été trouvées !';
+    },
+    formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+      return 'Veuillez supprimer ou modifier les entrées en double';
+    },
+    formatMultipleSort: function formatMultipleSort() {
+      return 'Tri multiple';
+    },
+    formatOrder: function formatOrder() {
+      return 'Ordre';
+    },
+    formatSort: function formatSort() {
+      return 'Trier';
+    },
+    formatSortBy: function formatSortBy() {
+      return 'Trier par';
+    },
+    formatSortOrders: function formatSortOrders() {
+      return {
+        asc: 'Ascendant',
+        desc: 'Descendant'
+      };
+    },
+    formatThenBy: function formatThenBy() {
+      return 'Puis par';
     }
   };
   Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-BE']);

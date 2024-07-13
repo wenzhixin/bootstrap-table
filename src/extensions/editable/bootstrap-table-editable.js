@@ -58,6 +58,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
       }
 
+      const formatterIsSet = column.formatter ? true : false
+
       $.each(this.options, processDataOptions)
 
       column.formatter = column.formatter || (value => value)
@@ -95,7 +97,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           data-name="${column.field}"
           data-pk="${row[this.options.idField]}"
           data-value="${value || ''}"
-          ${editableDataMarkup}>${result}</a>` // expand all data-editable-XXX
+          ${editableDataMarkup}>${formatterIsSet ? result : ''}</a>` // expand all data-editable-XXX
       }
     })
   }

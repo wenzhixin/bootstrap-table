@@ -19,10 +19,9 @@ $.fn.bootstrapTable.locales['fr-LU'] = {
   },
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrés à partir de ${totalNotFiltered} lignes)`
+      return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrées à partir de ${totalNotFiltered} lignes)`
     }
-
-    return `Affiche de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
+    return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
   },
   formatSRPaginationPreText () {
     return 'page précédente'
@@ -34,40 +33,40 @@ $.fn.bootstrapTable.locales['fr-LU'] = {
     return 'page suivante'
   },
   formatDetailPagination (totalRows) {
-    return `Affiche ${totalRows} lignes`
+    return `Affichage de ${totalRows} lignes`
   },
   formatClearSearch () {
     return 'Effacer la recherche'
   },
   formatSearch () {
-    return 'Recherche'
+    return 'Rechercher'
   },
   formatNoMatches () {
-    return 'Pas de lignes trouvés'
+    return 'Aucun résultat'
   },
   formatPaginationSwitch () {
-    return 'Cacher/Afficher pagination'
+    return 'Masquer/Afficher la pagination'
   },
   formatPaginationSwitchDown () {
-    return 'Afficher pagination'
+    return 'Afficher la pagination'
   },
   formatPaginationSwitchUp () {
-    return 'Cacher pagination'
+    return 'Masquer la pagination'
   },
   formatRefresh () {
-    return 'Rafraichir'
+    return 'Actualiser'
   },
   formatToggleOn () {
-    return 'Afficher vue carte'
+    return 'Afficher la vue en cartes'
   },
   formatToggleOff () {
-    return 'Cacher vue carte'
+    return 'Cacher la vue en cartes'
   },
   formatColumns () {
     return 'Colonnes'
   },
   formatColumnsToggleAll () {
-    return 'Tout basculer'
+    return 'Tout afficher'
   },
   formatFullscreen () {
     return 'Plein écran'
@@ -76,10 +75,10 @@ $.fn.bootstrapTable.locales['fr-LU'] = {
     return 'Tout'
   },
   formatAutoRefresh () {
-    return 'Rafraîchissement automatique'
+    return 'Actualiser automatiquement'
   },
   formatExport () {
-    return 'Exporter les données'
+    return 'Exporter'
   },
   formatJumpTo () {
     return 'Aller à'
@@ -91,13 +90,61 @@ $.fn.bootstrapTable.locales['fr-LU'] = {
     return 'Fermer'
   },
   formatFilterControlSwitch () {
-    return 'Cacher/Afficher controls'
+    return 'Masquer/Afficher les contrôles'
   },
   formatFilterControlSwitchHide () {
-    return 'Cacher controls'
+    return 'Masquer les contrôles'
   },
   formatFilterControlSwitchShow () {
-    return 'Afficher controls'
+    return 'Afficher les contrôles'
+  },
+  formatToggleCustomViewOn () {
+    return 'Afficher la vue personnalisée'
+  },
+  formatToggleCustomViewOff () {
+    return 'Cacher la vue personnalisée'
+  },
+  formatClearFilters () {
+    return 'Retirer les filtres'
+  },
+  formatAddLevel () {
+    return 'Ajouter un niveau'
+  },
+  formatCancel () {
+    return 'Annuler'
+  },
+  formatColumn () {
+    return 'Colonne'
+  },
+  formatDeleteLevel () {
+    return 'Supprimer un niveau'
+  },
+  formatDuplicateAlertTitle () {
+    return 'Des entrées en double ont été trouvées !'
+  },
+  formatDuplicateAlertDescription () {
+    return 'Veuillez supprimer ou modifier les entrées en double'
+  },
+  formatMultipleSort () {
+    return 'Tri multiple'
+  },
+  formatOrder () {
+    return 'Ordre'
+  },
+  formatSort () {
+    return 'Trier'
+  },
+  formatSortBy () {
+    return 'Trier par'
+  },
+  formatSortOrders () {
+    return {
+      asc: 'Ascendant',
+      desc: 'Descendant'
+    }
+  },
+  formatThenBy () {
+    return 'Puis par'
   }
 }
 

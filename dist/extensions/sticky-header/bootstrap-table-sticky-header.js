@@ -154,6 +154,9 @@
           currentTarget: currentTarget,
           keyCode: keyCode
         });
+        if (!this.options.stickyHeader) {
+          return;
+        }
         this.renderStickyHeader();
       }
     }, {
@@ -165,6 +168,9 @@
           args[_key2] = arguments[_key2];
         }
         (_get3 = _get(_getPrototypeOf(_class.prototype), "resetView", this)).call.apply(_get3, [this].concat(args));
+        if (!this.options.stickyHeader) {
+          return;
+        }
         $('.bootstrap-table.fullscreen').off('scroll').on('scroll', function () {
           return _this2.renderStickyHeader();
         });
@@ -177,6 +183,9 @@
           args[_key3] = arguments[_key3];
         }
         (_get4 = _get(_getPrototypeOf(_class.prototype), "getCaret", this)).call.apply(_get4, [this].concat(args));
+        if (!this.options.stickyHeader) {
+          return;
+        }
         if (this.$stickyHeader) {
           var $ths = this.$stickyHeader.find('th');
           this.$header.find('th').each(function (i, th) {
@@ -189,6 +198,9 @@
       value: function horizontalScroll() {
         var _this3 = this;
         _get(_getPrototypeOf(_class.prototype), "horizontalScroll", this).call(this);
+        if (!this.options.stickyHeader) {
+          return;
+        }
         this.$tableBody.on('scroll', function () {
           return _this3.matchPositionX();
         });
