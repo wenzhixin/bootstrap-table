@@ -2,23 +2,20 @@
   "name": "themes",
   "version": "1.0.0",
   "private": true,
+  "module": "type",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve": "vite",
+    "build": "vite build",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "core-js": "^3.4.3",
-    "vue": "^2.6.10"
+    "vue": "^3.4.31"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.1.0",
-    "@vue/cli-plugin-eslint": "^4.1.0",
-    "@vue/cli-service": "^4.1.0",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "@vitejs/plugin-vue": "^5.0.5",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "vite": "^5.3.3"
   },
   "eslintConfig": {
     "root": true,
@@ -26,12 +23,12 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
+      "plugin:vue/vue3-essential",
       "eslint:recommended"
     ],
     "rules": {},
     "parserOptions": {
-      "parser": "babel-eslint"
+      "ecmaVersion": "latest"
     }
   },
   "browserslist": [
