@@ -1,8 +1,8 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 
-Vue.config.productionTip = false
+const app = createApp(App)
 
-new Vue({
-  render: h => h(App)
-}).$mount('#app')
+app.__VUE_PROD_DEVTOOLS__ = process.env.NODE_ENV === 'development'
+
+app.mount('#app')
