@@ -1080,6 +1080,7 @@ class BootstrapTable {
             const props = key.split('.')
 
             for (let i = 0; i < props.length; i++) {
+              // eslint-disable-next-line eqeqeq
               if (value[props[i]] != null) {
                 value = value[props[i]]
               } else {
