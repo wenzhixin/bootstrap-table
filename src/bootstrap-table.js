@@ -1081,7 +1081,12 @@ class BootstrapTable {
 
             for (let i = 0; i < props.length; i++) {
               // eslint-disable-next-line eqeqeq
-              if (value[props[i]] != null) {
+              if (value[props[i]] === null || value[props[i]] === undefined) {
+                value = null
+                break
+              } else {
+                value = value[props[i]]
+              }
                 value = value[props[i]]
               } else {
                 value = null
