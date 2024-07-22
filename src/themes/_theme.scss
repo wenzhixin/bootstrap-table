@@ -117,6 +117,8 @@
 
         .both {
           background-image: url($sort-background-image-url-both);
+          background-size: 16px 16px;
+          background-position: center right 2px;
         }
 
         .asc {
