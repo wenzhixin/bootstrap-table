@@ -677,7 +677,7 @@ class BootstrapTable {
 
           html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}">
             <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown"
-            aria-label="${opts.formatColumns()}" title="${opts.formatColumns()}">
+            aria-label="${opts.formatColumns()}" ${opts.buttonsAttributeTitle}="${opts.formatColumns()}">
             ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
             ${opts.showButtonText ? opts.formatColumns() : ''}
             ${this.constants.html.dropdownCaret}
@@ -763,7 +763,11 @@ class BootstrapTable {
             if (attributeName === 'class') {
               continue
             }
-            buttonHtml += ` ${attributeName}="${value}"`
+
+            const attribute = attributeName === 'title' ?
+              this.options.buttonsAttributeTitle : attributeName
+
+            buttonHtml += ` ${attribute}="${value}"`
           }
         }
 
@@ -3235,12 +3239,13 @@ class BootstrapTable {
     this.initHeader()
 
     const icon = this.options.showButtonIcons ? this.options.cardView ? this.options.icons.toggleOn : this.options.icons.toggleOff : ''
-    const text = this.options.showButtonText ? this.options.cardView ? this.options.formatToggleOff() : this.options.formatToggleOn() : ''
+    const text = this.options.cardView ? this.options.formatToggleOff() : this.options.formatToggleOn()
 
     this.$toolbar.find('button[name="toggle"]')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix,
+        icon)} ${this.options.showButtonText ? text : ''}`)
       .attr('aria-label', text)
-      .attr('title', text)
+      .attr(this.options.buttonsAttributeTitle, text)
 
     this.initBody()
     this.trigger('toggle', this.options.cardView)

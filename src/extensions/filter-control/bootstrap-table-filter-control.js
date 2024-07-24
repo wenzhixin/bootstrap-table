@@ -197,7 +197,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initSearch () {
     const that = this
-    const filterPartial = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial
+    const filterPartial = Utils.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial
 
     super.initSearch()
 
@@ -493,7 +493,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this._filterControlValuesLoaded = true
     }
 
-    if ($.isEmptyObject(this.filterColumnsPartial)) {
+    if (Utils.isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {}
     }
 
