@@ -242,6 +242,7 @@ const DEFAULTS = {
   toolbarAlign: 'left',
   buttonsToolbar: undefined,
   buttonsAlign: 'right',
+  buttonsAttributeTitle: 'title',
   buttonsOrder: ['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns'],
   buttonsPrefix: CONSTANTS.classes.buttonsPrefix,
   buttonsClass: CONSTANTS.classes.buttons,

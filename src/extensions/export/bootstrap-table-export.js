@@ -207,7 +207,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const footerData = {}
         const footerHtml = []
 
-        $.each($footerRow.children(), (index, footerCell) => {
+        $footerRow.children().forEach((footerCell, index) => {
           const footerCellHtml = $(footerCell).children('.th-inner').first().html()
 
           footerData[this.columns[index].field] = footerCellHtml === '&nbsp;' ? null : footerCellHtml
@@ -219,7 +219,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.$body.append(this.$body.children().last()[0].outerHTML)
         const $lastTableRow = this.$body.children().last()
 
-        $.each($lastTableRow.children(), (index, lastTableRowCell) => {
+        $lastTableRow.children().forEach((lastTableRowCell, index) => {
           $(lastTableRowCell).html(footerHtml[index])
         })
       }
