@@ -665,5 +665,27 @@ export default {
 
       if (callNow) func.apply(context, args)
     }
+  },
+
+  replaceSearchMark (html, searchText) {
+    const node = document.createElement('div')
+    const replaceMark = (node, searchText) => {
+      const regExp = new RegExp(searchText, 'gim')
+
+      for (const child of node.childNodes) {
+        if (child.nodeType === document.TEXT_NODE) {
+          child.data = child.data.replace(regExp, match => `___${match}___`)
+        }
+        if (child.nodeType === document.ELEMENT_NODE) {
+          replaceMark(child, searchText)
+        }
+      }
+    }
+
+    node.innerHTML = html
+    replaceMark(node, searchText)
+
+    return node.innerHTML.replace(new RegExp(`___${searchText}___`, 'gim'),
+      match => `<mark>${match.slice(3, -3)}</mark>`)
   }
 }
