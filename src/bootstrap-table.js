@@ -1659,8 +1659,12 @@ class BootstrapTable {
           this.options.undefinedText : value
       }
 
-      if (column.searchable && this.searchText && this.options.searchHighlight && !(column.checkbox || column.radio)) {
-        let defValue = ''
+      if (
+        column.searchable &&
+        this.searchText &&
+        this.options.searchHighlight &&
+        !(column.checkbox || column.radio)
+      ) {
         let searchText = this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
         if (this.options.searchAccentNeutralise) {
@@ -1672,22 +1676,10 @@ class BootstrapTable {
           }
         }
 
-        const regExp = new RegExp(`(${searchText})`, 'gim')
-        const marker = '<mark>$1</mark>'
-        const isHTML = value && /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value)
+        const defValue = Utils.replaceSearchMark(value, searchText)
 
-        if (isHTML) {
-          // value can contains a HTML tags
-          let textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent
-          const textReplaced = textContent.replace(regExp, marker)
-
-          textContent = textContent.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-          defValue = value.replace(new RegExp(`(>\\s*)(${textContent})(\\s*)`, 'gm'), `$1${textReplaced}$3`)
-        } else {
-          // but usually not
-          defValue = value.toString().replace(regExp, marker)
-        }
-        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], defValue)
+        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter,
+          [value, this.searchText], defValue)
       }
 
       if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
