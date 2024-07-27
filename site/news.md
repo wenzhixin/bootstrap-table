@@ -4,6 +4,10 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.23.2
+
+<span class="post-date">27 Jul 2024</span>
+
 ## Bootstrap Table 1.23.1
 
 <span class="post-date">13 Jul 2024</span>

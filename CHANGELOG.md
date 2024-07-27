@@ -1,6 +1,17 @@
 ChangeLog
 ---------
 
+### 1.23.2
+
+### Core
+
+- **New:** Added `buttonsAttributeTitle` option to customize title attribute.
+- **Update:** Updated sort icons using SVG instead of PNG.
+- **Update:** Fixed search highlight not working when it contains multiple HTML elements.
+- **Update:** Fixed the `esbuild` bundle error.
+- **Update:** Fixed insertRow, updateRow, and updateCell methods bugs.
+- **Update:** Fixed `undefined` error when searching using the dotted field.
+
 ### 1.23.1
 
 ### Core

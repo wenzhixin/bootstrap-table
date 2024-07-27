@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.23.1
+ * version: 1.23.2
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
@@ -677,7 +677,7 @@ class BootstrapTable {
 
           html.push(`<div class="keep-open ${this.constants.classes.buttonsDropdown}">
             <button class="${this.constants.buttonsClass} dropdown-toggle" type="button" ${this.constants.dataToggle}="dropdown"
-            aria-label="${opts.formatColumns()}" title="${opts.formatColumns()}">
+            aria-label="${opts.formatColumns()}" ${opts.buttonsAttributeTitle}="${opts.formatColumns()}">
             ${opts.showButtonIcons ? Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, opts.icons.columns) : ''}
             ${opts.showButtonText ? opts.formatColumns() : ''}
             ${this.constants.html.dropdownCaret}
@@ -763,7 +763,11 @@ class BootstrapTable {
             if (attributeName === 'class') {
               continue
             }
-            buttonHtml += ` ${attributeName}="${value}"`
+
+            const attribute = attributeName === 'title' ?
+              this.options.buttonsAttributeTitle : attributeName
+
+            buttonHtml += ` ${attribute}="${value}"`
           }
         }
 
@@ -1080,11 +1084,11 @@ class BootstrapTable {
             const props = key.split('.')
 
             for (let i = 0; i < props.length; i++) {
-              if (value[props[i]] !== null) {
-                value = value[props[i]]
-              } else {
+              if (value[props[i]] === null || value[props[i]] === undefined) {
                 value = null
                 break
+              } else {
+                value = value[props[i]]
               }
             }
           } else {
@@ -1655,8 +1659,12 @@ class BootstrapTable {
           this.options.undefinedText : value
       }
 
-      if (column.searchable && this.searchText && this.options.searchHighlight && !(column.checkbox || column.radio)) {
-        let defValue = ''
+      if (
+        column.searchable &&
+        this.searchText &&
+        this.options.searchHighlight &&
+        !(column.checkbox || column.radio)
+      ) {
         let searchText = this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
         if (this.options.searchAccentNeutralise) {
@@ -1668,22 +1676,10 @@ class BootstrapTable {
           }
         }
 
-        const regExp = new RegExp(`(${searchText})`, 'gim')
-        const marker = '<mark>$1</mark>'
-        const isHTML = value && /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(value)
+        const defValue = Utils.replaceSearchMark(value, searchText)
 
-        if (isHTML) {
-          // value can contains a HTML tags
-          let textContent = new DOMParser().parseFromString(value.toString(), 'text/html').documentElement.textContent
-          const textReplaced = textContent.replace(regExp, marker)
-
-          textContent = textContent.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-          defValue = value.replace(new RegExp(`(>\\s*)(${textContent})(\\s*)`, 'gm'), `$1${textReplaced}$3`)
-        } else {
-          // but usually not
-          defValue = value.toString().replace(regExp, marker)
-        }
-        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, this.searchText], defValue)
+        value = Utils.calculateObjectValue(column, column.searchHighlightFormatter,
+          [value, this.searchText], defValue)
       }
 
       if (item[`_${field}_data`] && !Utils.isEmptyObject(item[`_${field}_data`])) {
@@ -2571,7 +2567,6 @@ class BootstrapTable {
     let removed = 0
 
     for (let i = this.options.data.length - 1; i >= 0; i--) {
-
       const row = this.options.data[i]
       const value = Utils.getItemField(row, params.field, this.options.escape, row.escape)
 
@@ -2608,6 +2603,7 @@ class BootstrapTable {
 
   removeAll () {
     if (this.options.data.length > 0) {
+      this.data.splice(0, this.data.length)
       this.options.data.splice(0, this.options.data.length)
       this.initSearch()
       this.initPagination()
@@ -2619,7 +2615,11 @@ class BootstrapTable {
     if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
       return
     }
-    this.options.data.splice(params.index, 0, params.row)
+    const row = this.data[params.index]
+    const originalIndex = this.options.data.indexOf(row)
+
+    this.data.splice(params.index, 0, params.row)
+    this.options.data.splice(originalIndex, 0, params.row)
     this.initSearch()
     this.initPagination()
     this.initSort()
@@ -2633,11 +2633,15 @@ class BootstrapTable {
       if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
         continue
       }
+      const row = this.data[params.index]
+      const originalIndex = this.options.data.indexOf(row)
 
       if (params.hasOwnProperty('replace') && params.replace) {
-        this.options.data[params.index] = params.row
+        this.data[params.index] = params.row
+        this.options.data[originalIndex] = params.row
       } else {
-        Utils.extend(this.options.data[params.index], params.row)
+        Utils.extend(this.data[params.index], params.row)
+        Utils.extend(this.options.data[originalIndex], params.row)
       }
     }
 
@@ -2734,7 +2738,7 @@ class BootstrapTable {
   }
 
   _updateCellOnly (field, index) {
-    const rowHtml = this.initRow(this.options.data[index], index)
+    const rowHtml = this.initRow(this.data[index], index)
     let fieldIndex = this.getVisibleFields().indexOf(field)
 
     if (fieldIndex === -1) {
@@ -2759,7 +2763,11 @@ class BootstrapTable {
       !params.hasOwnProperty('value')) {
       return
     }
-    this.options.data[params.index][params.field] = params.value
+    const row = this.data[params.index]
+    const originalIndex = this.options.data.indexOf(row)
+
+    this.data[params.index][params.field] = params.value
+    this.options.data[originalIndex][params.field] = params.value
 
     if (params.reinit === false) {
       this._updateCellOnly(params.field, params.index)
@@ -3235,12 +3243,13 @@ class BootstrapTable {
     this.initHeader()
 
     const icon = this.options.showButtonIcons ? this.options.cardView ? this.options.icons.toggleOn : this.options.icons.toggleOff : ''
-    const text = this.options.showButtonText ? this.options.cardView ? this.options.formatToggleOff() : this.options.formatToggleOn() : ''
+    const text = this.options.cardView ? this.options.formatToggleOff() : this.options.formatToggleOn()
 
     this.$toolbar.find('button[name="toggle"]')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix,
+        icon)} ${this.options.showButtonText ? text : ''}`)
       .attr('aria-label', text)
-      .attr('title', text)
+      .attr(this.options.buttonsAttributeTitle, text)
 
     this.initBody()
     this.trigger('toggle', this.options.cardView)

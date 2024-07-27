@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Utils from '../utils/index.js'
 
-const VERSION = '1.23.1'
+const VERSION = '1.23.2'
 
 const bootstrapVersion = Utils.getBootstrapVersion()
 
@@ -242,6 +242,7 @@ const DEFAULTS = {
   toolbarAlign: 'left',
   buttonsToolbar: undefined,
   buttonsAlign: 'right',
+  buttonsAttributeTitle: 'title',
   buttonsOrder: ['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns'],
   buttonsPrefix: CONSTANTS.classes.buttonsPrefix,
   buttonsClass: CONSTANTS.classes.buttons,
