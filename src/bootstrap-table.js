@@ -2567,7 +2567,6 @@ class BootstrapTable {
     let removed = 0
 
     for (let i = this.options.data.length - 1; i >= 0; i--) {
-
       const row = this.options.data[i]
       const value = Utils.getItemField(row, params.field, this.options.escape, row.escape)
 
@@ -2604,6 +2603,7 @@ class BootstrapTable {
 
   removeAll () {
     if (this.options.data.length > 0) {
+      this.data.splice(0, this.data.length)
       this.options.data.splice(0, this.options.data.length)
       this.initSearch()
       this.initPagination()
@@ -2615,7 +2615,11 @@ class BootstrapTable {
     if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
       return
     }
-    this.options.data.splice(params.index, 0, params.row)
+    const row = this.data[params.index]
+    const originalIndex = this.options.data.indexOf(row)
+
+    this.data.splice(params.index, 0, params.row)
+    this.options.data.splice(originalIndex, 0, params.row)
     this.initSearch()
     this.initPagination()
     this.initSort()
@@ -2629,11 +2633,15 @@ class BootstrapTable {
       if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
         continue
       }
+      const row = this.data[params.index]
+      const originalIndex = this.options.data.indexOf(row)
 
       if (params.hasOwnProperty('replace') && params.replace) {
-        this.options.data[params.index] = params.row
+        this.data[params.index] = params.row
+        this.options.data[originalIndex] = params.row
       } else {
-        Utils.extend(this.options.data[params.index], params.row)
+        Utils.extend(this.data[params.index], params.row)
+        Utils.extend(this.options.data[originalIndex], params.row)
       }
     }
 
@@ -2730,7 +2738,7 @@ class BootstrapTable {
   }
 
   _updateCellOnly (field, index) {
-    const rowHtml = this.initRow(this.options.data[index], index)
+    const rowHtml = this.initRow(this.data[index], index)
     let fieldIndex = this.getVisibleFields().indexOf(field)
 
     if (fieldIndex === -1) {
@@ -2755,7 +2763,11 @@ class BootstrapTable {
       !params.hasOwnProperty('value')) {
       return
     }
-    this.options.data[params.index][params.field] = params.value
+    const row = this.data[params.index]
+    const originalIndex = this.options.data.indexOf(row)
+
+    this.data[params.index][params.field] = params.value
+    this.options.data[originalIndex][params.field] = params.value
 
     if (params.reinit === false) {
       this._updateCellOnly(params.field, params.index)
