@@ -483,7 +483,7 @@ const METHODS = [
   'togglePagination', 'toggleFullscreen', 'toggleView',
   'resetSearch',
   'filterBy',
-  'sortBy',
+  'sortBy', 'sortReset',
   'scrollTo', 'getScrollPosition',
   'selectPage', 'prevPage', 'nextPage',
   'toggleDetailView',

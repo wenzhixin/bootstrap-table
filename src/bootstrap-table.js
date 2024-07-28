@@ -534,6 +534,12 @@ class BootstrapTable {
     }
   }
 
+  sortReset () {
+    this.options.sortName = undefined
+    this.options.sortOrder = undefined
+    this._sort()
+  }
+
   sortBy (params) {
     this.options.sortName = params.field
     this.options.sortOrder = params.hasOwnProperty('sortOrder') ? params.sortOrder : 'asc'
