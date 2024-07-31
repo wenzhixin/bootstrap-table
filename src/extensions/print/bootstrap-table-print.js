@@ -148,7 +148,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         [value_, row, i], value_)
 
       return typeof value === 'undefined' || value === null ?
-        this.options.undefinedText : value
+        this.options.undefinedText : $('<div>').html(value).html()
     }
 
     const buildTable = (data, columnsArray) => {

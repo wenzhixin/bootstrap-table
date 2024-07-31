@@ -1109,6 +1109,10 @@ class BootstrapTable {
           if (column && column.searchFormatter) {
             value = Utils.calculateObjectValue(column,
               this.header.formatters[j], [value, item, i, column.field], value)
+            if (this.header.formatters[j] && typeof value !== 'number') {
+              // search innerText
+              value = $('<div>').html(value).text()
+            }
           }
 
           if (typeof value === 'string' || typeof value === 'number') {
@@ -1510,33 +1514,13 @@ class BootstrapTable {
 
   // eslint-disable-next-line no-unused-vars
   initRow (item, i, data, trFragments) {
-    const html = []
-    let style = {}
-    const csses = []
-    let data_ = ''
-    let attributes = {}
-    const htmlAttributes = []
-
     if (Utils.findIndex(this.hiddenRows, item) > -1) {
       return
     }
-
-    style = Utils.calculateObjectValue(this.options, this.options.rowStyle, [item, i], style)
-
-    if (style && style.css) {
-      for (const [key, value] of Object.entries(style.css)) {
-        csses.push(`${key}: ${value}`)
-      }
-    }
-
-    attributes = Utils.calculateObjectValue(this.options,
-      this.options.rowAttributes, [item, i], attributes)
-
-    if (attributes) {
-      for (const [key, value] of Object.entries(attributes)) {
-        htmlAttributes.push(`${key}="${Utils.escapeHTML(value)}"`)
-      }
-    }
+    const style = Utils.calculateObjectValue(this.options, this.options.rowStyle, [item, i], {})
+    const attributes = Utils.calculateObjectValue(this.options,
+      this.options.rowAttributes, [item, i], {})
+    const data_ = {}
 
     if (item._data && !Utils.isEmptyObject(item._data)) {
       for (const [k, v] of Object.entries(item._data)) {
@@ -1544,61 +1528,46 @@ class BootstrapTable {
         if (k === 'index') {
           return
         }
-        data_ += ` data-${k}='${typeof v === 'object' ? JSON.stringify(v) : v}'`
+        data_[`data-${k}`] = typeof v === 'object' ? JSON.stringify(v) : v
       }
     }
-
-    html.push('<tr',
-      Utils.sprintf(' %s', htmlAttributes.length ? htmlAttributes.join(' ') : undefined),
-      Utils.sprintf(' id="%s"', Array.isArray(item) ? undefined : item._id),
-      Utils.sprintf(' class="%s"', style.classes || (Array.isArray(item) ? undefined : item._class)),
-      Utils.sprintf(' style="%s"', Array.isArray(item) ? undefined : item._style),
-      ` data-index="${i}"`,
-      Utils.sprintf(' data-uniqueid="%s"', Utils.getItemField(item, this.options.uniqueId, false)),
-      Utils.sprintf(' data-has-detail-view="%s"', this.options.detailView && Utils.calculateObjectValue(null, this.options.detailFilter, [i, item]) ? 'true' : undefined),
-      Utils.sprintf('%s', data_),
-      '>'
-    )
-
-    if (this.options.cardView) {
-      html.push(`<td colspan="${this.header.fields.length}"><div class="card-views">`)
-    }
-
+    const tr = Utils.h('tr', {
+      ...attributes,
+      id: Array.isArray(item) ? undefined : item._id,
+      class: style && style.classes || (Array.isArray(item) ? undefined : item._class),
+      style: style && style.css || (Array.isArray(item) ? undefined : item._style),
+      'data-index': i,
+      'data-uniqueid': Utils.getItemField(item, this.options.uniqueId, false),
+      'data-has-detail-view': this.options.detailView &&
+        Utils.calculateObjectValue(null, this.options.detailFilter, [i, item]) ? 'true' : undefined,
+      ...data_
+    })
+    const trChildren = []
     let detailViewTemplate = ''
 
     if (Utils.hasDetailViewIcon(this.options)) {
-      detailViewTemplate = '<td>'
+      detailViewTemplate = Utils.h('td')
 
       if (Utils.calculateObjectValue(null, this.options.detailFilter, [i, item])) {
-        detailViewTemplate += `
-          <a class="detail-icon" href="#">
-          ${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen)}
-          </a>
-        `
+        detailViewTemplate.append(Utils.h('a', {
+          class: 'detail-icon',
+          href: '#',
+          html: Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.detailOpen)
+        }))
       }
-
-      detailViewTemplate += '</td>'
     }
 
     if (detailViewTemplate && this.options.detailViewAlign !== 'right') {
-      html.push(detailViewTemplate)
+      trChildren.push(detailViewTemplate)
     }
 
-    this.header.fields.forEach((field, j) => {
+    const tds = this.header.fields.map((field, j) => {
       const column = this.columns[j]
-      let text = ''
       const value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
       let value = ''
-      let type = ''
-      let cellStyle = {}
-      let id_ = ''
-      let class_ = this.header.classes[j]
-      let style_ = ''
-      let styleToAdd_ = ''
-      let data_ = ''
-      let rowspan_ = ''
-      let colspan_ = ''
-      let title_ = ''
+      const attrs = {
+        style: []
+      }
 
       if ((this.fromHtml || this.autoMergeCells) && typeof value_ === 'undefined') {
         if (!column.checkbox && !column.radio) {
@@ -1614,47 +1583,21 @@ class BootstrapTable {
         return
       }
 
-      // Style concat
-      if (csses.concat([this.header.styles[j]]).length) {
-        styleToAdd_ += `${csses.concat([this.header.styles[j]]).join('; ')}`
-      }
-      if (item[`_${field}_style`]) {
-        styleToAdd_ += `${item[`_${field}_style`]}`
-      }
-
-      if (styleToAdd_) {
-        style_ = ` style="${styleToAdd_}"`
-      }
-      // Style concat
-
       // handle id and class of td
-      if (item[`_${field}_id`]) {
-        id_ = Utils.sprintf(' id="%s"', item[`_${field}_id`])
+      for (const item of ['id', 'class', 'rowspan', 'colspan', 'title']) {
+        attrs[item] = item[`_${field}_${item}`] || undefined
       }
-      if (item[`_${field}_class`]) {
-        class_ = Utils.sprintf(' class="%s"', item[`_${field}_class`])
-      }
-      if (item[`_${field}_rowspan`]) {
-        rowspan_ = Utils.sprintf(' rowspan="%s"', item[`_${field}_rowspan`])
-      }
-      if (item[`_${field}_colspan`]) {
-        colspan_ = Utils.sprintf(' colspan="%s"', item[`_${field}_colspan`])
-      }
-      if (item[`_${field}_title`]) {
-        title_ = Utils.sprintf(' title="%s"', item[`_${field}_title`])
-      }
-      cellStyle = Utils.calculateObjectValue(this.header,
-        this.header.cellStyles[j], [value_, item, i, field], cellStyle)
+
+      attrs.style.push(this.header.styles[j], item[`_${field}_style`])
+      const cellStyle = Utils.calculateObjectValue(this.header,
+        this.header.cellStyles[j], [value_, item, i, field], {})
+
       if (cellStyle.classes) {
-        class_ = ` class="${cellStyle.classes}"`
+        attrs.class = attrs.class || []
+        attrs.class.push(cellStyle.classes)
       }
       if (cellStyle.css) {
-        const csses_ = []
-
-        for (const [key, value] of Object.entries(cellStyle.css)) {
-          csses_.push(`${key}: ${value}`)
-        }
-        style_ = ` style="${csses_.concat(this.header.styles[j]).join('; ')}"`
+        attrs.style.push(cellStyle.css)
       }
 
       value = Utils.calculateObjectValue(column,
@@ -1673,7 +1616,7 @@ class BootstrapTable {
       ) {
         let searchText = this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-        if (this.options.searchAccentNeutralise) {
+        if (this.options.searchAccentNeutralise && typeof value === 'string') {
           const indexRegex = new RegExp(`${Utils.normalizeAccent(searchText)}`, 'gmi')
           const match = indexRegex.exec(Utils.normalizeAccent(value))
 
@@ -1694,64 +1637,80 @@ class BootstrapTable {
           if (k === 'index') {
             return
           }
-          data_ += ` data-${k}="${v}"`
+          attrs[`data-${k}`] = v
         }
       }
 
       if (column.checkbox || column.radio) {
-        type = column.checkbox ? 'checkbox' : type
-        type = column.radio ? 'radio' : type
-
-        const c = column['class'] || ''
+        const type = column.checkbox ? 'checkbox' : 'radio'
         const isChecked = Utils.isObject(value) && value.hasOwnProperty('checked') ?
           value.checked : (value === true || value_) && value !== false
         const isDisabled = !column.checkboxEnabled || value && value.disabled
-
-        text = [
-          this.options.cardView ?
-            `<div class="card-view ${c}">` :
-            `<td class="bs-checkbox ${c}"${class_}${style_}>`,
-          `<label>
-            <input
-            data-index="${i}"
-            name="${this.options.selectItemName}"
-            type="${type}"
-            ${Utils.sprintf('value="%s"', item[this.options.idField])}
-            ${Utils.sprintf('checked="%s"', isChecked ? 'checked' : undefined)}
-            ${Utils.sprintf('disabled="%s"', isDisabled ? 'disabled' : undefined)} />
-            <span></span>
-            </label>`,
-          this.header.formatters[j] && typeof value === 'string' ? value : '',
-          this.options.cardView ? '</div>' : '</td>'
-        ].join('')
+        const valueNodes = this.header.formatters[j] && (
+          typeof value === 'string' || value instanceof Node || value instanceof $) ? Utils.htmlToNodes(value) : []
 
         item[this.header.stateField] = value === true || (!!value_ || value && value.checked)
-      } else if (this.options.cardView) {
-        const cardTitle = this.options.showHeader ?
-          `<span class="card-view-title ${cellStyle.classes || ''}"${style_}>${Utils.getFieldTitle(this.columns, field)}</span>` : ''
 
-        text = `<div class="card-view">${cardTitle}<span class="card-view-value ${cellStyle.classes || ''}"${style_}>${value}</span></div>`
-
-        if (this.options.smartDisplay && value === '') {
-          text = '<div class="card-view"></div>'
-        }
-      } else {
-        text = `<td${id_}${class_}${style_}${data_}${rowspan_}${colspan_}${title_}>${value}</td>`
+        return Utils.h(this.options.cardView ? 'div' : 'td', {
+          class: [this.options.cardView ? 'card-view' : 'bs-checkbox', column.class],
+          style: this.options.cardView ? undefined : attrs.style
+        }, [
+          Utils.h('label', {}, [
+            Utils.h('input', {
+              'data-index': i,
+              name: this.options.selectItemName,
+              type,
+              value: item[this.options.idField],
+              checked: isChecked ? 'checked' : undefined,
+              disabled: isDisabled ? 'disabled' : undefined
+            }),
+            Utils.h('span')
+          ]),
+          ...valueNodes
+        ])
       }
 
-      html.push(text)
-    })
+      if (this.options.cardView) {
+        if (this.options.smartDisplay && value === '') {
+          return Utils.h('div', { class: 'card-view' })
+        }
+
+        const cardTitle = this.options.showHeader ?
+          Utils.h('span', {
+            class: ['card-view-title', cellStyle.classes],
+            style: attrs.style,
+            html: Utils.getFieldTitle(this.columns, field)
+          }) : ''
+
+        return Utils.h('div', { class: 'card-view' }, [
+          cardTitle,
+          Utils.h('span', {
+            class: ['card-view-value', cellStyle.classes],
+            style: attrs.style
+          }, [...Utils.htmlToNodes(value)])
+        ])
+      }
+
+      return Utils.h('td', attrs, [...Utils.htmlToNodes(value)])
+    }).filter(x => x)
+
+    trChildren.push(...tds)
 
     if (detailViewTemplate && this.options.detailViewAlign === 'right') {
-      html.push(detailViewTemplate)
+      trChildren.push(detailViewTemplate)
     }
 
     if (this.options.cardView) {
-      html.push('</div></td>')
+      tr.append(Utils.h('td', {
+        colspan: this.header.fields.length
+      }, [
+        Utils.h('div', { class: 'card-views' }, trChildren)
+      ]))
+    } else {
+      tr.append(...trChildren)
     }
-    html.push('</tr>')
 
-    return html.join('')
+    return tr
   }
 
   initBody (fixedScroll, updatedUid) {
@@ -1779,12 +1738,13 @@ class BootstrapTable {
 
     for (let i = this.pageFrom - 1; i < this.pageTo; i++) {
       const item = data[i]
-      let tr = this.initRow(item, i, data, trFragments)
+      const tr = this.initRow(item, i, data, trFragments)
 
       hasTr = hasTr || !!tr
-      if (tr && typeof tr === 'string') {
+      if (tr && tr instanceof Node) {
 
         const uniqueId = this.options.uniqueId
+        const toAppend = [tr]
 
         if (uniqueId && item.hasOwnProperty(uniqueId)) {
           const itemUniqueId = item[uniqueId]
@@ -1797,15 +1757,15 @@ class BootstrapTable {
             toExpand.push(i)
 
             if (!updatedUid || itemUniqueId !== updatedUid) {
-              tr += oldTrNext[0].outerHTML
+              toAppend.push(oldTrNext[0])
             }
           }
         }
 
         if (!this.options.virtualScroll) {
-          trFragments.append(tr)
+          trFragments.append(toAppend)
         } else {
-          rows.push(tr)
+          rows.push($('<div>').html(toAppend).html())
         }
       }
     }
@@ -2291,7 +2251,10 @@ class BootstrapTable {
     let detailTemplate = ''
 
     if (Utils.hasDetailViewIcon(this.options)) {
-      detailTemplate = '<th class="detail"><div class="th-inner"></div><div class="fht-cell"></div></th>'
+      detailTemplate = Utils.h('th', { class: 'detail' }, [
+        Utils.h('div', { class: 'th-inner' }),
+        Utils.h('div', { class: 'fht-cell' })
+      ])
     }
 
     if (detailTemplate && this.options.detailViewAlign !== 'right') {
@@ -2299,15 +2262,11 @@ class BootstrapTable {
     }
 
     for (const column of this.columns) {
-      let falign = ''
-      let valign = ''
-      const csses = []
-      let style = {}
-      let class_ = Utils.sprintf(' class="%s"', column['class'])
+      const hasData = this.footerData && this.footerData.length > 0
 
       if (
         !column.visible ||
-        this.footerData && this.footerData.length > 0 && !(column.field in this.footerData[0])
+        hasData && !(column.field in this.footerData[0])
       ) {
         continue
       }
@@ -2316,46 +2275,28 @@ class BootstrapTable {
         return
       }
 
-      falign = Utils.sprintf('text-align: %s; ', column.falign ? column.falign : column.align)
-      valign = Utils.sprintf('vertical-align: %s; ', column.valign)
+      const style = Utils.calculateObjectValue(null, column.footerStyle || this.options.footerStyle, [column])
+      const csses = style && style.css || {}
+      const colspan = hasData && this.footerData[0][`_${column.field}_colspan`] || 0
+      let value = hasData && this.footerData[0][column.field] || ''
 
-      style = Utils.calculateObjectValue(null, column.footerStyle || this.options.footerStyle, [column])
+      value = Utils.calculateObjectValue(column, column.footerFormatter,
+        [data, value], value)
 
-      if (style && style.css) {
-        for (const [key, value] of Object.entries(style.css)) {
-          csses.push(`${key}: ${value}`)
-        }
-      }
-      if (style && style.classes) {
-        class_ = Utils.sprintf(' class="%s"', column['class'] ?
-          [column['class'], style.classes].join(' ') : style.classes)
-      }
-
-      html.push('<th', class_, Utils.sprintf(' style="%s"', falign + valign + csses.concat().join('; ') || undefined))
-      let colspan = 0
-
-      if (this.footerData && this.footerData.length > 0) {
-        colspan = this.footerData[0][`_${column.field}_colspan`] || 0
-      }
-      if (colspan) {
-        html.push(` colspan="${colspan}" `)
-      }
-
-      html.push('>')
-      html.push('<div class="th-inner">')
-
-      let value = ''
-
-      if (this.footerData && this.footerData.length > 0) {
-        value = this.footerData[0][column.field] || ''
-      }
-      html.push(Utils.calculateObjectValue(column, column.footerFormatter,
-        [data, value], value))
-
-      html.push('</div>')
-      html.push('<div class="fht-cell"></div>')
-      html.push('</div>')
-      html.push('</th>')
+      html.push(Utils.h('th', {
+        class: [column['class'], style && style.classes],
+        style: {
+          'text-align': column.falign ? column.falign : column.align,
+          'vertical-align': column.valign,
+          ...csses
+        },
+        colspan: colspan || undefined
+      }, [
+        Utils.h('div', {
+          class: 'th-inner'
+        }, [...Utils.htmlToNodes(value)]),
+        Utils.h('div', { class: 'fht-cell' })
+      ]))
     }
 
     if (detailTemplate && this.options.detailViewAlign === 'right') {
@@ -2371,7 +2312,7 @@ class BootstrapTable {
       this.$tableFooter.html('<table><thead><tr></tr></thead></table>')
     }
 
-    this.$tableFooter.find('tr').html(html.join(''))
+    this.$tableFooter.find('tr').html(html)
 
     this.trigger('post-footer', this.$tableFooter)
   }

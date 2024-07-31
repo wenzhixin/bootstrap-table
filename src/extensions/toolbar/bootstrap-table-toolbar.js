@@ -350,6 +350,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         value = Utils.calculateObjectValue(this.header,
           this.header.formatters[index], [value, item, i], value)
+        if (this.header.formatters[index]) {
+          // search innerText
+          value = $('<div>').html(value).text()
+        }
 
         if (
           !(index !== -1 &&
