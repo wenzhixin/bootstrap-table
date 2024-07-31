@@ -1971,7 +1971,7 @@ class BootstrapTable {
     })
   }
 
-  initServer (silent) {
+  initServer (silent, query) {
     let data = {}
     const index = this.header.fields.indexOf(this.options.sortName)
 
@@ -2038,6 +2038,8 @@ class BootstrapTable {
     if (!Utils.isEmptyObject(this.filterColumnsPartial)) {
       params.filter = JSON.stringify(this.filterColumnsPartial, null)
     }
+
+    Utils.extend(params, query || {})
 
     data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
 
