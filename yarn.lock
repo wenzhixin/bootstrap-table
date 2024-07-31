@@ -18,12 +18,7 @@
     "@babel/highlight" "^7.24.7"
     picocolors "^1.0.0"
 
-"@babel/compat-data@^7.22.6", "@babel/compat-data@^7.25.0":
-  version "7.25.0"
-  resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.25.0.tgz#6b226a5da3a686db3c30519750e071dce292ad95"
-  integrity sha512-P4fwKI2mjEb3ZU5cnMJzvRsRKGBUcs8jvxIoRmr6ufAY9Xk2Bz7JubRTTivkw55c7WQJfTECeqYVa+HZ0FzREg==
-
-"@babel/compat-data@^7.25.2":
+"@babel/compat-data@^7.22.6", "@babel/compat-data@^7.25.2":
   version "7.25.2"
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.25.2.tgz#e41928bd33475305c586f6acbbb7e3ade7a6f7f5"
   integrity sha512-bYcppcpKBvX4znYaPEeFau03bp89ShqNMLs+rmdptMw+heSZh9+z84d2YG+K7cYLbWwzdjtDoW/uqZmPjulClQ==
@@ -616,14 +611,14 @@
     "@babel/helper-plugin-utils" "^7.24.7"
     "@babel/helper-skip-transparent-expression-wrappers" "^7.24.7"
 
-"@babel/plugin-transform-function-name@^7.25.0":
-  version "7.25.0"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-function-name/-/plugin-transform-function-name-7.25.0.tgz#d17890029ceefb45189ea203b404a496263a8412"
-  integrity sha512-CQmfSnK14eYu82fu6GlCwRciHB7mp7oLN+DeyGDDwUr9cMwuSVviJKPXw/YcRYZdB1TdlLJWHHwXwnwD1WnCmQ==
+"@babel/plugin-transform-function-name@^7.25.1":
+  version "7.25.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-function-name/-/plugin-transform-function-name-7.25.1.tgz#b85e773097526c1a4fc4ba27322748643f26fc37"
+  integrity sha512-TVVJVdW9RKMNgJJlLtHsKDTydjZAbwIsn6ySBPQaEAUU5+gVvlJt/9nRmqVbsV/IBanRjzWoaAQKLoamWVOUuA==
   dependencies:
     "@babel/helper-compilation-targets" "^7.24.8"
     "@babel/helper-plugin-utils" "^7.24.8"
-    "@babel/traverse" "^7.25.0"
+    "@babel/traverse" "^7.25.1"
 
 "@babel/plugin-transform-json-strings@^7.24.7":
   version "7.24.7"
@@ -633,12 +628,12 @@
     "@babel/helper-plugin-utils" "^7.24.7"
     "@babel/plugin-syntax-json-strings" "^7.8.3"
 
-"@babel/plugin-transform-literals@^7.24.7":
-  version "7.24.7"
-  resolved "https://registry.yarnpkg.com/@babel%2fplugin-transform-literals/-/plugin-transform-literals-7.24.7.tgz#36b505c1e655151a9d7607799a9988fc5467d06c"
-  integrity sha512-vcwCbb4HDH+hWi8Pqenwnjy+UiklO4Kt1vfspcQYFhJdpthSnW8XvWGyDZWKNVrVbVViI/S7K9PDJZiUmP2fYQ==
+"@babel/plugin-transform-literals@^7.25.2":
+  version "7.25.2"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-literals/-/plugin-transform-literals-7.25.2.tgz#deb1ad14fc5490b9a65ed830e025bca849d8b5f3"
+  integrity sha512-HQI+HcTbm9ur3Z2DkO+jgESMAMcYLuN/A7NRw9juzxAezN9AvqvUTnpKP/9kkYANz6u7dFlAyOu44ejuGySlfw==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.24.7"
+    "@babel/helper-plugin-utils" "^7.24.8"
 
 "@babel/plugin-transform-logical-assignment-operators@^7.24.7":
   version "7.24.7"
@@ -871,12 +866,12 @@
     "@babel/helper-plugin-utils" "^7.24.7"
 
 "@babel/preset-env@^7.24.8":
-  version "7.25.0"
-  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.25.0.tgz#3fe92e470311e91478129efda101816c680f0479"
-  integrity sha512-vYAA8PrCOeZfG4D87hmw1KJ1BPubghXP1e2MacRFwECGNKL76dkA38JEwYllbvQCpf/kLxsTtir0b8MtxKoVCw==
+  version "7.25.2"
+  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.25.2.tgz#15918e9d050c4713a2ab8fa2fa82514eaf16676e"
+  integrity sha512-Y2Vkwy3ITW4id9c6KXshVV/x5yCGK7VdJmKkzOzNsDZMojRKfSA/033rRbLqlRozmhRXCejxWHLSJOg/wUHfzw==
   dependencies:
-    "@babel/compat-data" "^7.25.0"
-    "@babel/helper-compilation-targets" "^7.24.8"
+    "@babel/compat-data" "^7.25.2"
+    "@babel/helper-compilation-targets" "^7.25.2"
     "@babel/helper-plugin-utils" "^7.24.8"
     "@babel/helper-validator-option" "^7.24.8"
     "@babel/plugin-bugfix-firefox-class-in-computed-class-key" "^7.25.0"
@@ -920,9 +915,9 @@
     "@babel/plugin-transform-exponentiation-operator" "^7.24.7"
     "@babel/plugin-transform-export-namespace-from" "^7.24.7"
     "@babel/plugin-transform-for-of" "^7.24.7"
-    "@babel/plugin-transform-function-name" "^7.25.0"
+    "@babel/plugin-transform-function-name" "^7.25.1"
     "@babel/plugin-transform-json-strings" "^7.24.7"
-    "@babel/plugin-transform-literals" "^7.24.7"
+    "@babel/plugin-transform-literals" "^7.25.2"
     "@babel/plugin-transform-logical-assignment-operators" "^7.24.7"
     "@babel/plugin-transform-member-expression-literals" "^7.24.7"
     "@babel/plugin-transform-modules-amd" "^7.24.7"
@@ -989,7 +984,7 @@
     "@babel/parser" "^7.25.0"
     "@babel/types" "^7.25.0"
 
-"@babel/traverse@^7.24.7", "@babel/traverse@^7.24.8", "@babel/traverse@^7.25.0", "@babel/traverse@^7.25.2":
+"@babel/traverse@^7.24.7", "@babel/traverse@^7.24.8", "@babel/traverse@^7.25.0", "@babel/traverse@^7.25.1", "@babel/traverse@^7.25.2":
   version "7.25.2"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.25.2.tgz#1a0a4aef53177bead359ccd0c89f4426c805b2ae"
   integrity sha512-s4/r+a7xTnny2O6FcZzqgT6nE4/GHEdcqj4qAeglbUOh0TeglEfmNJFAd/OLoVtGd6ZhAO8GCVvCNUO5t/VJVQ==
