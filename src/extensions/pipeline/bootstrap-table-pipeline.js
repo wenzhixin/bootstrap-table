@@ -158,9 +158,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
    * moving outside of cached data, page size change)
    * initial version of this extension will entirely override base initServer
    */
-  initServer (silent, query, url) {
+  initServer (silent, query) {
     if (!this.options.usePipeline) {
-      return super.initServer(silent, query, url)
+      return super.initServer(silent, query)
     }
 
     let useAjax = true
@@ -250,7 +250,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     }
 
-    return super.initServer(silent, { ...query, ...params }, url)
+    return super.initServer(silent, { ...query, ...params })
   }
 
   destroy (...args) {
