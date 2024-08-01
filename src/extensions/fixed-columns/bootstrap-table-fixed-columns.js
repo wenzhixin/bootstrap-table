@@ -197,7 +197,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$fixedColumns.find('.fixed-table-loading').hide()
     }
 
-    if (this.needFixedColumns && this.options.fixedRightNumber) {
+    if (this.needFixedColumns && this.options.fixedRightNumber && this.$fixedColumnsRight) {
       this.$fixedColumnsRight.find('.fixed-table-loading').hide()
     }
   }
@@ -226,7 +226,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$fixedColumns.html('').css('width', '')
     }
 
-    if (this.needFixedColumns && this.options.fixedRightNumber) {
+    if (this.needFixedColumns && this.options.fixedRightNumber && this.$fixedColumnsRight) {
       this.$fixedHeaderRight = initFixedHeader(this.$fixedColumnsRight, true)
       this.$fixedHeaderRight.scrollLeft(this.$fixedHeaderRight.find('table').width())
     } else if (this.$fixedColumnsRight) {
@@ -265,7 +265,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$fixedBody = initFixedBody(this.$fixedColumns, this.$fixedHeader)
     }
 
-    if (this.needFixedColumns && this.options.fixedRightNumber) {
+    if (this.needFixedColumns && this.options.fixedRightNumber && this.$fixedColumnsRight) {
       this.$fixedBodyRight = initFixedBody(this.$fixedColumnsRight, this.$fixedHeaderRight)
       this.$fixedBodyRight.scrollLeft(this.$fixedBodyRight.find('table').width())
       this.$fixedBodyRight.css('overflow-y', this.options.height ? 'auto' : 'hidden')
@@ -336,7 +336,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     }
 
-    if (this.needFixedColumns && this.options.fixedNumber) {
+    if (this.needFixedColumns && this.options.fixedNumber && this.$fixedBody) {
       this.$fixedBody.find('tr').hover(e => {
         toggleHover(e, true)
       }, e => {
