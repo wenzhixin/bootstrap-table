@@ -17,10 +17,6 @@ export function getControlContainer (that) {
     return $(`${that.options.filterControlContainer}`)
   }
 
-  if (that.options.height && that._initialized) {
-    return that.$tableContainer.find('.fixed-table-header table thead')
-  }
-
   return that.$header
 }
 
