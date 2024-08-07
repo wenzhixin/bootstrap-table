@@ -668,24 +668,161 @@ export default {
   },
 
   replaceSearchMark (html, searchText) {
-    const node = document.createElement('div')
-    const replaceMark = (node, searchText) => {
-      const regExp = new RegExp(searchText, 'gim')
+    const isDom = html instanceof Element
+    const node = isDom ? html : document.createElement('div')
+    const regExp = new RegExp(searchText, 'gim')
+    const replaceTextWithDom = (text, regExp) => {
+      const result = []
+      let match
+      let lastIndex = 0
 
-      for (const child of node.childNodes) {
+      while ((match = regExp.exec(text)) !== null) {
+        if (lastIndex !== match.index) {
+          result.push(document.createTextNode(text.substring(lastIndex, match.index)))
+        }
+        const mark = document.createElement('mark')
+
+        mark.innerText = match[0]
+        result.push(mark)
+        lastIndex = match.index + match[0].length
+      }
+      if (!result.length) {
+        // no match
+        return
+      }
+      if (lastIndex !== text.length) {
+        result.push(document.createTextNode(text.substring(lastIndex)))
+      }
+      return result
+    }
+    const replaceMark = node => {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        const child = node.childNodes[i]
+
         if (child.nodeType === document.TEXT_NODE) {
-          child.data = child.data.replace(regExp, match => `___${match}___`)
+          const elements = replaceTextWithDom(child.data, regExp)
+
+          if (elements) {
+            for (const el of elements) {
+              node.insertBefore(el, child)
+            }
+            node.removeChild(child)
+            i += elements.length - 1
+          }
         }
         if (child.nodeType === document.ELEMENT_NODE) {
-          replaceMark(child, searchText)
+          replaceMark(child)
         }
       }
     }
 
-    node.innerHTML = html
-    replaceMark(node, searchText)
+    if (!isDom) {
+      node.innerHTML = html
+    }
+    replaceMark(node)
+    return isDom ? node : node.innerHTML
+  },
 
-    return node.innerHTML.replace(new RegExp(`___${searchText}___`, 'gim'),
-      match => `<mark>${match.slice(3, -3)}</mark>`)
+  classToString (class_) {
+    if (typeof class_ === 'string') {
+      return class_
+    }
+    if (Array.isArray(class_)) {
+      return class_.map(x => this.classToString(x)).filter(x => x).join(' ')
+    }
+    if (class_ && typeof class_ === 'object') {
+      return Object.entries(class_).map(([k, v]) => v ? k : '').filter(x => x).join(' ')
+    }
+    return ''
+  },
+
+  parseStyle (dom, style) {
+    if (!style) {
+      return dom
+    }
+    if (typeof style === 'string') {
+      style.split(';').forEach(i => {
+        const index = i.indexOf(':')
+
+        if (index > 0) {
+          const k = i.substring(0, index).trim()
+          const v = i.substring(index + 1).trim()
+
+          dom.style.setProperty(k, v)
+        }
+      })
+    } else if (Array.isArray(style)) {
+      for (const item of style) {
+        this.parseStyle(item)
+      }
+    } else if (typeof style === 'object') {
+      for (const [k, v] of Object.entries(style)) {
+        dom.style.setProperty(k, v)
+      }
+    }
+    return dom
+  },
+
+  h (element, attrs, children) {
+    const el = element instanceof HTMLElement ? element : document.createElement(element)
+    const _attrs = attrs || {}
+    const _children = children || []
+
+    // default attributes
+    if (el.tagName === 'A') {
+      el.href = 'javascript:'
+    }
+
+    for (const [k, v] of Object.entries(_attrs)) {
+      if (v === undefined) {
+        continue
+      }
+      if (['text', 'innerText'].includes(k)) {
+        el.innerText = v
+      } else if (['html', 'innerHTML'].includes(k)) {
+        el.innerHTML = v
+      } else if (k === 'children') {
+        _children.push(...v)
+      } else if (k === 'class') {
+        el.setAttribute('class', this.classToString(v))
+      } else if (k === 'style') {
+        if (typeof v === 'string') {
+          el.setAttribute('style', v)
+        } else {
+          this.parseStyle(el, v)
+        }
+      } else if (k.startsWith('@') || k.startsWith('on')) {
+        // event handlers
+        const event = k.startsWith('@') ? k.substring(1) : k.substring(2).toLowerCase()
+        const args = Array.isArray(v) ? v : [v]
+
+        el.addEventListener(event, ...args)
+      } else if (k.startsWith('.')) {
+        // set property
+        el[k.substring(1)] = v
+      } else {
+        el.setAttribute(k, v)
+      }
+    }
+    if (_children.length) {
+      el.append(..._children)
+    }
+    return el
+  },
+
+  htmlToNodes (html) {
+    if (html instanceof $) {
+      return html.get()
+    }
+    if (html instanceof Node) {
+      return [html]
+    }
+    if (typeof html !== 'string') {
+      html = new String(html).toString()
+    }
+    const d = document.createElement('div')
+
+    d.innerHTML = html
+    return d.childNodes
   }
 }

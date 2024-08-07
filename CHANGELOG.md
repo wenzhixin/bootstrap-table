@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+### 1.23.3
+
+### Core
+
+- **New:** Added support for column options `formatter` and `footerFormatter` methods returning type `jQuery`, `HTMLElement`.
+
 ### 1.23.2
 
 ### Core

@@ -230,7 +230,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   * `data`: Array of all the data rows.
   * `value`: If footer data is set, the value of the footer column.
 
-  The function should return a string with the text to show in the footer cell.
+  The expected return data type is `jQuery`, `String` or `HTMLElement`. Other types will be forced to the `String` type.
 
   If you fetch data from a server and set the footer value from the server response, please use the `footerField` Option.
 
@@ -281,6 +281,8 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
   * `row`: the row record data.
   * `index`: the row index.
   * `field`: the row field.
+
+  The expected return data type is `jQuery`, `String` or `HTMLElement`. Other types will be forced to the `String` type.
 
 - **Default:** `undefined`
 
