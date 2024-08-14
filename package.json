@@ -58,7 +58,7 @@
     "js:build:vue": "vite build && mv dist/bootstrap-table-vue.umd.cjs dist/bootstrap-table-vue.umd.js",
     "js:build": "run-s js:build:*",
     "css:build:src": "sass --no-source-map -I node_modules src:src",
-    "css:build:base": "sass --no-source-map -I node_modules -s compressed src:dist",
+    "css:build:base": "sass --no-source-map -I node_modules src:dist",
     "css:build:min": "foreach -g \"dist/**/*.css\" -x \"cleancss #{path} -o #{dir}/#{name}.min.css\"",
     "css:build:banner": "foreach -g \"dist/**/*.min.css\" -x \"headr #{path} -o #{path} --version --homepage --author --license\"",
     "css:build": "run-s css:build:*",
