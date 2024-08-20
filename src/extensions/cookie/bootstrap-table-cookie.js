@@ -408,7 +408,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initHeader (...args) {
     if (this.options.reorderableColumns && this.options.cookie) {
       if (this.columnsSortOrder) {
-        this.options.columns[0] = this.reorderColumnsFromCookies(this.columnsSortOrder, this.options.columns[0])
+        this.options.columns[0] = this.reorderColumnsFromCookies(this.columnsSortOrder)
       }
       this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, UtilsCookie.cookieIds.reorderColumns))
     }
