@@ -407,9 +407,38 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initHeader (...args) {
     if (this.options.reorderableColumns && this.options.cookie) {
+      if (this.columnsSortOrder) {
+        this.options.columns[0] = this.reorderColumnsFromCookies(this.columnsSortOrder, this.options.columns[0])
+      }
       this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, UtilsCookie.cookieIds.reorderColumns))
     }
     super.initHeader(...args)
+  }
+
+  reorderColumnsFromCookies (reorderedColumns) {
+    const reorderedList = []
+    const notInReorderedList = []
+    const reorderedKeys = Object.keys(reorderedColumns)
+
+    this.options.columns[0].forEach(column => {
+      if (reorderedKeys.includes(column.field)) {
+        const fieldIndex = reorderedColumns[column.field] - 1
+
+        reorderedList[fieldIndex] = column
+      } else {
+        notInReorderedList.push(column)
+      }
+    })
+
+    let finalList = [...reorderedList, ...notInReorderedList]
+
+    finalList = finalList.map((item, index) => {
+      item.fieldIndex = index
+      item.colspanIndex = index
+      return item
+    })
+
+    return finalList
   }
 
   persistReorderColumnsState (that) {
