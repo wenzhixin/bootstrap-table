@@ -139,7 +139,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
           if (el.dataset.field !== undefined) {
             sortOrder[el.dataset.field] = i
           }
-          }
         })
 
         this.columnsSortOrder = sortOrder
