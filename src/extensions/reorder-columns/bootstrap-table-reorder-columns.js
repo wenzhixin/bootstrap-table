@@ -136,7 +136,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const sortOrder = {}
 
         table.el.find('th').each((i, el) => {
-          sortOrder[$(el).data('field')] = i
+          if (el.dataset.field !== undefined) {
+            sortOrder[el.dataset.field] = i
+          }
         })
 
         this.columnsSortOrder = sortOrder
