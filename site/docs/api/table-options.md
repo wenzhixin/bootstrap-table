@@ -13,7 +13,7 @@ toc: true
 
 The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
-## -
+## toggle
 
 - **Attribute:** `data-toggle`
 
