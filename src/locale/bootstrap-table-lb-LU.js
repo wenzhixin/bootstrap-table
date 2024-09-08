@@ -4,18 +4,146 @@
  */
 
 $.fn.bootstrapTable.locales['lb-LU'] = $.fn.bootstrapTable.locales['lb'] = {
+  formatAddLevel () {
+    return 'Add Level'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'Zoumaachen'
+  },
+
+  formatAdvancedSearch () {
+    return 'Erweidert Sich'
+  },
+
+  formatAllRows () {
+    return 'All'
+  },
+
+  formatAutoRefresh () {
+    return 'Automatescht neilueden'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Sich réckgängeg maachen'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Kolonnen'
+  },
+
+  formatColumnsToggleAll () {
+    return 'All ëmschalten'
+  },
+
   formatCopyRows () {
     return 'Zeilen kopéieren'
   },
-  formatPrint () {
-    return 'Drécken'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
+
+  formatDetailPagination (totalRows) {
+    return `Weist ${totalRows} Zeilen`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Daten exportéieren'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Schaltelementer uweisen/verstoppen'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Schaltelementer verstoppen'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Schaltelementer uweisen'
+  },
+
+  formatFullscreen () {
+    return 'Vollbild'
+  },
+
+  formatJumpTo () {
+    return 'Sprangen'
+  },
+
   formatLoadingMessage () {
     return 'Gëtt gelueden, gedellëgt Iech wannechgelift ee Moment'
   },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'Keng passend Anträg fonnt'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Paginatioun uweisen/verstoppen'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Paginatioun uweisen'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Paginatioun verstoppen'
+  },
+
+  formatPrint () {
+    return 'Drécken'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} Zeilen per Säit`
   },
+
+  formatRefresh () {
+    return 'Nei lueden'
+  },
+
+  formatSRPaginationNextText () {
+    return 'nächst Säit'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `op Säit ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'viregt Säit'
+  },
+
+  formatSearch () {
+    return 'Sich'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${totalRows > 1 ? 'en' : ''} (gefiltert vun insgesamt ${totalNotFiltered} Zeil${totalRows > 1 ? 'en' : ''})`
@@ -23,80 +151,40 @@ $.fn.bootstrapTable.locales['lb-LU'] = $.fn.bootstrapTable.locales['lb'] = {
 
     return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${totalRows > 1 ? 'en' : ''}`
   },
-  formatSRPaginationPreText () {
-    return 'viregt Säit'
+
+  formatSort () {
+    return 'Sort'
   },
-  formatSRPaginationPageText (page) {
-    return `op Säit ${page}`
+
+  formatSortBy () {
+    return 'Sort by'
   },
-  formatSRPaginationNextText () {
-    return 'nächst Säit'
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Weist ${totalRows} Zeilen`
+
+  formatThenBy () {
+    return 'Then by'
   },
-  formatClearSearch () {
-    return 'Sich réckgängeg maachen'
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   },
-  formatSearch () {
-    return 'Sich'
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
   },
-  formatNoMatches () {
-    return 'Keng passend Anträg fonnt'
-  },
-  formatPaginationSwitch () {
-    return 'Paginatioun uweisen/verstoppen'
-  },
-  formatPaginationSwitchDown () {
-    return 'Paginatioun uweisen'
-  },
-  formatPaginationSwitchUp () {
-    return 'Paginatioun verstoppen'
-  },
-  formatRefresh () {
-    return 'Nei lueden'
-  },
-  formatToggleOn () {
-    return 'Kaartenusiicht uweisen'
-  },
+
   formatToggleOff () {
     return 'Kaartenusiicht verstoppen'
   },
-  formatColumns () {
-    return 'Kolonnen'
-  },
-  formatColumnsToggleAll () {
-    return 'All ëmschalten'
-  },
-  formatFullscreen () {
-    return 'Vollbild'
-  },
-  formatAllRows () {
-    return 'All'
-  },
-  formatAutoRefresh () {
-    return 'Automatescht neilueden'
-  },
-  formatExport () {
-    return 'Daten exportéieren'
-  },
-  formatJumpTo () {
-    return 'Sprangen'
-  },
-  formatAdvancedSearch () {
-    return 'Erweidert Sich'
-  },
-  formatAdvancedCloseButton () {
-    return 'Zoumaachen'
-  },
-  formatFilterControlSwitch () {
-    return 'Schaltelementer uweisen/verstoppen'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Schaltelementer verstoppen'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Schaltelementer uweisen'
+
+  formatToggleOn () {
+    return 'Kaartenusiicht uweisen'
   }
 }
 

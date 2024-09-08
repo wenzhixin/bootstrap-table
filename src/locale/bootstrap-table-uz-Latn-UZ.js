@@ -4,18 +4,146 @@
  */
 
 $.fn.bootstrapTable.locales['uz-Latn-UZ'] = $.fn.bootstrapTable.locales['uz'] = {
+  formatAddLevel () {
+    return 'Add Level'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'Close'
+  },
+
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+
+  formatAllRows () {
+    return 'Hammasi'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Filtrlarni tozalash'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Ustunlar'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
+
   formatCopyRows () {
     return 'Copy Rows'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
+
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Eksport'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
+  },
+
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+
+  formatJumpTo () {
+    return 'GO'
+  },
+
   formatLoadingMessage () {
     return 'Yuklanyapti, iltimos kuting'
   },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'Hech narsa topilmadi'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Sahifalashni yashirish/ko\'rsatish'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+
+  formatPrint () {
+    return 'Print'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} qator har sahifada`
   },
+
+  formatRefresh () {
+    return 'Yangilash'
+  },
+
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+
+  formatSearch () {
+    return 'Qidirish'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Ko'rsatypati ${pageFrom} dan ${pageTo} gacha ${totalRows} qatorlarni (filtered from ${totalNotFiltered} total rows)`
@@ -23,80 +151,40 @@ $.fn.bootstrapTable.locales['uz-Latn-UZ'] = $.fn.bootstrapTable.locales['uz'] = 
 
     return `Ko'rsatypati ${pageFrom} dan ${pageTo} gacha ${totalRows} qatorlarni`
   },
-  formatSRPaginationPreText () {
-    return 'previous page'
+
+  formatSort () {
+    return 'Sort'
   },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
+
+  formatSortBy () {
+    return 'Sort by'
   },
-  formatSRPaginationNextText () {
-    return 'next page'
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+
+  formatThenBy () {
+    return 'Then by'
   },
-  formatClearSearch () {
-    return 'Filtrlarni tozalash'
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   },
-  formatSearch () {
-    return 'Qidirish'
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
   },
-  formatNoMatches () {
-    return 'Hech narsa topilmadi'
-  },
-  formatPaginationSwitch () {
-    return 'Sahifalashni yashirish/ko\'rsatish'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Yangilash'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
+
   formatToggleOff () {
     return 'Hide card view'
   },
-  formatColumns () {
-    return 'Ustunlar'
-  },
-  formatColumnsToggleAll () {
-    return 'Toggle all'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
-  formatAllRows () {
-    return 'Hammasi'
-  },
-  formatAutoRefresh () {
-    return 'Auto Refresh'
-  },
-  formatExport () {
-    return 'Eksport'
-  },
-  formatJumpTo () {
-    return 'GO'
-  },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+
+  formatToggleOn () {
+    return 'Show card view'
   }
 }
 

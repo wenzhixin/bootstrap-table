@@ -4,18 +4,146 @@
  */
 
 $.fn.bootstrapTable.locales['uk-UA'] = $.fn.bootstrapTable.locales['uk'] = {
+  formatAddLevel () {
+    return 'Add Level'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'Закрити'
+  },
+
+  formatAdvancedSearch () {
+    return 'Розширений пошук'
+  },
+
+  formatAllRows () {
+    return 'Усі'
+  },
+
+  formatAutoRefresh () {
+    return 'Автооновлення'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Скинути фільтри'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Стовпці'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Переключити усі'
+  },
+
   formatCopyRows () {
     return 'Скопіювати рядки'
   },
-  formatPrint () {
-    return 'Друк'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
+
+  formatDetailPagination (totalRows) {
+    return `Відображено ${totalRows} рядків`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Експортувати дані'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Сховати/Відобразити елементи керування'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Сховати елементи керування'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Відобразити елементи керування'
+  },
+
+  formatFullscreen () {
+    return 'Повноекранний режим'
+  },
+
+  formatJumpTo () {
+    return 'Швидкий перехід до'
+  },
+
   formatLoadingMessage () {
     return 'Завантаження, будь ласка, зачекайте'
   },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'Не знайдено жодного запису'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Сховати/Відобразити пагінацію'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Відобразити пагінацію'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Сховати пагінацію'
+  },
+
+  formatPrint () {
+    return 'Друк'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} рядків на сторінку`
   },
+
+  formatRefresh () {
+    return 'Оновити'
+  },
+
+  formatSRPaginationNextText () {
+    return 'наступна сторінка'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `до сторінки ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'попередня сторінка'
+  },
+
+  formatSearch () {
+    return 'Пошук'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Відображено рядки з ${pageFrom} по ${pageTo} з ${totalRows} загалом (відфільтровано з ${totalNotFiltered} рядків)`
@@ -23,80 +151,40 @@ $.fn.bootstrapTable.locales['uk-UA'] = $.fn.bootstrapTable.locales['uk'] = {
 
     return `Відображено рядки з ${pageFrom} по ${pageTo} з ${totalRows} загалом`
   },
-  formatSRPaginationPreText () {
-    return 'попередня сторінка'
+
+  formatSort () {
+    return 'Sort'
   },
-  formatSRPaginationPageText (page) {
-    return `до сторінки ${page}`
+
+  formatSortBy () {
+    return 'Sort by'
   },
-  formatSRPaginationNextText () {
-    return 'наступна сторінка'
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Відображено ${totalRows} рядків`
+
+  formatThenBy () {
+    return 'Then by'
   },
-  formatClearSearch () {
-    return 'Скинути фільтри'
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   },
-  formatSearch () {
-    return 'Пошук'
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
   },
-  formatNoMatches () {
-    return 'Не знайдено жодного запису'
-  },
-  formatPaginationSwitch () {
-    return 'Сховати/Відобразити пагінацію'
-  },
-  formatPaginationSwitchDown () {
-    return 'Відобразити пагінацію'
-  },
-  formatPaginationSwitchUp () {
-    return 'Сховати пагінацію'
-  },
-  formatRefresh () {
-    return 'Оновити'
-  },
-  formatToggleOn () {
-    return 'Відобразити у форматі карток'
-  },
+
   formatToggleOff () {
     return 'Вимкнути формат карток'
   },
-  formatColumns () {
-    return 'Стовпці'
-  },
-  formatColumnsToggleAll () {
-    return 'Переключити усі'
-  },
-  formatFullscreen () {
-    return 'Повноекранний режим'
-  },
-  formatAllRows () {
-    return 'Усі'
-  },
-  formatAutoRefresh () {
-    return 'Автооновлення'
-  },
-  formatExport () {
-    return 'Експортувати дані'
-  },
-  formatJumpTo () {
-    return 'Швидкий перехід до'
-  },
-  formatAdvancedSearch () {
-    return 'Розширений пошук'
-  },
-  formatAdvancedCloseButton () {
-    return 'Закрити'
-  },
-  formatFilterControlSwitch () {
-    return 'Сховати/Відобразити елементи керування'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Сховати елементи керування'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Відобразити елементи керування'
+
+  formatToggleOn () {
+    return 'Відобразити у форматі карток'
   }
 }
 

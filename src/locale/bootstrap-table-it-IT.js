@@ -6,18 +6,146 @@
  */
 
 $.fn.bootstrapTable.locales['it-IT'] = $.fn.bootstrapTable.locales['it'] = {
+  formatAddLevel () {
+    return 'Add Level'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'Chiudi'
+  },
+
+  formatAdvancedSearch () {
+    return 'Filtri avanzati'
+  },
+
+  formatAllRows () {
+    return 'Tutto'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto Aggiornamento'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Pulisci filtri'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Colonne'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Mostra tutte'
+  },
+
   formatCopyRows () {
     return 'Copy Rows'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
+
+  formatDetailPagination (totalRows) {
+    return `Mostrando ${totalRows} elementi`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Esporta dati'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
+  },
+
+  formatFullscreen () {
+    return 'Schermo intero'
+  },
+
+  formatJumpTo () {
+    return 'VAI'
+  },
+
   formatLoadingMessage () {
     return 'Caricamento in corso'
   },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'Nessun elemento trovato'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Nascondi/Mostra paginazione'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Mostra paginazione'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Nascondi paginazione'
+  },
+
+  formatPrint () {
+    return 'Print'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} elementi per pagina`
   },
+
+  formatRefresh () {
+    return 'Aggiorna'
+  },
+
+  formatSRPaginationNextText () {
+    return 'pagina successiva'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `alla pagina ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'pagina precedente'
+  },
+
+  formatSearch () {
+    return 'Cerca'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi (filtrati da ${totalNotFiltered} elementi totali)`
@@ -25,80 +153,40 @@ $.fn.bootstrapTable.locales['it-IT'] = $.fn.bootstrapTable.locales['it'] = {
 
     return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi`
   },
-  formatSRPaginationPreText () {
-    return 'pagina precedente'
+
+  formatSort () {
+    return 'Sort'
   },
-  formatSRPaginationPageText (page) {
-    return `alla pagina ${page}`
+
+  formatSortBy () {
+    return 'Sort by'
   },
-  formatSRPaginationNextText () {
-    return 'pagina successiva'
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Mostrando ${totalRows} elementi`
+
+  formatThenBy () {
+    return 'Then by'
   },
-  formatClearSearch () {
-    return 'Pulisci filtri'
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   },
-  formatSearch () {
-    return 'Cerca'
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
   },
-  formatNoMatches () {
-    return 'Nessun elemento trovato'
-  },
-  formatPaginationSwitch () {
-    return 'Nascondi/Mostra paginazione'
-  },
-  formatPaginationSwitchDown () {
-    return 'Mostra paginazione'
-  },
-  formatPaginationSwitchUp () {
-    return 'Nascondi paginazione'
-  },
-  formatRefresh () {
-    return 'Aggiorna'
-  },
-  formatToggleOn () {
-    return 'Mostra visuale a scheda'
-  },
+
   formatToggleOff () {
     return 'Nascondi visuale a scheda'
   },
-  formatColumns () {
-    return 'Colonne'
-  },
-  formatColumnsToggleAll () {
-    return 'Mostra tutte'
-  },
-  formatFullscreen () {
-    return 'Schermo intero'
-  },
-  formatAllRows () {
-    return 'Tutto'
-  },
-  formatAutoRefresh () {
-    return 'Auto Aggiornamento'
-  },
-  formatExport () {
-    return 'Esporta dati'
-  },
-  formatJumpTo () {
-    return 'VAI'
-  },
-  formatAdvancedSearch () {
-    return 'Filtri avanzati'
-  },
-  formatAdvancedCloseButton () {
-    return 'Chiudi'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+
+  formatToggleOn () {
+    return 'Mostra visuale a scheda'
   }
 }
 

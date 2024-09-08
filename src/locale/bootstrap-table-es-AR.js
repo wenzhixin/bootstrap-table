@@ -5,18 +5,146 @@
  */
 
 $.fn.bootstrapTable.locales['es-AR'] = {
+  formatAddLevel () {
+    return 'Add Level'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'Cerrar'
+  },
+
+  formatAdvancedSearch () {
+    return 'Búsqueda avanzada'
+  },
+
+  formatAllRows () {
+    return 'Todo'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto Recargar'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Limpiar búsqueda'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Columnas'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Cambiar todo'
+  },
+
   formatCopyRows () {
     return 'Copiar Filas'
   },
-  formatPrint () {
-    return 'Imprimir'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
+
+  formatDetailPagination (totalRows) {
+    return `Mostrando ${totalRows} columnas`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Exportar datos'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Ocultar/Mostrar controles'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Ocultar controles'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Mostrar controles'
+  },
+
+  formatFullscreen () {
+    return 'Pantalla completa'
+  },
+
+  formatJumpTo () {
+    return 'Ir'
+  },
+
   formatLoadingMessage () {
     return 'Cargando, espere por favor'
   },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'No se encontraron registros'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Ocultar/Mostrar paginación'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Mostrar paginación'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Ocultar paginación'
+  },
+
+  formatPrint () {
+    return 'Imprimir'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} registros por página`
   },
+
+  formatRefresh () {
+    return 'Recargar'
+  },
+
+  formatSRPaginationNextText () {
+    return 'siguiente página'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `a la página ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'página anterior'
+  },
+
+  formatSearch () {
+    return 'Buscar'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Mostrando desde ${pageFrom} a ${pageTo} de ${totalRows} filas (filtrado de ${totalNotFiltered} columnas totales)`
@@ -24,80 +152,40 @@ $.fn.bootstrapTable.locales['es-AR'] = {
 
     return `Mostrando desde ${pageFrom} a ${pageTo} de ${totalRows} filas`
   },
-  formatSRPaginationPreText () {
-    return 'página anterior'
+
+  formatSort () {
+    return 'Sort'
   },
-  formatSRPaginationPageText (page) {
-    return `a la página ${page}`
+
+  formatSortBy () {
+    return 'Sort by'
   },
-  formatSRPaginationNextText () {
-    return 'siguiente página'
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Mostrando ${totalRows} columnas`
+
+  formatThenBy () {
+    return 'Then by'
   },
-  formatClearSearch () {
-    return 'Limpiar búsqueda'
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   },
-  formatSearch () {
-    return 'Buscar'
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
   },
-  formatNoMatches () {
-    return 'No se encontraron registros'
-  },
-  formatPaginationSwitch () {
-    return 'Ocultar/Mostrar paginación'
-  },
-  formatPaginationSwitchDown () {
-    return 'Mostrar paginación'
-  },
-  formatPaginationSwitchUp () {
-    return 'Ocultar paginación'
-  },
-  formatRefresh () {
-    return 'Recargar'
-  },
-  formatToggleOn () {
-    return 'Mostrar vista de carta'
-  },
+
   formatToggleOff () {
     return 'Ocultar vista de carta'
   },
-  formatColumns () {
-    return 'Columnas'
-  },
-  formatColumnsToggleAll () {
-    return 'Cambiar todo'
-  },
-  formatFullscreen () {
-    return 'Pantalla completa'
-  },
-  formatAllRows () {
-    return 'Todo'
-  },
-  formatAutoRefresh () {
-    return 'Auto Recargar'
-  },
-  formatExport () {
-    return 'Exportar datos'
-  },
-  formatJumpTo () {
-    return 'Ir'
-  },
-  formatAdvancedSearch () {
-    return 'Búsqueda avanzada'
-  },
-  formatAdvancedCloseButton () {
-    return 'Cerrar'
-  },
-  formatFilterControlSwitch () {
-    return 'Ocultar/Mostrar controles'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Ocultar controles'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Mostrar controles'
+
+  formatToggleOn () {
+    return 'Mostrar vista de carta'
   }
 }
 

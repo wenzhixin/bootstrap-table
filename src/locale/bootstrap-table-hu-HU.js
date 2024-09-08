@@ -4,18 +4,146 @@
  */
 
 $.fn.bootstrapTable.locales['hu-HU'] = $.fn.bootstrapTable.locales['hu'] = {
+  formatAddLevel () {
+    return 'Add Level'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'Close'
+  },
+
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+
+  formatAllRows () {
+    return 'Összes'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Clear Search'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Oszlopok'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
+
   formatCopyRows () {
     return 'Copy Rows'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
+
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Export data'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
+  },
+
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+
+  formatJumpTo () {
+    return 'GO'
+  },
+
   formatLoadingMessage () {
     return 'Betöltés, kérem várjon'
   },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'Nincs találat'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Lapozó elrejtése/megjelenítése'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+
+  formatPrint () {
+    return 'Print'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} rekord per oldal`
   },
+
+  formatRefresh () {
+    return 'Frissítés'
+  },
+
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+
+  formatSearch () {
+    return 'Keresés'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Megjelenítve ${pageFrom} - ${pageTo} / ${totalRows} összesen (filtered from ${totalNotFiltered} total rows)`
@@ -23,80 +151,40 @@ $.fn.bootstrapTable.locales['hu-HU'] = $.fn.bootstrapTable.locales['hu'] = {
 
     return `Megjelenítve ${pageFrom} - ${pageTo} / ${totalRows} összesen`
   },
-  formatSRPaginationPreText () {
-    return 'previous page'
+
+  formatSort () {
+    return 'Sort'
   },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
+
+  formatSortBy () {
+    return 'Sort by'
   },
-  formatSRPaginationNextText () {
-    return 'next page'
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+
+  formatThenBy () {
+    return 'Then by'
   },
-  formatClearSearch () {
-    return 'Clear Search'
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   },
-  formatSearch () {
-    return 'Keresés'
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
   },
-  formatNoMatches () {
-    return 'Nincs találat'
-  },
-  formatPaginationSwitch () {
-    return 'Lapozó elrejtése/megjelenítése'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Frissítés'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
+
   formatToggleOff () {
     return 'Hide card view'
   },
-  formatColumns () {
-    return 'Oszlopok'
-  },
-  formatColumnsToggleAll () {
-    return 'Toggle all'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
-  formatAllRows () {
-    return 'Összes'
-  },
-  formatAutoRefresh () {
-    return 'Auto Refresh'
-  },
-  formatExport () {
-    return 'Export data'
-  },
-  formatJumpTo () {
-    return 'GO'
-  },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+
+  formatToggleOn () {
+    return 'Show card view'
   }
 }
 
