@@ -2899,8 +2899,8 @@ class BootstrapTable {
   mergeCells (options) {
     const row = options.index
     let col = this.getVisibleFields().indexOf(options.field)
-    const rowspan = options.rowspan || 1
-    const colspan = options.colspan || 1
+    const rowspan = +options.rowspan || 1
+    const colspan = +options.colspan || 1
     let i
     let j
     const $tr = this.$body.find('>tr[data-index]')

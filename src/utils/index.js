@@ -247,7 +247,7 @@ export default {
     const flag = []
 
     for (const column of columns[0]) {
-      totalCol += column.colspan || 1
+      totalCol += +column.colspan || 1
     }
 
     for (let i = 0; i < columns.length; i++) {
@@ -259,8 +259,8 @@ export default {
 
     for (let i = 0; i < columns.length; i++) {
       for (const r of columns[i]) {
-        const rowspan = r.rowspan || 1
-        const colspan = r.colspan || 1
+        const rowspan = +r.rowspan || 1
+        const colspan = +r.colspan || 1
         const index = flag[i].indexOf(false)
 
         r.colspanIndex = index
@@ -272,7 +272,7 @@ export default {
             r.field = index
           }
         } else {
-          r.colspanGroup = r.colspan
+          r.colspanGroup = +r.colspan
         }
 
         for (let j = 0; j < rowspan; j++) {
