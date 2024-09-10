@@ -6,18 +6,102 @@
  */
 
 $.fn.bootstrapTable.locales['ca-ES'] = $.fn.bootstrapTable.locales['ca'] = {
+  formatAdvancedCloseButton () {
+    return 'Tanca'
+  },
+
+  formatAdvancedSearch () {
+    return 'Cerca avançada'
+  },
+
+  formatAllRows () {
+    return 'Tots'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto Refresca'
+  },
+
+  formatClearSearch () {
+    return 'Neteja cerca'
+  },
+
+  formatColumns () {
+    return 'Columnes'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Alterna totes'
+  },
+
   formatCopyRows () {
     return 'Copia resultats'
   },
-  formatPrint () {
-    return 'Imprimeix'
+
+  formatDetailPagination (totalRows) {
+    return `Mostrant ${totalRows} resultats`
   },
+
+  formatExport () {
+    return 'Exporta dades'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Mostra/Amaga controls'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Mostra controls'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Amaga controls'
+  },
+
+  formatFullscreen () {
+    return 'Pantalla completa'
+  },
+
+  formatJumpTo () {
+    return 'GO'
+  },
+
   formatLoadingMessage () {
     return 'Espereu, si us plau'
   },
+
+  formatNoMatches () {
+    return 'No s\'han trobat resultats'
+  },
+
+  formatPaginationSwitch () {
+    return 'Amaga/Mostra paginació'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Mostra paginació'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Amaga paginació'
+  },
+
+  formatPrint () {
+    return 'Imprimeix'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} resultats per pàgina`
   },
+
+  formatRefresh () {
+    return 'Refresca'
+  },
+
+  formatSearch () {
+    return 'Cerca'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Mostrant resultats ${pageFrom} fins ${pageTo} - ${totalRows} resultats (filtrats d'un total de ${totalNotFiltered} resultats)`
@@ -25,80 +109,25 @@ $.fn.bootstrapTable.locales['ca-ES'] = $.fn.bootstrapTable.locales['ca'] = {
 
     return `Mostrant resultats ${pageFrom} fins ${pageTo} - ${totalRows} resultats en total`
   },
-  formatSRPaginationPreText () {
-    return 'Pàgina anterior'
-  },
-  formatSRPaginationPageText (page) {
-    return `A la pàgina ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'Pàgina següent'
   },
-  formatDetailPagination (totalRows) {
-    return `Mostrant ${totalRows} resultats`
+
+  formatSRPaginationPageText (page) {
+    return `A la pàgina ${page}`
   },
-  formatClearSearch () {
-    return 'Neteja cerca'
+
+  formatSRPaginationPreText () {
+    return 'Pàgina anterior'
   },
-  formatSearch () {
-    return 'Cerca'
-  },
-  formatNoMatches () {
-    return 'No s\'han trobat resultats'
-  },
-  formatPaginationSwitch () {
-    return 'Amaga/Mostra paginació'
-  },
-  formatPaginationSwitchDown () {
-    return 'Mostra paginació'
-  },
-  formatPaginationSwitchUp () {
-    return 'Amaga paginació'
-  },
-  formatRefresh () {
-    return 'Refresca'
-  },
-  formatToggleOn () {
-    return 'Mostra vista de tarjeta'
-  },
+
   formatToggleOff () {
     return 'Amaga vista de tarjeta'
   },
-  formatColumns () {
-    return 'Columnes'
-  },
-  formatColumnsToggleAll () {
-    return 'Alterna totes'
-  },
-  formatFullscreen () {
-    return 'Pantalla completa'
-  },
-  formatAllRows () {
-    return 'Tots'
-  },
-  formatAutoRefresh () {
-    return 'Auto Refresca'
-  },
-  formatExport () {
-    return 'Exporta dades'
-  },
-  formatJumpTo () {
-    return 'GO'
-  },
-  formatAdvancedSearch () {
-    return 'Cerca avançada'
-  },
-  formatAdvancedCloseButton () {
-    return 'Tanca'
-  },
-  formatFilterControlSwitch () {
-    return 'Mostra/Amaga controls'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Mostra controls'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Amaga controls'
+
+  formatToggleOn () {
+    return 'Mostra vista de tarjeta'
   }
 }
 

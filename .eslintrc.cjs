@@ -99,6 +99,7 @@ module.exports = {
     'semi-spacing': ['error', { after: true, before: false }],
     'semi-style': ['error', 'last'],
     'sort-imports': 'off',
+    'sort-keys': ['off', 'asc', { caseSensitive: false }],
     'space-before-blocks': ['error', { classes: 'always', functions: 'always', keywords: 'always' }],
     'space-before-function-paren': ['error', 'always'],
     'space-in-parens': ['error', 'never'],

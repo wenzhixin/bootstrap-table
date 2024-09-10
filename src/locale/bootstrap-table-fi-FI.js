@@ -4,18 +4,102 @@
  */
 
 $.fn.bootstrapTable.locales['fi-FI'] = $.fn.bootstrapTable.locales['fi'] = {
+  formatAdvancedCloseButton () {
+    return 'Close'
+  },
+
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+
+  formatAllRows () {
+    return 'Kaikki'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+
+  formatClearSearch () {
+    return 'Poista suodattimet'
+  },
+
+  formatColumns () {
+    return 'Sarakkeet'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
+
   formatCopyRows () {
     return 'Copy Rows'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
   },
+
+  formatExport () {
+    return 'Vie tiedot'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
+  },
+
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+
+  formatJumpTo () {
+    return 'GO'
+  },
+
   formatLoadingMessage () {
     return 'Ladataan, ole hyvä ja odota'
   },
+
+  formatNoMatches () {
+    return 'Hakuehtoja vastaavia tuloksia ei löytynyt'
+  },
+
+  formatPaginationSwitch () {
+    return 'Näytä/Piilota sivutus'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+
+  formatPrint () {
+    return 'Print'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} riviä sivulla`
   },
+
+  formatRefresh () {
+    return 'Päivitä'
+  },
+
+  formatSearch () {
+    return 'Hae'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows} (filtered from ${totalNotFiltered} total rows)`
@@ -23,80 +107,25 @@ $.fn.bootstrapTable.locales['fi-FI'] = $.fn.bootstrapTable.locales['fi'] = {
 
     return `Näytetään rivit ${pageFrom} - ${pageTo} / ${totalRows}`
   },
-  formatSRPaginationPreText () {
-    return 'previous page'
-  },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'next page'
   },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
   },
-  formatClearSearch () {
-    return 'Poista suodattimet'
+
+  formatSRPaginationPreText () {
+    return 'previous page'
   },
-  formatSearch () {
-    return 'Hae'
-  },
-  formatNoMatches () {
-    return 'Hakuehtoja vastaavia tuloksia ei löytynyt'
-  },
-  formatPaginationSwitch () {
-    return 'Näytä/Piilota sivutus'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Päivitä'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
+
   formatToggleOff () {
     return 'Hide card view'
   },
-  formatColumns () {
-    return 'Sarakkeet'
-  },
-  formatColumnsToggleAll () {
-    return 'Toggle all'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
-  formatAllRows () {
-    return 'Kaikki'
-  },
-  formatAutoRefresh () {
-    return 'Auto Refresh'
-  },
-  formatExport () {
-    return 'Vie tiedot'
-  },
-  formatJumpTo () {
-    return 'GO'
-  },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+
+  formatToggleOn () {
+    return 'Show card view'
   }
 }
 

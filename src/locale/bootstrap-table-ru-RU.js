@@ -4,18 +4,102 @@
  */
 
 $.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
+  formatAdvancedCloseButton () {
+    return 'Закрыть'
+  },
+
+  formatAdvancedSearch () {
+    return 'Расширенный поиск'
+  },
+
+  formatAllRows () {
+    return 'Все'
+  },
+
+  formatAutoRefresh () {
+    return 'Автоматическое обновление'
+  },
+
+  formatClearSearch () {
+    return 'Очистить фильтры'
+  },
+
+  formatColumns () {
+    return 'Колонки'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Выбрать все'
+  },
+
   formatCopyRows () {
     return 'Скопировать строки'
   },
-  formatPrint () {
-    return 'Печать'
+
+  formatDetailPagination (totalRows) {
+    return `Загружено ${totalRows} строк`
   },
+
+  formatExport () {
+    return 'Экспортировать данные'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Скрыть/Показать панель инструментов'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Скрыть панель инструментов'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Показать панель инструментов'
+  },
+
+  formatFullscreen () {
+    return 'Полноэкранный режим'
+  },
+
+  formatJumpTo () {
+    return 'Стр.'
+  },
+
   formatLoadingMessage () {
     return 'Пожалуйста, подождите, идёт загрузка'
   },
+
+  formatNoMatches () {
+    return 'Ничего не найдено'
+  },
+
+  formatPaginationSwitch () {
+    return 'Скрыть/Показать постраничную навигацию'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Показать постраничную навигацию'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Скрыть постраничную навигацию'
+  },
+
+  formatPrint () {
+    return 'Печать'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} записей на страницу`
   },
+
+  formatRefresh () {
+    return 'Обновить'
+  },
+
+  formatSearch () {
+    return 'Поиск'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Записи с ${pageFrom} по ${pageTo} из ${totalRows} (отфильтровано, всего на сервере ${totalNotFiltered} записей)`
@@ -23,80 +107,25 @@ $.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
 
     return `Записи с ${pageFrom} по ${pageTo} из ${totalRows}`
   },
-  formatSRPaginationPreText () {
-    return 'предыдущая страница'
-  },
-  formatSRPaginationPageText (page) {
-    return `перейти к странице ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'следующая страница'
   },
-  formatDetailPagination (totalRows) {
-    return `Загружено ${totalRows} строк`
+
+  formatSRPaginationPageText (page) {
+    return `перейти к странице ${page}`
   },
-  formatClearSearch () {
-    return 'Очистить фильтры'
+
+  formatSRPaginationPreText () {
+    return 'предыдущая страница'
   },
-  formatSearch () {
-    return 'Поиск'
-  },
-  formatNoMatches () {
-    return 'Ничего не найдено'
-  },
-  formatPaginationSwitch () {
-    return 'Скрыть/Показать постраничную навигацию'
-  },
-  formatPaginationSwitchDown () {
-    return 'Показать постраничную навигацию'
-  },
-  formatPaginationSwitchUp () {
-    return 'Скрыть постраничную навигацию'
-  },
-  formatRefresh () {
-    return 'Обновить'
-  },
-  formatToggleOn () {
-    return 'Показать записи в виде карточек'
-  },
+
   formatToggleOff () {
     return 'Табличный режим просмотра'
   },
-  formatColumns () {
-    return 'Колонки'
-  },
-  formatColumnsToggleAll () {
-    return 'Выбрать все'
-  },
-  formatFullscreen () {
-    return 'Полноэкранный режим'
-  },
-  formatAllRows () {
-    return 'Все'
-  },
-  formatAutoRefresh () {
-    return 'Автоматическое обновление'
-  },
-  formatExport () {
-    return 'Экспортировать данные'
-  },
-  formatJumpTo () {
-    return 'Стр.'
-  },
-  formatAdvancedSearch () {
-    return 'Расширенный поиск'
-  },
-  formatAdvancedCloseButton () {
-    return 'Закрыть'
-  },
-  formatFilterControlSwitch () {
-    return 'Скрыть/Показать панель инструментов'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Скрыть панель инструментов'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Показать панель инструментов'
+
+  formatToggleOn () {
+    return 'Показать записи в виде карточек'
   }
 }
 

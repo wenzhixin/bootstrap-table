@@ -4,18 +4,102 @@
  */
 
 $.fn.bootstrapTable.locales['sr-Latn-RS'] = {
+  formatAdvancedCloseButton () {
+    return 'Zatvori'
+  },
+
+  formatAdvancedSearch () {
+    return 'Napredna pretraga'
+  },
+
+  formatAllRows () {
+    return 'Sve'
+  },
+
+  formatAutoRefresh () {
+    return 'Automatsko osvežavanje'
+  },
+
+  formatClearSearch () {
+    return 'Obriši pretragu'
+  },
+
+  formatColumns () {
+    return 'Kolone'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Prikaži/sakrij sve'
+  },
+
   formatCopyRows () {
     return 'Copy Rows'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDetailPagination (totalRows) {
+    return `Prikazano ${totalRows} redova`
   },
+
+  formatExport () {
+    return 'Izvezi podatke'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
+  },
+
+  formatFullscreen () {
+    return 'Ceo ekran'
+  },
+
+  formatJumpTo () {
+    return 'Idi'
+  },
+
   formatLoadingMessage () {
     return 'Molim sačekaj'
   },
+
+  formatNoMatches () {
+    return 'Nije pronađen ni jedan podatak'
+  },
+
+  formatPaginationSwitch () {
+    return 'Prikaži/sakrij paginaciju'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Prikaži paginaciju'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Sakrij paginaciju'
+  },
+
+  formatPrint () {
+    return 'Print'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} redova po strani`
   },
+
+  formatRefresh () {
+    return 'Osveži'
+  },
+
+  formatSearch () {
+    return 'Pronađi'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Prikazano ${pageFrom}. - ${pageTo}. od ukupnog broja redova ${totalRows} (filtrirano od ${totalNotFiltered})`
@@ -23,80 +107,25 @@ $.fn.bootstrapTable.locales['sr-Latn-RS'] = {
 
     return `Prikazano ${pageFrom}. - ${pageTo}. od ukupnog broja redova ${totalRows}`
   },
-  formatSRPaginationPreText () {
-    return 'prethodna strana'
-  },
-  formatSRPaginationPageText (page) {
-    return `na stranu ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'sledeća strana'
   },
-  formatDetailPagination (totalRows) {
-    return `Prikazano ${totalRows} redova`
+
+  formatSRPaginationPageText (page) {
+    return `na stranu ${page}`
   },
-  formatClearSearch () {
-    return 'Obriši pretragu'
+
+  formatSRPaginationPreText () {
+    return 'prethodna strana'
   },
-  formatSearch () {
-    return 'Pronađi'
-  },
-  formatNoMatches () {
-    return 'Nije pronađen ni jedan podatak'
-  },
-  formatPaginationSwitch () {
-    return 'Prikaži/sakrij paginaciju'
-  },
-  formatPaginationSwitchDown () {
-    return 'Prikaži paginaciju'
-  },
-  formatPaginationSwitchUp () {
-    return 'Sakrij paginaciju'
-  },
-  formatRefresh () {
-    return 'Osveži'
-  },
-  formatToggleOn () {
-    return 'Prikaži kartice'
-  },
+
   formatToggleOff () {
     return 'Sakrij kartice'
   },
-  formatColumns () {
-    return 'Kolone'
-  },
-  formatColumnsToggleAll () {
-    return 'Prikaži/sakrij sve'
-  },
-  formatFullscreen () {
-    return 'Ceo ekran'
-  },
-  formatAllRows () {
-    return 'Sve'
-  },
-  formatAutoRefresh () {
-    return 'Automatsko osvežavanje'
-  },
-  formatExport () {
-    return 'Izvezi podatke'
-  },
-  formatJumpTo () {
-    return 'Idi'
-  },
-  formatAdvancedSearch () {
-    return 'Napredna pretraga'
-  },
-  formatAdvancedCloseButton () {
-    return 'Zatvori'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+
+  formatToggleOn () {
+    return 'Prikaži kartice'
   }
 }
 

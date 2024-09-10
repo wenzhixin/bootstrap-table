@@ -4,18 +4,102 @@
  */
 
 $.fn.bootstrapTable.locales['ms-MY'] = $.fn.bootstrapTable.locales['ms'] = {
+  formatAdvancedCloseButton () {
+    return 'Close'
+  },
+
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+
+  formatAllRows () {
+    return 'Semua'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+
+  formatClearSearch () {
+    return 'Clear Search'
+  },
+
+  formatColumns () {
+    return 'Lajur'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
+
   formatCopyRows () {
     return 'Copy Rows'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDetailPagination (totalRows) {
+    return `Showing ${totalRows} rows`
   },
+
+  formatExport () {
+    return 'Export data'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
+  },
+
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+
+  formatJumpTo () {
+    return 'GO'
+  },
+
   formatLoadingMessage () {
     return 'Permintaan sedang dimuatkan. Sila tunggu sebentar'
   },
+
+  formatNoMatches () {
+    return 'Tiada rekod yang menyamai permintaan'
+  },
+
+  formatPaginationSwitch () {
+    return 'Tunjuk/sembunyi muka surat'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+
+  formatPrint () {
+    return 'Print'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} rekod setiap muka surat`
   },
+
+  formatRefresh () {
+    return 'Muatsemula'
+  },
+
+  formatSearch () {
+    return 'Cari'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Sedang memaparkan rekod ${pageFrom} hingga ${pageTo} daripada jumlah ${totalRows} rekod (filtered from ${totalNotFiltered} total rows)`
@@ -23,80 +107,25 @@ $.fn.bootstrapTable.locales['ms-MY'] = $.fn.bootstrapTable.locales['ms'] = {
 
     return `Sedang memaparkan rekod ${pageFrom} hingga ${pageTo} daripada jumlah ${totalRows} rekod`
   },
-  formatSRPaginationPreText () {
-    return 'previous page'
-  },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'next page'
   },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
   },
-  formatClearSearch () {
-    return 'Clear Search'
+
+  formatSRPaginationPreText () {
+    return 'previous page'
   },
-  formatSearch () {
-    return 'Cari'
-  },
-  formatNoMatches () {
-    return 'Tiada rekod yang menyamai permintaan'
-  },
-  formatPaginationSwitch () {
-    return 'Tunjuk/sembunyi muka surat'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Muatsemula'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
+
   formatToggleOff () {
     return 'Hide card view'
   },
-  formatColumns () {
-    return 'Lajur'
-  },
-  formatColumnsToggleAll () {
-    return 'Toggle all'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
-  formatAllRows () {
-    return 'Semua'
-  },
-  formatAutoRefresh () {
-    return 'Auto Refresh'
-  },
-  formatExport () {
-    return 'Export data'
-  },
-  formatJumpTo () {
-    return 'GO'
-  },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+
+  formatToggleOn () {
+    return 'Show card view'
   }
 }
 

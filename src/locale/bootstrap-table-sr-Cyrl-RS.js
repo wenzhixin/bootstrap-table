@@ -4,18 +4,102 @@
  */
 
 $.fn.bootstrapTable.locales['sr-Cyrl-RS'] = $.fn.bootstrapTable.locales['sr'] = {
+  formatAdvancedCloseButton () {
+    return 'Затвори'
+  },
+
+  formatAdvancedSearch () {
+    return 'Напредна претрага'
+  },
+
+  formatAllRows () {
+    return 'Све'
+  },
+
+  formatAutoRefresh () {
+    return 'Аутоматско освежавање'
+  },
+
+  formatClearSearch () {
+    return 'Обриши претрагу'
+  },
+
+  formatColumns () {
+    return 'Колоне'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Прикажи/сакриј све'
+  },
+
   formatCopyRows () {
     return 'Copy Rows'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDetailPagination (totalRows) {
+    return `Приказано ${totalRows} редова`
   },
+
+  formatExport () {
+    return 'Извези податке'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Hide/Show controls'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Hide controls'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Show controls'
+  },
+
+  formatFullscreen () {
+    return 'Цео екран'
+  },
+
+  formatJumpTo () {
+    return 'Иди'
+  },
+
   formatLoadingMessage () {
     return 'Молим сачекај'
   },
+
+  formatNoMatches () {
+    return 'Није пронађен ни један податак'
+  },
+
+  formatPaginationSwitch () {
+    return 'Прикажи/сакриј пагинацију'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Прикажи пагинацију'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Сакриј пагинацију'
+  },
+
+  formatPrint () {
+    return 'Print'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} редова по страни`
   },
+
+  formatRefresh () {
+    return 'Освежи'
+  },
+
+  formatSearch () {
+    return 'Пронађи'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Приказано ${pageFrom}. - ${pageTo}. од укупног броја редова ${totalRows} (филтрирано од ${totalNotFiltered})`
@@ -23,80 +107,25 @@ $.fn.bootstrapTable.locales['sr-Cyrl-RS'] = $.fn.bootstrapTable.locales['sr'] = 
 
     return `Приказано ${pageFrom}. - ${pageTo}. од укупног броја редова ${totalRows}`
   },
-  formatSRPaginationPreText () {
-    return 'претходна страна'
-  },
-  formatSRPaginationPageText (page) {
-    return `на страну ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'следећа страна'
   },
-  formatDetailPagination (totalRows) {
-    return `Приказано ${totalRows} редова`
+
+  formatSRPaginationPageText (page) {
+    return `на страну ${page}`
   },
-  formatClearSearch () {
-    return 'Обриши претрагу'
+
+  formatSRPaginationPreText () {
+    return 'претходна страна'
   },
-  formatSearch () {
-    return 'Пронађи'
-  },
-  formatNoMatches () {
-    return 'Није пронађен ни један податак'
-  },
-  formatPaginationSwitch () {
-    return 'Прикажи/сакриј пагинацију'
-  },
-  formatPaginationSwitchDown () {
-    return 'Прикажи пагинацију'
-  },
-  formatPaginationSwitchUp () {
-    return 'Сакриј пагинацију'
-  },
-  formatRefresh () {
-    return 'Освежи'
-  },
-  formatToggleOn () {
-    return 'Прикажи картице'
-  },
+
   formatToggleOff () {
     return 'Сакриј картице'
   },
-  formatColumns () {
-    return 'Колоне'
-  },
-  formatColumnsToggleAll () {
-    return 'Прикажи/сакриј све'
-  },
-  formatFullscreen () {
-    return 'Цео екран'
-  },
-  formatAllRows () {
-    return 'Све'
-  },
-  formatAutoRefresh () {
-    return 'Аутоматско освежавање'
-  },
-  formatExport () {
-    return 'Извези податке'
-  },
-  formatJumpTo () {
-    return 'Иди'
-  },
-  formatAdvancedSearch () {
-    return 'Напредна претрага'
-  },
-  formatAdvancedCloseButton () {
-    return 'Затвори'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+
+  formatToggleOn () {
+    return 'Прикажи картице'
   }
 }
 

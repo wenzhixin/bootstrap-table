@@ -5,18 +5,102 @@
  */
 
 $.fn.bootstrapTable.locales['vi-VN'] = $.fn.bootstrapTable.locales['vi'] = {
+  formatAdvancedCloseButton () {
+    return 'Đóng'
+  },
+
+  formatAdvancedSearch () {
+    return 'Tìm kiếm nâng cao'
+  },
+
+  formatAllRows () {
+    return 'Tất cả'
+  },
+
+  formatAutoRefresh () {
+    return 'Tự động làm mới'
+  },
+
+  formatClearSearch () {
+    return 'Xoá tìm kiếm'
+  },
+
+  formatColumns () {
+    return 'Cột'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Hiện tất cả'
+  },
+
   formatCopyRows () {
     return 'Sao chép hàng'
   },
-  formatPrint () {
-    return 'In'
+
+  formatDetailPagination (totalRows) {
+    return `Đang hiện ${totalRows} hàng`
   },
+
+  formatExport () {
+    return 'Xuất dữ liệu'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Ẩn/Hiện điều khiển'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Ẩn điều khiển'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Hiện điều khiển'
+  },
+
+  formatFullscreen () {
+    return 'Toàn màn hình'
+  },
+
+  formatJumpTo () {
+    return 'Đến'
+  },
+
   formatLoadingMessage () {
     return 'Đang tải'
   },
+
+  formatNoMatches () {
+    return 'Không có dữ liệu'
+  },
+
+  formatPaginationSwitch () {
+    return 'Ẩn/Hiện phân trang'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Hiện phân trang'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Ẩn phân trang'
+  },
+
+  formatPrint () {
+    return 'In'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} bản ghi mỗi trang`
   },
+
+  formatRefresh () {
+    return 'Làm mới'
+  },
+
+  formatSearch () {
+    return 'Tìm kiếm'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Hiển thị từ trang ${pageFrom} đến ${pageTo} của ${totalRows} bản ghi (được lọc từ tổng ${totalNotFiltered} hàng)`
@@ -24,80 +108,25 @@ $.fn.bootstrapTable.locales['vi-VN'] = $.fn.bootstrapTable.locales['vi'] = {
 
     return `Hiển thị từ trang ${pageFrom} đến ${pageTo} của ${totalRows} bản ghi`
   },
-  formatSRPaginationPreText () {
-    return 'trang trước'
-  },
-  formatSRPaginationPageText (page) {
-    return `đến trang ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'trang sau'
   },
-  formatDetailPagination (totalRows) {
-    return `Đang hiện ${totalRows} hàng`
+
+  formatSRPaginationPageText (page) {
+    return `đến trang ${page}`
   },
-  formatClearSearch () {
-    return 'Xoá tìm kiếm'
+
+  formatSRPaginationPreText () {
+    return 'trang trước'
   },
-  formatSearch () {
-    return 'Tìm kiếm'
-  },
-  formatNoMatches () {
-    return 'Không có dữ liệu'
-  },
-  formatPaginationSwitch () {
-    return 'Ẩn/Hiện phân trang'
-  },
-  formatPaginationSwitchDown () {
-    return 'Hiện phân trang'
-  },
-  formatPaginationSwitchUp () {
-    return 'Ẩn phân trang'
-  },
-  formatRefresh () {
-    return 'Làm mới'
-  },
-  formatToggleOn () {
-    return 'Hiển thị các thẻ'
-  },
+
   formatToggleOff () {
     return 'Ẩn các thẻ'
   },
-  formatColumns () {
-    return 'Cột'
-  },
-  formatColumnsToggleAll () {
-    return 'Hiện tất cả'
-  },
-  formatFullscreen () {
-    return 'Toàn màn hình'
-  },
-  formatAllRows () {
-    return 'Tất cả'
-  },
-  formatAutoRefresh () {
-    return 'Tự động làm mới'
-  },
-  formatExport () {
-    return 'Xuất dữ liệu'
-  },
-  formatJumpTo () {
-    return 'Đến'
-  },
-  formatAdvancedSearch () {
-    return 'Tìm kiếm nâng cao'
-  },
-  formatAdvancedCloseButton () {
-    return 'Đóng'
-  },
-  formatFilterControlSwitch () {
-    return 'Ẩn/Hiện điều khiển'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Ẩn điều khiển'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Hiện điều khiển'
+
+  formatToggleOn () {
+    return 'Hiển thị các thẻ'
   }
 }
 

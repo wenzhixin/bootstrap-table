@@ -5,18 +5,102 @@
  */
 
 $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
+  formatAdvancedCloseButton () {
+    return 'Zamknij'
+  },
+
+  formatAdvancedSearch () {
+    return 'Wyszukiwanie zaawansowane'
+  },
+
+  formatAllRows () {
+    return 'Wszystkie'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto odświeżanie'
+  },
+
+  formatClearSearch () {
+    return 'Wyczyść wyszukiwanie'
+  },
+
+  formatColumns () {
+    return 'Kolumny'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Zaznacz wszystko'
+  },
+
   formatCopyRows () {
     return 'Kopiuj wiersze'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDetailPagination (totalRows) {
+    return `Wyświetla ${totalRows} wierszy`
   },
+
+  formatExport () {
+    return 'Eksport danych'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Pokaż/Ukryj'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Pokaż'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Ukryj'
+  },
+
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+
+  formatJumpTo () {
+    return 'Przejdź'
+  },
+
   formatLoadingMessage () {
     return 'Ładowanie, proszę czekać'
   },
+
+  formatNoMatches () {
+    return 'Niestety, nic nie znaleziono'
+  },
+
+  formatPaginationSwitch () {
+    return 'Pokaż/ukryj stronicowanie'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Pokaż stronicowanie'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Ukryj stronicowanie'
+  },
+
+  formatPrint () {
+    return 'Print'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} rekordów na stronę`
   },
+
+  formatRefresh () {
+    return 'Odśwież'
+  },
+
+  formatSearch () {
+    return 'Szukaj'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Wyświetlanie rekordów od ${pageFrom} do ${pageTo} z ${totalRows} (filtered from ${totalNotFiltered} total rows)`
@@ -24,80 +108,25 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
 
     return `Wyświetlanie rekordów od ${pageFrom} do ${pageTo} z ${totalRows}`
   },
-  formatSRPaginationPreText () {
-    return 'poprzednia strona'
-  },
-  formatSRPaginationPageText (page) {
-    return `z ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'następna strona'
   },
-  formatDetailPagination (totalRows) {
-    return `Wyświetla ${totalRows} wierszy`
+
+  formatSRPaginationPageText (page) {
+    return `z ${page}`
   },
-  formatClearSearch () {
-    return 'Wyczyść wyszukiwanie'
+
+  formatSRPaginationPreText () {
+    return 'poprzednia strona'
   },
-  formatSearch () {
-    return 'Szukaj'
-  },
-  formatNoMatches () {
-    return 'Niestety, nic nie znaleziono'
-  },
-  formatPaginationSwitch () {
-    return 'Pokaż/ukryj stronicowanie'
-  },
-  formatPaginationSwitchDown () {
-    return 'Pokaż stronicowanie'
-  },
-  formatPaginationSwitchUp () {
-    return 'Ukryj stronicowanie'
-  },
-  formatRefresh () {
-    return 'Odśwież'
-  },
-  formatToggleOn () {
-    return 'Pokaż układ karty'
-  },
+
   formatToggleOff () {
     return 'Ukryj układ karty'
   },
-  formatColumns () {
-    return 'Kolumny'
-  },
-  formatColumnsToggleAll () {
-    return 'Zaznacz wszystko'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
-  formatAllRows () {
-    return 'Wszystkie'
-  },
-  formatAutoRefresh () {
-    return 'Auto odświeżanie'
-  },
-  formatExport () {
-    return 'Eksport danych'
-  },
-  formatJumpTo () {
-    return 'Przejdź'
-  },
-  formatAdvancedSearch () {
-    return 'Wyszukiwanie zaawansowane'
-  },
-  formatAdvancedCloseButton () {
-    return 'Zamknij'
-  },
-  formatFilterControlSwitch () {
-    return 'Pokaż/Ukryj'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Pokaż'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Ukryj'
+
+  formatToggleOn () {
+    return 'Pokaż układ karty'
   }
 }
 

@@ -6,18 +6,102 @@
  */
 
 $.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
+  formatAdvancedCloseButton () {
+    return 'Kapat'
+  },
+
+  formatAdvancedSearch () {
+    return 'Gelişmiş Arama'
+  },
+
+  formatAllRows () {
+    return 'Tüm Satırlar'
+  },
+
+  formatAutoRefresh () {
+    return 'Otomatik Yenileme'
+  },
+
+  formatClearSearch () {
+    return 'Aramayı Temizle'
+  },
+
+  formatColumns () {
+    return 'Sütunlar'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Tümünü Kapat'
+  },
+
   formatCopyRows () {
     return 'Satırları Kopyala'
   },
-  formatPrint () {
-    return 'Yazdır'
+
+  formatDetailPagination (totalRows) {
+    return `${totalRows} satır gösteriliyor`
   },
+
+  formatExport () {
+    return 'Verileri Dışa Aktar'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Kontrolleri Gizle/Göster'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Kontrolleri Gizle'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Kontrolleri Göster'
+  },
+
+  formatFullscreen () {
+    return 'Tam Ekran'
+  },
+
+  formatJumpTo () {
+    return 'Git'
+  },
+
   formatLoadingMessage () {
     return 'Yükleniyor, lütfen bekleyin'
   },
+
+  formatNoMatches () {
+    return 'Eşleşen kayıt bulunamadı.'
+  },
+
+  formatPaginationSwitch () {
+    return 'Sayfalamayı Gizle/Göster'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Sayfalamayı Göster'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Sayfalamayı Gizle'
+  },
+
+  formatPrint () {
+    return 'Yazdır'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `Sayfa başına ${pageNumber} kayıt.`
   },
+
+  formatRefresh () {
+    return 'Yenile'
+  },
+
+  formatSearch () {
+    return 'Ara'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor (${totalNotFiltered} toplam satır filtrelendi).`
@@ -25,80 +109,25 @@ $.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
 
     return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor.`
   },
-  formatSRPaginationPreText () {
-    return 'önceki sayfa'
-  },
-  formatSRPaginationPageText (page) {
-    return `sayfa ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'sonraki sayfa'
   },
-  formatDetailPagination (totalRows) {
-    return `${totalRows} satır gösteriliyor`
+
+  formatSRPaginationPageText (page) {
+    return `sayfa ${page}`
   },
-  formatClearSearch () {
-    return 'Aramayı Temizle'
+
+  formatSRPaginationPreText () {
+    return 'önceki sayfa'
   },
-  formatSearch () {
-    return 'Ara'
-  },
-  formatNoMatches () {
-    return 'Eşleşen kayıt bulunamadı.'
-  },
-  formatPaginationSwitch () {
-    return 'Sayfalamayı Gizle/Göster'
-  },
-  formatPaginationSwitchDown () {
-    return 'Sayfalamayı Göster'
-  },
-  formatPaginationSwitchUp () {
-    return 'Sayfalamayı Gizle'
-  },
-  formatRefresh () {
-    return 'Yenile'
-  },
-  formatToggleOn () {
-    return 'Kart Görünümünü Göster'
-  },
+
   formatToggleOff () {
     return 'Kart Görünümünü Gizle'
   },
-  formatColumns () {
-    return 'Sütunlar'
-  },
-  formatColumnsToggleAll () {
-    return 'Tümünü Kapat'
-  },
-  formatFullscreen () {
-    return 'Tam Ekran'
-  },
-  formatAllRows () {
-    return 'Tüm Satırlar'
-  },
-  formatAutoRefresh () {
-    return 'Otomatik Yenileme'
-  },
-  formatExport () {
-    return 'Verileri Dışa Aktar'
-  },
-  formatJumpTo () {
-    return 'Git'
-  },
-  formatAdvancedSearch () {
-    return 'Gelişmiş Arama'
-  },
-  formatAdvancedCloseButton () {
-    return 'Kapat'
-  },
-  formatFilterControlSwitch () {
-    return 'Kontrolleri Gizle/Göster'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Kontrolleri Gizle'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Kontrolleri Göster'
+
+  formatToggleOn () {
+    return 'Kart Görünümünü Göster'
   }
 }
 

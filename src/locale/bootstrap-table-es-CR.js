@@ -5,18 +5,102 @@
  */
 
 $.fn.bootstrapTable.locales['es-CR'] = {
+  formatAdvancedCloseButton () {
+    return 'Cerrar'
+  },
+
+  formatAdvancedSearch () {
+    return 'Búsqueda avanzada'
+  },
+
+  formatAllRows () {
+    return 'Todas las filas'
+  },
+
+  formatAutoRefresh () {
+    return 'Actualización automática'
+  },
+
+  formatClearSearch () {
+    return 'Limpiar búsqueda'
+  },
+
+  formatColumns () {
+    return 'Columnas'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Alternar todo'
+  },
+
   formatCopyRows () {
     return 'Copiar filas'
   },
-  formatPrint () {
-    return 'Imprimir'
+
+  formatDetailPagination (totalRows) {
+    return `Mostrando ${totalRows} filas`
   },
+
+  formatExport () {
+    return 'Exportar'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Mostrar/ocultar controles'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Ocultar controles'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Mostrar controles'
+  },
+
+  formatFullscreen () {
+    return 'Pantalla completa'
+  },
+
+  formatJumpTo () {
+    return 'Ver'
+  },
+
   formatLoadingMessage () {
     return 'Cargando, por favor espere'
   },
+
+  formatNoMatches () {
+    return 'No se encontraron resultados'
+  },
+
+  formatPaginationSwitch () {
+    return 'Mostrar/ocultar paginación'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Mostrar paginación'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Ocultar paginación'
+  },
+
+  formatPrint () {
+    return 'Imprimir'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} filas por página`
   },
+
+  formatRefresh () {
+    return 'Actualizar'
+  },
+
+  formatSearch () {
+    return 'Buscar'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas (filtrado de un total de ${totalNotFiltered} filas)`
@@ -24,80 +108,25 @@ $.fn.bootstrapTable.locales['es-CR'] = {
 
     return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas`
   },
-  formatSRPaginationPreText () {
-    return 'página anterior'
-  },
-  formatSRPaginationPageText (page) {
-    return `ir a la página ${page}`
-  },
+
   formatSRPaginationNextText () {
     return 'página siguiente'
   },
-  formatDetailPagination (totalRows) {
-    return `Mostrando ${totalRows} filas`
+
+  formatSRPaginationPageText (page) {
+    return `ir a la página ${page}`
   },
-  formatClearSearch () {
-    return 'Limpiar búsqueda'
+
+  formatSRPaginationPreText () {
+    return 'página anterior'
   },
-  formatSearch () {
-    return 'Buscar'
-  },
-  formatNoMatches () {
-    return 'No se encontraron resultados'
-  },
-  formatPaginationSwitch () {
-    return 'Mostrar/ocultar paginación'
-  },
-  formatPaginationSwitchDown () {
-    return 'Mostrar paginación'
-  },
-  formatPaginationSwitchUp () {
-    return 'Ocultar paginación'
-  },
-  formatRefresh () {
-    return 'Actualizar'
-  },
-  formatToggleOn () {
-    return 'Mostrar vista en tarjetas'
-  },
+
   formatToggleOff () {
     return 'Ocultar vista en tarjetas'
   },
-  formatColumns () {
-    return 'Columnas'
-  },
-  formatColumnsToggleAll () {
-    return 'Alternar todo'
-  },
-  formatFullscreen () {
-    return 'Pantalla completa'
-  },
-  formatAllRows () {
-    return 'Todas las filas'
-  },
-  formatAutoRefresh () {
-    return 'Actualización automática'
-  },
-  formatExport () {
-    return 'Exportar'
-  },
-  formatJumpTo () {
-    return 'Ver'
-  },
-  formatAdvancedSearch () {
-    return 'Búsqueda avanzada'
-  },
-  formatAdvancedCloseButton () {
-    return 'Cerrar'
-  },
-  formatFilterControlSwitch () {
-    return 'Mostrar/ocultar controles'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Ocultar controles'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Mostrar controles'
+
+  formatToggleOn () {
+    return 'Mostrar vista en tarjetas'
   }
 }
 
