@@ -131,8 +131,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.mergedCells.push({
       row: options.index,
       col,
-      rowspan: options.rowspan || 1,
-      colspan: options.colspan || 1
+      rowspan: +options.rowspan || 1,
+      colspan: +options.colspan || 1
     })
   }
 
