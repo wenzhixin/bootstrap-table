@@ -73,6 +73,12 @@
     for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
     return t;
   }
+  function _superPropGet(t, e, r, o) {
+    var p = _get(_getPrototypeOf(t.prototype ), e, r);
+    return function (t) {
+      return p.apply(r, t);
+    } ;
+  }
   function _toPrimitive(t, r) {
     if ("object" != typeof t || !t) return t;
     var e = t[Symbol.toPrimitive];
@@ -104,7 +110,7 @@
   };
 
   // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-  var global$b =
+  var globalThis_1 =
     // eslint-disable-next-line es/no-global-this -- safe
     check(typeof globalThis == 'object' && globalThis) ||
     check(typeof window == 'object' && window) ||
@@ -255,7 +261,7 @@
     return typeof it == 'object' ? it !== null : isCallable$b(it);
   };
 
-  var global$a = global$b;
+  var globalThis$c = globalThis_1;
   var isCallable$a = isCallable$c;
 
   var aFunction = function (argument) {
@@ -263,20 +269,25 @@
   };
 
   var getBuiltIn$4 = function (namespace, method) {
-    return arguments.length < 2 ? aFunction(global$a[namespace]) : global$a[namespace] && global$a[namespace][method];
+    return arguments.length < 2 ? aFunction(globalThis$c[namespace]) : globalThis$c[namespace] && globalThis$c[namespace][method];
   };
 
   var uncurryThis$f = functionUncurryThis;
 
   var objectIsPrototypeOf = uncurryThis$f({}.isPrototypeOf);
 
-  var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
+  var globalThis$b = globalThis_1;
 
-  var global$9 = global$b;
-  var userAgent$2 = engineUserAgent;
+  var navigator = globalThis$b.navigator;
+  var userAgent$3 = navigator && navigator.userAgent;
 
-  var process = global$9.process;
-  var Deno = global$9.Deno;
+  var environmentUserAgent = userAgent$3 ? String(userAgent$3) : '';
+
+  var globalThis$a = globalThis_1;
+  var userAgent$2 = environmentUserAgent;
+
+  var process = globalThis$a.process;
+  var Deno = globalThis$a.Deno;
   var versions = process && process.versions || Deno && Deno.version;
   var v8 = versions && versions.v8;
   var match, version;
@@ -298,14 +309,14 @@
     }
   }
 
-  var engineV8Version = version;
+  var environmentV8Version = version;
 
   /* eslint-disable es/no-symbol -- required for testing */
-  var V8_VERSION$2 = engineV8Version;
+  var V8_VERSION$2 = environmentV8Version;
   var fails$a = fails$e;
-  var global$8 = global$b;
+  var globalThis$9 = globalThis_1;
 
-  var $String$4 = global$8.String;
+  var $String$4 = globalThis$9.String;
 
   // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
   var symbolConstructorDetection = !!Object.getOwnPropertySymbols && !fails$a(function () {
@@ -389,30 +400,30 @@
 
   var sharedStore = {exports: {}};
 
-  var global$7 = global$b;
+  var globalThis$8 = globalThis_1;
 
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$4 = Object.defineProperty;
 
   var defineGlobalProperty$3 = function (key, value) {
     try {
-      defineProperty$4(global$7, key, { value: value, configurable: true, writable: true });
+      defineProperty$4(globalThis$8, key, { value: value, configurable: true, writable: true });
     } catch (error) {
-      global$7[key] = value;
+      globalThis$8[key] = value;
     } return value;
   };
 
-  var globalThis$1 = global$b;
+  var globalThis$7 = globalThis_1;
   var defineGlobalProperty$2 = defineGlobalProperty$3;
 
   var SHARED = '__core-js_shared__';
-  var store$3 = sharedStore.exports = globalThis$1[SHARED] || defineGlobalProperty$2(SHARED, {});
+  var store$3 = sharedStore.exports = globalThis$7[SHARED] || defineGlobalProperty$2(SHARED, {});
 
   (store$3.versions || (store$3.versions = [])).push({
-    version: '3.37.1',
+    version: '3.38.1',
     mode: 'global',
     copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.37.1/LICENSE',
+    license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
     source: 'https://github.com/zloirock/core-js'
   });
 
@@ -456,14 +467,14 @@
     return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$3(++id + postfix, 36);
   };
 
-  var global$6 = global$b;
+  var globalThis$6 = globalThis_1;
   var shared$2 = shared$3;
   var hasOwn$6 = hasOwnProperty_1;
   var uid$1 = uid$2;
   var NATIVE_SYMBOL = symbolConstructorDetection;
   var USE_SYMBOL_AS_UID = useSymbolAsUid;
 
-  var Symbol$1 = global$6.Symbol;
+  var Symbol$1 = globalThis$6.Symbol;
   var WellKnownSymbolsStore = shared$2('wks');
   var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1['for'] || Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
 
@@ -511,10 +522,10 @@
     return isSymbol(key) ? key : key + '';
   };
 
-  var global$5 = global$b;
+  var globalThis$5 = globalThis_1;
   var isObject$5 = isObject$8;
 
-  var document$1 = global$5.document;
+  var document$1 = globalThis$5.document;
   // typeof document.createElement is 'object' in old IE
   var EXISTS$1 = isObject$5(document$1) && isObject$5(document$1.createElement);
 
@@ -673,10 +684,10 @@
 
   var inspectSource$2 = store$1.inspectSource;
 
-  var global$4 = global$b;
+  var globalThis$4 = globalThis_1;
   var isCallable$5 = isCallable$c;
 
-  var WeakMap$1 = global$4.WeakMap;
+  var WeakMap$1 = globalThis$4.WeakMap;
 
   var weakMapBasicDetection = isCallable$5(WeakMap$1) && /native code/.test(String(WeakMap$1));
 
@@ -692,7 +703,7 @@
   var hiddenKeys$4 = {};
 
   var NATIVE_WEAK_MAP = weakMapBasicDetection;
-  var global$3 = global$b;
+  var globalThis$3 = globalThis_1;
   var isObject$3 = isObject$8;
   var createNonEnumerableProperty$2 = createNonEnumerableProperty$3;
   var hasOwn$3 = hasOwnProperty_1;
@@ -701,8 +712,8 @@
   var hiddenKeys$3 = hiddenKeys$4;
 
   var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-  var TypeError$1 = global$3.TypeError;
-  var WeakMap = global$3.WeakMap;
+  var TypeError$1 = globalThis$3.TypeError;
+  var WeakMap = globalThis$3.WeakMap;
   var set, get, has;
 
   var enforce = function (it) {
@@ -1040,7 +1051,7 @@
 
   var isForced_1 = isForced$1;
 
-  var global$2 = global$b;
+  var globalThis$2 = globalThis_1;
   var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
   var createNonEnumerableProperty$1 = createNonEnumerableProperty$3;
   var defineBuiltIn$1 = defineBuiltIn$2;
@@ -1069,11 +1080,11 @@
     var STATIC = options.stat;
     var FORCED, target, key, targetProperty, sourceProperty, descriptor;
     if (GLOBAL) {
-      target = global$2;
+      target = globalThis$2;
     } else if (STATIC) {
-      target = global$2[TARGET] || defineGlobalProperty(TARGET, {});
+      target = globalThis$2[TARGET] || defineGlobalProperty(TARGET, {});
     } else {
-      target = global$2[TARGET] && global$2[TARGET].prototype;
+      target = globalThis$2[TARGET] && globalThis$2[TARGET].prototype;
     }
     if (target) for (key in source) {
       sourceProperty = source[key];
@@ -1245,7 +1256,7 @@
 
   var fails$4 = fails$e;
   var wellKnownSymbol$3 = wellKnownSymbol$8;
-  var V8_VERSION$1 = engineV8Version;
+  var V8_VERSION$1 = environmentV8Version;
 
   var SPECIES$1 = wellKnownSymbol$3('species');
 
@@ -1274,7 +1285,7 @@
   var arraySpeciesCreate$1 = arraySpeciesCreate$2;
   var arrayMethodHasSpeciesSupport$2 = arrayMethodHasSpeciesSupport$3;
   var wellKnownSymbol$2 = wellKnownSymbol$8;
-  var V8_VERSION = engineV8Version;
+  var V8_VERSION = environmentV8Version;
 
   var IS_CONCAT_SPREADABLE = wellKnownSymbol$2('isConcatSpreadable');
 
@@ -1497,7 +1508,8 @@
     activeXDocument.write(scriptTag(''));
     activeXDocument.close();
     var temp = activeXDocument.parentWindow.Object;
-    activeXDocument = null; // avoid memory leak
+    // eslint-disable-next-line no-useless-assignment -- avoid memory leak
+    activeXDocument = null;
     return temp;
   };
 
@@ -1739,21 +1751,21 @@
 
   var arraySort = sort;
 
-  var userAgent$1 = engineUserAgent;
+  var userAgent$1 = environmentUserAgent;
 
   var firefox = userAgent$1.match(/firefox\/(\d+)/i);
 
-  var engineFfVersion = !!firefox && +firefox[1];
+  var environmentFfVersion = !!firefox && +firefox[1];
 
-  var UA = engineUserAgent;
+  var UA = environmentUserAgent;
 
-  var engineIsIeOrEdge = /MSIE|Trident/.test(UA);
+  var environmentIsIeOrEdge = /MSIE|Trident/.test(UA);
 
-  var userAgent = engineUserAgent;
+  var userAgent = environmentUserAgent;
 
   var webkit = userAgent.match(/AppleWebKit\/(\d+)\./);
 
-  var engineWebkitVersion = !!webkit && +webkit[1];
+  var environmentWebkitVersion = !!webkit && +webkit[1];
 
   var $$1 = _export;
   var uncurryThis$2 = functionUncurryThis;
@@ -1765,10 +1777,10 @@
   var fails$1 = fails$e;
   var internalSort = arraySort;
   var arrayMethodIsStrict$1 = arrayMethodIsStrict$3;
-  var FF = engineFfVersion;
-  var IE_OR_EDGE = engineIsIeOrEdge;
-  var V8 = engineV8Version;
-  var WEBKIT = engineWebkitVersion;
+  var FF = environmentFfVersion;
+  var IE_OR_EDGE = environmentIsIeOrEdge;
+  var V8 = environmentV8Version;
+  var WEBKIT = environmentWebkitVersion;
 
   var test = [];
   var nativeSort = uncurryThis$2(test.sort);
@@ -2038,7 +2050,7 @@
   // eslint-disable-next-line es/no-array-prototype-foreach -- safe
   } : [].forEach;
 
-  var global$1 = global$b;
+  var globalThis$1 = globalThis_1;
   var DOMIterables = domIterables;
   var DOMTokenListPrototype = domTokenListPrototype;
   var forEach = arrayForEach;
@@ -2055,7 +2067,7 @@
 
   for (var COLLECTION_NAME in DOMIterables) {
     if (DOMIterables[COLLECTION_NAME]) {
-      handlePrototype(global$1[COLLECTION_NAME] && global$1[COLLECTION_NAME].prototype);
+      handlePrototype(globalThis$1[COLLECTION_NAME] && globalThis$1[COLLECTION_NAME].prototype);
     }
   }
 
@@ -2306,19 +2318,19 @@
             options = Object.assign(options, params);
           }
           if (options.unit === 'rows') {
-            var scrollTo = 0;
+            var _scrollTo = 0;
             this.$body.find("> tr:not(.group-by):lt(".concat(options.value, ")")).each(function (i, el) {
-              scrollTo += $$7(el).outerHeight(true);
+              _scrollTo += $$7(el).outerHeight(true);
             });
             var $targetColumn = this.$body.find("> tr:not(.group-by):eq(".concat(options.value, ")"));
             $targetColumn.prevAll('.group-by').each(function (i, el) {
-              scrollTo += $$7(el).outerHeight(true);
+              _scrollTo += $$7(el).outerHeight(true);
             });
-            this.$tableBody.scrollTop(scrollTo);
+            this.$tableBody.scrollTop(_scrollTo);
             return;
           }
         }
-        _get(_getPrototypeOf(_class.prototype), "scrollTo", this).call(this, params);
+        _superPropGet(_class, "scrollTo", this)([params]);
       }
     }]);
   }($$7.BootstrapTable);

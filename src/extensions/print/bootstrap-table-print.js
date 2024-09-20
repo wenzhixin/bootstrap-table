@@ -131,8 +131,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.mergedCells.push({
       row: options.index,
       col,
-      rowspan: options.rowspan || 1,
-      colspan: options.colspan || 1
+      rowspan: +options.rowspan || 1,
+      colspan: +options.colspan || 1
     })
   }
 
@@ -148,7 +148,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         [value_, row, i], value_)
 
       return typeof value === 'undefined' || value === null ?
-        this.options.undefinedText : value
+        this.options.undefinedText : $('<div>').html(value).html()
     }
 
     const buildTable = (data, columnsArray) => {

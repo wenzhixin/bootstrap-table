@@ -1,6 +1,21 @@
 ChangeLog
 ---------
 
+### 1.23.3
+
+### Core
+
+- **New:** Added support for column options `formatter` and `footerFormatter` methods returning type `jQuery`, `HTMLElement`.
+- **New:** Added `sortReset` method to reset the current sort state.
+- **New:** Added a presentation role if no matching rows are found.
+- **Update:** Fixed `refresh` method doesn't reuse parameters provided as query bug.
+- **Update:** Fixed compatibility issues when `colspan` is set as a string.
+
+### Extensions
+
+- **Update(fixed-columns):** Fixed undefined error in some cases.
+- **Update(reorder-columns):** Fixed incorrect column values order with detail view.
+
 ### 1.23.2
 
 ### Core

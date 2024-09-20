@@ -327,6 +327,8 @@
 
         li.page-intermediate {
           a {
+            color: #c8c8c8;
+
             &::before {
               content: "\2B05";
             }
@@ -334,8 +336,6 @@
             &::after {
               content: "\27A1";
             }
-
-            color: #c8c8c8;
           }
         }
 

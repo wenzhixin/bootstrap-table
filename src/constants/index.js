@@ -1,356 +1,271 @@
 /* eslint-disable no-unused-vars */
 import Utils from '../utils/index.js'
 
-const VERSION = '1.23.2'
+const VERSION = '1.23.3'
 
 const bootstrapVersion = Utils.getBootstrapVersion()
 
 const CONSTANTS = {
   3: {
     classes: {
-      buttonsPrefix: 'btn',
+      buttonActive: 'active',
       buttons: 'default',
-      buttonsGroup: 'btn-group',
       buttonsDropdown: 'btn-group',
-      pull: 'pull',
+      buttonsGroup: 'btn-group',
+      buttonsPrefix: 'btn',
+      dropdownActive: 'active',
+      dropup: 'dropup',
+      input: 'form-control',
       inputGroup: 'input-group',
       inputPrefix: 'input-',
-      input: 'form-control',
-      select: 'form-control',
-      paginationDropdown: 'btn-group dropdown',
-      dropup: 'dropup',
-      dropdownActive: 'active',
       paginationActive: 'active',
-      buttonActive: 'active'
+      paginationDropdown: 'btn-group dropdown',
+      pull: 'pull',
+      select: 'form-control'
     },
     html: {
-      toolbarDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-      toolbarDropdownItem: '<li class="dropdown-item-marker" role="menuitem"><label>%s</label></li>',
-      toolbarDropdownSeparator: '<li class="divider"></li>',
-      pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
-      pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
       dropdownCaret: '<span class="caret"></span>',
-      pagination: ['<ul class="pagination%s">', '</ul>'],
-      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<span class="input-group-btn">%s</span></div>',
-      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      pageDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
+      pageDropdownItem: '<li role="menuitem" class="%s"><a href="#">%s</a></li>',
+      pagination: ['<ul class="pagination%s">', '</ul>'],
+      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
-      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
+      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>',
+      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      toolbarDropdown: ['<ul class="dropdown-menu" role="menu">', '</ul>'],
+      toolbarDropdownItem: '<li class="dropdown-item-marker" role="menuitem"><label>%s</label></li>',
+      toolbarDropdownSeparator: '<li class="divider"></li>'
     }
   },
   4: {
     classes: {
-      buttonsPrefix: 'btn',
+      buttonActive: 'active',
       buttons: 'secondary',
-      buttonsGroup: 'btn-group',
       buttonsDropdown: 'btn-group',
-      pull: 'float',
+      buttonsGroup: 'btn-group',
+      buttonsPrefix: 'btn',
+      dropdownActive: 'active',
+      dropup: 'dropup',
+      input: 'form-control',
       inputGroup: 'btn-group',
       inputPrefix: 'form-control-',
-      input: 'form-control',
-      select: 'form-control',
-      paginationDropdown: 'btn-group dropdown',
-      dropup: 'dropup',
-      dropdownActive: 'active',
       paginationActive: 'active',
-      buttonActive: 'active'
+      paginationDropdown: 'btn-group dropdown',
+      pull: 'float',
+      select: 'form-control'
     },
     html: {
-      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
-      toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
-      pageDropdown: ['<div class="dropdown-menu">', '</div>'],
-      pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
-      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
       dropdownCaret: '<span class="caret"></span>',
-      pagination: ['<ul class="pagination%s">', '</ul>'],
-      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s<div class="input-group-append">%s</div></div>',
-      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      pageDropdown: ['<div class="dropdown-menu">', '</div>'],
+      pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
+      pagination: ['<ul class="pagination%s">', '</ul>'],
+      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
-      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
+      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>',
+      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-right">', '</div>'],
+      toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
+      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>'
     }
   },
   5: {
     classes: {
-      buttonsPrefix: 'btn',
+      buttonActive: 'active',
       buttons: 'secondary',
-      buttonsGroup: 'btn-group',
       buttonsDropdown: 'btn-group',
-      pull: 'float',
+      buttonsGroup: 'btn-group',
+      buttonsPrefix: 'btn',
+      dropdownActive: 'active',
+      dropup: 'dropup',
+      input: 'form-control',
       inputGroup: 'btn-group',
       inputPrefix: 'form-control-',
-      input: 'form-control',
-      select: 'form-select',
-      paginationDropdown: 'btn-group dropdown',
-      dropup: 'dropup',
-      dropdownActive: 'active',
       paginationActive: 'active',
-      buttonActive: 'active'
+      paginationDropdown: 'btn-group dropdown',
+      pull: 'float',
+      select: 'form-select'
     },
     html: {
       dataToggle: 'data-bs-toggle',
-      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-end">', '</div>'],
-      toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
-      pageDropdown: ['<div class="dropdown-menu">', '</div>'],
-      pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
-      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>',
       dropdownCaret: '<span class="caret"></span>',
-      pagination: ['<ul class="pagination%s">', '</ul>'],
-      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       icon: '<i class="%s %s"></i>',
       inputGroup: '<div class="input-group">%s%s</div>',
-      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      pageDropdown: ['<div class="dropdown-menu">', '</div>'],
+      pageDropdownItem: '<a class="dropdown-item %s" href="#">%s</a>',
+      pagination: ['<ul class="pagination%s">', '</ul>'],
+      paginationItem: '<li class="page-item%s"><a class="page-link" aria-label="%s" href="javascript:void(0)">%s</a></li>',
       searchButton: '<button class="%s" type="button" name="search" title="%s">%s %s</button>',
-      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>'
+      searchClearButton: '<button class="%s" type="button" name="clearSearch" title="%s">%s %s</button>',
+      searchInput: '<input class="%s%s" type="text" placeholder="%s">',
+      toolbarDropdown: ['<div class="dropdown-menu dropdown-menu-end">', '</div>'],
+      toolbarDropdownItem: '<label class="dropdown-item dropdown-item-marker">%s</label>',
+      toolbarDropdownSeparator: '<div class="dropdown-divider"></div>'
     }
   }
 }[bootstrapVersion]
 
 const DEFAULTS = {
-  height: undefined,
-  classes: 'table table-bordered table-hover',
+  ajax: undefined,
+  ajaxOptions: {},
   buttons: {},
-  theadClasses: '',
-  headerStyle (column) {
-    return {}
-  },
-  rowStyle (row, index) {
-    return {}
-  },
-  rowAttributes (row, index) {
-    return {}
-  },
-  undefinedText: '-',
+  buttonsAlign: 'right',
+  buttonsAttributeTitle: 'title',
+  buttonsClass: CONSTANTS.classes.buttons,
+  buttonsOrder: ['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns'],
+  buttonsPrefix: CONSTANTS.classes.buttonsPrefix,
+  buttonsToolbar: undefined,
+  cache: true,
+  cardView: false,
+  checkboxHeader: true,
+  classes: 'table table-bordered table-hover',
+  clickToSelect: false,
+  columns: [[]],
+  contentType: 'application/json',
+  customSearch: undefined,
+  customSort: undefined,
+  data: [],
+  dataField: 'rows',
+  dataType: 'json',
+  detailFilter: (index, row) => true,
+  detailFormatter: (index, row) => '',
+  detailView: false,
+  detailViewAlign: 'left',
+  detailViewByClick: false,
+  detailViewIcon: true,
+  escape: false,
+  escapeTitle: true,
+  filterOptions: { filterAlgorithm: 'and' },
+  fixedScroll: false,
+  footerField: 'footer',
+  footerStyle: column => ({}),
+  headerStyle: column => ({}),
+  height: undefined,
+  icons: {}, // init in initConstants
+  iconSize: undefined,
+  iconsPrefix: undefined, // init in initConstants
+  idField: undefined,
+  ignoreClickToSelectOn: ({ tagName }) => ['A', 'BUTTON'].includes(tagName),
+  loadingFontSize: 'auto',
+  loadingTemplate: loadingMessage => `<span class="loading-wrap">
+    <span class="loading-text">${loadingMessage}</span>
+    <span class="animation-wrap"><span class="animation-dot"></span></span>
+    </span>
+  `,
   locale: undefined,
-  virtualScroll: false,
-  virtualScrollItemHeight: undefined,
+  maintainMetaData: false,
+  method: 'get',
+  minimumCountColumns: 1,
+  multipleSelectRow: false,
+  pageList: [10, 25, 50, 100],
+  pageNumber: 1,
+  pageSize: 10,
+  pagination: false,
+  paginationDetailHAlign: 'left', // right, left
+  paginationHAlign: 'right', // right, left
+  paginationLoadMore: false,
+  paginationLoop: true,
+  paginationNextText: '&rsaquo;',
+  paginationPagesBySide: 1, // Number of pages on each side (right, left) of the current page.
+  paginationParts: ['pageInfo', 'pageSize', 'pageList'],
+  paginationPreText: '&lsaquo;',
+  paginationSuccessivelySize: 5, // Maximum successively number of pages in a row
+  paginationUseIntermediate: false, // Calculate intermediate pages for quick access
+  paginationVAlign: 'bottom', // bottom, top, both
+  queryParams: params => params,
+  queryParamsType: 'limit', // 'limit', undefined
+  regexSearch: false,
+  rememberOrder: false,
+  responseHandler: res => res,
+  rowAttributes: (row, index) => ({}),
+  rowStyle: (row, index) => ({}),
+  search: false,
+  searchable: false,
+  searchAccentNeutralise: false,
+  searchAlign: 'right',
+  searchHighlight: false,
+  searchOnEnterKey: false,
+  searchSelector: false,
+  searchText: '',
+  searchTimeOut: 500,
+  selectItemName: 'btSelectItem',
+  serverSort: true,
+  showButtonIcons: true,
+  showButtonText: false,
+  showColumns: false,
+  showColumnsSearch: false,
+  showColumnsToggleAll: false,
+  showExtendedPagination: false,
+  showFooter: false,
+  showFullscreen: false,
+  showHeader: true,
+  showPaginationSwitch: false,
+  showRefresh: false,
+  showSearchButton: false,
+  showSearchClearButton: false,
+  showToggle: false,
+  sidePagination: 'client', // client or server
+  silentSort: true,
+  singleSelect: false,
+  smartDisplay: true,
   sortable: true,
   sortClass: undefined,
-  silentSort: true,
   sortEmptyLast: false,
   sortName: undefined,
   sortOrder: undefined,
   sortReset: false,
-  sortStable: false,
   sortResetPage: false,
-  rememberOrder: false,
-  serverSort: true,
-  customSort: undefined,
-  columns: [
-    []
-  ],
-  data: [],
-  url: undefined,
-  method: 'get',
-  cache: true,
-  contentType: 'application/json',
-  dataType: 'json',
-  ajax: undefined,
-  ajaxOptions: {},
-  queryParams (params) {
-    return params
-  },
-  queryParamsType: 'limit', // 'limit', undefined
-  responseHandler (res) {
-    return res
-  },
-  totalField: 'total',
-  totalNotFilteredField: 'totalNotFiltered',
-  dataField: 'rows',
-  footerField: 'footer',
-  pagination: false,
-  paginationParts: ['pageInfo', 'pageSize', 'pageList'],
-  showExtendedPagination: false,
-  paginationLoop: true,
-  sidePagination: 'client', // client or server
-  totalRows: 0,
-  totalNotFiltered: 0,
-  pageNumber: 1,
-  pageSize: 10,
-  pageList: [10, 25, 50, 100],
-  paginationHAlign: 'right', // right, left
-  paginationVAlign: 'bottom', // bottom, top, both
-  paginationDetailHAlign: 'left', // right, left
-  paginationPreText: '&lsaquo;',
-  paginationNextText: '&rsaquo;',
-  paginationSuccessivelySize: 5, // Maximum successively number of pages in a row
-  paginationPagesBySide: 1, // Number of pages on each side (right, left) of the current page.
-  paginationUseIntermediate: false, // Calculate intermediate pages for quick access
-  paginationLoadMore: false,
-  search: false,
-  searchable: false,
-  searchHighlight: false,
-  searchOnEnterKey: false,
+  sortStable: false,
   strictSearch: false,
-  regexSearch: false,
-  searchSelector: false,
-  visibleSearch: false,
-  showButtonIcons: true,
-  showButtonText: false,
-  showSearchButton: false,
-  showSearchClearButton: false,
-  trimOnSearch: true,
-  searchAlign: 'right',
-  searchTimeOut: 500,
-  searchText: '',
-  customSearch: undefined,
-  showHeader: true,
-  showFooter: false,
-  footerStyle (column) {
-    return {}
-  },
-  searchAccentNeutralise: false,
-  showColumns: false,
-  showColumnsToggleAll: false,
-  showColumnsSearch: false,
-  minimumCountColumns: 1,
-  showPaginationSwitch: false,
-  showRefresh: false,
-  showToggle: false,
-  showFullscreen: false,
-  smartDisplay: true,
-  escape: false,
-  escapeTitle: true,
-  filterOptions: {
-    filterAlgorithm: 'and'
-  },
-  idField: undefined,
-  selectItemName: 'btSelectItem',
-  clickToSelect: false,
-  ignoreClickToSelectOn ({ tagName }) {
-    return ['A', 'BUTTON'].includes(tagName)
-  },
-  singleSelect: false,
-  checkboxHeader: true,
-  maintainMetaData: false,
-  multipleSelectRow: false,
-  uniqueId: undefined,
-  cardView: false,
-  detailView: false,
-  detailViewIcon: true,
-  detailViewByClick: false,
-  detailViewAlign: 'left',
-  detailFormatter (index, row) {
-    return ''
-  },
-  detailFilter (index, row) {
-    return true
-  },
+  theadClasses: '',
   toolbar: undefined,
   toolbarAlign: 'left',
-  buttonsToolbar: undefined,
-  buttonsAlign: 'right',
-  buttonsAttributeTitle: 'title',
-  buttonsOrder: ['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns'],
-  buttonsPrefix: CONSTANTS.classes.buttonsPrefix,
-  buttonsClass: CONSTANTS.classes.buttons,
-  iconsPrefix: undefined, // init in initConstants
-  icons: {}, // init in initConstants
-  iconSize: undefined,
-  fixedScroll: false,
-  loadingFontSize: 'auto',
-  loadingTemplate (loadingMessage) {
-    return `<span class="loading-wrap">
-      <span class="loading-text">${loadingMessage}</span>
-      <span class="animation-wrap"><span class="animation-dot"></span></span>
-      </span>
-    `
-  },
-  onAll (name, args) {
-    return false
-  },
-  onClickCell (field, value, row, $element) {
-    return false
-  },
-  onDblClickCell (field, value, row, $element) {
-    return false
-  },
-  onClickRow (item, $element) {
-    return false
-  },
-  onDblClickRow (item, $element) {
-    return false
-  },
-  onSort (name, order) {
-    return false
-  },
-  onCheck (row) {
-    return false
-  },
-  onUncheck (row) {
-    return false
-  },
-  onCheckAll (rows) {
-    return false
-  },
-  onUncheckAll (rows) {
-    return false
-  },
-  onCheckSome (rows) {
-    return false
-  },
-  onUncheckSome (rows) {
-    return false
-  },
-  onLoadSuccess (data) {
-    return false
-  },
-  onLoadError (status) {
-    return false
-  },
-  onColumnSwitch (field, checked) {
-    return false
-  },
-  onColumnSwitchAll (checked) {
-    return false
-  },
-  onPageChange (number, size) {
-    return false
-  },
-  onSearch (text) {
-    return false
-  },
-  onToggle (cardView) {
-    return false
-  },
-  onPreBody (data) {
-    return false
-  },
-  onPostBody () {
-    return false
-  },
-  onPostHeader () {
-    return false
-  },
-  onPostFooter () {
-    return false
-  },
-  onExpandRow (index, row, $detail) {
-    return false
-  },
-  onCollapseRow (index, row) {
-    return false
-  },
-  onRefreshOptions (options) {
-    return false
-  },
-  onRefresh (params) {
-    return false
-  },
-  onResetView () {
-    return false
-  },
-  onScrollBody () {
-    return false
-  },
-  onTogglePagination (newState) {
-    return false
-  },
-  onVirtualScroll (startIndex, endIndex) {
-    return false
-  }
+  totalField: 'total',
+  totalNotFiltered: 0,
+  totalNotFilteredField: 'totalNotFiltered',
+  totalRows: 0,
+  trimOnSearch: true,
+  undefinedText: '-',
+  uniqueId: undefined,
+  url: undefined,
+  virtualScroll: false,
+  virtualScrollItemHeight: undefined,
+  visibleSearch: false,
+
+  onAll: (name, args) => false,
+  onCheck: row => false,
+  onCheckAll: rows => false,
+  onCheckSome: rows => false,
+  onClickCell: (field, value, row, $element) => false,
+  onClickRow: (item, $element) => false,
+  onCollapseRow: (index, row) => false,
+  onColumnSwitch: (field, checked) => false,
+  onColumnSwitchAll: checked => false,
+  onDblClickCell: (field, value, row, $element) => false,
+  onDblClickRow: (item, $element) => false,
+  onExpandRow: (index, row, $detail) => false,
+  onLoadError: status => false,
+  onLoadSuccess: data => false,
+  onPageChange: (number, size) => false,
+  onPostBody: () => false,
+  onPostFooter: () => false,
+  onPostHeader: () => false,
+  onPreBody: data => false,
+  onRefresh: params => false,
+  onRefreshOptions: options => false,
+  onResetView: () => false,
+  onScrollBody: () => false,
+  onSearch: text => false,
+  onSort: (name, order) => false,
+  onToggle: cardView => false,
+  onTogglePagination: newState => false,
+  onUncheck: row => false,
+  onUncheckAll: rows => false,
+  onUncheckSome: rows => false,
+  onVirtualScroll: (startIndex, endIndex) => false
 }
 
 const EN = {
@@ -421,41 +336,41 @@ const EN = {
 }
 
 const COLUMN_DEFAULTS = {
-  field: undefined,
-  title: undefined,
-  titleTooltip: undefined,
-  class: undefined,
-  width: undefined,
-  widthUnit: 'px',
-  rowspan: undefined,
-  colspan: undefined,
-  align: undefined, // left, right, center
-  halign: undefined, // left, right, center
-  falign: undefined, // left, right, center
-  valign: undefined, // top, middle, bottom
-  cellStyle: undefined,
-  radio: false,
+  align: undefined, // string: left, right, center
+  cardVisible: true,
+  cellStyle: undefined, // function
   checkbox: false,
   checkboxEnabled: true,
+  class: undefined, // string
   clickToSelect: true,
-  showSelectTitle: false,
-  sortable: false,
-  sortName: undefined,
+  colspan: undefined, // number
+  detailFormatter: undefined, // function
+  escape: undefined, // boolean
+  events: undefined,
+  falign: undefined, // string: left, right, center
+  field: undefined, // string
+  footerFormatter: undefined, // function
+  footerStyle: undefined, // function
+  formatter: undefined, // function
+  halign: undefined, // left, right, center
   order: 'asc', // asc, desc
-  sorter: undefined,
-  visible: true,
-  switchable: true,
-  switchableLabel: undefined,
-  cardVisible: true,
+  radio: false,
+  rowspan: undefined, // number
   searchable: true,
-  formatter: undefined,
-  footerFormatter: undefined,
-  footerStyle: undefined,
-  detailFormatter: undefined,
   searchFormatter: true,
   searchHighlightFormatter: false,
-  escape: undefined,
-  events: undefined
+  showSelectTitle: false,
+  sortable: false,
+  sorter: undefined, // function
+  sortName: undefined, // string
+  switchable: true,
+  switchableLabel: undefined, // string
+  title: undefined, // string
+  titleTooltip: undefined, // string
+  valign: undefined, // top, middle, bottom
+  visible: true,
+  width: undefined, // number
+  widthUnit: 'px'
 }
 
 const METHODS = [
@@ -483,7 +398,7 @@ const METHODS = [
   'togglePagination', 'toggleFullscreen', 'toggleView',
   'resetSearch',
   'filterBy',
-  'sortBy',
+  'sortBy', 'sortReset',
   'scrollTo', 'getScrollPosition',
   'selectPage', 'prevPage', 'nextPage',
   'toggleDetailView',
@@ -494,57 +409,50 @@ const METHODS = [
 
 const EVENTS = {
   'all.bs.table': 'onAll',
-  'click-row.bs.table': 'onClickRow',
-  'dbl-click-row.bs.table': 'onDblClickRow',
-  'click-cell.bs.table': 'onClickCell',
-  'dbl-click-cell.bs.table': 'onDblClickCell',
-  'sort.bs.table': 'onSort',
-  'check.bs.table': 'onCheck',
-  'uncheck.bs.table': 'onUncheck',
   'check-all.bs.table': 'onCheckAll',
-  'uncheck-all.bs.table': 'onUncheckAll',
   'check-some.bs.table': 'onCheckSome',
-  'uncheck-some.bs.table': 'onUncheckSome',
-  'load-success.bs.table': 'onLoadSuccess',
-  'load-error.bs.table': 'onLoadError',
-  'column-switch.bs.table': 'onColumnSwitch',
-  'column-switch-all.bs.table': 'onColumnSwitchAll',
-  'page-change.bs.table': 'onPageChange',
-  'search.bs.table': 'onSearch',
-  'toggle.bs.table': 'onToggle',
-  'pre-body.bs.table': 'onPreBody',
-  'post-body.bs.table': 'onPostBody',
-  'post-header.bs.table': 'onPostHeader',
-  'post-footer.bs.table': 'onPostFooter',
-  'expand-row.bs.table': 'onExpandRow',
+  'check.bs.table': 'onCheck',
+  'click-cell.bs.table': 'onClickCell',
+  'click-row.bs.table': 'onClickRow',
   'collapse-row.bs.table': 'onCollapseRow',
+  'column-switch-all.bs.table': 'onColumnSwitchAll',
+  'column-switch.bs.table': 'onColumnSwitch',
+  'dbl-click-cell.bs.table': 'onDblClickCell',
+  'dbl-click-row.bs.table': 'onDblClickRow',
+  'expand-row.bs.table': 'onExpandRow',
+  'load-error.bs.table': 'onLoadError',
+  'load-success.bs.table': 'onLoadSuccess',
+  'page-change.bs.table': 'onPageChange',
+  'post-body.bs.table': 'onPostBody',
+  'post-footer.bs.table': 'onPostFooter',
+  'post-header.bs.table': 'onPostHeader',
+  'pre-body.bs.table': 'onPreBody',
   'refresh-options.bs.table': 'onRefreshOptions',
-  'reset-view.bs.table': 'onResetView',
   'refresh.bs.table': 'onRefresh',
+  'reset-view.bs.table': 'onResetView',
   'scroll-body.bs.table': 'onScrollBody',
+  'search.bs.table': 'onSearch',
+  'sort.bs.table': 'onSort',
   'toggle-pagination.bs.table': 'onTogglePagination',
+  'toggle.bs.table': 'onToggle',
+  'uncheck-all.bs.table': 'onUncheckAll',
+  'uncheck-some.bs.table': 'onUncheckSome',
+  'uncheck.bs.table': 'onUncheck',
   'virtual-scroll.bs.table': 'onVirtualScroll'
 }
 
 Object.assign(DEFAULTS, EN)
 
 export default {
-  VERSION,
-
-  THEME: `bootstrap${bootstrapVersion}`,
-
-  CONSTANTS,
-
-  DEFAULTS,
-
   COLUMN_DEFAULTS,
-
-  METHODS,
-
+  CONSTANTS,
+  DEFAULTS,
   EVENTS,
-
   LOCALES: {
     en: EN,
     'en-US': EN
-  }
+  },
+  METHODS,
+  THEME: `bootstrap${bootstrapVersion}`,
+  VERSION
 }

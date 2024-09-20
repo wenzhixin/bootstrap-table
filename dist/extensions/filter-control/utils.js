@@ -21,7 +21,7 @@
   };
 
   // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-  var global$e =
+  var globalThis_1 =
     // eslint-disable-next-line es/no-global-this -- safe
     check(typeof globalThis == 'object' && globalThis) ||
     check(typeof window == 'object' && window) ||
@@ -172,7 +172,7 @@
     return typeof it == 'object' ? it !== null : isCallable$d(it);
   };
 
-  var global$d = global$e;
+  var globalThis$f = globalThis_1;
   var isCallable$c = isCallable$e;
 
   var aFunction = function (argument) {
@@ -180,20 +180,25 @@
   };
 
   var getBuiltIn$4 = function (namespace, method) {
-    return arguments.length < 2 ? aFunction(global$d[namespace]) : global$d[namespace] && global$d[namespace][method];
+    return arguments.length < 2 ? aFunction(globalThis$f[namespace]) : globalThis$f[namespace] && globalThis$f[namespace][method];
   };
 
   var uncurryThis$k = functionUncurryThis;
 
   var objectIsPrototypeOf = uncurryThis$k({}.isPrototypeOf);
 
-  var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
+  var globalThis$e = globalThis_1;
 
-  var global$c = global$e;
-  var userAgent$2 = engineUserAgent;
+  var navigator = globalThis$e.navigator;
+  var userAgent$3 = navigator && navigator.userAgent;
 
-  var process = global$c.process;
-  var Deno = global$c.Deno;
+  var environmentUserAgent = userAgent$3 ? String(userAgent$3) : '';
+
+  var globalThis$d = globalThis_1;
+  var userAgent$2 = environmentUserAgent;
+
+  var process = globalThis$d.process;
+  var Deno = globalThis$d.Deno;
   var versions = process && process.versions || Deno && Deno.version;
   var v8 = versions && versions.v8;
   var match, version;
@@ -215,14 +220,14 @@
     }
   }
 
-  var engineV8Version = version;
+  var environmentV8Version = version;
 
   /* eslint-disable es/no-symbol -- required for testing */
-  var V8_VERSION$2 = engineV8Version;
+  var V8_VERSION$2 = environmentV8Version;
   var fails$i = fails$m;
-  var global$b = global$e;
+  var globalThis$c = globalThis_1;
 
-  var $String$4 = global$b.String;
+  var $String$4 = globalThis$c.String;
 
   // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
   var symbolConstructorDetection = !!Object.getOwnPropertySymbols && !fails$i(function () {
@@ -306,30 +311,30 @@
 
   var sharedStore = {exports: {}};
 
-  var global$a = global$e;
+  var globalThis$b = globalThis_1;
 
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$2 = Object.defineProperty;
 
   var defineGlobalProperty$3 = function (key, value) {
     try {
-      defineProperty$2(global$a, key, { value: value, configurable: true, writable: true });
+      defineProperty$2(globalThis$b, key, { value: value, configurable: true, writable: true });
     } catch (error) {
-      global$a[key] = value;
+      globalThis$b[key] = value;
     } return value;
   };
 
-  var globalThis$1 = global$e;
+  var globalThis$a = globalThis_1;
   var defineGlobalProperty$2 = defineGlobalProperty$3;
 
   var SHARED = '__core-js_shared__';
-  var store$3 = sharedStore.exports = globalThis$1[SHARED] || defineGlobalProperty$2(SHARED, {});
+  var store$3 = sharedStore.exports = globalThis$a[SHARED] || defineGlobalProperty$2(SHARED, {});
 
   (store$3.versions || (store$3.versions = [])).push({
-    version: '3.37.1',
+    version: '3.38.1',
     mode: 'global',
     copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.37.1/LICENSE',
+    license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
     source: 'https://github.com/zloirock/core-js'
   });
 
@@ -373,14 +378,14 @@
     return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$9(++id + postfix, 36);
   };
 
-  var global$9 = global$e;
+  var globalThis$9 = globalThis_1;
   var shared$3 = shared$4;
   var hasOwn$7 = hasOwnProperty_1;
   var uid$1 = uid$2;
   var NATIVE_SYMBOL = symbolConstructorDetection;
   var USE_SYMBOL_AS_UID = useSymbolAsUid;
 
-  var Symbol$1 = global$9.Symbol;
+  var Symbol$1 = globalThis$9.Symbol;
   var WellKnownSymbolsStore = shared$3('wks');
   var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1['for'] || Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
 
@@ -428,10 +433,10 @@
     return isSymbol(key) ? key : key + '';
   };
 
-  var global$8 = global$e;
+  var globalThis$8 = globalThis_1;
   var isObject$5 = isObject$8;
 
-  var document$1 = global$8.document;
+  var document$1 = globalThis$8.document;
   // typeof document.createElement is 'object' in old IE
   var EXISTS$1 = isObject$5(document$1) && isObject$5(document$1.createElement);
 
@@ -590,10 +595,10 @@
 
   var inspectSource$2 = store$1.inspectSource;
 
-  var global$7 = global$e;
+  var globalThis$7 = globalThis_1;
   var isCallable$7 = isCallable$e;
 
-  var WeakMap$1 = global$7.WeakMap;
+  var WeakMap$1 = globalThis$7.WeakMap;
 
   var weakMapBasicDetection = isCallable$7(WeakMap$1) && /native code/.test(String(WeakMap$1));
 
@@ -609,7 +614,7 @@
   var hiddenKeys$4 = {};
 
   var NATIVE_WEAK_MAP = weakMapBasicDetection;
-  var global$6 = global$e;
+  var globalThis$6 = globalThis_1;
   var isObject$3 = isObject$8;
   var createNonEnumerableProperty$3 = createNonEnumerableProperty$4;
   var hasOwn$4 = hasOwnProperty_1;
@@ -618,8 +623,8 @@
   var hiddenKeys$3 = hiddenKeys$4;
 
   var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-  var TypeError$1 = global$6.TypeError;
-  var WeakMap = global$6.WeakMap;
+  var TypeError$1 = globalThis$6.TypeError;
+  var WeakMap = globalThis$6.WeakMap;
   var set, get, has;
 
   var enforce = function (it) {
@@ -957,7 +962,7 @@
 
   var isForced_1 = isForced$1;
 
-  var global$5 = global$e;
+  var globalThis$5 = globalThis_1;
   var getOwnPropertyDescriptor$1 = objectGetOwnPropertyDescriptor.f;
   var createNonEnumerableProperty$2 = createNonEnumerableProperty$4;
   var defineBuiltIn$3 = defineBuiltIn$4;
@@ -986,11 +991,11 @@
     var STATIC = options.stat;
     var FORCED, target, key, targetProperty, sourceProperty, descriptor;
     if (GLOBAL) {
-      target = global$5;
+      target = globalThis$5;
     } else if (STATIC) {
-      target = global$5[TARGET] || defineGlobalProperty(TARGET, {});
+      target = globalThis$5[TARGET] || defineGlobalProperty(TARGET, {});
     } else {
-      target = global$5[TARGET] && global$5[TARGET].prototype;
+      target = globalThis$5[TARGET] && globalThis$5[TARGET].prototype;
     }
     if (target) for (key in source) {
       sourceProperty = source[key];
@@ -1162,7 +1167,7 @@
 
   var fails$c = fails$m;
   var wellKnownSymbol$6 = wellKnownSymbol$b;
-  var V8_VERSION$1 = engineV8Version;
+  var V8_VERSION$1 = environmentV8Version;
 
   var SPECIES$1 = wellKnownSymbol$6('species');
 
@@ -1191,7 +1196,7 @@
   var arraySpeciesCreate$1 = arraySpeciesCreate$2;
   var arrayMethodHasSpeciesSupport$1 = arrayMethodHasSpeciesSupport$2;
   var wellKnownSymbol$5 = wellKnownSymbol$b;
-  var V8_VERSION = engineV8Version;
+  var V8_VERSION = environmentV8Version;
 
   var IS_CONCAT_SPREADABLE = wellKnownSymbol$5('isConcatSpreadable');
 
@@ -1414,7 +1419,8 @@
     activeXDocument.write(scriptTag(''));
     activeXDocument.close();
     var temp = activeXDocument.parentWindow.Object;
-    activeXDocument = null; // avoid memory leak
+    // eslint-disable-next-line no-useless-assignment -- avoid memory leak
+    activeXDocument = null;
     return temp;
   };
 
@@ -1652,21 +1658,21 @@
 
   var arraySort = sort;
 
-  var userAgent$1 = engineUserAgent;
+  var userAgent$1 = environmentUserAgent;
 
   var firefox = userAgent$1.match(/firefox\/(\d+)/i);
 
-  var engineFfVersion = !!firefox && +firefox[1];
+  var environmentFfVersion = !!firefox && +firefox[1];
 
-  var UA = engineUserAgent;
+  var UA = environmentUserAgent;
 
-  var engineIsIeOrEdge = /MSIE|Trident/.test(UA);
+  var environmentIsIeOrEdge = /MSIE|Trident/.test(UA);
 
-  var userAgent = engineUserAgent;
+  var userAgent = environmentUserAgent;
 
   var webkit = userAgent.match(/AppleWebKit\/(\d+)\./);
 
-  var engineWebkitVersion = !!webkit && +webkit[1];
+  var environmentWebkitVersion = !!webkit && +webkit[1];
 
   var $$4 = _export;
   var uncurryThis$6 = functionUncurryThis;
@@ -1678,10 +1684,10 @@
   var fails$8 = fails$m;
   var internalSort = arraySort;
   var arrayMethodIsStrict$1 = arrayMethodIsStrict$4;
-  var FF = engineFfVersion;
-  var IE_OR_EDGE = engineIsIeOrEdge;
-  var V8 = engineV8Version;
-  var WEBKIT = engineWebkitVersion;
+  var FF = environmentFfVersion;
+  var IE_OR_EDGE = environmentIsIeOrEdge;
+  var V8 = environmentV8Version;
+  var WEBKIT = environmentWebkitVersion;
 
   var test = [];
   var nativeSort = uncurryThis$6(test.sort);
@@ -1827,10 +1833,10 @@
   };
 
   var fails$6 = fails$m;
-  var global$4 = global$e;
+  var globalThis$4 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
-  var $RegExp$2 = global$4.RegExp;
+  var $RegExp$2 = globalThis$4.RegExp;
 
   var UNSUPPORTED_Y$1 = fails$6(function () {
     var re = $RegExp$2('a', 'y');
@@ -1858,10 +1864,10 @@
   };
 
   var fails$5 = fails$m;
-  var global$3 = global$e;
+  var globalThis$3 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('.', 's') -> /./s and it causes SyntaxError
-  var $RegExp$1 = global$3.RegExp;
+  var $RegExp$1 = globalThis$3.RegExp;
 
   var regexpUnsupportedDotAll = fails$5(function () {
     var re = $RegExp$1('.', 's');
@@ -1869,10 +1875,10 @@
   });
 
   var fails$4 = fails$m;
-  var global$2 = global$e;
+  var globalThis$2 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('(?<a>b)', 'g') -> /(?<a>b)/g and it causes SyntaxError
-  var $RegExp = global$2.RegExp;
+  var $RegExp = globalThis$2.RegExp;
 
   var regexpUnsupportedNcg = fails$4(function () {
     var re = $RegExp('(?<a>b)', 'g');
@@ -2623,7 +2629,7 @@
   // eslint-disable-next-line es/no-array-prototype-foreach -- safe
   } : [].forEach;
 
-  var global$1 = global$e;
+  var globalThis$1 = globalThis_1;
   var DOMIterables = domIterables;
   var DOMTokenListPrototype = domTokenListPrototype;
   var forEach = arrayForEach;
@@ -2640,7 +2646,7 @@
 
   for (var COLLECTION_NAME in DOMIterables) {
     if (DOMIterables[COLLECTION_NAME]) {
-      handlePrototype(global$1[COLLECTION_NAME] && global$1[COLLECTION_NAME].prototype);
+      handlePrototype(globalThis$1[COLLECTION_NAME] && globalThis$1[COLLECTION_NAME].prototype);
     }
   }
 

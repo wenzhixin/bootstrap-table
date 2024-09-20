@@ -159,6 +159,12 @@
     for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
     return t;
   }
+  function _superPropGet(t, e, r, o) {
+    var p = _get(_getPrototypeOf(t.prototype ), e, r);
+    return function (t) {
+      return p.apply(r, t);
+    } ;
+  }
   function _toPrimitive(t, r) {
     if ("object" != typeof t || !t) return t;
     var e = t[Symbol.toPrimitive];
@@ -188,7 +194,7 @@
   };
 
   // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-  var global$e =
+  var globalThis_1 =
     // eslint-disable-next-line es/no-global-this -- safe
     check(typeof globalThis == 'object' && globalThis) ||
     check(typeof window == 'object' && window) ||
@@ -339,7 +345,7 @@
     return typeof it == 'object' ? it !== null : isCallable$e(it);
   };
 
-  var global$d = global$e;
+  var globalThis$f = globalThis_1;
   var isCallable$d = isCallable$f;
 
   var aFunction = function (argument) {
@@ -347,20 +353,25 @@
   };
 
   var getBuiltIn$4 = function (namespace, method) {
-    return arguments.length < 2 ? aFunction(global$d[namespace]) : global$d[namespace] && global$d[namespace][method];
+    return arguments.length < 2 ? aFunction(globalThis$f[namespace]) : globalThis$f[namespace] && globalThis$f[namespace][method];
   };
 
   var uncurryThis$i = functionUncurryThis;
 
   var objectIsPrototypeOf = uncurryThis$i({}.isPrototypeOf);
 
-  var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
+  var globalThis$e = globalThis_1;
 
-  var global$c = global$e;
-  var userAgent = engineUserAgent;
+  var navigator$1 = globalThis$e.navigator;
+  var userAgent$1 = navigator$1 && navigator$1.userAgent;
 
-  var process = global$c.process;
-  var Deno = global$c.Deno;
+  var environmentUserAgent = userAgent$1 ? String(userAgent$1) : '';
+
+  var globalThis$d = globalThis_1;
+  var userAgent = environmentUserAgent;
+
+  var process = globalThis$d.process;
+  var Deno = globalThis$d.Deno;
   var versions = process && process.versions || Deno && Deno.version;
   var v8 = versions && versions.v8;
   var match, version;
@@ -382,14 +393,14 @@
     }
   }
 
-  var engineV8Version = version;
+  var environmentV8Version = version;
 
   /* eslint-disable es/no-symbol -- required for testing */
-  var V8_VERSION$2 = engineV8Version;
+  var V8_VERSION$2 = environmentV8Version;
   var fails$k = fails$o;
-  var global$b = global$e;
+  var globalThis$c = globalThis_1;
 
-  var $String$4 = global$b.String;
+  var $String$4 = globalThis$c.String;
 
   // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
   var symbolConstructorDetection = !!Object.getOwnPropertySymbols && !fails$k(function () {
@@ -473,30 +484,30 @@
 
   var sharedStore = {exports: {}};
 
-  var global$a = global$e;
+  var globalThis$b = globalThis_1;
 
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$3 = Object.defineProperty;
 
   var defineGlobalProperty$3 = function (key, value) {
     try {
-      defineProperty$3(global$a, key, { value: value, configurable: true, writable: true });
+      defineProperty$3(globalThis$b, key, { value: value, configurable: true, writable: true });
     } catch (error) {
-      global$a[key] = value;
+      globalThis$b[key] = value;
     } return value;
   };
 
-  var globalThis$1 = global$e;
+  var globalThis$a = globalThis_1;
   var defineGlobalProperty$2 = defineGlobalProperty$3;
 
   var SHARED = '__core-js_shared__';
-  var store$3 = sharedStore.exports = globalThis$1[SHARED] || defineGlobalProperty$2(SHARED, {});
+  var store$3 = sharedStore.exports = globalThis$a[SHARED] || defineGlobalProperty$2(SHARED, {});
 
   (store$3.versions || (store$3.versions = [])).push({
-    version: '3.37.1',
+    version: '3.38.1',
     mode: 'global',
     copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.37.1/LICENSE',
+    license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
     source: 'https://github.com/zloirock/core-js'
   });
 
@@ -540,14 +551,14 @@
     return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$7(++id + postfix, 36);
   };
 
-  var global$9 = global$e;
+  var globalThis$9 = globalThis_1;
   var shared$3 = shared$4;
   var hasOwn$8 = hasOwnProperty_1;
   var uid$1 = uid$2;
   var NATIVE_SYMBOL = symbolConstructorDetection;
   var USE_SYMBOL_AS_UID = useSymbolAsUid;
 
-  var Symbol$1 = global$9.Symbol;
+  var Symbol$1 = globalThis$9.Symbol;
   var WellKnownSymbolsStore = shared$3('wks');
   var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1['for'] || Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
 
@@ -595,10 +606,10 @@
     return isSymbol(key) ? key : key + '';
   };
 
-  var global$8 = global$e;
+  var globalThis$8 = globalThis_1;
   var isObject$5 = isObject$8;
 
-  var document$1 = global$8.document;
+  var document$1 = globalThis$8.document;
   // typeof document.createElement is 'object' in old IE
   var EXISTS$1 = isObject$5(document$1) && isObject$5(document$1.createElement);
 
@@ -757,10 +768,10 @@
 
   var inspectSource$2 = store$1.inspectSource;
 
-  var global$7 = global$e;
+  var globalThis$7 = globalThis_1;
   var isCallable$8 = isCallable$f;
 
-  var WeakMap$1 = global$7.WeakMap;
+  var WeakMap$1 = globalThis$7.WeakMap;
 
   var weakMapBasicDetection = isCallable$8(WeakMap$1) && /native code/.test(String(WeakMap$1));
 
@@ -776,7 +787,7 @@
   var hiddenKeys$4 = {};
 
   var NATIVE_WEAK_MAP = weakMapBasicDetection;
-  var global$6 = global$e;
+  var globalThis$6 = globalThis_1;
   var isObject$3 = isObject$8;
   var createNonEnumerableProperty$3 = createNonEnumerableProperty$4;
   var hasOwn$5 = hasOwnProperty_1;
@@ -785,8 +796,8 @@
   var hiddenKeys$3 = hiddenKeys$4;
 
   var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-  var TypeError$1 = global$6.TypeError;
-  var WeakMap = global$6.WeakMap;
+  var TypeError$1 = globalThis$6.TypeError;
+  var WeakMap = globalThis$6.WeakMap;
   var set, get, has;
 
   var enforce = function (it) {
@@ -1124,7 +1135,7 @@
 
   var isForced_1 = isForced$1;
 
-  var global$5 = global$e;
+  var globalThis$5 = globalThis_1;
   var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
   var createNonEnumerableProperty$2 = createNonEnumerableProperty$4;
   var defineBuiltIn$3 = defineBuiltIn$4;
@@ -1153,11 +1164,11 @@
     var STATIC = options.stat;
     var FORCED, target, key, targetProperty, sourceProperty, descriptor;
     if (GLOBAL) {
-      target = global$5;
+      target = globalThis$5;
     } else if (STATIC) {
-      target = global$5[TARGET] || defineGlobalProperty(TARGET, {});
+      target = globalThis$5[TARGET] || defineGlobalProperty(TARGET, {});
     } else {
-      target = global$5[TARGET] && global$5[TARGET].prototype;
+      target = globalThis$5[TARGET] && globalThis$5[TARGET].prototype;
     }
     if (target) for (key in source) {
       sourceProperty = source[key];
@@ -1329,7 +1340,7 @@
 
   var fails$e = fails$o;
   var wellKnownSymbol$6 = wellKnownSymbol$b;
-  var V8_VERSION$1 = engineV8Version;
+  var V8_VERSION$1 = environmentV8Version;
 
   var SPECIES$1 = wellKnownSymbol$6('species');
 
@@ -1358,7 +1369,7 @@
   var arraySpeciesCreate$1 = arraySpeciesCreate$2;
   var arrayMethodHasSpeciesSupport$2 = arrayMethodHasSpeciesSupport$3;
   var wellKnownSymbol$5 = wellKnownSymbol$b;
-  var V8_VERSION = engineV8Version;
+  var V8_VERSION = environmentV8Version;
 
   var IS_CONCAT_SPREADABLE = wellKnownSymbol$5('isConcatSpreadable');
 
@@ -1581,7 +1592,8 @@
     activeXDocument.write(scriptTag(''));
     activeXDocument.close();
     var temp = activeXDocument.parentWindow.Object;
-    activeXDocument = null; // avoid memory leak
+    // eslint-disable-next-line no-useless-assignment -- avoid memory leak
+    activeXDocument = null;
     return temp;
   };
 
@@ -1989,10 +2001,10 @@
   };
 
   var fails$5 = fails$o;
-  var global$4 = global$e;
+  var globalThis$4 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
-  var $RegExp$2 = global$4.RegExp;
+  var $RegExp$2 = globalThis$4.RegExp;
 
   var UNSUPPORTED_Y$1 = fails$5(function () {
     var re = $RegExp$2('a', 'y');
@@ -2020,10 +2032,10 @@
   };
 
   var fails$4 = fails$o;
-  var global$3 = global$e;
+  var globalThis$3 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('.', 's') -> /./s and it causes SyntaxError
-  var $RegExp$1 = global$3.RegExp;
+  var $RegExp$1 = globalThis$3.RegExp;
 
   var regexpUnsupportedDotAll = fails$4(function () {
     var re = $RegExp$1('.', 's');
@@ -2031,10 +2043,10 @@
   });
 
   var fails$3 = fails$o;
-  var global$2 = global$e;
+  var globalThis$2 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('(?<a>b)', 'g') -> /(?<a>b)/g and it causes SyntaxError
-  var $RegExp = global$2.RegExp;
+  var $RegExp = globalThis$2.RegExp;
 
   var regexpUnsupportedNcg = fails$3(function () {
     var re = $RegExp('(?<a>b)', 'g');
@@ -2710,7 +2722,7 @@
   // eslint-disable-next-line es/no-array-prototype-foreach -- safe
   } : [].forEach;
 
-  var global$1 = global$e;
+  var globalThis$1 = globalThis_1;
   var DOMIterables = domIterables;
   var DOMTokenListPrototype = domTokenListPrototype;
   var forEach = arrayForEach;
@@ -2727,7 +2739,7 @@
 
   for (var COLLECTION_NAME in DOMIterables) {
     if (DOMIterables[COLLECTION_NAME]) {
-      handlePrototype(global$1[COLLECTION_NAME] && global$1[COLLECTION_NAME].prototype);
+      handlePrototype(globalThis$1[COLLECTION_NAME] && globalThis$1[COLLECTION_NAME].prototype);
     }
   }
 
@@ -2963,12 +2975,11 @@
             }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(that));
           }
         }
-        _get(_getPrototypeOf(_class.prototype), "init", this).call(this);
+        _superPropGet(_class, "init", this)([]);
       }
     }, {
       key: "initServer",
       value: function initServer() {
-        var _get2;
         if (this.options.cookie && this.options.filterControl && !this._filterControlValuesLoaded) {
           var cookie = JSON.parse(UtilsCookie.getCookie(this, UtilsCookie.cookieIds.filterControl));
           if (cookie) {
@@ -2978,26 +2989,24 @@
         for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
           args[_key] = arguments[_key];
         }
-        (_get2 = _get(_getPrototypeOf(_class.prototype), "initServer", this)).call.apply(_get2, [this].concat(args));
+        _superPropGet(_class, "initServer", this)(args);
       }
     }, {
       key: "initTable",
       value: function initTable() {
-        var _get3;
         for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
           args[_key2] = arguments[_key2];
         }
-        (_get3 = _get(_getPrototypeOf(_class.prototype), "initTable", this)).call.apply(_get3, [this].concat(args));
+        _superPropGet(_class, "initTable", this)(args);
         this.initCookie();
       }
     }, {
       key: "onSort",
       value: function onSort() {
-        var _get4;
         for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
           args[_key3] = arguments[_key3];
         }
-        (_get4 = _get(_getPrototypeOf(_class.prototype), "onSort", this)).call.apply(_get4, [this].concat(args));
+        _superPropGet(_class, "onSort", this)(args);
         if (!this.options.cookie) {
           return;
         }
@@ -3014,11 +3023,10 @@
     }, {
       key: "onMultipleSort",
       value: function onMultipleSort() {
-        var _get5;
         for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
           args[_key4] = arguments[_key4];
         }
-        (_get5 = _get(_getPrototypeOf(_class.prototype), "onMultipleSort", this)).call.apply(_get5, [this].concat(args));
+        _superPropGet(_class, "onMultipleSort", this)(args);
         if (!this.options.cookie) {
           return;
         }
@@ -3035,11 +3043,10 @@
     }, {
       key: "onPageNumber",
       value: function onPageNumber() {
-        var _get6;
         for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
           args[_key5] = arguments[_key5];
         }
-        (_get6 = _get(_getPrototypeOf(_class.prototype), "onPageNumber", this)).call.apply(_get6, [this].concat(args));
+        _superPropGet(_class, "onPageNumber", this)(args);
         if (!this.options.cookie) {
           return;
         }
@@ -3048,11 +3055,10 @@
     }, {
       key: "onPageListChange",
       value: function onPageListChange() {
-        var _get7;
         for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
           args[_key6] = arguments[_key6];
         }
-        (_get7 = _get(_getPrototypeOf(_class.prototype), "onPageListChange", this)).call.apply(_get7, [this].concat(args));
+        _superPropGet(_class, "onPageListChange", this)(args);
         if (!this.options.cookie) {
           return;
         }
@@ -3062,11 +3068,10 @@
     }, {
       key: "onPagePre",
       value: function onPagePre() {
-        var _get8;
         for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
           args[_key7] = arguments[_key7];
         }
-        (_get8 = _get(_getPrototypeOf(_class.prototype), "onPagePre", this)).call.apply(_get8, [this].concat(args));
+        _superPropGet(_class, "onPagePre", this)(args);
         if (!this.options.cookie) {
           return;
         }
@@ -3075,11 +3080,10 @@
     }, {
       key: "onPageNext",
       value: function onPageNext() {
-        var _get9;
         for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
           args[_key8] = arguments[_key8];
         }
-        (_get9 = _get(_getPrototypeOf(_class.prototype), "onPageNext", this)).call.apply(_get9, [this].concat(args));
+        _superPropGet(_class, "onPageNext", this)(args);
         if (!this.options.cookie) {
           return;
         }
@@ -3088,11 +3092,10 @@
     }, {
       key: "_toggleColumn",
       value: function _toggleColumn() {
-        var _get10;
         for (var _len9 = arguments.length, args = new Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
           args[_key9] = arguments[_key9];
         }
-        (_get10 = _get(_getPrototypeOf(_class.prototype), "_toggleColumn", this)).call.apply(_get10, [this].concat(args));
+        _superPropGet(_class, "_toggleColumn", this)(args);
         if (!this.options.cookie) {
           return;
         }
@@ -3103,11 +3106,10 @@
     }, {
       key: "_toggleAllColumns",
       value: function _toggleAllColumns() {
-        var _get11;
         for (var _len10 = arguments.length, args = new Array(_len10), _key10 = 0; _key10 < _len10; _key10++) {
           args[_key10] = arguments[_key10];
         }
-        (_get11 = _get(_getPrototypeOf(_class.prototype), "_toggleAllColumns", this)).call.apply(_get11, [this].concat(args));
+        _superPropGet(_class, "_toggleAllColumns", this)(args);
         if (!this.options.cookie) {
           return;
         }
@@ -3118,19 +3120,19 @@
     }, {
       key: "toggleView",
       value: function toggleView() {
-        _get(_getPrototypeOf(_class.prototype), "toggleView", this).call(this);
+        _superPropGet(_class, "toggleView", this)([]);
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.cardView, this.options.cardView);
       }
     }, {
       key: "toggleCustomView",
       value: function toggleCustomView() {
-        _get(_getPrototypeOf(_class.prototype), "toggleCustomView", this).call(this);
+        _superPropGet(_class, "toggleCustomView", this)([]);
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.customView, this.customViewDefaultView);
       }
     }, {
       key: "selectPage",
       value: function selectPage(page) {
-        _get(_getPrototypeOf(_class.prototype), "selectPage", this).call(this, page);
+        _superPropGet(_class, "selectPage", this)([page]);
         if (!this.options.cookie) {
           return;
         }
@@ -3139,7 +3141,7 @@
     }, {
       key: "onSearch",
       value: function onSearch(event) {
-        _get(_getPrototypeOf(_class.prototype), "onSearch", this).call(this, event, arguments.length > 1 ? arguments[1] : true);
+        _superPropGet(_class, "onSearch", this)([event, arguments.length > 1 ? arguments[1] : true]);
         if (!this.options.cookie) {
           return;
         }
@@ -3151,14 +3153,13 @@
     }, {
       key: "initHeader",
       value: function initHeader() {
-        var _get12;
         if (this.options.reorderableColumns && this.options.cookie) {
           this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, UtilsCookie.cookieIds.reorderColumns));
         }
         for (var _len11 = arguments.length, args = new Array(_len11), _key11 = 0; _key11 < _len11; _key11++) {
           args[_key11] = arguments[_key11];
         }
-        (_get12 = _get(_getPrototypeOf(_class.prototype), "initHeader", this)).call.apply(_get12, [this].concat(args));
+        _superPropGet(_class, "initHeader", this)(args);
       }
     }, {
       key: "persistReorderColumnsState",
@@ -3168,11 +3169,10 @@
     }, {
       key: "filterBy",
       value: function filterBy() {
-        var _get13;
         for (var _len12 = arguments.length, args = new Array(_len12), _key12 = 0; _key12 < _len12; _key12++) {
           args[_key12] = arguments[_key12];
         }
-        (_get13 = _get(_getPrototypeOf(_class.prototype), "filterBy", this)).call.apply(_get13, [this].concat(args));
+        _superPropGet(_class, "filterBy", this)(args);
         if (!this.options.cookie) {
           return;
         }

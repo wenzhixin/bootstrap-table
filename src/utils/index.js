@@ -44,70 +44,70 @@ export default {
   getIcons (prefix) {
     return {
       glyphicon: {
+        clearSearch: 'glyphicon-trash',
+        columns: 'glyphicon-th icon-th',
+        detailClose: 'glyphicon-minus icon-minus',
+        detailOpen: 'glyphicon-plus icon-plus',
+        fullscreen: 'glyphicon-fullscreen',
         paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
         paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
         refresh: 'glyphicon-refresh icon-refresh',
-        toggleOff: 'glyphicon-list-alt icon-list-alt',
-        toggleOn: 'glyphicon-list-alt icon-list-alt',
-        columns: 'glyphicon-th icon-th',
-        detailOpen: 'glyphicon-plus icon-plus',
-        detailClose: 'glyphicon-minus icon-minus',
-        fullscreen: 'glyphicon-fullscreen',
         search: 'glyphicon-search',
-        clearSearch: 'glyphicon-trash'
+        toggleOff: 'glyphicon-list-alt icon-list-alt',
+        toggleOn: 'glyphicon-list-alt icon-list-alt'
       },
       fa: {
+        clearSearch: 'fa-trash',
+        columns: 'fa-th-list',
+        detailClose: 'fa-minus',
+        detailOpen: 'fa-plus',
+        fullscreen: 'fa-arrows-alt',
         paginationSwitchDown: 'fa-caret-square-down',
         paginationSwitchUp: 'fa-caret-square-up',
         refresh: 'fa-sync',
-        toggleOff: 'fa-toggle-off',
-        toggleOn: 'fa-toggle-on',
-        columns: 'fa-th-list',
-        detailOpen: 'fa-plus',
-        detailClose: 'fa-minus',
-        fullscreen: 'fa-arrows-alt',
         search: 'fa-search',
-        clearSearch: 'fa-trash'
+        toggleOff: 'fa-toggle-off',
+        toggleOn: 'fa-toggle-on'
       },
       bi: {
+        clearSearch: 'bi-trash',
+        columns: 'bi-list-ul',
+        detailClose: 'bi-dash',
+        detailOpen: 'bi-plus',
+        fullscreen: 'bi-arrows-move',
         paginationSwitchDown: 'bi-caret-down-square',
         paginationSwitchUp: 'bi-caret-up-square',
         refresh: 'bi-arrow-clockwise',
-        toggleOff: 'bi-toggle-off',
-        toggleOn: 'bi-toggle-on',
-        columns: 'bi-list-ul',
-        detailOpen: 'bi-plus',
-        detailClose: 'bi-dash',
-        fullscreen: 'bi-arrows-move',
         search: 'bi-search',
-        clearSearch: 'bi-trash'
+        toggleOff: 'bi-toggle-off',
+        toggleOn: 'bi-toggle-on'
       },
       icon: {
+        clearSearch: 'icon-trash-2',
+        columns: 'icon-list',
+        detailClose: 'icon-minus',
+        detailOpen: 'icon-plus',
+        fullscreen: 'icon-maximize',
         paginationSwitchDown: 'icon-arrow-up-circle',
         paginationSwitchUp: 'icon-arrow-down-circle',
         refresh: 'icon-refresh-cw',
-        toggleOff: 'icon-toggle-right',
-        toggleOn: 'icon-toggle-right',
-        columns: 'icon-list',
-        detailOpen: 'icon-plus',
-        detailClose: 'icon-minus',
-        fullscreen: 'icon-maximize',
         search: 'icon-search',
-        clearSearch: 'icon-trash-2'
+        toggleOff: 'icon-toggle-right',
+        toggleOn: 'icon-toggle-right'
       },
       'material-icons': {
+        clearSearch: 'delete',
+        columns: 'view_list',
+        detailClose: 'remove',
+        detailOpen: 'add',
+        fullscreen: 'fullscreen',
         paginationSwitchDown: 'grid_on',
         paginationSwitchUp: 'grid_off',
         refresh: 'refresh',
-        toggleOff: 'tablet',
-        toggleOn: 'tablet_android',
-        columns: 'view_list',
-        detailOpen: 'add',
-        detailClose: 'remove',
-        fullscreen: 'fullscreen',
-        sort: 'sort',
         search: 'search',
-        clearSearch: 'delete'
+        sort: 'sort',
+        toggleOff: 'tablet',
+        toggleOn: 'tablet_android'
       }
     }[prefix] || {}
   },
@@ -247,7 +247,7 @@ export default {
     const flag = []
 
     for (const column of columns[0]) {
-      totalCol += column.colspan || 1
+      totalCol += +column.colspan || 1
     }
 
     for (let i = 0; i < columns.length; i++) {
@@ -259,8 +259,8 @@ export default {
 
     for (let i = 0; i < columns.length; i++) {
       for (const r of columns[i]) {
-        const rowspan = r.rowspan || 1
-        const colspan = r.colspan || 1
+        const rowspan = +r.rowspan || 1
+        const colspan = +r.colspan || 1
         const index = flag[i].indexOf(false)
 
         r.colspanIndex = index
@@ -272,7 +272,7 @@ export default {
             r.field = index
           }
         } else {
-          r.colspanGroup = r.colspan
+          r.colspanGroup = +r.colspan
         }
 
         for (let j = 0; j < rowspan; j++) {
@@ -668,24 +668,161 @@ export default {
   },
 
   replaceSearchMark (html, searchText) {
-    const node = document.createElement('div')
-    const replaceMark = (node, searchText) => {
-      const regExp = new RegExp(searchText, 'gim')
+    const isDom = html instanceof Element
+    const node = isDom ? html : document.createElement('div')
+    const regExp = new RegExp(searchText, 'gim')
+    const replaceTextWithDom = (text, regExp) => {
+      const result = []
+      let match
+      let lastIndex = 0
 
-      for (const child of node.childNodes) {
+      while ((match = regExp.exec(text)) !== null) {
+        if (lastIndex !== match.index) {
+          result.push(document.createTextNode(text.substring(lastIndex, match.index)))
+        }
+        const mark = document.createElement('mark')
+
+        mark.innerText = match[0]
+        result.push(mark)
+        lastIndex = match.index + match[0].length
+      }
+      if (!result.length) {
+        // no match
+        return
+      }
+      if (lastIndex !== text.length) {
+        result.push(document.createTextNode(text.substring(lastIndex)))
+      }
+      return result
+    }
+    const replaceMark = node => {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        const child = node.childNodes[i]
+
         if (child.nodeType === document.TEXT_NODE) {
-          child.data = child.data.replace(regExp, match => `___${match}___`)
+          const elements = replaceTextWithDom(child.data, regExp)
+
+          if (elements) {
+            for (const el of elements) {
+              node.insertBefore(el, child)
+            }
+            node.removeChild(child)
+            i += elements.length - 1
+          }
         }
         if (child.nodeType === document.ELEMENT_NODE) {
-          replaceMark(child, searchText)
+          replaceMark(child)
         }
       }
     }
 
-    node.innerHTML = html
-    replaceMark(node, searchText)
+    if (!isDom) {
+      node.innerHTML = html
+    }
+    replaceMark(node)
+    return isDom ? node : node.innerHTML
+  },
 
-    return node.innerHTML.replace(new RegExp(`___${searchText}___`, 'gim'),
-      match => `<mark>${match.slice(3, -3)}</mark>`)
+  classToString (class_) {
+    if (typeof class_ === 'string') {
+      return class_
+    }
+    if (Array.isArray(class_)) {
+      return class_.map(x => this.classToString(x)).filter(x => x).join(' ')
+    }
+    if (class_ && typeof class_ === 'object') {
+      return Object.entries(class_).map(([k, v]) => v ? k : '').filter(x => x).join(' ')
+    }
+    return ''
+  },
+
+  parseStyle (dom, style) {
+    if (!style) {
+      return dom
+    }
+    if (typeof style === 'string') {
+      style.split(';').forEach(i => {
+        const index = i.indexOf(':')
+
+        if (index > 0) {
+          const k = i.substring(0, index).trim()
+          const v = i.substring(index + 1).trim()
+
+          dom.style.setProperty(k, v)
+        }
+      })
+    } else if (Array.isArray(style)) {
+      for (const item of style) {
+        this.parseStyle(item)
+      }
+    } else if (typeof style === 'object') {
+      for (const [k, v] of Object.entries(style)) {
+        dom.style.setProperty(k, v)
+      }
+    }
+    return dom
+  },
+
+  h (element, attrs, children) {
+    const el = element instanceof HTMLElement ? element : document.createElement(element)
+    const _attrs = attrs || {}
+    const _children = children || []
+
+    // default attributes
+    if (el.tagName === 'A') {
+      el.href = 'javascript:'
+    }
+
+    for (const [k, v] of Object.entries(_attrs)) {
+      if (v === undefined) {
+        continue
+      }
+      if (['text', 'innerText'].includes(k)) {
+        el.innerText = v
+      } else if (['html', 'innerHTML'].includes(k)) {
+        el.innerHTML = v
+      } else if (k === 'children') {
+        _children.push(...v)
+      } else if (k === 'class') {
+        el.setAttribute('class', this.classToString(v))
+      } else if (k === 'style') {
+        if (typeof v === 'string') {
+          el.setAttribute('style', v)
+        } else {
+          this.parseStyle(el, v)
+        }
+      } else if (k.startsWith('@') || k.startsWith('on')) {
+        // event handlers
+        const event = k.startsWith('@') ? k.substring(1) : k.substring(2).toLowerCase()
+        const args = Array.isArray(v) ? v : [v]
+
+        el.addEventListener(event, ...args)
+      } else if (k.startsWith('.')) {
+        // set property
+        el[k.substring(1)] = v
+      } else {
+        el.setAttribute(k, v)
+      }
+    }
+    if (_children.length) {
+      el.append(..._children)
+    }
+    return el
+  },
+
+  htmlToNodes (html) {
+    if (html instanceof $) {
+      return html.get()
+    }
+    if (html instanceof Node) {
+      return [html]
+    }
+    if (typeof html !== 'string') {
+      html = new String(html).toString()
+    }
+    const d = document.createElement('div')
+
+    d.innerHTML = html
+    return d.childNodes
   }
 }

@@ -159,6 +159,12 @@
     for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
     return t;
   }
+  function _superPropGet(t, e, r, o) {
+    var p = _get(_getPrototypeOf(t.prototype ), e, r);
+    return function (t) {
+      return p.apply(r, t);
+    } ;
+  }
   function _toPrimitive(t, r) {
     if ("object" != typeof t || !t) return t;
     var e = t[Symbol.toPrimitive];
@@ -188,7 +194,7 @@
   };
 
   // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-  var global$d =
+  var globalThis_1 =
     // eslint-disable-next-line es/no-global-this -- safe
     check(typeof globalThis == 'object' && globalThis) ||
     check(typeof window == 'object' && window) ||
@@ -339,7 +345,7 @@
     return typeof it == 'object' ? it !== null : isCallable$e(it);
   };
 
-  var global$c = global$d;
+  var globalThis$e = globalThis_1;
   var isCallable$d = isCallable$f;
 
   var aFunction = function (argument) {
@@ -347,20 +353,25 @@
   };
 
   var getBuiltIn$4 = function (namespace, method) {
-    return arguments.length < 2 ? aFunction(global$c[namespace]) : global$c[namespace] && global$c[namespace][method];
+    return arguments.length < 2 ? aFunction(globalThis$e[namespace]) : globalThis$e[namespace] && globalThis$e[namespace][method];
   };
 
   var uncurryThis$h = functionUncurryThis;
 
   var objectIsPrototypeOf = uncurryThis$h({}.isPrototypeOf);
 
-  var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
+  var globalThis$d = globalThis_1;
 
-  var global$b = global$d;
-  var userAgent = engineUserAgent;
+  var navigator = globalThis$d.navigator;
+  var userAgent$1 = navigator && navigator.userAgent;
 
-  var process = global$b.process;
-  var Deno = global$b.Deno;
+  var environmentUserAgent = userAgent$1 ? String(userAgent$1) : '';
+
+  var globalThis$c = globalThis_1;
+  var userAgent = environmentUserAgent;
+
+  var process = globalThis$c.process;
+  var Deno = globalThis$c.Deno;
   var versions = process && process.versions || Deno && Deno.version;
   var v8 = versions && versions.v8;
   var match, version;
@@ -382,14 +393,14 @@
     }
   }
 
-  var engineV8Version = version;
+  var environmentV8Version = version;
 
   /* eslint-disable es/no-symbol -- required for testing */
-  var V8_VERSION$2 = engineV8Version;
+  var V8_VERSION$2 = environmentV8Version;
   var fails$g = fails$k;
-  var global$a = global$d;
+  var globalThis$b = globalThis_1;
 
-  var $String$4 = global$a.String;
+  var $String$4 = globalThis$b.String;
 
   // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
   var symbolConstructorDetection = !!Object.getOwnPropertySymbols && !fails$g(function () {
@@ -473,30 +484,30 @@
 
   var sharedStore = {exports: {}};
 
-  var global$9 = global$d;
+  var globalThis$a = globalThis_1;
 
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$3 = Object.defineProperty;
 
   var defineGlobalProperty$3 = function (key, value) {
     try {
-      defineProperty$3(global$9, key, { value: value, configurable: true, writable: true });
+      defineProperty$3(globalThis$a, key, { value: value, configurable: true, writable: true });
     } catch (error) {
-      global$9[key] = value;
+      globalThis$a[key] = value;
     } return value;
   };
 
-  var globalThis$1 = global$d;
+  var globalThis$9 = globalThis_1;
   var defineGlobalProperty$2 = defineGlobalProperty$3;
 
   var SHARED = '__core-js_shared__';
-  var store$3 = sharedStore.exports = globalThis$1[SHARED] || defineGlobalProperty$2(SHARED, {});
+  var store$3 = sharedStore.exports = globalThis$9[SHARED] || defineGlobalProperty$2(SHARED, {});
 
   (store$3.versions || (store$3.versions = [])).push({
-    version: '3.37.1',
+    version: '3.38.1',
     mode: 'global',
     copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.37.1/LICENSE',
+    license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
     source: 'https://github.com/zloirock/core-js'
   });
 
@@ -540,14 +551,14 @@
     return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$5(++id + postfix, 36);
   };
 
-  var global$8 = global$d;
+  var globalThis$8 = globalThis_1;
   var shared$3 = shared$4;
   var hasOwn$7 = hasOwnProperty_1;
   var uid$1 = uid$2;
   var NATIVE_SYMBOL = symbolConstructorDetection;
   var USE_SYMBOL_AS_UID = useSymbolAsUid;
 
-  var Symbol$1 = global$8.Symbol;
+  var Symbol$1 = globalThis$8.Symbol;
   var WellKnownSymbolsStore = shared$3('wks');
   var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$1['for'] || Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid$1;
 
@@ -595,10 +606,10 @@
     return isSymbol(key) ? key : key + '';
   };
 
-  var global$7 = global$d;
+  var globalThis$7 = globalThis_1;
   var isObject$4 = isObject$7;
 
-  var document$1 = global$7.document;
+  var document$1 = globalThis$7.document;
   // typeof document.createElement is 'object' in old IE
   var EXISTS$1 = isObject$4(document$1) && isObject$4(document$1.createElement);
 
@@ -757,10 +768,10 @@
 
   var inspectSource$2 = store$1.inspectSource;
 
-  var global$6 = global$d;
+  var globalThis$6 = globalThis_1;
   var isCallable$8 = isCallable$f;
 
-  var WeakMap$1 = global$6.WeakMap;
+  var WeakMap$1 = globalThis$6.WeakMap;
 
   var weakMapBasicDetection = isCallable$8(WeakMap$1) && /native code/.test(String(WeakMap$1));
 
@@ -776,7 +787,7 @@
   var hiddenKeys$4 = {};
 
   var NATIVE_WEAK_MAP = weakMapBasicDetection;
-  var global$5 = global$d;
+  var globalThis$5 = globalThis_1;
   var isObject$2 = isObject$7;
   var createNonEnumerableProperty$2 = createNonEnumerableProperty$3;
   var hasOwn$4 = hasOwnProperty_1;
@@ -785,8 +796,8 @@
   var hiddenKeys$3 = hiddenKeys$4;
 
   var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-  var TypeError$1 = global$5.TypeError;
-  var WeakMap = global$5.WeakMap;
+  var TypeError$1 = globalThis$5.TypeError;
+  var WeakMap = globalThis$5.WeakMap;
   var set, get, has;
 
   var enforce = function (it) {
@@ -1124,7 +1135,7 @@
 
   var isForced_1 = isForced$1;
 
-  var global$4 = global$d;
+  var globalThis$4 = globalThis_1;
   var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
   var createNonEnumerableProperty$1 = createNonEnumerableProperty$3;
   var defineBuiltIn$2 = defineBuiltIn$3;
@@ -1153,11 +1164,11 @@
     var STATIC = options.stat;
     var FORCED, target, key, targetProperty, sourceProperty, descriptor;
     if (GLOBAL) {
-      target = global$4;
+      target = globalThis$4;
     } else if (STATIC) {
-      target = global$4[TARGET] || defineGlobalProperty(TARGET, {});
+      target = globalThis$4[TARGET] || defineGlobalProperty(TARGET, {});
     } else {
-      target = global$4[TARGET] && global$4[TARGET].prototype;
+      target = globalThis$4[TARGET] && globalThis$4[TARGET].prototype;
     }
     if (target) for (key in source) {
       sourceProperty = source[key];
@@ -1329,7 +1340,7 @@
 
   var fails$a = fails$k;
   var wellKnownSymbol$4 = wellKnownSymbol$9;
-  var V8_VERSION$1 = engineV8Version;
+  var V8_VERSION$1 = environmentV8Version;
 
   var SPECIES$1 = wellKnownSymbol$4('species');
 
@@ -1358,7 +1369,7 @@
   var arraySpeciesCreate$1 = arraySpeciesCreate$2;
   var arrayMethodHasSpeciesSupport = arrayMethodHasSpeciesSupport$1;
   var wellKnownSymbol$3 = wellKnownSymbol$9;
-  var V8_VERSION = engineV8Version;
+  var V8_VERSION = environmentV8Version;
 
   var IS_CONCAT_SPREADABLE = wellKnownSymbol$3('isConcatSpreadable');
 
@@ -1566,7 +1577,8 @@
     activeXDocument.write(scriptTag(''));
     activeXDocument.close();
     var temp = activeXDocument.parentWindow.Object;
-    activeXDocument = null; // avoid memory leak
+    // eslint-disable-next-line no-useless-assignment -- avoid memory leak
+    activeXDocument = null;
     return temp;
   };
 
@@ -1905,10 +1917,10 @@
   };
 
   var fails$4 = fails$k;
-  var global$3 = global$d;
+  var globalThis$3 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
-  var $RegExp$2 = global$3.RegExp;
+  var $RegExp$2 = globalThis$3.RegExp;
 
   var UNSUPPORTED_Y$1 = fails$4(function () {
     var re = $RegExp$2('a', 'y');
@@ -1936,10 +1948,10 @@
   };
 
   var fails$3 = fails$k;
-  var global$2 = global$d;
+  var globalThis$2 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('.', 's') -> /./s and it causes SyntaxError
-  var $RegExp$1 = global$2.RegExp;
+  var $RegExp$1 = globalThis$2.RegExp;
 
   var regexpUnsupportedDotAll = fails$3(function () {
     var re = $RegExp$1('.', 's');
@@ -1947,10 +1959,10 @@
   });
 
   var fails$2 = fails$k;
-  var global$1 = global$d;
+  var globalThis$1 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('(?<a>b)', 'g') -> /(?<a>b)/g and it causes SyntaxError
-  var $RegExp = global$1.RegExp;
+  var $RegExp = globalThis$1.RegExp;
 
   var regexpUnsupportedNcg = fails$2(function () {
     var re = $RegExp('(?<a>b)', 'g');
@@ -2466,7 +2478,7 @@
       key: "initTable",
       value: function initTable() {
         var _this = this;
-        _get(_getPrototypeOf(_class.prototype), "initTable", this).call(this);
+        _superPropGet(_class, "initTable", this)([]);
         if (!this.options.editable) {
           return;
         }
@@ -2519,7 +2531,7 @@
       key: "initBody",
       value: function initBody(fixedScroll) {
         var _this2 = this;
-        _get(_getPrototypeOf(_class.prototype), "initBody", this).call(this, fixedScroll);
+        _superPropGet(_class, "initBody", this)([fixedScroll]);
         if (!this.options.editable) {
           return;
         }
@@ -2581,7 +2593,7 @@
     }, {
       key: "getData",
       value: function getData(params) {
-        var data = _get(_getPrototypeOf(_class.prototype), "getData", this).call(this, params);
+        var data = _superPropGet(_class, "getData", this)([params]);
         if (params && params.escape) {
           var _iterator = _createForOfIteratorHelper(data),
             _step;
