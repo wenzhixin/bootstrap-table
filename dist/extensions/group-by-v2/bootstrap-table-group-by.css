@@ -1,1 +1,8 @@
-.bootstrap-table .table>tbody>tr.group-by.expanded,.bootstrap-table .table>tbody>tr.group-by.collapsed{cursor:pointer}.bootstrap-table .table>tbody>tr.hidden{display:none}
+.bootstrap-table .table > tbody > tr.group-by.expanded,
+.bootstrap-table .table > tbody > tr.group-by.collapsed {
+  cursor: pointer;
+}
+
+.bootstrap-table .table > tbody > tr.hidden {
+  display: none;
+}

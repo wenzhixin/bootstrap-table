@@ -87,6 +87,12 @@
     for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
     return t;
   }
+  function _superPropGet(t, e, r, o) {
+    var p = _get(_getPrototypeOf(t.prototype ), e, r);
+    return function (t) {
+      return p.apply(r, t);
+    } ;
+  }
   function _toConsumableArray(r) {
     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
   }
@@ -128,7 +134,7 @@
   };
 
   // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-  var global$m =
+  var globalThis_1 =
     // eslint-disable-next-line es/no-global-this -- safe
     check(typeof globalThis == 'object' && globalThis) ||
     check(typeof window == 'object' && window) ||
@@ -279,7 +285,7 @@
     return typeof it == 'object' ? it !== null : isCallable$i(it);
   };
 
-  var global$l = global$m;
+  var globalThis$n = globalThis_1;
   var isCallable$h = isCallable$j;
 
   var aFunction = function (argument) {
@@ -287,20 +293,25 @@
   };
 
   var getBuiltIn$7 = function (namespace, method) {
-    return arguments.length < 2 ? aFunction(global$l[namespace]) : global$l[namespace] && global$l[namespace][method];
+    return arguments.length < 2 ? aFunction(globalThis$n[namespace]) : globalThis$n[namespace] && globalThis$n[namespace][method];
   };
 
   var uncurryThis$q = functionUncurryThis;
 
   var objectIsPrototypeOf = uncurryThis$q({}.isPrototypeOf);
 
-  var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
+  var globalThis$m = globalThis_1;
 
-  var global$k = global$m;
-  var userAgent$5 = engineUserAgent;
+  var navigator = globalThis$m.navigator;
+  var userAgent$7 = navigator && navigator.userAgent;
 
-  var process$3 = global$k.process;
-  var Deno$1 = global$k.Deno;
+  var environmentUserAgent = userAgent$7 ? String(userAgent$7) : '';
+
+  var globalThis$l = globalThis_1;
+  var userAgent$6 = environmentUserAgent;
+
+  var process$3 = globalThis$l.process;
+  var Deno$1 = globalThis$l.Deno;
   var versions = process$3 && process$3.versions || Deno$1 && Deno$1.version;
   var v8 = versions && versions.v8;
   var match, version;
@@ -314,22 +325,22 @@
 
   // BrowserFS NodeJS `process` polyfill incorrectly set `.v8` to `0.0`
   // so check `userAgent` even if `.v8` exists, but 0
-  if (!version && userAgent$5) {
-    match = userAgent$5.match(/Edge\/(\d+)/);
+  if (!version && userAgent$6) {
+    match = userAgent$6.match(/Edge\/(\d+)/);
     if (!match || match[1] >= 74) {
-      match = userAgent$5.match(/Chrome\/(\d+)/);
+      match = userAgent$6.match(/Chrome\/(\d+)/);
       if (match) version = +match[1];
     }
   }
 
-  var engineV8Version = version;
+  var environmentV8Version = version;
 
   /* eslint-disable es/no-symbol -- required for testing */
-  var V8_VERSION$3 = engineV8Version;
+  var V8_VERSION$3 = environmentV8Version;
   var fails$o = fails$s;
-  var global$j = global$m;
+  var globalThis$k = globalThis_1;
 
-  var $String$5 = global$j.String;
+  var $String$5 = globalThis$k.String;
 
   // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
   var symbolConstructorDetection = !!Object.getOwnPropertySymbols && !fails$o(function () {
@@ -413,30 +424,30 @@
 
   var sharedStore = {exports: {}};
 
-  var global$i = global$m;
+  var globalThis$j = globalThis_1;
 
   // eslint-disable-next-line es/no-object-defineproperty -- safe
   var defineProperty$5 = Object.defineProperty;
 
   var defineGlobalProperty$3 = function (key, value) {
     try {
-      defineProperty$5(global$i, key, { value: value, configurable: true, writable: true });
+      defineProperty$5(globalThis$j, key, { value: value, configurable: true, writable: true });
     } catch (error) {
-      global$i[key] = value;
+      globalThis$j[key] = value;
     } return value;
   };
 
-  var globalThis$1 = global$m;
+  var globalThis$i = globalThis_1;
   var defineGlobalProperty$2 = defineGlobalProperty$3;
 
   var SHARED = '__core-js_shared__';
-  var store$3 = sharedStore.exports = globalThis$1[SHARED] || defineGlobalProperty$2(SHARED, {});
+  var store$3 = sharedStore.exports = globalThis$i[SHARED] || defineGlobalProperty$2(SHARED, {});
 
   (store$3.versions || (store$3.versions = [])).push({
-    version: '3.37.1',
+    version: '3.38.1',
     mode: 'global',
     copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.37.1/LICENSE',
+    license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
     source: 'https://github.com/zloirock/core-js'
   });
 
@@ -480,14 +491,14 @@
     return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$c(++id + postfix, 36);
   };
 
-  var global$h = global$m;
+  var globalThis$h = globalThis_1;
   var shared$3 = shared$4;
   var hasOwn$a = hasOwnProperty_1;
   var uid$1 = uid$2;
   var NATIVE_SYMBOL = symbolConstructorDetection;
   var USE_SYMBOL_AS_UID = useSymbolAsUid;
 
-  var Symbol$2 = global$h.Symbol;
+  var Symbol$2 = globalThis$h.Symbol;
   var WellKnownSymbolsStore = shared$3('wks');
   var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$2['for'] || Symbol$2 : Symbol$2 && Symbol$2.withoutSetter || uid$1;
 
@@ -535,10 +546,10 @@
     return isSymbol(key) ? key : key + '';
   };
 
-  var global$g = global$m;
+  var globalThis$g = globalThis_1;
   var isObject$9 = isObject$c;
 
-  var document$3 = global$g.document;
+  var document$3 = globalThis$g.document;
   // typeof document.createElement is 'object' in old IE
   var EXISTS$1 = isObject$9(document$3) && isObject$9(document$3.createElement);
 
@@ -697,10 +708,10 @@
 
   var inspectSource$3 = store$1.inspectSource;
 
-  var global$f = global$m;
+  var globalThis$f = globalThis_1;
   var isCallable$c = isCallable$j;
 
-  var WeakMap$1 = global$f.WeakMap;
+  var WeakMap$1 = globalThis$f.WeakMap;
 
   var weakMapBasicDetection = isCallable$c(WeakMap$1) && /native code/.test(String(WeakMap$1));
 
@@ -716,7 +727,7 @@
   var hiddenKeys$4 = {};
 
   var NATIVE_WEAK_MAP = weakMapBasicDetection;
-  var global$e = global$m;
+  var globalThis$e = globalThis_1;
   var isObject$7 = isObject$c;
   var createNonEnumerableProperty$3 = createNonEnumerableProperty$4;
   var hasOwn$7 = hasOwnProperty_1;
@@ -725,8 +736,8 @@
   var hiddenKeys$3 = hiddenKeys$4;
 
   var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-  var TypeError$2 = global$e.TypeError;
-  var WeakMap = global$e.WeakMap;
+  var TypeError$2 = globalThis$e.TypeError;
+  var WeakMap = globalThis$e.WeakMap;
   var set$1, get, has;
 
   var enforce = function (it) {
@@ -1064,7 +1075,7 @@
 
   var isForced_1 = isForced$2;
 
-  var global$d = global$m;
+  var globalThis$d = globalThis_1;
   var getOwnPropertyDescriptor$2 = objectGetOwnPropertyDescriptor.f;
   var createNonEnumerableProperty$2 = createNonEnumerableProperty$4;
   var defineBuiltIn$5 = defineBuiltIn$6;
@@ -1093,11 +1104,11 @@
     var STATIC = options.stat;
     var FORCED, target, key, targetProperty, sourceProperty, descriptor;
     if (GLOBAL) {
-      target = global$d;
+      target = globalThis$d;
     } else if (STATIC) {
-      target = global$d[TARGET] || defineGlobalProperty(TARGET, {});
+      target = globalThis$d[TARGET] || defineGlobalProperty(TARGET, {});
     } else {
-      target = global$d[TARGET] && global$d[TARGET].prototype;
+      target = globalThis$d[TARGET] && globalThis$d[TARGET].prototype;
     }
     if (target) for (key in source) {
       sourceProperty = source[key];
@@ -1269,7 +1280,7 @@
 
   var fails$i = fails$s;
   var wellKnownSymbol$d = wellKnownSymbol$i;
-  var V8_VERSION$2 = engineV8Version;
+  var V8_VERSION$2 = environmentV8Version;
 
   var SPECIES$4 = wellKnownSymbol$d('species');
 
@@ -1298,7 +1309,7 @@
   var arraySpeciesCreate$1 = arraySpeciesCreate$2;
   var arrayMethodHasSpeciesSupport$1 = arrayMethodHasSpeciesSupport$2;
   var wellKnownSymbol$c = wellKnownSymbol$i;
-  var V8_VERSION$1 = engineV8Version;
+  var V8_VERSION$1 = environmentV8Version;
 
   var IS_CONCAT_SPREADABLE = wellKnownSymbol$c('isConcatSpreadable');
 
@@ -1521,7 +1532,8 @@
     activeXDocument.write(scriptTag(''));
     activeXDocument.close();
     var temp = activeXDocument.parentWindow.Object;
-    activeXDocument = null; // avoid memory leak
+    // eslint-disable-next-line no-useless-assignment -- avoid memory leak
+    activeXDocument = null;
     return temp;
   };
 
@@ -1913,15 +1925,15 @@
     trim: createMethod$1(3)
   };
 
-  var global$c = global$m;
+  var globalThis$c = globalThis_1;
   var fails$a = fails$s;
   var uncurryThis$b = functionUncurryThis;
   var toString$8 = toString$a;
   var trim = stringTrim.trim;
   var whitespaces$1 = whitespaces$3;
 
-  var $parseInt$1 = global$c.parseInt;
-  var Symbol$1 = global$c.Symbol;
+  var $parseInt$1 = globalThis$c.parseInt;
+  var Symbol$1 = globalThis$c.Symbol;
   var ITERATOR$3 = Symbol$1 && Symbol$1.iterator;
   var hex = /^[+-]?0x/i;
   var exec$1 = uncurryThis$b(hex.exec);
@@ -1945,10 +1957,30 @@
     parseInt: $parseInt
   });
 
-  var global$b = global$m;
+  /* global Bun, Deno -- detection */
+  var globalThis$b = globalThis_1;
+  var userAgent$5 = environmentUserAgent;
   var classof$3 = classofRaw$2;
 
-  var engineIsNode = classof$3(global$b.process) === 'process';
+  var userAgentStartsWith = function (string) {
+    return userAgent$5.slice(0, string.length) === string;
+  };
+
+  var environment = (function () {
+    if (userAgentStartsWith('Bun/')) return 'BUN';
+    if (userAgentStartsWith('Cloudflare-Workers')) return 'CLOUDFLARE';
+    if (userAgentStartsWith('Deno/')) return 'DENO';
+    if (userAgentStartsWith('Node.js/')) return 'NODE';
+    if (globalThis$b.Bun && typeof Bun.version == 'string') return 'BUN';
+    if (globalThis$b.Deno && typeof Deno.version == 'object') return 'DENO';
+    if (classof$3(globalThis$b.process) === 'process') return 'NODE';
+    if (globalThis$b.window && globalThis$b.document) return 'BROWSER';
+    return 'REST';
+  })();
+
+  var ENVIRONMENT$1 = environment;
+
+  var environmentIsNode = ENVIRONMENT$1 === 'NODE';
 
   var uncurryThis$a = functionUncurryThis;
   var aCallable$6 = aCallable$9;
@@ -2102,12 +2134,12 @@
     return passed;
   };
 
-  var userAgent$4 = engineUserAgent;
+  var userAgent$4 = environmentUserAgent;
 
   // eslint-disable-next-line redos/no-vulnerable -- safe
-  var engineIsIos = /(?:ipad|iphone|ipod).*applewebkit/i.test(userAgent$4);
+  var environmentIsIos = /(?:ipad|iphone|ipod).*applewebkit/i.test(userAgent$4);
 
-  var global$a = global$m;
+  var globalThis$a = globalThis_1;
   var apply$1 = functionApply;
   var bind$3 = functionBindContext;
   var isCallable$5 = isCallable$j;
@@ -2117,16 +2149,16 @@
   var arraySlice$1 = arraySlice$2;
   var createElement = documentCreateElement$2;
   var validateArgumentsLength = validateArgumentsLength$1;
-  var IS_IOS$1 = engineIsIos;
-  var IS_NODE$3 = engineIsNode;
+  var IS_IOS$1 = environmentIsIos;
+  var IS_NODE$2 = environmentIsNode;
 
-  var set = global$a.setImmediate;
-  var clear = global$a.clearImmediate;
-  var process$2 = global$a.process;
-  var Dispatch = global$a.Dispatch;
-  var Function$1 = global$a.Function;
-  var MessageChannel = global$a.MessageChannel;
-  var String$1 = global$a.String;
+  var set = globalThis$a.setImmediate;
+  var clear = globalThis$a.clearImmediate;
+  var process$2 = globalThis$a.process;
+  var Dispatch = globalThis$a.Dispatch;
+  var Function$1 = globalThis$a.Function;
+  var MessageChannel = globalThis$a.MessageChannel;
+  var String$1 = globalThis$a.String;
   var counter = 0;
   var queue$2 = {};
   var ONREADYSTATECHANGE = 'onreadystatechange';
@@ -2134,7 +2166,7 @@
 
   fails$9(function () {
     // Deno throws a ReferenceError on `location` access without `--location` flag
-    $location = global$a.location;
+    $location = globalThis$a.location;
   });
 
   var run = function (id) {
@@ -2157,7 +2189,7 @@
 
   var globalPostMessageDefer = function (id) {
     // old engines have not location.origin
-    global$a.postMessage(String$1(id), $location.protocol + '//' + $location.host);
+    globalThis$a.postMessage(String$1(id), $location.protocol + '//' + $location.host);
   };
 
   // Node.js 0.9+ & IE10+ has setImmediate, otherwise:
@@ -2176,7 +2208,7 @@
       delete queue$2[id];
     };
     // Node.js 0.8-
-    if (IS_NODE$3) {
+    if (IS_NODE$2) {
       defer = function (id) {
         process$2.nextTick(runner(id));
       };
@@ -2195,14 +2227,14 @@
     // Browsers with postMessage, skip WebWorkers
     // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
     } else if (
-      global$a.addEventListener &&
-      isCallable$5(global$a.postMessage) &&
-      !global$a.importScripts &&
+      globalThis$a.addEventListener &&
+      isCallable$5(globalThis$a.postMessage) &&
+      !globalThis$a.importScripts &&
       $location && $location.protocol !== 'file:' &&
       !fails$9(globalPostMessageDefer)
     ) {
       defer = globalPostMessageDefer;
-      global$a.addEventListener('message', eventListener, false);
+      globalThis$a.addEventListener('message', eventListener, false);
     // IE8-
     } else if (ONREADYSTATECHANGE in createElement('script')) {
       defer = function (id) {
@@ -2224,7 +2256,7 @@
     clear: clear
   };
 
-  var global$9 = global$m;
+  var globalThis$9 = globalThis_1;
   var DESCRIPTORS = descriptors;
 
   // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
@@ -2232,8 +2264,8 @@
 
   // Avoid NodeJS experimental warning
   var safeGetBuiltIn$1 = function (name) {
-    if (!DESCRIPTORS) return global$9[name];
-    var descriptor = getOwnPropertyDescriptor$1(global$9, name);
+    if (!DESCRIPTORS) return globalThis$9[name];
+    var descriptor = getOwnPropertyDescriptor$1(globalThis$9, name);
     return descriptor && descriptor.value;
   };
 
@@ -2262,28 +2294,28 @@
 
   var queue$1 = Queue$2;
 
-  var userAgent$3 = engineUserAgent;
+  var userAgent$3 = environmentUserAgent;
 
-  var engineIsIosPebble = /ipad|iphone|ipod/i.test(userAgent$3) && typeof Pebble != 'undefined';
+  var environmentIsIosPebble = /ipad|iphone|ipod/i.test(userAgent$3) && typeof Pebble != 'undefined';
 
-  var userAgent$2 = engineUserAgent;
+  var userAgent$2 = environmentUserAgent;
 
-  var engineIsWebosWebkit = /web0s(?!.*chrome)/i.test(userAgent$2);
+  var environmentIsWebosWebkit = /web0s(?!.*chrome)/i.test(userAgent$2);
 
-  var global$8 = global$m;
+  var globalThis$8 = globalThis_1;
   var safeGetBuiltIn = safeGetBuiltIn$1;
   var bind$2 = functionBindContext;
   var macrotask = task$1.set;
   var Queue$1 = queue$1;
-  var IS_IOS = engineIsIos;
-  var IS_IOS_PEBBLE = engineIsIosPebble;
-  var IS_WEBOS_WEBKIT = engineIsWebosWebkit;
-  var IS_NODE$2 = engineIsNode;
+  var IS_IOS = environmentIsIos;
+  var IS_IOS_PEBBLE = environmentIsIosPebble;
+  var IS_WEBOS_WEBKIT = environmentIsWebosWebkit;
+  var IS_NODE$1 = environmentIsNode;
 
-  var MutationObserver = global$8.MutationObserver || global$8.WebKitMutationObserver;
-  var document$2 = global$8.document;
-  var process$1 = global$8.process;
-  var Promise$1 = global$8.Promise;
+  var MutationObserver = globalThis$8.MutationObserver || globalThis$8.WebKitMutationObserver;
+  var document$2 = globalThis$8.document;
+  var process$1 = globalThis$8.process;
+  var Promise$1 = globalThis$8.Promise;
   var microtask$1 = safeGetBuiltIn('queueMicrotask');
   var notify$1, toggle, node, promise, then;
 
@@ -2293,7 +2325,7 @@
 
     var flush = function () {
       var parent, fn;
-      if (IS_NODE$2 && (parent = process$1.domain)) parent.exit();
+      if (IS_NODE$1 && (parent = process$1.domain)) parent.exit();
       while (fn = queue.get()) try {
         fn();
       } catch (error) {
@@ -2305,7 +2337,7 @@
 
     // browsers with MutationObserver, except iOS - https://github.com/zloirock/core-js/issues/339
     // also except WebOS Webkit https://github.com/zloirock/core-js/issues/898
-    if (!IS_IOS && !IS_NODE$2 && !IS_WEBOS_WEBKIT && MutationObserver && document$2) {
+    if (!IS_IOS && !IS_NODE$1 && !IS_WEBOS_WEBKIT && MutationObserver && document$2) {
       toggle = true;
       node = document$2.createTextNode('');
       new MutationObserver(flush).observe(node, { characterData: true });
@@ -2323,7 +2355,7 @@
         then(flush);
       };
     // Node.js without promises
-    } else if (IS_NODE$2) {
+    } else if (IS_NODE$1) {
       notify$1 = function () {
         process$1.nextTick(flush);
       };
@@ -2335,7 +2367,7 @@
     // - setTimeout
     } else {
       // `webpack` dev server bug on IE global methods - use bind(fn, global)
-      macrotask = bind$2(macrotask, global$8);
+      macrotask = bind$2(macrotask, globalThis$8);
       notify$1 = function () {
         macrotask(flush);
       };
@@ -2364,34 +2396,23 @@
     }
   };
 
-  var global$7 = global$m;
+  var globalThis$7 = globalThis_1;
 
-  var promiseNativeConstructor = global$7.Promise;
+  var promiseNativeConstructor = globalThis$7.Promise;
 
-  /* global Deno -- Deno case */
-  var engineIsDeno = typeof Deno == 'object' && Deno && typeof Deno.version == 'object';
-
-  var IS_DENO$1 = engineIsDeno;
-  var IS_NODE$1 = engineIsNode;
-
-  var engineIsBrowser = !IS_DENO$1 && !IS_NODE$1
-    && typeof window == 'object'
-    && typeof document == 'object';
-
-  var global$6 = global$m;
+  var globalThis$6 = globalThis_1;
   var NativePromiseConstructor$3 = promiseNativeConstructor;
   var isCallable$4 = isCallable$j;
   var isForced = isForced_1;
   var inspectSource = inspectSource$3;
   var wellKnownSymbol$7 = wellKnownSymbol$i;
-  var IS_BROWSER = engineIsBrowser;
-  var IS_DENO = engineIsDeno;
-  var V8_VERSION = engineV8Version;
+  var ENVIRONMENT = environment;
+  var V8_VERSION = environmentV8Version;
 
   NativePromiseConstructor$3 && NativePromiseConstructor$3.prototype;
   var SPECIES$1 = wellKnownSymbol$7('species');
   var SUBCLASSING = false;
-  var NATIVE_PROMISE_REJECTION_EVENT$1 = isCallable$4(global$6.PromiseRejectionEvent);
+  var NATIVE_PROMISE_REJECTION_EVENT$1 = isCallable$4(globalThis$6.PromiseRejectionEvent);
 
   var FORCED_PROMISE_CONSTRUCTOR$5 = isForced('Promise', function () {
     var PROMISE_CONSTRUCTOR_SOURCE = inspectSource(NativePromiseConstructor$3);
@@ -2414,7 +2435,7 @@
       SUBCLASSING = promise.then(function () { /* empty */ }) instanceof FakePromise;
       if (!SUBCLASSING) return true;
     // Unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-    } return !GLOBAL_CORE_JS_PROMISE && (IS_BROWSER || IS_DENO) && !NATIVE_PROMISE_REJECTION_EVENT$1;
+    } return !GLOBAL_CORE_JS_PROMISE && (ENVIRONMENT === 'BROWSER' || ENVIRONMENT === 'DENO') && !NATIVE_PROMISE_REJECTION_EVENT$1;
   });
 
   var promiseConstructorDetection = {
@@ -2447,8 +2468,8 @@
   };
 
   var $$b = _export;
-  var IS_NODE = engineIsNode;
-  var global$5 = global$m;
+  var IS_NODE = environmentIsNode;
+  var globalThis$5 = globalThis_1;
   var call$c = functionCall;
   var defineBuiltIn$3 = defineBuiltIn$6;
   var setPrototypeOf = objectSetPrototypeOf;
@@ -2478,13 +2499,13 @@
   var NativePromisePrototype$1 = NativePromiseConstructor$2 && NativePromiseConstructor$2.prototype;
   var PromiseConstructor = NativePromiseConstructor$2;
   var PromisePrototype = NativePromisePrototype$1;
-  var TypeError$1 = global$5.TypeError;
-  var document$1 = global$5.document;
-  var process = global$5.process;
+  var TypeError$1 = globalThis$5.TypeError;
+  var document$1 = globalThis$5.document;
+  var process = globalThis$5.process;
   var newPromiseCapability$1 = newPromiseCapabilityModule$3.f;
   var newGenericPromiseCapability = newPromiseCapability$1;
 
-  var DISPATCH_EVENT = !!(document$1 && document$1.createEvent && global$5.dispatchEvent);
+  var DISPATCH_EVENT = !!(document$1 && document$1.createEvent && globalThis$5.dispatchEvent);
   var UNHANDLED_REJECTION = 'unhandledrejection';
   var REJECTION_HANDLED = 'rejectionhandled';
   var PENDING = 0;
@@ -2557,14 +2578,14 @@
       event.promise = promise;
       event.reason = reason;
       event.initEvent(name, false, true);
-      global$5.dispatchEvent(event);
+      globalThis$5.dispatchEvent(event);
     } else event = { promise: promise, reason: reason };
-    if (!NATIVE_PROMISE_REJECTION_EVENT && (handler = global$5['on' + name])) handler(event);
+    if (!NATIVE_PROMISE_REJECTION_EVENT && (handler = globalThis$5['on' + name])) handler(event);
     else if (name === UNHANDLED_REJECTION) hostReportErrors('Unhandled promise rejection', reason);
   };
 
   var onUnhandled = function (state) {
-    call$c(task, global$5, function () {
+    call$c(task, globalThis$5, function () {
       var promise = state.facade;
       var value = state.value;
       var IS_UNHANDLED = isUnhandled(state);
@@ -2587,7 +2608,7 @@
   };
 
   var onHandleUnhandled = function (state) {
-    call$c(task, global$5, function () {
+    call$c(task, globalThis$5, function () {
       var promise = state.facade;
       if (IS_NODE) {
         process.emit('rejectionHandled', promise);
@@ -2666,7 +2687,7 @@
         reactions: new Queue(),
         rejection: false,
         state: PENDING,
-        value: undefined
+        value: null
       });
     };
 
@@ -3068,10 +3089,10 @@
   };
 
   var fails$8 = fails$s;
-  var global$4 = global$m;
+  var globalThis$4 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
-  var $RegExp$2 = global$4.RegExp;
+  var $RegExp$2 = globalThis$4.RegExp;
 
   var UNSUPPORTED_Y$2 = fails$8(function () {
     var re = $RegExp$2('a', 'y');
@@ -3099,10 +3120,10 @@
   };
 
   var fails$7 = fails$s;
-  var global$3 = global$m;
+  var globalThis$3 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('.', 's') -> /./s and it causes SyntaxError
-  var $RegExp$1 = global$3.RegExp;
+  var $RegExp$1 = globalThis$3.RegExp;
 
   var regexpUnsupportedDotAll = fails$7(function () {
     var re = $RegExp$1('.', 's');
@@ -3110,10 +3131,10 @@
   });
 
   var fails$6 = fails$s;
-  var global$2 = global$m;
+  var globalThis$2 = globalThis_1;
 
   // babel-minify and Closure Compiler transpiles RegExp('(?<a>b)', 'g') -> /(?<a>b)/g and it causes SyntaxError
-  var $RegExp = global$2.RegExp;
+  var $RegExp = globalThis$2.RegExp;
 
   var regexpUnsupportedNcg = fails$6(function () {
     var re = $RegExp('(?<a>b)', 'g');
@@ -3683,7 +3704,7 @@
   // eslint-disable-next-line es/no-array-prototype-foreach -- safe
   } : [].forEach;
 
-  var global$1 = global$m;
+  var globalThis$1 = globalThis_1;
   var DOMIterables = domIterables;
   var DOMTokenListPrototype = domTokenListPrototype;
   var forEach = arrayForEach;
@@ -3700,7 +3721,7 @@
 
   for (var COLLECTION_NAME in DOMIterables) {
     if (DOMIterables[COLLECTION_NAME]) {
-      handlePrototype(global$1[COLLECTION_NAME] && global$1[COLLECTION_NAME].prototype);
+      handlePrototype(globalThis$1[COLLECTION_NAME] && globalThis$1[COLLECTION_NAME].prototype);
     }
   }
 
@@ -3775,21 +3796,21 @@
 
   var arraySort = sort;
 
-  var userAgent$1 = engineUserAgent;
+  var userAgent$1 = environmentUserAgent;
 
   var firefox = userAgent$1.match(/firefox\/(\d+)/i);
 
-  var engineFfVersion = !!firefox && +firefox[1];
+  var environmentFfVersion = !!firefox && +firefox[1];
 
-  var UA = engineUserAgent;
+  var UA = environmentUserAgent;
 
-  var engineIsIeOrEdge = /MSIE|Trident/.test(UA);
+  var environmentIsIeOrEdge = /MSIE|Trident/.test(UA);
 
-  var userAgent = engineUserAgent;
+  var userAgent = environmentUserAgent;
 
   var webkit = userAgent.match(/AppleWebKit\/(\d+)\./);
 
-  var engineWebkitVersion = !!webkit && +webkit[1];
+  var environmentWebkitVersion = !!webkit && +webkit[1];
 
   var $$1 = _export;
   var uncurryThis$3 = functionUncurryThis;
@@ -3801,10 +3822,10 @@
   var fails$1 = fails$s;
   var internalSort = arraySort;
   var arrayMethodIsStrict = arrayMethodIsStrict$4;
-  var FF = engineFfVersion;
-  var IE_OR_EDGE = engineIsIeOrEdge;
-  var V8 = engineV8Version;
-  var WEBKIT = engineWebkitVersion;
+  var FF = environmentFfVersion;
+  var IE_OR_EDGE = environmentIsIeOrEdge;
+  var V8 = environmentV8Version;
+  var WEBKIT = environmentWebkitVersion;
 
   var test = [];
   var nativeSort = uncurryThis$3(test.sort);
@@ -4876,13 +4897,13 @@
             syncHeaders(_this);
           });
         }
-        _get(_getPrototypeOf(_class.prototype), "init", this).call(this);
+        _superPropGet(_class, "init", this)([]);
       }
     }, {
       key: "initBody",
       value: function initBody() {
         var _this2 = this;
-        _get(_getPrototypeOf(_class.prototype), "initBody", this).call(this);
+        _superPropGet(_class, "initBody", this)([]);
         if (!this.options.filterControl) {
           return;
         }
@@ -4894,7 +4915,7 @@
     }, {
       key: "load",
       value: function load(data) {
-        _get(_getPrototypeOf(_class.prototype), "load", this).call(this, data);
+        _superPropGet(_class, "load", this)([data]);
         if (!this.options.filterControl) {
           return;
         }
@@ -4904,7 +4925,7 @@
     }, {
       key: "initHeader",
       value: function initHeader() {
-        _get(_getPrototypeOf(_class.prototype), "initHeader", this).call(this);
+        _superPropGet(_class, "initHeader", this)([]);
         if (!this.options.filterControl) {
           return;
         }
@@ -4917,7 +4938,7 @@
         var _this3 = this;
         var that = this;
         var filterPartial = Utils.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial;
-        _get(_getPrototypeOf(_class.prototype), "initSearch", this).call(this);
+        _superPropGet(_class, "initSearch", this)([]);
         if (this.options.sidePagination === 'server' || filterPartial === null) {
           return;
         }
@@ -5079,7 +5100,7 @@
             }
           });
         }
-        _get(_getPrototypeOf(_class.prototype), "initToolbar", this).call(this);
+        _superPropGet(_class, "initToolbar", this)([]);
       }
     }, {
       key: "resetSearch",
@@ -5087,7 +5108,7 @@
         if (this.options.filterControl && this.options.filterControlSearchClear && this.options.showSearchClearButton) {
           this.clearFilterControl();
         }
-        _get(_getPrototypeOf(_class.prototype), "resetSearch", this).call(this, text);
+        _superPropGet(_class, "resetSearch", this)([text]);
       }
     }, {
       key: "clearFilterControl",
@@ -5247,7 +5268,7 @@
       key: "_toggleColumn",
       value: function _toggleColumn(index, checked, needUpdate) {
         this._initialized = false;
-        _get(_getPrototypeOf(_class.prototype), "_toggleColumn", this).call(this, index, checked, needUpdate);
+        _superPropGet(_class, "_toggleColumn", this)([index, checked, needUpdate]);
         syncHeaders(this);
       }
     }]);
