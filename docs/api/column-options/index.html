@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.23.2
+        v1.23.3
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.23.2)</a>
+        <a class="dropdown-item active" href="/">Latest (1.23.3)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -753,7 +753,7 @@ Its also possible to check/uncheck the checkbox by using a formatter (return <co
       <li><code class="highlighter-rouge">value</code>: If footer data is set, the value of the footer column.</li>
     </ul>
 
-    <p>The function should return a string with the text to show in the footer cell.</p>
+    <p>The expected return data type is <code class="highlighter-rouge">jQuery</code>, <code class="highlighter-rouge">String</code> or <code class="highlighter-rouge">HTMLElement</code>. Other types will be forced to the <code class="highlighter-rouge">String</code> type.</p>
 
     <p>If you fetch data from a server and set the footer value from the server response, please use the <code class="highlighter-rouge">footerField</code> Option.</p>
   </li>
@@ -826,6 +826,8 @@ Its also possible to check/uncheck the checkbox by using a formatter (return <co
       <li><code class="highlighter-rouge">index</code>: the row index.</li>
       <li><code class="highlighter-rouge">field</code>: the row field.</li>
     </ul>
+
+    <p>The expected return data type is <code class="highlighter-rouge">jQuery</code>, <code class="highlighter-rouge">String</code> or <code class="highlighter-rouge">HTMLElement</code>. Other types will be forced to the <code class="highlighter-rouge">String</code> type.</p>
   </li>
   <li>
     <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
