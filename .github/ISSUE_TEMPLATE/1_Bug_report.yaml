@@ -7,7 +7,7 @@ body:
     id: affected-versions
     attributes:
       label: Bootstraptable version(s) affected
-      placeholder: 1.23.3
+      placeholder: 1.23.4
     validations:
       required: true
   - type: textarea
