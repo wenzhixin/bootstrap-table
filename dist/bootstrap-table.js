@@ -7022,7 +7022,7 @@
         try {
           for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
             var item = _step13.value;
-            this.parseStyle(item);
+            this.parseStyle(dom, item);
           }
         } catch (err) {
           _iterator13.e(err);
@@ -7102,7 +7102,7 @@
     }
   };
 
-  var VERSION = '1.23.3';
+  var VERSION = '1.23.4';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
