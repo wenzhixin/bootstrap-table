@@ -753,7 +753,7 @@ export default {
       })
     } else if (Array.isArray(style)) {
       for (const item of style) {
-        this.parseStyle(item)
+        this.parseStyle(dom, item)
       }
     } else if (typeof style === 'object') {
       for (const [k, v] of Object.entries(style)) {
