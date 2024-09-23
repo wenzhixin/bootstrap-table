@@ -824,5 +824,16 @@ export default {
 
     d.innerHTML = html
     return d.childNodes
+  },
+
+  addQueryToUrl (url, query) {
+    const hashArray = url.split('#')
+    const [baseUrl, search] = hashArray[0].split('?')
+    const urlParams = new URLSearchParams(search)
+
+    for (const [key, value] of Object.entries(query)) {
+      urlParams.set(key, value)
+    }
+    return `${baseUrl}?${urlParams.toString()}#${hashArray.slice(1).join('#')}`
   }
 }

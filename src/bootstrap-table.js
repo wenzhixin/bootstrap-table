@@ -3068,16 +3068,8 @@ class BootstrapTable {
     if (params && params.pageSize) {
       this.options.pageSize = params.pageSize
     }
-
     if (params && params.query) {
-      const url = new URL(this.options.url)
-      const urlParams = new URLSearchParams(url.search)
-
-      for (const [key, value] of Object.entries(params.query)) {
-        urlParams.set(key, value)
-      }
-      url.search = urlParams.toString()
-      this.options.url = url.toString()
+      this.options.url = Utils.addQueryToUrl(this.options.url, params.query)
     }
 
     this.trigger('refresh', this.initServer(params && params.silent))
