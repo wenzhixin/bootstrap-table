@@ -299,7 +299,7 @@ class BootstrapTable {
       }
 
       columns.forEach((column, j) => {
-        const class_ = Utils.sprintf(' class="%s"', column['class'])
+        const class_ = Utils.sprintf(' class="%s"', column.class)
         const unitWidth = column.widthUnit
         const width = parseFloat(column.width)
 
@@ -334,7 +334,7 @@ class BootstrapTable {
         if (typeof column.fieldIndex !== 'undefined') {
           this.header.fields[column.fieldIndex] = column.field
           this.header.styles[column.fieldIndex] = align + style
-          this.header.classes[column.fieldIndex] = class_
+          this.header.classes[column.fieldIndex] = column.class
           this.header.formatters[column.fieldIndex] = column.formatter
           this.header.detailFormatters[column.fieldIndex] = column.detailFormatter
           this.header.events[column.fieldIndex] = column.events
@@ -1566,7 +1566,8 @@ class BootstrapTable {
       const value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
       let value = ''
       const attrs = {
-        style: []
+        class: this.header.classes[j] ? [this.header.classes[j]] : [],
+        style: this.header.styles[j] ? [this.header.styles[j]] : []
       }
 
       if ((this.fromHtml || this.autoMergeCells) && typeof value_ === 'undefined') {
@@ -1583,17 +1584,24 @@ class BootstrapTable {
         return
       }
 
-      // handle id and class of td
-      for (const item of ['id', 'class', 'rowspan', 'colspan', 'title']) {
-        attrs[item] = item[`_${field}_${item}`] || undefined
+      // handle class, style, id, rowspan, colspan and title of td
+      for (const item of ['class', 'style', 'id', 'rowspan', 'colspan', 'title']) {
+        const value = item[`_${field}_${item}`]
+
+        if (!value) {
+          continue
+        }
+        if (attrs[item]) {
+          attrs[item].push(value)
+        } else {
+          attrs[item] = value
+        }
       }
 
-      attrs.style.push(this.header.styles[j], item[`_${field}_style`])
       const cellStyle = Utils.calculateObjectValue(this.header,
         this.header.cellStyles[j], [value_, item, i, field], {})
 
       if (cellStyle.classes) {
-        attrs.class = attrs.class || []
         attrs.class.push(cellStyle.classes)
       }
       if (cellStyle.css) {
