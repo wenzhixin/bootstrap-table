@@ -2465,6 +2465,7 @@ class BootstrapTable {
     if (params && params.formatted) {
       return data.map(row => {
         const formattedColumns = {}
+
         for (const [key, value] of Object.entries(row)) {
           const column = this.columns[this.fieldsColumnsIndex[key]]
 
