@@ -25,7 +25,7 @@
     "cross-env": "^7.0.3",
     "cspell": "^8.14.2",
     "cypress": "^13.13.3",
-    "editorconfig-checker": "^5.1.8",
+    "editorconfig-checker": "^6.0.0",
     "eslint": "^8.57.0",
     "foreach-cli": "^1.8.1",
     "glob": "^11.0.0",
