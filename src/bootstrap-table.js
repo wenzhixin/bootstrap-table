@@ -2464,6 +2464,8 @@ class BootstrapTable {
 
     if (params && params.formatted) {
       return data.map(row => {
+        const formattedColumns = {}
+
         for (const [key, value] of Object.entries(row)) {
           const column = this.columns[this.fieldsColumnsIndex[key]]
 
@@ -2471,9 +2473,10 @@ class BootstrapTable {
             continue
           }
 
-          return Utils.calculateObjectValue(column, this.header.formatters[column.fieldIndex],
+          formattedColumns[key] = Utils.calculateObjectValue(column, this.header.formatters[column.fieldIndex],
             [value, row, row.index, column.field], value)
         }
+        return formattedColumns
       })
     }
 
