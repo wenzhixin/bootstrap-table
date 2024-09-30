@@ -377,6 +377,7 @@ const METHODS = [
   'getOptions',
   'refreshOptions',
   'getData',
+  'getFooterData',
   'getSelections',
   'load', 'append', 'prepend',
   'remove', 'removeAll',
