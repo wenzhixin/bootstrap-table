@@ -183,6 +183,16 @@ The calling method syntax: `$('#table').bootstrapTable('method', parameter)`.
 
 - **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/get-data.html)
 
+## getFooterData
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+  Get the loaded data of the footer at the moment that this method is called
+
+- **Example:** [Get Footer Data](https://examples.bootstrap-table.com/#methods/get-footer-data.html)
+
 ## getHiddenColumns
 
 - **Parameter:** `undefined`

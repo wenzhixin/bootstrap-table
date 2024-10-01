@@ -1,6 +1,15 @@
 ChangeLog
 ---------
 
+### 1.23.5
+
+### Core
+
+- **New:** Added `getFooterData` method.
+- **Update:** Fixed `refresh` invalid url bug when `url` is relative path.
+- **Update:** Fixed `getData` bug with `formatted` param.
+- **Update:** Fixed column class option not work bug in td.
+
 ### 1.23.4
 
 ### Core
