@@ -2483,6 +2483,10 @@ class BootstrapTable {
     return data
   }
 
+  getFooterData () {
+    return this.footerData ?? []
+  }
+
   getSelections () {
     return (this.options.maintainMetaData ? this.options.data : this.data)
       .filter(row => row[this.header.stateField] === true)
