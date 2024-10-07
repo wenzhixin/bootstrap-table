@@ -1976,6 +1976,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
   Set `true` to enable virtual scroll to display a virtual, "infinite" list.
 
+  **Note:** Currently, the implementation assumes that each line has the same height. If the heights of the lines vary, unpredictable bugs may occur. Please ensure that the height of each line is consistent, or apply the style `td { white-space: nowrap; }` to address this issue.
+
 - **Default:** `false`
 
 - **Example:** [Large Data](https://examples.bootstrap-table.com/#options/large-data.html)
