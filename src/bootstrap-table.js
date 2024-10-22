@@ -1532,7 +1532,6 @@ class BootstrapTable {
       }
     }
     const tr = Utils.h('tr', {
-      ...attributes,
       id: Array.isArray(item) ? undefined : item._id,
       class: style && style.classes || (Array.isArray(item) ? undefined : item._class),
       style: style && style.css || (Array.isArray(item) ? undefined : item._style),
@@ -1540,6 +1539,7 @@ class BootstrapTable {
       'data-uniqueid': Utils.getItemField(item, this.options.uniqueId, false),
       'data-has-detail-view': this.options.detailView &&
         Utils.calculateObjectValue(null, this.options.detailFilter, [i, item]) ? 'true' : undefined,
+      ...attributes,
       ...data_
     })
     const trChildren = []
