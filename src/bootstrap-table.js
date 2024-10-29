@@ -1585,16 +1585,16 @@ class BootstrapTable {
       }
 
       // handle class, style, id, rowspan, colspan and title of td
-      for (const item of ['class', 'style', 'id', 'rowspan', 'colspan', 'title']) {
-        const value = item[`_${field}_${item}`]
+      for (const attr of ['class', 'style', 'id', 'rowspan', 'colspan', 'title']) {
+        const value = item[`_${field}_${attr}`]
 
         if (!value) {
           continue
         }
-        if (attrs[item]) {
-          attrs[item].push(value)
+        if (attrs[attr]) {
+          attrs[attr].push(value)
         } else {
-          attrs[item] = value
+          attrs[attr] = value
         }
       }
 
