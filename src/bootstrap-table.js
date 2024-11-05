@@ -3083,6 +3083,7 @@ class BootstrapTable {
   }
 
   destroy () {
+    clearTimeout(this.timeoutId_)
     this.$el.insertBefore(this.$container)
     $(this.options.toolbar).insertBefore(this.$el)
     this.$container.next().remove()
