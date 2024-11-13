@@ -472,7 +472,7 @@ export function createControls (that, header) {
       }, that.options.searchTimeOut)
     })
 
-    header.off('change', 'select', '.fc-multipleselect').on('change', 'select', '.fc-multipleselect', ({ currentTarget, keyCode }) => {
+    header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }) => {
       const $selectControl = $(currentTarget)
       const value = $selectControl.val()
 
