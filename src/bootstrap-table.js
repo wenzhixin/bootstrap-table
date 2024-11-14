@@ -1569,6 +1569,7 @@ class BootstrapTable {
         class: this.header.classes[j] ? [this.header.classes[j]] : [],
         style: this.header.styles[j] ? [this.header.styles[j]] : []
       }
+      const cardViewClass = `card-view card-view-field-${field}`
 
       if ((this.fromHtml || this.autoMergeCells) && typeof value_ === 'undefined') {
         if (!column.checkbox && !column.radio) {
@@ -1660,7 +1661,7 @@ class BootstrapTable {
         item[this.header.stateField] = value === true || (!!value_ || value && value.checked)
 
         return Utils.h(this.options.cardView ? 'div' : 'td', {
-          class: [this.options.cardView ? 'card-view' : 'bs-checkbox', column.class],
+          class: [this.options.cardView ? cardViewClass : 'bs-checkbox', column.class],
           style: this.options.cardView ? undefined : attrs.style
         }, [
           Utils.h('label', {}, [
@@ -1680,7 +1681,7 @@ class BootstrapTable {
 
       if (this.options.cardView) {
         if (this.options.smartDisplay && value === '') {
-          return Utils.h('div', { class: 'card-view' })
+          return Utils.h('div', { class: cardViewClass })
         }
 
         const cardTitle = this.options.showHeader ?
@@ -1690,7 +1691,7 @@ class BootstrapTable {
             html: Utils.getFieldTitle(this.columns, field)
           }) : ''
 
-        return Utils.h('div', { class: 'card-view' }, [
+        return Utils.h('div', { class: cardViewClass }, [
           cardTitle,
           Utils.h('span', {
             class: ['card-view-value', cellStyle.classes],
