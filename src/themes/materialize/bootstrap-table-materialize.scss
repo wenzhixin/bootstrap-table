@@ -4,8 +4,9 @@
  * theme: https://github.com/jgthms/bulma/
  */
 
-@import "./variables";
-@import "../theme";
+@use "custom";
+@use "../variables";
+@use "../theme";
 
 .bootstrap-table {
   .float-left {
@@ -40,7 +41,7 @@
   }
 
   .fixed-table-footer {
-    border-top: 1px solid $border-color;
+    border-top: 1px solid variables.$border-color;
   }
 
   .fixed-table-pagination {

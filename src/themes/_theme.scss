@@ -1,4 +1,4 @@
-@import "./variables";
+@use "variables";
 
 .bootstrap-table {
   .fixed-table-toolbar {
@@ -116,23 +116,23 @@
         }
 
         .both {
-          background-image: url($sort-background-image-url-both);
+          background-image: url(variables.$sort-background-image-url-both);
           background-size: 16px 16px;
           background-position: center right 2px;
         }
 
         .asc {
-          background-image: url($sort-background-image-url-asc);
+          background-image: url(variables.$sort-background-image-url-asc);
         }
 
         .desc {
-          background-image: url($sort-background-image-url-desc);
+          background-image: url(variables.$sort-background-image-url-desc);
         }
       }
 
       tbody tr {
         &.selected td {
-          background-color: $hover-bg;
+          background-color: variables.$hover-bg;
         }
 
         &.no-records-found td {
@@ -177,28 +177,28 @@
 
     &.fixed-height {
       &:not(.has-footer) {
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid variables.$border-color;
       }
 
       &.has-card-view {
-        border-top: 1px solid $border-color;
-        border-bottom: 1px solid $border-color;
+        border-top: 1px solid variables.$border-color;
+        border-bottom: 1px solid variables.$border-color;
       }
 
       .fixed-table-border {
-        border-left: 1px solid $border-color;
-        border-right: 1px solid $border-color;
+        border-left: 1px solid variables.$border-color;
+        border-right: 1px solid variables.$border-color;
       }
 
       .table {
         thead th {
-          border-bottom: 1px solid $border-color;
+          border-bottom: 1px solid variables.$border-color;
         }
       }
 
       .table-dark {
         thead th {
-          border-bottom: 1px solid $dark-border-color;
+          border-bottom: 1px solid variables.$dark-border-color;
         }
       }
     }
@@ -213,7 +213,7 @@
 
       .fixed-table-loading {
         align-items: center;
-        background: $background;
+        background: variables.$background;
         display: flex;
         justify-content: center;
         position: absolute;
@@ -252,7 +252,7 @@
             animation-duration: 1.5s;
             animation-iteration-count: infinite;
             animation-name: loading;
-            background: $color;
+            background: variables.$color;
             border-radius: 50%;
             display: block;
             height: 5px;
@@ -271,12 +271,12 @@
         }
 
         &.table-dark {
-          background: $color;
+          background: variables.$color;
 
           .animation-dot,
           .animation-wrap::after,
           .animation-wrap::before {
-            background: $background;
+            background: variables.$background;
           }
         }
       }
