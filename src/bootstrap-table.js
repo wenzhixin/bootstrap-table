@@ -1116,11 +1116,14 @@ class BootstrapTable {
           }
 
           if (typeof value === 'string' || typeof value === 'number') {
-            if (
-              (this.options.strictSearch && `${value}`.toLowerCase() === searchText) ||
-              (this.options.regexSearch && Utils.regexCompare(value, rawSearchText))
-            ) {
-              return true
+            if (this.options.strictSearch) {
+              if ((`${value}`).toLowerCase() === searchText) {
+                return true
+              }
+            } else if (this.options.regexSearch) {
+              if (Utils.regexCompare(value, rawSearchText)) {
+                return true
+              }
             } else {
               const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(-?\d+)?|(-?\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
               const matches = largerSmallerEqualsRegex.exec(this.searchText)
