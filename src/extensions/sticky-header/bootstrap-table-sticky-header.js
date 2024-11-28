@@ -91,9 +91,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.$stickyHeader = this.$header.clone(true, true)
 
-		// copy header inputs value in $stickyHeader clone
+    // copy header inputs value in $stickyHeader clone
     const $headerInputs = this.$header.find('select, input')
-		const _$stickyHeaderInputs = this.$stickyHeader.find('select, input')
+    const _$stickyHeaderInputs = this.$stickyHeader.find('select, input')
     $headerInputs.each(function(i) {
       const headerInputValue = $(this).val()
       _$stickyHeaderInputs.eq(i).val(headerInputValue)
