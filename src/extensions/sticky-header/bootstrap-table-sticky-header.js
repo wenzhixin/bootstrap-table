@@ -94,11 +94,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // copy header inputs value in $stickyHeader clone
     const $headerInputs = this.$header.find('select, input')
     const _$stickyHeaderInputs = this.$stickyHeader.find('select, input')
-    $headerInputs.each( function (i) {
+    
+    $headerInputs.each(function (i) {
       const headerInputValue = $(this).val()
-      
+
       _$stickyHeaderInputs.eq(i).val(headerInputValue)
-    });
+    })
 
     if (this.options.filterControl) {
       $(this.$stickyHeader).off('keyup change mouseup').on('keyup change mouse', function (e) {
