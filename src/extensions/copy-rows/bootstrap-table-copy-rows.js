@@ -31,7 +31,7 @@ const copyText = text => {
   try {
     document.execCommand('copy')
   } catch (e) {
-    console.warn('Oops, unable to copy')
+    console.warn('Oops, unable to copy', e)
   }
   $(textField).remove()
 }

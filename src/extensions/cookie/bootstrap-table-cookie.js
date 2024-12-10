@@ -232,6 +232,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       try {
         filterByCookie = JSON.parse(filterByCookieValue)
       } catch (e) {
+        console.error(e)
         throw new Error('Could not parse the json of the filterBy cookie!')
       }
       this.filterColumns = filterByCookie ? filterByCookie : {}
@@ -461,12 +462,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
       hiddenColumnsCookie = JSON.parse(hiddenColumnsCookieValue)
       columnsCookie = JSON.parse(columnsCookieValue)
     } catch (e) {
+      console.error(e)
       throw new Error('Could not parse the json of the columns cookie!')
     }
 
     try {
       sortPriorityCookie = JSON.parse(sortPriorityCookie)
     } catch (e) {
+      console.error(e)
       throw new Error('Could not parse the json of the sortPriority cookie!', sortPriorityCookie)
     }
 
