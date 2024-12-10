@@ -11,7 +11,7 @@ export default {
         bootstrapVersion = parseInt(rawVersion, 10)
       }
     } catch (e) {
-      // ignore
+      console.error(e)
     }
 
     try {
@@ -22,7 +22,7 @@ export default {
         bootstrapVersion = parseInt(rawVersion, 10)
       }
     } catch (e) {
-      // ignore
+      console.error(e)
     }
 
     return bootstrapVersion
@@ -423,6 +423,7 @@ export default {
         return true
       }
     } catch (e) {
+      console.error(e)
       return false
     }
     return false

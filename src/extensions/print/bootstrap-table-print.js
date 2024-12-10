@@ -137,9 +137,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   doPrint (data) {
-    const canPrint = column => {
-      return !column.printIgnore && column.visible
-    }
+    const canPrint = column => !column.printIgnore && column.visible
 
     const formatValue = (row, i, column) => {
       const value_ = Utils.getItemField(row, column.field, this.options.escape, column.escape)
@@ -194,9 +192,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         const columns = columnsArray.flat(1)
 
-        columns.sort((c1, c2) => {
-          return c1.colspanIndex - c2.colspanIndex
-        })
+        columns.sort((c1, c2) => c1.colspanIndex - c2.colspanIndex)
 
         for (let j = 0; j < columns.length; j++) {
           if (columns[j].colspanGroup > 0) continue
