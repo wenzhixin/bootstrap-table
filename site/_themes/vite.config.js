@@ -16,7 +16,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: process.env.NODE_ENV === 'production' ? 'themes.html' : 'index.html',
+      input: process.env.NODE_ENV === 'production' ? 'themes.html' : 'index.html'
     }
   },
   server: {
