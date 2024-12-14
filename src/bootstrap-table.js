@@ -2587,6 +2587,11 @@ class BootstrapTable {
     const row = this.data[params.index]
     const originalIndex = this.options.data.indexOf(row)
 
+    if (originalIndex === -1) {
+      this.append([params.row])
+      return
+    }
+
     this.data.splice(params.index, 0, params.row)
     this.options.data.splice(originalIndex, 0, params.row)
     this.initSearch()
