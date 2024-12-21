@@ -219,7 +219,9 @@ class BootstrapTable {
     this.columns = []
     this.fieldsColumnsIndex = []
 
-    Utils.setFieldIndex(this.options.columns)
+    if (this.optionsColumnsChanged !== false) {
+      Utils.setFieldIndex(this.options.columns)
+    }
 
     this.options.columns.forEach((columns, i) => {
       columns.forEach((_column, j) => {
@@ -2434,6 +2436,7 @@ class BootstrapTable {
     if (Utils.compareObjects(this.options, options, true)) {
       return
     }
+    this.optionsColumnsChanged = !!options.columns
     this.options = Utils.extend(this.options, options)
     this.trigger('refresh-options', this.options)
     this.destroy()
