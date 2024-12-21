@@ -1257,7 +1257,8 @@ class BootstrapTable {
       const totalRows = this.options.totalRows +
         (this.options.sidePagination === 'client' &&
         this.options.paginationLoadMore &&
-        !this._paginationLoaded ? ' +' : '')
+        !this._paginationLoaded &&
+        this.totalPages > 1 ? ' +' : '')
       const paginationInfo = this.paginationParts.includes('pageInfoShort') ?
         opts.formatDetailPagination(totalRows) :
         opts.formatShowingRows(this.pageFrom, this.pageTo, totalRows, opts.totalNotFiltered)
