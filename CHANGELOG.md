@@ -1,9 +1,29 @@
 ChangeLog
 ---------
 
+### 1.24.0
+
+#### Core
+
+- **New:** Added `card-view-field` class to `card-view`.
+- **Update:** Fixed `id` not working bug in `rowAttributes`.
+- **Update:** Fixed `data` field attr not working bug.
+- **Update:** Fixed column is `undefined` bug in `updateFieldGroup` when using `refreshOptions`.
+- **Update:** Fixed `post-header` trigger bug after table destroy.
+- **Update:** Fixed `strictSearch` not working bug.
+- **Update:** Fixed `insertRow` bug after on the last row of the table.
+- **Update:** Fixed display error of total rows using load more pagination.
+- **Update:** Updated Sass and refined the SCSS file.
+- **Update:** Update Eslint and fix some lint errors.
+
+#### Extensions
+
+- **Update(cookie):** Fixed cookie columns display error after adding a column.
+- **Update(filter-control):** Fixed select not working bug after an Ajax loaded.
+
 ### 1.23.5
 
-### Core
+#### Core
 
 - **New:** Added `getFooterData` method.
 - **Update:** Fixed `refresh` invalid url bug when `url` is relative path.
@@ -12,7 +32,7 @@ ChangeLog
 
 ### 1.23.4
 
-### Core
+#### Core
 
 - **New:** Added support for column options `formatter` and `footerFormatter` methods returning type `jQuery`, `HTMLElement`.
 - **New:** Added `sortReset` method to reset the current sort state.
@@ -20,14 +40,14 @@ ChangeLog
 - **Update:** Fixed `refresh` method doesn't reuse parameters provided as query bug.
 - **Update:** Fixed compatibility issues when `colspan` is set as a string.
 
-### Extensions
+#### Extensions
 
 - **Update(fixed-columns):** Fixed undefined error in some cases.
 - **Update(reorder-columns):** Fixed incorrect column values order with detail view.
 
 ### 1.23.2
 
-### Core
+#### Core
 
 - **New:** Added `buttonsAttributeTitle` option to customize title attribute.
 - **Update:** Updated sort icons using SVG instead of PNG.
@@ -38,12 +58,12 @@ ChangeLog
 
 ### 1.23.1
 
-### Core
+#### Core
 
 - **Update:** Improved vue component init twice without `setTimeout`.
 - **Update:** Updated `af-ZA`, `fr-BE`, `fr-CH`, `fr-FR`, `fr-LU`, and `id-ID` locales.
 
-### Extensions
+#### Extensions
 
 - **Update(editable):** Fixed editable display bug of select type.
 - **Update(sticky-header):** Fixed issue if sticky-header extension is loaded but not enabled.

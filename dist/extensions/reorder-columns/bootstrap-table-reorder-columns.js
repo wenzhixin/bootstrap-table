@@ -29,9 +29,57 @@
     }
   }
   function _createClass(e, r, t) {
-    return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+    return _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
       writable: !1
     }), e;
+  }
+  function _createForOfIteratorHelper(r, e) {
+    var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+    if (!t) {
+      if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e) {
+        t && (r = t);
+        var n = 0,
+          F = function () {};
+        return {
+          s: F,
+          n: function () {
+            return n >= r.length ? {
+              done: !0
+            } : {
+              done: !1,
+              value: r[n++]
+            };
+          },
+          e: function (r) {
+            throw r;
+          },
+          f: F
+        };
+      }
+      throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+    var o,
+      a = !0,
+      u = !1;
+    return {
+      s: function () {
+        t = t.call(r);
+      },
+      n: function () {
+        var r = t.next();
+        return a = r.done, r;
+      },
+      e: function (r) {
+        u = !0, o = r;
+      },
+      f: function () {
+        try {
+          a || null == t.return || t.return();
+        } finally {
+          if (u) throw o;
+        }
+      }
+    };
   }
   function _get() {
     return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) {
@@ -111,11 +159,11 @@
     for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
     return t;
   }
-  function _superPropGet(t, e, r, o) {
-    var p = _get(_getPrototypeOf(t.prototype ), e, r);
-    return function (t) {
-      return p.apply(r, t);
-    } ;
+  function _superPropGet(t, o, e, r) {
+    var p = _get(_getPrototypeOf(t.prototype ), o, e);
+    return "function" == typeof p ? function (t) {
+      return p.apply(e, t);
+    } : p;
   }
   function _toPrimitive(t, r) {
     if ("object" != typeof t || !t) return t;
@@ -536,9 +584,9 @@
   	/* eslint-disable es/no-symbol -- required for testing */
   	var NATIVE_SYMBOL = requireSymbolConstructorDetection();
 
-  	useSymbolAsUid = NATIVE_SYMBOL
-  	  && !Symbol.sham
-  	  && typeof Symbol.iterator == 'symbol';
+  	useSymbolAsUid = NATIVE_SYMBOL &&
+  	  !Symbol.sham &&
+  	  typeof Symbol.iterator == 'symbol';
   	return useSymbolAsUid;
   }
 
@@ -689,10 +737,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.38.1',
+  	  version: '3.39.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -2726,7 +2774,7 @@
         try {
           $(this.$el).dragtable('destroy');
         } catch (e) {
-          // do nothing
+          console.error(e);
         }
         $(this.$el).dragtable({
           maxMovingRows: this.options.maxMovingRows,
@@ -2776,18 +2824,30 @@
             }
             _this.columns = columns;
             filterFn(); // Support <IE9
-            $.each(_this.columns, function (i, column) {
-              var found = false;
-              var field = column.field;
-              _this.options.columns[0].filter(function (item) {
-                if (!found && item['field'] === field) {
-                  optionsColumns.push(item);
-                  found = true;
-                  return false;
-                }
-                return true;
-              });
-            });
+            var _iterator = _createForOfIteratorHelper(_this.columns),
+              _step;
+            try {
+              var _loop = function _loop() {
+                var column = _step.value;
+                var found = false;
+                var field = column.field;
+                _this.options.columns[0].filter(function (item) {
+                  if (!found && item['field'] === field) {
+                    optionsColumns.push(item);
+                    found = true;
+                    return false;
+                  }
+                  return true;
+                });
+              };
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                _loop();
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
             _this.options.columns[0] = optionsColumns;
             _this.header.fields = ths;
             _this.header.formatters = formatters;

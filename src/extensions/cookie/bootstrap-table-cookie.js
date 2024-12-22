@@ -11,6 +11,7 @@ const UtilsCookie = {
     pageNumber: 'bs.table.pageNumber',
     pageList: 'bs.table.pageList',
     hiddenColumns: 'bs.table.hiddenColumns',
+    columns: 'bs.table.columns',
     cardView: 'bs.table.cardView',
     customView: 'bs.table.customView',
     searchText: 'bs.table.searchText',
@@ -28,6 +29,9 @@ const UtilsCookie = {
     return navigator.cookieEnabled
   },
   isCookieEnabled (that, cookieName) {
+    if (cookieName === 'bs.table.columns') {
+      return that.options.cookiesEnabled.includes('bs.table.hiddenColumns')
+    }
     return that.options.cookiesEnabled.includes(cookieName)
   },
   setCookie (that, cookieName, cookieValue) {
@@ -228,6 +232,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       try {
         filterByCookie = JSON.parse(filterByCookieValue)
       } catch (e) {
+        console.error(e)
         throw new Error('Could not parse the json of the filterBy cookie!')
       }
       this.filterColumns = filterByCookie ? filterByCookie : {}
@@ -242,27 +247,25 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.options.cookiesEnabled
 
       if (this.options.filterControl) {
-        const that = this
-
         this.$el.on('column-search.bs.table', (e, field, text) => {
           let isNewField = true
 
-          for (let i = 0; i < that._filterControls.length; i++) {
-            if (that._filterControls[i].field === field) {
-              that._filterControls[i].text = text
+          for (let i = 0; i < this._filterControls.length; i++) {
+            if (this._filterControls[i].field === field) {
+              this._filterControls[i].text = text
               isNewField = false
               break
             }
           }
           if (isNewField) {
-            that._filterControls.push({
+            this._filterControls.push({
               field,
               text
             })
           }
 
-          UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that._filterControls))
-        }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(that))
+          UtilsCookie.setCookie(this, UtilsCookie.cookieIds.filterControl, JSON.stringify(this._filterControls))
+        }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(this))
       }
     }
     super.init()
@@ -365,7 +368,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (!this.options.cookie) {
       return
     }
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.hiddenColumns, JSON.stringify(this.getHiddenColumns().map(column => column.field)))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.hiddenColumns,
+      JSON.stringify(this.getHiddenColumns().map(column => column.field)))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns,
+      JSON.stringify(this.columns.map(column => column.field)))
   }
 
   _toggleAllColumns (...args) {
@@ -373,7 +379,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (!this.options.cookie) {
       return
     }
-    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.hiddenColumns, JSON.stringify(this.getHiddenColumns().map(column => column.field)))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.hiddenColumns,
+      JSON.stringify(this.getHiddenColumns().map(column => column.field)))
+    UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns,
+      JSON.stringify(this.columns.map(column => column.field)))
   }
 
   toggleView () {
@@ -444,18 +453,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const cardViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.cardView)
     const customViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.customView)
     const hiddenColumnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.hiddenColumns)
+    const columnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.columns)
 
     let hiddenColumnsCookie = {}
+    let columnsCookie = {}
 
     try {
       hiddenColumnsCookie = JSON.parse(hiddenColumnsCookieValue)
+      columnsCookie = JSON.parse(columnsCookieValue)
     } catch (e) {
-      throw new Error('Could not parse the json of the hidden columns cookie!', hiddenColumnsCookieValue)
+      console.error(e)
+      throw new Error('Could not parse the json of the columns cookie!')
     }
 
     try {
       sortPriorityCookie = JSON.parse(sortPriorityCookie)
     } catch (e) {
+      console.error(e)
       throw new Error('Could not parse the json of the sortPriority cookie!', sortPriorityCookie)
     }
 
@@ -493,8 +507,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.customViewDefaultView = customViewCookie === 'true'
 
     if (hiddenColumnsCookie) {
+      columnsCookie = columnsCookie || this.columns.map(column => column.field)
+
       for (const column of this.columns) {
-        if (!column.switchable) {
+        if (
+          !column.switchable ||
+          !columnsCookie.includes(column.field)
+        ) {
           continue
         }
 
@@ -505,12 +524,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   getCookies () {
-    const bootstrapTable = this
     const cookies = {}
 
     for (const [key, value] of Object.entries(UtilsCookie.cookieIds)) {
-      cookies[key] = UtilsCookie.getCookie(bootstrapTable, value)
-      if (key === 'columns' || key === 'hiddenColumns' || key === 'sortPriority') {
+      cookies[key] = UtilsCookie.getCookie(this, value)
+      if (['columns', 'hiddenColumns', 'sortPriority'].includes(key)) {
         cookies[key] = JSON.parse(cookies[key])
       }
     }
@@ -526,19 +544,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   configureStorage () {
-    const that = this
-
     this._storage = {}
     switch (this.options.cookieStorage) {
       case 'cookieStorage':
         this._storage.setItem = function (cookieName, cookieValue) {
           document.cookie = [
             cookieName, '=', encodeURIComponent(cookieValue),
-            `; expires=${UtilsCookie.calculateExpiration(that.options.cookieExpire)}`,
-            that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
-            that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-            that.options.cookieSecure ? '; secure' : '',
-            `;SameSite=${that.options.cookieSameSite}`
+            `; expires=${UtilsCookie.calculateExpiration(this.options.cookieExpire)}`,
+            this.options.cookiePath ? `; path=${this.options.cookiePath}` : '',
+            this.options.cookieDomain ? `; domain=${this.options.cookieDomain}` : '',
+            this.options.cookieSecure ? '; secure' : '',
+            `;SameSite=${this.options.cookieSameSite}`
           ].join('')
         }
         this._storage.getItem = function (cookieName) {
@@ -551,9 +567,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
           document.cookie = [
             encodeURIComponent(cookieName), '=',
             '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
-            that.options.cookiePath ? `; path=${that.options.cookiePath}` : '',
-            that.options.cookieDomain ? `; domain=${that.options.cookieDomain}` : '',
-            `;SameSite=${that.options.cookieSameSite}`
+            this.options.cookiePath ? `; path=${this.options.cookiePath}` : '',
+            this.options.cookieDomain ? `; domain=${this.options.cookieDomain}` : '',
+            `;SameSite=${this.options.cookieSameSite}`
           ].join('')
         }
         break
@@ -589,13 +605,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
 
         this._storage.setItem = function (cookieName, cookieValue) {
-          Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageSet, [cookieName, cookieValue], '')
+          Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageSet, [cookieName, cookieValue], '')
         }
         this._storage.getItem = function (cookieName) {
-          return Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageGet, [cookieName], '')
+          return Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageGet, [cookieName], '')
         }
         this._storage.removeItem = function (cookieName) {
-          Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageDelete, [cookieName], '')
+          Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageDelete, [cookieName], '')
         }
 
         break

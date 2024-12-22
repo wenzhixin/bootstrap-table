@@ -2,9 +2,12 @@
  * @author Dustin Utecht
  * https://github.com/wenzhixin/bootstrap-table/
  */
-@import "./variables";
-@import "../theme";
-@import "./font";
+
+@use "sass:color";
+@use "custom";
+@use "../variables";
+@use "../theme";
+@use "font";
 
 .bootstrap-table {
   * {
@@ -14,10 +17,10 @@
   input.form-control,
   select.form-control,
   .btn {
-    border-radius: $btn-border-radius;
-    background-color: $background;
-    border: 1px solid $btn-border;
-    padding: $btn-padding;
+    border-radius: custom.$btn-border-radius;
+    background-color: variables.$background;
+    border: 1px solid custom.$btn-border;
+    padding: custom.$btn-padding;
   }
 
   select.form-control {
@@ -29,12 +32,12 @@
     cursor: pointer;
 
     &.active {
-      background-color: darken($background, 8);
+      background-color: color.adjust(variables.$background, $lightness: -8%);
     }
 
     &:focus,
     &:hover {
-      background-color: $background-hover;
+      background-color: custom.$background-hover;
     }
   }
 
@@ -52,10 +55,10 @@
 
   .detail-icon {
     text-decoration: none;
-    color: $primary-background;
+    color: custom.$primary-background;
 
     &:hover {
-      color: darken($primary-background, 20);
+      color: color.adjust(custom.$primary-background, $lightness: -20%);
     }
   }
 
@@ -98,7 +101,7 @@
       }
 
       .dropdown-divider {
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid variables.$border-color;
       }
     }
 
@@ -138,32 +141,32 @@
 
   .dropdown-menu {
     display: none;
-    background-color: $background;
+    background-color: variables.$background;
     position: absolute;
     right: 0;
     min-width: 120px;
     margin-top: 2px;
-    border: 1px solid $btn-border;
+    border: 1px solid custom.$btn-border;
     border-radius: 4px;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.175);
 
     .dropdown-item {
-      color: $color;
+      color: variables.$color;
       text-decoration: none;
       display: block;
       padding: 5px 12px;
       white-space: nowrap;
 
       &:hover {
-        background-color: $background-hover;
+        background-color: custom.$background-hover;
       }
 
       &.active {
-        background-color: $primary-background;
+        background-color: custom.$primary-background;
         color: #fff;
 
         &:hover {
-          background-color: $primary-background-hover;
+          background-color: custom.$primary-background-hover;
         }
       }
     }
@@ -195,7 +198,7 @@
     &.table-bordered {
       thead tr th,
       tbody tr td {
-        border: 1px solid $border-color;
+        border: 1px solid variables.$border-color;
       }
 
       tbody tr td {
@@ -205,7 +208,7 @@
 
     &.table-hover {
       tbody tr:hover {
-        background: $hover-bg;
+        background: variables.$hover-bg;
       }
     }
   }
@@ -227,34 +230,34 @@
     list-style: none;
 
     .page-item {
-      border: 1px solid $border-color;
-      background-color: $background;
+      border: 1px solid variables.$border-color;
+      background-color: variables.$background;
       border-radius: 4px;
       margin: 2px;
       padding: 5px 2px;
 
       &:hover {
-        background-color: $background-hover;
+        background-color: custom.$background-hover;
       }
 
       .page-link {
         padding: 6px 12px;
         line-height: 1.4286;
-        color: $color;
+        color: variables.$color;
         text-decoration: none;
         outline: none;
       }
 
       &.active {
-        background-color: $primary-background;
-        border: 1px solid darken($primary-background, 5);
+        background-color: custom.$primary-background;
+        border: 1px solid color.adjust(custom.$primary-background, $lightness: -5%);
 
         .page-link {
           color: #fff;
         }
 
         &:hover {
-          background-color: $primary-background-hover;
+          background-color: custom.$primary-background-hover;
         }
       }
     }
@@ -312,8 +315,8 @@
 
   .btn {
     border-radius: 4px;
-    background-color: $background;
-    border: 1px solid $btn-border;
+    background-color: variables.$background;
+    border: 1px solid custom.$btn-border;
     padding: 6px 12px;
     outline: none;
     cursor: pointer;

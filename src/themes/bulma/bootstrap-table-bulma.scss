@@ -4,8 +4,9 @@
  * theme: https://github.com/jgthms/bulma/
  */
 
-@import "./variables";
-@import "../theme";
+@use "custom";
+@use "../variables";
+@use "../theme";
 
 .box {
   background-color: #fff;
@@ -53,7 +54,7 @@
 
       .dropdown-content {
         box-shadow: none;
-        border: 1px solid $border-color;
+        border: 1px solid variables.$border-color;
       }
 
       label.dropdown-item {

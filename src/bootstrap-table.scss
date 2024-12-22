@@ -1,8 +1,7 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.23.5
+ * version: 1.24.0
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
-@import "./themes/bootstrap/variables";
-@import "./themes/theme";
+@use "themes/theme";

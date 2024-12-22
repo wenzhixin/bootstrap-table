@@ -4,8 +4,9 @@
  * theme: https://github.com/Semantic-Org/Semantic-UI
  */
 
-@import "./variables";
-@import "../theme";
+@use "custom";
+@use "../variables";
+@use "../theme";
 
 .bootstrap-table {
   .fixed-table-container.fixed-height:not(.has-footer),
@@ -53,7 +54,7 @@
     background: transparent;
 
     thead th[data-not-first-th] {
-      border-left: 1px solid $border-color !important;
+      border-left: 1px solid variables.$border-color !important;
     }
   }
 

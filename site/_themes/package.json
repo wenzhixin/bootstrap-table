@@ -2,34 +2,20 @@
   "name": "themes",
   "version": "1.0.0",
   "private": true,
-  "module": "type",
+  "type": "module",
   "scripts": {
     "serve": "vite",
     "build": "vite build",
     "lint": "eslint ."
   },
   "dependencies": {
-    "vue": "^3.4.31"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.5",
-    "eslint": "^8.49.0",
-    "eslint-plugin-vue": "^9.27.0",
-    "vite": "^5.3.3"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "ecmaVersion": "latest"
-    }
+    "@vitejs/plugin-vue": "^5.2.1",
+    "eslint": "^9.16.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "vite": "^6.0.3"
   },
   "browserslist": [
     "> 1%",

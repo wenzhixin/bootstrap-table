@@ -45,7 +45,7 @@ $.fn.bootstrapTable.locales['ar-SA'] = $.fn.bootstrapTable.locales['ar'] = {
   formatNoMatches () {
     return 'لا توجد نتائج مطابقة للبحث'
   },
-  formatPaginationSwitch () { /* eslint-disable no-useless-escape */
+  formatPaginationSwitch () {
     return 'إخفاء/إظهار ترقيم الصفحات'
   },
   formatPaginationSwitchDown () {

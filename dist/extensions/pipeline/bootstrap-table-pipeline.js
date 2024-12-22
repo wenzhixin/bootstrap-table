@@ -21,7 +21,7 @@
     }
   }
   function _createClass(e, r, t) {
-    return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+    return _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
       writable: !1
     }), e;
   }
@@ -102,11 +102,11 @@
     for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
     return t;
   }
-  function _superPropGet(t, e, r, o) {
-    var p = _get(_getPrototypeOf(t.prototype ), e, r);
-    return function (t) {
-      return p.apply(r, t);
-    } ;
+  function _superPropGet(t, o, e, r) {
+    var p = _get(_getPrototypeOf(1 & r ? t.prototype : t), o, e);
+    return 2 & r && "function" == typeof p ? function (t) {
+      return p.apply(e, t);
+    } : p;
   }
   function _toPrimitive(t, r) {
     if ("object" != typeof t || !t) return t;
@@ -520,9 +520,9 @@
   	/* eslint-disable es/no-symbol -- required for testing */
   	var NATIVE_SYMBOL = requireSymbolConstructorDetection();
 
-  	useSymbolAsUid = NATIVE_SYMBOL
-  	  && !Symbol.sham
-  	  && typeof Symbol.iterator == 'symbol';
+  	useSymbolAsUid = NATIVE_SYMBOL &&
+  	  !Symbol.sham &&
+  	  typeof Symbol.iterator == 'symbol';
   	return useSymbolAsUid;
   }
 
@@ -673,10 +673,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.38.1',
+  	  version: '3.39.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -2193,7 +2193,7 @@
         for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
           args[_key] = arguments[_key];
         }
-        _superPropGet(_class, "init", this)(args);
+        _superPropGet(_class, "init", this, 3)(args);
       }
     }, {
       key: "initPipeline",
@@ -2214,7 +2214,7 @@
         for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
           args[_key2] = arguments[_key2];
         }
-        _superPropGet(_class, "onSearch", this)(args);
+        _superPropGet(_class, "onSearch", this, 3)(args);
       }
 
       // force a cache reset on sort
@@ -2227,7 +2227,7 @@
         for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
           args[_key3] = arguments[_key3];
         }
-        _superPropGet(_class, "onSort", this)(args);
+        _superPropGet(_class, "onSort", this, 3)(args);
       }
 
       // rebuild cache window on page size change
@@ -2238,7 +2238,7 @@
         var newPageSize = parseInt(target.text(), 10);
         this.options.pipelineSize = this.calculatePipelineSize(this.options.pipelineSize, newPageSize);
         this.resetCache = true;
-        _superPropGet(_class, "onPageListChange", this)([event]);
+        _superPropGet(_class, "onPageListChange", this, 3)([event]);
       }
 
       // calculate pipeline size by rounding up to
@@ -2302,7 +2302,7 @@
       value: function initServer(silent, query) {
         var _this = this;
         if (!this.options.usePipeline) {
-          return _superPropGet(_class, "initServer", this)([silent, query]);
+          return _superPropGet(_class, "initServer", this, 3)([silent, query]);
         }
         var useAjax = true;
         var params = {};
@@ -2380,7 +2380,7 @@
             return res;
           };
         }
-        return _superPropGet(_class, "initServer", this)([silent, _objectSpread2(_objectSpread2({}, query), params)]);
+        return _superPropGet(_class, "initServer", this, 3)([silent, _objectSpread2(_objectSpread2({}, query), params)]);
       }
     }, {
       key: "destroy",
@@ -2390,7 +2390,7 @@
         for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
           args[_key4] = arguments[_key4];
         }
-        _superPropGet(_class, "destroy", this)(args);
+        _superPropGet(_class, "destroy", this, 3)(args);
       }
     }]);
   }($.BootstrapTable);

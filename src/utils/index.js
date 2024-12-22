@@ -2,7 +2,13 @@ export default {
   getBootstrapVersion () {
     let bootstrapVersion = 5
 
-    try {
+    if (typeof window !== 'undefined' && window.bootstrap?.Tooltip?.VERSION) {
+      const rawVersion = window.bootstrap.Tooltip.VERSION
+
+      if (rawVersion !== undefined) {
+        bootstrapVersion = parseInt(rawVersion, 10)
+      }
+    } else if (typeof $ !== 'undefined' && $.fn?.dropdown?.Constructor?.VERSION) {
       const rawVersion = $.fn.dropdown.Constructor.VERSION
 
       // Only try to parse VERSION if it is defined.
@@ -10,19 +16,6 @@ export default {
       if (rawVersion !== undefined) {
         bootstrapVersion = parseInt(rawVersion, 10)
       }
-    } catch (e) {
-      // ignore
-    }
-
-    try {
-      // eslint-disable-next-line no-undef
-      const rawVersion = bootstrap.Tooltip.VERSION
-
-      if (rawVersion !== undefined) {
-        bootstrapVersion = parseInt(rawVersion, 10)
-      }
-    } catch (e) {
-      // ignore
     }
 
     return bootstrapVersion
@@ -419,6 +412,7 @@ export default {
         return true
       }
     } catch (e) {
+      console.error(e)
       return false
     }
     return false

@@ -93,9 +93,7 @@ export function sortSelectControl (selectControl, orderBy, options) {
     tmpAry[i][2] = $selectControl.options[i].selected
   }
 
-  tmpAry.sort((a, b) => {
-    return Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1, options)
-  })
+  tmpAry.sort((a, b) => Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1, options))
   while ($selectControl.options.length > 0) {
     $selectControl.options[0] = null
   }
@@ -177,7 +175,7 @@ export function setCaretPosition (elem, caretPos) {
       }
     }
   } catch (ex) {
-    // ignored
+    console.error(ex)
   }
 }
 
@@ -472,7 +470,7 @@ export function createControls (that, header) {
       }, that.options.searchTimeOut)
     })
 
-    header.off('change', 'select', '.fc-multipleselect').on('change', 'select', '.fc-multipleselect', ({ currentTarget, keyCode }) => {
+    header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }) => {
       const $selectControl = $(currentTarget)
       const value = $selectControl.val()
 
