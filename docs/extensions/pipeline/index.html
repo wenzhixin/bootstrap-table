@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Table Pipeline extension of Bootstrap Table.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
-<meta name="generator" content="Jekyll v3.8.7">
+<meta name="generator" content="Jekyll v3.10.0">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.23.5
+        v1.24.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.23.5)</a>
+        <a class="dropdown-item active" href="/">Latest (1.24.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -406,8 +406,8 @@ for a performance balance for a large data set between returning all data at onc
 
 <p>There are two new options:</p>
 <ul>
-  <li><code class="highlighter-rouge">usePipeline</code>: enables this feature</li>
-  <li><code class="highlighter-rouge">pipelineSize</code>: the size of each cache window</li>
+  <li><code class="language-plaintext highlighter-rouge">usePipeline</code>: enables this feature</li>
+  <li><code class="language-plaintext highlighter-rouge">pipelineSize</code>: the size of each cache window</li>
 </ul>
 
 <p>The size of the pipeline must be evenly divisible by the current page size. This is
@@ -421,7 +421,7 @@ returned by the server-side query. For example, with pipeline size 500 and total
 
 <p>[{‘lower’: 0, ‘upper’: 499}, {‘lower’: 500, ‘upper’: 999}, {‘lower’: 1000, ‘upper’: 1499}]</p>
 
-<p>Using the limit (i.e. the <code class="highlighter-rouge">pipelineSize</code>) and offset parameters, the server-side request
+<p>Using the limit (i.e. the <code class="language-plaintext highlighter-rouge">pipelineSize</code>) and offset parameters, the server-side request
 <strong>MUST</strong> return only the data in the requested cache window <strong>AND</strong> the total number of rows.
 To wit, the server-side code must use the offset and limit parameters to prepare the response
 data.</p>
@@ -441,8 +441,8 @@ request will be issued for the new cache window.</p>
 
 <p>There are two new events:</p>
 <ul>
-  <li><code class="highlighter-rouge">cached-data-hit.bs.table</code>: issued when cached data is used on a page change</li>
-  <li><code class="highlighter-rouge">cached-data-reset.bs.table</code>: issued when the cached data is invalidated and the new server-side request is issued</li>
+  <li><code class="language-plaintext highlighter-rouge">cached-data-hit.bs.table</code>: issued when cached data is used on a page change</li>
+  <li><code class="language-plaintext highlighter-rouge">cached-data-reset.bs.table</code>: issued when the cached data is invalidated and the new server-side request is issued</li>
 </ul>
 
 <h2 id="usage">Usage</h2>
@@ -462,7 +462,7 @@ request will be issued for the new cache window.</p>
 <ul>
   <li>type: Number</li>
   <li>description: Size of each cache window. Must be greater than 0.</li>
-  <li>default: <code class="highlighter-rouge">1000</code></li>
+  <li>default: <code class="language-plaintext highlighter-rouge">1000</code></li>
 </ul>
 
 <h3 id="usepipeline">usePipeline</h3>
@@ -470,7 +470,7 @@ request will be issued for the new cache window.</p>
 <ul>
   <li>type: Boolean</li>
   <li>description: Set true to enable pipelining</li>
-  <li>default: <code class="highlighter-rouge">false</code></li>
+  <li>default: <code class="language-plaintext highlighter-rouge">false</code></li>
 </ul>
 
 <h2 id="events">Events</h2>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Frequently Asked Questions.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
-<meta name="generator" content="Jekyll v3.8.7">
+<meta name="generator" content="Jekyll v3.10.0">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.23.5
+        v1.24.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.23.5)</a>
+        <a class="dropdown-item active" href="/">Latest (1.24.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -381,7 +381,7 @@
 
           <h3 id="when-resizing-the-window-the-table-header-does-not-adjust-automatically-how-to-solve-it">When resizing the window, the table header does not adjust automatically, how to solve it?</h3>
 
-<p>When you set the <code class="highlighter-rouge">height</code> of the bootstrap table, the <code class="highlighter-rouge">fixed header</code> feature is automatically enabled, that is what causes the problem, you need to listen to the <code class="highlighter-rouge">resize</code> event of the window and use the <code class="highlighter-rouge">resetView</code> method to solve this problem, code example:</p>
+<p>When you set the <code class="language-plaintext highlighter-rouge">height</code> of the bootstrap table, the <code class="language-plaintext highlighter-rouge">fixed header</code> feature is automatically enabled, that is what causes the problem, you need to listen to the <code class="language-plaintext highlighter-rouge">resize</code> event of the window and use the <code class="language-plaintext highlighter-rouge">resetView</code> method to solve this problem, code example:</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
   <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#tableId</span><span class="dl">'</span><span class="p">).</span><span class="nx">bootstrapTable</span><span class="p">()</span> <span class="c1">// init via javascript</span>
@@ -409,16 +409,16 @@
 
 <p>When you use like this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$('#eventsTable').on('click-row.bs.table', function (event, row, $element) {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$('#eventsTable').on('click-row.bs.table', function (event, row, $element) {
 
 })
 </code></pre></div></div>
 
-<p>the first parameter is always <code class="highlighter-rouge">event</code>: <a href="https://live.bootstrap-table.com/code/wenzhixin/46">https://live.bootstrap-table.com/code/wenzhixin/46</a></p>
+<p>the first parameter is always <code class="language-plaintext highlighter-rouge">event</code>: <a href="https://live.bootstrap-table.com/code/wenzhixin/46">https://live.bootstrap-table.com/code/wenzhixin/46</a></p>
 
 <p>and use onClickRow event:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>onClickRow: function (row, $element) {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>onClickRow: function (row, $element) {
 
 }
 </code></pre></div></div>

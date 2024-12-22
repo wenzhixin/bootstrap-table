@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Learn how to use Bootstrap Table Vue Component in your project using webpack.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
-<meta name="generator" content="Jekyll v3.8.7">
+<meta name="generator" content="Jekyll v3.10.0">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.23.5
+        v1.24.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.23.5)</a>
+        <a class="dropdown-item active" href="/">Latest (1.24.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -390,7 +390,7 @@
 
           <h2 id="importing-javascript">Importing JavaScript</h2>
 
-<p>Import Bootstrap Table’s JavaScript by adding this line to your app’s entry point (usually <code class="highlighter-rouge">index.js</code> or <code class="highlighter-rouge">app.js</code>):</p>
+<p>Import Bootstrap Table’s JavaScript by adding this line to your app’s entry point (usually <code class="language-plaintext highlighter-rouge">index.js</code> or <code class="language-plaintext highlighter-rouge">app.js</code>):</p>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table</span><span class="dl">'</span></code></pre></figure>
 
@@ -406,7 +406,7 @@
 <span class="k">import</span> <span class="dl">'</span><span class="s1">tableexport.jquery.plugin</span><span class="dl">'</span>
 <span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js</span><span class="dl">'</span></code></pre></figure>
 
-<p>By default, Bootstrap Table is dependent on <a href="https://jquery.com/">jQuery</a>, <a href="https://getbootstrap.com">Bootstrap</a> and <a href="https://popper.js.org/">Popper</a>, these are defined as peerDependencies, this means that you will have to make sure to add both of them to your <code class="highlighter-rouge">package.json</code> using <code class="highlighter-rouge">npm install --save jquery bootstrap popper.js</code>.</p>
+<p>By default, Bootstrap Table is dependent on <a href="https://jquery.com/">jQuery</a>, <a href="https://getbootstrap.com">Bootstrap</a> and <a href="https://popper.js.org/">Popper</a>, these are defined as peerDependencies, this means that you will have to make sure to add both of them to your <code class="language-plaintext highlighter-rouge">package.json</code> using <code class="language-plaintext highlighter-rouge">npm install --save jquery bootstrap popper.js</code>.</p>
 
 <h2 id="importing-css">Importing CSS</h2>
 
@@ -475,12 +475,12 @@
 
 <p>There is an <a href="https://github.com/wenzhixin/bootstrap-table-examples/tree/develop/vue-starter">vue-starter</a> example in bootstrap-table-example project.</p>
 
-<p><code class="highlighter-rouge">plugins/jquery.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">plugins/jquery.js</code></p>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">import</span> <span class="nx">jQuery</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">jquery</span><span class="dl">'</span>
 <span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span> <span class="o">=</span> <span class="nx">jQuery</span></code></pre></figure>
 
-<p><code class="highlighter-rouge">plugins/table.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">plugins/table.js</code></p>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap/dist/css/bootstrap.min.css</span><span class="dl">'</span>
 <span class="k">import</span> <span class="dl">'</span><span class="s1">bootstrap-table/dist/bootstrap-table.min.css</span><span class="dl">'</span>
@@ -493,11 +493,11 @@
 
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">BootstrapTable</span><span class="dl">'</span><span class="p">,</span> <span class="nx">BootstrapTable</span><span class="p">)</span></code></pre></figure>
 
-<p><code class="highlighter-rouge">main.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">main.js</code></p>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">import</span> <span class="dl">'</span><span class="s1">./plugins/table.js</span><span class="dl">'</span></code></pre></figure>
 
-<p><code class="highlighter-rouge">View.vue</code></p>
+<p><code class="language-plaintext highlighter-rouge">View.vue</code></p>
 
 <figure class="highlight"><pre><code class="language-vue" data-lang="vue"><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
   <span class="nt">&lt;BootstrapTable</span> <span class="na">:columns=</span><span class="s">"columns"</span> <span class="na">:data=</span><span class="s">"data"</span> <span class="na">:options=</span><span class="s">"options"</span><span class="nt">&gt;&lt;/BootstrapTable&gt;</span>

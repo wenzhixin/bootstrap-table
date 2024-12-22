@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Table Reorder Rows extension of Bootstrap Table.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
-<meta name="generator" content="Jekyll v3.8.7">
+<meta name="generator" content="Jekyll v3.10.0">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.23.5
+        v1.24.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.23.5)</a>
+        <a class="dropdown-item active" href="/">Latest (1.24.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -425,10 +425,10 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-reorderable-rows</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-reorderable-rows</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">Boolean</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -436,7 +436,7 @@
     <p>Set true to allow the reorder feature.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">false</code></p>
   </li>
 </ul>
 
@@ -444,10 +444,10 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-on-allow-drop</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-on-allow-drop</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">function</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">function</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -463,7 +463,7 @@
     <p>It returns a boolean: true allows the drop, false doesn’t allow it.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">null</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">null</code></p>
   </li>
 </ul>
 
@@ -471,10 +471,10 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-on-drag-stop</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-on-drag-stop</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">function</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">function</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -482,7 +482,7 @@
     <p>Pass a function that will be called when the user stops dragging regardless of if the rows have been rearranged. The function takes 3 parameters: the table, the row data and the row which the user was dragging.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">null</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">null</code></p>
   </li>
 </ul>
 
@@ -490,10 +490,10 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-on-drag-style</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-on-drag-style</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">String</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -501,7 +501,7 @@
     <p>This is the style that is assigned to the row during drag. There are limitations to the styles that can be associated with a row (such as you can’t assign a border well you can, but it won’t be displayed).</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">null</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">null</code></p>
   </li>
 </ul>
 
@@ -509,10 +509,10 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-on-drag-class</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-on-drag-class</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">String</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -520,7 +520,7 @@
     <p>This class is added for the duration of the drag and then removed when the row is dropped. It is more flexible than using onDragStyle since it can be inherited by the row cells and other content.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">reorder-rows-on-drag-class</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">reorder-rows-on-drag-class</code></p>
   </li>
 </ul>
 
@@ -528,10 +528,10 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-on-drop-style</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-on-drop-style</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">String</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -539,7 +539,7 @@
     <p>This is the style that is assigned to the row when it is dropped. As for onDragStyle, there are limitations to what you can do. Also, this replaces the original style, so again consider using onDragClass which is simply added and then removed on drop.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">null</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">null</code></p>
   </li>
 </ul>
 
@@ -547,10 +547,10 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-on-reorder-rows-drag</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-on-reorder-rows-drag</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">Function</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -558,7 +558,7 @@
     <p>Pass a function that will be called when the user starts dragging. The function takes 1 parameter: the row which the user has started to drag.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">empty function</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">empty function</code></p>
   </li>
 </ul>
 
@@ -566,10 +566,10 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-on-reorder-rows-drop</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-on-reorder-rows-drop</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">Function</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -577,7 +577,7 @@
     <p>Pass a function that will be called when the row is dropped. The function takes 1 parameter:  the row that was dropped.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">empty function</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">empty function</code></p>
   </li>
 </ul>
 
@@ -585,20 +585,20 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-drag-handle</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-drag-handle</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">String</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
     <p>This is the cursor element.</p>
 
-    <p><strong>Note: This option is mainly used to adapt to the <code class="highlighter-rouge">TableDnD</code> plugin. Under no special circumstances, please do not modify the default value.</strong></p>
+    <p><strong>Note: This option is mainly used to adapt to the <code class="language-plaintext highlighter-rouge">TableDnD</code> plugin. Under no special circumstances, please do not modify the default value.</strong></p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">&gt;tbody&gt;tr&gt;td:not(.bs-checkbox)</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">&gt;tbody&gt;tr&gt;td:not(.bs-checkbox)</code></p>
   </li>
 </ul>
 
@@ -606,18 +606,18 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-use-row-attr-func</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-use-row-attr-func</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">Boolean</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>This function must be used if your <code class="highlighter-rouge">tr</code> elements won’t have the <code class="highlighter-rouge">id</code> attribute. If your <code class="highlighter-rouge">tr</code> elements don’t have the <code class="highlighter-rouge">id</code> attribute this plugin doesn’t fire the onDrop event.</p>
+    <p>This function must be used if your <code class="language-plaintext highlighter-rouge">tr</code> elements won’t have the <code class="language-plaintext highlighter-rouge">id</code> attribute. If your <code class="language-plaintext highlighter-rouge">tr</code> elements don’t have the <code class="language-plaintext highlighter-rouge">id</code> attribute this plugin doesn’t fire the onDrop event.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">false</code></p>
   </li>
 </ul>
 

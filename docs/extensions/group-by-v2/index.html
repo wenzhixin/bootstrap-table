@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Table Group By v2 extension of Bootstrap Table.">
 <meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
-<meta name="generator" content="Jekyll v3.8.7">
+<meta name="generator" content="Jekyll v3.10.0">
 <meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
 
 <meta name="docsearch:language" content="en">
@@ -89,10 +89,10 @@
   <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     <li class="nav-item dropdown">
       <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.23.5
+        v1.24.0
       </a>
       <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.23.5)</a>
+        <a class="dropdown-item active" href="/">Latest (1.24.0)</a>
         
         <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
         
@@ -411,10 +411,10 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-group-by</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-group-by</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">Boolean</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -422,7 +422,7 @@
     <p>Set true to group the data by the field passed.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">false</code></p>
   </li>
 </ul>
 
@@ -430,20 +430,20 @@
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-group-by-field</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-group-by-field</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">String|Array</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">String|Array</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
     <p>Set the field name(s) that you want to group the data.
-For a single field use a <code class="highlighter-rouge">String</code> e.g. <code class="highlighter-rouge">shape</code>.
-For a multiple fields use a <code class="highlighter-rouge">Array</code> e.g. <code class="highlighter-rouge">["shape", "color"]</code>.</p>
+For a single field use a <code class="language-plaintext highlighter-rouge">String</code> e.g. <code class="language-plaintext highlighter-rouge">shape</code>.
+For a multiple fields use a <code class="language-plaintext highlighter-rouge">Array</code> e.g. <code class="language-plaintext highlighter-rouge">["shape", "color"]</code>.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">''</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">''</code></p>
   </li>
 </ul>
 
@@ -451,10 +451,10 @@ For a multiple fields use a <code class="highlighter-rouge">Array</code> e.g. <c
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-group-by-formatter</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-group-by-formatter</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Function</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">Function</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -462,13 +462,13 @@ For a multiple fields use a <code class="highlighter-rouge">Array</code> e.g. <c
     <p>The group row formatter function, takes three parameters:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">value</code>: the group by value.</li>
-      <li><code class="highlighter-rouge">idx</code>: the index of the group.</li>
-      <li><code class="highlighter-rouge">data</code>: an array of rows in the group.</li>
+      <li><code class="language-plaintext highlighter-rouge">value</code>: the group by value.</li>
+      <li><code class="language-plaintext highlighter-rouge">idx</code>: the index of the group.</li>
+      <li><code class="language-plaintext highlighter-rouge">data</code>: an array of rows in the group.</li>
     </ul>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">undefined</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">undefined</code></p>
   </li>
 </ul>
 
@@ -476,18 +476,18 @@ For a multiple fields use a <code class="highlighter-rouge">Array</code> e.g. <c
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-group-by-toggle</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-group-by-toggle</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">Boolean</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to allow collapse/expand groups.</p>
+    <p>Set <code class="language-plaintext highlighter-rouge">true</code> to allow collapse/expand groups.</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">false</code></p>
   </li>
 </ul>
 
@@ -495,18 +495,18 @@ For a multiple fields use a <code class="highlighter-rouge">Array</code> e.g. <c
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-group-by-show-toggle-icon</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-group-by-show-toggle-icon</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Boolean</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">Boolean</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
 
-    <p>Set <code class="highlighter-rouge">true</code> to show icons if the group is collapsed or expanded (see groupByToggle).</p>
+    <p>Set <code class="language-plaintext highlighter-rouge">true</code> to show icons if the group is collapsed or expanded (see groupByToggle).</p>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">false</code></p>
   </li>
 </ul>
 
@@ -514,10 +514,10 @@ For a multiple fields use a <code class="highlighter-rouge">Array</code> e.g. <c
 
 <ul>
   <li>
-    <p><strong>attribute:</strong> <code class="highlighter-rouge">data-group-by-collapsed-groups</code></p>
+    <p><strong>attribute:</strong> <code class="language-plaintext highlighter-rouge">data-group-by-collapsed-groups</code></p>
   </li>
   <li>
-    <p><strong>type:</strong> <code class="highlighter-rouge">Array|Function</code></p>
+    <p><strong>type:</strong> <code class="language-plaintext highlighter-rouge">Array|Function</code></p>
   </li>
   <li>
     <p><strong>Detail:</strong></p>
@@ -526,7 +526,7 @@ For a multiple fields use a <code class="highlighter-rouge">Array</code> e.g. <c
 The value of this option can be:</p>
     <ul>
       <li>A variable (array)</li>
-      <li>An Array string e.g. <code class="highlighter-rouge">["circle"]</code></li>
+      <li>An Array string e.g. <code class="language-plaintext highlighter-rouge">["circle"]</code></li>
       <li>A function (returns an array) which gets as parameters:
         <ul>
           <li>The group key</li>
@@ -536,7 +536,7 @@ The value of this option can be:</p>
     </ul>
   </li>
   <li>
-    <p><strong>Default:</strong> <code class="highlighter-rouge">[]</code></p>
+    <p><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">[]</code></p>
   </li>
 </ul>
 
