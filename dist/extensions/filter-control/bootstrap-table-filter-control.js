@@ -29,7 +29,7 @@
     }
   }
   function _createClass(e, r, t) {
-    return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+    return _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
       writable: !1
     }), e;
   }
@@ -87,11 +87,11 @@
     for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
     return t;
   }
-  function _superPropGet(t, e, r, o) {
-    var p = _get(_getPrototypeOf(t.prototype ), e, r);
-    return function (t) {
-      return p.apply(r, t);
-    } ;
+  function _superPropGet(t, o, e, r) {
+    var p = _get(_getPrototypeOf(t.prototype ), o, e);
+    return "function" == typeof p ? function (t) {
+      return p.apply(e, t);
+    } : p;
   }
   function _toConsumableArray(r) {
     return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
@@ -524,9 +524,9 @@
   	/* eslint-disable es/no-symbol -- required for testing */
   	var NATIVE_SYMBOL = requireSymbolConstructorDetection();
 
-  	useSymbolAsUid = NATIVE_SYMBOL
-  	  && !Symbol.sham
-  	  && typeof Symbol.iterator == 'symbol';
+  	useSymbolAsUid = NATIVE_SYMBOL &&
+  	  !Symbol.sham &&
+  	  typeof Symbol.iterator == 'symbol';
   	return useSymbolAsUid;
   }
 
@@ -677,10 +677,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.38.1',
+  	  version: '3.39.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -3812,6 +3812,8 @@
   	  }
   	}
 
+  	// `Promise` constructor
+  	// https://tc39.es/ecma262/#sec-promise-executor
   	$({ global: true, constructor: true, wrap: true, forced: FORCED_PROMISE_CONSTRUCTOR }, {
   	  Promise: PromiseConstructor
   	});
@@ -5826,7 +5828,7 @@
         }
       }
     } catch (ex) {
-      // ignored
+      console.error(ex);
     }
   }
   function setValues(that) {
@@ -6061,7 +6063,7 @@
           });
         }, that.options.searchTimeOut);
       });
-      header.off('change', 'select', '.fc-multipleselect').on('change', 'select', '.fc-multipleselect', function (_ref5) {
+      header.off('change', 'select').on('change', 'select', function (_ref5) {
         var currentTarget = _ref5.currentTarget,
           keyCode = _ref5.keyCode;
         var $selectControl = $(currentTarget);

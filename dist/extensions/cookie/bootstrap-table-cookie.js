@@ -29,7 +29,7 @@
     }
   }
   function _createClass(e, r, t) {
-    return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+    return _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
       writable: !1
     }), e;
   }
@@ -159,11 +159,11 @@
     for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
     return t;
   }
-  function _superPropGet(t, e, r, o) {
-    var p = _get(_getPrototypeOf(t.prototype ), e, r);
-    return function (t) {
-      return p.apply(r, t);
-    } ;
+  function _superPropGet(t, o, e, r) {
+    var p = _get(_getPrototypeOf(t.prototype ), o, e);
+    return "function" == typeof p ? function (t) {
+      return p.apply(e, t);
+    } : p;
   }
   function _toPrimitive(t, r) {
     if ("object" != typeof t || !t) return t;
@@ -584,9 +584,9 @@
   	/* eslint-disable es/no-symbol -- required for testing */
   	var NATIVE_SYMBOL = requireSymbolConstructorDetection();
 
-  	useSymbolAsUid = NATIVE_SYMBOL
-  	  && !Symbol.sham
-  	  && typeof Symbol.iterator == 'symbol';
+  	useSymbolAsUid = NATIVE_SYMBOL &&
+  	  !Symbol.sham &&
+  	  typeof Symbol.iterator == 'symbol';
   	return useSymbolAsUid;
   }
 
@@ -737,10 +737,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.38.1',
+  	  version: '3.39.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -3800,6 +3800,7 @@
       pageNumber: 'bs.table.pageNumber',
       pageList: 'bs.table.pageList',
       hiddenColumns: 'bs.table.hiddenColumns',
+      columns: 'bs.table.columns',
       cardView: 'bs.table.cardView',
       customView: 'bs.table.customView',
       searchText: 'bs.table.searchText',
@@ -3817,6 +3818,9 @@
       return navigator.cookieEnabled;
     },
     isCookieEnabled: function isCookieEnabled(that, cookieName) {
+      if (cookieName === 'bs.table.columns') {
+        return that.options.cookiesEnabled.includes('bs.table.hiddenColumns');
+      }
       return that.options.cookiesEnabled.includes(cookieName);
     },
     setCookie: function setCookie(that, cookieName, cookieValue) {
@@ -3973,6 +3977,7 @@
     return _createClass(_class, [{
       key: "init",
       value: function init() {
+        var _this = this;
         if (this.options.cookie) {
           if (this.options.cookieStorage === 'cookieStorage' && !UtilsCookie.isCookieSupportedByBrowser()) {
             throw new Error('Cookies are not enabled in this browser.');
@@ -3988,6 +3993,7 @@
           try {
             filterByCookie = JSON.parse(filterByCookieValue);
           } catch (e) {
+            console.error(e);
             throw new Error('Could not parse the json of the filterBy cookie!');
           }
           this.filterColumns = filterByCookie ? filterByCookie : {};
@@ -3997,24 +4003,23 @@
           this._filterControlValuesLoaded = false;
           this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ? this.options.cookiesEnabled.replace('[', '').replace(']', '').replace(/'/g, '').replace(/ /g, '').split(',') : this.options.cookiesEnabled;
           if (this.options.filterControl) {
-            var that = this;
             this.$el.on('column-search.bs.table', function (e, field, text) {
               var isNewField = true;
-              for (var i = 0; i < that._filterControls.length; i++) {
-                if (that._filterControls[i].field === field) {
-                  that._filterControls[i].text = text;
+              for (var i = 0; i < _this._filterControls.length; i++) {
+                if (_this._filterControls[i].field === field) {
+                  _this._filterControls[i].text = text;
                   isNewField = false;
                   break;
                 }
               }
               if (isNewField) {
-                that._filterControls.push({
+                _this._filterControls.push({
                   field: field,
                   text: text
                 });
               }
-              UtilsCookie.setCookie(that, UtilsCookie.cookieIds.filterControl, JSON.stringify(that._filterControls));
-            }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(that));
+              UtilsCookie.setCookie(_this, UtilsCookie.cookieIds.filterControl, JSON.stringify(_this._filterControls));
+            }).on('created-controls.bs.table', UtilsCookie.initCookieFilters(this));
           }
         }
         _superPropGet(_class, "init", this)([]);
@@ -4144,6 +4149,9 @@
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.hiddenColumns, JSON.stringify(this.getHiddenColumns().map(function (column) {
           return column.field;
         })));
+        UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.columns.map(function (column) {
+          return column.field;
+        })));
       }
     }, {
       key: "_toggleAllColumns",
@@ -4156,6 +4164,9 @@
           return;
         }
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.hiddenColumns, JSON.stringify(this.getHiddenColumns().map(function (column) {
+          return column.field;
+        })));
+        UtilsCookie.setCookie(this, UtilsCookie.cookieIds.columns, JSON.stringify(this.columns.map(function (column) {
           return column.field;
         })));
       }
@@ -4240,15 +4251,20 @@
         var cardViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.cardView);
         var customViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.customView);
         var hiddenColumnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.hiddenColumns);
+        var columnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.columns);
         var hiddenColumnsCookie = {};
+        var columnsCookie = {};
         try {
           hiddenColumnsCookie = JSON.parse(hiddenColumnsCookieValue);
+          columnsCookie = JSON.parse(columnsCookieValue);
         } catch (e) {
-          throw new Error('Could not parse the json of the hidden columns cookie!', hiddenColumnsCookieValue);
+          console.error(e);
+          throw new Error('Could not parse the json of the columns cookie!');
         }
         try {
           sortPriorityCookie = JSON.parse(sortPriorityCookie);
         } catch (e) {
+          console.error(e);
           throw new Error('Could not parse the json of the sortPriority cookie!', sortPriorityCookie);
         }
         if (!sortPriorityCookie) {
@@ -4282,12 +4298,15 @@
         }
         this.customViewDefaultView = customViewCookie === 'true';
         if (hiddenColumnsCookie) {
+          columnsCookie = columnsCookie || this.columns.map(function (column) {
+            return column.field;
+          });
           var _iterator2 = _createForOfIteratorHelper(this.columns),
             _step2;
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var column = _step2.value;
-              if (!column.switchable) {
+              if (!column.switchable || !columnsCookie.includes(column.field)) {
                 continue;
               }
               column.visible = this.isSelectionColumn(column) || !hiddenColumnsCookie.includes(column.field);
@@ -4302,14 +4321,13 @@
     }, {
       key: "getCookies",
       value: function getCookies() {
-        var bootstrapTable = this;
         var cookies = {};
         for (var _i = 0, _Object$entries = Object.entries(UtilsCookie.cookieIds); _i < _Object$entries.length; _i++) {
           var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
             key = _Object$entries$_i[0],
             value = _Object$entries$_i[1];
-          cookies[key] = UtilsCookie.getCookie(bootstrapTable, value);
-          if (key === 'columns' || key === 'hiddenColumns' || key === 'sortPriority') {
+          cookies[key] = UtilsCookie.getCookie(this, value);
+          if (['columns', 'hiddenColumns', 'sortPriority'].includes(key)) {
             cookies[key] = JSON.parse(cookies[key]);
           }
         }
@@ -4326,12 +4344,11 @@
     }, {
       key: "configureStorage",
       value: function configureStorage() {
-        var that = this;
         this._storage = {};
         switch (this.options.cookieStorage) {
           case 'cookieStorage':
             this._storage.setItem = function (cookieName, cookieValue) {
-              document.cookie = [cookieName, '=', encodeURIComponent(cookieValue), "; expires=".concat(UtilsCookie.calculateExpiration(that.options.cookieExpire)), that.options.cookiePath ? "; path=".concat(that.options.cookiePath) : '', that.options.cookieDomain ? "; domain=".concat(that.options.cookieDomain) : '', that.options.cookieSecure ? '; secure' : '', ";SameSite=".concat(that.options.cookieSameSite)].join('');
+              document.cookie = [cookieName, '=', encodeURIComponent(cookieValue), "; expires=".concat(UtilsCookie.calculateExpiration(this.options.cookieExpire)), this.options.cookiePath ? "; path=".concat(this.options.cookiePath) : '', this.options.cookieDomain ? "; domain=".concat(this.options.cookieDomain) : '', this.options.cookieSecure ? '; secure' : '', ";SameSite=".concat(this.options.cookieSameSite)].join('');
             };
             this._storage.getItem = function (cookieName) {
               var value = "; ".concat(document.cookie);
@@ -4339,7 +4356,7 @@
               return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null;
             };
             this._storage.removeItem = function (cookieName) {
-              document.cookie = [encodeURIComponent(cookieName), '=', '; expires=Thu, 01 Jan 1970 00:00:00 GMT', that.options.cookiePath ? "; path=".concat(that.options.cookiePath) : '', that.options.cookieDomain ? "; domain=".concat(that.options.cookieDomain) : '', ";SameSite=".concat(that.options.cookieSameSite)].join('');
+              document.cookie = [encodeURIComponent(cookieName), '=', '; expires=Thu, 01 Jan 1970 00:00:00 GMT', this.options.cookiePath ? "; path=".concat(this.options.cookiePath) : '', this.options.cookieDomain ? "; domain=".concat(this.options.cookieDomain) : '', ";SameSite=".concat(this.options.cookieSameSite)].join('');
             };
             break;
           case 'localStorage':
@@ -4369,13 +4386,13 @@
               throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete');
             }
             this._storage.setItem = function (cookieName, cookieValue) {
-              Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageSet, [cookieName, cookieValue], '');
+              Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageSet, [cookieName, cookieValue], '');
             };
             this._storage.getItem = function (cookieName) {
-              return Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageGet, [cookieName], '');
+              return Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageGet, [cookieName], '');
             };
             this._storage.removeItem = function (cookieName) {
-              Utils.calculateObjectValue(that.options, that.options.cookieCustomStorageDelete, [cookieName], '');
+              Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageDelete, [cookieName], '');
             };
             break;
           default:

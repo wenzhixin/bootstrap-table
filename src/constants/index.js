@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Utils from '../utils/index.js'
 
-const VERSION = '1.23.5'
+const VERSION = '1.24.0'
 
 const bootstrapVersion = Utils.getBootstrapVersion()
 
