@@ -8,21 +8,51 @@ description: News and announcements for all things Bootstrap Table, including ne
 
 <span class="post-date">1 Oct 2024</span>
 
+#### Core
+
+- **New:** Added `getFooterData` method.
+- **Update:** Fixed `refresh` invalid url bug when `url` is relative path.
+- **Update:** Fixed `getData` bug with `formatted` param.
+- **Update:** Fixed column class option not work bug in td.
+
 ## Bootstrap Table 1.23.4
 
 <span class="post-date">20 Sep 2024</span>
 
-## Bootstrap Table 1.23.3
+#### Core
 
-<span class="post-date">20 Sep 2024</span>
+- **New:** Added support for column options `formatter` and `footerFormatter` methods returning type `jQuery`, `HTMLElement`.
+- **New:** Added `sortReset` method to reset the current sort state.
+- **New:** Added a presentation role if no matching rows are found.
+- **Update:** Fixed `refresh` method doesn't reuse parameters provided as query bug.
+- **Update:** Fixed compatibility issues when `colspan` is set as a string.
 
 ## Bootstrap Table 1.23.2
 
 <span class="post-date">27 Jul 2024</span>
 
+#### Core
+
+- **New:** Added `buttonsAttributeTitle` option to customize title attribute.
+- **Update:** Updated sort icons using SVG instead of PNG.
+- **Update:** Fixed search highlight not working when it contains multiple HTML elements.
+- **Update:** Fixed the `esbuild` bundle error.
+- **Update:** Fixed insertRow, updateRow, and updateCell methods bugs.
+- **Update:** Fixed `undefined` error when searching using the dotted field.
+
 ## Bootstrap Table 1.23.1
 
 <span class="post-date">13 Jul 2024</span>
+
+#### Core
+
+- **Update:** Improved vue component init twice without `setTimeout`.
+- **Update:** Updated `af-ZA`, `fr-BE`, `fr-CH`, `fr-FR`, `fr-LU`, and `id-ID` locales.
+
+#### Extensions
+
+- **Update(editable):** Fixed editable display bug of select type.
+- **Update(sticky-header):** Fixed issue if sticky-header extension is loaded but not enabled.
 
 ## Bootstrap Table 1.23.0
 
