@@ -7,13 +7,11 @@ tools
 tests
 _config.yml
 .browserslistrc
-.eslintrc.js
-.ncurc.json
-.stylelintrc
-.travis.yml
+.cspell-words.txt
+.cspell.json
+.editorconfig
 CONTRIBUTING.md
-deploy_key.enc
-deploy.sh
+cypress.config.js
 DONATORS.md
 Gemfile
 Gemfile.lock
