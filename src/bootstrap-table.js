@@ -3248,7 +3248,8 @@ class BootstrapTable {
   }
 
   filterBy (columns, options) {
-    this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions : Utils.extend(this.options.filterOptions, options)
+    this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions :
+      Utils.extend({}, this.options.filterOptions, options)
     this.filterColumns = Utils.isEmptyObject(columns) ? {} : columns
     this.options.pageNumber = 1
     this.initSearch()
