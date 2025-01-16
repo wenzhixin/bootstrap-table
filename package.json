@@ -26,7 +26,7 @@
     "core-js": "^3.39.0",
     "cross-env": "^7.0.3",
     "cspell": "^8.17.1",
-    "cypress": "^13.17.0",
+    "cypress": "^14.0.0",
     "editorconfig-checker": "^6.0.0",
     "eslint": "^9.17.0",
     "eslint-plugin-import": "^2.31.0",
