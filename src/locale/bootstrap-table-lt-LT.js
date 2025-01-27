@@ -33,7 +33,7 @@ $.fn.bootstrapTable.locales['lt-LT'] = $.fn.bootstrapTable.locales['lt'] = {
     return 'sekantis puslapis'
   },
   formatDetailPagination (totalRows) {
-    return `Rodomos ${totalRows} eilutės`
+    return `Rodomos ${totalRows} eilutės (-čių)`
   },
   formatClearSearch () {
     return 'Išvalyti paiešką'
@@ -72,7 +72,7 @@ $.fn.bootstrapTable.locales['lt-LT'] = $.fn.bootstrapTable.locales['lt'] = {
     return 'Visame ekrane'
   },
   formatAllRows () {
-    return 'Visi'
+    return 'Viskas'
   },
   formatAutoRefresh () {
     return 'Automatinis atnaujinimas'
