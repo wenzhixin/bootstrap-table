@@ -18,6 +18,8 @@ toc: true
 />
 {% endhighlight %}
 
+**Note:** when using `v-if`, it is recommended to wrap `BootstrapTable` with a `div` to avoid unnecessary errors.
+
 ## Props
 
 ### columns
