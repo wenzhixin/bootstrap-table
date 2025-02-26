@@ -48,6 +48,9 @@ export default {
 
     this._initTable()
   },
+  beforeUnmount () {
+    this.$table.bootstrapTable('destroy')
+  },
   methods: {
     _initTable () {
       const options = {
