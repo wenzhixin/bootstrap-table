@@ -1,6 +1,18 @@
 ChangeLog
 ---------
 
+### 1.24.1
+
+#### Core
+
+- **New:** Add `lt-LT` locale.
+- **Update:** Fixed `filterBy` not working bug after using `filterAlgorithm` option.
+- **Update:** Fixed cookie extension throws js error bug.
+- **Update:** Fixed icons prefix bugs in extensions.
+- **Update:** Fix bug where totalRows is not integer in formatter.
+- **Update:** Fixed bug of table is not destroyed after vue component is unmounted.
+- **Update:** Fixed high severity vulnerability issue using `npm-run-all2` instead.
+
 ### 1.24.0
 
 #### Core
