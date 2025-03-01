@@ -547,7 +547,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this._storage = {}
     switch (this.options.cookieStorage) {
       case 'cookieStorage':
-        this._storage.setItem = function (cookieName, cookieValue) {
+        this._storage.setItem = (cookieName, cookieValue) => {
           document.cookie = [
             cookieName, '=', encodeURIComponent(cookieValue),
             `; expires=${UtilsCookie.calculateExpiration(this.options.cookieExpire)}`,
@@ -557,13 +557,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
             `;SameSite=${this.options.cookieSameSite}`
           ].join('')
         }
-        this._storage.getItem = function (cookieName) {
+        this._storage.getItem = cookieName => {
           const value = `; ${document.cookie}`
           const parts = value.split(`; ${cookieName}=`)
 
           return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null
         }
-        this._storage.removeItem = function (cookieName) {
+        this._storage.removeItem = cookieName => {
           document.cookie = [
             encodeURIComponent(cookieName), '=',
             '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
@@ -574,24 +574,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
         break
       case 'localStorage':
-        this._storage.setItem = function (cookieName, cookieValue) {
+        this._storage.setItem = (cookieName, cookieValue) => {
           localStorage.setItem(cookieName, cookieValue)
         }
-        this._storage.getItem = function (cookieName) {
-          return localStorage.getItem(cookieName)
-        }
-        this._storage.removeItem = function (cookieName) {
+        this._storage.getItem = cookieName => localStorage.getItem(cookieName)
+        this._storage.removeItem = cookieName => {
           localStorage.removeItem(cookieName)
         }
         break
       case 'sessionStorage':
-        this._storage.setItem = function (cookieName, cookieValue) {
+        this._storage.setItem = (cookieName, cookieValue) => {
           sessionStorage.setItem(cookieName, cookieValue)
         }
-        this._storage.getItem = function (cookieName) {
-          return sessionStorage.getItem(cookieName)
-        }
-        this._storage.removeItem = function (cookieName) {
+        this._storage.getItem = cookieName => sessionStorage.getItem(cookieName)
+        this._storage.removeItem = cookieName => {
           sessionStorage.removeItem(cookieName)
         }
         break
@@ -604,16 +600,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
           throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete')
         }
 
-        this._storage.setItem = function (cookieName, cookieValue) {
+        this._storage.setItem = (cookieName, cookieValue) => {
           Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageSet, [cookieName, cookieValue], '')
         }
-        this._storage.getItem = function (cookieName) {
-          return Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageGet, [cookieName], '')
-        }
-        this._storage.removeItem = function (cookieName) {
+        this._storage.getItem = cookieName => Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageGet, [cookieName], '')
+        this._storage.removeItem = cookieName => {
           Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageDelete, [cookieName], '')
         }
-
         break
       default:
         throw new Error('Storage method not supported.')
