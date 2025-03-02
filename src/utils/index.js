@@ -21,6 +21,12 @@ export default {
     return bootstrapVersion
   },
 
+  /**
+   * Returns the prefix for the icons based on the theme.
+   *
+   * @param {string} theme - The theme name (bootstrap3, bootstrap4, bootstrap5, bootstrap-table, bulma, foundation, materialize, semantic).
+   * @returns {string} The icons prefix.
+   */
   getIconsPrefix (theme) {
     return {
       bootstrap3: 'glyphicon',
@@ -34,75 +40,28 @@ export default {
     }[theme] || 'fa'
   },
 
-  getIcons (prefix) {
-    return {
-      glyphicon: {
-        clearSearch: 'glyphicon-trash',
-        columns: 'glyphicon-th icon-th',
-        detailClose: 'glyphicon-minus icon-minus',
-        detailOpen: 'glyphicon-plus icon-plus',
-        fullscreen: 'glyphicon-fullscreen',
-        paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
-        paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
-        refresh: 'glyphicon-refresh icon-refresh',
-        search: 'glyphicon-search',
-        toggleOff: 'glyphicon-list-alt icon-list-alt',
-        toggleOn: 'glyphicon-list-alt icon-list-alt'
-      },
-      fa: {
-        clearSearch: 'fa-trash',
-        columns: 'fa-th-list',
-        detailClose: 'fa-minus',
-        detailOpen: 'fa-plus',
-        fullscreen: 'fa-arrows-alt',
-        paginationSwitchDown: 'fa-caret-square-down',
-        paginationSwitchUp: 'fa-caret-square-up',
-        refresh: 'fa-sync',
-        search: 'fa-search',
-        toggleOff: 'fa-toggle-off',
-        toggleOn: 'fa-toggle-on'
-      },
-      bi: {
-        clearSearch: 'bi-trash',
-        columns: 'bi-list-ul',
-        detailClose: 'bi-dash',
-        detailOpen: 'bi-plus',
-        fullscreen: 'bi-arrows-move',
-        paginationSwitchDown: 'bi-caret-down-square',
-        paginationSwitchUp: 'bi-caret-up-square',
-        refresh: 'bi-arrow-clockwise',
-        search: 'bi-search',
-        toggleOff: 'bi-toggle-off',
-        toggleOn: 'bi-toggle-on'
-      },
-      icon: {
-        clearSearch: 'icon-trash-2',
-        columns: 'icon-list',
-        detailClose: 'icon-minus',
-        detailOpen: 'icon-plus',
-        fullscreen: 'icon-maximize',
-        paginationSwitchDown: 'icon-arrow-up-circle',
-        paginationSwitchUp: 'icon-arrow-down-circle',
-        refresh: 'icon-refresh-cw',
-        search: 'icon-search',
-        toggleOff: 'icon-toggle-right',
-        toggleOn: 'icon-toggle-right'
-      },
-      'material-icons': {
-        clearSearch: 'delete',
-        columns: 'view_list',
-        detailClose: 'remove',
-        detailOpen: 'add',
-        fullscreen: 'fullscreen',
-        paginationSwitchDown: 'grid_on',
-        paginationSwitchUp: 'grid_off',
-        refresh: 'refresh',
-        search: 'search',
-        sort: 'sort',
-        toggleOff: 'tablet',
-        toggleOn: 'tablet_android'
-      }
-    }[prefix] || {}
+  /**
+   * Gets the icons for a given prefix.
+   *
+   * @param {Object.<string, Object>} icons - The icons object.
+   * @param {string} prefix - The prefix. For example, 'fa', 'bi', etc.
+   * @return {Object} The icons object for the given prefix.
+   */
+  getIcons (icons, prefix) {
+    return icons[prefix] || {}
+  },
+
+  /**
+   * Assigns new icons to icons object.
+   *
+   * @param {Object.<string, Object>} icons - The icons object.
+   * @param {string} icon - The icon name. For example, 'search', 'refresh', etc.
+   * @param {Object.<string, string>} values - The values object.
+   */
+  assignIcons (icons, icon, values) {
+    for (const key of Object.keys(icons)) {
+      icons[key][icon] = values[key]
+    }
   },
 
   getSearchInput (that) {

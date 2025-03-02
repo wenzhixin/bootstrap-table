@@ -10,9 +10,6 @@ const Utils = $.fn.bootstrapTable.utils
 
 const theme = {
   bootstrap3: {
-    icons: {
-      advancedSearchIcon: 'glyphicon-chevron-down'
-    },
     classes: {},
     html: {
       modal: `
@@ -36,9 +33,6 @@ const theme = {
     }
   },
   bootstrap4: {
-    icons: {
-      advancedSearchIcon: 'fa-chevron-down'
-    },
     classes: {},
     html: {
       modal: `
@@ -62,9 +56,6 @@ const theme = {
     }
   },
   bootstrap5: {
-    icons: {
-      advancedSearchIcon: 'bi-chevron-down'
-    },
     classes: {
       formGroup: 'mb-3'
     },
@@ -88,9 +79,6 @@ const theme = {
     }
   },
   bulma: {
-    icons: {
-      advancedSearchIcon: 'fa-chevron-down'
-    },
     classes: {},
     html: {
       modal: `
@@ -111,9 +99,6 @@ const theme = {
     }
   },
   foundation: {
-    icons: {
-      advancedSearchIcon: 'fa-chevron-down'
-    },
     classes: {},
     html: {
       modal: `
@@ -131,9 +116,6 @@ const theme = {
     }
   },
   materialize: {
-    icons: {
-      advancedSearchIcon: 'expand_more'
-    },
     classes: {},
     html: {
       modal: `
@@ -150,9 +132,6 @@ const theme = {
     }
   },
   semantic: {
-    icons: {
-      advancedSearchIcon: 'fa-chevron-down'
-    },
     classes: {},
     html: {
       modal: `
@@ -180,8 +159,11 @@ Object.assign($.fn.bootstrapTable.defaults, {
   }
 })
 
-Object.assign($.fn.bootstrapTable.defaults.icons, {
-  advancedSearchIcon: theme.icons.advancedSearchIcon
+Utils.assignIcons($.fn.bootstrapTable.icons, 'advancedSearchIcon', {
+  glyphicon: 'glyphicon-chevron-down',
+  fa: 'fa-chevron-down',
+  bi: 'bi-chevron-down',
+  'material-icons': 'expand_more'
 })
 
 Object.assign($.fn.bootstrapTable.events, {

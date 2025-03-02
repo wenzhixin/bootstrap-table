@@ -74,12 +74,12 @@ Object.assign($.fn.bootstrapTable.columnDefaults, {
   printFormatter: undefined
 })
 
-Object.assign($.fn.bootstrapTable.defaults.icons, {
-  print: {
-    bootstrap3: 'glyphicon-print icon-share',
-    bootstrap5: 'bi-printer',
-    'bootstrap-table': 'icon-printer'
-  }[$.fn.bootstrapTable.theme] || 'fa-print'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'print', {
+  glyphicon: 'glyphicon-print icon-share',
+  fa: 'fa-print',
+  bi: 'bi-printer',
+  icon: 'icon-printer',
+  'material-icons': 'print'
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {

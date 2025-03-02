@@ -15,13 +15,12 @@ Object.assign($.fn.bootstrapTable.defaults, {
   autoRefreshFunction: null
 })
 
-Object.assign($.fn.bootstrapTable.defaults.icons, {
-  autoRefresh: {
-    bootstrap3: 'glyphicon-time icon-time',
-    bootstrap5: 'bi-clock',
-    materialize: 'access_time',
-    'bootstrap-table': 'icon-clock'
-  }[$.fn.bootstrapTable.theme] || 'fa-clock'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'autoRefresh', {
+  glyphicon: 'glyphicon-time icon-time',
+  fa: 'fa-clock',
+  bi: 'bi-clock',
+  icon: 'icon-clock',
+  'material-icons': 'access_time'
 })
 
 Object.assign($.fn.bootstrapTable.locales, {
@@ -45,15 +44,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.autoRefresh) {
       this.buttons = Object.assign(this.buttons, {
         autoRefresh: {
-          html: `
-            <button class="auto-refresh ${this.constants.buttonsClass}
-              ${this.options.autoRefreshStatus ? ` ${this.constants.classes.buttonActive}` : ''}"
-              type="button" name="autoRefresh" title="${this.options.formatAutoRefresh()}">
-              ${this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : ''}
-              ${this.options.showButtonText ? this.options.formatAutoRefresh() : ''}
-            </button>
-          `,
-          event: this.toggleAutoRefresh
+          text: this.options.formatAutoRefresh(),
+          icon: this.options.icons.autoRefresh,
+          render: false,
+          event: this.toggleAutoRefresh,
+          attributes: {
+            'aria-label': this.options.formatAutoRefresh(),
+            title: this.options.formatAutoRefresh()
+          }
         }
       })
     }

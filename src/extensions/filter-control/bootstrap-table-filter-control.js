@@ -83,17 +83,18 @@ Object.assign($.fn.bootstrapTable.events, {
   'created-controls.bs.table': 'onCreatedControls'
 })
 
-Object.assign($.fn.bootstrapTable.defaults.icons, {
-  filterControlSwitchHide: {
-    bootstrap3: 'glyphicon-zoom-out icon-zoom-out',
-    bootstrap5: 'bi-zoom-out',
-    materialize: 'zoom_out'
-  }[$.fn.bootstrapTable.theme] || 'fa-search-minus',
-  filterControlSwitchShow: {
-    bootstrap3: 'glyphicon-zoom-in icon-zoom-in',
-    bootstrap5: 'bi-zoom-in',
-    materialize: 'zoom_in'
-  }[$.fn.bootstrapTable.theme] || 'fa-search-plus'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'filterControlSwitchHide', {
+  glyphicon: 'glyphicon-zoom-out icon-zoom-out',
+  fa: 'fa-search-minus',
+  bi: 'bi-zoom-out',
+  'material-icons': 'zoom_out'
+})
+
+Utils.assignIcons($.fn.bootstrapTable.icons, 'filterControlSwitchShow', {
+  glyphicon: 'glyphicon-zoom-in icon-zoom-in',
+  fa: 'fa-search-plus',
+  bi: 'bi-zoom-in',
+  'material-icons': 'zoom_in'
 })
 
 Object.assign($.fn.bootstrapTable.locales, {

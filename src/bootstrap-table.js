@@ -47,7 +47,8 @@ class BootstrapTable {
     }
 
     opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix
-    opts.icons = Object.assign(Utils.getIcons(opts.iconsPrefix), $.fn.bootstrapTable.defaults.icons, opts.icons)
+    opts.icons = Object.assign(Utils.getIcons(Constants.ICONS, opts.iconsPrefix),
+      $.fn.bootstrapTable.defaults.icons, opts.icons)
 
     // init buttons class
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
@@ -3482,6 +3483,7 @@ $.fn.bootstrapTable = function (option, ...args) {
 $.fn.bootstrapTable.Constructor = BootstrapTable
 $.fn.bootstrapTable.theme = Constants.THEME
 $.fn.bootstrapTable.VERSION = Constants.VERSION
+$.fn.bootstrapTable.icons = Constants.ICONS
 $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS
 $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS
 $.fn.bootstrapTable.events = BootstrapTable.EVENTS

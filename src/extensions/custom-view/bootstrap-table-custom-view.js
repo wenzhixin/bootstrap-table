@@ -11,25 +11,20 @@ Object.assign($.fn.bootstrapTable.defaults, {
   customViewDefaultView: false
 })
 
-Object.assign($.fn.bootstrapTable.defaults.icons, {
-  customViewOn: {
-    bootstrap3: 'glyphicon glyphicon-list',
-    bootstrap5: 'bi-list',
-    bootstrap4: 'fa fa-list',
-    semantic: 'fa fa-list',
-    foundation: 'fa fa-list',
-    bulma: 'fa fa-list',
-    materialize: 'list'
-  }[$.fn.bootstrapTable.theme] || 'fa-list',
-  customViewOff: {
-    bootstrap3: 'glyphicon glyphicon-thumbnails',
-    bootstrap5: 'bi-grid',
-    bootstrap4: 'fa fa-th',
-    semantic: 'fa fa-th',
-    foundation: 'fa fa-th',
-    bulma: 'fa fa-th',
-    materialize: 'grid_on'
-  }[$.fn.bootstrapTable.theme] || 'fa-th'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'customViewOn', {
+  glyphicon: 'glyphicon-list',
+  fa: 'fa-list',
+  bi: 'bi-list',
+  icon: 'list',
+  'material-icons': 'list'
+})
+
+Utils.assignIcons($.fn.bootstrapTable.icons, 'customViewOff', {
+  glyphicon: 'glyphicon-thumbnails',
+  fa: 'fa-th',
+  bi: 'bi-grid',
+  icon: 'grid_on',
+  'material-icons': 'grid_on'
 })
 
 Object.assign($.fn.bootstrapTable.defaults, {
