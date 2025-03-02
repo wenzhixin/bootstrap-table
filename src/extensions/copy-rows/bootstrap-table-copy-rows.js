@@ -12,13 +12,12 @@ Object.assign($.fn.bootstrapTable.locales, {
 })
 Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-Object.assign($.fn.bootstrapTable.defaults.icons, {
-  copy: {
-    bootstrap3: 'glyphicon-copy icon-pencil',
-    bootstrap5: 'bi-clipboard',
-    materialize: 'content_copy',
-    'bootstrap-table': 'icon-copy'
-  }[$.fn.bootstrapTable.theme] || 'fa-copy'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'copy', {
+  glyphicon: 'glyphicon-copy icon-pencil',
+  fa: 'fa-copy',
+  bi: 'bi-clipboard',
+  icon: 'icon-copy',
+  'material-icons': 'content_copy'
 })
 
 const copyText = text => {

@@ -108,6 +108,75 @@ const CONSTANTS = {
   }
 }[bootstrapVersion]
 
+const ICONS = {
+  glyphicon: {
+    clearSearch: 'glyphicon-trash',
+    columns: 'glyphicon-th icon-th',
+    detailClose: 'glyphicon-minus icon-minus',
+    detailOpen: 'glyphicon-plus icon-plus',
+    fullscreen: 'glyphicon-fullscreen',
+    paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+    paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
+    refresh: 'glyphicon-refresh icon-refresh',
+    search: 'glyphicon-search',
+    toggleOff: 'glyphicon-list-alt icon-list-alt',
+    toggleOn: 'glyphicon-list-alt icon-list-alt'
+  },
+  fa: {
+    clearSearch: 'fa-trash',
+    columns: 'fa-th-list',
+    detailClose: 'fa-minus',
+    detailOpen: 'fa-plus',
+    fullscreen: 'fa-arrows-alt',
+    paginationSwitchDown: 'fa-caret-square-down',
+    paginationSwitchUp: 'fa-caret-square-up',
+    refresh: 'fa-sync',
+    search: 'fa-search',
+    toggleOff: 'fa-toggle-off',
+    toggleOn: 'fa-toggle-on'
+  },
+  bi: {
+    clearSearch: 'bi-trash',
+    columns: 'bi-list-ul',
+    detailClose: 'bi-dash',
+    detailOpen: 'bi-plus',
+    fullscreen: 'bi-arrows-move',
+    paginationSwitchDown: 'bi-caret-down-square',
+    paginationSwitchUp: 'bi-caret-up-square',
+    refresh: 'bi-arrow-clockwise',
+    search: 'bi-search',
+    toggleOff: 'bi-toggle-off',
+    toggleOn: 'bi-toggle-on'
+  },
+  icon: {
+    clearSearch: 'icon-trash-2',
+    columns: 'icon-list',
+    detailClose: 'icon-minus',
+    detailOpen: 'icon-plus',
+    fullscreen: 'icon-maximize',
+    paginationSwitchDown: 'icon-arrow-up-circle',
+    paginationSwitchUp: 'icon-arrow-down-circle',
+    refresh: 'icon-refresh-cw',
+    search: 'icon-search',
+    toggleOff: 'icon-toggle-right',
+    toggleOn: 'icon-toggle-right'
+  },
+  'material-icons': {
+    clearSearch: 'delete',
+    columns: 'view_list',
+    detailClose: 'remove',
+    detailOpen: 'add',
+    fullscreen: 'fullscreen',
+    paginationSwitchDown: 'grid_on',
+    paginationSwitchUp: 'grid_off',
+    refresh: 'refresh',
+    search: 'search',
+    sort: 'sort',
+    toggleOff: 'tablet',
+    toggleOn: 'tablet_android'
+  }
+}
+
 const DEFAULTS = {
   ajax: undefined,
   ajaxOptions: {},
@@ -449,6 +518,7 @@ export default {
   CONSTANTS,
   DEFAULTS,
   EVENTS,
+  ICONS,
   LOCALES: {
     en: EN,
     'en-US': EN

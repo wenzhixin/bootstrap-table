@@ -19,17 +19,18 @@ const groupBy = (array, f) => {
   return tmpGroups
 }
 
-Object.assign($.fn.bootstrapTable.defaults.icons, {
-  collapseGroup: {
-    bootstrap3: 'glyphicon-chevron-up',
-    bootstrap5: 'bi-chevron-up',
-    materialize: 'arrow_drop_down'
-  }[$.fn.bootstrapTable.theme] || 'fa-angle-up',
-  expandGroup: {
-    bootstrap3: 'glyphicon-chevron-down',
-    bootstrap5: 'bi-chevron-down',
-    materialize: 'arrow_drop_up'
-  }[$.fn.bootstrapTable.theme] || 'fa-angle-down'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'collapseGroup', {
+  glyphicon: 'glyphicon-chevron-up',
+  fa: 'fa-angle-up',
+  bi: 'bi-chevron-up',
+  'material-icons': 'arrow_drop_down'
+})
+
+Utils.assignIcons($.fn.bootstrapTable.icons, 'expandGroup', {
+  glyphicon: 'glyphicon-chevron-down',
+  fa: 'fa-angle-down',
+  bi: 'bi-chevron-down',
+  'material-icons': 'arrow_drop_up'
 })
 
 Object.assign($.fn.bootstrapTable.defaults, {

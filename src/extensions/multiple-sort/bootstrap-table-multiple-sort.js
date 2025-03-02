@@ -7,37 +7,28 @@
 let isSingleSort = false
 const Utils = $.fn.bootstrapTable.utils
 
-Object.assign($.fn.bootstrapTable.defaults.icons, {
-  plus: {
-    bootstrap3: 'glyphicon-plus',
-    bootstrap4: 'fa-plus',
-    bootstrap5: 'bi-plus',
-    semantic: 'fa-plus',
-    materialize: 'plus',
-    foundation: 'fa-plus',
-    bulma: 'fa-plus',
-    'bootstrap-table': 'icon-plus'
-  }[$.fn.bootstrapTable.theme] || 'fa-clock',
-  minus: {
-    bootstrap3: 'glyphicon-minus',
-    bootstrap4: 'fa-minus',
-    bootstrap5: 'bi-dash',
-    semantic: 'fa-minus',
-    materialize: 'minus',
-    foundation: 'fa-minus',
-    bulma: 'fa-minus',
-    'bootstrap-table': 'icon-minus'
-  }[$.fn.bootstrapTable.theme] || 'fa-clock',
-  sort: {
-    bootstrap3: 'glyphicon-sort',
-    bootstrap4: 'fa-sort',
-    bootstrap5: 'bi-arrow-down-up',
-    semantic: 'fa-sort',
-    materialize: 'sort',
-    foundation: 'fa-sort',
-    bulma: 'fa-sort',
-    'bootstrap-table': 'icon-sort-amount-asc'
-  }[$.fn.bootstrapTable.theme] || 'fa-clock'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'plus', {
+  glyphicon: 'glyphicon-plus',
+  fa: 'fa-plus',
+  bi: 'bi-plus',
+  icon: 'icon-plus',
+  'material-icons': 'plus'
+})
+
+Utils.assignIcons($.fn.bootstrapTable.icons, 'minus', {
+  glyphicon: 'glyphicon-minus',
+  fa: 'fa-minus',
+  bi: 'bi-dash',
+  icon: 'icon-minus',
+  'material-icons': 'minus'
+})
+
+Utils.assignIcons($.fn.bootstrapTable.icons, 'sort', {
+  glyphicon: 'glyphicon-sort',
+  fa: 'fa-sort',
+  bi: 'bi-arrow-down-up',
+  icon: 'icon-sort-amount-asc',
+  'material-icons': 'sort'
 })
 
 const theme = {
