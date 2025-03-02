@@ -96,7 +96,7 @@
 
   var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-  var es_array_concat = {};
+  var es_array_find = {};
 
   var globalThis_1;
   var hasRequiredGlobalThis;
@@ -1611,6 +1611,46 @@
   	return _export;
   }
 
+  var functionUncurryThisClause;
+  var hasRequiredFunctionUncurryThisClause;
+
+  function requireFunctionUncurryThisClause () {
+  	if (hasRequiredFunctionUncurryThisClause) return functionUncurryThisClause;
+  	hasRequiredFunctionUncurryThisClause = 1;
+  	var classofRaw = requireClassofRaw();
+  	var uncurryThis = requireFunctionUncurryThis();
+
+  	functionUncurryThisClause = function (fn) {
+  	  // Nashorn bug:
+  	  //   https://github.com/zloirock/core-js/issues/1128
+  	  //   https://github.com/zloirock/core-js/issues/1130
+  	  if (classofRaw(fn) === 'Function') return uncurryThis(fn);
+  	};
+  	return functionUncurryThisClause;
+  }
+
+  var functionBindContext;
+  var hasRequiredFunctionBindContext;
+
+  function requireFunctionBindContext () {
+  	if (hasRequiredFunctionBindContext) return functionBindContext;
+  	hasRequiredFunctionBindContext = 1;
+  	var uncurryThis = requireFunctionUncurryThisClause();
+  	var aCallable = requireACallable();
+  	var NATIVE_BIND = requireFunctionBindNative();
+
+  	var bind = uncurryThis(uncurryThis.bind);
+
+  	// optional / simple context binding
+  	functionBindContext = function (fn, that) {
+  	  aCallable(fn);
+  	  return that === undefined ? fn : NATIVE_BIND ? bind(fn, that) : function (/* ...args */) {
+  	    return fn.apply(that, arguments);
+  	  };
+  	};
+  	return functionBindContext;
+  }
+
   var isArray;
   var hasRequiredIsArray;
 
@@ -1626,39 +1666,6 @@
   	  return classof(argument) === 'Array';
   	};
   	return isArray;
-  }
-
-  var doesNotExceedSafeInteger;
-  var hasRequiredDoesNotExceedSafeInteger;
-
-  function requireDoesNotExceedSafeInteger () {
-  	if (hasRequiredDoesNotExceedSafeInteger) return doesNotExceedSafeInteger;
-  	hasRequiredDoesNotExceedSafeInteger = 1;
-  	var $TypeError = TypeError;
-  	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF; // 2 ** 53 - 1 == 9007199254740991
-
-  	doesNotExceedSafeInteger = function (it) {
-  	  if (it > MAX_SAFE_INTEGER) throw $TypeError('Maximum allowed index exceeded');
-  	  return it;
-  	};
-  	return doesNotExceedSafeInteger;
-  }
-
-  var createProperty;
-  var hasRequiredCreateProperty;
-
-  function requireCreateProperty () {
-  	if (hasRequiredCreateProperty) return createProperty;
-  	hasRequiredCreateProperty = 1;
-  	var DESCRIPTORS = requireDescriptors();
-  	var definePropertyModule = requireObjectDefineProperty();
-  	var createPropertyDescriptor = requireCreatePropertyDescriptor();
-
-  	createProperty = function (object, key, value) {
-  	  if (DESCRIPTORS) definePropertyModule.f(object, key, createPropertyDescriptor(0, value));
-  	  else object[key] = value;
-  	};
-  	return createProperty;
   }
 
   var toStringTagSupport;
@@ -1821,143 +1828,6 @@
   	  return new (arraySpeciesConstructor(originalArray))(length === 0 ? 0 : length);
   	};
   	return arraySpeciesCreate;
-  }
-
-  var arrayMethodHasSpeciesSupport;
-  var hasRequiredArrayMethodHasSpeciesSupport;
-
-  function requireArrayMethodHasSpeciesSupport () {
-  	if (hasRequiredArrayMethodHasSpeciesSupport) return arrayMethodHasSpeciesSupport;
-  	hasRequiredArrayMethodHasSpeciesSupport = 1;
-  	var fails = requireFails();
-  	var wellKnownSymbol = requireWellKnownSymbol();
-  	var V8_VERSION = requireEnvironmentV8Version();
-
-  	var SPECIES = wellKnownSymbol('species');
-
-  	arrayMethodHasSpeciesSupport = function (METHOD_NAME) {
-  	  // We can't use this feature detection in V8 since it causes
-  	  // deoptimization and serious performance degradation
-  	  // https://github.com/zloirock/core-js/issues/677
-  	  return V8_VERSION >= 51 || !fails(function () {
-  	    var array = [];
-  	    var constructor = array.constructor = {};
-  	    constructor[SPECIES] = function () {
-  	      return { foo: 1 };
-  	    };
-  	    return array[METHOD_NAME](Boolean).foo !== 1;
-  	  });
-  	};
-  	return arrayMethodHasSpeciesSupport;
-  }
-
-  var hasRequiredEs_array_concat;
-
-  function requireEs_array_concat () {
-  	if (hasRequiredEs_array_concat) return es_array_concat;
-  	hasRequiredEs_array_concat = 1;
-  	var $ = require_export();
-  	var fails = requireFails();
-  	var isArray = requireIsArray();
-  	var isObject = requireIsObject();
-  	var toObject = requireToObject();
-  	var lengthOfArrayLike = requireLengthOfArrayLike();
-  	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
-  	var createProperty = requireCreateProperty();
-  	var arraySpeciesCreate = requireArraySpeciesCreate();
-  	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
-  	var wellKnownSymbol = requireWellKnownSymbol();
-  	var V8_VERSION = requireEnvironmentV8Version();
-
-  	var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
-
-  	// We can't use this feature detection in V8 since it causes
-  	// deoptimization and serious performance degradation
-  	// https://github.com/zloirock/core-js/issues/679
-  	var IS_CONCAT_SPREADABLE_SUPPORT = V8_VERSION >= 51 || !fails(function () {
-  	  var array = [];
-  	  array[IS_CONCAT_SPREADABLE] = false;
-  	  return array.concat()[0] !== array;
-  	});
-
-  	var isConcatSpreadable = function (O) {
-  	  if (!isObject(O)) return false;
-  	  var spreadable = O[IS_CONCAT_SPREADABLE];
-  	  return spreadable !== undefined ? !!spreadable : isArray(O);
-  	};
-
-  	var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !arrayMethodHasSpeciesSupport('concat');
-
-  	// `Array.prototype.concat` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.concat
-  	// with adding support of @@isConcatSpreadable and @@species
-  	$({ target: 'Array', proto: true, arity: 1, forced: FORCED }, {
-  	  // eslint-disable-next-line no-unused-vars -- required for `.length`
-  	  concat: function concat(arg) {
-  	    var O = toObject(this);
-  	    var A = arraySpeciesCreate(O, 0);
-  	    var n = 0;
-  	    var i, k, length, len, E;
-  	    for (i = -1, length = arguments.length; i < length; i++) {
-  	      E = i === -1 ? O : arguments[i];
-  	      if (isConcatSpreadable(E)) {
-  	        len = lengthOfArrayLike(E);
-  	        doesNotExceedSafeInteger(n + len);
-  	        for (k = 0; k < len; k++, n++) if (k in E) createProperty(A, n, E[k]);
-  	      } else {
-  	        doesNotExceedSafeInteger(n + 1);
-  	        createProperty(A, n++, E);
-  	      }
-  	    }
-  	    A.length = n;
-  	    return A;
-  	  }
-  	});
-  	return es_array_concat;
-  }
-
-  requireEs_array_concat();
-
-  var es_array_find = {};
-
-  var functionUncurryThisClause;
-  var hasRequiredFunctionUncurryThisClause;
-
-  function requireFunctionUncurryThisClause () {
-  	if (hasRequiredFunctionUncurryThisClause) return functionUncurryThisClause;
-  	hasRequiredFunctionUncurryThisClause = 1;
-  	var classofRaw = requireClassofRaw();
-  	var uncurryThis = requireFunctionUncurryThis();
-
-  	functionUncurryThisClause = function (fn) {
-  	  // Nashorn bug:
-  	  //   https://github.com/zloirock/core-js/issues/1128
-  	  //   https://github.com/zloirock/core-js/issues/1130
-  	  if (classofRaw(fn) === 'Function') return uncurryThis(fn);
-  	};
-  	return functionUncurryThisClause;
-  }
-
-  var functionBindContext;
-  var hasRequiredFunctionBindContext;
-
-  function requireFunctionBindContext () {
-  	if (hasRequiredFunctionBindContext) return functionBindContext;
-  	hasRequiredFunctionBindContext = 1;
-  	var uncurryThis = requireFunctionUncurryThisClause();
-  	var aCallable = requireACallable();
-  	var NATIVE_BIND = requireFunctionBindNative();
-
-  	var bind = uncurryThis(uncurryThis.bind);
-
-  	// optional / simple context binding
-  	functionBindContext = function (fn, that) {
-  	  aCallable(fn);
-  	  return that === undefined ? fn : NATIVE_BIND ? bind(fn, that) : function (/* ...args */) {
-  	    return fn.apply(that, arguments);
-  	  };
-  	};
-  	return functionBindContext;
   }
 
   var arrayIteration;
@@ -2394,13 +2264,12 @@
     autoRefreshStatus: true,
     autoRefreshFunction: null
   });
-  Object.assign($.fn.bootstrapTable.defaults.icons, {
-    autoRefresh: {
-      bootstrap3: 'glyphicon-time icon-time',
-      bootstrap5: 'bi-clock',
-      materialize: 'access_time',
-      'bootstrap-table': 'icon-clock'
-    }[$.fn.bootstrapTable.theme] || 'fa-clock'
+  Utils.assignIcons($.fn.bootstrapTable.icons, 'autoRefresh', {
+    glyphicon: 'glyphicon-time icon-time',
+    fa: 'fa-clock',
+    bi: 'bi-clock',
+    icon: 'icon-clock',
+    'material-icons': 'access_time'
   });
   Object.assign($.fn.bootstrapTable.locales, {
     formatAutoRefresh: function formatAutoRefresh() {
@@ -2431,8 +2300,14 @@
         if (this.options.autoRefresh) {
           this.buttons = Object.assign(this.buttons, {
             autoRefresh: {
-              html: "\n            <button class=\"auto-refresh ".concat(this.constants.buttonsClass, "\n              ").concat(this.options.autoRefreshStatus ? " ".concat(this.constants.classes.buttonActive) : '', "\"\n              type=\"button\" name=\"autoRefresh\" title=\"").concat(this.options.formatAutoRefresh(), "\">\n              ").concat(this.options.showButtonIcons ? Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, this.options.icons.autoRefresh) : '', "\n              ").concat(this.options.showButtonText ? this.options.formatAutoRefresh() : '', "\n            </button>\n          "),
-              event: this.toggleAutoRefresh
+              text: this.options.formatAutoRefresh(),
+              icon: this.options.icons.autoRefresh,
+              render: false,
+              event: this.toggleAutoRefresh,
+              attributes: {
+                'aria-label': this.options.formatAutoRefresh(),
+                title: this.options.formatAutoRefresh()
+              }
             }
           });
         }

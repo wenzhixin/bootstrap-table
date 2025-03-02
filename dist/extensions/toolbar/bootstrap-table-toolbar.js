@@ -3399,27 +3399,18 @@
   var Utils = $.fn.bootstrapTable.utils;
   var theme = {
     bootstrap3: {
-      icons: {
-        advancedSearchIcon: 'glyphicon-chevron-down'
-      },
       classes: {},
       html: {
         modal: "\n        <div id=\"avdSearchModal_%s\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\n          <div class=\"modal-dialog modal-xs\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <button class=\"close toolbar-modal-close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n                <h4 class=\"modal-title toolbar-modal-title\"></h4>\n              </div>\n              <div class=\"modal-body toolbar-modal-body\"></div>\n              <div class=\"modal-footer toolbar-modal-footer\">\n                <button class=\"btn btn-%s toolbar-modal-close\"></button>\n              </div>\n            </div>\n          </div>\n        </div>\n      "
       }
     },
     bootstrap4: {
-      icons: {
-        advancedSearchIcon: 'fa-chevron-down'
-      },
       classes: {},
       html: {
         modal: "\n        <div id=\"avdSearchModal_%s\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\n          <div class=\"modal-dialog modal-xs\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <h4 class=\"modal-title toolbar-modal-title\"></h4>\n                <button class=\"close toolbar-modal-close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n              </div>\n              <div class=\"modal-body toolbar-modal-body\"></div>\n              <div class=\"modal-footer toolbar-modal-footer\">\n                <button class=\"btn btn-%s toolbar-modal-close\"></button>\n              </div>\n            </div>\n          </div>\n        </div>\n      "
       }
     },
     bootstrap5: {
-      icons: {
-        advancedSearchIcon: 'bi-chevron-down'
-      },
       classes: {
         formGroup: 'mb-3'
       },
@@ -3428,36 +3419,24 @@
       }
     },
     bulma: {
-      icons: {
-        advancedSearchIcon: 'fa-chevron-down'
-      },
       classes: {},
       html: {
         modal: "\n        <div class=\"modal\" id=\"avdSearchModal_%s\">\n          <div class=\"modal-background\"></div>\n          <div class=\"modal-card\">\n            <header class=\"modal-card-head\">\n              <p class=\"modal-card-title toolbar-modal-title\"></p>\n              <button class=\"delete toolbar-modal-close\"></button>\n            </header>\n            <section class=\"modal-card-body toolbar-modal-body\"></section>\n            <footer class=\"modal-card-foot toolbar-modal-footer\">\n              <button class=\"button button-%s toolbar-modal-close\"></button>\n            </footer>\n          </div>\n        </div>\n      "
       }
     },
     foundation: {
-      icons: {
-        advancedSearchIcon: 'fa-chevron-down'
-      },
       classes: {},
       html: {
         modal: "\n        <div class=\"reveal\" id=\"avdSearchModal_%s\" data-reveal>\n          <h1 class=\"toolbar-modal-title\"></h1>\n          <div class=\"toolbar-modal-body\"></div>\n          <button class=\"close-button toolbar-modal-close\" data-close aria-label=\"Close modal\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n          <div class=\"toolbar-modal-footer\">\n            <button class=\"button button-%s toolbar-modal-close\"></button>\n          </div>\n        </div>\n      "
       }
     },
     materialize: {
-      icons: {
-        advancedSearchIcon: 'expand_more'
-      },
       classes: {},
       html: {
         modal: "\n        <div id=\"avdSearchModal_%s\" class=\"modal\">\n          <div class=\"modal-content\">\n            <h4 class=\"toolbar-modal-title\"></h4>\n            <div class=\"toolbar-modal-body\"></div>\n          </div>\n          <div class=\"modal-footer toolbar-modal-footer\">\n            <a href=\"javascript:void(0)\" class=\"modal-close waves-effect waves-green btn-flat btn-%s toolbar-modal-close\"></a>\n          </div>\n        </div>\n      "
       }
     },
     semantic: {
-      icons: {
-        advancedSearchIcon: 'fa-chevron-down'
-      },
       classes: {},
       html: {
         modal: "\n        <div class=\"ui modal\" id=\"avdSearchModal_%s\">\n          <i class=\"close icon toolbar-modal-close\"></i>\n          <div class=\"header toolbar-modal-title\"\"></div>\n          <div class=\"image content ui form toolbar-modal-body\"></div>\n          <div class=\"actions toolbar-modal-footer\">\n            <div class=\"ui black deny button button-%s toolbar-modal-close\"></div>\n          </div>\n        </div>\n      "
@@ -3474,8 +3453,11 @@
       return false;
     }
   });
-  Object.assign($.fn.bootstrapTable.defaults.icons, {
-    advancedSearchIcon: theme.icons.advancedSearchIcon
+  Utils.assignIcons($.fn.bootstrapTable.icons, 'advancedSearchIcon', {
+    glyphicon: 'glyphicon-chevron-down',
+    fa: 'fa-chevron-down',
+    bi: 'bi-chevron-down',
+    'material-icons': 'expand_more'
   });
   Object.assign($.fn.bootstrapTable.events, {
     'column-advanced-search.bs.table': 'onColumnAdvancedSearch'

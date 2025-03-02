@@ -4344,11 +4344,12 @@
     }, {
       key: "configureStorage",
       value: function configureStorage() {
+        var _this2 = this;
         this._storage = {};
         switch (this.options.cookieStorage) {
           case 'cookieStorage':
             this._storage.setItem = function (cookieName, cookieValue) {
-              document.cookie = [cookieName, '=', encodeURIComponent(cookieValue), "; expires=".concat(UtilsCookie.calculateExpiration(this.options.cookieExpire)), this.options.cookiePath ? "; path=".concat(this.options.cookiePath) : '', this.options.cookieDomain ? "; domain=".concat(this.options.cookieDomain) : '', this.options.cookieSecure ? '; secure' : '', ";SameSite=".concat(this.options.cookieSameSite)].join('');
+              document.cookie = [cookieName, '=', encodeURIComponent(cookieValue), "; expires=".concat(UtilsCookie.calculateExpiration(_this2.options.cookieExpire)), _this2.options.cookiePath ? "; path=".concat(_this2.options.cookiePath) : '', _this2.options.cookieDomain ? "; domain=".concat(_this2.options.cookieDomain) : '', _this2.options.cookieSecure ? '; secure' : '', ";SameSite=".concat(_this2.options.cookieSameSite)].join('');
             };
             this._storage.getItem = function (cookieName) {
               var value = "; ".concat(document.cookie);
@@ -4356,7 +4357,7 @@
               return parts.length === 2 ? decodeURIComponent(parts.pop().split(';').shift()) : null;
             };
             this._storage.removeItem = function (cookieName) {
-              document.cookie = [encodeURIComponent(cookieName), '=', '; expires=Thu, 01 Jan 1970 00:00:00 GMT', this.options.cookiePath ? "; path=".concat(this.options.cookiePath) : '', this.options.cookieDomain ? "; domain=".concat(this.options.cookieDomain) : '', ";SameSite=".concat(this.options.cookieSameSite)].join('');
+              document.cookie = [encodeURIComponent(cookieName), '=', '; expires=Thu, 01 Jan 1970 00:00:00 GMT', _this2.options.cookiePath ? "; path=".concat(_this2.options.cookiePath) : '', _this2.options.cookieDomain ? "; domain=".concat(_this2.options.cookieDomain) : '', ";SameSite=".concat(_this2.options.cookieSameSite)].join('');
             };
             break;
           case 'localStorage':
@@ -4386,13 +4387,13 @@
               throw new Error('The following options must be set while using the customStorage: cookieCustomStorageSet, cookieCustomStorageGet and cookieCustomStorageDelete');
             }
             this._storage.setItem = function (cookieName, cookieValue) {
-              Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageSet, [cookieName, cookieValue], '');
+              Utils.calculateObjectValue(_this2.options, _this2.options.cookieCustomStorageSet, [cookieName, cookieValue], '');
             };
             this._storage.getItem = function (cookieName) {
-              return Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageGet, [cookieName], '');
+              return Utils.calculateObjectValue(_this2.options, _this2.options.cookieCustomStorageGet, [cookieName], '');
             };
             this._storage.removeItem = function (cookieName) {
-              Utils.calculateObjectValue(this.options, this.options.cookieCustomStorageDelete, [cookieName], '');
+              Utils.calculateObjectValue(_this2.options, _this2.options.cookieCustomStorageDelete, [cookieName], '');
             };
             break;
           default:

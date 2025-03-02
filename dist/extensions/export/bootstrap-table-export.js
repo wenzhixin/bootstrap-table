@@ -3404,13 +3404,12 @@
     forceExport: false,
     forceHide: false
   });
-  Object.assign($.fn.bootstrapTable.defaults.icons, {
-    export: {
-      bootstrap3: 'glyphicon-export icon-share',
-      bootstrap5: 'bi-download',
-      materialize: 'file_download',
-      'bootstrap-table': 'icon-download'
-    }[$.fn.bootstrapTable.theme] || 'fa-download'
+  Utils.assignIcons($.fn.bootstrapTable.icons, 'export', {
+    glyphicon: 'glyphicon-export icon-share',
+    fa: 'fa-download',
+    bi: 'bi-download',
+    icon: 'icon-download',
+    'material-icons': 'file_download'
   });
   Object.assign($.fn.bootstrapTable.locales, {
     formatExport: function formatExport() {

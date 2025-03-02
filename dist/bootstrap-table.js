@@ -6508,6 +6508,12 @@
       }
       return bootstrapVersion;
     },
+    /**
+     * Returns the prefix for the icons based on the theme.
+     *
+     * @param {string} theme - The theme name (bootstrap3, bootstrap4, bootstrap5, bootstrap-table, bulma, foundation, materialize, semantic).
+     * @returns {string} The icons prefix.
+     */
     getIconsPrefix: function getIconsPrefix(theme) {
       return {
         bootstrap3: 'glyphicon',
@@ -6520,75 +6526,28 @@
         semantic: 'fa'
       }[theme] || 'fa';
     },
-    getIcons: function getIcons(prefix) {
-      return {
-        glyphicon: {
-          clearSearch: 'glyphicon-trash',
-          columns: 'glyphicon-th icon-th',
-          detailClose: 'glyphicon-minus icon-minus',
-          detailOpen: 'glyphicon-plus icon-plus',
-          fullscreen: 'glyphicon-fullscreen',
-          paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
-          paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
-          refresh: 'glyphicon-refresh icon-refresh',
-          search: 'glyphicon-search',
-          toggleOff: 'glyphicon-list-alt icon-list-alt',
-          toggleOn: 'glyphicon-list-alt icon-list-alt'
-        },
-        fa: {
-          clearSearch: 'fa-trash',
-          columns: 'fa-th-list',
-          detailClose: 'fa-minus',
-          detailOpen: 'fa-plus',
-          fullscreen: 'fa-arrows-alt',
-          paginationSwitchDown: 'fa-caret-square-down',
-          paginationSwitchUp: 'fa-caret-square-up',
-          refresh: 'fa-sync',
-          search: 'fa-search',
-          toggleOff: 'fa-toggle-off',
-          toggleOn: 'fa-toggle-on'
-        },
-        bi: {
-          clearSearch: 'bi-trash',
-          columns: 'bi-list-ul',
-          detailClose: 'bi-dash',
-          detailOpen: 'bi-plus',
-          fullscreen: 'bi-arrows-move',
-          paginationSwitchDown: 'bi-caret-down-square',
-          paginationSwitchUp: 'bi-caret-up-square',
-          refresh: 'bi-arrow-clockwise',
-          search: 'bi-search',
-          toggleOff: 'bi-toggle-off',
-          toggleOn: 'bi-toggle-on'
-        },
-        icon: {
-          clearSearch: 'icon-trash-2',
-          columns: 'icon-list',
-          detailClose: 'icon-minus',
-          detailOpen: 'icon-plus',
-          fullscreen: 'icon-maximize',
-          paginationSwitchDown: 'icon-arrow-up-circle',
-          paginationSwitchUp: 'icon-arrow-down-circle',
-          refresh: 'icon-refresh-cw',
-          search: 'icon-search',
-          toggleOff: 'icon-toggle-right',
-          toggleOn: 'icon-toggle-right'
-        },
-        'material-icons': {
-          clearSearch: 'delete',
-          columns: 'view_list',
-          detailClose: 'remove',
-          detailOpen: 'add',
-          fullscreen: 'fullscreen',
-          paginationSwitchDown: 'grid_on',
-          paginationSwitchUp: 'grid_off',
-          refresh: 'refresh',
-          search: 'search',
-          sort: 'sort',
-          toggleOff: 'tablet',
-          toggleOn: 'tablet_android'
-        }
-      }[prefix] || {};
+    /**
+     * Gets the icons for a given prefix.
+     *
+     * @param {Object.<string, Object>} icons - The icons object.
+     * @param {string} prefix - The prefix. For example, 'fa', 'bi', etc.
+     * @return {Object} The icons object for the given prefix.
+     */
+    getIcons: function getIcons(icons, prefix) {
+      return icons[prefix] || {};
+    },
+    /**
+     * Assigns new icons to icons object.
+     *
+     * @param {Object.<string, Object>} icons - The icons object.
+     * @param {string} icon - The icon name. For example, 'search', 'refresh', etc.
+     * @param {Object.<string, string>} values - The values object.
+     */
+    assignIcons: function assignIcons(icons, icon, values) {
+      for (var _i = 0, _Object$keys = Object.keys(icons); _i < _Object$keys.length; _i++) {
+        var key = _Object$keys[_i];
+        icons[key][icon] = values[key];
+      }
     },
     getSearchInput: function getSearchInput(that) {
       if (typeof that.options.searchSelector === 'string') {
@@ -6742,15 +6701,15 @@
           flag[i][j] = false;
         }
       }
-      for (var _i = 0; _i < columns.length; _i++) {
-        var _iterator3 = _createForOfIteratorHelper(columns[_i]),
+      for (var _i2 = 0; _i2 < columns.length; _i2++) {
+        var _iterator3 = _createForOfIteratorHelper(columns[_i2]),
           _step3;
         try {
           for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
             var r = _step3.value;
             var rowspan = +r.rowspan || 1;
             var colspan = +r.colspan || 1;
-            var index = flag[_i].indexOf(false);
+            var index = flag[_i2].indexOf(false);
             r.colspanIndex = index;
             if (colspan === 1) {
               r.fieldIndex = index;
@@ -6763,7 +6722,7 @@
             }
             for (var _j = 0; _j < rowspan; _j++) {
               for (var k = 0; k < colspan; k++) {
-                flag[_i + _j][index + k] = true;
+                flag[_i2 + _j][index + k] = true;
               }
             }
           }
@@ -6919,8 +6878,8 @@
       if (compareLength && aKeys.length !== bKeys.length) {
         return false;
       }
-      for (var _i2 = 0, _aKeys = aKeys; _i2 < _aKeys.length; _i2++) {
-        var key = _aKeys[_i2];
+      for (var _i3 = 0, _aKeys = aKeys; _i3 < _aKeys.length; _i3++) {
+        var key = _aKeys[_i3];
         if (bKeys.includes(key) && objectA[key] !== objectB[key]) {
           return false;
         }
@@ -6961,8 +6920,8 @@
       return text.toString().replace(/(<([^>]+)>)/ig, '').replace(/&[#A-Za-z0-9]+;/gi, '').trim();
     },
     getRealDataAttr: function getRealDataAttr(dataAttr) {
-      for (var _i3 = 0, _Object$entries = Object.entries(dataAttr); _i3 < _Object$entries.length; _i3++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i3], 2),
+      for (var _i4 = 0, _Object$entries = Object.entries(dataAttr); _i4 < _Object$entries.length; _i4++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i4], 2),
           attr = _Object$entries$_i[0],
           value = _Object$entries$_i[1];
         var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
@@ -7131,8 +7090,8 @@
       try {
         for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
           var row = _step11.value;
-          for (var _i4 = 0, _Object$keys = Object.keys(row); _i4 < _Object$keys.length; _i4++) {
-            var key = _Object$keys[_i4];
+          for (var _i5 = 0, _Object$keys2 = Object.keys(row); _i5 < _Object$keys2.length; _i5++) {
+            var key = _Object$keys2[_i5];
             if (key.startsWith('_') && (key.endsWith('_rowspan') || key.endsWith('_colspan'))) {
               return true;
             }
@@ -7276,8 +7235,8 @@
           _iterator13.f();
         }
       } else if (_typeof(style) === 'object') {
-        for (var _i5 = 0, _Object$entries2 = Object.entries(style); _i5 < _Object$entries2.length; _i5++) {
-          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i5], 2),
+        for (var _i6 = 0, _Object$entries2 = Object.entries(style); _i6 < _Object$entries2.length; _i6++) {
+          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i6], 2),
             k = _Object$entries2$_i[0],
             v = _Object$entries2$_i[1];
           dom.style.setProperty(k, v);
@@ -7294,8 +7253,8 @@
       if (el.tagName === 'A') {
         el.href = 'javascript:';
       }
-      for (var _i6 = 0, _Object$entries3 = Object.entries(_attrs); _i6 < _Object$entries3.length; _i6++) {
-        var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i6], 2),
+      for (var _i7 = 0, _Object$entries3 = Object.entries(_attrs); _i7 < _Object$entries3.length; _i7++) {
+        var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i7], 2),
           k = _Object$entries3$_i[0],
           v = _Object$entries3$_i[1];
         if (v === undefined) {
@@ -7353,8 +7312,8 @@
         baseUrl = _hashArray$0$split2[0],
         search = _hashArray$0$split2[1];
       var urlParams = new URLSearchParams(search);
-      for (var _i7 = 0, _Object$entries4 = Object.entries(query); _i7 < _Object$entries4.length; _i7++) {
-        var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i7], 2),
+      for (var _i8 = 0, _Object$entries4 = Object.entries(query); _i8 < _Object$entries4.length; _i8++) {
+        var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i8], 2),
           key = _Object$entries4$_i[0],
           value = _Object$entries4$_i[1];
         urlParams.set(key, value);
@@ -7363,7 +7322,7 @@
     }
   };
 
-  var VERSION = '1.24.0';
+  var VERSION = '1.24.1';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -7467,6 +7426,74 @@
       }
     }
   }[bootstrapVersion];
+  var ICONS = {
+    glyphicon: {
+      clearSearch: 'glyphicon-trash',
+      columns: 'glyphicon-th icon-th',
+      detailClose: 'glyphicon-minus icon-minus',
+      detailOpen: 'glyphicon-plus icon-plus',
+      fullscreen: 'glyphicon-fullscreen',
+      paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+      paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
+      refresh: 'glyphicon-refresh icon-refresh',
+      search: 'glyphicon-search',
+      toggleOff: 'glyphicon-list-alt icon-list-alt',
+      toggleOn: 'glyphicon-list-alt icon-list-alt'
+    },
+    fa: {
+      clearSearch: 'fa-trash',
+      columns: 'fa-th-list',
+      detailClose: 'fa-minus',
+      detailOpen: 'fa-plus',
+      fullscreen: 'fa-arrows-alt',
+      paginationSwitchDown: 'fa-caret-square-down',
+      paginationSwitchUp: 'fa-caret-square-up',
+      refresh: 'fa-sync',
+      search: 'fa-search',
+      toggleOff: 'fa-toggle-off',
+      toggleOn: 'fa-toggle-on'
+    },
+    bi: {
+      clearSearch: 'bi-trash',
+      columns: 'bi-list-ul',
+      detailClose: 'bi-dash',
+      detailOpen: 'bi-plus',
+      fullscreen: 'bi-arrows-move',
+      paginationSwitchDown: 'bi-caret-down-square',
+      paginationSwitchUp: 'bi-caret-up-square',
+      refresh: 'bi-arrow-clockwise',
+      search: 'bi-search',
+      toggleOff: 'bi-toggle-off',
+      toggleOn: 'bi-toggle-on'
+    },
+    icon: {
+      clearSearch: 'icon-trash-2',
+      columns: 'icon-list',
+      detailClose: 'icon-minus',
+      detailOpen: 'icon-plus',
+      fullscreen: 'icon-maximize',
+      paginationSwitchDown: 'icon-arrow-up-circle',
+      paginationSwitchUp: 'icon-arrow-down-circle',
+      refresh: 'icon-refresh-cw',
+      search: 'icon-search',
+      toggleOff: 'icon-toggle-right',
+      toggleOn: 'icon-toggle-right'
+    },
+    'material-icons': {
+      clearSearch: 'delete',
+      columns: 'view_list',
+      detailClose: 'remove',
+      detailOpen: 'add',
+      fullscreen: 'fullscreen',
+      paginationSwitchDown: 'grid_on',
+      paginationSwitchUp: 'grid_off',
+      refresh: 'refresh',
+      search: 'search',
+      sort: 'sort',
+      toggleOff: 'tablet',
+      toggleOn: 'tablet_android'
+    }
+  };
   var DEFAULTS = {
     ajax: undefined,
     ajaxOptions: {},
@@ -7879,6 +7906,7 @@
     CONSTANTS: CONSTANTS,
     DEFAULTS: DEFAULTS,
     EVENTS: EVENTS,
+    ICONS: ICONS,
     LOCALES: {
       en: EN,
       'en-US': EN
@@ -8059,7 +8087,7 @@
           opts.icons = Utils.calculateObjectValue(null, opts.icons);
         }
         opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix;
-        opts.icons = Object.assign(Utils.getIcons(opts.iconsPrefix), $.fn.bootstrapTable.defaults.icons, opts.icons);
+        opts.icons = Object.assign(Utils.getIcons(Constants.ICONS, opts.iconsPrefix), $.fn.bootstrapTable.defaults.icons, opts.icons);
 
         // init buttons class
         var buttonsPrefix = opts.buttonsPrefix ? "".concat(opts.buttonsPrefix, "-") : '';
@@ -9058,7 +9086,10 @@
           html.push("<div class=\"".concat(this.constants.classes.pull, "-").concat(opts.paginationDetailHAlign, " pagination-detail\">"));
         }
         if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort')) {
-          var totalRows = this.options.totalRows + (this.options.sidePagination === 'client' && this.options.paginationLoadMore && !this._paginationLoaded && this.totalPages > 1 ? ' +' : '');
+          var totalRows = this.options.totalRows;
+          if (this.options.sidePagination === 'client' && this.options.paginationLoadMore && !this._paginationLoaded && this.totalPages > 1) {
+            totalRows += ' +';
+          }
           var paginationInfo = this.paginationParts.includes('pageInfoShort') ? opts.formatDetailPagination(totalRows) : opts.formatShowingRows(this.pageFrom, this.pageTo, totalRows, opts.totalNotFiltered);
           html.push("<span class=\"pagination-info\">\n      ".concat(paginationInfo, "\n      </span>"));
         }
@@ -10848,7 +10879,7 @@
     }, {
       key: "filterBy",
       value: function filterBy(columns, options) {
-        this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions : Utils.extend(this.options.filterOptions, options);
+        this.filterOptions = Utils.isEmptyObject(options) ? this.options.filterOptions : Utils.extend({}, this.options.filterOptions, options);
         this.filterColumns = Utils.isEmptyObject(columns) ? {} : columns;
         this.options.pageNumber = 1;
         this.initSearch();
@@ -11067,6 +11098,7 @@
   $.fn.bootstrapTable.Constructor = BootstrapTable;
   $.fn.bootstrapTable.theme = Constants.THEME;
   $.fn.bootstrapTable.VERSION = Constants.VERSION;
+  $.fn.bootstrapTable.icons = Constants.ICONS;
   $.fn.bootstrapTable.defaults = BootstrapTable.DEFAULTS;
   $.fn.bootstrapTable.columnDefaults = BootstrapTable.COLUMN_DEFAULTS;
   $.fn.bootstrapTable.events = BootstrapTable.EVENTS;
