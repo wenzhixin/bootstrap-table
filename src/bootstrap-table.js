@@ -1257,11 +1257,17 @@ class BootstrapTable {
     }
 
     if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort')) {
-      const totalRows = this.options.totalRows +
-        (this.options.sidePagination === 'client' &&
+      let totalRows = this.options.totalRows
+
+      if (
+        this.options.sidePagination === 'client' &&
         this.options.paginationLoadMore &&
         !this._paginationLoaded &&
-        this.totalPages > 1 ? ' +' : '')
+        this.totalPages > 1
+      ) {
+        totalRows += ' +'
+      }
+
       const paginationInfo = this.paginationParts.includes('pageInfoShort') ?
         opts.formatDetailPagination(totalRows) :
         opts.formatShowingRows(this.pageFrom, this.pageTo, totalRows, opts.totalNotFiltered)
