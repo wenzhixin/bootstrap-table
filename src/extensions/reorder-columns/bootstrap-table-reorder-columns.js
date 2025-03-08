@@ -123,8 +123,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
   makeColumnsReorderable (order = null) {
     try {
       $(this.$el).dragtable('destroy')
-    } catch (e) {
-      console.error(e)
+    } catch {
+      // ignore
     }
     $(this.$el).dragtable({
       maxMovingRows: this.options.maxMovingRows,
