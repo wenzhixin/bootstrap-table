@@ -2723,6 +2723,10 @@ class BootstrapTable {
   }
 
   _updateCellOnly (field, index) {
+    if (index === -1) {
+      return
+    }
+
     const rowHtml = this.initRow(this.data[index], index)
     let fieldIndex = this.getVisibleFields().indexOf(field)
 
@@ -2766,17 +2770,21 @@ class BootstrapTable {
     const allParams = Array.isArray(params) ? params : [params]
 
     allParams.forEach(({ id, field, value }) => {
-      const index = this.options.data.indexOf(this.getRowByUniqueId(id))
+      const row = this.getRowByUniqueId(id)
+      const index = this.data.indexOf(row)
+      const originalIndex = this.options.data.indexOf(row)
 
-      if (index === -1) {
+      if (!row || index === -1) {
         return
       }
-      this.options.data[index][field] = value
+
+      this.data[index][field] = value
+      this.options.data[originalIndex][field] = value
     })
 
     if (params.reinit === false) {
       this._updateCellOnly(params.field,
-        this.options.data.indexOf(this.getRowByUniqueId(params.id)))
+        this.data.indexOf(this.getRowByUniqueId(params.id)))
       return
     }
     this.initSort()
