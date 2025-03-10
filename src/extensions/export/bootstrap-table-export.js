@@ -286,8 +286,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.togglePagination()
     } else if (o.exportDataType === 'selected') {
       let data = this.getData({
-        includeHiddenRows:true,
-        unfiltered:true
+        includeHiddenRows: true,
+        unfiltered: true
       })
       let selectedData = this.getSelections()
       const pagination = o.pagination
