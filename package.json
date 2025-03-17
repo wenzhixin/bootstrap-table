@@ -100,29 +100,5 @@
     "url": "https://github.com/wenzhixin/bootstrap-table/issues"
   },
   "homepage": "https://bootstrap-table.com",
-  "types": "./index.d.ts",
-  "cspell": {
-    "dictionaries": [
-      "cspell-words"
-    ],
-    "dictionaryDefinitions": [
-      {
-        "name": "cspell-words",
-        "path": "./.cspell-words.txt",
-        "addWords": true
-      }
-    ],
-    "ignoreRegExpList": [
-      "/.*data:image/png;base64.*/g",
-      "/ * @author.*/g",
-      "/ * @update.*/g",
-      "/ +\"name\": \".*\",/"
-    ],
-    "ignorePaths": [
-      "src/locale/**",
-      "site/_themes/node_modules/**",
-      "tools/**",
-      "DONATORS.md"
-    ]
-  }
+  "types": "./index.d.ts"
 }
