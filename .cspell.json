@@ -2,18 +2,25 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
   "dictionaries": [
-    "allowed-words"
+    "cspell-words"
   ],
   "dictionaryDefinitions": [
     {
-      "name": "allowed-words",
+      "name": "cspell-words",
       "path": "./.cspell-words.txt",
       "addWords": true
     }
   ],
+  "ignoreRegExpList": [
+    "/.*data:image/png;base64.*/g",
+    "/ * @author.*/g",
+    "/ * @update.*/g",
+    "/ +\"name\": \".*\",/"
+  ],
   "ignorePaths": [
     "src/locale/**",
-    "node_modules/**",
-    "test/**"
+    "site/_themes/node_modules/**",
+    "tools/**",
+    "DONATORS.md"
   ]
 }
