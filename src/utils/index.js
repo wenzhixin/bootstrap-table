@@ -514,57 +514,73 @@ export default {
     return data
   },
 
-  sort (a, b, order, options, aPosition, bPosition) {
-    if (a === undefined || a === null) {
-      a = ''
-    }
-    if (b === undefined || b === null) {
-      b = ''
-    }
+  sort(name, order, index, data, header, options) {
+    data.sort((a, b) => {
+      if (header.sortNames[index]) {
+        name = header.sortNames[index]
+      }
 
-    if (options.sortStable && a === b) {
-      a = aPosition
-      b = bPosition
-    }
+      const aa = Utils.getItemField(a, name, options.escape)
+      const bb = Utils.getItemField(b, name, options.escape)
+      const value = Utils.calculateObjectValue(header, header.sorters[index], [aa, bb, a, b])
 
-    // If both values are numeric, do a numeric comparison
-    if (this.isNumeric(a) && this.isNumeric(b)) {
-      // Convert numerical values form string to float.
-      a = parseFloat(a)
-      b = parseFloat(b)
-      if (a < b) {
+      if (value !== undefined) {
+        if (options.sortStable && value === 0) {
+          return order * (a._position - b._position)
+        }
+        return order * value
+      }
+
+      if (aa === undefined || aa === null) {
+        aa = ''
+      }
+      if (bb === undefined || bb === null) {
+        bb = ''
+      }
+
+      if (options.sortStable && aa === bb) {
+        aa = aPosition
+        bb = bPosition
+      }
+
+      // If both values are numeric, do a numeric comparison
+      if (this.isNumeric(aa) && this.isNumeric(bb)) {
+        // Convert numerical values form string to float.
+        aa = parseFloat(aa)
+        bb = parseFloat(bb)
+        if (aa < bb) {
+          return order * -1
+        }
+        if (aa > bb) {
+          return order
+        }
+        return 0
+      }
+
+      if (options.sortEmptyLast) {
+        if (aa === '') {
+          return 1
+        }
+        if (bb === '') {
+          return -1
+        }
+      }
+
+      if (aa === bb) {
+        return 0
+      }
+
+      // If value is not a string, convert to string
+      if (typeof aa !== 'string') {
+        aa = aa.toString()
+      }
+
+      if (aa.localeCompare(bb) === -1) {
         return order * -1
       }
-      if (a > b) {
-        return order
-      }
-      return 0
-    }
 
-    if (options.sortEmptyLast) {
-      if (a === '') {
-        return 1
-      }
-
-      if (b === '') {
-        return -1
-      }
-    }
-
-    if (a === b) {
-      return 0
-    }
-
-    // If value is not a string, convert to string
-    if (typeof a !== 'string') {
-      a = a.toString()
-    }
-
-    if (a.localeCompare(b) === -1) {
-      return order * -1
-    }
-
-    return order
+      return order
+    });
   },
 
   getEventName (eventPrefix, id = '') {

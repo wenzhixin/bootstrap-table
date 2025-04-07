@@ -503,24 +503,26 @@ class BootstrapTable {
           this.options.sortOrder,
           this.data
         ])
+      } else if (this.options.groupBy === true && this.options.groupByField !== '') {
+        const groupedData = {}
+			
+				this.data.forEach(item => {
+					const groupKey = Utils.getItemField(item, this.options.groupByField, this.options.escape);
+					if (!groupedData[groupKey]) {
+						groupedData[groupKey] = []
+					}
+					groupedData[groupKey].push(item)
+				});
+			
+				const sortedGroups = Object.keys(groupedData).map(groupKey => {
+					const group = groupedData[groupKey]
+					Utils.sort(name, order, index, group, this.header, this.options)
+					return group
+				});
+			
+				this.data = [].concat(...sortedGroups)
       } else {
-        this.data.sort((a, b) => {
-          if (this.header.sortNames[index]) {
-            name = this.header.sortNames[index]
-          }
-          const aa = Utils.getItemField(a, name, this.options.escape)
-          const bb = Utils.getItemField(b, name, this.options.escape)
-          const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
-
-          if (value !== undefined) {
-            if (this.options.sortStable && value === 0) {
-              return order * (a._position - b._position)
-            }
-            return order * value
-          }
-
-          return Utils.sort(aa, bb, order, this.options, a._position, b._position)
-        })
+        Utils.sort(name, order, index, this.data, this.header, this.options)
       }
 
       if (this.options.sortClass !== undefined) {
