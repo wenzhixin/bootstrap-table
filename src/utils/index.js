@@ -520,9 +520,9 @@ export default {
         name = header.sortNames[index]
       }
 
-      let aa = getItemField(a, name, options.escape)
-      let bb = getItemField(b, name, options.escape)
-      const value = calculateObjectValue(header, header.sorters[index], [aa, bb, a, b])
+      let aa = this.getItemField(a, name, options.escape)
+      let bb = this.getItemField(b, name, options.escape)
+      const value = this.calculateObjectValue(header, header.sorters[index], [aa, bb, a, b])
 
       if (value !== undefined) {
         if (options.sortStable && value === 0) {

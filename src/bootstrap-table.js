@@ -483,10 +483,11 @@ class BootstrapTable {
   }
 
   initSort () {
-    let name = this.options.sortName
+    const name = this.options.sortName
     const order = this.options.sortOrder === 'desc' ? -1 : 1
     const index = this.header.fields.indexOf(this.options.sortName)
     let timeoutId = 0
+
     if (index !== -1) {
       if (this.options.sortStable) {
         this.data.forEach((row, i) => {
@@ -503,18 +504,22 @@ class BootstrapTable {
         ])
       } else if (this.options.groupBy === true && this.options.groupByField !== '') {
         const groupedData = {}
+
         this.data.forEach(item => {
-          const groupKey = Utils.getItemField(item, this.options.groupByField, this.options.escape);
+          const groupKey = Utils.getItemField(item, this.options.groupByField, this.options.escape)
+
           if (!groupedData[groupKey]) {
             groupedData[groupKey] = []
           }
           groupedData[groupKey].push(item)
-        });
+        })
         const sortedGroups = Object.keys(groupedData).map(groupKey => {
           const group = groupedData[groupKey]
+
           Utils.sort(name, order, index, group, this.header, this.options)
           return group
-        });
+        })
+
         this.data = [].concat(...sortedGroups)
       } else {
         Utils.sort(name, order, index, this.data, this.header, this.options)
