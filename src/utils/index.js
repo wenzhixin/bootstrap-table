@@ -514,15 +514,15 @@ export default {
     return data
   },
 
-  sort(name, order, index, data, header, options) {
+  sort (name, order, index, data, header, options) {
     data.sort((a, b) => {
       if (header.sortNames[index]) {
         name = header.sortNames[index]
       }
 
-      const aa = Utils.getItemField(a, name, options.escape)
-      const bb = Utils.getItemField(b, name, options.escape)
-      const value = Utils.calculateObjectValue(header, header.sorters[index], [aa, bb, a, b])
+      let aa = getItemField(a, name, options.escape)
+      let bb = getItemField(b, name, options.escape)
+      const value = calculateObjectValue(header, header.sorters[index], [aa, bb, a, b])
 
       if (value !== undefined) {
         if (options.sortStable && value === 0) {
@@ -539,8 +539,8 @@ export default {
       }
 
       if (options.sortStable && aa === bb) {
-        aa = aPosition
-        bb = bPosition
+        aa = a._position
+        bb = b._position
       }
 
       // If both values are numeric, do a numeric comparison
@@ -580,7 +580,7 @@ export default {
       }
 
       return order
-    });
+    })
   },
 
   getEventName (eventPrefix, id = '') {
